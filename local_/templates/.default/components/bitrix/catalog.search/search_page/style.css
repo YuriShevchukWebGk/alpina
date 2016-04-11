@@ -1,0 +1,24 @@
+a.search-page-params {
+	border-bottom: 1px dashed blue;
+	text-decoration: none;
+}
+div.search-page-params {
+	margin-top: 6px;
+}
+.search-page {
+    display: none;
+}
+.search-item-rate {font-size: 11px;}
+.catalogIcon {
+    z-index: 990;
+    left: 200px !important;
+}
+.basketIcon {
+    z-index: 990;
+    right: 196px !important;
+}
+@media screen and (max-width: 1680px) {
+    .catalogIcon, .basketIcon {
+        display:none;
+    }
+}

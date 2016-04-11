@@ -1,0 +1,1 @@
+<?require_once($_SERVER["DOCUMENT_ROOT"]."/local/modules/epages.pickpoint/admin/pickpoint_export.php");?>

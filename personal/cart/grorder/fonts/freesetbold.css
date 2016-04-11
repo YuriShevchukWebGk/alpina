@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'FreeSetBold';
+    src: url('frs75.eot');
+    src: url('frs75.eot') format('embedded-opentype'),
+         url('frs75.woff') format('woff'),
+         url('frs75.ttf') format('truetype'),
+         url('frs75.svg#FreeSetBoldCyrillic') format('svg');
+}

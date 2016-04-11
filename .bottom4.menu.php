@@ -1,0 +1,25 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Мероприятия", 
+		"/events/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Контакты", 
+		"/about/contacts/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Авторам", 
+		"/content/publisher/authors/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

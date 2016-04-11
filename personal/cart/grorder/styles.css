@@ -1,0 +1,25 @@
+.article_item{
+margin-bottom:20px;
+}
+.article_name{
+font-size:15px;
+font-weight:bold;
+}
+
+.article_zurnal{
+font-size:13px;
+color:#f08523;
+}
+
+.article_text{
+font-size:13px;
+}
+.article_item a{
+font-size:13px;
+color:#f08523;
+}
+
+.razd{
+font-size:14px;
+color:#f08523;
+}

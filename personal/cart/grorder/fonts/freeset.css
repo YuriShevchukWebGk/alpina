@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'FreeSet';
+    src: url('frs55.eot');
+    src: url('frs55.eot') format('embedded-opentype'),
+         url('frs55.woff') format('woff'),
+         url('frs55.ttf') format('truetype'),
+         url('frs55.svg#FreeSetCyrillic') format('svg');
+}

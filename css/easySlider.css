@@ -1,0 +1,32 @@
+.sliderElement{
+	display: inline-block;
+	width: 192px;
+    vertical-align: top;	
+}
+.sliderElementMin{
+    display: inline-block;
+    width: 178px;   
+}
+.sliderUl{
+	left: 0;
+    position: relative;
+    width: 9999px;	
+}
+.sliderContainer{
+	overflow: hidden;
+}
+.sliderContainer .left{
+	cursor: pointer;
+    left: -38px;
+    position: absolute;
+    top: 95px;
+}
+.sliderContainer .rigth{
+	cursor: pointer;
+    position: absolute;
+    right: -40px;
+    top: 95px;
+}
+.uLookSlider .sliderContainer {
+    height: 293px;
+}

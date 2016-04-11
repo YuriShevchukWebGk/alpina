@@ -1,0 +1,79 @@
+div.news-detail
+{
+	word-wrap: break-word;
+}
+div.news-detail img.detail_picture
+{
+	float:left;
+	margin:0 8px 6px 1px;
+}
+.news-date-time
+{
+	color:#486DAA;
+}
+.catalogWrapper {
+    min-height: 400px;
+}
+.autorBooksWrap .catalogWrapper .catalogBooks {
+    min-height: 610px;
+}
+.textWrap {
+    font-size: 17px;
+    font-family: "Walshein_regular";
+    padding-top: 48px;
+}
+.autorBooksWrap {
+    padding-bottom:50px;
+}
+.autorBooksWrap .titleMain{
+    color: #627478;
+    font-family: "Walshein_regular";
+    font-size: 24px; 
+    padding-top: 62px;
+    padding-bottom: 30px;
+    padding-left: 4px;
+}
+.autorBooksWrap .bookWrapp{
+    display: block;
+    height: 300px;
+    width: 184px;
+    float: left;
+    margin: 5px;
+    margin-bottom: 14px;
+}
+.autorBooksWrap .bookWrapp:nth-child(6n){
+    width: 160px;
+}
+.autorBooksWrap .bookName{
+    color: #424c4f;
+    font-family: "Walshein_regular";
+    font-size: 14px;
+    padding-bottom: 5px;
+    padding-top: 16px;
+}
+.autorBooksWrap .bookPrice{
+    color: #7B8C90;
+    font-family: "Walshein_regular";
+    font-size: 14px;   
+}
+.autorBooksWrap .allBooks{
+    border: 2px solid #c7a271;
+    border-radius: 46px;
+    color: #c7a271;
+    font-family: "Walshein_regular";
+    font-size: 19px;
+    margin-left: 447px;
+    margin-top: 68px;
+    padding: 12px 64px;
+    text-decoration: none;
+}
+.autorBooksWrap .catalogBooks{
+    min-height: 920px;
+    margin-bottom: 59px;
+}
+.breadCrump a {
+    color: #e4e8ea;
+}
+.events {
+    display: none;
+}

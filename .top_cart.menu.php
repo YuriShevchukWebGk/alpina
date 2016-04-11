@@ -1,0 +1,32 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Контакты", 
+		"/info_popup/contacts.php", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Доставка", 
+		"/info_popup/delivery.php", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Способы оплаты", 
+		"/info_popup/payment.php", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"", 
+		"", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

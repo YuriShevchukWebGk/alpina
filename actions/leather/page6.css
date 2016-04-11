@@ -1,0 +1,369 @@
+@font-face {
+    font-family: 'chartercITCBold';
+    src: url('fonts/charterc-bold.otf');
+}
+@font-face {
+    font-family: 'chartercITCBoldItalic';
+    src: url('fonts/charterc-bolditalic.otf');
+}
+@font-face {
+    font-family: 'pfdindisplaypro-bold';
+    src: url('fonts/pfdindisplaypro-bold.ttf');
+}
+@font-face {
+    font-family: 'pfdindisplaypro-italic';
+    src: url('/leather/fonts/pfdindisplaypro-italic.ttf');
+}
+@font-face {
+    font-family: 'pfdindisplaypro-light';
+    src: url('/leather/fonts/pfdindisplaypro-light.ttf');
+}
+@font-face {
+    font-family: 'pfdintextpro-regular';
+    src: url('/leather/fonts/pfdintextpro-regular.ttf');
+}
+@font-face {
+    font-family: 'pfdintextpro-medium';
+    src: url('/leather/fonts/pfdintextpro-medium.ttf');
+}
+@font-face {
+    font-family: 'pfdintextpro-light';
+    src: url('/leather/fonts/pfdintextpro-light.ttf');
+}
+
+@font-face {
+    font-family: 'PFDinTextCondPro';
+    src: url('/leather/fonts/PFDinTextCondPro.ttf');
+}
+
+body{
+	padding: 0;
+	margin: 0;
+    position:relative;
+}
+.allBookWrap{
+	background: url('img/back2.png') no-repeat;
+	margin-top: 94px;
+	position: relative;
+	padding-top: 126px;
+    width: 1192px;
+    height: 291px;
+    background-size: cover;
+}
+.allPageWrap{
+	margin: 0 auto;
+    width: 1192px;
+    height: 2800px;
+    position: relative;
+    background: rgba(0, 0, 0, 0) url("img/bigBack.jpg") no-repeat scroll center 0;
+}
+.bigCurtan{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.logoBck{
+	
+}
+/*header{
+	padding: 16px 120px 0;
+    width: 1192px;
+    box-sizing: border-box;
+}*/
+.mainTitle{
+	color: #ffb440;
+    font-family: "chartercITCBold";
+    font-size: 44px;
+    letter-spacing: 1px;
+    line-height: 48px;
+    margin: 0;
+    padding: 0 0 0 232px;
+}
+.firstBlockWrap{
+	height: 376px;
+    padding-top: 11px;
+    position: relative;
+    width: 1192px;
+}
+.allBooksStick{
+	bottom: -6px;
+    position: absolute;
+    right: 144px;
+}
+.callBack{
+	border: 3px solid #ffb440;
+    color: #fff;
+    font-family: "pfdindisplaypro-bold";
+    font-size: 21px;
+    height: 44px;
+    letter-spacing: 1px;
+    line-height: 44px;
+    margin: 28px auto;
+    text-transform: uppercase;
+    width: 420px;
+    text-align: center;
+}
+.callBack span{
+	color: #ffb440;
+    font-size: 17px;
+    letter-spacing: 0;
+    padding-right: 6px;
+}
+.mainText{
+	color: #fff;
+    font-family: arial;
+    font-size: 24px;
+    line-height: 26px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.mainTextWrap{
+	padding-left: 258px;
+    padding-top: 18px;
+}
+.BiblioTitle{
+	color: #1f1482;
+    font-family: "chartercITCBoldItalic";
+    font-size: 30px;
+    margin: 8px 186px;
+}
+.miniTitle{
+	color: #000000;
+    font-family: "pfdindisplaypro-bold";
+    font-size: 16px;
+    width: 384px;
+    margin-bottom: 4px;
+}
+.firstPunctText{
+	margin-left: 260px;
+    margin-top: 28px;
+}
+.decorationStyle{
+	color: #000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    line-height: 19px;
+    margin-top: -4px;
+    width: 390px;
+}
+.decorationText{
+	color: #000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    line-height: 19px;
+    margin-top: 20px;
+    width: 350px;
+}
+.decorHint{
+	color: #000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    line-height: 20px;
+    margin-left: 866px;
+    margin-top: 48px;
+    width: 126px;
+    margin-bottom: 570px;
+}
+.decorHint{
+	color: #000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    line-height: 20px;
+}
+.firstBookBlock{
+	color: #000000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    margin-left: 258px;
+    float: left;
+    margin-right: 10px;
+    line-height: 19px;
+}
+.firstBookBlock p{
+	line-height: 19px;
+    margin: 0;
+}
+.secondBookBlock{
+	color: #000000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    margin-left:260px;
+}
+.secondBookBlock p{
+    line-height: 19px;
+	margin: 0;
+}
+.secondBookBlock p:nth-child(1) {
+    line-height: 19px;
+    margin: 0;
+   font-family: "pfdindisplaypro-bold";
+}
+
+.fourCircles{
+	left: 200px;
+    position: absolute;
+    top: -60px;
+}
+.secBiblioTitle{
+	color: #1f1482;
+    font-family: "chartercITCBoldItalic";
+    font-size: 30px;
+    margin-left: 186px;
+    margin-bottom: 22px;
+
+}
+.boldText{
+	color: #000000;
+    font-family: "pfdindisplaypro-bold";
+    font-size: 16px;
+    margin-left: 260px;
+    width: 366px;
+}
+.italicText{
+	color: #000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    line-height: 20px;
+    margin-left: 260px;
+    margin-top: 19px;
+    width: 350px;
+    padding-bottom: 70px;
+}
+.bookStick{
+	position: absolute;
+    right: 338px;
+    top: 200px;
+}
+.thirdBiblioTitle{
+	color: #1f1482;
+    font-family: "chartercITCBoldItalic";
+    font-size: 30px;
+    margin-bottom: 26px;
+    margin-left: 188px;
+    margin-top: 24px;
+}
+.thirdQuest{
+	color: #000000;
+    font-family: "pfdindisplaypro-bold";
+    font-size: 16px;
+}
+.ulTitle{
+	color: #000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    margin-top: 18px;
+    width: 608px;
+}
+.listItems{
+	color: #000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    line-height: 19px;
+    margin: 0;
+    padding-left: 15px;
+    position: relative;
+}
+.listItems span{
+	color: #000000;
+    font-family: "pfdindisplaypro-bold";
+    font-size: 16px;
+}
+.nextText{
+	color: #000;
+    font-family: "pfdindisplaypro-italic";
+    font-size: 16px;
+    margin-top: 20px;
+}
+.listItems:before{
+	color: #000;
+    content: ".";
+    font-family: "pfdindisplaypro-bold";
+    font-size: 35px;
+    left: -1px;
+    position: absolute;
+    top: -8px;
+}
+.listWrapper{
+	margin-left: 260px;
+}
+.thirdSectionWrap{
+	padding-bottom: 82px;
+}
+.leftFooterBlock{
+	color: #ffd26d;
+    float: left;
+    font-family: "pfdintextpro-regular";
+    font-size: 17px;
+    letter-spacing: 1px;
+    margin-left: 214px;
+    margin-top: 18px;
+    text-transform: uppercase;
+    width: 290px;
+}
+.rightFooterBlock{
+	color: #ffd26d;
+    float: right;
+    margin-right: 304px;
+    padding-bottom: 78px;
+    padding-top: 35px;
+    text-align: right;
+    width: 365px;
+}
+.callTo{
+	font-family: "pfdintextpro-regular";
+    font-size: 19px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.telephone{
+	font-family: "pfdintextpro-medium";
+    font-size: 20px;
+    margin: 9px 0 0;
+}
+.orWrite{
+	font-family: "pfdintextpro-medium";
+    font-size: 17px;
+    margin-bottom: 0;
+}
+.emailAddr{
+	font-family: "pfdintextpro-medium";
+    font-size: 20px;
+    margin: 0;
+}
+.contact:visited{
+    color: #ffd26d !important;
+    text-decoration: none;
+}
+.contact{
+    text-decoration: none;
+    color: #ffd26d !important;
+}
+.bookResizeBlock1{
+    height: 584px;
+    left: 258px;
+    position: absolute;
+    top: 730px;
+    width: 378px;
+    z-index: 100;
+}
+.bookResizeBlock2{
+    height: 310px;
+    position: absolute;
+    right: 62px;
+    top: 384px;
+    width: 484px; 
+    z-index: 100;  
+}
+.bookResizeBlock3{
+    height: 498px;
+    position: absolute;
+    right: 164px;
+    top: 798px;
+    width: 290px;
+    z-index: 100;
+}
+.slider{
+    position: fixed;
+    margin: 0 auto;
+    display: none;
+}
