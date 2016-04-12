@@ -423,12 +423,10 @@ if (!empty($arResult['ITEMS']))
 
     // получение описания серии книг
     $arResult["SERIES"]["ELEMENT"] = CIBlockElement::GetByID($arResult["SERIES"]["ID"])->Fetch();
-    
+
 	$arResult['CURRENCIES'] = array();
-	if ($arResult['MODULES']['currency'])
-	{
-		if ($boolConvert)
-		{
+	if ($arResult['MODULES']['currency']){
+		if ($boolConvert){
 			$currencyFormat = CCurrencyLang::GetFormatDescription($arResult['CONVERT_CURRENCY']['CURRENCY_ID']);
 			$arResult['CURRENCIES'] = array(
 				array(
@@ -444,14 +442,11 @@ if (!empty($arResult['ITEMS']))
 				)
 			);
 			unset($currencyFormat);
-		}
-		else
-		{
+		} else {
 			$currencyIterator = CurrencyTable::getList(array(
 				'select' => array('CURRENCY')
 			));
-			while ($currency = $currencyIterator->fetch())
-			{
+			while ($currency = $currencyIterator->fetch()){
 				$currencyFormat = CCurrencyLang::GetFormatDescription($currency['CURRENCY']);
 				$arResult['CURRENCIES'][] = array(
 					'CURRENCY' => $currency['CURRENCY'],

@@ -421,6 +421,13 @@ $(document).ready(function(){
         $(".authorBoolSlider .rigth").hide();
 
     }
+    // отображение блоков на странице регистрации/авторизации
+    
+    if ($(".signinLink").hasClass("active")) {
+        $(".registrationBlock").hide();
+        $(".signinBlock").show();    
+    }
+    
     //плагин кастомизации селектов в оформлении заказа
     if($('.userCountry').length > 0){
         $('.userCountry').selectric();
