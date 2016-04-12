@@ -163,6 +163,7 @@ if (!empty($arResult['ITEMS']))
 	$arNewItemsList = array();
 	foreach ($arResult['ITEMS'] as $key => $arItem)
 	{
+        $arResult["SERIES"]["ID"] = $arItem["PROPERTIES"]["SERIES"]["VALUE"];// получаем id серии книг
 		$arItem['CHECK_QUANTITY'] = false;
 		if (!isset($arItem['CATALOG_MEASURE_RATIO']))
 			$arItem['CATALOG_MEASURE_RATIO'] = 1;
@@ -420,6 +421,9 @@ if (!empty($arResult['ITEMS']))
 	$arResult['SKU_PROPS'] = $arSKUPropList;
 	$arResult['DEFAULT_PICTURE'] = $arEmptyPreview;
 
+    // получение описания серии книг
+    $arResult["SERIES"]["ELEMENT"] = CIBlockElement::GetByID($arResult["SERIES"]["ID"])->Fetch();
+    
 	$arResult['CURRENCIES'] = array();
 	if ($arResult['MODULES']['currency'])
 	{

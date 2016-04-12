@@ -255,7 +255,7 @@ bx-newslist-slider-arrow,
     }
 }
 #events_wrap{
-    padding-top: 80px;
+    padding-top: 50px;
     background-color: #F4F4F4;
     padding-bottom: 90px;
 }
@@ -330,4 +330,11 @@ bx-newslist-slider-arrow,
 }
 .bx-newslist-other {
     white-space: normal;
+}
+.events_info {
+    font-family: "Walshein_regular";
+    font-size: 15px;
+}
+.events_info table {
+    margin-bottom: 50px;
 }

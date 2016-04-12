@@ -15,7 +15,6 @@ $this->addExternalCss("/bitrix/css/main/bootstrap.css");
 $this->addExternalCss("/bitrix/css/main/font-awesome.css");
 $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].'/style.css');
 ?>
-
 <div class="deliveryPageTitleWrap">
     <div class="centerWrapper">
         <p>Главная</p>
@@ -37,6 +36,22 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 
 <div class="newsBodyWrap" id="events_wrap">
     <div class="centerWrapper">
+        <div class="events_info">
+            <?$APPLICATION->IncludeComponent(
+                    "bitrix:main.include", 
+                    ".default", 
+                    array(
+                        "AREA_FILE_SHOW" => "file",
+                        "AREA_FILE_SUFFIX" => "inc",
+                        "AREA_FILE_RECURSIVE" => "Y",
+                        "EDIT_TEMPLATE" => "",
+                        "COMPONENT_TEMPLATE" => ".default",
+                        "PATH" => "/bitrix/templates/.default/include/events_info.php"
+                    ),
+                    false
+                );?>
+        </div>
+        
         <div class="bx-newslist">
             <?if($arParams["DISPLAY_TOP_PAGER"]):?>
                 <?=$arResult["NAV_STRING"]?><br />
@@ -197,7 +212,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
         ),
         "FILTER_NAME" => "",
         "HIDE_LINK_WHEN_NO_DETAIL" => "N",
-        "IBLOCK_ID" => "48",
+        "IBLOCK_ID" => "49",
         "IBLOCK_TYPE" => "news",
         "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
         "INCLUDE_SUBSECTIONS" => "Y",

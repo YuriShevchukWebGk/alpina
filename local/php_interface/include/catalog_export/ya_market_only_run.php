@@ -530,13 +530,14 @@ if (strlen($strExportErrorMessage)<=0)
 	while ($obElement = $db_acc->GetNextElement())
 	{
 		$arAcc = $obElement->GetFields();
-		if ($arAcc["ID"] == 33140) continue; // УДАЛЯЕМ КНИГУ СЕКС ДЛЯ НАУКИ
-		if ($arAcc["ID"] == 67762) continue; // УДАЛЯЕМ КНИГУ КАЖДОЙ ТВАРИ ПО ПАРЕ
-		if ($arAcc["ID"] == 1928334) continue; // УДАЛЯЕМ КНИГУ ХВАТИТ БЫТЬ СЛАВНЫМ ПАРНЕМ
-		if ($arAcc["ID"] == 1877683) continue; // УДАЛЯЕМ КНИГУ ВАГИНА
-		if ($arAcc["ID"] == 1992230) continue; // УДАЛЯЕМ КНИГУ Стратегия семейной жизни
-		if ($arAcc["ID"] == 1024479) continue; // УДАЛЯЕМ КНИГУ Как стать первым на ютюб
-		if ($arAcc["ID"] == 232065) continue; // УДАЛЯЕМ КНИГУ Большая игра
+		if ($arAcc["ID"] == 6799) continue; // УДАЛЯЕМ КНИГУ СЕКС ДЛЯ НАУКИ
+		if ($arAcc["ID"] == 7067) continue; // УДАЛЯЕМ КНИГУ КАЖДОЙ ТВАРИ ПО ПАРЕ
+		if ($arAcc["ID"] == 8002) continue; // УДАЛЯЕМ КНИГУ ХВАТИТ БЫТЬ СЛАВНЫМ ПАРНЕМ
+		if ($arAcc["ID"] == 7986) continue; // УДАЛЯЕМ КНИГУ ВАГИНА
+		if ($arAcc["ID"] == 8024) continue; // УДАЛЯЕМ КНИГУ Стратегия семейной жизни
+		if ($arAcc["ID"] == 7726) continue; // УДАЛЯЕМ КНИГУ Как стать первым на ютюб
+		if ($arAcc["ID"] == 7418) continue; // УДАЛЯЕМ КНИГУ Большая игра
+		if ($arAcc["ID"] == 7702) continue; // УДАЛЯЕМ КНИГУ Постельные войны
 		
 		//if (is_array($XML_DATA['XML_DATA']))
 		{

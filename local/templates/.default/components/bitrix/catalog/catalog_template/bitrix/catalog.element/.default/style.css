@@ -1,4 +1,4 @@
-/* item_detail_v2 */ 
+/* item_detail_v2 */
 .bx_item_detail .bx_item_title{
     padding-bottom:14px;
     border-bottom:1px solid #e5e5e5;
@@ -1194,4 +1194,17 @@
     border-color: transparent;
     text-decoration: none;
 }
-
+.authorSigning {
+    width: 30px;
+    height: 30px;
+    background-image: url('/img/sign.png');
+    margin-left: 4px;
+    margin-bottom: 5px;
+}
+.authorSigningText {
+    color: #00ABB8;
+    font-family: "Walshein_regular";
+    font-size: 14px;
+    padding-left: 4px;
+    margin-bottom: 20px;
+}

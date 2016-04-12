@@ -484,7 +484,25 @@ if ($_REQUEST["PAGEN_".$navnum])
 
 
 
-
+        <?$APPLICATION->IncludeComponent(
+                    "bitrix:menu", 
+                    "catalog_left_menu", 
+                    array(
+                        "ROOT_MENU_TYPE" => "top_books_left_menu",
+                        "MAX_LEVEL" => "1",
+                        "CHILD_MENU_TYPE" => "top",
+                        "USE_EXT" => "Y",
+                        "DELAY" => "N",
+                        "ALLOW_MULTI_SELECT" => "Y",
+                        "MENU_CACHE_TYPE" => "N",
+                        "MENU_CACHE_TIME" => "3600",
+                        "MENU_CACHE_USE_GROUPS" => "Y",
+                        "MENU_CACHE_GET_VARS" => array(
+                        ),
+                        "COMPONENT_TEMPLATE" => "catalog_left_menu"
+                    ),
+                    false
+                );?> 
 
         <?$APPLICATION->IncludeComponent(
                 "bitrix:catalog.section.list", 
@@ -536,6 +554,15 @@ if ($_REQUEST["PAGEN_".$navnum])
 <script>
     // скрипт ajax-подгрузки товаров в блоке "Все книги"
     $(document).ready(function() {
+        $(".leftMenu ul li").each(function(){
+            if ($(this).children("a").attr("href") == "<?=$APPLICATION -> GetCurDir()?>") {
+                $(this).children("a").find("p").css("font-weight", "bold"); 
+                if ($(this).closest("ul").hasClass("secondLevel")) {
+                    $(this).closest("ul").parent("li").find("a p").addClass("activeListName"); 
+                    $(this).closest("ul").parent("li").find(".secondLevel").show();       
+                }   
+            }
+        })
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;
         switch ($arParams["ELEMENT_SORT_FIELD2"])
         {
@@ -559,6 +586,7 @@ if ($_REQUEST["PAGEN_".$navnum])
             <?}?>
         var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
         var WrappHeight = $(".wrapperCategor").height();
+        var BooksLiLength = $(".otherBooks ul li").length;
         $('.showMore').click(function(){
            // var otherBooks = $(this).siblings(".otherBooks");
             $.fancybox.showLoading();
@@ -595,8 +623,8 @@ if ($_REQUEST["PAGEN_".$navnum])
                                 $(this).html(truncate($(this).html(), 40));    
                             }    
                     });
-                    var otherBooksHeight = 1350 * ($(".otherBooks ul li").length / 15);
-                    //console.log(otherBooksHeight);
+                    var otherBooksHeight = 1360 * ($(".otherBooks ul li").length / 15);
+                    console.log($(".otherBooks ul li").length);
                    
                         var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
                     
@@ -652,7 +680,7 @@ if ($_REQUEST["PAGEN_".$navnum])
                             var otherBooksHeight = 1350 * ($(".otherBooks ul li").length / 15);
                             //console.log(otherBooksHeight);
                            
-                                var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
+                                var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - BooksLiLength) / 5) * 455;    
                             
                             $(".otherBooks").css("height", otherBooksHeight+"px");
                             $(".wrapperCategor").css("height", categorHeight+"px");

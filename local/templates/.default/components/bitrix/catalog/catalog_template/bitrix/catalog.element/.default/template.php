@@ -140,7 +140,7 @@ $arItemIDs = array(
                             if ($pict["src"])
                             {
                             ?>
-                            <img src="<?=$pict["src"]?>" itemprop="image">
+                            <img src="<?=$pict["src"]?>" itemprop="image" alt="<?=$arResult["NAME"]?>" title="<?=$arResult["NAME"]?>" />
                             <?
                             }
                             else
@@ -200,6 +200,18 @@ $arItemIDs = array(
                     <input type="text" placeholder="Ваш e-mail"> 
                 </div>
 
+                <?
+                if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
+                ?>
+                    <div class="authorSigning">
+                    </div>
+                    <div class="authorSigningText">
+                    с автографом автора
+                    </div>
+                <?
+                }
+                ?>
+                
                 <div class="characteris">
                     <p class="title">Издательство</p>
                     <p class="text"><span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><span itemprop="name"><?=$arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]?></span></span></p>    
@@ -367,20 +379,23 @@ $arItemIDs = array(
                                 {  
                                    ?>
                                    <link itemprop="availability" href="http://schema.org/InStock">
-                                    <? if(ceil(($arPrice["VALUE"])*(1 - $discount/100)) == $arPrice["PRINT_VALUE"]){
+                                    <? if(ceil(($arPrice["VALUE"])*(1 - $discount/100))." руб." == $arPrice["PRINT_VALUE"]){
                                           $discount = false;
                                        };
-                                    if ($discount)
-                                    {    
+                                    if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {
+                                    ?>
+                                        <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>  
+                                        <?// расчитываем накопительную скидку от стоимости?>
+                                        <p class="newPrice"><?=ceil(($arPrice["DISCOUNT_VALUE"]))?> <span>руб.</span></p>
+                                    <?
+                                    } else if ($discount) {    
                                     ?>  
                                         <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>  
                                         <?// расчитываем накопительную скидку от стоимости?>
                                         <p class="newPrice"><?=ceil(($arPrice["VALUE"])*(1 - $discount/100))?> <span>руб.</span></p>
                                         
                                     <?
-                                    }
-                                    else
-                                    {
+                                    } else {
                                     ?>
                                         <p class="newPrice"><?=ceil($arPrice["VALUE_VAT"])?> <span>руб.</span></p>
                                     <?
@@ -592,64 +607,63 @@ $arItemIDs = array(
                 }*/
             ?>
             <div class="centerColumn">
-				<div class="topBlock">
-					<h1 class="productName" itemprop="name"><?=$arResult["NAME"]?></h1>
-					<p class="engBookName"><?=$arResult["PROPERTIES"]["ENG_NAME"]["VALUE"]?></p>
-					<div class="authorReviewWrap">
-						<p class="reviews">
-							<span class="star"><img src="/img/activeStar.png"></span>
-							<span class="star"><img src="/img/activeStar.png"></span>
-							<span class="star"><img src="/img/activeStar.png"></span>
-							<span class="star"><img src="/img/activeStar.png"></span>
-							<span class="star"><img src="/img/unactiveStar.png"></span>
-							<span class="countOfRev"><?//=$reviews_count." ".format_by_count($reviews_count, 'отзыв', 'отзыва', 'отзывов');?></span>
-						</p>
-						<?  $authors = "";
-							foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val)
-							{
-								$author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
-								while ($author_fetched_list = $author_list -> Fetch())
-								{
-									$authors .= $author_fetched_list["NAME"].", ";
-								}
-								
-							}
-						?>
-					   
-						<p class="productAutor">
-							<?
-								echo substr ($authors, 0, -2);
-							?>
-						</p>
-						 <?#Спонсоры книги?>
-						 <div class="sponsors">
-					  <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val)
-							{    
-								$author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
-								while ($author_fetched_list = $author_list -> Fetch())
-								{ ?> 
-								<?if($author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"]){
-									$image = $author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
-								}elseif($author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]){
-									$image = $author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
-								}elseif($author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]){
-									$image = $author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
-								};
-							   
-								$picture = CFile::GetPath($image)?>
-									
-										<span class="kartochkaknigi5"><?=$author_fetched_list["PREVIEW_TEXT"]?> </span>
-										<a href="http://<?=$author_fetched_list["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
-									
-								   <? $authors .= $author_fetched_list["NAME"].", ";
-								}
-								
-							}
-						
-						##Спонсоры книги?>
-						</div>
-					</div>
-				</div>
+                <h1 class="productName" itemprop="name"><?=$arResult["NAME"]?></h1>
+                <p class="engBookName"><?=$arResult["PROPERTIES"]["ENG_NAME"]["VALUE"]?></p>
+                <div class="authorReviewWrap">
+                    <p class="reviews">
+                        <span class="star"><img src="/img/activeStar.png"></span>
+                        <span class="star"><img src="/img/activeStar.png"></span>
+                        <span class="star"><img src="/img/activeStar.png"></span>
+                        <span class="star"><img src="/img/activeStar.png"></span>
+                        <span class="star"><img src="/img/unactiveStar.png"></span>
+                        <span class="countOfRev"><?//=$reviews_count." ".format_by_count($reviews_count, 'отзыв', 'отзыва', 'отзывов');?></span>
+                    </p>
+                    <?  $authors = "";
+                        foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val)
+                        {
+                            $author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
+                            while ($author_fetched_list = $author_list -> Fetch())
+                            {
+                                $authors .= $author_fetched_list["NAME"].", ";
+                            }
+                            
+                        }
+                    ?>
+                   
+                    <p class="productAutor">
+                        <?
+                            echo substr ($authors, 0, -2);
+                        ?>
+                    </p>
+                     <?#Спонсоры книги?>
+                     <div class="sponsors">
+                  <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val)
+                        {    
+                            $author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
+                            while ($author_fetched_list = $author_list -> Fetch())
+                            { ?> 
+                            <?if($author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"]){
+                                $image = $author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
+                            }elseif($author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]){
+                                $image = $author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
+                            }elseif($author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]){
+                                $image = $author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
+                            };
+                           
+                            $picture = CFile::GetPath($image)?>
+                                
+                                    <span class="kartochkaknigi5"><?=$author_fetched_list["PREVIEW_TEXT"]?> </span>
+                                    <a href="http://<?=$author_fetched_list["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
+                                
+                               <? $authors .= $author_fetched_list["NAME"].", ";
+                            }
+                            
+                        }
+                    
+                    ##Спонсоры книги?>
+                    </div>
+                </div>
+
                 <?/* Пока закрыли другие варианты книги. Думаем, как сделать блок понятным для посетителей
 				<div class="typesOfProduct">
                     <div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickCurrentVersion', label: '<?=$arResult['NAME']?>'})">
@@ -731,7 +745,7 @@ $arItemIDs = array(
                     <li class="active" data-id="1">Аннотация</li>
                     <li data-id="4">Об авторе</li>
                     <?
-                        $recenz = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 24, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_AUTHOR", "NAME", "PROPERTY_BOOK", "PREVIEW_TEXT", "DETAIL_TEXT"));
+                        $recenz = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 24, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_AUTHOR", "NAME", "PROPERTY_BOOK", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_SOURCE_LINK"));
                         $reviewsCount = $recenz->SelectedRowsCount();
                         if ($reviewsCount > 0) {
                         ?>
@@ -929,7 +943,16 @@ $arItemIDs = array(
                             while ($recenz_fetch = $recenz -> Fetch())
                             {//arshow($recenz_fetch);?>
                             <span class="recenz_author_name"><?=$recenz_fetch["NAME"]?></span>
-                            <div class="recenz_text"><?=$recenz_fetch["DETAIL_TEXT"]?></div>
+                            <div class="recenz_text">
+                                <?=$recenz_fetch["PREVIEW_TEXT"]?>
+                                <? if ($recenz_fetch["PREVIEW_TEXT"] == "")
+                                {
+                                    echo $recenz_fetch["DETAIL_TEXT"];    
+                                }
+                                ?>
+                                <noindex><a href="<?=$recenz_fetch["PROPERTY_SOURCE_LINK_VALUE"]?>" rel="nofollow"><?=$recenz_fetch["PROPERTY_SOURCE_LINK_VALUE"]?></a></noindex>
+                            </div>
+                           
                             <?}
                         ?> 
                     </div>
@@ -1036,9 +1059,12 @@ $arItemIDs = array(
                                 while ($author = $curr_author -> Fetch())
                                 {
                                 ?>
+								<div class="author_info">
                                 <span class="author_name"><?=$author["NAME"]?></span>
                                 <?$imgFile = CFile::GetFileArray($author["DETAIL_PICTURE"]);?>
-                                <div class="author_info"><?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?></div>
+
+                                <?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?></div>
+
                                 <?
                                 }
                             }
@@ -1052,133 +1078,135 @@ $arItemIDs = array(
 
 
 <? global $auth_books_Filter;
-    $auth_books_Filter = array('PROPERTY_AUTHORS' => $arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0], "!ID" => $arResult["ID"]);
+	if (!empty($arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0])) {
+		$auth_books_Filter = array('PROPERTY_AUTHORS' => $arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0], "!ID" => $arResult["ID"]);
 
-    $APPLICATION->IncludeComponent(
-        "bitrix:catalog.section", 
-        "this_author_books", 
-        array(
-            "IBLOCK_TYPE_ID" => "catalog",
-            "IBLOCK_ID" => "4",
-            "BASKET_URL" => "/personal/cart/",
-            "COMPONENT_TEMPLATE" => "this_author_books",
-            "IBLOCK_TYPE" => "catalog",
-            "SECTION_ID" => $_REQUEST["SECTION_ID"],
-            "SECTION_CODE" => "",
-            "SECTION_USER_FIELDS" => array(
-                0 => "",
-                1 => "",
-            ),
-            "ELEMENT_SORT_FIELD" => "id",
-            "ELEMENT_SORT_ORDER" => "desc",
-            "ELEMENT_SORT_FIELD2" => "id",
-            "ELEMENT_SORT_ORDER2" => "desc",
-            "FILTER_NAME" => "auth_books_Filter",
-            "INCLUDE_SUBSECTIONS" => "Y",
-            "SHOW_ALL_WO_SECTION" => "Y",
-            "HIDE_NOT_AVAILABLE" => "N",
-            "PAGE_ELEMENT_COUNT" => "12",
-            "LINE_ELEMENT_COUNT" => "3",
-            "PROPERTY_CODE" => array(
-                0 => "",
-                1 => "",
-            ),
-            "OFFERS_FIELD_CODE" => array(
-                0 => "",
-                1 => "",
-            ),
-            "OFFERS_PROPERTY_CODE" => array(
-                0 => "COLOR_REF",
-                1 => "SIZES_SHOES",
-                2 => "SIZES_CLOTHES",
-                3 => "",
-            ),
-            "OFFERS_SORT_FIELD" => "sort",
-            "OFFERS_SORT_ORDER" => "desc",
-            "OFFERS_SORT_FIELD2" => "id",
-            "OFFERS_SORT_ORDER2" => "desc",
-            "OFFERS_LIMIT" => "5",
-            "TEMPLATE_THEME" => "site",
-            "PRODUCT_DISPLAY_MODE" => "Y",
-            "ADD_PICT_PROP" => "BIG_PHOTO",
-            "LABEL_PROP" => "-",
-            "OFFER_ADD_PICT_PROP" => "-",
-            "OFFER_TREE_PROPS" => array(
-                0 => "COLOR_REF",
-                1 => "SIZES_SHOES",
-                2 => "SIZES_CLOTHES",
-            ),
-            "PRODUCT_SUBSCRIPTION" => "N",
-            "SHOW_DISCOUNT_PERCENT" => "N",
-            "SHOW_OLD_PRICE" => "Y",
-            "SHOW_CLOSE_POPUP" => "N",
-            "MESS_BTN_BUY" => "Купить",
-            "MESS_BTN_ADD_TO_BASKET" => "В корзину",
-            "MESS_BTN_SUBSCRIBE" => "Подписаться",
-            "MESS_BTN_DETAIL" => "Подробнее",
-            "MESS_NOT_AVAILABLE" => "Нет в наличии",
-            "SECTION_URL" => "",
-            "DETAIL_URL" => "",
-            "SECTION_ID_VARIABLE" => "SECTION_ID",
-            "SEF_MODE" => "N",
-            "AJAX_MODE" => "N",
-            "AJAX_OPTION_JUMP" => "N",
-            "AJAX_OPTION_STYLE" => "Y",
-            "AJAX_OPTION_HISTORY" => "N",
-            "AJAX_OPTION_ADDITIONAL" => "",
-            "CACHE_TYPE" => "A",
-            "CACHE_TIME" => "36000000",
-            "CACHE_GROUPS" => "N",
-            "SET_TITLE" => "Y",
-            "SET_BROWSER_TITLE" => "Y",
-            "BROWSER_TITLE" => "-",
-            "SET_META_KEYWORDS" => "Y",
-            "META_KEYWORDS" => "-",
-            "SET_META_DESCRIPTION" => "Y",
-            "META_DESCRIPTION" => "-",
-            "SET_LAST_MODIFIED" => "N",
-            "USE_MAIN_ELEMENT_SECTION" => "N",
-            "ADD_SECTIONS_CHAIN" => "N",
-            "CACHE_FILTER" => "N",
-            "ACTION_VARIABLE" => "action",
-            "PRODUCT_ID_VARIABLE" => "id",
-            "PRICE_CODE" => array(
-                0 => "BASE",
-            ),
-            "USE_PRICE_COUNT" => "N",
-            "SHOW_PRICE_COUNT" => "1",
-            "PRICE_VAT_INCLUDE" => "Y",
-            "CONVERT_CURRENCY" => "N",
-            "USE_PRODUCT_QUANTITY" => "N",
-            "PRODUCT_QUANTITY_VARIABLE" => "",
-            "ADD_PROPERTIES_TO_BASKET" => "Y",
-            "PRODUCT_PROPS_VARIABLE" => "prop",
-            "PARTIAL_PRODUCT_PROPERTIES" => "N",
-            "PRODUCT_PROPERTIES" => array(
-            ),
-            "OFFERS_CART_PROPERTIES" => array(
-                0 => "COLOR_REF",
-                1 => "SIZES_SHOES",
-                2 => "SIZES_CLOTHES",
-            ),
-            "ADD_TO_BASKET_ACTION" => "ADD",
-            "PAGER_TEMPLATE" => "round",
-            "DISPLAY_TOP_PAGER" => "N",
-            "DISPLAY_BOTTOM_PAGER" => "Y",
-            "PAGER_TITLE" => "Товары",
-            "PAGER_SHOW_ALWAYS" => "N",
-            "PAGER_DESC_NUMBERING" => "N",
-            "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-            "PAGER_SHOW_ALL" => "N",
-            "PAGER_BASE_LINK_ENABLE" => "N",
-            "SET_STATUS_404" => "N",
-            "SHOW_404" => "N",
-            "MESSAGE_404" => "",
-            "BACKGROUND_IMAGE" => "-",
-            "DISABLE_INIT_JS_IN_COMPONENT" => "N"
-        ),
-        false
-    );?>
+		$APPLICATION->IncludeComponent(
+			"bitrix:catalog.section", 
+			"this_author_books", 
+			array(
+				"IBLOCK_TYPE_ID" => "catalog",
+				"IBLOCK_ID" => "4",
+				"BASKET_URL" => "/personal/cart/",
+				"COMPONENT_TEMPLATE" => "this_author_books",
+				"IBLOCK_TYPE" => "catalog",
+				"SECTION_ID" => $_REQUEST["SECTION_ID"],
+				"SECTION_CODE" => "",
+				"SECTION_USER_FIELDS" => array(
+					0 => "",
+					1 => "",
+				),
+				"ELEMENT_SORT_FIELD" => "id",
+				"ELEMENT_SORT_ORDER" => "desc",
+				"ELEMENT_SORT_FIELD2" => "id",
+				"ELEMENT_SORT_ORDER2" => "desc",
+				"FILTER_NAME" => "auth_books_Filter",
+				"INCLUDE_SUBSECTIONS" => "Y",
+				"SHOW_ALL_WO_SECTION" => "Y",
+				"HIDE_NOT_AVAILABLE" => "N",
+				"PAGE_ELEMENT_COUNT" => "12",
+				"LINE_ELEMENT_COUNT" => "3",
+				"PROPERTY_CODE" => array(
+					0 => "",
+					1 => "",
+				),
+				"OFFERS_FIELD_CODE" => array(
+					0 => "",
+					1 => "",
+				),
+				"OFFERS_PROPERTY_CODE" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+					3 => "",
+				),
+				"OFFERS_SORT_FIELD" => "sort",
+				"OFFERS_SORT_ORDER" => "desc",
+				"OFFERS_SORT_FIELD2" => "id",
+				"OFFERS_SORT_ORDER2" => "desc",
+				"OFFERS_LIMIT" => "5",
+				"TEMPLATE_THEME" => "site",
+				"PRODUCT_DISPLAY_MODE" => "Y",
+				"ADD_PICT_PROP" => "BIG_PHOTO",
+				"LABEL_PROP" => "-",
+				"OFFER_ADD_PICT_PROP" => "-",
+				"OFFER_TREE_PROPS" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+				),
+				"PRODUCT_SUBSCRIPTION" => "N",
+				"SHOW_DISCOUNT_PERCENT" => "N",
+				"SHOW_OLD_PRICE" => "Y",
+				"SHOW_CLOSE_POPUP" => "N",
+				"MESS_BTN_BUY" => "Купить",
+				"MESS_BTN_ADD_TO_BASKET" => "В корзину",
+				"MESS_BTN_SUBSCRIBE" => "Подписаться",
+				"MESS_BTN_DETAIL" => "Подробнее",
+				"MESS_NOT_AVAILABLE" => "Нет в наличии",
+				"SECTION_URL" => "",
+				"DETAIL_URL" => "",
+				"SECTION_ID_VARIABLE" => "SECTION_ID",
+				"SEF_MODE" => "N",
+				"AJAX_MODE" => "N",
+				"AJAX_OPTION_JUMP" => "N",
+				"AJAX_OPTION_STYLE" => "Y",
+				"AJAX_OPTION_HISTORY" => "N",
+				"AJAX_OPTION_ADDITIONAL" => "",
+				"CACHE_TYPE" => "A",
+				"CACHE_TIME" => "36000000",
+				"CACHE_GROUPS" => "N",
+				"SET_TITLE" => "Y",
+				"SET_BROWSER_TITLE" => "Y",
+				"BROWSER_TITLE" => "-",
+				"SET_META_KEYWORDS" => "Y",
+				"META_KEYWORDS" => "-",
+				"SET_META_DESCRIPTION" => "Y",
+				"META_DESCRIPTION" => "-",
+				"SET_LAST_MODIFIED" => "N",
+				"USE_MAIN_ELEMENT_SECTION" => "N",
+				"ADD_SECTIONS_CHAIN" => "N",
+				"CACHE_FILTER" => "N",
+				"ACTION_VARIABLE" => "action",
+				"PRODUCT_ID_VARIABLE" => "id",
+				"PRICE_CODE" => array(
+					0 => "BASE",
+				),
+				"USE_PRICE_COUNT" => "N",
+				"SHOW_PRICE_COUNT" => "1",
+				"PRICE_VAT_INCLUDE" => "Y",
+				"CONVERT_CURRENCY" => "N",
+				"USE_PRODUCT_QUANTITY" => "N",
+				"PRODUCT_QUANTITY_VARIABLE" => "",
+				"ADD_PROPERTIES_TO_BASKET" => "Y",
+				"PRODUCT_PROPS_VARIABLE" => "prop",
+				"PARTIAL_PRODUCT_PROPERTIES" => "N",
+				"PRODUCT_PROPERTIES" => array(
+				),
+				"OFFERS_CART_PROPERTIES" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+				),
+				"ADD_TO_BASKET_ACTION" => "ADD",
+				"PAGER_TEMPLATE" => "round",
+				"DISPLAY_TOP_PAGER" => "N",
+				"DISPLAY_BOTTOM_PAGER" => "Y",
+				"PAGER_TITLE" => "Товары",
+				"PAGER_SHOW_ALWAYS" => "N",
+				"PAGER_DESC_NUMBERING" => "N",
+				"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+				"PAGER_SHOW_ALL" => "N",
+				"PAGER_BASE_LINK_ENABLE" => "N",
+				"SET_STATUS_404" => "N",
+				"SHOW_404" => "N",
+				"MESSAGE_404" => "",
+				"BACKGROUND_IMAGE" => "-",
+				"DISABLE_INIT_JS_IN_COMPONENT" => "N"
+			),
+			false
+		);
+	}?>
 
 <? /* Получаем от RetailRocket рекомендации для товара */
 global $RecommFilter;

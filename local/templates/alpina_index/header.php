@@ -25,7 +25,26 @@
     <script src="/js/inputmask.js"></script>
 
     <script src="/js/main.js"></script> 
-
+	<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
+	<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png?v=WGG39kPBLm">
+	<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png?v=WGG39kPBLm">
+	<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png?v=WGG39kPBLm">
+	<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png?v=WGG39kPBLm">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png?v=WGG39kPBLm">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png?v=WGG39kPBLm">
+	<link rel="icon" type="image/png" href="/favicon-32x32.png?v=WGG39kPBLm" sizes="32x32">
+	<link rel="icon" type="image/png" href="/favicon-194x194.png?v=WGG39kPBLm" sizes="194x194">
+	<link rel="icon" type="image/png" href="/favicon-96x96.png?v=WGG39kPBLm" sizes="96x96">
+	<link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=WGG39kPBLm" sizes="192x192">
+	<link rel="icon" type="image/png" href="/favicon-16x16.png?v=WGG39kPBLm" sizes="16x16">
+	<link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
+	<link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
+	<meta name="theme-color" content="#ffffff">	
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />  
 
@@ -345,7 +364,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 );?> 
         <?/* Получаем рекомендации для главной от RetailRocket */
         global $SellBlockFilter;
-		/*$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
+		$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
 		$recsArray = json_decode($stringRecs);
 		$SellBlockFilter = Array('ID' => (array_slice($recsArray,0,6)));
 		
@@ -353,7 +372,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		
 		} else { // Если рекомендаций нет, подставляем вручную созданные*/
 			$SellBlockFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
-		//}	
+		}	
    
         $APPLICATION->IncludeComponent(
                 "bitrix:catalog.section", 
@@ -712,7 +731,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		if (isset($_COOKIE["rrpusid"])){
 			$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
 			$recsArray = json_decode($stringRecs);
-			$arrFilter = Array('ID' => (array_slice($recsArray,0,5)));
+			$arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
 		}
 		if ($arrFilter['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
         <div class="recomendation">
@@ -852,7 +871,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				
 				<?/* Получаем бестселлеры от RetailRocket */
 				global $BestsOnMain;
-				/*$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
+				$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
 				$recsArray = json_decode($stringRecs);
 				$BestsOnMain = Array('ID' => (array_slice($recsArray,0,6)));
 				
@@ -860,7 +879,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				
 				} else { // Если рекомендаций нет, подставляем вручную созданные*/
 					$BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
-				//}?>
+				}?>
                 <div class="recomendation">
                     <p class="titleMain">Бестселлеры</p>
                     <?

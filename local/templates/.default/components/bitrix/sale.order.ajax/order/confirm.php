@@ -202,6 +202,14 @@ if ($_REQUEST["ORDER_ID"])
                             <?=CFile::ShowImage($arResult["PAY_SYSTEM"]["LOGOTIP"], 100, 100, "border=0", "", false);?>
                             <div class="paysystem_name"><?= $arResult["PAY_SYSTEM"]["NAME"] ?></div><br>
                         </td>
+                        <td>
+                            <? if ($arResult["PAY_SYSTEM"]["ID"] == "13")
+                            {?>
+                            <a href="<?=$arParams["PATH_TO_PAYMENT"]?>?ORDER_ID=<?=urlencode(urlencode($arResult["ORDER"]["ACCOUNT_NUMBER"]))."&PAYMENT_ID=".$arResult['ORDER']["PAYMENT_ID"]?>" target="_blank">
+                                <div class="payment_button"></div>
+                            </a>
+                            <?}?>
+                        </td>
                     </tr>
                     <?
                         if (strlen($arResult["PAY_SYSTEM"]["ACTION_FILE"]) > 0)
@@ -254,6 +262,10 @@ if ($_REQUEST["ORDER_ID"])
                                         }
                                     }
                                 ?>
+                                
+         
+                            </td>
+                            <td>
                             </td>
                         </tr>
                         <?

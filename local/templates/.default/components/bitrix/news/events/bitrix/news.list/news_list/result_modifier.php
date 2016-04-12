@@ -210,3 +210,13 @@ $arResult["NAV_STRING"] = $arResult["NAV_RESULT"]->GetPageNavStringEx(
 	$this->__component,
 	$arResult["NAV_PARAM"]
 );
+
+foreach ($arResult["ITEMS"] as $key => $arItem) {
+    if (!empty($arItem["PREVIEW_PICTURE"])) {
+        unset($arResult["ITEMS"][$key]);
+        array_unshift ($arResult["ITEMS"], $arItem);
+        break;
+    }
+} 
+
+    

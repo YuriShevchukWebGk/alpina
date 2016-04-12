@@ -743,3 +743,14 @@
 .categoryWrapper .contentWrapp {
     height: 1590px;
 }
+.titleText{
+    margin-bottom: 38px;
+    margin-top: 8px; 
+}
+.titleText .text {
+    color: #424d4f;
+    font-family: "Walshein_regular";
+    font-size: 18px;
+    line-height: 30px;
+    margin-top: 18px;
+}
