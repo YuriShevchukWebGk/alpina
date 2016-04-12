@@ -242,6 +242,39 @@
                     "COMPONENT_TEMPLATE" => "catalog_left_menu"
                 ),
                 false
+            );?>
+            
+         <?$APPLICATION->IncludeComponent(
+                "bitrix:catalog.section.list", 
+                "section.left.tree", 
+                array(
+                    "IBLOCK_TYPE" => "catalog",
+                    "IBLOCK_ID" => "4",
+                    "SECTION_ID" => "",
+                    "SECTION_CODE" => "",
+                    "COUNT_ELEMENTS" => "N",
+                    "TOP_DEPTH" => "2",
+                    "IBLOCK_HEADER_TITLE" => "Каталог книг",
+                    "IBLOCK_HEADER_LINK" => "",
+                    "SECTION_URL" => "#SITE_DIR#/catalog/#SECTION_CODE#/",
+                    "CACHE_TYPE" => "N",
+                    "CACHE_TIME" => "3600",
+                    "DISPLAY_PANEL" => "N",
+                    "ADD_SECTIONS_CHAIN" => "Y",
+                    "COMPONENT_TEMPLATE" => "section.left.tree",
+                    "SECTION_FIELDS" => array(
+                        0 => "",
+                        1 => "",
+                    ),
+                    "SECTION_USER_FIELDS" => array(
+                        0 => "",
+                        1 => "",
+                    ),
+                    "CACHE_GROUPS" => "N",
+                    "VIEW_MODE" => "LIST",
+                    "SHOW_PARENT_NAME" => "Y"
+                ),
+                false
             );?>        
 
 

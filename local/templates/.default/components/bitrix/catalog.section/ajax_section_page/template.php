@@ -560,6 +560,11 @@ if ($_REQUEST["PAGEN_".$navnum])
                 if ($(this).closest("ul").hasClass("secondLevel")) {
                     $(this).closest("ul").parent("li").find("a p").addClass("activeListName"); 
                     $(this).closest("ul").parent("li").find(".secondLevel").show();       
+                }
+                else
+                {
+                    $(this).find("ul.secondLevel a p").addClass("activeListName"); 
+                    $(this).find("ul.secondLevel").show();  
                 }   
             }
         })
