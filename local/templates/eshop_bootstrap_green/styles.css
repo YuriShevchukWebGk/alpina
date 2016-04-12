@@ -105,6 +105,9 @@ img.pull-right{
 	border: none;
 	border-radius: 1px;
 	font-size: 14px;
+    font-family: "Walshein_regular";
+    width: 620px;
+    margin: 0 auto;
 }
 .alert.alert-note{
 	background: #f2f2f3;

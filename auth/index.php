@@ -26,8 +26,7 @@
     <p><a href="<?=SITE_DIR?>">Вернуться на главную страницу</a></p>
 <?*/?>
 
-<?if ($_REQUEST["forgot_password"])
-    {?>
+<?if ($_REQUEST["forgot_password"]) {?>
     <div class="historyCoverWrap">
         <div class="centerWrapper">
             <p>Главная</p>    
@@ -43,7 +42,23 @@
             );
         ?>
     </div>
-    <?}else{?>    
+<?} else if ($_REQUEST["change_password"]) {?>
+    <div class="historyCoverWrap">
+        <div class="centerWrapper">
+            <p>Главная</p>    
+            <h1>Смена пароля</h1>
+        </div>
+    </div>
+    <div class="changePassWrapper">
+        <?
+            $APPLICATION->IncludeComponent("bitrix:system.auth.changepasswd", "flat", Array(
+                "SET_TITLE" => "Y",    // Устанавливать заголовок страницы
+                ),
+                false
+            );
+        ?>
+    </div>
+<?} else {?>    
     <div class="historyCoverWrap">
         <div class="centerWrapper">
             <p>Главная</p>    
@@ -56,8 +71,8 @@
             <?if (!$USER->IsAuthorized())
                 {?>
                 <div>
-                    <div class="registrationLink active">Регистрация</div>
-                    <div class="signinLink">Вход на сайт</div>
+                    <div class="registrationLink <? if (!$_REQUEST["login"]) {?>active<?}?>">Регистрация</div>
+                    <div class="signinLink <? if ($_REQUEST["login"]) {?>active<?}?>">Вход на сайт</div>
                 </div>
 
 
