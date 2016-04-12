@@ -81,6 +81,8 @@ $(document).ready(function(){
             $('.showAllWrapp').css('height','auto');
             $('.readMore').hide();
         })
+        
+        
     }
 
     //скролящееся меню на странице оплата
@@ -357,6 +359,9 @@ $(document).ready(function(){
                     $(this).css("width", "91px");
                 }
             });
+            if ($("#prodBlock3").css("display") == "block") {
+                $("#prodBlock3").css("height", $(".ReviewsFormWrap").height() + 90);
+            }
         })
     }
 
