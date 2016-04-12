@@ -376,28 +376,40 @@ $arItemIDs = array(
                             if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23))
                             {
                                 foreach ($arResult["PRICES"] as $code => $arPrice)
-                                {  
+                                { 
                                    ?>
                                    <link itemprop="availability" href="http://schema.org/InStock">
-                                    <? if(ceil(($arPrice["VALUE"])*(1 - $discount/100))." руб." == $arPrice["PRINT_VALUE"]){
+                                    <? if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]){
                                           $discount = false;
-                                       };
+                                       };   
                                     if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {
                                     ?>
                                         <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>  
-                                        <?// расчитываем накопительную скидку от стоимости?>
-                                        <p class="newPrice"><?=ceil(($arPrice["DISCOUNT_VALUE"]))?> <span>руб.</span></p>
+                                        <?// расчитываем накопительную скидку от стоимости
+                                        $newPrice = round(($arPrice["DISCOUNT_VALUE"]), 2);
+                                        if (strlen(stristr($newPrice, ".")) == 2) {
+                                            $newPrice .= "0";
+                                        }?>
+                                        <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
                                     <?
-                                    } else if ($discount) {    
+                                    } else if ($discount) {
+                                        $newPrice = round(($arPrice["VALUE"])*(1 - $discount/100), 2);
+                                        if (strlen(stristr($newPrice, ".")) == 2) {
+                                            $newPrice .= "0";
+                                        }  
                                     ?>  
                                         <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>  
                                         <?// расчитываем накопительную скидку от стоимости?>
-                                        <p class="newPrice"><?=ceil(($arPrice["VALUE"])*(1 - $discount/100))?> <span>руб.</span></p>
+                                        <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
                                         
                                     <?
                                     } else {
+                                        $newPrice = round($arPrice["VALUE_VAT"], 2);
+                                        if (strlen(stristr($newPrice, ".")) == 2) {
+                                            $newPrice .= "0";
+                                        }
                                     ?>
-                                        <p class="newPrice"><?=ceil($arPrice["VALUE_VAT"])?> <span>руб.</span></p>
+                                        <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
                                     <?
                                     }
                                     ?>  
@@ -425,14 +437,22 @@ $arItemIDs = array(
                                     <?
                                     if ($arPrice["DISCOUNT_VALUE_VAT"])
                                     {
+                                        $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
+                                        if (strlen(stristr($newPrice, ".")) == 2) {
+                                            $newPrice .= "0";
+                                        }
                                     ?>    
-                                        <p class="newPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                        <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
                                     <?
                                     }
                                     else
                                     {
+                                        $newPrice = round(($arPrice["ORIG_VALUE_VAT"]), 2);
+                                        if (strlen(stristr($newPrice, ".")) == 2) {
+                                            $newPrice .= "0";
+                                        }
                                     ?>
-                                        <p class="newPrice"><span itemprop="price"><?=ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
+                                        <p class="newPrice"><span itemprop="price"><?=$newPrice?></span> <span>руб.</span></p>
                                     <?
                                     }
                                     ?>     

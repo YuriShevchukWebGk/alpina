@@ -305,24 +305,24 @@
                 <input type="hidden" name="BasketOrder" value="BasketOrder" />
                 <!-- <input type="hidden" name="ajax_post" id="ajax_post" value="Y"> -->
             </form>
-			
-			<script type="text/javascript">
-				dataLayer.push({
-					'ecommerce': {
-						'checkout': {
-							'actionField': {'step':1},
-							'products': [
-								<?foreach($_SESSION['gtmEnchECommerceCheckout'] as $googleItem){?>
-									{
-										<?=$googleItem?>
-									},
-								<?}?>
-							]
-						}
-					}
-				});
+            
+            <script type="text/javascript">
+                dataLayer.push({
+                    'ecommerce': {
+                        'checkout': {
+                            'actionField': {'step':1},
+                            'products': [
+                                <?foreach($_SESSION['gtmEnchECommerceCheckout'] as $googleItem){?>
+                                    {
+                                        <?=$googleItem?>
+                                    },
+                                <?}?>
+                            ]
+                        }
+                    }
+                });
 
-			</script>			
+            </script>            
 
             <?
             }
