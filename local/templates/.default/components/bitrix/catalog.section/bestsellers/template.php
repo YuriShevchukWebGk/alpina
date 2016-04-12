@@ -43,7 +43,6 @@
         <div class="contentWrapp">
             <p class="titleMain"><?=($arResult["NAME"])?$arResult["NAME"]:GetMessage("BEST")?></p>
 
-
             <?  //блок с цитатой
                 $arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_*"))->Fetch();
                 if ($arSection["UF_QUOTE"] > 0) {
@@ -57,18 +56,16 @@
                     <?$quoteImg = CFile::ResizeImageGet($arQuote["DETAIL_PICTURE"],array("width"=>288,"height"=>294), BX_RESIZE_IMAGE_PROPORTIONAL); ?>
                         <img src="<?=$quoteImg["src"]?>">
                     </div>
-                    <?}?>
+                <?}?>
                     <p class="text">"<?=$arQuote["DETAIL_TEXT"]?>"</p>
                     <p class="autor"><?=$arQuote["PROPERTY_AUTHOR_NAME"]?></p>
                 </div>
-
-                <?}?>
-                <?if ($arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"]) {?>
-
-                <div class="titleText">
-                    <p class="text"><?=$arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"]?></p>
-                </div>
-                <?}?>
+            <?}?>
+            <?if ($arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"]) {?>
+            <div class="titleText">
+                <p class="text"><?=$arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"]?></p>
+            </div>
+            <?}?>
 
              <?// блок с цитатой END?>
             <ul class="filterParams">
