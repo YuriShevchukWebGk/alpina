@@ -738,10 +738,14 @@
     box-sizing: border-box;
 }
 .wrapperCategor {
-    height: 1600px;
+    height: auto;
+    overflow: hidden;
 }
 .categoryWrapper .contentWrapp {
-    height: 1590px;
+    height: auto;
+}
+.wrapperCategor .categoryWrapper .otherBooks{
+    height: auto;
 }
 .titleText{
     margin-bottom: 38px;
