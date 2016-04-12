@@ -22,7 +22,7 @@ $APPLICATION->SetTitle("Мероприятия");
 		"SORT_BY1" => "ACTIVE_FROM",
 		"SORT_ORDER1" => "DESC",
 		"SORT_BY2" => "SORT",
-		"SORT_ORDER2" => "ASC",
+		"SORT_ORDER2" => "DESC",
 		"CHECK_DATES" => "N",
 		"SEF_MODE" => "Y",
 		"SEF_FOLDER" => "/events/",

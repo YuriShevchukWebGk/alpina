@@ -37,18 +37,22 @@ $APPLICATION->SetTitle("Где мой заказ?");
     </div>
  </div>
 <div class="where-order">
-            <div id="where-order-content">
-                <div class="order-input">
-                    <span class="where-order-title">Введите номер заказа:</span> 
-                    <input id="order-id" name="orderID" type="text"/> 
-                    <button id="check-order">Узнать</button>
-                </div>
-                <div class="error_message"></div>
-                <div class="info-order" id="info-order">
-                    <div class="status">Статус: <span id="status-value"></span></div>
-                    <div class="change">Дата изменения статуса: <span id="change-value"></span></div>  <br>
-                    <div class="more-info">Узнать подробнее можно по тел 8 (495) 980-80-77</div>
-                </div> <br>
-            </div>
+	<?if ($USER->IsAuthorized()) {?>
+		<div id="where-order-content">
+			<div class="order-input">
+				<span class="where-order-title">Введите номер заказа:</span> 
+				<input id="order-id" name="orderID" type="text"/> 
+				<button id="check-order">Узнать</button>
+			</div>
+			<div class="error_message"></div>
+			<div class="info-order" id="info-order">
+				<div class="status">Статус: <span id="status-value"></span></div>
+				<div class="change">Дата изменения статуса: <span id="change-value"></span></div>  <br>
+				<div class="more-info">Узнать подробнее можно по тел. +7 (495) 980-80-77</div>
+			</div> <br>
+		</div>
+	<?} else {?>
+		Пожалуйста, <a href="/personal/profile/">авторизуйтесь</a>, чтобы узнать состояние заказа.
+	<?}?>
 </div>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

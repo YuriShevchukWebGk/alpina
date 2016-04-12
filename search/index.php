@@ -108,6 +108,7 @@ $APPLICATION->IncludeComponent(
 		"arrFILTER_iblock_catalog" => array(
 			0 => "4",
 			1 => "29",
+			2 => "45",
 		),
 		"arrFILTER_iblock_sebekon_presents" => array(
 			0 => "all",
