@@ -592,63 +592,64 @@ $arItemIDs = array(
                 }*/
             ?>
             <div class="centerColumn">
-                <h1 class="productName" itemprop="name"><?=$arResult["NAME"]?></h1>
-                <p class="engBookName"><?=$arResult["PROPERTIES"]["ENG_NAME"]["VALUE"]?></p>
-                <div class="authorReviewWrap">
-                    <p class="reviews">
-                        <span class="star"><img src="/img/activeStar.png"></span>
-                        <span class="star"><img src="/img/activeStar.png"></span>
-                        <span class="star"><img src="/img/activeStar.png"></span>
-                        <span class="star"><img src="/img/activeStar.png"></span>
-                        <span class="star"><img src="/img/unactiveStar.png"></span>
-                        <span class="countOfRev"><?//=$reviews_count." ".format_by_count($reviews_count, 'отзыв', 'отзыва', 'отзывов');?></span>
-                    </p>
-                    <?  $authors = "";
-                        foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val)
-                        {
-                            $author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
-                            while ($author_fetched_list = $author_list -> Fetch())
-                            {
-                                $authors .= $author_fetched_list["NAME"].", ";
-                            }
-                            
-                        }
-                    ?>
-                   
-                    <p class="productAutor">
-                        <?
-                            echo substr ($authors, 0, -2);
-                        ?>
-                    </p>
-                     <?#Спонсоры книги?>
-                     <div class="sponsors">
-                  <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val)
-                        {    
-                            $author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
-                            while ($author_fetched_list = $author_list -> Fetch())
-                            { ?> 
-                            <?if($author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"]){
-                                $image = $author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
-                            }elseif($author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]){
-                                $image = $author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
-                            }elseif($author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]){
-                                $image = $author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
-                            };
-                           
-                            $picture = CFile::GetPath($image)?>
-                                
-                                    <span class="kartochkaknigi5"><?=$author_fetched_list["PREVIEW_TEXT"]?> </span>
-                                    <a href="http://<?=$author_fetched_list["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
-                                
-                               <? $authors .= $author_fetched_list["NAME"].", ";
-                            }
-                            
-                        }
-                    
-                    ##Спонсоры книги?>
-                    </div>
-                </div>
-
+				<div class="topBlock">
+					<h1 class="productName" itemprop="name"><?=$arResult["NAME"]?></h1>
+					<p class="engBookName"><?=$arResult["PROPERTIES"]["ENG_NAME"]["VALUE"]?></p>
+					<div class="authorReviewWrap">
+						<p class="reviews">
+							<span class="star"><img src="/img/activeStar.png"></span>
+							<span class="star"><img src="/img/activeStar.png"></span>
+							<span class="star"><img src="/img/activeStar.png"></span>
+							<span class="star"><img src="/img/activeStar.png"></span>
+							<span class="star"><img src="/img/unactiveStar.png"></span>
+							<span class="countOfRev"><?//=$reviews_count." ".format_by_count($reviews_count, 'отзыв', 'отзыва', 'отзывов');?></span>
+						</p>
+						<?  $authors = "";
+							foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val)
+							{
+								$author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
+								while ($author_fetched_list = $author_list -> Fetch())
+								{
+									$authors .= $author_fetched_list["NAME"].", ";
+								}
+								
+							}
+						?>
+					   
+						<p class="productAutor">
+							<?
+								echo substr ($authors, 0, -2);
+							?>
+						</p>
+						 <?#Спонсоры книги?>
+						 <div class="sponsors">
+					  <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val)
+							{    
+								$author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
+								while ($author_fetched_list = $author_list -> Fetch())
+								{ ?> 
+								<?if($author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"]){
+									$image = $author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
+								}elseif($author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]){
+									$image = $author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
+								}elseif($author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]){
+									$image = $author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
+								};
+							   
+								$picture = CFile::GetPath($image)?>
+									
+										<span class="kartochkaknigi5"><?=$author_fetched_list["PREVIEW_TEXT"]?> </span>
+										<a href="http://<?=$author_fetched_list["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
+									
+								   <? $authors .= $author_fetched_list["NAME"].", ";
+								}
+								
+							}
+						
+						##Спонсоры книги?>
+						</div>
+					</div>
+				</div>
                 <?/* Пока закрыли другие варианты книги. Думаем, как сделать блок понятным для посетителей
 				<div class="typesOfProduct">
                     <div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickCurrentVersion', label: '<?=$arResult['NAME']?>'})">

@@ -2735,6 +2735,9 @@ width: 34px;
     font-size: 24px;
     padding-top: 34px;
 }
+.centerColumn .topBlock {
+	min-height:175px;
+}
 .centerColumn .engBookName{
     color: #e4e8ea;
     font-family: "Walshein_regular";
@@ -3011,7 +3014,7 @@ width: 34px;
 .reviewsSliderWrapp .giftWrap{
     border-top: 1px solid #e2e2e2;
     margin-top: 40px;
-    padding-top: 78px;
+    padding-top: 56px;
 	height:130px;
 	overflow:hidden;
 	

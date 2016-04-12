@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-
+		<?if (!empty($arResult["ITEMS"])) {?>
           <div class="reviewsBlockDetail">
                 <ul>
                     <?foreach($arResult["ITEMS"] as $arItem)
@@ -34,4 +34,4 @@ $this->setFrameMode(true);
                     
                 </ul>
             </div>
-
+		<?}?>
