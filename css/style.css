@@ -4167,7 +4167,7 @@ width: 34px;
 }
 .ReviewsFormWrap {
     float: right;
-    height: 548px;
+    min-height: 548px;
     margin-top: 34px;
     margin-bottom: 56px;
 }

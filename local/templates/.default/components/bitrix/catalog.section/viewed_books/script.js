@@ -1652,3 +1652,10 @@ window.JCCatalogSection.prototype.InitPopupWindow = function()
 	});
 };
 })(window);
+
+$(document).ready(function(){
+    if ($(".uLookSlider ul li").size() < 7) {
+        $(".uLookSlider .left").hide();
+        $(".uLookSlider .rigth").hide();
+    }
+})

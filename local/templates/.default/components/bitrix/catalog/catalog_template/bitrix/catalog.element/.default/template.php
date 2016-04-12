@@ -1062,7 +1062,9 @@ $arItemIDs = array(
 								<div class="author_info">
                                 <span class="author_name"><?=$author["NAME"]?></span>
                                 <?$imgFile = CFile::GetFileArray($author["DETAIL_PICTURE"]);?>
+
                                 <?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?></div>
+
                                 <?
                                 }
                             }
