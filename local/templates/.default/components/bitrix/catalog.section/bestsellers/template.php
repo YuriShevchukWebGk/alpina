@@ -61,7 +61,11 @@
                     <p class="text">"<?=$arQuote["DETAIL_TEXT"]?>"</p>
                     <p class="autor"><?=$arQuote["PROPERTY_AUTHOR_NAME"]?></p>
                 </div>
-                <?}?>
+                <?}elseif($arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"]){?>
+                <div class="titleText">
+                        <p class="text">"<?=$arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"]?>"</p>
+                    </div>  
+               <? }?>
              <?// блок с цитатой END?>  
             <ul class="filterParams">
                 <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])){?>class="active"<?}?>><p data-id="1">

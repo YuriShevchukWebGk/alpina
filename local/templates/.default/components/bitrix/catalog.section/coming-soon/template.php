@@ -42,7 +42,7 @@
         
         <div class="contentWrapp">
             <p class="titleMain"><?=($arResult["NAME"])?$arResult["NAME"]:GetMessage("COMING_SON")?></p>
-
+             <?//arshow($arResult)?>
 
 
             
