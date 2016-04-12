@@ -23,7 +23,7 @@ $this->setFrameMode(true);
         <div class="bookWrapp">
             <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onmousedown="try { rrApi.recomMouseDown(<?=$arItem["ID"]?>, {methodName: 'UpSellItemToItems'}) } catch(e) {}">
             <div class="section_item_img">
-                <img src="<?=$pict["src"]?>">
+                <img src="<?=$pict["src"]?>" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>" />
             </div>
             <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem["NAME"]?></p>
             <?

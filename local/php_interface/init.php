@@ -906,14 +906,35 @@
         {
             if ($eventName=="SALE_STATUS_CHANGED_P") {
                 $salelist=CSaleOrderPropsValue::GetList(array(),array("ORDER_ID"=>$ID, "ORDER_PROPS_ID"=>24),false,false,array("VALUE")); 
-                if ($salelistlist=$salelist->Fetch())
-                    $arFields["PERSONAL_PHONE"]=$salelistlist["VALUE"];
+                if ($sale_prop=$salelist->Fetch())
+                    $arFields["PERSONAL_PHONE"]=$sale_prop["VALUE"];
                 $userslist=CSaleOrderPropsValue::GetList(array(),array("ORDER_ID"=>$ID, "ORDER_PROPS_ID"=>7),false,false,array("VALUE")); 
                 if ($usersarray=$userslist->Fetch())
                     $arFields["ORDER_USER"]=$usersarray["VALUE"];
             }
 
         }
+    }
+    
+    AddEventHandler('main', 'OnBeforeEventSend', 'PayButtonForOnlinePayment');
+    
+    function PayButtonForOnlinePayment (&$arFields, &$arTemplate)
+    {
+        if ($arTemplate["ID"] == 16)
+        {
+            $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
+            if ($order["PAY_SYSTEM_ID"] == 13)
+            {
+                $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
+                                     <a href="http://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
+                               </div>';
+            }
+            else
+            {
+                $pay_button = "";
+            }
+            $arFields["PAYMENT_BUTTON"] = $pay_button;
+        }   
     }
     
     AddEventHandler('main', 'OnBeforeEventSend', "SubConfirmFunc");
@@ -955,6 +976,52 @@
             }
             $arFields["NEW_ITEMS_BLOCK"] = $NewItemsBlock;
         }        
+    }
+    
+        //Получение этикетки для бланков заказов, сделанных через PickPoint
+    function MakeLabelPickPoint($orderId){
+        //Авторизация на сервере PickPoint для получения ключа сессии (Необходим для дальнейшей работы с API)
+        $dataLogin = array('Login' => alpina, 'Password' => 12588521);  //Необходимо указать доступы к API выданные клиенту
+        $ikn = "9990252912"; //Номер контракта клиента
+        $urlLogin = "http://e-solution.pickpoint.ru/api/login";
+        $content = json_encode($dataLogin);
+        $curl = curl_init($urlLogin);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER,
+            array("Content-type: application/json"));
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
+        //Получаем номер отправления в PickPoint по Id заказа
+        $obItem = CPickpoint::SelectOrderPostamat($orderId);
+        $item = $obItem->Fetch();
+        //        arshow($item);            
+        //Отправляем запрос для получения этикетки в формате pdf
+        $dataSend = array('SessionId' => $response["SessionId"], 'Invoices' => array($item["PP_INVOICE_ID"]));    
+        $urlLabel = "http://e-solution.pickpoint.ru/api/makelabel";
+        $content = json_encode($dataSend);
+        //        arshow($content);
+        $curl = curl_init($urlLabel);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER,
+            array("Content-type: application/json"));
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
+        //         arshow($json_response);
+        //Преобразуем массив байтов в и 
+        $imagick = new Imagick(); 
+        $imagick->readImageBlob($json_response); 
+        $imagick->cropImage(300, 200, 50, 0);
+        $imagick->writeImages(getcwd().'/pickpoint_label/'.$orderId.'.jpg', false);
     }
     
 

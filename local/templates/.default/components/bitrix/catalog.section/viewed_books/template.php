@@ -87,7 +87,7 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
                                     <div class="">
                                         <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
                                             <div class="section_item_img">
-                                                <img src="<?=$pict["src"]?>" class="bookImg">
+                                                <img src="<?=$pict["src"]?>" class="bookImg" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>">
                                             </div>
                                             <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem["NAME"]?></p>
                                             <?

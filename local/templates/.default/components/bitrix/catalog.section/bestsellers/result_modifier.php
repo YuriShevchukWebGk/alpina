@@ -421,11 +421,10 @@ if (!empty($arResult['ITEMS']))
 	$arResult['SKU_PROPS'] = $arSKUPropList;
 	$arResult['DEFAULT_PICTURE'] = $arEmptyPreview;
 
-    
+
     // получение описания серии книг
     $arResult["SERIES"]["ELEMENT"] = CIBlockElement::GetByID($arResult["SERIES"]["ID"])->Fetch();
-    
-    
+
 	$arResult['CURRENCIES'] = array();
 	if ($arResult['MODULES']['currency'])
 	{

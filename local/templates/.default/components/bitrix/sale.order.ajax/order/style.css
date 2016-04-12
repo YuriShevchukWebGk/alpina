@@ -510,7 +510,7 @@ div#order_form_content .errortext {
     border-left: 1px solid #D5BABE;
     border-radius: 5px;
     background: #F8EAED;
-    background: url("images/alert.png") 10px 50% no-repeat, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: url("images/alert.png") 10px 50% no-repeat, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodвЂ¦EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
     background: url("images/alert.png") 10px 50% no-repeat, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F8EAED), color-stop(100%,#EDD0D6));
     background: url("images/alert.png") 10px 50% no-repeat, -webkit-linear-gradient(top, #F8EAED 0%,#EDD0D6 100%);
     background: url("images/alert.png") 10px 50% no-repeat, -moz-linear-gradient(top, #f8eaed 0%,#edd0d6 100%);
@@ -726,7 +726,7 @@ select {
     font-family: "Walshein_regular";
     font-size: 19px;
 }
-/*скрываем телефон уведомлений в PickPoint*/
+/*СЃРєСЂС‹РІР°РµРј С‚РµР»РµС„РѕРЅ СѓРІРµРґРѕРјР»РµРЅРёР№ РІ PickPoint*/
 #tPP tr:last-child,
 #tPP td:first-child{
     display:none;
@@ -749,4 +749,32 @@ select {
     float: left; 
     position: relative;
     left: 33px;
+}
+.payment_button {
+    display: inline-block;
+    white-space: normal;
+    font-size: 14px;
+    text-align: right;
+    vertical-align: middle;
+    background-color: #00abb8;
+    height: 50px;
+    color: #fff;
+    width: 220px;
+    margin-left: 30px;
+    border-radius: 35px;
+    top: 7px;
+    position: relative;
+    cursor: auto;
+    
+}
+.payment_button:after {
+    content: 'Оплатить';
+    position: absolute;
+    top: 12px;
+    left: 29%;
+    font-family: "Walshein_regular";
+    font-size: 19px; 
+}
+.sale_order_full_table tr:first-child td:last-child {
+    vertical-align: top;
 }
