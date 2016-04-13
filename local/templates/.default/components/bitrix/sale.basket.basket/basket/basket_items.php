@@ -110,6 +110,7 @@
                             if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y"):
 							
 							array_push($gtmEnchECommerceCheckout,"'name': '".$arItem['NAME']."','id': '".$arItem["PRODUCT_ID"]."','category': '".$parentSectionName."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Google Analytics Items
+							array_push($itemsForCriteo,"'id': '".$arItem["PRODUCT_ID"]."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Criteo Items
                             ?>                       
                             <tr id="<?=$arItem["ID"]?>">
                                 <?
@@ -344,6 +345,7 @@
         <input type="hidden" id="use_prepayment" value="<?=($arParams["USE_PREPAYMENT"] == "Y") ? "Y" : "N"?>" />
 
 		<?$_SESSION['gtmEnchECommerceCheckout'] = $gtmEnchECommerceCheckout;?>
+		<?$_SESSION['itemsForCriteo']			= $itemsForCriteo;?>
 
         <div class="bx_ordercart_order_pay">  
             <?/* 

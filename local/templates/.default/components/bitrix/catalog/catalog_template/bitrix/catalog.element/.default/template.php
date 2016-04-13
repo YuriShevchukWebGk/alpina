@@ -102,6 +102,9 @@ $arItemIDs = array(
                                 case 20:
                                     echo '<img class="discount_badge" src="/img/20percent.png">';
                                     break;
+                                case 30: 
+                                    echo '<img class="discount_badge" src="/img/30percent.png">';
+                                    break;
                                 case 40:
                                     echo '<img class="discount_badge" src="/img/40percent_black.png">';
                                     break;
@@ -610,6 +613,7 @@ $arItemIDs = array(
                             $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
                             while ($authorFetchedList = $authorList -> Fetch()) {
                                 $authors .= $authorFetchedList["NAME"].", ";
+
                             }
                             
                         }
@@ -1563,6 +1567,7 @@ window.criteo_q.push(
                 $(".wishlist_info span").html(data);
 
             })    
+        })
         })
 
     })

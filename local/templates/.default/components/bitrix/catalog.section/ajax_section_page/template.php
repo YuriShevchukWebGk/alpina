@@ -322,10 +322,9 @@ if ($_REQUEST["PAGEN_".$navnum])
                                 <div class="categoryBooks">
                                     <?//arshow($arItem["DETAIL_PICTURE"]);?>
                                     <div class="sect_badge">
-                                        <? if (/*($SavingsDiscount > 0) && */($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") && $arItem['PROPERTIES']['spec_price']['VALUE'] )
-                                            {
-                                                switch ($arItem['PROPERTIES']['spec_price']['VALUE'])
-                                                {
+                                        <? if (/*($SavingsDiscount > 0) && */($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
+                                            && $arItem['PROPERTIES']['spec_price']['VALUE'] ) {
+                                                switch ($arItem['PROPERTIES']['spec_price']['VALUE']) {
                                                     case 10:
                                                         echo '<img class="discount_badge" src="/img/10percent.png">';
                                                         break;
@@ -334,6 +333,9 @@ if ($_REQUEST["PAGEN_".$navnum])
                                                         break;
                                                     case 20:
                                                         echo '<img class="discount_badge" src="/img/20percent.png">';
+                                                        break;
+                                                    case 30:
+                                                        echo '<img class="discount_badge" src="/img/30percent.png">';
                                                         break;
                                                     case 40:
                                                         echo '<img class="discount_badge" src="/img/40percent_black.png">';
@@ -560,12 +562,15 @@ if ($_REQUEST["PAGEN_".$navnum])
                 if ($(this).closest("ul").hasClass("secondLevel")) {
                     $(this).closest("ul").parent("li").find("a p").addClass("activeListName"); 
                     $(this).closest("ul").parent("li").find(".secondLevel").show();       
+                }
+                else {
+                    $(this).find("ul.secondLevel a p").addClass("activeListName"); 
+                    $(this).find("ul.secondLevel").show();  
                 }   
             }
         })
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;
-        switch ($arParams["ELEMENT_SORT_FIELD2"])
-        {
+        switch ($arParams["ELEMENT_SORT_FIELD2"]) {
             case "CATALOG_PRICE_1":
             $sort = "PRICE";
             break;
@@ -581,7 +586,7 @@ if ($_REQUEST["PAGEN_".$navnum])
         <?if (isset($_REQUEST["PAGEN_".$navnum])) {
            ?>
             var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
-            <?}else{?>
+            <?} else {?>
             var page = 2;
             <?}?>
         var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
@@ -591,8 +596,7 @@ if ($_REQUEST["PAGEN_".$navnum])
            // var otherBooks = $(this).siblings(".otherBooks");
             $.fancybox.showLoading();
             <?
-            if ($_REQUEST["SORT"])
-            {
+            if ($_REQUEST["SORT"]) {
             ?>
                 $.get(window.location.href+'&PAGEN_<?=$navnum?>='+page, function(data) {
                     var next_page = $('.otherBooks ul li', data);
@@ -602,9 +606,9 @@ if ($_REQUEST["PAGEN_".$navnum])
                 })
             <?
             }
-            else
-            {?>
-                $.get('<?=$arResult["SECTION_PAGE_URL"]?>?SORT=<?=$sort?>&DIRECTION=<?=$arParams["ELEMENT_SORT_ORDER2"]?>&PAGEN_<?=$navnum?>='+page, function(data) {
+            else {?>
+                $.get('<?=$arResult["SECTION_PAGE_URL"]?>?SORT=<?=$sort?>&DIRECTION=<?=$arParams["ELEMENT_SORT_ORDER2"]?>&PAGEN_<?=$navnum?>='+page, 
+                    function(data) {
                     var next_page = $('.otherBooks ul li', data);
                     //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
                     $('.otherBooks ul').append(next_page);
@@ -613,20 +617,17 @@ if ($_REQUEST["PAGEN_".$navnum])
             <?
             }
             ?>
-            .done(function() 
-                {
+            .done(function() {
                     $.fancybox.hideLoading();
-                    $(".nameBook").each(function()
-                        {
-                            if($(this).length > 0)
-                            {
+                    $(".nameBook").each(function() {
+                            if($(this).length > 0) {
                                 $(this).html(truncate($(this).html(), 40));    
                             }    
                     });
                     var otherBooksHeight = 1360 * ($(".otherBooks ul li").length / 15);
                     console.log($(".otherBooks ul li").length);
                    
-                        var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
+                    var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
                     
                     $(".otherBooks").css("height", otherBooksHeight+"px");
                     $(".wrapperCategor").css("height", categorHeight+"px");
@@ -639,15 +640,12 @@ if ($_REQUEST["PAGEN_".$navnum])
             return false;
 
         });
-        <?if (isset($_SESSION[$APPLICATION -> GetCurDir()]))
-        {
+        <?if (isset($_SESSION[$APPLICATION -> GetCurDir()])) {
         ?>
             var upd_page = <?=$_SESSION[$APPLICATION -> GetCurDir()]?>;
-            for (i = 2; i <= upd_page; i++)
-            {
+            for (i = 2; i <= upd_page; i++) {
                  <?
-                 if ($_REQUEST["SORT"])
-                 {
+                 if ($_REQUEST["SORT"]) {
                  ?>
                     $.get(window.location.href+'&PAGEN_<?=$navnum?>='+page, function(data) {
                     var next_page = $('.otherBooks ul li', data);
@@ -656,35 +654,31 @@ if ($_REQUEST["PAGEN_".$navnum])
                     page++;            
                     })
                  <?
-                 }
-                 else
-                 {
+                 } else {
                  ?>
-                     $.get('<?=$arResult["SECTION_PAGE_URL"]?>?SORT=<?=$sort?>&DIRECTION=<?=$arParams["ELEMENT_SORT_ORDER2"]?>&PAGEN_<?=$navnum?>='+page, function(data) {
-                         var next_page = $('.otherBooks ul li', data);
-                         //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
-                         $('.otherBooks ul').append(next_page);
-                         page++;            
+                     $.get('<?=$arResult["SECTION_PAGE_URL"]?>?SORT=<?=$sort?>&DIRECTION=<?=$arParams["ELEMENT_SORT_ORDER2"]?>&PAGEN_<?=$navnum?>='+page, 
+                        function(data) {
+                        var next_page = $('.otherBooks ul li', data);
+                        //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
+                        $('.otherBooks ul').append(next_page);
+                        page++;            
                      })
             <?
             }?>
-                .done(function() 
-                    {
-                        $(".nameBook").each(function()
-                            {
-                                if($(this).length > 0)
-                                {
+                .done(function() {
+                        $(".nameBook").each(function() {
+                                if($(this).length > 0) {
                                     $(this).html(truncate($(this).html(), 40));    
                                 }    
-                            });
-                            var otherBooksHeight = 1350 * ($(".otherBooks ul li").length / 15);
-                            //console.log(otherBooksHeight);
+                        });
+                        var otherBooksHeight = 1350 * ($(".otherBooks ul li").length / 15);
+                        //console.log(otherBooksHeight);
                            
-                                var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - BooksLiLength) / 5) * 455;    
+                        var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - BooksLiLength) / 5) * 455;    
                             
-                            $(".otherBooks").css("height", otherBooksHeight+"px");
-                            $(".wrapperCategor").css("height", categorHeight+"px");
-                            $(".contentWrapp").css("height", categorHeight-10+"px");
+                        $(".otherBooks").css("height", otherBooksHeight+"px");
+                        $(".wrapperCategor").css("height", categorHeight+"px");
+                        $(".contentWrapp").css("height", categorHeight-10+"px");
 
                 });
                 if (upd_page == maxpage) {
@@ -696,12 +690,11 @@ if ($_REQUEST["PAGEN_".$navnum])
         }
         ?>
         <?
-            if (!$USER -> IsAuthorized())
-            {
+            if (!$USER -> IsAuthorized()) {
             ?>
-            $(".categoryWrapper .categoryBooks").hover(function(){
-                $(this).css("height", "390px");
-            });
+                $(".categoryWrapper .categoryBooks").hover(function() {
+                    $(this).css("height", "390px");
+                });
             <?
             }
         ?>    
