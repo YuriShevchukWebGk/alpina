@@ -15,8 +15,7 @@
 <?$this->setFrameMode(true);
 $templateLibrary = array('popup');
 $currencyList = '';
-if (!empty($arResult['CURRENCIES']))
-{
+if (!empty($arResult['CURRENCIES'])) {
     $templateLibrary[] = 'currency';
     $currencyList = CUtil::PhpToJSObject($arResult['CURRENCIES'], false, true, true);
 }
@@ -85,30 +84,29 @@ $arItemIDs = array(
                 array(
                     "ACTIVE_COMPONENT" => "Y"
                 )
-            );?>
+        );?>
 
         <div class="elementDescriptWrap">
             <div class="leftColumn">
                 <div class="elementMainPict">
                     <div class="badge">
-                        <? if (($arResult["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") && $arResult['PROPERTIES']['spec_price']['VALUE'] )
-                            {
-                                switch ($arResult['PROPERTIES']['spec_price']['VALUE'])
-                                {
-                                    case 10: 
-                                        echo '<img class="discount_badge" src="/img/10percent.png">';
-                                        break;
-                                    case 15:
-                                        echo '<img class="discount_badge" src="/img/15percent.png">';
-                                        break;
-                                    case 20:
-                                        echo '<img class="discount_badge" src="/img/20percent.png">';
-                                        break;
-                                    case 40:
-                                        echo '<img class="discount_badge" src="/img/40percent_black.png">';
-                                        break;
+                        <?if (($arResult["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
+                            && $arResult['PROPERTIES']['spec_price']['VALUE'] ) {
+                            switch ($arResult['PROPERTIES']['spec_price']['VALUE']) {
+                                case 10: 
+                                    echo '<img class="discount_badge" src="/img/10percent.png">';
+                                    break;
+                                case 15:
+                                    echo '<img class="discount_badge" src="/img/15percent.png">';
+                                    break;
+                                case 20:
+                                    echo '<img class="discount_badge" src="/img/20percent.png">';
+                                    break;
+                                case 40:
+                                    echo '<img class="discount_badge" src="/img/40percent_black.png">';
+                                    break;
 
-                                } 
+                            } 
                         }?>
                     </div>
 
@@ -116,16 +114,16 @@ $arItemIDs = array(
                         <?
                             $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "pdf_newlist"));
                             $moreFotoCount = $arProps->SelectedRowsCount();
-                            while($ob = $arProps->GetNext()){
+                            while($ob = $arProps->GetNext()) {
                                 $arImagePath = CFile::GetPath($ob['VALUE']);
                                 if(!$firstPicture){
                                     $firstPicture = $arImagePath;
-                            }?>
+                                }?>
                             <a class="grouped_elements" rel="group1" href="<?=$arImagePath?>"><img src="<?=$arImagePath?>"></a>
                             <?}      
                         ?> 
                     </div>  
-                    <?if (($moreFotoCount > 0) && ($firstPicture != '')){?>
+                    <?if (($moreFotoCount > 0) && ($firstPicture != '')) {?>
                     <a href="<?=$firstPicture?>" class="fancybox fancybox.iframe">
                         <div class="overlay">
                             <p>Полистать книгу</p>
@@ -137,55 +135,46 @@ $arItemIDs = array(
                     <?$pict = CFile::ResizeImageGet($arResult["DETAIL_PICTURE"]["ID"], array('width'=>264, 'height'=>394), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
                     <div class="element_item_img">
                         <?
-                            if ($pict["src"])
-                            {
+                            if ($pict["src"]) {
                             ?>
-                            <img src="<?=$pict["src"]?>" itemprop="image" alt="<?=$arResult["NAME"]?>" title="<?=$arResult["NAME"]?>" />
+                                <img src="<?=$pict["src"]?>" itemprop="image" alt="<?=$arResult["NAME"]?>" title="<?=$arResult["NAME"]?>" />
                             <?
-                            }
-                            else
-                            {
+                            } else {
                             ?>
-                            <img src="/images/no_photo.png">
+                                <img src="/images/no_photo.png">
                             <?
                             }
                         ?>
-                        <?if(!empty($arResult["PROPERTIES"]["number_volumes"]["VALUE"])){?>
-                        <span class="volumes"><?=$arResult["PROPERTIES"]["number_volumes"]["VALUE"]?></span>
+                        <?if(!empty($arResult["PROPERTIES"]["number_volumes"]["VALUE"])) {?>
+                            <span class="volumes"><?=$arResult["PROPERTIES"]["number_volumes"]["VALUE"]?></span>
                         <?}?>
                     </div>    
                 </div>
                 <div class="marks">
-                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]==21)
-                        {?>
+                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]==21) {?>
                         <div class="newBookMark">
                             <p>новинка</p>
                         </div>
-                        <?}?>
-                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"]==285)
-                        {?>   
+                    <?}?>
+                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"]==285) {?>   
                         <div class="bestBookMark">
                             <p>бестселлер</p>
                         </div>
-                        <?}?>    
+                    <?}?>    
                 </div>
                 <?
                     $curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
                     $user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
                     $wishlist_item = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user, "PROPERTY_PRODUCTS" => $arResult["ID"]), false, false, array("ID", "PROPERTY_PRODUCTS")) -> Fetch();
 
-                    if ($USER -> IsAuthorized())
-                    {
-                        if ($wishlist_item)
-                        {
+                    if ($USER -> IsAuthorized()) {
+                        if ($wishlist_item) {
                         ?>
-                        <a href="javascript:void(0)" title="Список желаний находится в корзине."><p class="AlreadyInWishlist">В списке желаний</p></a>
+                            <a href="javascript:void(0)" title="Список желаний находится в корзине."><p class="AlreadyInWishlist">В списке желаний</p></a>
                         <?
-                        }
-                        else
-                        {
+                        } else {
                         ?>
-                        <a href="javascript:void(0)"><p class="buyLater">Куплю позже</p></a>
+                            <a href="javascript:void(0)"><p class="buyLater">Куплю позже</p></a>
                         <?
                         }
                     }
@@ -221,8 +210,7 @@ $arItemIDs = array(
                     <p class="text" itemprop="isbn"><?=$arResult["PROPERTIES"]["ISBN"]["VALUE"]?></p>    
                 </div>
                 <?
-                if ($arResult["PROPERTIES"]["SERIES"]["VALUE"])
-                {
+                if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {
                     $curr_series = CIBlockElement::GetByID($arResult["PROPERTIES"]["SERIES"]["VALUE"]) -> Fetch();
                     ?>
                     <div class="characteris">
@@ -239,7 +227,7 @@ $arItemIDs = array(
                     <p class="text"><?=$arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
 					<?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == 168) {?>
 						<link itemprop="bookFormat" href="http://schema.org/Paperback">
-					<?}elseif ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == 169){?>
+					<?} elseif ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == 169) {?>
 						<link itemprop="bookFormat" href="http://schema.org/Hardcover">
 					<?}?>					
                 </div>
@@ -247,7 +235,7 @@ $arItemIDs = array(
                     <p class="title">Количество страниц</p>
                     <p class="text"><span itemprop="numberOfPages"><?=$arResult["PROPERTIES"]["PAGES"]["VALUE"]?></span> стр.</p>    
                 </div>
-                <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != ""){?>
+                <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
                     <div class="characteris">
                         <p class="title"><?=$arResult["PROPERTIES"]["YEAR"]["NAME"]?></p>
                         <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.</p>    
@@ -267,8 +255,7 @@ $arItemIDs = array(
                 <?
                     if ($arResult["CATALOG_WEIGHT"]) {
                         $weight = $arResult["CATALOG_WEIGHT"];
-                    }
-                    else if ($arResult["PROPERTIES"]["LATEST_WEIGHT"]["VALUE"]) {
+                    } else if ($arResult["PROPERTIES"]["LATEST_WEIGHT"]["VALUE"]) {
                         $weight = $arResult["PROPERTIES"]["LATEST_WEIGHT"]["VALUE"];
                     }
                     if ($weight) {
@@ -308,10 +295,8 @@ $arItemIDs = array(
                             false,
                             array("ID","PRICE","NAME","QUANTITY","DISCOUNT_PRICE","ORDER_PAYED")
                         );
-                        while ($arItems = $dbBasketItems->Fetch())
-                        {
-                            if (strlen($arItems["CALLBACK_FUNC"]) > 0)
-                            {
+                        while ($arItems = $dbBasketItems->Fetch()) {
+                            if (strlen($arItems["CALLBACK_FUNC"]) > 0) {
                                 CSaleBasket::UpdatePrice($arItems["ID"], 
                                     $arItems["CALLBACK_FUNC"], 
                                     $arItems["MODULE"], 
@@ -319,7 +304,7 @@ $arItemIDs = array(
                                     $arItems["QUANTITY"]);
                                 $arItems = CSaleBasket::GetByID($arItems["ID"]);
                             }
-                            if($arItems["QUANTITY"] > 1){
+                            if($arItems["QUANTITY"] > 1) {
                                 $arItems["PRICE"]*=$arItems["QUANTITY"];
                             } 
                             $arBasketItems["sum_pruce"] += $arItems["PRICE"];
@@ -327,116 +312,107 @@ $arItemIDs = array(
                         }
                         $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
                         $ar_sale = array();
-                        while($ar_sale=$rr->Fetch()){
+                        while($ar_sale=$rr->Fetch()) {
                             $ar_sale_1[] = $ar_sale;
                         }
                         $SavingsDiscount =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
-                        
-                        if($USER->IsAuthorized()){// blackfriday черная пятница
-                            if($SavingsDiscount[0]["SUMM"] < $ar_sale_1[0]["RANGE_FROM"]){ 
+
+                        if($USER->IsAuthorized()) {// blackfriday черная пятница
+                            if($SavingsDiscount[0]["SUMM"] < $ar_sale_1[0]["RANGE_FROM"]) { 
                                 $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[0]["RANGE_FROM"] - $SavingsDiscount[0]["SUMM"])." руб. до получения скидки в ".$ar_sale_1[0]["VALUE"]."%</span>";
-                            }elseif($SavingsDiscount[0]["SUMM"] < $ar_sale_1[1]["RANGE_FROM"]){ 
+                            } elseif ($SavingsDiscount[0]["SUMM"] < $ar_sale_1[1]["RANGE_FROM"]) { 
                                 $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[1]["RANGE_FROM"] - $SavingsDiscount[0]["SUMM"])." руб. до получения скидки в ".$ar_sale_1[1]["VALUE"]."%</span>";
                                 $discount = $ar_sale_1[0]["VALUE"]; // процент накопительной скидки
-                            }else{
+                            } else {
                                 $discount = $ar_sale_1[1]["VALUE"];  // процент накопительной скидки
                             } 
-                        }else{ 
-                            if($arBasketItems["sum_pruce"] < $ar_sale_1[0]["RANGE_FROM"]){ 
+                        } else { 
+                            if($arBasketItems["sum_pruce"] < $ar_sale_1[0]["RANGE_FROM"]) { 
                                 $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[0]["RANGE_FROM"] - $arBasketItems["sum_pruce"])." руб. до получения скидки в ".$ar_sale_1[0]["VALUE"]."%</span>";                            
-                            }elseif($arBasketItems["sum_pruce"] < $ar_sale_1[1]["RANGE_FROM"]){ 
+                            } elseif ($arBasketItems["sum_pruce"] < $ar_sale_1[1]["RANGE_FROM"]) { 
                                 $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[1]["RANGE_FROM"] - $arBasketItems["sum_pruce"])." руб. до получения скидки в ".$ar_sale_1[1]["VALUE"]."%</span>"; 
                                 $discount = $ar_sale_1[0]["VALUE"];  // процент накопительной скидки
-                            }else{
+                            } else {
                                 $discount = $ar_sale_1[1]["VALUE"];  // процент накопительной скидки
                             }   
                         }
-                       /* if ($Buyer = $BuyerList->Fetch())
+                        /* if ($Buyer = $BuyerList->Fetch())
                         {  
-                            $SavingsDiscountSumm = $Buyer["UF_SAVING_SUMM"];
-                            $SavingsEnd = COption::GetOptionString("individ", "savings_discount_end", 9999);
-                            
-                            $printDiscountText = "<span>Вам не хватает ".(3000 - intval($SavingsDiscountSumm))." руб. до получения скидки в 10% </span>";
-                            
-                            if ($SavingsDiscountSumm > intval($SavingsEnd)) {
-                                $SavingsDiscount = intval(COption::GetOptionString("individ", "savings_discount_out_interval_percent", 20));
-                                $printDiscountText = '';
-                            } else {
-                                $SavingsBegin = COption::GetOptionString("individ", "savings_discount_begin", 3000);
-                                if ($SavingsDiscountSumm >= intval($SavingsBegin)) {
-                                    $SavingsDiscount = intval(COption::GetOptionString("individ", "savings_discount_in_interval_percent", 10));
-                                    $printDiscountText = "<span>Вам не хватает ".(10000 - intval($SavingsDiscountSumm))." руб. до получения скидки в 10% </span>";                                }
-                            }
+                        $SavingsDiscountSumm = $Buyer["UF_SAVING_SUMM"];
+                        $SavingsEnd = COption::GetOptionString("individ", "savings_discount_end", 9999);
+
+                        $printDiscountText = "<span>Вам не хватает ".(3000 - intval($SavingsDiscountSumm))." руб. до получения скидки в 10% </span>";
+
+                        if ($SavingsDiscountSumm > intval($SavingsEnd)) {
+                        $SavingsDiscount = intval(COption::GetOptionString("individ", "savings_discount_out_interval_percent", 20));
+                        $printDiscountText = '';
+                        } else {
+                        $SavingsBegin = COption::GetOptionString("individ", "savings_discount_begin", 3000);
+                        if ($SavingsDiscountSumm >= intval($SavingsBegin)) {
+                        $SavingsDiscount = intval(COption::GetOptionString("individ", "savings_discount_in_interval_percent", 10));
+                        $printDiscountText = "<span>Вам не хватает ".(10000 - intval($SavingsDiscountSumm))." руб. до получения скидки в 10% </span>";                                }
+                        }
                         }*/
-                        ?>
+                    ?>
                      <div class="wrap_prise_top">
                     <?
-                        if (!empty($arResult["PRICES"]))
-                        {   
-                            if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23))
-                            {
-                                foreach ($arResult["PRICES"] as $code => $arPrice)
-                                { 
-                                   ?>
-                                   <link itemprop="availability" href="http://schema.org/InStock">
-                                    <? if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]){
-                                          $discount = false;
-                                       };   
-                                    if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {
+                        if (!empty($arResult["PRICES"])) {   
+                                if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) 
+                                    && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)) {
+                                    foreach ($arResult["PRICES"] as $code => $arPrice) { 
                                     ?>
+                                    <link itemprop="availability" href="http://schema.org/InStock">
+                                    <? if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]) {
+                                            $discount = false;
+                                        };   
+                                        if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {
+                                        ?>
                                         <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>  
                                         <?// расчитываем накопительную скидку от стоимости
-                                        $newPrice = round(($arPrice["DISCOUNT_VALUE"]), 2);
-                                        if (strlen(stristr($newPrice, ".")) == 2) {
-                                            $newPrice .= "0";
+                                            $newPrice = round(($arPrice["DISCOUNT_VALUE"]), 2);
+                                            if (strlen(stristr($newPrice, ".")) == 2) {
+                                                $newPrice .= "0";
                                         }?>
                                         <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
-                                    <?
-                                    } else if ($discount) {
-                                        $newPrice = round(($arPrice["VALUE"])*(1 - $discount/100), 2);
-                                        if (strlen(stristr($newPrice, ".")) == 2) {
-                                            $newPrice .= "0";
-                                        }  
-                                    ?>  
+                                        <?
+                                        } else if ($discount) {
+                                            $newPrice = round(($arPrice["VALUE"])*(1 - $discount/100), 2);
+                                            if (strlen(stristr($newPrice, ".")) == 2) {
+                                                $newPrice .= "0";
+                                            }  
+                                        ?>  
                                         <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>  
                                         <?// расчитываем накопительную скидку от стоимости?>
                                         <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
-                                        
-                                    <?
-                                    } else {
-                                        $newPrice = round($arPrice["VALUE_VAT"], 2);
-                                        if (strlen(stristr($newPrice, ".")) == 2) {
-                                            $newPrice .= "0";
-                                        }
-                                    ?>
+
+                                        <?
+                                        } else {
+                                            $newPrice = round($arPrice["VALUE_VAT"], 2);
+                                            if (strlen(stristr($newPrice, ".")) == 2) {
+                                                $newPrice .= "0";
+                                            }
+                                        ?>
                                         <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
-                                    <?
-                                    }
+                                        <?
+                                        }
                                     ?>  
-                                    
+
                                     <?if ($printDiscountText != '') {
                                         echo $printDiscountText; // цена до скидки
                                     }?>   
-                                <?}
-                            } 
-                            else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == 22)
-                            {?>
+                                    <?}
+                            } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == 22) {?>
 								<link itemprop="availability" href="http://schema.org/PreOrder">
                                 <p class="newPrice" style="font-size:20px;">Ожидаемая дата выхода: <?=strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
                             <?
-                            }
-                            else
-                            {?>
+                            } else {?>
 								<link itemprop="availability" href="http://schema.org/OutOfStock">
-                                <?foreach ($arResult["PRICES"] as $code => $arPrice)
-                                {  
-                                    if ($arPrice["DISCOUNT_DIFF"])
-                                    {?>
+                                <?foreach ($arResult["PRICES"] as $code => $arPrice) {  
+                                    if ($arPrice["DISCOUNT_DIFF"]) {?>
                                     <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>
                                     <?}?>
                                     <?
-                                    if ($arPrice["DISCOUNT_VALUE_VAT"])
-                                    {
+                                    if ($arPrice["DISCOUNT_VALUE_VAT"]) {
                                         $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
                                         if (strlen(stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
@@ -444,9 +420,7 @@ $arItemIDs = array(
                                     ?>    
                                         <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
                                     <?
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         $newPrice = round(($arPrice["ORIG_VALUE_VAT"]), 2);
                                         if (strlen(stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
@@ -462,8 +436,8 @@ $arItemIDs = array(
                             }
                             ?> 
                             <?
-                            if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 22) || (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23))
-                            {
+                            if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 22) 
+                                || (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23)) {
                             ?>
                                 <form>
 
@@ -483,9 +457,7 @@ $arItemIDs = array(
                                 </form>      
                             <?
                             }
-                        }
-                        else
-                        {
+                        } else {
                             ?>
                             <p class="newPrice" style="font-size:28px;">Нет в наличии</p>
                             <form>
@@ -509,10 +481,9 @@ $arItemIDs = array(
                     </div>
                     <?/*<p class="text">Вам не хватает 770 руб. до получения скидки в 10%</p>*/?>
                     
-                    <?if (!empty($arResult["PRICES"]))
-                        {?>  
-                            <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23))
-                            {?>
+                    <?if (!empty($arResult["PRICES"])) {?>  
+                            <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) 
+                                && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)) {?>
                             <div class="wrap_prise_bottom"> 
                                 <?$dbBasketItems = CSaleBasket::GetList(array(), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "PRODUCT_ID" => $arResult["ID"]), false, false, array("ID", "CALLBACK_FUNC", "MODULE", "PRODUCT_ID", "QUANTITY", "PRODUCT_PROVIDER_CLASS"))->Fetch(); ?>
                                 <span class="item_buttons_counter_block">
@@ -524,12 +495,9 @@ $arItemIDs = array(
                                         ); ?>">
                                     <a href="javascript:void(0)" class="plus" id="<? echo $arResult['QUANTITY_UP']; ?>">+</a>
                                 </span>
-                                <?if ($dbBasketItems["QUANTITY"] == 0) 
-                                {?>
+                                <?if ($dbBasketItems["QUANTITY"] == 0) {?>
                                 <a href="#<?//echo $arResult["ADD_URL"]?>" onclick="addtocart(<?=$arResult["ID"];?>, '<?=$arResult["NAME"];?>'); addToCartTracking(<?=$arResult["ID"];?>, '<?=$arResult["NAME"];?>', '<?=$arResult["PRICES"]["BASE"]["VALUE"]?>', '<?=$arResult['SECTION']['NAME'];?>', '1');return false;"><p class="inBasket">В корзину</p></a>
-                                <?}
-                                else
-                                {?>
+                                <?} else {?>
                                 <a href="/personal/cart/"><p class="inBasket" style="background-color: #A9A9A9;">В корзине</p></a>
                                 <?}?>
                                 <a href="javascript:void(0);"><p class="buyOneClick">Купить в 1 клик</p></a>
@@ -601,8 +569,7 @@ $arItemIDs = array(
                     </div>
                 </div>
                 <?
-                    if ($arResult["PROPERTIES"]["author_book"]["VALUE"] == "Y")
-                    {    
+                    if ($arResult["PROPERTIES"]["author_book"]["VALUE"] == "Y") {    
                     ?>
                     <div class="productAction">
                         <img src="/img/actionPicture.png">
@@ -639,11 +606,9 @@ $arItemIDs = array(
                         <span class="countOfRev"><?//=$reviews_count." ".format_by_count($reviews_count, 'отзыв', 'отзыва', 'отзывов');?></span>
                     </p>
                     <?  $authors = "";
-                        foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val)
-                        {
+                        foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
                             $author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
-                            while ($author_fetched_list = $author_list -> Fetch())
-                            {
+                            while ($author_fetched_list = $author_list -> Fetch()) {
                                 $authors .= $author_fetched_list["NAME"].", ";
                             }
                             
@@ -652,33 +617,31 @@ $arItemIDs = array(
                    
                     <p class="productAutor">
                         <?
-                            echo substr ($authors, 0, -2);
+                        echo substr ($authors, 0, -2);
                         ?>
                     </p>
                      <?#Спонсоры книги?>
                      <div class="sponsors">
-                  <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val)
-                        {    
-                            $author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
-                            while ($author_fetched_list = $author_list -> Fetch())
-                            { ?> 
-                            <?if($author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"]){
-                                $image = $author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
-                            }elseif($author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]){
-                                $image = $author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
-                            }elseif($author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]){
-                                $image = $author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
-                            };
-                           
-                            $picture = CFile::GetPath($image)?>
-                                
-                                    <span class="kartochkaknigi5"><?=$author_fetched_list["PREVIEW_TEXT"]?> </span>
-                                    <a href="http://<?=$author_fetched_list["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
-                                
-                               <? $authors .= $author_fetched_list["NAME"].", ";
-                            }
-                            
-                        }
+                          <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {    
+                                    $author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
+                                    while ($author_fetched_list = $author_list -> Fetch()) { ?> 
+                                    <?if($author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
+                                        $image = $author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
+                                    } elseif($author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
+                                        $image = $author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
+                                    } elseif($author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
+                                        $image = $author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
+                                    };
+                                   
+                                    $picture = CFile::GetPath($image)?>
+                                        
+                                            <span class="kartochkaknigi5"><?=$author_fetched_list["PREVIEW_TEXT"]?> </span>
+                                            <a href="http://<?=$author_fetched_list["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
+                                        
+                                       <? $authors .= $author_fetched_list["NAME"].", ";
+                                    }
+                                    
+                          }
                     
                     ##Спонсоры книги?>
                     </div>
@@ -914,11 +877,11 @@ $arItemIDs = array(
                       
                     <?      
                         $videosCount  = 0;
-                        foreach($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube){
+                        foreach($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
                             $videosCount++;
                         } 
-                        if($arResult['PROPERTIES']['video_about']['~VALUE'] != ""){?>
-                        <p class="productSelectTitle">Видео-презентации книги <?if($videosCount > 1){?><span><a href="#">Смотреть все</a></span><span class="count">(<?=$videosCount?>)</span><?}?></p>   
+                        if($arResult['PROPERTIES']['video_about']['~VALUE'] != "") {?>
+                        <p class="productSelectTitle">Видео-презентации книги <?if($videosCount > 1) {?><span><a href="#">Смотреть все</a></span><span class="count">(<?=$videosCount?>)</span><?}?></p>   
                         <?}?>
 
                     <div class="videoWrapp">
@@ -930,8 +893,7 @@ $arItemIDs = array(
                     </div>
 
                     
-                    <?if (!empty($arResult['TAGS'])) 
-                        {
+                    <?if (!empty($arResult['TAGS'])) {
                             echo "<p class='productSelectTitle'>Ключевые понятия</p>";
                             echo "<ul class='keyWords' itemprop='keywords'>";
                             $res = CIBlockElement::GetList(Array(), Array("ACTIVE"=>"Y","ID"=>$arResult['ID']), false, false, Array("TAGS"));
@@ -956,17 +918,15 @@ $arItemIDs = array(
                     <?*/?>
                 </div>
                 <??>
-                <?if ($reviewsCount > 0){?>
+                <?if ($reviewsCount > 0) {?>
                     <div class="recenzion" id="prodBlock2">  
                         <?
 
-                            while ($recenz_fetch = $recenz -> Fetch())
-                            {//arshow($recenz_fetch);?>
+                            while ($recenz_fetch = $recenz -> Fetch()) {?>
                             <span class="recenz_author_name"><?=$recenz_fetch["NAME"]?></span>
                             <div class="recenz_text">
                                 <?=$recenz_fetch["PREVIEW_TEXT"]?>
-                                <? if ($recenz_fetch["PREVIEW_TEXT"] == "")
-                                {
+                                <? if ($recenz_fetch["PREVIEW_TEXT"] == "") {
                                     echo $recenz_fetch["DETAIL_TEXT"];    
                                 }
                                 ?>
@@ -976,7 +936,7 @@ $arItemIDs = array(
                             <?}
                         ?> 
                     </div>
-                    <?}?>
+                <?}?>
                 <div class="review" id="prodBlock3">
                     <div class="ReviewsFormWrap">
                         <?/*?>
@@ -1065,19 +1025,16 @@ $arItemIDs = array(
                             $el->Add($arFields);    
                             }    
                             }*/
-                            $APPLICATION-> IncludeComponent("cackle.reviews", ".default", array( "CHANNEL_ID" => $arResult["ID"] ), false);?>
+                        $APPLICATION-> IncludeComponent("cackle.reviews", ".default", array( "CHANNEL_ID" => $arResult["ID"] ), false);?>
                     </div>
                 </div>
                 <div class="aboutAutor" id="prodBlock4">
                    
                         <?
-                        foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val)
-                        {
-                            if ($val)
-                            {
+                        foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
+                            if ($val) {
                                 $curr_author = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val, false, false, array("ID", "NAME", "PREVIEW_TEXT", "DETAIL_PICTURE")));
-                                while ($author = $curr_author -> Fetch())
-                                {
+                                while ($author = $curr_author -> Fetch()) {
                                 ?>
 								<div class="author_info">
                                 <span class="author_name"><?=$author["NAME"]?></span>
@@ -1252,7 +1209,7 @@ $printid = implode(", ", $printid2);
 window.criteo_q = window.criteo_q || [];
 window.criteo_q.push(
 	{ event: "setAccount", account: 18519 },
-	<?if($USER->IsAuthorized()){?>  
+	<?if($USER->IsAuthorized()) {?>  
 		{ event: "setEmail", email: "<?=$USER->GetEmail()?>" },
 	<?}?>
 		{ event: "setSiteType", type: "d" },
@@ -1563,12 +1520,11 @@ window.criteo_q.push(
 </div>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         
         $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
         $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
-        if ($(".element_item_img img").height() < 394)
-        {
+        if ($(".element_item_img img").height() < 394) {
             $(".element_item_img").height($(".element_item_img img").height());    
         }
         $("a#inline1").fancybox({
@@ -1579,13 +1535,13 @@ window.criteo_q.push(
         });
         if ($(".grouped_elements").length > 0) {
         
-        $("a.grouped_elements").fancybox({
-            'transitionIn'    :    'elastic',
-            'transitionOut'    :    'elastic',
-            'speedIn'        :    600, 
-            'speedOut'        :    200, 
-            'overlayShow'    :    false
-        });
+            $("a.grouped_elements").fancybox({
+                'transitionIn'    :    'elastic',
+                'transitionOut'    :    'elastic',
+                'speedIn'        :    600, 
+                'speedOut'        :    200, 
+                'overlayShow'    :    false
+            });
         
         }
         $('.iframe').fancybox();
@@ -1594,8 +1550,7 @@ window.criteo_q.push(
             'height'   :   800
         });
 
-        if (window.innerWidth <= 1680)
-        {
+        if (window.innerWidth <= 1680) {
             $(".catalogIcon").hide();
             $(".basketIcon").hide();    
         }
