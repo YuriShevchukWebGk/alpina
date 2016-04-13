@@ -588,15 +588,15 @@ if ($arResult['MODULES']['currency'])
 	}
 }   
     // LATEST SEEN ###############
-    $LATEST_SEEN = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));   
-    $LATEST_SEEN  = (!$LATEST_SEEN ? array() : $LATEST_SEEN);
+    $latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));   
+    $latestSeen  = (!$latestSeen ? array() : $latestSeen);
     // Remove 
-    unset($LATEST_SEEN[$arResult['ID']]);
-    $LATEST_SEEN[$arResult['ID']] = time();
-    if (count($LATEST_SEEN) > 40) {
-         array_shift($LATEST_SEEN);
+    unset($latestSeen[$arResult['ID']]);
+    $latestSeen[$arResult['ID']] = time();
+    if (count($latestSeen) > 40) {
+         array_shift($latestSeen);
     }
-    $APPLICATION->set_cookie("LASTEST_SEEN", serialize($LATEST_SEEN));
+    $APPLICATION->set_cookie("LASTEST_SEEN", serialize($latestSeen));
 	
 	// SET TITLE
 	$authorname = '';

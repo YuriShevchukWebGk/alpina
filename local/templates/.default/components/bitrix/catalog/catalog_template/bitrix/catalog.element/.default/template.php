@@ -607,9 +607,9 @@ $arItemIDs = array(
                     </p>
                     <?  $authors = "";
                         foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
-                            $author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
-                            while ($author_fetched_list = $author_list -> Fetch()) {
-                                $authors .= $author_fetched_list["NAME"].", ";
+                            $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
+                            while ($authorFetchedList = $authorList -> Fetch()) {
+                                $authors .= $authorFetchedList["NAME"].", ";
                             }
                             
                         }
@@ -623,20 +623,20 @@ $arItemIDs = array(
                      <?#Спонсоры книги?>
                      <div class="sponsors">
                           <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {    
-                                    $author_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
-                                    while ($author_fetched_list = $author_list -> Fetch()) { ?> 
-                                    <?if($author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
-                                        $image = $author_fetched_list["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
-                                    } elseif($author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
-                                        $image = $author_fetched_list["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
-                                    } elseif($author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
-                                        $image = $author_fetched_list["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
+                                    $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
+                                    while ($authorFetchedList = $authorList -> Fetch()) { ?> 
+                                    <?if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
+                                        $image = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
+                                    } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
+                                        $image = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
+                                    } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
+                                        $image = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
                                     };
                                    
                                     $picture = CFile::GetPath($image)?>
                                         
-                                            <span class="kartochkaknigi5"><?=$author_fetched_list["PREVIEW_TEXT"]?> </span>
-                                            <a href="http://<?=$author_fetched_list["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
+                                            <span class="kartochkaknigi5"><?=$authorFetchedList["PREVIEW_TEXT"]?> </span>
+                                            <a href="http://<?=$authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
                                         
                                        <? $authors .= $author_fetched_list["NAME"].", ";
                                     }
@@ -728,8 +728,8 @@ $arItemIDs = array(
                     <li class="active" data-id="1">Аннотация</li>
                     <li data-id="4">Об авторе</li>
                     <?
-                        $recenz = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 24, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_AUTHOR", "NAME", "PROPERTY_BOOK", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_SOURCE_LINK"));
-                        $reviewsCount = $recenz->SelectedRowsCount();
+                        $review = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 24, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_AUTHOR", "NAME", "PROPERTY_BOOK", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_SOURCE_LINK"));
+                        $reviewsCount = $review->SelectedRowsCount();
                         if ($reviewsCount > 0) {
                         ?>
                         <li data-id="2">Рецензии</li>
@@ -740,8 +740,8 @@ $arItemIDs = array(
                     <div class="showAllWrapp">
                     
                      <?
-                    global $ReviewsFilter;
-                    $ReviewsFilter = array ("PROPERTY_BOOK" => $arResult["ID"]);
+                    global $reviewsFilter;
+                    $reviewsFilter = array ("PROPERTY_BOOK" => $arResult["ID"]);
 
                     $APPLICATION->IncludeComponent(
                         "bitrix:catalog.section", 
@@ -762,7 +762,7 @@ $arItemIDs = array(
                             "ELEMENT_SORT_ORDER" => "desc",
                             "ELEMENT_SORT_FIELD2" => "id",
                             "ELEMENT_SORT_ORDER2" => "asc",
-                            "FILTER_NAME" => "ReviewsFilter",
+                            "FILTER_NAME" => "reviewsFilter",
                             "INCLUDE_SUBSECTIONS" => "Y",
                             "SHOW_ALL_WO_SECTION" => "Y",
                             "HIDE_NOT_AVAILABLE" => "N",
@@ -922,15 +922,15 @@ $arItemIDs = array(
                     <div class="recenzion" id="prodBlock2">  
                         <?
 
-                            while ($recenz_fetch = $recenz -> Fetch()) {?>
-                            <span class="recenz_author_name"><?=$recenz_fetch["NAME"]?></span>
+                            while ($reviewList = $review -> Fetch()) {?>
+                            <span class="recenz_author_name"><?=$reviewList["NAME"]?></span>
                             <div class="recenz_text">
-                                <?=$recenz_fetch["PREVIEW_TEXT"]?>
-                                <? if ($recenz_fetch["PREVIEW_TEXT"] == "") {
-                                    echo $recenz_fetch["DETAIL_TEXT"];    
+                                <?=$reviewList["PREVIEW_TEXT"]?>
+                                <? if ($reviewList["PREVIEW_TEXT"] == "") {
+                                    echo $reviewList["DETAIL_TEXT"];    
                                 }
                                 ?>
-                                <noindex><a href="<?=$recenz_fetch["PROPERTY_SOURCE_LINK_VALUE"]?>" rel="nofollow"><?=$recenz_fetch["PROPERTY_SOURCE_LINK_VALUE"]?></a></noindex>
+                                <noindex><a href="<?=$reviewList["PROPERTY_SOURCE_LINK_VALUE"]?>" rel="nofollow"><?=$reviewList["PROPERTY_SOURCE_LINK_VALUE"]?></a></noindex>
                             </div>
                            
                             <?}
@@ -1033,8 +1033,8 @@ $arItemIDs = array(
                         <?
                         foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
                             if ($val) {
-                                $curr_author = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val, false, false, array("ID", "NAME", "PREVIEW_TEXT", "DETAIL_PICTURE")));
-                                while ($author = $curr_author -> Fetch()) {
+                                $currAuthor = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val, false, false, array("ID", "NAME", "PREVIEW_TEXT", "DETAIL_PICTURE")));
+                                while ($author = $currAuthor -> Fetch()) {
                                 ?>
 								<div class="author_info">
                                 <span class="author_name"><?=$author["NAME"]?></span>
@@ -1054,9 +1054,9 @@ $arItemIDs = array(
 </div>
 
 
-<? global $auth_books_Filter;
+<? global $authBooksFilter;
 	if (!empty($arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0])) {
-		$auth_books_Filter = array('PROPERTY_AUTHORS' => $arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0], "!ID" => $arResult["ID"]);
+		$authBooksFilter = array('PROPERTY_AUTHORS' => $arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0], "!ID" => $arResult["ID"]);
 
 		$APPLICATION->IncludeComponent(
 			"bitrix:catalog.section", 
@@ -1077,7 +1077,7 @@ $arItemIDs = array(
 				"ELEMENT_SORT_ORDER" => "desc",
 				"ELEMENT_SORT_FIELD2" => "id",
 				"ELEMENT_SORT_ORDER2" => "desc",
-				"FILTER_NAME" => "auth_books_Filter",
+				"FILTER_NAME" => "authBooksFilter",
 				"INCLUDE_SUBSECTIONS" => "Y",
 				"SHOW_ALL_WO_SECTION" => "Y",
 				"HIDE_NOT_AVAILABLE" => "N",
@@ -1186,14 +1186,14 @@ $arItemIDs = array(
 	}?>
 
 <? /* Получаем от RetailRocket рекомендации для товара */
-global $RecommFilter;
+global $recommFilter;
 $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
 $recsArray = json_decode($stringRecs);  
 
 if ($recsArray[0] > 0) {
 	$printid2 = array_slice($recsArray,1,6);
-	foreach ($printid2 as $rec_book) {
-		$RecommFilter['ID'][] = $rec_book;
+	foreach ($printid2 as $recBook) {
+		$recommFilter['ID'][] = $recBook;
 	}
 }
 $printid = implode(", ", $printid2);
@@ -1217,7 +1217,7 @@ window.criteo_q.push(
 );
 </script>
 
-<?if ($RecommFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем и отправляем статистику в RR?>
+<?if ($recommFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем и отправляем статистику в RR?>
 	<script>
 		function rrAsyncInit() {
 			try {rrApi.recomTrack('UpSellItemToItems', <?=$arResult["ID"]?>, [<?=$printid?>]);} catch(e) {}
@@ -1247,7 +1247,7 @@ window.criteo_q.push(
 						"ELEMENT_SORT_ORDER" => "desc",
 						"ELEMENT_SORT_FIELD2" => "id",
 						"ELEMENT_SORT_ORDER2" => "desc",
-						"FILTER_NAME" => "RecommFilter",
+						"FILTER_NAME" => "recommFilter",
 						"INCLUDE_SUBSECTIONS" => "Y",
 						"SHOW_ALL_WO_SECTION" => "Y",
 						"HIDE_NOT_AVAILABLE" => "N",
@@ -1381,13 +1381,13 @@ window.criteo_q.push(
         <p class="sliderName youViewedTitle">Вы уже смотрели</p>
 
         <? global $arFilter;
-            $LATEST_SEEN = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));
-            if ($LATEST_SEEN) {
+            $latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));
+            if ($latestSeen) {
                 $arFilter = array('ID' => array());
-                $LATEST_SEEN = array_slice(array_reverse(array_keys($LATEST_SEEN)), 0, 4);
+                $latestSeen = array_slice(array_reverse(array_keys($latestSeen)), 0, 4);
 
-                foreach ($LATEST_SEEN as $BOOK_ID) {
-                    $arFilter['ID'][] = intval($BOOK_ID);
+                foreach ($latestSeen as $bookID) {
+                    $arFilter['ID'][] = intval($bookID);
                 }
                 //arshow($arFilter);
             }          
