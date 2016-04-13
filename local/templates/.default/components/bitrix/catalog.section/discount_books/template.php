@@ -25,6 +25,29 @@ $this->setFrameMode(true);
                     ?>
                     <li>
                         <div class="bookWrapp">
+                            <div class="sect_badge">
+                                <? if (/*($SavingsDiscount > 0) && */($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
+                                        && $arItem['PROPERTIES']['spec_price']['VALUE'] ) {
+                                        switch ($arItem['PROPERTIES']['spec_price']['VALUE']) {
+                                            case 10:
+                                                echo '<img class="discount_badge" src="/img/10percent.png">';
+                                                break;
+                                            case 15:
+                                                echo '<img class="discount_badge" src="/img/15percent.png">';
+                                                break;
+                                            case 20:
+                                                echo '<img class="discount_badge" src="/img/20percent.png">';
+                                                break;
+                                            case 30:
+                                                echo '<img class="discount_badge" src="/img/30percent.png">';
+                                                break;
+                                            case 40:
+                                                echo '<img class="discount_badge" src="/img/40percent_black.png">';
+                                                break;
+
+                                        } 
+                                }?>
+                            </div>
                             <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
                                 <div class="section_item_img">
                                     <?if($pict["src"] != ''){?>
