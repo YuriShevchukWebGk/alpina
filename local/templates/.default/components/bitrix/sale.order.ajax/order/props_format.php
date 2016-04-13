@@ -58,7 +58,7 @@
             {
             ?>
 
-            <?   
+            <?
                 foreach ($arSource as $arProperties)
                 {
                     if ($arProperties["TYPE"] != "LOCATION") {
@@ -71,7 +71,7 @@
 
 
                 ?>
-                <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>">    
+                <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>">
 
                     <?//РїРѕРєР°Р·С‹РІР°РµРј РЅР°Р·РІР°РЅРёРµ РїРѕР»СЏ РґР»СЏ РІСЃРµС… РєСЂРѕРјРµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёСЏ
                         if ($arProperties["TYPE"] != "LOCATION") {?>
@@ -88,7 +88,8 @@
                         if ($arProperties["TYPE"] == "CHECKBOX")
                         {
                         ?>
-                        <div class="bx_block r1x3 pt8">
+
+                        <div class="bx_block r1x3 pt8" <?if($arProperties["ID"] == 62 || $arProperties["ID"] == 63){?> style="display:none;"<?}?>>
                             <input type="hidden" name="<?=$arProperties["FIELD_NAME"]?>" value="">
                             <input type="checkbox" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" value="Y"<?if ($arProperties["CHECKED"]=="Y") echo " checked";?>>
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
@@ -99,14 +100,14 @@
                         }
                         elseif ($arProperties["TYPE"] == "TEXT")
                         {
-                            if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {   
+                            if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
 
                             ?>
                             <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
                             <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
                                 <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
                             <?endif?>
-                            
+
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                                 <?endif?>
@@ -119,7 +120,7 @@
                             </div>
                             <div class="certInput">
                                 <input type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$_SESSION["CUSTOM_COUPON"]["COUPON_CODE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>">
-                            </div>   
+                            </div>
                             <? } else { ?>
                             <div class="certInput">
                                 <?=$arProperties["NAME"]?>
@@ -138,8 +139,8 @@
                         <div class="bx_block r3x1">
                             <select name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" size="<?=$arProperties["SIZE1"]?>">
                                 <?
-                                if ($arProperties["ID"] == 29 && empty($arProperties["DEFAULT_VALUE"])) 
-                                { //метро для физлиц 
+                                if ($arProperties["ID"] == 29 && empty($arProperties["DEFAULT_VALUE"]))
+                                { //метро для физлиц
                                 ?>
                                     <option value="" selected="selected">Выберите станцию метро</option>
                                 <?
@@ -184,20 +185,20 @@
                         <?
                         }
                         elseif ($arProperties["TYPE"] == "LOCATION")
-                        { 
+                        {
                         ?>
-                        <?  
+                        <?
                             $value = 0;
                             if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0)
                             {
                                 foreach ($arProperties["VARIANTS"] as $arVariant)
-                                {   
+                                {
                                     if ($arVariant["SELECTED"] == "Y")
-                                    { 
+                                    {
                                         $value = $arVariant["ID"];
                                         break;
                                     }
-                                    
+
                                 }
                                 if ($value == "")
                                 {
@@ -350,7 +351,7 @@
                         ))?>);
 
                     </script>
-                    <?endif?>                        
+                    <?endif?>
                 <?
                 }
             ?>
