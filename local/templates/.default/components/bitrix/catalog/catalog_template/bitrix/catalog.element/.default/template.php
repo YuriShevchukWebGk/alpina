@@ -195,11 +195,13 @@ $arItemIDs = array(
                 <?
                 if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
                 ?>
-                    <div class="authorSigning">
-                    </div>
-                    <div class="authorSigningText">
-                    с автографом автора
-                    </div>
+                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
+                        <div class="authorSigning">
+                        </div>
+                        <div class="authorSigningText">
+                        с автографом автора
+                        </div>
+                    </a>
                 <?
                 }
                 ?>
@@ -1568,9 +1570,8 @@ window.criteo_q.push(
 
             })    
         })
-        })
-
     })
+
 
     </script>
 
