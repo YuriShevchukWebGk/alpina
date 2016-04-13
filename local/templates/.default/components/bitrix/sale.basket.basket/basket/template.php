@@ -322,8 +322,28 @@
 					}
 				});
 
-			</script>			
+			</script>
+			
+			<script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
+			<script type="text/javascript">
+				window.criteo_q = window.criteo_q || [];
+				window.criteo_q.push(
+				{ event: "setAccount", account: 18519 },
 
+				{ event: "setSiteType", type: "d" },
+				<?if($USER->IsAuthorized()){?>   
+					{ event: "setEmail", email: "<?=$USER->GetEmail()?>" },
+				<?} else {?>				
+					{ event: "setEmail", email: "" },
+				<?}?>
+				{ event: "viewBasket", item: [
+					<?foreach($_SESSION['itemsForCriteo'] as $criteoItem){?>
+						{
+							<?=$criteoItem?>
+						},
+					<?}?>					
+				]});
+			</script>
             <?
             }
             else
