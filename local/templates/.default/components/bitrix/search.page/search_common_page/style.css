@@ -15,9 +15,12 @@ div.search-page-params {
     padding-bottom: 20px;
     padding-top: 20px; 
 }
-.AuthorsWrapp, .BooksWrapp {
+.AuthorsWrapp, .BooksWrapp, .SeriesWrapp {
     background-color: #F4F4F4;
 }
+.SeriesWrapp .description a {
+    color: #627478 !important;
+} 
 .catalogIcon {
     z-index: 990;
     left: 200px !important;

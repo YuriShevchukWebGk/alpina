@@ -1123,14 +1123,11 @@ function updateSearchPage() {
 
     $('.showMore').hide();
 
-    $(".bookName").each(function()
-        {
-            if($(this).length > 0)
-            {
-                $(this).html(truncate($(this).html(), 20));    
-            }    
-        }
-    );
+    $(".bookName").each(function() {
+        if($(this).length > 0) {
+            $(this).html(truncate($(this).html(), 20));    
+        }    
+    });
 
     /*$(".descrWrap .bookNames").each(function()
     {
@@ -1139,14 +1136,12 @@ function updateSearchPage() {
     $(this).html(truncate($(this).html(), 50));    
     }    
     });*/
-    $(".descrWrap .description").each(function()
-        {
-            if($(this).length > 0)
-            {
+    $(".descrWrap .description").each(function() {
+            if($(this).length > 0) {
                 $(this).html(truncate($(this).html(), 130));    
             }    
     });
-    if($('.bookEasySlider').length > 0){
+    if($('.bookEasySlider').length > 0) {
         easySlider('.bookEasySlider', 6);
     }
 }
