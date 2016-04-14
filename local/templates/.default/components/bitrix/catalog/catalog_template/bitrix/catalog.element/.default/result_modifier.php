@@ -638,4 +638,5 @@ if ($arResult['MODULES']['currency'])
 		$APPLICATION->SetTitle($arResult["NAME"].' '.$authorname.' / ISBN '.$arResult['PROPERTIES']["ISBN"]["VALUE"].' купить в интернет-магазине с доставкой');
 	else
 		$APPLICATION->SetTitle($arResult["NAME"].' '.$authorname.' купить в интернет-магазине с доставкой');	
+	$APPLICATION->SetPageProperty("description", $arResult["PREVIEW_TEXT"]); 
 ?>
