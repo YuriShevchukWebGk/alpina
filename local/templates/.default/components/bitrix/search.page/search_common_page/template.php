@@ -196,7 +196,7 @@
                     <?foreach($arResult["SEARCH"] as $arItem) {
                         if ($arItem["PARAM2"] == 29) {?>
                             <?
-                            $currAuth = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE")) -> Fetch();
+                            $currAuth = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE", "PROPERTY_AUTHOR_DESCRIPTION")) -> Fetch();
                             $pict = CFile::ResizeImageGet($currAuth["DETAIL_PICTURE"], array('width'=>165, "height"=>233), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                             ?>
                             <div class="searchBook">
@@ -221,7 +221,7 @@
                                         <p class="bookNames" title="<?=$arItem["TITLE"]?>"><?=$arItem["TITLE"]?></p>
                                        
                                         
-                                        <div class="description"><?=$currAuth["PREVIEW_TEXT"]?></div>
+                                        <div class="description"><?=$currAuth["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]?></div>
                                     </a>
                                 </div>
                             </div>

@@ -22,7 +22,7 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Online Library", 
+		"Online<br />библиотека", 
 		"http://www.alpinab2b.ru/Alpina-Digital/", 
 		Array(), 
 		Array(), 

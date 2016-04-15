@@ -177,7 +177,7 @@ $arItemIDs = array(
                         <?
                         } else {
                         ?>
-                            <a href="javascript:void(0)"><p class="buyLater">Куплю позже</p></a>
+                            <a href="javascript:void(0);dataLayer.push({event: 'addToWishList'});"><p class="buyLater">Куплю позже</p></a>
                         <?
                         }
                     }
@@ -392,13 +392,16 @@ $arItemIDs = array(
                     ?>
                      <div class="wrap_prise_top">
                     <?
+						$StockInfo = "";
                         if (!empty($arResult["PRICES"])) {   
                                 if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) 
                                     && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)) {
                                     foreach ($arResult["PRICES"] as $code => $arPrice) { 
                                     ?>
                                     <link itemprop="availability" href="http://schema.org/InStock">
-                                    <? if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]) {
+									
+                                    <?	$StockInfo = "InStock";
+										if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]) {
                                             $discount = false;
                                         };   
                                         if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {
@@ -439,10 +442,13 @@ $arItemIDs = array(
                                     <?}
                             } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == 22) {?>
 								<link itemprop="availability" href="http://schema.org/PreOrder">
+								<?$StockInfo = "SoonStock";?>
                                 <p class="newPrice" style="font-size:20px;">Ожидаемая дата выхода: <?=strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
+								
                             <?
                             } else {?>
 								<link itemprop="availability" href="http://schema.org/OutOfStock">
+								<?$StockInfo = "OutOfStock";?>
                                 <?foreach ($arResult["PRICES"] as $code => $arPrice) {  
                                     if ($arPrice["DISCOUNT_DIFF"]) {?>
                                     <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>
@@ -1534,6 +1540,11 @@ window.criteo_q.push(
 
 <script>
     $(document).ready(function() {
+		<!-- dataLayer GTM -->
+		dataLayer.push({
+			'stockInfo' : '<?=$StockInfo?>'
+		});
+		<!-- // dataLayer GTM -->		
         
         $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
         $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
