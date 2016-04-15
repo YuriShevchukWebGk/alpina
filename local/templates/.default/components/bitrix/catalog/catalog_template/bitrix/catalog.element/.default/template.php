@@ -279,6 +279,37 @@ $arItemIDs = array(
                     */?>
                     <?require('include/socialbuttons.php');?>
                 </div>
+				 <?#Спонсоры книги?>
+				 <!-- noindex -->
+				 <div class="sponsors">
+					  <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {
+								$authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
+								while ($authorFetchedList = $authorList -> Fetch()) { ?> 
+								<?if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
+									$image = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
+								} elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
+									$image = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
+								} elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
+									$image = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
+								};
+							   
+								$picture = CFile::GetPath($image)?>
+									
+										<span style="color:#627478"><?=$authorFetchedList["PREVIEW_TEXT"]?> </span><br />
+										<?if (!empty($picture)) {?>
+											<a href="http://<?=$authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?=$picture?>"> </a>
+										<?} else {?>
+											<?=$authorFetchedList["NAME"]?>
+										<?}?>
+									
+								   <? $authors .= $author_fetched_list["NAME"].", ";
+								}
+								
+					  }
+				
+				##Спонсоры книги?>
+				</div>
+				<!-- /noindex -->
             </div>
             <div class="rightColumn">
                 <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -626,31 +657,7 @@ $arItemIDs = array(
                         echo substr ($authors, 0, -2);
                         ?>
                     </p>
-                     <?#Спонсоры книги?>
-                     <div class="sponsors">
-                          <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {    
-                                    $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
-                                    while ($authorFetchedList = $authorList -> Fetch()) { ?> 
-                                    <?if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
-                                        $image = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
-                                    } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
-                                        $image = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
-                                    } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
-                                        $image = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
-                                    };
-                                   
-                                    $picture = CFile::GetPath($image)?>
-                                        
-                                            <span class="kartochkaknigi5"><?=$authorFetchedList["PREVIEW_TEXT"]?> </span>
-                                            <a href="http://<?=$authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
-                                        
-                                       <? $authors .= $author_fetched_list["NAME"].", ";
-                                    }
-                                    
-                          }
-                    
-                    ##Спонсоры книги?>
-                    </div>
+
                 </div>
 
                 <?/* Пока закрыли другие варианты книги. Думаем, как сделать блок понятным для посетителей
