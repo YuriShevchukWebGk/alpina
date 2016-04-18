@@ -177,7 +177,7 @@ $arItemIDs = array(
                         <?
                         } else {
                         ?>
-                            <a href="javascript:void(0);dataLayer.push({event: 'addToWishList'});"><p class="buyLater">Куплю позже</p></a>
+                            <a href="javascript:void(0);dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist'); return true;"><p class="buyLater">Куплю позже</p></a>
                         <?
                         }
                     }
@@ -1542,7 +1542,10 @@ window.criteo_q.push(
     $(document).ready(function() {
 		<!-- dataLayer GTM -->
 		dataLayer.push({
-			'stockInfo' : '<?=$StockInfo?>'
+			'stockInfo' : '<?=$StockInfo?>',
+			'productId' : '<?=$arResult["ID"]?>',
+			'productName' : '<?=$arResult["NAME"]?>',
+			'productPrice' : '<?=round(($arPrice["DISCOUNT_VALUE_VAT"]), 2)?>'
 		});
 		<!-- // dataLayer GTM -->		
         
