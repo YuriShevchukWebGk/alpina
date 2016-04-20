@@ -32,6 +32,7 @@ $this->setFrameMode(true);
                                 <img src="<?=$pict["src"]?>" class="bookImg" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>" />
                             </div>
                             <p class="bookName"><?=$arItem["NAME"]?></p>
+                            <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                             <?
                                 if ($arPrice["DISCOUNT_VALUE_VAT"])
                                 {

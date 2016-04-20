@@ -33,6 +33,8 @@
 
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
+    
+    include ('include/functions.php');
 ?>
 
 <script>  
