@@ -69,9 +69,9 @@ $arItemIDs = array(
 
     <div class="centerWrapper"> 
 
-        <div class="catalogIcon">
+        <div class="catalogIcon" onmouseover="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'openSmallCatalog'});">
         </div>
-        <div class="basketIcon">
+        <div class="basketIcon" onmouseover="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'openSmallCart'});">
         </div>
 
         <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "catalog_crumb", Array(
@@ -177,7 +177,7 @@ $arItemIDs = array(
                         <?
                         } else {
                         ?>
-                            <a href="javascript:void(0);dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist'); return true;"><p class="buyLater">Куплю позже</p></a>
+                            <a href="javascript:void(0); return true;" onclick="dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');"><p class="buyLater">Куплю позже</p></a>
                         <?
                         }
                     }
@@ -243,7 +243,7 @@ $arItemIDs = array(
                 <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
                     <div class="characteris">
                         <p class="title"><?=$arResult["PROPERTIES"]["YEAR"]["NAME"]?></p>
-                        <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.</p>    
+                        <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.<?echo !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />'.$arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?></p>    
                     </div>   
                 <?}?>
                      
@@ -1545,7 +1545,8 @@ window.criteo_q.push(
 			'stockInfo' : '<?=$StockInfo?>',
 			'productId' : '<?=$arResult["ID"]?>',
 			'productName' : '<?=$arResult["NAME"]?>',
-			'productPrice' : '<?=round(($arPrice["DISCOUNT_VALUE_VAT"]), 2)?>'
+			'productPrice' : '<?=round(($arPrice["DISCOUNT_VALUE_VAT"]), 2)?>',
+			'videoPresence' : '<?echo $videosCount > 0 ? 'WithVideo' : 'WithoutVideo';?>'
 		});
 		<!-- // dataLayer GTM -->		
         

@@ -1,6 +1,13 @@
 <?
 $aMenuLinks = Array(
 	Array(
+		"Блог", 
+		"http://blog.alpinabook.ru/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"Мероприятия", 
 		"/events/", 
 		Array(), 
