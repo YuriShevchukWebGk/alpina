@@ -246,7 +246,11 @@ $arItemIDs = array(
                         <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.<?echo !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />'.$arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?></p>    
                     </div>   
                 <?}?>
-                     
+                    <div class="characteris">
+                        <a href="http://readright.ru/?=alpinabook">
+                            <span class="text">Как прочитать эту книгу за час?</span>
+                        </a>
+                    </div>    
                      
                 
                 <div class="characteris">
