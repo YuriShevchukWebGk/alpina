@@ -1,5 +1,5 @@
 <? 
-function metro_cmp($a, $b) {
+function metroCmp($a, $b) {
     if ($a["NAME"] == $b["NAME"]) {
         return 0;
     }

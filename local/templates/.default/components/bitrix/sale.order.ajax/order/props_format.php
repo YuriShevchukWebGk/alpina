@@ -122,7 +122,7 @@
                             </div>
                             <?}
                         } elseif ($arProperties["TYPE"] == "SELECT"){
-                            uasort($arProperties["VARIANTS"], 'metro_cmp');?>
+                            uasort($arProperties["VARIANTS"], 'metroCmp');?>
                         <div class="bx_block r3x1">
                             <select name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" size="<?=$arProperties["SIZE1"]?>">
                                 <?
