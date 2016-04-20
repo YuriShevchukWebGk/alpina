@@ -1403,8 +1403,7 @@ window.criteo_q.push(
             $latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));
             if ($latestSeen) {
                 $arFilter = array('ID' => array());
-                $latestSeen = array_slice(array_reverse(array_keys($latestSeen)), 0, 4);
-
+                $latestSeen = array_slice(array_reverse(array_keys($latestSeen)), 0, 6);
                 foreach ($latestSeen as $bookID) {
                     $arFilter['ID'][] = intval($bookID);
                 }
