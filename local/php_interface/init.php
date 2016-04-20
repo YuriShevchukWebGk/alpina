@@ -88,7 +88,7 @@
             CSaleOrder::StatusOrder($ID, $val);
         }
     }
-    
+
     //Create gift coupon after buy certificate
     AddEventHandler("sale", "OnSalePayOrder", "SendCouponAfterPay");
 
@@ -692,7 +692,7 @@
         return $f5;
     }
 
-        //----- Fix for flippost cost
+    //----- Fix for flippost cost
     AddEventHandler("sale", "OnOrderNewSendEmail", "customizeNewOrderMail");
 
     function customizeNewOrderMail($orderID, &$eventName, &$arFields){
@@ -807,8 +807,8 @@
             }
         }
     }
-    
-    
+
+
     function getOrderItemsForMail($orderID){
         $bookDescString = "";
         $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $orderID));
@@ -833,8 +833,8 @@
         }
         return $bookDescString;
     }
-    
-    
+
+
     function getOrderPaySystemName($psi){
         $psn = "";    
         $psArr = CSalePaySystem::GetByID($psi);
@@ -842,7 +842,7 @@
         return $psn;
     }
 
-    
+
     function getDeliveryAddress($deliveryServ,$orderId){
         $address = "";
         switch($deliveryServ){
@@ -871,7 +871,7 @@
         }
         return $address;
     }
-    
+
     function getDiffToNextDiscountSave($ui,$np){
         $diff = 0.0;
         // --- сумма всех оплаченных заказов = сумме накопительной скидки
@@ -896,8 +896,8 @@
         return $diff;
 
     }
-    
-    
+
+
     AddEventHandler('sale', 'OnOrderStatusSendEmail', Array("mail_change", "change_data"));
 
 
@@ -916,9 +916,9 @@
 
         }
     }
-    
+
     AddEventHandler('main', 'OnBeforeEventSend', 'PayButtonForOnlinePayment');
-    
+
     function PayButtonForOnlinePayment (&$arFields, &$arTemplate)
     {
         if ($arTemplate["ID"] == 16)
@@ -927,8 +927,8 @@
             if ($order["PAY_SYSTEM_ID"] == 13)
             {
                 $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
-                                     <a href="http://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
-                               </div>';
+                <a href="http://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
+                </div>';
             }
             else
             {
@@ -937,9 +937,9 @@
             $arFields["PAYMENT_BUTTON"] = $pay_button;
         }   
     }
-    
+
     AddEventHandler('main', 'OnBeforeEventSend', "SubConfirmFunc");
-    
+
     function SubConfirmFunc (&$arFields, &$arTemplate)
     {
         if ($arTemplate["ID"] == 168)
@@ -953,33 +953,33 @@
                 $curr_sect = CIBlockSection::GetByID($NewItemsList["IBLOCK_SECTION_ID"]) -> Fetch();         
                 $NewItemsBlock .= '
                 <table align="left" border="0" cellpadding="8" cellspacing="0" class="tile" width="32%">
-                    <tbody>
-                         <tr>
-                            <td height="200" style="border-collapse: collapse;text-align:center;" valign="top" width="100%">
-                                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">
-                                    <img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 146px; height: 188px;" />
-                                </a>
-                            </td>
-                         </tr>
-                         <tr>
-                            <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;" valign="top" width="126">
-                                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Подробнее о книге</a>
-                            </td>   
-                         </tr>
-                         <tr>
-                            <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;padding-top:0;" valign="top" width="126">
-                                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Купить</a>
-                            </td>
-                         </tr>
-                    </tbody>
+                <tbody>
+                <tr>
+                <td height="200" style="border-collapse: collapse;text-align:center;" valign="top" width="100%">
+                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">
+                <img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 146px; height: 188px;" />
+                </a>
+                </td>
+                </tr>
+                <tr>
+                <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;" valign="top" width="126">
+                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Подробнее о книге</a>
+                </td>   
+                </tr>
+                <tr>
+                <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;padding-top:0;" valign="top" width="126">
+                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Купить</a>
+                </td>
+                </tr>
+                </tbody>
                 </table>';
                 $i++;    
             }
             $arFields["NEW_ITEMS_BLOCK"] = $NewItemsBlock;
         }        
     }
-    
-        //Получение этикетки для бланков заказов, сделанных через PickPoint
+
+    //Получение этикетки для бланков заказов, сделанных через PickPoint
     function MakeLabelPickPoint($orderId){
         //Авторизация на сервере PickPoint для получения ключа сессии (Необходим для дальнейшей работы с API)
         $dataLogin = array('Login' => alpina, 'Password' => 12588521);  //Необходимо указать доступы к API выданные клиенту
@@ -1023,7 +1023,18 @@
         $imagick->readImageBlob($json_response); 
         $imagick->cropImage(300, 200, 50, 0);
         $imagick->writeImages(getcwd().'/pickpoint_label/'.$orderId.'.jpg', false);
+    }    
+
+
+
+
+    AddEventHandler("main", "OnBeforeProlog", "checkUser");  
+    function checkUser()
+    {
+        global $USER, $APPLICATION;
+        if(!$USER->IsAdmin())
+            $APPLICATION->SetAdditionalCSS("/css/temp.css");  
     }
-    
+
 
 ?>
