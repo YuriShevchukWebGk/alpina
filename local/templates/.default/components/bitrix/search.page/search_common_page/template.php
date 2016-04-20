@@ -16,17 +16,17 @@
 
 </form>
 
-<?if(isset($arResult["REQUEST"]["ORIGINAL_QUERY"])):
+<?if (isset($arResult["REQUEST"]["ORIGINAL_QUERY"])) {
     ?>
     <div class="search-language-guess">
         <?echo GetMessage("CT_BSP_KEYBOARD_WARNING", array("#query#"=>'<a href="'.$arResult["ORIGINAL_QUERY_URL"].'">'.$arResult["REQUEST"]["ORIGINAL_QUERY"].'</a>'))?>
     </div><?
-endif;?>
+}?>
 
-<?if($arResult["REQUEST"]["QUERY"] === false && $arResult["REQUEST"]["TAGS"] === false):?>
-<?elseif($arResult["ERROR_CODE"]!=0):/*?>
+<?if($arResult["REQUEST"]["QUERY"] === false && $arResult["REQUEST"]["TAGS"] === false) {?>
+<?} else if ($arResult["ERROR_CODE"] != 0) {
     
-<?*/elseif(count($arResult["SEARCH"])>0):?>
+} else if (count($arResult["SEARCH"]) > 0) {?>
     <?//if($arParams["DISPLAY_TOP_PAGER"] != "N") echo $arResult["NAV_STRING"]
     ?>
     <div class="pageTitleWrap">
@@ -36,9 +36,9 @@ endif;?>
             <div class="basketIcon searchBasketModified">
             </div>
             <p class="title">Результаты поиска
-                <?if(is_object($arResult["NAV_RESULT"])):?>
+                <?if(is_object($arResult["NAV_RESULT"])) {?>
                     <span>по запросу "<?=$_REQUEST["q"]?>" (<?echo $arResult["NAV_RESULT"]->SelectedRowsCount()." результатов"?>)</span>
-                    <?endif;?>
+                <?}?>
             </p>    
         </div>
     </div>
@@ -193,25 +193,21 @@ endif;?>
             <p class="title"><?=GetMessage("AUTHORS_TITLE")?></p>
             <div class="searchBooksWrap">
                 <div class="searchWidthWrapper">
-                    <?foreach($arResult["SEARCH"] as $arItem):
-                        if ($arItem["PARAM2"] == 29):?>
+                    <?foreach($arResult["SEARCH"] as $arItem) {
+                        if ($arItem["PARAM2"] == 29) {?>
                             <?
-                            $curr_auth = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE")) -> Fetch();
-                            $pict = CFile::ResizeImageGet($curr_auth["DETAIL_PICTURE"], array('width'=>165, "height"=>233), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                            $currAuth = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE", "PROPERTY_AUTHOR_DESCRIPTION")) -> Fetch();
+                            $pict = CFile::ResizeImageGet($currAuth["DETAIL_PICTURE"], array('width'=>165, "height"=>233), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                             ?>
                             <div class="searchBook">
                                 <div>
                                     <a href="<?echo $arItem["URL"]?>"><?//echo $arItem["TITLE_FORMATED"]?>
                                         <div class="search_item_img">
                                         <?
-                                            if ($pict["src"])
-                                            {
+                                            if ($pict["src"]) {
                                             ?>
                                             <img src="<?=$pict["src"]?>">
-                                            <?
-                                            }
-                                            else
-                                            {
+                                            <?} else {
                                             ?>
                                             <img src="/images/no_photo.png" width="155">    
                                             <?
@@ -225,7 +221,7 @@ endif;?>
                                         <p class="bookNames" title="<?=$arItem["TITLE"]?>"><?=$arItem["TITLE"]?></p>
                                        
                                         
-                                        <div class="description"><?=$curr_auth["PREVIEW_TEXT"]?></div>
+                                        <div class="description"><?=$currAuth["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]?></div>
                                     </a>
                                 </div>
                             </div>
@@ -256,14 +252,14 @@ endif;?>
                                         </div>
                         <?endif;*/?>
                                
-                    <?endif;/*?>
+                    <?}/*?>
                 
                 <small><?=GetMessage("SEARCH_MODIFIED")?> <?=$arItem["DATE_CHANGE"]?></small><br /><?
                 if($arItem["CHAIN_PATH"]):?>
                     <small><?=GetMessage("SEARCH_PATH")?>&nbsp;<?=$arItem["CHAIN_PATH"]?></small><?
                 endif;
                     */?>
-                <?endforeach;?>
+                <?}?>
             </div>
         </div>
     </div>
@@ -271,26 +267,23 @@ endif;?>
          <p class="title"><?=GetMessage("BOOKS_TITLE")?></p>
             <div class="searchBooksWrap">
                 <div class="searchWidthWrapper">
-                    <?foreach($arResult["SEARCH"] as $arItem):
-                            if ($arItem["PARAM2"] == 4):?>
+                    <?foreach($arResult["SEARCH"] as $arItem) {
+                            if ($arItem["PARAM2"] == 4) {?>
                                 <?
                                 $dbBasketItems = CSaleBasket::GetList(array(), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "PRODUCT_ID" => $arItem["ITEM_ID"]), false, false, array("ID", "CALLBACK_FUNC", "MODULE", "PRODUCT_ID", "QUANTITY", "PRODUCT_PROVIDER_CLASS"))->Fetch();
-                                $curr_book = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE", "PROPERTY_SOON_DATE_TIME", "PROPERTY_AUTHORS", "CATALOG_GROUP_1")) -> Fetch();
-                                $pict = CFile::ResizeImageGet($curr_book["DETAIL_PICTURE"], array('width'=>165, "height"=>233), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                                $currBook = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE", "PROPERTY_SOON_DATE_TIME", "PROPERTY_AUTHORS", "CATALOG_GROUP_1", "PROPERTY_COVER_TYPE")) -> Fetch();
+                                $pict = CFile::ResizeImageGet($currBook["DETAIL_PICTURE"], array('width'=>165, "height"=>233), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                                 ?>
                                 <div class="searchBook">
                                     <div>
                                          <a href="<?echo $arItem["URL"]?>"><?//echo $arItem["TITLE_FORMATED"]?>
                                              <div class="search_item_img">
                                                 <?
-                                                    if ($pict["src"])
-                                                    {
+                                                    if ($pict["src"]) {
                                                     ?>
                                                     <img src="<?=$pict["src"]?>">
                                                     <?
-                                                    }
-                                                    else
-                                                    {
+                                                    } else {
                                                     ?>
                                                     <img src="/images/no_photo.png" width="155">    
                                                     <?
@@ -303,38 +296,29 @@ endif;?>
                                         <a href="<?=$arItem["URL"]?>">
                                             <p class="bookNames" title="<?=$arItem["TITLE"]?>"><?=$arItem["TITLE"]?></p>
                                             <p class="autorName"><?//=$item["PROPERTY_AUTHORS_VALUE"]?></p>
-                                            <p class="wrapperType"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                                            <?if (($curr_book["PROPERTY_STATE_ENUM_ID"] != 22) && ($curr_book["PROPERTY_STATE_ENUM_ID"] != 23))
-                                                {
+                                            <p class="wrapperType"><?=$currBook["PROPERTY_COVER_TYPE_VALUE"]?></p>
+                                            <?if (($currBook["PROPERTY_STATE_ENUM_ID"] != 22) && ($currBook["PROPERTY_STATE_ENUM_ID"] != 23)) {
                                                 ?>
-                                                <p class="price"><?=ceil($curr_book["CATALOG_PRICE_1"])?> руб.</p>
+                                                <p class="price"><?=ceil($currBook["CATALOG_PRICE_1"])?> руб.</p>
                                                 <?
-                                                }
-                                                else if ($curr_book["PROPERTY_STATE_ENUM_ID"] == 22)
-                                                {?>
-                                                <p class="price">Ожидаемая дата выхода: <?=strtolower(FormatDate("j F", MakeTimeStamp($curr_book["PROPERTY_SOON_DATE_TIME_VALUE"], "DD.MM.YYYY HH:MI:SS")));?></p>    
+                                                } else if ($currBook["PROPERTY_STATE_ENUM_ID"] == 22) {?>
+                                                <p class="price">Ожидаемая дата выхода: <?=strtolower(FormatDate("j F", MakeTimeStamp($currBook["PROPERTY_SOON_DATE_TIME_VALUE"], "DD.MM.YYYY HH:MI:SS")));?></p>    
                                                 <?
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                 ?>
-                                                <p class="price"><?=$curr_book["PROPERTY_STATE_VALUE"]?></p>    
+                                                <p class="price"><?=$currBook["PROPERTY_STATE_VALUE"]?></p>    
                                                 <?
                                                 }
                                             ?>
-                                            <div class="description"><?=$curr_book["PREVIEW_TEXT"]?></div>
+                                            <div class="description"><?=$currBook["PREVIEW_TEXT"]?></div>
                                             <?
-                                                if (($curr_book["PROPERTY_STATE_ENUM_ID"] != 22) && ($curr_book["PROPERTY_STATE_ENUM_ID"] != 23))
-                                                {
-                                                    if ($dbBasketItems["QUANTITY"] == 0)
-                                                    {?>
+                                                if (($currBook["PROPERTY_STATE_ENUM_ID"] != 22) && ($currBook["PROPERTY_STATE_ENUM_ID"] != 23)) {
+                                                    if ($dbBasketItems["QUANTITY"] == 0) {?>
                                                     <a class="product<?=$arItem["ID"];?>" href="<?='/search/index.php?action=ADD2BASKET&id='.$arItem["ITEM_ID"]?>" 
                                                         onclick="addtocart(<?=$arItem["ITEM_ID"];?>, '<?=$arItem["TITLE"];?>');return false;">
                                                         <p class="basket">В корзину</p>
                                                     </a>
-                                                    <?}
-                                                    else
-                                                    {?>
+                                                    <?} else {?>
                                                     <a class="product<?=$arItem["ITEM_ID"];?>" href="/personal/cart/">
                                                         <p class="inBasket" style="background-color: #A9A9A9;color: white;">Оформить</p>
                                                     </a>
@@ -344,8 +328,8 @@ endif;?>
                                         </a>
                                     </div>
                                 </div>
-                            <?endif;?>
-                    <?endforeach;?>
+                            <?}?>
+                    <?}?>
                 </div>
             </div>
     </div>
@@ -353,10 +337,10 @@ endif;?>
             <p class="title"><?=GetMessage("SERIES_TITLE")?></p>
             <div class="searchBooksWrap">
                 <div class="searchWidthWrapper">
-                    <?foreach($arResult["SEARCH"] as $arItem):
-                        if ($arItem["PARAM2"] == 45):?>
+                    <?foreach($arResult["SEARCH"] as $arItem) {
+                        if ($arItem["PARAM2"] == 45) {?>
                             <?
-                            $curr_serie = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "PREVIEW_TEXT")) -> Fetch();
+                            $currSerie = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "PREVIEW_TEXT")) -> Fetch();
                             //$pict = CFile::ResizeImageGet($curr_auth["DETAIL_PICTURE"], array('width'=>165, "height"=>233), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                             ?>
                             <div class="searchBook">
@@ -372,7 +356,7 @@ endif;?>
                                         <p class="bookNames" title="<?=$arItem["TITLE"]?>"><?=$arItem["TITLE"]?></p>
                                        
                                         
-                                        <div class="description"><?=$curr_serie["PREVIEW_TEXT"]?></div>
+                                        <div class="description"><?=$currSerie["PREVIEW_TEXT"]?></div>
                                     </a>
                                 </div>
                             </div>
@@ -403,14 +387,14 @@ endif;?>
                                         </div>
                         <?endif;*/?>
                                
-                    <?endif;/*?>
+                    <?}/*?>
                 
                 <small><?=GetMessage("SEARCH_MODIFIED")?> <?=$arItem["DATE_CHANGE"]?></small><br /><?
                 if($arItem["CHAIN_PATH"]):?>
                     <small><?=GetMessage("SEARCH_PATH")?>&nbsp;<?=$arItem["CHAIN_PATH"]?></small><?
                 endif;
                     */?>
-                <?endforeach;?>
+                <?}?>
             </div>
         </div>
     </div>
@@ -423,7 +407,7 @@ endif;?>
         <b><?=GetMessage("SEARCH_SORTED_BY_RANK")?></b>&nbsp;|&nbsp;<a href="<?=$arResult["URL"]?>&amp;how=d<?echo $arResult["REQUEST"]["FROM"]? '&amp;from='.$arResult["REQUEST"]["FROM"]: ''?><?echo $arResult["REQUEST"]["TO"]? '&amp;to='.$arResult["REQUEST"]["TO"]: ''?>"><?=GetMessage("SEARCH_SORT_BY_DATE")?></a>
     <?endif;*/?>
     </p>
-<?else:?>
+<?} else {?>
     <?//ShowNote(GetMessage("SEARCH_NOTHING_TO_FOUND"));?>
     <div class="catalogIcon tempclass1">
     </div>
@@ -563,7 +547,7 @@ endif;?>
                 );?>
         </div>
     </div>
-<?endif;?>
+<?}?>
 </div>
 
 <script>
@@ -606,7 +590,7 @@ $(document).ready(function(){
     <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
             var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
-        <?}else{?>
+        <?} else {?>
             var page = 2;
         <?}?>
         var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
@@ -617,21 +601,16 @@ $(document).ready(function(){
                     $('.searchWidthWrapper').append(next_page);
                     page++;            
                 })
-                .done(function() 
-                {
+                .done(function() {
                     $.fancybox.hideLoading();
-                    $(".descrWrap .bookNames").each(function()
-                    {
-                        if($(this).length > 0)
-                        {
+                    $(".descrWrap .bookNames").each(function() {
+                        if($(this).length > 0) {
                             $(this).html(truncate($(this).html(), 25));    
                         }    
                     });
                     
-                    $(".description").each(function()
-                        {
-                        if($(this).length > 0)
-                        {
+                    $(".description").each(function() {
+                        if($(this).length > 0) {
                         $(this).html(truncate($(this).html(), 81));    
                         }    
                     });
@@ -644,23 +623,19 @@ $(document).ready(function(){
                 return false;
             });
             
-            if ($(".searchWidthWrapper .searchBook").size() < 9)
-            {
+            if ($(".searchWidthWrapper .searchBook").size() < 9) {
                 $('.showMore').hide();    
             }
-            if($('.bookEasySlider').length > 0){
+            if($('.bookEasySlider').length > 0) {
                 easySlider('.bookEasySlider', 6);
             }
-            if ($(".AuthorsWrapp .searchWidthWrapper .searchBook").size() == 0)
-            {
+            if ($(".AuthorsWrapp .searchWidthWrapper .searchBook").size() == 0) {
                 $(".AuthorsWrapp .title").hide();
             }
-            if ($(".BooksWrapp .searchWidthWrapper .searchBook").size() == 0)
-            {
+            if ($(".BooksWrapp .searchWidthWrapper .searchBook").size() == 0) {
                 $(".BooksWrapp .title").hide();
             }
-            if ($(".SeriesWrapp .searchWidthWrapper .searchBook").size() == 0)
-            {
+            if ($(".SeriesWrapp .searchWidthWrapper .searchBook").size() == 0) {
                 $(".SeriesWrapp .title").hide();
             }   
 });

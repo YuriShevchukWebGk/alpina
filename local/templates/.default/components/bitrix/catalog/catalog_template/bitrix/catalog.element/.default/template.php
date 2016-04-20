@@ -177,7 +177,7 @@ $arItemIDs = array(
                         <?
                         } else {
                         ?>
-                            <a href="javascript:void(0)"><p class="buyLater">Куплю позже</p></a>
+                            <a href="javascript:void(0);dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist'); return true;"><p class="buyLater">Куплю позже</p></a>
                         <?
                         }
                     }
@@ -279,6 +279,37 @@ $arItemIDs = array(
                     */?>
                     <?require('include/socialbuttons.php');?>
                 </div>
+				 <?#Спонсоры книги?>
+				 <!-- noindex -->
+				 <div class="sponsors">
+					  <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {
+								$authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
+								while ($authorFetchedList = $authorList -> Fetch()) { ?> 
+								<?if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
+									$image = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
+								} elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
+									$image = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
+								} elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
+									$image = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
+								};
+							   
+								$picture = CFile::GetPath($image)?>
+									
+										<span style="color:#627478"><?=$authorFetchedList["PREVIEW_TEXT"]?> </span><br />
+										<?if (!empty($picture)) {?>
+											<a href="http://<?=$authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?=$picture?>"> </a>
+										<?} else {?>
+											<?=$authorFetchedList["NAME"]?>
+										<?}?>
+									
+								   <? $authors .= $author_fetched_list["NAME"].", ";
+								}
+								
+					  }
+				
+				##Спонсоры книги?>
+				</div>
+				<!-- /noindex -->
             </div>
             <div class="rightColumn">
                 <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -361,13 +392,16 @@ $arItemIDs = array(
                     ?>
                      <div class="wrap_prise_top">
                     <?
+						$StockInfo = "";
                         if (!empty($arResult["PRICES"])) {   
                                 if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) 
                                     && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)) {
                                     foreach ($arResult["PRICES"] as $code => $arPrice) { 
                                     ?>
                                     <link itemprop="availability" href="http://schema.org/InStock">
-                                    <? if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]) {
+									
+                                    <?	$StockInfo = "InStock";
+										if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]) {
                                             $discount = false;
                                         };   
                                         if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {
@@ -408,10 +442,13 @@ $arItemIDs = array(
                                     <?}
                             } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == 22) {?>
 								<link itemprop="availability" href="http://schema.org/PreOrder">
+								<?$StockInfo = "SoonStock";?>
                                 <p class="newPrice" style="font-size:20px;">Ожидаемая дата выхода: <?=strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
+								
                             <?
                             } else {?>
 								<link itemprop="availability" href="http://schema.org/OutOfStock">
+								<?$StockInfo = "OutOfStock";?>
                                 <?foreach ($arResult["PRICES"] as $code => $arPrice) {  
                                     if ($arPrice["DISCOUNT_DIFF"]) {?>
                                     <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>
@@ -626,31 +663,7 @@ $arItemIDs = array(
                         echo substr ($authors, 0, -2);
                         ?>
                     </p>
-                     <?#Спонсоры книги?>
-                     <div class="sponsors">
-                          <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {    
-                                    $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
-                                    while ($authorFetchedList = $authorList -> Fetch()) { ?> 
-                                    <?if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
-                                        $image = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
-                                    } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
-                                        $image = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
-                                    } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
-                                        $image = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
-                                    };
-                                   
-                                    $picture = CFile::GetPath($image)?>
-                                        
-                                            <span class="kartochkaknigi5"><?=$authorFetchedList["PREVIEW_TEXT"]?> </span>
-                                            <a href="http://<?=$authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
-                                        
-                                       <? $authors .= $author_fetched_list["NAME"].", ";
-                                    }
-                                    
-                          }
-                    
-                    ##Спонсоры книги?>
-                    </div>
+
                 </div>
 
                 <?/* Пока закрыли другие варианты книги. Думаем, как сделать блок понятным для посетителей
@@ -1527,6 +1540,14 @@ window.criteo_q.push(
 
 <script>
     $(document).ready(function() {
+		<!-- dataLayer GTM -->
+		dataLayer.push({
+			'stockInfo' : '<?=$StockInfo?>',
+			'productId' : '<?=$arResult["ID"]?>',
+			'productName' : '<?=$arResult["NAME"]?>',
+			'productPrice' : '<?=round(($arPrice["DISCOUNT_VALUE_VAT"]), 2)?>'
+		});
+		<!-- // dataLayer GTM -->		
         
         $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
         $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
