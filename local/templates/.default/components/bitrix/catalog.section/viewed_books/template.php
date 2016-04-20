@@ -115,7 +115,7 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
                                             }
                                             else
                                             {?>
-                                                <p class="bookPrice"><?=$arItem["PROPERTIES"]["SOON_DATE_TIME"]["VALUE"]?></p>
+                                                <p class="bookPrice"><?=strtolower(FormatDate("j F Y", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
                                             <?}?>
                                         </a>
                                     </div>    
