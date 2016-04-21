@@ -42,7 +42,8 @@
 	<link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
-	<meta name="theme-color" content="#ffffff">	
+	<meta name="theme-color" content="#ffffff">
+    <meta property="og:image" content="http://alpinabook.ru/img/alpinaLogoMini.png" />	
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />     
 

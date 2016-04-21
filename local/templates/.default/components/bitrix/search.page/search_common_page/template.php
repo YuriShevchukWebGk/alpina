@@ -23,10 +23,7 @@
     </div><?
 }?>
 
-<?if($arResult["REQUEST"]["QUERY"] === false && $arResult["REQUEST"]["TAGS"] === false) {?>
-<?} else if ($arResult["ERROR_CODE"] != 0) {
-    
-} else if (count($arResult["SEARCH"]) > 0) {?>
+<?if (count($arResult["SEARCH"]) > 0) {?>
     <?//if($arParams["DISPLAY_TOP_PAGER"] != "N") echo $arResult["NAV_STRING"]
     ?>
     <div class="pageTitleWrap">
