@@ -198,11 +198,12 @@ $arItemIDs = array(
                             $moreFotoCount = $arProps->SelectedRowsCount();
                             while($ob = $arProps->GetNext()) {
                                 $arImagePath = CFile::GetPath($ob['VALUE']);
-                                if(!$secondPicture){
-                                    $secondPicture = $arImagePath;
+                                if(!$signPicture){
+                                    $signPicture = $arImagePath;
                                 }
+                                $arImageInfo = CFile::GetByID($ob["VALUE"]) -> Fetch();
                             }?>
-                    <a href="<?=$secondPicture?>" class="fancybox fancybox.iframe">
+                    <a href="<?=$signPicture?>" class="fancybox fancybox.iframe signingPopup">
                         <div class="authorSigning">
                         </div>
                     </a>
@@ -1406,7 +1407,7 @@ window.criteo_q.push(
                 Заявка на подписку принята, ждите информацию на почту
             </div>
             <p class="title">
-                Книга в подарок
+                Книга в подарок                             
             </p>
             <p>
                 Подпишись на рыссылку и получи книгу бесплатно
@@ -1592,6 +1593,15 @@ window.criteo_q.push(
             'width'   :   1140,
             'height'   :   800
         });
+        $(".leftColumn .signingPopup").fancybox({
+            <?if ($arImageInfo["WIDTH"]) {?>
+                'width'   :   <?=$arImageInfo["WIDTH"]?>,
+                'height'   :   <?=$arImageInfo["HEIGHT"]?>
+            <?} else {?>
+                'width'   :   1140,
+                'height'   :   800
+            <?}?>
+        }); 
 
         if (window.innerWidth <= 1680) {
             $(".catalogIcon").hide();
