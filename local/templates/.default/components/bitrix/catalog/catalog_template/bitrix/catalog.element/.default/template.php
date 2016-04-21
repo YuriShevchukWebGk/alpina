@@ -194,10 +194,19 @@ $arItemIDs = array(
 
                 <?
                 if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
-                ?>
-                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
+                    $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "SIGNING"));
+                            $moreFotoCount = $arProps->SelectedRowsCount();
+                            while($ob = $arProps->GetNext()) {
+                                $arImagePath = CFile::GetPath($ob['VALUE']);
+                                if(!$secondPicture){
+                                    $secondPicture = $arImagePath;
+                                }
+                            }?>
+                    <a href="<?=$secondPicture?>" class="fancybox fancybox.iframe">
                         <div class="authorSigning">
                         </div>
+                    </a>
+                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
                         <div class="authorSigningText">
                         с автографом автора
                         </div>
