@@ -268,7 +268,7 @@
                             if ($arItem["PARAM2"] == 4) {?>
                                 <?
                                 $dbBasketItems = CSaleBasket::GetList(array(), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "PRODUCT_ID" => $arItem["ITEM_ID"]), false, false, array("ID", "CALLBACK_FUNC", "MODULE", "PRODUCT_ID", "QUANTITY", "PRODUCT_PROVIDER_CLASS"))->Fetch();
-                                $currBook = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE", "PROPERTY_SOON_DATE_TIME", "PROPERTY_AUTHORS", "CATALOG_GROUP_1", "PROPERTY_COVER_TYPE")) -> Fetch();
+                                $currBook = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE", "PROPERTY_SOON_DATE_TIME", "PROPERTY_AUTHORS", "CATALOG_GROUP_1", "PROPERTY_COVER_TYPE", "IBLOCK_SECTION_ID")) -> Fetch();
                                 $pict = CFile::ResizeImageGet($currBook["DETAIL_PICTURE"], array('width'=>165, "height"=>233), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                                 ?>
                                 <div class="searchBook">
@@ -312,7 +312,7 @@
                                                 if (($currBook["PROPERTY_STATE_ENUM_ID"] != 22) && ($currBook["PROPERTY_STATE_ENUM_ID"] != 23)) {
                                                     if ($dbBasketItems["QUANTITY"] == 0) {?>
                                                     <a class="product<?=$arItem["ID"];?>" href="<?='/search/index.php?action=ADD2BASKET&id='.$arItem["ITEM_ID"]?>" 
-                                                        onclick="addtocart(<?=$arItem["ITEM_ID"];?>, '<?=$arItem["TITLE"];?>');return false;">
+                                                        onclick="addtocart(<?=$arItem["ITEM_ID"];?>, '<?=$arItem["TITLE"];?>');addToCartTracking(<?=$arItem["ITEM_ID"];?>, '<?=$arItem["TITLE"];?>', '<?=ceil($currBook["CATALOG_PRICE_1"])?>', '<?$sectionId = CIBlockSection::GetByID($currBook["IBLOCK_SECTION_ID"]);if ($sectionId = $sectionId->GetNext()) echo $sectionId['NAME'];?>', '1');return false;">
                                                         <p class="basket">В корзину</p>
                                                     </a>
                                                     <?} else {?>

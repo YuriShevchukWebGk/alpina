@@ -112,6 +112,11 @@ $arItemIDs = array(
                             } 
                         }?>
                     </div>
+                    <?
+                    if(isset($arResult["additional_image"]["DETAIL_PICTURE"]["src"])) {
+                        echo '<div class="additional-image" style="position:absolute; top:-25px; left:-41px"><img src="'.$arResult["additional_image"]["DETAIL_PICTURE"]["src"].'"></div>'; 
+                    }
+                    ?>
 
                     <div class="bookPages">
                         <?
