@@ -194,10 +194,20 @@ $arItemIDs = array(
 
                 <?
                 if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
-                ?>
-                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
+                    $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "SIGNING"));
+                            $moreFotoCount = $arProps->SelectedRowsCount();
+                            while($ob = $arProps->GetNext()) {
+                                $arImagePath = CFile::GetPath($ob['VALUE']);
+                                if(!$signPicture){
+                                    $signPicture = $arImagePath;
+                                }
+                                $arImageInfo = CFile::GetByID($ob["VALUE"]) -> Fetch();
+                            }?>
+                    <a href="<?=$signPicture?>" class="fancybox fancybox.iframe signingPopup">
                         <div class="authorSigning">
                         </div>
+                    </a>
+                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
                         <div class="authorSigningText">
                         с автографом автора
                         </div>
@@ -240,17 +250,20 @@ $arItemIDs = array(
                     <p class="title">Количество страниц</p>
                     <p class="text"><span itemprop="numberOfPages"><?=$arResult["PROPERTIES"]["PAGES"]["VALUE"]?></span> стр.</p>    
                 </div>
+				<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
+                    <div class="characteris">
+                        <a href="http://readright.ru/?=alpinabook" target="_blank">
+                            <span class="text">Как прочитать эту книгу за час?</span>
+                        </a>
+                    </div>    
+				<?}?> 				
                 <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
                     <div class="characteris">
                         <p class="title"><?=$arResult["PROPERTIES"]["YEAR"]["NAME"]?></p>
                         <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.<?echo !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />'.$arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?></p>    
                     </div>   
                 <?}?>
-                    <div class="characteris">
-                        <a href="http://readright.ru/?=alpinabook">
-                            <span class="text">Как прочитать эту книгу за час?</span>
-                        </a>
-                    </div>    
+
                      
                 
                 <div class="characteris">
@@ -1394,7 +1407,7 @@ window.criteo_q.push(
                 Заявка на подписку принята, ждите информацию на почту
             </div>
             <p class="title">
-                Книга в подарок
+                Книга в подарок                             
             </p>
             <p>
                 Подпишись на рыссылку и получи книгу бесплатно
@@ -1580,6 +1593,15 @@ window.criteo_q.push(
             'width'   :   1140,
             'height'   :   800
         });
+        $(".leftColumn .signingPopup").fancybox({
+            <?if ($arImageInfo["WIDTH"]) {?>
+                'width'   :   <?=$arImageInfo["WIDTH"]?>,
+                'height'   :   <?=$arImageInfo["HEIGHT"]?>
+            <?} else {?>
+                'width'   :   1140,
+                'height'   :   800
+            <?}?>
+        }); 
 
         if (window.innerWidth <= 1680) {
             $(".catalogIcon").hide();
