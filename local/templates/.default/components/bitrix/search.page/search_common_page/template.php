@@ -187,7 +187,7 @@
         </div>
         <?}?>                                   
         <div class="AuthorsWrapp">
-            <p class="title"><?=GetMessage("AUTHORS_TITLE")?></p>
+            <p class="title"><?//=GetMessage("AUTHORS_TITLE")?></p>
             <div class="searchBooksWrap">
                 <div class="searchWidthWrapper">
                     <?foreach($arResult["SEARCH"] as $arItem) {
@@ -256,7 +256,7 @@
                     <small><?=GetMessage("SEARCH_PATH")?>&nbsp;<?=$arItem["CHAIN_PATH"]?></small><?
                 endif;
                     */?>
-                <?}?>
+                <?/*}?>
             </div>
         </div>
     </div>
@@ -265,6 +265,8 @@
             <div class="searchBooksWrap">
                 <div class="searchWidthWrapper">
                     <?foreach($arResult["SEARCH"] as $arItem) {
+                            <?*/?>
+                            <?
                             if ($arItem["PARAM2"] == 4) {?>
                                 <?
                                 $dbBasketItems = CSaleBasket::GetList(array(), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "PRODUCT_ID" => $arItem["ITEM_ID"]), false, false, array("ID", "CALLBACK_FUNC", "MODULE", "PRODUCT_ID", "QUANTITY", "PRODUCT_PROVIDER_CLASS"))->Fetch();
@@ -326,7 +328,7 @@
                                     </div>
                                 </div>
                             <?}?>
-                    <?}?>
+                    <?/*}?>
                 </div>
             </div>
     </div>
@@ -334,7 +336,7 @@
             <p class="title"><?=GetMessage("SERIES_TITLE")?></p>
             <div class="searchBooksWrap">
                 <div class="searchWidthWrapper">
-                    <?foreach($arResult["SEARCH"] as $arItem) {
+                    <?foreach($arResult["SEARCH"] as $arItem) {*/
                         if ($arItem["PARAM2"] == 45) {?>
                             <?
                             $currSerie = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "PREVIEW_TEXT")) -> Fetch();
