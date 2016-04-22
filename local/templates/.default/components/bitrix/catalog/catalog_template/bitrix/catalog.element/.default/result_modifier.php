@@ -648,10 +648,6 @@ if ($arResult['MODULES']['currency'])
         false, 
         false, 
         false, 
-        false
-<<<<<<< HEAD
-    ); 
-=======
+        false                     
     );
->>>>>>> f33f454d788ad1a7b0faefd990ab0fa2a2cf70b9
 ?>
