@@ -110,7 +110,8 @@ $arItemIDs = array(
                                     break;
 
                             } 
-                        }?>
+                        }
+                    ?>
                     </div>
                     <?
                     if(isset($arResult["additional_image"]["DETAIL_PICTURE"]["src"])) {
@@ -255,20 +256,19 @@ $arItemIDs = array(
                     <p class="title">Количество страниц</p>
                     <p class="text"><span itemprop="numberOfPages"><?=$arResult["PROPERTIES"]["PAGES"]["VALUE"]?></span> стр.</p>    
                 </div>
-				<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
+                <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
                     <div class="characteris">
-                        <a href="http://readright.ru/?=alpinabook" target="_blank">
+                        <a href="http://readright.ru/?=alpinabook">
                             <span class="text">Как прочитать эту книгу за час?</span>
                         </a>
-                    </div>    
-				<?}?> 				
+                    </div> 
+                <?}?>
                 <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
                     <div class="characteris">
                         <p class="title"><?=$arResult["PROPERTIES"]["YEAR"]["NAME"]?></p>
                         <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.<?echo !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />'.$arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?></p>    
                     </div>   
-                <?}?>
-
+                <?}?>   
                      
                 
                 <div class="characteris">

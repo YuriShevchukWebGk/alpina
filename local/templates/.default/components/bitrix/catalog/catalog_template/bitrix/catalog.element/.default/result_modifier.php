@@ -638,7 +638,8 @@ if ($arResult['MODULES']['currency'])
         $APPLICATION->SetTitle($arResult["NAME"].' '.$authorname.' / ISBN '.$arResult['PROPERTIES']["ISBN"]["VALUE"].' купить в интернет-магазине с доставкой');
     else
         $APPLICATION->SetTitle($arResult["NAME"].' '.$authorname.' купить в интернет-магазине с доставкой');    
-    $APPLICATION->SetPageProperty("description", $arResult["PREVIEW_TEXT"]);
+
+    $APPLICATION->SetPageProperty("description", $arResult["PREVIEW_TEXT"]); 
     
     $img = GetIBlockElement($arResult["PROPERTIES"]["additional_image"]["VALUE"]);
     $arResult["additional_image"]['DETAIL_PICTURE'] = CFile::ResizeImageGet($img['DETAIL_PICTURE'], 
@@ -648,5 +649,9 @@ if ($arResult['MODULES']['currency'])
         false, 
         false, 
         false
+<<<<<<< HEAD
     ); 
+=======
+    );
+>>>>>>> f33f454d788ad1a7b0faefd990ab0fa2a2cf70b9
 ?>
