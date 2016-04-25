@@ -188,9 +188,9 @@ class CPickpoint extends CAllPickpoint
 			);
 			CPickpoint::AddOrderPostamat($arToAdd);
 			if(COption::GetOptionString($MODULE_ID, "pp_add_info", ""))
-			{
+			{    
 				$sDescription = "{$_SESSION["PICKPOINT"]["PP_ID"]}\n{$_SESSION["PICKPOINT"]["PP_ADDRESS"]}\n{$_SESSION["PICKPOINT"]["PP_SMS_PHONE"]}";
-                CSaleOrder::Update($iOrderID, array("USER_DESCRIPTION" => $sDescription)); 
+                CSaleOrder::Update($iOrderID, array("USER_DESCRIPTION" => $sDescription));   
 			}
 		}
 

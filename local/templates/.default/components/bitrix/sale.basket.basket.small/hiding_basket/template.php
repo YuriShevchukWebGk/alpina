@@ -1,7 +1,7 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 ?>        
     <div class="confirmTopWrap"> 
-        <a href="/personal/cart/">
+        <a href="/personal/cart/" onclick="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'orderConfirmTop'});">
         <div class="confirm">
             <p>Оформить заказ</p>
         </div>
@@ -60,7 +60,7 @@
                     <p class="count">Кол-во: <?=$arResult["TOTAL_ITEMS"]?></p>
                     <p class='price'><?=$arResult["TOTAL_AMOUNT"]?> <span>руб.</span></p>
                 </div>
-                <a href="/personal/cart/" class="bottomBasketConfirm">
+                <a href="/personal/cart/" class="bottomBasketConfirm" onclick="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'orderConfirmBottom'});">
                 <div class="confirm">
                     <p>Оформить заказ</p>
                 </div>

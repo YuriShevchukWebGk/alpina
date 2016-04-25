@@ -34,4 +34,13 @@ $this->setFrameMode(true);
                     
                 </ul>
             </div>
+			<script>
+				$(document).ready(function() {
+					<!-- dataLayer GTM -->
+					dataLayer.push({
+						'expReview' : 'withExpReview'
+					});
+					<!-- /dataLayer GTM -->
+				});
+			</script>
 		<?}?>

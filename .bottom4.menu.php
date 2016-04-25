@@ -1,6 +1,13 @@
 <?
 $aMenuLinks = Array(
 	Array(
+		"Где купить", 
+		"/content/whereToBuy/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"Мероприятия", 
 		"/events/", 
 		Array(), 

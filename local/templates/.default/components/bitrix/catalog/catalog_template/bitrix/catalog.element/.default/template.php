@@ -69,9 +69,9 @@ $arItemIDs = array(
 
     <div class="centerWrapper"> 
 
-        <div class="catalogIcon">
+        <div class="catalogIcon" onmouseover="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'openSmallCatalog'});">
         </div>
-        <div class="basketIcon">
+        <div class="basketIcon" onmouseover="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'openSmallCart'});">
         </div>
 
         <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "catalog_crumb", Array(
@@ -112,6 +112,11 @@ $arItemIDs = array(
                             } 
                         }?>
                     </div>
+                    <?
+                    if(isset($arResult["additional_image"]["DETAIL_PICTURE"]["src"])) {
+                        echo '<div class="additional-image" style="position:absolute; top:-25px; left:-41px"><img src="'.$arResult["additional_image"]["DETAIL_PICTURE"]["src"].'"></div>'; 
+                    }
+                    ?>
 
                     <div class="bookPages">
                         <?
@@ -177,7 +182,7 @@ $arItemIDs = array(
                         <?
                         } else {
                         ?>
-                            <a href="javascript:void(0)"><p class="buyLater">Куплю позже</p></a>
+                            <a href="javascript:void(0); return true;" onclick="dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');"><p class="buyLater">Куплю позже</p></a>
                         <?
                         }
                     }
@@ -194,10 +199,20 @@ $arItemIDs = array(
 
                 <?
                 if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
-                ?>
-                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
+                    $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "SIGNING"));
+                            $moreFotoCount = $arProps->SelectedRowsCount();
+                            while($ob = $arProps->GetNext()) {
+                                $arImagePath = CFile::GetPath($ob['VALUE']);
+                                if(!$signPicture){
+                                    $signPicture = $arImagePath;
+                                }
+                                $arImageInfo = CFile::GetByID($ob["VALUE"]) -> Fetch();
+                            }?>
+                    <a href="<?=$signPicture?>" class="fancybox fancybox.iframe signingPopup">
                         <div class="authorSigning">
                         </div>
+                    </a>
+                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
                         <div class="authorSigningText">
                         с автографом автора
                         </div>
@@ -240,13 +255,20 @@ $arItemIDs = array(
                     <p class="title">Количество страниц</p>
                     <p class="text"><span itemprop="numberOfPages"><?=$arResult["PROPERTIES"]["PAGES"]["VALUE"]?></span> стр.</p>    
                 </div>
+				<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
+                    <div class="characteris">
+                        <a href="http://readright.ru/?=alpinabook" target="_blank">
+                            <span class="text">Как прочитать эту книгу за час?</span>
+                        </a>
+                    </div>    
+				<?}?> 				
                 <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
                     <div class="characteris">
                         <p class="title"><?=$arResult["PROPERTIES"]["YEAR"]["NAME"]?></p>
-                        <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.</p>    
+                        <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.<?echo !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />'.$arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?></p>    
                     </div>   
                 <?}?>
-                     
+
                      
                 
                 <div class="characteris">
@@ -279,6 +301,37 @@ $arItemIDs = array(
                     */?>
                     <?require('include/socialbuttons.php');?>
                 </div>
+				 <?#Спонсоры книги?>
+				 <!-- noindex -->
+				 <div class="sponsors">
+					  <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {
+								$authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
+								while ($authorFetchedList = $authorList -> Fetch()) { ?> 
+								<?if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
+									$image = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
+								} elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
+									$image = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
+								} elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
+									$image = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
+								};
+							   
+								$picture = CFile::GetPath($image)?>
+									
+										<span style="color:#627478"><?=$authorFetchedList["PREVIEW_TEXT"]?> </span><br />
+										<?if (!empty($picture)) {?>
+											<a href="http://<?=$authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?=$picture?>"> </a>
+										<?} else {?>
+											<?=$authorFetchedList["NAME"]?>
+										<?}?>
+									
+								   <? $authors .= $author_fetched_list["NAME"].", ";
+								}
+								
+					  }
+				
+				##Спонсоры книги?>
+				</div>
+				<!-- /noindex -->
             </div>
             <div class="rightColumn">
                 <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -361,13 +414,16 @@ $arItemIDs = array(
                     ?>
                      <div class="wrap_prise_top">
                     <?
+						$StockInfo = "";
                         if (!empty($arResult["PRICES"])) {   
                                 if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) 
                                     && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)) {
                                     foreach ($arResult["PRICES"] as $code => $arPrice) { 
                                     ?>
                                     <link itemprop="availability" href="http://schema.org/InStock">
-                                    <? if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]) {
+									
+                                    <?	$StockInfo = "InStock";
+										if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]) {
                                             $discount = false;
                                         };   
                                         if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {
@@ -408,10 +464,13 @@ $arItemIDs = array(
                                     <?}
                             } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == 22) {?>
 								<link itemprop="availability" href="http://schema.org/PreOrder">
+								<?$StockInfo = "SoonStock";?>
                                 <p class="newPrice" style="font-size:20px;">Ожидаемая дата выхода: <?=strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
+								
                             <?
                             } else {?>
 								<link itemprop="availability" href="http://schema.org/OutOfStock">
+								<?$StockInfo = "OutOfStock";?>
                                 <?foreach ($arResult["PRICES"] as $code => $arPrice) {  
                                     if ($arPrice["DISCOUNT_DIFF"]) {?>
                                     <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>
@@ -626,31 +685,7 @@ $arItemIDs = array(
                         echo substr ($authors, 0, -2);
                         ?>
                     </p>
-                     <?#Спонсоры книги?>
-                     <div class="sponsors">
-                          <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {    
-                                    $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
-                                    while ($authorFetchedList = $authorList -> Fetch()) { ?> 
-                                    <?if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
-                                        $image = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
-                                    } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
-                                        $image = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
-                                    } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
-                                        $image = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
-                                    };
-                                   
-                                    $picture = CFile::GetPath($image)?>
-                                        
-                                            <span class="kartochkaknigi5"><?=$authorFetchedList["PREVIEW_TEXT"]?> </span>
-                                            <a href="http://<?=$authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website"><img src="<?=$picture?>"> </a>
-                                        
-                                       <? $authors .= $author_fetched_list["NAME"].", ";
-                                    }
-                                    
-                          }
-                    
-                    ##Спонсоры книги?>
-                    </div>
+
                 </div>
 
                 <?/* Пока закрыли другие варианты книги. Думаем, как сделать блок понятным для посетителей
@@ -731,16 +766,16 @@ $arItemIDs = array(
                         <?}?>
                 </div>*/?>
                 <ul class="productsMenu">
-                    <li class="active" data-id="1">Аннотация</li>
-                    <li data-id="4">Об авторе</li>
+                    <li class="active tabsInElement" data-id="1">Аннотация</li>
+                    <li data-id="4" class="tabsInElement">Об авторе</li>
                     <?
                         $review = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 24, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_AUTHOR", "NAME", "PROPERTY_BOOK", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_SOURCE_LINK"));
                         $reviewsCount = $review->SelectedRowsCount();
                         if ($reviewsCount > 0) {
                         ?>
-                        <li data-id="2">Рецензии</li>
+                        <li data-id="2" class="tabsInElement">Рецензии</li>
                         <?}?>
-                    <li data-id="3">Отзывы</li>
+                    <li data-id="3" class="tabsInElement">Отзывы</li>
                 </ul>
                 <div class="annotation" id="prodBlock1"> 
                     <div class="showAllWrapp">
@@ -1377,7 +1412,7 @@ window.criteo_q.push(
                 Заявка на подписку принята, ждите информацию на почту
             </div>
             <p class="title">
-                Книга в подарок
+                Книга в подарок                             
             </p>
             <p>
                 Подпишись на рыссылку и получи книгу бесплатно
@@ -1390,8 +1425,7 @@ window.criteo_q.push(
             $latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));
             if ($latestSeen) {
                 $arFilter = array('ID' => array());
-                $latestSeen = array_slice(array_reverse(array_keys($latestSeen)), 0, 4);
-
+                $latestSeen = array_slice(array_reverse(array_keys($latestSeen)), 0, 6);
                 foreach ($latestSeen as $bookID) {
                     $arFilter['ID'][] = intval($bookID);
                 }
@@ -1527,6 +1561,15 @@ window.criteo_q.push(
 
 <script>
     $(document).ready(function() {
+		<!-- dataLayer GTM -->
+		dataLayer.push({
+			'stockInfo' : '<?=$StockInfo?>',
+			'productId' : '<?=$arResult["ID"]?>',
+			'productName' : '<?=$arResult["NAME"]?>',
+			'productPrice' : '<?=round(($arPrice["DISCOUNT_VALUE_VAT"]), 2)?>',
+			'videoPresence' : '<?echo $videosCount > 0 ? 'WithVideo' : 'WithoutVideo';?>'
+		});
+		<!-- // dataLayer GTM -->		
         
         $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
         $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
@@ -1555,6 +1598,15 @@ window.criteo_q.push(
             'width'   :   1140,
             'height'   :   800
         });
+        $(".leftColumn .signingPopup").fancybox({
+            <?if ($arImageInfo["WIDTH"]) {?>
+                'width'   :   <?=$arImageInfo["WIDTH"]?>,
+                'height'   :   <?=$arImageInfo["HEIGHT"]?>
+            <?} else {?>
+                'width'   :   1140,
+                'height'   :   800
+            <?}?>
+        }); 
 
         if (window.innerWidth <= 1680) {
             $(".catalogIcon").hide();

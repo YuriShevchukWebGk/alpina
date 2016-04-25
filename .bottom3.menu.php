@@ -1,8 +1,8 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Где купить", 
-		"/content/whereToBuy/", 
+		"Блог", 
+		"http://blog.alpinabook.ru/", 
 		Array(), 
 		Array(), 
 		"" 
@@ -22,7 +22,7 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Online Library", 
+		"Online<br />библиотека", 
 		"http://www.alpinab2b.ru/Alpina-Digital/", 
 		Array(), 
 		Array(), 

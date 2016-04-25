@@ -349,7 +349,7 @@ if ($_REQUEST["PAGEN_".$navnum])
 
                                         $curr_author = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
                                     ?>
-                                    <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
+                                    <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?=$arResult["NAME"]?>', <?=($cell+1)?>, 'Catalog Section');">
                                         <div class="section_item_img">
                                             <?
                                             if ($pict["src"])
@@ -392,7 +392,7 @@ if ($_REQUEST["PAGEN_".$navnum])
                                         </a>
                                     <?  if ($dbBasketItems["QUANTITY"] == 0)
                                             {?>
-                                            <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>'); return false;"><p class="basketBook">В корзину</p></a>
+                                            <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>'); addToCartTracking(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?=$arResult["NAME"]?>', '1');return false;"><p class="basketBook">В корзину</p></a>
                                             <?   }
                                             else
                                             {?>

@@ -137,7 +137,7 @@ $this->setFrameMode(true);
                     на создание секторов железной дороги в пересеченной сельской местности Intercity и West Coast в системе железной дороги компании British Rail. Вскоре у Virgin Trains начались проблемы с подвижными составами и инфраструктурой, унаследованной от British Rail.</p>
                     <p class="text">Virgin приобрела в 1996 году европейскую авиакомпанию-перевозчика на короткие расстояния Euro Belgian Airlines и переименовала её в Virgin Express. В 2006 году авиалиния была объединена с SN Brussels Airlines, бывшей Sabena. Объединённая компания получила название Brussels Airlines. Она также основала национальную авиалинию, находящуюся в Нигерии, названную Virgin Nigeria. Ещё одна компания, Virgin America, начала вылеты из аэропорта San Francisco International Airport в августе 2007 года. Брэнсон также разработал бренд Virgin Cola и даже Virgin Vodka, которые не были особенно успешными начинаниями. </p>
                 <?*/?>
-                <?=$arResult["DETAIL_TEXT"]?>
+                <?=html_entity_decode($arResult["PROPERTIES"]["AUTHOR_DETAIL_INFO"]["VALUE"]["TEXT"]);?>
             </div>
         </div>    
     </div>

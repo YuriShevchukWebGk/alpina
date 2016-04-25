@@ -17,8 +17,8 @@
         <?foreach($arResult["ITEMS"] as $key => $arItem)
             {?>
             <li class="firstSlide" style="background-image: url(<?=$arItem["DETAIL_PICTURE"]["SRC"]?>)">
-                <?if ($arItem["PROPERTIES"]["EVENT_BANNER_LINK"]["VALUE"]){?>
-                    <a href="<?=$arItem["PROPERTIES"]["EVENT_BANNER_LINK"]["VALUE"]?>">
+                <?if ($arItem["PROPERTIES"]["LINK"]["VALUE"]){?>
+                    <a href="<?=$arItem["PROPERTIES"]["LINK"]["VALUE"]?>">
                 <?}?>
 				<div class="catalogWrapper">
 					<p class="titleSlide">
@@ -37,7 +37,7 @@
 
 						<?}?>
 				</div> 
-				<?if ($arItem["PROPERTIES"]["EVENT_BANNER_LINK"]["VALUE"]){?>
+				<?if ($arItem["PROPERTIES"]["LINK"]["VALUE"]){?>
 					</a>
 				<?}?>   
             </li>

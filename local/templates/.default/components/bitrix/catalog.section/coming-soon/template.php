@@ -163,7 +163,7 @@
                                         </div>
                                         <p class="nameBook"><?=$arItem["NAME"]?></p>
                                     </a>
-                                    <p class="bookAutor"><?=$curr_author["NAME"]?></p>
+                                    <p class="bookAutor" title="<?=$curr_author["NAME"]?>"><?echo strlen($curr_author["NAME"]) > 18 ? substr($curr_author["NAME"],0,15).'...' : $curr_author["NAME"]?></p>
                                     <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                     <?
                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)

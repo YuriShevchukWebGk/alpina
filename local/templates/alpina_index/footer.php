@@ -6,6 +6,11 @@
                 <a href="/">
                     <img src="/img/footerLogo.png">
                 </a>
+				<br />
+				<br />
+				<a href="http://blog.alpinabook.ru/" target="_blank">
+                    <img src="/img/footerBlogLogo.png">
+                </a>				
             </div>
             <div>
                 <!--<p>Об группе компаний</p>
