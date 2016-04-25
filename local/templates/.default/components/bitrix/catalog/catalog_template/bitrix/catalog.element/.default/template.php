@@ -110,8 +110,7 @@ $arItemIDs = array(
                                     break;
 
                             } 
-                        }
-                    ?>
+                        }?>
                     </div>
                     <?
                     if(isset($arResult["additional_image"]["DETAIL_PICTURE"]["src"])) {
@@ -256,19 +255,20 @@ $arItemIDs = array(
                     <p class="title">Количество страниц</p>
                     <p class="text"><span itemprop="numberOfPages"><?=$arResult["PROPERTIES"]["PAGES"]["VALUE"]?></span> стр.</p>    
                 </div>
-                <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
+				<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
                     <div class="characteris">
-                        <a href="http://readright.ru/?=alpinabook">
+                        <a href="http://readright.ru/?=alpinabook" target="_blank">
                             <span class="text">Как прочитать эту книгу за час?</span>
                         </a>
-                    </div> 
-                <?}?>
+                    </div>    
+				<?}?> 				
                 <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
                     <div class="characteris">
                         <p class="title"><?=$arResult["PROPERTIES"]["YEAR"]["NAME"]?></p>
                         <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.<?echo !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />'.$arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?></p>    
                     </div>   
-                <?}?>   
+                <?}?>
+
                      
                 
                 <div class="characteris">
@@ -766,16 +766,16 @@ $arItemIDs = array(
                         <?}?>
                 </div>*/?>
                 <ul class="productsMenu">
-                    <li class="active" data-id="1">Аннотация</li>
-                    <li data-id="4">Об авторе</li>
+                    <li class="active tabsInElement" data-id="1">Аннотация</li>
+                    <li data-id="4" class="tabsInElement">Об авторе</li>
                     <?
                         $review = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 24, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_AUTHOR", "NAME", "PROPERTY_BOOK", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_SOURCE_LINK"));
                         $reviewsCount = $review->SelectedRowsCount();
                         if ($reviewsCount > 0) {
                         ?>
-                        <li data-id="2">Рецензии</li>
+                        <li data-id="2" class="tabsInElement">Рецензии</li>
                         <?}?>
-                    <li data-id="3">Отзывы</li>
+                    <li data-id="3" class="tabsInElement">Отзывы</li>
                 </ul>
                 <div class="annotation" id="prodBlock1"> 
                     <div class="showAllWrapp">

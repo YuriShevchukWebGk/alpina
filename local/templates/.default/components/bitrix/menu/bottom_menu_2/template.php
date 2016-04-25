@@ -18,5 +18,5 @@ foreach($arResult as $arItem):
 
 </ul>
 <?endif*/?>
-<p><a target="_blank" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></p>
+<p><a target="_blank" class="bottomMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></p>
 <?endforeach;?>

@@ -85,7 +85,6 @@
         if (in_array($val, array("D", "F", "K")) )  // убран ключ "I"
         {
             CSaleOrder::PayOrder($ID, "Y", false, false, 0, array());
-            CSaleOrder::StatusOrder($ID, $val);
         }
     }
 
