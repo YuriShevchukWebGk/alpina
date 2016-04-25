@@ -979,6 +979,19 @@
         }        
     }
     
+    // --- couriers popup in admin
+    AddEventHandler("main", "OnAdminListDisplay", "curInit");
+
+    function curInit(){
+        if($GLOBALS["APPLICATION"] -> GetCurPage() == "/bitrix/admin/sale_order_detail.php" || $GLOBALS["APPLICATION"] -> GetCurPage() == "/bitrix/admin/sale_order.php"){
+            $GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/couriersListeners.js");    
+            $GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/orderAdmin.class.js");
+            $GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/popup.class.js");     
+            $GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/index.js");
+            $GLOBALS['APPLICATION'] -> SetAdditionalCSS("/admin_modules/couriers/css/style.css");   
+        }
+    }
+     
         //Получение этикетки для бланков заказов, сделанных через PickPoint
     function MakeLabelPickPoint($orderId){
         //Авторизация на сервере PickPoint для получения ключа сессии (Необходим для дальнейшей работы с API)
