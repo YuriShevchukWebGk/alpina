@@ -1,0 +1,81 @@
+#cur_popup {
+	width: 850px;
+	height: 550px;
+	background: white;
+	z-index: 9000;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	transform: translate3d(0,900px,0);
+	opacity: 0;
+	visibility: hidden;
+	box-shadow: 0px 0px 21px 0px rgba(0,0,0,0.25);
+	border: 2px solid #f27920;
+	transition: all 0.3s ease;
+	font-family: Tahoma;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	background: #e1eaeb;
+}
+
+.cur_popup_visible {
+	opacity: 1 !important;
+	transform: translate3d(0,350px,0) !important;
+	visibility: visible !important;
+}
+
+#cur_popup_close {
+	width: 35px;
+	height: 35px;
+	background: url("/images/rfi_popup_close.png") 0 0 no-repeat;
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	cursor: pointer;
+}
+
+#couriers_list {
+	width: 80%;
+	margin-top: 30px;
+}
+
+#couriers_list li {
+	list-style: none;
+	font-family: Tahoma;
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+	box-sizing: border-box;
+	padding-left: 20px;
+	transition: background 0.1s ease;
+}
+
+#couriers_list li:hover {
+	background: #f2f5f6;
+}
+
+.selected_courier {
+	background: #cfe317 !important;
+}
+
+.popup_error_message {
+	width: 100%;
+	text-align: center;
+	font-weight: 700;
+	margin-top: 30%;
+	font-size: 18px;
+}
+
+.addedCourier {
+	margin-top: 20px;
+	color: #fff;
+}
+
+.changeCourier {
+	cursor: pointer;
+	text-decoration: underline;
+}
