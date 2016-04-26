@@ -1,6 +1,7 @@
 User-Agent: *
 Disallow: # empty Disallow instruction SHOULD be there
 Allow: /books/series/?ELEMENT_ID=*
+Allow: /authors/?list=*
 Disallow: /*?
 Disallow: /*admin
 Disallow: /events/*
@@ -21,6 +22,9 @@ User-Agent: PageWeight
 Disallow: # empty Disallow instruction SHOULD be there
 Disallow: *?print
 Disallow: *PAGEN
+Disallow: *itunes*
+Disallow: */store/apps/details?id*
+Disallow: *?AUTHOR=*
 Disallow: *?SORT
 Disallow: *?SHOWALL
 Disallow: *?utm_

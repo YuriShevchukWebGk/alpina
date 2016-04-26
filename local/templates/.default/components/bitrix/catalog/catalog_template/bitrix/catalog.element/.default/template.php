@@ -133,8 +133,8 @@ $arItemIDs = array(
                     </div>  
                     <?if (($moreFotoCount > 0) && ($firstPicture != '')) {?>
                     <a href="<?=$firstPicture?>" class="fancybox fancybox.iframe">
-                        <div class="overlay">
-                            <p>Полистать книгу</p>
+                        <div class="overlay bookPreview">
+                            <p class="bookPreview">Полистать книгу</p>
                         </div>
                     </a>     
                     

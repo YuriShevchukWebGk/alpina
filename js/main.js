@@ -335,28 +335,28 @@ $(document).ready(function(){
             $('#prodBlock'+$(this).attr('data-id')).show();
             if (!$(".productsMenu li:first-child").hasClass("active"))
             {
-                $(".productsMenu li:first-child").css("width", "90px");    
+                //$(".productsMenu li:first-child").css("width", "90px");    
             }
             else
             {
-                $(".productsMenu li:first-child").css("width", "110px");    
+               // $(".productsMenu li:first-child").css("width", "110px");    
             }
             if ($(".productsMenu li:nth-child(2)").hasClass("active"))
             {
-                $(".productsMenu li:nth-child(2)").css("width", "105px");    
+                //$(".productsMenu li:nth-child(2)").css("width", "105px");    
             }
             else
             {
-                $(".productsMenu li:nth-child(2)").css("width", "80px");    
+
             }
             $(".productsMenu li:not(:first-child, :nth-child(2))").each(function(){
                 if (!$(this).hasClass("active"))
                 {
-                    $(this).css("width", "80px");
+                   // $(this).css("width", "80px");
                 }
                 else
                 {
-                    $(this).css("width", "91px");
+                  //  $(this).css("width", "91px");
                 }
             });
             if ($("#prodBlock3").css("display") == "block") {
@@ -1157,12 +1157,12 @@ function newSubFunction(submitButton){
             sub_mail : sub_mail
             }, function(data) {  
                 if(data.match(/exist/)){
-                    $(".subscr_result").html("Вы уже подписаны на появление данной книги в продаже.");
+                    $(".subscr_result").html("Вы уже подписаны на появление данной книги в продаже");
                     $(".layout").show();
                     $(".subscr_result").show();
                     //alert("Вы уже подписаны на появление данной книги в продаже.");
                 }else if(data.match(/success/)){
-                    $(".subscr_result").html("Мы сообщим Вам о появлении книги.");
+                    $(".subscr_result").html("Мы сообщим Вам о появлении книги");
                     $(".layout").show();
                     $(".subscr_result").show();
                     //alert("Мы сообщим Вам о появлении книги.");
