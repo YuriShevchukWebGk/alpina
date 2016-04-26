@@ -642,7 +642,8 @@ header .headBasket{
     font-family: "Walshein_regular";
     font-size: 24px;
     padding-bottom: 38px;
-    padding-top: 66px;
+    /*padding-top: 66px;*/
+    padding-top: 35px;
 }
 .saleWrapp ul{
     width: 9999px;
