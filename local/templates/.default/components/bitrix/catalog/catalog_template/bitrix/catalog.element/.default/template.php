@@ -998,7 +998,7 @@ $arItemIDs = array(
 
                                     <?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?>
                                 
-                                </div><br>
+                                </div>
 
                                 <?
                                 }
