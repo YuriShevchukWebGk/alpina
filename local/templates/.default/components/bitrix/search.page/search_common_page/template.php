@@ -23,10 +23,7 @@
     </div><?
 }?>
 
-<?if($arResult["REQUEST"]["QUERY"] === false && $arResult["REQUEST"]["TAGS"] === false) {?>
-<?} else if ($arResult["ERROR_CODE"] != 0) {
-    
-} else if (count($arResult["SEARCH"]) > 0) {?>
+<?if (count($arResult["SEARCH"]) > 0) {?>
     <?//if($arParams["DISPLAY_TOP_PAGER"] != "N") echo $arResult["NAV_STRING"]
     ?>
     <div class="pageTitleWrap">
@@ -271,7 +268,7 @@
                             if ($arItem["PARAM2"] == 4) {?>
                                 <?
                                 $dbBasketItems = CSaleBasket::GetList(array(), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "PRODUCT_ID" => $arItem["ITEM_ID"]), false, false, array("ID", "CALLBACK_FUNC", "MODULE", "PRODUCT_ID", "QUANTITY", "PRODUCT_PROVIDER_CLASS"))->Fetch();
-                                $currBook = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE", "PROPERTY_SOON_DATE_TIME", "PROPERTY_AUTHORS", "CATALOG_GROUP_1", "PROPERTY_COVER_TYPE")) -> Fetch();
+                                $currBook = CIBlockElement::GetList(array(), array("ID" => $arItem["ITEM_ID"]), false, false, array("ID", "DETAIL_PICTURE", "PREVIEW_TEXT", "PROPERTY_STATE", "PROPERTY_SOON_DATE_TIME", "PROPERTY_AUTHORS", "CATALOG_GROUP_1", "PROPERTY_COVER_TYPE", "IBLOCK_SECTION_ID")) -> Fetch();
                                 $pict = CFile::ResizeImageGet($currBook["DETAIL_PICTURE"], array('width'=>165, "height"=>233), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                                 ?>
                                 <div class="searchBook">
@@ -315,7 +312,7 @@
                                                 if (($currBook["PROPERTY_STATE_ENUM_ID"] != 22) && ($currBook["PROPERTY_STATE_ENUM_ID"] != 23)) {
                                                     if ($dbBasketItems["QUANTITY"] == 0) {?>
                                                     <a class="product<?=$arItem["ID"];?>" href="<?='/search/index.php?action=ADD2BASKET&id='.$arItem["ITEM_ID"]?>" 
-                                                        onclick="addtocart(<?=$arItem["ITEM_ID"];?>, '<?=$arItem["TITLE"];?>');return false;">
+                                                        onclick="addtocart(<?=$arItem["ITEM_ID"];?>, '<?=$arItem["TITLE"];?>');addToCartTracking(<?=$arItem["ITEM_ID"];?>, '<?=$arItem["TITLE"];?>', '<?=ceil($currBook["CATALOG_PRICE_1"])?>', '<?$sectionId = CIBlockSection::GetByID($currBook["IBLOCK_SECTION_ID"]);if ($sectionId = $sectionId->GetNext()) echo $sectionId['NAME'];?>', '1');return false;">
                                                         <p class="basket">В корзину</p>
                                                     </a>
                                                     <?} else {?>
@@ -587,57 +584,21 @@ $(document).ready(function(){
     
     updateSearchPage();
     
-    <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
-        <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
-            var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
-        <?} else {?>
-            var page = 2;
-        <?}?>
-        var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
-            $('.showMore').on('click', function(){
-                $.fancybox.showLoading();
-                $.get(window.location.href+'&PAGEN_<?=$navnum?>='+page, function(data) {
-                    var next_page = $('.searchWidthWrapper .searchBook', data);
-                    $('.searchWidthWrapper').append(next_page);
-                    page++;            
-                })
-                .done(function() {
-                    $.fancybox.hideLoading();
-                    $(".descrWrap .bookNames").each(function() {
-                        if($(this).length > 0) {
-                            $(this).html(truncate($(this).html(), 25));    
-                        }    
-                    });
-                    
-                    $(".description").each(function() {
-                        if($(this).length > 0) {
-                        $(this).html(truncate($(this).html(), 81));    
-                        }    
-                    });
-    
-                });
-                if (page == maxpage) {
-                    $('.showMore').hide();
-                    //$('.phpages').hide();
-                }
-                return false;
-            });
             
-            if ($(".searchWidthWrapper .searchBook").size() < 9) {
-                $('.showMore').hide();    
-            }
-            if($('.bookEasySlider').length > 0) {
-                easySlider('.bookEasySlider', 6);
-            }
-            if ($(".AuthorsWrapp .searchWidthWrapper .searchBook").size() == 0) {
-                $(".AuthorsWrapp .title").hide();
-            }
-            if ($(".BooksWrapp .searchWidthWrapper .searchBook").size() == 0) {
-                $(".BooksWrapp .title").hide();
-            }
-            if ($(".SeriesWrapp .searchWidthWrapper .searchBook").size() == 0) {
-                $(".SeriesWrapp .title").hide();
-            }   
+    // слайдер "те кто искали ..., купили"
+    if($('.bookEasySlider').length > 0) {
+        easySlider('.bookEasySlider', 6);
+    }
+    // скрывать заголовок блоков, если данный блок не содержит элементов
+    if ($(".AuthorsWrapp .searchWidthWrapper .searchBook").size() == 0) {
+        $(".AuthorsWrapp .title").hide();
+    }
+    if ($(".BooksWrapp .searchWidthWrapper .searchBook").size() == 0) {
+        $(".BooksWrapp .title").hide();
+    }
+    if ($(".SeriesWrapp .searchWidthWrapper .searchBook").size() == 0) {
+        $(".SeriesWrapp .title").hide();
+    }   
 });
 
 </script>

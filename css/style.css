@@ -642,7 +642,8 @@ header .headBasket{
     font-family: "Walshein_regular";
     font-size: 24px;
     padding-bottom: 38px;
-    padding-top: 66px;
+    /*padding-top: 66px;*/
+    padding-top: 35px;
 }
 .saleWrapp ul{
     width: 9999px;
@@ -2524,7 +2525,7 @@ right: 45px;
     font-family: "Walshein_regular";
     font-size: 14px;
     padding: 6px 0 6px 100px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .elementDescriptWrap .AlreadyInWishlist {
     background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
@@ -2808,7 +2809,6 @@ width: 34px;
     color: #00abb8;
     font-family: "Walshein_bold";
     font-size: 13px;
-    margin-left: 6px;
     margin-top: 18px;
     text-transform: uppercase;
     margin-bottom: 30px;
@@ -2816,16 +2816,21 @@ width: 34px;
 .productsMenu li{
     display: inline-block;
     cursor: pointer;
-    width: 110px;
+	border-bottom: 1px dashed rgb(0, 171, 184);
+	margin-right:30px;
 }
-.productsMenu li:not(:first-child) {
-    width: 91px;
+.productsMenu li:hover{
+	border-bottom: none;
+}
+.productsMenu li {
+    width: auto!important;
 }
 .productsMenu .active{
     color: #424D4F;
     font-family: "Walshein_regular";
     font-size: 19px;
     text-transform: none;  
+	border-bottom: none;
 }
 .elementDescriptWrap .citate{
     color: #424D4F;
@@ -2887,6 +2892,13 @@ width: 34px;
     line-height: 24px;
     /*margin-bottom: 40px;*/
     padding-bottom: 18px;
+}
+.elementDescriptWrap .annotation ul {
+	list-style-type: circle;
+	padding-left: 40px;
+}
+.elementDescriptWrap .annotation ul li {
+	margin-top:8px;
 }
 .elementDescriptWrap .annotation{
     color: #627478;

@@ -18,5 +18,6 @@ foreach($arResult as $arItem):
 
 </ul>
 <?endif*/?>
-<li><a href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
+<li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?endforeach;?>
+<?if ($USER->isAdmin()) {?><li><a class="topMenuLink" style="color:red!important" href="<?=$arItem["LINK"]?>">Все по 99 рублей</a></li><?}?>

@@ -112,22 +112,22 @@ $arItemIDs = array(
                             } 
                         }?>
                     </div>
+                    <?
+                    if(isset($arResult["additional_image"]["DETAIL_PICTURE"]["src"])) {
+                        echo '<div class="additional-image" style="position:absolute; top:-25px; left:-41px"><img src="'.$arResult["additional_image"]["DETAIL_PICTURE"]["src"].'"></div>'; 
+                    }
+                    ?>
 
                     <div class="bookPages">
                         <?
-                            $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "pdf_newlist"));
-                            $moreFotoCount = $arProps->SelectedRowsCount();
-                            while($ob = $arProps->GetNext()) {
-                                $arImagePath = CFile::GetPath($ob['VALUE']);
-                                if(!$firstPicture){
-                                    $firstPicture = $arImagePath;
-                                }?>
-                            <a class="grouped_elements" rel="group1" href="<?=$arImagePath?>"><img src="<?=$arImagePath?>"></a>
+                            if ($arResult["MAIN_PICTURE"]) {?>
+                                <a class="grouped_elements" rel="group1" href="<?=$arResult["MAIN_PICTURE"]?>"><img src="<?=$arResult["MAIN_PICTURE"]?>"></a>
                             <?}      
                         ?> 
                     </div>  
-                    <?if (($moreFotoCount > 0) && ($firstPicture != '')) {?>
-                    <a href="<?=$firstPicture?>" class="fancybox fancybox.iframe">
+                    <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
+
+                    <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
                         <div class="overlay">
                             <p>Полистать книгу</p>
                         </div>
@@ -225,12 +225,11 @@ $arItemIDs = array(
                 </div>
                 <?
                 if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {
-                    $curr_series = CIBlockElement::GetByID($arResult["PROPERTIES"]["SERIES"]["VALUE"]) -> Fetch();
                     ?>
                     <div class="characteris">
                         <p class="title">Серия</p>
-                        <a href="/series/<?=$curr_series["ID"]?>/">
-                            <span class="text"><?=$curr_series["NAME"]?></span>
+                        <a href="/series/<?=$arResult["CURR_SERIES"]["ID"]?>/">
+                            <span class="text"><?=$arResult["CURR_SERIES"]["NAME"]?></span>
                         </a>    
                     </div>
                     <?
@@ -297,95 +296,47 @@ $arItemIDs = array(
                 </div>
 				 <?#Спонсоры книги?>
 				 <!-- noindex -->
-				 <div class="sponsors">
-					  <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {
-								$authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
-								while ($authorFetchedList = $authorList -> Fetch()) { ?> 
-								<?if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
-									$image = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
-								} elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
-									$image = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
-								} elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
-									$image = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
-								};
-							   
-								$picture = CFile::GetPath($image)?>
-									
-										<span style="color:#627478"><?=$authorFetchedList["PREVIEW_TEXT"]?> </span><br />
-										<?if (!empty($picture)) {?>
-											<a href="http://<?=$authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?=$picture?>"> </a>
-										<?} else {?>
-											<?=$authorFetchedList["NAME"]?>
-										<?}?>
-									
-								   <? $authors .= $author_fetched_list["NAME"].", ";
-								}
-								
-					  }
-				
-				##Спонсоры книги?>
-				</div>
+                 <div class="sponsors">
+
+                     <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {?>
+                         <span style="color:#627478"><?=$arResult["SPONSOR_PREVIEW_TEXT"]?> </span><br />
+                         <?if (!empty($arResult["SPONSOR_PICT"])) {?>
+                             <a href="http://<?=$arResult["SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?=$arResult["SPONSOR_PICT"]?>"> </a>
+                             <?} else {?>
+                             <?=$authorFetchedList["NAME"]?>
+                             <?}?>
+
+                         <? $authors .= $author_fetched_list["NAME"].", ";
+
+
+                             ##Спонсоры книги?>
+                     <?}?>
+                 </div>
 				<!-- /noindex -->
             </div>
             <div class="rightColumn">
                 <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<meta itemprop="priceCurrency" content="RUB" />
-                    <?CModule::IncludeModule("sale");
-                        //$BuyerList = CUser::GetByID($USER->GetID());  
-                        $arBasketItems = array();
-                        $dbBasketItems = CSaleBasket::GetList(
-                            array(
-                                "NAME" => "ASC",
-                                "ID" => "ASC"
-                            ),
-                            array(
-                                "FUSER_ID" => CSaleBasket::GetBasketUserID(),
-                                "LID" => SITE_ID,
-                                "ORDER_ID" => "NULL"
-                            ),
-                            false,
-                            false,
-                            array("ID","PRICE","NAME","QUANTITY","DISCOUNT_PRICE","ORDER_PAYED")
-                        );
-                        while ($arItems = $dbBasketItems->Fetch()) {
-                            if (strlen($arItems["CALLBACK_FUNC"]) > 0) {
-                                CSaleBasket::UpdatePrice($arItems["ID"], 
-                                    $arItems["CALLBACK_FUNC"], 
-                                    $arItems["MODULE"], 
-                                    $arItems["PRODUCT_ID"], 
-                                    $arItems["QUANTITY"]);
-                                $arItems = CSaleBasket::GetByID($arItems["ID"]);
-                            }
-                            if($arItems["QUANTITY"] > 1) {
-                                $arItems["PRICE"]*=$arItems["QUANTITY"];
-                            } 
-                            $arBasketItems["sum_pruce"] += $arItems["PRICE"];
-
-                        }
-                        $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
-                        $ar_sale = array();
-                        while($ar_sale=$rr->Fetch()) {
-                            $ar_sale_1[] = $ar_sale;
-                        }
-                        $SavingsDiscount =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
+                    <?
+                        
 
                         if($USER->IsAuthorized()) {// blackfriday черная пятница
-                            if($SavingsDiscount[0]["SUMM"] < $ar_sale_1[0]["RANGE_FROM"]) { 
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[0]["RANGE_FROM"] - $SavingsDiscount[0]["SUMM"])." руб. до получения скидки в ".$ar_sale_1[0]["VALUE"]."%</span>";
-                            } elseif ($SavingsDiscount[0]["SUMM"] < $ar_sale_1[1]["RANGE_FROM"]) { 
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[1]["RANGE_FROM"] - $SavingsDiscount[0]["SUMM"])." руб. до получения скидки в ".$ar_sale_1[1]["VALUE"]."%</span>";
-                                $discount = $ar_sale_1[0]["VALUE"]; // процент накопительной скидки
+                            if($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) { 
+                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"])." руб. до получения скидки в ".$arResult["SALE_NOTE"][0]["VALUE"]."%</span>";
+                            } elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) { 
+                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"])." руб. до получения скидки в ".$arResult["SALE_NOTE"][1]["VALUE"]."%</span>";
+                                $discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
                             } else {
-                                $discount = $ar_sale_1[1]["VALUE"];  // процент накопительной скидки
+                                $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                             } 
                         } else { 
-                            if($arBasketItems["sum_pruce"] < $ar_sale_1[0]["RANGE_FROM"]) { 
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[0]["RANGE_FROM"] - $arBasketItems["sum_pruce"])." руб. до получения скидки в ".$ar_sale_1[0]["VALUE"]."%</span>";                            
-                            } elseif ($arBasketItems["sum_pruce"] < $ar_sale_1[1]["RANGE_FROM"]) { 
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[1]["RANGE_FROM"] - $arBasketItems["sum_pruce"])." руб. до получения скидки в ".$ar_sale_1[1]["VALUE"]."%</span>"; 
-                                $discount = $ar_sale_1[0]["VALUE"];  // процент накопительной скидки
+                            if($arResult["BASKET_ITEMS"]["sum_pruce"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) { 
+                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["BASKET_ITEMS"]["sum_pruce"])." руб. до получения скидки в ".$arResult["SALE_NOTE"][0]["VALUE"]."%</span>";                            
+                            } elseif ($arResult["BASKET_ITEMS"]["sum_pruce"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) { 
+                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["BASKET_ITEMS"]["sum_pruce"])." руб. до получения скидки в ".$arResult["SALE_NOTE"][1]["VALUE"]."%</span>"; 
+                                $discount = $arResult["SALE_NOTE"][0]["VALUE"];  // процент накопительной скидки
                             } else {
-                                $discount = $ar_sale_1[1]["VALUE"];  // процент накопительной скидки
+                                $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                             }   
                         }
                         /* if ($Buyer = $BuyerList->Fetch())
@@ -409,7 +360,9 @@ $arItemIDs = array(
                      <div class="wrap_prise_top">
                     <?
 						$StockInfo = "";
-                        if (!empty($arResult["PRICES"])) {   
+                        if (!empty($arResult["PRICES"])) {
+                                // если свойство товара в состоянии "Новинка" либо не задан - то выводить стандартный блок с ценой, 
+                                // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении  
                                 if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) 
                                     && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)) {
                                     foreach ($arResult["PRICES"] as $code => $arPrice) { 
@@ -498,17 +451,11 @@ $arItemIDs = array(
                                 || (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23)) {
                             ?>
                                 <form>
-
-                                    <?if($USER->IsAuthorized()){
-                                        $rsCurUser = CUser::GetByID($USER->GetID());
-                                        $arCurUser = $rsCurUser->Fetch();
-                                        $mail = $arCurUser["EMAIL"];
-                                    }?>
                                     <div>
                                         <p>
                                             <span class="subscribeDesc">Впишите свой <b>e-mail</b>, и Вы получите письмо, как только книгу можно будет заказать</span>
                                         </p>
-                                        <input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$mail;?>" name="email" class="subscribeEmail"/> 
+                                        <input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$arResult["MAIL"];?>" name="email" class="subscribeEmail"/> 
                                         <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="Подписаться"/>
                                         
                                     </div>
@@ -519,17 +466,11 @@ $arItemIDs = array(
                             ?>
                             <p class="newPrice" style="font-size:28px;">Нет в наличии</p>
                             <form>
-
-                                <?if($USER->IsAuthorized()){
-                                    $rsCurUser = CUser::GetByID($USER->GetID());
-                                    $arCurUser = $rsCurUser->Fetch();
-                                    $mail = $arCurUser["EMAIL"];
-                                }?>
                                 <div>
                                     <p>
                                         <span class="subscribeDesc">Впишите свой <b>e-mail</b>, и Вы получите письмо, как только книгу можно будет заказать</span>
                                     </p>
-                                    <input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$mail;?>" name="email" class="subscribeEmail"/> 
+                                    <input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$arResult["MAIL"];?>" name="email" class="subscribeEmail"/> 
                                     <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="Подписаться"/>
                                 </div>
                             </form>    
@@ -663,20 +604,11 @@ $arItemIDs = array(
                         <span class="star"><img src="/img/unactiveStar.png"></span>
                         <span class="countOfRev"><?//=$reviews_count." ".format_by_count($reviews_count, 'отзыв', 'отзыва', 'отзывов');?></span>
                     </p>
-                    <?  $authors = "";
-                        foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
-                            $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
-                            while ($authorFetchedList = $authorList -> Fetch()) {
-                                $authors .= $authorFetchedList["NAME"].", ";
-
-                            }
-                            
-                        }
-                    ?>
+                   
                    
                     <p class="productAutor">
                         <?
-                        echo substr ($authors, 0, -2);
+                        echo substr ($arResult["AUTHORS"], 0, -2);
                         ?>
                     </p>
 
@@ -760,16 +692,16 @@ $arItemIDs = array(
                         <?}?>
                 </div>*/?>
                 <ul class="productsMenu">
-                    <li class="active" data-id="1">Аннотация</li>
-                    <li data-id="4">Об авторе</li>
+                    <li class="active tabsInElement" data-id="1">Аннотация</li>
+                    <li data-id="4" class="tabsInElement">Об авторе</li>
                     <?
                         $review = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 24, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_AUTHOR", "NAME", "PROPERTY_BOOK", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_SOURCE_LINK"));
                         $reviewsCount = $review->SelectedRowsCount();
                         if ($reviewsCount > 0) {
                         ?>
-                        <li data-id="2">Рецензии</li>
+                        <li data-id="2" class="tabsInElement">Рецензии</li>
                         <?}?>
-                    <li data-id="3">Отзывы</li>
+                    <li data-id="3" class="tabsInElement">Отзывы</li>
                 </ul>
                 <div class="annotation" id="prodBlock1"> 
                     <div class="showAllWrapp">
@@ -931,10 +863,6 @@ $arItemIDs = array(
                     <?if (!empty($arResult['TAGS'])) {
                             echo "<p class='productSelectTitle'>Ключевые понятия</p>";
                             echo "<ul class='keyWords' itemprop='keywords'>";
-                            $res = CIBlockElement::GetList(Array(), Array("ACTIVE"=>"Y","ID"=>$arResult['ID']), false, false, Array("TAGS"));
-                            if ($el = $res->Fetch()) {
-                                $arResult['TAGS'] = $el["TAGS"];
-                            }
                             $el = array('TAGS' => $arResult['TAGS']);
                             $el['TAGS'] = explode(',', $el['TAGS']);
                             for ($i = 0; $i < ($size = sizeof($el['TAGS'])); $i++) {
@@ -1072,10 +1000,12 @@ $arItemIDs = array(
                                 while ($author = $currAuthor -> Fetch()) {
                                 ?>
 								<div class="author_info">
-                                <span class="author_name"><?=$author["NAME"]?></span>
-                                <?$imgFile = CFile::GetFileArray($author["DETAIL_PICTURE"]);?>
+                                    <span class="author_name"><?=$author["NAME"]?></span>
+                                    <?$imgFile = CFile::GetFileArray($author["DETAIL_PICTURE"]);?>
 
-                                <?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?></div>
+                                    <?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?>
+                                
+                                </div>
 
                                 <?
                                 }
@@ -1593,9 +1523,9 @@ window.criteo_q.push(
             'height'   :   800
         });
         $(".leftColumn .signingPopup").fancybox({
-            <?if ($arImageInfo["WIDTH"]) {?>
-                'width'   :   <?=$arImageInfo["WIDTH"]?>,
-                'height'   :   <?=$arImageInfo["HEIGHT"]?>
+            <?if ($arResult["SIGNING_IMAGE_INFO"]["WIDTH"]) {?>
+                'width'   :   <?=$arResult["SIGNING_IMAGE_INFO"]["WIDTH"]?>,
+                'height'   :   <?=$arResult["SIGNING_IMAGE_INFO"]["HEIGHT"]?>
             <?} else {?>
                 'width'   :   1140,
                 'height'   :   800
