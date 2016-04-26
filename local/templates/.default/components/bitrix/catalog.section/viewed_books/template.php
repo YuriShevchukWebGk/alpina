@@ -30,10 +30,8 @@ $dbBasketItems = CSaleBasket::GetList(
     false,
     array("ID","PRICE","NAME","QUANTITY","DISCOUNT_PRICE","ORDER_PAYED")
 );
-while ($arItems = $dbBasketItems->Fetch())
-{
-    if (strlen($arItems["CALLBACK_FUNC"]) > 0)
-    {
+while ($arItems = $dbBasketItems->Fetch()) {
+    if (strlen($arItems["CALLBACK_FUNC"]) > 0) {
         CSaleBasket::UpdatePrice($arItems["ID"], 
             $arItems["CALLBACK_FUNC"], 
             $arItems["MODULE"], 
@@ -78,11 +76,9 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
           <div class="uLookSlider">
                 <div>
                     <ul>
-                        <?foreach ($arResult["ITEMS"] as $arItem)
-                        {
+                        <?foreach ($arResult["ITEMS"] as $arItem) {
                             $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
-                            foreach ($arItem["PRICES"] as $arPrice)
-                            {?>
+                            foreach ($arItem["PRICES"] as $arPrice) {?>
                                 <li>
                                     <div class="">
                                         <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
@@ -92,30 +88,23 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
                                             <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem["NAME"]?></p>
                                             <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                             <?
-                                            if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)
-                                            {
-                                                if ($discount)
-                                                {?>
-                                                <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"]*(1 - $discount/100))?> <span>руб.</span></p>
-                                                <?
-                                                }
-                                                else
-                                                {
-                                                ?>    
-                                                <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
-                                                <?
-                                                }
-                                                ?>
+                                            if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 
+                                                && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23) {
+                                                    if ($discount) {?>
+                                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"]*(1 - $discount/100))?> <span>руб.</span></p>
+                                                    <?
+                                                    } else {
+                                                    ?>    
+                                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                                    <?
+                                                    }
+                                                    ?>
                                             <?
-                                            }
-                                            else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23)
-                                            {
+                                            } else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23) {
                                             ?>
                                                 <p class="bookPrice"><?=$arItem["PROPERTIES"]["STATE"]["VALUE"]?></p>
                                             <?
-                                            }
-                                            else
-                                            {?>
+                                            } else {?>
                                                 <p class="bookPrice"><?=strtolower(FormatDate("j F Y", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
                                             <?}?>
                                         </a>
