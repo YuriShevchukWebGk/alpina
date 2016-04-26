@@ -7,22 +7,16 @@ $arUrlRewrite = array(
 		"PATH" => "/bitrix/services/ymarket/index.php",
 	),
 	array(
-		"CONDITION" => "#^/authors/#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/authors/index.php",
-	),
-	array(
 		"CONDITION" => "#^/catalog/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog",
 		"PATH" => "/catalog/index.php",
 	),
 	array(
-		"CONDITION" => "#^/events/#",
+		"CONDITION" => "#^/authors/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
-		"PATH" => "/events/index.php",
+		"PATH" => "/authors/index.php",
 	),
 	array(
 		"CONDITION" => "#^/series/#",
@@ -36,6 +30,12 @@ $arUrlRewrite = array(
 		"ID" => "bitrix:catalog.section",
 		"PATH" => "/catalog/editors-choice/index.php",
 	),
+	array(     
+		"CONDITION" => "#^/store/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/events/index.php",
+	),
 	array(
 		"CONDITION" => "#^\\??(.*)#",
 		"RULE" => "&\$1",
@@ -45,8 +45,8 @@ $arUrlRewrite = array(
 	array(
 		"CONDITION" => "#^\\??(.*)#",
 		"RULE" => "&\$1",
-		"ID" => "bitrix:catalog.section",
-		"PATH" => "/catalog/new/index.php",
+		"ID" => "bitrix:catalog.section",   
+		"PATH" => "/catalog/coming-soon/index.php",
 	),
 	array(
 		"CONDITION" => "#^\\??(.*)#",
@@ -64,7 +64,7 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^/store/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog.store",
-		"PATH" => "/store/index.php",
+		"PATH" => "/store/index.php",    
 	),
 	array(
 		"CONDITION" => "#^/news/#",

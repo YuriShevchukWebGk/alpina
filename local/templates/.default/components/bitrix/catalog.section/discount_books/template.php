@@ -57,6 +57,7 @@ $this->setFrameMode(true);
                                                 <?}?>
                                 </div>
                                 <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem["NAME"]?></p>
+                                <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                 <p class="bookPriceLine"><?=ceil($arPrice["PRINT_VALUE_VAT"])?> <span>руб.</span></p>
                                 <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
                             </a>
