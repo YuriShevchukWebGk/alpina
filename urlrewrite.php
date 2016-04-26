@@ -25,7 +25,17 @@ $arUrlRewrite = array(
 		"PATH" => "/series/index.php",
 	),
 	array(
+<<<<<<< HEAD
 		"CONDITION" => "#^/events/#",
+=======
+		"CONDITION" => "#^\\??(.*)#",
+		"RULE" => "&\$1",
+		"ID" => "bitrix:catalog.section",
+		"PATH" => "/catalog/editors-choice/index.php",
+	),
+	array(
+		"CONDITION" => "#^/store/#",
+>>>>>>> upstream/master
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/events/index.php",
@@ -34,7 +44,11 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^\\??(.*)#",
 		"RULE" => "&\$1",
 		"ID" => "bitrix:catalog.section",
+<<<<<<< HEAD
 		"PATH" => "/catalog/new/index.php",
+=======
+		"PATH" => "/bitrix/templates/.default/components/bitrix/news/series/bitrix/news.detail/.default/template.php",
+>>>>>>> upstream/master
 	),
 	array(
 		"CONDITION" => "#^\\??(.*)#",
@@ -46,7 +60,11 @@ $arUrlRewrite = array(
 		"CONDITION" => "#^\\??(.*)#",
 		"RULE" => "&\$1",
 		"ID" => "bitrix:catalog.section",
+<<<<<<< HEAD
 		"PATH" => "/local/templates/.default/components/bitrix/news/series/bitrix/news.detail/.default/template.php",
+=======
+		"PATH" => "/catalog/coming-soon/index.php",
+>>>>>>> upstream/master
 	),
 	array(
 		"CONDITION" => "#^\\??(.*)#",
@@ -55,6 +73,7 @@ $arUrlRewrite = array(
 		"PATH" => "/catalog/mustread/index.php",
 	),
 	array(
+<<<<<<< HEAD
 		"CONDITION" => "#^\\??(.*)#",
 		"RULE" => "&\$1",
 		"ID" => "bitrix:catalog.section",
@@ -73,6 +92,8 @@ $arUrlRewrite = array(
 		"PATH" => "/store/index.php",
 	),
 	array(
+=======
+>>>>>>> upstream/master
 		"CONDITION" => "#^/news/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
@@ -81,14 +102,14 @@ $arUrlRewrite = array(
 	array(
 		"CONDITION" => "#^/#",
 		"RULE" => "",
-		"ID" => "bitrix:form.result.new",
-		"PATH" => "/content/partnersProgram/index.php",
+		"ID" => "bitrix:iblock.element.add.form",
+		"PATH" => "/about/contacts/index.php",
 	),
 	array(
 		"CONDITION" => "#^/#",
 		"RULE" => "",
-		"ID" => "bitrix:iblock.element.add.form",
-		"PATH" => "/about/contacts/index.php",
+		"ID" => "bitrix:form.result.new",
+		"PATH" => "/content/partnersProgram/index.php",
 	),
 );
 

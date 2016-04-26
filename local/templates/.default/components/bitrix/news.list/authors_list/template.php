@@ -52,7 +52,7 @@
                     $pict = CFile::ResizeImageGet($el_fetch["DETAIL_PICTURE"], array('width'=>165, 'height'=>165), BX_RESIZE_IMAGE_EXACT, true);
                 ?>
                 <div class="authorWrap">
-                    <a href="/authors/<?=$el_fetch["ID"]?>/"><img src="<?=$pict["src"]?>"></a> 
+                    <a href="/authors/<?=$el_fetch["ID"]?>/"><img src="<?echo !empty($pict["src"]) ? $pict["src"] : '/images/no_photo.png';?>" title="<?echo !empty($pict["src"]) ? $el_fetch['NAME'] : '';?>"></a> 
                     <a href="/authors/<?=$el_fetch["ID"]?>/"><div class="authorBack"></div></a>     
                     <a href="/authors/<?=$el_fetch["ID"]?>/"><p><?=$el_fetch['NAME']?></p></a>    
                 </div>
@@ -87,7 +87,7 @@
                             if ($pict["src"])
                             {
                             ?>
-                                <a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><img src="<?=$pict["src"]?>"></a>
+                                <a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><img title="<?=$arItem['NAME']?>" alt="Фотография <?=$arItem['NAME']?>" src="<?=$pict["src"]?>"></a>
                             <?
                             }
                             else

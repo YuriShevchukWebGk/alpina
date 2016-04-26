@@ -126,6 +126,7 @@ $arItemIDs = array(
                         ?> 
                     </div>  
                     <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
+
                     <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
                         <div class="overlay">
                             <p>Полистать книгу</p>
