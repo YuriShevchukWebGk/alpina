@@ -13,9 +13,7 @@
                         </a>				
                     </div>
                     <div>
-                        <!--<p>Об группе компаний</p>
-                        <p>Алфавитный указатель авторов</p>
-                        <p>Партнерская программа</p>-->
+                        
                         <?$APPLICATION->IncludeComponent(
                                 "bitrix:menu", 
                                 "bottom_menu_1", 
@@ -37,9 +35,7 @@
                             );?>
                     </div>
                     <div>
-                        <!--<P>Доставка</P>
-                        <P>Оплата</P>
-                        <P>Как заказать</P>-->
+                        
                         <?$APPLICATION->IncludeComponent(
                                 "bitrix:menu", 
                                 "bottom_menu_1", 
@@ -61,9 +57,7 @@
                             );?>
                     </div>
                     <div>
-                        <!--<p>Где купить</p>
-                        <p>В2В</p>
-                        <p>E-learning</p>-->
+                        
                         <?$APPLICATION->IncludeComponent(
                                 "bitrix:menu", 
                                 "bottom_menu_2", 
@@ -85,8 +79,7 @@
                             );?>
                     </div>
                     <div>
-                        <!--<p>Мероприятия</p>
-                        <p>Контакты</p>-->
+                        
                         <?$APPLICATION->IncludeComponent(
                                 "bitrix:menu", 
                                 "bottom_menu_1", 
@@ -117,8 +110,7 @@
                         </a>
                     </div>
                     <div class="adress">
-                        <!--<p class="adres">Москва, 4-я Магистральная улица, д.5, 2 подъезд, 2 этаж</p>
-                        <p class="adres">+7 (495) 980 80 77 shop@alpinabook.ru</p>-->
+                        
                         <?$APPLICATION->IncludeComponent(
                                 "bitrix:main.include", 
                                 ".default", 
@@ -132,7 +124,7 @@
                                 ),
                                 false
                             );?>
-                        <div class="years"><!--© 2000-2015, ООО "Альпина Паблишер"-->
+                        <div class="years">
                             <?$APPLICATION->IncludeComponent(
                                     "bitrix:main.include", 
                                     ".default", 
@@ -184,16 +176,16 @@
             <?
             if(CUser::IsAuthorized()) {
             ?>
-            <a href="/personal/cart/?liked=yes">
-                <div class="headLiked">
-                    <?      
-                            $curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
-                            $user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
-                            $wishItemList = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user), false, false, array("NAME", "ID", "PROPERTY_PRODUCTS"));
-                            ?>
-                        <div class="likedQuant"><?echo($wishItemList->SelectedRowsCount());?></div>
-                </div>
-            </a>
+                <a href="/personal/cart/?liked=yes">
+                    <div class="headLiked">
+                        <?      
+                                $curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
+                                $user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
+                                $wishItemList = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user), false, false, array("NAME", "ID", "PROPERTY_PRODUCTS"));
+                                ?>
+                            <div class="likedQuant"><?echo($wishItemList->SelectedRowsCount());?></div>
+                    </div>
+                </a>
             <?
             }?>
 
@@ -201,8 +193,7 @@
                 <div class="headLogin">
                 </div>
             </a>
-            <!--<div class="headFind">
-            <input type="text" placeholder="Поиск">-->
+            
             <?$APPLICATION->IncludeComponent(
                     "bitrix:search.title", 
                     "top_search_form", 
@@ -228,23 +219,12 @@
                     ),
                     false
                 );?>
-            <!--</div>-->    
+                
         </div>    
 
         <div class="hidingCatalogLeft">
             <img src="/img/catalogLeftClose.png" class="windowClose">    
-            <!--<ul class="categories">
-            <li><p>Книги фонда династия</p></li>
-            <li><p>Ежедневиники. Метод Глеба Архангельского</p></li>
-            <li><p>Выход есть: антикризисные книги</p></li>
-            <li><p>Бизнес</p></li>
-            <li><p>Популярная психология</p></li>
-            <li><p>Здоровье, йога, красота</p></li>
-            <li><p>Путешествия</p></li>
-            <li><p>Книги фонда династия</p></li>
-            <li><p>Книги для родителей</p></li>
-            <li><p>Путешествия</p></li>
-            </ul>-->
+            
             <?$APPLICATION->IncludeComponent(
                     "bitrix:catalog.section.list", 
                     "left.tree", 
@@ -277,13 +257,7 @@
                     ),
                     false
                 );?>
-            <!--<ul class="menuCopy">
-            <li>Оплата</li>
-            <li>Доставка</li>
-            <li>Скидки</li>
-            <li>Где мой заказ?</li>
-            <li>Контакты</li>
-            </ul>-->
+            
             <?$APPLICATION->IncludeComponent("bitrix:menu", "left_menu", 
                     Array(
                         "ROOT_MENU_TYPE" => "left_block",	// Тип меню для первого уровня
@@ -310,89 +284,7 @@
             </div>
         </div>
 
-        <!--<div class="hidingBasketRight">
-        <img src="/img/catalogLeftClose.png" class="windowClose">
-        <p class="title">Корзина</p>
-        <p class="bonus">Вам не хватает 770 руб. до получения скидки в 10%</p>
-        <div class="basketBooks">
-        <div class="basketBook">
-        <div class="bookImage"><img src="/img/leftHideBook1.png"></div>
-        <div>
-        <p class="bookNameBask">Черная риторика: Власть и магия сл...</p>
-        <p class="bookPrice">590 руб.</p>
-        <div class="countMenu">
-        <p class="countOfBook">1</p>
-        <a href="#" class="plus"></a>
-        <a href="#" class="minus"></a>        
-        </div>
-
-        </div>
-        </div>    
-        <div class="basketBook">
-        <div class="bookImage"><img src="/img/leftHideBook1.png"></div>
-        <div>
-        <p class="bookNameBask">Черная риторика: Власть и магия сл...</p>
-        <p class="bookPrice">590 руб.</p>
-        <div class="countMenu">
-        <p class="countOfBook">1</p>
-        <a href="#" class="plus"></a>
-        <a href="#" class="minus"></a>        
-        </div>
-
-        </div>
-        </div>    
-        <div class="basketBook">
-        <div class="bookImage"><img src="/img/leftHideBook1.png"></div>
-        <div>
-        <p class="bookNameBask">Черная риторика: Власть и магия сл...</p>
-        <p class="bookPrice">590 руб.</p>
-        <div class="countMenu">
-        <p class="countOfBook">1</p>
-        <a href="#" class="plus"></a>
-        <a href="#" class="minus"></a>        
-        </div>
-
-        </div>
-        </div>    
-        <div class="basketBook">
-        <div class="bookImage"><img src="/img/leftHideBook1.png"></div>
-        <div>
-        <p class="bookNameBask">Черная риторика: Власть и магия сл...</p>
-        <p class="bookPrice">590 руб.</p>
-        <div class="countMenu">
-        <p class="countOfBook">1</p>
-        <a href="#" class="plus"></a>
-        <a href="#" class="minus"></a>        
-        </div>
-
-        </div>
-        </div>    
-        <div class="basketBook">
-        <div class="bookImage"><img src="/img/leftHideBook1.png"></div>
-        <div>
-        <p class="bookNameBask">Черная риторика: Власть и магия сл...</p>
-        <p class="bookPrice">590 руб.</p>
-        <div class="countMenu">
-        <p class="countOfBook">1</p>
-        <a href="#" class="plus"></a>
-        <a href="#" class="minus"></a>        
-        </div>
-
-        </div>
-        </div>    
-        </div>
-
-        <div class="bottomBlock">
-        <div class="result">
-        <p class="resultText">Итого</p>
-        <p class="count">Кол-во:4</p>
-        <p class='price'>2230 <span>руб.</span></p>
-        </div>
-        <div class="confirm">
-        <p>Оформить заказ</p>
-        </div>
-        </div>
-        </div> -->
+        
         <div class="hidingBasketRight">
             <?
                 $APPLICATION->IncludeComponent("bitrix:sale.basket.basket.small", "hiding_basket", Array(
