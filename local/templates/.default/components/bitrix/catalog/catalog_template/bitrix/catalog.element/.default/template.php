@@ -121,12 +121,12 @@ $arItemIDs = array(
                     <div class="bookPages">
                         <?
                             if ($arResult["MAIN_PICTURE"]) {?>
-                                <a class="grouped_elements" rel="group1" href="<?=$arImagePath?>"><img src="<?=$arImagePath?>"></a>
+                                <a class="grouped_elements" rel="group1" href="<?=$arResult["MAIN_PICTURE"]?>"><img src="<?=$arResult["MAIN_PICTURE"]?>"></a>
                             <?}      
                         ?> 
                     </div>  
+                    <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
 
-                    <?if (($moreFotoCount > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
                     <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
                         <div class="overlay">
                             <p>Полистать книгу</p>
@@ -993,10 +993,12 @@ $arItemIDs = array(
                                 while ($author = $currAuthor -> Fetch()) {
                                 ?>
 								<div class="author_info">
-                                <span class="author_name"><?=$author["NAME"]?></span>
-                                <?$imgFile = CFile::GetFileArray($author["DETAIL_PICTURE"]);?>
+                                    <span class="author_name"><?=$author["NAME"]?></span>
+                                    <?$imgFile = CFile::GetFileArray($author["DETAIL_PICTURE"]);?>
 
-                                <?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?></div>
+                                    <?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?>
+                                
+                                </div><br>
 
                                 <?
                                 }

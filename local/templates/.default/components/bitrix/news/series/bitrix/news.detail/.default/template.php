@@ -21,7 +21,7 @@ if ($_REQUEST["DIRECTION"])
 else
 {
     $order = "desc";
-}
+} 
 switch ($_REQUEST["SORT"])
 {
     case "DATE":
@@ -38,7 +38,7 @@ switch ($_REQUEST["SORT"])
     break;
     
     default:
-    $sort = "PROPERTY_STATEDATE";
+    $sort = "PROPERTY_POPULARITY";
     $order = "desc";
 }?>
 <?

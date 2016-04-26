@@ -90,6 +90,7 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
                                                 <img src="<?=$pict["src"]?>" class="bookImg" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>">
                                             </div>
                                             <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem["NAME"]?></p>
+                                            <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                             <?
                                             if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)
                                             {

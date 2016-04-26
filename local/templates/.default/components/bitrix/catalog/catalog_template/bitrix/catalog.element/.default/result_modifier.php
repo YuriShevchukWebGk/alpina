@@ -652,7 +652,7 @@ if ($arResult['MODULES']['currency'])
     );
     
     $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "pdf_newlist"));
-    $moreFotoCount = $arProps->SelectedRowsCount();
+    $arResult["PHOTO_COUNT"] = $arProps->SelectedRowsCount();
     while($ob = $arProps->GetNext()) {
         $arImagePath = CFile::GetPath($ob['VALUE']);
         if(!$arResult["MAIN_PICTURE"]){
