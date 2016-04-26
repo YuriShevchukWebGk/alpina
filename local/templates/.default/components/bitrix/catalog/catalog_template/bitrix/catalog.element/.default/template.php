@@ -121,7 +121,7 @@ $arItemIDs = array(
                     <div class="bookPages">
                         <?
                             if ($arResult["MAIN_PICTURE"]) {?>
-                                <a class="grouped_elements" rel="group1" href="<?=$arResult["MAIN_PICTURE"])?>"><img src="<?=$arResult["MAIN_PICTURE"])?>"></a>
+                                <a class="grouped_elements" rel="group1" href="<?=$arResult["MAIN_PICTURE"]?>"><img src="<?=$arResult["MAIN_PICTURE"]?>"></a>
                             <?}      
                         ?> 
                     </div>  
