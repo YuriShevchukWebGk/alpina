@@ -99,7 +99,7 @@ $APPLICATION->IncludeComponent(
         "SHOW_RATING" => "",
         "SHOW_WHEN" => "N",
         "SHOW_WHERE" => "Y",
-        "USE_LANGUAGE_GUESS" => "N",
+        "USE_LANGUAGE_GUESS" => "Y",
         "USE_SUGGEST" => "N",
         "USE_TITLE_RANK" => "Y",
         "arrFILTER" => array(
