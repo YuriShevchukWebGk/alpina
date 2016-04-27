@@ -207,22 +207,6 @@ $arItemIDs = array(
                     <p class="text">Глава в формате PDF будет отправлена вам на почту</p>
                     <input type="text" placeholder="Ваш e-mail"> 
                 </div>
-
-                <?
-                if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
-                   ?>
-                    <a href="<?=$arResult["SIGN_PICTURE"]?>" class="fancybox fancybox.iframe signingPopup">
-                        <div class="authorSigning">
-                        </div>
-                    </a>
-                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
-                        <div class="authorSigningText">
-                        с автографом автора
-                        </div>
-                    </a>
-                <?
-                }
-                ?>
                 
                 <div class="characteris">
                     <p class="title">Издательство</p>
