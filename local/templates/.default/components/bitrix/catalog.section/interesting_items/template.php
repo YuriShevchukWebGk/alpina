@@ -70,8 +70,8 @@ $this->setFrameMode(true);
                                 }?>
                                 
                             </ul>
-                            <img src="/img/arrowLeft.png" class="left">
-                            <img src="/img/arrowRight.png" class="rigth">
+                            <?/*<img src="/img/arrowLeft.png" class="left">
+                            <img src="/img/arrowRight.png" class="rigth">*/?>
                         </div>
                     </div>
                 </div>

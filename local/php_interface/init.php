@@ -129,7 +129,6 @@
         if (in_array($val, array("D", "F", "K")) )  // убран ключ "I"
         {
             CSaleOrder::PayOrder($ID, "Y", false, false, 0, array());
-            CSaleOrder::StatusOrder($ID, $val);
         }
     }
 
@@ -772,74 +771,86 @@
 
         if ($arFields['PRICE'] > 2000) {
             if ($orderArr['DELIVERY_ID']==9 || $orderArr['DELIVERY_ID']==12 || $orderArr['DELIVERY_ID']==13 || $orderArr['DELIVERY_ID']==14 || $orderArr['DELIVERY_ID']==15 || $orderArr['DELIVERY_ID']==2){
-                $arFields['PROMO_PARTNER'] = '<tr>
-                <td align="center" style="background:#FCFFD4;padding-top:0px; padding-bottom:0;color: #393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 160%;text-align: left;padding:0;" valign="top">
-
-                <table align="center" style="width:100%;">
-                <tbody>
+                $arFields['PROMO_PARTNER'] = '
                 <tr>
-                <td style="border-collapse: collapse;padding:10px 40px 20px 40px; border-collapse: collapse;border-style: solid;border-color: #808080;-moz-border-top-colors: none;-moz-border-right-colors: none;-moz-border-bottom-colors: none;-moz-border-left-colors: none;border-image: none;border-width: 1px 0px 1px;">
-                <table align="left" width="100%">
-                <tbody>
-                <!-- Коллектив имага -->
-                <tr>
-                <td align="left" style="border-collapse: collapse;color:#393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;" width="100" valign="top">
-                <a href="http://www.netology.ru/?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank"><img src="/images/subscr/netology.png" align="left" /></a><b>Скидка на обучение от Альпина Паблишер и Нетологии</b><br />
-                Также рады предложить вам обучение со скидкой от наших партнеров, университета интернет-профессий «Нетология».<br />
-                Программа обучения <a href="http://netology.ru/marketing-director?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank">«Директор по онлайн-маркетингу»</a> со скидкой 30 000 рублей! <br /><br />
-                Главные особенности программы:<ul>
-                <li>Очная программа обучения по подготовке управленцев в сфере современного маркетинга (занятия проходят в Москве);</li>
-                <li>Более 20 преподавателей-практиков из Google Россия, «Яндекс», «ВКонтакте», Mail.ru Group, Ozon, ABBYY, Wikimart;</li>
-                <li>Программа включает основные темы, которые должен знать современный специалист в сфере управления маркетингом;</li>
-                <li>По итогам обучения выдается диплом о профессиональной переподготовке по специальности «Директор по онлайн-маркетингу»;</li>
-                <li>По завершению программы Нетология будет оказывать помощь в организации персональных консультаций с HR-специалистами, возможна организация собеседований на конкретные вакансии.</li>
-                </ul>
+                    <td align="center" style="background:#FCFFD4;padding-top:0px; padding-bottom:0;color: #393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 160%;text-align: left;padding:0;" valign="top">
 
-                Промокод на скидку «Альпина» (после оформления заявки на обучение сообщите о вашей скидке менеджеру и назовите промокод). Скидка действует до 11.02.2016.<br />
-                Количество мест на участие в программе ограничено.
-                <br /><br /> 
-                Подробнее об учебной программе «Директор по онлайн-маркетингу» вы можете узнать на официальной странице <a href="http://netology.ru/marketing-director?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank">«Нетологии»</a>
-                <br /><br />
+                        <table align="center" style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td style="border-collapse: collapse;padding:10px 40px 20px 40px; border-collapse: collapse;border-style: solid;border-color: #808080;-moz-border-top-colors: none;-moz-border-right-colors: none;-moz-border-bottom-colors: none;-moz-border-left-colors: none;border-image: none;border-width: 1px 0px 1px;">
+                                        <table align="left" width="100%">
+                                            <tbody>
+                                            <!-- Коллектив имага -->
+                                                <tr>
+                                                    <td align="left" style="border-collapse: collapse;color:#393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;" width="100" valign="top">
+                                                        <a href="http://www.netology.ru/?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank">
+                                                            <img src="/images/subscr/netology.png" align="left" />
+                                                        </a>
+                                                        <b>Скидка на обучение от Альпина Паблишер и Нетологии</b>
+                                                        <br />
+                                                        Также рады предложить вам обучение со скидкой от наших партнеров, университета интернет-профессий «Нетология».<br />
+                                                        Программа обучения <a href="http://netology.ru/marketing-director?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank">«Директор по онлайн-маркетингу»</a> со скидкой 30 000 рублей! 
+                                                        <br /><br />
+                                                        Главные особенности программы:
+                                                        <ul>
+                                                            <li>Очная программа обучения по подготовке управленцев в сфере современного маркетинга (занятия проходят в Москве);</li>
+                                                            <li>Более 20 преподавателей-практиков из Google Россия, «Яндекс», «ВКонтакте», Mail.ru Group, Ozon, ABBYY, Wikimart;</li>
+                                                            <li>Программа включает основные темы, которые должен знать современный специалист в сфере управления маркетингом;</li>
+                                                            <li>По итогам обучения выдается диплом о профессиональной переподготовке по специальности «Директор по онлайн-маркетингу»;</li>
+                                                            <li>По завершению программы Нетология будет оказывать помощь в организации персональных консультаций с HR-специалистами, возможна организация собеседований на конкретные вакансии.</li>
+                                                        </ul>
 
-                </td>
-                </tr>
-                </tbody>
-                </table>
-                </td>
-                </tr>
-                </tbody>
-                </table>            
-                </td>
+                                                        Промокод на скидку «Альпина» (после оформления заявки на обучение сообщите о вашей скидке менеджеру и назовите промокод). Скидка действует до 11.02.2016.
+                                                        <br />
+                                                        Количество мест на участие в программе ограничено.
+                                                        <br /><br /> 
+                                                        Подробнее об учебной программе «Директор по онлайн-маркетингу» вы можете узнать на официальной странице <a href="http://netology.ru/marketing-director?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank">«Нетологии»</a>
+                                                        <br /><br />
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </td>
                 </tr>';
             } else {
-                $arFields['PROMO_PARTNER'] = '<tr>
-                <td align="center" style="background:#FCFFD4;padding-top:0px; padding-bottom:0;color: #393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 160%;text-align: left;padding:0;" valign="top">
-
-                <table align="center" style="width:100%;">
-                <tbody>
+                $arFields['PROMO_PARTNER'] = '
                 <tr>
-                <td style="border-collapse: collapse;padding:10px 40px 20px 40px; border-collapse: collapse;border-style: solid;border-color: #808080;-moz-border-top-colors: none;-moz-border-right-colors: none;-moz-border-bottom-colors: none;-moz-border-left-colors: none;border-image: none;border-width: 1px 0px 1px;">
-                <table align="left" width="100%">
-                <tbody>
-                <!-- Коллектив имага -->
-                <tr>
-                <td align="left" style="border-collapse: collapse;color:#393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;" width="100" valign="top">
-                <a href="http://www.netology.ru/?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank"><img src="/images/subscr/netology.png" align="left" /></a><b>Скидка на обучение от Альпина Паблишер и Нетологии</b><br />
-                Также рады предложить вам обучение со скидкой от наших партнеров: получите востребованную интернет-профессию или повысьте свои навыки в университете «Нетология» со скидкой 3000 рублей! Введите в форме заказа (на странице
-                интересующей вас профессии) промокод <b>HSMD4-AXL6PM</b>. Промокод действителен до 29.02.2016
-                <br />
-                Скидка распространяется на все онлайн программы обучения.<br />
-                Полный список программ обучения доступ на сайте университета <a href="http://netology.ru/?utm_source=infopartners&utm_medium=667&utm_campaign=onlinecourses" target="_blank">«Нетология»</a>.<br /><br />
+                    <td align="center" style="background:#FCFFD4;padding-top:0px; padding-bottom:0;color: #393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 160%;text-align: left;padding:0;" valign="top">
 
-                </td>
-                </tr>
-                </tbody>
-                </table>
-                </td>
-                </tr>
-                </tbody>
-                </table>            
-                </td>
+                        <table align="center" style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td style="border-collapse: collapse;padding:10px 40px 20px 40px; border-collapse: collapse;border-style: solid;border-color: #808080;-moz-border-top-colors: none;-moz-border-right-colors: none;-moz-border-bottom-colors: none;-moz-border-left-colors: none;border-image: none;border-width: 1px 0px 1px;">
+                                        <table align="left" width="100%">
+                                            <tbody>
+                                            <!-- Коллектив имага -->
+                                                <tr>
+                                                    <td align="left" style="border-collapse: collapse;color:#393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;" width="100" valign="top">
+                                                        <a href="http://www.netology.ru/?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank"><img src="/images/subscr/netology.png" align="left" /></a><b>Скидка на обучение от Альпина Паблишер и Нетологии</b>
+                                                        <br />
+                                                        Также рады предложить вам обучение со скидкой от наших партнеров: получите востребованную интернет-профессию или повысьте свои навыки в университете «Нетология» со скидкой 3000 рублей! Введите в форме заказа (на странице
+                                                        интересующей вас профессии) промокод <b>HSMD4-AXL6PM</b>. Промокод действителен до 29.02.2016
+                                                        <br />
+                                                        Скидка распространяется на все онлайн программы обучения.
+                                                        <br />
+                                                        Полный список программ обучения доступ на сайте университета <a href="http://netology.ru/?utm_source=infopartners&utm_medium=667&utm_campaign=onlinecourses" target="_blank">«Нетология»</a>.
+                                                        <br /><br />
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>            
+                    </td>
                 </tr>';        
             }
         }
@@ -990,25 +1001,25 @@
                 $curr_sect = CIBlockSection::GetByID($NewItemsList["IBLOCK_SECTION_ID"]) -> Fetch();         
                 $NewItemsBlock .= '
                 <table align="left" border="0" cellpadding="8" cellspacing="0" class="tile" width="32%">
-                <tbody>
-                <tr>
-                <td height="200" style="border-collapse: collapse;text-align:center;" valign="top" width="100%">
-                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">
-                <img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 146px; height: 188px;" />
-                </a>
-                </td>
-                </tr>
-                <tr>
-                <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;" valign="top" width="126">
-                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Подробнее о книге</a>
-                </td>   
-                </tr>
-                <tr>
-                <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;padding-top:0;" valign="top" width="126">
-                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Купить</a>
-                </td>
-                </tr>
-                </tbody>
+                    <tbody>
+                        <tr>
+                            <td height="200" style="border-collapse: collapse;text-align:center;" valign="top" width="100%">
+                                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">
+                                    <img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 146px; height: 188px;" />
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;" valign="top" width="126">
+                                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Подробнее о книге</a>
+                            </td>   
+                        </tr>
+                        <tr>
+                            <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;padding-top:0;" valign="top" width="126">
+                                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Купить</a>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>';
                 $i++;    
             }
@@ -1016,7 +1027,23 @@
         }        
     }
 
+    
+    // --- couriers popup in admin
+    AddEventHandler("main", "OnAdminListDisplay", "curInit");
+
+    function curInit(){
+        if($GLOBALS["APPLICATION"] -> GetCurPage() == "/bitrix/admin/sale_order_detail.php" || $GLOBALS["APPLICATION"] -> GetCurPage() == "/bitrix/admin/sale_order.php"){
+            $GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/couriersListeners.js");    
+            $GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/orderAdmin.class.js");
+            $GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/popup.class.js");     
+            $GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/index.js");
+            $GLOBALS['APPLICATION'] -> SetAdditionalCSS("/admin_modules/couriers/css/style.css");   
+        }
+    }
+     
+
     //Получение этикетки для бланков заказов, сделанных через PickPoint
+
     function MakeLabelPickPoint($orderId){
         //Авторизация на сервере PickPoint для получения ключа сессии (Необходим для дальнейшей работы с API)
         $dataLogin = array('Login' => alpina, 'Password' => 12588521);  //Необходимо указать доступы к API выданные клиенту

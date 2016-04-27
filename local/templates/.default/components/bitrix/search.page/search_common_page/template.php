@@ -586,57 +586,21 @@ $(document).ready(function(){
     
     updateSearchPage();
     
-    <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
-        <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
-            var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
-        <?} else {?>
-            var page = 2;
-        <?}?>
-        var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
-            $('.showMore').on('click', function(){
-                $.fancybox.showLoading();
-                $.get(window.location.href+'&PAGEN_<?=$navnum?>='+page, function(data) {
-                    var next_page = $('.searchWidthWrapper .searchBook', data);
-                    $('.searchWidthWrapper').append(next_page);
-                    page++;            
-                })
-                .done(function() {
-                    $.fancybox.hideLoading();
-                    $(".descrWrap .bookNames").each(function() {
-                        if($(this).length > 0) {
-                            $(this).html(truncate($(this).html(), 25));    
-                        }    
-                    });
-                    
-                    $(".description").each(function() {
-                        if($(this).length > 0) {
-                        $(this).html(truncate($(this).html(), 81));    
-                        }    
-                    });
-    
-                });
-                if (page == maxpage) {
-                    $('.showMore').hide();
-                    //$('.phpages').hide();
-                }
-                return false;
-            });
             
-            if ($(".searchWidthWrapper .searchBook").size() < 9) {
-                $('.showMore').hide();    
-            }
-            if($('.bookEasySlider').length > 0) {
-                easySlider('.bookEasySlider', 6);
-            }
-            if ($(".AuthorsWrapp .searchWidthWrapper .searchBook").size() == 0) {
-                $(".AuthorsWrapp .title").hide();
-            }
-            if ($(".BooksWrapp .searchWidthWrapper .searchBook").size() == 0) {
-                $(".BooksWrapp .title").hide();
-            }
-            if ($(".SeriesWrapp .searchWidthWrapper .searchBook").size() == 0) {
-                $(".SeriesWrapp .title").hide();
-            }   
+    // слайдер "те кто искали ..., купили"
+    if($('.bookEasySlider').length > 0) {
+        easySlider('.bookEasySlider', 6);
+    }
+    // скрывать заголовок блоков, если данный блок не содержит элементов
+    if ($(".AuthorsWrapp .searchWidthWrapper .searchBook").size() == 0) {
+        $(".AuthorsWrapp .title").hide();
+    }
+    if ($(".BooksWrapp .searchWidthWrapper .searchBook").size() == 0) {
+        $(".BooksWrapp .title").hide();
+    }
+    if ($(".SeriesWrapp .searchWidthWrapper .searchBook").size() == 0) {
+        $(".SeriesWrapp .title").hide();
+    }   
 });
 
 </script>

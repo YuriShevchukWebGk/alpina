@@ -1047,10 +1047,7 @@
     min-height: 90px; 
     height: auto;
 }
-.elementDescriptWrap .typesOfProduct > div{
-    width: 154px; 
-    margin-right: 9px;
-}
+
 .elementDescriptWrap .typesOfProduct > div:Last-child{
     margin-right: 0px; 
 }
@@ -1127,9 +1124,9 @@
     border: 2px solid #cab796;
     font-weight: 300;
 }
-.productsMenu li:nth-child(2) {
+/*.productsMenu li:nth-child(2) {
     width:80px;
-}
+}*/
 .centerColumn h1 {
     color: #fff;
     font-family: "Walshein_regular";
@@ -1182,6 +1179,7 @@
     color: #424D4F;
     font-family: "Walshein_light";
     margin-bottom: 20px;
+    width: 100%;
 }
 .elementDescriptWrap .productsMenu {
     margin-top: 50px;

@@ -650,4 +650,107 @@ if ($arResult['MODULES']['currency'])
         false, 
         false                     
     );
+    
+    $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "pdf_newlist"));
+    $arResult["PHOTO_COUNT"] = $arProps->SelectedRowsCount();
+    while($ob = $arProps->GetNext()) {
+        $arImagePath = CFile::GetPath($ob['VALUE']);
+        if(!$arResult["MAIN_PICTURE"]){
+            $arResult["MAIN_PICTURE"] = $arImagePath;
+        }
+    }
+    $signingProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "SIGNING"));
+    $signFotoCount = $signingProps->SelectedRowsCount();
+    while($ob = $signingProps->GetNext()) {
+        $signImagePath = CFile::GetPath($ob['VALUE']);
+        if(!$arResult["SIGN_PICTURE"]) {
+            $arResult["SIGN_PICTURE"] = $signImagePath;
+        }
+        $arResult["SIGNING_IMAGE_INFO"] = CFile::GetByID($ob["VALUE"]) -> Fetch();
+    }
+    
+    if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {
+        
+        $arResult["CURR_SERIES"] = CIBlockElement::GetByID($arResult["PROPERTIES"]["SERIES"]["VALUE"]) -> Fetch();
+        
+    }
+    
+    foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {
+        $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 47, "ID" => $val), false, false, array('*','PROPERTY_LOGO_VOLUME_COVER','PROPERTY_LOGO_FLAT_COVER','PROPERTY_LOGO_FLAT_BIG_COVER','PROPERTY_SPONSOR_WEBSITE'));
+        while ($authorFetchedList = $authorList -> Fetch()) { 
+            if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
+                $arResult["IMAGE"] = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
+            } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
+                $arResult["IMAGE"] = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
+            } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
+                $arResult["IMAGE"] = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
+            };
+            
+            $arResult["SPONSOR_PREVIEW_TEXT"] = $authorFetchedList["PREVIEW_TEXT"];
+            $arResult["SPONSOR_WEBSITE_VALUE"] = $authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"];
+            $arResult["SPONSOR_NAME"] = $authorFetchedList["NAME"];
+        }
+        
+        $arResult["SPONSOR_PICT"] = CFile::GetPath($arResult["IMAGE"]);
+    }
+    
+    CModule::IncludeModule("sale");
+    //$BuyerList = CUser::GetByID($USER->GetID()); 
+    $dbBasketItems = CSaleBasket::GetList(
+        array(
+            "NAME" => "ASC",
+            "ID" => "ASC"
+        ),
+        array(
+            "FUSER_ID" => CSaleBasket::GetBasketUserID(),
+            "LID" => SITE_ID,
+            "ORDER_ID" => "NULL"
+        ),
+        false,
+        false,
+        array("ID","PRICE","NAME","QUANTITY","DISCOUNT_PRICE","ORDER_PAYED")
+    );
+    while ($arItems = $dbBasketItems->Fetch()) {
+        if (strlen($arItems["CALLBACK_FUNC"]) > 0) {
+            CSaleBasket::UpdatePrice($arItems["ID"], 
+                $arItems["CALLBACK_FUNC"], 
+                $arItems["MODULE"], 
+                $arItems["PRODUCT_ID"], 
+                $arItems["QUANTITY"]);
+            $arBasketItems = CSaleBasket::GetByID($arItems["ID"]);
+        }
+        if($arBasketItems["QUANTITY"] > 1) {
+            $arBasketItems["PRICE"]*=$arBasketItems["QUANTITY"];
+        } 
+        $arResult["BASKET_ITEMS"]["sum_pruce"] += $arBasketItems["PRICE"];
+
+    } 
+    
+    $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
+    $ar_sale = array();
+    while($ar_sale=$rr->Fetch()) {
+        $arResult["SALE_NOTE"][] = $ar_sale;
+    }
+    $arResult["SAVINGS_DISCOUNT"] =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
+    
+    if($USER->IsAuthorized()){
+        $rsCurUser = CUser::GetByID($USER->GetID());
+        $arCurUser = $rsCurUser->Fetch();
+        $arResult["MAIL"] = $arCurUser["EMAIL"];
+    }
+    
+    $arResult["AUTHORS"] = "";
+    foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
+        $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
+        while ($authorFetchedList = $authorList -> Fetch()) {
+            $arResult["AUTHORS"] .= $authorFetchedList["NAME"].", ";
+
+        }
+
+    }
+    
+    $res = CIBlockElement::GetList(Array(), Array("ACTIVE"=>"Y","ID"=>$arResult['ID']), false, false, Array("TAGS"));
+    if ($el = $res->Fetch()) {
+        $arResult['TAGS'] = $el["TAGS"];
+    }
 ?>

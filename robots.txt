@@ -1,6 +1,8 @@
+<<<<<<< HEAD
 User-Agent: *
 Disallow: # empty Disallow instruction SHOULD be there
 Allow: /books/series/?ELEMENT_ID=*
+Allow: /authors/?list=*
 Disallow: /*?
 Disallow: /*admin
 Disallow: /events/*
@@ -21,6 +23,9 @@ User-Agent: PageWeight
 Disallow: # empty Disallow instruction SHOULD be there
 Disallow: *?print
 Disallow: *PAGEN
+Disallow: *itunes*
+Disallow: */store/apps/details?id*
+Disallow: *?AUTHOR=*
 Disallow: *?SORT
 Disallow: *?SHOWALL
 Disallow: *?utm_
@@ -43,3 +48,7 @@ Disallow: *twitter
 Disallow: /content/publisher/ads/*&amp;amp;theme
 Disallow: /books/outofstock.php
 Disallow: /content/publisher/ads/
+=======
+User-agent: *
+Disallow: /
+>>>>>>> b8029ebd8190a8160402772fb4db91b7d03e06d1

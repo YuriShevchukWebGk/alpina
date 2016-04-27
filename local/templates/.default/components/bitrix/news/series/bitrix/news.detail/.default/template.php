@@ -14,16 +14,12 @@ $this->setFrameMode(true);
 ?>
 
 <?
-if ($_REQUEST["DIRECTION"])
-{
+if ($_REQUEST["DIRECTION"]) {
     $order = $_REQUEST["DIRECTION"];
-}
-else
-{
+} else {
     $order = "desc";
-}
-switch ($_REQUEST["SORT"])
-{
+} 
+switch ($_REQUEST["SORT"]) {
     case "DATE":
     $sort = "PROPERTY_YEAR";
     break;
@@ -38,7 +34,7 @@ switch ($_REQUEST["SORT"])
     break;
     
     default:
-    $sort = "PROPERTY_STATEDATE";
+    $sort = "PROPERTY_POPULARITY";
     $order = "desc";
 }?>
 <?
