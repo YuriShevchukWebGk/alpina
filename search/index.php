@@ -73,7 +73,6 @@ $SearchFilter = array(">CATALOG_PRICE_1" => 0);?>
     false
 );*/
 $APPLICATION->IncludeComponent(
-<<<<<<< HEAD
     "bitrix:search.page", 
     "search_common_page", 
     array(
