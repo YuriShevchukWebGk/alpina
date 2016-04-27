@@ -2766,19 +2766,18 @@ width: 34px;
 }
 
 .elementDescriptWrap .typesOfProduct{
-    margin-top: 84px;
-    height: 90px;
+    /*margin-top: 84px;
+    height: 90px;*/
     overflow: hidden;
 }
 .elementDescriptWrap .typesOfProduct>div{
     border: 2px solid #e2e2e2;
     float: left;
-    height: 58px;
-    margin-right: 12px;
-    padding-left: 18px;
     padding-top: 14px;
-    width: 144px;
-    margin-bottom: 14px;
+	padding-bottom: 14px;
+    width: 260px;
+    margin-bottom: 12px;
+	text-align:center;
 }
 .elementDescriptWrap .productType{
 
@@ -2786,7 +2785,7 @@ width: 34px;
 .productType .title{
     color: #424C4F;
     font-family: "Walshein_regular";
-    font-size: 14px;
+    font-size: 15px;
     margin-bottom: 4px;
 }
 .productType .title a {

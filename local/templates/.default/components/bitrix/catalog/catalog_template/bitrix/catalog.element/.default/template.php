@@ -12,50 +12,7 @@
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
 ?>
-<?if ($USER->isAdmin()) {?>
-    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
-<script type="text/javascript">
-	if ($.cookie('maysale') != "show" && $.cookie('maysale') != "showed" && $.cookie('maysale') != 1) {
-		$.cookie('maysale', 'show', { path: '/', expires: 10 });	
-	} else 
-	if ($.cookie('maysale') == 1) {
-		$.cookie('maysale', "show", { path: '/', expires: 10 });	
-	} else 
-	if ($.cookie('maysale') == "show") {
-		setTimeout(function () {	
-			$("#fb-new-box").slideDown(2000);
-			//$.cookie('maysale', "showed", { path: '/', expires: 1 });
-			dataLayer.push({
-				event: "popup",
-				action: "maysale",
-				label: 'Show'
-			})				
-		}, 5000);
-	}
 
-	function closeFbPromo() {
-		$("#fb-new-box").slideUp(1000);
-		$.cookie('maysale', "showed", { path: '/', expires: 10 });
-		dataLayer.push({
-			event: "popup",
-			action: "maysale",
-			label: 'Close'
-		})
-	}
-	$(document).ready(function() {
-		$("#closeMaySale").click(function() {
-			$("#fb-new-box").slideUp();
-		});
-	});
-</script>
-
-<style>
-#fb-new-box {display:none}
-</style>
-<div style="position:fixed; right:0;bottom:0;height:400px; text-align:center;width:520px;z-index:1000;" id="fb-new-box">
-	<div style="background:rgb(224, 224, 224) none repeat scroll 0% 0%;cursor:pointer;padding:5px;;border:0px;border-radius:10px;color:#333;position:absolute;right:0px;top:-22px;" id="closeMaySale">Закрыть X</div>
-	<a href="/actions/maysale/"><img src="/img/maysale_banner.gif" /></a>
-</div><?}?>
 <?$this->setFrameMode(true);
 $templateLibrary = array('popup');
 $currencyList = '';
@@ -210,29 +167,6 @@ $arItemIDs = array(
                     <?}?>    
                 </div>
                 <?
-                if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
-                    $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "SIGNING"));
-                            $moreFotoCount = $arProps->SelectedRowsCount();
-                            while($ob = $arProps->GetNext()) {
-                                $arImagePath = CFile::GetPath($ob['VALUE']);
-                                if(!$signPicture){
-                                    $signPicture = $arImagePath;
-                                }
-                                $arImageInfo = CFile::GetByID($ob["VALUE"]) -> Fetch();
-                            }?>
-                    <a href="<?=$signPicture?>" class="fancybox fancybox.iframe signingPopup">
-                        <div class="authorSigning">
-                        </div>
-                    </a>
-                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
-                        <div class="authorSigningText">
-                        с автографом автора
-                        </div>
-                    </a>
-                <?
-                }
-                ?>
-                <?
                     $curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
                     $user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
                     $wishlist_item = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user, "PROPERTY_PRODUCTS" => $arResult["ID"]), false, false, array("ID", "PROPERTY_PRODUCTS")) -> Fetch();
@@ -258,6 +192,22 @@ $arItemIDs = array(
                     <p class="text">Глава в формате PDF будет отправлена вам на почту</p>
                     <input type="text" placeholder="Ваш e-mail"> 
                 </div>
+
+                <?
+                if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
+                   ?>
+                    <a href="<?=$arResult["SIGN_PICTURE"]?>" class="fancybox fancybox.iframe signingPopup">
+                        <div class="authorSigning">
+                        </div>
+                    </a>
+                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
+                        <div class="authorSigningText">
+                        с автографом автора
+                        </div>
+                    </a>
+                <?
+                }
+                ?>
                 
                 <div class="characteris">
                     <p class="title">Издательство</p>
@@ -583,6 +533,26 @@ $arItemIDs = array(
                     <li>Международная доставка</li>
                     <li>Самовывоз <a id="inline2" href="#data2">м.Полежаевская</a></li>
                 </ul>
+				
+				<div class="typesOfProduct">
+					<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+						<!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAppStore', label: '<?=$arResult['NAME']?>'});">
+							<p class="title"><a target="_blank" 
+								href="http://ad.apps.fm/I7nsUqHgFpiU6SjjFxr_lfE7og6fuV2oOMeOQdRqrE2fuH1E_AVE04uUy-835_z8AOyXPgYuNMr8J2cvDXlBe3JGR4QWfzRXdHADIOS0bhIlj-vcR89M4g_uNUXQBYtJhxsaY6DBokwX4FZL6ZW1oPCYagKnjd3JTKLywLOw94o" 
+								rel="nofollow">Купить электронную книгу<br />в <span>iPhone/iPad</span></a></p>
+							<?//<div class="imgCover" style="margin-top:-144px;"><img src="/bitrix/templates/books/images/appStoreBK_1.png" height="70" style="height:70px;" /></div>?>
+						</div><!--/noindex-->
+						<?}?>
+					<?if (!empty($arResult["PROPERTIES"]["android"]['VALUE'])) {?>
+						<!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAndroid', label: '<?=$arResult['NAME']?>'});">
+							<p class="title"><a target="_blank" 
+								href="http://ad.apps.fm/JbkeS8Wu40Y4o7v66y0V515KLoEjTszcQMJsV6-2VnHFDLXitVHB6BlL95nuoNYfsPXjJaQ96brr8ncAvMfc6wZkKsYjZn26ZgfIprQwFxiMb6nGA0JPaw88nuXsLm5fGy9o7Q8KyEtAHAeX1UXtzRyIF-zfsrprYF9zs6rj2ac8dDeKR2QfG21w5iR5J8PU" 
+								rel="nofollow">Купить электронную книгу<br />в <span>Android</span></a></p>
+							<?//<div class="imgCover" style="margin-top:-144px;"><img src="/bitrix/templates/books/images/appStoreBK_1.png" height="70" style="height:70px;" /></div>?>
+						</div><!--/noindex-->
+					<?}?>
+				</div>
+					
                 <div class="courierBlock">
                     <div style="width:400px;" id="data1">
                         <h4>Доставка по Москве*</h4>
@@ -733,7 +703,7 @@ $arItemIDs = array(
                                 <span>Android</span></a></p>
                             <?//<div class="imgCover" style="margin-top:-144px;"><img src="/bitrix/templates/books/images/appStoreBK_1.png" height="70" style="height:70px;" /></div>?>
                         </div><!--/noindex-->
-                        <?}?>
+					<?}?>
                 </div>*/?>
                 <ul class="productsMenu">
                     <li class="active tabsInElement" data-id="1">Аннотация</li>

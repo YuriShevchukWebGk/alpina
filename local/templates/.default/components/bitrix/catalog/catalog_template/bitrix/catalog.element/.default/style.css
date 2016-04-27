@@ -1047,10 +1047,7 @@
     min-height: 90px; 
     height: auto;
 }
-.elementDescriptWrap .typesOfProduct > div{
-    width: 154px; 
-    margin-right: 9px;
-}
+
 .elementDescriptWrap .typesOfProduct > div:Last-child{
     margin-right: 0px; 
 }
