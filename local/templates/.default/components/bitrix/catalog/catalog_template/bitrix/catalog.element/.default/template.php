@@ -211,16 +211,8 @@ $arItemIDs = array(
                 </div>
                 <?
                 if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
-                    $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "SIGNING"));
-                            $moreFotoCount = $arProps->SelectedRowsCount();
-                            while($ob = $arProps->GetNext()) {
-                                $arImagePath = CFile::GetPath($ob['VALUE']);
-                                if(!$signPicture){
-                                    $signPicture = $arImagePath;
-                                }
-                                $arImageInfo = CFile::GetByID($ob["VALUE"]) -> Fetch();
-                            }?>
-                    <a href="<?=$signPicture?>" class="fancybox fancybox.iframe signingPopup">
+                    ?>
+                    <a href="<?=$arResult["SIGN_PICTURE"]?>" class="fancybox fancybox.iframe signingPopup">
                         <div class="authorSigning">
                         </div>
                     </a>
