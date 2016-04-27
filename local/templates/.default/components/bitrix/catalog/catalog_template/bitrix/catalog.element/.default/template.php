@@ -12,6 +12,50 @@
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
 ?>
+<?if ($USER->isAdmin()) {?>
+    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+	if ($.cookie('maysale') != "show" && $.cookie('maysale') != "showed" && $.cookie('maysale') != 1) {
+		$.cookie('maysale', 'show', { path: '/', expires: 10 });	
+	} else 
+	if ($.cookie('maysale') == 1) {
+		$.cookie('maysale', "show", { path: '/', expires: 10 });	
+	} else 
+	if ($.cookie('maysale') == "show") {
+		setTimeout(function () {	
+			$("#fb-new-box").slideDown(2000);
+			//$.cookie('maysale', "showed", { path: '/', expires: 1 });
+			dataLayer.push({
+				event: "popup",
+				action: "maysale",
+				label: 'Show'
+			})				
+		}, 5000);
+	}
+
+	function closeFbPromo() {
+		$("#fb-new-box").slideUp(1000);
+		$.cookie('maysale', "showed", { path: '/', expires: 10 });
+		dataLayer.push({
+			event: "popup",
+			action: "maysale",
+			label: 'Close'
+		})
+	}
+	$(document).ready(function() {
+		$("#closeMaySale").click(function() {
+			$("#fb-new-box").slideUp();
+		});
+	});
+</script>
+
+<style>
+#fb-new-box {display:none}
+</style>
+<div style="position:fixed; right:0;bottom:0;height:400px; text-align:center;width:520px;z-index:1000;" id="fb-new-box">
+	<div style="background:rgb(224, 224, 224) none repeat scroll 0% 0%;cursor:pointer;padding:5px;;border:0px;border-radius:10px;color:#333;position:absolute;right:0px;top:-22px;" id="closeMaySale">Закрыть X</div>
+	<a href="/actions/maysale/"><img src="/img/maysale_banner.gif" /></a>
+</div><?}?>
 <?$this->setFrameMode(true);
 $templateLibrary = array('popup');
 $currencyList = '';
@@ -998,7 +1042,7 @@ $arItemIDs = array(
 
                                     <?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?>
                                 
-                                </div>
+                                </div><br>
 
                                 <?
                                 }
