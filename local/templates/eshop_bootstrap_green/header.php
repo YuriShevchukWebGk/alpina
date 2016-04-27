@@ -7,7 +7,6 @@
 <!doctype html>
 <html>
 <head>
-    <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8"> -->
     <title><?$APPLICATION->ShowTitle()?></title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
    
@@ -52,7 +51,6 @@
 
 <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
     <script type="text/javascript">
-        //                alert(screen.width) ;
         if (screen.width<=360) {
             $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.3, maximum-scale=0.8, width=device-width">');
         } else if(screen.width<=415){
@@ -123,12 +121,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <div class="headerWrapper">
         <ul class="menu">
-            <!--<li><a href="/content/payment.php">РћРїР»Р°С‚Р°</a></li>
-            <li><a href="/content/delivery.php">Р”РѕСЃС‚Р°РІРєР°</a></li>
-            <li><a href="/content/discounts.php">РЎРєРёРґРєРё</a></li>
-            <li><a href="/content/where-order-content.php">Р“РґРµ РјРѕР№ Р·Р°РєР°Р·?</a></li>
-            <li><a href="/content/team.php">РљРѕРјР°РЅРґР°</a></li>
-            <li><a href="/content/contacts.php">РљРѕРЅС‚Р°РєС‚С‹</a></li>-->
             <?$APPLICATION->IncludeComponent("bitrix:menu", "top_menu", Array(
                     "ROOT_MENU_TYPE" => "top",    // РўРёРї РјРµРЅСЋ РґР»СЏ РїРµСЂРІРѕРіРѕ СѓСЂРѕРІРЅСЏ
                     "MAX_LEVEL" => "1",    // РЈСЂРѕРІРµРЅСЊ РІР»РѕР¶РµРЅРЅРѕСЃС‚Рё РјРµРЅСЋ
@@ -151,8 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
         </div>
         <?
-        if(CUser::IsAuthorized())
-        {
+        if(CUser::IsAuthorized()) {
         ?>
             <a href="/personal/cart/?liked=yes">
                 <div class="headLiked">
@@ -172,7 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <img src="/img/lkImg.png">
             </div>
         </a>
-        <p class="telephone"><!--+7 (495) 980 80 77-->
+        <p class="telephone">
             <?$APPLICATION->IncludeComponent(
                     "bitrix:main.include", 
                     ".default", 
@@ -196,31 +187,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="catalogWrapper">
         <!-- форма поиска -->
         <?$APPLICATION->IncludeComponent(
-	"bitrix:search.title", 
-	"search_form", 
-	array(
-		"CATEGORY_0" => array(
-			0 => "iblock_catalog",
-		),
-		"CATEGORY_0_TITLE" => "Результат",
-		"CHECK_DATES" => "N",
-		"COMPONENT_TEMPLATE" => "search_form",
-		"CONTAINER_ID" => "title-search",
-		"INPUT_ID" => "title-search-input",
-		"NUM_CATEGORIES" => "1",
-		"ORDER" => "date",
-		"PAGE" => "#SITE_DIR#search/index.php",
-		"SHOW_INPUT" => "Y",
-		"SHOW_OTHERS" => "N",
-		"TOP_COUNT" => "5",
-		"USE_LANGUAGE_GUESS" => "Y",
-		"CATEGORY_0_iblock_catalog" => array(
-			0 => "4",
-			1 => "29",
-			2 => "45",
-		)
-	),
-	false
-);?>    
+                "bitrix:search.title", 
+                "search_form", 
+                array(
+                    "CATEGORY_0" => array(
+                        0 => "iblock_catalog",
+                    ),
+                    "CATEGORY_0_TITLE" => "Результат",
+                    "CHECK_DATES" => "N",
+                    "COMPONENT_TEMPLATE" => "search_form",
+                    "CONTAINER_ID" => "title-search",
+                    "INPUT_ID" => "title-search-input",
+                    "NUM_CATEGORIES" => "1",
+                    "ORDER" => "rank",
+                    "PAGE" => "#SITE_DIR#search/index.php",
+                    "SHOW_INPUT" => "Y",
+                    "SHOW_OTHERS" => "N",
+                    "TOP_COUNT" => "5",
+                    "USE_LANGUAGE_GUESS" => "Y",
+                    "CATEGORY_0_iblock_catalog" => array(
+                        0 => "4",
+                        1 => "29",
+                        2 => "45",
+                    )
+                ),
+                false
+            );?>    
     </div>
 </div>
