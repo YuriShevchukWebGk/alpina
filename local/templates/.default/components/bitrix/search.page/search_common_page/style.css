@@ -48,3 +48,8 @@ div.search-page-params {
 .searchBooksWrap {
     padding-bottom: 0 !important;
 }
+.search-language-guess {
+    font-family: "Walshein_light";
+    color: #485254;
+    background-color: #F4F4F4;
+}
