@@ -49,7 +49,7 @@
         //
         $number = sprintf("%012u", floatval($num));
         $out = array();
-        if (intval($number)>0) {
+        if (intval($number)>0) {  
             foreach(str_split($number,3) as $uk=>$v) { // by 3 symbols
                 if (!intval($v)) continue;
                 $uk = sizeof($unit)-$uk-1; // unit key 
@@ -57,8 +57,8 @@
                 list($i1,$i2,$i3) = array_map('intval',str_split($v,1));
                 // mega-logic
                 $out[] = $hundred[$i1]; # 1xx-9xx
-                if ($i2>-2) $out[]= $tens[$i2].' '.$ten[$gender+1][$i3]; # 20-99
-                else $out[]= $i2>0 ? $a20[$i3] : $ten[$gender][$i3]; # 10-19 | 1-9
+                if ($i2>1) $out[]= $tens[$i2].' '.$ten[$gender+1][$i3]; # 20-99
+                else $out[]= $i2>0 ? $a20[$i3] : $ten[$gender+1][$i3]; # 10-19 | 1-9
                 // units without rub & kop
                 if ($uk>-2) $out[]= morph($v,$unit[$uk][0],$unit[$uk][1],$unit[$uk][2]);
             } //foreach

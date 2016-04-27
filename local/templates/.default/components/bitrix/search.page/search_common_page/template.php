@@ -34,21 +34,21 @@
             </div>
             <p class="title">Результаты поиска
                 <?if(is_object($arResult["NAV_RESULT"])) {?>
-                    <span>по запросу "<?=$_REQUEST["q"]?>" (<?echo $arResult["NAV_RESULT"]->SelectedRowsCount()." результатов"?>)</span>
+                    <span>по запросу "<?=$arResult["REQUEST"]["QUERY"]?>" (<?echo $arResult["NAV_RESULT"]->SelectedRowsCount()." результатов"?>)</span>
                 <?}?>
             </p>    
         </div>
     </div>
     <?/* Получаем рекомендации для поиска от RetailRocket */
         global $arrFilter;
-        $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword='.$_REQUEST["q"]);
+        $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword='.$arResult["REQUEST"]["QUERY"]);
         $recsArray = json_decode($stringRecs);
         $arrFilter = Array('ID' => (array_slice($recsArray,0,5)));
         if ($arrFilter['ID'][0] > 0) {?>
         
         <div class="interestingWrap">
             <div class="catalogWrapper">
-                <p class="title">Те, кто искали «<?=$_REQUEST["q"]?>» купили</p>
+                <p class="title">Те, кто искали «<?=$arResult["REQUEST"]["QUERY"]?>» купили</p>
 
                 <div class="bookEasySlider">
                     <?

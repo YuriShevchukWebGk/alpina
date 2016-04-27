@@ -71,7 +71,7 @@ else
 preg_match_all('|\d+|', $q, $matches);
 foreach ($matches[0] as $numbersKey => $number) { 
     $strNumber = searchNum2Str($number);
-    $_REQUEST["q"] = str_replace($number, $strNumber, $_REQUEST["q"]); 
+    $_REQUEST["q"] = str_replace($number, '('.$number.' or '.$strNumber.')', $_REQUEST["q"]); 
 }
 
 if(
@@ -241,7 +241,7 @@ else
 preg_match_all('|\d+|', $q, $matches);
 foreach ($matches[0] as $numbersKey => $number) { 
     $strNumber = searchNum2Str($number);
-    $arResult["REQUEST"]["~QUERY"] = str_replace($number, $strNumber, $arResult["REQUEST"]["~QUERY"]); 
+    $arResult["REQUEST"]["~QUERY"] = str_replace($number, '('.$number.' or '.$strNumber.')', $arResult["REQUEST"]["~QUERY"]); 
 }
 if($tags!==false)
 {

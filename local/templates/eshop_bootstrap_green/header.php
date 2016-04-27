@@ -208,7 +208,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		"CONTAINER_ID" => "title-search",
 		"INPUT_ID" => "title-search-input",
 		"NUM_CATEGORIES" => "1",
-		"ORDER" => "date",
+		"ORDER" => "rank",
 		"PAGE" => "#SITE_DIR#search/index.php",
 		"SHOW_INPUT" => "Y",
 		"SHOW_OTHERS" => "N",
