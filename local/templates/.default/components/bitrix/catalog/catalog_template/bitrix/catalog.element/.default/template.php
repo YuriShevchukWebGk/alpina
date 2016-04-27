@@ -166,6 +166,29 @@ $arItemIDs = array(
                     <?}?>    
                 </div>
                 <?
+                if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
+                    $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "SIGNING"));
+                            $moreFotoCount = $arProps->SelectedRowsCount();
+                            while($ob = $arProps->GetNext()) {
+                                $arImagePath = CFile::GetPath($ob['VALUE']);
+                                if(!$signPicture){
+                                    $signPicture = $arImagePath;
+                                }
+                                $arImageInfo = CFile::GetByID($ob["VALUE"]) -> Fetch();
+                            }?>
+                    <a href="<?=$signPicture?>" class="fancybox fancybox.iframe signingPopup">
+                        <div class="authorSigning">
+                        </div>
+                    </a>
+                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
+                        <div class="authorSigningText">
+                        с автографом автора
+                        </div>
+                    </a>
+                <?
+                }
+                ?>
+                <?
                     $curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
                     $user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
                     $wishlist_item = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user, "PROPERTY_PRODUCTS" => $arResult["ID"]), false, false, array("ID", "PROPERTY_PRODUCTS")) -> Fetch();
@@ -191,22 +214,6 @@ $arItemIDs = array(
                     <p class="text">Глава в формате PDF будет отправлена вам на почту</p>
                     <input type="text" placeholder="Ваш e-mail"> 
                 </div>
-
-                <?
-                if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
-                   ?>
-                    <a href="<?=$arResult["SIGN_PICTURE"]?>" class="fancybox fancybox.iframe signingPopup">
-                        <div class="authorSigning">
-                        </div>
-                    </a>
-                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
-                        <div class="authorSigningText">
-                        с автографом автора
-                        </div>
-                    </a>
-                <?
-                }
-                ?>
                 
                 <div class="characteris">
                     <p class="title">Издательство</p>
