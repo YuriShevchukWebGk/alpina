@@ -18,8 +18,8 @@ $weightValue = round($_POST['weight']);
 foreach ($weightAndPriceMatch as $weightRange => $cost) {
     list($min,$max)=explode(",",$weightRange);
     if(in_array($weightValue, range($min,$max))){
-        $_SESSION['rfPostTarif'] = $cost+100.00; 
-        echo $cost+100.00;
+        $_SESSION['rfPostTarif'] = $cost + 100.00; 
+        echo $cost + 100.00;
     } 
 }
 ?>

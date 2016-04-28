@@ -146,6 +146,7 @@
 
 
         // ---- RF in foreign countries delivery button
+        /*
         $('body').on('change', 'input[name="ORDER_PROP_2"]', function(){  
             if ($('#ID_DELIVERY_ID_16').is(':checked')){
                 $('.deliveryPriceTable').html('Идет расчёт...');
@@ -164,7 +165,7 @@
                         }              
                 });
             }
-        });
+        });  */
     })
 </script>
 
@@ -448,6 +449,7 @@
                                     }
 
                                     //3. международная доставка почтой России
+                                    /*
                                     $('input:checked').each(function(){
                                         if($(this).attr('id')=='ID_DELIVERY_ID_16'){// ---- RF post foreign countries
                                             $('.deliveryPriceTable').html('Идет расчёт...');
@@ -466,7 +468,7 @@
                                                     }              
                                             });
                                         } 
-                                    }); 
+                                    }); */
                                     
                                     
                                 }

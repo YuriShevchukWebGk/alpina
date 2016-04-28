@@ -13,7 +13,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_b
 class OrderToCourier {
 
     // -- iblock id with order to courier relations
-    public $iblockID = 51;
+    public $iblockID = 52;
 
     /**
      *
@@ -30,8 +30,8 @@ class OrderToCourier {
         $el = new CIBlockElement;
 
         $PROP = array();
-        $PROP[414] = $orderId;
-        $PROP[415] = $courierId;
+        $PROP[418] = $orderId;
+        $PROP[419] = $courierId;
 
         $arLoadProductArray = Array("MODIFIED_BY" => $USER -> GetID(), "IBLOCK_SECTION_ID" => false, "IBLOCK_ID" => $this -> iblockID, "PROPERTY_VALUES" => $PROP, "NAME" => $orderId);
 
