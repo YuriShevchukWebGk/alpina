@@ -194,7 +194,7 @@
                                         "INCLUDE_SUBSECTIONS" => "Y",
                                         "SHOW_ALL_WO_SECTION" => "N",
                                         "HIDE_NOT_AVAILABLE" => "N",
-                                        "PAGE_ELEMENT_COUNT" => "18",
+                                        "PAGE_ELEMENT_COUNT" => "100",
                                         "LINE_ELEMENT_COUNT" => "6",
                                         "PROPERTY_CODE" => array(
                                             0 => "PRODUCTS",
@@ -421,7 +421,7 @@
                                         "INCLUDE_SUBSECTIONS" => "Y",
                                         "SHOW_ALL_WO_SECTION" => "N",
                                         "HIDE_NOT_AVAILABLE" => "N",
-                                        "PAGE_ELEMENT_COUNT" => "18",
+                                        "PAGE_ELEMENT_COUNT" => "100",
                                         "LINE_ELEMENT_COUNT" => "6",
                                         "PROPERTY_CODE" => array(
                                             0 => "PRODUCTS",
