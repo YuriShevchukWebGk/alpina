@@ -106,7 +106,7 @@
                 if (hourfordeliv > 19 && ourday == 4) { //четверг после 18 - доставка на понедельник
                     minDatePlus = 4;
                 } else {
-                    minDatePlus = 2;
+                    minDatePlus = 1;
                 }                            
             }
         } else { // НОВОГОДНИЕ ПРАЗДНИКИ
