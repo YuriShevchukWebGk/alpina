@@ -43,6 +43,7 @@
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
 	<meta name="theme-color" content="#ffffff">
     <meta property="og:image" content="http://alpinabook.ru/img/alpinaLogoMini.png" />	
+	<meta name="apple-itunes-app" content="app-id=429622051">
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />     
 

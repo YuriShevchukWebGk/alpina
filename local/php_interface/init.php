@@ -120,14 +120,14 @@
 
     //обработка статусов заказа при получении оплаты
     AddEventHandler('sale', 'OnSalePayOrder', "UpdOrderStatus");  
-    function OnSalePayOrder ($ID, $val) {    
+    function UpdOrderStatus ($ID, $val) {    
         $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
         //при получении оплаты
         if ($val == "Y") {
             $order = CSaleOrder::GetById($ID);  
             //если текущий статус закана - не один из трех вышеперечисленных, ставим статус "оплачен"
             if (!in_array($order["STATUS_ID"],$arStatus)) {
-                CSaleOrder::StatusOrder($ID, "D");
+                CSaleOrder::StatusOrder($ID, "D");  
             }
         }    
     }

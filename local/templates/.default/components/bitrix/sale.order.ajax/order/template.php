@@ -94,7 +94,7 @@
         }         
         hourfordeliv = <?=date("H");?>;
         ourday = <?=date("w");?>;    
-        if (hourfordeliv < 25) {
+        if (hourfordeliv > 25) {
             if (ourday == 6){   //суббота
                 minDatePlus = 2;
             } else if (ourday == 0) {    //воскресение
@@ -110,7 +110,15 @@
                 }                            
             }
         } else { // НОВОГОДНИЕ ПРАЗДНИКИ
-            minDatePlus = 1;
+            if (ourday == 4){   //суббота
+                minDatePlus = 6;
+            } else if (ourday == 5) {    //воскресение
+                minDatePlus = 5;
+            } else if (ourday == 6) {    //пятница                                            
+                minDatePlus = 4;                                               
+            } else if (ourday == 0) {    //пятница                                            
+                minDatePlus = 4;                                               
+            }
         }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;

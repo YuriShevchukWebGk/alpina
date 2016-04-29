@@ -91,11 +91,11 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
                                             if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 
                                                 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23) {
                                                     if ($discount) {?>
-                                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"]*(1 - $discount/100))?> <span>руб.</span></p>
+                                                    <p class="bookPrice"><?=($arPrice["DISCOUNT_VALUE_VAT"]*(1 - $discount/100))?> <span>руб.</span></p>
                                                     <?
                                                     } else {
                                                     ?>    
-                                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                                    <p class="bookPrice"><?=($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
                                                     <?
                                                     }
                                                     ?>

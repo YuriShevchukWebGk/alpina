@@ -593,9 +593,9 @@ if ($arResult['MODULES']['currency'])
     // Remove 
     unset($latestSeen[$arResult['ID']]);
     $latestSeen[$arResult['ID']] = time();
-    if (count($latestSeen) > 40) {
+    /*if (count($latestSeen) > 6) { 
          array_shift($latestSeen);
-    }
+    }*/
     $APPLICATION->set_cookie("LASTEST_SEEN", serialize($latestSeen));
     
     // SET TITLE
