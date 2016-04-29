@@ -558,7 +558,7 @@
     function sendSMS($ID,$val){
         if (array_key_exists($val,Message::$messages)){
             if($val=="C"){ // ---- статус собран может быть только для заказов с самовывозом
-                if(Message::getOrderDeliveryType($ID)==4){
+                if(Message::getOrderDeliveryType($ID)==2){ //2 - ID службы доставки "самовывоз"
                     $message = new Message();
                     $result = $message->sendMessage($ID,$val);    
                 }    
