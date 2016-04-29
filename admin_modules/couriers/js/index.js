@@ -237,7 +237,7 @@ function CourierHandler() {
 				}
 			}
 			
-			$.post("/admin_modules/couriers/php/matchCourierAndOrder.php", actionObject , function(data) {
+			$.post("/admin_modules/couriers/php/matchCourierAndOrder.php", actionObject , function(data) {   
 				response = JSON.parse(data);
 				if(response.status=="success" && response.relationId){
 					document.querySelector(".adm-table-row-active div.addedCourier").dataset.relationId = response.relationId;

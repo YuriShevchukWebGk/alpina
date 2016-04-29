@@ -108,6 +108,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
+<?if ($_COOKIE['notice_warn'] != 30) {?>
+    <script>
+    $(document).ready(function() {
+    $("#close_notice").click(function() {
+    $("#notice_warn").slideUp();
+    $.cookie('notice_warn', "30", {path: '/', expires: 3 });
+    });
+    });
+    </script>
+    <!-- noindex --><div id="notice_warn" style="width: 100%; display:inline-block;background-attachment: scroll; background-repeat: repeat; background-image: none; background-position: 0% 0%; background-size: auto; background-origin: padding-box; background-clip: border-box; background-color: rgb(238, 238, 238); text-align: center;box-shadow: 0px 0px 4px 0px rgba(125, 125, 125, 1) inset">
+    <div style="margin-top: 0px; margin-right: auto; margin-bottom: 0px; margin-left: auto; padding: 15px 0; color: #85959a; font-family: 'Walshein_regular'; font-size: 1.4em;">
+
+    Уважаемые посетители! С 30 апреля по 3 мая офис интернет-магазина работать не будет. С 4 мая работа возобновится в обычном режиме. С наступающим праздником!
+
+    </div>
+    <div id="close_notice" style="position: absolute; top: 10px; right: 20px; font-size: 1.8em; cursor: pointer;">X</div>
+    </div>
+	<!-- /noindex -->
+<?}?>
 <header itemscope="" id="WPHeader" itemtype="http://schema.org/WPHeader">
     <a href="/">
         <div class="logo">

@@ -30,8 +30,8 @@ class OrderToCourier {
         $el = new CIBlockElement;
 
         $PROP = array();
-        $PROP[418] = $orderId;
-        $PROP[419] = $courierId;
+        $PROP["ORDER"] = $orderId;
+        $PROP["COURIRER"] = $courierId;
 
         $arLoadProductArray = Array("MODIFIED_BY" => $USER -> GetID(), "IBLOCK_SECTION_ID" => false, "IBLOCK_ID" => $this -> iblockID, "PROPERTY_VALUES" => $PROP, "NAME" => $orderId);
 

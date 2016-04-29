@@ -409,6 +409,21 @@
 
         }                                                                               
     }
+    
+    
+    function getCourierByID($cID){
+        $return = Array();
+        $filter = Array("GROUPS_ID" => Array(9),"ID"=>$cID,"ACTIVE" => "Y");
+        $rsUsers = CUser::GetList(($by=""), ($order=""), $filter,array("FIELDS"=>array("ID","NAME","LAST_NAME","PERSONAL_MOBILE"))); // выбираем пользователей
+        while($test_cur = $rsUsers->NavNext(true, "f_")){
+            if(!preg_match('/[0-9]/',$test_cur['LAST_NAME'])){
+                $return["CUR"] = Array("NAME"=>$test_cur['NAME']." ".$test_cur['LAST_NAME'],"PHONE"=>$test_cur['PERSONAL_MOBILE']);
+            } else {
+                $return["CUR"] = Array("NAME"=>$test_cur['NAME'],"PHONE"=>$test_cur['LAST_NAME']);
+            }
+        }
+        return $return;
+    }
 
 
 
