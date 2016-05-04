@@ -12,8 +12,7 @@
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
 ?>
-<?if ($_REQUEST["DIRECTION"] == "DESC")
-    {?>
+<?if ($_REQUEST["DIRECTION"] == "DESC") {?>
     <style>
         .filterParams .active p:after {
             -moz-transform: scaleX(-1);
@@ -27,11 +26,10 @@
         }
     </style>
 
-    <?}?>
+<?}?>
 <?
 $navnum = $arResult["NAV_RESULT"]->NavNum;
-if ($_REQUEST["PAGEN_".$navnum])
-{
+if ($_REQUEST["PAGEN_".$navnum]) {
     $_SESSION[$APPLICATION -> GetCurDir()] = $_REQUEST["PAGEN_".$navnum];
 }
 ?>
@@ -120,8 +118,8 @@ if ($_REQUEST["PAGEN_".$navnum])
             );?>
 
          
-         <?if($arResult["IBLOCK_SECTION_ID"] != 209){ //проверка на вывод подборок на главной?>
-            <p class="grayTitle">Самые популярные товары в категории</p>
+         <?if($arResult["IBLOCK_SECTION_ID"] != 209) { //проверка на вывод подборок на главной?>
+                <p class="grayTitle">Самые популярные товары в категории</p>
 
                 <? /* Получаем от RetailRocket рекомендации для товара */
                 global $BestsellFilter;
@@ -248,61 +246,55 @@ if ($_REQUEST["PAGEN_".$navnum])
                     false
                 )
                 //}?>
-              <?}else{  //проверка на вывод подборок на главной?>
+         <?} else {  //проверка на вывод подборок на главной?>
                     <p class="grayTitle"></p>
-                <?};?>  
-            <?  //блок с цитатой
-                $arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_*"))->Fetch();
-                if ($arSection["UF_QUOTE"] > 0) {
-                    $arQuote = CIBlockElement::GetList(array(),array("ID"=>$arSection["UF_QUOTE"]),false,false,array("NAME","DETAIL_TEXT","DETAIL_PICTURE","PROPERTY_AUTHOR.NAME"))->Fetch();
-                }
-            ?>
-            <?if (is_array($arQuote)) {?>
-                <div class="titleDiv">
-                <?if ($arQuote["DETAIL_PICTURE"]){?>
-                    <div class="photo">
-                    <?$quoteImg = CFile::ResizeImageGet($arQuote["DETAIL_PICTURE"],array("width"=>288,"height"=>294), BX_RESIZE_IMAGE_PROPORTIONAL); ?>
-                        <img src="<?=$quoteImg["src"]?>">    
-                    </div>
-                    <?}?>
-                    <p class="text">"<?=$arQuote["DETAIL_TEXT"]?>"</p>
-                    <p class="autor"><?=$arQuote["PROPERTY_AUTHOR_NAME"]?></p>
-                </div>
-                <?}?>
+         <?};?>  
+         <?  //блок с цитатой
+             $arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_*"))->Fetch();
+             if ($arSection["UF_QUOTE"] > 0) {
+                 $arQuote = CIBlockElement::GetList(array(),array("ID"=>$arSection["UF_QUOTE"]),false,false,array("NAME","DETAIL_TEXT","DETAIL_PICTURE","PROPERTY_AUTHOR.NAME"))->Fetch();
+             }
+         ?>
+         <?if (is_array($arQuote)) {?>
+             <div class="titleDiv">
+                 <?if ($arQuote["DETAIL_PICTURE"]){?>
+                     <div class="photo">
+                         <?$quoteImg = CFile::ResizeImageGet($arQuote["DETAIL_PICTURE"],array("width"=>288,"height"=>294), BX_RESIZE_IMAGE_PROPORTIONAL); ?>
+                         <img src="<?=$quoteImg["src"]?>">    
+                     </div>
+                     <?}?>
+                 <p class="text">"<?=$arQuote["DETAIL_TEXT"]?>"</p>
+                 <p class="autor"><?=$arQuote["PROPERTY_AUTHOR_NAME"]?></p>
+             </div>
+         <?}?>
              <?// блок с цитатой END
              ?>   
             <ul class="filterParams">
-                <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])){?>class="active"<?}?>><p data-id="1">
-                        <?if ($_REQUEST['SORT'] == 'POPULARITY' && $_REQUEST["DIRECTION"] == 'ASC')
-                            {?>
+                <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])){?>class="active"<?}?>>
+                    <p data-id="1">
+                        <?if ($_REQUEST['SORT'] == 'POPULARITY' && $_REQUEST["DIRECTION"] == 'ASC') {?>
                             <a href="/catalog/<?=$arParams["SECTION_CODE"]?>/?SORT=POPULARITY&DIRECTION=DESC" onclick="update_sect_page('popularity', 'desc', '<?=$arParams["SECTION_CODE"]?>'); return false;">По популярности</a>
-                            <?}
-                            else
-                            {?>
+                            <?} else {?>
                             <a href="/catalog/<?=$arParams["SECTION_CODE"]?>/?SORT=POPULARITY&DIRECTION=ASC" onclick="update_sect_page('popularity', 'asc', '<?=$arParams["SECTION_CODE"]?>'); return false;">По популярности</a>
                             <?}?>
                     </p>
                 </li>
-                <li <?if ($_REQUEST['SORT'] == 'DATE'){?>class="active"<?}?>><p data-id="2">
-                        <?if ($_REQUEST['SORT'] == 'DATE' && $_REQUEST["DIRECTION"] == 'ASC')
-                            {?>
+                <li <?if ($_REQUEST['SORT'] == 'DATE'){?>class="active"<?}?>>
+                    <p data-id="2">
+                        <?if ($_REQUEST['SORT'] == 'DATE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
                             <a href="/catalog/<?=$arParams["SECTION_CODE"]?>/?SORT=DATE&DIRECTION=DESC" onclick="update_sect_page('date', 'asc', '<?=$arParams["SECTION_CODE"]?>'); return false;">По дате выхода</a>
-                            <?}
-                            else
-                            {?>
+                        <?} else {?>
                             <a href="/catalog/<?=$arParams["SECTION_CODE"]?>/?SORT=DATE&DIRECTION=ASC" onclick="update_sect_page('date', 'desc', '<?=$arParams["SECTION_CODE"]?>'); return false;">По дате выхода</a>        
-                            <?}?>
+                        <?}?>
                     </p>                                                                                     
                 </li>
-                <li <?if ($_REQUEST['SORT'] == 'PRICE'){?>class="active"<?}?>><p data-id="3">
-                        <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC')
-                            {?>
+                <li <?if ($_REQUEST['SORT'] == 'PRICE'){?>class="active"<?}?>>
+                    <p data-id="3">
+                        <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
                             <a href="/catalog/<?=$arParams["SECTION_CODE"]?>/?SORT=PRICE&DIRECTION=DESC" onclick="update_sect_page('price', 'desc', '<?=$arParams["SECTION_CODE"]?>'); return false;">По цене</a>
-                            <?}
-                            else
-                            {?>
+                        <?} else {?>
                             <a href="/catalog/<?=$arParams["SECTION_CODE"]?>/?SORT=PRICE&DIRECTION=ASC" onclick="update_sect_page('price', 'asc', '<?=$arParams["SECTION_CODE"]?>'); return false;">По цене</a>
-                            <?}?>
+                        <?}?>
                     </p>
                 </li>
             </ul>
@@ -311,18 +303,14 @@ if ($_REQUEST["PAGEN_".$navnum])
                 <ul>
 
                     <?$criteoCounter = 0;$criteoItems = Array(); $gtmEcommerceImpressions = '';
-                    foreach ($arResult["ITEMS"] as $cell=>$arItem)
-                        {   //if ($arItem["ID"] == "5933")
-                            //arshow($arItem["PROPERTIES"]["spec_price"]);
-                            $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
-                            foreach ($arItem["PRICES"] as $code => $arPrice)
-                            { 
+                    foreach ($arResult["ITEMS"] as $cell=>$arItem) {   
+                        $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                        foreach ($arItem["PRICES"] as $code => $arPrice) { 
                             ?>
                             <li>
                                 <div class="categoryBooks">
-                                    <?//arshow($arItem["DETAIL_PICTURE"]);?>
                                     <div class="sect_badge">
-                                        <? if (/*($SavingsDiscount > 0) && */($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
+                                        <? if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
                                             && $arItem['PROPERTIES']['spec_price']['VALUE'] ) {
                                                 switch ($arItem['PROPERTIES']['spec_price']['VALUE']) {
                                                     case 10:
@@ -352,67 +340,54 @@ if ($_REQUEST["PAGEN_".$navnum])
                                     <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?=$arResult["NAME"]?>', <?=($cell+1)?>, 'Catalog Section');">
                                         <div class="section_item_img">
                                             <?
-                                            if ($pict["src"])
-                                            {
+                                            if ($pict["src"]) {
                                             ?>               
                                                 <img src=<?=$pict["src"]?>>
                                             <?
-                                            }
-                                            else
-                                            {
+                                            } else {
                                             ?>
                                                 <img src="/images/no_photo.png" width="142" height="142">    
                                             <?
                                             }
                                             ?>
                                              <?if(!empty($arItem["PROPERTIES"]["number_volumes"]["VALUE"])){?>
-                                              <span class="volumes"><?=$arItem["PROPERTIES"]["number_volumes"]["VALUE"]?></span>
+                                                <span class="volumes"><?=$arItem["PROPERTIES"]["number_volumes"]["VALUE"]?></span>
                                             <?}?>
                                         </div> 
                                         <p class="nameBook" title="<?=$arItem["NAME"]?>"><?=$arItem["NAME"]?></p>
                                         <p class="bookAutor"><?=$curr_author["NAME"]?></p>
                                         <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                         <?
-                                        if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)
-                                        {
+                                        if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 
+                                            && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23) {
                                         
-                                            if ($arPrice["DISCOUNT_VALUE_VAT"])
-                                            {
-                                            ?>
-                                                <p class="priceOfBook"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
-                                            <?
-                                            }
-                                            else
-                                            {
-                                            ?>
-                                                <p class="priceOfBook"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <span>руб.</span></p>
-                                            <?
-                                            }
-                                            ?>
-                                        </a>
-                                    <?  if ($dbBasketItems["QUANTITY"] == 0)
-                                            {?>
-                                            <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>'); addToCartTracking(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?=$arResult["NAME"]?>', '1');return false;"><p class="basketBook">В корзину</p></a>
-                                            <?   }
-                                            else
-                                            {?>
-                                            <a class="product<?=$arItem["ID"];?>" href="/personal/cart/"><p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p></a> 
+                                                if ($arPrice["DISCOUNT_VALUE_VAT"]) {
+                                                ?>
+                                                    <p class="priceOfBook"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                                <?
+                                                } else {
+                                                ?>
+                                                    <p class="priceOfBook"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <span>руб.</span></p>
+                                                <?
+                                                }
+                                                ?>
+                                            </a>
+                                            <?if ($dbBasketItems["QUANTITY"] == 0) {?>
+                                                    <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>'); addToCartTracking(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?=$arResult["NAME"]?>', '1');return false;"><p class="basketBook">В корзину</p></a>
+                                            <?} else {?>
+                                                    <a class="product<?=$arItem["ID"];?>" href="/personal/cart/"><p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p></a> 
                                             <?}
-                                        }
-                                        else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23)
-                                        {?>
+                                        } else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23) {?>
                                             <p class="priceOfBook"><?=$arItem["PROPERTIES"]["STATE"]["VALUE"]?></p>
                                             </a>        
-                                        <?}
-                                        else
-                                        {?>
+                                        <?
+                                        } else {?>
                                             <p class="priceOfBook"><?=strtolower(FormatDate("j F", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
                                             </a>    
                                         <?}
                                     ?>
                                     <?
-                                        if ($USER -> IsAuthorized())
-                                        {
+                                        if ($USER -> IsAuthorized()) {
                                         ?>
                                         <p class="basketLater" id="<?=$arItem["ID"]?>">Куплю позже</p>
                                         <?
@@ -478,10 +453,9 @@ if ($_REQUEST["PAGEN_".$navnum])
 
 
 
-            <?if (($arResult["NAV_RESULT"]->NavPageCount) > 1)
-                {?>
+            <?if (($arResult["NAV_RESULT"]->NavPageCount) > 1) {?>
                 <p class="showMore">Показать ещё</p>
-                <?}?>
+            <?}?>
         </div>
 
 
@@ -547,8 +521,7 @@ if ($_REQUEST["PAGEN_".$navnum])
 
 <?//arshow($arResult, true);?>
 <?
-    if (!isset($_SESSION[$APPLICATION -> GetCurDir()]))
-    {
+    if (!isset($_SESSION[$APPLICATION -> GetCurDir()])) {
         $_SESSION[$APPLICATION -> GetCurDir()] = 1;
     }
 ?>
@@ -562,8 +535,7 @@ if ($_REQUEST["PAGEN_".$navnum])
                 if ($(this).closest("ul").hasClass("secondLevel")) {
                     $(this).closest("ul").parent("li").find("a p").addClass("activeListName"); 
                     $(this).closest("ul").parent("li").find(".secondLevel").show();       
-                }
-                else {
+                } else {
                     $(this).find("ul.secondLevel a p").addClass("activeListName"); 
                     $(this).find("ul.secondLevel").show();  
                 }   
@@ -586,9 +558,9 @@ if ($_REQUEST["PAGEN_".$navnum])
         <?if (isset($_REQUEST["PAGEN_".$navnum])) {
            ?>
             var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
-            <?} else {?>
+        <?} else {?>
             var page = 2;
-            <?}?>
+        <?}?>
         var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
         var WrappHeight = $(".wrapperCategor").height();
         var BooksLiLength = $(".otherBooks ul li").length;
@@ -605,8 +577,7 @@ if ($_REQUEST["PAGEN_".$navnum])
                     page++;            
                 })
             <?
-            }
-            else {?>
+            } else {?>
                 $.get('<?=$arResult["SECTION_PAGE_URL"]?>?SORT=<?=$sort?>&DIRECTION=<?=$arParams["ELEMENT_SORT_ORDER2"]?>&PAGEN_<?=$navnum?>='+page, 
                     function(data) {
                     var next_page = $('.otherBooks ul li', data);
@@ -663,8 +634,8 @@ if ($_REQUEST["PAGEN_".$navnum])
                         $('.otherBooks ul').append(next_page);
                         page++;            
                      })
-            <?
-            }?>
+                 <?
+                 }?>
                 .done(function() {
                         $(".nameBook").each(function() {
                                 if($(this).length > 0) {
