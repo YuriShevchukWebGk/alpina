@@ -438,7 +438,7 @@ if ($_REQUEST["PAGEN_".$navnum])
                     }?>
 
                     <script type="text/javascript">
-                    <!-- dataLayer GTM -->
+                    <!-- //dataLayer GTM -->
                     dataLayer.push({
                         'categoryName' : '<?=$arResult["NAME"]?>',
                         'categoryId' : '<?=$arResult['ID'];?>',
