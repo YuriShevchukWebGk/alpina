@@ -9,7 +9,18 @@
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
 
+    // ID раздела подборок на главной - из каталога книг
     define("SELECTIONS_SECTION_ID", 209);
+    
+    /***************
+    * 
+    * получение ID значения свойства "Состояние" из символьного кода этого значения
+    * 
+    * @param int $iblockId - инфоблок, содержащий свойство
+    * @param string $propCode - символьный код свойства
+    * @param string $propXmlId - символьный код значения свойства
+    * 
+    ***************/
     
     function propValueCode2XmlId ($iblockId, $propCode, $propXmlId) {
         $iblockProps = CIBlockPropertyEnum::GetList (array(), array("IBLOCK_ID" => $iblockId, "CODE" => $propCode, "XML_ID" => $propXmlId));
