@@ -582,26 +582,8 @@
                 $result = $message->sendMessage($ID,$val);            
             }
         }
-    }
-
-
-    //----- Fix for russian post cost for foreign countries. 
-    //$_SESSION['rfPostTarif'] sets in /ajax/RFPostForForeignCountries.php which calling from /bitrix/templates/.default/components/bitrix/sale.order.ajax/order/template.php
-    AddEventHandler("sale", "OnOrderNewSendEmail", "orderCostFixInEmail");      
-    function orderCostFixInEmail($orderID, &$eventName, &$arFields){
-        if($arFields['DELIVERY_ID']==16){
-            $arFields['DELIVERY_PRICE'] = $_SESSION['rfPostTarif'];
-            $arFields['PRICE'] = ((float)$arFields['PRICE']) + $_SESSION['rfPostTarif'];
-            $arFields['PRICE'] = $arFields['PRICE'].' руб.';
-        }
-    }           
-    AddEventHandler("sale", "OnBeforeOrderAdd", "addFlipPostCost");     
-    function addFlipPostCost(&$arFields){
-        if($arFields['DELIVERY_ID']==16){
-            $arFields['PRICE'] = $arFields['PRICE'] + $_SESSION['rfPostTarif'];
-            $arFields["PRICE_DELIVERY"] = $_SESSION['rfPostTarif'];
-        }   
-    }       
+    }  
+        
 
     //подмена логина на EMAIL
     AddEventHandler("main", "OnBeforeUserAdd", Array("OnBeforeUserAddHandler", "OnBeforeUserAdd"));
