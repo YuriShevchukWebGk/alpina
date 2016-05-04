@@ -9,7 +9,15 @@
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
 
-
+    define("SELECTIONS_SECTION_ID", 209);
+    
+    function propValueCode2XmlId ($iblockId, $propCode, $propXmlId) {
+        $iblockProps = CIBlockPropertyEnum::GetList (array(), array("IBLOCK_ID" => $iblockId, "CODE" => $propCode, "XML_ID" => $propXmlId));
+        while ($iblockStateProp = $iblockProps -> Fetch()) {
+            return $iblockStateProp["ID"];    
+        }    
+    }
+    
     function arshow($array, $adminCheck = false){
         global $USER;
         $USER = new Cuser;

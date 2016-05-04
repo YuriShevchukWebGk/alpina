@@ -465,4 +465,38 @@ if (!empty($arResult['ITEMS']))
 		}
 	}
 }
+
+$arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_*"))->Fetch();
+if ($arSection["UF_QUOTE"] > 0) {
+    $arResult["QUOTE_ARRAY"] = CIBlockElement::GetList(
+        array(),
+        array(
+            "ID"=>$arSection["UF_QUOTE"]
+        ),
+        false,
+        false,
+        array("NAME","DETAIL_TEXT","DETAIL_PICTURE","PROPERTY_AUTHOR.NAME")
+    )->Fetch();
+}
+
+$arResult["CURRENT_AUTHOR"] = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
+$arResult["ITEM_IN_BASKET"] = CSaleBasket::GetList(
+    array(), 
+    array(
+        "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
+        "LID" => SITE_ID, 
+        "ORDER_ID" => "NULL", 
+        "PRODUCT_ID" => $arItem["ID"]
+    ), 
+    false, 
+    false, 
+    array(
+        "ID", 
+        "CALLBACK_FUNC", 
+        "MODULE", 
+        "PRODUCT_ID", 
+        "QUANTITY", 
+        "PRODUCT_PROVIDER_CLASS"
+    )
+)->Fetch();
 ?>
