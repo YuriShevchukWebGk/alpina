@@ -466,6 +466,12 @@ if (!empty($arResult['ITEMS']))
 	}
 }
 
+/***************
+* 
+* получение информации для блока с цитатой
+*  
+***************/
+
 $arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_*"))->Fetch();
 if ($arSection["UF_QUOTE"] > 0) {
     $arResult["QUOTE_ARRAY"] = CIBlockElement::GetList(
@@ -479,24 +485,43 @@ if ($arSection["UF_QUOTE"] > 0) {
     )->Fetch();
 }
 
-$arResult["CURRENT_AUTHOR"] = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
-$arResult["ITEM_IN_BASKET"] = CSaleBasket::GetList(
-    array(), 
-    array(
-        "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
-        "LID" => SITE_ID, 
-        "ORDER_ID" => "NULL", 
-        "PRODUCT_ID" => $arItem["ID"]
-    ), 
-    false, 
-    false, 
-    array(
-        "ID", 
-        "CALLBACK_FUNC", 
-        "MODULE", 
-        "PRODUCT_ID", 
-        "QUANTITY", 
-        "PRODUCT_PROVIDER_CLASS"
-    )
-)->Fetch();
+
+foreach ($arResult["ITEMS"] as $arItem) {
+    // получение имени автора книги
+    
+    if (!empty($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0])) {
+        $arItem["CURRENT_AUTHOR"] = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
+    }
+    
+    // получение пути до изображения, отображаемого в блоке для цитаты
+    
+    $arResult["QUOTE_IMAGE"] = CFile::ResizeImageGet($arResult["QUOTE_ARRAY"]["DETAIL_PICTURE"], array("width"=>288,"height"=>294), BX_RESIZE_IMAGE_PROPORTIONAL);
+    
+    
+    // проверка на нахождение книги в корзине
+    
+    $arItem["ITEM_IN_BASKET"] = CSaleBasket::GetList(
+        array(), 
+        array(
+            "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
+            "LID" => SITE_ID, 
+            "ORDER_ID" => "NULL", 
+            "PRODUCT_ID" => $arItem["ID"]
+        ), 
+        false, 
+        false, 
+        array(
+            "ID", 
+            "CALLBACK_FUNC", 
+            "MODULE", 
+            "PRODUCT_ID", 
+            "QUANTITY", 
+            "PRODUCT_PROVIDER_CLASS"
+        )
+    )->Fetch();
+    
+    // получение изображения для товара в разделе каталога
+    
+    $arItem["PICTURE"] = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+}
 ?>

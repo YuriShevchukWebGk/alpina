@@ -10,7 +10,8 @@
     use Bitrix\Sale\Internals;
 
     // ID раздела подборок на главной - из каталога книг
-    define("SELECTIONS_SECTION_ID", 209);
+    define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
+    define ("CATALOG_IBLOCK_ID", 4);
     
     /***************
     * 
@@ -22,7 +23,7 @@
     * 
     ***************/
     
-    function propValueCode2XmlId ($iblockId, $propCode, $propXmlId) {
+    function getXMLIDByCode ($iblockId, $propCode, $propXmlId) {
         $iblockProps = CIBlockPropertyEnum::GetList (array(), array("IBLOCK_ID" => $iblockId, "CODE" => $propCode, "XML_ID" => $propXmlId));
         while ($iblockStateProp = $iblockProps -> Fetch()) {
             return $iblockStateProp["ID"];    
