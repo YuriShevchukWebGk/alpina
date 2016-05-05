@@ -15,6 +15,7 @@
     define ("AUTHORS_IBLOCK_ID", 29);
     define ("REVIEWS_IBLOCK_ID", 24);
     define ("SPONSORS_IBLOCK_ID", 47);
+    define ("WISHLIST_IBLOCK_ID", 17);
     define ("NEW_BOOK_STATE_XML_ID", 21);
     define ("BESTSELLER_BOOK_XML_ID", 285);
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);

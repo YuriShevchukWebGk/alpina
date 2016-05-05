@@ -774,42 +774,95 @@ if ($arResult['MODULES']['currency'])
     
     $arResult["PICTURE"] = CFile::ResizeImageGet($arResult["DETAIL_PICTURE"]["ID"], array('width'=>264, 'height'=>394), BX_RESIZE_IMAGE_PROPORTIONAL, true);
     $arResult["CURRENT_USER"] = CUser::GetByID($USER -> GetID()) -> Fetch();
-    $arResult["WISHLIST_ITEM"] = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user, "PROPERTY_PRODUCTS" => $arResult["ID"]), false, false, array("ID", "PROPERTY_PRODUCTS")) -> Fetch();
-    $arResult["ITEM_IN_BASKET"] = CSaleBasket::GetList(array(), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "PRODUCT_ID" => $arResult["ID"]), false, false, array("ID", "CALLBACK_FUNC", "MODULE", "PRODUCT_ID", "QUANTITY", "PRODUCT_PROVIDER_CLASS"))->Fetch(); 
     
-    $review = CIBlockElement::GetList (array(), array("IBLOCK_ID" => REVIEWS_IBLOCK_ID, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_AUTHOR", "NAME", "PROPERTY_BOOK", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_SOURCE_LINK"));
-    $arResult["REVIEWS_COUNT"] = $review->SelectedRowsCount();
+    $userName = $arResult["CURRENT_USER"]["NAME"]." ".$arResult["CURRENT_USER"]["LAST_NAME"];
+    $arResult["WISHLIST_ITEM"] = CIBlockElement::GetList(
+        array(), 
+        array(
+            "IBLOCK_ID" => WISHLIST_IBLOCK_ID, 
+            "NAME" => $userName, 
+            "PROPERTY_PRODUCTS" => $arResult["ID"]
+        ), 
+        false, 
+        false, 
+        array(
+            "ID", 
+            "PROPERTY_PRODUCTS"
+        )
+    ) -> Fetch();
+    
+    $arResult["ITEM_IN_BASKET"] = CSaleBasket::GetList(
+        array(), 
+        array(
+            "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
+            "LID" => SITE_ID, 
+            "ORDER_ID" => "NULL", 
+            "PRODUCT_ID" => $arResult["ID"]
+        ), 
+        false, 
+        false, 
+        array(
+            "ID", 
+            "CALLBACK_FUNC", 
+            "MODULE", 
+            "PRODUCT_ID", 
+            "QUANTITY", 
+            "PRODUCT_PROVIDER_CLASS"
+        )
+    )->Fetch(); 
+    
+    $review = CIBlockElement::GetList (
+        array(), 
+        array(
+            "IBLOCK_ID" => REVIEWS_IBLOCK_ID, 
+            "PROPERTY_BOOK" => $arResult["ID"]
+        ), 
+        false, 
+        false, 
+        array(  
+            "ID", 
+            "PROPERTY_AUTHOR", 
+            "NAME", 
+            "PROPERTY_BOOK", 
+            "PREVIEW_TEXT", 
+            "DETAIL_TEXT", 
+            "PROPERTY_SOURCE_LINK"
+        )
+    );
+    $arResult["REVIEWS_COUNT"] = $review -> SelectedRowsCount();
     while ($reviewList = $review -> Fetch()) {
         $arResult["REVIEWS"][] = $reviewList;    
     }
     
     foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
         if ($val) {
-            $currAuthor = CIBlockElement::GetList (
-                array(), 
-                array(
-                    "IBLOCK_ID" => AUTHORS_IBLOCK_ID, 
-                    "ID" => $val
-                ), 
-                false, 
-                false, 
-                array(
-                    "ID", 
-                    "NAME", 
-                    "PREVIEW_TEXT", 
-                    "DETAIL_PICTURE", 
-                    "PROPERTY_ORIG_NAME"
-                )
-            );
-            while ($author = $currAuthor -> Fetch()) {
-                $arResult["AUTHOR"][] = $author;    
-            }
+            $authorsArray[] = $val;
         }
+    }
+    $currAuthor = CIBlockElement::GetList (
+        array(
+            "ID" => "DESC"
+        ), 
+        array(
+            "IBLOCK_ID" => AUTHORS_IBLOCK_ID, 
+            "ID" => $authorsArray
+        ), 
+        false, 
+        false, 
+        array(
+            "ID", 
+            "NAME", 
+            "PREVIEW_TEXT", 
+            "DETAIL_PICTURE", 
+            "PROPERTY_ORIG_NAME"
+        )
+    );
+    while ($author = $currAuthor -> Fetch()) {
+        $arResult["AUTHOR"][] = $author;    
     }
     
     foreach ($arResult["AUTHOR"] as $key => $author) {
         $arResult["AUTHOR"][$key]["IMAGE_FILE"] = CFile::GetFileArray($author["DETAIL_PICTURE"]);
     }
-    
     $arResult["STRING_RECS"] = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
 ?>

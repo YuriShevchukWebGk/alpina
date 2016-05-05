@@ -114,8 +114,8 @@ $arItemIDs = array(
                         }?>
                     </div>
                     <?
-                    if(isset($arResult["additional_image"]["DETAIL_PICTURE"]["src"])) {
-                        echo '<div class="additional-image" style="position:absolute; top:-25px; left:-41px"><img src="'.$arResult["additional_image"]["DETAIL_PICTURE"]["src"].'"></div>'; 
+                    if (isset($arResult["additional_image"]["DETAIL_PICTURE"]["src"])) {
+                        echo '<div class="additional-image" style="position:absolute; top:-25px; left:-41px"><img src="' . $arResult["additional_image"]["DETAIL_PICTURE"]["src"] . '"></div>'; 
                     }
                     ?>
 
@@ -128,11 +128,11 @@ $arItemIDs = array(
                     </div>  
                     <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
 
-                    <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
-                        <div class="overlay">
-                            <p><?=GetMessage("BROWSE_THE_BOOK")?></p>
-                        </div>
-                    </a>     
+                        <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
+                            <div class="overlay">
+                                <p><?= GetMessage("BROWSE_THE_BOOK") ?></p>
+                            </div>
+                        </a>     
                     
                     <?}?>                     
                     
@@ -140,7 +140,7 @@ $arItemIDs = array(
                         <?
                             if ($arResult["PICTURE"]["src"]) {
                             ?>
-                                <img src="<?=$arResult["PICTURE"]["src"]?>" itemprop="image" alt="<?=$arResult["NAME"]?>" title="<?=$arResult["NAME"]?>" />
+                                <img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" alt="<?= $arResult["NAME"] ?>" title="<?= $arResult["NAME"] ?>" />
                             <?
                             } else {
                             ?>
@@ -149,45 +149,44 @@ $arItemIDs = array(
                             }
                         ?>
                         <?if(!empty($arResult["PROPERTIES"]["number_volumes"]["VALUE"])) {?>
-                            <span class="volumes"><?=$arResult["PROPERTIES"]["number_volumes"]["VALUE"]?></span>
+                            <span class="volumes"><?= $arResult["PROPERTIES"]["number_volumes"]["VALUE"] ?></span>
                         <?}?>
                     </div>    
                 </div>
                 <div class="marks">
-                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]==NEW_BOOK_STATE_XML_ID) {?>
+                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == NEW_BOOK_STATE_XML_ID) {?>
                         <div class="newBookMark">
-                            <p><?=GetMessage("NEW_BOOK")?></p>
+                            <p><?= GetMessage("NEW_BOOK") ?></p>
                         </div>
                     <?}?>
-                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"]==BESTSELLER_BOOK_XML_ID) {?>   
+                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"] == BESTSELLER_BOOK_XML_ID) {?>   
                         <div class="bestBookMark">
-                            <p><?=GetMessage("BESTSELLER_BOOK")?></p>
+                            <p><?= GetMessage("BESTSELLER_BOOK") ?></p>
                         </div>
                     <?}?>    
                 </div>
                 <?
                 if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {
                     ?>
-                    <a href="<?=$arResult["SIGN_PICTURE"]?>" class="fancybox fancybox.iframe signingPopup">
+                    <a href="<?= $arResult["SIGN_PICTURE"] ?>" class="fancybox fancybox.iframe signingPopup">
                         <div class="authorSigning">
                         </div>
                     </a>
                     <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
                         <div class="authorSigningText">
-                        <?=GetMessage("SIGNED_BOOK")?>
+                        <?= GetMessage("SIGNED_BOOK") ?>
                         </div>
                     </a>
                 <?
                 }
                 ?>
                 <?
-                    $user = $arResult["CURRENT_USER"]["NAME"]." ".$arResult["CURRENT_USER"]["LAST_NAME"];
 
                     if ($USER -> IsAuthorized()) {
                         if ($arResult["WISHLIST_ITEM"]) {
                         ?>
-                            <a href="javascript:void(0)" title="<?=GetMessage("WISHLIST_IN_BASKET")?>">
-                                <p class="AlreadyInWishlist"><?=GetMessage("ALREADY_IN_WISHLIST")?></p>
+                            <a href="javascript:void(0)" title="<?= GetMessage("WISHLIST_IN_BASKET") ?>">
+                                <p class="AlreadyInWishlist"><?= GetMessage("ALREADY_IN_WISHLIST") ?></p>
                             </a>
                         <?
                         } else {
@@ -204,40 +203,40 @@ $arItemIDs = array(
                     <span></span>
                 </div>
                 <div class="takePartWrap">
-                    <p class="title"><?=GetMessage("TO_GET_A_CHAPTER")?></p>    
-                    <p class="text"><?=GetMessage("CHAPTER_SENT")?></p>
-                    <input type="text" placeholder="<?=GetMessage("YOUR_EMAIL")?>"> 
+                    <p class="title"><?= GetMessage("TO_GET_A_CHAPTER") ?></p>    
+                    <p class="text"><?= GetMessage("CHAPTER_SENT") ?></p>
+                    <input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>"> 
                 </div>
                 
                 <div class="characteris">
-                    <p class="title"><?=GetMessage("PUBLISHER")?></p>
+                    <p class="title"><?= GetMessage("PUBLISHER") ?></p>
                     <p class="text">
                         <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
                             <span itemprop="name">
-                                <?=$arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]?>
+                                <?= $arResult["PROPERTIES"]["PUBLISHER"]["VALUE"] ?>
                             </span>
                         </span>
                     </p>    
                 </div>
                 <div class="characteris">
-                    <p class="title"><?=GetMessage("ISBN")?></p>
-                    <p class="text" itemprop="isbn"><?=$arResult["PROPERTIES"]["ISBN"]["VALUE"]?></p>    
+                    <p class="title"><?= GetMessage("ISBN") ?></p>
+                    <p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>    
                 </div>
                 <?
                 if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {
                     ?>
                     <div class="characteris">
-                        <p class="title"><?=GetMessage("SERIES")?></p>
-                        <a href="/series/<?=$arResult["CURR_SERIES"]["ID"]?>/">
-                            <span class="text"><?=$arResult["CURR_SERIES"]["NAME"]?></span>
+                        <p class="title"><?= GetMessage("SERIES") ?></p>
+                        <a href="/series/<?= $arResult["CURR_SERIES"]["ID"] ?>/">
+                            <span class="text"><?= $arResult["CURR_SERIES"]["NAME"] ?></span>
                         </a>    
                     </div>
                     <?
                 }
                 ?>
                 <div class="characteris">
-                    <p class="title"><?=GetMessage("COVER_TYPE")?></p>
-                    <p class="text"><?=$arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
+                    <p class="title"><?= GetMessage("COVER_TYPE") ?></p>
+                    <p class="text"><?= $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
 					<?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_SOFTCOVER_XML_ID) {?>
 						<link itemprop="bookFormat" href="http://schema.org/Paperback">
 					<?} elseif ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_HARDCOVER_XML_ID) {?>
@@ -245,25 +244,25 @@ $arItemIDs = array(
 					<?}?>					
                 </div>
                 <div class="characteris">
-                    <p class="title"><?=GetMessage("PAGES_COUNT")?></p>
-                    <p class="text"><span itemprop="numberOfPages"><?=$arResult["PROPERTIES"]["PAGES"]["VALUE"]?></span><?=GetMessage("PAGES")?></p>    
+                    <p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
+                    <p class="text"><span itemprop="numberOfPages"><?= $arResult["PROPERTIES"]["PAGES"]["VALUE"] ?></span><?= GetMessage("PAGES") ?></p>    
                 </div>
 				<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
                     <div class="characteris">
                         <a href="http://readright.ru/?=alpinabook" target="_blank">
-                            <span class="text"><?=GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR")?></span>
+                            <span class="text"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
                         </a>
                     </div>    
 				<?}?> 				
                 <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
                     <div class="characteris">
-                        <p class="title"><?=$arResult["PROPERTIES"]["YEAR"]["NAME"]?></p>
+                        <p class="title"><?= $arResult["PROPERTIES"]["YEAR"]["NAME"] ?></p>
                         <p class="text">
                             <span itemprop="datePublished">
-                                <?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?>
+                                <?= $arResult["PROPERTIES"]["YEAR"]["VALUE"] ?>
                             </span> 
                             г.
-                            <?echo !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />'.$arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?>
+                            <?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?>
                         </p>    
                     </div>   
                 <?}?>
@@ -271,13 +270,9 @@ $arItemIDs = array(
                      
                 
                 <div class="characteris">
-                    <p class="title"><?=GetMessage("SIZES")?></p>
-                    <p class="text"><?=$arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"]?></p>    
+                    <p class="title"><?= GetMessage("SIZES") ?></p>
+                    <p class="text"><?= $arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"] ?></p>    
                 </div>
-                <?/*<div class="characteris">
-                    <p class="title">Тираж</p>
-                    <p class="text"><?=$arResult["PROPERTIES"]["CIRCULATION"]["VALUE"]?> экземпляров</p>    
-                </div>   */?>
                 <?
                     if ($arResult["CATALOG_WEIGHT"]) {
                         $weight = $arResult["CATALOG_WEIGHT"];
@@ -287,26 +282,26 @@ $arItemIDs = array(
                     if ($weight) {
                     ?>
                     <div class="characteris">
-                        <p class="title"><?=GetMessage("WEIGHT")?></p>
-                        <p class="text"><?=$weight?><?=GetMessage("GRAMS")?></p>    
+                        <p class="title"><?= GetMessage("WEIGHT") ?></p>
+                        <p class="text"><?= $weight ?><?= GetMessage("GRAMS") ?></p>    
                     </div>
                     <?}?>
                 <div class="socialServises">
-                    <?require('include/socialbuttons.php');?>
+                    <? require('include/socialbuttons.php'); ?>
                 </div>
 				 <?#Спонсоры книги?>
 				 <!-- noindex -->
                  <div class="sponsors">
 
                      <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {?>
-                         <span style="color:#627478"><?=$arResult["SPONSOR_PREVIEW_TEXT"]?> </span><br />
+                         <span style="color:#627478"><?= $arResult["SPONSOR_PREVIEW_TEXT"] ?> </span><br />
                          <?if (!empty($arResult["SPONSOR_PICT"])) {?>
-                             <a href="http://<?=$arResult["SPONSOR_WEBSITE_VALUE"]?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?=$arResult["SPONSOR_PICT"]?>"> </a>
-                             <?} else {?>
-                             <?=$authorFetchedList["NAME"]?>
-                             <?}?>
+                             <a href="http://<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
+                         <?} else {?>
+                             <?= $authorFetchedList["NAME"] ?>
+                         <?}?>
 
-                         <? $authors .= $author_fetched_list["NAME"].", ";
+                         <? $authors .= $author_fetched_list["NAME"] . ", ";
 
 
                              ##Спонсоры книги?>
@@ -322,18 +317,18 @@ $arItemIDs = array(
 
                         if($USER->IsAuthorized()) {// blackfriday черная пятница
                             if($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) { 
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"])." руб. до получения скидки в ".$arResult["SALE_NOTE"][0]["VALUE"]."%</span>";
+                                $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
                             } elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) { 
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"])." руб. до получения скидки в ".$arResult["SALE_NOTE"][1]["VALUE"]."%</span>";
+                                $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
                                 $discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
                             } else {
                                 $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                             } 
                         } else { 
                             if($arResult["BASKET_ITEMS"]["sum_pruce"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) { 
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["BASKET_ITEMS"]["sum_pruce"])." руб. до получения скидки в ".$arResult["SALE_NOTE"][0]["VALUE"]."%</span>";                            
+                                $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["BASKET_ITEMS"]["sum_pruce"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";                            
                             } elseif ($arResult["BASKET_ITEMS"]["sum_pruce"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) { 
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает ".($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["BASKET_ITEMS"]["sum_pruce"])." руб. до получения скидки в ".$arResult["SALE_NOTE"][1]["VALUE"]."%</span>"; 
+                                $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["BASKET_ITEMS"]["sum_pruce"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>"; 
                                 $discount = $arResult["SALE_NOTE"][0]["VALUE"];  // процент накопительной скидки
                             } else {
                                 $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
@@ -370,28 +365,28 @@ $arItemIDs = array(
                                     <link itemprop="availability" href="http://schema.org/InStock">
 									
                                     <?	$StockInfo = "InStock";
-										if(round(($arPrice["VALUE"])*(1 - $discount/100), 2)." руб." == $arPrice["PRINT_VALUE"]) {
+										if(round(($arPrice["VALUE"]) * (1 - $discount / 100), 2) . " руб." == $arPrice["PRINT_VALUE"]) {
                                             $discount = false;
                                         };   
                                         if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {
                                         ?>
-                                        <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>  
+                                        <div class="oldPrice"><span itemprop="price"><?= $arPrice["PRINT_VALUE"] ?></span><p></p></div>  
                                         <?// расчитываем накопительную скидку от стоимости
                                             $newPrice = round(($arPrice["DISCOUNT_VALUE"]), 2);
                                             if (strlen(stristr($newPrice, ".")) == 2) {
                                                 $newPrice .= "0";
                                         }?>
-                                        <p class="newPrice"><?=$newPrice?> <span><?=GetMessage("ROUBLES")?></span></p>
+                                        <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                         <?
                                         } else if ($discount) {
-                                            $newPrice = round(($arPrice["VALUE"])*(1 - $discount/100), 2);
+                                            $newPrice = round(($arPrice["VALUE"]) * (1 - $discount / 100), 2);
                                             if (strlen(stristr($newPrice, ".")) == 2) {
                                                 $newPrice .= "0";
                                             }  
                                         ?>  
-                                        <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>  
+                                        <div class="oldPrice"><span itemprop="price"><?= $arPrice["PRINT_VALUE"] ?></span><p></p></div>  
                                         <?// расчитываем накопительную скидку от стоимости?>
-                                        <p class="newPrice"><?=$newPrice?> <span><?=GetMessage("ROUBLES")?></span></p>
+                                        <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
 
                                         <?
                                         } else {
@@ -400,19 +395,19 @@ $arItemIDs = array(
                                                 $newPrice .= "0";
                                             }
                                         ?>
-                                        <p class="newPrice"><?=$newPrice?> <span><?=GetMessage("ROUBLES")?></span></p>
+                                        <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                         <?
                                         }
                                     ?>  
 
                                     <?if ($printDiscountText != '') {
                                         echo $printDiscountText; // цена до скидки
-                                    }?>   
+                                    } ?>   
                                     <?}
-                            } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                            } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
 								<link itemprop="availability" href="http://schema.org/PreOrder">
-								<?$StockInfo = "SoonStock";?>
-                                <p class="newPrice" style="font-size:20px;"><?=GetMessage("EXPECTED_DATE")?><?=strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
+								<? $StockInfo = "SoonStock"; ?>
+                                <p class="newPrice" style="font-size:20px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
 								
                             <?
                             } else {?>
@@ -420,7 +415,7 @@ $arItemIDs = array(
 								<?$StockInfo = "OutOfStock";?>
                                 <?foreach ($arResult["PRICES"] as $code => $arPrice) {  
                                     if ($arPrice["DISCOUNT_DIFF"]) {?>
-                                    <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>
+                                    <div class="oldPrice"><span itemprop="price"><?= $arPrice["PRINT_VALUE"] ?></span><p></p></div>
                                     <?}?>
                                     <?
                                     if ($arPrice["DISCOUNT_VALUE_VAT"]) {
@@ -429,7 +424,7 @@ $arItemIDs = array(
                                             $newPrice .= "0";
                                         }
                                     ?>    
-                                        <p class="newPrice"><?=$newPrice?> <span><?=GetMessage("ROUBLES")?></span></p>
+                                        <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                     <?
                                     } else {
                                         $newPrice = round(($arPrice["ORIG_VALUE_VAT"]), 2);
@@ -437,12 +432,12 @@ $arItemIDs = array(
                                             $newPrice .= "0";
                                         }
                                     ?>
-                                        <p class="newPrice"><span itemprop="price"><?=$newPrice?></span> <span><?=GetMessage("ROUBLES")?></span></p>
+                                        <p class="newPrice"><span itemprop="price"><?= $newPrice ?></span> <span><?= GetMessage("ROUBLES") ?></span></p>
                                     <?
                                     }
                                     ?>     
                                 <?}?>
-                                <p class="newPrice notAvailable" style="font-size:28px;"><?=GetMessage("NOT_IN_STOCK")?></p>
+                                <p class="newPrice notAvailable" style="font-size:28px;"><?= GetMessage("NOT_IN_STOCK") ?></p>
                             <?
                             }
                             ?> 
@@ -453,10 +448,10 @@ $arItemIDs = array(
                                 <form>
                                     <div>
                                         <p>
-                                            <span class="subscribeDesc"><?=GetMessage("SUBSCRIBING_DESCRIPTION")?></span>
+                                            <span class="subscribeDesc"><?= GetMessage("SUBSCRIBING_DESCRIPTION") ?></span>
                                         </p>
-                                        <input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$arResult["MAIL"];?>" name="email" class="subscribeEmail"/> 
-                                        <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="<?=GetMessage("TO_SUBSCRIBE")?>"/>
+                                        <input data-book_id="<?= $arResult['ID'] ?>" type="text" value="<?= $arResult["MAIL"]; ?>" name="email" class="subscribeEmail"/> 
+                                        <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="<?= GetMessage("TO_SUBSCRIBE") ?>"/>
                                         
                                     </div>
                                 </form>      
@@ -464,43 +459,42 @@ $arItemIDs = array(
                             }
                         } else {
                             ?>
-                            <p class="newPrice" style="font-size:28px;"><?=GetMessage("NOT_IN_STOCK")?></p>
+                            <p class="newPrice" style="font-size:28px;"><?= GetMessage("NOT_IN_STOCK") ?></p>
                             <form>
                                 <div>
                                     <p>
-                                        <span class="subscribeDesc"><?=GetMessage("SUBSCRIBING_DESCRIPTION")?></span>
+                                        <span class="subscribeDesc"><?= GetMessage("SUBSCRIBING_DESCRIPTION") ?></span>
                                     </p>
-                                    <input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$arResult["MAIL"];?>" name="email" class="subscribeEmail"/> 
-                                    <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="<?=GetMessage("TO_SUBSCRIBE")?>"/>
+                                    <input data-book_id="<?= $arResult['ID'] ?>" type="text" value="<?= $arResult["MAIL"]; ?>" name="email" class="subscribeEmail"/> 
+                                    <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="<?= GetMessage("TO_SUBSCRIBE") ?>"/>
                                 </div>
                             </form>    
                         <?
                         }
                         ?>
                     </div>
-                    <?/*<p class="text">Вам не хватает 770 руб. до получения скидки в 10%</p>*/?>
                     
-                    <?if (!empty($arResult["PRICES"])) {?>  
+                    <?if (!empty ($arResult["PRICES"]) ) {?>  
                             <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
                                 && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                             <div class="wrap_prise_bottom"> 
                                 <span class="item_buttons_counter_block">
                                 
-                                    <a href="javascript:void(0)" class="minus" id="<? echo $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
-                                    <input id="<? echo $arResult['QUANTITY']; ?>" type="text" class="tac transparent_input" value="<? echo (isset($arResult['OFFERS']) && !empty($arResult['OFFERS'])
+                                    <a href="javascript:void(0)" class="minus" id="<?= $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
+                                    <input id="<?= $arResult['QUANTITY']; ?>" type="text" class="tac transparent_input" value="<?= (isset($arResult['OFFERS']) && !empty($arResult['OFFERS'])
                                             ? 1
                                             : $arResult['CATALOG_MEASURE_RATIO']
                                         ); ?>">
-                                    <a href="javascript:void(0)" class="plus" id="<? echo $arResult['QUANTITY_UP']; ?>">+</a>
+                                    <a href="javascript:void(0)" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>
                                 </span>
                                 <?if ($arResult["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
-                                <a href="#" onclick="addtocart(<?=$arResult["ID"];?>, '<?=$arResult["NAME"];?>'); addToCartTracking(<?=$arResult["ID"];?>, '<?=$arResult["NAME"];?>', '<?=$arResult["PRICES"]["BASE"]["VALUE"]?>', '<?=$arResult['SECTION']['NAME'];?>', '1');return false;">
-                                    <p class="inBasket"><?=GetMessage("ADD_IN_BASKET")?></p>
-                                </a>
+                                    <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
+                                        <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p>
+                                    </a>
                                 <?} else {?>
-                                <a href="/personal/cart/"><p class="inBasket" style="background-color: #A9A9A9;"><?=GetMessage("ALREADY_IN_BASKET")?></p></a>
+                                    <a href="/personal/cart/"><p class="inBasket" style="background-color: #A9A9A9;"><?= GetMessage("ALREADY_IN_BASKET") ?></p></a>
                                 <?}?>
-                                <a href="javascript:void(0);"><p class="buyOneClick"><?=GetMessage("TO_BUY_IN_1_CLICK")?></p></a>
+                                <a href="javascript:void(0);"><p class="buyOneClick"><?= GetMessage("TO_BUY_IN_1_CLICK") ?></p></a>
                              </div>
                         <?  }?>
                            
@@ -511,18 +505,18 @@ $arItemIDs = array(
                 <div class="quickOrderDiv" style="display:none;">
                     <form method="post" id="quickOrderForm">
                         <input type="hidden" name="frmQuickOrderSent" value="Y">
-                        <input type="hidden" name="qoProduct" id="id" value="<?=$arResult["ID"]?>">
+                        <input type="hidden" name="qoProduct" id="id" value="<?= $arResult["ID"] ?>">
                         <div class="notify"></div>
                         <ul>
-                            <li><?=GetMessage("NAME_FIELD_TITLE")?></li>
+                            <li><?= GetMessage("NAME_FIELD_TITLE") ?></li>
                             <li>
                                 <input type="text" name="name" value="" class="quickorder-name">
                             </li>
-                            <li><?=GetMessage("PHONE_FIELD_TITLE")?></li>
+                            <li><?= GetMessage("PHONE_FIELD_TITLE") ?></li>
                             <li>
                                 <input type="text" name="phone" value="" class="quickorder-phone">
                             </li>
-                            <li><?=GetMessage("EMAIL_FIELD_TITLE")?></li>
+                            <li><?= GetMessage("EMAIL_FIELD_TITLE") ?></li>
                             <li>
                                 <input type="text" name="email" value="" class="quickorder-email">
                             </li>
@@ -535,25 +529,25 @@ $arItemIDs = array(
                     <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
                 </div>
                 <ul class="shippings">
-                    <li><?=GetMessage("COURIER_DELIVERY")?></li>
-                    <li><?=GetMessage("MAIL_DELIVERY")?></li>
-                    <li><?=GetMessage("INTERNATIONAL_DELIVERY")?></li>
-                    <li><?=GetMessage("PICKUP_DELIVERY")?></li>
+                    <li><?= GetMessage("COURIER_DELIVERY") ?></li>
+                    <li><?= GetMessage("MAIL_DELIVERY") ?></li>
+                    <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+                    <li><?= GetMessage("PICKUP_DELIVERY") ?></li>
                 </ul>
 				
 				<div class="typesOfProduct">
-					<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
-						<!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAppStore', label: '<?=$arResult['NAME']?>'});">
+					<?if (!empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) ) {?>
+						<!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAppStore', label: '<?= $arResult['NAME'] ?>'});">
 							<p class="title"><a target="_blank" 
 								href="http://ad.apps.fm/I7nsUqHgFpiU6SjjFxr_lfE7og6fuV2oOMeOQdRqrE2fuH1E_AVE04uUy-835_z8AOyXPgYuNMr8J2cvDXlBe3JGR4QWfzRXdHADIOS0bhIlj-vcR89M4g_uNUXQBYtJhxsaY6DBokwX4FZL6ZW1oPCYagKnjd3JTKLywLOw94o" 
-								rel="nofollow"><?=GetMessage("BUY_IN_APPSTORE")?></a></p>
+								rel="nofollow"><?= GetMessage("BUY_IN_APPSTORE") ?></a></p>
 						</div><!--/noindex-->
 						<?}?>
-					<?if (!empty($arResult["PROPERTIES"]["android"]['VALUE'])) {?>
-						<!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAndroid', label: '<?=$arResult['NAME']?>'});">
+					<?if (!empty ($arResult["PROPERTIES"]["android"]['VALUE']) ) {?>
+						<!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAndroid', label: '<?= $arResult['NAME'] ?>'});">
 							<p class="title"><a target="_blank" 
 								href="http://ad.apps.fm/JbkeS8Wu40Y4o7v66y0V515KLoEjTszcQMJsV6-2VnHFDLXitVHB6BlL95nuoNYfsPXjJaQ96brr8ncAvMfc6wZkKsYjZn26ZgfIprQwFxiMb6nGA0JPaw88nuXsLm5fGy9o7Q8KyEtAHAeX1UXtzRyIF-zfsrprYF9zs6rj2ac8dDeKR2QfG21w5iR5J8PU" 
-								rel="nofollow"><?=GetMessage("BUY_IN_GOOGLEPLAY")?></a></p>
+								rel="nofollow"><?= GetMessage("BUY_IN_GOOGLEPLAY") ?></a></p>
 						</div><!--/noindex-->
 					<?}?>
 				</div>
@@ -601,8 +595,8 @@ $arItemIDs = array(
             </div>
             <div class="subscr_result"></div>
             <div class="centerColumn">
-                <h1 class="productName" itemprop="name"><?=$arResult["NAME"]?></h1>
-                <p class="engBookName"><?=$arResult["PROPERTIES"]["ENG_NAME"]["VALUE"]?></p>
+                <h1 class="productName" itemprop="name"><?=$arResult["NAME"] ?></h1>
+                <p class="engBookName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></p>
                 <div class="authorReviewWrap">
                     <p class="reviews">
                         <span class="star"><img src="/img/activeStar.png"></span>
@@ -615,9 +609,7 @@ $arItemIDs = array(
                    
                    
                     <p class="productAutor">
-                        <?
-                        echo $arResult["AUTHOR_NAME"];
-                        ?>
+                        <?= $arResult["AUTHOR_NAME"]; ?>
                     </p>
 
                 </div>
@@ -700,14 +692,14 @@ $arItemIDs = array(
 					<?}?>
                 </div>*/?>
                 <ul class="productsMenu">
-                    <li class="active tabsInElement" data-id="1"><?=GetMessage("ANNOTATION_TITLE")?></li>
-                    <li data-id="4" class="tabsInElement"><?=GetMessage("ABOUT_AUTHOR_TITLE")?></li>
+                    <li class="active tabsInElement" data-id="1"><?= GetMessage("ANNOTATION_TITLE") ?></li>
+                    <li data-id="4" class="tabsInElement"><?= GetMessage("ABOUT_AUTHOR_TITLE") ?></li>
                     <?
                         if ($arResult["REVIEWS_COUNT"] > 0) {
                         ?>
-                        <li data-id="2" class="tabsInElement"><?=GetMessage("REVIEWS_TITLE")?></li>
+                        <li data-id="2" class="tabsInElement"><?= GetMessage("REVIEWS_TITLE") ?></li>
                         <?}?>
-                    <li data-id="3" class="tabsInElement"><?=GetMessage("COMMENTS_TITLE")?></li>
+                    <li data-id="3" class="tabsInElement"><?= GetMessage("COMMENTS_TITLE") ?></li>
                 </ul>
                 <div class="annotation" id="prodBlock1"> 
                     <div class="showAllWrapp">
@@ -845,34 +837,34 @@ $arItemIDs = array(
                     );
                 ?>
                 
-                        <?=$arResult["DETAIL_TEXT"]?>
+                        <?= $arResult["DETAIL_TEXT"] ?>
                     </div>
                       
                     <?      
                         $videosCount  = 0;
-                        foreach($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
+                        foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
                             $videosCount++;
                         } 
-                        if($arResult['PROPERTIES']['video_about']['~VALUE'] != "") {?>
-                        <p class="productSelectTitle"><?=GetMessage("VIDEO_PRESENTATIONS")?> <?if($videosCount > 1) {?><span><a href="#"><?=GetMessage("SHOW_ALL")?></a></span><span class="count">(<?=$videosCount?>)</span><?}?></p>   
+                        if ($arResult['PROPERTIES']['video_about']['~VALUE'] != "") {?>
+                        <p class="productSelectTitle"><?= GetMessage("VIDEO_PRESENTATIONS") ?> <? if($videosCount > 1) { ?><span><a href="#"><?= GetMessage("SHOW_ALL") ?></a></span><span class="count">(<?= $videosCount ?>)</span><? } ?></p>   
                         <?}?>
 
                     <div class="videoWrapp">
                         <?
-                            foreach($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube){
-                                echo($videoYoutube);
+                            foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
+                                echo ($videoYoutube);
                             } 
                         ?>
                     </div>
 
                     
-                    <?if (!empty($arResult['TAGS'])) {
+                    <?if (!empty ($arResult['TAGS']) ) {
                             echo "<p class='productSelectTitle'>Ключевые понятия</p>";
                             echo "<ul class='keyWords' itemprop='keywords'>";
                             $el = array('TAGS' => $arResult['TAGS']);
                             $el['TAGS'] = explode(',', $el['TAGS']);
-                            for ($i = 0; $i < ($size = sizeof($el['TAGS'])); $i++) {
-                                if (trim($el['TAGS'][$i]) == '') continue;
+                            for ($i = 0; $i < ($size = sizeof ($el['TAGS']) ); $i++) {
+                                if (trim ($el['TAGS'][$i]) == '') continue;
                                 print "<li><a href=\"/search/index.php?q={$el['TAGS'][$i]}\" class=\"nowrap\">{$el['TAGS'][$i]}</a></li>";
 
                             }
@@ -891,14 +883,14 @@ $arItemIDs = array(
                     <div class="recenzion" id="prodBlock2">  
                         <?
                             foreach ($arResult["REVIEWS"] as $reviewList) {?>
-                                <span class="recenz_author_name"><?=$reviewList["NAME"]?></span>
+                                <span class="recenz_author_name"><?= $reviewList["NAME"] ?></span>
                                 <div class="recenz_text">
-                                    <?=$reviewList["PREVIEW_TEXT"]?>
+                                    <?= $reviewList["PREVIEW_TEXT"] ?>
                                     <? if ($reviewList["PREVIEW_TEXT"] == "") {
                                         echo $reviewList["DETAIL_TEXT"];    
                                     }
                                     ?>
-                                    <noindex><a href="<?=$reviewList["PROPERTY_SOURCE_LINK_VALUE"]?>" rel="nofollow"><?=$reviewList["PROPERTY_SOURCE_LINK_VALUE"]?></a></noindex>
+                                    <noindex><a href="<?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?>" rel="nofollow"><?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?></a></noindex>
                                 </div>
                            
                             <?}
@@ -907,92 +899,7 @@ $arItemIDs = array(
                 <?}?>
                 <div class="review" id="prodBlock3">
                     <div class="ReviewsFormWrap">
-                        <?/*?>
-                            <p>Написать отзыв</p>
-                            <form name="iblock_add" action="<?=POST_FORM_ACTION_URI?>" method="post" enctype="multipart/form-data">
-                            <table class="data-table">
-                            <thead>
-                            <tr>
-                            <td colspan="2">&nbsp;</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <td>
-                            <input type="text" name="your_name" size="25" placeholder="Ваше имя">
-                            </td>
-                            </tr>
-                            <tr>
-                            <td>
-                            <textarea class="questInput" name="review_text" placeholder="Комментарий"></textarea>
-                            </td>
-                            </tr>
-                            <tr>
-                            <td>
-                            <input type="text" name="your_vote" size="25" placeholder="Оценка">
-                            </td>
-                            </tr>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                            <td colspan="2">
-                            <input type="submit" name="iblock_submit" value="Отправить" style="margin-top:35px;">
-                            </td>
-                            </tr>
-                            <tr>
-                            <td>
-                            <input type="hidden" name="section_id" value="<?=$arResult["ID"]?>">
-                            </td>
-                            </tr>
-                            </tfoot>
-                            </table>
-                            </form>
-                            </div>
-                            <?
-                            if($_POST["section_id"])
-                            {
-                            $sect_list = CIBlockSection::GetList(array(), array("IBLOCK_ID"=>13, "NAME"=>$_POST["section_id"]), false, false, array("ID"))->Fetch();
-                            if ($sect_list)
-                            {
-                            $el = new CIBlockElement;
-                            $PROP = array();
-                            $PROP["name"]=$_POST["your_name"];
-                            $PROP["stars"]=$_POST["your_vote"];
-                            $PROP["comment"]=$_POST["review_text"];
-                            $arFields = array(
-                            'IBLOCK_SECTION_ID' => $sect_list["ID"],
-                            'IBLOCK_ID' => 13,
-                            'PROPERTY_VALUES' => $PROP,
-                            'NAME' => $_POST["your_name"],
-                            'ACTIVE' => 'Y'
-                            );
-                            $el->Add($arFields);        
-                            }
-                            else
-                            {
-                            $sect = new CIBlockSection;
-                            $arSectFields = array(
-                            "ACTIVE" => "Y",
-                            "IBLOCK_ID" => 13,
-                            "NAME" => $_POST["section_id"]
-                            );
-                            $sect->Add($arSectFields);
-                            $new_sect_list = CIBlockSection::GetList(array(), array("IBLOCK_ID"=>13, "NAME"=>$_POST["section_id"]), false, false, array("ID"))->Fetch();
-                            $el = new CIBlockElement;
-                            $PROP = array();
-                            $PROP["name"]=$_POST["your_name"];
-                            $PROP["stars"]=$_POST["your_vote"];
-                            $PROP["comment"]=$_POST["review_text"];
-                            $arFields = array(
-                            'IBLOCK_SECTION_ID' =>$new_sect_list["ID"],
-                            'IBLOCK_ID' => 13,
-                            'PROPERTY_VALUES' => $PROP,
-                            'NAME' => $_POST["your_name"],
-                            'ACTIVE' => 'Y'
-                            );
-                            $el->Add($arFields);    
-                            }    
-                            }*/
+                        <?
                         $APPLICATION-> IncludeComponent("cackle.reviews", ".default", array( "CHANNEL_ID" => $arResult["ID"] ), false);?>
                     </div>
                 </div>
@@ -1009,7 +916,7 @@ $arItemIDs = array(
                         <div class="author_info">
                             <span class="author_name"><?=$authorFullName?></span>
 
-                            <?echo !empty($author["IMAGE_FILE"]["SRC"]) ? "<img src='".$author["IMAGE_FILE"]["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?>
+                            <?= !empty($author["IMAGE_FILE"]["SRC"]) ? "<img src='".$author["IMAGE_FILE"]["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?>
 
                         </div><br>
 
@@ -1024,7 +931,7 @@ $arItemIDs = array(
 
 
 <? global $authBooksFilter;
-	if (!empty($arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0])) {
+	if (!empty ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0]) ) {
 		$authBooksFilter = array('PROPERTY_AUTHORS' => $arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0], "!ID" => $arResult["ID"]);
 
 		$APPLICATION->IncludeComponent(
@@ -1168,7 +1075,7 @@ $printid = implode(", ", $printid2);
 ?>
 <script>
 	function rrAsyncInit() {
-		try {rrApi.view(<?=$arResult['ID'];?>);} catch(e) {}
+		try {rrApi.view(<?= $arResult['ID']; ?>);} catch(e) {}
 	}
 </script>
 
@@ -1178,22 +1085,22 @@ window.criteo_q = window.criteo_q || [];
 window.criteo_q.push(
 	{ event: "setAccount", account: 18519 },
 	<?if($USER->IsAuthorized()) {?>  
-		{ event: "setEmail", email: "<?=$USER->GetEmail()?>" },
+		{ event: "setEmail", email: "<?= $USER->GetEmail() ?>" },
 	<?}?>
 		{ event: "setSiteType", type: "d" },
-		{ event: "viewItem", item: "<?=$arResult['ID']?>" }
+		{ event: "viewItem", item: "<?= $arResult['ID'] ?>" }
 );
 </script>
 
 <?if ($recommFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем и отправляем статистику в RR?>
 	<script>
 		function rrAsyncInit() {
-			try {rrApi.recomTrack('UpSellItemToItems', <?=$arResult["ID"]?>, [<?=$printid?>]);} catch(e) {}
+			try {rrApi.recomTrack('UpSellItemToItems', <?= $arResult["ID"] ?>, [<?= $printid ?>]);} catch(e) {}
 		}
 	</script>
 	<div class="weRecomWrap">
 		<div class="centerWrapper">
-			<p class="tile"><?=GetMessage("ALSO_RECOMMENDED_BOOKS")?></p>
+			<p class="tile"><?= GetMessage("ALSO_RECOMMENDED_BOOKS") ?></p>
 				<?
 				
 				$APPLICATION->IncludeComponent(
@@ -1336,27 +1243,26 @@ window.criteo_q.push(
                 <input type="button" value="">
             </form>
             <div class="some_info">
-                <?=GetMessage("SUBSCRIPTION_REQUEST_ACCEPTED")?>
+                <?= GetMessage("SUBSCRIPTION_REQUEST_ACCEPTED" )?>
             </div>
             <p class="title">
-                <?=GetMessage("GIFT_BOOK_TITLE")?>                             
+                <?= GetMessage("GIFT_BOOK_TITLE") ?>                             
             </p>
             <p>
-                <?=GetMessage("GIFT_BOOK_DESCRIPTION")?>
+                <?= GetMessage("GIFT_BOOK_DESCRIPTION") ?>
             </p>
         </div>   
 		
-        <p class="sliderName youViewedTitle"><?=GetMessage("VIEWED_BOOKS_TITLE")?></p>
+        <p class="sliderName youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></p>
 
         <? global $arFilter;
-            $latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));
-            if ($latestSeen) {
+            $latestSeen = unserialize ($APPLICATION->get_cookie("LASTEST_SEEN") );
+            if ($latestSeen) {        
                 $arFilter = array('ID' => array());
-                $latestSeen = array_slice(array_reverse(array_keys($latestSeen)), 0, 6);
+                $latestSeen = array_slice (array_reverse (array_keys ($latestSeen) ), 0, 6);
                 foreach ($latestSeen as $bookID) {
                     $arFilter['ID'][] = intval($bookID);
                 }
-                //arshow($arFilter);
 
 				$APPLICATION->IncludeComponent(
 					"bitrix:catalog.section", 
@@ -1491,11 +1397,11 @@ window.criteo_q.push(
     $(document).ready(function() {
 		<!-- //dataLayer GTM -->
 		dataLayer.push({
-			'stockInfo' : '<?=$StockInfo?>',
-			'productId' : '<?=$arResult["ID"]?>',
-			'productName' : '<?=$arResult["NAME"]?>',
-			'productPrice' : '<?=round(($arPrice["DISCOUNT_VALUE_VAT"]), 2)?>',
-			'videoPresence' : '<?echo $videosCount > 0 ? 'WithVideo' : 'WithoutVideo';?>'
+			'stockInfo' : '<?= $StockInfo ?>',
+			'productId' : '<?= $arResult["ID"] ?>',
+			'productName' : '<?= $arResult["NAME"] ?>',
+			'productPrice' : '<?= round(($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>',
+			'videoPresence' : '<?= $videosCount > 0 ? 'WithVideo' : 'WithoutVideo'; ?>'
 		});
 		<!-- // dataLayer GTM -->		
         
@@ -1528,8 +1434,8 @@ window.criteo_q.push(
         });
         $(".leftColumn .signingPopup").fancybox({
             <?if ($arResult["SIGNING_IMAGE_INFO"]["WIDTH"]) {?>
-                'width'   :   <?=$arResult["SIGNING_IMAGE_INFO"]["WIDTH"]?>,
-                'height'   :   <?=$arResult["SIGNING_IMAGE_INFO"]["HEIGHT"]?>
+                'width'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["WIDTH"] ?>,
+                'height'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["HEIGHT"] ?>
             <?} else {?>
                 'width'   :   1140,
                 'height'   :   800
