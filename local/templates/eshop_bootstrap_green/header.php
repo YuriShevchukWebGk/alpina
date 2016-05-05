@@ -99,7 +99,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
-<?if ($_COOKIE['notice_warn'] != 30) {?>
+<?/*if ($_COOKIE['notice_warn'] != 30) {?>
     <script>
     $(document).ready(function() {
     $("#close_notice").click(function() {
@@ -117,7 +117,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div id="close_notice" style="position: absolute; top: 10px; right: 20px; font-size: 1.8em; cursor: pointer;">X</div>
     </div>
 	<!-- /noindex -->
-<?}?>
+<?}*/?>
 <header>
     <a href="/">
         <div class="logo catalogLogo">

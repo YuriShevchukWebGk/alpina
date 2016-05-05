@@ -347,7 +347,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                             <? }
                                          ?>
                                  
-                                         <?if ($arItem["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
+                                         <?if ($arResult[$arItem["ID"]]["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
                                             <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); return false;">
                                                 <p class="basketBook">В корзину</p>
                                             </a>

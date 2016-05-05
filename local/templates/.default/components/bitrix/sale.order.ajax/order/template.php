@@ -109,15 +109,15 @@
                     minDatePlus = 1;
                 }                            
             }
-        } else { // НОВОГОДНИЕ ПРАЗДНИКИ
-            if (ourday == 4){   //суббота
-                minDatePlus = 6;
-            } else if (ourday == 5) {    //воскресение
-                minDatePlus = 5;
-            } else if (ourday == 6) {    //пятница                                            
-                minDatePlus = 4;                                               
-            } else if (ourday == 0) {    //пятница                                            
-                minDatePlus = 4;                                               
+        } else { // Майские праздники
+            if (ourday == 4){   //четверг
+                minDatePlus = 1;
+            } else if (ourday == 5) {
+                minDatePlus = 4;
+            } else if (ourday == 6) {
+                minDatePlus = 3;
+            } else if (ourday == 0) {
+                minDatePlus = 2;                                               
             }
         }
         //дата, выбранная по умолчанию
