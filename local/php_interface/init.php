@@ -9,7 +9,27 @@
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
 
-
+    // ID раздела подборок на главной - из каталога книг
+    define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
+    define ("CATALOG_IBLOCK_ID", 4);
+    
+    /***************
+    * 
+    * получение ID значения свойства "Состояние" из символьного кода этого значения
+    * 
+    * @param int $iblockId - инфоблок, содержащий свойство
+    * @param string $propCode - символьный код свойства
+    * @param string $propXmlId - символьный код значения свойства
+    * 
+    ***************/
+    
+    function getXMLIDByCode ($iblockId, $propCode, $propXmlId) {
+        $iblockProps = CIBlockPropertyEnum::GetList (array(), array("IBLOCK_ID" => $iblockId, "CODE" => $propCode, "XML_ID" => $propXmlId));
+        while ($iblockStateProp = $iblockProps -> Fetch()) {
+            return $iblockStateProp["ID"];    
+        }    
+    }
+    
     function arshow($array, $adminCheck = false){
         global $USER;
         $USER = new Cuser;
