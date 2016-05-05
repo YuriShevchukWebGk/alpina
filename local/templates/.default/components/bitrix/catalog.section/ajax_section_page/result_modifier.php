@@ -486,11 +486,11 @@ if ($arSection["UF_QUOTE"] > 0) {
 }
 
 
-foreach ($arResult["ITEMS"] as $arItem) {
+foreach ($arResult["ITEMS"] as $key => $arItem) {
     // получение имени автора книги
     
     if (!empty($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0])) {
-        $arItem["CURRENT_AUTHOR"] = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
+        $arResult[$arItem["ID"]]["CURRENT_AUTHOR"] = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
     }
     
     // получение пути до изображения, отображаемого в блоке для цитаты
@@ -500,7 +500,7 @@ foreach ($arResult["ITEMS"] as $arItem) {
     
     // проверка на нахождение книги в корзине
     
-    $arItem["ITEM_IN_BASKET"] = CSaleBasket::GetList(
+    $arResult[$arItem["ID"]]["ITEM_IN_BASKET"] = CSaleBasket::GetList(
         array(), 
         array(
             "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
@@ -522,6 +522,6 @@ foreach ($arResult["ITEMS"] as $arItem) {
     
     // получение изображения для товара в разделе каталога
     
-    $arItem["PICTURE"] = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+    $arResult[$arItem["ID"]]["PICTURE"] = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);                  
 }
 ?>

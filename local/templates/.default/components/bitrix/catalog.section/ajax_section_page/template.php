@@ -324,8 +324,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                  
                                  <a href="<?= $arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', <?= ($cell+1)?>, 'Catalog Section');">
                                      <div class="section_item_img">
-                                         <?if ($arItem["PICTURE"]["src"]) {?>               
-                                             <img src=<?= $arItem["PICTURE"]["src"]?>>
+                                         <?if ($arResult[$arItem["ID"]]["PICTURE"]["src"]) {?>               
+                                             <img src=<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>>
                                          <?} else {?>
                                              <img src="/images/no_photo.png" width="142" height="142">    
                                          <?}?>
@@ -334,7 +334,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                          <?}?>
                                      </div> 
                                      <p class="nameBook" title="<?= $arItem["NAME"]?>"><?= $arItem["NAME"]?></p>
-                                     <p class="bookAutor"><?= $arItem["CURRENT_AUTHOR"]["NAME"]?></p>
+                                     <p class="bookAutor"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                      <?
                                      if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") 
