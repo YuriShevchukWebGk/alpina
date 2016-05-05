@@ -130,18 +130,17 @@ $arItemIDs = array(
 
                     <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
                         <div class="overlay">
-                            <p>Полистать книгу</p>
+                            <p><?=GetMessage("BROWSE_THE_BOOK")?></p>
                         </div>
                     </a>     
                     
                     <?}?>                     
-
-                    <?$pict = CFile::ResizeImageGet($arResult["DETAIL_PICTURE"]["ID"], array('width'=>264, 'height'=>394), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
+                    
                     <div class="element_item_img">
                         <?
-                            if ($pict["src"]) {
+                            if ($arResult["PICTURE"]["src"]) {
                             ?>
-                                <img src="<?=$pict["src"]?>" itemprop="image" alt="<?=$arResult["NAME"]?>" title="<?=$arResult["NAME"]?>" />
+                                <img src="<?=$arResult["PICTURE"]["src"]?>" itemprop="image" alt="<?=$arResult["NAME"]?>" title="<?=$arResult["NAME"]?>" />
                             <?
                             } else {
                             ?>
@@ -155,14 +154,14 @@ $arItemIDs = array(
                     </div>    
                 </div>
                 <div class="marks">
-                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]==21) {?>
+                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]==NEW_BOOK_STATE_XML_ID) {?>
                         <div class="newBookMark">
-                            <p>новинка</p>
+                            <p><?=GetMessage("NEW_BOOK")?></p>
                         </div>
                     <?}?>
-                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"]==285) {?>   
+                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"]==BESTSELLER_BOOK_XML_ID) {?>   
                         <div class="bestBookMark">
-                            <p>бестселлер</p>
+                            <p><?=GetMessage("BESTSELLER_BOOK")?></p>
                         </div>
                     <?}?>    
                 </div>
@@ -175,25 +174,27 @@ $arItemIDs = array(
                     </a>
                     <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
                         <div class="authorSigningText">
-                        с автографом автора
+                        <?=GetMessage("SIGNED_BOOK")?>
                         </div>
                     </a>
                 <?
                 }
                 ?>
                 <?
-                    $curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
-                    $user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
-                    $wishlist_item = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user, "PROPERTY_PRODUCTS" => $arResult["ID"]), false, false, array("ID", "PROPERTY_PRODUCTS")) -> Fetch();
+                    $user = $arResult["CURRENT_USER"]["NAME"]." ".$arResult["CURRENT_USER"]["LAST_NAME"];
 
                     if ($USER -> IsAuthorized()) {
-                        if ($wishlist_item) {
+                        if ($arResult["WISHLIST_ITEM"]) {
                         ?>
-                            <a href="javascript:void(0)" title="Список желаний находится в корзине."><p class="AlreadyInWishlist">В списке желаний</p></a>
+                            <a href="javascript:void(0)" title="<?=GetMessage("WISHLIST_IN_BASKET")?>">
+                                <p class="AlreadyInWishlist"><?=GetMessage("ALREADY_IN_WISHLIST")?></p>
+                            </a>
                         <?
                         } else {
                         ?>
-                            <a href="javascript:void(0); return true;" onclick="dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');"><p class="buyLater">Куплю позже</p></a>
+                            <a href="javascript:void(0); return true;" onclick="dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');">
+                                <p class="buyLater">Куплю позже</p>
+                            </a>
                         <?
                         }
                     }
@@ -203,24 +204,30 @@ $arItemIDs = array(
                     <span></span>
                 </div>
                 <div class="takePartWrap">
-                    <p class="title">Получить главу</p>    
-                    <p class="text">Глава в формате PDF будет отправлена вам на почту</p>
-                    <input type="text" placeholder="Ваш e-mail"> 
+                    <p class="title"><?=GetMessage("TO_GET_A_CHAPTER")?></p>    
+                    <p class="text"><?=GetMessage("CHAPTER_SENT")?></p>
+                    <input type="text" placeholder="<?=GetMessage("YOUR_EMAIL")?>"> 
                 </div>
                 
                 <div class="characteris">
-                    <p class="title">Издательство</p>
-                    <p class="text"><span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><span itemprop="name"><?=$arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]?></span></span></p>    
+                    <p class="title"><?=GetMessage("PUBLISHER")?></p>
+                    <p class="text">
+                        <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+                            <span itemprop="name">
+                                <?=$arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]?>
+                            </span>
+                        </span>
+                    </p>    
                 </div>
                 <div class="characteris">
-                    <p class="title">ISBN</p>
+                    <p class="title"><?=GetMessage("ISBN")?></p>
                     <p class="text" itemprop="isbn"><?=$arResult["PROPERTIES"]["ISBN"]["VALUE"]?></p>    
                 </div>
                 <?
                 if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {
                     ?>
                     <div class="characteris">
-                        <p class="title">Серия</p>
+                        <p class="title"><?=GetMessage("SERIES")?></p>
                         <a href="/series/<?=$arResult["CURR_SERIES"]["ID"]?>/">
                             <span class="text"><?=$arResult["CURR_SERIES"]["NAME"]?></span>
                         </a>    
@@ -229,36 +236,42 @@ $arItemIDs = array(
                 }
                 ?>
                 <div class="characteris">
-                    <p class="title">Тип обложки</p>
+                    <p class="title"><?=GetMessage("COVER_TYPE")?></p>
                     <p class="text"><?=$arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-					<?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == 168) {?>
+					<?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_SOFTCOVER_XML_ID) {?>
 						<link itemprop="bookFormat" href="http://schema.org/Paperback">
-					<?} elseif ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == 169) {?>
+					<?} elseif ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_HARDCOVER_XML_ID) {?>
 						<link itemprop="bookFormat" href="http://schema.org/Hardcover">
 					<?}?>					
                 </div>
                 <div class="characteris">
-                    <p class="title">Количество страниц</p>
-                    <p class="text"><span itemprop="numberOfPages"><?=$arResult["PROPERTIES"]["PAGES"]["VALUE"]?></span> стр.</p>    
+                    <p class="title"><?=GetMessage("PAGES_COUNT")?></p>
+                    <p class="text"><span itemprop="numberOfPages"><?=$arResult["PROPERTIES"]["PAGES"]["VALUE"]?></span><?=GetMessage("PAGES")?></p>    
                 </div>
 				<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
                     <div class="characteris">
                         <a href="http://readright.ru/?=alpinabook" target="_blank">
-                            <span class="text">Как прочитать эту книгу за час?</span>
+                            <span class="text"><?=GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR")?></span>
                         </a>
                     </div>    
 				<?}?> 				
                 <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
                     <div class="characteris">
                         <p class="title"><?=$arResult["PROPERTIES"]["YEAR"]["NAME"]?></p>
-                        <p class="text"><span itemprop="datePublished"><?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?></span> г.<?echo !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />'.$arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?></p>    
+                        <p class="text">
+                            <span itemprop="datePublished">
+                                <?=$arResult["PROPERTIES"]["YEAR"]["VALUE"]?>
+                            </span> 
+                            г.
+                            <?echo !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />'.$arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?>
+                        </p>    
                     </div>   
                 <?}?>
 
                      
                 
                 <div class="characteris">
-                    <p class="title">Размеры</p>
+                    <p class="title"><?=GetMessage("SIZES")?></p>
                     <p class="text"><?=$arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"]?></p>    
                 </div>
                 <?/*<div class="characteris">
@@ -274,17 +287,11 @@ $arItemIDs = array(
                     if ($weight) {
                     ?>
                     <div class="characteris">
-                        <p class="title">Вес</p>
-                        <p class="text"><?=$weight?> г</p>    
+                        <p class="title"><?=GetMessage("WEIGHT")?></p>
+                        <p class="text"><?=$weight?><?=GetMessage("GRAMS")?></p>    
                     </div>
                     <?}?>
                 <div class="socialServises">
-                    <?/*<a href="http://vk.com/share.php?url=http://alpina.de.osg.ru<?=$arResult["DETAIL_PAGE_URL"]?>&title=<?=$arResult["NAME"]?>" onclick="window.open(this.href,this.target,'width= 600,height=500,scrollbars=1');return false;"><div class="vk"></div></a>
-                    <a href="https://twitter.com/intent/tweet?url=http://alpina.de.osg.ru<?=$arResult["DETAIL_PAGE_URL"]?>&text=<?=$arResult["NAME"]?>" onclick="window.open(this.href,this.target,'width= 600,height=500,scrollbars=1');return false;"><div class="twit"></div></a>
-                    <a href="https://www.facebook.com/sharer.php?u=http://alpina.de.osg.ru<?=$arResult["DETAIL_PAGE_URL"]?>" onclick="window.open(this.href,this.target,'width= 600,height=500,scrollbars=1');return false;"><div class="faceb"></div></a>
-                    <a href="https://plus.google.com/share?url=http://alpina.de.osg.ru<?=$arResult["DETAIL_PAGE_URL"]?>" onclick="window.open(this.href,this.target,'width= 600,height=500,scrollbars=1');return false;"><div class="googp"></div></a>
-                    <a href="http://www.ok.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://alpina.de.osg.ru<?=$arResult["DETAIL_PAGE_URL"]?>" onclick="window.open(this.href,this.target,'width= 600,height=500,scrollbars=1');return false;"><div class="odnkl"></div></a>    
-                    */?>
                     <?require('include/socialbuttons.php');?>
                 </div>
 				 <?#Спонсоры книги?>
@@ -356,8 +363,8 @@ $arItemIDs = array(
                         if (!empty($arResult["PRICES"])) {
                                 // если свойство товара в состоянии "Новинка" либо не задан - то выводить стандартный блок с ценой, 
                                 // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении  
-                                if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) 
-                                    && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)) {
+                                if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
+                                    && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                                     foreach ($arResult["PRICES"] as $code => $arPrice) { 
                                     ?>
                                     <link itemprop="availability" href="http://schema.org/InStock">
@@ -374,7 +381,7 @@ $arItemIDs = array(
                                             if (strlen(stristr($newPrice, ".")) == 2) {
                                                 $newPrice .= "0";
                                         }?>
-                                        <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
+                                        <p class="newPrice"><?=$newPrice?> <span><?=GetMessage("ROUBLES")?></span></p>
                                         <?
                                         } else if ($discount) {
                                             $newPrice = round(($arPrice["VALUE"])*(1 - $discount/100), 2);
@@ -384,7 +391,7 @@ $arItemIDs = array(
                                         ?>  
                                         <div class="oldPrice"><span itemprop="price"><?=$arPrice["PRINT_VALUE"]?></span><p></p></div>  
                                         <?// расчитываем накопительную скидку от стоимости?>
-                                        <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
+                                        <p class="newPrice"><?=$newPrice?> <span><?=GetMessage("ROUBLES")?></span></p>
 
                                         <?
                                         } else {
@@ -393,7 +400,7 @@ $arItemIDs = array(
                                                 $newPrice .= "0";
                                             }
                                         ?>
-                                        <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
+                                        <p class="newPrice"><?=$newPrice?> <span><?=GetMessage("ROUBLES")?></span></p>
                                         <?
                                         }
                                     ?>  
@@ -402,10 +409,10 @@ $arItemIDs = array(
                                         echo $printDiscountText; // цена до скидки
                                     }?>   
                                     <?}
-                            } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == 22) {?>
+                            } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
 								<link itemprop="availability" href="http://schema.org/PreOrder">
 								<?$StockInfo = "SoonStock";?>
-                                <p class="newPrice" style="font-size:20px;">Ожидаемая дата выхода: <?=strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
+                                <p class="newPrice" style="font-size:20px;"><?=GetMessage("EXPECTED_DATE")?><?=strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
 								
                             <?
                             } else {?>
@@ -422,7 +429,7 @@ $arItemIDs = array(
                                             $newPrice .= "0";
                                         }
                                     ?>    
-                                        <p class="newPrice"><?=$newPrice?> <span>руб.</span></p>
+                                        <p class="newPrice"><?=$newPrice?> <span><?=GetMessage("ROUBLES")?></span></p>
                                     <?
                                     } else {
                                         $newPrice = round(($arPrice["ORIG_VALUE_VAT"]), 2);
@@ -430,26 +437,26 @@ $arItemIDs = array(
                                             $newPrice .= "0";
                                         }
                                     ?>
-                                        <p class="newPrice"><span itemprop="price"><?=$newPrice?></span> <span>руб.</span></p>
+                                        <p class="newPrice"><span itemprop="price"><?=$newPrice?></span> <span><?=GetMessage("ROUBLES")?></span></p>
                                     <?
                                     }
                                     ?>     
                                 <?}?>
-                                <p class="newPrice notAvailable" style="font-size:28px;">Нет в наличии</p>
+                                <p class="newPrice notAvailable" style="font-size:28px;"><?=GetMessage("NOT_IN_STOCK")?></p>
                             <?
                             }
                             ?> 
                             <?
-                            if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 22) 
-                                || (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23)) {
+                            if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
+                                || (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                             ?>
                                 <form>
                                     <div>
                                         <p>
-                                            <span class="subscribeDesc">Впишите свой <b>e-mail</b>, и Вы получите письмо, как только книгу можно будет заказать</span>
+                                            <span class="subscribeDesc"><?=GetMessage("SUBSCRIBING_DESCRIPTION")?></span>
                                         </p>
                                         <input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$arResult["MAIL"];?>" name="email" class="subscribeEmail"/> 
-                                        <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="Подписаться"/>
+                                        <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="<?=GetMessage("TO_SUBSCRIBE")?>"/>
                                         
                                     </div>
                                 </form>      
@@ -457,14 +464,14 @@ $arItemIDs = array(
                             }
                         } else {
                             ?>
-                            <p class="newPrice" style="font-size:28px;">Нет в наличии</p>
+                            <p class="newPrice" style="font-size:28px;"><?=GetMessage("NOT_IN_STOCK")?></p>
                             <form>
                                 <div>
                                     <p>
-                                        <span class="subscribeDesc">Впишите свой <b>e-mail</b>, и Вы получите письмо, как только книгу можно будет заказать</span>
+                                        <span class="subscribeDesc"><?=GetMessage("SUBSCRIBING_DESCRIPTION")?></span>
                                     </p>
                                     <input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$arResult["MAIL"];?>" name="email" class="subscribeEmail"/> 
-                                    <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="Подписаться"/>
+                                    <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="<?=GetMessage("TO_SUBSCRIBE")?>"/>
                                 </div>
                             </form>    
                         <?
@@ -474,10 +481,9 @@ $arItemIDs = array(
                     <?/*<p class="text">Вам не хватает 770 руб. до получения скидки в 10%</p>*/?>
                     
                     <?if (!empty($arResult["PRICES"])) {?>  
-                            <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22) 
-                                && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)) {?>
+                            <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
+                                && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                             <div class="wrap_prise_bottom"> 
-                                <?$dbBasketItems = CSaleBasket::GetList(array(), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "PRODUCT_ID" => $arResult["ID"]), false, false, array("ID", "CALLBACK_FUNC", "MODULE", "PRODUCT_ID", "QUANTITY", "PRODUCT_PROVIDER_CLASS"))->Fetch(); ?>
                                 <span class="item_buttons_counter_block">
                                 
                                     <a href="javascript:void(0)" class="minus" id="<? echo $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
@@ -487,12 +493,14 @@ $arItemIDs = array(
                                         ); ?>">
                                     <a href="javascript:void(0)" class="plus" id="<? echo $arResult['QUANTITY_UP']; ?>">+</a>
                                 </span>
-                                <?if ($dbBasketItems["QUANTITY"] == 0) {?>
-                                <a href="#<?//echo $arResult["ADD_URL"]?>" onclick="addtocart(<?=$arResult["ID"];?>, '<?=$arResult["NAME"];?>'); addToCartTracking(<?=$arResult["ID"];?>, '<?=$arResult["NAME"];?>', '<?=$arResult["PRICES"]["BASE"]["VALUE"]?>', '<?=$arResult['SECTION']['NAME'];?>', '1');return false;"><p class="inBasket">В корзину</p></a>
+                                <?if ($arResult["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
+                                <a href="#" onclick="addtocart(<?=$arResult["ID"];?>, '<?=$arResult["NAME"];?>'); addToCartTracking(<?=$arResult["ID"];?>, '<?=$arResult["NAME"];?>', '<?=$arResult["PRICES"]["BASE"]["VALUE"]?>', '<?=$arResult['SECTION']['NAME'];?>', '1');return false;">
+                                    <p class="inBasket"><?=GetMessage("ADD_IN_BASKET")?></p>
+                                </a>
                                 <?} else {?>
-                                <a href="/personal/cart/"><p class="inBasket" style="background-color: #A9A9A9;">В корзине</p></a>
+                                <a href="/personal/cart/"><p class="inBasket" style="background-color: #A9A9A9;"><?=GetMessage("ALREADY_IN_BASKET")?></p></a>
                                 <?}?>
-                                <a href="javascript:void(0);"><p class="buyOneClick">Купить в 1 клик</p></a>
+                                <a href="javascript:void(0);"><p class="buyOneClick"><?=GetMessage("TO_BUY_IN_1_CLICK")?></p></a>
                              </div>
                         <?  }?>
                            
@@ -506,15 +514,15 @@ $arItemIDs = array(
                         <input type="hidden" name="qoProduct" id="id" value="<?=$arResult["ID"]?>">
                         <div class="notify"></div>
                         <ul>
-                            <li>Имя*</li>
+                            <li><?=GetMessage("NAME_FIELD_TITLE")?></li>
                             <li>
                                 <input type="text" name="name" value="" class="quickorder-name">
                             </li>
-                            <li>Телефон*</li>
+                            <li><?=GetMessage("PHONE_FIELD_TITLE")?></li>
                             <li>
                                 <input type="text" name="phone" value="" class="quickorder-phone">
                             </li>
-                            <li>Email*</li>
+                            <li><?=GetMessage("EMAIL_FIELD_TITLE")?></li>
                             <li>
                                 <input type="text" name="email" value="" class="quickorder-email">
                             </li>
@@ -527,10 +535,10 @@ $arItemIDs = array(
                     <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
                 </div>
                 <ul class="shippings">
-                    <li>Курьерская доставка <a id="inline1" href="#data1">по Москве и Подмосковью</a></li>
-                    <li>Доставка почтой по всей России</li>
-                    <li>Международная доставка</li>
-                    <li>Самовывоз <a id="inline2" href="#data2">м.Полежаевская</a></li>
+                    <li><?=GetMessage("COURIER_DELIVERY")?></li>
+                    <li><?=GetMessage("MAIL_DELIVERY")?></li>
+                    <li><?=GetMessage("INTERNATIONAL_DELIVERY")?></li>
+                    <li><?=GetMessage("PICKUP_DELIVERY")?></li>
                 </ul>
 				
 				<div class="typesOfProduct">
@@ -538,16 +546,14 @@ $arItemIDs = array(
 						<!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAppStore', label: '<?=$arResult['NAME']?>'});">
 							<p class="title"><a target="_blank" 
 								href="http://ad.apps.fm/I7nsUqHgFpiU6SjjFxr_lfE7og6fuV2oOMeOQdRqrE2fuH1E_AVE04uUy-835_z8AOyXPgYuNMr8J2cvDXlBe3JGR4QWfzRXdHADIOS0bhIlj-vcR89M4g_uNUXQBYtJhxsaY6DBokwX4FZL6ZW1oPCYagKnjd3JTKLywLOw94o" 
-								rel="nofollow">Купить электронную книгу<br />в <span>iPhone/iPad</span></a></p>
-							<?//<div class="imgCover" style="margin-top:-144px;"><img src="/bitrix/templates/books/images/appStoreBK_1.png" height="70" style="height:70px;" /></div>?>
+								rel="nofollow"><?=GetMessage("BUY_IN_APPSTORE")?></a></p>
 						</div><!--/noindex-->
 						<?}?>
 					<?if (!empty($arResult["PROPERTIES"]["android"]['VALUE'])) {?>
 						<!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAndroid', label: '<?=$arResult['NAME']?>'});">
 							<p class="title"><a target="_blank" 
 								href="http://ad.apps.fm/JbkeS8Wu40Y4o7v66y0V515KLoEjTszcQMJsV6-2VnHFDLXitVHB6BlL95nuoNYfsPXjJaQ96brr8ncAvMfc6wZkKsYjZn26ZgfIprQwFxiMb6nGA0JPaw88nuXsLm5fGy9o7Q8KyEtAHAeX1UXtzRyIF-zfsrprYF9zs6rj2ac8dDeKR2QfG21w5iR5J8PU" 
-								rel="nofollow">Купить электронную книгу<br />в <span>Android</span></a></p>
-							<?//<div class="imgCover" style="margin-top:-144px;"><img src="/bitrix/templates/books/images/appStoreBK_1.png" height="70" style="height:70px;" /></div>?>
+								rel="nofollow"><?=GetMessage("BUY_IN_GOOGLEPLAY")?></a></p>
 						</div><!--/noindex-->
 					<?}?>
 				</div>
@@ -594,17 +600,6 @@ $arItemIDs = array(
                 ?>
             </div>
             <div class="subscr_result"></div>
-            <?
-                /*$reviews_count = 0;
-                $reviews_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 31, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_BOOK"));
-                while ($reviews_fetch = $reviews_list -> Fetch())
-                {
-                    if ($reviews_fetch["ID"])
-                    {
-                        $reviews_count++;    
-                    }
-                }*/
-            ?>
             <div class="centerColumn">
                 <h1 class="productName" itemprop="name"><?=$arResult["NAME"]?></h1>
                 <p class="engBookName"><?=$arResult["PROPERTIES"]["ENG_NAME"]["VALUE"]?></p>
@@ -621,7 +616,7 @@ $arItemIDs = array(
                    
                     <p class="productAutor">
                         <?
-                        echo substr ($arResult["AUTHORS"], 0, -2);
+                        echo $arResult["AUTHOR_NAME"];
                         ?>
                     </p>
 
@@ -705,16 +700,14 @@ $arItemIDs = array(
 					<?}?>
                 </div>*/?>
                 <ul class="productsMenu">
-                    <li class="active tabsInElement" data-id="1">Аннотация</li>
-                    <li data-id="4" class="tabsInElement">Об авторе</li>
+                    <li class="active tabsInElement" data-id="1"><?=GetMessage("ANNOTATION_TITLE")?></li>
+                    <li data-id="4" class="tabsInElement"><?=GetMessage("ABOUT_AUTHOR_TITLE")?></li>
                     <?
-                        $review = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 24, "PROPERTY_BOOK" => $arResult["ID"]), false, false, array("ID", "PROPERTY_AUTHOR", "NAME", "PROPERTY_BOOK", "PREVIEW_TEXT", "DETAIL_TEXT", "PROPERTY_SOURCE_LINK"));
-                        $reviewsCount = $review->SelectedRowsCount();
-                        if ($reviewsCount > 0) {
+                        if ($arResult["REVIEWS_COUNT"] > 0) {
                         ?>
-                        <li data-id="2" class="tabsInElement">Рецензии</li>
+                        <li data-id="2" class="tabsInElement"><?=GetMessage("REVIEWS_TITLE")?></li>
                         <?}?>
-                    <li data-id="3" class="tabsInElement">Отзывы</li>
+                    <li data-id="3" class="tabsInElement"><?=GetMessage("COMMENTS_TITLE")?></li>
                 </ul>
                 <div class="annotation" id="prodBlock1"> 
                     <div class="showAllWrapp">
@@ -861,7 +854,7 @@ $arItemIDs = array(
                             $videosCount++;
                         } 
                         if($arResult['PROPERTIES']['video_about']['~VALUE'] != "") {?>
-                        <p class="productSelectTitle">Видео-презентации книги <?if($videosCount > 1) {?><span><a href="#">Смотреть все</a></span><span class="count">(<?=$videosCount?>)</span><?}?></p>   
+                        <p class="productSelectTitle"><?=GetMessage("VIDEO_PRESENTATIONS")?> <?if($videosCount > 1) {?><span><a href="#"><?=GetMessage("SHOW_ALL")?></a></span><span class="count">(<?=$videosCount?>)</span><?}?></p>   
                         <?}?>
 
                     <div class="videoWrapp">
@@ -894,20 +887,19 @@ $arItemIDs = array(
                     <?*/?>
                 </div>
                 <??>
-                <?if ($reviewsCount > 0) {?>
+                <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
                     <div class="recenzion" id="prodBlock2">  
                         <?
-
-                            while ($reviewList = $review -> Fetch()) {?>
-                            <span class="recenz_author_name"><?=$reviewList["NAME"]?></span>
-                            <div class="recenz_text">
-                                <?=$reviewList["PREVIEW_TEXT"]?>
-                                <? if ($reviewList["PREVIEW_TEXT"] == "") {
-                                    echo $reviewList["DETAIL_TEXT"];    
-                                }
-                                ?>
-                                <noindex><a href="<?=$reviewList["PROPERTY_SOURCE_LINK_VALUE"]?>" rel="nofollow"><?=$reviewList["PROPERTY_SOURCE_LINK_VALUE"]?></a></noindex>
-                            </div>
+                            foreach ($arResult["REVIEWS"] as $reviewList) {?>
+                                <span class="recenz_author_name"><?=$reviewList["NAME"]?></span>
+                                <div class="recenz_text">
+                                    <?=$reviewList["PREVIEW_TEXT"]?>
+                                    <? if ($reviewList["PREVIEW_TEXT"] == "") {
+                                        echo $reviewList["DETAIL_TEXT"];    
+                                    }
+                                    ?>
+                                    <noindex><a href="<?=$reviewList["PROPERTY_SOURCE_LINK_VALUE"]?>" rel="nofollow"><?=$reviewList["PROPERTY_SOURCE_LINK_VALUE"]?></a></noindex>
+                                </div>
                            
                             <?}
                         ?> 
@@ -1007,22 +999,21 @@ $arItemIDs = array(
                 <div class="aboutAutor" id="prodBlock4">
                    
                         <?
-                        foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
-                            if ($val) {
-                                $currAuthor = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val, false, false, array("ID", "NAME", "PREVIEW_TEXT", "DETAIL_PICTURE")));
-                                while ($author = $currAuthor -> Fetch()) {
-                                ?>
-								<div class="author_info">
-                                    <span class="author_name"><?=$author["NAME"]?></span>
-                                    <?$imgFile = CFile::GetFileArray($author["DETAIL_PICTURE"]);?>
+                        foreach ($arResult["AUTHOR"] as $author) {
+                            if (!empty($author["PROPERTY_ORIG_NAME_VALUE"])) {
+                                $authorFullName = $author["NAME"] . " / " . $author["PROPERTY_ORIG_NAME_VALUE"];
+                            } else {
+                                $authorFullName = $author["NAME"];      
+                        }?>
 
-                                    <?echo !empty($imgFile["SRC"]) ? "<img src='".$imgFile["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?>
-                                
-                                </div><br>
+                        <div class="author_info">
+                            <span class="author_name"><?=$authorFullName?></span>
 
-                                <?
-                                }
-                            }
+                            <?echo !empty($author["IMAGE_FILE"]["SRC"]) ? "<img src='".$author["IMAGE_FILE"]["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?>
+
+                        </div><br>
+
+                        <?
                         }
                     ?>
                 </div>
@@ -1165,8 +1156,7 @@ $arItemIDs = array(
 
 <? /* Получаем от RetailRocket рекомендации для товара */
 global $recommFilter;
-$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
-$recsArray = json_decode($stringRecs);  
+$recsArray = json_decode($arResult["STRING_RECS"]);  
 
 if ($recsArray[0] > 0) {
 	$printid2 = array_slice($recsArray,1,6);
@@ -1203,7 +1193,7 @@ window.criteo_q.push(
 	</script>
 	<div class="weRecomWrap">
 		<div class="centerWrapper">
-			<p class="tile">Также рекомендуем</p>
+			<p class="tile"><?=GetMessage("ALSO_RECOMMENDED_BOOKS")?></p>
 				<?
 				
 				$APPLICATION->IncludeComponent(
@@ -1346,17 +1336,17 @@ window.criteo_q.push(
                 <input type="button" value="">
             </form>
             <div class="some_info">
-                Заявка на подписку принята, ждите информацию на почту
+                <?=GetMessage("SUBSCRIPTION_REQUEST_ACCEPTED")?>
             </div>
             <p class="title">
-                Книга в подарок                             
+                <?=GetMessage("GIFT_BOOK_TITLE")?>                             
             </p>
             <p>
-                Подпишись на рыссылку и получи книгу бесплатно
+                <?=GetMessage("GIFT_BOOK_DESCRIPTION")?>
             </p>
         </div>   
 		
-        <p class="sliderName youViewedTitle">Вы уже смотрели</p>
+        <p class="sliderName youViewedTitle"><?=GetMessage("VIEWED_BOOKS_TITLE")?></p>
 
         <? global $arFilter;
             $latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));
@@ -1499,7 +1489,7 @@ window.criteo_q.push(
 
 <script>
     $(document).ready(function() {
-		<!-- dataLayer GTM -->
+		<!-- //dataLayer GTM -->
 		dataLayer.push({
 			'stockInfo' : '<?=$StockInfo?>',
 			'productId' : '<?=$arResult["ID"]?>',
@@ -1563,5 +1553,5 @@ window.criteo_q.push(
     })
 
 
-    </script>
+</script>
 
