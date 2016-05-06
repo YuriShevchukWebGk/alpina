@@ -607,9 +607,6 @@ if ($arResult['MODULES']['currency'])
     }
     foreach ($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'] as $AUTHOR_KEY => $author) {
         if (!empty ($arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY]) ) {
-            if (is_array($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'])) {
-                $href .= "AUTHOR[]={$arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY]}&";    
-            }
             $aElProperties = CIBlockElement::GetByID($arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY])->GetNext();
             $aElProperties['LAST_NAME'] = CIBlockElement::GetProperty(AUTHORS_IBLOCK_ID,  $arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY],  array(),  array('CODE' => 'LAST_NAME'))->Fetch();
             $aElProperties['FIRST_NAME'] = CIBlockElement::GetProperty(AUTHORS_IBLOCK_ID,  $arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY],  array(),  array('CODE' => 'FIRST_NAME'))->Fetch();
