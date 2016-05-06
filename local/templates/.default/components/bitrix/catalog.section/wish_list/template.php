@@ -24,12 +24,12 @@
 </script>
 <div class="wishlistBlock">
 
-    <?$uID = $USER -> GetID();?>
-    <?$unavailStatusesArr = array (
+    <?$user_id = $USER -> GetID();
+    $unavailable_statuses_array = array (
         getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon"), 
         getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "net_v_nal")
-    );?>
-    <?foreach ($arResult["ITEMS"] as $arItem) {    
+    );
+    foreach ($arResult["ITEMS"] as $arItem) {    
         $prodSection = $arResult["SECTIONS_LIST"][$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["IBLOCK_SECTION_ID"]];
         $author = $arResult["AUTHORS"][$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_AUTHORS_VALUE"]];?>
         <div class="wishElement">
@@ -44,47 +44,41 @@
                 }?>
             </p>
             <div class="wishBookDescription"><?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PREVIEW_TEXT"] ?></div>
-            <?if ($_REQUEST["list"]) {
+            <?//if ($_REQUEST["list"]) {
                 if ($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["CATALOG_PRICE_1"] > 0
-                    && !in_array($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_STATE_ENUM_ID"], $unavailStatusesArr)) {?>
+                    && !in_array($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_STATE_ENUM_ID"], $unavailable_statuses_array)) {?>
                         <p class="inBasketContainer">
-                            <a href="/personal/cart/?action=ADD2BASKET&id=<?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]?>" 
-                                onclick="addtocart(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]; ?>, '<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"]; ?>');" 
-                                class="wishInBasket">
-                                    <?= GetMessage("ADD_TO_BASKET") ?>
-                            </a>
-                        </p>
-                <?}
-                if ($_REQUEST["list"] != $uID) {?>
-                    <p class="wishDeleteContainer">
-                        <a href="javascript:void(0)" 
-                            id="<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>" 
-                            class="wishDelete">
-                                <?= GetMessage("DELETE") ?>
-                        </a>
-                    </p>
-                <?}?>
-            <?} else {?>
-                <?if ($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["CATALOG_PRICE_1"] > 0
-                    && !in_array ($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_STATE_ENUM_ID"], $unavailStatusesArr)) {?>
-                        <p class="inBasketContainer">
-                            <a href="/personal/cart/?action=ADD2BASKET&id=<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>" 
-                                onclick="addtocart_fromwishlist(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]; ?>, '<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"]; ?>'); return false;" 
-                                class="wishInBasket" id="wishItem_<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>">
-                                    <?= GetMessage("ADD_TO_BASKET") ?>
-                            </a>
+                            <?if ($_REQUEST["list"]) {?>
+                                <a href="/personal/cart/?action=ADD2BASKET&id=<?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]?>" 
+                                    onclick="addtocart(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]; ?>, '<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"]; ?>');" 
+                                    class="wishInBasket">
+                                        <?= GetMessage("ADD_TO_BASKET") ?>
+                                </a>
+                            <?} else {?>
+                                <a href="/personal/cart/?action=ADD2BASKET&id=<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>" 
+                                    onclick="addtocart_fromwishlist(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]; ?>, '<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"]; ?>'); return false;" 
+                                    class="wishInBasket" id="wishItem_<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>">
+                                        <?= GetMessage("ADD_TO_BASKET") ?>
+                                </a>
+                            <?}?>
                         </p>
                 <?}?>
-                    <p class="wishDeleteContainer">
-                        <a href="javascript:void(0)" 
-                            onclick="delete_wishlist_item(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>);" 
-                            class="wishDelete">
-                                <?= GetMessage("DELETE") ?>
-                        </a>
-                    </p>
-                    
-                        
-            <?}?>
+            <p class="wishDeleteContainer">
+                <?if ($_REQUEST["list"] != $user_id) {?>
+                    <a href="javascript:void(0)" 
+                        id="<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>" 
+                        class="wishDelete">
+                        <?= GetMessage("DELETE") ?>
+                    </a>
+                    <?} else {?>
+                    <a href="javascript:void(0)" 
+                        onclick="delete_wishlist_item(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>);" 
+                        class="wishDelete">
+                        <?= GetMessage("DELETE") ?>
+                    </a>
+                    <?}?>
+
+            </p>
         </div>    
     <?}?>
     <div class="del_notify"></div>       
