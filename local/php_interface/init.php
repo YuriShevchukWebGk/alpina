@@ -1124,8 +1124,7 @@
 
 
     AddEventHandler("main", "OnBeforeProlog", "checkUser");  
-    function checkUser()
-    {
+    function checkUser() {
         global $USER, $APPLICATION;
         if(!$USER->IsAdmin())
             $APPLICATION->SetAdditionalCSS("/css/temp.css");  

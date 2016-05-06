@@ -21,6 +21,11 @@
             {
                 $APPLICATION->RestartBuffer();
             ?>
+
+
+
+
+
             <script type="text/javascript">
                 window.top.location.href='<?=CUtil::JSEscape($arResult["REDIRECT_URL"])?>';
             </script>
@@ -111,9 +116,9 @@
             }
         } else { // Майские праздники
             if (ourday == 4){   //четверг
-                minDatePlus = 1;
-            } else if (ourday == 5) {
                 minDatePlus = 4;
+            } else if (ourday == 5) {
+                minDatePlus = 6;
             } else if (ourday == 6) {
                 minDatePlus = 3;
             } else if (ourday == 0) {

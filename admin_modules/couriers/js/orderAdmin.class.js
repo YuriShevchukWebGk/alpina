@@ -16,7 +16,7 @@ function OrderAdmin() {
 
 	this.returnedAjaxData
 	this.selectedOrderStatus
-	this.availDeliveryID = [9, 12, 13, 14, 15];
+	this.availDeliveryID = [9, 12, 13, 14, 15];  //couriers DELIVERY
 }
 
 /**
