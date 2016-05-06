@@ -488,8 +488,7 @@
             <?
             }
 
-            if($arParams['USE_GIFTS'] == 'Y')
-            {   
+            if($arParams['USE_GIFTS'] == 'Y') {   
                 $APPLICATION->IncludeComponent(
                     "bitrix:sale.gift.basket",
                     "basket_gifts",
@@ -524,7 +523,6 @@
                         'PAGE_ELEMENT_COUNT' => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
                         'CONVERT_CURRENCY' => $arParams['GIFTS_CONVERT_CURRENCY'],
                         'HIDE_NOT_AVAILABLE' => $arParams['GIFTS_HIDE_NOT_AVAILABLE'],
-
                         "LINE_ELEMENT_COUNT" => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
                     ),
                     false
@@ -538,24 +536,14 @@
 </div>
 <script>
     $(document).ready(function(){
-
-        <?
-            if ($_REQUEST["action"])
-            {
-            ?>  
+        <?if ($_REQUEST["action"]) {?>  
             $(".cartMenuWrap .basketItems:first-child").removeClass("active");
             $('.cartMenuWrap .basketItems:nth-child(2)').addClass("active");
             $("#cardBlock2").show();
-            <?
-            }
-            else if (!$_REQUEST["liked"])
-            {
-            ?> 
+            <?} else if (!$_REQUEST["liked"]) {?> 
             $('.cartMenuWrap .basketItems:nth-child(2)').removeClass("active");
             $('.cartMenuWrap .basketItems:first-child').addClass("active");
             $("#cardBlock1").show();
-            <?
-            }
-        ?>   
+            <?}?>   
     })
 </script>
