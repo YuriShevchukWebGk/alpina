@@ -601,8 +601,9 @@ if ($arResult['MODULES']['currency'])
     // SET TITLE
     $arResult["AUTHOR_NAME"] = '';
     
-    if (!is_array($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'])) {
-        $arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'] = array($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE']);
+    if (!is_array($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'])
+        && !empty($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'])) {
+            $arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'] = array($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE']);
     }
     foreach ($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'] as $AUTHOR_KEY => $author) {
         if (!empty ($arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY]) ) {
