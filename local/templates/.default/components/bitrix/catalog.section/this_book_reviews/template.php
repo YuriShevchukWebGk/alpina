@@ -12,35 +12,36 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-		<?if (!empty($arResult["ITEMS"])) {?>
-          <div class="reviewsBlockDetail">
-                <ul>
-                    <?foreach($arResult["ITEMS"] as $arItem)
-                    {   
-                        $expert = CIBlockElement::GetByID ($arItem["PROPERTIES"]["expert"]["VALUE"]) -> Fetch();
-                        $expert_picture = CFile::GetPath($expert["PREVIEW_PICTURE"]);
-                    ?>
-                    
-                    <li>
-                        <div class="reviewDatail">
-                            <div class="reviewImgContain">
-                                <img src="<?=$expert_picture?>" alt="">
-                            </div>
-                            <p class="reviewsText"><?=$arItem["PREVIEW_TEXT"]?></p>
-                            <p class="autor"><?=$expert["NAME"]?></p>
+<?if (!empty($arResult["ITEMS"])) {?>
+    <div class="reviewsBlockDetail">
+        <ul>
+            <?foreach($arResult["ITEMS"] as $arItem) {   
+                $expert_ID = $arItem["PROPERTIES"]["expert"]["VALUE"];?>
+
+                <li>
+                    <div class="reviewDatail">
+                        <div class="reviewImgContain">
+                            <img src="<?=$arResult["EXPERTS"][$expert_ID]["PICTURE"]?>" alt="">
                         </div>
-                    </li>
-                    <?}?>
+                        <p class="reviewsText"><?=$arItem["PREVIEW_TEXT"]?></p>
+                        <p class="autor">
+                            <?=$arResult["EXPERTS"][$expert_ID]["NAME"]?>
+                            <br>
+                            <?=$arResult["EXPERTS"][$expert_ID]["POSITION"]?>
+                        </p>
+                    </div>
+                </li>
+            <?}?>
                     
-                </ul>
-            </div>
-			<script>
-				$(document).ready(function() {
-					<!-- dataLayer GTM -->
-					dataLayer.push({
-						'expReview' : 'withExpReview'
-					});
-					<!-- /dataLayer GTM -->
-				});
-			</script>
-		<?}?>
+        </ul>
+    </div>
+    <script>
+        $(document).ready(function() {
+            <!-- dataLayer GTM -->
+            dataLayer.push({
+                'expReview' : 'withExpReview'
+            });
+            <!-- /dataLayer GTM -->
+        });
+    </script>
+<?}?>
