@@ -296,13 +296,13 @@ $j(document).ready(function() {
 		<h3 style="font-size:13px;color: #EE7203;">Данные получателя</h3>
 
 				<div class="propname">Имя: </div>
-				<div class="propinfo"><div class="info"><input type="text" size="40" name="name" value="<?=$_POST["name"]?>" /></div></div>
+				<div class="propinfo"><div class="info"><input type="text" size="40" name="name" value="<?=htmlspecialcharsbx($_POST["name"])?>" /></div></div>
 
 				<div class="propname">Адрес электронной почты: </div>
-				<div class="propinfo"><div class="info"><input type="text" size="40" name="email" value="<?=$_POST["email"]?>" /></div></div>
+				<div class="propinfo"><div class="info"><input type="text" size="40" name="email" value="<?=htmlspecialcharsbx($_POST["email"])?>" /></div></div>
 
 				<div class="propname">Контактный телефон: </div>
-				<div class="propinfo"><div class="info"><input type="text" size="40" name="telephone" value="<?=$_POST["phone"]?>" /></div></div>
+				<div class="propinfo"><div class="info"><input type="text" size="40" name="telephone" value="<?=htmlspecialcharsbx($_POST["phone"])?>" /></div></div>
 
 		
 		<input id="paymenttype" type="hidden" size="40" name="paymenttype" value="online" />

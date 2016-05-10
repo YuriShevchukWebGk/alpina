@@ -178,13 +178,13 @@ $j(document).ready(function() {
 		<h3 style="font-size:13px;color: #EE7203;">Данные получателя</h3>
 
 				<div class="propname">Получатель: </div>
-				<div class="propinfo"><div class="info"><?=$_POST["name"]?></div></div></div>
+				<div class="propinfo"><div class="info"><?=htmlspecialcharsbx($_POST["name"])?></div></div></div>
 
 				<div class="propname">Адрес электронной почты: </div>
-				<div class="propinfo"><div class="info"><?=$_POST["email"]?></div></div>
+				<div class="propinfo"><div class="info"><?=htmlspecialcharsbx($_POST["email"])?></div></div>
 
 				<div class="propname">Контактный телефон: </div>
-				<div class="propinfo"><div class="info"><?=$_POST["phone"]?></div></div>
+				<div class="propinfo"><div class="info"><?=htmlspecialcharsbx($_POST["phone"])?></div></div>
 				
 				<div id="addresshide">
 					<div class="propname">Адрес доставки: </div>
@@ -193,12 +193,12 @@ $j(document).ready(function() {
 					<div class="propinfo"><div class="info"><textarea cols="40" placeholder="Комментарий к заказу" rows="3" name="comments"></textarea></div></div>
 				</div>
 
-		<input type="hidden" size="40" name="name" value="<?=$_POST["name"]?>" />
+		<input type="hidden" size="40" name="name" value="<?=htmlspecialcharsbx($_POST["name"])?>" />
 		<input id="paymenttype" type="hidden" size="40" name="paymenttype" value="online" />
-		<input type="hidden" size="40" name="email" value="<?=$_POST["email"]?>" />
-		<input type="hidden" size="40" name="telephone" value="<?=$_POST["phone"]?>" />
+		<input type="hidden" size="40" name="email" value="<?=htmlspecialcharsbx($_POST["email"])?>" />
+		<input type="hidden" size="40" name="telephone" value="<?=htmlspecialcharsbx($_POST["phone"])?>" />
 		
-		<input type="hidden" name="paysum" value="<?=$_POST['paysum']?>" />
+		<input type="hidden" name="paysum" value="<?=htmlspecialcharsbx($_POST['paysum'])?>" />
 		<input type="hidden" name="ordernumber" value="<?=$num?>" />	
 		<input style="width:205px;height:36px;font-size:15px;text-align:center;background:#EE7203;background: -moz-linear-gradient(top, #EE7203, #F6921E) transparent;background: -webkit-linear-gradient(top, #EE7203, #F6921E) transparent;background: -o-linear-gradient(top, #EE7203, #F6921E) transparent;background: -ms-linear-gradient(top, #EE7203, #F6921E) transparent;background: linear-gradient(top, #EE7203, #F6921E) transparent;background-size: 105px 32xp;border:1px solid #908f8a;color:white;font-weight:600;padding:5px;margin-top:15px;margin:0 auto;cursor:pointer;margin-top:12px" type="submit" value="Перейти к оплате" />
 	</div>
