@@ -40,7 +40,7 @@
                 <?if ($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["CATALOG_PRICE_1"] > 0) {
                     echo ceil ($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["CATALOG_PRICE_1"]) . GetMessage("ROUBLES");
                 } else {
-                    echo GetMessage("NOT_IN_STOCK");
+                    echo GetMessage("CT_BCS_TPL_MESS_PRODUCT_NOT_AVAILABLE");
                 }?>
             </p>
             <div class="wishBookDescription"><?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PREVIEW_TEXT"] ?></div>
@@ -52,13 +52,13 @@
                                 <a href="/personal/cart/?action=ADD2BASKET&id=<?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]?>" 
                                     onclick="addtocart(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]; ?>, '<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"]; ?>');" 
                                     class="wishInBasket">
-                                        <?= GetMessage("ADD_TO_BASKET") ?>
+                                        <?= GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET") ?>
                                 </a>
                             <?} else {?>
                                 <a href="/personal/cart/?action=ADD2BASKET&id=<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>" 
                                     onclick="addtocart_fromwishlist(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]; ?>, '<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"]; ?>'); return false;" 
                                     class="wishInBasket" id="wishItem_<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>">
-                                        <?= GetMessage("ADD_TO_BASKET") ?>
+                                        <?= GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET") ?>
                                 </a>
                             <?}?>
                         </p>
