@@ -5478,6 +5478,7 @@ table.form-table tr td:nth-child(2){
 }
 .reviewsBlockDetail .autor{
     float: right;
+    text-align: right;
 }
 .contacsPopupTitle{
     color: #4e585a;
