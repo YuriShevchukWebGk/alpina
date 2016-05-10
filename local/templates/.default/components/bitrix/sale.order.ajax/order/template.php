@@ -26,6 +26,8 @@
 
 
 
+
+
             <script type="text/javascript">
                 window.top.location.href='<?=CUtil::JSEscape($arResult["REDIRECT_URL"])?>';
             </script>
@@ -120,8 +122,12 @@
             } else if (ourday == 5) {
                 minDatePlus = 6;
             } else if (ourday == 6) {
-                minDatePlus = 3;
+                minDatePlus = 4;
             } else if (ourday == 0) {
+                minDatePlus = 3;                                               
+            } else if (ourday == 1) {
+                minDatePlus = 2;                                               
+            } else if (ourday == 2) {
                 minDatePlus = 2;                                               
             }
         }

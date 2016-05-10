@@ -1653,23 +1653,25 @@ window.JCCatalogSection.prototype.InitPopupWindow = function()
 };
 })(window);
 
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
     
-$(document).ready(function()
-{
+$(document).ready(function() {
     
-    $(".wishBookDescription").each(function()
-        {
-        if($(this).length > 0)
-        {
-        $(this).html(truncate($(this).html(), 250));    
+    $(".wishBookDescription").each(function() {
+        if ($(this).length > 0) {
+            $(this).html (truncate ($(this).html(), 250) );    
         }    
     });
-    $(".cartMenuWrap .basketItems:last-child span").html("("+$(".wishlistBlock .wishElement").size()+")")
+    $(".cartMenuWrap .basketItems:last-child span").html("(" + $(".wishlistBlock .wishElement").size() + ")")
     
-    if ($('.cartMenuWrap .basketItems').length > 0)
-    {
-            if(($('.cartMenuWrap .basketItems:nth-child(2) span').html()) == '(0)')
-            {
+    if ($('.cartMenuWrap .basketItems').length > 0) {
+            if(($('.cartMenuWrap .basketItems:nth-child(2) span').html()) == '(0)') {
                 $('.cartMenuWrap .basketItems:nth-child(2)').hide();
             }
     }    

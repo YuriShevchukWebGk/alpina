@@ -21,4 +21,9 @@ $MESS["CT_BCS_CATALOG_MESS_COMPARE_OK"] = "Товар добавлен в спи
 $MESS["CT_BCS_CATALOG_MESS_COMPARE_TITLE"] = "Сравнение товаров";
 $MESS["CT_BCS_CATALOG_MESS_COMPARE_UNKNOWN_ERROR"] = "При добавлении товара в список сравнения произошла ошибка";
 $MESS["CT_BCS_CATALOG_BTN_MESSAGE_COMPARE_REDIRECT"] = "Перейти в список сравнения";
+$MESS["ROUBLES"] = " руб.";
+$MESS["NOT_IN_STOCK"] = "Нет в наличии";
+$MESS["ADD_TO_BASKET"] = "В корзину";
+$MESS["DELETE"] = "Удалить";
+$MESS["SHARE_A_LIST"] = "Поделиться списком:";
 ?>
