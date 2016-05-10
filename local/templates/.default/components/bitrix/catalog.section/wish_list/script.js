@@ -1663,7 +1663,7 @@ window.JCCatalogSection.prototype.InitPopupWindow = function()
     
 $(document).ready(function() {
     
-    // ñîêðàùåíèå íàçâàíèÿ êíèãè â ñïèñêå æåëàíèé
+    // ÑÐ¾ÐºÑ€Ð°Ñ‰ÐµÐ½Ð¸Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñ ÐºÐ½Ð¸Ð³Ð¸ Ð² ÑÐ¿Ð¸ÑÐºÐµ Ð¶ÐµÐ»Ð°Ð½Ð¸Ð¹
     $(".wishBookDescription").each(function() {
         if ($(this).length > 0) {
             $(this).html(truncate($(this).html(), 250));    
@@ -1672,7 +1672,7 @@ $(document).ready(function() {
     
     $(".cartMenuWrap .basketItems:last-child span").html("(" + $(".wishlistBlock .wishElement").size() + ")")
     
-    // ñêðûâàòü áëîê ñïèñêà æåëàíèé, åñëè â í¸ì íåò êíèã
+    // ÑÐºÑ€Ñ‹Ð²Ð°Ñ‚ÑŒ Ð±Ð»Ð¾Ðº ÑÐ¿Ð¸ÑÐºÐ° Ð¶ÐµÐ»Ð°Ð½Ð¸Ð¹, ÐµÑÐ»Ð¸ Ð² Ð½Ñ‘Ð¼ Ð½ÐµÑ‚ ÐºÐ½Ð¸Ð³
     if ($('.cartMenuWrap .basketItems').length > 0) {
             if(($('.cartMenuWrap .basketItems:nth-child(2) span').html()) == '(0)') {
                 $('.cartMenuWrap .basketItems:nth-child(2)').hide();
