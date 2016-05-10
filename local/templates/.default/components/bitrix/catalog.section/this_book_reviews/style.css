@@ -724,5 +724,5 @@
 .bx-touch 	 .bx_catalog_list_home .bx_item_detail_scu .bx_slide_right{right:  0;background:url(images/fade_right.png) repeat-y   right center;background-size: 100% auto}
 
 .reviewsBlockDetail ul {
-    list-style-type: none;
+    list-style-type: none !important;
 }
