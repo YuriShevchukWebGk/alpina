@@ -15,7 +15,7 @@ $this->setFrameMode(true);
 
 <div class="saleSlider">  <!--слайдер блока "Мы рекомендуем"-->
     <ul>
-        <?foreach ($arResult["ITEMS"] as $arItem) {
+        <?foreach ($arResult["ITEMS"] as $cell => $arItem) {
                 foreach ($arItem["PRICES"] as $code => $arPrice) {
                     if ($arPrice["PRINT_DISCOUNT_VALUE"]) {
                         $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
@@ -45,7 +45,7 @@ $this->setFrameMode(true);
                                             } 
                                 }?>
                             </div>
-                            <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
+                            <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','', <?= ($cell+1)?>, 'Discounted Main');">
                                 <div class="section_item_img">
                                     <?if($pict["src"] != ''){?>
                                         <img src="<?=$pict["src"]?>">    

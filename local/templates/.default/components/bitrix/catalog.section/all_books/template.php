@@ -27,7 +27,7 @@ if ($_REQUEST["PAGEN_".$navnum])
             <div class="catalogWrapper">
                 <p class="titleMain"><a href="/catalog/all-books/">Все лучшие книги</a></p>
                 <div class="catalogBooks">
-                    <?foreach($arResult["ITEMS"] as $arItem)
+                    <?foreach($arResult["ITEMS"] as $cell => $arItem)
                     {
                         foreach ($arItem["PRICES"] as $code => $arPrice)
                         {
@@ -37,7 +37,7 @@ if ($_REQUEST["PAGEN_".$navnum])
                                 $curr_author = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
                             ?>
                             <div class="bookWrapp">
-                                <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
+                                <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','', <?= ($cell+1)?>, 'Allbooks Main');">
                                     <div class="item_img">   
                                              <?if($pict["src"] != ''){?>
                                                 <img src="<?=$pict["src"]?>">    

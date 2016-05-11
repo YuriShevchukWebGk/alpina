@@ -17,8 +17,8 @@
     define ("SPONSORS_IBLOCK_ID", 47);
     define ("WISHLIST_IBLOCK_ID", 17);
     define ("EXPERTS_IBLOCK_ID", 23);
-    define ("INFO_MESSAGES_IBLOCK_ID", 52);
     define ("SERIES_BANNERS_IBLOCK_ID", 53);
+    define ("INFO_MESSAGES_IBLOCK_ID", 53); // 52 - для тестовой копии
     define ("NEW_BOOK_STATE_XML_ID", 21);
     define ("BESTSELLER_BOOK_XML_ID", 285);
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
