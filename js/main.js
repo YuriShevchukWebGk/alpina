@@ -84,6 +84,11 @@ $(document).ready(function(){
         
         
     }
+    
+    $("#notice_warn #close_notice").on("click", function() {
+        $("#notice_warn").slideUp();
+    })
+
 
     //скролящееся меню на странице оплата
     if($('.delivMenuWrapp').length > 0){

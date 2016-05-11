@@ -99,25 +99,67 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
-<?/*if ($_COOKIE['notice_warn'] != 30) {?>
-    <script>
-    $(document).ready(function() {
-    $("#close_notice").click(function() {
-    $("#notice_warn").slideUp();
-    $.cookie('notice_warn', "30", {path: '/', expires: 3 });
-    });
-    });
-    </script>
-    <!-- noindex --><div id="notice_warn" style="width: 100%; display:inline-block;background-attachment: scroll; background-repeat: repeat; background-image: none; background-position: 0% 0%; background-size: auto; background-origin: padding-box; background-clip: border-box; background-color: rgb(238, 238, 238); text-align: center;box-shadow: 0px 0px 4px 0px rgba(125, 125, 125, 1) inset">
-    <div style="margin-top: 0px; margin-right: auto; margin-bottom: 0px; margin-left: auto; padding: 15px 0; color: #85959a;font-family: 'Walshein_regular'; font-size: 1.4em;">
-
-    Уважаемые посетители! С 30 апреля по 3 мая офис интернет-магазина работать не будет. С 4 мая работа возобновится в обычном режиме. С наступающим праздником!
-
-    </div>
-    <div id="close_notice" style="position: absolute; top: 10px; right: 20px; font-size: 1.8em; cursor: pointer;">X</div>
-    </div>
-	<!-- /noindex -->
-<?}*/?>
+<?$APPLICATION->IncludeComponent("bitrix:news.list", "info_message", Array(
+    "ACTIVE_DATE_FORMAT" => "d.m.Y",    // Формат показа даты
+        "ADD_SECTIONS_CHAIN" => "Y",    // Включать раздел в цепочку навигации
+        "AJAX_MODE" => "N",    // Включить режим AJAX
+        "AJAX_OPTION_ADDITIONAL" => "",    // Дополнительный идентификатор
+        "AJAX_OPTION_HISTORY" => "N",    // Включить эмуляцию навигации браузера
+        "AJAX_OPTION_JUMP" => "N",    // Включить прокрутку к началу компонента
+        "AJAX_OPTION_STYLE" => "Y",    // Включить подгрузку стилей
+        "CACHE_FILTER" => "N",    // Кешировать при установленном фильтре
+        "CACHE_GROUPS" => "N",    // Учитывать права доступа
+        "CACHE_TIME" => "36000000",    // Время кеширования (сек.)
+        "CACHE_TYPE" => "A",    // Тип кеширования
+        "CHECK_DATES" => "Y",    // Показывать только активные на данный момент элементы
+        "DETAIL_URL" => "",    // URL страницы детального просмотра (по умолчанию - из настроек инфоблока)
+        "DISPLAY_BOTTOM_PAGER" => "Y",    // Выводить под списком
+        "DISPLAY_DATE" => "Y",    // Выводить дату элемента
+        "DISPLAY_NAME" => "Y",    // Выводить название элемента
+        "DISPLAY_PICTURE" => "Y",    // Выводить изображение для анонса
+        "DISPLAY_PREVIEW_TEXT" => "Y",    // Выводить текст анонса
+        "DISPLAY_TOP_PAGER" => "N",    // Выводить над списком
+        "FIELD_CODE" => array(    // Поля
+            0 => "",
+            1 => "",
+        ),
+        "FILTER_NAME" => "",    // Фильтр
+        "HIDE_LINK_WHEN_NO_DETAIL" => "N",    // Скрывать ссылку, если нет детального описания
+        "IBLOCK_ID" => "52",    // Код информационного блока
+        "IBLOCK_TYPE" => "service",    // Тип информационного блока (используется только для проверки)
+        "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",    // Включать инфоблок в цепочку навигации
+        "INCLUDE_SUBSECTIONS" => "Y",    // Показывать элементы подразделов раздела
+        "MESSAGE_404" => "",    // Сообщение для показа (по умолчанию из компонента)
+        "NEWS_COUNT" => "1",    // Количество новостей на странице
+        "PAGER_BASE_LINK_ENABLE" => "N",    // Включить обработку ссылок
+        "PAGER_DESC_NUMBERING" => "N",    // Использовать обратную навигацию
+        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",    // Время кеширования страниц для обратной навигации
+        "PAGER_SHOW_ALL" => "N",    // Показывать ссылку "Все"
+        "PAGER_SHOW_ALWAYS" => "N",    // Выводить всегда
+        "PAGER_TEMPLATE" => ".default",    // Шаблон постраничной навигации
+        "PAGER_TITLE" => "Новости",    // Название категорий
+        "PARENT_SECTION" => "",    // ID раздела
+        "PARENT_SECTION_CODE" => "",    // Код раздела
+        "PREVIEW_TRUNCATE_LEN" => "",    // Максимальная длина анонса для вывода (только для типа текст)
+        "PROPERTY_CODE" => array(    // Свойства
+            0 => "",
+            1 => "",
+        ),
+        "SET_BROWSER_TITLE" => "Y",    // Устанавливать заголовок окна браузера
+        "SET_LAST_MODIFIED" => "N",    // Устанавливать в заголовках ответа время модификации страницы
+        "SET_META_DESCRIPTION" => "Y",    // Устанавливать описание страницы
+        "SET_META_KEYWORDS" => "Y",    // Устанавливать ключевые слова страницы
+        "SET_STATUS_404" => "N",    // Устанавливать статус 404
+        "SET_TITLE" => "Y",    // Устанавливать заголовок страницы
+        "SHOW_404" => "N",    // Показ специальной страницы
+        "SORT_BY1" => "ACTIVE_FROM",    // Поле для первой сортировки новостей
+        "SORT_BY2" => "SORT",    // Поле для второй сортировки новостей
+        "SORT_ORDER1" => "DESC",    // Направление для первой сортировки новостей
+        "SORT_ORDER2" => "ASC",    // Направление для второй сортировки новостей
+        "COMPONENT_TEMPLATE" => "section_banners"
+    ),
+    false
+);?>
 <header>
     <a href="/">
         <div class="logo catalogLogo">
