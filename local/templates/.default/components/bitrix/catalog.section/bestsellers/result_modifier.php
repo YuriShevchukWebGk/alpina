@@ -464,4 +464,14 @@ if (!empty($arResult['ITEMS']))
 		}
 	}
 }
+
+$arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_*"))->Fetch();
+if ($arSection["UF_QUOTE"] > 0) {
+    $arResult["QUOTE"] = CIBlockElement::GetList(array(),array("ID"=>$arSection["UF_QUOTE"]),false,false,array("NAME","DETAIL_TEXT","DETAIL_PICTURE","PROPERTY_AUTHOR.NAME"))->Fetch();
+}
+$arResult["QUOTE_IMAGE"] = CFile::ResizeImageGet (
+    $arResult["QUOTE"]["DETAIL_PICTURE"],
+    array("width"=>288,"height"=>294), 
+    BX_RESIZE_IMAGE_PROPORTIONAL
+);
 ?>

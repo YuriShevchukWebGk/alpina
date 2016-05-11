@@ -109,43 +109,38 @@ $this->setFrameMode(true);
     </ul>
 </div><?*/?>
 
-<? 
-    if($arResult['ELEMENTS']){?>
-        <div class="roundSlideWrapp">
-                    <ul class="roundSlider">
-                        <?foreach($arResult["ITEMS"] as $key => $arItem)
-                        {?>
-                        <li class="firstSlide">
-                            <?if ($arItem["PROPERTIES"]["SERIE_BANNER_LINK"]["VALUE"]){?>
-                                <a href="<?=$arItem["PROPERTIES"]["SERIE_BANNER_LINK"]["VALUE"]?>">
-                                <?}?>
-                                    <div class="catalogWrapper">
-                                        <img src="<?=$arItem["DETAIL_PICTURE"]["SRC"]?>" class="roundCatBack">
-                                        <p class="titleSlide"><?=$arItem["PREVIEW_TEXT"]?></p>
-                                        <p class="textSlide"><?=$arItem["DETAIL_TEXT"]?></p>
-                                        <?foreach($arResult["ITEMS"] as $item_key => $item_value)
-                                        {?>
-                                        <!-- определение текущего слайда и присвоение класса к соответствующей кнопке слайда с соответствующей анимацией -->
-                                        <div class="<?if ($item_key==$key){?>circle circle<?=($item_key+1)?><?}else{?>buttons" data-number="<?=($item_key+1)?><?}?>">
-                                        <?if($item_key==$key) {?><strong><?=($item_key+1)?></strong><?} else {?><p><?=($item_key+1)?></p><?}?>
-                                        </div>
-                                        <?}?>
+<?if ($arResult['ELEMENTS']) {?>
+    <div class="roundSlideWrapp">
+        <ul class="roundSlider">
+            <?foreach($arResult["ITEMS"] as $key => $arItem) {?>
+                <li class="firstSlide">
+                    <?if ($arItem["PROPERTIES"]["SERIE_BANNER_LINK"]["VALUE"]){?>
+                        <a href="<?= $arItem["PROPERTIES"]["SERIE_BANNER_LINK"]["VALUE"] ?>">
+                    <?}?>
+                            <div class="catalogWrapper">
+                                <img src="<?=$arItem["DETAIL_PICTURE"]["SRC"]?>" class="roundCatBack">
+                                <p class="titleSlide"><?= $arItem["PREVIEW_TEXT"] ?></p>
+                                <p class="textSlide"><?= $arItem["DETAIL_TEXT"] ?></p>
+                                <?foreach($arResult["ITEMS"] as $item_key => $item_value) {?>
+                                    <div class="<?if ($item_key == $key){?>circle circle<?= ($item_key+1) ?><? }else{ ?>buttons" data-number="<?= ($item_key+1) ?><? } ?>">
+                                        <?if ($item_key == $key) {?><strong><?= ($item_key+1) ?></strong><?} else {?><p><?= ($item_key+1) ?></p><?}?>
                                     </div>
-                                <?if ($arItem["PROPERTIES"]["SERIE_BANNER_LINK"]["VALUE"]){?>
-                                    </a>
                                 <?}?>
-                        </li>
-                        <?}?>
-                    </ul>    
-                </div>    
-    <?}
-?>
+                            </div>
+                    <?if ($arItem["PROPERTIES"]["SERIE_BANNER_LINK"]["VALUE"]) {?>
+                        </a>
+                    <?}?>
+                </li>
+            <?}?>
+        </ul>    
+    </div>    
+<?}?>
 <script>
     $(document).ready(function(){
         if($('.roundSlideWrapp').length == 0){
             $('.categoryWrapper .titleMain').css({"margin-bottom":"-42px"});
-             $(".wrapperCategor").css("height", $(".wrapperCategor").height() - 360 + "px");
-             $(".contentWrapp").css("height", $(".contentWrapp").height() - 360 + "px");
+            $(".wrapperCategor").css("height", $(".wrapperCategor").height() - 360 + "px");
+            $(".contentWrapp").css("height", $(".contentWrapp").height() - 360 + "px");
         }
     })
 </script>
