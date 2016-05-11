@@ -1,6 +1,5 @@
 <script type="text/javascript">
-    var initial_scale;
-    var screen_width = screen.width;
+    var initial_scale, screen_width = screen.width;
     if (screen_width <= 360) {
         initial_scale = 0.3;
     } else if (screen_width <= 415) {
