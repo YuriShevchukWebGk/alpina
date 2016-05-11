@@ -84,6 +84,12 @@ $(document).ready(function(){
         
         
     }
+    
+    // плавное скрытие блока информационного сообщения при нажатии на Х
+    $("#close_notice").on("click", function() {
+        $("#notice_warn").slideUp();
+    })
+
 
     //скролящееся меню на странице оплата
     if($('.delivMenuWrapp').length > 0){

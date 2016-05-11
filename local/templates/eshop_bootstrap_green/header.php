@@ -9,7 +9,7 @@
 <head>
     <title><?$APPLICATION->ShowTitle()?></title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
-   
+
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <link rel="stylesheet" href="/css/easySlider.css" type="text/css">
 
@@ -22,64 +22,52 @@
     <script src="/js/inputmask.js"></script>
 
     <script src="/js/main.js"></script> 
-	<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
-	<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
-	<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">
-	<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png?v=WGG39kPBLm">
-	<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png?v=WGG39kPBLm">
-	<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png?v=WGG39kPBLm">
-	<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png?v=WGG39kPBLm">
-	<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png?v=WGG39kPBLm">
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png?v=WGG39kPBLm">
-	<link rel="icon" type="image/png" href="/favicon-32x32.png?v=WGG39kPBLm" sizes="32x32">
-	<link rel="icon" type="image/png" href="/favicon-194x194.png?v=WGG39kPBLm" sizes="194x194">
-	<link rel="icon" type="image/png" href="/favicon-96x96.png?v=WGG39kPBLm" sizes="96x96">
-	<link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=WGG39kPBLm" sizes="192x192">
-	<link rel="icon" type="image/png" href="/favicon-16x16.png?v=WGG39kPBLm" sizes="16x16">
-	<link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
-	<link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
-	<meta name="msapplication-TileColor" content="#ffffff">
-	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
-	<meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png?v=WGG39kPBLm">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png?v=WGG39kPBLm">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png?v=WGG39kPBLm">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png?v=WGG39kPBLm">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png?v=WGG39kPBLm">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png?v=WGG39kPBLm">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png?v=WGG39kPBLm" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-194x194.png?v=WGG39kPBLm" sizes="194x194">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png?v=WGG39kPBLm" sizes="96x96">
+    <link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=WGG39kPBLm" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png?v=WGG39kPBLm" sizes="16x16">
+    <link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
+    <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
+    <meta name="theme-color" content="#ffffff">
     <meta property="og:image" content="http://alpinabook.ru/img/alpinaLogoMini.png" />	
-	<meta name="apple-itunes-app" content="app-id=429622051">
+    <meta name="apple-itunes-app" content="app-id=429622051">
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />     
 
 
     <?$APPLICATION->ShowHead();?>
 
-<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
-    <script type="text/javascript">
-        if (screen.width<=360) {
-            $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.3, maximum-scale=0.8, width=device-width">');
-        } else if(screen.width<=415){
-            $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.8, width=device-width">');
-        } else if(screen.width<=960){
-            $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.8, maximum-scale=0.8, width=device-width">');
-        } else if (screen.width<1024) {
-            $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.8, width=device-width">');
-        }
-    </script> 
+    <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
+    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?> 
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 <?if ($USER->IsAuthorized()) {
-	$rsCurUser = CUser::GetByID($USER->GetID());
+    $rsCurUser = CUser::GetByID($USER->GetID());
     $arCurUser = $rsCurUser->Fetch();
-	$userGTMData = "";
-	$userGTMData = (!empty($arCurUser["NAME"]) ? "'user_name' : '".$arCurUser["NAME"]."'," : "");
-	$userGTMData .= (!empty($arCurUser["EMAIL"]) ? "'user_email' : '".$arCurUser["EMAIL"]."'," : "");
-	$userGTMData .= (!empty($arCurUser["UF_GENDER"]) ? "'user_gender' : '".$arCurUser["UF_GENDER"]."'" : "");
-	
-	?>
+    $userGTMData = (!empty($arCurUser["NAME"]) ? "'user_name' : '" . $arCurUser["NAME"] . "'," : "");
+    $userGTMData .= (!empty($arCurUser["EMAIL"]) ? "'user_email' : '" . $arCurUser["EMAIL"] . "'," : "");
+    $userGTMData .= (!empty($arCurUser["UF_GENDER"]) ? "'user_gender' : '" . $arCurUser["UF_GENDER"] . "'" : "");
+?>
 	
 	<script type="text/javascript">
 	dataLayer = [{
-		'userId' : <?=$USER->GetID()?>,
+		'userId' : <?= $USER->GetID() ?>,
 		'event' : 'authentication',
 		'userRegCategory' : 'UserRegistered',
-		<?=$userGTMData?>
+		<?= $userGTMData ?>
 	}];
 	</script>
 <?} else {?>
@@ -89,35 +77,8 @@
 	}];
 	</script>
 <?}?>
-<!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PM87GH');</script>
-<!-- End Google Tag Manager -->
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
-<?/*if ($_COOKIE['notice_warn'] != 30) {?>
-    <script>
-    $(document).ready(function() {
-    $("#close_notice").click(function() {
-    $("#notice_warn").slideUp();
-    $.cookie('notice_warn', "30", {path: '/', expires: 3 });
-    });
-    });
-    </script>
-    <!-- noindex --><div id="notice_warn" style="width: 100%; display:inline-block;background-attachment: scroll; background-repeat: repeat; background-image: none; background-position: 0% 0%; background-size: auto; background-origin: padding-box; background-clip: border-box; background-color: rgb(238, 238, 238); text-align: center;box-shadow: 0px 0px 4px 0px rgba(125, 125, 125, 1) inset">
-    <div style="margin-top: 0px; margin-right: auto; margin-bottom: 0px; margin-left: auto; padding: 15px 0; color: #85959a;font-family: 'Walshein_regular'; font-size: 1.4em;">
-
-    Уважаемые посетители! С 30 апреля по 3 мая офис интернет-магазина работать не будет. С 4 мая работа возобновится в обычном режиме. С наступающим праздником!
-
-    </div>
-    <div id="close_notice" style="position: absolute; top: 10px; right: 20px; font-size: 1.8em; cursor: pointer;">X</div>
-    </div>
-	<!-- /noindex -->
-<?}*/?>
+<?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
 <header>
     <a href="/">
         <div class="logo catalogLogo">
@@ -168,11 +129,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <a href="/personal/cart/?liked=yes">
                 <div class="headLiked">
                     <?
-                        $curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
-                        $user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
-                        $wishItemList = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user), false, false, array("NAME", "ID", "PROPERTY_PRODUCTS"));
-                        ?>
-                    <div class="likedQuant"><?echo($wishItemList->SelectedRowsCount());?></div>
+                    $user = $arCurUser["NAME"] . " " . $arCurUser["LAST_NAME"];
+                    $wishItemList = CIBlockElement::GetList(
+                        array(), 
+                        array(
+                            "IBLOCK_ID" => WISHLIST_IBLOCK_ID, 
+                            "NAME" => $user
+                        ), 
+                        false, 
+                        false, 
+                        array(
+                            "NAME", 
+                            "ID", 
+                            "PROPERTY_PRODUCTS"
+                        )
+                    );
+                    ?>
+                    <div class="likedQuant"><?= ($wishItemList->SelectedRowsCount()); ?></div>
                 </div></a>
         <?
         }?>
