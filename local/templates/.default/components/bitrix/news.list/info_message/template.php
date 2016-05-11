@@ -14,7 +14,6 @@ $this->setFrameMode(true);?>
 
 <?if ($arResult['ELEMENTS']) {
     foreach ($arResult["ITEMS"] as $ar_item) {?>
-        <!-- noindex -->
         <div id="notice_warn">
             <div class="notice_message">
                 <?= $ar_item["NAME"] ?>
@@ -23,9 +22,5 @@ $this->setFrameMode(true);?>
                 X
             </div>
         </div>
-        <!-- /noindex -->
     <?}?>            
 <?}?>
-
-
-          

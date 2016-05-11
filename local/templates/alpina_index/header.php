@@ -58,29 +58,7 @@
     <meta property="fb:admins" content="1425804193" />
     <meta property="fb:app_id" content="138738742872757" /> 
 
-    <script type="text/javascript">
-        var initial_scale, screen_width;
-        screen_width = screen.width;
-        if (screen_width <= 360) {
-            initial_scale = 0.3;
-        } else if (screen_width <= 415) {
-            initial_scale = 0.5;
-        } else if (screen_width <= 960) {
-            initial_scale = 0.8;
-        } else if (screen_width < 1024) {
-            initial_scale = 0.5;
-        }
-        $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=' + initial_scale + ', maximum-scale=0.8, width=device-width">');
-    </script>
-    <!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PM87GH');</script>
-    <!-- End Google Tag Manager --> 
+    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 <?if ($USER->IsAuthorized()) {
@@ -94,10 +72,10 @@
 
     <script type="text/javascript">
         dataLayer = [{
-            'userId' : <?=$USER->GetID()?>,
+            'userId' : <?= $USER->GetID() ?>,
             'event' : 'authentication',
             'userRegCategory' : 'UserRegistered',
-            <?=$userGTMData?>
+            <?= $userGTMData?>
         }];
     </script>
     <?} else {?>
@@ -108,67 +86,7 @@
     </script>
     <?}?> 
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
-<?$APPLICATION->IncludeComponent("bitrix:news.list", "info_message", Array(
-    "ACTIVE_DATE_FORMAT" => "d.m.Y",    // Формат показа даты
-    "ADD_SECTIONS_CHAIN" => "Y",    // Включать раздел в цепочку навигации
-    "AJAX_MODE" => "N",    // Включить режим AJAX
-    "AJAX_OPTION_ADDITIONAL" => "",    // Дополнительный идентификатор
-    "AJAX_OPTION_HISTORY" => "N",    // Включить эмуляцию навигации браузера
-    "AJAX_OPTION_JUMP" => "N",    // Включить прокрутку к началу компонента
-    "AJAX_OPTION_STYLE" => "Y",    // Включить подгрузку стилей
-    "CACHE_FILTER" => "N",    // Кешировать при установленном фильтре
-    "CACHE_GROUPS" => "N",    // Учитывать права доступа
-    "CACHE_TIME" => "36000000",    // Время кеширования (сек.)
-    "CACHE_TYPE" => "A",    // Тип кеширования
-    "CHECK_DATES" => "Y",    // Показывать только активные на данный момент элементы
-    "DETAIL_URL" => "",    // URL страницы детального просмотра (по умолчанию - из настроек инфоблока)
-    "DISPLAY_BOTTOM_PAGER" => "Y",    // Выводить под списком
-    "DISPLAY_DATE" => "Y",    // Выводить дату элемента
-    "DISPLAY_NAME" => "Y",    // Выводить название элемента
-    "DISPLAY_PICTURE" => "Y",    // Выводить изображение для анонса
-    "DISPLAY_PREVIEW_TEXT" => "Y",    // Выводить текст анонса
-    "DISPLAY_TOP_PAGER" => "N",    // Выводить над списком
-    "FIELD_CODE" => array(    // Поля
-        0 => "",
-        1 => "",
-    ),
-    "FILTER_NAME" => "",    // Фильтр
-    "HIDE_LINK_WHEN_NO_DETAIL" => "N",    // Скрывать ссылку, если нет детального описания
-    "IBLOCK_ID" => INFO_MESSAGES_IBLOCK_ID,    // Код информационного блока
-    "IBLOCK_TYPE" => "service",    // Тип информационного блока (используется только для проверки)
-    "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",    // Включать инфоблок в цепочку навигации
-    "INCLUDE_SUBSECTIONS" => "Y",    // Показывать элементы подразделов раздела
-    "MESSAGE_404" => "",    // Сообщение для показа (по умолчанию из компонента)
-    "NEWS_COUNT" => "1",    // Количество новостей на странице
-    "PAGER_BASE_LINK_ENABLE" => "N",    // Включить обработку ссылок
-    "PAGER_DESC_NUMBERING" => "N",    // Использовать обратную навигацию
-    "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",    // Время кеширования страниц для обратной навигации
-    "PAGER_SHOW_ALL" => "N",    // Показывать ссылку "Все"
-    "PAGER_SHOW_ALWAYS" => "N",    // Выводить всегда
-    "PAGER_TEMPLATE" => ".default",    // Шаблон постраничной навигации
-    "PAGER_TITLE" => "Новости",    // Название категорий
-    "PARENT_SECTION" => "",    // ID раздела
-    "PARENT_SECTION_CODE" => "",    // Код раздела
-    "PREVIEW_TRUNCATE_LEN" => "",    // Максимальная длина анонса для вывода (только для типа текст)
-    "PROPERTY_CODE" => array(    // Свойства
-        0 => "",
-        1 => "",
-    ),
-    "SET_BROWSER_TITLE" => "Y",    // Устанавливать заголовок окна браузера
-    "SET_LAST_MODIFIED" => "N",    // Устанавливать в заголовках ответа время модификации страницы
-    "SET_META_DESCRIPTION" => "Y",    // Устанавливать описание страницы
-    "SET_META_KEYWORDS" => "Y",    // Устанавливать ключевые слова страницы
-    "SET_STATUS_404" => "N",    // Устанавливать статус 404
-    "SET_TITLE" => "Y",    // Устанавливать заголовок страницы
-    "SHOW_404" => "N",    // Показ специальной страницы
-    "SORT_BY1" => "ACTIVE_FROM",    // Поле для первой сортировки новостей
-    "SORT_BY2" => "SORT",    // Поле для второй сортировки новостей
-    "SORT_ORDER1" => "DESC",    // Направление для первой сортировки новостей
-    "SORT_ORDER2" => "ASC",    // Направление для второй сортировки новостей
-    "COMPONENT_TEMPLATE" => "section_banners"
-    ),
-    false
-);?>
+<?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
 <header itemscope="" id="WPHeader" itemtype="http://schema.org/WPHeader">
     <a href="/">
         <div class="logo">

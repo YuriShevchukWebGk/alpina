@@ -86,7 +86,7 @@ $(document).ready(function(){
     }
     
     // плавное скрытие блока информационного сообщения при нажатии на Х
-    $("#notice_warn #close_notice").on("click", function() {
+    $("#close_notice").on("click", function() {
         $("#notice_warn").slideUp();
     })
 

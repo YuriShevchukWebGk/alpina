@@ -11,8 +11,9 @@ div.news-list img.preview_picture
 	color:#486DAA;
 }
 #notice_warn {
-    width: 100%; 
-    display:inline-block;
+    width: 100%;
+    position: relative; 
+    display: inline-block;
     background-attachment: scroll; 
     background-repeat: repeat; 
     background-image: none; 
