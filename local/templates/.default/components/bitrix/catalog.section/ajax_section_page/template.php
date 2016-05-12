@@ -47,7 +47,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
 
 
-            <?
+            <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
             $APPLICATION->IncludeComponent(
                 "bitrix:news.list", 

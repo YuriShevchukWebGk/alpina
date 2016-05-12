@@ -758,3 +758,7 @@
     line-height: 30px;
     margin-top: 18px;
 }
+.filterParams .descArrow p:after {
+    transform: scaleX(-1);
+    position: absolute;
+}
