@@ -1669,7 +1669,7 @@ $(document).ready(function() {
         $(".layout").hide();
         $(".wishlist_info").hide();
     })
-    // обрезка длинных названий
+    // РѕР±СЂРµР·РєР° РґР»РёРЅРЅС‹С… РЅР°Р·РІР°РЅРёР№
     $(".nameBook").each(function() {
         if($(this).length > 0) {
             $(this).html(truncate($(this).html(), 40));    

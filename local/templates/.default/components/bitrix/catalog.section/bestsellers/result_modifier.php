@@ -163,7 +163,7 @@ if (!empty($arResult['ITEMS']))
 	$arNewItemsList = array();
 	foreach ($arResult['ITEMS'] as $key => $arItem)
 	{
-        $arResult["SERIES"]["ID"] = $arItem["PROPERTIES"]["SERIES"]["VALUE"];// получаем id серии книг
+        $arResult["SERIES"]["ID"] = $arItem["PROPERTIES"]["SERIES"]["VALUE"];// РїРѕР»СѓС‡Р°РµРј id СЃРµСЂРёРё РєРЅРёРі
 		$arItem['CHECK_QUANTITY'] = false;
 		if (!isset($arItem['CATALOG_MEASURE_RATIO']))
 			$arItem['CATALOG_MEASURE_RATIO'] = 1;
@@ -421,7 +421,7 @@ if (!empty($arResult['ITEMS']))
 	$arResult['SKU_PROPS'] = $arSKUPropList;
 	$arResult['DEFAULT_PICTURE'] = $arEmptyPreview;
 
-    // получение описания серии книг
+    // РїРѕР»СѓС‡РµРЅРёРµ РѕРїРёСЃР°РЅРёСЏ СЃРµСЂРёРё РєРЅРёРі
     $arResult["SERIES"]["ELEMENT"] = CIBlockElement::GetByID($arResult["SERIES"]["ID"])->Fetch();
 
 	$arResult['CURRENCIES'] = array();
@@ -464,7 +464,7 @@ if (!empty($arResult['ITEMS']))
 		}
 	}
 }
-// получение цитаты для конкретной серии
+// РїРѕР»СѓС‡РµРЅРёРµ С†РёС‚Р°С‚С‹ РґР»СЏ РєРѕРЅРєСЂРµС‚РЅРѕР№ СЃРµСЂРёРё
 
 $arSection = CIBlockSection::GetList(
     array(),
@@ -503,7 +503,7 @@ foreach ($arResult["ITEMS"] as $arItem) {
     $authors_IDs[] = $arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0];
 }
 
-// получение информации об авторе каждой из книг
+// РїРѕР»СѓС‡РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё РѕР± Р°РІС‚РѕСЂРµ РєР°Р¶РґРѕР№ РёР· РєРЅРёРі
 
 $authors = CIBlockElement::GetList(
     array(),
@@ -517,8 +517,8 @@ $authors = CIBlockElement::GetList(
 while ($authors_list = $authors -> Fetch()) {
     $arResult["AUTHORS"][$authors_list["ID"]] = $authors_list;
 }
-// если товар находится в корзине - записывать необходимую информацию о нём в @arResult 
-// (например, количество товара в корзине)
+// РµСЃР»Рё С‚РѕРІР°СЂ РЅР°С…РѕРґРёС‚СЃСЏ РІ РєРѕСЂР·РёРЅРµ - Р·Р°РїРёСЃС‹РІР°С‚СЊ РЅРµРѕР±С…РѕРґРёРјСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РЅС‘Рј РІ @arResult 
+// (РЅР°РїСЂРёРјРµСЂ, РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂР° РІ РєРѕСЂР·РёРЅРµ)
 $db_basket_items = CSaleBasket::GetList(
     array(), 
     array(
