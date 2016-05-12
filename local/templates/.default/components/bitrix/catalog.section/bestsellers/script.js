@@ -1687,8 +1687,8 @@ $(document).ready(function() {
     }
     
     if ($(".categoryWrapperWhite .sliderUl li").size() == 0) {   
-        $(".categoryWrapperWhite").hide();
         $(".contentWrapp").css("height",  $(".contentWrapp").height() - $(".categoryWrapperWhite").height() + "px");
+        $(".categoryWrapperWhite").hide();
     }
     
     if ($(".filterParams li:nth-child(2)").hasClass("descArrow")) {
