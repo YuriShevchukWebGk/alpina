@@ -1675,12 +1675,13 @@ $(document).ready(function() {
             $(this).html(truncate($(this).html(), 40));    
         }    
     });
+    books_block_length = $(".otherBooks li").length;
     
-    if (($(".otherBooks ul li").length < 11) && ($(".otherBooks ul li").length > 5)) {
+    if ((books_block_length < 11) && (books_block_length > 5)) {
         $(".contentWrapp").css("height", "1000px");
         $(".wrapperCategor").css("height", "1150px");
     }
-    else if ($(".otherBooks ul li").length < 6) {
+    else if (books_block_length < 6) {
         $(".contentWrapp").css("height", "700px");
         $(".wrapperCategor").css("height", "770px");       
     }
