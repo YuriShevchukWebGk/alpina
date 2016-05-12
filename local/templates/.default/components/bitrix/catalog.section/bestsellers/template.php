@@ -412,29 +412,29 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
         <?}?>
         var maxpage = <?= ($arResult["NAV_RESULT"]->NavPageCount) ?>;
         $('.showMore').click(function(){
-            var otherBooks = $(this).siblings(".otherBooks");
+            var other_books = $(this).siblings(".otherBooks");
             $.fancybox.showLoading();
             $.get('<?= $arResult["SECTION_PAGE_URL"] ?>?PAGEN_<?= $navnum ?>='+page, function(data) {
-                var next_page = $('.otherBooks ul li', data);
+                var next_page = $('.otherBooks li', data);
                 $('.otherBooks ul').append(next_page);
                 page++;
             })
-            .done(function()
-                {
-                    $.fancybox.hideLoading();
-                    // обрезка длинных названий, изменение высоты блоков, 
-                    // содержащих карточки товаров, в зависимости от количества карточек
-                    $(".nameBook").each(function() {
-                        if($(this).length > 0) {
-                            $(this).html(truncate($(this).html(), 40));
-                        }
-                    });
-                    var otherBooksHeight, categorHeight;
-                    otherBooksHeight = 1350 * Math.ceil(($(".otherBooks ul li").length / 15));
-                    categorHeight = 1600 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
-                    otherBooks.css("height", otherBooksHeight + "px");
-                    $(".wrapperCategor").css("height", categorHeight + "px");
-                    $(".contentWrapp").css("height", categorHeight - 10 + "px");
+            .done(function() {
+                $.fancybox.hideLoading();
+                // обрезка длинных названий, изменение высоты блоков, 
+                // содержащих карточки товаров, в зависимости от количества карточек
+                $(".nameBook").each(function() {
+                    if($(this).length > 0) {
+                        $(this).html(truncate($(this).html(), 40));
+                    }
+                });
+                var other_books_height, categor_height, books_block_length;
+                books_block_length = $(".otherBooks li").length;
+                other_books_height = 1350 * Math.ceil((books_block_length / 15));
+                categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
+                other_books.css("height", other_books_height + "px");
+                $(".wrapperCategor").css("height", categor_height + "px");
+                $(".contentWrapp").css("height", categor_height - 10 + "px");
             });
             if (page == maxpage) {
                 $('.showMore').hide();

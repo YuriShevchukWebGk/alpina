@@ -464,6 +464,7 @@ if (!empty($arResult['ITEMS']))
 		}
 	}
 }
+// получение цитаты для конкретной серии
 
 $arSection = CIBlockSection::GetList(
     array(),
@@ -490,15 +491,20 @@ if ($arSection["UF_QUOTE"] > 0) {
         )
     )->Fetch();
 }
+
 $arResult["QUOTE_IMAGE"] = CFile::ResizeImageGet (
     $arResult["QUOTE"]["DETAIL_PICTURE"],
     array("width" => 288,"height" => 294), 
     BX_RESIZE_IMAGE_PROPORTIONAL
 );
+
 foreach ($arResult["ITEMS"] as $arItem) {
     $ar_item_IDs[] = $arItem["ID"];
     $authors_IDs[] = $arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0];
 }
+
+// получение информации об авторе каждой из книг
+
 $authors = CIBlockElement::GetList(
     array(),
     array(
@@ -511,7 +517,9 @@ $authors = CIBlockElement::GetList(
 while ($authors_list = $authors -> Fetch()) {
     $arResult["AUTHORS"][$authors_list["ID"]] = $authors_list;
 }
-$dbBasketItems = CSaleBasket::GetList(
+// если товар находится в корзине - записывать необходимую информацию о нём в @arResult 
+// (например, количество товара в корзине)
+$db_basket_items = CSaleBasket::GetList(
     array(), 
     array(
         "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
@@ -530,7 +538,7 @@ $dbBasketItems = CSaleBasket::GetList(
         "PRODUCT_PROVIDER_CLASS"
     )
 );
-while ($arBasketItems = $dbBasketItems -> Fetch()) {
-    $arResult["ITEM_IN_BASKET"][$arBasketItems["PRODUCT_ID"]] = $arBasketItems;
+while ($ar_basket_items = $db_basket_items -> Fetch()) {
+    $arResult["ITEM_IN_BASKET"][$ar_basket_items["PRODUCT_ID"]] = $ar_basket_items;
 };
 ?>
