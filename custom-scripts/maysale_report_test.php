@@ -67,7 +67,7 @@ $orders = array(
 67042,
 67039,
 67037,
-67035,/*
+67035,
 67034,
 67033,
 67029,
@@ -742,7 +742,7 @@ $orders = array(
 66050,
 66049,
 66047,
-66043*/
+66043
 );
 
 $final_old_price = 0;
@@ -755,7 +755,7 @@ $final_dicount_sum = 0;
 foreach ($orders as $orderno) {
 	$order = CSaleOrder::GetByID($orderno);
 
-	if ($order[STATUS_ID] != 'D' || $order[STATUS_ID] != 'F' || $order[STATUS_ID] != 'I' || $order[STATUS_ID] != 'K')
+	if ($order[STATUS_ID] != 'D' && $order[STATUS_ID] != 'F' && $order[STATUS_ID] != 'I' && $order[STATUS_ID] != 'K')
 		continue;
 	print_r($order[STATUS_ID]);
 		
