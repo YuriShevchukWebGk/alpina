@@ -465,13 +465,72 @@ if (!empty($arResult['ITEMS']))
 	}
 }
 
-$arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_*"))->Fetch();
+$arSection = CIBlockSection::GetList(
+    array(),
+    array(
+        "IBLOCK_ID" => $arResult["IBLOCK_ID"],
+        "ID" => $arResult["ID"]
+    ),
+    false,
+    array("UF_*")
+)->Fetch();
 if ($arSection["UF_QUOTE"] > 0) {
-    $arResult["QUOTE"] = CIBlockElement::GetList(array(),array("ID"=>$arSection["UF_QUOTE"]),false,false,array("NAME","DETAIL_TEXT","DETAIL_PICTURE","PROPERTY_AUTHOR.NAME"))->Fetch();
+    $arResult["QUOTE"] = CIBlockElement::GetList(
+        array(),
+        array(
+            "ID" => $arSection["UF_QUOTE"]
+        ),
+        false,
+        false,
+        array(
+            "NAME",
+            "DETAIL_TEXT",
+            "DETAIL_PICTURE",
+            "PROPERTY_AUTHOR.NAME"
+        )
+    )->Fetch();
 }
 $arResult["QUOTE_IMAGE"] = CFile::ResizeImageGet (
     $arResult["QUOTE"]["DETAIL_PICTURE"],
-    array("width"=>288,"height"=>294), 
+    array("width" => 288,"height" => 294), 
     BX_RESIZE_IMAGE_PROPORTIONAL
 );
+foreach ($arResult["ITEMS"] as $arItem) {
+    $ar_item_IDs[] = $arItem["ID"];
+    $authors_IDs[] = $arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0];
+}
+$authors = CIBlockElement::GetList(
+    array(),
+    array(
+        "ID" => $authors_IDs
+    ),
+    false,
+    false,
+    array()
+);
+while ($authors_list = $authors -> Fetch()) {
+    $arResult["AUTHORS"][$authors_list["ID"]] = $authors_list;
+}
+$dbBasketItems = CSaleBasket::GetList(
+    array(), 
+    array(
+        "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
+        "LID" => SITE_ID, 
+        "ORDER_ID" => "NULL", 
+        "PRODUCT_ID" => $ar_item_IDs
+    ), 
+    false, 
+    false, 
+    array(
+        "ID", 
+        "CALLBACK_FUNC", 
+        "MODULE", 
+        "PRODUCT_ID", 
+        "QUANTITY", 
+        "PRODUCT_PROVIDER_CLASS"
+    )
+);
+while ($arBasketItems = $dbBasketItems -> Fetch()) {
+    $arResult["ITEM_IN_BASKET"][$arBasketItems["PRODUCT_ID"]] = $arBasketItems;
+};
 ?>

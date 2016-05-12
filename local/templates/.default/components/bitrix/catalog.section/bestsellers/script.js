@@ -1670,33 +1670,29 @@ $(document).ready(function() {
         $(".wishlist_info").hide();
     })
     // обрезка длинных названий
-    $(".nameBook").each(function()
-        {
-            if($(this).length > 0)
-            {
-                $(this).html(truncate($(this).html(), 40));    
-            }    
+    $(".nameBook").each(function() {
+        if($(this).length > 0) {
+            $(this).html(truncate($(this).html(), 40));    
+        }    
     });
-    if (($(".otherBooks ul li").length < 11) && ($(".otherBooks ul li").length > 5)) 
-    {
+    
+    if (($(".otherBooks ul li").length < 11) && ($(".otherBooks ul li").length > 5)) {
         $(".contentWrapp").css("height", "1000px");
         $(".wrapperCategor").css("height", "1150px");
     }
-    else if ($(".otherBooks ul li").length < 6)
-    {
+    else if ($(".otherBooks ul li").length < 6) {
         $(".contentWrapp").css("height", "700px");
         $(".wrapperCategor").css("height", "770px");       
     }
-    if ($(".categoryWrapperWhite .sliderUl li").size() == 0)
-    {   
+    
+    if ($(".categoryWrapperWhite .sliderUl li").size() == 0) {   
         $(".categoryWrapperWhite").hide();
         $(".contentWrapp").css("height",  $(".contentWrapp").height() - $(".categoryWrapperWhite").height() + "px");
     }
-    /*if ($(".bestSlider ul li").size() == 0)
-    {  
-        $(".wrapperCategor").css("height", $(".wrapperCategor").height() - $(".grayTitle").height() - $(".bestSlider").height() + "px");
-        $(".contentWrapp").css("height", $(".contentWrapp").height() - $(".grayTitle").height() - $(".bestSlider").height() + "px");
-        $(".bestSlider").hide();
-        $(".bestSlider").parent().prev(".grayTitle").hide();
-    }*/
+    
+    if ($(".filterParams li:nth-child(2)").hasClass("descArrow")) {
+        $(".filterParams li:nth-child(2)").css("width", "120px");
+    } else if ($(".filterParams li:nth-child(3)").hasClass("descArrow")) {
+        $(".filterParams li:nth-child(3)").css("width", "75px");
+    }
 });
