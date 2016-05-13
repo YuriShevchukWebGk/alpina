@@ -1,46 +1,23 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();  
-    
-    /*$user = new CUser;
-    $arAuthResult = $user->Add(Array(
-        "LOGIN" => $NEW_LOGIN,
-        "NAME" => $NEW_NAME,
-        "LAST_NAME" => $NEW_LAST_NAME,
-        "PASSWORD" => $NEW_PASSWORD,
-        "CONFIRM_PASSWORD" => $NEW_PASSWORD_CONFIRM,
-        "EMAIL" => $NEW_EMAIL,
-        "GROUP_ID" => $GROUP_ID,
-        "ACTIVE" => "Y",
-        "LID" => SITE_ID,
-        )
-    );*/
+
     if($USER->IsAuthorized() || $arParams["ALLOW_AUTO_REGISTER"] == "Y")
     {
         if($arResult["USER_VALS"]["CONFIRM_ORDER"] == "Y" || $arResult["NEED_REDIRECT"] == "Y")
         {
             if(strlen($arResult["REDIRECT_URL"]) > 0)
             {
-                $APPLICATION->RestartBuffer();
-            ?>
-
-
-
-
-
-
-
+                $APPLICATION->RestartBuffer(); ?>
             <script type="text/javascript">
                 window.top.location.href='<?=CUtil::JSEscape($arResult["REDIRECT_URL"])?>';
             </script>
-            <?
-                die();
+            <? die();
             }
-
         }
     }
 
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
-    
+
     include ('include/functions.php');
 ?>
 
@@ -48,13 +25,13 @@
 
     //дополнительные функции, необходимые для работы
     function setOptions() {
-           
+
         //валидаторы телефонных номеров
         $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
         $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
         $("#pp_sms_phone").inputmask("+79999999999");
 
-        
+
         if($('#pp_sms_phone')){
             var phoneVal = $('#ORDER_PROP_24').val() || $('#ORDER_PROP_11').val();
             $('#pp_sms_phone').val(phoneVal);
@@ -66,8 +43,6 @@
         $('body').on('change', '#ORDER_PROP_11', function(){
             $('#pp_sms_phone').val($('#ORDER_PROP_11').val());       
         });
-
-
 
         /*-----
         * RFI Bank tab switcher
@@ -84,7 +59,6 @@
             }
         })
 
-
         //ограничение на количество символов в комментарии
         $("#ORDER_DESCRIPTION").keydown(function(){
             var len = $(this).val().length; 
@@ -92,7 +66,6 @@
                 $(this).val( $(this).val().substr(0,300)); 
             }
         })
-
 
         //календарь
         function disableSpecificDaysAndWeekends(date) {                                                                           
@@ -117,7 +90,7 @@
                 }                            
             }
         } else { // Майские праздники
-                                             
+
             if (ourday == 1) { //понедельник
                 minDatePlus = 2;
             } else if (ourday == 2) { //вторник
@@ -132,7 +105,7 @@
                 minDatePlus = 3;
             } else if (ourday == 0) { //воскресенье
                 minDatePlus = 2;
-			}
+            }
         }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
@@ -152,42 +125,11 @@
         });           
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker( "setDate", curDay );             
         $("#ORDER_PROP_44, #ORDER_PROP_45").inputmask("d.m.y"); 
-        
-         
-         
-         //кастомизация select
-         //$('#ORDER_PROP_29, #ORDER_PROP_30').selectric();
-         
-
     }
 
     $(function(){
         submitForm();
-           
         setOptions();  
-
-
-        // ---- RF in foreign countries delivery button
-        /*
-        $('body').on('change', 'input[name="ORDER_PROP_2"]', function(){  
-            if ($('#ID_DELIVERY_ID_16').is(':checked')){
-                $('.deliveryPriceTable').html('Идет расчёт...');
-                $.post("/ajax/RFPostForForeignCountries.php", {
-                    weight : parseFloat($('.order_weight').text())
-                    }, function(data) {
-                        //console.log(parseFloat(data));     
-                        $('.deliveryPriceTable').html(parseFloat(data) + ' руб.');
-                        finalSum = parseFloat($('.SumTable').html()) + parseFloat(data);
-                        $('.finalSumTable').html( finalSum.toFixed(2) + ' руб.');                         
-                        $("label[for=ID_DELIVERY_ID_16] b").html(parseFloat(data) + ' руб.');        
-                        // --- if discount exist
-                        if($('.priceWithoutDiscount')){
-                            finalSumWithoutDiscount = parseFloat($('.priceWithoutDiscount').html()) + parseFloat(data);
-                            $('.priceWithoutDiscount').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
-                        }              
-                });
-            }
-        });  */
     })
 </script>
 
@@ -404,21 +346,21 @@
                                 }
                                 /*function SwitchingPersonType(val)
                                 {
-                                    BXFormPosting = true;
-                                    if(val != 'Y')
-                                        BX('confirmorder').value = 'N';
+                                BXFormPosting = true;
+                                if(val != 'Y')
+                                BX('confirmorder').value = 'N';
 
-                                    var orderForm = BX('ORDER_FORM');
-                                    BX.showWait();
+                                var orderForm = BX('ORDER_FORM');
+                                BX.showWait();
 
-                                    <?if(CSaleLocation::isLocationProEnabled()):?>
-                                        BX.saleOrderAjax.cleanUp();
-                                        <?endif?>
+                                <?if(CSaleLocation::isLocationProEnabled()):?>
+                                    BX.saleOrderAjax.cleanUp();
+                                    <?endif?>
 
-                                    BX.ajax.submit(orderForm, ajaxResult);
-                                    return true;
+                                BX.ajax.submit(orderForm, ajaxResult);
+                                return true;
                                 } */
-                               
+
                                 function ajaxResult(res)
                                 {   
                                     var orderForm = BX('ORDER_FORM');
@@ -453,46 +395,13 @@
 
                                     BX.closeWait();
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
-
-                                    //1. дублируем телефон в поле для пикпоинт
-                                    /*if($('#pp_sms_phone')){
-                                        var phoneVal = $('#ORDER_PROP_24').val() || $('#ORDER_PROP_11').val();
-                                        $('#pp_sms_phone').val(phoneVal);
-                                    }*/
-                                    
                                     //доп функции/////////////////////////////////
                                     setOptions();
                                     
-
-
                                     //2. подсветка варианта оплаты для электронных платежей 
                                     if(localStorage.getItem('active_rfi_button')){
                                         $('li[data-rfi-payment="'+localStorage.getItem('active_rfi_button')+'"]').addClass('active_rfi_button');
                                     }
-
-                                    //3. международная доставка почтой России
-                                    /*
-                                    $('input:checked').each(function(){
-                                        if($(this).attr('id')=='ID_DELIVERY_ID_16'){// ---- RF post foreign countries
-                                            $('.deliveryPriceTable').html('Идет расчёт...');
-                                            $.post("/ajax/RFPostForForeignCountries.php", {
-                                                weight : parseFloat($('.order_weight').text())
-                                                }, function(data) {
-                                                    //console.log(parseFloat(data));     
-                                                    $('.deliveryPriceTable').html(parseFloat(data) + ' руб.');
-                                                    finalSum = parseFloat($('.SumTable').html()) + parseFloat(data);
-                                                    $('.finalSumTable').html( finalSum.toFixed(2) + ' руб.');                         
-                                                    $("label[for=ID_DELIVERY_ID_16] b").html(parseFloat(data) + ' руб.');   
-                                                    // --- if discount exist
-                                                    if($('.priceWithoutDiscount')){
-                                                        finalSumWithoutDiscount = parseFloat($('.priceWithoutDiscount').html()) + parseFloat(data);
-                                                        $('.priceWithoutDiscount').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
-                                                    }              
-                                            });
-                                        } 
-                                    }); */
-                                    
-                                    
                                 }
 
                                 function SetContact(profileId)
