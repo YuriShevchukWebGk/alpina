@@ -454,7 +454,7 @@
                                     BX.closeWait();
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
 
-                                    //1. дублируме телефон в поле для пикпоинт
+                                    //1. дублируем телефон в поле для пикпоинт
                                     /*if($('#pp_sms_phone')){
                                         var phoneVal = $('#ORDER_PROP_24').val() || $('#ORDER_PROP_11').val();
                                         $('#pp_sms_phone').val(phoneVal);

@@ -1154,7 +1154,7 @@ BX.ready(function() {
 });
 
 //Custom coupon 
-function enterCouponCustom() {
+function enterCouponCustom() { 
     var couponCode=$("#coupon").val();
     var price = $("#priceBasketToCoupon").val();
     $.ajax({
@@ -1162,12 +1162,15 @@ function enterCouponCustom() {
         url: "/ajax/customCoupon.php",
         data: { coupon: couponCode, price: price,  action: "check"}
     }).done(function( result ) {
-        if (result!=""){
+        if (result!="") {
             arResult = JSON.parse(result);
             if (arResult.DEFAULT_COUPON=="Y") {
                 enterCoupon();
             } else {
-                $('#allSum_FORMATED').html('0 руб.');
+                $('#allSum_FORMATED').fadeOut(400, function () {
+                    $(this).html('0 руб.');
+                });
+                $('#allSum_FORMATED').fadeIn(400);
             }
         }
     });   

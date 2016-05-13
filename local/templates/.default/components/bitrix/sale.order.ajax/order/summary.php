@@ -17,7 +17,6 @@
 
 
     foreach ($arResult["BASKET_ITEMS"] as $key => $basketItem) {
-        //arshow($basketItem);
         array_push($itemsForCriteo,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", quantity: ".$basketItem["QUANTITY"]." }");
         array_push($itemsForFloctory,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", quantity: ".$basketItem["QUANTITY"].", title: '".$basketItem["NAME"]."' }");
         array_push($itemsForRetailRocket,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", qnt: ".$basketItem["QUANTITY"]." }");
@@ -56,16 +55,12 @@
 ?>
 
 <div class="bx_ordercart">
-
-
     <div class="totalPriceWrap">
-
         <div class="totalCost">
-
             <? if($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"]=="N") { 
                     $priceCustCoup = ((float)$arResult["ORDER_TOTAL_PRICE_FORMATED"] - (float)$_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"]);
-                    if($priceCustCoup<0) {
-                        $priceCustCoup=0;
+                    if($priceCustCoup < 0) {
+                        $priceCustCoup = 0;
                     }  
                     $priceCustCoup = $priceCustCoup + (float)$arResult["DELIVERY_PRICE_FORMATED"];
                     echo '0 руб.';

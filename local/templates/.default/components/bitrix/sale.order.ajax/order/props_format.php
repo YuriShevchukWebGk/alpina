@@ -1,6 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <?
-    
+
     if (!function_exists("showFilePropertyField")){
         function showFilePropertyField($name, $property_fields, $values, $max_file_size_show=50000){
             $res = "";
@@ -65,9 +65,7 @@
                 ?>
                 <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>">
 
-                    <?//РїРѕРєР°Р·С‹РІР°РµРј РЅР°Р·РІР°РЅРёРµ РїРѕР»СЏ РґР»СЏ РІСЃРµС… РєСЂРѕРјРµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёСЏ
-                        if ($arProperties["TYPE"] != "LOCATION") {?>
-
+                    <?if ($arProperties["TYPE"] != "LOCATION") {?>
                         <p class="inputTitle">
                             <?=$arProperties["NAME"]?>
                             <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
@@ -76,10 +74,7 @@
                         </p>
                         <?}?>
 
-                    <?
-                        if ($arProperties["TYPE"] == "CHECKBOX"){
-                        ?>
-
+                    <? if ($arProperties["TYPE"] == "CHECKBOX"){ ?>
                         <div class="bx_block r1x3 pt8" <?if($arProperties["ID"] == 62 || $arProperties["ID"] == 63){?> style="display:none;"<?}?>>
                             <input type="hidden" name="<?=$arProperties["FIELD_NAME"]?>" value="">
                             <input type="checkbox" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" value="Y"<?if ($arProperties["CHECKED"]=="Y") echo " checked";?>>
@@ -87,15 +82,12 @@
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                                 <?endif?>
                         </div>
-                        <?
-                        } elseif ($arProperties["TYPE"] == "TEXT"){
-                            if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
-
-                            ?>
+                        <? } elseif ($arProperties["TYPE"] == "TEXT") {
+                            if ($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") { ?>
                             <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
                             <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
-                                <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
-                            <?endif?>
+                                <span class="warningMessage">��������� ���� <?=$arProperties["NAME"]?></span>
+                                <?endif?>
 
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
@@ -126,11 +118,11 @@
                         <div class="bx_block r3x1">
                             <select name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" size="<?=$arProperties["SIZE1"]?>">
                                 <?
-                                if ($arProperties["ID"] == 29 && empty($arProperties["DEFAULT_VALUE"])){ //метро для физлиц
-                                ?>
-                                    <option value="" selected="selected">Выберите станцию метро</option>
-                                <?
-                                }
+                                    if ($arProperties["ID"] == 29 && empty($arProperties["DEFAULT_VALUE"])){ //����� ��� ������
+                                    ?>
+                                    <option value="" selected="selected">�������� ������� �����</option>
+                                    <?
+                                    }
                                 ?>
                                 <?foreach($arProperties["VARIANTS"] as $arVariants):?>
                                     <option value="<?=$arVariants["VALUE"]?>"<?=($arVariants["SELECTED"] == "Y" &&  $_POST["ORDER_PROP_29"] > 0) ? " selected" : ''?>><?=$arVariants["NAME"]?></option>
@@ -162,7 +154,7 @@
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                                 <?endif?>
-                            <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
+                            <span class="warningMessage">��������� ���� <?=$arProperties["NAME"]?></span>
                         </div>
                         <?
                         } elseif ($arProperties["TYPE"] == "LOCATION") {
@@ -251,7 +243,7 @@
 
                                     <label for="<?=$arProperties["FIELD_NAME"]?>_<?=$arVariants["VALUE"]?>"><?=$arVariants["NAME"]?></label></br>
                                     <?
-                                    endforeach;
+                                        endforeach;
                                 }
                             ?>
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
