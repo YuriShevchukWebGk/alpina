@@ -1155,16 +1155,16 @@ BX.ready(function() {
 
 //Custom coupon 
 function enterCouponCustom() {
-    var couponCode=$("#coupon").val();
+    var couponCode = $("#coupon").val();
     var price = $("#priceBasketToCoupon").val();
     $.ajax({
         type: "POST",
         url: "/ajax/customCoupon.php",
         data: { coupon: couponCode, price: price,  action: "check"}
     }).done(function( result ) {
-        if (result!=""){
+        if (result != ""){
             arResult = JSON.parse(result);
-            if (arResult.DEFAULT_COUPON=="Y") {
+            if (arResult.DEFAULT_COUPON == "Y") {
                 enterCoupon();
             } else {
                 $('#allSum_FORMATED').html('0 руб.');

@@ -1,6 +1,5 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <?
-    
     if (!function_exists("showFilePropertyField")){
         function showFilePropertyField($name, $property_fields, $values, $max_file_size_show=50000){
             $res = "";
@@ -41,32 +40,22 @@
                 $res .= "<br/><br/>";
                 $res .= "<label for=\"\"><input type=\"file\" size=\"".$max_file_size_show."\" value=\"".$property_fields["VALUE"]."\" name=\"".$name."[1]\" id=\"".$name."[1]\" onChange=\"javascript:addControl(this);\"></label>";
             }
-
             return $res;
         }
     }
 
     if (!function_exists("PrintPropsForm")){
         function PrintPropsForm($arSource = array(), $locationTemplate = ".default") {
-            if (!empty($arSource)){
-            ?>
-
-            <?
-                foreach ($arSource as $arProperties) {
+            if (!empty($arSource)){ ?>
+            <? foreach ($arSource as $arProperties) {
                     if ($arProperties["TYPE"] != "LOCATION") {
                         $class =  "infoPunct";
                     }
                     else {
                         $class = "";
-                    }
-
-
-
-                ?>
+                } ?>
                 <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>">
-
-                    <?//РїРѕРєР°Р·С‹РІР°РµРј РЅР°Р·РІР°РЅРёРµ РїРѕР»СЏ РґР»СЏ РІСЃРµС… РєСЂРѕРјРµ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёСЏ
-                        if ($arProperties["TYPE"] != "LOCATION") {?>
+                    <?if ($arProperties["TYPE"] != "LOCATION") {?>
 
                         <p class="inputTitle">
                             <?=$arProperties["NAME"]?>
@@ -95,7 +84,7 @@
                             <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
                             <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
                                 <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
-                            <?endif?>
+                                <?endif?>
 
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
@@ -126,11 +115,11 @@
                         <div class="bx_block r3x1">
                             <select name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" size="<?=$arProperties["SIZE1"]?>">
                                 <?
-                                if ($arProperties["ID"] == 29 && empty($arProperties["DEFAULT_VALUE"])){ //метро для физлиц
-                                ?>
+                                    if ($arProperties["ID"] == 29 && empty($arProperties["DEFAULT_VALUE"])){ //метро для физлиц
+                                    ?>
                                     <option value="" selected="selected">Выберите станцию метро</option>
-                                <?
-                                }
+                                    <?
+                                    }
                                 ?>
                                 <?foreach($arProperties["VARIANTS"] as $arVariants):?>
                                     <option value="<?=$arVariants["VALUE"]?>"<?=($arVariants["SELECTED"] == "Y" &&  $_POST["ORDER_PROP_29"] > 0) ? " selected" : ''?>><?=$arVariants["NAME"]?></option>
@@ -251,7 +240,7 @@
 
                                     <label for="<?=$arProperties["FIELD_NAME"]?>_<?=$arVariants["VALUE"]?>"><?=$arVariants["NAME"]?></label></br>
                                     <?
-                                    endforeach;
+                                        endforeach;
                                 }
                             ?>
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
