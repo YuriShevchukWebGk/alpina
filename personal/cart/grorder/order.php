@@ -301,7 +301,7 @@ $j(document).ready(function() {
 			<span style="color: #FF6418;font-family: 'FreeSet';font-size: 19px;font-weight: 400;">Имя</span>
 		</td>
 		<td>
-			<input type="text" size="25" name="name" style="background:transparent;border:2px solid #FF9C6A;height:20px;" required value="<?=$_POST["name"]?>" />
+			<input type="text" size="25" name="name" style="background:transparent;border:2px solid #FF9C6A;height:20px;" required value="<?=htmlspecialcharsbx($_POST["name"])?>" />
 		</td>
 	</tr>
 	<tr>
@@ -309,7 +309,7 @@ $j(document).ready(function() {
 			<span style="color: #FF6418;font-family: 'FreeSet';font-size: 19px;font-weight: 400;">e-mail</span>
 		</td>
 		<td>
-			<input type="text" size="25" name="email" style="background:transparent;border:2px solid #FF9C6A;height:20px;" required value="<?=$_GET["email"]?>" required />
+			<input type="text" size="25" name="email" style="background:transparent;border:2px solid #FF9C6A;height:20px;" required value="<?=htmlspecialcharsbx($_GET["email"])?>" required />
 		</td>
 	</tr>
 	<tr>
@@ -317,7 +317,7 @@ $j(document).ready(function() {
 			<span style="color: #FF6418;font-family: 'FreeSet';font-size: 19px;font-weight: 400;">Телефон</span>
 		</td>
 		<td>
-			<input type="text" size="25" name="telephone" style="background:transparent;border:2px solid #FF9C6A;height:20px;" required value="<?=$_POST["phone"]?>" />
+			<input type="text" size="25" name="telephone" style="background:transparent;border:2px solid #FF9C6A;height:20px;" required value="<?=htmlspecialcharsbx($_POST["phone"])?>" />
 		</td>
 	</tr>
 				

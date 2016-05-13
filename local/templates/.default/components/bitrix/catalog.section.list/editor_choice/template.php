@@ -41,88 +41,87 @@ foreach ($editor_choice_list as $key => $val)
     $sect_urls[] = "/catalog/".$curr_sect_name["CODE"]."/";
     $arImagesPath[] = CFile::GetPath($curr_sect_name["PICTURE"]);
 }
+
 //arshow($sect_urls);
 //arshow($count);
 ?>
 <div class="books">
-                    <div class="firstSection">
-                        <div class="titleBlock">
-                            
-                                <div class="titleText">
-                                    <a href="/catalog/editors-choice/" title="Выбор редактора">
-                                        <img src="/img/redPhoto.png">
-                                        <p class="nameOfGroup">Editor's Choice</p>
-                                        <p class="subNameOfGroup">Сергей турко</p>
-                                        <p class="description">Главный редактор</p>
-                                        <p class="description">"альпина паблишер"</p>
-                                    </a>
-                                </div>
-                           
-                        </div>
-                        <div>
-                            <?if ($count[2] > 0)
-                            {?>
-                            <a class="smallContainer" href="<?=$sect_urls[2]?>">
-                                        <p><?=$sect_names[2]?></p>
-                                        <p class="count"><?=$count[2].' '.format_by_count($count[2], 'книга', 'книги', 'книг');?></p>
-                                        <div class="colorCorrect"></div> 
-                                        <img src="<?if($arImagesPath[2]){echo $arImagesPath[2];}else{?>/img/book111.png<?}?>">
-                            </a>
-                            <?}?>
-                            <?if ($count[3] > 0)
-                            {?>
-                            <a class="smallContainer" href="<?=$sect_urls[3]?>">
-                                    <p><?=$sect_names[3]?></p>
-                                    <p class="count"><?=$count[3].' '.format_by_count($count[3], 'книга', 'книги', 'книг');?></p>
-                                    <div class="colorCorrect"></div>
-                                    <img src="<?if($arImagesPath[3]){echo $arImagesPath[3];}else{?>/img/book121.png<?}?>">
-                            </a>
-                            <?}?>
-                        </div>
-                    </div>
-                    <div class="secondSection">
-                        <div>
-                            <?if ($count[0] > 0)
-                            {?>
-                            <a class="smallContainer" href="<?=$sect_urls[0]?>">
-                                    <p><?=$sect_names[0]?></p> 
-                                    <p class="count"><?=$count[0].' '.format_by_count($count[0], 'книга', 'книги', 'книг');?></p>
-                                    <div class="colorCorrect"></div>
-                                    <img src="<?if($arImagesPath[0]){echo $arImagesPath[0];}else{?>/img/book131.png<?}?>">
-                            </a>
-                            <?}?>
-                            <?if ($count[1] > 0)
-                            {?>
-                            <a class="smallContainer" href="<?=$sect_urls[1]?>">
-                                    <p><?=$sect_names[1]?></p> 
-                                    <p class="count"><?=$count[1].' '.format_by_count($count[1], 'книга', 'книги', 'книг');?></p>
-                                    <div class="colorCorrect"></div>
-                                    <img src="<?if($arImagesPath[1]){echo $arImagesPath[1];}else{?>/img/book141.png<?}?>">
-                            </a>
-                            <?}?>    
-                        </div>
-                        <div>
-                            <?if ($count[4] > 0)
-                            {?>
-                            <a class="smallContainer" href="<?=$sect_urls[4]?>">
-                                    <p><?=$sect_names[4]?></p>
-                                    <p class="count"><?=$count[4].' '.format_by_count($count[4], 'книга', 'книги', 'книг');?></p>
-                                    <div class="colorCorrect"></div>
-                                    <img src="<?if($arImagesPath[4]){echo $arImagesPath[4];}else{?>/img/book151.png<?}?>">
-                            </a>
-                            <?}?>
-                            <?if ($count[5] > 0)
-                            {?>
-                            <a class="smallContainer" href="<?=$sect_urls[5]?>">
-                                    <p><?=$sect_names[5]?></p> 
-                                    <p class="count"><?=$count[5].' '.format_by_count($count[5], 'книга', 'книги', 'книг');?></p>
-                                    <div class="colorCorrect"></div>
-                                    <img src="<?if($arImagesPath[5]){echo $arImagesPath[5];}else{?>/img/book161.png<?}?>">
-                            </a>
-                            <?}?>    
-                        </div>
-                    </div>
-                </div>
+	<div class="firstSection">
+		<div class="titleBlock">
+			<div class="titleText">
+				<a href="/catalog/editors-choice/" title="Выбор редактора">
+					<img src="/img/redPhoto.png">
+					<p class="nameOfGroup">Editor's Choice</p>
+					<p class="subNameOfGroup">Сергей турко</p>
+					<p class="description">Главный редактор</p>
+					<p class="description">"альпина паблишер"</p>
+				</a>
+			</div>
+		</div>
+		<div>
+			<?if ($count[2] > 0)
+			{?>
+			<a class="smallContainer" href="<?=$sect_urls[2]?>" onclick="dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionClick', 'label' : '<?=$sect_names[2]?>'});">
+						<p><?=$sect_names[2]?></p>
+						<p class="count"><?=$count[2].' '.format_by_count($count[2], 'книга', 'книги', 'книг');?></p>
+						<div class="colorCorrect"></div> 
+						<img src="<?if($arImagesPath[2]){echo $arImagesPath[2];}else{?>/img/book111.png<?}?>">
+			</a>
+			<?}?>
+			<?if ($count[3] > 0)
+			{?>
+			<a class="smallContainer" href="<?=$sect_urls[3]?>" onclick="dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionClick', 'label' : '<?=$sect_names[3]?>'});">
+					<p><?=$sect_names[3]?></p>
+					<p class="count"><?=$count[3].' '.format_by_count($count[3], 'книга', 'книги', 'книг');?></p>
+					<div class="colorCorrect"></div>
+					<img src="<?if($arImagesPath[3]){echo $arImagesPath[3];}else{?>/img/book121.png<?}?>">
+			</a>
+			<?}?>
+		</div>
+	</div>
+	<div class="secondSection">
+		<div>
+			<?if ($count[0] > 0)
+			{?>
+			<a class="smallContainer" href="<?=$sect_urls[0]?>" onclick="dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionClick', 'label' : '<?=$sect_names[0]?>'});">
+					<p><?=$sect_names[0]?></p> 
+					<p class="count"><?=$count[0].' '.format_by_count($count[0], 'книга', 'книги', 'книг');?></p>
+					<div class="colorCorrect"></div>
+					<img src="<?if($arImagesPath[0]){echo $arImagesPath[0];}else{?>/img/book131.png<?}?>">
+			</a>
+			<?}?>
+			<?if ($count[1] > 0)
+			{?>
+			<a class="smallContainer" href="<?=$sect_urls[1]?>" onclick="dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionClick', 'label' : '<?=$sect_names[1]?>'});">
+					<p><?=$sect_names[1]?></p> 
+					<p class="count"><?=$count[1].' '.format_by_count($count[1], 'книга', 'книги', 'книг');?></p>
+					<div class="colorCorrect"></div>
+					<img src="<?if($arImagesPath[1]){echo $arImagesPath[1];}else{?>/img/book141.png<?}?>">
+			</a>
+			<?}?>    
+		</div>
+		<div>
+			<?if ($count[4] > 0)
+			{?>
+			<a class="smallContainer" href="<?=$sect_urls[4]?>" onclick="dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionClick', 'label' : '<?=$sect_names[4]?>'});">
+					<p><?=$sect_names[4]?></p>
+					<p class="count"><?=$count[4].' '.format_by_count($count[4], 'книга', 'книги', 'книг');?></p>
+					<div class="colorCorrect"></div>
+					<img src="<?if($arImagesPath[4]){echo $arImagesPath[4];}else{?>/img/book151.png<?}?>">
+			</a>
+			<?}?>
+			<?if ($count[5] > 0)
+			{?>
+			<a class="smallContainer" href="<?=$sect_urls[5]?>" onclick="dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionClick', 'label' : '<?=$sect_names[5]?>'});">
+					<p><?=$sect_names[5]?></p> 
+					<p class="count"><?=$count[5].' '.format_by_count($count[5], 'книга', 'книги', 'книг');?></p>
+					<div class="colorCorrect"></div>
+					<img src="<?if($arImagesPath[5]){echo $arImagesPath[5];}else{?>/img/book161.png<?}?>">
+			</a>
+			<?}?>    
+		</div>
+	</div>
+</div>
 <script>
 $(document).ready(function(){
     if ($(".books .smallContainer").size() < 3)
@@ -130,6 +129,15 @@ $(document).ready(function(){
         $(".books").css("height", "400px");
         $(".books .secondSection").css("height", "400px");
         $(".hintWrapp").css("height", "1100px");        
-    }    
+    }
+
+	<!-- //dataLayer GTM -->
+		dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionShow', 'label' : '<?=$sect_names[0]?>'});
+		dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionShow', 'label' : '<?=$sect_names[1]?>'});
+		dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionShow', 'label' : '<?=$sect_names[2]?>'});
+		dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionShow', 'label' : '<?=$sect_names[3]?>'});
+		dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionShow', 'label' : '<?=$sect_names[4]?>'});
+		dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionShow', 'label' : '<?=$sect_names[5]?>'});
+	<!-- // dataLayer GTM -->			
 });
 </script>

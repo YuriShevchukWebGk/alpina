@@ -263,7 +263,6 @@
                 <input type="hidden" name="BasketOrder" value="BasketOrder" />
                 <!-- <input type="hidden" name="ajax_post" id="ajax_post" value="Y"> -->
             </form>
-
             <script type="text/javascript">
                 dataLayer.push({
                     'ecommerce': {
@@ -274,7 +273,7 @@
                                     {
                                         <?=$googleItem?>
                                     },
-                                    <?}?>
+                                <?}?>
                             ]
                         }
                     }

@@ -1669,34 +1669,31 @@ $(document).ready(function() {
         $(".layout").hide();
         $(".wishlist_info").hide();
     })
-    // обрезка длинных названий
-    $(".nameBook").each(function()
-        {
-            if($(this).length > 0)
-            {
-                $(this).html(truncate($(this).html(), 40));    
-            }    
+    // РѕР±СЂРµР·РєР° РґР»РёРЅРЅС‹С… РЅР°Р·РІР°РЅРёР№
+    $(".nameBook").each(function() {
+        if($(this).length > 0) {
+            $(this).html(truncate($(this).html(), 40));    
+        }    
     });
-    if (($(".otherBooks ul li").length < 11) && ($(".otherBooks ul li").length > 5)) 
-    {
+    books_block_length = $(".otherBooks li").length;
+    
+    if ((books_block_length < 11) && (books_block_length > 5)) {
         $(".contentWrapp").css("height", "1000px");
         $(".wrapperCategor").css("height", "1150px");
     }
-    else if ($(".otherBooks ul li").length < 6)
-    {
+    else if (books_block_length < 6) {
         $(".contentWrapp").css("height", "700px");
         $(".wrapperCategor").css("height", "770px");       
     }
-    if ($(".categoryWrapperWhite .sliderUl li").size() == 0)
-    {   
-        $(".categoryWrapperWhite").hide();
+    
+    if ($(".categoryWrapperWhite .sliderUl li").size() == 0) {   
         $(".contentWrapp").css("height",  $(".contentWrapp").height() - $(".categoryWrapperWhite").height() + "px");
+        $(".categoryWrapperWhite").hide();
     }
-    /*if ($(".bestSlider ul li").size() == 0)
-    {  
-        $(".wrapperCategor").css("height", $(".wrapperCategor").height() - $(".grayTitle").height() - $(".bestSlider").height() + "px");
-        $(".contentWrapp").css("height", $(".contentWrapp").height() - $(".grayTitle").height() - $(".bestSlider").height() + "px");
-        $(".bestSlider").hide();
-        $(".bestSlider").parent().prev(".grayTitle").hide();
-    }*/
+    
+    if ($(".filterParams li:nth-child(2)").hasClass("descArrow")) {
+        $(".filterParams li:nth-child(2)").css("width", "120px");
+    } else if ($(".filterParams li:nth-child(3)").hasClass("descArrow")) {
+        $(".filterParams li:nth-child(3)").css("width", "75px");
+    }
 });

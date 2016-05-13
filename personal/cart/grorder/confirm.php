@@ -161,19 +161,19 @@ if($PRODUCT_ID = $el->Add($arLoadProductArray)) {
 }?>
 <h2>Спасибо! Ваш заказ принят №<?=$num?></h2>
 
-Общая стоимость <?=$_POST["paysum"]?> руб.
+Общая стоимость <?=htmlspecialcharsbx($_POST["paysum"])?> руб.
 <br />
 
     <form method="POST" class="application" accept-charset="UTF-8" action="https://partner.rficb.ru/a1lite/input" target="_blank">
     <input type="hidden" name="key" value="4c4T8DHjwzrI647Eh38hfKt3gu4iPOFUqVlhuazYq/g=">
-    <input type="hidden" name="cost" value="<?=$_POST["paysum"]?>">
+    <input type="hidden" name="cost" value="<?=htmlspecialcharsbx($_POST["paysum"])?>">
     <input type="hidden" name="name" value="Оплата заказа №<?=$num?> от <?=date("Y-m-d H:i:s")?>">
-    <input type="hidden" name="default_email" value="<?=$_POST["email"]?>">
+    <input type="hidden" name="default_email" value="<?=htmlspecialcharsbx($_POST["email"])?>">
     <input type="hidden" name="order_id" value="<?=$num?>">
     <input type="hidden" name="comment" value="<?=$num?>">
-    <input type="hidden" name="payment_type" value="<?echo $_POST['paytype']?>" />
-    <input type="hidden" name="phone_number" value="<?echo $_POST['telephone']?>" />
-    <input type="hidden" name="email" value="<?echo $_POST['email']?>" />
+    <input type="hidden" name="payment_type" value="<?echo htmlspecialcharsbx($_POST['paytype'])?>" />
+    <input type="hidden" name="phone_number" value="<?echo htmlspecialcharsbx($_POST['telephone'])?>" />
+    <input type="hidden" name="email" value="<?echo htmlspecialcharsbx($_POST['email'])?>" />
     <input type="hidden" name="verbose" value="0" />
         <INPUT style="width:205px;height:36px;font-size:15px;text-align:center;background:#EE7203;background: -moz-linear-gradient(top, #EE7203, #F6921E) transparent;background: -webkit-linear-gradient(top, #EE7203, #F6921E) transparent;background: -o-linear-gradient(top, #EE7203, #F6921E) transparent;background: -ms-linear-gradient(top, #EE7203, #F6921E) transparent;background: linear-gradient(top, #EE7203, #F6921E) transparent;background-size: 105px 32xp;border:1px solid #908f8a;color:white;font-weight:600;padding:5px;margin-top:15px;margin:0 auto;cursor:pointer;margin-top:12px" TYPE="SUBMIT" class="inputbutton" NAME="Submit" VALUE="Оплатить"/>
     </form>

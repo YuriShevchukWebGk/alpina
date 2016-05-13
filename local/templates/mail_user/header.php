@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title></title>
+	<title><? $APPLICATION->ShowTitle(); ?></title>
+    <? $APPLICATION->ShowHead(); ?>
 	<style type="text/css">
 		/* Client-specific Styles */
 
@@ -56,6 +57,7 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
+<div id="panel"><?$APPLICATION->ShowPanel();?></div>
 <!-- End Google Tag Manager -->
 <? if (\Bitrix\Main\Loader::includeModule('mail')) : ?>
 <?=\Bitrix\Mail\Message::getQuoteStartMarker(true); ?>

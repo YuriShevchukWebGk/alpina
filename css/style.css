@@ -2498,7 +2498,7 @@ right: 45px;
     width: 200px;
 }
 .elementDescriptWrap .marks{
-    height: 50px;
+    height: 25px;
     padding-top: 12px;
     margin-bottom: 20px;
 }
@@ -5479,6 +5479,7 @@ table.form-table tr td:nth-child(2){
 }
 .reviewsBlockDetail .autor{
     float: right;
+    text-align: right;
 }
 .contacsPopupTitle{
     color: #4e585a;

@@ -58,36 +58,23 @@
     <meta property="fb:admins" content="1425804193" />
     <meta property="fb:app_id" content="138738742872757" /> 
 
-    <script type="text/javascript">
-        //                alert(screen.width) ;
-        if (screen.width<=360) {
-            $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.3, maximum-scale=0.8, width=device-width">');
-        } else if(screen.width<=415){
-            $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.8, width=device-width">');
-        } else if(screen.width<=960){
-            $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.8, maximum-scale=0.8, width=device-width">');
-        } else if (screen.width<1024) {
-            $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.8, width=device-width">');
-        }
-    </script> 
+    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 <?if ($USER->IsAuthorized()) {
-        $rsCurUser = CUser::GetByID($USER->GetID());
-        $arCurUser = $rsCurUser->Fetch();
-        $userGTMData = "";
-        $userGTMData = (!empty($arCurUser["NAME"]) ? "'user_name' : '".$arCurUser["NAME"]."'," : "");
-        $userGTMData .= (!empty($arCurUser["EMAIL"]) ? "'user_email' : '".$arCurUser["EMAIL"]."'," : "");
-        $userGTMData .= (!empty($arCurUser["UF_GENDER"]) ? "'user_gender' : '".$arCurUser["UF_GENDER"]."'" : "");
-
-    ?>
+    $rsCurUser = CUser::GetByID($USER->GetID());
+    $arCurUser = $rsCurUser->Fetch();
+    $userGTMData = (!empty($arCurUser["NAME"]) ? "'user_name' : '" . $arCurUser["NAME"] . "'," : "");
+    $userGTMData .= (!empty($arCurUser["EMAIL"]) ? "'user_email' : '" . $arCurUser["EMAIL"] . "'," : "");
+    $userGTMData .= (!empty($arCurUser["UF_GENDER"]) ? "'user_gender' : '" . $arCurUser["UF_GENDER"] . "'" : "");
+?>
 
     <script type="text/javascript">
         dataLayer = [{
-            'userId' : <?=$USER->GetID()?>,
+            'userId' : <?= $USER->GetID() ?>,
             'event' : 'authentication',
             'userRegCategory' : 'UserRegistered',
-            <?=$userGTMData?>
+            <?= $userGTMData?>
         }];
     </script>
     <?} else {?>
@@ -96,17 +83,20 @@
             'userRegCategory' : 'UserUnregistered'
         }];
     </script>
-    <?}?>
+    <?}?> 
+	
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
+	
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
+<?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
 <header itemscope="" id="WPHeader" itemtype="http://schema.org/WPHeader">
     <a href="/">
         <div class="logo">
