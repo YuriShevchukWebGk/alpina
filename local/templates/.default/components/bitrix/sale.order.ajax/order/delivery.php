@@ -41,7 +41,7 @@
         //BX('ORDER_DESCRIPTION').value = '<?=GetMessage("SOA_ORDER_GIVE_TITLE")?>: '+BX('POPUP_STORE_NAME').value;
         BX('store_desc').innerHTML = BX('POPUP_STORE_NAME').value;
         BX.show(BX('select_store'));
-       
+
     }
 
     function showExtraParamsDialog(deliveryId)
@@ -133,11 +133,10 @@
     $isOnlyCertificate = true;
     foreach ($arResult["BASKET_ITEMS"] as $prodId => $arProd) {
         $arElement = CIBlockElement::GetByID($arProd["PRODUCT_ID"])->Fetch();
-        if ($arElement["IBLOCK_SECTION_ID"]!=143){
+        if ($arElement["IBLOCK_SECTION_ID"] != 143){
             $isOnlyCertificate = false;  
         }
     }
-
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
@@ -151,30 +150,22 @@
         ?>
         <p class="blockTitle">Способ доставки<span class="deliveriWarming">Укажите спопсоб доставки</span></p>
         <?
-            foreach ($arResult["DELIVERY"] as $delivery_id => $arDelivery)
-            {
-                /*
-                if (($arResult["ORDER_PRICE"] > 2000) && ($arDelivery["ID"] == 18))
-                {
-                    $arDelivery["PRICE_FORMATED"] = "0 руб.";
-                    $arDelivery["PRICE"] = 0;
-                }*/
-                 
-                if($arDelivery["ID"]!=22 && $isOnlyCertificate==true){
+            foreach ($arResult["DELIVERY"] as $delivery_id => $arDelivery) {
+                if($arDelivery["ID"]!=22 && $isOnlyCertificate==true) {
                     continue;
                 } 
-                if($arDelivery["ID"]==22 && $isOnlyCertificate!=true){
+                if($arDelivery["ID"]==22 && $isOnlyCertificate!=true) {
                     continue;
                 }
-                if($arDelivery["ID"]==22 && $isOnlyCertificate==true){  
+                if($arDelivery["ID"]==22 && $isOnlyCertificate==true) {  
                     $arDelivery["CHECKED"]='Y';
                 }
-                
+
                 if($arDelivery["ISNEEDEXTRAINFO"] == "Y")
                     $extraParams = "showExtraParamsDialog('".$delivery_id."');";
                 else
                     $extraParams = "";
-                
+
                 if (count($arDelivery["STORE"]) > 0)
                     $clickHandler = "onClick = \"fShowStore('".$arDelivery["ID"]."','".$arParams["SHOW_STORES_IMAGES"]."','".$width."','".SITE_ID."')\";";
                 else
@@ -182,7 +173,7 @@
 
             ?>  
             <div>
-               
+
                 <input type="radio"
                     class="radioInp"
                     id="ID_DELIVERY_ID_<?= $arDelivery["ID"] ?>"
@@ -220,13 +211,13 @@
                                 "CURRENCY" => $arResult["BASE_LANG_CURRENCY"],
                                 "ITEMS" => $arResult["BASKET_ITEMS"],
                                 "EXTRA_PARAMS_CALLBACK" => $extraParams
-                                ), null, array('HIDE_ICONS' => 'Y'));*/?>
+                            ), null, array('HIDE_ICONS' => 'Y'));*/?>
                         </div>
                         <?endif;?>
 
                 </label>      
 
-                
+
                 <p class="shipingText" <?=$clickHandler?>>
                     <?
                         if (strlen($arDelivery["DESCRIPTION"])>0)
@@ -274,7 +265,7 @@
                             <?endforeach?>
                     </table>
                     <?endif?>
-                    
+
                 <?  if ($delivery_id =="21") { ?>
                     <div id="IML_PVZ"></div>
                     <? } ?> 
