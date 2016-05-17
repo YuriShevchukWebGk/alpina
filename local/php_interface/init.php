@@ -23,7 +23,7 @@
     define ("BESTSELLER_BOOK_XML_ID", 285);
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
-    
+
     /***************
     * 
     * получение ID значения свойства "Состояние" из символьного кода этого значения
@@ -33,14 +33,14 @@
     * @param string $propXmlId - символьный код значения свойства
     * 
     ***************/
-    
+
     function getXMLIDByCode ($iblockId, $propCode, $propXmlId) {
         $iblockProps = CIBlockPropertyEnum::GetList (array(), array("IBLOCK_ID" => $iblockId, "CODE" => $propCode, "XML_ID" => $propXmlId));
         while ($iblockStateProp = $iblockProps -> Fetch()) {
             return $iblockStateProp["ID"];    
         }    
     }
-    
+
     function arshow($array, $adminCheck = false){
         global $USER;
         $USER = new Cuser;
@@ -440,8 +440,8 @@
 
         }                                                                               
     }
-    
-    
+
+
     function getCourierByID($cID){
         $return = Array();
         $filter = Array("GROUPS_ID" => Array(9),"ID"=>$cID,"ACTIVE" => "Y");
@@ -614,7 +614,7 @@
             }
         }
     }  
-        
+
 
     //подмена логина на EMAIL
     AddEventHandler("main", "OnBeforeUserAdd", Array("OnBeforeUserAddHandler", "OnBeforeUserAdd"));
@@ -1141,5 +1141,21 @@
             $APPLICATION->SetAdditionalCSS("/css/temp.css");  
     }
 
+    //Add coupon list item in admin menu
+    AddEventHandler("main", "OnBuildGlobalMenu", "extraMenu");
+    function extraMenu(&$adminMenu, &$moduleMenu){
+        $moduleMenu[] = array(
+            "parent_menu" => "global_menu_marketing", 
+            "section" => "webgk.coupons",
+            "sort"        => 500,                    
+            "url"         => "coupon-list.php?lang=".LANG, 
+            "text"        => 'Список купонов правил работы с корзиной',  
+            "title"       => 'Фильтруемый список купонов правил работы с корзиной',
+            "icon"        => "form_menu_icon", 
+            "page_icon"   => "form_page_icon",
+            "items_id"    => "menu_webgk.coupons",
+            "items"       => array()
+        );
+    } 
 
 ?>
