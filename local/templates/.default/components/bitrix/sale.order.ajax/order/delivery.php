@@ -38,7 +38,6 @@
     function GetBuyerStore()
     {
         BX('BUYER_STORE').value = BX('POPUP_STORE_ID').value;
-        //BX('ORDER_DESCRIPTION').value = '<?=GetMessage("SOA_ORDER_GIVE_TITLE")?>: '+BX('POPUP_STORE_NAME').value;
         BX('store_desc').innerHTML = BX('POPUP_STORE_NAME').value;
         BX.show(BX('select_store'));
 
@@ -84,7 +83,6 @@
 
         paramsDialog.ClearButtons();
         paramsDialog.SetButtons(button);
-        //paramsDialog.adjustSizeEx();
         paramsDialog.Show();
     }
 
@@ -199,20 +197,6 @@
                                 echo GetMessage('SALE_SADC_PACKS').': <b>'.$arDelivery["PACKS_COUNT"].'</b>';
                             }  
                         ?>
-                        <?else:?>
-                        <div class="delivery_price_calc">
-                            <?/*$APPLICATION->IncludeComponent('bitrix:sale.ajax.delivery.calculator', '', array(
-                                "NO_AJAX" => $arParams["DELIVERY_NO_AJAX"],
-                                "DELIVERY_ID" => $delivery_id,
-                                "ORDER_WEIGHT" => $arResult["ORDER_WEIGHT"],
-                                "ORDER_PRICE" => $arResult["ORDER_PRICE"],
-                                "LOCATION_TO" => $arResult["USER_VALS"]["DELIVERY_LOCATION"],
-                                "LOCATION_ZIP" => $arResult["USER_VALS"]["DELIVERY_LOCATION_ZIP"],
-                                "CURRENCY" => $arResult["BASE_LANG_CURRENCY"],
-                                "ITEMS" => $arResult["BASKET_ITEMS"],
-                                "EXTRA_PARAMS_CALLBACK" => $extraParams
-                            ), null, array('HIDE_ICONS' => 'Y'));*/?>
-                        </div>
                         <?endif;?>
 
                 </label>      
