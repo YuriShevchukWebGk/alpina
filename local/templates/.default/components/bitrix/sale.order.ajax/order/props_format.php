@@ -83,7 +83,7 @@
                             ?>
                             <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
                             <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
-                                <span class="warningMessage">Р—Р°РїРѕР»РЅРёС‚Рµ РїРѕР»Рµ <?=$arProperties["NAME"]?></span>
+                                <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
                                 <?endif?>
 
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
@@ -112,7 +112,8 @@
                             <?}
                         } elseif ($arProperties["TYPE"] == "SELECT"){
                             uasort($arProperties["VARIANTS"], 'metroCmp');?>
-                        <div class="bx_block r3x1" <?if($arProperties["ID"] == 62 || $arProperties["ID"] == 63){?> style="display:none;"<?}?>>
+
+                        <div class="bx_block r3x1" <?if($arProperties["CODE"] == 'RLAB_SENDPARCEL_CHECK_1' || $arProperties["CODE"] == 'RLAB_SENDPARCEL_CHECK_2'){?> style="display:none;"<?}?>>
                             <select name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" size="<?=$arProperties["SIZE1"]?>">
                                 <?
                                     if ($arProperties["ID"] == 29 && empty($arProperties["DEFAULT_VALUE"])){ //РјРµС‚СЂРѕ РґР»СЏ С„РёР·Р»РёС†
@@ -123,7 +124,7 @@
                                 ?>
                                 <?foreach($arProperties["VARIANTS"] as $arVariants):?>
                                     <option value="<?=$arVariants["VALUE"]?>"<?=($arVariants["SELECTED"] == "Y" &&  $_POST["ORDER_PROP_29"] > 0) ? " selected" : ''?>
-                                    <?if($arProperties["ID"] == 62 || $arProperties["ID"] == 63 and $arVariants["VALUE"] == 'N'){?> selected <?}?>><?=$arVariants["NAME"]?></option>
+                                    <?if($arProperties["CODE"] == 'RLAB_SENDPARCEL_CHECK_1' || $arProperties["CODE"] == 'RLAB_SENDPARCEL_CHECK_2' and $arVariants["VALUE"] == 'N'){?> selected <?}?>><?=$arVariants["NAME"]?></option>
                                     <?endforeach?>
                             </select>
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
