@@ -112,17 +112,19 @@
                             <?}
                         } elseif ($arProperties["TYPE"] == "SELECT"){
                             uasort($arProperties["VARIANTS"], 'metroCmp');?>
-                        <div class="bx_block r3x1">
+
+                        <div class="bx_block r3x1" <?if($arProperties["CODE"] == 'RLAB_SENDPARCEL_CHECK_1' || $arProperties["CODE"] == 'RLAB_SENDPARCEL_CHECK_2'){?> style="display:none;"<?}?>>
                             <select name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" size="<?=$arProperties["SIZE1"]?>">
                                 <?
-                                    if ($arProperties["ID"] == 29 && empty($arProperties["DEFAULT_VALUE"])){ //метро для физлиц
+                                    if ($arProperties["ID"] == 29 && empty($arProperties["DEFAULT_VALUE"])){ //РјРµС‚СЂРѕ РґР»СЏ С„РёР·Р»РёС†
                                     ?>
                                     <option value="" selected="selected">Выберите станцию метро</option>
                                     <?
                                     }
                                 ?>
                                 <?foreach($arProperties["VARIANTS"] as $arVariants):?>
-                                    <option value="<?=$arVariants["VALUE"]?>"<?=($arVariants["SELECTED"] == "Y" &&  $_POST["ORDER_PROP_29"] > 0) ? " selected" : ''?>><?=$arVariants["NAME"]?></option>
+                                    <option value="<?=$arVariants["VALUE"]?>"<?=($arVariants["SELECTED"] == "Y" &&  $_POST["ORDER_PROP_29"] > 0) ? " selected" : ''?>
+                                    <?if($arProperties["CODE"] == 'RLAB_SENDPARCEL_CHECK_1' || $arProperties["CODE"] == 'RLAB_SENDPARCEL_CHECK_2' and $arVariants["VALUE"] == 'N'){?> selected <?}?>><?=$arVariants["NAME"]?></option>
                                     <?endforeach?>
                             </select>
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
@@ -132,7 +134,7 @@
                         <?
                         } elseif ($arProperties["TYPE"] == "MULTISELECT") {
                         ?>
-                        <div class="bx_block r3x1">
+                        <div class="bx_block r3x1" >
                             <select multiple name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" size="<?=$arProperties["SIZE1"]?>">
                                 <?foreach($arProperties["VARIANTS"] as $arVariants):?>
                                     <option value="<?=$arVariants["VALUE"]?>"<?=$arVariants["SELECTED"] == "Y" ? " selected" : ''?>><?=$arVariants["NAME"]?></option>
@@ -151,7 +153,7 @@
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                                 <?endif?>
-                            <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
+                            <span class="warningMessage">Р—Р°РїРѕР»РЅРёС‚Рµ РїРѕР»Рµ <?=$arProperties["NAME"]?></span>
                         </div>
                         <?
                         } elseif ($arProperties["TYPE"] == "LOCATION") {
