@@ -87,7 +87,7 @@
 
                 <?
                 //варианты оплаты для электронных платежей
-                if($arPaySystem['ID']==24 && $arResult["USER_VALS"]['PAY_SYSTEM_ID']==24){?>
+                if($arPaySystem['ID'] == RFI_PAYSYSTEM_ID && $arResult["USER_VALS"]['PAY_SYSTEM_ID'] == RFI_PAYSYSTEM_ID){?>
                     <ul class="rfi_bank_vars">
                         <li data-rfi-payment="wm">WebMoney</li>
                         <li data-rfi-payment="ym">Яндекс деньги</li>

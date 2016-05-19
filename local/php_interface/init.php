@@ -23,6 +23,7 @@
     define ("BESTSELLER_BOOK_XML_ID", 285);
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
+    define ("RFI_PAYSYSTEM_ID", 13);
 
     /***************
     * 
