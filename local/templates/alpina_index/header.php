@@ -12,6 +12,7 @@
     <title><?$APPLICATION->ShowTitle()?></title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
+
     <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
     <script type="text/javascript" src="/js/fancybox-2/helpers/jquery.fancybox-thumbs.js"></script>         
 
@@ -47,9 +48,9 @@
     <meta name="theme-color" content="#ffffff">    
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />  
-
-    <?$APPLICATION->ShowHead();?>
-
+	<?$APPLICATION->ShowHead();?>
+	
+		
     <meta property="og:title" content="«Альпина Паблишер» — деловая литература" />
     <meta property="og:type" content="book" />
     <meta property="og:url" content="http://www.alpinabook.ru" />
@@ -59,6 +60,7 @@
     <meta property="fb:app_id" content="138738742872757" /> 
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
+
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 <?if ($USER->IsAuthorized()) {
@@ -68,7 +70,7 @@
     $userGTMData .= (!empty($arCurUser["EMAIL"]) ? "'user_email' : '" . $arCurUser["EMAIL"] . "'," : "");
     $userGTMData .= (!empty($arCurUser["UF_GENDER"]) ? "'user_gender' : '" . $arCurUser["UF_GENDER"] . "'" : "");
 ?>
-
+	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
     <script type="text/javascript">
         dataLayer = [{
             'userId' : <?= $USER->GetID() ?>,

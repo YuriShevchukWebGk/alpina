@@ -69,7 +69,7 @@
         "PREVIEW_TRUNCATE_LEN" => "",
         "SEF_MODE" => "Y",
         "SET_LAST_MODIFIED" => "N",
-        "SET_STATUS_404" => "N",
+        "SET_STATUS_404" => "Y",
         "SET_TITLE" => "Y",
         "SHOW_404" => "N",
         "SLIDER_PROPERTY" => "",

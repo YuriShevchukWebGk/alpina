@@ -422,8 +422,13 @@
     <div class="categoryWrapperWhite">
         <div class="interestSlideWrap">
             <?
-                $arrFilter = array('PROPERTY_recommended_book' => '243');
-
+            if (isset($_COOKIE["rrpusid"])){
+				unset($arrFilter);
+                $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
+                $recsArray = json_decode($stringRecs);
+                $arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
+            }
+            if ($arrFilter['ID'][0] > 0) {
                 $APPLICATION->IncludeComponent("bitrix:catalog.section", "interesting_items", Array(
                     "IBLOCK_TYPE_ID" => "catalog",
                     "IBLOCK_ID" => "4",    // Инфоблок
@@ -440,7 +445,7 @@
                     "ELEMENT_SORT_ORDER" => "desc",    // Порядок сортировки элементов
                     "ELEMENT_SORT_FIELD2" => "id",    // Поле для второй сортировки элементов
                     "ELEMENT_SORT_ORDER2" => "desc",    // Порядок второй сортировки элементов
-                    "FILTER_NAME" => "arrFilter",    // Имя массива со значениями фильтра для фильтрации элементов
+                    "FILTER_NAME" => "",    // Имя массива со значениями фильтра для фильтрации элементов
                     "INCLUDE_SUBSECTIONS" => "Y",    // Показывать элементы подразделов раздела
                     "SHOW_ALL_WO_SECTION" => "Y",    // Показывать все элементы, если не указан раздел
                     "HIDE_NOT_AVAILABLE" => "N",    // Не отображать товары, которых нет на складах
@@ -543,7 +548,8 @@
                     "BACKGROUND_IMAGE" => "-",    // Установить фоновую картинку для шаблона из свойства
                     ),
                     false
-                );?>
+                );
+			}?>
         </div>
     </div>
 <?}?>

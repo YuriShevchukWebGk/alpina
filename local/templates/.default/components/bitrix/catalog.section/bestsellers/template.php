@@ -42,6 +42,7 @@
             <?}?>
             <? global $SeriesRoundBanner;
             $SeriesRoundBanner = array("PROPERTY_BIND_TO_SERIE" => $arResult["SERIES"]["ID"]);
+			/* УБИРАЕМ БАННЕРЫ ПОКА
             $APPLICATION->IncludeComponent(
                 "bitrix:news.list", 
                 "series_banners", 
@@ -105,7 +106,7 @@
                     "SORT_ORDER2" => "ASC"
                 ),
                 false
-            );?>
+            );*/?>
              <?// блок с цитатой END?>
             <ul class="filterParams">
                 <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])) {?>class="active <?if ($_REQUEST["DIRECTION"] == "DESC"){?>descArrow<?}?>"<?}?>>

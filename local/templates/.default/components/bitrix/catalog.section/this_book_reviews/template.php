@@ -25,9 +25,10 @@ $this->setFrameMode(true);
                         </div>
                         <p class="reviewsText"><?=$arItem["PREVIEW_TEXT"]?></p>
                         <p class="autor">
-                            <?=$arResult["EXPERTS"][$expert_ID]["NAME"]?>
+							<br />
+                            <em><?=$arResult["EXPERTS"][$expert_ID]["NAME"]?>
                             <br>
-                            <?=$arResult["EXPERTS"][$expert_ID]["POSITION"]?>
+                            <?=$arResult["EXPERTS"][$expert_ID]["POSITION"]?></em>
                         </p>
                     </div>
                 </li>

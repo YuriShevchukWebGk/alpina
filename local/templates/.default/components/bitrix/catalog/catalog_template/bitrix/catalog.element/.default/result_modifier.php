@@ -591,12 +591,20 @@ if ($arResult['MODULES']['currency'])
     $latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));   
     $latestSeen  = (!$latestSeen ? array() : $latestSeen);
     // Remove 
-    unset($latestSeen[$arResult['ID']]);
-    $latestSeen[$arResult['ID']] = time();
-    /*if (count($latestSeen) > 6) { 
-         array_shift($latestSeen);
-    }*/
+    //unset($latestSeen[$arResult['ID']]);
+	$key = array_search($arResult['ID'], $latestSeen, true);
+	if (empty($key)) {
+		$latestSeen[time()] = $arResult['ID'];
+	}
+    if (count($latestSeen) > 6) {
+         array_splice($latestSeen,0,-6);
+    }
     $APPLICATION->set_cookie("LASTEST_SEEN", serialize($latestSeen));
+	if (isset($_COOKIE['BITRIX_SM_LASTEST_SEEN_NEW'])) {
+		unset($_COOKIE['BITRIX_SM_LASTEST_SEEN_NEW']);
+		setcookie('BITRIX_SM_LASTEST_SEEN_NEW', null, -1, '/');
+		return true;
+	}
     
     // SET TITLE
     $arResult["AUTHOR_NAME"] = '';

@@ -30,7 +30,7 @@
 <?
 $navnum = $arResult["NAV_RESULT"]->NavNum;
 if ($_REQUEST["PAGEN_" . $navnum]) {
-    $_SESSION[$APPLICATION -> GetCurDir()] = $_REQUEST["PAGEN_" . $navnum];
+    //$_SESSION[$APPLICATION -> GetCurDir()] = $_REQUEST["PAGEN_" . $navnum];
 }
 ?>
 
@@ -115,136 +115,131 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             );?>
 
          
-         <?if($arResult["IBLOCK_SECTION_ID"] != MAIN_PAGE_SELECTIONS_SECTION_ID) { //проверка на вывод подборок на главной?>
-                <p class="grayTitle"><?= GetMessage("POPULAR_ITEMS_TITLE")?></p>
 
-                <? /* Получаем от RetailRocket рекомендации для товара */
-                $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["IBLOCK_SECTION_ID"]);
-                $recsArray = json_decode($stringRecs);  
-                
-                if ($recsArray[0] > 0) {
-                    $printid2 = array_slice($recsArray, 1, 6);
-                    foreach ($printid2 as $rec_book) {
-                        $BestsellFilter['ID'][] = $rec_book;
-                    }
-                }
-                $printid = implode(", ", $printid2);
+			<? /* Получаем от RetailRocket рекомендации для товара */
+			$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
+			$recsArray = json_decode($stringRecs);  
+			
+			if ($recsArray[0] > 0) {
+				$printid2 = array_slice($recsArray, 1, 6);
+				foreach ($printid2 as $rec_book) {
+					$BestsellFilter['ID'][] = $rec_book;
+				}
+			}
+			$printid = implode(", ", $printid2);
 
-                if ($BestsellFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем
-
-                } else { // Если рекомендаций нет, подставляем вручную созданные
-                    $BestsellFilter = array("PROPERTY_BIND_TO_SECTION" => 0);
-                }
-                
-                $APPLICATION->IncludeComponent(
-                    "bitrix:catalog.section", 
-                    "category.recs", 
-                    array(
-                        "IBLOCK_TYPE" => "catalog",
-                        "IBLOCK_ID" => "4",
-                        "SECTION_ID" => $arResult["ID"],
-                        "SECTION_CODE" => "",
-                        "IBLOCK_HEADER_TITLE" => "",
-                        "ELEMENT_SORT_FIELD" => "PROPERTY_SALES_CNT",
-                        "ELEMENT_SORT_ORDER" => "desc",
-                        "FILTER_NAME" => "BestsellFilter",
-                        "INCLUDE_SUBSECTIONS" => "N",
-                        "SHOW_ALL_WO_SECTION" => "Y",
-                        "PAGE_ELEMENT_COUNT" => "10",
-                        "LINE_ELEMENT_COUNT" => "1",
-                        "PROPERTY_CODE" => array(
-                            0 => "SHORT_NAME",
-                            1 => "BIRTHDATE",
-                            2 => "FIRST_NAME",
-                            3 => "LAST_NAME",
-                            4 => "",
-                        ),
-                        "SECTION_URL" => "",
-                        "DETAIL_URL" => "",
-                        "BASKET_URL" => "/personal/cart/step1a.php",
-                        "ACTION_VARIABLE" => "action",
-                        "PRODUCT_ID_VARIABLE" => "",
-                        "SECTION_ID_VARIABLE" => "",
-                        "AJAX_MODE" => "N",
-                        "AJAX_OPTION_SHADOW" => "Y",
-                        "AJAX_OPTION_JUMP" => "N",
-                        "AJAX_OPTION_STYLE" => "Y",
-                        "AJAX_OPTION_HISTORY" => "N",
-                        "CACHE_TYPE" => "N",
-                        "CACHE_TIME" => "3600",
-                        "META_KEYWORDS" => "-",
-                        "META_DESCRIPTION" => "-",
-                        "DISPLAY_PANEL" => "N",
-                        "ADD_SECTIONS_CHAIN" => "N",
-                        "DISPLAY_COMPARE" => "N",
-                        "SET_TITLE" => "N",
-                        "SET_STATUS_404" => "N",
-                        "CACHE_FILTER" => "Y",
-                        "PRICE_CODE" => array(
-                            0 => "BASE",
-                        ),
-                        "USE_PRICE_COUNT" => "N",
-                        "SHOW_PRICE_COUNT" => "1",
-                        "PRICE_VAT_INCLUDE" => "N",
-                        "DISPLAY_TOP_PAGER" => "N",
-                        "DISPLAY_BOTTOM_PAGER" => "N",
-                        "PAGER_TITLE" => "Товары",
-                        "PAGER_SHOW_ALWAYS" => "N",
-                        "PAGER_TEMPLATE" => "",
-                        "PAGER_DESC_NUMBERING" => "N",
-                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-                        "PAGER_SHOW_ALL" => "Y",
-                        "AJAX_OPTION_ADDITIONAL" => "",
-                        "COMPONENT_TEMPLATE" => "category.recs",
-                        "SECTION_USER_FIELDS" => array(
-                            0 => "",
-                            1 => "",
-                        ),
-                        "ELEMENT_SORT_FIELD2" => "id",
-                        "ELEMENT_SORT_ORDER2" => "desc",
-                        "HIDE_NOT_AVAILABLE" => "N",
-                        "OFFERS_LIMIT" => "5",
-                        "BACKGROUND_IMAGE" => "-",
-                        "TEMPLATE_THEME" => "blue",
-                        "ADD_PICT_PROP" => "-",
-                        "LABEL_PROP" => "-",
-                        "PRODUCT_SUBSCRIPTION" => "N",
-                        "SHOW_DISCOUNT_PERCENT" => "N",
-                        "SHOW_OLD_PRICE" => "N",
-                        "SHOW_CLOSE_POPUP" => "N",
-                        "MESS_BTN_BUY" => "Купить",
-                        "MESS_BTN_ADD_TO_BASKET" => "В корзину",
-                        "MESS_BTN_SUBSCRIBE" => "Подписаться",
-                        "MESS_BTN_COMPARE" => "Сравнить",
-                        "MESS_BTN_DETAIL" => "Подробнее",
-                        "MESS_NOT_AVAILABLE" => "Нет в наличии",
-                        "SEF_MODE" => "N",
-                        "CACHE_GROUPS" => "N",
-                        "SET_BROWSER_TITLE" => "Y",
-                        "BROWSER_TITLE" => "-",
-                        "SET_META_KEYWORDS" => "Y",
-                        "SET_META_DESCRIPTION" => "Y",
-                        "SET_LAST_MODIFIED" => "N",
-                        "USE_MAIN_ELEMENT_SECTION" => "N",
-                        "CONVERT_CURRENCY" => "N",
-                        "USE_PRODUCT_QUANTITY" => "N",
-                        "PRODUCT_QUANTITY_VARIABLE" => "undefined",
-                        "ADD_PROPERTIES_TO_BASKET" => "Y",
-                        "PRODUCT_PROPS_VARIABLE" => "prop",
-                        "PARTIAL_PRODUCT_PROPERTIES" => "N",
-                        "PRODUCT_PROPERTIES" => array(
-                        ),
-                        "ADD_TO_BASKET_ACTION" => "ADD",
-                        "PAGER_BASE_LINK_ENABLE" => "N",
-                        "SHOW_404" => "N",
-                        "MESSAGE_404" => ""
-                    ),
-                    false
-                )
-                //}?>
+			if ($BestsellFilter['ID'][0] > 0) {?>
+				<p class="grayTitle"><?= GetMessage("POPULAR_ITEMS_TITLE")?></p>
+				<?
+				$APPLICATION->IncludeComponent(
+					"bitrix:catalog.section", 
+					"category.recs", 
+					array(
+						"IBLOCK_TYPE" => "catalog",
+						"IBLOCK_ID" => "4",
+						"SECTION_ID" => $arResult["ID"],
+						"SECTION_CODE" => "",
+						"IBLOCK_HEADER_TITLE" => "",
+						"ELEMENT_SORT_FIELD" => "PROPERTY_SALES_CNT",
+						"ELEMENT_SORT_ORDER" => "desc",
+						"FILTER_NAME" => "BestsellFilter",
+						"INCLUDE_SUBSECTIONS" => "N",
+						"SHOW_ALL_WO_SECTION" => "Y",
+						"PAGE_ELEMENT_COUNT" => "10",
+						"LINE_ELEMENT_COUNT" => "1",
+						"PROPERTY_CODE" => array(
+							0 => "SHORT_NAME",
+							1 => "BIRTHDATE",
+							2 => "FIRST_NAME",
+							3 => "LAST_NAME",
+							4 => "",
+						),
+						"SECTION_URL" => "",
+						"DETAIL_URL" => "",
+						"BASKET_URL" => "/personal/cart/step1a.php",
+						"ACTION_VARIABLE" => "action",
+						"PRODUCT_ID_VARIABLE" => "",
+						"SECTION_ID_VARIABLE" => "",
+						"AJAX_MODE" => "N",
+						"AJAX_OPTION_SHADOW" => "Y",
+						"AJAX_OPTION_JUMP" => "N",
+						"AJAX_OPTION_STYLE" => "Y",
+						"AJAX_OPTION_HISTORY" => "N",
+						"CACHE_TYPE" => "N",
+						"CACHE_TIME" => "3600",
+						"META_KEYWORDS" => "-",
+						"META_DESCRIPTION" => "-",
+						"DISPLAY_PANEL" => "N",
+						"ADD_SECTIONS_CHAIN" => "N",
+						"DISPLAY_COMPARE" => "N",
+						"SET_TITLE" => "N",
+						"SET_STATUS_404" => "N",
+						"CACHE_FILTER" => "Y",
+						"PRICE_CODE" => array(
+							0 => "BASE",
+						),
+						"USE_PRICE_COUNT" => "N",
+						"SHOW_PRICE_COUNT" => "1",
+						"PRICE_VAT_INCLUDE" => "N",
+						"DISPLAY_TOP_PAGER" => "N",
+						"DISPLAY_BOTTOM_PAGER" => "N",
+						"PAGER_TITLE" => "Товары",
+						"PAGER_SHOW_ALWAYS" => "N",
+						"PAGER_TEMPLATE" => "",
+						"PAGER_DESC_NUMBERING" => "N",
+						"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+						"PAGER_SHOW_ALL" => "Y",
+						"AJAX_OPTION_ADDITIONAL" => "",
+						"COMPONENT_TEMPLATE" => "category.recs",
+						"SECTION_USER_FIELDS" => array(
+							0 => "",
+							1 => "",
+						),
+						"ELEMENT_SORT_FIELD2" => "id",
+						"ELEMENT_SORT_ORDER2" => "desc",
+						"HIDE_NOT_AVAILABLE" => "N",
+						"OFFERS_LIMIT" => "5",
+						"BACKGROUND_IMAGE" => "-",
+						"TEMPLATE_THEME" => "blue",
+						"ADD_PICT_PROP" => "-",
+						"LABEL_PROP" => "-",
+						"PRODUCT_SUBSCRIPTION" => "N",
+						"SHOW_DISCOUNT_PERCENT" => "N",
+						"SHOW_OLD_PRICE" => "N",
+						"SHOW_CLOSE_POPUP" => "N",
+						"MESS_BTN_BUY" => "Купить",
+						"MESS_BTN_ADD_TO_BASKET" => "В корзину",
+						"MESS_BTN_SUBSCRIBE" => "Подписаться",
+						"MESS_BTN_COMPARE" => "Сравнить",
+						"MESS_BTN_DETAIL" => "Подробнее",
+						"MESS_NOT_AVAILABLE" => "Нет в наличии",
+						"SEF_MODE" => "N",
+						"CACHE_GROUPS" => "N",
+						"SET_BROWSER_TITLE" => "Y",
+						"BROWSER_TITLE" => "-",
+						"SET_META_KEYWORDS" => "Y",
+						"SET_META_DESCRIPTION" => "Y",
+						"SET_LAST_MODIFIED" => "N",
+						"USE_MAIN_ELEMENT_SECTION" => "N",
+						"CONVERT_CURRENCY" => "N",
+						"USE_PRODUCT_QUANTITY" => "N",
+						"PRODUCT_QUANTITY_VARIABLE" => "undefined",
+						"ADD_PROPERTIES_TO_BASKET" => "Y",
+						"PRODUCT_PROPS_VARIABLE" => "prop",
+						"PARTIAL_PRODUCT_PROPERTIES" => "N",
+						"PRODUCT_PROPERTIES" => array(
+						),
+						"ADD_TO_BASKET_ACTION" => "ADD",
+						"PAGER_BASE_LINK_ENABLE" => "N",
+						"SHOW_404" => "N",
+						"MESSAGE_404" => ""
+					),
+					false
+				)
+				//}?>
          <?} else {  //проверка на вывод подборок на главной?>
             <p class="grayTitle"></p>
-         <?};?>  
+         <?}?>  
          <?  //блок с цитатой ?>
          <?if (is_array($arResult["QUOTE_ARRAY"])) {?>
              <div class="titleDiv">
@@ -430,6 +425,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             <?if (($arResult["NAV_RESULT"]->NavPageCount) > 1) {?>
                 <p class="showMore">Показать ещё</p>
             <?}?>
+			<?=$arResult["NAV_STRING"]?>			
         </div>
 
 
@@ -536,6 +532,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
         <?}?>
         var maxpage = <?= ($arResult["NAV_RESULT"]->NavPageCount)?>;
         var WrappHeight = $(".wrapperCategor").height();
+		var RecHeight = $(".grayTitle").height();
         var BooksLiLength = $(".otherBooks ul li").length;
         $('.showMore').click(function(){
            // var otherBooks = $(this).siblings(".otherBooks");
@@ -572,7 +569,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
                     
                     $(".otherBooks").css("height", otherBooksHeight+"px");
-                    $(".wrapperCategor").css("height", categorHeight+"px");
+                    $(".wrapperCategor").css("height", categorHeight+RecHeight+"px");
                     $(".contentWrapp").css("height", categorHeight-10+"px");
             });
             if (page == maxpage) {

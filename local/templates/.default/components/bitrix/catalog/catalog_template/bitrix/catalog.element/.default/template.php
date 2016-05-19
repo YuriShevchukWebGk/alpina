@@ -86,7 +86,26 @@ $arItemIDs = array(
                 "ACTIVE_COMPONENT" => "Y"
             )
         );?>
-
+		<?
+		$arBasketItems = array();
+		$dbBasketItems = CSaleBasket::GetList(
+					  array("NAME" => "ASC","ID" => "ASC"),
+					  array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
+					  false,
+					  false,
+					  array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE"));
+		while ($arItems=$dbBasketItems->Fetch())
+		{
+		  $arItems=CSaleBasket::GetByID($arItems["ID"]);
+		  $arBasketItems[]=$arItems;   
+		  $cart_num+=$arItems['QUANTITY'];
+		  $cart_sum+=$arItems['PRICE']*$arItems['QUANTITY'];
+		}
+		if (empty($cart_num))
+		  $cart_num="0";
+		if (empty($cart_sum))
+		  $cart_sum="0";
+		?>
         <div class="elementDescriptWrap">
             <div class="leftColumn">
                 <div class="elementMainPict">
@@ -129,8 +148,8 @@ $arItemIDs = array(
                     <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
 
                         <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
-                            <div class="overlay">
-                                <p><?= GetMessage("BROWSE_THE_BOOK") ?></p>
+                            <div class="overlay bookPreview">
+                                <p class="bookPreview"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
                             </div>
                         </a>     
 
@@ -299,10 +318,10 @@ $arItemIDs = array(
                             $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                         } 
                     } else { 
-                        if ($arResult["BASKET_ITEMS"]["sum_pruce"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) { 
-                            $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["BASKET_ITEMS"]["sum_pruce"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";                            
-                        } elseif ($arResult["BASKET_ITEMS"]["sum_pruce"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) { 
-                            $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["BASKET_ITEMS"]["sum_pruce"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>"; 
+                        if ($cart_sum < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) { 
+                            $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";                            
+                        } elseif ($cart_sum < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) { 
+                            $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>"; 
                             $discount = $arResult["SALE_NOTE"][0]["VALUE"];  // процент накопительной скидки
                         } else {
                             $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
@@ -620,7 +639,7 @@ $arItemIDs = array(
                 </div>*/?>
                 <ul class="productsMenu">
                     <li class="active tabsInElement" data-id="1"><?= GetMessage("ANNOTATION_TITLE") ?></li>
-                    <li data-id="4" class="tabsInElement"><?= GetMessage("ABOUT_AUTHOR_TITLE") ?></li>
+                    <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?= GetMessage("ABOUT_AUTHOR_TITLE") ?></li><?}?>
                     <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
                         <li data-id="2" class="tabsInElement"><?= GetMessage("REVIEWS_TITLE") ?></li>
                     <?}?>
@@ -813,7 +832,7 @@ $arItemIDs = array(
                     </div>
                 </div>
                 <div class="aboutAutor" id="prodBlock4">
-
+					<?if (!empty($arResult["AUTHORS"])) {?>
                     <?foreach ($arResult["AUTHOR"] as $author) {
                         if (!empty ($author["PROPERTY_ORIG_NAME_VALUE"])) {
                             $authorFullName = $author["NAME"] . " / " . $author["PROPERTY_ORIG_NAME_VALUE"];
@@ -830,6 +849,7 @@ $arItemIDs = array(
                         <br>
 
                     <?}?>
+					<?}?>
                 </div>
             </div>    
         </div>
@@ -1162,7 +1182,7 @@ $printid = implode(", ", $printid2);?>
         $latestSeen = unserialize ($APPLICATION->get_cookie("LASTEST_SEEN") );
         if ($latestSeen) {        
             $arFilter = array('ID' => array());
-            $latestSeen = array_slice (array_reverse (array_keys ($latestSeen) ), 0, 6);
+            //$latestSeen = array_slice (array_reverse (array_keys ($latestSeen) ), 0, 6);
             foreach ($latestSeen as $bookID) {
                 $arFilter['ID'][] = intval($bookID);
             }

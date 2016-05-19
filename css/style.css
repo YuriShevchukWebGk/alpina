@@ -1142,6 +1142,7 @@ header .menu{
     font-family: "Walshein_black";
     font-size: 62px;
     line-height: 62px;   
+	height:124px;
 }
 .slideWrapp .textSlide{
     color: #CAD1CE;
@@ -1149,6 +1150,7 @@ header .menu{
     font-size: 20px;
     margin-top: 16px;
     margin-bottom: 36px;
+	height:56px;
 }
 .roundSlideWrapp .titleSlide{
     color: white;
@@ -5478,7 +5480,6 @@ table.form-table tr td:nth-child(2){
     margin-bottom: 32px;
 }
 .reviewsBlockDetail .autor{
-    float: right;
     text-align: right;
 }
 .contacsPopupTitle{
