@@ -25,6 +25,12 @@ $arUrlRewrite = array(
         "PATH" => "/events/index.php",
     ),
 	array(
+		"CONDITION" => "#^/content/(reviews|articles|surveys)/([0-9]+)/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/content/reviews/index.php",
+	),	
+	array(
 		"CONDITION" => "#^/series/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",

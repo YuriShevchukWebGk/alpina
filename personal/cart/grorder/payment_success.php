@@ -1,4 +1,4 @@
-
+﻿
 <?// --- if user came from readright,then redirect him to readright
 $string = '<script type="text/javascript">';
 $string .= 'window.location = "http://readright.ru/private_office/?billnumber='.$_GET['order_id'].'"';

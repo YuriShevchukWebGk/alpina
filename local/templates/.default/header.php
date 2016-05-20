@@ -41,6 +41,7 @@ IncludeTemplateLangFile(__FILE__);
 	<meta name="theme-color" content="#ffffff">	
 	
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
+	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 </head>
 
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#FFFFFF" itemscope itemtype="http://schema.org/WebPage">

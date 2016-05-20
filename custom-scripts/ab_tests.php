@@ -1,4 +1,4 @@
-﻿<?## A/B-тестирование на сайте ##
+<?## A/B-тестирование на сайте ##
 $alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
 $alpExps  = (!$alpExps ? array() : $alpExps);
 

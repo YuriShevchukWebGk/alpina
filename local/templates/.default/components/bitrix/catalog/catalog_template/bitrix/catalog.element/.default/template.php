@@ -182,8 +182,7 @@ $arItemIDs = array(
                     <a href="<?= $arResult["SIGN_PICTURE"] ?>" class="fancybox fancybox.iframe signingPopup">
                         <div class="authorSigning">
                         </div>
-                    </a>
-                    <a href="/search/index.php?q=%D1%81+%D0%B0%D0%B2%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%BE%D0%BC&s=">
+ 
                         <div class="authorSigningText">
                             <?= GetMessage("SIGNED_BOOK") ?>
                         </div>
@@ -479,6 +478,83 @@ $arItemIDs = array(
                     <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
                 </div>
                 <ul class="shippings">
+					<?if ($USER->isAdmin()){?>
+					<?
+					$today = date("w");
+					$timenow = date("G");
+
+					if ($timenow > 25) { //НОВОГОДНИЕ ПРАЗДНИКИ
+						if ($today == 5) { // если на дворе ПЯТНИЦА
+							$delivery_day = 'в понедельник';
+							if ($timenow < 17) {
+								$samovivoz_day = 'сегодня';
+							} else {
+								$samovivoz_day = 'в понедельник'; //на праздники тут меняем день, потом обратно
+							}
+						} elseif ($today == 6) { // если на дворе СУББОТА
+							$delivery_day = 'в понедельник';      //на праздники тут меняем день, потом обратно
+							$samovivoz_day = 'в понедельник';	//на праздники тут меняем день, потом обратно		
+						} elseif ($today == 0) { // если на дворе ВОСКРЕСЕНЬЕ
+							$delivery_day = 'завтра'; //blackfriday
+							$samovivoz_day = 'завтра';
+						} else { // если на дворе ПОНЕДЕЛЬНИК-ЧЕТВЕРГ
+							$delivery_day = 'завтра';
+							if ($timenow < 17) {
+								$samovivoz_day = 'сегодня';
+							} else {
+								$samovivoz_day = 'завтра';
+							}			
+						}
+						/*$delivery_day = 'завтра';
+						if ($timenow < 17) {
+							$samovivoz_day = 'сегодня';
+						} else {
+							$samovivoz_day = 'завтра'; //на праздники тут меняем день, потом обратно
+						}*/
+					} else {
+						if ($today == 1) {
+							$delivery_day = 'завтра';
+						} elseif ($today == 2) {
+							$delivery_day = 'завтра';
+						} elseif ($today == 3) {
+							$delivery_day = 'завтра';
+						} elseif ($today == 4) {
+							$delivery_day = 'завтра';
+						} elseif ($today == 5) {
+							$delivery_day = 'в&nbsp;понедельник';
+						} elseif ($today == 6) {
+							$delivery_day = 'в&nbsp;понедельник';
+						} elseif ($today == 0) {
+							$delivery_day = 'завтра';
+						}
+						if ($timenow < 17 && $today != 6) {
+							$samovivoz_day = 'сегодня';
+						} else {
+							$samovivoz_day = 'завтра';
+						}						/*
+						if ($today == 5) {
+							if ($timenow < 17) {
+								$samovivoz_day = 'сегодня';
+							} else {
+								$samovivoz_day = 'в понедельник'; //на праздники тут меняем день, потом обратно
+							}
+						} elseif ($today == 6) { // если на дворе СУББОТА
+							$samovivoz_day = 'в понедельник';	//на праздники тут меняем день, потом обратно		
+						} elseif ($today == 0) { // если на дворе ВОСКРЕСЕНЬЕ
+							$samovivoz_day = 'завтра';
+						} else { // если на дворе ПОНЕДЕЛЬНИК-ЧЕТВЕРГ
+
+							if ($timenow < 17) {
+								$samovivoz_day = 'сегодня';
+							} else {
+								$samovivoz_day = 'завтра';
+							}			
+						}
+						$delivery_day = 'в пятницу';*/
+					}?>
+						<li>Доставка по Москве <a id='inline1' href='#data1'><?=$delivery_day?></a></li>
+						<li>Самовывоз <a id='inline2' href='#data2'><?=$samovivoz_day?></a></li>
+					<?}?>
                     <li><?= GetMessage("COURIER_DELIVERY") ?></li>
                     <li><?= GetMessage("MAIL_DELIVERY") ?></li>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
@@ -814,13 +890,21 @@ $arItemIDs = array(
                 <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
                     <div class="recenzion" id="prodBlock2">  
                         <?foreach ($arResult["REVIEWS"] as $reviewList) {?>
-                            <span class="recenz_author_name"><?= $reviewList["NAME"] ?></span>
+							<?if (!empty($reviewList["PREVIEW_TEXT"])) {?>
+								<a href="/content/reviews/<?=$reviewList['ID']?>/" target="_blank">
+							<?}?>
+							<span class="recenz_author_name"><?= $reviewList["NAME"] ?></span>
+							<?if (!empty($reviewList["PREVIEW_TEXT"])) {?>
+								</a>
+							<?}?>
                             <div class="recenz_text">
                                 <?= $reviewList["PREVIEW_TEXT"] ?>
                                 <? if ($reviewList["PREVIEW_TEXT"] == "") {
                                         echo $reviewList["DETAIL_TEXT"];    
                                 }?>
-                                <noindex><a href="<?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?>" rel="nofollow"><?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?></a></noindex>
+                                <?if (!empty($reviewList["PROPERTY_SOURCE_LINK_VALUE"])) {?><!-- noindex -->
+									<a href="<?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?>" rel="nofollow" target="_blank"><?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?></a><!-- /noindex -->
+								<?}?>
                             </div>
 
                         <?}?> 
