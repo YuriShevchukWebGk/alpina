@@ -995,7 +995,7 @@
     font-size: 14px;
     line-height: 24px;
     margin-bottom: 40px;
-    display:block; 
+    display:block;
     width:210px;
     margin:0 auto;
 }
@@ -1014,8 +1014,8 @@
     font-family: "Walshein_regular";
     font-size: 19px;
     margin: 0 28px;
-    padding: 14px 0;   
-    display:block; 
+    padding: 14px 0;
+    display:block;
     border: none;
     width: 210px;
     text-align: center;
@@ -1044,12 +1044,12 @@
     font-size: 13px;
 }
 .elementDescriptWrap .typesOfProduct{
-    min-height: 90px; 
+    min-height: 90px;
     height: auto;
 }
 
 .elementDescriptWrap .typesOfProduct > div:Last-child{
-    margin-right: 0px; 
+    margin-right: 0px;
 }
 .elementDescriptWrap .priceBasketWrap{
     padding: 0;
@@ -1074,13 +1074,13 @@
     padding-bottom: 20px;
 }
 .productElementWrapp:before{
-    height: 290px; 
+    height: 290px;
 }
 .item_buttons_counter_block{
     display: block;
-    overflow: hidden; 
-    padding-left: 25px; 
-    margin-bottom: 20px;  
+    overflow: hidden;
+    padding-left: 25px;
+    margin-bottom: 20px;
 }
 .transparent_input{
     height: 48px;
@@ -1097,7 +1097,7 @@
 .item_buttons_counter_block .minus:hover,
 .item_buttons_counter_block .plus:hover{
     background-color: #cab796;
-    color:#fff;   
+    color:#fff;
 
 }
 .item_buttons_counter_block .minus{
@@ -1133,7 +1133,7 @@
     font-size: 24px;
     padding: 0;
     margin: 0;
-    padding-top: 34px;    
+    padding-top: 34px;
 }
 .courierBlock strong, .pickupBlock strong {
     font-size: 2em;
@@ -1163,8 +1163,8 @@
     background: white;
     border: 1px solid blue;
     text-align: center;
-    padding: 30px 0; 
-    font-family: "Walshein_regular";   
+    padding: 30px 0;
+    font-family: "Walshein_regular";
 }
 .mc-grid-xs .mc-cr {
     display:none;
@@ -1205,4 +1205,12 @@
     font-size: 14px;
     padding-left: 4px;
     margin-bottom: 20px;
+}
+.fancybox-iframe body{
+   overflow: scroll;
+}
+.additional-image{
+    position:absolute;
+    top:-25px;
+    left:-41px
 }
