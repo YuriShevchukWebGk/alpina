@@ -86,26 +86,26 @@ $arItemIDs = array(
                 "ACTIVE_COMPONENT" => "Y"
             )
         );?>
-		<?
-		$arBasketItems = array();
-		$dbBasketItems = CSaleBasket::GetList(
-					  array("NAME" => "ASC","ID" => "ASC"),
-					  array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
-					  false,
-					  false,
-					  array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE"));
-		while ($arItems=$dbBasketItems->Fetch())
-		{
-		  $arItems=CSaleBasket::GetByID($arItems["ID"]);
-		  $arBasketItems[]=$arItems;
-		  $cart_num+=$arItems['QUANTITY'];
-		  $cart_sum+=$arItems['PRICE']*$arItems['QUANTITY'];
-		}
-		if (empty($cart_num))
-		  $cart_num="0";
-		if (empty($cart_sum))
-		  $cart_sum="0";
-		?>
+        <?
+        $arBasketItems = array();
+        $dbBasketItems = CSaleBasket::GetList(
+                      array("NAME" => "ASC","ID" => "ASC"),
+                      array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
+                      false,
+                      false,
+                      array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE"));
+        while ($arItems=$dbBasketItems->Fetch())
+        {
+          $arItems=CSaleBasket::GetByID($arItems["ID"]);
+          $arBasketItems[]=$arItems;
+          $cart_num+=$arItems['QUANTITY'];
+          $cart_sum+=$arItems['PRICE']*$arItems['QUANTITY'];
+        }
+        if (empty($cart_num))
+          $cart_num="0";
+        if (empty($cart_sum))
+          $cart_sum="0";
+        ?>
         <div class="elementDescriptWrap">
             <div class="leftColumn">
                 <div class="elementMainPict">
@@ -134,7 +134,7 @@ $arItemIDs = array(
                     </div>
                     <?
                         if (isset($arResult["additional_image"]["DETAIL_PICTURE"]["src"])) {
-                            echo '<div class="additional-image" style="position:absolute; top:-25px; left:-41px"><img src="' . $arResult["additional_image"]["DETAIL_PICTURE"]["src"] . '"></div>';
+                            echo '<div class="additional-image" ><img src="' . $arResult["additional_image"]["DETAIL_PICTURE"]["src"] . '"></div>';
                         }
                     ?>
 
@@ -832,7 +832,7 @@ $arItemIDs = array(
                     </div>
                 </div>
                 <div class="aboutAutor" id="prodBlock4">
-					<?if (!empty($arResult["AUTHORS"])) {?>
+                    <?if (!empty($arResult["AUTHORS"])) {?>
                     <?foreach ($arResult["AUTHOR"] as $author) {
                         if (!empty ($author["PROPERTY_ORIG_NAME_VALUE"])) {
                             $authorFullName = $author["NAME"] . " / " . $author["PROPERTY_ORIG_NAME_VALUE"];
@@ -849,7 +849,7 @@ $arItemIDs = array(
                         <br>
 
                     <?}?>
-					<?}?>
+                    <?}?>
                 </div>
             </div>
         </div>

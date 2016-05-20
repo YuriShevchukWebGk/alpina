@@ -1209,3 +1209,8 @@
 .fancybox-iframe body{
    overflow: scroll;
 }
+.additional-image{
+    position:absolute;
+    top:-25px;
+    left:-41px
+}
