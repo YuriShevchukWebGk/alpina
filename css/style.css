@@ -59,15 +59,15 @@
 }
 @media screen and (max-device-width: 414px){
     body{
-        width:1500px;
-    }
-    .slideWrapp .catalogWrapper {
-        width: 100%;
-        margin-left:175px;
-    }
-    .slideWrapp .firstSlide {
-        width:1500px !important;
-    }
+    width:1500px;
+}
+.slideWrapp .catalogWrapper {
+    width: 100%;
+    margin-left:175px;
+}
+.slideWrapp .firstSlide {
+    width:1500px !important;
+}
 }
 body{
     padding: 0;
@@ -1142,7 +1142,7 @@ header .menu{
     font-family: "Walshein_black";
     font-size: 62px;
     line-height: 62px;   
-	height:124px;
+    height:124px;
 }
 .slideWrapp .textSlide{
     color: #CAD1CE;
@@ -1150,7 +1150,7 @@ header .menu{
     font-size: 20px;
     margin-top: 16px;
     margin-bottom: 36px;
-	height:56px;
+    height:56px;
 }
 .roundSlideWrapp .titleSlide{
     color: white;
@@ -5474,10 +5474,12 @@ table.form-table tr td:nth-child(2){
     width: 150px;
     margin-right: 20px;
     margin-bottom: 20px;
+    list-style-type: none;
 }
 .reviewsBlockDetail .reviewDatail{
     clear: both;
     margin-bottom: 32px;
+    list-style-type: none;
 }
 .reviewsBlockDetail .autor{
     text-align: right;
