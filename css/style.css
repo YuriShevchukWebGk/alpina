@@ -59,15 +59,15 @@
 }
 @media screen and (max-device-width: 414px){
     body{
-        width:1500px;
-    }
-    .slideWrapp .catalogWrapper {
-        width: 100%;
-        margin-left:175px;
-    }
-    .slideWrapp .firstSlide {
-        width:1500px !important;
-    }
+    width: 1500px;
+}
+.slideWrapp .catalogWrapper {
+    width: 100%;
+    margin-left: 175px;
+}
+.slideWrapp .firstSlide {
+    width: 1500px !important;
+}
 }
 body{
     padding: 0;
@@ -122,14 +122,14 @@ header .telephone{
 }
 .logo {
     /*background: rgba(0, 0, 0, 0) url("/img/logo.png") no-repeat scroll 60px 10px;*/
-    height:60px;
-    width:120px;
-    position:absolute;
+    height: 60px;
+    width: 120px;
+    position: absolute;
 }
 .logo img {
-    position:absolute;
-    left:60px;
-    top:10px;
+    position: absolute;
+    left: 60px;
+    top: 10px;
 }
 .lkWrapp div{
     border-left: 1px solid #e2e2e2;
@@ -185,7 +185,7 @@ header .headBasket{
     font-size: 20px;
     padding-bottom: 13px;
     width: 325px;
-    position:relative;
+    position: relative;
     /*background: url("/img/find.png") no-repeat 302px 6px;*/
 }
 
@@ -354,7 +354,7 @@ header .headBasket{
     /*height:238px;*/
     height: 247px;
     /*width:160px;*/
-    margin-left:20px;
+    margin-left: 20px;
     margin-bottom: -3px;
 }
 .book .coverSmall {
@@ -598,8 +598,6 @@ header .headBasket{
     height: 780px;
 }
 
-
-
 .slideWrapp{
     background-color: #637e71;
     height: 500px;
@@ -643,7 +641,6 @@ header .headBasket{
     font-family: "Walshein_regular";
     font-size: 24px;
     padding-bottom: 38px;
-    /*padding-top: 66px;*/
     padding-top: 35px;
 }
 .saleWrapp ul{
@@ -690,31 +687,31 @@ header .headBasket{
     padding-bottom: 13px;
     padding-left: 20px;
     padding-top: 13px;
-    position:relative;
+    position: relative;
     width: 396px; 
     /*width: 416px;*/
 }
 .giftWrap input[type=button] {
-    position:absolute;
-    right:47px;
-    top:81px;
-    border:none;
-    width:60px;
-    height:44px;
+    position: absolute;
+    right: 47px;
+    top: 81px;
+    border: none;
+    width: 60px;
+    height: 44px;
     background: white url("/img/giftInpBack.png") no-repeat scroll;
     cursor: pointer;
 }
 .giftWrap .some_info {
-    z-index:1100;
-    position:absolute;
-    display:none;
-    top:100px;
-    left:200px;
-    width:700px;
-    background:white;
-    border:1px solid blue;
-    text-align:center;
-    padding:30px 0;
+    z-index: 1100;
+    position: absolute;
+    display: none;
+    top: 100px;
+    left: 200px;
+    width: 700px;
+    background: white;
+    border: 1px solid blue;
+    text-align: center;
+    padding: 30px 0;
 }
 .saleWrapp .giftWrap{
     border-top: 1px solid #e2e2e2;
@@ -745,7 +742,7 @@ header .headBasket{
 
 .allBooksWrapp{
     min-height: 1194px;
-    padding-bottom:50px;
+    padding-bottom: 50px;
 }
 .allBooksWrapp .titleMain{
     color: #627478;
@@ -803,17 +800,13 @@ header .headBasket{
     margin-bottom: 59px;
 }
 
-
-
-
-
-
 .reviewsWrapp{
     background-color: #f4f4f4;
     height: 804px;
 }
 .reviewsWrapp .arrows{
-    float: right;padding-top: 50px;
+    float: right;
+    padding-top: 50px;
 }
 .reviewsWrapp .revTitle{
     color: #627478;
@@ -1010,7 +1003,6 @@ header .headBasket{
     margin-right: 48px;
 }
 
-
 footer{
     background-color: #353535;
     height: 564px;
@@ -1142,7 +1134,7 @@ header .menu{
     font-family: "Walshein_black";
     font-size: 62px;
     line-height: 62px;   
-	height:124px;
+    height:124px;
 }
 .slideWrapp .textSlide{
     color: #CAD1CE;
@@ -1150,7 +1142,7 @@ header .menu{
     font-size: 20px;
     margin-top: 16px;
     margin-bottom: 36px;
-	height:56px;
+    height:56px;
 }
 .roundSlideWrapp .titleSlide{
     color: white;
@@ -1339,13 +1331,13 @@ input:focus{
     width: 100%;
 }
 .searchWrap input[type=submit] {
-    position:absolute;
+    position: absolute;
     background: #ecedef url("/img/searchIcon.png") no-repeat scroll 0 3px;
-    width:30px;
-    height:30px;
-    left:0;
-    cursor:pointer;
-    top:16px;
+    width: 30px;
+    height: 30px;
+    left: 0;
+    cursor: pointer;
+    top: 16px;
 }
 
 .authorWrap .titleWrap{
@@ -1697,7 +1689,7 @@ input:focus{
     float: right;
     /*margin-right: 60px;*/
     cursor: pointer;
-    position:relative;
+    position: relative;
 }
 .headLiked{
     background: rgba(0, 0, 0, 0) url("/img/alp_icon.png") no-repeat scroll 22px 20px;
@@ -1709,7 +1701,7 @@ input:focus{
     float: right;
     /*margin-right: 60px;*/
     cursor: pointer;
-    position:relative;
+    position: relative;
     padding: 1px 0 0 !important;
 }
 header .headBasket {
@@ -1876,7 +1868,7 @@ right: 45px;
 }
 .categoryWrapper .leftMenu>ul>li>p:after{
     content: url("/img/leftMenuAft1.png");
-    margin-left:10px; 
+    margin-left: 10px; 
 }
 .categoryWrapper .secondLevel li{
     color: #627478;
@@ -1892,17 +1884,15 @@ right: 45px;
     top: 0px;
 }
 .categoryWrapper .secondLevel {
-    display:none;
+    display: none;
 }
 .categoryWrapper .contentWrapp{
     width: 876px;
-    /*height: 2644px;*/
     height: 2329px;
     float: right;
 }
 .wrapperCategor{
     background-color: #F4F4F4;
-    /*height: 2750px;*/
     height: 2500px;
 }
 .categoryWrapper li>ul{
@@ -1923,7 +1913,6 @@ right: 45px;
     margin: 32px auto 70px;
     padding: 12px 44px;
     text-align: center;
-    /*width: 153px;*/
     width: 245px;
     cursor: pointer;
 }
@@ -1993,7 +1982,6 @@ right: 45px;
     left: 0px;
     position: relative;
     box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);
-    /* margin-bottom:15px; */
 }
 .categoryWrapper .titleMain{
     font-family: 'Walshein_black';
@@ -2049,7 +2037,6 @@ right: 45px;
     cursor: pointer;
 }
 .layout{
-    /*z-index: 130;*/
     z-index: 1000;
     position: fixed;
     top: 0;
@@ -2061,7 +2048,6 @@ right: 45px;
     display: none;
 }
 .layout2{
-    /*z-index: 130;*/
     z-index: 1000;
     position: fixed;
     top: 0;
@@ -2074,11 +2060,9 @@ right: 45px;
 }
 .hidingCatalogLeft .categories{
     color: #424D4F;
-    /*font-family: "Walshein_medium";*/
     font-family: "Walshein_regular";
     font-weight: bold;
     font-size: 15px;
-    /*margin-right: 31px;*/
     margin-right: 21px;
 }
 .hidingCatalogLeft .categories .secondLevel {
@@ -2101,7 +2085,6 @@ right: 45px;
 }
 .hidingCatalogLeft .categories li p:after{
     content: url("/img/leftMenuAft1.png");
-    /*margin-left: 10px; */
     margin-left: 5px;
 }
 .hidingCatalogLeft .categories .secondLevel li:before{
@@ -2192,7 +2175,6 @@ right: 45px;
     font-size: 15px;
     height: 32px;
     margin-bottom: 32px;
-    /*margin-left: 52px;*/
     padding-left: 60px;
     padding-top: 10px;
     position: relative;
@@ -2216,7 +2198,6 @@ right: 45px;
 }
 .hidingBasketRight .bottomBlock{
     bottom: 0;
-    /*position: absolute;*/
     position: fixed;
     width: 100%;
     z-index: 1050;
@@ -2247,7 +2228,7 @@ right: 45px;
 .hidingBasketRight .basketBooks{
     margin: 0 48px;
     overflow-y: auto;
-    padding-bottom:175px;
+    padding-bottom: 175px;
 }
 .hidingBasketRight .minus{
     background: rgba(0, 0, 0, 0) url("/img/minusImgNew.png") no-repeat scroll 0 0;
@@ -2306,7 +2287,6 @@ right: 45px;
 .titleDiv{
     background-color: #fff;
     padding: 36px 60px;
-    /*height: 268px;*/
     height: 340px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     margin-bottom: 38px;
@@ -2351,7 +2331,7 @@ right: 45px;
     margin-left: 10px;
 }
 .wrapperCategor .filterParams li.dir_desc {
-    width:108px;
+    width: 108px;
 }
 .wrapperCategor .filterParams li:hover{
     background-color: #fff; 
@@ -2367,7 +2347,7 @@ right: 45px;
     position: relative;
 }
 .categoryWrapper .categoryBooks:hover .basketBook{
-    border-color:#00A0AF ;
+    border-color: #00A0AF ;
     background-color: #00A0AF;
     color: #fff;
 }
@@ -2377,7 +2357,6 @@ right: 45px;
 .otherBooks li{
     display: inline-block;
     height: 450px;
-    /*width: 172px;*/
     width: 171px;
 }
 .otherBooks li:hover{
@@ -2395,9 +2374,7 @@ right: 45px;
 }
 .otherEasySlider .bookImg{
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);
-    /*width:142px;*/
     margin-bottom:15px;
-    /*height:210px;*/
 }
 .otherEasySlider .bookName{
     color: #424C4F;
@@ -2418,7 +2395,6 @@ right: 45px;
 .productElementWrapp{
     position: relative;
     background-color: #F4F4F4;
-    /*min-height: 1130px;*/
     min-height: 1170px;
 
 }
@@ -2435,7 +2411,6 @@ right: 45px;
 .productElementWrapp:before{
     background-color: #99ABB1;
     height: 260px;
-    /*height: 305px;*/
     top: 0;
 }
 .productElementWrapp:after{
@@ -2592,13 +2567,6 @@ right: 45px;
     font-family: "Walshein_regular";
     font-size: 14px;  
 }
-/*.elementDescriptWrap .socialServises div{
-background: rgba(0, 0, 0, 0) url("/img/socserInElement.png") no-repeat scroll 0 0;
-display: inline-block;
-height: 30px;
-margin-right: 7px;
-width: 34px;
-}*/
 .socialServises{
     margin-left: 4px;
     margin-top: 25px;
@@ -2740,7 +2708,7 @@ width: 34px;
     padding-top: 34px;
 }
 .centerColumn .topBlock {
-    min-height:175px;
+    min-height: 175px;
 }
 .centerColumn .engBookName{
     color: #e4e8ea;
@@ -2780,7 +2748,7 @@ width: 34px;
     padding-bottom: 14px;
     width: 260px;
     margin-bottom: 12px;
-    text-align:center;
+    text-align: center;
 }
 .elementDescriptWrap .productType{
 
@@ -2819,7 +2787,7 @@ width: 34px;
     display: inline-block;
     cursor: pointer;
     border-bottom: 1px dashed rgb(0, 171, 184);
-    margin-right:30px;
+    margin-right: 30px;
 }
 .productsMenu li:hover{
     border-bottom: none;
@@ -2892,7 +2860,6 @@ width: 34px;
     font-family: "Walshein_regular";
     font-size: 17px;
     line-height: 24px;
-    /*margin-bottom: 40px;*/
     padding-bottom: 18px;
 }
 .elementDescriptWrap .annotation ul {
@@ -2900,7 +2867,7 @@ width: 34px;
     padding-left: 40px;
 }
 .elementDescriptWrap .annotation ul li {
-    margin-top:8px;
+    margin-top: 8px;
 }
 .elementDescriptWrap .annotation{
     color: #627478;
@@ -2910,14 +2877,11 @@ width: 34px;
 }
 
 .elementDescriptWrap .videoWrapp{
-    /*background: rgba(0, 0, 0, 0) url("/img/videoBack.png") no-repeat scroll 0 0;*/
-    /*height: 310px;*/
     width: 552px; 
     margin-bottom: 30px; 
 }
 .elementDescriptWrap .keyWords{
     margin-left: 4px;
-    /*margin-top: 18px;*/
     margin-top: 8px;
     padding-bottom: 56px;
 }
@@ -2939,12 +2903,12 @@ width: 34px;
     height: 440px;
 }
 .authorBooksWrapp:before {
-    position:absolute;
-    left:0;
-    background:white;
-    height:100%;
-    content:"";
-    display:block;
+    position: absolute;
+    left: 0;
+    background: white;
+    height: 100%;
+    content: "";
+    display: block;
 }
 .authorBooksWrapp>p{
     color: #627478;
@@ -2970,7 +2934,6 @@ width: 34px;
 }
 .uLookSlider .bookImg{
     box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);
-    /*height: 210px;*/
 }
 .uLookSlider .bookName{
     color: #424c4f;
@@ -2990,7 +2953,6 @@ width: 34px;
 .reviewsSliderWrapp{
     background-color: #F4F4F4;
     width: 100%;
-    /*height: 1070px; */
     height: 724px;
     overflow: hidden;
 }
@@ -3029,9 +2991,8 @@ width: 34px;
     border-top: 1px solid #e2e2e2;
     margin-top: 40px;
     padding-top: 56px;
-    height:130px;
-    overflow:hidden;
-
+    height: 130px;
+    overflow: hidden;
 }
 .reviewsSliderWrapp .giftWrap img{
     left: 414px;
@@ -3198,7 +3159,6 @@ width: 34px;
     position: relative;
     top: 7px;
 }
-
 .radioInp{
     display: none;
 }
@@ -5256,7 +5216,7 @@ table.form-table tr td:nth-child(2){
 }
 .reg_text {
     font-family: "Walshein_regular";
-    font-size:17px; 
+    font-size: 17px; 
 }
 .image_visa {
     background-image: url(/img/payImg.png);
@@ -5337,7 +5297,7 @@ table.form-table tr td:nth-child(2){
     top: 40px;
 }
 .wrapperCategor .filterParams li p a{
-    color:#627478 !important;
+    color: #627478 !important;
 }
 .editorsCatalogIcon{
     left: -105px;
@@ -5474,10 +5434,12 @@ table.form-table tr td:nth-child(2){
     width: 150px;
     margin-right: 20px;
     margin-bottom: 20px;
+    list-style-type: none;
 }
 .reviewsBlockDetail .reviewDatail{
     clear: both;
     margin-bottom: 32px;
+    list-style-type: none;
 }
 .reviewsBlockDetail .autor{
     text-align: right;
@@ -5509,7 +5471,6 @@ table.form-table tr td:nth-child(2){
 .popupAbout p{      
 
 }
-
 .authorsContent {
     padding-bottom: 48px;
     padding-top: 48px;
@@ -5558,8 +5519,9 @@ table.form-table tr td:nth-child(2){
 
 .authorsContent .hide {
     display: none;
+}
 
-    .authorsContent .submit {
+.authorsContent .submit {
     margin-top: 20px;
     background-color: #00a0af;
     border: none;
