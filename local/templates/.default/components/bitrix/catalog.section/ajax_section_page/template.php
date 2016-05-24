@@ -534,6 +534,10 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
         var WrappHeight = $(".wrapperCategor").height();
 		var RecHeight = $(".grayTitle").height();
         var BooksLiLength = $(".otherBooks ul li").length;
+		
+		var startHeight = WrappHeight+RecHeight+100 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
+		$(".wrapperCategor").css("height", startHeight+"px");
+		
         $('.showMore').click(function(){
            // var otherBooks = $(this).siblings(".otherBooks");
             $.fancybox.showLoading();
@@ -566,10 +570,10 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     var otherBooksHeight = 1360 * ($(".otherBooks ul li").length / 15);
                     console.log($(".otherBooks ul li").length);
                    
-                    var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
+                    var categorHeight = WrappHeight+RecHeight+200 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
                     
                     $(".otherBooks").css("height", otherBooksHeight+"px");
-                    $(".wrapperCategor").css("height", categorHeight+RecHeight+"px");
+                    $(".wrapperCategor").css("height", categorHeight+"px");
                     $(".contentWrapp").css("height", categorHeight-10+"px");
             });
             if (page == maxpage) {
@@ -604,7 +608,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                         });
                         var otherBooksHeight = 1350 * ($(".otherBooks ul li").length / 15);
                            
-                        var categorHeight = WrappHeight + Math.ceil(($(".otherBooks ul li").length - BooksLiLength) / 5) * 455;    
+                        var categorHeight = WrappHeight+RecHeight+200+ Math.ceil(($(".otherBooks ul li").length - BooksLiLength) / 5) * 455;    
                             
                         $(".otherBooks").css("height", otherBooksHeight+"px");
                         $(".wrapperCategor").css("height", categorHeight+"px");

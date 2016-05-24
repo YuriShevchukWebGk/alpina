@@ -1916,6 +1916,11 @@ right: 45px;
 }
 .categoryWrapper .showMore{
     border: 2px solid #c8a474;
+	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;
     border-radius: 34px;
     color: #c8a474;
     font-family: "Walshein_regular";
@@ -1926,6 +1931,9 @@ right: 45px;
     /*width: 153px;*/
     width: 245px;
     cursor: pointer;
+}
+.categoryWrapper .showMore:hover{
+	background:#e6e6e6;
 }
 .categoryWrapper .otherBooks{
     height: 1302px;

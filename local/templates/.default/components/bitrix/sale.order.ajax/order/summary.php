@@ -12,6 +12,7 @@
 
     $itemsForCriteo = Array();
     $googleECommerce = Array();
+	$googleEnhancedECommerce = Array();
     $itemsForFloctory = Array();
     $itemsForRetailRocket = array();
 
@@ -33,7 +34,9 @@
             $parentSectionName = $filteredSection['NAME']; 
         }
 
-        array_push($googleECommerce,"'name': '".$basketItem['NAME']."','sku': '".$basketItem["PRODUCT_ID"]."','category': '".$parentSectionName."','price': '".$basketItem["PRICE"]."','quantity': '".$basketItem["QUANTITY"]."'");   
+        array_push($googleECommerce,"'name': '".$basketItem['NAME']."','sku': '".$basketItem["PRODUCT_ID"]."','category': '".$parentSectionName."','price': '".$basketItem["PRICE"]."','quantity': '".$basketItem["QUANTITY"]."'");
+		
+		array_push($googleEnhancedECommerce,"'name': '".$basketItem['NAME']."','id': '".$basketItem["PRODUCT_ID"]."','category': '".$parentSectionName."','price': '".$basketItem["PRICE"]."','quantity': '".$basketItem["QUANTITY"]."'");   
     }
 
     // --- criteo
@@ -42,6 +45,7 @@
     $_SESSION['criteo'] = $comma_separated_criteo;
     // ---- google ecommerce
     $_SESSION['googleECommerce'] = $googleECommerce; 
+	$_SESSION['googleEnhancedECommerce'] = $googleEnhancedECommerce; 
     // ----  floctory
     $comma_separated_floctory = implode(",", $itemsForFloctory);
     $comma_separated_floctory = '['.$comma_separated_floctory.']';

@@ -1399,6 +1399,15 @@ $printid = implode(", ", $printid2);?>
         }?>
     </div>
 </div>
+<?if ($USER->isAdmin()) {
+$itemRes = CIBlockElement::GetByID($arResult["ID"]);
+if($itemData = $itemRes->GetNext()){
+	$itemSectionID = $itemData['IBLOCK_SECTION_ID'];
+}
+$productSectionName = CIBlockSection::GetByID($itemSectionID);
+print_r($productSectionName);
+}
+?>
 
 <script>
     $(document).ready(function() {
@@ -1412,6 +1421,16 @@ $printid = implode(", ", $printid2);?>
         });
         <!-- // dataLayer GTM -->
 
+		<?if ($arResult["ID"] == 7194) {?>
+		/*dataLayer.push({
+		  'ecommerce': {
+			'refund': {
+			  'actionField': {'id': '65813'}         // Transaction ID. Required for purchases and refunds.
+			}
+		  }
+		});*/
+
+		<?}?>
         $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
         $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
         if ($(".element_item_img img").height() < 394) {
