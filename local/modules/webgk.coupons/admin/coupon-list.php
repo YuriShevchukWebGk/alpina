@@ -6,6 +6,7 @@
     use Bitrix\Sale\Internals;
     require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_before.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/modules/webgk.coupons/admin/lang/coupon-list.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/local/modules/webgk.coupons/admin/.config.php");
 
     $sTableId = "tbl_coupon_list";
     $oSort = new CAdminSorting($sTableId, "ID", "asc");
@@ -15,8 +16,8 @@
     $arFilterFields = array("couponId", "discountId", "active", "coupon", "dateApply", "activeTo");
     $lAdmin->InitFilter($arFilterFields);
     $arFilter = array();
-    $arFilter = array('ID' => $id, 'DISCOUNT_ID' => $discountId, 'ACTIVE' => $active, "COUPON" => $coupon, ">=DATE_APPLY" => $dateApplyFrom, "<=DATE_APPLY" => $dateApplyTo, 
-        ">=ACTIVE_TO" => $activeToFrom, "<=ACTIVE_TO" => $activeToTo, ); 
+    $arFilter = array('ID' => $_REQUEST["id"], 'DISCOUNT_ID' => $_REQUEST["discountId"], 'ACTIVE' => $_REQUEST["active"], "COUPON" => $_REQUEST["couponCode"], 
+        ">=DATE_APPLY" => $_REQUEST["dateApplyFrom"], "<=DATE_APPLY" => $_REQUEST["dateApplyTo"], ">=ACTIVE_TO" => $_REQUEST["activeToFrom"], "<=ACTIVE_TO" => $_REQUEST["activeToTo"]); 
 
     //Unset key's with empty value
     foreach($arFilter as $key => $value) {
@@ -27,6 +28,21 @@
 
     //Get all coupons 
     $rsData = Internals\DiscountCouponTable::getList(array('filter' => $arFilter));
+
+    //Get iblock info about coupon
+    $arCouponSelect = array("ID", "IBLOCK_ID", "NAME", "PROPERTY_ORDER", "PROPERTY_COUPON");
+    $obIblockCoupon = CIBlockElement::GetList(array("ID" => "ASC"),  array("IBLOCK_ID" => $arParams["COUPON_LIST"]["IBLOCK_ID"]), false, false, $arCouponSelect);
+    while ($arIblockCoupon = $obIblockCoupon->Fetch()) {
+        $arIblockCoupons[$arIblockCoupon["PROPERTY_COUPON_VALUE"]] = $arIblockCoupon;
+    }
+
+    $arFilter = array("!PROPERTY_VAL_BY_CODE_CODE_COUPON" => '-');
+    $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+    while ($arSales = $rsSales->Fetch()) {
+        $obCouponProp = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $arSales["ID"], "CODE" => "CODE_COUPON"));
+        $arCouponProp = $obCouponProp->Fetch();
+        $arCouponOrders[$arCouponProp["VALUE"]] = $arCouponProp;
+    }
 
     //Page navigation
     $rsData = new CAdminResult($rsData, $sTableId);
@@ -41,6 +57,8 @@
         array("id"=>"COUPON", "content"=>"".GetMessage("COUPON_CODE")."", "sort"=>"coupon", "default"=>true),   
         array("id"=>"DATE_APPLY", "content"=>"".GetMessage("DATE_APPLY")."", "sort"=>"dateApply", "default"=>true),   
         array("id"=>"ACTIVE_TO", "content"=>"".GetMessage("DATE_ACTIVE_TO")."", "sort"=>"activeTo", "default"=>true),   
+        array("id"=>"ORDER_BUY", "content"=>"".GetMessage("ORDER_BUY")."", "sort"=>"orderBuy", "default"=>true),   
+        array("id"=>"ORDER_APPLY", "content"=>"".GetMessage("ORDER_APPLY")."", "sort"=>"orderApply", "default"=>true),   
     ));
 
     //Create table with coupon list
@@ -53,13 +71,15 @@
         $row->AddViewField("COUPON", $arRes["COUPON"]);
         $row->AddViewField("DATE_APPLY", $arRes["DATE_APPLY"]);
         $row->AddViewField("ACTIVE_TO", $arRes["ACTIVE_TO"]);
+        $row->AddViewField("ORDER_BUY", $arIblockCoupons[$arRes['ID']]["PROPERTY_ORDER_VALUE"]);
+        $row->AddViewField("ORDER_APPLY", $arCouponOrders[$arRes['COUPON']]["ORDER_ID"]);
     }
 
     $lAdmin->AddFooter(array(
         array("title"=>GetMessage("MAIN_ADMIN_LIST_SELECTED"), "value"=>$rsData->SelectedRowsCount()),
         array("counter"=>true, "title"=>GetMessage("MAIN_ADMIN_LIST_CHECKED"), "value"=>"0"),
     ));
-    
+
     $lAdmin->AddAdminContextMenu(array());
     $lAdmin->CheckListMode();
     $APPLICATION->SetTitle(GetMessage("PAGE_NAME"));
