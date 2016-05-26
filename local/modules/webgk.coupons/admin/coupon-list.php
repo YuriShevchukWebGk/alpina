@@ -16,7 +16,7 @@
     $arFilterFields = array("couponId", "discountId", "active", "coupon", "dateApply", "activeTo");
     $lAdmin->InitFilter($arFilterFields);
     $arFilter = array();
-    $arFilter = array('ID' => $_REQUEST["id"], 'DISCOUNT_ID' => $_REQUEST["discountId"], 'ACTIVE' => $_REQUEST["active"], "COUPON" => $_REQUEST["couponCode"], 
+    $arFilter = array('ID' => intval($_REQUEST["id"]), 'DISCOUNT_ID' => intval($_REQUEST["discountId"]), 'ACTIVE' => $_REQUEST["active"], "COUPON" => $_REQUEST["couponCode"], 
         ">=DATE_APPLY" => $_REQUEST["dateApplyFrom"], "<=DATE_APPLY" => $_REQUEST["dateApplyTo"], ">=ACTIVE_TO" => $_REQUEST["activeToFrom"], "<=ACTIVE_TO" => $_REQUEST["activeToTo"]); 
 
     //Unset key's with empty value
