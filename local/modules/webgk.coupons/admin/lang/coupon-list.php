@@ -6,6 +6,8 @@
     $MESS["COUPON_CODE"] = "Код купона";
     $MESS["DATE_APPLY"] = "Дата применения";
     $MESS["DATE_ACTIVE_TO"] = "Активен до";
+    $MESS["ORDER_BUY"] = "Куплен в заказе";
+    $MESS["ORDER_APPLY"] = "Использован в заказе";
     $MESS["ANY"] = "Любой";
     $MESS["YES"] = "Да";
     $MESS["NO"] = "Нет";
