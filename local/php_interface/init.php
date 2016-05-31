@@ -1,6 +1,6 @@
 <?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
-    
+
     CModule::IncludeModule("blog");
     CModule::IncludeModule("iblock");
     CModule::IncludeModule("sale");
