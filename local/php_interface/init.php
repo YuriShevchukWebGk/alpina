@@ -96,7 +96,6 @@
             } //foreach
         }
         else $out[] = $nul;
-        // $out[] = $kop.' '.morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
     //Create gift coupon after buy certificate
@@ -1022,13 +1021,17 @@
         }
     }
 
-    AddEventHandler('main', 'OnBeforeEventSend', 'RegisterNoneEmail');
+    AddEventHandler('main', 'OnBeforeEventSend', 'RegisterNoneEmail');   // вызывается перед отправкой шаблона письма
 
-    function RegisterNoneEmail (&$arFields, &$arTemplate)     // при создании пользователя с одинаковым генерируемым email не отправляет письмо
-    {
-        if(stristr($arFields["LOGIN"], 'newuser_') == true and $arTemplate["EVENT_NAME"] == 'NEW_USER'){
+    function RegisterNoneEmail (&$arFields, &$arTemplate) {     // при создании пользователя с одинаковым генерируемым email не отправляет письмо
+        if(stristr($arFields["LOGIN"], 'newuser_') == true && $arTemplate["EVENT_NAME"] == 'NEW_USER'){
            return false;
         }
+        /*
+          $arFields["LOGIN"] = логин нового пользователя
+          $arTemplate["EVENT_NAME"] = событие при котором происходит отправка письма
+        */
+
     }
 
     AddEventHandler('main', 'OnBeforeEventSend', 'PayButtonForOnlinePayment');
