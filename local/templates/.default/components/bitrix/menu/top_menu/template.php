@@ -20,3 +20,8 @@ foreach($arResult as $arItem):
 <?endif*/?>
 <li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?endforeach;?>
+<?
+$today = date("w");
+if ($today == 2 || $today == 3 || $USER->isAdmin()) {?>
+	<li><a class="topMenuLink" style="color:red!important;" href="/actions/cybertuesday/">Скидки до 40%</a></li>
+<?}?>

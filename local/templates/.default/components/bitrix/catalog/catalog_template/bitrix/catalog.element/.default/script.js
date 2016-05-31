@@ -2950,7 +2950,7 @@ $(document).ready(function(){
 function setItemBgHeight() {
                         
     var priceHeight = parseInt($(".wrap_prise_top").css("height"));                                                                                                                                                                  
-    var bgHeight = parseInt(105 + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + parseInt($(".authorReviewWrap").css("height")) + 20 + parseInt($(".sponsors").css("height")));
+    var bgHeight = parseInt(105 + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + parseInt($(".authorReviewWrap").css("height")) + 20/* + parseInt($(".sponsors").css("height"))*/);
     if (parseInt($(".engBookName").css("height")) > 0)
     {
         bgHeight += 30;

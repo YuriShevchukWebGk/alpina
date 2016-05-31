@@ -24,7 +24,7 @@ $this->setFrameMode(true);
             <li>
                 <div class="bookWrapp">
                     <?$curr_author = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();?>
-                    <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
+                    <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','', '', 'Catalog Recs');">
                         <div class="section_item_img">
                             <?
                             if ($pict["src"])
@@ -75,7 +75,7 @@ $this->setFrameMode(true);
                      <?
                      if(intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23){ 
                         if ($dbBasketItems["QUANTITY"] == 0){?>
-                            <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>');return false;"><p class="basketBook">В корзину</p></a>
+                            <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>');addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','', '1');return false;"><p class="basketBook">В корзину</p></a>
                         <?} else {?>
                             <a class="product<?=$arItem["ID"];?>" href="/personal/cart/"><p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p></a>                         
                         <?}  
