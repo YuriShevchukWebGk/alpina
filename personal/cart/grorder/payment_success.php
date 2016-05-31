@@ -9,12 +9,13 @@ if(preg_match('/GR_/',$_GET['order_id'])){
     echo $string;
 } else {?>
     <?
+	require_once($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/main/include/prolog_before.php");
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetTitle("Платеж");
-    ?> Спасибо за оплату заказа!
+    ?> Спасибо за оплату заказа <?=$_GET['comment']?>!
     <br />
     
     <?unset($_SESSION['rfi_bank_tab']);?>
     <?echo '<script>localStorage.removeItem("active_rfi_button");</script>'?>
-    <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+    <?//require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
 <?}?>

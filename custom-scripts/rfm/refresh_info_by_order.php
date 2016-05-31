@@ -14,7 +14,7 @@ $filter = Array
     //"TIMESTAMP_2"         	=> "11.12.2013",
 	//">UF_ORDERS_COUNT"		=>	0,
     //"LOGIN"             	=> "a.marchenkov@alpinabook.ru",
-	"ID" 					=> 15,
+	"ID" 					=> 15
 );
 
 $patterns = array("/[\:\;\-\,\.\(\)\"\ \+]*/");
@@ -25,6 +25,7 @@ $is_filtered = $rsUsers->is_filtered; // отфильтрована ли выб�
 
 $today = strtotime(date('d.m.Y'));
 while($ar_sales = $rsUsers->Fetch()) {
+
 	$filter = Array
 	(
 		"USER_ID"               => $ar_sales['ID'],
@@ -136,6 +137,7 @@ while($ar_sales = $rsUsers->Fetch()) {
 		  );
 		//echo '<pre>1';print_r ($Del);echo '</pre>';
 		$DelUp = $el->Update($Del['ID'], $arLoadProductArray);
+		print_r($PROP);
 	} else {	
 		$PROP = array(
 			"ORDERS_COUNT"				=> $order_count,
@@ -160,6 +162,7 @@ while($ar_sales = $rsUsers->Fetch()) {
 		  "ACTIVE"         => "Y",           
 		  );			
 		$PRODUCT_ID = $el->Add($arLoadProductArray);
+		print_r($PROP);
 	}
 }
 echo 'done!';

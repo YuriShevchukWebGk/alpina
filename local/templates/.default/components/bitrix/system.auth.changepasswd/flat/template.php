@@ -32,14 +32,14 @@ if(!empty($arParams["~AUTH_RESULT"])):
 		<div class="bx-authform-formgroup-container">
 			
 			<div class="bx-authform-input-container">
-				<input type="text" name="USER_LOGIN" maxlength="255" value="<?=$arResult["LAST_LOGIN"]?>" placeholder="<?=GetMessage("AUTH_LOGIN")?>"/>
+				<input type="text" name="USER_LOGIN" maxlength="255" value="<?=$arResult["LAST_LOGIN"]?>" placeholder="Ваш e-mail<?//=GetMessage("AUTH_LOGIN")?>"/>
 			</div>
 		</div>
 
 		<div class="bx-authform-formgroup-container">
 			
 			<div class="bx-authform-input-container">
-				<input type="text" name="USER_CHECKWORD" maxlength="255" value="<?=$arResult["USER_CHECKWORD"]?>" placeholder="<?=GetMessage("AUTH_CHECKWORD")?>"/>
+				<input type="hidden" name="USER_CHECKWORD" maxlength="255" value="<?=$arResult["USER_CHECKWORD"]?>" placeholder="<?=GetMessage("AUTH_CHECKWORD")?>"/>
 			</div>
 		</div>
 

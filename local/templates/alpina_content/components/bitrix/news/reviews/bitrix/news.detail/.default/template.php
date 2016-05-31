@@ -98,4 +98,8 @@
 </table>
     </div>
 </div>
-
+<script>
+$(document).ready(function() {
+	$('#detailReview a:not([href*="alpinabook.ru"])').attr('target','_blank').attr('rel','nofollow'); //Если ссылка в рецензии не содержит alpinabook, то открывает в новой вкладке и закрываем через nofollow
+});
+</script>

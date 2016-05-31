@@ -111,7 +111,8 @@ $arItemIDs = array(
                 <div class="elementMainPict">
                     <div class="badge">
                         <?if (($arResult["PROPERTIES"]["discount_ban"]["VALUE"] != "Y")
-                            && $arResult['PROPERTIES']['spec_price']['VALUE'] ) {
+                            && $arResult['PROPERTIES']['spec_price']['VALUE']
+							&& $arResult['PROPERTIES']['show_discount_icon']['VALUE'] == "Y") {
                                 switch ($arResult['PROPERTIES']['spec_price']['VALUE']) {
                                     case 10:
                                         echo '<img class="discount_badge" src="/img/10percent.png">';
@@ -145,7 +146,7 @@ $arItemIDs = array(
                             <?}
                         ?>
                     </div>
-                    <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
+                    <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '' && !$USER->isAdmin())) {?>
 
                         <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
                             <div class="overlay bookPreview">
@@ -478,7 +479,6 @@ $arItemIDs = array(
                     <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
                 </div>
                 <ul class="shippings">
-					<?if ($USER->isAdmin()){?>
 					<?
 					$today = date("w");
 					$timenow = date("G");
@@ -505,12 +505,6 @@ $arItemIDs = array(
 								$samovivoz_day = 'завтра';
 							}			
 						}
-						/*$delivery_day = 'завтра';
-						if ($timenow < 17) {
-							$samovivoz_day = 'сегодня';
-						} else {
-							$samovivoz_day = 'завтра'; //на праздники тут меняем день, потом обратно
-						}*/
 					} else {
 						if ($today == 1) {
 							$delivery_day = 'завтра';
@@ -531,34 +525,19 @@ $arItemIDs = array(
 							$samovivoz_day = 'сегодня';
 						} else {
 							$samovivoz_day = 'завтра';
-						}						/*
-						if ($today == 5) {
-							if ($timenow < 17) {
-								$samovivoz_day = 'сегодня';
-							} else {
-								$samovivoz_day = 'в понедельник'; //на праздники тут меняем день, потом обратно
-							}
-						} elseif ($today == 6) { // если на дворе СУББОТА
-							$samovivoz_day = 'в понедельник';	//на праздники тут меняем день, потом обратно		
-						} elseif ($today == 0) { // если на дворе ВОСКРЕСЕНЬЕ
-							$samovivoz_day = 'завтра';
-						} else { // если на дворе ПОНЕДЕЛЬНИК-ЧЕТВЕРГ
-
-							if ($timenow < 17) {
-								$samovivoz_day = 'сегодня';
-							} else {
-								$samovivoz_day = 'завтра';
-							}			
 						}
-						$delivery_day = 'в пятницу';*/
+
 					}?>
-						<li>Доставка по Москве <a id='inline1' href='#data1'><?=$delivery_day?></a></li>
-						<li>Самовывоз <a id='inline2' href='#data2'><?=$samovivoz_day?></a></li>
-					<?}?>
-                    <li><?= GetMessage("COURIER_DELIVERY") ?></li>
+					<li>Доставка по Москве<br /><a id='inline1' href='#data1'><?=$delivery_day?></a></li>
+					<li>Самовывоз м.Полежаевская<br /><a id='inline2' href='#data2'><?=$samovivoz_day?></a></li>
+					<li><?= GetMessage("MAIL_DELIVERY") ?></li>
+					<li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+
+                    <?/*<li><?= GetMessage("COURIER_DELIVERY") ?></li>
                     <li><?= GetMessage("MAIL_DELIVERY") ?></li>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     <li><?= GetMessage("PICKUP_DELIVERY") ?></li>
+					*/?>
                 </ul>
 
                 <div class="typesOfProduct">
@@ -918,6 +897,7 @@ $arItemIDs = array(
                 <div class="aboutAutor" id="prodBlock4">
                     <?if (!empty($arResult["AUTHORS"])) {?>
                     <?foreach ($arResult["AUTHOR"] as $author) {
+						$currAuth = CIBlockElement::GetList(array(), array("ID" => $author["ID"]), false, false, array("PROPERTY_AUTHOR_DESCRIPTION")) -> Fetch();
                         if (!empty ($author["PROPERTY_ORIG_NAME_VALUE"])) {
                             $authorFullName = $author["NAME"] . " / " . $author["PROPERTY_ORIG_NAME_VALUE"];
                         } else {
@@ -927,7 +907,7 @@ $arItemIDs = array(
                         <div class="author_info">
                             <span class="author_name"><?=$authorFullName?></span>
 
-                            <?= !empty($author["IMAGE_FILE"]["SRC"]) ? "<img src='".$author["IMAGE_FILE"]["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$author["PREVIEW_TEXT"]?>
+                            <?= !empty($author["IMAGE_FILE"]["SRC"]) ? "<img src='".$author["IMAGE_FILE"]["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$currAuth["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]?>
 
                         </div>
                         <br>
@@ -1399,15 +1379,6 @@ $printid = implode(", ", $printid2);?>
         }?>
     </div>
 </div>
-<?if ($USER->isAdmin()) {
-$itemRes = CIBlockElement::GetByID($arResult["ID"]);
-if($itemData = $itemRes->GetNext()){
-	$itemSectionID = $itemData['IBLOCK_SECTION_ID'];
-}
-$productSectionName = CIBlockSection::GetByID($itemSectionID);
-print_r($productSectionName);
-}
-?>
 
 <script>
     $(document).ready(function() {
@@ -1497,4 +1468,3 @@ print_r($productSectionName);
 
 
 </script>
-
