@@ -6,29 +6,36 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 CModule::IncludeModule("sale");
 CModule::IncludeModule("iblock");
 global $USER;
+/*$couponsArray = array(
+'2206060701',
+'2214051601',
+'2214051602'
+);*/
 if ($USER->IsAdmin()){
 	if (CModule::IncludeModule("catalog"))
 	{
-		$COUPON = CatalogGenerateCoupon();
-		$COUPON = 'march_test';
-		
-		$arCouponFields = array(
-			"DISCOUNT_ID" => "18",
-			"ACTIVE" => "Y",
-			"ONE_TIME" => "O",
-			"COUPON" => $COUPON,
-			"DATE_APPLY" => false
-		);
+		foreach ($couponsArray as $oneCoupon) {
+			$COUPON = CatalogGenerateCoupon();
+			$COUPON = $oneCoupon;
+			
+			$arCouponFields = array(
+				"DISCOUNT_ID" => "150",
+				"ACTIVE" => "Y",
+				"ONE_TIME" => "O",
+				"COUPON" => $COUPON,
+				"DATE_APPLY" => false
+			);
 
-		if ($CID = CCatalogDiscountCoupon::Add($arCouponFields)) {
-			echo '123';
-		}
-		$CID = IntVal($CID);
-		if ($CID <= 0)
-		{
-			$ex = $APPLICATION->GetException();
-			$errorMessage = $ex->GetString();
-			echo $errorMessage;
+			if ($CID = CCatalogDiscountCoupon::Add($arCouponFields)) {
+				echo $oneCoupon.' ok<br />';
+			}
+			$CID = IntVal($CID);
+			if ($CID <= 0)
+			{
+				$ex = $APPLICATION->GetException();
+				$errorMessage = $ex->GetString();
+				echo $errorMessage."<br />";
+			}
 		}
 	}	
 }
