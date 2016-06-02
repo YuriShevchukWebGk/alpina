@@ -798,3 +798,10 @@ a.bxd-block:hover {}
 .bx-up-button:hover{
 	background-color: #9fa0a3;
 }
+.recomendation .grayTitle {
+	color: #627478;
+	font-family: "Walshein_regular";
+	font-size: 24px;
+	padding-top: 40px;
+	padding-bottom: 36px;	
+}

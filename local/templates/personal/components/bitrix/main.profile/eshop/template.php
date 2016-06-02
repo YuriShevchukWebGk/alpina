@@ -23,14 +23,6 @@
 
                 <input type="text" name="SECOND_NAME" maxlength="50"  value="<?= $arResult["arUser"]["SECOND_NAME"] ?>" placeholder="<?= GetMessage('SECOND_NAME') ?>"/><br><br>
 
-                <?/*?><h2><?=GetMessage("MAIN_PSWD")?></h2>
-                    <strong><?=GetMessage('NEW_PASSWORD_REQ')?></strong><br/>
-                    <input type="password" name="NEW_PASSWORD" maxlength="50" value="" autocomplete="off" /> <br><br>
-
-                    <strong><?=GetMessage('NEW_PASSWORD_CONFIRM')?></strong><br/>
-                    <input type="password" name="NEW_PASSWORD_CONFIRM" maxlength="50" value="" autocomplete="off" /> <br><br>
-                <?*/?>
-
                 <?if($arResult["USER_PROPERTIES"]["SHOW"] == "Y") {?>
                     <h2><?= strlen(trim($arParams["USER_PROPERTY_NAME"])) > 0 ? $arParams["USER_PROPERTY_NAME"] : GetMessage("USER_TYPE_EDIT_TAB") ?></h2>
                     <?foreach ($arResult["USER_PROPERTIES"]["DATA"] as $FIELD_NAME => $arUserField) {?>

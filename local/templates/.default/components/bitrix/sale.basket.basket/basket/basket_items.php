@@ -103,6 +103,8 @@
 						$itemsForFloctory = Array();
 						$itemsForRetailRocket = array();
 						$gtmEnchECommerceCheckout = Array();
+						$retailRocketRecs = '';
+						$is = 0;
 						/* конец */
 						
                         foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):
@@ -111,6 +113,9 @@
 							
 							array_push($gtmEnchECommerceCheckout,"'name': '".$arItem['NAME']."','id': '".$arItem["PRODUCT_ID"]."','category': '".$parentSectionName."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Google Analytics Items
 							array_push($itemsForCriteo,"'id': '".$arItem["PRODUCT_ID"]."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Criteo Items
+							if ($is < 15)
+								$retailRocketRecs .= $arItem["PRODUCT_ID"].',';
+							$is++;
                             ?>                       
                             <tr id="<?=$arItem["ID"]?>">
                                 <?
@@ -418,3 +423,83 @@
     <?
         endif;
 ?>
+<?if ($USER->isAdmin()) {
+	CModule::IncludeModule("iblock");
+	CModule::IncludeModule("sale");
+	CModule::IncludeModule("catalog");
+	$arBasketItems = array();
+	$dbBasketItems = CSaleBasket::GetList(
+				  array("NAME" => "ASC","ID" => "ASC"),
+				  array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
+				  false,
+				  false,
+				  array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE"));
+	while ($arItems=$dbBasketItems->Fetch())
+	{
+	  $arItems=CSaleBasket::GetByID($arItems["ID"]);
+	  $arBasketItems[]=$arItems;
+	  $cart_num+=$arItems['QUANTITY'];
+	  $cart_sum+=$arItems['PRICE']*$arItems['QUANTITY'];
+	}
+	if (empty($cart_num))
+	  $cart_num="0";
+	if (empty($cart_sum))
+	  $cart_sum="0";?>	
+	<?if ($USER->IsAuthorized()) {// blackfriday черная пятница
+		if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
+			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
+		} elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
+			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
+			$discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
+		} else {
+			$discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
+		}
+	} else {
+		if ($cart_sum < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
+			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
+		} elseif ($cart_sum < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
+			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
+			$discount = $arResult["SALE_NOTE"][0]["VALUE"];  // процент накопительной скидки
+		} else {
+			$discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
+		}
+	}?>
+	<style>
+		#discountMessageClose:hover {
+			background:rgb(236, 236, 236) none repeat scroll 0% 0%;
+			color:red;
+		}
+		#discountMessageClose {
+			-webkit-transition: color .3s ease, background-color .3s ease, border-color .3s ease;
+			-moz-transition: color .3s ease, background-color .3s ease, border-color .3s ease;
+			-ms-transition: color .3s ease, background-color .3s ease, border-color .3s ease;
+			-o-transition: color .3s ease, background-color .3s ease, border-color .3s ease;
+			transition: color .3s ease, background-color .3s ease, border-color .3s ease;
+			display:block;
+			position:absolute;
+			top:10px;
+			right:10px;
+			cursor:pointer;
+			font-size:18px;
+			background:#fff;
+			color:#99ABB1;
+			text-align:center;
+			padding:2px;
+			border-radius:12px;
+			width:20px;
+			height:20px;
+		}
+	</style>
+	<div id="discountMessage" style="position:fixed;bottom:30px;right:30px;width:300px;background:#99ABB1;padding:20px;z-index:10000;color:#fff;height:80px;font-family: 'Walshein_regular';">
+		<?=$printDiscountText?>
+		<span id="discountMessageClose">X</span>
+		<script>
+		$(document).ready(function() {
+			$("#discountMessageClose").click(function() {
+				$("#discountMessage").slideUp(1000);
+			});
+		});
+		</script>
+	</div>
+
+<?}?>
