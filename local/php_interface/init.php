@@ -1186,4 +1186,11 @@
             "items"       => array()
         );
     }
+    
+    AddEventHandler("sale", "OnSaleCancelOrder", "changingOrderStatusAfterCancelling");
+    function changingOrderStatusAfterCancelling($ID, $val) {
+        if ($val == "Y") {
+            CSaleOrder::StatusOrder($ID, "A");    
+        }    
+    } 
 ?>
