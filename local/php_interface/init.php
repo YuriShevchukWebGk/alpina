@@ -1187,6 +1187,13 @@
         );
     }
 
+    AddEventHandler("sale", "OnSaleCancelOrder", "changingOrderStatusAfterCancelling");
+    function changingOrderStatusAfterCancelling($ID, $val) {
+        if ($val == "Y") {
+            CSaleOrder::StatusOrder($ID, "A");    
+        }    
+    } 
+
     //Handlers for PickPoint improvements
     AddEventHandler("sale", "OnOrderSave", Array("CustomPickPoint", "RewriteOrderDescription"));
 
@@ -1212,6 +1219,5 @@
             }
         }   
     }
-
 
 ?>

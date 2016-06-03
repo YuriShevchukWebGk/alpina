@@ -1,10 +1,10 @@
 ﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 global $USER;
 $today = date("w");
-/*if ($today == 3) {
-	header("Location: http://www.alpinabook.ru/actions/may32/");
+if (!$USER->isAdmin() && $today != 2 && $today != 3) {
+	header("Location: http://www.alpinabook.ru");
 	exit();
-}*/?>
+}?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,7 @@ $today = date("w");
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-    <title>Киберпонедельник? Кибервторник!</title>
+    <title>32 мая. Лишний день весны обязательно нужен!</title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <link href="css/style.css" rel="stylesheet">
@@ -49,9 +49,9 @@ $today = date("w");
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
     <meta name="theme-color" content="#ffffff">
 
-	<meta property="og:title" content="Киберпонедельник? Кибервторник!" />
+	<meta property="og:title" content="32 мая. Лишний день весны обязательно нужен!" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="http://www.alpinabook.ru/actions/cybertuesday/" />
+	<meta property="og:url" content="http://www.alpinabook.ru/actions/may32/" />
 	<meta property="og:image" content="http://www.alpinabook.ru/actions/cybertuesday/img/headern.jpg" />
 	<meta property="og:site_name" content="www.alpinabook.ru" />
 	<meta property="fb:admins" content="1425804193" />
@@ -101,15 +101,13 @@ $today = date("w");
 	margin:0;
 	padding:14px 0;
 }
-.mainWrapp {
-	background:url(img/a.jpg) no-repeat 100% 26%, url(img/b.jpg) no-repeat 0% 39%,url(img/c.jpg) no-repeat 0% 68%,url(img/d.jpg) no-repeat 100% 100% #f7ebe0;
-}
 .landing .slide1 {
-	background: url(img/headern.jpg) no-repeat 50% 50%;
+	background: url(img/header.jpg) no-repeat 50% 50%;
+	height:538px;
 }
 .landing .slide2 {
 	background: url(img/middle.jpg) no-repeat 50% 50%;
-	height:585px;
+	height:546px;
     margin: 20px 0 14px;
 }
 .mainWrapp::before {
@@ -150,7 +148,7 @@ header .lkWrapp {
 	content: "";
 	width: 140px;
 	height: 3px;
-	background: #627477;
+	background: #627477;s
 	position: absolute;
 	bottom: 0;
 	left: 50%;
@@ -318,9 +316,7 @@ $alpExps['cyberTuesday']	= (!$alpExps['cyberTuesday'] ? rand(1,3) : $alpExps['cy
         <div class="mainWrapp">
             <div class="slide1">
 				<div id="slide1text">
-                Не сбавляем обороты, не переводим дух!<br />
-				Честные скидки от <b>10%</b> до <b>40%</b> на лучшие новинки весны и <br />
-				бестселлеры всех времён (года)
+                
 				</div>
             </div>
 			<?if ($label == 'customizedProds') {?>
@@ -610,7 +606,7 @@ $alpExps['cyberTuesday']	= (!$alpExps['cyberTuesday'] ? rand(1,3) : $alpExps['cy
             <img src="img/footer.jpg" alt="" />
 			<script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
 			<script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
-			<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus" data-counter="" style="position: absolute;left: 48%;bottom: 200px;"></div>
+			<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus" data-counter="" style="position: absolute;left: 48%;bottom: 80px;"></div>
         </div>
     </div>
 

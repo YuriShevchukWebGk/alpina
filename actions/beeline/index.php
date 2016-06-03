@@ -8,6 +8,7 @@ $today = date("w");
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="robots" content="noindex, nofollow"/>
     <meta charset="utf-8"/>
     <title>Акция для премиум-клиентов Beeline</title>
     <meta name="keywords" content=""/>
@@ -30,14 +31,14 @@ $today = date("w");
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
     <meta name="theme-color" content="#ffffff">
-
+	<?/*
 	<meta property="og:title" content="Акция для премиум-клиентов Beeline" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="http://www.alpinabook.ru/actions/cybertuesday/" />
 	<meta property="og:image" content="http://www.alpinabook.ru/actions/cybertuesday/img/headern.jpg" />
 	<meta property="og:site_name" content="www.alpinabook.ru" />
 	<meta property="fb:admins" content="1425804193" />
-	<meta property="fb:app_id" content="138738742872757" /> 
+	<meta property="fb:app_id" content="138738742872757" /> */?>
 
 </head>
 <body>
@@ -238,7 +239,7 @@ $digitalBooks = array(
 					3
 				</div>
 				<div class="slide1text">
-					Введите следующие промо-коды:
+					В строку поиска (на iOS) или в разделе Промокод<br />(на Android) введите следующие промо-коды:
 				</div>
 				<div class="hintWrapp">
 					<?foreach ($digitalBooks as $book) {?>

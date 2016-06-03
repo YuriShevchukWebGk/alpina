@@ -1,5 +1,5 @@
 <?
-    require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+    require("/home/bitrix/www/bitrix/modules/main/include/prolog_before.php");
 
     //Data access for PickPoint API
     $dataLogin = $arParams["PICKPOINT"]["DATA_ACCESS"]; 
