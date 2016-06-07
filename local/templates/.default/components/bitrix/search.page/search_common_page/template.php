@@ -180,7 +180,8 @@
                 <div class="searchBooksWrap">
                     <div class="searchWidthWrapper">
                         <?foreach($arResult["SEARCH"] as $arItem) {
-                            if ($arItem["PARAM2"] == 29) {?>
+                            // авторы в результатах поиска
+                            if ($arItem["PARAM2"] == 29) { ?>
                                 <?
                                 $currAuth = CIBlockElement::GetList(
                                     array(), 
@@ -230,151 +231,147 @@
                                     
                                         
                                    
-                        <?}?>
-                                <?
-                                if ($arItem["PARAM2"] == 4) {?>
-                                    <? 
-                                    $bookInfo = CIBlockElement::GetList(
-                                        array(), 
-                                        array("ID" => $arItem["ITEM_ID"]), 
-                                        false, 
-                                        false, 
-                                        array("ID", "NAME", "PROPERTY_AUTHORS")
-                                    ) -> Fetch(); 
-                                    if ($bookInfo["PROPERTY_AUTHORS_VALUE"]) {
-                                        $currAuth = CIBlockElement::GetList(
-                                            array(), 
-                                            array("ID" => $bookInfo["PROPERTY_AUTHORS_VALUE"]), 
-                                            false, 
-                                            false, 
-                                            array()
-                                        ) -> Fetch();        
-                                    }
-                                    $dbBasketItems = CSaleBasket::GetList(
-                                        array(), 
-                                        array(
-                                            "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
-                                            "LID" => SITE_ID, 
-                                            "ORDER_ID" => "NULL", 
-                                            "PRODUCT_ID" => $arItem["ITEM_ID"]
-                                        ), 
-                                        false, 
-                                        false, 
-                                        array(
-                                            "ID", 
-                                            "CALLBACK_FUNC", 
-                                            "MODULE", 
-                                            "PRODUCT_ID", 
-                                            "QUANTITY", 
-                                            "PRODUCT_PROVIDER_CLASS"
-                                        )
-                                    )->Fetch();
-                                    $currBook = CIBlockElement::GetList(
-                                        array(), 
-                                        array("ID" => $arItem["ITEM_ID"]), 
-                                        false, 
-                                        false, 
-                                        array(
-                                            "ID", 
-                                            "DETAIL_PICTURE", 
-                                            "PREVIEW_TEXT", 
-                                            "PROPERTY_STATE", 
-                                            "PROPERTY_SOON_DATE_TIME", 
-                                            "PROPERTY_AUTHORS", 
-                                            "CATALOG_GROUP_1", 
-                                            "PROPERTY_COVER_TYPE", 
-                                            "IBLOCK_SECTION_ID"
-                                        )
-                                    ) -> Fetch();
-                                    $pict = CFile::ResizeImageGet(
-                                        $currBook["DETAIL_PICTURE"], 
-                                        array('width'=>165, "height"=>233), 
-                                        BX_RESIZE_IMAGE_PROPORTIONAL, 
-                                        true
-                                    );
-                                    ?>
-                                    <div class="searchBook">
-                                        <div>
-                                             <a href="<?= $arItem["URL"]?>">
-                                                 <div class="search_item_img">
-                                                    <?if ($pict["src"]) {?>
-                                                        <img src="<?=$pict["src"]?>">
-                                                    <?} else {?>
-                                                        <img src="/images/no_photo.png" width="155">    
-                                                    <?}?>
-                                                 </div>
-                                             </a>
-                                        </div>
-                                        <div class="descrWrap">
-                                            <a href="<?= $arItem["URL"] ?>">
-                                                <p class="bookNames" title="<?= $arItem["TITLE"] ?>"><?= $arItem["TITLE"] ?></p>
-                                                <p class="autorName"><?= $currAuth["NAME"] ?></p>
-                                                <p class="wrapperType"><?=$currBook["PROPERTY_COVER_TYPE_VALUE"]?></p>
-                                                <?if (($currBook["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
-                                                    && ($currBook["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
-                                                ?>
-                                                    <p class="price"><?= ceil($currBook["CATALOG_PRICE_1"]) ?> руб.</p>
-                                                <?} else if ($currBook["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
-                                                    <p class="price">Ожидаемая дата выхода: <?= strtolower(FormatDate("j F", MakeTimeStamp($currBook["PROPERTY_SOON_DATE_TIME_VALUE"], "DD.MM.YYYY HH:MI:SS"))); ?></p>    
-                                                <?} else {?>
-                                                    <p class="price"><?= $currBook["PROPERTY_STATE_VALUE"] ?></p>    
-                                                <?}?>
-                                                <div class="description"><?=$currBook["PREVIEW_TEXT"]?></div>
-                                                <?
-                                                    if (($currBook["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
-                                                        && ($currBook["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
-                                                            if ($dbBasketItems["QUANTITY"] == 0) {?>
-                                                                <a class="product<?= $arItem["ID"]; ?>" href="<?= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>" 
-                                                                    onclick="addtocart(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"];?>');addToCartTracking(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"]; ?>', '<?= ceil($currBook["CATALOG_PRICE_1"]) ?>', '<?$sectionId = CIBlockSection::GetByID($currBook["IBLOCK_SECTION_ID"]);if ($sectionId = $sectionId->GetNext()) echo $sectionId['NAME'];?>', '1');return false;">
-                                                                        <p class="basket">В корзину</p>
-                                                                </a>
-                                                            <?} else {?>
-                                                                <a class="product<?= $arItem["ITEM_ID"]; ?>" href="/personal/cart/">
-                                                                    <p class="inBasket" style="background-color: #A9A9A9;color: white;">Оформить</p>
-                                                                </a>
-                                                            <?}
-                                                    }
-                                                ?>
-                                            </a>
-                                        </div>
-                                    </div>
-                                <?}?>
-                        <?
-                            if ($arItem["PARAM2"] == 45) {?>
-                                <?
-                                $currSerie = CIBlockElement::GetList(
+                            <?}?>
+                            <?// книги в результатах поиска
+                            if ($arItem["PARAM2"] == 4) {?>
+                                <?$bookInfo = CIBlockElement::GetList(
                                     array(), 
                                     array("ID" => $arItem["ITEM_ID"]), 
                                     false, 
                                     false, 
-                                    array("ID", "PREVIEW_TEXT")
+                                    array("ID", "NAME", "PROPERTY_AUTHORS")
+                                ) -> Fetch(); 
+                                if ($bookInfo["PROPERTY_AUTHORS_VALUE"]) {
+                                    $currAuth = CIBlockElement::GetList(
+                                        array(), 
+                                        array("ID" => $bookInfo["PROPERTY_AUTHORS_VALUE"]), 
+                                        false, 
+                                        false, 
+                                        array()
+                                    ) -> Fetch();        
+                                }
+                                $dbBasketItems = CSaleBasket::GetList(
+                                    array(), 
+                                    array(
+                                        "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
+                                        "LID" => SITE_ID, 
+                                        "ORDER_ID" => "NULL", 
+                                        "PRODUCT_ID" => $arItem["ITEM_ID"]
+                                    ), 
+                                    false, 
+                                    false, 
+                                    array(
+                                        "ID", 
+                                        "CALLBACK_FUNC", 
+                                        "MODULE", 
+                                        "PRODUCT_ID", 
+                                        "QUANTITY", 
+                                        "PRODUCT_PROVIDER_CLASS"
+                                    )
+                                )->Fetch();
+                                $currBook = CIBlockElement::GetList(
+                                    array(), 
+                                    array("ID" => $arItem["ITEM_ID"]), 
+                                    false, 
+                                    false, 
+                                    array(
+                                        "ID", 
+                                        "DETAIL_PICTURE", 
+                                        "PREVIEW_TEXT", 
+                                        "PROPERTY_STATE", 
+                                        "PROPERTY_SOON_DATE_TIME", 
+                                        "PROPERTY_AUTHORS", 
+                                        "CATALOG_GROUP_1", 
+                                        "PROPERTY_COVER_TYPE", 
+                                        "IBLOCK_SECTION_ID"
+                                    )
                                 ) -> Fetch();
-                                ?>
+                                $pict = CFile::ResizeImageGet(
+                                    $currBook["DETAIL_PICTURE"], 
+                                    array('width'=>165, "height"=>233), 
+                                    BX_RESIZE_IMAGE_PROPORTIONAL, 
+                                    true
+                                );?>
                                 <div class="searchBook">
                                     <div>
-                                        <a href="<?= $arItem["URL"] ?>">
+                                        <a href="<?= $arItem["URL"]?>">
                                             <div class="search_item_img">
-                                                
+                                                <?if ($pict["src"]) {?>
+                                                    <img src="<?=$pict["src"]?>">
+                                                    <?} else {?>
+                                                    <img src="/images/no_photo.png" width="155">    
+                                                    <?}?>
                                             </div>
                                         </a>
                                     </div>
                                     <div class="descrWrap">
                                         <a href="<?= $arItem["URL"] ?>">
                                             <p class="bookNames" title="<?= $arItem["TITLE"] ?>"><?= $arItem["TITLE"] ?></p>
-                                           
-                                            
+                                            <p class="autorName"><?= $currAuth["NAME"] ?></p>
+                                            <p class="wrapperType"><?=$currBook["PROPERTY_COVER_TYPE_VALUE"]?></p>
+                                            <?if (($currBook["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
+                                                    && ($currBook["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
+                                                ?>
+                                                <p class="price"><?= ceil($currBook["CATALOG_PRICE_1"]) ?> руб.</p>
+                                                <?} else if ($currBook["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                                <p class="price">Ожидаемая дата выхода: <?= strtolower(FormatDate("j F", MakeTimeStamp($currBook["PROPERTY_SOON_DATE_TIME_VALUE"], "DD.MM.YYYY HH:MI:SS"))); ?></p>    
+                                                <?} else {?>
+                                                <p class="price"><?= $currBook["PROPERTY_STATE_VALUE"] ?></p>    
+                                                <?}?>
+                                            <div class="description"><?=$currBook["PREVIEW_TEXT"]?></div>
+                                            <?
+                                                if (($currBook["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
+                                                    && ($currBook["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
+                                                    if ($dbBasketItems["QUANTITY"] == 0) {?>
+                                                    <a class="product<?= $arItem["ID"]; ?>" href="<?= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>" 
+                                                        onclick="addtocart(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"];?>');addToCartTracking(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"]; ?>', '<?= ceil($currBook["CATALOG_PRICE_1"]) ?>', '<?$sectionId = CIBlockSection::GetByID($currBook["IBLOCK_SECTION_ID"]);if ($sectionId = $sectionId->GetNext()) echo $sectionId['NAME'];?>', '1');return false;">
+                                                        <p class="basket">В корзину</p>
+                                                    </a>
+                                                    <?} else {?>
+                                                    <a class="product<?= $arItem["ITEM_ID"]; ?>" href="/personal/cart/">
+                                                        <p class="inBasket" style="background-color: #A9A9A9;color: white;">Оформить</p>
+                                                    </a>
+                                                    <?}
+                                                }
+                                            ?>
+                                        </a>
+                                    </div>
+                                </div>
+                            <?}?>
+                            <?// серии в результатах поиска
+                            if ($arItem["PARAM2"] == 45) {?>
+                                <?$currSerie = CIBlockElement::GetList(
+                                    array(), 
+                                    array("ID" => $arItem["ITEM_ID"]), 
+                                    false, 
+                                    false, 
+                                    array("ID", "PREVIEW_TEXT")
+                                ) -> Fetch();?>
+                                <div class="searchBook">
+                                    <div>
+                                        <a href="<?= $arItem["URL"] ?>">
+                                            <div class="search_item_img">
+                                                    
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="descrWrap">
+                                        <a href="<?= $arItem["URL"] ?>">
+                                            <p class="bookNames" title="<?= $arItem["TITLE"] ?>"><?= $arItem["TITLE"] ?></p>
+
+
                                             <div class="description"><?= $currSerie["PREVIEW_TEXT"] ?></div>
                                         </a>
                                     </div>
                                 </div>
-                                    
                                         
-                                   
+                                            
+                                       
+                            <?}?>
                         <?}?>
-                    <?}?>
+                    </div>
                 </div>
             </div>
-        </div>
         
         <p>
         </p>
