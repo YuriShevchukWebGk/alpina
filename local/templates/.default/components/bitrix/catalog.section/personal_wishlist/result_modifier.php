@@ -465,4 +465,54 @@ if (!empty($arResult['ITEMS']))
 		}
 	}
 }
+//ID текущего пользователя
+$arResult["USER_ID"] = $USER -> GetID();
+
+// получение URL корня сайта для формирования ссылки шаринга списка желаний
+$arResult["SERVER_NAME"] = $_SERVER["SERVER_NAME"];
+
+//список разделов
+$arResult["SECTIONS_LIST"] = array();
+$sect = CIBlockSection::GetList(array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID), false, array("ID", "CODE", "NAME"));
+while($arSect = $sect->Fetch()) {
+    $arResult["SECTIONS_LIST"][$arSect["ID"]] = $arSect; 
+}
+
+//список авторов
+$arResult["AUTHORS"] = array();
+$author = CIBlockElement::GetList(array(),array("IBLOCK_ID" => AUTHORS_IBLOCK_ID), false, false, array("ID", "CODE", "NAME"));  
+while ($arAuthor = $author->Fetch()) {
+    $arResult["AUTHORS"][$arAuthor["ID"]] = $arAuthor; 
+}
+
+foreach ($arResult["ITEMS"] as $arItem) { 
+    $arResult["PRODUCT_FIELDS"][$arItem["ID"]] = CIBlockElement::GetList(
+        array(), 
+        array(
+            "IBLOCK_ID" => CATALOG_IBLOCK_ID, 
+            "ID" => $arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]
+        ), 
+        false, 
+        false, 
+        array(
+            "ID", 
+            "NAME", 
+            "DETAIL_PICTURE", 
+            "PROPERTY_AUTHORS", 
+            "PREVIEW_TEXT", 
+            "IBLOCK_SECTION_ID", 
+            "CATALOG_GROUP_1", 
+            "PROPERTY_STATE"
+        )
+    )->Fetch();   
+    $arResult["PICTURE"][$arItem["ID"]] = CFile::ResizeImageGet(
+        $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["DETAIL_PICTURE"], 
+        array(
+            'width'=>146, 
+            'height'=>210
+        ), 
+        BX_RESIZE_IMAGE_EXACT, 
+        true
+    );
+}
 ?>

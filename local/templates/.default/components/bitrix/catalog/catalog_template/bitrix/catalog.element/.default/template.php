@@ -10,7 +10,7 @@
     /** @var string $templateFolder */
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
-    $this->setFrameMode(true);
+   
 ?>
 
 <?$this->setFrameMode(true);
@@ -94,17 +94,18 @@ $arItemIDs = array(
                       false,
                       false,
                       array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE"));
-        while ($arItems=$dbBasketItems->Fetch())
-        {
-          $arItems=CSaleBasket::GetByID($arItems["ID"]);
-          $arBasketItems[]=$arItems;
-          $cart_num+=$arItems['QUANTITY'];
-          $cart_sum+=$arItems['PRICE']*$arItems['QUANTITY'];
+        while ($arItems = $dbBasketItems->Fetch()) {
+          $arItems = CSaleBasket::GetByID($arItems["ID"]);
+          $arBasketItems[] = $arItems;
+          $cart_num += $arItems['QUANTITY'];
+          $cart_sum += $arItems['PRICE'] * $arItems['QUANTITY'];
         }
-        if (empty($cart_num))
-          $cart_num="0";
-        if (empty($cart_sum))
-          $cart_sum="0";
+        if (empty($cart_num)) {
+            $cart_num = "0";
+        }
+        if (empty($cart_sum)) {
+            $cart_sum = "0";
+        }
         ?>
         <div class="elementDescriptWrap">
             <div class="leftColumn">
@@ -142,13 +143,13 @@ $arItemIDs = array(
                     <div class="bookPages">
                         <?
                             if ($arResult["MAIN_PICTURE"]) {?>
-                                <a class="grouped_elements" rel="group1" href="<?=$arResult["MAIN_PICTURE"]?>"><img src="<?=$arResult["MAIN_PICTURE"]?>"></a>
+                                <a class="grouped_elements" rel="group1" href="<?= $arResult["MAIN_PICTURE"] ?>"><img src="<?= $arResult["MAIN_PICTURE"] ?>"></a>
                             <?}
                         ?>
                     </div>
                     <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '' && $USER->GetID() != 15)) {?>
 
-                        <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
+                        <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe">
                             <div class="overlay bookPreview">
                                 <p class="bookPreview"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
                             </div>
