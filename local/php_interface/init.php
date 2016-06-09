@@ -16,6 +16,7 @@
     define ("CATALOG_IBLOCK_ID", 4);
     define ("AUTHORS_IBLOCK_ID", 29);
     define ("REVIEWS_IBLOCK_ID", 24);
+    define ("SERIES_IBLOCK_ID", 45);
     define ("SPONSORS_IBLOCK_ID", 47);
     define ("WISHLIST_IBLOCK_ID", 17);
     define ("EXPERTS_IBLOCK_ID", 23);

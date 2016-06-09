@@ -1144,7 +1144,7 @@ function updateSearchPage() {
     });*/
     $(".descrWrap .description").each(function() {
             if($(this).length > 0) {
-                $(this).html(truncate($(this).html(), 130));    
+                $(this).html(truncate($(this).html(), 80));    
             }    
     });
     if($('.bookEasySlider').length > 0) {
