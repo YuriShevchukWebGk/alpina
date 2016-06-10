@@ -17,38 +17,38 @@ $this->setFrameMode(true);
 
     <?foreach ($arResult["ITEMS"] as $arItem) {
 
-        $prodSection = $arResult["SECTIONS_LIST"][$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["IBLOCK_SECTION_ID"]];
-        $author = $arResult["AUTHORS"][$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_AUTHORS_VALUE"]];
+        $prodSection = $arResult["SECTIONS_LIST"][$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["IBLOCK_SECTION_ID"]];
+        $author = $arResult["AUTHORS"][$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["PROPERTY_AUTHORS_VALUE"]];
         $unavailable_statuses_array = array (
             getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon"), 
             getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "net_v_nal")
         );
         ?>
         <div class="wishElement">
-            <div class="imgContainer"><a href="/catalog/<?= $prodSection["CODE"] ?>/<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]?>/"><img src="<?= $arResult["PICTURE"][$arItem["ID"]]["src"] ?>"></a></div>
-            <p class="wishBookName"><a href="/catalog/<?= $prodSection["CODE"] ?>/<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]?>/"><?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"] ?></a></p>
+            <div class="imgContainer"><a href="/catalog/<?= $prodSection["CODE"] ?>/<?= $arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"]?>/"><img src="<?= $arResult["PICTURE"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["src"] ?>"></a></div>
+            <p class="wishBookName"><a href="/catalog/<?= $prodSection["CODE"] ?>/<?= $arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"]?>/"><?= $arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["NAME"] ?></a></p>
             <p class="wishBookAutor"><a href="/authors/<?= $author["ID"] ?>/"><?= $author["NAME"] ?></a></p>
             <p class="wishBookPrice">
-                <?if ($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["CATALOG_PRICE_1"] > 0) {
-                    echo ceil($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["CATALOG_PRICE_1"]) . GetMessage("ROUBLES");
+                <?if ($arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["CATALOG_PRICE_1"] > 0) {
+                    echo ceil($arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["CATALOG_PRICE_1"]) . GetMessage("ROUBLES");
                 } else {
                     echo GetMessage("CT_BCS_TPL_MESS_PRODUCT_NOT_AVAILABLE");
                 }?>
             </p>
-            <div class="wishBookDescription"><?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PREVIEW_TEXT"] ?></div>
-            <? if ($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["CATALOG_PRICE_1"] > 0
-                && !in_array($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_STATE_ENUM_ID"], $unavailable_statuses_array)) {?>
-                    <p class="inBasketContainer" id="wishItem_<?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]?>">
-                        <a href="/personal/cart/?action=ADD2BASKET&id=<?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]?>" 
-                            onclick="addtocart(<?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"];?>, '<?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"];?>'); return false;" 
-                            class="wishInBasket" id="wishItem_<?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]?>">
+            <div class="wishBookDescription"><?= $arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["PREVIEW_TEXT"] ?></div>
+            <? if ($arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["CATALOG_PRICE_1"] > 0
+                && !in_array($arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["PROPERTY_STATE_ENUM_ID"], $unavailable_statuses_array)) {?>
+                    <p class="inBasketContainer" id="wishItem_<?=$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"]?>">
+                        <a href="/personal/cart/?action=ADD2BASKET&id=<?=$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"]?>" 
+                            onclick="addtocart(<?=$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"];?>, '<?=$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["NAME"];?>'); return false;" 
+                            class="wishInBasket" id="wishItem_<?=$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"]?>">
                                 <?= GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET") ?>
                         </a>
                     </p>
             <?}?>
             <p class="wishDeleteContainer">
                 <a href="javascript:void(0)" 
-                    onclick="delete_wishlist_item(<?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]?>);" 
+                    onclick="delete_wishlist_item(<?=$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"]?>);" 
                     class="wishDelete">
                         <?= GetMessage("DELETE") ?>
                 </a>

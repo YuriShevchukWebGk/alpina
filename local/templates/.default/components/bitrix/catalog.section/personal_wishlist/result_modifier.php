@@ -465,48 +465,54 @@ if (!empty($arResult['ITEMS']))
 		}
 	}
 }
-//ID текущего пользователя
+//ID С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 $arResult["USER_ID"] = $USER -> GetID();
 
-// получение URL корня сайта для формирования ссылки шаринга списка желаний
+// РїРѕР»СѓС‡РµРЅРёРµ URL РєРѕСЂРЅСЏ СЃР°Р№С‚Р° РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ СЃСЃС‹Р»РєРё С€Р°СЂРёРЅРіР° СЃРїРёСЃРєР° Р¶РµР»Р°РЅРёР№
 $arResult["SERVER_NAME"] = $_SERVER["SERVER_NAME"];
 
-//список разделов
+//СЃРїРёСЃРѕРє СЂР°Р·РґРµР»РѕРІ
 $arResult["SECTIONS_LIST"] = array();
 $sect = CIBlockSection::GetList(array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID), false, array("ID", "CODE", "NAME"));
 while($arSect = $sect->Fetch()) {
     $arResult["SECTIONS_LIST"][$arSect["ID"]] = $arSect; 
 }
 
-//список авторов
+//СЃРїРёСЃРѕРє Р°РІС‚РѕСЂРѕРІ
 $arResult["AUTHORS"] = array();
 $author = CIBlockElement::GetList(array(),array("IBLOCK_ID" => AUTHORS_IBLOCK_ID), false, false, array("ID", "CODE", "NAME"));  
 while ($arAuthor = $author->Fetch()) {
     $arResult["AUTHORS"][$arAuthor["ID"]] = $arAuthor; 
 }
 
-foreach ($arResult["ITEMS"] as $arItem) { 
-    $arResult["PRODUCT_FIELDS"][$arItem["ID"]] = CIBlockElement::GetList(
-        array(), 
-        array(
-            "IBLOCK_ID" => CATALOG_IBLOCK_ID, 
-            "ID" => $arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]
-        ), 
-        false, 
-        false, 
-        array(
-            "ID", 
-            "NAME", 
-            "DETAIL_PICTURE", 
-            "PROPERTY_AUTHORS", 
-            "PREVIEW_TEXT", 
-            "IBLOCK_SECTION_ID", 
-            "CATALOG_GROUP_1", 
-            "PROPERTY_STATE"
-        )
-    )->Fetch();   
-    $arResult["PICTURE"][$arItem["ID"]] = CFile::ResizeImageGet(
-        $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["DETAIL_PICTURE"], 
+foreach ($arResult["ITEMS"] as $arItem) {
+    $products_arr[] = $arItem["PROPERTIES"]["PRODUCTS"]["VALUE"];
+}
+ 
+$product_fields_list = CIBlockElement::GetList(
+    array(), 
+    array(
+        "IBLOCK_ID" => CATALOG_IBLOCK_ID, 
+        "ID" => $products_arr
+    ), 
+    false, 
+    false, 
+    array(
+        "ID", 
+        "NAME", 
+        "DETAIL_PICTURE", 
+        "PROPERTY_AUTHORS", 
+        "PREVIEW_TEXT", 
+        "IBLOCK_SECTION_ID", 
+        "CATALOG_GROUP_1", 
+        "PROPERTY_STATE"
+    )
+);
+while ($product_fields = $product_fields_list -> Fetch()) {
+    $arResult["PRODUCT_FIELDS"][$product_fields["ID"]] = $product_fields;
+   
+    $arResult["PICTURE"][$product_fields["ID"]] = CFile::ResizeImageGet(
+        $arResult["PRODUCT_FIELDS"][$product_fields["ID"]]["DETAIL_PICTURE"], 
         array(
             'width'=>146, 
             'height'=>210
@@ -514,5 +520,7 @@ foreach ($arResult["ITEMS"] as $arItem) {
         BX_RESIZE_IMAGE_EXACT, 
         true
     );
+
 }
+
 ?>

@@ -715,7 +715,7 @@ if ($arResult['MODULES']['currency'])
     }
     
     CModule::IncludeModule("sale");
-    //$BuyerList = CUser::GetByID($USER->GetID()); 
+     
     $dbBasketItems = CSaleBasket::GetList(
         array(
             "NAME" => "ASC",
@@ -728,15 +728,30 @@ if ($arResult['MODULES']['currency'])
         ),
         false,
         false,
-        array("ID","PRICE","NAME","QUANTITY","DISCOUNT_PRICE","ORDER_PAYED")
+        array(
+            "ID",
+            "PRICE",
+            "NAME",
+            "QUANTITY",
+            "DISCOUNT_PRICE",
+            "ORDER_PAYED", 
+            "MODULE",
+            "PRODUCT_ID", 
+            "CAN_BUY"
+        )
     );
+    $arResult["CART_NUM"] = 0;
+    $arResult["CART_SUM"] = 0;
     while ($arItems = $dbBasketItems->Fetch()) {
+        $arResult["CART_NUM"] += $arItems['QUANTITY'];
+        $arResult["CART_SUM"] += $arItems['PRICE'] * $arItems['QUANTITY'];
         if (strlen($arItems["CALLBACK_FUNC"]) > 0) {
             CSaleBasket::UpdatePrice($arItems["ID"], 
                 $arItems["CALLBACK_FUNC"], 
                 $arItems["MODULE"], 
                 $arItems["PRODUCT_ID"], 
-                $arItems["QUANTITY"]);
+                $arItems["QUANTITY"]
+            );
             $arBasketItems = CSaleBasket::GetByID($arItems["ID"]);
         }
         if($arBasketItems["QUANTITY"] > 1) {

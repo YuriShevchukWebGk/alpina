@@ -86,24 +86,7 @@ $arItemIDs = array(
                 "ACTIVE_COMPONENT" => "Y"
             )
         );?>
-        <?
-        $arBasketItems = array();
-        $dbBasketItems = CSaleBasket::GetList(
-            array("NAME" => "ASC","ID" => "ASC"),
-            array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
-            false,
-            false,
-            array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE")
-        );
-        $cart_num = 0;
-        $cart_sum = 0;
-        while ($arItems = $dbBasketItems->Fetch()) {
-            $arItems = CSaleBasket::GetByID($arItems["ID"]);
-            $arBasketItems[] = $arItems;
-            $cart_num += $arItems['QUANTITY'];
-            $cart_sum += $arItems['PRICE'] * $arItems['QUANTITY'];
-        }
-        ?>
+        
         <div class="elementDescriptWrap">
             <div class="leftColumn">
                 <div class="elementMainPict">
@@ -111,23 +94,8 @@ $arItemIDs = array(
                         <?if (($arResult["PROPERTIES"]["discount_ban"]["VALUE"] != "Y")
                             && $arResult['PROPERTIES']['spec_price']['VALUE']
 							&& $arResult['PROPERTIES']['show_discount_icon']['VALUE'] == "Y") {
-                                switch ($arResult['PROPERTIES']['spec_price']['VALUE']) {
-                                    case 10:
-                                        echo '<img class="discount_badge" src="/img/10percent.png">';
-                                        break;
-                                    case 15:
-                                        echo '<img class="discount_badge" src="/img/15percent.png">';
-                                        break;
-                                    case 20:
-                                        echo '<img class="discount_badge" src="/img/20percent.png">';
-                                        break;
-                                    case 30:
-                                        echo '<img class="discount_badge" src="/img/30percent.png">';
-                                        break;
-                                    case 40:
-                                        echo '<img class="discount_badge" src="/img/40percent_black.png">';
-                                        break;
-
+                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arResult['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
+                                    echo '<img class="discount_badge" src="/img/' . $arResult['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
                                 }
                         }?>
                     </div>
