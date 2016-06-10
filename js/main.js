@@ -60,6 +60,12 @@ function roundSlCallRotateCateg(){
     roundSliderCall(slideNumRound);
 }
 
+// плавное скрытие блока информационного сообщения при нажатии на Х
+function close_notice(id){
+	$("#notice_warn").slideUp();
+	$.cookie('notice_warn', id, {path: '/', expires: 3 });
+}
+
 $(document).ready(function(){
 
 
@@ -85,12 +91,6 @@ $(document).ready(function(){
         
     }
     
-    // плавное скрытие блока информационного сообщения при нажатии на Х
-    $("#close_notice").on("click", function() {
-        $("#notice_warn").slideUp();
-    })
-
-
     //скролящееся меню на странице оплата
     if($('.delivMenuWrapp').length > 0){
         heightFromElement = $(".delivMenuWrapp").offset().top;

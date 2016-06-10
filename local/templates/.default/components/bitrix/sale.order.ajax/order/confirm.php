@@ -92,28 +92,30 @@ if ($_REQUEST["ORDER_ID"])
 		<?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
 			<script>
 
-			dataLayer.push({
-			  'ecommerce': {
-				'purchase': {
-				  'actionField': {
-					'id': '<?=$arResult["ORDER"]["ID"]?>',                         // Transaction ID. Required for purchases and refunds.
-					'affiliation': 'Alpinabook',
-					'revenue': '<?=$arResult['ORDER']['PRICE']?>',                     // Total transaction value (incl. tax and shipping)
-					'tax':'<?=$arResult['ORDER']['TAX_VALUE']?>',
-					'shipping': '<?=$arResult['ORDER']['PRICE_DELIVERY']?>',
-					'coupon': '<?=$couponStr?>'
-				  },
-				  'products': [
-					<?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
-						{
-							<?=$googleEnhancedECommerce?>
-						},
-					<?}?>
-				   ]
-				}
-			  }
-			});
-			</script>		
+				dataLayer.push({
+					'ecommerce': {
+						'purchase': {
+							'actionField': {
+								'id': '<?=$arResult["ORDER"]["ID"]?>',                         // Transaction ID. Required for purchases and refunds.
+								'affiliation': 'Alpinabook',
+								'revenue': '<?=$arResult['ORDER']['PRICE']?>',                     // Total transaction value (incl. tax and shipping)
+								'tax':'<?=$arResult['ORDER']['TAX_VALUE']?>',
+								'shipping': '<?=$arResult['ORDER']['PRICE_DELIVERY']?>',
+								'coupon': '<?=$couponStr?>'
+							},
+							'products': [
+								<?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
+								{
+									<?=$googleEnhancedECommerce?>
+								},
+								<?}?>
+							]
+						}
+					},
+					'discountPerc': '<?=$_SESSION['EMAIL_DISCOUNT_PERCENT_MED']?>',
+					'discountRUB': '<?=substr($_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'],0,-5)?>'
+				});
+			</script>
 		<?/* Старый код google ecommerce ?>
         <script>
             dataLayer.push({
