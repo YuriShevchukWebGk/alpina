@@ -111,23 +111,8 @@ $arItemIDs = array(
                         <?if (($arResult["PROPERTIES"]["discount_ban"]["VALUE"] != "Y")
                             && $arResult['PROPERTIES']['spec_price']['VALUE']
 							&& $arResult['PROPERTIES']['show_discount_icon']['VALUE'] == "Y") {
-                                switch ($arResult['PROPERTIES']['spec_price']['VALUE']) {
-                                    case 10:
-                                        echo '<img class="discount_badge" src="/img/10percent.png">';
-                                        break;
-                                    case 15:
-                                        echo '<img class="discount_badge" src="/img/15percent.png">';
-                                        break;
-                                    case 20:
-                                        echo '<img class="discount_badge" src="/img/20percent.png">';
-                                        break;
-                                    case 30:
-                                        echo '<img class="discount_badge" src="/img/30percent.png">';
-                                        break;
-                                    case 40:
-                                        echo '<img class="discount_badge" src="/img/40percent_black.png">';
-                                        break;
-
+                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arResult['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
+                                    echo '<img class="discount_badge" src="/img/' . $arResult['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
                                 }
                         }?>
                     </div>

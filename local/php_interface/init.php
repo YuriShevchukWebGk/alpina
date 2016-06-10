@@ -405,37 +405,51 @@
 
     AddEventHandler("catalog", "OnDiscountUpdate", Array("MyClass", "OnDiscountUpdateHandler"));
 
-    class MyClass
-    {
-        // СЃРѕР·РґР°РµРј РѕР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ "OnAfterIBlockElementUpdate"
-        function OnDiscountUpdateHandler($ID, $arFields)
-        {
-            if ($arFields["ACTIVE"] == "Y")
-            {
+    class MyClass {
+        // создаем обработчик события "OnAfterIBlockElementUpdate"
+        // обновляющий значение свойства "Спеццена" в зависимости от скидки на товар
+        function OnDiscountUpdateHandler($ID, $arFields) {
+            if ($arFields["ACTIVE"] == "Y") {
                 $discount = CCatalogDiscount::GetByID($ID);
 
                 $discount_prods = CCatalogDiscount::GetDiscountProductsList (array(), array("DISCOUNT_ID" => $ID), false, false, array());
-                while ($discount_fetch = $discount_prods -> Fetch())
-                {
-                    switch (round($discount['VALUE']))
-                    {
+                while ($discount_fetch = $discount_prods -> Fetch()) {
+                    switch (round($discount['VALUE'])) {
                         case 10:
                             CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>219), "spec_price");
                             break;
                         case 15:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>271), "spec_price");
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>271), "spec_price");
                             break;
                         case 20:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>220), "spec_price");
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>220), "spec_price");
                             break;
                         case 30:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>221), "spec_price");
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>221), "spec_price");
                             break;
                         case 40:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>272), "spec_price");
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>272), "spec_price");
+                            break;
+                        case 50:
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>351), "spec_price");
+                            break;
+                        case 60:
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>352), "spec_price");
+                            break;
+                        case 70:
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>353), "spec_price");
+                            break;
+                        case 80:
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>354), "spec_price");
+                            break;
+                        case 90:
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>355), "spec_price");
+                            break;
+                        case 100:
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>356), "spec_price");
                             break;
                         default:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>""), "spec_price");
+                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>""), "spec_price");
                     }
                 }
             }

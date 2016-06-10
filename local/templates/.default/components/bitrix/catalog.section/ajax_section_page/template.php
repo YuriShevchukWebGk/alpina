@@ -296,24 +296,12 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                  <div class="sect_badge">
                                      <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
                                          && $arItem['PROPERTIES']['spec_price']['VALUE'] ) {
-                                         switch ($arItem['PROPERTIES']['spec_price']['VALUE']) {
-                                             case 10:
-                                                 echo '<img class="discount_badge" src="/img/10percent.png">';
-                                                 break;
-                                             case 15:
-                                                 echo '<img class="discount_badge" src="/img/15percent.png">';
-                                                 break;
-                                             case 20:
-                                                 echo '<img class="discount_badge" src="/img/20percent.png">';
-                                                 break;
-                                             case 30:
-                                                 echo '<img class="discount_badge" src="/img/30percent.png">';
-                                                 break;
-                                             case 40:
-                                                 echo '<img class="discount_badge" src="/img/40percent_black.png">';
-                                                 break;
+                                             switch ($arItem['PROPERTIES']['spec_price']['VALUE']) {
+                                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arItem['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
+                                                    echo '<img class="discount_badge" src="/img/' . $arItem['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
+                                                }
 
-                                         } 
+                                             } 
                                      }?>
                                  </div>
                                  
