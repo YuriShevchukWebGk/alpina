@@ -92,7 +92,7 @@
         } else { // Майские праздники
 
             if (ourday == 1) { //понедельник
-                minDatePlus = 1;
+                minDatePlus = 2;
             } else if (ourday == 2) { //вторник
                 minDatePlus = 1;
             } else if (ourday == 3) { //среда
@@ -100,11 +100,11 @@
             } else if (ourday == 4) { //четверг
                 minDatePlus = 1;
             } else if (ourday == 5) { //пятница
-                minDatePlus = 3;
+                minDatePlus = 4;
             } else if (ourday == 6) { //суббота
-                minDatePlus = 2;
+                minDatePlus = 3;
             } else if (ourday == 0) { //воскресенье
-                minDatePlus = 1;
+                minDatePlus = 2;
             }
         }
         //дата, выбранная по умолчанию

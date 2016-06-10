@@ -125,6 +125,5 @@ if (!empty($series_array)) {
         $arResult["SERIE_INFO"][$series["ID"]] = $series;        
     }
 }
-         
-    
+
 ?>

@@ -147,7 +147,7 @@ $APPLICATION->SetTitle("Контакты интернет-магазина «А�
 				</div>					
 				<p>2 подъезд, 2 этаж</p>
 				<p class="organisTelep" itemprop="telephone">+7 (495) 980-80-77</p>
-				<p class="organisMail" itemprop="email"><a href="mailto:shop@alpina.ru">SHOP@ALPINA.RU</a></p>
+				<p class="organisMail" itemprop="email"><a href="mailto:shop@alpina.ru">shop@alpina.ru</a></p>
 				<p class="timeTitle">Время работы</p>
 				<p>С понедельника по пятницу с 8:00 до 18:00</p>
 				<p class="wayTitle">Как к нам пройти</p>
