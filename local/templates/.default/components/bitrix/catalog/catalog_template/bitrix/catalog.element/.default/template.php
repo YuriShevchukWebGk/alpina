@@ -98,7 +98,6 @@ $arItemIDs = array(
         $cart_num = 0;
         $cart_sum = 0;
         while ($arItems = $dbBasketItems->Fetch()) {
-            $arItems = CSaleBasket::GetByID($arItems["ID"]);
             $arBasketItems[] = $arItems;
             $cart_num += $arItems['QUANTITY'];
             $cart_sum += $arItems['PRICE'] * $arItems['QUANTITY'];
