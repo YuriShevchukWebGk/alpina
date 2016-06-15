@@ -507,7 +507,7 @@ $arItemIDs = array(
 						}
 					} else {
 						if ($today == 1) {
-							$delivery_day = 'в&nbsp;среду';
+							$delivery_day = 'завтра';
 						} elseif ($today == 2) {
 							$delivery_day = 'завтра';
 						} elseif ($today == 3) {
@@ -515,16 +515,16 @@ $arItemIDs = array(
 						} elseif ($today == 4) {
 							$delivery_day = 'завтра';
 						} elseif ($today == 5) {
-							$delivery_day = 'во&nbsp;вторник';
+							$delivery_day = 'в&nbsp;понедельник';
 						} elseif ($today == 6) {
-							$delivery_day = 'во&nbsp;вторник';
+							$delivery_day = 'в&nbsp;понедельник';
 						} elseif ($today == 0) {
-							$delivery_day = 'во&nbsp;вторник';
+							$delivery_day = 'завтра';
 						}
 						if ($timenow < 17 && $today != 6) {
 							$samovivoz_day = 'сегодня';
 						} else {
-							$samovivoz_day = 'во вторник';
+							$samovivoz_day = 'завтра';
 						}
 
 					}?>
