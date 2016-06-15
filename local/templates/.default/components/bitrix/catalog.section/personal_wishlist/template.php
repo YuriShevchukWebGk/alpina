@@ -16,7 +16,6 @@ $this->setFrameMode(true);
 <div class="wishlistBlock">
 
     <?foreach ($arResult["ITEMS"] as $arItem) {
-
         $prodSection = $arResult["SECTIONS_LIST"][$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["IBLOCK_SECTION_ID"]];
         $author = $arResult["AUTHORS"][$arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["PROPERTY_AUTHORS_VALUE"]];
         $unavailable_statuses_array = array (
@@ -59,11 +58,11 @@ $this->setFrameMode(true);
     <div class="socialWishWrapper">
         <p class="socialWishText"><?= GetMessage("SHARE_A_LIST") ?></p>
         <div class="socServisesPict">
-            <a href="http://vk.com/share.php?url=http://<?= $arResult["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>&title=<?= GetMessage("MY_WISH_LIST") ?>"><img src="/img/vkSocial.png"></a>
-            <a href="https://twitter.com/intent/tweet?url=http://<?= $arResult["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>&text=<?= GetMessage("MY_WISH_LIST") ?>"><img src="/img/twitRegistrat.png"></a>
-            <a href="https://www.facebook.com/sharer.php?u=http://<?= $arResult["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>"><img src="/img/facebookRegistr.png"></a>
-            <a href="https://plus.google.com/share?url=http://<?= $arResult["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>"><img src="/img/googlePlusReg.png"></a>
-            <a href="http://www.ok.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://<?= $arResult["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>"><img src="/img/oklRegistr.png"></a>
+            <a href="http://vk.com/share.php?url=http://<?= $_SERVER["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>&title=<?= GetMessage("MY_WISH_LIST") ?>"><img src="/img/vkSocial.png"></a>
+            <a href="https://twitter.com/intent/tweet?url=http://<?= $_SERVER["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>&text=<?= GetMessage("MY_WISH_LIST") ?>"><img src="/img/twitRegistrat.png"></a>
+            <a href="https://www.facebook.com/sharer.php?u=http://<?= $_SERVER["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>"><img src="/img/facebookRegistr.png"></a>
+            <a href="https://plus.google.com/share?url=http://<?= $_SERVER["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>"><img src="/img/googlePlusReg.png"></a>
+            <a href="http://www.ok.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://<?= $_SERVER["SERVER_NAME"] ?>/personal/cart/?list=<?=$arResult["USER_ID"]?>"><img src="/img/oklRegistr.png"></a>
         </div>
     </div>
 </div>

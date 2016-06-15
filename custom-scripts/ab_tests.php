@@ -8,7 +8,9 @@ if ($alpExps['updateExp'] != "160516") {
     $alpExps['updateExp'] = "160516";
 }
 
-$alpExps['smartBannerApple']    = (!$alpExps['smartBannerApple'] ? rand(1,2) : $alpExps['smartBannerApple']);
+$alpExps['smartBannerApple']	= (!$alpExps['smartBannerApple'] ? rand(1,2) : $alpExps['smartBannerApple']);
+$alpExps['discountBlock']		= (!$alpExps['discountBlock'] ? rand(1,2) : $alpExps['discountBlock']);
+
 if ($APPLICATION->GetCurDir() == '/personal/cart/') {
     $alpExps['recsInCart']        = (!$alpExps['recsInCart'] ? rand(1,2) : $alpExps['recsInCart']);
 }
@@ -43,6 +45,42 @@ if ($APPLICATION->GetCurDir() == '/personal/cart/') {
             });
         </script>
     <?}
+}?>
+<!-- //Тест Рекомендаций в корзине -->
+
+<!-- Тест Рекомендаций в корзине -->
+<?if ($APPLICATION->GetCurDir() == '/') {
+	if ($alpExps['discountBlock'] == 1) {?>
+		<style>
+			.blockBestsHide, .blockDiscountHide {display:none;}
+			.blockBestsShow, .blockDiscountShow {display:inline;}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				dataLayer.push({
+					event: 'ab-test-gtm',
+					action: 'discountBlock',
+					label: 'moveUpwards'
+				});
+				console.log('discountBlock moveUpwards');
+			});
+		</script>
+	<?} elseif ($alpExps['discountBlock'] == 2) {?>
+		<style>
+			.blockBestsShow, .blockDiscountShow {display:none;}
+			.saleWrapp {overflow: visible;}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				dataLayer.push({
+					event: 'ab-test-gtm',
+					action: 'discountBlock',
+					label: 'doNothing'
+				});
+				console.log('discountBlock doNothing');
+			});
+		</script>
+	<?}
 }?>
 <!-- //Тест Рекомендаций в корзине -->
 

@@ -17,7 +17,7 @@ $this->setFrameMode(true);?>
 		<?if ($_COOKIE["notice_warn"] != $ar_item["ID"]) {?>
 			<div id="notice_warn">
 				<div class="notice_message">
-					<?= $ar_item["NAME"] ?>
+					<?=htmlspecialchars_decode($ar_item["NAME"])?>
 				</div>
 				<div id="close_notice" onclick="close_notice(<?=$ar_item["ID"]?>);">
 					X
