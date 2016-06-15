@@ -20,8 +20,7 @@
                 {
                     $arProps = array();
                     $PRODUCT = $ar_res;
-
-                    arshow($_REQUEST);
+                    
                     $ar_res = CPrice::GetBasePrice($PRODUCT["ID"]); 
                     $price=$ar_res["PRICE"];
                     if(intval($price)==0){ 

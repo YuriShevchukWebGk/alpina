@@ -404,43 +404,31 @@
         }
     }
 
-    AddEventHandler("catalog", "OnDiscountUpdate", Array("MyClass", "OnDiscountUpdateHandler"));
-
-    class MyClass
-    {
-        // СЃРѕР·РґР°РµРј РѕР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ "OnAfterIBlockElementUpdate"
-        function OnDiscountUpdateHandler($ID, $arFields)
-        {
-            if ($arFields["ACTIVE"] == "Y")
-            {
-                $discount = CCatalogDiscount::GetByID($ID);
-
-                $discount_prods = CCatalogDiscount::GetDiscountProductsList (array(), array("DISCOUNT_ID" => $ID), false, false, array());
-                while ($discount_fetch = $discount_prods -> Fetch())
-                {
-                    switch (round($discount['VALUE']))
-                    {
-                        case 10:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>219), "spec_price");
-                            break;
-                        case 15:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>271), "spec_price");
-                            break;
-                        case 20:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>220), "spec_price");
-                            break;
-                        case 30:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>221), "spec_price");
-                            break;
-                        case 40:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>272), "spec_price");
-                            break;
-                        default:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>""), "spec_price");
-                    }
-                }
+    AddEventHandler("catalog", "OnDiscountUpdate", "updatingSpecPriceProperty");
+    
+    /******
+    * 
+    *
+    *  обновление значение свойства "Спеццена" в зависимости от скидки на товар
+    * 
+    * @param int $ID - ID скидки на товар
+    * @var int $discount_value - значение скидки на товар
+    * @var int $prop_value_ID - ID товара в инфоблоке товаров
+    * 
+    * 
+    ******/
+    function updatingSpecPriceProperty($ID, $arFields) {
+        if ($arFields["ACTIVE"] == "Y") {
+            $discount = CCatalogDiscount::GetByID($ID);
+            $discount_value = round($discount["VALUE"]);
+            $product = CIBlockProperty::GetPropertyEnum("spec_price", array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "VALUE" => $discount_value));
+            while ($product_info = $product -> Fetch()) {
+                $prop_value_ID = $product_info["ID"];
             }
-
+            $discount_prods = CCatalogDiscount::GetDiscountProductsList (array(), array("DISCOUNT_ID" => $ID), false, false, array());
+            while ($discount = $discount_prods -> Fetch()) {
+                CIBlockElement::SetPropertyValues($discount["PRODUCT_ID"], CATALOG_IBLOCK_ID, array("VALUE"=>$prop_value_ID), "spec_price");
+            }
         }
     }
 
