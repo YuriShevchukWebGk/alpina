@@ -36,7 +36,7 @@ $arUrlRewrite = array(
 		"ID" => "bitrix:news",
 		"PATH" => "/series/index.php",
 	),
-	array(
+	/*array(
 		"CONDITION" => "#^\\??(.*)#",
 		"RULE" => "&\$1",
 		"ID" => "bitrix:catalog.section",
@@ -61,28 +61,10 @@ $arUrlRewrite = array(
 		"PATH" => "/local/templates/.default/components/bitrix/news/series/bitrix/news.detail/.default/template.php",
 	),
 	array(
-		"CONDITION" => "#^/store/#",
-		"RULE" => "",
-		"ID" => "bitrix:catalog.store",
-		"PATH" => "/store/index.php",
-	),
-	array(
 		"CONDITION" => "#^\\??(.*)#",
 		"RULE" => "&\$1",
 		"ID" => "bitrix:catalog.section",
 		"PATH" => "/catalog/editors-choice/index.php",
-	),
-	array(
-		"CONDITION" => "#^/store/#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/events/index.php",
-	),
-	array(
-		"CONDITION" => "#^/news/#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/news/index.php",
 	),
 	array(
 		"CONDITION" => "#^/#",
@@ -95,6 +77,24 @@ $arUrlRewrite = array(
 		"RULE" => "",
 		"ID" => "bitrix:form.result.new",
 		"PATH" => "/content/partnersProgram/index.php",
+	),*/
+	array(
+		"CONDITION" => "#^/store/#",
+		"RULE" => "",
+		"ID" => "bitrix:catalog.store",
+		"PATH" => "/store/index.php",
+	),
+	array(
+		"CONDITION" => "#^/store/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/events/index.php",
+	),
+	array(
+		"CONDITION" => "#^/news/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/news/index.php",
 	),
 );
 

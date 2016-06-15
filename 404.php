@@ -8,13 +8,14 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 $APPLICATION->SetTitle("Страница не найдена");?>
 
-        <div class="noResultBodyWrap">
-            <div class="centerWrapper noResWrapp">
-                <p class="noResultTitle">Неправильно набран адрес, <br>или такой страницы на сайте больше не существует.</p>
-                <p class="noResText">Вернитесь на <a href="<?=SITE_DIR?>">главную</a> или воспользуйтесь картой сайта.</p>
-            </div>
-        </div>
+	<div class="noResultBodyWrap">
+		<div class="centerWrapper noResWrapp">
+			<p class="noResultTitle">Неправильно набран адрес, <br>или такой страницы на сайте больше не существует.</p>
+			<p class="noResText">Вернитесь на <a href="<?=SITE_DIR?>">главную</a> или воспользуйтесь картой сайта.</p>
+		</div>
+	</div>
 
+	
     <div class="col-sm-offset-2 col-sm-4">
         <div class="bx-map-title"><i class="fa fa-leanpub"></i> Каталог</div>
         <?$APPLICATION->IncludeComponent(
@@ -65,4 +66,9 @@ $APPLICATION->SetTitle("Страница не найдена");?>
             false
         );?>
     </div>
+	<script>
+		$(document).ready(function(){
+			dataLayer.push({'event' : 'otherEvents', 'action' : '404 error', 'label' : '<?=$_SERVER['REQUEST_URI']?>'});
+		});
+	</script>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
