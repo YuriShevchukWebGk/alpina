@@ -465,4 +465,57 @@ if (!empty($arResult['ITEMS']))
 		}
 	}
 }
+//ID текущего пользователя
+$arResult["USER_ID"] = $USER -> GetID();
+
+//список разделов
+$arResult["SECTIONS_LIST"] = array();
+$sect = CIBlockSection::GetList(array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID), false, array("ID", "CODE", "NAME"));
+while($arSect = $sect->Fetch()) {
+    $arResult["SECTIONS_LIST"][$arSect["ID"]] = $arSect; 
+}
+
+//список авторов
+$arResult["AUTHORS"] = array();
+$author = CIBlockElement::GetList(array(),array("IBLOCK_ID" => AUTHORS_IBLOCK_ID), false, false, array("ID", "CODE", "NAME"));  
+while ($arAuthor = $author->Fetch()) {
+    $arResult["AUTHORS"][$arAuthor["ID"]] = $arAuthor; 
+}
+
+foreach ($arResult["ITEMS"] as $arItem) {
+    $products_values_arr[] = $arItem["PROPERTIES"]["PRODUCTS"]["VALUE"];
+}
+$products_info_list = CIBlockElement::GetList(
+    array(), 
+    array(
+        "IBLOCK_ID" => CATALOG_IBLOCK_ID, 
+        "ID" => $products_values_arr
+    ), 
+    false, 
+    false, 
+    array(
+        "ID", 
+        "NAME", 
+        "DETAIL_PICTURE", 
+        "PROPERTY_AUTHORS", 
+        "PREVIEW_TEXT", 
+        "IBLOCK_SECTION_ID", 
+        "CATALOG_GROUP_1", 
+        "PROPERTY_STATE"
+    )
+);
+while ($products_info = $products_info_list -> Fetch()) {
+    $arResult["PRODUCT_FIELDS"][$products_info["ID"]] = $products_info;
+}
+foreach ($arResult["ITEMS"] as $arItem) {
+    $arResult["PICTURE"][$arItem["ID"]] = CFile::ResizeImageGet(
+        $arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["DETAIL_PICTURE"], 
+        array(
+            'width'=>146, 
+            'height'=>210
+        ), 
+        BX_RESIZE_IMAGE_EXACT, 
+        true
+    );
+}
 ?>
