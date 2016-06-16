@@ -5544,4 +5544,18 @@ table.form-table tr td:nth-child(2){
 .exitA a{
     color: #fff !important;
     padding-left: 30px;
-}           
+}
+
+.flippostSelectContainer {
+	margin-left: 34px;
+	display: none;
+}
+
+.flippostSelectContainer > select:not(:first-child){
+	margin-top: 10px;
+}
+
+.flippostSelect {
+	width: 368px !important;
+	display: block !important;
+}
