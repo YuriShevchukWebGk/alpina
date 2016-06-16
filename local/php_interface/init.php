@@ -16,6 +16,7 @@
     define ("CATALOG_IBLOCK_ID", 4);
     define ("AUTHORS_IBLOCK_ID", 29);
     define ("REVIEWS_IBLOCK_ID", 24);
+    define ("SERIES_IBLOCK_ID", 45);
     define ("SPONSORS_IBLOCK_ID", 47);
     define ("WISHLIST_IBLOCK_ID", 17);
     define ("EXPERTS_IBLOCK_ID", 23);
@@ -113,9 +114,9 @@
 	 * 
 	 * */
 	function flippostHandlerBefore(&$arFields) {
-		if ($arFields['DELIVERY_ID'] == 30) {
-			$arFields['PRICE'] += $_REQUEST['flippost_cost'];
-			$arFields['PRICE_DELIVERY'] = $_REQUEST['flippost_cost'];
+		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+			$arFields['PRICE'] += floatval($_REQUEST['flippost_cost']);
+			$arFields['PRICE_DELIVERY'] = floatval($_REQUEST['flippost_cost']);
 		}
 	}
 	
@@ -128,7 +129,7 @@
 	 * */
 	function flippostHandlerAfter($ID, $arFields) {
 		GLOBAL $arParams;
-		if ($arFields['DELIVERY_ID'] == 30) {
+		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
 			$arPropFields = array(
 				"ORDER_ID" => $ID,
 				"NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
@@ -445,43 +446,31 @@
         }
     }
 
-    AddEventHandler("catalog", "OnDiscountUpdate", Array("MyClass", "OnDiscountUpdateHandler"));
-
-    class MyClass
-    {
-        // СЃРѕР·РґР°РµРј РѕР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ "OnAfterIBlockElementUpdate"
-        function OnDiscountUpdateHandler($ID, $arFields)
-        {
-            if ($arFields["ACTIVE"] == "Y")
-            {
-                $discount = CCatalogDiscount::GetByID($ID);
-
-                $discount_prods = CCatalogDiscount::GetDiscountProductsList (array(), array("DISCOUNT_ID" => $ID), false, false, array());
-                while ($discount_fetch = $discount_prods -> Fetch())
-                {
-                    switch (round($discount['VALUE']))
-                    {
-                        case 10:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4, array("VALUE"=>219), "spec_price");
-                            break;
-                        case 15:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>271), "spec_price");
-                            break;
-                        case 20:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>220), "spec_price");
-                            break;
-                        case 30:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>221), "spec_price");
-                            break;
-                        case 40:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>272), "spec_price");
-                            break;
-                        default:
-                            CIBlockElement::SetPropertyValues($discount_fetch["PRODUCT_ID"], 4,array("VALUE"=>""), "spec_price");
-                    }
-                }
+    AddEventHandler("catalog", "OnDiscountUpdate", "updatingSpecPriceProperty");
+    
+    /******
+    * 
+    *
+    *  обновление значение свойства "Спеццена" в зависимости от скидки на товар
+    * 
+    * @param int $ID - ID скидки на товар
+    * @var int $discount_value - значение скидки на товар
+    * @var int $prop_value_ID - ID товара в инфоблоке товаров
+    * 
+    * 
+    ******/
+    function updatingSpecPriceProperty($ID, $arFields) {
+        if ($arFields["ACTIVE"] == "Y") {
+            $discount = CCatalogDiscount::GetByID($ID);
+            $discount_value = round($discount["VALUE"]);
+            $product = CIBlockProperty::GetPropertyEnum("spec_price", array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "VALUE" => $discount_value));
+            while ($product_info = $product -> Fetch()) {
+                $prop_value_ID = $product_info["ID"];
             }
-
+            $discount_prods = CCatalogDiscount::GetDiscountProductsList (array(), array("DISCOUNT_ID" => $ID), false, false, array());
+            while ($discount = $discount_prods -> Fetch()) {
+                CIBlockElement::SetPropertyValues($discount["PRODUCT_ID"], CATALOG_IBLOCK_ID, array("VALUE"=>$prop_value_ID), "spec_price");
+            }
         }
     }
 
@@ -1261,5 +1250,15 @@
             }
         }   
     }
-
+	
+	AddEventHandler('main', 'OnEpilog', '_Check404Error', 1);
+	function _Check404Error(){
+	   if(defined('ERROR_404') && ERROR_404=='Y' || CHTTP::GetLastStatus() == "404 Not Found"){
+		  GLOBAL $APPLICATION;
+		  $APPLICATION->RestartBuffer();
+		  require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+		  require $_SERVER['DOCUMENT_ROOT'].'/404.php';
+		  require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
+	   }
+	}
 ?>

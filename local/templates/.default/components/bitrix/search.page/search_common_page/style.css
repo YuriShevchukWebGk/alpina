@@ -53,3 +53,6 @@ div.search-page-params {
     color: #485254;
     background-color: #F4F4F4;
 }
+.searchBook .price, .searchBook .wrapperType {
+    padding-top: 5px;
+}

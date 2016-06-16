@@ -279,8 +279,15 @@
     </div>
 </div>
 
-<?//arshow($arResult, true);?>
-<?$APPLICATION->IncludeComponent(
+<?
+if (isset($_COOKIE["rrpusid"])){
+	$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
+	$recsArray = json_decode($stringRecs);
+	$arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
+}
+if ($arrFilter['ID'][0] > 0) {
+?>
+	<?$APPLICATION->IncludeComponent(
         "bitrix:catalog.section", 
         "interesting_items", 
         array(
@@ -291,7 +298,7 @@
             "IBLOCK_HEADER_TITLE" => "",
             "ELEMENT_SORT_FIELD" => "ID",
             "ELEMENT_SORT_ORDER" => "desc",
-            "FILTER_NAME" => "",
+            "FILTER_NAME" => "arrFilter",
             "INCLUDE_SUBSECTIONS" => "N",
             "SHOW_ALL_WO_SECTION" => "Y",
             "PAGE_ELEMENT_COUNT" => "10",
@@ -385,6 +392,7 @@
         ),
         false
     );?>
+<?}?>
 </div>
 <script>
     // скрипт ajax-подгрузки товаров в блоке "Все книги"

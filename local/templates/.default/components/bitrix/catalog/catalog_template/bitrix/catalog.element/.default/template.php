@@ -10,7 +10,7 @@
     /** @var string $templateFolder */
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
-    $this->setFrameMode(true);
+   
 ?>
 
 <?$this->setFrameMode(true);
@@ -89,22 +89,19 @@ $arItemIDs = array(
         <?
         $arBasketItems = array();
         $dbBasketItems = CSaleBasket::GetList(
-                      array("NAME" => "ASC","ID" => "ASC"),
-                      array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
-                      false,
-                      false,
-                      array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE"));
-        while ($arItems=$dbBasketItems->Fetch())
-        {
-          $arItems=CSaleBasket::GetByID($arItems["ID"]);
-          $arBasketItems[]=$arItems;
-          $cart_num+=$arItems['QUANTITY'];
-          $cart_sum+=$arItems['PRICE']*$arItems['QUANTITY'];
+            array("NAME" => "ASC","ID" => "ASC"),
+            array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
+            false,
+            false,
+            array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE")
+        );
+        $cart_num = 0;
+        $cart_sum = 0;
+        while ($arItems = $dbBasketItems->Fetch()) {
+            $arBasketItems[] = $arItems;
+            $cart_num += $arItems['QUANTITY'];
+            $cart_sum += $arItems['PRICE'] * $arItems['QUANTITY'];
         }
-        if (empty($cart_num))
-          $cart_num="0";
-        if (empty($cart_sum))
-          $cart_sum="0";
         ?>
         <div class="elementDescriptWrap">
             <div class="leftColumn">
@@ -113,23 +110,8 @@ $arItemIDs = array(
                         <?if (($arResult["PROPERTIES"]["discount_ban"]["VALUE"] != "Y")
                             && $arResult['PROPERTIES']['spec_price']['VALUE']
 							&& $arResult['PROPERTIES']['show_discount_icon']['VALUE'] == "Y") {
-                                switch ($arResult['PROPERTIES']['spec_price']['VALUE']) {
-                                    case 10:
-                                        echo '<img class="discount_badge" src="/img/10percent.png">';
-                                        break;
-                                    case 15:
-                                        echo '<img class="discount_badge" src="/img/15percent.png">';
-                                        break;
-                                    case 20:
-                                        echo '<img class="discount_badge" src="/img/20percent.png">';
-                                        break;
-                                    case 30:
-                                        echo '<img class="discount_badge" src="/img/30percent.png">';
-                                        break;
-                                    case 40:
-                                        echo '<img class="discount_badge" src="/img/40percent_black.png">';
-                                        break;
-
+                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arResult['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
+                                    echo '<img class="discount_badge" src="/img/' . $arResult['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
                                 }
                         }?>
                     </div>
@@ -142,13 +124,13 @@ $arItemIDs = array(
                     <div class="bookPages">
                         <?
                             if ($arResult["MAIN_PICTURE"]) {?>
-                                <a class="grouped_elements" rel="group1" href="<?=$arResult["MAIN_PICTURE"]?>"><img src="<?=$arResult["MAIN_PICTURE"]?>"></a>
+                                <a class="grouped_elements" rel="group1" href="<?= $arResult["MAIN_PICTURE"] ?>"><img src="<?= $arResult["MAIN_PICTURE"] ?>"></a>
                             <?}
                         ?>
                     </div>
                     <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '' && $USER->GetID() != 15)) {?>
 
-                        <a href="<?=$arResult["MAIN_PICTURE"]?>" class="fancybox fancybox.iframe">
+                        <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe">
                             <div class="overlay bookPreview">
                                 <p class="bookPreview"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
                             </div>

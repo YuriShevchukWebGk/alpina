@@ -3,6 +3,7 @@
     CJSCore::Init(array("fx"));
     $curPage = $APPLICATION->GetCurPage(true);
     $theme = COption::GetOptionString("main", "wizard_eshop_bootstrap_theme_id", "blue", SITE_ID);
+	global $USER;
 ?>
 <!doctype html>
 <html>

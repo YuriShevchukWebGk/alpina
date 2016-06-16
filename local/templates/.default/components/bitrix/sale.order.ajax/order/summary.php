@@ -125,12 +125,17 @@
             ?>
             <?
                 $totalDiscountSum = 0;
+				$totalBaseSum = 0;
                 $totalDiscountPerc = $arResult['BASKET_ITEMS'][0]['DISCOUNT_PRICE_PERCENT_FORMATED'] ? $arResult['BASKET_ITEMS'][0]['DISCOUNT_PRICE_PERCENT_FORMATED'] : "0%";
 
                 foreach ($arResult['BASKET_ITEMS'] as $key => $value) {
                     $totalDiscountSum +=$value['DISCOUNT_PRICE'];
+					$totalBaseSum +=$value['SUM_BASE'];
                 }
-
+				
+				$totalDiscountPercMed = round(($totalDiscountSum/$totalBaseSum)*100);
+				
+				$_SESSION['EMAIL_DISCOUNT_PERCENT_MED'] = $totalDiscountPercMed;
                 $_SESSION['EMAIL_DISCOUNT_PERCENT_TOTAL'] = $totalDiscountPerc;
                 $_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'] = $totalDiscountSum." руб.";
                 $_SESSION['EMAIL_ORDER_WEIGHT'] = $arResult["ORDER_WEIGHT_FORMATED"];

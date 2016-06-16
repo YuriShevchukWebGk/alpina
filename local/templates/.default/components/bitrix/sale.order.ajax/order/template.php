@@ -27,9 +27,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 	display: block;
 }
 </style>
-<script>
+<script>  
+
     //дополнительные функции, необходимые для работы
     function setOptions() {
+
         //валидаторы телефонных номеров
         $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
         $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
@@ -276,7 +278,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 
                                 var BXFormPosting = false;
                                 function submitForm(val)
-                                {
+                                {     
                                     var flag = true;
                                     // дополнительная проверка полей и вывод ошибки  
                                     if (val == "Y")
@@ -330,22 +332,22 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                         }
                                         
                                         // склеиваем адрес для flippost
-                                    	if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
-                                    		// Если не выбрана даже страна, то показываем ошибку
-                                    		if (!$("#flippostCountrySelect").val()) {
-                                    			flag = false;
-                                            	$('.deliveriWarming').show();
-                                    		} else {
-	                                			var flippost_address = [
-	                                    				$('select[data-method="getStates"] option:checked').text(), // страна
-	                                    				$('select[data-method="getCities"] option:checked').text(), // область
-	                                    				$('select[data-method="getTarif"] option:checked').text(), // город
-	                                    			],
-	                                    			flippost_string_address = "";
-	                                			flippost_string_address = flippost_address.join(", ");
-	                                			$("#flippost_address").val(flippost_string_address);
-	                                		}
-                                    	}
+										if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
+											// Если не выбрана даже страна, то показываем ошибку
+											if (!$("#flippostCountrySelect").val()) {
+												flag = false;
+												$('.deliveriWarming').show();
+											} else {
+												var flippost_address = [
+														$('select[data-method="getStates"] option:checked').text(), // страна
+														$('select[data-method="getCities"] option:checked').text(), // область
+														$('select[data-method="getTarif"] option:checked').text(), // город
+													],
+												flippost_string_address = "";
+												flippost_string_address = flippost_address.join(", ");
+												$("#flippost_address").val(flippost_string_address);
+											}
+										}
                                     } 
 
                                     if(flag){
@@ -383,8 +385,8 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                 return true;
                                 } */
 
-                                function ajaxResult(res)
-                                {   window.flippost = !(window.flippost instanceof Flippost) ? new Flippost(<?= FLIPPOST_ID ?>) : window.flippost;
+                                function ajaxResult(res) {
+									window.flippost = !(window.flippost instanceof Flippost) ? new Flippost(<?= FLIPPOST_ID ?>) : window.flippost;
                                     var orderForm = BX('ORDER_FORM');
                                     try
                                     {
@@ -424,8 +426,9 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                     if(localStorage.getItem('active_rfi_button')){
                                         $('li[data-rfi-payment="'+localStorage.getItem('active_rfi_button')+'"]').addClass('active_rfi_button');
                                     }
+                                    
 									// т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса
-                                    if ($(".js_delivery_block").length) {
+									if ($(".js_delivery_block").length) {
 										if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
 											!$("#flippostCountrySelect").length ? window.flippost.getData("getCountries") : "";
 											$(".js_delivery_block").on('change', '.flippostSelect', function() {
