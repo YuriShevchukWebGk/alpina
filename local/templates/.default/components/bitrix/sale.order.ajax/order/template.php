@@ -17,10 +17,10 @@
 
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
+	$APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
 
     include ('include/functions.php');
 ?>
-<script type="text/javascript" src="/flippost/flippost.js"></script>
 <style>
 /* Лучше так, чем городить адовые городушки на js */
 input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
