@@ -27,6 +27,7 @@
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("FLIPPOST_ID", 30);
 
     /***************
     *
@@ -101,6 +102,47 @@
         else $out[] = $nul;
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
+
+	AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
+	AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
+	
+	/**
+	 * Handler для доставки flippost. Плюсуем стоимость доставки
+	 *
+	 * @param array $arFields
+	 * @return void
+	 * 
+	 * */
+	function flippostHandlerBefore(&$arFields) {
+		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+			$arFields['PRICE'] += floatval($_REQUEST['flippost_cost']);
+			$arFields['PRICE_DELIVERY'] = floatval($_REQUEST['flippost_cost']);
+		}
+	}
+	
+	/**
+	 * Handler для доставки flippost. Изменяем адрес
+	 *
+	 * @param array $arFields
+	 * @return void
+	 * 
+	 * */
+	function flippostHandlerAfter($ID, $arFields) {
+		GLOBAL $arParams;
+		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+			$arPropFields = array(
+				"ORDER_ID" => $ID,
+				"NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
+				"VALUE" => $_REQUEST['flippost_address']
+			);
+			
+			$arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
+			$arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
+            
+			CSaleOrderPropsValue::Add($arPropFields);
+		}
+	}
+
     //Create gift coupon after buy certificate
     AddEventHandler("sale", "OnOrderAdd", Array("Certificate", "GenerateGiftCoupon"));
     class Certificate {
