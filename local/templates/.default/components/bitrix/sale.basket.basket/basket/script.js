@@ -1161,7 +1161,7 @@ function enterCouponCustom() {
         type: "POST",
         url: "/ajax/customCoupon.php",
         data: { coupon: couponCode, price: price,  action: "check"}
-    }).done(function( result ) {
+    }).done(function(result) {
         if (result != ""){
             arResult = JSON.parse(result);
             if (arResult.DEFAULT_COUPON == "Y") {
