@@ -245,7 +245,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
              <div class="titleDiv">
                  <?if ($arResult["QUOTE_ARRAY"]["DETAIL_PICTURE"]){?>
                      <div class="photo">
-                         <img src="<?= $arResult["QUOTE_IMAGE"]["src"]?>">    
+                         <img src="<?= $arResult["QUOTE_IMAGE"]["src"]?>" alt="Автор <?=$arResult["QUOTE_ARRAY"]["PROPERTY_AUTHOR_NAME"]?>"> 
                      </div>
                  <?}?>
                  <p class="text">"<?= $arResult["QUOTE_ARRAY"]["DETAIL_TEXT"]?>"</p>
@@ -306,7 +306,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                  <a href="<?= $arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', <?= ($cell+1)?>, 'Catalog Section');">
                                      <div class="section_item_img">
                                          <?if ($arResult[$arItem["ID"]]["PICTURE"]["src"]) {?>               
-                                             <img src=<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>>
+                                             <img src="<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>" alt="<?= $arItem["NAME"];?>">
                                          <?} else {?>
                                              <img src="/images/no_photo.png" width="142" height="142">    
                                          <?}?>
@@ -412,6 +412,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 <p class="showMore">Показать ещё</p>
             <?}?>
             <?=$arResult["NAV_STRING"]?>            
+			<div class="catalogDescription">
+				<?=$arResult["DESCRIPTION"]?>
+			</div>
         </div>
 
 
@@ -518,10 +521,11 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
         <?}?>
         var maxpage = <?= ($arResult["NAV_RESULT"]->NavPageCount)?>;
         var WrappHeight = $(".wrapperCategor").height();
+		var DescriptionHeight = $(".catalogDescription").height();
         var RecHeight = $(".grayTitle").height();
         var BooksLiLength = $(".otherBooks ul li").length;
         
-        var startHeight = WrappHeight+RecHeight+100 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
+        var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
         $(".wrapperCategor").css("height", startHeight+"px");
         
         $('.showMore').click(function(){

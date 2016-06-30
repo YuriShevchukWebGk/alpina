@@ -41,7 +41,21 @@ $this->setFrameMode(true);
                                                 case 40:
                                                     echo '<img class="discount_badge" src="/img/40percent_black.png">';
                                                     break;
-
+												case 50:
+                                                    echo '<img class="discount_badge" src="/img/50percent.png">';
+                                                    break;
+												case 60:
+                                                    echo '<img class="discount_badge" src="/img/60percent.png">';
+                                                    break;
+												case 70:
+                                                    echo '<img class="discount_badge" src="/img/70percent.png">';
+                                                    break;
+												case 80:
+                                                    echo '<img class="discount_badge" src="/img/80percent.png">';
+                                                    break;
+												case 90:
+                                                    echo '<img class="discount_badge" src="/img/90percent.png">';
+                                                    break;
                                             } 
                                 }?>
                             </div>

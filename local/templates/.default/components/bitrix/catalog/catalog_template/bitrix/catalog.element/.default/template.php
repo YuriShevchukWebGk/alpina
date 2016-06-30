@@ -10,7 +10,7 @@
     /** @var string $templateFolder */
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
-   
+
 ?>
 
 <?$this->setFrameMode(true);
@@ -110,7 +110,7 @@ $arItemIDs = array(
                         <?if (($arResult["PROPERTIES"]["discount_ban"]["VALUE"] != "Y")
                             && $arResult['PROPERTIES']['spec_price']['VALUE']
 							&& $arResult['PROPERTIES']['show_discount_icon']['VALUE'] == "Y") {
-                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arResult['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
+                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arResult['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) {
                                     echo '<img class="discount_badge" src="/img/' . $arResult['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
                                 }
                         }?>
@@ -128,25 +128,32 @@ $arItemIDs = array(
                             <?}
                         ?>
                     </div>
-                    <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '' && $USER->GetID() != 15)) {?>
+                    
 
-                        <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe">
-                            <div class="overlay bookPreview">
+                        
+                            <?/*<div class="overlay bookPreview">
                                 <p class="bookPreview"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
-                            </div>
-                        </a>
+                            </div>*/?>
+							
 
-                    <?}?>
 
                     <div class="element_item_img">
+					<?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
+					<a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
+					
+						<p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>						
+						<?}?>
                         <?if ($arResult["PICTURE"]["src"]) {?>
-                            <img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" alt="<?= $arResult["NAME"] ?>" title="<?= $arResult["NAME"] ?>" />
+                            <img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" class="bookPreviewLink" alt="<?= $arResult["NAME"] ?>" title="<?= $arResult["NAME"] ?>" />
                         <?} else {?>
                             <img src="/images/no_photo.png">
                         <?}?>
                         <?if(!empty($arResult["PROPERTIES"]["number_volumes"]["VALUE"])) {?>
                             <span class="volumes"><?= $arResult["PROPERTIES"]["number_volumes"]["VALUE"] ?></span>
                         <?}?>
+					<?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
+					</a>
+					<?}?>
                     </div>
                 </div>
                 <div class="marks">
@@ -165,7 +172,7 @@ $arItemIDs = array(
                     <a href="<?= $arResult["SIGN_PICTURE"] ?>" class="fancybox fancybox.iframe signingPopup">
                         <div class="authorSigning">
                         </div>
- 
+
                         <div class="authorSigningText">
                             <?= GetMessage("SIGNED_BOOK") ?>
                         </div>
@@ -475,7 +482,7 @@ $arItemIDs = array(
 							}
 						} elseif ($today == 6) { // если на дворе СУББОТА
 							$delivery_day = 'в понедельник';      //на праздники тут меняем день, потом обратно
-							$samovivoz_day = 'в понедельник';	//на праздники тут меняем день, потом обратно		
+							$samovivoz_day = 'в понедельник';	//на праздники тут меняем день, потом обратно
 						} elseif ($today == 0) { // если на дворе ВОСКРЕСЕНЬЕ
 							$delivery_day = 'завтра'; //blackfriday
 							$samovivoz_day = 'завтра';
@@ -485,7 +492,7 @@ $arItemIDs = array(
 								$samovivoz_day = 'сегодня';
 							} else {
 								$samovivoz_day = 'завтра';
-							}			
+							}
 						}
 					} else {
 						if ($today == 1) {
@@ -524,14 +531,14 @@ $arItemIDs = array(
 
                 <div class="typesOfProduct">
                     <?if (!empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) ) {?>
-                        <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAppStore', label: '<?= $arResult['NAME'] ?>'});">
+                        <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherEvents', action: 'clickAppStore', label: '<?= $arResult['NAME'] ?>'});">
                             <p class="title"><a target="_blank"
                                 href="http://ad.apps.fm/I7nsUqHgFpiU6SjjFxr_lfE7og6fuV2oOMeOQdRqrE2fuH1E_AVE04uUy-835_z8AOyXPgYuNMr8J2cvDXlBe3JGR4QWfzRXdHADIOS0bhIlj-vcR89M4g_uNUXQBYtJhxsaY6DBokwX4FZL6ZW1oPCYagKnjd3JTKLywLOw94o"
                                 rel="nofollow"><?= GetMessage("BUY_IN_APPSTORE") ?></a></p>
                         </div><!--/noindex-->
                     <?}?>
                     <?if (!empty ($arResult["PROPERTIES"]["android"]['VALUE']) ) {?>
-                        <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAndroid', label: '<?= $arResult['NAME'] ?>'});">
+                        <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherEvents', action: 'clickAndroid', label: '<?= $arResult['NAME'] ?>'});">
                             <p class="title"><a target="_blank"
                                 href="http://ad.apps.fm/JbkeS8Wu40Y4o7v66y0V515KLoEjTszcQMJsV6-2VnHFDLXitVHB6BlL95nuoNYfsPXjJaQ96brr8ncAvMfc6wZkKsYjZn26ZgfIprQwFxiMb6nGA0JPaw88nuXsLm5fGy9o7Q8KyEtAHAeX1UXtzRyIF-zfsrprYF9zs6rj2ac8dDeKR2QfG21w5iR5J8PU"
                                 rel="nofollow"><?= GetMessage("BUY_IN_GOOGLEPLAY") ?></a></p>
@@ -880,6 +887,7 @@ $arItemIDs = array(
                     <?if (!empty($arResult["AUTHORS"])) {?>
                     <?foreach ($arResult["AUTHOR"] as $author) {
 						$currAuth = CIBlockElement::GetList(array(), array("ID" => $author["ID"]), false, false, array("PROPERTY_AUTHOR_DESCRIPTION")) -> Fetch();
+						$currAuthFull = CIBlockElement::GetByID($author["ID"])->GetNext();
                         if (!empty ($author["PROPERTY_ORIG_NAME_VALUE"])) {
                             $authorFullName = $author["NAME"] . " / " . $author["PROPERTY_ORIG_NAME_VALUE"];
                         } else {
@@ -887,7 +895,7 @@ $arItemIDs = array(
                         }?>
 
                         <div class="author_info">
-                            <span class="author_name"><?=$authorFullName?></span>
+                            <span class="author_name"><a href="<?=$currAuthFull[DETAIL_PAGE_URL]?>"><?=$authorFullName?></a></span>
 
                             <?= !empty($author["IMAGE_FILE"]["SRC"]) ? "<img src='".$author["IMAGE_FILE"]["SRC"]."' align='left' style='padding-right:30px;' />" : ""?><?=$currAuth["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]?>
 

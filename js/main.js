@@ -68,7 +68,15 @@ function close_notice(id){
 
 $(document).ready(function(){
 
-
+	$(".element_item_img").hover(
+	  function() {
+		$(this).find('img').css({'filter':'grayscale(0.7)', '-webkit-filter':'grayscale(0.7)', '-moz-filter':'grayscale(0.7)', '-o-filter':'grayscale(0.7)', '-ms-filter':'grayscale(0.7)'});
+		$('.bookPreviewButton').css('display','block');
+	  }, function() {
+		$(this).find('img').css({'filter':'none', '-webkit-filter':'none', '-moz-filter':'none', '-o-filter':'none', '-ms-filter':'none'});
+		$('.bookPreviewButton').css('display','none');
+	  }
+	);	
     //скрывание попапа при клике по фону
     if($('.layout2').length > 0){
         $('.layout2').click(function(){
@@ -586,7 +594,7 @@ $(document).ready(function(){
         {
             if($(this).length > 0)
             {
-                $(this).html(truncate($(this).html(), 40));    
+                $(this).html(truncate($(this).html(), 32));    
             }    
         }
     );
