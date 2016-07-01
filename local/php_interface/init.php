@@ -1304,14 +1304,14 @@
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
-        //Значения переменный для расчета стоимости
+        //Значения переменный для получения ID постамата данного заказа
         $fromCity = "Москва";
         $obData = CPickpoint::SelectOrderPostamat($orderID);
         while ($postamatData = $obData -> Fetch()) {   
             $PTnumber = $postamatData["POSTAMAT_ID"];
         }
 
-        //Данные для отправки и расчета стоимости получения PickPoint
+        //Данные для получения ориентировочных сроков доставки
         $dataTarifCalc = array('SessionId'=>$response["SessionId"], 'FromCity' => $fromCity , 'ToPT' => $PTnumber);
 
 
