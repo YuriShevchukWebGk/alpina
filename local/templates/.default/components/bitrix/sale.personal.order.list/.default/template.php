@@ -61,7 +61,7 @@
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["PERSONAL_PHONE"] ?></p>
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["EMAIL"] ?></p>
                             <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p>
-                            <p class="dopInfoText">г.<?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
+                            <p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
                             <p class="dopInfoTitle thiCol"><?= GetMessage("PHONE") ?></p>
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["ORDER_PHONE"] ?></p>

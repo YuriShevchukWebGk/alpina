@@ -33,4 +33,5 @@ $MESS["DELIVERY_DATE"] = "Дата доставки";
 $MESS["TO_PAY"] = "Оплатить";
 $MESS["PVZ"] = "Пункт выдачи заказа";
 $MESS["FINAL_SUMM"] = "Итого";
+$MESS["CITY"] = "г.";
 ?>
