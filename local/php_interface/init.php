@@ -30,6 +30,8 @@
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("FLIPPOST_ID", 30);
     define ("PICKPOINT_DELIVERY_ID", 18);
+    define ("PICKPOINT_SERVER_LOGIN", "alpina");
+    define ("PICKPOINT_SERVER_PASSWORD", 12588521);
 
     /***************
     *
@@ -1245,7 +1247,7 @@
 
     function MakeLabelPickPoint($orderId){
         //Авторизация на сервере PickPoint для получения ключа сессии (Необходим для дальнейшей работы с API)
-        $dataLogin = array('Login' => alpina, 'Password' => 12588521);  //Необходимо указать доступы к API выданные клиенту
+        $dataLogin = array('Login' => PICKPOINT_SERVER_LOGIN, 'Password' => PICKPOINT_SERVER_PASSWORD);  //Необходимо указать доступы к API выданные клиенту
         $ikn = "9990252912"; //Номер контракта клиента
         $urlLogin = "http://e-solution.pickpoint.ru/api/login";
         $content = json_encode($dataLogin);
@@ -1290,7 +1292,7 @@
     
     function getDeliveryDate($orderID){
        //Авторизация на сервере PickPoint для получения ключая сессии (Необходим для дальнейшей работы с API)
-        $dataLogin = array('Login' => alpina, 'Password' => 12588521);  //Необходимо указать доступы к API выданные клиенту
+        $dataLogin = array('Login' => PICKPOINT_SERVER_LOGIN, 'Password' => PICKPOINT_SERVER_PASSWORD);  //Необходимо указать доступы к API выданные клиенту
         $urlLogin = "http://e-solution.pickpoint.ru/api/login";
         $content = json_encode($dataLogin);
         $curl = curl_init($urlLogin);

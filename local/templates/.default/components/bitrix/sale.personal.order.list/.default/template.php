@@ -111,7 +111,7 @@
                                 </tr>
                             <?}?>
                             <tr>
-                                <td class="infoTextTab">Итого</td>
+                                <td class="infoTextTab"><?= GetMessage("FINAL_SUMM") ?></td>
                                 <td class="infoQuant"></td>
                                 <td class="infoPriceTd"><?= ceil($order["ORDER"]["PRICE"]) ?> <?= GetMessage("ROUBLES") ?></td>
                             </tr>
