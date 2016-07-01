@@ -53,5 +53,25 @@
 		}
 
 	}
+    
+    foreach ($arResult["ORDER_BY_STATUS"] as $order_key => $group) {
+        foreach ($group as $k => $order) {
+            
+            $arResult["USER_INFO"][$order["ORDER"]["ID"]] = CUser::GetByID($order["ORDER"]["USER_ID"]) -> Fetch();
+
+            $order_info = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => intval($order["ORDER"]["ID"])), false, false, array());
+            while ($info = $order_info->Fetch()) {   
+                if ($info["ORDER_PROPS_ID"] == 2) {
+                    $arResult["ORDER_INFO"][$info["ORDER_ID"]]["DELIVERY_CITY"] = CSaleLocation::GetByID($info["VALUE"]);
+                }
+                if ($info["ORDER_PROPS_ID"] == 5) {
+                    $arResult["ORDER_INFO"][$info["ORDER_ID"]]["DELIVERY_ADDR"] = $info["VALUE"];
+                }
+                if ($info["CODE"] == "PHONE") {
+                    $arResult["ORDER_INFO"][$info["ORDER_ID"]]["ORDER_PHONE"] = $info["VALUE"];
+                } 
+            }
+        }
+    }
      
 ?>

@@ -27,7 +27,9 @@
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("FLIPPOST_ID", 30);
+    define ("PICKPOINT_DELIVERY_ID", 18);
 
     /***************
     *
@@ -1284,6 +1286,55 @@
         $imagick->readImageBlob($json_response);
         $imagick->cropImage(300, 200, 50, 0);
         $imagick->writeImages(getcwd().'/pickpoint_label/'.$orderId.'.jpg', false);
+    }
+    
+    function getDeliveryDate($orderID){
+       //Авторизация на сервере PickPoint для получения ключая сессии (Необходим для дальнейшей работы с API)
+        $dataLogin = array('Login' => alpina, 'Password' => 12588521);  //Необходимо указать доступы к API выданные клиенту
+        $urlLogin = "http://e-solution.pickpoint.ru/api/login";
+        $content = json_encode($dataLogin);
+        $curl = curl_init($urlLogin);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER,
+            array("Content-type: application/json"));
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
+        //Значения переменный для расчета стоимости
+        $fromCity = "Москва";
+        $obData = CPickpoint::SelectOrderPostamat($orderID);
+        while ($postamatData = $obData -> Fetch()) {   
+            $PTnumber = $postamatData["POSTAMAT_ID"];
+        }
+
+        //Данные для отправки и расчета стоимости получения PickPoint
+        $dataTarifCalc = array('SessionId'=>$response["SessionId"], 'FromCity' => $fromCity , 'ToPT' => $PTnumber);
+
+
+        $content = json_encode($dataTarifCalc);
+        $urlTarif =  "http://e-solution.pickpoint.ru/api/getzone";
+        $curlTarif = curl_init($urlTarif);
+        curl_setopt($curlTarif, CURLOPT_HEADER, false);
+        curl_setopt($curlTarif, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlTarif, CURLOPT_HTTPHEADER,
+            array("Content-type: application/json"));
+        curl_setopt($curlTarif, CURLOPT_POST, true);
+        curl_setopt($curlTarif, CURLOPT_POSTFIELDS, $content);
+        $json_response = curl_exec($curlTarif);
+        $status = curl_getinfo($curlTarif, CURLINFO_HTTP_CODE);
+        curl_close($curlTarif);
+        $responseCalcTarif = json_decode($json_response, true);
+        $order_info = CSaleOrder::GetByID($orderID);
+        $delivery_min_time = strtotime ($order_info["DATE_INSERT"]) + $responseCalcTarif["Zones"][0]["DeliveryMin"] * 86400;
+        $delivery_min_date = strtolower(FormatDate("j F", MakeTimeStamp(date("d.m.Y", $delivery_min_time), "DD.MM.YYYY HH:MI:SS")));
+        $delivery_max_time = strtotime ($order_info["DATE_INSERT"]) + $responseCalcTarif["Zones"][0]["DeliveryMax"] * 86400;
+        $delivery_max_date = strtolower(FormatDate("j F", MakeTimeStamp(date("d.m.Y", $delivery_max_time), "DD.MM.YYYY HH:MI:SS")));  
+        $date = $delivery_min_date. " - " . $delivery_max_date;
+        return $date;
     }
 
 
