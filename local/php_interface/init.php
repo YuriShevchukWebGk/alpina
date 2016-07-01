@@ -219,84 +219,8 @@
                 CSaleOrder::StatusOrder($ID, "D");
             }
         }
-    }
-	
-
-    //обработка флага оплаты, при изменении статусов заказа
-    AddEventHandler('sale', 'OnSaleStatusOrder', "UpdPaymentFlag");
-    function UpdPaymentFlag ($ID, $val) {
-        $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
-        //если установлен один из вышеуказанных статусов
-        if (in_array($val,$arStatus)) {
-            $order = CSaleOrder::GetById($ID);
-            //если флаг оплаты не стоит - ставим
-            if ($order["PAYED"] != "Y") {
-				$order_list = CSaleOrder::GetByID($ID);
-				$allBooksUrl = '';
-				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
-				while ($arItems = $dbBasketItems->Fetch()) {
-					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
-					$allBooksUrl .= $arItems["NAME"]." ".$booksUrl."<br />";
-				}
-				$mailFields = array(
-					"EMAIL" => "a-marchenkov@yandex.ru",
-					"TEXT" => $allBooksUrl
-				);		
-				//CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");				
-                CSaleOrder::PayOrder($ID, "Y", false, false, 0);
-            }
-        }
-    }
-	
-	//Получаем ссылку на бесплатную книгу в приложении Бизнес книги
-    function getUrlForFreeDigitalBook($productID) {
-		$check = false;
-		$continue = true;
-		while ($check == false) {
-			$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=".$productID;
-			  
-			$ch = curl_init();  
-			  
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_HTTPHEADER,
-				array(
-					"Content-type: application/json",
-					"X-AD-Email: emaguser",
-					"X-AD-Offer: 1",
-					"X-AD-Token: cde70efb6367aa336325c95e083b458b"
-				)
-			);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_POST, 1);
-			$output = curl_exec($ch);
-			curl_close($ch);
-
-			$output = json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
-				return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
-			}, $output));  
-			$output = get_object_vars($output[0]);
-			
-			if (isset($output["url"])) {
-				$freeBookUrl = $output["url"];
-				$check = true;
-			} else {
-				if ($continue == true) {
-					$bookReplace = CIBlockElement::GetProperty(4, $productID, array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
-					$productID = $bookReplace['VALUE'];
-					$continue = false;
-				} else {
-					$freeBookUrl = "error";
-					$check = true;
-				}
-			}
-		}
-        return $freeBookUrl;
-    }
-
-    //Create gift coupon after buy certificate
-    AddEventHandler("sale", "OnSalePayOrder", "SendCouponAfterPay");
-    function SendCouponAfterPay($ID, $val)
-    {
+		
+		//Create gift coupon after buy certificate
         $IBLOCK_ID = 20;
         if ($val=='Y') {
             GLOBAL $APPLICATION;
@@ -365,6 +289,125 @@
                 }
             }
         }
+    }
+	
+
+    //обработка флага оплаты, при изменении статусов заказа
+    AddEventHandler('sale', 'OnSaleStatusOrder', "triggerLogic");
+	
+    function triggerLogic ($ID, $val) {
+        $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
+        //если установлен один из вышеуказанных статусов
+        if (in_array($val,$arStatus)) {
+            $order = CSaleOrder::GetById($ID);
+            //если флаг оплаты не стоит - ставим
+            if ($order["PAYED"] != "Y") {
+				$order_list = CSaleOrder::GetByID($ID);
+				$allBooksUrl = '';
+				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
+				while ($arItems = $dbBasketItems->Fetch()) {
+					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
+					$allBooksUrl .= $arItems["NAME"]." ".$booksUrl."<br />";
+				}
+				$mailFields = array(
+					"EMAIL" => "a-marchenkov@yandex.ru",
+					"TEXT" => $allBooksUrl
+				);		
+				//CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");				
+                CSaleOrder::PayOrder($ID, "Y", false, false, 0);
+            }
+        }
+
+		
+		//----- Отправка смс при изменении статуса заказа
+        if (array_key_exists($val,Message::$messages)){
+			if ($val=="C") { // ---- статус собран может быть только для заказов с самовывозом
+				if (Message::getOrderDeliveryType($ID)==2) {
+					$message = new Message();
+					$result = $message->sendMessage($ID,$val);
+				}
+			} else {
+				$message = new Message();
+				$result = $message->sendMessage($ID,$val);
+			}
+        }
+		
+		//----- Триггерные письма при изменении статуса заказа
+		if ($val=="C") { // Статус собран
+			if (Message::getOrderDeliveryType($ID)==2) { //2 - ID службы доставки "самовывоз"
+				$arEventFields = array(
+					"EMAIL"=> Message::getClientEmail($ID),
+					"ORDER_USER"=> Message::getClientName($ID),
+					"ORDER_ID"=> $ID
+					
+				);
+				CEvent::Send("SALE_STATUS_CHANGED_C_NEW", "s1", $arEventFields,"N");					
+			}
+		} elseif ($val=="D") { // Статус оплачен
+			if (Message::getOrderDeliveryType($ID) == 2) { // самовывоз
+				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран в течение двух рабочих часов.';
+			} elseif (Message::getOrderDeliveryType($ID) == 17) { // PickPoint
+				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки PickPoint.';
+			} elseif (in_array(Message::getOrderDeliveryType($ID), array(12,13,14,15))) { // Курьерская доставка
+				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан курьеру. Ожидайте звонок представителя курьерской службы в день доставки.';
+			} else {
+				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки.';
+			}
+			
+			$arEventFields = array(
+				"EMAIL" => Message::getClientEmail($ID),
+				"ORDER_USER" => Message::getClientName($ID),
+				"ORDER_ID" => $ID,
+				"ORDER_PAY_INFO" => $orderPayInfo
+				
+			);				
+			CEvent::Send("ORDER_PAYED_MANUAL", "s1", $arEventFields,"N");			
+		}
+    }
+	
+	//Получаем ссылку на бесплатную книгу в приложении Бизнес книги
+    function getUrlForFreeDigitalBook($productID) {
+		$check = false;
+		$continue = true;
+		while ($check == false) {
+			$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=".$productID;
+			  
+			$ch = curl_init();  
+			  
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_HTTPHEADER,
+				array(
+					"Content-type: application/json",
+					"X-AD-Email: emaguser",
+					"X-AD-Offer: 1",
+					"X-AD-Token: cde70efb6367aa336325c95e083b458b"
+				)
+			);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_POST, 1);
+			$output = curl_exec($ch);
+			curl_close($ch);
+
+			$output = json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+				return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+			}, $output));  
+			$output = get_object_vars($output[0]);
+			
+			if (isset($output["url"])) {
+				$freeBookUrl = $output["url"];
+				$check = true;
+			} else {
+				if ($continue == true) {
+					$bookReplace = CIBlockElement::GetProperty(4, $productID, array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
+					$productID = $bookReplace['VALUE'];
+					$continue = false;
+				} else {
+					$freeBookUrl = "error";
+					$check = true;
+				}
+			}
+		}
+        return $freeBookUrl;
     }
 
     //Work of custom coupon
@@ -623,7 +666,7 @@
         *
         *************/
 
-        private function getPhone($id){
+        function getPhone($id){
             $db_props = CSaleOrderPropsValue::GetOrderProps($id);
             while ($arProps = $db_props->Fetch()){
                 if($arProps['CODE']=='PHONE'){
@@ -642,7 +685,7 @@
         *
         *************/
 
-        private function getClientName($id){
+        function getClientName($id){
             $db_props = CSaleOrderPropsValue::GetOrderProps($id);
             while ($arProps = $db_props->Fetch()){
                 if($arProps['CODE']=='F_CONTACT_PERSON'){
@@ -651,6 +694,24 @@
             }
         }
 
+        /***************
+        *
+        * Получаем email клиента из заказа
+        *
+        * @param int $id
+        * @return string $arProps['VALUE']
+        *
+        *************/
+
+       	function getClientEmail($id){
+			$db_props = CSaleOrderPropsValue::GetOrderProps($id);
+			while ($arProps = $db_props->Fetch()){
+				if($arProps['CODE']=='EMAIL'){
+					return $arProps["VALUE"];
+				}
+			}
+		}
+		
         /***************
         *
         * Отправляем сообщение
@@ -698,34 +759,16 @@
 
     }
 
-    //----- Отправка смс при новом заказе
+    /*//----- Отправка смс при новом заказе
     AddEventHandler("sale", "OnOrderNewSendEmail", "sendSMSOnNewOrder");
 
 
     function sendSMSOnNewOrder($orderID, &$eventName, &$arFields){
         $message = new Message();
         $result = $message->sendMessage($orderID,"N");
-    }
-
-    //----- Отправка смс при изменении статуса заказа
-
-    AddEventHandler("sale", "OnSaleStatusOrder","sendSMS");
-
-    function sendSMS($ID,$val){
-        if (array_key_exists($val,Message::$messages)){
-            if($val=="C"){ // ---- статус собран может быть только для заказов с самовывозом
-                if(Message::getOrderDeliveryType($ID)==2){ //2 - ID службы доставки "самовывоз"
-                    $message = new Message();
-                    $result = $message->sendMessage($ID,$val);
-                }
-            } else {
-                $message = new Message();
-                $result = $message->sendMessage($ID,$val);
-            }
-        }
-    }
-
-
+    }*/
+	
+	
     //подмена логина на EMAIL
     AddEventHandler("main", "OnBeforeUserAdd", Array("OnBeforeUserAddHandler", "OnBeforeUserAdd"));
     class OnBeforeUserAddHandler    {
