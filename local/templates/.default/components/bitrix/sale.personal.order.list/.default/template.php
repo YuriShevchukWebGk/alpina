@@ -57,9 +57,9 @@
                     <div class="infoAddrWrap">
                         <div>
                             <p class="dopInfoTitle firstCol"><?= GetMessage("CUSTOMER_INFO") ?></p>
-                            <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["ID"]]["LAST_NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["ID"]]["NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["ID"]]["SECOND_NAME"] ?></p>
-                            <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["ID"]]["PERSONAL_PHONE"] ?></p>
-                            <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["ID"]]["EMAIL"] ?></p>
+                            <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["LAST_NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["SECOND_NAME"] ?></p>
+                            <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["PERSONAL_PHONE"] ?></p>
+                            <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["EMAIL"] ?></p>
                             <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p>
                             <p class="dopInfoText">г.<?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
@@ -73,7 +73,7 @@
                             <p class="dopInfoText"><?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?></p>
                             <?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
                                 <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_DATE") ?></p> <!--класс отступа сверху -->
-                                <p class="dopInfoText"><?= getDeliveryDate($order["ORDER"]["ID"]) ?></p>
+                                <p class="dopInfoText"><?= CustomPickPoint::getDeliveryDate($order["ORDER"]["ID"]) ?></p>
                                 <?}?>
                             <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) 
                                 && ($order["ORDER"]["PAYED"] != "Y")) {

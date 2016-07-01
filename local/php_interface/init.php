@@ -30,8 +30,10 @@
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("FLIPPOST_ID", 30);
     define ("PICKPOINT_DELIVERY_ID", 18);
-    define ("PICKPOINT_SERVER_LOGIN", "alpina");
-    define ("PICKPOINT_SERVER_PASSWORD", 12588521);
+    define ("CITY_INDIVIDUAL_ORDER_PROP_ID", 2);
+    define ("CITY_ENTITY_ORDER_PROP_ID", 3);
+    define ("ADDRESS_INDIVIDUAL_ORDER_PROP_ID", 5);
+    define ("ADDRESS_ENTITY_ORDER_PROP_ID", 14);
 
     /***************
     *
@@ -1247,8 +1249,8 @@
 
     function MakeLabelPickPoint($orderId){
         //Авторизация на сервере PickPoint для получения ключа сессии (Необходим для дальнейшей работы с API)
-        $dataLogin = array('Login' => PICKPOINT_SERVER_LOGIN, 'Password' => PICKPOINT_SERVER_PASSWORD);  //Необходимо указать доступы к API выданные клиенту
-        $ikn = "9990252912"; //Номер контракта клиента
+        $dataLogin = array('Login' => $arParams["PICKPOINT"]["DATA_ACCESS"]["Login"], 'Password' => $arParams["PICKPOINT"]["DATA_ACCESS"]["Password"]);  //Необходимо указать доступы к API выданные клиенту
+        $ikn = $arParams["PICKPOINT"]["IKN"]; //Номер контракта клиента
         $urlLogin = "http://e-solution.pickpoint.ru/api/login";
         $content = json_encode($dataLogin);
         $curl = curl_init($urlLogin);
@@ -1288,55 +1290,6 @@
         $imagick->readImageBlob($json_response);
         $imagick->cropImage(300, 200, 50, 0);
         $imagick->writeImages(getcwd().'/pickpoint_label/'.$orderId.'.jpg', false);
-    }
-    
-    function getDeliveryDate($orderID){
-       //Авторизация на сервере PickPoint для получения ключая сессии (Необходим для дальнейшей работы с API)
-        $dataLogin = array('Login' => PICKPOINT_SERVER_LOGIN, 'Password' => PICKPOINT_SERVER_PASSWORD);  //Необходимо указать доступы к API выданные клиенту
-        $urlLogin = "http://e-solution.pickpoint.ru/api/login";
-        $content = json_encode($dataLogin);
-        $curl = curl_init($urlLogin);
-        curl_setopt($curl, CURLOPT_HEADER, false);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER,
-            array("Content-type: application/json"));
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
-        $json_response = curl_exec($curl);
-        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
-        //Значения переменный для получения ID постамата данного заказа
-        $fromCity = "Москва";
-        $obData = CPickpoint::SelectOrderPostamat($orderID);
-        while ($postamatData = $obData -> Fetch()) {   
-            $PTnumber = $postamatData["POSTAMAT_ID"];
-        }
-
-        //Данные для получения ориентировочных сроков доставки
-        $dataTarifCalc = array('SessionId'=>$response["SessionId"], 'FromCity' => $fromCity , 'ToPT' => $PTnumber);
-
-
-        $content = json_encode($dataTarifCalc);
-        $urlTarif =  "http://e-solution.pickpoint.ru/api/getzone";
-        $curlTarif = curl_init($urlTarif);
-        curl_setopt($curlTarif, CURLOPT_HEADER, false);
-        curl_setopt($curlTarif, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlTarif, CURLOPT_HTTPHEADER,
-            array("Content-type: application/json"));
-        curl_setopt($curlTarif, CURLOPT_POST, true);
-        curl_setopt($curlTarif, CURLOPT_POSTFIELDS, $content);
-        $json_response = curl_exec($curlTarif);
-        $status = curl_getinfo($curlTarif, CURLINFO_HTTP_CODE);
-        curl_close($curlTarif);
-        $responseCalcTarif = json_decode($json_response, true);
-        $order_info = CSaleOrder::GetByID($orderID);
-        $delivery_min_time = strtotime ($order_info["DATE_INSERT"]) + $responseCalcTarif["Zones"][0]["DeliveryMin"] * 86400;
-        $delivery_min_date = strtolower(FormatDate("j F", MakeTimeStamp(date("d.m.Y", $delivery_min_time), "DD.MM.YYYY HH:MI:SS")));
-        $delivery_max_time = strtotime ($order_info["DATE_INSERT"]) + $responseCalcTarif["Zones"][0]["DeliveryMax"] * 86400;
-        $delivery_max_date = strtolower(FormatDate("j F", MakeTimeStamp(date("d.m.Y", $delivery_max_time), "DD.MM.YYYY HH:MI:SS")));  
-        $date = $delivery_min_date. " - " . $delivery_max_date;
-        return $date;
     }
 
 
@@ -1396,6 +1349,56 @@
                     unset($_SESSION["PICKPOINT_ADDRESS"]);
                 }
             }
+        }
+        
+        function getDeliveryDate($orderID){
+            GLOBAL $arParams;
+            //Авторизация на сервере PickPoint для получения ключая сессии (Необходим для дальнейшей работы с API)
+            $dataLogin = array('Login' => $arParams["PICKPOINT"]["DATA_ACCESS"]["Login"], 'Password' => $arParams["PICKPOINT"]["DATA_ACCESS"]["Password"]);  //Необходимо указать доступы к API выданные клиенту
+            $urlLogin = "http://e-solution.pickpoint.ru/api/login";
+            $content = json_encode($dataLogin);
+            $curl = curl_init($urlLogin);
+            curl_setopt($curl, CURLOPT_HEADER, false);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_HTTPHEADER,
+                array("Content-type: application/json"));
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+            $json_response = curl_exec($curl);
+            $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            curl_close($curl);
+            $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
+            //Значения переменный для получения ID постамата данного заказа
+            $fromCity = "Москва";
+            $obData = CPickpoint::SelectOrderPostamat($orderID);
+            while ($postamatData = $obData -> Fetch()) {   
+                $PTnumber = $postamatData["POSTAMAT_ID"];
+            }
+
+            //Данные для получения ориентировочных сроков доставки
+            $dataTarifCalc = array('SessionId'=>$response["SessionId"], 'FromCity' => $fromCity , 'ToPT' => $PTnumber);
+
+
+            $content = json_encode($dataTarifCalc);
+            $urlTarif =  "http://e-solution.pickpoint.ru/api/getzone";
+            $curlTarif = curl_init($urlTarif);
+            curl_setopt($curlTarif, CURLOPT_HEADER, false);
+            curl_setopt($curlTarif, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curlTarif, CURLOPT_HTTPHEADER,
+                array("Content-type: application/json"));
+            curl_setopt($curlTarif, CURLOPT_POST, true);
+            curl_setopt($curlTarif, CURLOPT_POSTFIELDS, $content);
+            $json_response = curl_exec($curlTarif);
+            $status = curl_getinfo($curlTarif, CURLINFO_HTTP_CODE);
+            curl_close($curlTarif);
+            $responseCalcTarif = json_decode($json_response, true);
+            $order_info = CSaleOrder::GetByID($orderID);
+            $delivery_min_time = strtotime ($order_info["DATE_INSERT"]) + $responseCalcTarif["Zones"][0]["DeliveryMin"] * 86400;
+            $delivery_min_date = strtolower(FormatDate("j F", MakeTimeStamp(date("d.m.Y", $delivery_min_time), "DD.MM.YYYY HH:MI:SS")));
+            $delivery_max_time = strtotime ($order_info["DATE_INSERT"]) + $responseCalcTarif["Zones"][0]["DeliveryMax"] * 86400;
+            $delivery_max_date = strtolower(FormatDate("j F", MakeTimeStamp(date("d.m.Y", $delivery_max_time), "DD.MM.YYYY HH:MI:SS")));  
+            $date = $delivery_min_date. " - " . $delivery_max_date;
+            return $date;
         }   
     }
 	
