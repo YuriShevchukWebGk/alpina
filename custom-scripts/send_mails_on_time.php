@@ -7,6 +7,48 @@ if ($USER->isAdmin()) {
     CModule::IncludeModule("catalog");
     CModule::IncludeModule("main");
 	
+	
+	/***************
+	* Новинки в письмо
+	*************/
+	echo 1;
+	$newItemsBlock = "";
+	$i = 0;
+	$NewItems = CIBlockElement::GetList (array("timestamp_x" => "DESC"), array("IBLOCK_ID" => 4, "PROPERTY_STATE" => 21, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, false, array());
+	$newItemsBlock .= '<tr><td style="border-collapse: collapse;padding:10px 40px 20px 40px;">';
+	while (($NewItemsList = $NewItems -> Fetch()) && ($i < 3))
+	{
+		$pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 140), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+		$curr_sect = CIBlockSection::GetByID($NewItemsList["IBLOCK_SECTION_ID"]) -> Fetch();
+		
+		$newItemsBlock .= '
+		<table align="left" border="0" cellpadding="8" cellspacing="0" class="tile" width="32%">
+		<tbody>
+		<tr>
+		<td height="200" style="border-collapse: collapse;text-align:center;" valign="top" width="100%">
+		<a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=forgottenMails" target="_blank">
+		<img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 140px; height: auto;" />
+		</a>
+		</td>
+		</tr>
+		<tr>
+		<td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;" valign="top" width="126">
+		<a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=forgottenMails" target="_blank">Подробнее о книге</a>
+		</td>
+		</tr>
+		<tr>
+		<td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;padding-top:0;" valign="top" width="126">
+		<a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=forgottenMails" target="_blank">Купить</a>
+		</td>
+		</tr>
+		</tbody>
+		</table>';
+		$i++;
+	}
+	$newItemsBlock .= '</td></tr>';
+	print_r($newItemsBlock);
+
+			
 	/***************
 	* Получаем телефон из заказа
 	*************/
@@ -51,49 +93,64 @@ if ($USER->isAdmin()) {
 	* Отправляем большой эмэйл
 	*************/
 
-	function sendNotificationEmail($id,$subject,$notification,$userID) {
+	function sendNotificationEmail($id,$subject,$notification,$userID, $latestBooks) {
 		$arEventFields = array(
-			"EMAIL" => "a-marchenkov@yandex.ru", //getClientEmail($id),
+			"EMAIL" => getClientEmail($id),
 			"ORDER_USER" => getClientName($id),
 			"ORDER_ID" => $id,
 			"SUBJECT" => $subject,
-			"NOTIFICATION" => $notification
+			"NOTIFICATION" => $notification,
+			"NEW_ITEMS_BLOCK" => $latestBooks
 		);				
 		CEvent::Send("ON_TIME_NOTIFICATIONS", "s1", $arEventFields,"N");
 		
 		$arFields = array(
 			"EMP_STATUS_ID" => $userID
 		);
-		CSaleOrder::Update($id, $arFields);		
+		CSaleOrder::Update($id, $arFields);
+		echo $id."*".$subject."*".$userID;
 	}
 	
-	$userID1 = 15;
-	$userID2 = 16;
+	$userID1 = 175985; //triggerMailUser_1
+	$userID2 = 175986; //triggerMailUser_2
 	
+	echo 2;
 	/* I Проверяем даты собранных самовывозов */
 	$arFilter = Array(
 		"DELIVERY_ID" => "2",
-		"@STATUS_ID" => array("C")
+		"@STATUS_ID" => array("C"),
+		"USER_ID" => 15
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch())
 	{
 		$id = $arSales["ID"];
-		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 7 && (time() - strtotime($arSales[DATE_STATUS]))/86400 < 12 && $arSales["EMP_STATUS_ID"] != $userID1) {
+		if (
+			//(time() - strtotime($arSales[DATE_STATUS]))/86400 > 7 && 	// Если прошло больше 7 дней
+			(time() - strtotime($arSales[DATE_STATUS]))/86400 < 12 && 	// и меньше 12 дней
+			$arSales["EMP_STATUS_ID"] != $userID1) 						// еще не отправляли первое уведомление о собранном заказе
+		{
 			
-			$subject = 'Заказ №'.$id.' уже неделю ждет Вас';
-			$notification = 'Ваш заказ №'.$id.' собран и находится в офисе интернет-магазина. Ждем вас!';
-			$result = sendNotificationEmail($id, $subject, $notification, $userID1);
+			$subject = 'Истекает срок хранения заказа №'.$id.'. Альпина Паблишер';
+			$notification = "Ваши книги скучают и ждут Вас. Скорее приезжайте за ними, срок хранения вашего заказа истекает уже через неделю.<br />
+			Вы можете забрать заказ ".$id." по адресу: метро «Полежаевская», 4-я Магистральная улица, дом 5, подъезд 2, второй этаж.<br /><br />
+			Да, кстати, у нас есть несколько хороших новинок, которые должны вам понравиться.";
+			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock);
 			
-		} elseif ((time() - strtotime($arSales[DATE_STATUS]))/86400 >= 12 && $arSales["EMP_STATUS_ID"] != $userID2) {
-			$subject = 'Через два дня заказ будет расформирован';
-			$notification = 'Ваш заказ №'.$id.' собран и будет находиться в офисе интернет-магазина еще два дня. Ждем вас!';
-			$result = sendNotificationEmail($id, $subject, $notification, $userID2);		
+		} elseif (
+			(time() - strtotime($arSales[DATE_STATUS]))/86400 >= 12 && 	// Если прошло больше 11 дней
+			$arSales["EMP_STATUS_ID"] != $userID2)						// и еще не отправляли второе уведомление
+		{
+			$subject = 'Истекает срок хранения заказа №'.$id.'. Альпина Паблишер';
+			$notification = "Ваши книги скучают и ждут вас. Скорее приезжайте за ними, срок хранения вашего заказа истекает уже через 2 дня.<br />
+			Вы можете забрать заказ ".$id." по адресу: метро «Полежаевская», 4-я Магистральная улица, дом 5, подъезд 2, второй этаж.<br /><br />
+			Да, кстати, у нас есть несколько хороших новинок, которые должны вам понравиться.";
+			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock);		
 		}
 	}
-	
+	echo 3;
 	/* II Проверяем даты отправленных пикпоинтов */
-	$arFilter = Array(
+	/*$arFilter = Array(
 		"DELIVERY_ID" => "17",
 		"@STATUS_ID" => array("I")
 	);
@@ -104,82 +161,110 @@ if ($USER->isAdmin()) {
 	  if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 7)
 		  echo "Заказ выполнен! Спасибо!";
 	  echo "</pre>";
-	}
+	}*/
 	
-	/* III Проверяем даты отправленной почты по миру */
+	echo 4;
+	/* III Проверяем доставку почтой */
 	$arFilter = Array(
-		"DELIVERY_ID" => array(16,24,25,26,28),
-		"@STATUS_ID" => array("I")
-	);
-	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
-	while ($arSales = $rsSales->Fetch())
-	{
-	  echo "<pre>";
-	  if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 35)
-		  echo "Заказ почтой по миру выполнен! Спасибо!";
-	  echo "</pre>";
-	}
-
-	/* IV Проверяем даты отправленной Flippost */
-	$arFilter = Array(
-		"DELIVERY_ID" => "23",
-		"@STATUS_ID" => array("I")
-	);
-	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
-	while ($arSales = $rsSales->Fetch())
-	{
-	  echo "<pre>";
-	  if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 14)
-		  echo "Заказ ФЛИПОМ выполнен! Спасибо!";
-	  echo "</pre>";
-	}
-	
-	/* V Заказ еще не оплачен, ждем */
-	$arFilter = Array(
-		"DELIVERY_ID" => array(10,11,16, 17, 23,24,25,26,28),
-		"@STATUS_ID" => array("N", "O")
+		"DELIVERY_ID" => array(10,11,16,24,25,26,28),
+		"@STATUS_ID" => array("I","K"),
+		"USER_ID" => 15
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch())
 	{
 		$id = $arSales["ID"];
-		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 5 && (time() - strtotime($arSales[DATE_STATUS]))/86400 < 10 && $arSales["EMP_STATUS_ID"] != $userID1) {
-			$subject = 'Заказ №'.$id.' ожидает оплаты';
-			$notification = 'По заказу №'.$id.' пока не поступила оплата.';
-			$result = sendNotificationEmail($id, $subject, $notification, $userID1);
-		} elseif ((time() - strtotime($arSales[DATE_STATUS]))/86400 >= 10 && $arSales["EMP_STATUS_ID"] != $userID2) {
-			$subject = 'Заказ №'.$id.' ожидает оплаты';
-			$notification = 'По заказу №'.$id.' пока не поступила оплата.';
-			$result = sendNotificationEmail($id, $subject, $notification, $userID2);
+		$list = \Bitrix\Sale\Internals\OrderTable::getList(array(
+			"select" => array(
+				"TRACKING_NUM" => "\Bitrix\Sale\Internals\ShipmentTable:ORDER.TRACKING_NUMBER"
+			),
+			"filter" => array(
+				"!=\Bitrix\Sale\Internals\ShipmentTable:ORDER.TRACKING_NUMBER" => "",
+				"=ID" => $id
+			),
+			'limit'=> 1 
+		))->fetchAll();
+				 
+		$trackingNumber = $list[0]['TRACKING_NUM'];
+		//print_r($trackingNumber);
+
+		if (!empty($trackingNumber)) {
+			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
+			$client2 = '';
+
+			$client2 = new SoapClient($wsdlurl, array('trace' => 1, 'soap_version' => SOAP_1_2));
+
+			$params3 = array ('OperationHistoryRequest' => array ('Barcode' => $trackingNumber, 'MessageType' => '0','Language' => 'RUS'),
+							  'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf'));
+
+			$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
+
+			if ($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id == 1) {
+				$arFields = array(
+					"EMP_STATUS_ID" => $userID,
+					"STATUS_ID" => "F"
+				);
+				CSaleOrder::Update($id, $arFields);
+				echo $id."*Заказ почтой выполнен*".$userID."<br />";
+			}
+			
 		}
+		
 	}
 	
-	/* VI Спасибо за заказ почта по России */
+	echo 5;
+	/* IV Проверяем даты отправленной Flippost */
 	$arFilter = Array(
-		"DELIVERY_ID" => array(10,11),
-		"@STATUS_ID" => array("I")
+		"DELIVERY_ID" => "23",
+		"@STATUS_ID" => array("I"),
+		"USER_ID" => 15
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch())
 	{
-		echo "<pre>";
-		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 20)
-			echo "Спасибо за заказ Почтовый по России!";
-		echo "</pre>";
+		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 5) {
+			$id = $arSales["ID"];
+			$arFields = array(
+				"EMP_STATUS_ID" => $userID,
+				"STATUS_ID" => "F"
+			);
+			CSaleOrder::Update($id, $arFields);
+		}
 	}
-	$db_props = CSaleOrderProps::GetList(
-        array("SORT" => "ASC"),
-        array(
-                "PERSON_TYPE_ID" => 2
-            ),
-        false,
-        false,
-        array("TRACKING_NUMBER")
-    );
 	
-
-
-	
+	echo 6;
+	/* V Заказ еще не оплачен, ждем */
+	$arFilter = Array(
+		"DELIVERY_ID" => array(10,11,16,17,23,24,25,26,28),
+		"@STATUS_ID" => array("N", "O"),
+		"USER_ID" => 15
+	);
+	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+	while ($arSales = $rsSales->Fetch())
+	{
+		$id = $arSales["ID"];
+		if (
+			//(time() - strtotime($arSales[DATE_STATUS]))/86400 > 5 &&	// Если прошло больше пяти дней
+			(time() - strtotime($arSales[DATE_STATUS]))/86400 < 10 &&	// и меньше 10 дней
+			$arSales["EMP_STATUS_ID"] != $userID1)						// и еще не отправляли первое уведомление
+			{
+			$subject = 'Заказ №'.$id.' собран и ожидает оплаты. Альпина Паблишер.';
+			$notification = 'Ваш заказ №'.$id.' уже готов. Как только вы оплатите его, мы передадим его вам тем способом доставки, который вы выбрали.<br />
+			Спасибо, что читаете наши книги! <br /><br />
+			Вот, кстати, несколько новинок, которые тоже должны вам понравиться:';
+			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock);
+		} elseif (
+			(time() - strtotime($arSales[DATE_STATUS]))/86400 >= 10 &&	// Если прошло больше 10 дней
+			$arSales["EMP_STATUS_ID"] != $userID2)						// и еще не отправляли второе уведомление
+			{
+			$subject = 'Заказ '.$id.' собран и ожидает оплаты. Альпина Паблишер.';
+			$notification = 'Ваш заказ №'.$id.' уже готов. Как только вы оплатите его, мы передадим его вам тем способом доставки, который вы выбрали.<br />
+			Спасибо, что читаете наши книги! <br /><br />
+			Вот, кстати, несколько новинок, которые тоже должны вам понравиться:';
+			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock);
+		}
+	}
+	echo 7;
 } else {
 	echo "Not authorized";
 }

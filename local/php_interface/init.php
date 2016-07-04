@@ -353,7 +353,7 @@
 			if (Message::getOrderDeliveryType($ID) == 2) { // самовывоз
 				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран в течение двух рабочих часов.';
 			} elseif (Message::getOrderDeliveryType($ID) == 17) { // PickPoint
-				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки PickPoint.';
+				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки <a href="http://pickpoint.ru/" target="_blank">PickPoint</a>.';
 			} elseif (in_array(Message::getOrderDeliveryType($ID), array(12,13,14,15))) { // Курьерская доставка
 				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан курьеру. Ожидайте звонок представителя курьерской службы в день доставки.';
 			} else {
@@ -1228,7 +1228,7 @@
             $NewItems = CIBlockElement::GetList (array("timestamp_x" => "DESC"), array("IBLOCK_ID" => 4, "PROPERTY_STATE" => 21, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, false, array());
             while (($NewItemsList = $NewItems -> Fetch()) && ($i < 3))
             {
-                $pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 146, "height" => 188), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                $pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 140), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                 $curr_sect = CIBlockSection::GetByID($NewItemsList["IBLOCK_SECTION_ID"]) -> Fetch();
                 $NewItemsBlock .= '
                 <table align="left" border="0" cellpadding="8" cellspacing="0" class="tile" width="32%">
@@ -1236,7 +1236,7 @@
                 <tr>
                 <td height="200" style="border-collapse: collapse;text-align:center;" valign="top" width="100%">
                 <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">
-                <img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 146px; height: 188px;" />
+                <img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 140px; auto;" />
                 </a>
                 </td>
                 </tr>
@@ -1438,7 +1438,7 @@
             $order_info = CSaleOrder::GetByID($orderID);
             $delivery_min_time = strtotime ($order_info["DATE_INSERT"]) + $responseCalcTarif["Zones"][0]["DeliveryMin"] * 86400;
             $delivery_min_date = strtolower(FormatDate("j F", MakeTimeStamp(date("d.m.Y", $delivery_min_time), "DD.MM.YYYY HH:MI:SS")));
-            $delivery_max_time = strtotime ($order_info["DATE_INSERT"]) + $responseCalcTarif["Zones"][0]["DeliveryMax"] * 86400;
+            $delivery_max_time = $delivery_min_time + 5 * 86400;
             $delivery_max_date = strtolower(FormatDate("j F", MakeTimeStamp(date("d.m.Y", $delivery_max_time), "DD.MM.YYYY HH:MI:SS")));  
             $date = $delivery_min_date. " - " . $delivery_max_date;
             return $date;

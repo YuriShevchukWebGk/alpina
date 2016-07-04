@@ -32,7 +32,7 @@ switch ($_REQUEST["SORT"])
 }
 global $arrFilter;
 $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
-$recsArray = array_splice(json_decode($stringRecs),10);
+$recsArray = json_decode($stringRecs);
 $arrFilter = Array('ID' => $recsArray);
 
 if ($arrFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем 
