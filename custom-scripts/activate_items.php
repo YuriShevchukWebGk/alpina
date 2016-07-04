@@ -32,19 +32,23 @@ if ($USER->isAdmin()) {
 	
 	$list = \Bitrix\Sale\Internals\OrderTable::getList(array(
 		"select" => array(
-			"TRACKING_NUM" => "\Bitrix\Sale\Internals\ShipmentTable:ORDER.TRACKING_NUMBER"
+			"TRACKING_NUM" => "\Bitrix\Sale\Internals\ShipmentTable:ORDER.DELIVERY_DOC_NUM"
 		),
 		"filter" => array(
-			"!=\Bitrix\Sale\Internals\ShipmentTable:ORDER.TRACKING_NUMBER" => "",
-			"=ID" => 70018
+			"!=\Bitrix\Sale\Internals\ShipmentTable:ORDER.DELIVERY_DOC_NUM" => "",
+			"=ID" => 56984
 		),
 		'limit'=> 1 
 	))->fetchAll();
-			 
-	$trackingNumber = $list[0]['TRACKING_NUM'];
+	if (!empty($list[0]['TRACKING_NUM'])) {
+		$trackingNumber = $list[0]['TRACKING_NUM'];
+	} else {
+		$order = CSaleOrder::GetByID($id);
+		$trackingNumber = $order["DELIVERY_DOC_NUM"];
+	}
 	//print_r($trackingNumber);
 
-	if (!empty($trackingNumber)) {
+	if (!empty($trackingNumber) && preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {
 		$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
 		$client2 = '';
 
@@ -53,7 +57,7 @@ if ($USER->isAdmin()) {
 		$params3 = array ('OperationHistoryRequest' => array ('Barcode' => $trackingNumber, 'MessageType' => '0','Language' => 'RUS'),
 						  'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf'));
 
-		$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
+		//$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
 
 		echo $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id;
 		echo $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name;

@@ -46,7 +46,6 @@ if ($USER->isAdmin()) {
 		$i++;
 	}
 	$newItemsBlock .= '</td></tr>';
-	print_r($newItemsBlock);
 
 			
 	/***************
@@ -108,7 +107,7 @@ if ($USER->isAdmin()) {
 			"EMP_STATUS_ID" => $userID
 		);
 		CSaleOrder::Update($id, $arFields);
-		echo $id."*".$subject."*".$userID;
+		echo $id."*".$subject."*".$userID."<br />";
 	}
 	
 	$userID1 = 175985; //triggerMailUser_1
@@ -118,15 +117,14 @@ if ($USER->isAdmin()) {
 	/* I Проверяем даты собранных самовывозов */
 	$arFilter = Array(
 		"DELIVERY_ID" => "2",
-		"@STATUS_ID" => array("C"),
-		"USER_ID" => 15
+		"@STATUS_ID" => array("C")
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch())
 	{
 		$id = $arSales["ID"];
 		if (
-			//(time() - strtotime($arSales[DATE_STATUS]))/86400 > 7 && 	// Если прошло больше 7 дней
+			(time() - strtotime($arSales[DATE_STATUS]))/86400 > 7 && 	// Если прошло больше 7 дней
 			(time() - strtotime($arSales[DATE_STATUS]))/86400 < 12 && 	// и меньше 12 дней
 			$arSales["EMP_STATUS_ID"] != $userID1) 						// еще не отправляли первое уведомление о собранном заказе
 		{
@@ -167,13 +165,13 @@ if ($USER->isAdmin()) {
 	/* III Проверяем доставку почтой */
 	$arFilter = Array(
 		"DELIVERY_ID" => array(10,11,16,24,25,26,28),
-		"@STATUS_ID" => array("I","K"),
-		"USER_ID" => 15
+		"@STATUS_ID" => array("I","K")
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch())
 	{
 		$id = $arSales["ID"];
+		echo $id."<br />";
 		$list = \Bitrix\Sale\Internals\OrderTable::getList(array(
 			"select" => array(
 				"TRACKING_NUM" => "\Bitrix\Sale\Internals\ShipmentTable:ORDER.TRACKING_NUMBER"
@@ -184,11 +182,19 @@ if ($USER->isAdmin()) {
 			),
 			'limit'=> 1 
 		))->fetchAll();
-				 
+		
+		if (!empty($list[0]['TRACKING_NUM'])) {
+			$trackingNumber = $list[0]['TRACKING_NUM'];
+		} else {
+			$order = CSaleOrder::GetByID($id);
+			$trackingNumber = $order["DELIVERY_DOC_NUM"];
+		}
+		
 		$trackingNumber = $list[0]['TRACKING_NUM'];
 		//print_r($trackingNumber);
 
-		if (!empty($trackingNumber)) {
+		if (!empty($trackingNumber) && preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {
+			echo "ok";
 			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
 			$client2 = '';
 
@@ -197,15 +203,15 @@ if ($USER->isAdmin()) {
 			$params3 = array ('OperationHistoryRequest' => array ('Barcode' => $trackingNumber, 'MessageType' => '0','Language' => 'RUS'),
 							  'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf'));
 
-			$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
+			//$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
 
 			if ($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id == 1) {
 				$arFields = array(
-					"EMP_STATUS_ID" => $userID,
+					"EMP_STATUS_ID" => $userID1,
 					"STATUS_ID" => "F"
 				);
 				CSaleOrder::Update($id, $arFields);
-				echo $id."*Заказ почтой выполнен*".$userID."<br />";
+				echo $id."*Заказ почтой выполнен*".$userID1."<br />";
 			}
 			
 		}
@@ -216,16 +222,15 @@ if ($USER->isAdmin()) {
 	/* IV Проверяем даты отправленной Flippost */
 	$arFilter = Array(
 		"DELIVERY_ID" => "23",
-		"@STATUS_ID" => array("I"),
-		"USER_ID" => 15
+		"@STATUS_ID" => array("I")
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch())
 	{
-		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 5) {
+		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 14) {
 			$id = $arSales["ID"];
 			$arFields = array(
-				"EMP_STATUS_ID" => $userID,
+				"EMP_STATUS_ID" => $userID1,
 				"STATUS_ID" => "F"
 			);
 			CSaleOrder::Update($id, $arFields);
@@ -236,15 +241,14 @@ if ($USER->isAdmin()) {
 	/* V Заказ еще не оплачен, ждем */
 	$arFilter = Array(
 		"DELIVERY_ID" => array(10,11,16,17,23,24,25,26,28),
-		"@STATUS_ID" => array("N", "O"),
-		"USER_ID" => 15
+		"@STATUS_ID" => array("N", "O")
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch())
 	{
 		$id = $arSales["ID"];
 		if (
-			//(time() - strtotime($arSales[DATE_STATUS]))/86400 > 5 &&	// Если прошло больше пяти дней
+			(time() - strtotime($arSales[DATE_STATUS]))/86400 > 5 &&	// Если прошло больше пяти дней
 			(time() - strtotime($arSales[DATE_STATUS]))/86400 < 10 &&	// и меньше 10 дней
 			$arSales["EMP_STATUS_ID"] != $userID1)						// и еще не отправляли первое уведомление
 			{
