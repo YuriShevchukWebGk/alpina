@@ -17,14 +17,14 @@
 
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
-	$APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
+    $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
 
     include ('include/functions.php');
 ?>
 <style>
 /* Лучше так, чем городить адовые городушки на js */
 input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
-	display: block;
+    display: block;
 }
 </style>
 <script>  
@@ -282,7 +282,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                     var flag = true;
                                     // дополнительная проверка полей и вывод ошибки  
                                     if (val == "Y")
-                                    {
+                                    {   
                                         if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == ''){
                                             flag = false;
                                             $('#ORDER_PROP_7').parent("div").children(".warningMessage").show(); 
@@ -314,8 +314,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             var scrollTop = $('#ORDER_PROP_5').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_5").focus();
-                                        }
+                                        } 
                                         var deliveryFlag= false;
+                                        if ($(".js_delivery_block").css("display") == "none") {
+                                            deliveryFlag = true;
+                                        }
                                         $('input[name=DELIVERY_ID]').each(function(){
                                             if($(this).prop("checked")){
                                                 deliveryFlag = true;
@@ -332,22 +335,22 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                         }
                                         
                                         // склеиваем адрес для flippost
-										if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
-											// Если не выбрана даже страна, то показываем ошибку
-											if (!$("#flippostCountrySelect").val()) {
-												flag = false;
-												$('.deliveriWarming').show();
-											} else {
-												var flippost_address = [
-														$('select[data-method="getStates"] option:checked').text(), // страна
-														$('select[data-method="getCities"] option:checked').text(), // область
-														$('select[data-method="getTarif"] option:checked').text(), // город
-													],
-												flippost_string_address = "";
-												flippost_string_address = flippost_address.join(", ");
-												$("#flippost_address").val(flippost_string_address);
-											}
-										}
+                                        if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
+                                            // Если не выбрана даже страна, то показываем ошибку
+                                            if (!$("#flippostCountrySelect").val()) {
+                                                flag = false;
+                                                $('.deliveriWarming').show();
+                                            } else {
+                                                var flippost_address = [
+                                                        $('select[data-method="getStates"] option:checked').text(), // страна
+                                                        $('select[data-method="getCities"] option:checked').text(), // область
+                                                        $('select[data-method="getTarif"] option:checked').text(), // город
+                                                    ],
+                                                flippost_string_address = "";
+                                                flippost_string_address = flippost_address.join(", ");
+                                                $("#flippost_address").val(flippost_string_address);
+                                            }
+                                        }
                                     } 
 
                                     if(flag){
@@ -386,7 +389,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                 } */
 
                                 function ajaxResult(res) {
-									window.flippost = !(window.flippost instanceof Flippost) ? new Flippost(<?= FLIPPOST_ID ?>) : window.flippost;
+                                    window.flippost = !(window.flippost instanceof Flippost) ? new Flippost(<?= FLIPPOST_ID ?>) : window.flippost;
                                     var orderForm = BX('ORDER_FORM');
                                     try
                                     {
@@ -427,21 +430,21 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                         $('li[data-rfi-payment="'+localStorage.getItem('active_rfi_button')+'"]').addClass('active_rfi_button');
                                     }
                                     
-									// т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса
-									if ($(".js_delivery_block").length) {
-										if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
-											!$("#flippostCountrySelect").length ? window.flippost.getData("getCountries") : "";
-											$(".js_delivery_block").on('change', '.flippostSelect', function() {
-												var country = $('select[data-method="getStates"]').val(),
-													state   = $('select[data-method="getCities"]').val(),
-													city    = $('select[data-method="getTarif"]').val(),
-													weight  = parseInt($('.order_weight').text()) / 1000,
-													method  = $(this).data("method"); // какой метод вызывать следующим
-												$(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
-												window.flippost.getData(method, country, state, city, weight); // рендерим новые
-											});
-										}
-									}
+                                    // т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса
+                                    if ($(".js_delivery_block").length) {
+                                        if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
+                                            !$("#flippostCountrySelect").length ? window.flippost.getData("getCountries") : "";
+                                            $(".js_delivery_block").on('change', '.flippostSelect', function() {
+                                                var country = $('select[data-method="getStates"]').val(),
+                                                    state   = $('select[data-method="getCities"]').val(),
+                                                    city    = $('select[data-method="getTarif"]').val(),
+                                                    weight  = parseInt($('.order_weight').text()) / 1000,
+                                                    method  = $(this).data("method"); // какой метод вызывать следующим
+                                                $(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
+                                                window.flippost.getData(method, country, state, city, weight); // рендерим новые
+                                            });
+                                        }
+                                    }
                                 }
 
                                 function SetContact(profileId)

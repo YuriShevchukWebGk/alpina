@@ -1,4 +1,4 @@
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 if ($USER->isAdmin()) {
 
     CModule::IncludeModule("blog");
@@ -11,7 +11,7 @@ if ($USER->isAdmin()) {
 	/***************
 	* Новинки в письмо
 	*************/
-	echo 1;
+	echo "1<br />";
 	$newItemsBlock = "";
 	$i = 0;
 	$NewItems = CIBlockElement::GetList (array("timestamp_x" => "DESC"), array("IBLOCK_ID" => 4, "PROPERTY_STATE" => 21, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, false, array());
@@ -47,6 +47,7 @@ if ($USER->isAdmin()) {
 	}
 	$newItemsBlock .= '</td></tr>';
 
+	
 			
 	/***************
 	* Получаем телефон из заказа
@@ -112,8 +113,29 @@ if ($USER->isAdmin()) {
 	
 	$userID1 = 175985; //triggerMailUser_1
 	$userID2 = 175986; //triggerMailUser_2
+	$userIDabroad = 176080; //triggerMailUser_abroad
 	
-	echo 2;
+	/***************
+	* Итоговое отчетное письмо
+	*************/
+	$finalReport = "triggerMailUser_1 - ".$userID1."<br />";
+	$finalReport .= "triggerMailUser_2 - ".$userID2."<br />";
+	$finalReport .= "triggerMailUser_abroad - ".$userIDabroad."<br /><br />";
+	$finalReport .= "<table width='100%'><tbody><tr>
+					<td>ID заказа</td>
+					<td>Доставка</td>
+					<td>Текущий статус</td>
+					<td>ID пользователя</td>
+					<td>Сообщение</td>
+					<td>Будущий статус</td>
+					<td>Идентификатор</td>
+					<td>Состояние</td>
+					<td>Комментарий</td>
+					</tr>					
+	";
+
+	
+	echo "2<br />";
 	/* I Проверяем даты собранных самовывозов */
 	$arFilter = Array(
 		"DELIVERY_ID" => "2",
@@ -134,7 +156,17 @@ if ($USER->isAdmin()) {
 			Вы можете забрать заказ ".$id." по адресу: метро «Полежаевская», 4-я Магистральная улица, дом 5, подъезд 2, второй этаж.<br /><br />
 			Да, кстати, у нас есть несколько хороших новинок, которые должны вам понравиться.";
 			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock);
-			
+			$finalReport .= "<tr>
+				<td>".$id."</td>
+				<td>Самовывоз</td>
+				<td>Собран</td>
+				<td>".$userID1."</td>
+				<td>Прошла неделя</td>
+				<td>Собран</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>";
 		} elseif (
 			(time() - strtotime($arSales[DATE_STATUS]))/86400 >= 12 && 	// Если прошло больше 11 дней
 			$arSales["EMP_STATUS_ID"] != $userID2)						// и еще не отправляли второе уведомление
@@ -143,10 +175,21 @@ if ($USER->isAdmin()) {
 			$notification = "Ваши книги скучают и ждут вас. Скорее приезжайте за ними, срок хранения вашего заказа истекает уже через 2 дня.<br />
 			Вы можете забрать заказ ".$id." по адресу: метро «Полежаевская», 4-я Магистральная улица, дом 5, подъезд 2, второй этаж.<br /><br />
 			Да, кстати, у нас есть несколько хороших новинок, которые должны вам понравиться.";
-			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock);		
+			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock);
+			$finalReport .= "<tr>
+				<td>".$id."</td>
+				<td>Самовывоз</td>
+				<td>Собран</td>
+				<td>".$userID2."</td>
+				<td>Осталось два дня</td>
+				<td>Собран</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>";			
 		}
 	}
-	echo 3;
+	echo "3<br />";
 	/* II Проверяем даты отправленных пикпоинтов */
 	/*$arFilter = Array(
 		"DELIVERY_ID" => "17",
@@ -161,7 +204,7 @@ if ($USER->isAdmin()) {
 	  echo "</pre>";
 	}*/
 	
-	echo 4;
+	echo "4<br />";
 	/* III Проверяем доставку почтой */
 	$arFilter = Array(
 		"DELIVERY_ID" => array(10,11,16,24,25,26,28),
@@ -171,7 +214,6 @@ if ($USER->isAdmin()) {
 	while ($arSales = $rsSales->Fetch())
 	{
 		$id = $arSales["ID"];
-		echo $id."<br />";
 		$list = \Bitrix\Sale\Internals\OrderTable::getList(array(
 			"select" => array(
 				"TRACKING_NUM" => "\Bitrix\Sale\Internals\ShipmentTable:ORDER.TRACKING_NUMBER"
@@ -191,34 +233,234 @@ if ($USER->isAdmin()) {
 		}
 		
 		$trackingNumber = $list[0]['TRACKING_NUM'];
-		//print_r($trackingNumber);
 
-		if (!empty($trackingNumber) && preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {
-			echo "ok";
+		if (!empty($trackingNumber) &&								// Трекер проставлен
+			preg_match('/([0-9]){13,20}/', $trackingNumber) && 		// доставка по России
+			$arSales["EMP_STATUS_ID"] != $userID2) {				// ????
+			
 			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
 			$client2 = '';
 
 			$client2 = new SoapClient($wsdlurl, array('trace' => 1, 'soap_version' => SOAP_1_2));
 
 			$params3 = array ('OperationHistoryRequest' => array ('Barcode' => $trackingNumber, 'MessageType' => '0','Language' => 'RUS'),
-							  'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf'));
+							//'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf')); //Марченков
+							//'AuthorizationHeader' => array ('login'=>'cruZXgcQzVDFRc','password'=>'s98awuYAXRrG')); //Петухова
+							'AuthorizationHeader' => array ('login'=>'dxviIPkwrlaEHS','password'=>'8dZACYAfBEqj')); //Данилова
 
-			//$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
 
-			if ($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id == 1) {
+			try {  
+				$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
+
+				$parcelReturn = false;
+				foreach ($result->OperationHistoryData->historyRecord as $record) {
+					if ($record->OperationParameters->OperAttr->Name == "Истек срок хранения") {
+						$parcelReturn = true;
+					}
+				}
+
+				if ($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id == 1 &&
+					(strpos($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name, 'Получено') !== false ||
+					strpos($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name, 'Вручение') !== false)) {
+						
+					$arFields = array(
+						"EMP_STATUS_ID" => $userID1,
+						"STATUS_ID" => "F"
+					);
+					CSaleOrder::Update($id, $arFields);
+					echo $id."*Заказ почтой выполнен*".$userID1."<br />";
+					$finalReport .= "<tr>
+						<td>".$id."</td>
+						<td>Почта</td>
+						<td>В пути, отправлен на почту</td>
+						<td>".$userID1."</td>
+						<td></td>
+						<td>Выполнен</td>
+						<td>".$trackingNumber."</td>
+						<td>ok</td>
+						<td></td>
+						</tr>";	
+				} elseif ($parcelReturn) {
+					$arFields = array(
+						"EMP_STATUS_ID" => $userID2
+					);
+					CSaleOrder::Update($id, $arFields);
+					echo "return ".$id."<br />";
+					$finalReport .= "<tr>
+						<td>".$id."</td>
+						<td>Почта</td>
+						<td>В пути, отправлен на почту</td>
+						<td>".$userID2."</td>
+						<td></td>
+						<td>В пути, отправлен на почту</td>
+						<td>".$trackingNumber."</td>
+						<td>Возврат</td>
+						<td>Уведомить доставку</td>
+						</tr>";	
+				} else {
+					$finalReport .= "<tr>
+						<td>".$id."</td>
+						<td>Почта</td>
+						<td>В пути, отправлен на почту</td>
+						<td>---</td>
+						<td></td>
+						<td>В пути, отправлен на почту</td>
+						<td>".$trackingNumber."</td>
+						<td>Заказ в пути</td>
+						<td></td>
+						</tr>";	
+				}
+			} catch (SoapFault $e) {
+				//var_dump($e); 
+				echo 'Ошибка авторизации<br />';
+				$finalReport .= "<tr>
+					<td>".$id."</td>
+					<td>Почта</td>
+					<td>В пути, отправлен на почту</td>
+					<td>---</td>
+					<td></td>
+					<td>В пути, отправлен на почту</td>
+					<td>".$trackingNumber."</td>
+					<td>Ошибка авторизации</td>
+					<td></td>
+					</tr>";					
+			}
+		} elseif (
+			!empty($trackingNumber) &&								// Трекер проставлен
+			preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {			// еще не простален флаг, что доставка по миру
+			
+				
+			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
+			$client2 = '';
+
+			$client2 = new SoapClient($wsdlurl, array('trace' => 1, 'soap_version' => SOAP_1_2));
+
+			$params3 = array ('OperationHistoryRequest' => array ('Barcode' => $trackingNumber, 'MessageType' => '0','Language' => 'RUS'),
+							//'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf')); //Марченков
+							//'AuthorizationHeader' => array ('login'=>'cruZXgcQzVDFRc','password'=>'s98awuYAXRrG')); //Петухова
+							'AuthorizationHeader' => array ('login'=>'dxviIPkwrlaEHS','password'=>'8dZACYAfBEqj')); //Данилова
+
+			
+			if ($arSales["EMP_STATUS_ID"] != $userIDabroad) {
 				$arFields = array(
-					"EMP_STATUS_ID" => $userID1,
-					"STATUS_ID" => "F"
+					"EMP_STATUS_ID" => $userIDabroad
 				);
 				CSaleOrder::Update($id, $arFields);
-				echo $id."*Заказ почтой выполнен*".$userID1."<br />";
+				//echo "abroad ".$id."<br />";
+				$finalReport .= "<tr>
+					<td>".$id."</td>
+					<td>Почта</td>
+					<td>В пути, отправлен на почту</td>
+					<td>".$userIDabroad."</td>
+					<td></td>
+					<td>В пути, отправлен на почту</td>
+					<td>".$trackingNumber."</td>
+					<td>Заграницу</td>
+					<td></td>
+					</tr>";
 			}
+						/*try {
+				$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
 			
+				
+				$parcelReturn = false;
+				foreach ($result->OperationHistoryData->historyRecord as $record) {
+					if ($record->OperationParameters->OperAttr->Name == "Истек срок хранения") {
+						$parcelReturn = true;
+					}
+				}
+
+				if (strpos($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name, 'Получено') !== false ||
+					strpos($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name, 'Вручение') !== false) {
+					$arFields = array(
+						"EMP_STATUS_ID" => $userID1,
+						"STATUS_ID" => "F"
+					);
+					CSaleOrder::Update($id, $arFields);
+					echo $id."*Заказ почтой заграницу выполнен*".$userID1."<br />";
+					$finalReport .= "<tr>
+						<td>".$id."</td>
+						<td>Почта</td>
+						<td>В пути, отправлен на почту</td>
+						<td>".$userID1."</td>
+						<td></td>
+						<td>Выполнен</td>
+						<td>".$trackingNumber."</td>
+						<td>Заграницу выполнен</td>
+						<td></td>
+						</tr>";
+				} else {
+					$arFields = array(
+						"EMP_STATUS_ID" => $userIDabroad
+					);
+					CSaleOrder::Update($id, $arFields);
+					//echo "abroad ".$id."<br />";
+					$finalReport .= "<tr>
+						<td>".$id."</td>
+						<td>Почта</td>
+						<td>В пути, отправлен на почту</td>
+						<td>".$userIDabroad."</td>
+						<td></td>
+						<td>В пути, отправлен на почту</td>
+						<td>".$trackingNumber."</td>
+						<td>Заграницу</td>
+						<td></td>
+						</tr>";
+				}
+			} catch (SoapFault $e) {
+				//var_dump($e); 
+				echo 'Ошибка авторизации<br />';
+				$finalReport .= "<tr>
+					<td>".$id."</td>
+					<td>Почта</td>
+					<td>В пути, отправлен на почту</td>
+					<td>---</td>
+					<td></td>
+					<td>В пути, отправлен на почту</td>
+					<td>".$trackingNumber."</td>
+					<td>Ошибка авторизации</td>
+					<td></td>
+					</tr>";					
+			}*/
+		} elseif (empty($trackingNumber)) {
+			$arFields = array(
+				"EMP_STATUS_ID" => $userID2
+			);
+			CSaleOrder::Update($id, $arFields);
+			echo "noid ".$id."<br />";
+			$finalReport .= "<tr>
+					<td>".$id."</td>
+					<td>Почта</td>
+					<td>В пути, отправлен на почту</td>
+					<td>".$userID2."</td>
+					<td></td>
+					<td>В пути, отправлен на почту</td>
+					<td>noid</td>
+					<td>Нет идентификатора</td>
+					<td></td>
+					</tr>";
+		} else {
+			$arFields = array(
+				"EMP_STATUS_ID" => $userID2
+			);
+			CSaleOrder::Update($id, $arFields);
+			echo "noid ".$id."<br />";
+			$finalReport .= "<tr>
+					<td>".$id."</td>
+					<td>Почта</td>
+					<td>В пути, отправлен на почту</td>
+					<td>".$userID2."</td>
+					<td></td>
+					<td>В пути, отправлен на почту</td>
+					<td>error</td>
+					<td>Проверить</td>
+					<td></td>
+					</tr>";
 		}
-		
+		echo '<br />';
 	}
 	
-	echo 5;
+	echo "5<br />";
 	/* IV Проверяем даты отправленной Flippost */
 	$arFilter = Array(
 		"DELIVERY_ID" => "23",
@@ -234,10 +476,21 @@ if ($USER->isAdmin()) {
 				"STATUS_ID" => "F"
 			);
 			CSaleOrder::Update($id, $arFields);
+			$finalReport .= "<tr>
+				<td>".$id."</td>
+				<td>Flippost</td>
+				<td>В пути</td>
+				<td>".$userID1."</td>
+				<td></td>
+				<td>Выполнен</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>";	
 		}
 	}
 	
-	echo 6;
+	echo "6<br />";
 	/* V Заказ еще не оплачен, ждем */
 	$arFilter = Array(
 		"DELIVERY_ID" => array(10,11,16,17,23,24,25,26,28),
@@ -257,6 +510,17 @@ if ($USER->isAdmin()) {
 			Спасибо, что читаете наши книги! <br /><br />
 			Вот, кстати, несколько новинок, которые тоже должны вам понравиться:';
 			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock);
+			$finalReport .= "<tr>
+				<td>".$id."</td>
+				<td>Неоплаченные заказа</td>
+				<td>Новый, обработан</td>
+				<td>".$userID1."</td>
+				<td>Прошло пять дней</td>
+				<td>Новый, обработан</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>";	
 		} elseif (
 			(time() - strtotime($arSales[DATE_STATUS]))/86400 >= 10 &&	// Если прошло больше 10 дней
 			$arSales["EMP_STATUS_ID"] != $userID2)						// и еще не отправляли второе уведомление
@@ -266,9 +530,28 @@ if ($USER->isAdmin()) {
 			Спасибо, что читаете наши книги! <br /><br />
 			Вот, кстати, несколько новинок, которые тоже должны вам понравиться:';
 			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock);
+			$finalReport .= "<tr>
+				<td>".$id."</td>
+				<td>Неоплаченные заказа</td>
+				<td>Новый, обработан</td>
+				<td>".$userID1."</td>
+				<td>Прошло десять дней</td>
+				<td>Новый, обработан</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>";	
 		}
 	}
-	echo 7;
+	echo "7<br />";
+	$finalReport .= "</tbody></table>";
+	print $finalReport;
+	
+	$arEventFields = array(
+		"ORDER_USER" => "Александр",
+		"REPORT" => $finalReport
+	);				
+	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");	
 } else {
 	echo "Not authorized";
 }

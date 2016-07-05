@@ -36,16 +36,17 @@ if ($USER->isAdmin()) {
 		),
 		"filter" => array(
 			"!=\Bitrix\Sale\Internals\ShipmentTable:ORDER.DELIVERY_DOC_NUM" => "",
-			"=ID" => 56984
+			"=ID" => 63373
 		),
 		'limit'=> 1 
 	))->fetchAll();
 	if (!empty($list[0]['TRACKING_NUM'])) {
 		$trackingNumber = $list[0]['TRACKING_NUM'];
 	} else {
-		$order = CSaleOrder::GetByID($id);
+		$order = CSaleOrder::GetByID(63373);
 		$trackingNumber = $order["DELIVERY_DOC_NUM"];
 	}
+	$trackingNumber = "11172595017926";
 	//print_r($trackingNumber);
 
 	if (!empty($trackingNumber) && preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {
@@ -55,19 +56,41 @@ if ($USER->isAdmin()) {
 		$client2 = new SoapClient($wsdlurl, array('trace' => 1, 'soap_version' => SOAP_1_2));
 
 		$params3 = array ('OperationHistoryRequest' => array ('Barcode' => $trackingNumber, 'MessageType' => '0','Language' => 'RUS'),
-						  'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf'));
+							//'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf')); //Марченков
+							//'AuthorizationHeader' => array ('login'=>'cruZXgcQzVDFRc','password'=>'s98awuYAXRrG')); //Петухова
+							'AuthorizationHeader' => array ('login'=>'dxviIPkwrlaEHS','password'=>'8dZACYAfBEqj')); //Данилова
 
-		//$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
+		try {  
+			$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
+		} catch (SoapFault $e) {
+			//var_dump($e); 
+			echo 'Ошибка авторизации<br />';
+		}
+		
 
 		echo $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id;
 		echo $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name;
 
 		echo "<br /><br />";
-		if (
-			1 == 1 && //asldfjasd
-			2 == 2 && //asdfjasdklf
-			3 < 5)
-			echo 'dlskfj';
+
+		$parcelReturn = false;
+		foreach ($result->OperationHistoryData->historyRecord as $record) {
+			if ($record->OperationParameters->OperAttr->Name == "Истек срок хранения") {
+				$parcelReturn = true;
+			}
+		}
+
+		if ($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id == 1 &&
+			(strpos($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name, 'Получено') !== false ||
+			strpos($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name, 'Вручение') !== false)) {
+
+			echo "*Заказ почтой выполнен*<br />";
+		} elseif ($parcelReturn) {
+			echo "return<br />";
+		} else {
+			echo 2;
+		}
+		echo 1;
 	} else {
 		echo 'sdlkfjsdlfk';
 	}
