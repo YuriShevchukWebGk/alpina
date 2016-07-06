@@ -249,7 +249,7 @@ if ($USER->isAdmin()) {
 							'AuthorizationHeader' => array ('login'=>'dxviIPkwrlaEHS','password'=>'8dZACYAfBEqj')); //Данилова
 
 
-			try {  
+			try {
 				$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
 
 				$parcelReturn = false;
@@ -298,6 +298,7 @@ if ($USER->isAdmin()) {
 						<td>Уведомить доставку</td>
 						</tr>";	
 				} else {
+					echo 'Заказ в пути'.$id.'<br />';
 					$finalReport .= "<tr>
 						<td>".$id."</td>
 						<td>Почта</td>
@@ -457,7 +458,7 @@ if ($USER->isAdmin()) {
 					<td></td>
 					</tr>";
 		}
-		echo '<br />';
+		echo 'strange'.$id.'<br />';
 	}
 	
 	echo "5<br />";
