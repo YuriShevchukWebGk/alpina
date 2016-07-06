@@ -304,26 +304,25 @@
     function triggerLogic ($ID, $val) {
         $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
         //если установлен один из вышеуказанных статусов
-        if (in_array($val,$arStatus)) {
+        if (in_array($val, $arStatus)) {
             $order = CSaleOrder::GetById($ID);
             //если флаг оплаты не стоит - ставим
             if ($order["PAYED"] != "Y") {
-				$order_list = CSaleOrder::GetByID($ID);
-				$allBooksUrl = '';
-				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
-				while ($arItems = $dbBasketItems->Fetch()) {
-					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
-					$allBooksUrl .= $arItems["NAME"]." ".$booksUrl."<br />";
-				}
-				$mailFields = array(
-					"EMAIL" => "a-marchenkov@yandex.ru",
-					"TEXT" => $allBooksUrl
-				);		
-				//CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
-                
+                $order_list = CSaleOrder::GetByID($ID);
+                $allBooksUrl = '';
+                $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
+                while ($arItems = $dbBasketItems->Fetch()) {
+                    $booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
+                    $allBooksUrl .= $arItems["NAME"] . " " . $booksUrl . "<br />";
+                }
+                $mailFields = array(
+                    "EMAIL" => "a-marchenkov@yandex.ru",
+                    "TEXT" => $allBooksUrl
+                );
+
                 // при смене статуса и последующего автоматического CSaleOrder::PayOrder 
                 // не срабатывает хендлер OnSalePayOrder, поэтому применяем выполнение функции здесь после оплаты
-                				
+
                 if (CSaleOrder::PayOrder($ID, "Y", false, false, 0)) {
                     UpdOrderStatus($ID, "Y");
                 }
