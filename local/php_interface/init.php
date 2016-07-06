@@ -319,8 +319,14 @@
 					"EMAIL" => "a-marchenkov@yandex.ru",
 					"TEXT" => $allBooksUrl
 				);		
-				//CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");				
-                CSaleOrder::PayOrder($ID, "Y", false, false, 0);
+				//CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
+                
+                // при смене статуса и последующего автоматического CSaleOrder::PayOrder 
+                // не срабатывает хендлер OnSalePayOrder, поэтому применяем выполнение функции здесь после оплаты
+                				
+                if (CSaleOrder::PayOrder($ID, "Y", false, false, 0)) {
+                    UpdOrderStatus($ID, "Y");
+                }
             }
         }
 
