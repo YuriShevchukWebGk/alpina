@@ -439,13 +439,15 @@
              }
         }
         
-        function OnOrderCustomCouponHandler($arFields) {
-            //Update coupon
-            Loader::includeModule('sale');
-            $couponTypeList = Internals\DiscountCouponTable::getCouponTypes(true);
-            $fields['ACTIVE'] = "N";
-            $result = Internals\DiscountCouponTable::update($_SESSION["CUSTOM_COUPON"]["COUPON_ID"], $fields);
-            unset ($_SESSION["CUSTOM_COUPON"]);
+        function OnOrderCustomCouponHandler($ID, $arFields) {
+            if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N")  {
+                //Update coupon
+                Loader::includeModule('sale');
+                $couponTypeList = Internals\DiscountCouponTable::getCouponTypes(true);
+                $fields['ACTIVE'] = "N";
+                $result = Internals\DiscountCouponTable::update($_SESSION["CUSTOM_COUPON"]["COUPON_ID"], $fields);
+                unset ($_SESSION["CUSTOM_COUPON"]);
+            }
         }
     }
 
