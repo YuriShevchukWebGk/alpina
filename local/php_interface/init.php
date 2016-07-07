@@ -422,30 +422,30 @@
     }
 
     //Work of custom coupon
+    AddEventHandler("sale", "OnBeforeOrderAdd", Array("changeOrderPrice", "changingOrderPriceOnCustomCoupon"));
+    
     AddEventHandler("sale", "OnOrderAdd", Array("changeOrderPrice", "OnOrderCustomCouponHandler"));
-    class changeOrderPrice
-    {
-        function OnOrderCustomCouponHandler($arFields)
-        {
-            $arOrder = CSaleOrder::GetByID($arFields);
-            if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"]=="N")  {
-                $newPrice = $arOrder["PRICE"] - $arOrder["DISCOUNT_VALUE"] - (float)$_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"];
+    
+    class changeOrderPrice {
+        function changingOrderPriceOnCustomCoupon(&$arFields) {
+             if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N")  {
+                $newPrice = $arFields["PRICE"] - $arFields["DISCOUNT_VALUE"] - (float)$_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"];
 
-                if ($newPrice<0) {
-                    $newPrice=0;
+                if ($newPrice < 0) {
+                    $newPrice = 0;
+                    $newPrice = $newPrice + $arFields["PRICE_DELIVERY"];
                 }
-                $newPrice = $newPrice + $arOrder["PRICE_DELIVERY"];
-                $newFields = array(
-                    "PRICE" => $newPrice
-                );
-                CSaleOrder::Update($arFields, $newFields);
-                //Update coupon
-                Loader::includeModule('sale');
-                $couponTypeList = Internals\DiscountCouponTable::getCouponTypes(true);
-                $fields['ACTIVE'] = "N";
-                $result = Internals\DiscountCouponTable::update($_SESSION["CUSTOM_COUPON"]["COUPON_ID"], $fields);
-                unset ($_SESSION["CUSTOM_COUPON"]);
-            }
+                $arFields["PRICE"] = $newPrice;    
+             }
+        }
+        
+        function OnOrderCustomCouponHandler($arFields) {
+            //Update coupon
+            Loader::includeModule('sale');
+            $couponTypeList = Internals\DiscountCouponTable::getCouponTypes(true);
+            $fields['ACTIVE'] = "N";
+            $result = Internals\DiscountCouponTable::update($_SESSION["CUSTOM_COUPON"]["COUPON_ID"], $fields);
+            unset ($_SESSION["CUSTOM_COUPON"]);
         }
     }
 
