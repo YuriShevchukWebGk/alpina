@@ -211,11 +211,27 @@
             if (!in_array($order["STATUS_ID"],$arStatus)) {
 				$order_list = CSaleOrder::GetByID($ID);
 				$allBooksUrl = '';
+				$orderUser = CUser::GetByID($order_list['USER_ID']);
+				if (!empty($orderUser->Fetch()["UF_TEST"])) {
+					$allUrlsArray = unserialize($orderUser->Fetch()["UF_TEST"]);
+				} else {
+					$allUrlsArray = array();
+				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
 				while ($arItems = $dbBasketItems->Fetch()) {
 					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
 					$allBooksUrl .= $arItems["NAME"]." ".$booksUrl."<br />";
+					$allUrlsArray[] = array("bookid" => $arItems[PRODUCT_ID], "url" => $booksUrl);
 				}
+				
+				$links = serialize($allUrlsArray);
+
+				$fieldsGend = Array(
+					"UF_TEST"						=> $links
+				);
+				$userGend = new CUser;
+				$userGend->Update($order_list['USER_ID'], $fieldsGend);
+				
 				$mailFields = array(
 					"EMAIL" => "a-marchenkov@yandex.ru",
 					"TEXT" => $allBooksUrl
@@ -308,17 +324,34 @@
             $order = CSaleOrder::GetById($ID);
             //если флаг оплаты не стоит - ставим
             if ($order["PAYED"] != "Y") {
-                $order_list = CSaleOrder::GetByID($ID);
-                $allBooksUrl = '';
-                $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
-                while ($arItems = $dbBasketItems->Fetch()) {
-                    $booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
-                    $allBooksUrl .= $arItems["NAME"] . " " . $booksUrl . "<br />";
-                }
-                $mailFields = array(
-                    "EMAIL" => "a-marchenkov@yandex.ru",
-                    "TEXT" => $allBooksUrl
-                );
+				$order_list = CSaleOrder::GetByID($ID);
+				$allBooksUrl = '';
+				$orderUser = CUser::GetByID($order_list['USER_ID']);
+				if (!empty($orderUser->Fetch()["UF_TEST"])) {
+					$allUrlsArray = unserialize($orderUser->Fetch()["UF_TEST"]);
+				} else {
+					$allUrlsArray = array();
+				}
+				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
+				while ($arItems = $dbBasketItems->Fetch()) {
+					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
+					$allBooksUrl .= $arItems["NAME"]." ".$booksUrl."<br />";
+					$allUrlsArray[] = array("bookid" => $arItems[PRODUCT_ID], "url" => $booksUrl);
+				}
+				
+				$links = serialize($allUrlsArray);
+
+				$fieldsGend = Array(
+					"UF_TEST"						=> $links
+				);
+				$userGend = new CUser;
+				$userGend->Update($order_list['USER_ID'], $fieldsGend);
+				
+				$mailFields = array(
+					"EMAIL" => "a-marchenkov@yandex.ru",
+					"TEXT" => $allBooksUrl
+				);		
+				//CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 
                 // при смене статуса и последующего автоматического CSaleOrder::PayOrder 
                 // не срабатывает хендлер OnSalePayOrder, поэтому применяем выполнение функции здесь после оплаты

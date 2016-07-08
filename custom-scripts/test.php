@@ -1,4 +1,4 @@
-﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 if ($USER->isAdmin()) {
 	global $USER;
     CModule::IncludeModule("blog");
@@ -6,15 +6,18 @@ if ($USER->isAdmin()) {
     CModule::IncludeModule("sale");
     CModule::IncludeModule("catalog");
     CModule::IncludeModule("main");
+	$rsCurUser = CUser::GetByID($USER->GetID());
+	
+	$la = unserialize($rsCurUser->Fetch()[UF_TEST]);
 	
 	$filterGend = Array
 	(
 		"USER_ID"	=>	$USER->GetID()
 
 	);
-	
+	print_r($la);
 	$userGend = new CUser;
-	$links = serialize(1);
+	$links = '';
 
 	$fieldsGend = Array(
 		"UF_TEST"						=> $links

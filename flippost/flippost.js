@@ -114,6 +114,7 @@ Flippost.prototype.__makeSelectTag = function(method) {
     select_tag.setAttribute("data-method", self.availibleMethods[nextMethodIndex]);
     option_tag = document.createElement('option');
     option_tag.innerHTML = self.selectFirstString[method];
+    option_tag.value = "";
     select_tag.appendChild(option_tag);
 
     self.returnedData.forEach(function(elem) {

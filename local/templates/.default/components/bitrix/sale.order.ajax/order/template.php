@@ -337,10 +337,10 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                         // склеиваем адрес для flippost
                                         if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
                                             // Если не выбрана даже страна, то показываем ошибку
-                                            if (!$("#flippostCountrySelect").val()) {
-                                                flag = false;
-                                                $('.deliveriWarming').show();
-                                            } else {
+                                            $(".flippostSelect").each(function() {
+	                                        	if (!$(this).val().length) {flag = false; return false; };
+	                                        });
+                                            if (flag) {
                                                 var flippost_address = [
                                                         $('select[data-method="getStates"] option:checked').text(), // страна
                                                         $('select[data-method="getCities"] option:checked').text(), // область
@@ -349,6 +349,8 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                                 flippost_string_address = "";
                                                 flippost_string_address = flippost_address.join(", ");
                                                 $("#flippost_address").val(flippost_string_address);
+                                            } else {
+                                            	alert("<?= GetMessage("FLIPPOST_SELECT_EMPTY") ?>");
                                             }
                                         }
                                     } 
