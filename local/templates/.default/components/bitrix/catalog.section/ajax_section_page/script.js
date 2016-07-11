@@ -1680,14 +1680,14 @@ $(document).ready(function() {
     if (($(".otherBooks ul li").length < 11) && ($(".otherBooks ul li").length > 5)) 
     {
         $(".contentWrapp").css("height", "1740px");
-        $(".wrapperCategor").css("height", "1895px");
+        $(".wrapperCategor").css("height", "1810px");
     }
     else if ($(".otherBooks ul li").length < 6)
     {
         $(".contentWrapp").css("height", "1440px");
         $(".wrapperCategor").css("height", "1510px");       
     }
-    if ($(".bestSlider").size() == 0)
+    if ($(".bestSlider").size() == 0 && ($(".otherBooks ul li").length > 10))
     {
         $(".contentWrapp").css("height", "2000px");
         $(".wrapperCategor").css("height", "2080px");
@@ -1697,11 +1697,11 @@ $(document).ready(function() {
         $(".categoryWrapperWhite").hide();
         $(".contentWrapp").css("height",  $(".contentWrapp").height() - $(".categoryWrapperWhite").height() + "px");
     }
-    if (($(".bestSlider").size() != 0) && ($(".bestSlider ul li").size() == 0))
+    if (($(".bestSlider ul li").size() == 0))
     {  
         //ajax_section_styles();
-          $(".wrapperCategor").css("height", $(".wrapperCategor").height() - $(".grayTitle").height() - 305 + "px");
-        $(".contentWrapp").css("height", $(".contentWrapp").height() - $(".grayTitle").height() - 305 + "px");
+          $(".wrapperCategor").css("height", $(".wrapperCategor").height() - $(".grayTitle").height() - 505 + "px");
+        $(".contentWrapp").css("height", $(".contentWrapp").height() - $(".grayTitle").height() - 505 + "px");
         $(".bestSlider").hide();
         $(".bestSlider").parent().prev(".grayTitle").hide();
         $(".filterParams").css("margin-top", "40px");

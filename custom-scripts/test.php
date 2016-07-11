@@ -10,6 +10,17 @@ if ($USER->isAdmin()) {
 	
 	$la = unserialize($rsCurUser->Fetch()[UF_TEST]);
 	
+	$arFilter = Array("IBLOCK_ID"=>4, "ID"=>60905);
+	$res = CIBlockElement::GetList(Array(), $arFilter);
+	if ($ob = $res->GetNextElement()){
+		$arProps = $ob->GetProperties();
+		$arFields = $ob->GetFields();
+		echo "<pre>";
+		print_r($arProps);
+		echo "</pre>";
+	}
+	echo "<br />";	
+	
 	$filterGend = Array
 	(
 		"USER_ID"	=>	$USER->GetID()
@@ -22,7 +33,7 @@ if ($USER->isAdmin()) {
 	$fieldsGend = Array(
 		"UF_TEST"						=> $links
 	);
-	if ($userGend->Update(15, $fieldsGend)) echo 1;
+	//if ($userGend->Update(15, $fieldsGend)) echo 1;
 	
 } else {
 	echo "ошибка";

@@ -520,13 +520,15 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             var page = 2;
         <?}?>
         var maxpage = <?= ($arResult["NAV_RESULT"]->NavPageCount)?>;
-        var WrappHeight = $(".wrapperCategor").height();
-		var DescriptionHeight = $(".catalogDescription").height();
-        var RecHeight = $(".grayTitle").height();
-        var BooksLiLength = $(".otherBooks ul li").length;
-        
-        var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
-        $(".wrapperCategor").css("height", startHeight+"px");
+        if ($(".bx-pagination").size() > 0) {
+            var WrappHeight = $(".wrapperCategor").height();
+		    var DescriptionHeight = $(".catalogDescription").height();
+            var RecHeight = $(".grayTitle").height();
+            var BooksLiLength = $(".otherBooks ul li").length;
+            
+            var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
+            $(".wrapperCategor").css("height", startHeight+"px");
+        }
         
         $('.showMore').click(function(){
            // var otherBooks = $(this).siblings(".otherBooks");

@@ -245,8 +245,8 @@ if ($USER->isAdmin()) {
 
 			$params3 = array ('OperationHistoryRequest' => array ('Barcode' => $trackingNumber, 'MessageType' => '0','Language' => 'RUS'),
 							//'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf')); //Марченков
-							//'AuthorizationHeader' => array ('login'=>'cruZXgcQzVDFRc','password'=>'s98awuYAXRrG')); //Петухова
-							'AuthorizationHeader' => array ('login'=>'dxviIPkwrlaEHS','password'=>'8dZACYAfBEqj')); //Данилова
+							'AuthorizationHeader' => array ('login'=>'cruZXgcQzVDFRc','password'=>'s98awuYAXRrG')); //Петухова
+							//'AuthorizationHeader' => array ('login'=>'dxviIPkwrlaEHS','password'=>'8dZACYAfBEqj')); //Данилова
 
 
 			try {
