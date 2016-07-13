@@ -5564,3 +5564,17 @@ table.form-table tr td:nth-child(2){
 	width: 368px !important;
 	display: block !important;
 }
+
+#development {
+	font-family: 'Walshein_regular';
+	color: #b3b3b3;
+	font-size: 15px;
+	width: 100%;
+	text-align: right;
+	margin-top: 11px;
+}
+
+#development a {
+	color: #ac9f8a;
+	text-decoration: underline;
+}
