@@ -153,6 +153,9 @@
                         <a href="http://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/youImg.png"></a>
                         <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/googImg.png"></a>
                         <a href="http://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
+                        <div id="development">
+                        	Разработка сайта – <a href="http://webgk.ru/">WebGK</a>
+                        </div>
                     </div>
                 </div>
             </div>
