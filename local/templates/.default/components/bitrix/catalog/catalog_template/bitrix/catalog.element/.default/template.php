@@ -169,9 +169,52 @@ $arItemIDs = array(
                     <?}?>
                 </div>
 				<?if ($USER->isAdmin()) {?>
+				<style>
+				.newBookMarkPink {
+					background: rgb(221, 110, 255) none repeat scroll 0% 0%;
+					margin-top: -24px;
+					width: auto;
+					cursor:help;
+					position: relative;
+					display: inline;					
+				}
+				.newBookMark .ttip {
+					position: absolute;
+					width:140px;
+					color: #627478;
+					background: #FFFFFF;
+					height: 30px;
+					line-height: 30px;
+					text-align: center;
+					visibility: hidden;
+					border-radius: 6px;
+					box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.18), 0 0 1px 0 rgba(0, 0, 0, 0.14);
+					width: 264px;
+				}
+				.newBookMark .ttip:before {
+					content: '';
+					position: absolute;
+					top: -8px;
+					left: 50%;
+					margin-left: -8px;
+					width: 0; height: 0;
+					border-bottom: 8px solid #FFFFFF;
+					border-right: 8px solid transparent;
+					border-left: 8px solid transparent;					
+				}
+				.newBookMark:hover .ttip {
+					visibility: visible;
+					opacity: 1;
+					top: 100%;
+					left: 50%;
+					margin-left: -76px;
+					z-index: 999;					
+				}
+				</style>
 					<div style="margin-bottom: 0px;" class="marks">
-						<div style="background: rgb(221, 110, 255) none repeat scroll 0% 0%; margin-top: -24px; width: auto;cursor:help;" class="newBookMark">
+						<div class="newBookMark newBookMarkPink">
 							<p><span class="test">бесплатная электронная<br />книга в комплекте</span></p>
+							<span class="ttip">Купив эту книгу, вы автоматически получите ее электронную версию бесплатно! </span>
 						</div>
 					</div>
 				<?}?>
