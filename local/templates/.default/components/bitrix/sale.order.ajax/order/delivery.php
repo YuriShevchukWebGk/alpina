@@ -263,6 +263,7 @@
                 	<div class="flippostSelectContainer">
                 		
                 	</div>
+                	<div class="flippost_error"><?= GetMessage('FLIPPOST_SELECT_EMPTY') ?></div>
                 	<input type="hidden" id="flippost_address" name="flippost_address" value="">
                 	<input type="hidden" id="flippost_cost" name="flippost_cost" value="">
                 <? } ?>

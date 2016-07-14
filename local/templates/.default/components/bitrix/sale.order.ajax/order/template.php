@@ -280,6 +280,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                 function submitForm(val)
                                 {     
                                     var flag = true;
+                                    $(".flippost_error").hide();
                                     // дополнительная проверка полей и вывод ошибки  
                                     if (val == "Y")
                                     {   
@@ -333,25 +334,30 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             flag = false;
                                             $('#ORDER_PROP_7').parent("div").children(".warningMessage").show(); 
                                         }
-                                        
-                                        // склеиваем адрес для flippost
-                                        if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
-                                            // Если не выбрана даже страна, то показываем ошибку
-                                            $(".flippostSelect").each(function() {
-	                                        	if (!$(this).val().length) {flag = false; return false; };
-	                                        });
-                                            if (flag) {
-                                                var flippost_address = [
+                                        if (flag) {
+	                                        // склеиваем адрес для flippost
+	                                        if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
+	                                            // Если не выбрана даже страна, то показываем ошибку
+	                                            $(".flippostSelect").each(function() {
+		                                        	if (!$(this).val().length) {flag = false; return false;};
+		                                        });
+	                                            if (flag) {
+	                                                var flippost_address = [
                                                         $('select[data-method="getStates"] option:checked').text(), // страна
                                                         $('select[data-method="getCities"] option:checked').text(), // область
                                                         $('select[data-method="getTarif"] option:checked').text(), // город
                                                     ],
-                                                flippost_string_address = "";
-                                                flippost_string_address = flippost_address.join(", ");
-                                                $("#flippost_address").val(flippost_string_address);
-                                            } else {
-                                            	alert("<?= GetMessage("FLIPPOST_SELECT_EMPTY") ?>");
-                                            }
+	                                                flippost_string_address = "";
+	                                                flippost_string_address = flippost_address.join(", ");
+	                                                $("#ORDER_PROP_5").val(flippost_string_address + " " + $("#ORDER_PROP_5").val());
+	                                                $(".flippost_error").hide();
+	                                            } else {
+													$('html, body').animate({
+														scrollTop: $(".js_delivery_block").offset().top
+													}, 500);
+													$(".flippost_error").show();
+	                                            }
+	                                        }
                                         }
                                     } 
 
