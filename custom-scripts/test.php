@@ -8,7 +8,7 @@ if ($USER->isAdmin()) {
     CModule::IncludeModule("main");
 	$rsCurUser = CUser::GetByID($USER->GetID());
 	
-	$la = unserialize($rsCurUser->Fetch()[UF_TEST]);
+	$la = unserialize($rsCurUser->Fetch()["UF_TEST"]);
 	
 	$arFilter = Array("IBLOCK_ID"=>4, "ID"=>60905);
 	$res = CIBlockElement::GetList(Array(), $arFilter);
@@ -18,6 +18,7 @@ if ($USER->isAdmin()) {
 		echo "<pre>";
 		print_r($arProps);
 		echo "</pre>";
+		CIBlockElement::SetPropertyValuesEx(60905, 4, array('appstore' => '231', 'android' => '232'));	
 	}
 	echo "<br />";	
 	

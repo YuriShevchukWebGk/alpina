@@ -211,17 +211,30 @@
             if (!in_array($order["STATUS_ID"],$arStatus)) {
 				$order_list = CSaleOrder::GetByID($ID);
 				$allBooksUrl = '';
-				$orderUser = CUser::GetByID($order_list['USER_ID']);
-				if (!empty($orderUser->Fetch()["UF_TEST"])) {
-					$allUrlsArray = unserialize($orderUser->Fetch()["UF_TEST"]);
+				$bookId = '';
+				$recId = '';
+				$orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
+				if (!empty($orderUser["UF_TEST"])) {
+					$allUrlsArray = unserialize($orderUser["UF_TEST"]);
 				} else {
 					$allUrlsArray = array();
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
 				while ($arItems = $dbBasketItems->Fetch()) {
 					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
-					$allBooksUrl .= $arItems["NAME"]." ".$booksUrl."<br />";
-					$allUrlsArray[] = array("bookid" => $arItems[PRODUCT_ID], "url" => $booksUrl);
+					if ($booksUrl["rec"] == 0) {
+						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
+						$bookId = $arItems[PRODUCT_ID];
+						$recId = $arItems[PRODUCT_ID];
+					} else {
+						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
+						if ($recBookName = $recBook->GetNext()) {
+							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
+							$bookId = $arItems[PRODUCT_ID];
+							$recId = $booksUrl["id"];
+						}
+					}
+					$allUrlsArray[] = array("bookid" => $bookId, "recid" => $recId, "url" => $booksUrl["url"]);
 				}
 				
 				$links = serialize($allUrlsArray);
@@ -236,7 +249,7 @@
 					"EMAIL" => "a-marchenkov@yandex.ru",
 					"TEXT" => $allBooksUrl
 				);		
-				//CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
+				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 				
                 CSaleOrder::StatusOrder($ID, "D");
             }
@@ -326,17 +339,30 @@
             if ($order["PAYED"] != "Y") {
 				$order_list = CSaleOrder::GetByID($ID);
 				$allBooksUrl = '';
-				$orderUser = CUser::GetByID($order_list['USER_ID']);
-				if (!empty($orderUser->Fetch()["UF_TEST"])) {
-					$allUrlsArray = unserialize($orderUser->Fetch()["UF_TEST"]);
+				$bookId = '';
+				$recId = '';
+				$orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
+				if (!empty($orderUser["UF_TEST"])) {
+					$allUrlsArray = unserialize($orderUser["UF_TEST"]);
 				} else {
 					$allUrlsArray = array();
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
 				while ($arItems = $dbBasketItems->Fetch()) {
 					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
-					$allBooksUrl .= $arItems["NAME"]." ".$booksUrl."<br />";
-					$allUrlsArray[] = array("bookid" => $arItems[PRODUCT_ID], "url" => $booksUrl);
+					if ($booksUrl["rec"] == 0) {
+						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
+						$bookId = $arItems[PRODUCT_ID];
+						$recId = $arItems[PRODUCT_ID];
+					} else {
+						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
+						if ($recBookName = $recBook->GetNext()) {
+							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
+							$bookId = $arItems[PRODUCT_ID];
+							$recId = $booksUrl["id"];
+						}
+					}
+					$allUrlsArray[] = array("bookid" => $bookId, "recid" => $recId, "url" => $booksUrl["url"]);
 				}
 				
 				$links = serialize($allUrlsArray);
@@ -351,7 +377,7 @@
 					"EMAIL" => "a-marchenkov@yandex.ru",
 					"TEXT" => $allBooksUrl
 				);		
-				//CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
+				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 
                 // при смене статуса и последующего автоматического CSaleOrder::PayOrder 
                 // не срабатывает хендлер OnSalePayOrder, поэтому применяем выполнение функции здесь после оплаты
@@ -413,6 +439,8 @@
     function getUrlForFreeDigitalBook($productID) {
 		$check = false;
 		$continue = true;
+		$recTrue = 0;
+		$freeBookUrl = array();
 		while ($check == false) {
 			$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=".$productID;
 			  
@@ -438,15 +466,19 @@
 			$output = get_object_vars($output[0]);
 			
 			if (isset($output["url"])) {
-				$freeBookUrl = $output["url"];
+				$freeBookUrl["url"] = $output["url"];
+				$freeBookUrl["rec"] = $recTrue;
 				$check = true;
 			} else {
 				if ($continue == true) {
 					$bookReplace = CIBlockElement::GetProperty(4, $productID, array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
 					$productID = $bookReplace['VALUE'];
+					$recTrue = 1;
+					$freeBookUrl["id"] = $bookReplace['VALUE'];
 					$continue = false;
 				} else {
-					$freeBookUrl = "error";
+					$freeBookUrl["url"] = 'false';
+					$freeBookUrl["rec"] = $recTrue;
 					$check = true;
 				}
 			}
@@ -1268,7 +1300,7 @@
             $NewItems = CIBlockElement::GetList (array("timestamp_x" => "DESC"), array("IBLOCK_ID" => 4, "PROPERTY_STATE" => 21, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, false, array());
             while (($NewItemsList = $NewItems -> Fetch()) && ($i < 3))
             {
-                $pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 140), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                $pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                 $curr_sect = CIBlockSection::GetByID($NewItemsList["IBLOCK_SECTION_ID"]) -> Fetch();
                 $NewItemsBlock .= '
                 <table align="left" border="0" cellpadding="8" cellspacing="0" class="tile" width="32%">
@@ -1276,7 +1308,7 @@
                 <tr>
                 <td height="200" style="border-collapse: collapse;text-align:center;" valign="top" width="100%">
                 <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">
-                <img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 140px; auto;" />
+                <img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 140px; height: auto;" />
                 </a>
                 </td>
                 </tr>

@@ -157,17 +157,24 @@ $arItemIDs = array(
                     </div>
                 </div>
                 <div class="marks">
-                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == NEW_BOOK_STATE_XML_ID) {?>
+                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == NEW_BOOK_STATE_XML_ID || $USER->isAdmin()) {?>
                         <div class="newBookMark">
                             <p><?= GetMessage("NEW_BOOK") ?></p>
                         </div>
                     <?}?>
-                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"] == BESTSELLER_BOOK_XML_ID) {?>
+                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"] == BESTSELLER_BOOK_XML_ID || $USER->isAdmin()) {?>
                         <div class="bestBookMark">
                             <p><?= GetMessage("BESTSELLER_BOOK") ?></p>
                         </div>
                     <?}?>
                 </div>
+				<?if ($USER->isAdmin()) {?>
+					<div style="margin-bottom: 0px;" class="marks">
+						<div style="background: rgb(221, 110, 255) none repeat scroll 0% 0%; margin-top: -24px; width: auto;cursor:help;" class="newBookMark">
+							<p><span class="test">бесплатная электронная<br />книга в комплекте</span></p>
+						</div>
+					</div>
+				<?}?>
                 <?if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {?>
                     <a href="<?= $arResult["SIGN_PICTURE"] ?>" class="fancybox fancybox.iframe signingPopup">
                         <div class="authorSigning">
@@ -438,7 +445,15 @@ $arItemIDs = array(
                         <?}?>
 
                     <?}?>
-
+					<?if ($USER->isAdmin()) {
+						if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {
+							echo "Купив эту книгу, вы автоматически получите ее электронную версию бесплатно!";
+						} elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
+							$recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
+							if($recBookName = $recBook->GetNext())
+								echo "Купив эту книгу, вы получите электронную книгу «".$recBookName['NAME']."» в подарок!";
+						}
+					}?>
                 </div>
 
                 <div class="quickOrderDiv" style="display:none;">
