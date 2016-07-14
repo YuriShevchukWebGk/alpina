@@ -110,7 +110,6 @@
     }
 
 	AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
-	AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 	
 	/**
 	 * Handler для доставки flippost. Плюсуем стоимость доставки
@@ -123,29 +122,6 @@
 		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
 			$arFields['PRICE'] += floatval($_REQUEST['flippost_cost']);
 			$arFields['PRICE_DELIVERY'] = floatval($_REQUEST['flippost_cost']);
-		}
-	}
-	
-	/**
-	 * Handler для доставки flippost. Изменяем адрес
-	 *
-	 * @param array $arFields
-	 * @return void
-	 * 
-	 * */
-	function flippostHandlerAfter($ID, $arFields) {
-		GLOBAL $arParams;
-		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
-			$arPropFields = array(
-				"ORDER_ID" => $ID,
-				"NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
-				"VALUE" => $_REQUEST['flippost_address']
-			);
-			
-			$arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
-			$arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
-            
-			CSaleOrderPropsValue::Add($arPropFields);
 		}
 	}
 

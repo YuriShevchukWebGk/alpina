@@ -5578,3 +5578,12 @@ table.form-table tr td:nth-child(2){
 	color: #ac9f8a;
 	text-decoration: underline;
 }
+
+.flippost_error {
+	position: relative;
+    top: -30px;
+    right: -420px;
+    width: 200px;
+    color: red;
+    display: none;
+}
