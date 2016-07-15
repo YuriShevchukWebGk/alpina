@@ -13,22 +13,16 @@ $arUrlRewrite = array(
 		"PATH" => "/bitrix/services/ymarket/index.php",
 	),
 	array(
-		"CONDITION" => "#^/catalog/#",
-		"RULE" => "",
-		"ID" => "bitrix:catalog",
-		"PATH" => "/catalog/index.php",
-	),
-	array(
 		"CONDITION" => "#^/authors/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/authors/index.php",
 	),
 	array(
-		"CONDITION" => "#^/events/#",
+		"CONDITION" => "#^/catalog/#",
 		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/events/index.php",
+		"ID" => "bitrix:catalog",
+		"PATH" => "/catalog/index.php",
 	),
 	array(
 		"CONDITION" => "#^/series/#",
@@ -37,40 +31,10 @@ $arUrlRewrite = array(
 		"PATH" => "/series/index.php",
 	),
 	array(
-		"CONDITION" => "#^\\??(.*)#",
-		"RULE" => "&\$1",
-		"ID" => "bitrix:catalog.section",
-		"PATH" => "/catalog/mustread/index.php",
-	),
-	array(
-		"CONDITION" => "#^\\??(.*)#",
-		"RULE" => "&\$1",
-		"ID" => "bitrix:catalog.section",
-		"PATH" => "/catalog/coming-soon/index.php",
-	),
-	array(
-		"CONDITION" => "#^\\??(.*)#",
-		"RULE" => "&\$1",
-		"ID" => "bitrix:catalog.section",
-		"PATH" => "/bitrix/templates/.default/components/bitrix/news/series/bitrix/news.detail/.default/template.php",
-	),
-	array(
-		"CONDITION" => "#^\\??(.*)#",
-		"RULE" => "&\$1",
-		"ID" => "bitrix:catalog.section",
-		"PATH" => "/local/templates/.default/components/bitrix/news/series/bitrix/news.detail/.default/template.php",
-	),
-	array(
-		"CONDITION" => "#^/store/#",
+		"CONDITION" => "#^/events/#",
 		"RULE" => "",
-		"ID" => "bitrix:catalog.store",
-		"PATH" => "/store/index.php",
-	),
-	array(
-		"CONDITION" => "#^\\??(.*)#",
-		"RULE" => "&\$1",
-		"ID" => "bitrix:catalog.section",
-		"PATH" => "/catalog/editors-choice/index.php",
+		"ID" => "bitrix:news",
+		"PATH" => "/events/index.php",
 	),
 	array(
 		"CONDITION" => "#^/store/#",
@@ -79,22 +43,16 @@ $arUrlRewrite = array(
 		"PATH" => "/events/index.php",
 	),
 	array(
+		"CONDITION" => "#^/store/#",
+		"RULE" => "",
+		"ID" => "bitrix:catalog.store",
+		"PATH" => "/store/index.php",
+	),
+	array(
 		"CONDITION" => "#^/news/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/news/index.php",
-	),
-	array(
-		"CONDITION" => "#^/#",
-		"RULE" => "",
-		"ID" => "bitrix:iblock.element.add.form",
-		"PATH" => "/about/contacts/index.php",
-	),
-	array(
-		"CONDITION" => "#^/#",
-		"RULE" => "",
-		"ID" => "bitrix:form.result.new",
-		"PATH" => "/content/partnersProgram/index.php",
 	),
 );
 

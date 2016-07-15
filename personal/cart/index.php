@@ -55,7 +55,8 @@
 		"GIFTS_PAGE_ELEMENT_COUNT" => "4",
 		"GIFTS_CONVERT_CURRENCY" => "N",
 		"GIFTS_HIDE_NOT_AVAILABLE" => "N",
-		"TEMPLATE_THEME" => "blue"
+		"TEMPLATE_THEME" => "blue",
+		"GIFTS_PLACE" => "BOTTOM"
 	),
 	false
 );?>

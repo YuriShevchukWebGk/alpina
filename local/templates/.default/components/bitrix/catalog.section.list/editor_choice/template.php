@@ -49,11 +49,20 @@ foreach ($editor_choice_list as $key => $val)
 	<div class="firstSection">
 		<div class="titleBlock">
 			<div class="titleText">
+				<?/*
 				<a href="/catalog/editors-choice/" title="Выбор редактора">
 					<img src="/img/redPhoto.png">
 					<p class="nameOfGroup">Editor's Choice</p>
 					<p class="subNameOfGroup">Сергей турко</p>
 					<p class="description">Главный редактор</p>
+					<p class="description">"альпина паблишер"</p>
+				</a>
+				*/?>
+				<a href="/catalog/ceo-choice/" title="Выбор генерального директора">
+					<img src="/img/ai.jpg">
+					<p class="nameOfGroup">Важные книги<br />о бизнесе</p>
+					<p class="subNameOfGroup">Алексей Ильин</p>
+					<p class="description">Генеральный директор</p>
 					<p class="description">"альпина паблишер"</p>
 				</a>
 			</div>

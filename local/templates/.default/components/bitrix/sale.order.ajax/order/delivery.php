@@ -1,7 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-?> 
+?>
 <script type="text/javascript">
-
     function fShowStore(id, showImages, formWidth, siteId)
     {
         var strUrl = '<?=$templateFolder?>' + '/map.php';
@@ -140,7 +139,7 @@
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
 
 <input type="hidden" name="BUYER_STORE" id="BUYER_STORE" value="<?=$arResult["BUYER_STORE"]?>" />
-<div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="bx_section">
+<div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="bx_section js_delivery_block">
     <?
         if(!empty($arResult["DELIVERY"]))
         {
@@ -184,7 +183,13 @@
                 <label for="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>" class="faceText">
                     <?= htmlspecialcharsbx($arDelivery["NAME"])?> -                   
                     <?if(isset($arDelivery["PRICE"])):?>
-                        <b><?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?></b>
+                        <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
+                        	<? if ($arDelivery["ID"] == FLIPPOST_ID) {
+                    			echo "Выберите местоположение";
+                    		} else { ?>
+                    			<?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?>
+                    		<? } ?>
+                        </b>
                         <?   
                             if (strlen($arDelivery["PERIOD_TEXT"])>0)
                             {
@@ -253,6 +258,15 @@
                 <?  if ($delivery_id =="21") { ?>
                     <div id="IML_PVZ"></div>
                     <? } ?> 
+                    
+                <? if ($arDelivery["ID"] == FLIPPOST_ID) { ?>
+                	<div class="flippostSelectContainer">
+                		
+                	</div>
+                	<div class="flippost_error"><?= GetMessage('FLIPPOST_SELECT_EMPTY') ?></div>
+                	<input type="hidden" id="flippost_address" name="flippost_address" value="">
+                	<input type="hidden" id="flippost_cost" name="flippost_cost" value="">
+                <? } ?>
 
                 <div class="clear"></div>
             </div>          

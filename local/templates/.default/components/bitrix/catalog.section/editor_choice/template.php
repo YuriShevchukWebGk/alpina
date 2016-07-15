@@ -13,7 +13,12 @@
 $this->setFrameMode(true);
 ?>
 
-
+<style>
+.allBooksWrapp .bookName {
+	padding-top:0;
+	margin-top:16px;
+}
+</style>
 <div class="allBooksWrapp">
             <div class="catalogWrapper">
             
@@ -27,7 +32,7 @@ $this->setFrameMode(true);
                         {
                             if ($arPrice["PRINT_DISCOUNT_VALUE"])
                             {
-                        $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_EXACT, true);
+                        $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONA, true);
                         $dbBasketItems = CSaleBasket::GetList(array(), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "PRODUCT_ID" => $arItem["ID"]), false, false, array("ID", "CALLBACK_FUNC", "MODULE", "PRODUCT_ID", "QUANTITY", "PRODUCT_PROVIDER_CLASS"))->Fetch();
                         $curr_author = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
                         ?>

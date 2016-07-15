@@ -11,7 +11,7 @@
 	<!--alpina_index-->
     <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8"> -->
     <title><?$APPLICATION->ShowTitle()?></title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 
     <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
@@ -589,7 +589,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 ),
                 false
             );?>  
-        <? $arrFilter_mustread = array('PROPERTY_must_read' => '242', ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
+        <? //$arrFilter_mustread = array('PROPERTY_must_read' => '242', ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
+			$arrFilter_mustread = array('PROPERTY_SERIES' => '66454', ">DETAIL_PICTURE" => 0);
 
             $APPLICATION->IncludeComponent(
                 "bitrix:catalog.section", 
@@ -703,7 +704,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li class="first"><span class="active" data-id="1"><a href="/catalog/new/?SORT=NEW">Новинки</a></span></li>
             <li><span data-id="2"><a href="/catalog/bestsellers/">Бестселлеры</a></span></li>
             <li><span data-id="3"><a href="/catalog/coming-soon/">Скоро <br>в продаже</a></span></li>
-            <li><span data-id="4"><a href="/catalog/mustread/">Серия <br>Must Read</a></span></li>
+            <li><span data-id="4"><a href="/series/66454/">Серия <br>HBR</a></span></li>
         </ul>
         <div class="socServ">
             <p class="text">
@@ -1147,7 +1148,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             Книга в подарок
                         </p>
                         <p>
-                            Подпишись на рыссылку и получи книгу бесплатно
+                            Подпишись на рассылку и получи книгу бесплатно
                         </p>
                     </div>
                 </div>

@@ -24,7 +24,7 @@ $this->setFrameMode(true);
         );
         ?>
         <div class="wishElement">
-            <div class="imgContainer"><a href="/catalog/<?= $prodSection["CODE"] ?>/<?= $arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"]?>/"><img src="<?= $arResult["PICTURE"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["src"] ?>"></a></div>
+            <div class="imgContainer"><a href="/catalog/<?= $prodSection["CODE"] ?>/<?= $arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"]?>/"><img src="<?= $arResult["PICTURE"][$arItem["ID"]]["src"] ?>"></a></div>
             <p class="wishBookName"><a href="/catalog/<?= $prodSection["CODE"] ?>/<?= $arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["ID"]?>/"><?= $arResult["PRODUCT_FIELDS"][$arItem["PROPERTIES"]["PRODUCTS"]["VALUE"]]["NAME"] ?></a></p>
             <p class="wishBookAutor"><a href="/authors/<?= $author["ID"] ?>/"><?= $author["NAME"] ?></a></p>
             <p class="wishBookPrice">

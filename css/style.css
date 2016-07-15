@@ -463,13 +463,14 @@ header .headBasket{
     font-size: 42px;
     line-height: 43px;
     padding-top: 36px; 
+	height: 218px;
 }
 .hintWrapp .subNameOfGroup{
     border-top: 2px solid #829093;
     color: #ffffff;
     font-family: "Walshein_bold";
     font-size: 13px;
-    margin-top: 128px;
+    /*margin-top: 128px;*/
     padding-top: 18px;
     text-transform: uppercase;
     width: 230px;
@@ -1944,7 +1945,8 @@ right: 45px;
     text-transform: uppercase;
     padding-left: 6px;
     padding-top: 5px;
-    height: 18px;  
+    height: 18px;
+	overflow: hidden;
 }
 .otherBooks .tapeOfPack{
     color: #627478;
@@ -4241,20 +4243,23 @@ right: 45px;
     font-size: 17px;
     text-decoration: none;
 }
-.elementDescriptWrap .overlay p{
-    /*top: 184px;*/
-    border: 2px solid #ad9069;
-    border-radius: 40px;
-    color: #ad9069;
-    display: block !important;
-    font-family: "Walshein_regular";
-    font-size: 14px;
-    margin: 0 auto;
-    padding: 6px 0;
-    text-align: center;
-    text-decoration: none;
-    width: 200px;
-    position: relative;
+.bookPreviewButton{
+	border: 2px solid #ad9069;
+	border-radius: 40px;
+	color: rgb(255, 191, 105);
+	font-family: 'Walshein_regular';
+	font-size: 16px;
+	margin: 0 auto;
+	padding: 6px 0;
+	text-align: center;
+	text-decoration: none;
+	width: 200px;
+	position: absolute;
+	top:40%;
+	left:20px;
+	display:none;
+	z-index:100;
+	background: rgba(0, 0, 0, 0.5);
 }
 .breadCrump span a{
     color: #e4e8ea;
@@ -5544,4 +5549,41 @@ table.form-table tr td:nth-child(2){
 .exitA a{
     color: #fff !important;
     padding-left: 30px;
-}           
+}
+
+.flippostSelectContainer {
+	margin-left: 34px;
+	display: none;
+}
+
+.flippostSelectContainer > select:not(:first-child){
+	margin-top: 10px;
+}
+
+.flippostSelect {
+	width: 368px !important;
+	display: block !important;
+}
+
+#development {
+	font-family: 'Walshein_regular';
+	color: #b3b3b3;
+	font-size: 15px;
+	width: 100%;
+	text-align: right;
+	margin-top: 11px;
+}
+
+#development a {
+	color: #ac9f8a;
+	text-decoration: underline;
+}
+
+.flippost_error {
+	position: relative;
+    top: -30px;
+    right: -420px;
+    width: 200px;
+    color: red;
+    display: none;
+}
