@@ -22,11 +22,16 @@
     define ("EXPERTS_IBLOCK_ID", 23);
     define ("SERIES_BANNERS_IBLOCK_ID", 54); // 53 - для тестовой копии
     define ("INFO_MESSAGES_IBLOCK_ID", 53); // 52 - для тестовой копии
+    define ("SUSPENDED_BOOKS_BUYERS_IBLOCK", 55); // 54 - для тестовой копии
     define ("NEW_BOOK_STATE_XML_ID", 21);
     define ("BESTSELLER_BOOK_XML_ID", 285);
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("SUSPENDED_BOOKS_PRICE_ID", 12);
+    define ("PICKUP_DELIVERY_ID", 2);
+    define ("GIFT_BOOK_PROPERTY_ID", 427); // 419 - для тестовой копии
+    define ("GIFT_BOOK_QUANTITY_PROPERTY_ID", 428); // 420 - для тестовой копии
 
     /***************
     *
@@ -1219,4 +1224,35 @@
 		  require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
 	   }
 	}
+    
+    AddEventHandler('sale', 'OnSalePayOrder', 'AddNewGiftIBlockElement');
+    
+    function AddNewGiftIBlockElement ($ID, $val) {
+        if ($val == "Y") {
+            $curr_order = CSaleOrder::GetByID ($ID);
+            if (!empty($curr_order["USER_DESCRIPTION"]) && $curr_order["DELIVERY_ID"] == PICKUP_DELIVERY_ID) {
+                $new_gift_book = new CIBlockElement;
+                $arProps = array();
+                $dbBasketItems = CSaleBasket::GetList(
+                    array(),
+                    array(
+                        "ORDER_ID" => $ID
+                    ),
+                    false,
+                    false,
+                    array()
+                ) -> Fetch();
+                $arProps[GIFT_BOOK_PROPERTY_ID] = $dbBasketItems["PRODUCT_ID"];
+                $arProps[GIFT_BOOK_QUANTITY_PROPERTY_ID] = $dbBasketItems["QUANTITY"]; 
+
+                $arFields = array(
+                    "IBLOCK_ID" => SUSPENDED_BOOKS_BUYERS_IBLOCK,
+                    "NAME" => $curr_order["USER_DESCRIPTION"],
+                    "PROPERTY_VALUES" => $arProps
+                );
+
+                $new_gift_book -> Add ($arFields);
+            }
+        }
+    }
 ?>

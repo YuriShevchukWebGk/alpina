@@ -154,6 +154,13 @@ $(document).ready(function(){
             $(this).hide();
         })
     }
+    
+    if($(".gifted_books_buyers_list").length > 0){
+        $('.layout').click(function(){
+            $('.gifted_books_buyers_list').hide();
+            $(this).hide();
+        })
+    }
 
 
     // функционал "Где мой заказ"
@@ -239,7 +246,36 @@ $(document).ready(function(){
     }
 
 
+    if($('.ask_form_for_gift').length > 0){
+        $('.ask_form_for_gift').click(function(e){
+            e.preventDefault();
+            $('.layout').show();
 
+            var winW = $(window).width();
+            var blokT = window.pageYOffset + (window.innerHeight / 2);
+            var blokL = winW / 2 - ($('.gift_popup_form').width() / 2);
+            $('.gift_popup_form').css({
+                "top" : blokT,
+                "left": blokL
+            });
+            $(".item_id").attr("value", $(this).find(".giftBook").attr("data-id"));
+            $('.gift_popup_form').show();
+        })
+    }
+    
+    $(".gift_button").on("click", function(){
+        var item_id = $(".item_id").attr("value");
+        add_giftbook($(".buyer_name").val(), item_id, $(".gift_quantity").val());
+    })
+    
+    if($('.gift_popup_form').length > 0){
+        $('.layout').click(function(){
+            if($('.gift_popup_form').css('display') == 'block'){
+                $(this).hide();
+                $('.gift_popup_form').hide();
+            }
+        })
+    }
 
     if($('#authorisationPopup').length > 0){
         $('#authorisationPopup').click(function(e){
@@ -917,6 +953,36 @@ function addtocart_fromwishlist (productid, name) {
             $("#basket_container").html(data);
             // $("#cardBlock2").html(data[1]);
             update_wishlist();
+    })    
+}
+function add_giftbook (name, productid, quantity) {
+    $.post('/ajax/ajax_addgiftbook.php', {name:name, productid: productid, quantity: quantity}, function(data) {
+        if (data != "err") {
+            if ($("a.product"+productid).length > 0) {
+                document.location.href = "/personal/order/payment/?ORDER_ID=" + data;
+            }
+        }
+    })    
+}
+function makeGiftBuyersList (item_id) {
+    $.post('/ajax/making_buyers_list.php', {item_id: item_id}, function(data) {
+        if (data != "") {
+            $(".layout").show();
+            var winW = $(window).width();
+            var blokT = window.pageYOffset + ($('.gifted_books_buyers_list').width() / 2);
+            var blokL = winW / 2 - ($('.gifted_books_buyers_list').width() / 2);
+            $('.gifted_books_buyers_list').css({
+                "top" : blokT,
+                "left": blokL
+            });
+            $(".gifted_books_buyers_list").show();
+            $(".buyers_list").html(data);
+            var total_buyers_count = 0;
+            $(".buyers_list table tr:not(:first-child)").each(function(){
+                total_buyers_count += parseInt($(this).find(".rounded_number").html());
+            });
+            $(".rounded_summary_number").html(total_buyers_count);
+        }
     })    
 }
 function update_wishlist () {
