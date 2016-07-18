@@ -171,7 +171,7 @@ $arItemIDs = array(
 				<?if ($USER->isAdmin()) {?>
 				<style>
 				.newBookMarkPink {
-					background: rgb(221, 110, 255) none repeat scroll 0% 0%;
+					background: rgb(221, 110, 255) none repeat scroll 0% 0%!important;
 					margin-top: -24px;
 					width: auto;
 					cursor:help;
@@ -183,13 +183,18 @@ $arItemIDs = array(
 					width:140px;
 					color: #627478;
 					background: #FFFFFF;
-					height: 30px;
+					height: auto;
 					line-height: 30px;
 					text-align: center;
 					visibility: hidden;
-					border-radius: 6px;
 					box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.18), 0 0 1px 0 rgba(0, 0, 0, 0.14);
 					width: 264px;
+					padding: 4px 9px;
+					text-align:left;
+					font-size: 14px;
+					line-height: 140%;
+					text-transform: none;
+					font-family: "Walshein_regular";
 				}
 				.newBookMark .ttip:before {
 					content: '';
@@ -205,7 +210,7 @@ $arItemIDs = array(
 				.newBookMark:hover .ttip {
 					visibility: visible;
 					opacity: 1;
-					top: 100%;
+					top: 99%;
 					left: 50%;
 					margin-left: -76px;
 					z-index: 999;					
@@ -214,7 +219,15 @@ $arItemIDs = array(
 					<div style="margin-bottom: 0px;" class="marks">
 						<div class="newBookMark newBookMarkPink">
 							<p><span class="test">бесплатная электронная<br />книга в комплекте</span></p>
-							<span class="ttip">Купив эту книгу, вы автоматически получите ее электронную версию бесплатно! </span>
+							<span class="ttip">
+							<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {
+								echo "Купив эту книгу, вы автоматически получите ее электронную версию бесплатно.<br />Читайте, как вам удобно!";
+							} elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
+								$recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
+								if($recBookName = $recBook->GetNext())
+									echo "Купив эту книгу, вы получите электронную книгу «".$recBookName['NAME']."» в подарок!<br />Читайте, как вам удобно!";
+							}?>
+							</span>
 						</div>
 					</div>
 				<?}?>
@@ -488,15 +501,6 @@ $arItemIDs = array(
                         <?}?>
 
                     <?}?>
-					<?if ($USER->isAdmin()) {
-						if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {
-							echo "Купив эту книгу, вы автоматически получите ее электронную версию бесплатно!";
-						} elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
-							$recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
-							if($recBookName = $recBook->GetNext())
-								echo "Купив эту книгу, вы получите электронную книгу «".$recBookName['NAME']."» в подарок!";
-						}
-					}?>
                 </div>
 
                 <div class="quickOrderDiv" style="display:none;">

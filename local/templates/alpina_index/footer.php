@@ -154,7 +154,7 @@
                         <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/googImg.png"></a>
                         <a href="http://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
                         <div id="development">
-                        	Разработка сайта – <a href="http://webgk.ru/">WebGK</a>
+                        	Разработка сайта – <a href="http://webgk.ru/" target="_blank">WebGK</a>
                         </div>
                     </div>
                 </div>
