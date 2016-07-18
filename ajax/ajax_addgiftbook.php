@@ -4,23 +4,20 @@
 <?  
     
 
-    if(intval($_REQUEST["productid"]) > 0){//РґРѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР° РІ РєРѕСЂР·РёРЅСѓ
+    if(intval($_REQUEST["productid"]) > 0){
 
         $quantity = $_REQUEST["quantity"];
-        //$allproducts = explode("-", $_REQUEST["productid"]);
-        //foreach ($allproducts as $product) {
+        
         $product = intval($_REQUEST["productid"]);
 
-        //$product = intval($_POST["add2basket"]);
-        //РїСЂРѕРІРµСЂРёРј     
+             
         $res = CIBlockElement::GetByID($product);
-        if($ar_res = $res->GetNext()) 
-        {
+        if($ar_res = $res->GetNext()) {
             $arProps = array();
             $PRODUCT = $ar_res;
 
             $ar_res = CPrice::GetList(array(), array("PRODUCT_ID" => $PRODUCT["ID"], "CATALOG_GROUP_ID" => SUSPENDED_BOOKS_PRICE_ID), false, false, array()) -> Fetch();
-            $price=$ar_res["PRICE"];
+            $price = $ar_res["PRICE"];
             if(intval($price) > 0){
                 $arFields = array(
                     "LID" => "s1",
@@ -38,24 +35,28 @@
                     "TAX_VALUE" => 0.0,
                     "USER_DESCRIPTION" => $_REQUEST["name"]
                 );
-                $ORDER_ID = CSaleOrder::Add($arFields);
-                $ORDER_ID = intval($ORDER_ID);
-                $itemFields = array(
-                    "FUSER_ID" => CSaleBasket::GetBasketUserID(),
-                    "PRODUCT_ID" => $product,
-                    "PRODUCT_PRICE_ID" => SUSPENDED_BOOKS_PRICE_ID,
-                    "PRICE" => $price,
-                    "CURRENCY" => 'RUB',
-                    "QUANTITY" => $quantity,
-                    "PRODUCT_XML_ID" => $PRODUCT["ID"],
-                    "LID" => "s1",
-                    "NAME" => $PRODUCT["NAME"],
-                    "PRODUCT_PROVIDER_CLASS" => "CCatalogProductProvider",
-                    "MODULE" => "catalog"
-                );
-                $gift_item = CSaleBasket::Add($itemFields);
-                CSaleBasket::OrderBasket($ORDER_ID, 0, SITE_ID, false);
-                echo $ORDER_ID;
+                if ($ORDER_ID = CSaleOrder::Add($arFields)) {
+                    $ORDER_ID = intval($ORDER_ID);
+                    $itemFields = array(
+                        "FUSER_ID" => CSaleBasket::GetBasketUserID(),
+                        "PRODUCT_ID" => $product,
+                        "PRODUCT_PRICE_ID" => SUSPENDED_BOOKS_PRICE_ID,
+                        "PRICE" => $price,
+                        "CURRENCY" => 'RUB',
+                        "QUANTITY" => $quantity,
+                        "PRODUCT_XML_ID" => $PRODUCT["ID"],
+                        "LID" => "s1",
+                        "NAME" => $PRODUCT["NAME"],
+                        "PRODUCT_PROVIDER_CLASS" => "CCatalogProductProvider",
+                        "MODULE" => "catalog"
+                    );
+                    $gift_item = CSaleBasket::Add($itemFields);
+                    CSaleBasket::OrderBasket($ORDER_ID, 0, SITE_ID, false);
+                    echo $ORDER_ID;
+                } else {
+                    CSaleBasket::DeleteAll(CSaleBasket::GetBasketUserID());
+                    echo "err";
+                }
 
 
             } else {

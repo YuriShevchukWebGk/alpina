@@ -21,7 +21,11 @@
             array("NAME", "ID", "PROPERTY_GIFT_BOOK", "PROPERTY_GIFT_QUANTITY")
         );
         while ($buyers = $gift_book_buyers -> Fetch()) {
-            $buyers_list .=  "<tr><td>" . $buyers["NAME"] . "</td><td><div class='rounded_number'>" . intval($buyers["PROPERTY_GIFT_QUANTITY_VALUE"]) . "</div></td></tr>";  
+            if (intval($gift_book_buyers -> SelectedRowsCount()) > 0) {
+                $buyers_list .=  "<tr><td>" . $buyers["NAME"] . "</td><td><div class='rounded_number'>" . intval($buyers["PROPERTY_GIFT_QUANTITY_VALUE"]) . "</div></td></tr>";
+            } else {
+                $buyers_list .= "<tr><td width='99%'>Данную книгу пока никто не купил в дар.</td><td></td>";
+            }  
         }
         $buyers_list .= "</table>";
 

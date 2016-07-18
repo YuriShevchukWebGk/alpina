@@ -791,6 +791,9 @@
 .filterParams .active p {
     margin: 0 0 5px;
 }
+.filterParams li:nth-child(2).active p {
+    width: 125px;
+}
 .giftBook {
     border: 2px solid #4da6ce;
     border-radius: 40px;

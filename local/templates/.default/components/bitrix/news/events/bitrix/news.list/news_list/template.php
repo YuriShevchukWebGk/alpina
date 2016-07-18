@@ -17,14 +17,14 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 ?>
 <div class="deliveryPageTitleWrap">
     <div class="centerWrapper">
-        <p>Р“Р»Р°РІРЅР°СЏ</p>
+        <p><?= GetMessage("MAIN_PAGE") ?></p>
         <? 
             if (strstr($APPLICATION -> GetCurDir(), "events", true) != "") {?>
-                <h1>РњРµСЂРѕРїСЂРёСЏС‚РёСЏ</h1>
+                <h1><?= GetMessage("EVENTS") ?></h1>
             <?
             } else if (strstr($APPLICATION -> GetCurDir(), "news", true) != "") {
             ?>
-                <h1>РќРѕРІРѕСЃС‚Рё</h1>
+                <h1><?= GetMessage("NEWS") ?></h1>
             <?
             }
         ?>
@@ -215,7 +215,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
         "PAGER_SHOW_ALL" => "N",
         "PAGER_SHOW_ALWAYS" => "N",
         "PAGER_TEMPLATE" => ".default",
-        "PAGER_TITLE" => "РќРѕРІРѕСЃС‚Рё",
+        "PAGER_TITLE" => "Новости",
         "PARENT_SECTION" => "",
         "PARENT_SECTION_CODE" => "",
         "PREVIEW_TRUNCATE_LEN" => "",
@@ -350,13 +350,12 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                     <?}?>
                 <?}?>
             </div>
-             <span class="moreNews">РџРѕРєР°Р·Р°С‚СЊ РµС‰С‘</span>
+             <span class="moreNews">Показать ещё</span>
         </div>
     </div>
 </div>
 
 <script>
-// РЎРѓР С”РЎР‚Р С‘Р С—РЎвЂљ ajax-Р С—Р С•Р Т‘Р С–РЎР‚РЎС“Р В·Р С”Р С‘ РЎвЂљР С•Р Р†Р В°РЎР‚Р С•Р Р† Р Р† Р В±Р В»Р С•Р С”Р Вµ "Р вЂ™РЎРѓР Вµ Р С”Р Р…Р С‘Р С–Р С‘"
 $(document).ready(function() {
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
@@ -369,7 +368,6 @@ $(document).ready(function() {
                 $.fancybox.showLoading();
                 $.get('<?=$arResult["SECTION_PAGE_URL"]?>?PAGEN_<?=$navnum?>='+page, function(data) {
                     var next_page = $('.events_wrap_2 > .row .bx-newslist-container', data);
-                    //$('.catalogBooks').append('<br /><h3>Р РЋРЎвЂљРЎР‚Р В°Р Р…Р С‘РЎвЂ Р В° '+ page +'</h3><br />');
                     $('.events_wrap_2 > .row').append(next_page);
                     page++;            
                 })
@@ -384,7 +382,6 @@ $(document).ready(function() {
                 });
                 if (page == maxpage) {
                     $('.moreNews').hide();
-                    //$('.phpages').hide();
                 }
                 return false;
             });

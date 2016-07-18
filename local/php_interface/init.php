@@ -22,6 +22,7 @@
     define ("EXPERTS_IBLOCK_ID", 23);
     define ("SERIES_BANNERS_IBLOCK_ID", 54); // 53 - для тестовой копии
     define ("INFO_MESSAGES_IBLOCK_ID", 53); // 52 - для тестовой копии
+    define ("SUSPENDED_BOOKS_BUYERS_IBLOCK", 55); // 54 - для тестовой копии
     define ("NEW_BOOK_STATE_XML_ID", 21);
     define ("BESTSELLER_BOOK_XML_ID", 285);
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
@@ -225,28 +226,16 @@
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
 				while ($arItems = $dbBasketItems->Fetch()) {
-<<<<<<< HEAD
-					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
-					if ($booksUrl["rec"] == 0) {
-						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
-						$bookId = $arItems[PRODUCT_ID];
-						$recId = $arItems[PRODUCT_ID];
-=======
 					$booksUrl = getUrlForFreeDigitalBook($arItems["PRODUCT_ID"]);
 					if ($booksUrl["rec"] == 0) {
 						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
 						$bookId = $arItems["PRODUCT_ID"];
 						$recId = $arItems["PRODUCT_ID"];
->>>>>>> upstream/master
 					} else {
 						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
 						if ($recBookName = $recBook->GetNext()) {
 							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
-<<<<<<< HEAD
-							$bookId = $arItems[PRODUCT_ID];
-=======
 							$bookId = $arItems["PRODUCT_ID"];
->>>>>>> upstream/master
 							$recId = $booksUrl["id"];
 						}
 					}
@@ -365,28 +354,16 @@
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
 				while ($arItems = $dbBasketItems->Fetch()) {
-<<<<<<< HEAD
-					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
-					if ($booksUrl["rec"] == 0) {
-						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
-						$bookId = $arItems[PRODUCT_ID];
-						$recId = $arItems[PRODUCT_ID];
-=======
 					$booksUrl = getUrlForFreeDigitalBook($arItems["PRODUCT_ID"]);
 					if ($booksUrl["rec"] == 0) {
 						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
 						$bookId = $arItems["PRODUCT_ID"];
 						$recId = $arItems["PRODUCT_ID"];
->>>>>>> upstream/master
 					} else {
 						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
 						if ($recBookName = $recBook->GetNext()) {
 							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
-<<<<<<< HEAD
-							$bookId = $arItems[PRODUCT_ID];
-=======
 							$bookId = $arItems["PRODUCT_ID"];
->>>>>>> upstream/master
 							$recId = $booksUrl["id"];
 						}
 					}
@@ -478,15 +455,9 @@
 			curl_setopt($ch, CURLOPT_HTTPHEADER,
 				array(
 					"Content-type: application/json",
-<<<<<<< HEAD
-					"X-AD-Email: emaguser",
-					"X-AD-Offer: 1",
-					"X-AD-Token: cde70efb6367aa336325c95e083b458b"
-=======
 					//"X-AD-Email: emaguser",
 					"X-AD-Offer: 1",
 					"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
->>>>>>> upstream/master
 				)
 			);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

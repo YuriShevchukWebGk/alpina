@@ -29,4 +29,6 @@ $MESS["ROUBLES"] = "руб.";
 $MESS["BY_POPULARITY"] = "По популярности";
 $MESS["BY_DATE"] = "По дате выхода";
 $MESS["BY_PRICE"] = "По цене";
+$MESS["BOUGHT_GIFT_BOOKS"] = "Купили в дар книги";
+$MESS["TOTALLY_BOUGHT"] = "Всего купили:";
 ?>

@@ -42,33 +42,21 @@
             <p class="grayTitle"></p>
              
          <ul class="filterParams">
-             <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])) { ?> class="active" <?}?>>
-                 <p data-id="1">
-                     <?if ($_REQUEST['SORT'] == 'POPULARITY' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                         <a href="<?= $curr_dir ?>?SORT=POPULARITY&DIRECTION=DESC"><?= GetMessage("BY_POPULARITY") ?></a>
+         
+            <? $i = 1;
+            foreach (array("POPULARITY", "DATE", "PRICE") as $sort_option) {?>
+                <li <?if ($_REQUEST['SORT'] == $sort_option) { ?> class="active" <?}?>>
+                 <p data-id="<?= $i ?>">
+                     <?if ($_REQUEST['SORT'] == $sort_option && $_REQUEST["DIRECTION"] == 'ASC') {?>
+                         <a href="<?= $curr_dir ?>?SORT=<?= $sort_option ?>&DIRECTION=DESC"><?= GetMessage("BY_" . $sort_option) ?></a>
                      <?} else {?>
-                         <a href="<?= $curr_dir ?>?SORT=POPULARITY&DIRECTION=ASC"><?= GetMessage("BY_POPULARITY") ?></a>
+                         <a href="<?= $curr_dir ?>?SORT=<?= $sort_option ?>&DIRECTION=ASC"><?= GetMessage("BY_" . $sort_option) ?></a>
                      <?}?>
                  </p>
-             </li>
-             <li <?if ($_REQUEST['SORT'] == 'DATE'){?>class="active"<?}?>>
-                 <p data-id="2">
-                     <?if ($_REQUEST['SORT'] == 'DATE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                         <a href="<?= $curr_dir ?>?SORT=DATE&DIRECTION=DESC"><?= GetMessage("BY_DATE") ?></a>
-                     <?} else {?>
-                         <a href="<?= $curr_dir ?>?SORT=DATE&DIRECTION=ASC"><?= GetMessage("BY_DATE") ?></a>        
-                     <?}?>
-                 </p>                                                                                     
-             </li>
-             <li <?if ($_REQUEST['SORT'] == 'PRICE'){?>class="active"<?}?>>
-                 <p data-id="3">
-                     <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                         <a href="<?= $curr_dir ?>?SORT=PRICE&DIRECTION=DESC"><?= GetMessage("BY_PRICE") ?></a>
-                     <?} else {?>
-                         <a href="<?= $curr_dir ?>?SORT=PRICE&DIRECTION=ASC"><?= GetMessage("BY_PRICE") ?></a>
-                     <?}?>
-                 </p>
-             </li>
+             </li>    
+            <?
+            $i++;
+            }?>
          </ul>
          <div class="otherBooks" id="block1">
              <ul>
@@ -209,26 +197,20 @@
 <div class="gifted_books_buyers_list" style="display:none;">
     <div class="list_block">
         <div class="list_header">
-        Купили в дар книги
+        <?= GetMessage("BOUGHT_GIFT_BOOKS") ?>
         </div>
         <div class="buyers_list">
         </div>
         <div class="summary_buyers_count">
             <table>
                 <tr>
-                    <td>Всего купили:</td>
+                    <td><?= GetMessage("TOTALLY_BOUGHT") ?></td>
                     <td><div class="rounded_summary_number"></div></td>
                 </tr>
             </table>
         </div>
     </div>
     <img src="/img/catalogLeftClose.png" class="popup_list_Close" onclick="$('.gifted_books_buyers_list, .layout').hide();" style="display: inline;">
-</div>
-<?
-    if (!isset($_SESSION[$APPLICATION -> GetCurDir()])) {
-        $_SESSION[$APPLICATION -> GetCurDir()] = 1;
-    }
-?>
 </div>
 <script>
     // скрипт ajax-подгрузки товаров в блоке "Все книги"
@@ -278,6 +260,10 @@
             $(".categoryWrapper .categoryBooks").hover(function() {
                 $(this).css("height", "390px");
             });
-        <?}?>    
+        <?}?>
+        
+        <?if (!$_REQUEST["SORT"]) {?>
+            $(".filterParams li:first-child").addClass("active");    
+        <?} ?>    
     });
 </script>
