@@ -114,6 +114,7 @@
     }
 
 	AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
+	AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 	
 	/**
 	 * Handler для доставки flippost. Плюсуем стоимость доставки
@@ -126,6 +127,29 @@
 		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
 			$arFields['PRICE'] += floatval($_REQUEST['flippost_cost']);
 			$arFields['PRICE_DELIVERY'] = floatval($_REQUEST['flippost_cost']);
+		}
+	}
+	
+	/**
+	 * Handler для доставки flippost. Изменяем адрес
+	 *
+	 * @param array $arFields
+	 * @return void
+	 * 
+	 * */
+	function flippostHandlerAfter($ID, $arFields) {
+		GLOBAL $arParams;
+		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+			$arPropFields = array(
+				"ORDER_ID" => $ID,
+				"NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
+				"VALUE" => $_REQUEST['flippost_address']
+			);
+			
+			$arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
+			$arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
+            
+			CSaleOrderPropsValue::Add($arPropFields);
 		}
 	}
 
@@ -201,16 +225,28 @@
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
 				while ($arItems = $dbBasketItems->Fetch()) {
+<<<<<<< HEAD
 					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
 					if ($booksUrl["rec"] == 0) {
 						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
 						$bookId = $arItems[PRODUCT_ID];
 						$recId = $arItems[PRODUCT_ID];
+=======
+					$booksUrl = getUrlForFreeDigitalBook($arItems["PRODUCT_ID"]);
+					if ($booksUrl["rec"] == 0) {
+						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
+						$bookId = $arItems["PRODUCT_ID"];
+						$recId = $arItems["PRODUCT_ID"];
+>>>>>>> upstream/master
 					} else {
 						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
 						if ($recBookName = $recBook->GetNext()) {
 							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
+<<<<<<< HEAD
 							$bookId = $arItems[PRODUCT_ID];
+=======
+							$bookId = $arItems["PRODUCT_ID"];
+>>>>>>> upstream/master
 							$recId = $booksUrl["id"];
 						}
 					}
@@ -329,16 +365,28 @@
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
 				while ($arItems = $dbBasketItems->Fetch()) {
+<<<<<<< HEAD
 					$booksUrl = getUrlForFreeDigitalBook($arItems[PRODUCT_ID]);
 					if ($booksUrl["rec"] == 0) {
 						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
 						$bookId = $arItems[PRODUCT_ID];
 						$recId = $arItems[PRODUCT_ID];
+=======
+					$booksUrl = getUrlForFreeDigitalBook($arItems["PRODUCT_ID"]);
+					if ($booksUrl["rec"] == 0) {
+						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
+						$bookId = $arItems["PRODUCT_ID"];
+						$recId = $arItems["PRODUCT_ID"];
+>>>>>>> upstream/master
 					} else {
 						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
 						if ($recBookName = $recBook->GetNext()) {
 							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
+<<<<<<< HEAD
 							$bookId = $arItems[PRODUCT_ID];
+=======
+							$bookId = $arItems["PRODUCT_ID"];
+>>>>>>> upstream/master
 							$recId = $booksUrl["id"];
 						}
 					}
@@ -430,9 +478,15 @@
 			curl_setopt($ch, CURLOPT_HTTPHEADER,
 				array(
 					"Content-type: application/json",
+<<<<<<< HEAD
 					"X-AD-Email: emaguser",
 					"X-AD-Offer: 1",
 					"X-AD-Token: cde70efb6367aa336325c95e083b458b"
+=======
+					//"X-AD-Email: emaguser",
+					"X-AD-Offer: 1",
+					"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
+>>>>>>> upstream/master
 				)
 			);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

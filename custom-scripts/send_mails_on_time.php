@@ -96,9 +96,12 @@ if ($USER->isAdmin()) {
 	* Отправляем большой эмэйл
 	*************/
 
-	function sendNotificationEmail($id,$subject,$notification,$userID, $latestBooks) {
+	function sendNotificationEmail($id,$subject,$notification,$userID, $latestBooks, $email) {
+		if (empty($email))
+			$email = getClientEmail($id);
+			
 		$arEventFields = array(
-			"EMAIL" => getClientEmail($id),
+			"EMAIL" => $email,
 			"ORDER_USER" => getClientName($id),
 			"ORDER_ID" => $id,
 			"SUBJECT" => $subject,
@@ -119,6 +122,7 @@ if ($USER->isAdmin()) {
 	$userIDabroad = 176080; 	//triggerMailUser_abroad
 	$userIDontheway = 176775; 	//triggerMailUser_ontheway
 	$userIDreturn = 176835; 	//triggerMailUser_return
+	$userIDarrived = 176979; 	//triggerMailUser_arrived
 
 	/***************
 	* Пользователи API Почты России
@@ -172,7 +176,7 @@ if ($USER->isAdmin()) {
 			$notification = "Ваши книги скучают и ждут Вас. Скорее приезжайте за ними, срок хранения вашего заказа истекает уже через неделю.<br />
 			Вы можете забрать заказ ".$id." по адресу: метро «Полежаевская», 4-я Магистральная улица, дом 5, подъезд 2, второй этаж.<br /><br />
 			Да, кстати, у нас есть несколько хороших новинок, которые должны вам понравиться.";
-			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock);
+			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock, '');
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Самовывоз</td>
@@ -191,7 +195,7 @@ if ($USER->isAdmin()) {
 			$notification = "Ваши книги скучают и ждут вас. Скорее приезжайте за ними, срок хранения вашего заказа истекает уже через 2 дня.<br />
 			Вы можете забрать заказ ".$id." по адресу: метро «Полежаевская», 4-я Магистральная улица, дом 5, подъезд 2, второй этаж.<br /><br />
 			Да, кстати, у нас есть несколько хороших новинок, которые должны вам понравиться.";
-			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock);
+			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock, '');
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Самовывоз</td>
@@ -223,7 +227,7 @@ if ($USER->isAdmin()) {
 	/* III Проверяем доставку почтой */
 	$arFilter = Array(
 		"DELIVERY_ID" => array(10,11,16,24,25,26,28),
-		"!USER_ID" => array($userIDreturn),
+		"!EMP_STATUS_ID" => array($userIDreturn,$userIDarrived),
 		"@STATUS_ID" => array("I","K"),
 		">=DATE_INSERT" => "07.04.2016"
 	);
@@ -317,14 +321,10 @@ if ($USER->isAdmin()) {
 							<td>".$userID1."</td>
 							<td>Выполнен</td>
 							<td>".$trackingNumber."</td>
-							<td>ok</td>
+							<td>Россия выполнен</td>
 							<td></td>
 							</tr>";	
 					} elseif ($parcelReturn) {
-						$arFields = array(
-							"EMP_STATUS_ID" => $userIDreturn
-						);
-						CSaleOrder::Update($id, $arFields);
 						//echo "return ".$id."<br />";
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
 							<td>".$id."</td>
@@ -335,24 +335,30 @@ if ($USER->isAdmin()) {
 							<td>".$trackingNumber."</td>
 							<td>Возврат</td>
 							<td>Уведомить доставку</td>
-							</tr>";	
+							</tr>";
+						
+						$subject = 'Заказ №'.$id.' истек срок хранения';
+						$notification = 'Истек срок хранения заказа №'.$id.'. Необходимо отправить заказ повторно.';
+						$result = sendNotificationEmail($id, $subject, $notification, $userIDreturn, '', 'm.danilova@alpinabook.ru');
+						
 					} elseif ($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperType->Id == 8 &&
 							  $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id == 2) {
-						$arFields = array(
-							"EMP_STATUS_ID" => $userID2
-						);
-						CSaleOrder::Update($id, $arFields);
 						//echo "поступил в отделение ".$id."<br />";
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
 							<td>".$id."</td>
 							<td>Почта</td>
 							<td>В пути, отправлен на почту</td>
-							<td>".$userID2."</td>
+							<td>".$userIDarrived."</td>
 							<td>В пути, отправлен на почту</td>
 							<td>".$trackingNumber."</td>
 							<td>Прибыло в место вручения</td>
 							<td>Уведомить клиента</td>
-							</tr>";	
+							</tr>";
+
+						$subject = 'Заказ №'.$id.' поступил в почтовое отделение';
+						$notification = 'Ваш заказ №'.$id.' прибыл в почтовое отделение. Заполнить извещение можно <a href="https://www.pochta.ru/tracking#'.$trackingNumber.'">по данной ссылке</a>.';
+						$result = sendNotificationEmail($id, $subject, $notification, $userIDarrived, $newItemsBlock, '');
+
 					} else {
 						//echo 'Заказ в пути'.$id.'<br />';
 						$arFields = array(
@@ -452,10 +458,7 @@ if ($USER->isAdmin()) {
 							<td></td>
 							</tr>";
 					} elseif ($parcelReturn) {
-						$arFields = array(
-							"EMP_STATUS_ID" => $userIDreturn
-						);
-						CSaleOrder::Update($id, $arFields);
+
 						//echo "return ".$id."<br />";
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
 							<td>".$id."</td>
@@ -467,6 +470,10 @@ if ($USER->isAdmin()) {
 							<td>Возврат</td>
 							<td>Уведомить доставку</td>
 							</tr>";	
+							
+						$subject = 'Заказ №'.$id.' истек срок хранения';
+						$notification = 'Истек срок хранения заказа №'.$id.'. Необходимо отправить заказ повторно.';
+						$result = sendNotificationEmail($id, $subject, $notification, $userIDreturn, '', 'm.danilova@alpinabook.ru');
 					} else {
 						$arFields = array(
 							"EMP_STATUS_ID" => $userIDabroad
