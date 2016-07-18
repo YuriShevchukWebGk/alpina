@@ -67,7 +67,8 @@
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 
-<?if ($USER->IsAuthorized()) {
+<? global $USER;
+if ($USER->IsAuthorized()) {
     $rsCurUser = CUser::GetByID($USER->GetID());
     $arCurUser = $rsCurUser->Fetch();
     $userGTMData = (!empty($arCurUser["NAME"]) ? "'user_name' : '" . $arCurUser["NAME"] . "'," : "");
