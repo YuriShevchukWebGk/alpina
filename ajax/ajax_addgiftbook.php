@@ -2,7 +2,7 @@
     CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
 ?>
 <?  
-if (intval($_REQUEST["productid"]) > 0 && intval($_REQUEST["quantity"]) > 0){
+if (intval($_REQUEST["productid"]) > 0 && intval($_REQUEST["quantity"]) > 0) {
 
     global $USER;
     $quantity = intval($_REQUEST["quantity"]);    
@@ -23,7 +23,7 @@ if (intval($_REQUEST["productid"]) > 0 && intval($_REQUEST["quantity"]) > 0){
             array()
         ) -> Fetch();
         $price = $ar_price["PRICE"];
-        if (intval($price) > 0){
+        if (intval($price) > 0) {
             $ar_fields = array(
                 "LID" => "s1",
                 "PERSON_TYPE_ID" => "1",

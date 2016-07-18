@@ -1,9 +1,9 @@
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+<?require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
     CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
 ?>
 <?  
 $buyers_list = "";
-if(intval($_REQUEST["item_id"]) > 0){ 
+if(intval($_REQUEST["item_id"]) > 0) { 
     $buyers_list .= " <table>
     <tr>
     <td>Инициалы</td>
