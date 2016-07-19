@@ -2,7 +2,7 @@
 CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
 ?>
 <?  
-if (intval($_REQUEST["productid"]) > 0 && intval($_REQUEST["quantity"]) > 0) {
+if (intval($_REQUEST["productid"]) > 0 && intval($_REQUEST["quantity"]) > 0 && !empty($_REQUEST["email"])) {
     global $USER;
     $quantity = intval($_REQUEST["quantity"]);    
     $product = intval($_REQUEST["productid"]);
@@ -37,7 +37,7 @@ if (intval($_REQUEST["productid"]) > 0 && intval($_REQUEST["quantity"]) > 0) {
                 "DELIVERY_ID" => PICKUP_DELIVERY_ID,
                 "DISCOUNT_VALUE" => 0,
                 "TAX_VALUE" => 0.0,
-                "USER_DESCRIPTION" => $_REQUEST["name"]
+                "USER_DESCRIPTION" => $_REQUEST["name"] . " " . $_REQUEST["email"]
             );
 
             // создаём заказ и добавляем туда запрошенный подвешенный товар

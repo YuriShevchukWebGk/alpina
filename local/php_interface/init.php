@@ -39,6 +39,7 @@
     define ("PICKUP_DELIVERY_ID", 2);
     define ("GIFT_BOOK_PROPERTY_ID", 427); // 419 - для тестовой копии
     define ("GIFT_BOOK_QUANTITY_PROPERTY_ID", 428); // 420 - для тестовой копии
+    define ("GIFT_BOOK_BUYER_EMAIL_PROPERTY_ID", 429);
 
     /***************
     *
@@ -1561,12 +1562,13 @@
                     false,
                     array()
                 ) -> Fetch();
+                $dash_pos = intval(strpos($curr_order["USER_DESCRIPTION"], " "));
                 $ar_props[GIFT_BOOK_PROPERTY_ID] = $basket_items["PRODUCT_ID"];
-                $ar_props[GIFT_BOOK_QUANTITY_PROPERTY_ID] = $basket_items["QUANTITY"]; 
-
+                $ar_props[GIFT_BOOK_QUANTITY_PROPERTY_ID] = intval($basket_items["QUANTITY"]);
+                $ar_props[GIFT_BOOK_BUYER_EMAIL_PROPERTY_ID] = substr($curr_order["USER_DESCRIPTION"], $dash_pos + 1);
                 $ar_fields = array(
                     "IBLOCK_ID" => SUSPENDED_BOOKS_BUYERS_IBLOCK,
-                    "NAME" => $curr_order["USER_DESCRIPTION"],
+                    "NAME" => substr($curr_order["USER_DESCRIPTION"], 0, $dash_pos),
                     "PROPERTY_VALUES" => $ar_props
                 );
 

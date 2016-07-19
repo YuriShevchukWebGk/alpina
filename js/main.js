@@ -276,7 +276,10 @@ $(document).ready(function(){
     // вызов функции оформления заказа и вызова формы оплаты на данную книгу, покупаемую в дар
     $(".gift_button").on("click", function(){
         var item_id = $(".item_id").attr("value");
-        add_giftbook($(".buyer_name").val(), item_id, $(".gift_quantity").val());
+        console.log(isEmail($(".gift_email").val()));
+        if (isEmail($(".gift_email").val()) != false) {
+            add_giftbook($(".buyer_name").val(), item_id, $(".gift_quantity").val(), $(".gift_email").val());
+        }
     })
     
     // позиционирование всплывающего блока формы ввода пользовательских полей для покупки книги в дар
@@ -980,8 +983,8 @@ function addtocart_fromwishlist (productid, name) {
 * в противном случае передаётся строка "err" и прерывается работа функции 
 * 
 */
-function add_giftbook (name, productid, quantity) {
-    $.post('/ajax/ajax_addgiftbook.php', {name: name, productid: productid, quantity: quantity}, function(data) {
+function add_giftbook (name, productid, quantity, email) {
+    $.post('/ajax/ajax_addgiftbook.php', {name: name, productid: productid, quantity: quantity, email: email}, function(data) {
         if (data != "err") {
             if ($("a.product" + productid).length > 0) {
                 document.location.href = "/personal/order/payment/?ORDER_ID=" + data;

@@ -189,6 +189,10 @@
             <td><?= GetMessage("QUANTITY") ?></td>
             <td><input type="text" name="gift_quantity" class="gift_quantity"></td>
         </tr>
+        <tr>
+            <td>E-mail</td>
+            <td><input type="text" name="gift_email" class="gift_email"></td>
+        </tr>
     </table>
     <input type="button" name="gift_button" class="gift_button" value="<?= GetMessage("TO_BUY") ?>">
     <input type="hidden" name="item_id" class="item_id" value="">
