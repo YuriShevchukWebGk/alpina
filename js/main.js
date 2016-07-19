@@ -162,6 +162,14 @@ $(document).ready(function(){
             $(this).hide();
         })
     }
+    
+    // скрывать блок списка купивших в дар книгу при нажатии на свободном месте окна браузера
+    if($(".gifted_books_buyers_list").length > 0){
+        $('.layout').click(function(){
+            $('.gifted_books_buyers_list').hide();
+            $(this).hide();
+        })
+    }
 
 
     // функционал "Где мой заказ"
@@ -246,8 +254,40 @@ $(document).ready(function(){
         $(".content .catalogWrapper").css("height", $(".autorInfo .textWrap").height() + 100 + "px");    
     }
 
+    //позиционирование всплывающего блока купивших в дар данную книгу
+    
+    if($('.ask_form_for_gift').length > 0){
+        $('.ask_form_for_gift').click(function(e){
+            e.preventDefault();
+            $('.layout').show();
 
-
+            var window_width = $(window).width();
+            var block_top_coordinate = window.pageYOffset + (window.innerHeight / 2);
+            var block_left_coordinate = window_width / 2 - ($('.gift_popup_form').width() / 2);
+            $('.gift_popup_form').css({
+                "top" : block_top_coordinate,
+                "left": block_left_coordinate
+            });
+            $(".item_id").attr("value", $(this).find(".giftBook").attr("data-id"));
+            $('.gift_popup_form').show();
+        })
+    }
+    
+    // вызов функции оформления заказа и вызова формы оплаты на данную книгу, покупаемую в дар
+    $(".gift_button").on("click", function(){
+        var item_id = $(".item_id").attr("value");
+        add_giftbook($(".buyer_name").val(), item_id, $(".gift_quantity").val());
+    })
+    
+    // позиционирование всплывающего блока формы ввода пользовательских полей для покупки книги в дар
+    if($('.gift_popup_form').length > 0){
+        $('.layout').click(function(){
+            if($('.gift_popup_form').css('display') == 'block'){
+                $(this).hide();
+                $('.gift_popup_form').hide();
+            }
+        })
+    }
 
     if($('#authorisationPopup').length > 0){
         $('#authorisationPopup').click(function(e){
@@ -925,6 +965,59 @@ function addtocart_fromwishlist (productid, name) {
             $("#basket_container").html(data);
             // $("#cardBlock2").html(data[1]);
             update_wishlist();
+    })    
+}
+
+/***********
+* 
+*  добавление в корзину и автоматическое оформление заказа на книгу, покупаемую в дар
+* 
+* @param name - название подвешенного товара
+* @param productid - ID подвешенного товара в инфоблоке товаров
+* @param quantity - количество подвешенного товара, добавленного в заказ
+* @return data : 
+* в случае успешного создания заказа - ID созданного заказа с подвешенным товаром
+* в противном случае передаётся строка "err" и прерывается работа функции 
+* 
+*/
+function add_giftbook (name, productid, quantity) {
+    $.post('/ajax/ajax_addgiftbook.php', {name: name, productid: productid, quantity: quantity}, function(data) {
+        if (data != "err") {
+            if ($("a.product" + productid).length > 0) {
+                document.location.href = "/personal/order/payment/?ORDER_ID=" + data;
+            }
+        }
+    })    
+}
+
+/********
+* формирование списка купивших данный подвешенный товар
+* 
+* @param item_id - ID подвешенного товара
+* @return data - HTML-код таблицы с форматированным списком купивших товар и 
+* соответствующее кол-во купленного товара
+* @var total_buyers_count - общее купленное кол-во подвешенного товара
+* 
+*/
+function makeGiftBuyersList (item_id) {
+    $.post('/ajax/making_buyers_list.php', {item_id: item_id}, function(data) {
+        if (data != "") {
+            $(".layout").show();
+            var winW = $(window).width(), 
+            blokT = window.pageYOffset + ($('.gifted_books_buyers_list').width() / 2), 
+            blokL = winW / 2 - ($('.gifted_books_buyers_list').width() / 2),
+            total_buyers_count = 0;
+            $('.gifted_books_buyers_list').css({
+                "top" : blokT,
+                "left": blokL
+            });
+            $(".gifted_books_buyers_list").show();
+            $(".buyers_list").html(data);
+            $(".buyers_list table tr:not(:first-child)").each(function(){
+                total_buyers_count += parseInt($(this).find(".rounded_number").html());
+            });
+            $(".rounded_summary_number").html(total_buyers_count);
+        }
     })    
 }
 function update_wishlist () {

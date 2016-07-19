@@ -299,7 +299,6 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                                 if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arItem['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
                                                     echo '<img class="discount_badge" src="/img/' . $arItem['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
 
-                                             } 
                                      }?>
                                  </div>
                                  

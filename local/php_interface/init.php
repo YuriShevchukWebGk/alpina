@@ -22,6 +22,7 @@
     define ("EXPERTS_IBLOCK_ID", 23);
     define ("SERIES_BANNERS_IBLOCK_ID", 54); // 53 - для тестовой копии
     define ("INFO_MESSAGES_IBLOCK_ID", 53); // 52 - для тестовой копии
+    define ("SUSPENDED_BOOKS_BUYERS_IBLOCK", 55); // 54 - для тестовой копии
     define ("NEW_BOOK_STATE_XML_ID", 21);
     define ("BESTSELLER_BOOK_XML_ID", 285);
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
@@ -34,6 +35,10 @@
     define ("CITY_ENTITY_ORDER_PROP_ID", 3);
     define ("ADDRESS_INDIVIDUAL_ORDER_PROP_ID", 5);
     define ("ADDRESS_ENTITY_ORDER_PROP_ID", 14);
+    define ("SUSPENDED_BOOKS_PRICE_ID", 12);
+    define ("PICKUP_DELIVERY_ID", 2);
+    define ("GIFT_BOOK_PROPERTY_ID", 427); // 419 - для тестовой копии
+    define ("GIFT_BOOK_QUANTITY_PROPERTY_ID", 428); // 420 - для тестовой копии
 
     /***************
     *
@@ -1527,4 +1532,46 @@
 		  require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
 	   }
 	}
+    
+    
+    AddEventHandler('sale', 'OnSalePayOrder', 'AddNewGiftIBlockElement');
+    
+    /***************
+    *
+    * добавление нового элемент в инфоблок книг в дар после оплаты соответствующего заказа с подвешенной книги
+    *
+    * @param int $ID - ID заказа, к которому применена оплата
+    * @var array $arProps - массив свойств для создаваемого элемента инфоблока
+    * @var array $basket_items - информация о подвешенном товаре, содержащемся в данном заказе
+    *
+    ***************/
+    
+    function AddNewGiftIBlockElement ($ID, $val) {
+        if ($val == "Y") {
+            $curr_order = CSaleOrder::GetByID ($ID);
+            if (!empty($curr_order["USER_DESCRIPTION"]) && $curr_order["DELIVERY_ID"] == PICKUP_DELIVERY_ID) {
+                $new_gift_book = new CIBlockElement;
+                $ar_props = array();
+                $basket_items = CSaleBasket::GetList(
+                    array(),
+                    array(
+                        "ORDER_ID" => $ID
+                    ),
+                    false,
+                    false,
+                    array()
+                ) -> Fetch();
+                $ar_props[GIFT_BOOK_PROPERTY_ID] = $basket_items["PRODUCT_ID"];
+                $ar_props[GIFT_BOOK_QUANTITY_PROPERTY_ID] = $basket_items["QUANTITY"]; 
+
+                $ar_fields = array(
+                    "IBLOCK_ID" => SUSPENDED_BOOKS_BUYERS_IBLOCK,
+                    "NAME" => $curr_order["USER_DESCRIPTION"],
+                    "PROPERTY_VALUES" => $ar_props
+                );
+
+                $new_gift_book -> Add ($ar_fields);
+            }
+        }
+    }
 ?>

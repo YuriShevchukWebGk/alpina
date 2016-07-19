@@ -17,14 +17,14 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 ?>
 <div class="deliveryPageTitleWrap">
     <div class="centerWrapper">
-        <p>Главная</p>
+        <p><?= GetMessage("MAIN_PAGE") ?></p>
         <? 
             if (strstr($APPLICATION -> GetCurDir(), "events", true) != "") {?>
-                <h1>Мероприятия</h1>
+                <h1><?= GetMessage("EVENTS") ?></h1>
             <?
             } else if (strstr($APPLICATION -> GetCurDir(), "news", true) != "") {
             ?>
-                <h1>Новости</h1>
+                <h1><?= GetMessage("NEWS") ?></h1>
             <?
             }
         ?>
@@ -55,7 +55,6 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
             <?}?>
             <div class="row">
             
-            <!--<img src="/images/photo_sllide.jpg" alt="" />  -->
                 <?foreach($arResult["ITEMS"] as $key => $arItem) {?>
                     <?if($key < 5){ ?>
                       
@@ -119,7 +118,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                                             <?=$value;?>
                                         </div>
                                     <?} else if ($value != "") {?>
-                                        <div class="bx-newslist-other"><?/*?><i class="fa"></i><?*/?> <?=$arProperty["NAME"]?>:
+                                        <div class="bx-newslist-other"> <?=$arProperty["NAME"]?>:
                                             <?=$value;?>
                                         </div>
                                     <?}?>
@@ -247,7 +246,6 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
             <?}?>
             <div class="row">
             
-            <!--<img src="/images/photo_sllide.jpg" alt="" />  -->
                 <?foreach($arResult["ITEMS"] as $key => $arItem) {?>
                     <?if($key >= 5){ ?>
                         <? 
@@ -310,7 +308,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                                             <?=$value;?>
                                         </div>
                                     <?} else if ($value != "") {?>
-                                        <div class="bx-newslist-other"><?/*?><i class="fa"></i><?*/?> <?=$arProperty["NAME"]?>:
+                                        <div class="bx-newslist-other"> <?=$arProperty["NAME"]?>:
                                             <?=$value;?>
                                         </div>
                                     <?}?>
@@ -356,7 +354,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 </div>
 
 <script>
-// СЃРєСЂРёРїС‚ ajax-РїРѕРґРіСЂСѓР·РєРё С‚РѕРІР°СЂРѕРІ РІ Р±Р»РѕРєРµ "Р’СЃРµ РєРЅРёРіРё"
+// функция по раскрытию дополнительных элементов списка новостей при нажатии на "Показать ещё"
 $(document).ready(function() {
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
@@ -369,7 +367,6 @@ $(document).ready(function() {
                 $.fancybox.showLoading();
                 $.get('<?=$arResult["SECTION_PAGE_URL"]?>?PAGEN_<?=$navnum?>='+page, function(data) {
                     var next_page = $('.events_wrap_2 > .row .bx-newslist-container', data);
-                    //$('.catalogBooks').append('<br /><h3>РЎС‚СЂР°РЅРёС†Р° '+ page +'</h3><br />');
                     $('.events_wrap_2 > .row').append(next_page);
                     page++;            
                 })
@@ -384,7 +381,6 @@ $(document).ready(function() {
                 });
                 if (page == maxpage) {
                     $('.moreNews').hide();
-                    //$('.phpages').hide();
                 }
                 return false;
             });

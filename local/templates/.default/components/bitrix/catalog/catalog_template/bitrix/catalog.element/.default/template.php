@@ -65,16 +65,10 @@ $arItemIDs = array(
     'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
 );?>
 
-<div class="productElementWrapp" itemscope itemtype="http://schema.org/Book">
-    <meta itemprop="inLanguage" content="ru-RU"/>
 
+</div>
     <div class="centerWrapper">
-
-        <div class="catalogIcon" onmouseover="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'openSmallCatalog'});">
-        </div>
-        <div class="basketIcon" onmouseover="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'openSmallCart'});">
-        </div>
-
+        
         <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "catalog_crumb", Array(
             "START_FROM" => "0",    // Номер пункта, начиная с которого будет построена навигационная цепочка
             "PATH" => "",    // Путь, для которого будет построена навигационная цепочка (по умолчанию, текущий путь)
@@ -86,6 +80,28 @@ $arItemIDs = array(
                 "ACTIVE_COMPONENT" => "Y"
             )
         );?>
+        
+    </div>
+
+<div class="productElementWrapp" itemscope itemtype="http://schema.org/Book">
+    <meta itemprop="inLanguage" content="ru-RU"/>
+    <div class="centerWrapper">
+        <div class="catalogIcon" onmouseover="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'openSmallCatalog'});">
+        </div>
+        <div class="basketIcon" onmouseover="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'openSmallCart'});">
+        </div>
+
+        <?/*$APPLICATION->IncludeComponent("bitrix:breadcrumb", "catalog_crumb", Array(
+            "START_FROM" => "0",    // Номер пункта, начиная с которого будет построена навигационная цепочка
+            "PATH" => "",    // Путь, для которого будет построена навигационная цепочка (по умолчанию, текущий путь)
+            "SITE_ID" => "-",    // Cайт (устанавливается в случае многосайтовой версии, когда DOCUMENT_ROOT у сайтов разный)
+            "COMPONENT_TEMPLATE" => ".default"
+            ),
+            false,
+            array(
+                "ACTIVE_COMPONENT" => "Y"
+            )
+        );*/?>
         <?
         $arBasketItems = array();
         $dbBasketItems = CSaleBasket::GetList(
@@ -101,8 +117,20 @@ $arItemIDs = array(
             $arBasketItems[] = $arItems;
             $cart_num += $arItems['QUANTITY'];
             $cart_sum += $arItems['PRICE'] * $arItems['QUANTITY'];
-        }
-        ?>
+        }?>
+        <?/*$this -> SetViewTarget('catalog_breadcrumb');?>
+        <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "catalog_crumb", Array(
+                "START_FROM" => "0",    // Номер пункта, начиная с которого будет построена навигационная цепочка
+                "PATH" => "",    // Путь, для которого будет построена навигационная цепочка (по умолчанию, текущий путь)
+                "SITE_ID" => "-",    // Cайт (устанавливается в случае многосайтовой версии, когда DOCUMENT_ROOT у сайтов разный)
+                "COMPONENT_TEMPLATE" => ".default"
+                ),
+                false,
+                array(
+                    "ACTIVE_COMPONENT" => "Y"
+                )
+        );*/?>                      
+        <?$this -> EndViewTarget();?>
         <div class="elementDescriptWrap">
             <div class="leftColumn">
                 <div class="elementMainPict">
@@ -971,6 +999,7 @@ $arItemIDs = array(
         </div>
     </div>
 </div>
+
 
 
 <? global $authBooksFilter;
