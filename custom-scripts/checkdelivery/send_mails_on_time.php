@@ -231,7 +231,9 @@ if ($USER->isAdmin()) {
 		"@STATUS_ID" => array("I","K"),
 		">=DATE_INSERT" => "07.04.2016"
 	);
+	//echo "4a<br />";
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+	//echo "4b<br />";
 	while ($arSales = $rsSales->Fetch())
 	{
 
@@ -247,12 +249,16 @@ if ($USER->isAdmin()) {
 			'limit'=> 1 
 		))->fetchAll();
 		
+		//echo "4c<br />";
+		
 		if (!empty($list[0]['TRACKING_NUM'])) {
 			$trackingNumber = $list[0]['TRACKING_NUM'];
 		} else {
 			$order = CSaleOrder::GetByID($id);
 			$trackingNumber = $order["DELIVERY_DOC_NUM"];
 		}
+		
+		//echo "4d<br />";
 		
 		//$trackingNumber = $list[0]['TRACKING_NUM'];
 		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 < 3 && $arSales["EMP_STATUS_ID"] == $userIDontheway) {
@@ -269,6 +275,8 @@ if ($USER->isAdmin()) {
 			continue;
 		}
 		
+		//echo "4e<br />";
+		
 		if ($stopAuth) {
 			$finalReport .= "<tr>
 				<td>".$id."</td>
@@ -283,8 +291,12 @@ if ($USER->isAdmin()) {
 				continue;
 		}
 		
+		//echo "4f<br />";
+		
 		if (!empty($trackingNumber) &&								// Трекер проставлен
 			preg_match('/([0-9]){13,20}/', $trackingNumber)) {
+				
+			//echo "4.1a<br />";
 			
 			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
 			$client2 = '';
@@ -297,7 +309,14 @@ if ($USER->isAdmin()) {
 			for ($i = 1; $i <= $countUsers; $i++) {
 				try {
 					$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
+					
 					$i = $countUsers;
+					$count = count($result->OperationHistoryData->historyRecord);
+					if ($count != 1) {
+						$record = $result->OperationHistoryData->historyRecord[$count-1];
+					} else {
+						$record = $result->OperationHistoryData->historyRecord;
+					}
 					
 					$parcelReturn = false;
 					foreach ($result->OperationHistoryData->historyRecord as $record) {
@@ -306,7 +325,7 @@ if ($USER->isAdmin()) {
 						}
 					}
 
-					if ($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperType->Id == 2) {
+					if ($record->OperationParameters->OperType->Id == 2) {
 							
 						$arFields = array(
 							"EMP_STATUS_ID" => $userID1,
@@ -341,8 +360,8 @@ if ($USER->isAdmin()) {
 						$notification = 'Истек срок хранения заказа №'.$id.'. Необходимо отправить заказ повторно.';
 						$result = sendNotificationEmail($id, $subject, $notification, $userIDreturn, '', 'm.danilova@alpinabook.ru');
 						
-					} elseif ($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperType->Id == 8 &&
-							  $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id == 2) {
+					} elseif ($record->OperationParameters->OperType->Id == 8 &&
+							  $record->OperationParameters->OperAttr->Id == 2) {
 						//echo "поступил в отделение ".$id."<br />";
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
 							<td>".$id."</td>
@@ -400,6 +419,7 @@ if ($USER->isAdmin()) {
 			!empty($trackingNumber) &&								// Трекер проставлен
 			preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {			// еще не простален флаг, что доставка по миру
 			
+			//echo "4.2a<br />";
 				
 			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
 			$client2 = '';
@@ -428,10 +448,19 @@ if ($USER->isAdmin()) {
 					</tr>";
 			}*/
 			for ($i = 1; $i <= $countUsers; $i++) {
+				//echo "4.2b<br />";
 				try {
 					$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
 					$i = $countUsers;
-				
+					
+					$count = count($result->OperationHistoryData->historyRecord);
+					if ($count != 1) {
+						$record = $result->OperationHistoryData->historyRecord[$count-1];
+					} else {
+						$record = $result->OperationHistoryData->historyRecord;
+					}
+					
+					//echo "4.2c<br />";
 					
 					$parcelReturn = false;
 					foreach ($result->OperationHistoryData->historyRecord as $record) {
@@ -439,8 +468,11 @@ if ($USER->isAdmin()) {
 							$parcelReturn = true;
 						}
 					}
+					
+					//echo "4.2d<br />";
 
-					if ($result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperType->Id == 2) {
+					if ($record->OperationParameters->OperType->Id == 2) {
+						//echo "4.2.1a<br />";
 						$arFields = array(
 							"EMP_STATUS_ID" => $userID1,
 							"STATUS_ID" => "F"
@@ -458,7 +490,7 @@ if ($USER->isAdmin()) {
 							<td></td>
 							</tr>";
 					} elseif ($parcelReturn) {
-
+						//echo "4.2.2a<br />";
 						//echo "return ".$id."<br />";
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
 							<td>".$id."</td>
@@ -478,6 +510,9 @@ if ($USER->isAdmin()) {
 						$arFields = array(
 							"EMP_STATUS_ID" => $userIDabroad
 						);
+						
+						//echo "4.2.3a<br />";
+						
 						CSaleOrder::Update($id, $arFields);
 						//echo "abroad ".$id."<br />";
 						$finalReport .= "<tr>

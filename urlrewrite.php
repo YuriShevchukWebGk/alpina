@@ -13,6 +13,18 @@ $arUrlRewrite = array(
 		"PATH" => "/bitrix/services/ymarket/index.php",
 	),
 	array(
+		"CONDITION" => "#^/good-arithmetics-news/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/good-arithmetics-news/index.php",
+	),
+	array(
+		"CONDITION" => "#^/good-arithmetics/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/good-arithmetics/index.php",
+	),
+	array(
 		"CONDITION" => "#^/authors/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
@@ -39,14 +51,14 @@ $arUrlRewrite = array(
 	array(
 		"CONDITION" => "#^/store/#",
 		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/events/index.php",
+		"ID" => "bitrix:catalog.store",
+		"PATH" => "/store/index.php",
 	),
 	array(
 		"CONDITION" => "#^/store/#",
 		"RULE" => "",
-		"ID" => "bitrix:catalog.store",
-		"PATH" => "/store/index.php",
+		"ID" => "bitrix:news",
+		"PATH" => "/events/index.php",
 	),
 	array(
 		"CONDITION" => "#^/news/#",

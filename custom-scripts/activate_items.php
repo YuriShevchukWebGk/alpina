@@ -46,7 +46,10 @@ if ($USER->isAdmin()) {
 		$order = CSaleOrder::GetByID(63373);
 		$trackingNumber = $order["DELIVERY_DOC_NUM"];
 	}
+	
+	$trackingNumber = "RA372259186RU";
 	$trackingNumber = "11172598063968";
+	$trackingNumber = "RA372259535RU";
 
 	if (!empty($trackingNumber) && preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {
 		$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
@@ -79,7 +82,22 @@ if ($USER->isAdmin()) {
 					echo 'Ошибка авторизации<br />';
 			}
 		}
-
+foreach ($result->OperationHistoryData->historyRecord as $record) {
+	printf("<p>Дата: %s</br>ID операции: %s</br>Название операции: %s</br>Место проведения операции:%s<br />ID атрибута: %s<br />Название атрибута: %s</p>",
+	$record->OperationParameters->OperDate,
+	$record->OperationParameters->OperType->Id,
+	$record->OperationParameters->OperType->Name,
+	$record->AddressParameters->OperationAddress->Description,
+	$record->OperationParameters->OperAttr->Id,
+	$record->OperationParameters->OperAttr->Name);
+};		
+		
+		$count = count($result->OperationHistoryData->historyRecord);
+		echo $count;
+		$record = $result->OperationHistoryData[0];
+		print_r($record);
+		
+		
 		echo $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id;
 		echo $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name;
 

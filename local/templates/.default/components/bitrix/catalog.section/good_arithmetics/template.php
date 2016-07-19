@@ -248,12 +248,14 @@
             var page = 2;
         <?}?>
         var maxpage = <?= ($arResult["NAV_RESULT"]->NavPageCount) ?>;
-        var WrappHeight = $(".wrapperCategor").height();
-        var RecHeight = $(".grayTitle").height();
-        var BooksLiLength = $(".otherBooks ul li").length;
-        
-        var startHeight = WrappHeight+RecHeight+ Math.ceil(($(".otherBooks ul li").length - 18) / 6) * 455;
-        $(".wrapperCategor").css("height", startHeight+"px");
+        if ($(".otherBooks ul li").length > 0) {
+            var WrappHeight = $(".wrapperCategor").height();
+            var RecHeight = $(".grayTitle").height();
+            var BooksLiLength = $(".otherBooks ul li").length;
+            
+            var startHeight = WrappHeight+RecHeight+ Math.ceil(($(".otherBooks ul li").length - 18) / 6) * 455;
+            $(".wrapperCategor").css("height", startHeight+"px");
+        }
         
 
         <?if (!$USER -> IsAuthorized()) {?>

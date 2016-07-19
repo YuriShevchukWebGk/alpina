@@ -1677,17 +1677,16 @@ $(document).ready(function() {
                 $(this).html(truncate($(this).html(), 40));    
             }    
     });
-    if (($(".otherBooks ul li").length < 11) && ($(".otherBooks ul li").length > 5)) 
-    {
+    if (($(".otherBooks ul li").length < 11) && ($(".otherBooks ul li").length > 5)) {
         $(".contentWrapp").css("height", "760px");
         //$(".wrapperCategor").css("height", "915px");
-    }
-    else if ($(".otherBooks ul li").length < 6)
-    {
+    } else if ($(".otherBooks ul li").length < 6) {
         $(".contentWrapp").css("height", "500px");
         //$(".wrapperCategor").css("height", "570px");       
     }
-    
+    if ($(".otherBooks ul li").length == 0) {
+        $(".wrapperCategor").css("height", "500px");
+    }
     $(".giftedBook").on("click", function(e){
         e.preventDefault();
         makeGiftBuyersList ($(this).attr("data-id"));

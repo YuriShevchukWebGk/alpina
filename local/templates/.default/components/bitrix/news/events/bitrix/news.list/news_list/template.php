@@ -33,21 +33,23 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 
 <div class="newsBodyWrap" id="events_wrap">
     <div class="centerWrapper">
-        <div class="events_info">
-            <?$APPLICATION->IncludeComponent(
-                    "bitrix:main.include", 
-                    ".default", 
-                    array(
-                        "AREA_FILE_SHOW" => "file",
-                        "AREA_FILE_SUFFIX" => "inc",
-                        "AREA_FILE_RECURSIVE" => "Y",
-                        "EDIT_TEMPLATE" => "",
-                        "COMPONENT_TEMPLATE" => ".default",
-                        "PATH" => "/local/templates/.default/include/events_info.php"
-                    ),
-                    false
-                );?>
-        </div>
+        <?if (strstr($APPLICATION -> GetCurDir(), "events", true) != "") {?>
+            <div class="events_info">
+                <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include", 
+                        ".default", 
+                        array(
+                            "AREA_FILE_SHOW" => "file",
+                            "AREA_FILE_SUFFIX" => "inc",
+                            "AREA_FILE_RECURSIVE" => "Y",
+                            "EDIT_TEMPLATE" => "",
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "PATH" => "/local/templates/.default/include/events_info.php"
+                        ),
+                        false
+                    );?>
+            </div>
+        <?}?>
         
         <div class="bx-newslist events_wrap_top">
             <?if($arParams["DISPLAY_TOP_PAGER"]) {?>
