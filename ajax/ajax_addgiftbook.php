@@ -1,15 +1,14 @@
 <?require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
-    CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
+CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
 ?>
 <?  
 if (intval($_REQUEST["productid"]) > 0 && intval($_REQUEST["quantity"]) > 0) {
-
     global $USER;
     $quantity = intval($_REQUEST["quantity"]);    
     $product = intval($_REQUEST["productid"]);
 
     $res = CIBlockElement::GetByID($product);
-    if ($ar_res = $res->GetNext()) {
+    if ($ar_res = $res -> GetNext()) {
 
         // получаем цену соответствующего типа для подвешенного товара
         $ar_price = CPrice::GetList(
@@ -64,8 +63,7 @@ if (intval($_REQUEST["productid"]) > 0 && intval($_REQUEST["quantity"]) > 0) {
             } else {
                 CSaleBasket::DeleteAll(CSaleBasket::GetBasketUserID());
                 echo "err";
-            }
-
+            } 
         } else {
             echo "err";
         }

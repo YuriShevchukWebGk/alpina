@@ -1,7 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Арифметика добра");
-?>
+global $SectFilter;?>
 <div class="layout">
 </div>
 <div class="slider_wrap">
@@ -41,19 +41,18 @@ $APPLICATION->SetTitle("Арифметика добра");
 <?
 switch ($_REQUEST["SORT"]) {
     case "POPULARITY":
-    $sort = "PROPERTY_POPULARITY";
-    break;
+        $sort = "PROPERTY_POPULARITY";
+        break;
     
     case "DATE":
-    $sort = "PROPERTY_STATEDATE";
-    break;
+        $sort = "PROPERTY_STATEDATE";
+        break;
     
     case "PRICE":           
-    $sort = "CATALOG_PRICE_" . SUSPENDED_BOOKS_PRICE_ID;
-    break;
+        $sort = "CATALOG_PRICE_" . SUSPENDED_BOOKS_PRICE_ID;
+        break;
 }
 $order = $_REQUEST["direction"];
-global $SectFilter;
 $SectFilter = array (">CATALOG_PRICE_" . SUSPENDED_BOOKS_PRICE_ID => 0, "PROPERTY_ABLE_TO_SUSPEND_VALUE" => "Y");
 $APPLICATION->IncludeComponent(
     "bitrix:catalog.section", 

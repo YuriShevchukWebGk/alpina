@@ -55,7 +55,6 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
             <?}?>
             <div class="row">
             
-            <!--<img src="/images/photo_sllide.jpg" alt="" />  -->
                 <?foreach($arResult["ITEMS"] as $key => $arItem) {?>
                     <?if($key < 5){ ?>
                       
@@ -119,7 +118,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                                             <?=$value;?>
                                         </div>
                                     <?} else if ($value != "") {?>
-                                        <div class="bx-newslist-other"><?/*?><i class="fa"></i><?*/?> <?=$arProperty["NAME"]?>:
+                                        <div class="bx-newslist-other"> <?=$arProperty["NAME"]?>:
                                             <?=$value;?>
                                         </div>
                                     <?}?>
@@ -247,7 +246,6 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
             <?}?>
             <div class="row">
             
-            <!--<img src="/images/photo_sllide.jpg" alt="" />  -->
                 <?foreach($arResult["ITEMS"] as $key => $arItem) {?>
                     <?if($key >= 5){ ?>
                         <? 
@@ -310,7 +308,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                                             <?=$value;?>
                                         </div>
                                     <?} else if ($value != "") {?>
-                                        <div class="bx-newslist-other"><?/*?><i class="fa"></i><?*/?> <?=$arProperty["NAME"]?>:
+                                        <div class="bx-newslist-other"> <?=$arProperty["NAME"]?>:
                                             <?=$value;?>
                                         </div>
                                     <?}?>
@@ -356,6 +354,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 </div>
 
 <script>
+// функция по раскрытию дополнительных элементов списка новостей при нажатии на "Показать ещё"
 $(document).ready(function() {
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>

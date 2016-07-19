@@ -1533,15 +1533,26 @@
 	   }
 	}
     
+    
     AddEventHandler('sale', 'OnSalePayOrder', 'AddNewGiftIBlockElement');
+    
+    /***************
+    *
+    * добавление нового элемент в инфоблок книг в дар после оплаты соответствующего заказа с подвешенной книги
+    *
+    * @param int $ID - ID заказа, к которому применена оплата
+    * @var array $arProps - массив свойств для создаваемого элемента инфоблока
+    * @var array $basket_items - информация о подвешенном товаре, содержащемся в данном заказе
+    *
+    ***************/
     
     function AddNewGiftIBlockElement ($ID, $val) {
         if ($val == "Y") {
             $curr_order = CSaleOrder::GetByID ($ID);
             if (!empty($curr_order["USER_DESCRIPTION"]) && $curr_order["DELIVERY_ID"] == PICKUP_DELIVERY_ID) {
                 $new_gift_book = new CIBlockElement;
-                $arProps = array();
-                $dbBasketItems = CSaleBasket::GetList(
+                $ar_props = array();
+                $basket_items = CSaleBasket::GetList(
                     array(),
                     array(
                         "ORDER_ID" => $ID
@@ -1550,16 +1561,16 @@
                     false,
                     array()
                 ) -> Fetch();
-                $arProps[GIFT_BOOK_PROPERTY_ID] = $dbBasketItems["PRODUCT_ID"];
-                $arProps[GIFT_BOOK_QUANTITY_PROPERTY_ID] = $dbBasketItems["QUANTITY"]; 
+                $ar_props[GIFT_BOOK_PROPERTY_ID] = $basket_items["PRODUCT_ID"];
+                $ar_props[GIFT_BOOK_QUANTITY_PROPERTY_ID] = $basket_items["QUANTITY"]; 
 
-                $arFields = array(
+                $ar_fields = array(
                     "IBLOCK_ID" => SUSPENDED_BOOKS_BUYERS_IBLOCK,
                     "NAME" => $curr_order["USER_DESCRIPTION"],
-                    "PROPERTY_VALUES" => $arProps
+                    "PROPERTY_VALUES" => $ar_props
                 );
 
-                $new_gift_book -> Add ($arFields);
+                $new_gift_book -> Add ($ar_fields);
             }
         }
     }

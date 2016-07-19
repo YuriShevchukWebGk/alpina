@@ -497,8 +497,12 @@ foreach ($arResult["ITEMS"] as $key => $arItem) {
 // получение имени автора книги
 $authors_list = CIBlockElement::GetList (array(), array("ID" => $item_IDs), false, false, array("ID", "PROPERTY_AUTHORS"));
 while ($authors = $authors_list -> Fetch()) {
-    if (!empty($authors["PROPERTY_AUTHORS_VALUE"])) {
-        $arResult[$authors["ID"]]["CURRENT_AUTHOR"] = CIBlockElement::GetByID ($authors["PROPERTY_AUTHORS_VALUE"]) -> Fetch();
+    $books_authors_list[] = $authors["PROPERTY_AUTHORS_VALUE"];
+}
+if (!empty($books_authors_list)) {
+    $books_authors_selection = CIBlockElement::GetList (array(), array("ID" => $books_authors_list), false, false, array());
+    while ($authors_selection = $books_authors_selection -> Fetch()) {
+        $arResult[$authors_selection["ID"]]["CURRENT_AUTHOR"] = $authors_selection;
     }
 }
 

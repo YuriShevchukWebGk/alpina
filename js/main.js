@@ -261,12 +261,12 @@ $(document).ready(function(){
             e.preventDefault();
             $('.layout').show();
 
-            var winW = $(window).width();
-            var blokT = window.pageYOffset + (window.innerHeight / 2);
-            var blokL = winW / 2 - ($('.gift_popup_form').width() / 2);
+            var window_width = $(window).width();
+            var block_top_coordinate = window.pageYOffset + (window.innerHeight / 2);
+            var block_left_coordinate = window_width / 2 - ($('.gift_popup_form').width() / 2);
             $('.gift_popup_form').css({
-                "top" : blokT,
-                "left": blokL
+                "top" : block_top_coordinate,
+                "left": block_left_coordinate
             });
             $(".item_id").attr("value", $(this).find(".giftBook").attr("data-id"));
             $('.gift_popup_form').show();
@@ -968,30 +968,51 @@ function addtocart_fromwishlist (productid, name) {
     })    
 }
 
-// добавление в корзину и автоматическое оформление заказа на книгу, покупаемую в дар
+/***********
+* 
+*  добавление в корзину и автоматическое оформление заказа на книгу, покупаемую в дар
+* 
+* @param name - название подвешенного товара
+* @param productid - ID подвешенного товара в инфоблоке товаров
+* @param quantity - количество подвешенного товара, добавленного в заказ
+* @return data : 
+* в случае успешного создания заказа - ID созданного заказа с подвешенным товаром
+* в противном случае передаётся строка "err" и прерывается работа функции 
+* 
+*/
 function add_giftbook (name, productid, quantity) {
-    $.post('/ajax/ajax_addgiftbook.php', {name:name, productid: productid, quantity: quantity}, function(data) {
+    $.post('/ajax/ajax_addgiftbook.php', {name: name, productid: productid, quantity: quantity}, function(data) {
         if (data != "err") {
-            if ($("a.product"+productid).length > 0) {
+            if ($("a.product" + productid).length > 0) {
                 document.location.href = "/personal/order/payment/?ORDER_ID=" + data;
             }
         }
     })    
 }
+
+/********
+* формирование списка купивших данный подвешенный товар
+* 
+* @param item_id - ID подвешенного товара
+* @return data - HTML-код таблицы с форматированным списком купивших товар и 
+* соответствующее кол-во купленного товара
+* @var total_buyers_count - общее купленное кол-во подвешенного товара
+* 
+*/
 function makeGiftBuyersList (item_id) {
     $.post('/ajax/making_buyers_list.php', {item_id: item_id}, function(data) {
         if (data != "") {
             $(".layout").show();
-            var winW = $(window).width();
-            var blokT = window.pageYOffset + ($('.gifted_books_buyers_list').width() / 2);
-            var blokL = winW / 2 - ($('.gifted_books_buyers_list').width() / 2);
+            var winW = $(window).width(), 
+            blokT = window.pageYOffset + ($('.gifted_books_buyers_list').width() / 2), 
+            blokL = winW / 2 - ($('.gifted_books_buyers_list').width() / 2),
+            total_buyers_count = 0;
             $('.gifted_books_buyers_list').css({
                 "top" : blokT,
                 "left": blokL
             });
             $(".gifted_books_buyers_list").show();
             $(".buyers_list").html(data);
-            var total_buyers_count = 0;
             $(".buyers_list table tr:not(:first-child)").each(function(){
                 total_buyers_count += parseInt($(this).find(".rounded_number").html());
             });
