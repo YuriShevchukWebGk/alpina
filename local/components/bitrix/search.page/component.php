@@ -71,7 +71,7 @@ else
 preg_match_all('|\d+|', $q, $matches);
 foreach ($matches[0] as $numbersKey => $number) { 
     $strNumber = searchNum2Str($number);
-    $_REQUEST["q"] = str_replace($number, '('.$number.' or '.$strNumber.')', $_REQUEST["q"]); 
+    $_REQUEST["q"] = str_replace($number, $number.' '.$strNumber, $_REQUEST["q"]); 
 }
 
 if(

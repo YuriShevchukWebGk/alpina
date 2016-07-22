@@ -1573,6 +1573,8 @@
                 );
 
                 $new_gift_book -> Add ($ar_fields);
+                $mail_fields = array("EMAIL" => $ar_props[GIFT_BOOK_BUYER_EMAIL_PROPERTY_ID]);
+                CEvent::Send ("BOUGHT_SUSPENDED_BOOK", "s1", $mail_fields, "N");
             }
         }
     }

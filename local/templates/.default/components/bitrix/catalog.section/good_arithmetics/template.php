@@ -104,8 +104,8 @@
                                          <? if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {?>
                                             <p class="unavailableBook"><?= $arItem["PROPERTIES"]["STATE"]["VALUE"] ?></p>
                                             
-                                         <?} else {
-                                             if ($arResult[$arItem["ID"]]["GIFTS_COUNT"] == 0) {
+                                         <?} else { 
+                                             if ($arResult[$arItem["ID"]][$arResult["CURR_USER_ID"]]["GIFT_COUNT"] == 0) {
                                         ?>
                                                 <a class="ask_form_for_gift product<?= $arItem["ID"];?>" href="javascript:void(0)">
                                                     <p class="giftBook" data-id="<?= $arItem["ID"] ?>"><?= GetMessage("TO_SUSPEND") ?></p>

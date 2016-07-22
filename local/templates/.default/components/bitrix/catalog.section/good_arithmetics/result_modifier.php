@@ -485,6 +485,7 @@ if ($arSection["UF_QUOTE"] > 0) {
     )->Fetch();
 }
 
+$arResult["CURR_USER_ID"] = $USER -> GetID();
 
 foreach ($arResult["ITEMS"] as $key => $arItem) {
     
@@ -493,6 +494,7 @@ foreach ($arResult["ITEMS"] as $key => $arItem) {
     
     $arResult[$arItem["ID"]]["PICTURE"] = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
     $arResult[$arItem["ID"]]["GIFTS_COUNT"] = 0;
+    $arResult[$arItem["ID"]][$arResult["CURR_USER_ID"]]["GIFT_COUNT"] = 0;
 }
 // получение имени автора книги
 $authors_list = CIBlockElement::GetList (array(), array("ID" => $item_IDs), false, false, array("ID", "PROPERTY_AUTHORS"));
@@ -533,16 +535,20 @@ $basket_items_list = CSaleBasket::GetList(
 );
 
 while ($basket_items = $basket_items_list -> Fetch()) {
-    if (in_array($basket_items["PRODUCT_ID"], $items_IDs)) {
+    if (in_array($basket_items["PRODUCT_ID"], $item_IDs)) {
         $arResult[$basket_items["PRODUCT_ID"]]["ITEM_IN_BASKET"] = $basket_items;
     }
 }
 
-$gift_book_addings = CIBlockElement::GetList (array(), array("IBLOCK_ID" => SUSPENDED_BOOKS_BUYERS_IBLOCK, "PROPERTY_GIFT_BOOK" => $items_IDs), false, false, array("NAME", "ID", "PROPERTY_GIFT_BOOK", "PROPERTY_GIFT_QUANTITY"));
+$gift_book_addings = CIBlockElement::GetList (array(), array("IBLOCK_ID" => SUSPENDED_BOOKS_BUYERS_IBLOCK, "PROPERTY_GIFT_BOOK" => $item_IDs), false, false, array("NAME", "ID", "PROPERTY_GIFT_BOOK", "PROPERTY_GIFT_QUANTITY"));
 while ($addings = $gift_book_addings -> Fetch()) {
     $arResult[$addings["PROPERTY_GIFT_BOOK_VALUE"]]["GIFTS_COUNT"]++;
     $arResult[$addings["PROPERTY_GIFT_BOOK_VALUE"]]["BUYERS"][]["NAME"] = $addings["NAME"];
-    $arResult[$addings["PROPERTY_GIFT_BOOK_VALUE"]]["BUYERS"][]["QUANTITY"] = $addings["PROPERTY_GIFT_QUANTITY_VALUE"];    
-}                  
+    $arResult[$addings["PROPERTY_GIFT_BOOK_VALUE"]]["BUYERS"][]["QUANTITY"] = $addings["PROPERTY_GIFT_QUANTITY_VALUE"];  
+}
 
+$orders_list = CSaleOrder::GetList (array(), array("BASKET_PRODUCT_ID" => $item_IDs, "USER_ID" => $arResult["CURR_USER_ID"]), false, false, array("ID", "USER_ID", "BASKET_PRODUCT_ID"));
+while ($orders = $orders_list -> Fetch()) {
+    $arResult[$orders["BASKET_PRODUCT_ID"]][$orders["USER_ID"]]["GIFT_COUNT"]++;
+}                  
 ?>

@@ -60,7 +60,7 @@ if ($USER->isAdmin()) {
 		$db_props = CSaleOrderPropsValue::GetOrderProps($id);
 		while ($arProps = $db_props->Fetch()){
 			if($arProps['CODE']=='PHONE'){
-				$clearedPhone = preg_replace('/[^0-9+]/','',$arProps['VALUE']);
+				$clearedPhone = preg_replace('/[^0-9]/','',$arProps['VALUE']);
 				return $clearedPhone;
 			}
 		}
@@ -91,7 +91,8 @@ if ($USER->isAdmin()) {
 			}
 		}
 	}	
-	
+
+		
 	/***************
 	* Отправляем большой эмэйл
 	*************/
@@ -116,6 +117,58 @@ if ($USER->isAdmin()) {
 		CSaleOrder::Update($id, $arFields);
 		//echo $id."*".$subject."*".$userID."<br />";
 	}
+	
+	
+	function addTrek($data){
+		$userid = "34";
+		$api_key = "2fa4c69a8aba5f8f9a38c35873ca325f";
+		
+		foreach($data as $arTrek){
+			$tracks_id[]=$arTrek["trek"];
+			$tracks[]="{
+			'trackingUserClientPhone':'".$arTrek["tel"]."',
+			'trackingUserClientTrack':'".$arTrek["trek"]."',
+			'trackingUserClientEmail':'".$arTrek["email"]."',
+			'trackingUserClientName':'".$arTrek["name"]."',
+			'trackingUserClientItemCost':".$arTrek["cost"].",
+			'trackingUserClientOrderNumber':'".$arTrek["ordernum"]."',
+			'trackingUserClientDescription':'".$arTrek["descr"]."',
+			'sendToUserEmailFullTracking':false,
+			'sendToAdminEmailFullTracking':false
+			}";
+		}
+		//формируем подпись
+		$trKey=md5($userid.":".implode("",$tracks_id).":".$api_key);
+		echo $arTrek["trek"];
+		//формируем строку для отправки JSON
+		$arr_json="{
+		   'trackingUserId':".$userid.",
+		   'trackingRequestKey':'".$trKey."',
+		   'testMode':false,
+		   'trackingData':[".implode(",",$tracks)."]
+		}";
+
+
+		if( $curl = curl_init() ) {
+			// устанавливаем заголовки соединения 
+			$url='http://apilr2.r-lab.biz/addtrack.ashx';
+			$header[0] = "Accept: text/xml,application/xml,application/xhtml+xml,";
+			$header[0] .= "text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
+			$header[] = "Accept-Charset: utf-8;q=0.7,*;q=0.7";
+			$header[] = "Content-Type: text/plain; charset=utf-8";
+			curl_setopt($curl, CURLOPT_URL, $url);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+			curl_setopt($curl, CURLOPT_POST, true);
+			curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $arr_json);
+			$out = curl_exec($curl);
+			curl_close($curl);
+		// разбираем полученый ответ от сервера, более детальное описание параметров в документации 
+			$response=json_decode($out);
+			echo "Ответ от сервера ".$response->resultState.":".$response->resultInfo." #".$arTrek["ordernum"]." tel:".$arTrek["tel"]."<br />";
+		}
+	}
+
 	
 	$userID1 = 175985; 			//triggerMailUser_1
 	$userID2 = 175986; 			//triggerMailUser_2
@@ -229,8 +282,10 @@ if ($USER->isAdmin()) {
 		"DELIVERY_ID" => array(10,11,16,24,25,26,28),
 		"!EMP_STATUS_ID" => array($userIDreturn,$userIDarrived),
 		"@STATUS_ID" => array("I","K"),
-		">=DATE_INSERT" => "07.04.2016"
+		">=DATE_INSERT" => "07.04.2016",
+		//"ID" => 69615
 	);
+
 	//echo "4a<br />";
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	//echo "4b<br />";
@@ -256,6 +311,20 @@ if ($USER->isAdmin()) {
 		} else {
 			$order = CSaleOrder::GetByID($id);
 			$trackingNumber = $order["DELIVERY_DOC_NUM"];
+		}
+		
+		if (!empty($trackingNumber) && (preg_match('/([0-9]){13,20}/', $trackingNumber) || preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) && !empty(getPhone($id))) {
+			// составляем массив треков под отправку 
+			$allTreks[]= array(
+				"trek" => $trackingNumber,
+				"name" => getClientName($id),
+				"tel" => getPhone($id),
+				"email" => "shop@alpinabook.ru",
+				"cost" => $arSales[PRICE],
+				"ordernum" => $id,
+				"descr" => ""
+			);
+			addTrek($allTreks);
 		}
 		
 		//echo "4d<br />";
@@ -375,7 +444,7 @@ if ($USER->isAdmin()) {
 							</tr>";
 
 						$subject = 'Заказ №'.$id.' поступил в почтовое отделение';
-						$notification = 'Ваш заказ №'.$id.' прибыл в почтовое отделение. Заполнить извещение можно <a href="https://www.pochta.ru/tracking#'.$trackingNumber.'">по данной ссылке</a>.';
+						$notification = 'Ваш заказ №'.$id.' прибыл в почтовое отделение. Заполнить извещение можно <a href="https://www.pochta.ru/form?type=F22&withBarcode=true&Banderol=true&Insured=true&PostId='.$trackingNumber.'">по данной ссылке</a>.';
 						$result = sendNotificationEmail($id, $subject, $notification, $userIDarrived, $newItemsBlock, '');
 
 					} else {
@@ -385,7 +454,7 @@ if ($USER->isAdmin()) {
 						);
 						CSaleOrder::Update($id, $arFields);
 						
-						$finalReport .= "<tr>
+						$finalReport .= "<tr style='color:#6a9868'>
 							<td>".$id."</td>
 							<td>Почта</td>
 							<td>В пути, отправлен на почту</td>
@@ -515,7 +584,7 @@ if ($USER->isAdmin()) {
 						
 						CSaleOrder::Update($id, $arFields);
 						//echo "abroad ".$id."<br />";
-						$finalReport .= "<tr>
+						$finalReport .= "<tr style='color:#6a9868'>
 							<td>".$id."</td>
 							<td>Почта</td>
 							<td>В пути, отправлен на почту</td>
@@ -523,7 +592,7 @@ if ($USER->isAdmin()) {
 							<td>В пути, отправлен на почту</td>
 							<td>".$trackingNumber."</td>
 							<td>Заграницу в пути</td>
-							<td></td>
+							<td>В пути</td>
 							</tr>";
 					}
 				} catch (SoapFault $e) {
@@ -551,7 +620,7 @@ if ($USER->isAdmin()) {
 			);
 			CSaleOrder::Update($id, $arFields);
 			//echo "noid ".$id."<br />";
-			$finalReport .= "<tr>
+			$finalReport .= "<tr style='color:#ff7676'>
 					<td>".$id."</td>
 					<td>Почта</td>
 					<td>В пути, отправлен на почту</td>
@@ -559,7 +628,7 @@ if ($USER->isAdmin()) {
 					<td>В пути, отправлен на почту</td>
 					<td>noid</td>
 					<td>Нет идентификатора</td>
-					<td></td>
+					<td>noid</td>
 					</tr>";
 		} elseif (!empty($trackingNumber) &&								// Трекер проставлен
 				  preg_match('/([0-9]){4}\-([0-9]){4}/i', $trackingNumber)) {
@@ -569,7 +638,7 @@ if ($USER->isAdmin()) {
 			);
 			CSaleOrder::Update($id, $arFields);
 			//echo "noid ".$id."<br />";
-			$finalReport .= "<tr>
+			$finalReport .= "<tr style='color:#6a9868'>
 					<td>".$id."</td>
 					<td>Flippost</td>
 					<td>В пути, отправлен на почту</td>
@@ -686,7 +755,8 @@ if ($USER->isAdmin()) {
 		"ORDER_USER" => "Александр",
 		"REPORT" => $finalReport
 	);				
-	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");	
+	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");
+	
 } else {
 	echo "Not authorized";
 }
