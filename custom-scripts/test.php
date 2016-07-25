@@ -10,15 +10,24 @@ if ($USER->isAdmin()) {
 	
 	$la = unserialize($rsCurUser->Fetch()["UF_TEST"]);
 	
-	$arFilter = Array("IBLOCK_ID"=>4, "ID"=>60905);
+	$arFilter = Array("IBLOCK_ID"=>4, "ID"=>70007);
 	$res = CIBlockElement::GetList(Array(), $arFilter);
 	if ($ob = $res->GetNextElement()){
 		$arProps = $ob->GetProperties();
 		$arFields = $ob->GetFields();
 		echo "<pre>";
-		print_r($arProps);
+		//print_r($arProps);
 		echo "</pre>";
-		CIBlockElement::SetPropertyValuesEx(60905, 4, array('appstore' => '231', 'android' => '232'));	
+		$isSecure = false;
+		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+			$isSecure = true;
+		}
+		elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+			$isSecure = true;
+		}
+		$REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
+		echo $REQUEST_PROTOCOL;
+		//CIBlockElement::SetPropertyValuesEx(60905, 4, array('appstore' => '231', 'android' => '232'));	
 	}
 	echo "<br />";	
 	
@@ -27,7 +36,7 @@ if ($USER->isAdmin()) {
 		"USER_ID"	=>	$USER->GetID()
 
 	);
-	print_r($la);
+	//print_r($la);
 	$userGend = new CUser;
 	$links = '';
 
