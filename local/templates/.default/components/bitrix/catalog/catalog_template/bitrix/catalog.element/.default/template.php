@@ -170,14 +170,14 @@ $arItemIDs = array(
 				</style>
 					<div style="margin-bottom: 0px;" class="marks">
 						<div class="newBookMark newBookMarkPink">
-							<p><span class="test">бесплатная электронная<br />книга в комплекте</span></p>
+							<p><span class="test"><?= GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
 							<span class="ttip">
 							<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {
-								echo "Купив эту книгу, вы автоматически получите ее электронную версию бесплатно.<br />Читайте, как вам удобно!";
+								echo GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");
 							} elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
 								$recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
 								if($recBookName = $recBook->GetNext())
-									echo "Купив эту книгу, вы получите электронную книгу «".$recBookName['NAME']."» в подарок!<br />Читайте, как вам удобно!";
+									echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");
 							}?>
 							</span>
 						</div>
@@ -312,18 +312,18 @@ $arItemIDs = array(
                     <meta itemprop="priceCurrency" content="RUB" />
                     <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
                             if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
+                                $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH") . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
                             } elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
+                                $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
                                 $discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
                             } else {
                                 $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                             }
                         } else {
                             if ($cart_sum < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
+                                $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $cart_sum) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
                             } elseif ($cart_sum < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
-                                $printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
+                                $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $cart_sum) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
                                 $discount = $arResult["SALE_NOTE"][0]["VALUE"];  // процент накопительной скидки
                             } else {
                                 $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
@@ -340,7 +340,7 @@ $arItemIDs = array(
                                     <link itemprop="availability" href="http://schema.org/InStock">
 
                                     <?$StockInfo = "InStock";
-                                        if (round(($arPrice["VALUE"]) * (1 - $discount / 100), 2) . " руб." == $arPrice["PRINT_VALUE"]) {
+                                        if (round(($arPrice["VALUE"]) * (1 - $discount / 100), 2) . " " . GetMessage("ROUBLES") == $arPrice["PRINT_VALUE"]) {
                                             $discount = false;
                                         };
                                         if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
@@ -485,46 +485,46 @@ $arItemIDs = array(
 
                         if ($timenow > 25) { //НОВОГОДНИЕ ПРАЗДНИКИ
                             if ($today == 5) { // если на дворе ПЯТНИЦА
-                                $delivery_day = 'в понедельник';
+                                $delivery_day = GetMessage("ON_MONDAY");
                                 if ($timenow < 17) {
-                                    $samovivoz_day = 'сегодня';
+                                    $samovivoz_day = GetMessage("TODAY");
                                 } else {
-                                    $samovivoz_day = 'в понедельник'; //на праздники тут меняем день, потом обратно
+                                    $samovivoz_day = GetMessage("ON_MONDAY"); //на праздники тут меняем день, потом обратно
                                 }
                             } elseif ($today == 6) { // если на дворе СУББОТА
-                                $delivery_day = 'в понедельник';      //на праздники тут меняем день, потом обратно
-                                $samovivoz_day = 'в понедельник';	//на праздники тут меняем день, потом обратно
+                                $delivery_day = GetMessage("ON_MONDAY");      //на праздники тут меняем день, потом обратно
+                                $samovivoz_day = GetMessage("ON_MONDAY");	//на праздники тут меняем день, потом обратно
                             } elseif ($today == 0) { // если на дворе ВОСКРЕСЕНЬЕ
-                                $delivery_day = 'завтра'; //blackfriday
-                                $samovivoz_day = 'завтра';
+                                $delivery_day = GetMessage("TOMORROW"); //blackfriday
+                                $samovivoz_day = GetMessage("TOMORROW");
                             } else { // если на дворе ПОНЕДЕЛЬНИК-ЧЕТВЕРГ
-                                $delivery_day = 'завтра';
+                                $delivery_day = GetMessage("TOMORROW");
                                 if ($timenow < 17) {
-                                    $samovivoz_day = 'сегодня';
+                                    $samovivoz_day = GetMessage("TODAY");
                                 } else {
-                                    $samovivoz_day = 'завтра';
+                                    $samovivoz_day = GetMessage("TOMORROW");
                                 }
                             }
                         } else {
                             if ($today == 1) {
-                                $delivery_day = 'завтра';
+                                $delivery_day = GetMessage("TOMORROW");
                             } elseif ($today == 2) {
-                                $delivery_day = 'завтра';
+                                $delivery_day = GetMessage("TOMORROW");
                             } elseif ($today == 3) {
-                                $delivery_day = 'завтра';
+                                $delivery_day = GetMessage("TOMORROW");
                             } elseif ($today == 4) {
-                                $delivery_day = 'завтра';
+                                $delivery_day = GetMessage("TOMORROW");
                             } elseif ($today == 5) {
-                                $delivery_day = 'в&nbsp;понедельник';
+                                $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                             } elseif ($today == 6) {
-                                $delivery_day = 'в&nbsp;понедельник';
+                                $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                             } elseif ($today == 0) {
-                                $delivery_day = 'завтра';
+                                $delivery_day = GetMessage("TOMORROW");
                             }
                             if ($timenow < 17 && $today != 6) {
-                                $samovivoz_day = 'сегодня';
+                                $samovivoz_day = GetMessage("TODAY");
                             } else {
-                                $samovivoz_day = 'завтра';
+                                $samovivoz_day = GetMessage("TOMORROW");
                             }
 
                     }?>
@@ -554,30 +554,24 @@ $arItemIDs = array(
 
                 <div class="courierBlock">
                     <div style="width:400px;" id="data1">
-                        <h4>Доставка по Москве*</h4>
-                        <hr />
-                        Осуществляется в течение двух рабочих дней с 11.00 до 19.00.
-                        <br /><br />
-                        В день доставки представитель курьерской службы обязательно свяжется с Вами для согласования времени доставки.
-                        <br /><br />
-                        Стоимость доставки - <b>149 руб.</b><br />
-                        При заказе на сумму <b>от 2 000 руб. - БЕСПЛАТНО</b>.
-                        <hr />
-                        <div style="text-align:right">*о доставке в регионы вы можете прочитать <a href="/content/delivery/" target="_blank">здесь</a></div>
+                        <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
+                            "AREA_FILE_SHOW" => "file",
+                            "PATH" => "/include/courierBlock.php",
+                            "EDIT_TEMPLATE" => ""
+                            ),
+                            false
+                        );?>
                     </div>
                 </div>
                 <div class="pickupBlock">
                     <div style="width:500px;" id="data2">
-                        <h4>Самовывоз</h4>
-                        <hr />
-                        Товар будет собран в течение двух часов с момента поступления заказа.
-                        <br /><br />Книги можно забрать в офисе интернет-магазина в рабочие дни <b>с 8.00 до 18.00</b>.
-                        <br />
-                        При заказе до 18 часов товар можно получить в тот же день!
-                        <br /><br />
-                        <b>Адрес</b>: м.Полежаевская, ул.4-ая Магистральная, д. 5, 2 подъезд, 2 этаж.
-                        <br /><br />
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m25!1m12!1m3!1d2243.998204041206!2d37.52190224020577!3d55.775903036835956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m10!1i0!3e6!4m3!3m2!1d55.777864099999995!2d37.5213229!4m3!3m2!1d55.7745393!2d37.5204109!5e0!3m2!1sru!2sru!4v1395742400886" width="100%" height="350" frameborder="0" style="border:0"></iframe>
+                        <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
+                            "AREA_FILE_SHOW" => "file",
+                            "PATH" => "/include/pickupBlock.php",
+                            "EDIT_TEMPLATE" => ""
+                            ),
+                            false
+                        );?>    
                     </div>
                 </div>
                 <?if ($arResult["PROPERTIES"]["author_book"]["VALUE"] == "Y") {?>
@@ -848,7 +842,7 @@ $arItemIDs = array(
 
 
                     <?if (!empty ($arResult['TAGS']) ) {
-                        echo "<p class='productSelectTitle'>Ключевые понятия</p>";
+                        echo "<p class='productSelectTitle'>" . GetMessage("KEYWORDS") . "</p>";
                         echo "<ul class='keyWords' itemprop='keywords'>";
                         $el = array('TAGS' => $arResult['TAGS']);
                         $el['TAGS'] = explode(',', $el['TAGS']);
