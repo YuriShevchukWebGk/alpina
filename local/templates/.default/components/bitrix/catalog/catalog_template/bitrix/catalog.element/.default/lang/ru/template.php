@@ -79,4 +79,7 @@ $MESS["GIFT_BOOK_TITLE"] = "Книга в подарок";
 $MESS["GIFT_BOOK_DESCRIPTION"] = "Подпишись на рассылку и получи книгу бесплатно";
 $MESS["VIEWED_BOOKS_TITLE"] = "Вы уже смотрели";
 $MESS["TO_BUY_WITH_DELIVERY"] = " купить в интернет-магазине с доставкой";
+$MESS["MSK_DELIVERY"] = "Доставка по Москве";
+$MESS["PICKUP_MSK_DELIVERY"] = "Самовывоз м.Полежаевская";
+$MESS["TO_BUY_LATER"] = "Куплю позже";
 ?>

@@ -200,7 +200,7 @@ $arItemIDs = array(
                     </a>
                     <?} else {?>
                     <a href="javascript:void(0); return true;" onclick="dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');">
-                        <p class="buyLater">Куплю позже</p>
+                        <p class="buyLater"><?= GetMessage("TO_BUY_LATER") ?></p>
                     </a>
                     <?}
                 }?>
@@ -528,16 +528,11 @@ $arItemIDs = array(
                             }
 
                     }?>
-                    <li>Доставка по Москве<br /><a id='inline1' href='#data1'><?=$delivery_day?></a></li>
-                    <li>Самовывоз м.Полежаевская<br /><a id='inline2' href='#data2'><?=$samovivoz_day?></a></li>
+                    <li><?= GetMessage("MSK_DELIVERY") ?><br /><a id='inline1' href='#data1'><?=$delivery_day?></a></li>
+                    <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a id='inline2' href='#data2'><?=$samovivoz_day?></a></li>
                     <li><?= GetMessage("MAIL_DELIVERY") ?></li>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
 
-                    <?/*<li><?= GetMessage("COURIER_DELIVERY") ?></li>
-                        <li><?= GetMessage("MAIL_DELIVERY") ?></li>
-                        <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
-                        <li><?= GetMessage("PICKUP_DELIVERY") ?></li>
-                    */?>
                 </ul>
 
                 <div class="typesOfProduct">
