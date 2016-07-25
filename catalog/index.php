@@ -246,8 +246,7 @@ $APPLICATION->SetTitle(" Книги для саморазвития | Лучши
 		"SIDEBAR_DETAIL_SHOW" => "N",
 		"SIDEBAR_PATH" => "",
 		"SIDEBAR_SECTION_SHOW" => "N",
-		"STORES" => array(
-		),
+		"STORES" => "",
 		"STORE_PATH" => "/store/#store_id#",
 		"TEMPLATE_THEME" => "site",
 		"TOP_ADD_TO_BASKET_ACTION" => "ADD",
@@ -272,7 +271,7 @@ $APPLICATION->SetTitle(" Книги для саморазвития | Лучши
 		"USE_PRODUCT_QUANTITY" => "Y",
 		"USE_REVIEW" => "Y",
 		"USE_SALE_BESTSELLERS" => "N",
-		"USE_STORE" => "Y",
+		"USE_STORE" => "N",
 		"USE_STORE_PHONE" => "Y",
 		"USE_STORE_SCHEDULE" => "Y",
 		"COMPONENT_TEMPLATE" => "catalog_template",
