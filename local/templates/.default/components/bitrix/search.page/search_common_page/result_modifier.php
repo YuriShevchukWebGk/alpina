@@ -76,16 +76,18 @@ if (!empty($books_array)) {
     $sections_info_list = CIBlockSection::GetList(array(), array("ID" => $books_sections_IDs), false, array(), false);
     while ($sections_info = $sections_info_list -> Fetch()) {
         $arResult["BOOK_INFO"]["SECTIONS"][$sections_info["ID"]]["SECTION_INFO"] = $sections_info;    
-    } 
-    $authors_of_books_list = CIBlockElement::GetList(
-        array(), 
-        array("ID" => $authors_of_found_books_arr), 
-        false, 
-        false, 
-        array()
-    );
-    while ($authors_of_books = $authors_of_books_list -> Fetch()) {
-        $arResult["BOOK_AUTHOR_INFO"][$authors_of_books["ID"]] = $authors_of_books;
+    }
+    if (!empty($authors_of_found_books_arr)) { 
+        $authors_of_books_list = CIBlockElement::GetList(
+            array(), 
+            array("ID" => $authors_of_found_books_arr), 
+            false, 
+            false, 
+            array()
+        );
+        while ($authors_of_books = $authors_of_books_list -> Fetch()) {
+            $arResult["BOOK_AUTHOR_INFO"][$authors_of_books["ID"]] = $authors_of_books;
+        }
     }
 
     $basket_items_list = CSaleBasket::GetList(
