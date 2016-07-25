@@ -28,9 +28,6 @@ if ($_REQUEST["ORDER_ID"])
         }
     ?>
     <?
-        //        arshow($userName);
-        //        arshow($arResult["ORDER_PROPS"]);
-        //        arshow($arResult["ORDER"]);
         $arName = explode( " ", $userName);
         if (count($arName)==2) {
             $name=$arName[0];

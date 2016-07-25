@@ -64,7 +64,10 @@ $APPLICATION->SetTitle("Заказы");
 		"SHOW_TOTAL_ORDER_BUTTON" => "Y",
 		"SHOW_DELIVERY_LIST_NAMES" => "Y",
 		"SHOW_DELIVERY_INFO_NAME" => "Y",
-		"USE_YM_GOALS" => "N"
+		"USE_YM_GOALS" => "N",
+		"SHOW_ORDER_BUTTON" => "final_step",
+		"SKIP_USELESS_BLOCK" => "Y",
+		"SERVICES_IMAGES_SCALING" => "standard"
 	),
 	false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

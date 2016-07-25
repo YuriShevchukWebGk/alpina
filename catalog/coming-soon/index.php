@@ -33,7 +33,7 @@ switch ($_REQUEST["SORT"])
 
 <?
 global $arrFilter_soon;
-$arrFilter_soon = array('PROPERTY_STATE' => '22');?>
+$arrFilter_soon = array('PROPERTY_STATE' => '22', '!PROPERTY_hide_soon_VALUE' => 'Y');?>
 <?$APPLICATION->IncludeComponent("bitrix:catalog.section", "coming-soon", Array(
 	"ACTION_VARIABLE" => "action",	// Название переменной, в которой передается действие
 		"ADD_PICT_PROP" => "-",	// Дополнительная картинка основного товара

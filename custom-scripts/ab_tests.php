@@ -8,7 +8,7 @@ if ($alpExps['updateExp'] != "160516") {
     $alpExps['updateExp'] = "160516";
 }
 
-$alpExps['smartBannerApple']	= (!$alpExps['smartBannerApple'] ? rand(1,2) : $alpExps['smartBannerApple']);
+//$alpExps['smartBannerApple']	= (!$alpExps['smartBannerApple'] ? rand(1,2) : $alpExps['smartBannerApple']);
 $alpExps['discountBlock']		= (!$alpExps['discountBlock'] ? rand(1,2) : $alpExps['discountBlock']);
 
 if ($APPLICATION->GetCurDir() == '/personal/cart/') {
@@ -85,30 +85,7 @@ if ($APPLICATION->GetCurDir() == '/personal/cart/') {
 <!-- //Тест Рекомендаций в корзине -->
 
 <!-- Тест СмартБаннера -->
-<?if ($alpExps['smartBannerApple'] == 1) {?>
-    <meta name="apple-itunes-app" content="app-id=429622051">
-    <script type="text/javascript">
-        $(document).ready(function() {
-            dataLayer.push({
-                event: 'ab-test-gtm',
-                action: 'smartBannerApple',
-                label: 'showBanner'
-            });
-            console.log('smartBannerApple showBanner');
-        });
-    </script>
-<?} elseif ($alpExps['smartBannerApple'] == 2) {?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            dataLayer.push({
-                event: 'ab-test-gtm',
-                action: 'smartBannerApple',
-                label: 'noBanner'
-            });
-            console.log('smartBannerApple noBanner');
-        });
-    </script>    
-<?}?>
+<meta name="apple-itunes-app" content="app-id=429622051">
 <!-- //Тест СмартБаннера -->
 
 <?$APPLICATION->set_cookie("alpExps", serialize($alpExps));

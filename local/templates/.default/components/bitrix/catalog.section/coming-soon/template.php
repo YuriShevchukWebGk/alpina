@@ -150,7 +150,7 @@
                                             if ($pict["src"])
                                             {
                                             ?>               
-                                                <img src=<?=$pict["src"]?>>
+                                                <img src="<?=$pict["src"]?>" alt="<?=$arItem["NAME"];?>">
                                             <?
                                             }
                                             else

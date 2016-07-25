@@ -18,7 +18,7 @@
             {?>
             <li class="firstSlide" style="background-image: url(<?=$arItem["DETAIL_PICTURE"]["SRC"]?>)">
                 <?if ($arItem["PROPERTIES"]["LINK"]["VALUE"]){?>
-                    <a href="<?=$arItem["PROPERTIES"]["LINK"]["VALUE"]?>" onclick="dataLayer.push({'event' : 'otherEvents', 'action' : 'bannersOnMain', 'label' : '<?=$arItem["NAME"]?>'});">
+                    <a href="<?=$arItem["PROPERTIES"]["LINK"]["VALUE"]?>" target="_blank" onclick="dataLayer.push({'event' : 'otherEvents', 'action' : 'bannersOnMain', 'label' : '<?=$arItem["NAME"]?>'});">
                 <?}?>
 				<div class="catalogWrapper">
 					<p class="titleSlide">

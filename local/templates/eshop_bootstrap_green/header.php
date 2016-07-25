@@ -9,7 +9,7 @@
 <html>
 <head>
     <title><?$APPLICATION->ShowTitle()?></title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
 
 
     <link rel="stylesheet" href="/css/style.css" type="text/css">

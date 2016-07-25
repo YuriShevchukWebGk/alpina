@@ -171,7 +171,7 @@
                                 <a href="<?= $arItem["DETAIL_PAGE_URL"] ?>">
                                     <div class="section_item_img">
                                         <?if ($pict["src"]) {?>
-                                            <img src=<?= $pict["src"] ?>>
+                                            <img src="<?=$pict["src"]?>" alt="<?=$arItem["NAME"];?>">
                                             <?} else {?>
                                             <img src="/images/no_photo.png" width="142" height="142">
                                             <?}?>

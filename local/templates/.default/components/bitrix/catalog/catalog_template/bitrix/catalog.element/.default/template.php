@@ -63,23 +63,6 @@ $arItemIDs = array(
     'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
 );
 ?>
-<?
-    $arBasketItems = array();
-    $dbBasketItems = CSaleBasket::GetList(
-        array("NAME" => "ASC","ID" => "ASC"),
-        array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
-        false,
-        false,
-        array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE")
-    );
-    $cart_num = 0;
-    $cart_sum = 0;
-    while ($arItems = $dbBasketItems->Fetch()) {
-        $arBasketItems[] = $arItems;
-        $cart_num += $arItems['QUANTITY'];
-        $cart_sum += $arItems['PRICE'] * $arItems['QUANTITY'];
-}?>
-        
         <div class="elementDescriptWrap">
             <div class="leftColumn">
                 <div class="elementMainPict">
@@ -126,17 +109,80 @@ $arItemIDs = array(
                     </div>
                 </div>
                 <div class="marks">
-                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == NEW_BOOK_STATE_XML_ID) {?>
+                    <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == NEW_BOOK_STATE_XML_ID || $USER->isAdmin()) {?>
                         <div class="newBookMark">
                             <p><?= GetMessage("NEW_BOOK") ?></p>
                         </div>
-                        <?}?>
-                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"] == BESTSELLER_BOOK_XML_ID) {?>
+                    <?}?>
+                    <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"] == BESTSELLER_BOOK_XML_ID || $USER->isAdmin()) {?>
                         <div class="bestBookMark">
                             <p><?= GetMessage("BESTSELLER_BOOK") ?></p>
                         </div>
                         <?}?>
                 </div>
+				<?if ($USER->isAdmin()) {?>
+				<style>
+				.newBookMarkPink {
+					background: rgb(221, 110, 255) none repeat scroll 0% 0%!important;
+					margin-top: -24px;
+					width: auto;
+					cursor:help;
+					position: relative;
+					display: inline;					
+				}
+				.newBookMark .ttip {
+					position: absolute;
+					width:140px;
+					color: #627478;
+					background: #FFFFFF;
+					height: auto;
+					line-height: 30px;
+					text-align: center;
+					visibility: hidden;
+					box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.18), 0 0 1px 0 rgba(0, 0, 0, 0.14);
+					width: 264px;
+					padding: 4px 9px;
+					text-align:left;
+					font-size: 14px;
+					line-height: 140%;
+					text-transform: none;
+					font-family: "Walshein_regular";
+				}
+				.newBookMark .ttip:before {
+					content: '';
+					position: absolute;
+					top: -8px;
+					left: 50%;
+					margin-left: -8px;
+					width: 0; height: 0;
+					border-bottom: 8px solid #FFFFFF;
+					border-right: 8px solid transparent;
+					border-left: 8px solid transparent;					
+				}
+				.newBookMark:hover .ttip {
+					visibility: visible;
+					opacity: 1;
+					top: 99%;
+					left: 50%;
+					margin-left: -76px;
+					z-index: 999;					
+				}
+				</style>
+					<div style="margin-bottom: 0px;" class="marks">
+						<div class="newBookMark newBookMarkPink">
+							<p><span class="test">бесплатная электронная<br />книга в комплекте</span></p>
+							<span class="ttip">
+							<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {
+								echo "Купив эту книгу, вы автоматически получите ее электронную версию бесплатно.<br />Читайте, как вам удобно!";
+							} elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
+								$recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
+								if($recBookName = $recBook->GetNext())
+									echo "Купив эту книгу, вы получите электронную книгу «".$recBookName['NAME']."» в подарок!<br />Читайте, как вам удобно!";
+							}?>
+							</span>
+						</div>
+					</div>
+				<?}?>
                 <?if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {?>
                     <a href="<?= $arResult["SIGN_PICTURE"] ?>" class="fancybox fancybox.iframe signingPopup">
                         <div class="authorSigning">
@@ -402,10 +448,8 @@ $arItemIDs = array(
                                     <?}?>
                                 <a href="javascript:void(0);"><p class="buyOneClick"><?= GetMessage("TO_BUY_IN_1_CLICK") ?></p></a>
                             </div>
-                            <?}?>
-
                         <?}?>
-
+                    <?}?>
                 </div>
 
                 <div class="quickOrderDiv" style="display:none;">

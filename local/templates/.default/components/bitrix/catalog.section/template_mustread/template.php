@@ -74,9 +74,9 @@ $this->setFrameMode(true);
                             </div>    
                         </div>
                         
-                        <a href="/catalog/mustread/">
+                        <a href="/series/66454/">
                         <div class="text">
-                            <p>Книги, которые обязан прочитать каждый</p>
+                            <p>Ответы на главные вопросы бизнеса</p>
                             Смотреть все
                         </div>          
                         </a>

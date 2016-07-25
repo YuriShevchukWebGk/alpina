@@ -53,5 +53,32 @@
 		}
 
 	}
+    
+    foreach ($arResult["ORDER_BY_STATUS"] as $order_key => $group) {
+        foreach ($group as $k => $order) {
+            
+            $user_IDs[] = $order["ORDER"]["USER_ID"];
+            $order_IDs[] = $order["ORDER"]["ID"];
+        }
+    }
+
+    $users_info = CUser::GetList (($by = "id"), ($sort = "desc"), array("ID" => $user_IDs[0]));
+    
+    while ($users = $users_info -> Fetch()) {
+        $arResult["USER_INFO"][$users["ID"]] = $users;    
+    }
+
+    $order_info = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_IDs), false, false, array());
+    while ($info = $order_info->Fetch()) {   
+        if (in_array($info["ORDER_PROPS_ID"], array(CITY_INDIVIDUAL_ORDER_PROP_ID, CITY_ENTITY_ORDER_PROP_ID))) {
+            $arResult["ORDER_INFO"][$info["ORDER_ID"]]["DELIVERY_CITY"] = CSaleLocation::GetByID($info["VALUE"]);
+        }
+        if (in_array($info["ORDER_PROPS_ID"], array(ADDRESS_INDIVIDUAL_ORDER_PROP_ID, ADDRESS_ENTITY_ORDER_PROP_ID))) {
+            $arResult["ORDER_INFO"][$info["ORDER_ID"]]["DELIVERY_ADDR"] = $info["VALUE"];
+        }
+        if (in_array($info["CODE"], array("PHONE", "F_PHONE"))) {
+            $arResult["ORDER_INFO"][$info["ORDER_ID"]]["ORDER_PHONE"] = $info["VALUE"];
+        } 
+    }
      
 ?>

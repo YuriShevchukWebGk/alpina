@@ -16,7 +16,7 @@ $this->setFrameMode(true);
 <div class="categoryWrapperWhite">
         <div class="interestSlideWrap">
                 <div class="interestSlider">
-                    <p>Вам также будет интересно</p>
+                    <p>Могут быть интересны вам</p>
                     <div class="otherEasySlider">
                         <div>
                             <ul>

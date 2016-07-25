@@ -1214,3 +1214,9 @@
     top:-25px;
     left:-41px
 }
+.author_name a, .recenz_author_name {
+	color: #627478;
+}
+.author_name a:hover, .recenz_author_name:hover {
+	text-decoration:underline;
+}

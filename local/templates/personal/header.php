@@ -151,7 +151,7 @@
 <head>
     <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8"> -->
     <title><?$APPLICATION->ShowTitle()?></title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
     <?$APPLICATION->ShowHead();?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	

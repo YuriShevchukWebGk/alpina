@@ -123,7 +123,7 @@ $digitalBooks = array(
             </div>
 			<div class="slide3">
 				<div id="slide1text">
-                С 4 по 30 июня вы можете купить<br />
+                С 4 по 31 июля вы можете купить<br />
 				эти книги со скидкой 20%
 				</div>
             </div>
@@ -168,7 +168,7 @@ $digitalBooks = array(
 				ввести промокод <span class="beelineUnderLine">beeline</span>
 				<br />
 					<div id="slide2text">
-						Этот промокод действует с 4 по 30 июня
+						Этот промокод действует с 4 по 31 июля
 					</div>
 				</div>
             </div>				
