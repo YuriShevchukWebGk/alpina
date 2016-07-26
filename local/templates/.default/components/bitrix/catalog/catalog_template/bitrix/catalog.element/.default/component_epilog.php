@@ -40,10 +40,8 @@ $ar_properties = array();
 if (!is_array($arResult['PROPERTIES']['AUTHORS']['VALUE'])
     && !empty($arResult['PROPERTIES']['AUTHORS']['VALUE'])) {
         $arResult['PROPERTIES']['AUTHORS']['VALUE'] = array($arResult['PROPERTIES']['AUTHORS']['VALUE']);
-}
-foreach ($arResult['PROPERTIES']['AUTHORS']['VALUE'] as $AUTHOR_KEY => $author) {
-    $authors_IDs[] = $arResult['PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY];
-}
+}    
+$authors_IDs = $arResult['PROPERTIES']['AUTHORS']['VALUE'];
 if (!empty($authors_IDs)) {
     $authors_list = CIBlockElement::GetList (
         array(), 
@@ -64,16 +62,16 @@ if (!empty($authors_IDs)) {
         $ar_properties["FIRST_NAME"] = $authors["PROPERTY_FIRST_NAME_VALUE"];
         $ar_properties["SHOWINAUTHORS"] = $authors["PROPERTY_SHOWINAUTHORS_VALUE"];
         $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
-    }
 
-    if (strlen ($ar_properties['FIRST_NAME']) > 0) {
-        $author_name .= (strlen ($author_name) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
-    }
-    if (strlen ($ar_properties['LAST_NAME']) > 0) {
-        $author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
-    }
-    if (strlen ($ar_properties['ORIG_NAME']) > 0) {
-        $author_name .= " / " . (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['ORIG_NAME'];
+        if (strlen ($ar_properties['FIRST_NAME']) > 0) {
+            $author_name .= (strlen ($author_name) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
+        }
+        if (strlen ($ar_properties['LAST_NAME']) > 0) {
+            $author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
+        }
+        if (strlen ($ar_properties['ORIG_NAME']) > 0) {
+            $author_name .= " / " . (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['ORIG_NAME'];
+        }
     }
 } 
 if (strlen ($arResult['PROPERTIES']["ISBN"]["VALUE"]) ) {
