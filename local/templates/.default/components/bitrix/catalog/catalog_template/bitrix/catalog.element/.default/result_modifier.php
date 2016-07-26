@@ -605,47 +605,48 @@ if ($arResult['MODULES']['currency'])
 		setcookie('BITRIX_SM_LASTEST_SEEN_NEW', null, -1, '/');
 		return true;
 	}
-    
-    // SET TITLE
+ 
+    // получение имён авторов книги
     $arResult["AUTHOR_NAME"] = '';
-    
-    if (!is_array($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'])
-        && !empty($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'])) {
-            $arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'] = array($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE']);
+    $ar_properties = array();
+    if (!is_array($arResult['PROPERTIES']['AUTHORS']['VALUE'])
+        && !empty($arResult['PROPERTIES']['AUTHORS']['VALUE'])) {
+        $arResult['PROPERTIES']['AUTHORS']['VALUE'] = array($arResult['PROPERTIES']['AUTHORS']['VALUE']);
     }
-    foreach ($arResult['DISPLAY_PROPERTIES']['AUTHORS']['DISPLAY_VALUE'] as $AUTHOR_KEY => $author) {
-        if (!empty ($arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY]) ) {
-            $aElProperties = CIBlockElement::GetByID($arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY])->GetNext();
-            $aElProperties['LAST_NAME'] = CIBlockElement::GetProperty(AUTHORS_IBLOCK_ID,  $arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY],  array(),  array('CODE' => 'LAST_NAME'))->Fetch();
-            $aElProperties['FIRST_NAME'] = CIBlockElement::GetProperty(AUTHORS_IBLOCK_ID,  $arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY],  array(),  array('CODE' => 'FIRST_NAME'))->Fetch();
-            $aElProperties['SHOWINAUTHORS'] = CIBlockElement::GetProperty(AUTHORS_IBLOCK_ID,  $arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY],  array(),  array('CODE' => 'SHOWINAUTHORS'))->Fetch();
-            $aElProperties['ORIG_NAME'] = CIBlockElement::GetProperty(AUTHORS_IBLOCK_ID,  $arResult['DISPLAY_PROPERTIES']['AUTHORS']['VALUE'][$AUTHOR_KEY],  array(),  array('CODE' => 'ORIG_NAME'))->Fetch();
-
-            if (strlen ($aElProperties['FIRST_NAME']['VALUE']) > 0) {
-                $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $aElProperties['FIRST_NAME']['VALUE'];
+    $authors_IDs = $arResult['PROPERTIES']['AUTHORS']['VALUE'];
+    if (!empty($authors_IDs)) {
+        $authors_list = CIBlockElement::GetList (
+            array(), 
+            array("IBLOCK_ID" => AUTHORS_IBLOCK_ID, "ID" => $authors_IDs), 
+            false, 
+            false, 
+            array(
+                "ID", 
+                "PROPERTY_LAST_NAME", 
+                "PROPERTY_FIRST_NAME", 
+                "PROPERTY_SHOWINAUTHORS", 
+                "PROPERTY_ORIG_NAME"
+            )
+        );
+        
+        while ($authors = $authors_list -> Fetch()) {
+            $ar_properties["LAST_NAME"] = $authors["PROPERTY_LAST_NAME_VALUE"];
+            $ar_properties["FIRST_NAME"] = $authors["PROPERTY_FIRST_NAME_VALUE"];
+            $ar_properties["SHOWINAUTHORS"] = $authors["PROPERTY_SHOWINAUTHORS_VALUE"];
+            $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
+        
+            if (strlen ($ar_properties['FIRST_NAME']) > 0) {
+                $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
             }
-            if (strlen ($aElProperties['LAST_NAME']['VALUE']) > 0) {
-                $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $aElProperties['LAST_NAME']['VALUE'];
+            if (strlen ($ar_properties['LAST_NAME']) > 0) {
+                $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
             }
-            if (strlen ($aElProperties['ORIG_NAME']['VALUE']) > 0) {
-                $arResult["AUTHOR_NAME"] .= " / " . (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $aElProperties['ORIG_NAME']['VALUE'];
-            }
+            if (strlen ($ar_properties['ORIG_NAME']) > 0) {
+                $arResult["AUTHOR_NAME"] .= " / " . (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['ORIG_NAME'];
+            }      
         }
-    }      
-    
-    if (strlen ($arResult['PROPERTIES']["ISBN"]["VALUE"]) ) {
-        $title = 'Книга «' . $arResult["NAME"] . '» ' . $arResult["AUTHOR_NAME"] . ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"] . ' купить в интернет-магазине с доставкой';
-    } else if ($MEDIA_TYPE) {
-        $title = $arResult["NAME"] . ' ' . $arResult["AUTHOR_NAME"] . ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"] . ' купить в интернет-магазине с доставкой';
-    } else {
-        $title = $arResult["NAME"] . ' ' . $arResult["AUTHOR_NAME"] . GetMessage("TO_BUY_WITH_DELIVERY");    
     }
-    if (!empty ($title) )  {
-        $APPLICATION -> SetTitle($title);
-    }
-    
-    $APPLICATION->SetPageProperty("description", $arResult["PREVIEW_TEXT"]); 
-    
+
     $img = GetIBlockElement($arResult["PROPERTIES"]["additional_image"]["VALUE"]);
     $arResult["additional_image"]['DETAIL_PICTURE'] = CFile::ResizeImageGet($img['DETAIL_PICTURE'], 
         Array("width"=>80, "height"=>80), 
