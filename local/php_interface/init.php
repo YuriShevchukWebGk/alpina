@@ -1264,7 +1264,7 @@
     AddEventHandler('main', 'OnBeforeEventSend', 'RegisterNoneEmail');   // вызывается перед отправкой шаблона письма
 
     function RegisterNoneEmail (&$arFields, &$arTemplate) {     // при создании пользователя с одинаковым генерируемым email не отправляет письмо
-        if(stristr($arFields["LOGIN"], 'newuser_') == true && $arTemplate["EVENT_NAME"] == 'NEW_USER'){
+        if(stristr($arFields["LOGIN"], 'newuser_') == true && in_array($arTemplate["EVENT_NAME"], array('NEW_USER', 'USER_INFO'))) {
             return false;
         }
         /*
