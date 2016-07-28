@@ -10,26 +10,58 @@ if ($USER->isAdmin()) {
 	
 	$la = unserialize($rsCurUser->Fetch()["UF_TEST"]);
 	
-	$arFilter = Array("IBLOCK_ID"=>4, "ID"=>70007);
+	$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
+	$recsArray = json_decode($stringRecs);	
+	
+	$arFilter = Array("IBLOCK_ID"=>4, "PROPERTY_best_seller"=>285);
 	$res = CIBlockElement::GetList(Array(), $arFilter);
-	if ($ob = $res->GetNextElement()){
+	while ($ob = $res->GetNextElement()){
 		$arProps = $ob->GetProperties();
 		$arFields = $ob->GetFields();
 		echo "<pre>";
-		//print_r($arProps);
+		echo $arFields[NAME];
+		CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => ''));
+		
+		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 60) {
+			$obEl = new CIBlockElement();
+			//CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('STATE' => ''));
+			echo 'set as old';
+		}
+		else
+			echo 'new';
 		echo "</pre>";
-		$isSecure = false;
-		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-			$isSecure = true;
-		}
-		elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
-			$isSecure = true;
-		}
-		$REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
-		echo $REQUEST_PROTOCOL;
-		//CIBlockElement::SetPropertyValuesEx(60905, 4, array('appstore' => '231', 'android' => '232'));	
 	}
 	echo "<br />";	
+	
+	$arFilter = Array("IBLOCK_ID"=>4, "ID"=>$recsArray);
+	$res = CIBlockElement::GetList(Array(), $arFilter);
+	while ($ob = $res->GetNextElement()){
+		$arProps = $ob->GetProperties();
+		$arFields = $ob->GetFields();
+		echo "<pre>";
+		echo $arFields[NAME];
+		CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => '285'));
+		
+		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 60) {
+			$obEl = new CIBlockElement();
+			//CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('STATE' => ''));
+			echo 'set as old';
+		}
+		else
+			echo 'new';
+		echo "</pre>";
+	}
+	echo "<br />";	
+	
+	$isSecure = false;
+	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+		$isSecure = true;
+	}
+	elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+		$isSecure = true;
+	}
+	$REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
+	echo $REQUEST_PROTOCOL;	
 	
 	$filterGend = Array
 	(

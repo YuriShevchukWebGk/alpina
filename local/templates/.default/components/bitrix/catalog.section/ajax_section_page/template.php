@@ -524,9 +524,12 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             var WrappHeight = $(".wrapperCategor").height();
             var DescriptionHeight = $(".catalogDescription").height();
             var RecHeight = $(".grayTitle").height();
+			if (RecHeight == 0) {
+				RecHeight = 550;
+			}
             var BooksLiLength = $(".otherBooks ul li").length;
             
-            var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
+            var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil((BooksLiLength - 15) / 5) * 455;
             $(".wrapperCategor").css("height", startHeight+"px");
         }
         

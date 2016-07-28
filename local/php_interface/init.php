@@ -40,6 +40,7 @@
     define ("GIFT_BOOK_PROPERTY_ID", 427); // 419 - для тестовой копии
     define ("GIFT_BOOK_QUANTITY_PROPERTY_ID", 428); // 420 - для тестовой копии
     define ("GIFT_BOOK_BUYER_EMAIL_PROPERTY_ID", 429);
+    define ("GIFT_COUNPON_IBLOCK_ID", 51); //инфоблок, в котором хранится информация о подарочных сертификатах
 
     /***************
     *
@@ -189,7 +190,7 @@
                         //Write in infoblock
                         $arFields = array(
                             "ACTIVE" => "Y",
-                            "IBLOCK_ID" => 20,
+                            "IBLOCK_ID" => GIFT_COUNPON_IBLOCK_ID,
                             "NAME" => $arDiscounts[$arItemsInOrder["PRODUCT_ID"]]["NAME"],
                             "PROPERTY_VALUES" => array(
                                 "ORDER" => $ID,
@@ -262,7 +263,7 @@
         }
 		
 		//Create gift coupon after buy certificate
-        $IBLOCK_ID = 20;
+        $IBLOCK_ID = GIFT_COUNPON_IBLOCK_ID;
         if ($val=='Y') {
             GLOBAL $APPLICATION;
             //Get gift certificate
@@ -1295,6 +1296,16 @@
         }
     }
 
+    AddEventHandler('main', 'OnBeforeEventSend', 'AddCustomerInfo');
+
+    function AddCustomerInfo (&$arFields, &$arTemplate)
+    {
+        if ($arTemplate["ID"] == 177)
+        {
+            $arFields["ORDER_USER"] = Message::getClientName($arFields["ORDER_ID"]);
+        }
+    }
+	
     AddEventHandler('main', 'OnBeforeEventSend', "SubConfirmFunc");
 
     function SubConfirmFunc (&$arFields, &$arTemplate)
