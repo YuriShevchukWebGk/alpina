@@ -64,3 +64,9 @@ h2 {
     font-family: "Walshein_bold";
     font-size: 18px;
 }
+.back_to_arithmetics_page {
+    text-align: center;
+    font-family: "Walshein_bold";
+    font-size: 18px;
+    padding-bottom: 40px;
+}

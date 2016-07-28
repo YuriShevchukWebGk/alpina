@@ -298,8 +298,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                          && $arItem['PROPERTIES']['spec_price']['VALUE'] ) {
                                                 if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arItem['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
                                                     echo '<img class="discount_badge" src="/img/' . $arItem['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
-
-                                             } 
+                                                }
                                      }?>
                                  </div>
                                  
@@ -365,7 +364,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                          $gtmEcommerceImpressions .= "'list': 'category - " . $arResult["NAME"] . "',";
                          $gtmEcommerceImpressions .= "'position': '" . ($cell+1) . "'";
                          $gtmEcommerceImpressions .= "},";                        
-                 }?>
+                         }
+                         ?>
 
                  <script type="text/javascript">
                      <!-- //dataLayer GTM -->
@@ -412,9 +412,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 <p class="showMore">Показать ещё</p>
             <?}?>
             <?=$arResult["NAV_STRING"]?>            
-			<div class="catalogDescription">
-				<?=$arResult["DESCRIPTION"]?>
-			</div>
+            <div class="catalogDescription">
+                <?=$arResult["DESCRIPTION"]?>
+            </div>
         </div>
 
 
@@ -522,11 +522,14 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
         var maxpage = <?= ($arResult["NAV_RESULT"]->NavPageCount)?>;
         if ($(".bx-pagination").size() > 0) {
             var WrappHeight = $(".wrapperCategor").height();
-		    var DescriptionHeight = $(".catalogDescription").height();
+            var DescriptionHeight = $(".catalogDescription").height();
             var RecHeight = $(".grayTitle").height();
+			if (RecHeight == 0) {
+				RecHeight = 550;
+			}
             var BooksLiLength = $(".otherBooks ul li").length;
             
-            var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
+            var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil((BooksLiLength - 15) / 5) * 455;
             $(".wrapperCategor").css("height", startHeight+"px");
         }
         

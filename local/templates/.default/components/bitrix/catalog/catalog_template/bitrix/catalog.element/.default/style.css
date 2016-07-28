@@ -1220,3 +1220,21 @@
 .author_name a:hover, .recenz_author_name:hover {
 	text-decoration:underline;
 }
+.weRecomBlock .tapeOfPack {
+    color: #627478;
+    font-size: 14px;
+    font-family: "Walshein_regular";
+    height: 20px;
+}
+.authorBoolSlider .tapeOfPack{
+    color: #627478;
+    font-size: 14px;
+    font-family: "Walshein_regular";
+    height: 20px;
+}
+.uLookSlider .tapeOfPack {
+    color: #627478;
+    font-size: 14px;
+    font-family: "Walshein_regular";
+    height: 20px;
+}

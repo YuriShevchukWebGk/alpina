@@ -40,7 +40,7 @@ for($index = 0; $index < $itemSize; $index++) {
                     <a href="' . $arResult[$index]["LINK"] . '" title="' . $title . '" itemprop="item">
                         <span itemprop="name">' . $title . '</span>
                     </a>
-					<meta itemprop="position" content="' . ($index == 0 ? 1 : $index) . '" />
+                    <meta itemprop="position" content="' . ($index == 0 ? 1 : $index) . '" />
                 </span>';  
         } else {
             $strReturn .= '

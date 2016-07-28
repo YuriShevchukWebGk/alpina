@@ -13,16 +13,22 @@ $arUrlRewrite = array(
 		"PATH" => "/bitrix/services/ymarket/index.php",
 	),
 	array(
-		"CONDITION" => "#^/authors/#",
+		"CONDITION" => "#^/good-arithmetics-news/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
-		"PATH" => "/authors/index.php",
+		"PATH" => "/good-arithmetics-news/index.php",
 	),
 	array(
 		"CONDITION" => "#^/catalog/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog",
 		"PATH" => "/catalog/index.php",
+	),
+	array(
+		"CONDITION" => "#^/authors/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/authors/index.php",
 	),
 	array(
 		"CONDITION" => "#^/series/#",

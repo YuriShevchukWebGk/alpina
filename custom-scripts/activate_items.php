@@ -46,8 +46,10 @@ if ($USER->isAdmin()) {
 		$order = CSaleOrder::GetByID(63373);
 		$trackingNumber = $order["DELIVERY_DOC_NUM"];
 	}
-	$trackingNumber = "11172595017926";
-	//print_r($trackingNumber);
+	
+	$trackingNumber = "RA372259186RU";
+	$trackingNumber = "11172598063968";
+	$trackingNumber = "RA372259535RU";
 
 	if (!empty($trackingNumber) && preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {
 		$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
@@ -55,19 +57,47 @@ if ($USER->isAdmin()) {
 
 		$client2 = new SoapClient($wsdlurl, array('trace' => 1, 'soap_version' => SOAP_1_2));
 
+		$allUsers = array(
+			array('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf'), //Марченков
+			array('login'=>'cruZXgcQzVDFRc','password'=>'s98awuYAXRrG'), //Петухова
+			array('login'=>'dxviIPkwrlaEHS','password'=>'8dZACYAfBEqj'), //Данилова
+			array('login'=>'AGSEccWQxDUTVY','password'=>'RbOU2Eh3cJqH') //Разумовская
+		);
+		
+		$countUsers = count($allUsers);
+		
 		$params3 = array ('OperationHistoryRequest' => array ('Barcode' => $trackingNumber, 'MessageType' => '0','Language' => 'RUS'),
-							//'AuthorizationHeader' => array ('login'=>'reCbiSaKylFiDh','password'=>'VdbVsIc7dtuf')); //Марченков
-							//'AuthorizationHeader' => array ('login'=>'cruZXgcQzVDFRc','password'=>'s98awuYAXRrG')); //Петухова
-							'AuthorizationHeader' => array ('login'=>'dxviIPkwrlaEHS','password'=>'8dZACYAfBEqj')); //Данилова
-
-		try {  
-			$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
-		} catch (SoapFault $e) {
-			//var_dump($e); 
-			echo 'Ошибка авторизации<br />';
-		}
+						  'AuthorizationHeader' => $allUsers[0]);
 		
 
+		for ($i = 1; $i <= $countUsers; $i++) {
+			try {
+				echo $params3['AuthorizationHeader']['login']."<br />";
+				$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
+				$i = $countUsers;
+			} catch (SoapFault $e) {
+				//var_dump($e); 
+				$params3['AuthorizationHeader'] = $allUsers[$i];
+				if ($i == $countUsers) 
+					echo 'Ошибка авторизации<br />';
+			}
+		}
+foreach ($result->OperationHistoryData->historyRecord as $record) {
+	printf("<p>Дата: %s</br>ID операции: %s</br>Название операции: %s</br>Место проведения операции:%s<br />ID атрибута: %s<br />Название атрибута: %s</p>",
+	$record->OperationParameters->OperDate,
+	$record->OperationParameters->OperType->Id,
+	$record->OperationParameters->OperType->Name,
+	$record->AddressParameters->OperationAddress->Description,
+	$record->OperationParameters->OperAttr->Id,
+	$record->OperationParameters->OperAttr->Name);
+};		
+		
+		$count = count($result->OperationHistoryData->historyRecord);
+		echo $count;
+		$record = $result->OperationHistoryData[0];
+		print_r($record);
+		
+		
 		echo $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Id;
 		echo $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]->OperationParameters->OperAttr->Name;
 
@@ -91,6 +121,15 @@ if ($USER->isAdmin()) {
 			echo 2;
 		}
 		echo 1;
+		$record = $result->OperationHistoryData->historyRecord[count($result->OperationHistoryData->historyRecord)-1]; 
+			printf("<p>Дата: %s</br>ID операции: %s</br>Название операции: %s</br>Место проведения операции:%s<br />ID атрибута: %s<br />Название атрибута: %s</p>",
+			$record->OperationParameters->OperDate,
+			$record->OperationParameters->OperType->Id,
+			$record->OperationParameters->OperType->Name,
+			$record->AddressParameters->OperationAddress->Description,
+			$record->OperationParameters->OperAttr->Id,
+			$record->OperationParameters->OperAttr->Name);
+			
 	} else {
 		echo 'sdlkfjsdlfk';
 	}
