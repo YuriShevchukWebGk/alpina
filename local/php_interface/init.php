@@ -41,6 +41,24 @@
     define ("GIFT_BOOK_QUANTITY_PROPERTY_ID", 428); // 420 - для тестовой копии
     define ("GIFT_BOOK_BUYER_EMAIL_PROPERTY_ID", 429);
     define ("GIFT_COUNPON_IBLOCK_ID", 51); //инфоблок, в котором хранится информация о подарочных сертификатах
+    
+    /**
+	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
+	 * 
+	 * @return array
+	 * */
+	function getDefaultFlippostValues() {
+		return $flippost_default_values = array(
+			array(
+				"PRICE" => 1500.00,
+				"WEIGHT" => array(0, 5000)
+			),
+			array(
+				"PRICE" => 3000.00,
+				"WEIGHT" => 5000
+			),
+		);
+	}
 
     /***************
     *
@@ -128,8 +146,27 @@
 	 * */
 	function flippostHandlerBefore(&$arFields) {
 		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
-			$arFields['PRICE'] += floatval($_REQUEST['flippost_cost']);
-			$arFields['PRICE_DELIVERY'] = floatval($_REQUEST['flippost_cost']);
+			$delivery_price = 0;
+			$flippost_default_values = getDefaultFlippostValues();
+			if ($_REQUEST['flippost_cost']) {
+				$delivery_price = $_REQUEST['flippost_cost'];
+			} else {
+				foreach ($flippost_default_values as $default_variant) {
+					if (is_array($default_variant['WEIGHT'])) {
+						if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
+							$delivery_price = $default_variant['PRICE'];
+							break;
+						}
+					} else {
+						if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
+							$delivery_price = $default_variant['PRICE'];
+							break;
+						}
+					}
+				}
+			}
+			$arFields['PRICE'] += floatval($delivery_price);
+			$arFields['PRICE_DELIVERY'] = floatval($delivery_price);
 		}
 	}
 	
