@@ -143,7 +143,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                         "ELEMENT_SORT_FIELD" => "PROPERTY_SALES_CNT",
                         "ELEMENT_SORT_ORDER" => "desc",
                         "FILTER_NAME" => "BestsellFilter",
-                        "INCLUDE_SUBSECTIONS" => "N",
+                        "INCLUDE_SUBSECTIONS" => "Y",
                         "SHOW_ALL_WO_SECTION" => "Y",
                         "PAGE_ELEMENT_COUNT" => "10",
                         "LINE_ELEMENT_COUNT" => "1",
@@ -524,9 +524,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             var WrappHeight = $(".wrapperCategor").height();
             var DescriptionHeight = $(".catalogDescription").height();
             var RecHeight = $(".grayTitle").height();
-			if (RecHeight == 0) {
-				RecHeight = 550;
-			}
+            if (RecHeight == 0) {
+                RecHeight = 550;
+            }
             var BooksLiLength = $(".otherBooks ul li").length;
             
             var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil((BooksLiLength - 15) / 5) * 455;
