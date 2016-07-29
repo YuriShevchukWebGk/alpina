@@ -31,28 +31,34 @@ $arUrlRewrite = array(
 		"PATH" => "/authors/index.php",
 	),
 	array(
-		"CONDITION" => "#^/series/#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/series/index.php",
-	),
-	array(
 		"CONDITION" => "#^/events/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/events/index.php",
 	),
 	array(
-		"CONDITION" => "#^/store/#",
+		"CONDITION" => "#^/series/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
-		"PATH" => "/events/index.php",
+		"PATH" => "/series/index.php",
+	),
+	array(
+		"CONDITION" => "#^\\??(.*)#",
+		"RULE" => "&\$1",
+		"ID" => "bitrix:catalog.section",
+		"PATH" => "/local/templates/.default/components/bitrix/news/series/bitrix/news.detail/.default/template.php",
 	),
 	array(
 		"CONDITION" => "#^/store/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog.store",
 		"PATH" => "/store/index.php",
+	),
+	array(
+		"CONDITION" => "#^/store/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/events/index.php",
 	),
 	array(
 		"CONDITION" => "#^/news/#",
