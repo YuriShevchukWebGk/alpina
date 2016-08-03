@@ -190,6 +190,14 @@
 			$arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
             
 			CSaleOrderPropsValue::Add($arPropFields);
+			
+			// Добавляем полную стоимость заказа в оплату
+			$order_instance = Bitrix\Sale\Order::load($ID);
+			$payment_collection = $order_instance->getPaymentCollection();
+			foreach ($payment_collection as $payment) {
+				$payment->setField('SUM', $arFields['PRICE']);
+				$payment->save();
+			}
 		}
 	}
 
