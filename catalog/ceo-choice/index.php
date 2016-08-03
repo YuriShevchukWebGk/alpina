@@ -68,13 +68,16 @@ array('name'=>'Харизма: Как влиять, убеждать и вдох
 		height:305px;
 		width:200px;
 		float:left;
+		font-family: "Walshein_regular";
+		font-size:17px;
 	}
 </style>
 <div id="allBooks">
 <?foreach ($books as $book) {?>
 	<div class="singleBook">
 		<div class="singleImg">
-			<a href="<?=$book["link"]?>"><img src="<?=$book["img"]?>" align="left" /></a>
+			<a href="<?=$book["link"]?>"><img src="<?=$book["img"]?>" /><br />
+			Подробнее о книге</a>
 		</div>
 		<div class="singleWrap">
 			<a href="<?=$book["link"]?>"><span class="singleTitle"><?=$book["name"]?></span></a>

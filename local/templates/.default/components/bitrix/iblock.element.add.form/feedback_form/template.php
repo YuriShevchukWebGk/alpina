@@ -186,7 +186,7 @@ if (strlen($arResult["MESSAGE"]) > 0):?>
                                         $value = "";
                                     }
                                 ?>
-                        <textarea class="questInput" name="PROPERTY[<?=$propertyID?>][<?=$i?>]" placeholder="<?=$arResult["PROPERTY_LIST_FULL"][$propertyID]["NAME"]?>"><?=$value?></textarea>
+                        <textarea class="questInput" name="PROPERTY[<?=$propertyID?>][<?=$i?>]" placeholder="<?=$arResult["PROPERTY_LIST_FULL"][$propertyID]["NAME"]?>" required><?=$value?></textarea>
                                 <?
                                 }
                             break;
@@ -380,24 +380,26 @@ if (strlen($arResult["MESSAGE"]) > 0):?>
 <script>
 
     $(".contactsFormWrap input[type=submit]").on("click", function(e){
-        if (!isEmail($("input[name='PROPERTY[183][0]']").val()))
-        {
+        if (!isEmail($("input[name='PROPERTY[183][0]']").val())) {
             e.preventDefault();
             $("input[name='PROPERTY[183][0]']").css("border", "1px solid red");
             
-        }
-        else
-        {
+        } else {
             $("input[name='PROPERTY[183][0]']").css("border", "1px solid #f0f0f0");    
         }
-        if (!isTelephone($("input[name='PROPERTY[184][0]']").val()))
-        {
+		
+        if (!isTelephone($("input[name='PROPERTY[184][0]']").val())) {
             e.preventDefault();
             $("input[name='PROPERTY[184][0]']").css("border", "1px solid red");
-        }
-        else
-        {
+        } else {
             $("input[name='PROPERTY[184][0]']").css("border", "1px solid #f0f0f0");    
+        }
+		
+		if ($("input[name='PROPERTY[NAME][0]']").val() == '') {
+            e.preventDefault();
+            $("input[name='PROPERTY[NAME][0]']").css("border", "1px solid red");
+        } else {
+            $("input[name='PROPERTY[NAME][0]']").css("border", "1px solid #f0f0f0");    
         }
     })
 

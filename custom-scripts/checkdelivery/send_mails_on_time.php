@@ -396,11 +396,12 @@ if ($USER->isAdmin()) {
 
 					if ($record->OperationParameters->OperType->Id == 2) {
 							
-						$arFields = array(
-							"EMP_STATUS_ID" => $userID1,
-							"STATUS_ID" => "F"
-						);
-						CSaleOrder::Update($id, $arFields);
+						if (CSaleOrder::StatusOrder($id, "F")) {
+							$arFields = array(
+								"EMP_STATUS_ID" => $userID1
+							);
+							CSaleOrder::Update($id, $arFields);
+						}
 						//echo $id."*Заказ почтой выполнен*".$userID1."<br />";
 						$finalReport .= "<tr style='color:green;font-weight:700;'>
 							<td>".$id."</td>
@@ -542,11 +543,12 @@ if ($USER->isAdmin()) {
 
 					if ($record->OperationParameters->OperType->Id == 2) {
 						//echo "4.2.1a<br />";
-						$arFields = array(
-							"EMP_STATUS_ID" => $userID1,
-							"STATUS_ID" => "F"
-						);
-						CSaleOrder::Update($id, $arFields);
+						if (CSaleOrder::StatusOrder($id, "F")) {
+							$arFields = array(
+								"EMP_STATUS_ID" => $userID1
+							);
+							CSaleOrder::Update($id, $arFields);
+						}
 						//echo $id."*Заказ почтой заграницу выполнен*".$userID1."<br />";
 						$finalReport .= "<tr style='color:green;font-weight:700;'>
 							<td>".$id."</td>
@@ -678,11 +680,12 @@ if ($USER->isAdmin()) {
 	{
 		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 14) {
 			$id = $arSales["ID"];
-			$arFields = array(
-				"EMP_STATUS_ID" => $userID1,
-				"STATUS_ID" => "F"
-			);
-			CSaleOrder::Update($id, $arFields);
+			if (CSaleOrder::StatusOrder($id, "F")) {
+				$arFields = array(
+					"EMP_STATUS_ID" => $userID1
+				);
+				CSaleOrder::Update($id, $arFields);
+			}
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Flippost</td>
@@ -706,16 +709,14 @@ if ($USER->isAdmin()) {
 	while ($arSales = $rsSales->Fetch())
 	{
 		$id = $arSales["ID"];
-		if (
-			(time() - strtotime($arSales[DATE_STATUS]))/86400 > 5 &&	// Если прошло больше пяти дней
+		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 5 &&	// Если прошло больше пяти дней
 			(time() - strtotime($arSales[DATE_STATUS]))/86400 < 10 &&	// и меньше 10 дней
-			$arSales["EMP_STATUS_ID"] != $userID1)						// и еще не отправляли первое уведомление
-			{
+			$arSales["EMP_STATUS_ID"] != $userID1) { 					// и еще не отправляли первое уведомление
 			$subject = 'Заказ №'.$id.' собран и ожидает оплаты. Альпина Паблишер.';
 			$notification = 'Ваш заказ №'.$id.' уже готов. Как только вы оплатите его, мы передадим его вам тем способом доставки, который вы выбрали.<br />
 			Спасибо, что читаете наши книги! <br /><br />
 			Вот, кстати, несколько новинок, которые тоже должны вам понравиться:';
-			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock);
+			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock, '');
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Неоплаченные заказа</td>
@@ -726,15 +727,13 @@ if ($USER->isAdmin()) {
 				<td></td>
 				<td>Прошло пять дней</td>
 				</tr>";	
-		} elseif (
-			(time() - strtotime($arSales[DATE_STATUS]))/86400 >= 10 &&	// Если прошло больше 10 дней
-			$arSales["EMP_STATUS_ID"] != $userID2)						// и еще не отправляли второе уведомление
-			{
+		} elseif ((time() - strtotime($arSales[DATE_STATUS]))/86400 >= 10 &&	// Если прошло больше 10 дней
+			$arSales["EMP_STATUS_ID"] != $userID2) {							// и еще не отправляли второе уведомление
 			$subject = 'Заказ '.$id.' собран и ожидает оплаты. Альпина Паблишер.';
 			$notification = 'Ваш заказ №'.$id.' уже готов. Как только вы оплатите его, мы передадим его вам тем способом доставки, который вы выбрали.<br />
 			Спасибо, что читаете наши книги! <br /><br />
 			Вот, кстати, несколько новинок, которые тоже должны вам понравиться:';
-			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock);
+			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock, '');
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Неоплаченные заказа</td>

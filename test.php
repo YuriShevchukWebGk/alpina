@@ -10,11 +10,11 @@ function AddTrack()
            var track = [];
            var userId = 34;
            var apikey = "2fa4c69a8aba5f8f9a38c35873ca325f";
-           track.push({trackingUserClientPhone: '79160000000', trackingUserClientTrack: '19527937484546',trackingUserClientEmail: 'support@r-lab.biz',trackingUserClientName:'тест',trackingUserClientItemCost:123,trackingUserClientOrderNumer:'12345',sendToUserEmailFullTracking:false,sendToAdminEmailFullTracking:false});
-           track.push({trackingUserClientPhone: '79150000000', trackingUserClientTrack: '63010828068631',trackingUserClientEmail: 'support@r-lab.biz',trackingUserClientName:'тест2',trackingUserClientItemCost:1234,trackingUserClientOrderNumer:'12346',sendToUserEmailFullTracking:false,sendToAdminEmailFullTracking:false});
+           track.push({trackingUserClientPhone: '79160000000', trackingUserClientTrack: '19527937484546',trackingUserClientEmail: 'support@r-lab.biz',trackingUserClientName:'пїЅпїЅпїЅпїЅ',trackingUserClientItemCost:123,trackingUserClientOrderNumer:'12345',sendToUserEmailFullTracking:false,sendToAdminEmailFullTracking:false});
+           track.push({trackingUserClientPhone: '79150000000', trackingUserClientTrack: '63010828068631',trackingUserClientEmail: 'support@r-lab.biz',trackingUserClientName:'пїЅпїЅпїЅпїЅ2',trackingUserClientItemCost:1234,trackingUserClientOrderNumer:'12346',sendToUserEmailFullTracking:false,sendToAdminEmailFullTracking:false});
            var hash = hex_md5(userId+':1952793748454663010828068631:'+apikey);
            jsonObj={trackingUserId: userId, trackingRequestKey: hash,testMode: false,trackingData:track};
-           //testMode - true (треки не добавляются в базу, только проверка запроса)
+           //testMode - true (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 
 try {
 $.ajax({

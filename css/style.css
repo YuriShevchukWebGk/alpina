@@ -4274,7 +4274,7 @@ right: 45px;
 .filterParams li:nth-child(2).active p:after, .filterParams li:nth-child(3).active p:after{
     content: url("/img/filtAftPictHov.png");
 }
-#prodBlock2, #prodBlock3, #prodBlock4{
+#prodBlock2, #prodBlock3, #prodBlock4, #prodBlock5 {
     display: none;
 }
 .hidingBasketRight .confirm a{

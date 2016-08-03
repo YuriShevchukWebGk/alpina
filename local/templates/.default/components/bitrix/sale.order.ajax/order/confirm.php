@@ -217,7 +217,7 @@ if ($_REQUEST["ORDER_ID"])
         <br /><br />
          <div id="promocode-element-container"></div>
             <?
-            if ($arResult["PAY_SYSTEM"]["ID"] != 1)
+            if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12)
             {
             ?>
                 <table class="sale_order_full_table">
@@ -297,7 +297,9 @@ if ($_REQUEST["ORDER_ID"])
                         }
                     ?>
                 </table>
-        <?  }
+			<? } elseif ($arResult["PAY_SYSTEM"]["ID"] == 12) {
+				echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
+			}
         }?>  
         
     </div>    

@@ -130,7 +130,14 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
             setDate:minDatePlus   
         });           
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker( "setDate", curDay );             
-        $("#ORDER_PROP_44, #ORDER_PROP_45").inputmask("d.m.y"); 
+        $("#ORDER_PROP_44, #ORDER_PROP_45").inputmask("d.m.y");
+		
+		if ($("#ID_DELIVERY_ID_11").is(':checked')) { //Если выбрана доставка почтой России
+			$(".inputTitle:contains('Получатель')").parent().append('<span class="hideInfo warningMessage" style="display:inline;color:grey">(ФИО полностью)</span>');
+		} else {
+			$(".inputTitle:contains('Получатель')").html('Получатель <span class="bx_sof_req">*</span></p>');
+			$(".hideInfo").hide();
+		}		
     }
 
     $(function(){
@@ -283,7 +290,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                     $(".flippost_error").hide();
                                     // дополнительная проверка полей и вывод ошибки  
                                     if (val == "Y")
-                                    {   
+                                    {
                                         if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == ''){
                                             flag = false;
                                             $('#ORDER_PROP_7').parent("div").children(".warningMessage").show(); 
@@ -359,7 +366,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 	                                            }
 	                                        }
                                         }
-                                    } 
+                                    }
 
                                     if(flag){
 

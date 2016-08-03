@@ -1,6 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Список желаемых покупок");
+$APPLICATION->SetTitle("Список желаний");
 ?>
 
             <p class="personal_title"><?$APPLICATION->ShowTitle();?></p>

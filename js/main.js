@@ -388,7 +388,7 @@ $(document).ready(function(){
         $('.productsMenu li').click(function(){
             $('.productsMenu li').removeClass('active');
             $(this).addClass('active');
-            $('#prodBlock1, #prodBlock2, #prodBlock3, #prodBlock4').hide();
+            $('#prodBlock1, #prodBlock2, #prodBlock3, #prodBlock4, #prodBlock5').hide();
             $('#prodBlock'+$(this).attr('data-id')).show();
             if (!$(".productsMenu li:first-child").hasClass("active"))
             {

@@ -145,8 +145,11 @@ $this->setFrameMode(true);
         if($(".roundSlideWrapp").size() == 0){
             $('.categoryWrapper .titleMain').css({"margin-bottom":"-42px"});
             if ($(".bx-pagination").size() > 0) {
-                $(".wrapperCategor").css("height", $(".wrapperCategor").height() - 360 + "px");
-                $(".contentWrapp").css("height", $(".contentWrapp").height() - 360 + "px");
+                //$(".wrapperCategor").css("height", $(".wrapperCategor").height() - 360 + "px");
+                //$(".contentWrapp").css("height", $(".contentWrapp").height() - 360 + "px");
+				if ($(".contentWrapp").height() > $(".wrapperCategor").height()) {
+					$(".wrapperCategor").css("height", $(".contentWrapp").height() + "px");
+				}
             }
         }
     })

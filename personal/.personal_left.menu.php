@@ -15,7 +15,7 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"список желаемых покупок", 
+		"Список желаний", 
 		"/personal/wishlist/", 
 		Array(), 
 		Array(), 

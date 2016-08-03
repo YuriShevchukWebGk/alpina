@@ -2,7 +2,6 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Акции интернет-магазина «Альпина Паблишер»");
 ?>
-<?if ($USER->isAdmin()){?>
 
 <div class="deliveryPageTitleWrap">
 	<div class="centerWrapper">
@@ -79,5 +78,4 @@ $APPLICATION->SetTitle("Акции интернет-магазина «Альп�
 		);?>
     </div>
 </div>
-<?}?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

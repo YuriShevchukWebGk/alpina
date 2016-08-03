@@ -71,6 +71,7 @@ $MESS["ANNOTATION_TITLE"] = "Аннотация";
 $MESS["ABOUT_AUTHOR_TITLE"] = "Об авторе";
 $MESS["REVIEWS_TITLE"] = "Рецензии";
 $MESS["COMMENTS_TITLE"] = "Отзывы";
+$MESS["EXREVIEWS_TITLE"] = "Эксперты";
 $MESS["VIDEO_PRESENTATIONS"] = "Видеопрезентация книги";
 $MESS["SHOW_ALL"] = "Смотреть все";
 $MESS["ALSO_RECOMMENDED_BOOKS"] = "Также рекомендуем";

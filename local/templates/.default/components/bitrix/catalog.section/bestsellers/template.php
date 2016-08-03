@@ -404,7 +404,14 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
 <script>
     // скрипт ajax-подгрузки товаров в блоке "Все книги"
     $(document).ready(function() {
+		var categor_height;
 
+		<?if (strstr($APPLICATION -> GetCurDir(), "/series/")) {?>
+			categor_height = 1850 + Math.ceil((books_block_length - 15) / 5) * 455;
+		<?} else {?>
+			categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
+		<?}?>		
+		//$(".wrapperCategor").css("height", categor_height + "px");
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_" . $navnum])) {?>
             var page = <?= $_REQUEST["PAGEN_" . $navnum] ?> + 1;
@@ -438,8 +445,9 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
                     categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
                 <?}?>
                 other_books.css("height", other_books_height + "px");
-                $(".wrapperCategor").css("height", categor_height + "px");
-                $(".contentWrapp").css("height", categor_height - 10 + "px");
+                //$(".wrapperCategor").css("height", categor_height + "px");
+                //$(".contentWrapp").css("height", categor_height - 10 + "px");
+				//$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
             });
             if (page == maxpage) {
                 $('.showMore').hide();

@@ -27,6 +27,9 @@
     </style>
 
 <?}?>
+<style>
+.wrapperCategor, .categoryWrapper .contentWrapp {height:auto;}
+</style>
 <?
 $navnum = $arResult["NAV_RESULT"]->NavNum;
 if ($_REQUEST["PAGEN_" . $navnum]) {
@@ -530,7 +533,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             var BooksLiLength = $(".otherBooks ul li").length;
             
             var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil((BooksLiLength - 15) / 5) * 455;
-            $(".wrapperCategor").css("height", startHeight+"px");
+            //$(".wrapperCategor").css("height", startHeight+"px");
         }
         
         $('.showMore').click(function(){
@@ -568,8 +571,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     var categorHeight = WrappHeight+RecHeight+200 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
                     
                     $(".otherBooks").css("height", otherBooksHeight+"px");
-                    $(".wrapperCategor").css("height", categorHeight+"px");
-                    $(".contentWrapp").css("height", categorHeight-10+"px");
+                    //$(".wrapperCategor").css("height", categorHeight+"px");
+                    //$(".contentWrapp").css("height", categorHeight-10+"px");
+					$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
             });
             if (page == maxpage) {
                 $('.showMore').hide();
@@ -606,8 +610,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                         var categorHeight = WrappHeight+RecHeight+200+ Math.ceil(($(".otherBooks ul li").length - BooksLiLength) / 5) * 455;    
                             
                         $(".otherBooks").css("height", otherBooksHeight+"px");
-                        $(".wrapperCategor").css("height", categorHeight+"px");
-                        $(".contentWrapp").css("height", categorHeight-10+"px");
+                        //$(".wrapperCategor").css("height", categorHeight+"px");
+                        //$(".contentWrapp").css("height", categorHeight-10+"px");
+						$(".wrapperCategor").css("height", $(".wrapperCategor").height()+"px");
 
                 });
                 if (upd_page == maxpage) {
