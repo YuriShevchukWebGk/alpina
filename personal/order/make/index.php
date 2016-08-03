@@ -5,7 +5,7 @@ $APPLICATION->SetTitle("Заказы");
 	"bitrix:sale.order.ajax", 
 	"order", 
 	array(
-		"PAY_FROM_ACCOUNT" => "Y",
+		"PAY_FROM_ACCOUNT" => "N",
 		"COUNT_DELIVERY_TAX" => "N",
 		"COUNT_DISCOUNT_4_ALL_QUANTITY" => "N",
 		"ONLY_FULL_PAY_FROM_ACCOUNT" => "N",
