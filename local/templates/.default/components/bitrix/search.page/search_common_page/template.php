@@ -224,6 +224,30 @@
                         <?}?>
                         <?// книги в результатах поиска
                         if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) {?>
+                            <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
+                                if (($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"])
+                                    || ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"])) {
+                                
+                                        $discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
+                                } else {
+                                    $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
+                                }
+                            }
+                            $item_discount_value = 0;
+                            if ($discount) {
+                                $newPrice = round (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"]) * (1 - $discount / 100), 2);
+                                if (strlen (stristr($newPrice, ".")) == 2) {
+                                    $newPrice .= "0";
+                                }
+                            } else {
+                                $newPrice = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"];
+                            }
+                            if (!empty($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"])) {
+                                $item_discount_value = ceil($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"]["VALUE"]);
+                            }
+                            if ($item_discount_value > 0) {
+                                $newPrice = $newPrice * (1 - $item_discount_value / 100);    
+                            }?>
                 
                             <div class="searchBook">
                                 <div>
@@ -245,7 +269,7 @@
                                         <?if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                                         ?>
-                                                <p class="price"><?= ceil( $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"]) ?> руб.</p>
+                                                <p class="price"><?= ceil( $newPrice) ?> руб.</p>
                                         <?} else if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                                 <p class="price">Ожидаемая дата выхода: <?= strtolower(FormatDate(
                                                     "j F", 

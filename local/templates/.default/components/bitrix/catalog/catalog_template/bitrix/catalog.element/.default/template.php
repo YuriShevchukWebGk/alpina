@@ -312,10 +312,17 @@ $arItemIDs = array(
                                             if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
                                             <div class="oldPrice"><span itemprop="price"><?= $arPrice["PRINT_VALUE"] ?></span><p></p></div>
                                             <?// расчитываем накопительную скидку от стоимости
-                                                $newPrice = round (($arPrice["DISCOUNT_VALUE"]), 2);
-                                                if (strlen (stristr($newPrice, ".")) == 2) {
-                                                    $newPrice .= "0";
-                                            }?>
+                                                if ($discount) {
+                                                    $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
+                                                    if (strlen (stristr($newPrice, ".")) == 2) {
+                                                        $newPrice .= "0";
+                                                    }    
+                                                } else {
+                                                    $newPrice = round (($arPrice["DISCOUNT_VALUE"]), 2);
+                                                    if (strlen (stristr($newPrice, ".")) == 2) {
+                                                        $newPrice .= "0";
+                                                    }
+                                                }?>
                                             <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                             <?} else if ($discount) {
                                                 $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);

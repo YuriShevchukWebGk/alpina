@@ -572,7 +572,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     
                     $(".otherBooks").css("height", otherBooksHeight+"px");
                     //$(".wrapperCategor").css("height", categorHeight+"px");
-                    //$(".contentWrapp").css("height", categorHeight-10+"px");
+                    $(".contentWrapp").css("height", categorHeight-10+"px");
 					$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
             });
             if (page == maxpage) {
@@ -611,7 +611,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                             
                         $(".otherBooks").css("height", otherBooksHeight+"px");
                         //$(".wrapperCategor").css("height", categorHeight+"px");
-                        //$(".contentWrapp").css("height", categorHeight-10+"px");
+                        $(".contentWrapp").css("height", categorHeight-10+"px");
 						$(".wrapperCategor").css("height", $(".wrapperCategor").height()+"px");
 
                 });

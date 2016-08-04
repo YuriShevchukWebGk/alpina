@@ -128,4 +128,14 @@ if (!empty($series_array)) {
     }
 }
 
+$rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
+    $ar_sale = array();
+    while($ar_sale=$rr->Fetch()) {
+        $arResult["SALE_NOTE"][] = $ar_sale;
+    }
+ $arResult["SAVINGS_DISCOUNT"] =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
+ $discounts_list = CCatalogDiscount::GetList(array(), array("PRODUCT_ID" => $books_array), false, false, array("ID", "VALUE", "PRODUCT_ID"));
+ while ($discounts = $discounts_list -> Fetch()) {
+     $arResult["BOOK_INFO"][$discounts["PRODUCT_ID"]]["DISCOUNT_INFO"] = $discounts;
+ }
 ?>

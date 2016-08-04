@@ -1678,16 +1678,16 @@ $(document).ready(function() {
     books_block_length = $(".otherBooks li").length;
     
     if ((books_block_length < 11) && (books_block_length > 5)) {
-        $(".contentWrapp").css("height", "1000px");
-        $(".wrapperCategor").css("height", "1150px");
+        //$(".contentWrapp").css("height", "1000px");
+        //$(".wrapperCategor").css("height", "1150px");
     }
     else if (books_block_length < 6) {
-        $(".contentWrapp").css("height", "700px");
-        $(".wrapperCategor").css("height", "770px");       
+        //$(".contentWrapp").css("height", "700px");
+        //$(".wrapperCategor").css("height", "770px");       
     }
     
     if ($(".categoryWrapperWhite .sliderUl li").size() == 0) {   
-        $(".contentWrapp").css("height",  $(".contentWrapp").height() - $(".categoryWrapperWhite").height() + "px");
+        //$(".contentWrapp").css("height",  //$(".contentWrapp").height() - $(".categoryWrapperWhite").height() + "px");
         $(".categoryWrapperWhite").hide();
     }
     
