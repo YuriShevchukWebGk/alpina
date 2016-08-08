@@ -11,7 +11,7 @@
     height: 58px;
 }
 .ng-scope{
-    display:none;
+    /*display:none;*/
 }
 </style>
 <?
@@ -41,8 +41,9 @@ if ($USER -> IsAuthorized())
         <!-- /container -->
     </section>
     <!-- /l-section-wrap -->
-
-    <app></app>
+    <?if ($USER -> IsAdmin()) {?>
+        <app></app>
+    <?}?>
 <?
 }
 else

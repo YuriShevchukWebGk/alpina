@@ -3,22 +3,26 @@ global $USER;
 $alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
 $alpExps  = (!$alpExps ? array() : $alpExps);
 
-if ($alpExps['updateExp'] != "160516") {
+if ($alpExps['updateExp'] != "040816") {
     $alpExps = array();
-    $alpExps['updateExp'] = "160516";
+    $alpExps['updateExp'] = "040816";
 }
 
 //$alpExps['smartBannerApple']	= (!$alpExps['smartBannerApple'] ? rand(1,2) : $alpExps['smartBannerApple']);
+/*if ($APPLICATION->GetCurDir() == '/personal/cart/') {
+    $alpExps['recsInCart']        = (!$alpExps['recsInCart'] ? rand(1,2) : $alpExps['recsInCart']);
+}*/
+
 $alpExps['discountBlock']		= (!$alpExps['discountBlock'] ? rand(1,2) : $alpExps['discountBlock']);
 
-if ($APPLICATION->GetCurDir() == '/personal/cart/') {
-    $alpExps['recsInCart']        = (!$alpExps['recsInCart'] ? rand(1,2) : $alpExps['recsInCart']);
+if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
+	$alpExps['expertReviews']	= (!$alpExps['expertReviews'] ? rand(1,2) : $alpExps['expertReviews']);
 }
 ?>
 
 
-<!-- Тест Рекомендаций в корзине -->
-<?if ($APPLICATION->GetCurDir() == '/personal/cart/') {
+<!-- Тест Рекомендаций в корзине ЗАВЕРШЕН -->
+<?/*if ($APPLICATION->GetCurDir() == '/personal/cart/') {
     if ($alpExps['recsInCart'] == 1) {?>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -45,10 +49,44 @@ if ($APPLICATION->GetCurDir() == '/personal/cart/') {
             });
         </script>
     <?}
-}?>
+}*/?>
 <!-- //Тест Рекомендаций в корзине -->
 
-<!-- Тест Рекомендаций в корзине -->
+<!-- Тест Скидок на главной -->
+<?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
+	if ($alpExps['expertReviews'] == 1) {?>
+		<style>
+			#prodBlock1 .reviewsBlockDetail {display:none!important;}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				dataLayer.push({
+					event: 'ab-test-gtm',
+					action: 'expertReviews',
+					label: 'newTab'
+				});
+				console.log('expertReviews newTab');
+			});
+		</script>
+	<?} elseif ($alpExps['expertReviews'] == 2) {?>
+		<style>
+			.abShow {display:none!important;}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				dataLayer.push({
+					event: 'ab-test-gtm',
+					action: 'expertReviews',
+					label: 'doNothing'
+				});
+				console.log('expertReviews doNothing');
+			});
+		</script>
+	<?}
+}?>
+<!-- //Тест Скидок на главной -->
+
+<!-- Тест Скидок на главной -->
 <?if ($APPLICATION->GetCurDir() == '/') {
 	if ($alpExps['discountBlock'] == 1) {?>
 		<style>
@@ -82,7 +120,7 @@ if ($APPLICATION->GetCurDir() == '/personal/cart/') {
 		</script>
 	<?}
 }?>
-<!-- //Тест Рекомендаций в корзине -->
+<!-- //Тест Скидок на главной -->
 
 <!-- Тест СмартБаннера ЗАВЕРШЕН -->
 <meta name="apple-itunes-app" content="app-id=429622051">
