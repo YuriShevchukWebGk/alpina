@@ -570,9 +570,10 @@
 		$output = curl_exec($ch);
 		curl_close($ch);
 
-		$output = get_object_vars(json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
-			return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
-		}, $output))[0]);
+        $outputRes = json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+            return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+        }, $output));
+		$output = get_object_vars($outputRes[0]);
 		
 		if (isset($output["url"])) {
 			$freeBookUrl = array('url' => $output["url"], 'products' => $products);
