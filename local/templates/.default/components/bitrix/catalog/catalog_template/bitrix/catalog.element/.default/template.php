@@ -134,10 +134,11 @@ $arItemIDs = array(
                             </div>
 						<?}?>
 
-						<?if ($USER->isAdmin()|| $USER->GetID() == 178865
-	|| $USER->GetID() == 168754	
-	|| $USER->GetID() == 178866
-	|| $USER->GetID() == 178885) {?>
+						<?if (($USER->isAdmin()
+							|| $USER->GetID() == 178865
+							|| $USER->GetID() == 168754	
+							|| $USER->GetID() == 178866
+							|| $USER->GetID() == 178885) && (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']))) {?>
 							<div class="digitalBookMark">
 								<p><span class="test"><?= GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
 								<span class="ttip">
@@ -165,7 +166,7 @@ $arItemIDs = array(
                         <?}?>
                     <?if ($USER -> IsAuthorized()) {
                         if ($arResult["WISHLIST_ITEM"]) {?>
-                        <a href="javascript:void(0)" title="<?= GetMessage("WISHLIST_IN_BASKET") ?>">
+                        <a href="/personal/cart/?liked=yes" title="<?= GetMessage("WISHLIST_IN_BASKET") ?>">
                             <p class="AlreadyInWishlist"><?= GetMessage("ALREADY_IN_WISHLIST") ?></p>
                         </a>
                         <?} else {?>

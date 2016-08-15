@@ -1019,7 +1019,7 @@
                             "EMAIL"=> $arFields['PROPERTY_SUB_EMAIL_VALUE'],
                             "BOOK_HREF" => $bookHref,
                             "BOOK_NAME" => $bookName,
-                            "BOOK_IMG" => $bookImg
+                            "BOOK_IMG" => $bookImg['src']
                         );
                         CEvent::Send("BOOK_SUB_MAILING", "s1", $arEventFields,"N");
                         // --- email sending here
@@ -1038,7 +1038,7 @@
                             "EMAIL"=> $arFields['PROPERTY_SUB_EMAIL_VALUE'],
                             "BOOK_HREF" => $bookHref,
                             "BOOK_NAME" => $bookName,
-                            "BOOK_IMG" => $bookImg
+                            "BOOK_IMG" => $bookImg['src']
                         );
                         CEvent::Send("BOOK_SUB_MAILING", "s1", $arEventFields,"N");
 

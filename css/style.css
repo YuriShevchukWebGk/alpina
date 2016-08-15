@@ -5650,3 +5650,6 @@ table.form-table tr td:nth-child(2){
     color: red;
     display: none;
 }
+.title-search-result {
+	width:600px!important;
+}
