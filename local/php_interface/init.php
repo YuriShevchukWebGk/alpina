@@ -265,6 +265,8 @@
 				$allBooksUrl = '';
 				$bookId = '';
 				$recId = '';
+				$sendinfo = '';
+				
 				$orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
 				if (!empty($orderUser["UF_TEST"])) {
 					$allUrlsArray = unserialize($orderUser["UF_TEST"]);
@@ -272,35 +274,48 @@
 					$allUrlsArray = array();
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
+				
+				$ids = '';
 				while ($arItems = $dbBasketItems->Fetch()) {
-					$booksUrl = getUrlForFreeDigitalBook($arItems["PRODUCT_ID"]);
-					if ($booksUrl["rec"] == 0) {
-						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
-						$bookId = $arItems["PRODUCT_ID"];
-						$recId = $arItems["PRODUCT_ID"];
-					} else {
-						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
-						if ($recBookName = $recBook->GetNext()) {
-							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
-							$bookId = $arItems["PRODUCT_ID"];
-							$recId = $booksUrl["id"];
-						}
-					}
-					$allUrlsArray[] = array("bookid" => $bookId, "recid" => $recId, "url" => $booksUrl["url"]);
+					$ids .= $arItems["PRODUCT_ID"].',';
 				}
 				
-				$links = serialize($allUrlsArray);
-
-				$fieldsGend = Array(
-					"UF_TEST"						=> $links
-				);
-				$userGend = new CUser;
-				$userGend->Update($order_list['USER_ID'], $fieldsGend);
+				$products = getUrlForFreeDigitalBook(substr($ids,0,-1));
 				
+				if ($products['url'] != 'error') {
+					$allUrlsArray[] = array("orderid" => $ID, "products" => $products);
+					
+					$sendinfo .= '<ol>';
+					
+					foreach($products['products'] as $product) {
+						if ($product['status'] == 'ok') {
+							$sendinfo .= '<li>'.$product['name'].'</li>';
+						} else {
+							$sendinfo .= '<li>Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
+						}
+					}
+					
+					$sendinfo .= '</ol>';
+					
+					$links = serialize($allUrlsArray);
+
+					$fieldsGend = Array(
+						"UF_TEST"						=> $links
+					);
+					$userGend = new CUser;
+					$userGend->Update($order_list['USER_ID'], $fieldsGend);
+					
+					$freeurl = $products['url'];
+				} else {
+					$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
+				}
 				$mailFields = array(
 					"EMAIL" => "a-marchenkov@yandex.ru",
-					"TEXT" => $allBooksUrl
-				);		
+					"TEXT" => $sendinfo,
+					"URL" => $freeurl,
+					"ORDER_ID" => $ID,
+					"ORDER_USER"=> Message::getClientName($ID)
+				);
 				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 				
                 CSaleOrder::StatusOrder($ID, "D");
@@ -393,6 +408,8 @@
 				$allBooksUrl = '';
 				$bookId = '';
 				$recId = '';
+				$sendinfo = '';
+				
 				$orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
 				if (!empty($orderUser["UF_TEST"])) {
 					$allUrlsArray = unserialize($orderUser["UF_TEST"]);
@@ -400,35 +417,48 @@
 					$allUrlsArray = array();
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
+				
+				$ids = '';
 				while ($arItems = $dbBasketItems->Fetch()) {
-					$booksUrl = getUrlForFreeDigitalBook($arItems["PRODUCT_ID"]);
-					if ($booksUrl["rec"] == 0) {
-						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
-						$bookId = $arItems["PRODUCT_ID"];
-						$recId = $arItems["PRODUCT_ID"];
-					} else {
-						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
-						if ($recBookName = $recBook->GetNext()) {
-							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
-							$bookId = $arItems["PRODUCT_ID"];
-							$recId = $booksUrl["id"];
-						}
-					}
-					$allUrlsArray[] = array("bookid" => $bookId, "recid" => $recId, "url" => $booksUrl["url"]);
+					$ids .= $arItems["PRODUCT_ID"].',';
 				}
 				
-				$links = serialize($allUrlsArray);
-
-				$fieldsGend = Array(
-					"UF_TEST"						=> $links
-				);
-				$userGend = new CUser;
-				$userGend->Update($order_list['USER_ID'], $fieldsGend);
+				$products = getUrlForFreeDigitalBook(substr($ids,0,-1));
 				
+				if ($products['url'] != 'error') {
+					$allUrlsArray[] = array("orderid" => $ID, "products" => $products);
+					
+					$sendinfo .= '<ol>';
+					
+					foreach($products['products'] as $product) {
+						if ($product['status'] == 'ok') {
+							$sendinfo .= '<li style="padding-top:5px;">'.$product['name'].'</li>';
+						} else {
+							$sendinfo .= '<li style="padding-top:5px;">Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
+						}
+					}
+					
+					$sendinfo .= '</ol>';
+					
+					$links = serialize($allUrlsArray);
+
+					$fieldsGend = Array(
+						"UF_TEST"						=> $links
+					);
+					$userGend = new CUser;
+					$userGend->Update($order_list['USER_ID'], $fieldsGend);
+					
+					$freeurl = $products['url'];
+				} else {
+					$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
+				}
 				$mailFields = array(
-					"EMAIL" => "a-marchenkov@yandex.ru",
-					"TEXT" => $allBooksUrl
-				);		
+					"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
+					"TEXT" => $sendinfo,
+					"URL" => $freeurl,
+					"ORDER_ID" => $ID,
+					"ORDER_USER"=> Message::getClientName($ID)
+				);
 				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 
                 // при смене статуса и последующего автоматического CSaleOrder::PayOrder 
@@ -489,52 +519,67 @@
 	
 	//Получаем ссылку на бесплатную книгу в приложении Бизнес книги
     function getUrlForFreeDigitalBook($productID) {
-		$check = false;
-		$continue = true;
-		$recTrue = 0;
-		$freeBookUrl = array();
-		while ($check == false) {
-			$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=".$productID;
-			  
-			$ch = curl_init();  
-			  
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_HTTPHEADER,
-				array(
-					"Content-type: application/json",
-					//"X-AD-Email: emaguser",
-					"X-AD-Offer: 1",
-					"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
-				)
-			);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_POST, 1);
-			$output = curl_exec($ch);
-			curl_close($ch);
-
-			$output = json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
-				return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
-			}, $output));  
-			$output = get_object_vars($output[0]);
+		$ids = explode(',', $productID);
+		$forurl = array();
+		$products = array();
+		
+		foreach ($ids as $checkbook) {
 			
-			if (isset($output["url"])) {
-				$freeBookUrl["url"] = $output["url"];
-				$freeBookUrl["rec"] = $recTrue;
-				$check = true;
+			$name = CIBlockElement::GetByID($checkbook)->Fetch();
+			$name = $name['NAME'];
+			$existinstore = CIBlockElement::GetProperty(4, $checkbook, array("sort" => "asc"), Array("CODE"=>"appstore"))->Fetch();
+			
+			if ($existinstore[VALUE] == 231) {
+				$products[] = array('id' => $checkbook, 'status' => 'ok', 'name' => $name, 'rec' => '', 'recname' => '');
+				$forurl[] = $checkbook;
 			} else {
-				if ($continue == true) {
-					$bookReplace = CIBlockElement::GetProperty(4, $productID, array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
-					$productID = $bookReplace['VALUE'];
-					$recTrue = 1;
-					$freeBookUrl["id"] = $bookReplace['VALUE'];
-					$continue = false;
-				} else {
-					$freeBookUrl["url"] = 'false';
-					$freeBookUrl["rec"] = $recTrue;
-					$check = true;
+				$recid = CIBlockElement::GetProperty(4, $checkbook, array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
+				if ($recid[VALUE]) {
+					$recname = CIBlockElement::GetByID($recid[VALUE])->Fetch();
+					$recname = $recname['NAME'];
+					$products[] = array('id' => $checkbook, 'status' => 'rec', 'name' => $name, 'rec' => $recid[VALUE], 'recname' => $recname);
+					$forurl[] = $recid[VALUE];
 				}
 			}
 		}
+		
+		$prepareurl = '';
+		foreach ($forurl as $m => $urlid) {
+			if ($m == 0) {
+				$prepareurl .= '?emag_id[]='.$urlid;
+			} else {
+				$prepareurl .= '&emag_id[]='.$urlid;
+			}			
+		}
+		$freeBookUrl = array();
+
+		$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/".$prepareurl;
+		  
+		$ch = curl_init();  
+		  
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER,
+			array(
+				"Content-type: application/json",
+				"X-AD-Offer: 1",
+				"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
+			)
+		);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		$output = curl_exec($ch);
+		curl_close($ch);
+
+		$output = get_object_vars(json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+			return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+		}, $output))[0]);
+		
+		if (isset($output["url"])) {
+			$freeBookUrl = array('url' => $output["url"], 'products' => $products);
+		} else {
+			$freeBookUrl = array('url' => 'error', 'products' => $products);
+		}
+
         return $freeBookUrl;
     }
 
@@ -944,7 +989,7 @@
 
     function sendMailToBookSubs(&$arParams){
         if($arParams['IBLOCK_ID']==4){
-            $arSelect = Array("NAME","DETAIL_PAGE_URL","PREVIEW_PICTURE","PROPERTY_STATE");
+            $arSelect = Array("NAME","DETAIL_PAGE_URL","DETAIL_PICTURE","PROPERTY_STATE");
             $arFilter = Array("IBLOCK_ID"=>4,"ID"=>$arParams['ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
             $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), $arSelect);
             while($ob = $res->GetNextElement()){
@@ -952,7 +997,7 @@
                 $oldElStatus = $arFields['PROPERTY_STATE_ENUM_ID'];
                 $bookName = $arFields['NAME'];
                 $bookHref = "http://www.alpinabook.ru".$arFields['DETAIL_PAGE_URL'];
-                $bookImg = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+				$bookImg = CFile::ResizeImageGet($arFields['DETAIL_PICTURE'], array("width" => 200, "height" => 270), BX_RESIZE_IMAGE_PROPORTIONAL, true);
             }
 
             $newElStatus = $arParams['PROPERTY_VALUES'][56][0]["VALUE"];

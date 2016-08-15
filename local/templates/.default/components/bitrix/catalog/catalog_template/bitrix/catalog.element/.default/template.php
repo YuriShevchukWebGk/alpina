@@ -109,7 +109,7 @@ $arItemIDs = array(
                         </div>
                     </div>
                     <div class="marks">
-                        <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == NEW_BOOK_STATE_XML_ID || $USER->isAdmin()) {?>
+                        <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == NEW_BOOK_STATE_XML_ID) {?>
                             <div class="newBookMark">
                                 <p><?= GetMessage("NEW_BOOK") ?></p>
                                 <span class="ttip">
@@ -117,7 +117,7 @@ $arItemIDs = array(
                                 </span>									
                             </div>
                         <?}?>
-                        <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"] == BESTSELLER_BOOK_XML_ID || $USER->isAdmin()) {?>
+                        <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"] == BESTSELLER_BOOK_XML_ID) {?>
                             <div class="bestBookMark">
                                 <p><?= GetMessage("BESTSELLER_BOOK") ?></p>
                                 <span class="ttip">
@@ -125,7 +125,7 @@ $arItemIDs = array(
                                 </span>									
                             </div>
 						<?}?>
-						<?if ($arResult["PROPERTIES"]["editors_choice"]["VALUE_ENUM_ID"] == 235 || $USER->isAdmin()) {?>
+						<?if ($arResult["PROPERTIES"]["editors_choice"]["VALUE_ENUM_ID"] == 235) {?>
                             <div class="editorsBookMark">
                                 <p><?= GetMessage("EDITORS_CHOICE") ?></p>
                                 <span class="ttip">
@@ -133,7 +133,11 @@ $arItemIDs = array(
                                 </span>									
                             </div>
 						<?}?>
-						<?if ($USER->isAdmin()) {?>
+
+						<?if ($USER->isAdmin()|| $USER->GetID() == 178865
+	|| $USER->GetID() == 168754	
+	|| $USER->GetID() == 178866
+	|| $USER->GetID() == 178885) {?>
 							<div class="digitalBookMark">
 								<p><span class="test"><?= GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
 								<span class="ttip">
@@ -179,21 +183,25 @@ $arItemIDs = array(
                         <p class="text"><?= GetMessage("CHAPTER_SENT") ?></p>
                         <input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>">
                     </div>
-
-                    <div class="characteris">
-                        <p class="title"><?= GetMessage("PUBLISHER") ?></p>
-                        <p class="text">
-                            <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-                                <span itemprop="name">
-                                    <?= $arResult["PROPERTIES"]["PUBLISHER"]["VALUE"] ?>
-                                </span>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="characteris">
-                        <p class="title"><?= GetMessage("ISBN") ?></p>
-                        <p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>
-                    </div>
+					
+					<?if ($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]) {?>
+						<div class="characteris">
+							<p class="title"><?= GetMessage("PUBLISHER") ?></p>
+							<p class="text">
+								<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+									<span itemprop="name">
+										<?= $arResult["PROPERTIES"]["PUBLISHER"]["VALUE"] ?>
+									</span>
+								</span>
+							</p>
+						</div>
+					<?}?>
+					<?if ($arResult["PROPERTIES"]["ISBN"]["VALUE"]) {?>
+						<div class="characteris">
+							<p class="title"><?= GetMessage("ISBN") ?></p>
+							<p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>
+						</div>
+					<?}?>
                     <?if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {?>
                         <div class="characteris">
                             <p class="title"><?= GetMessage("SERIES") ?></p>
@@ -207,21 +215,23 @@ $arItemIDs = array(
                         <p class="text"><?= $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
                         <?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_SOFTCOVER_XML_ID) {?>
                             <link itemprop="bookFormat" href="http://schema.org/Paperback">
-                            <?} else if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_HARDCOVER_XML_ID) {?>
+						<?} else if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_HARDCOVER_XML_ID) {?>
                             <link itemprop="bookFormat" href="http://schema.org/Hardcover">
-                            <?}?>
+						<?}?>
                     </div>
-                    <div class="characteris">
-                        <p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
-                        <p class="text"><span itemprop="numberOfPages"><?= $arResult["PROPERTIES"]["PAGES"]["VALUE"] ?></span><?= GetMessage("PAGES") ?></p>
-                    </div>
-                    <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
+					<?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
+						<div class="characteris">
+							<p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
+							<p class="text"><span itemprop="numberOfPages"><?= $arResult["PROPERTIES"]["PAGES"]["VALUE"] ?></span><?= GetMessage("PAGES") ?></p>
+						</div>
+					<?}?>
+                    <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск') {?>
                         <div class="characteris">
                             <a href="http://readright.ru/?=alpinabook" target="_blank">
                                 <span class="text"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
                             </a>
                         </div>
-                        <?}?>
+					<?}?>
                     <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
                         <div class="characteris">
                             <p class="title"><?= $arResult["PROPERTIES"]["YEAR"]["NAME"] ?></p>
@@ -233,12 +243,19 @@ $arItemIDs = array(
                                 <?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?>
                             </p>
                         </div>
-                        <?}?>
-
-                    <div class="characteris">
-                        <p class="title"><?= GetMessage("SIZES") ?></p>
-                        <p class="text"><?= $arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"] ?></p>
-                    </div>
+					<?}?>
+					<?if ($arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"]) {?>
+						<div class="characteris">
+							<p class="title"><?= GetMessage("SIZES") ?></p>
+							<p class="text"><?= $arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"] ?></p>
+						</div>
+					<?}?>
+					<?if ($arResult["PROPERTIES"]["DURATION"]["VALUE"]) {?>
+						<div class="characteris">
+							<p class="title"><?= GetMessage("DURATION") ?></p>
+							<p class="text"><?= $arResult["PROPERTIES"]["DURATION"]["VALUE"] ?></p>
+						</div>
+					<?}?>
                     <?if ($arResult["CATALOG_WEIGHT"]) {
                             $weight = $arResult["CATALOG_WEIGHT"];
                         } else if ($arResult["PROPERTIES"]["LATEST_WEIGHT"]["VALUE"]) {
@@ -656,7 +673,7 @@ $arItemIDs = array(
                     </div>*/?>
                     <ul class="productsMenu">
                         <li class="active tabsInElement" data-id="1"><?= GetMessage("ANNOTATION_TITLE") ?></li>
-                        <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?= GetMessage("ABOUT_AUTHOR_TITLE") ?></li><?}?>
+                        <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
                         <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
                             <li data-id="2" class="tabsInElement"><?= GetMessage("REVIEWS_TITLE") ?></li>
 					   <?}?>
@@ -1503,7 +1520,7 @@ $printid = implode(", ", $printid2);?>
         <?}?>
         $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
         $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
-        if ($(".element_item_img img").height() < 394) {
+        if ($(".element_item_img img").height() < 394 && $(".element_item_img img").height() > 100) {
             $(".element_item_img").height($(".element_item_img img").height());
         }
         $("a#inline1").fancybox({

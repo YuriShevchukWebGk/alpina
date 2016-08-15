@@ -37,7 +37,7 @@ $output = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
 }
 $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => 69654), false, false, array());
 while ($arItems = $dbBasketItems->GetNext()) {
-	$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=60901";
+	$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=70007";
 	$db_props = CIBlockElement::GetProperty(4, $arItems[PRODUCT_ID], array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
 
 	$ch = curl_init();  
@@ -73,5 +73,9 @@ while ($arItems = $dbBasketItems->GetNext()) {
 	}
 }
 $output = get_object_vars($output[0]);
+
+$checkbook = CIBlockElement::GetProperty(4, 7831, array("sort" => "asc"), Array("CODE"=>"appstore"))->Fetch();
+echo $_SERVER['REMOTE_ADDR'];
+echo $checkbook[VALUE];
 //print_r($output['url']);
 ?>

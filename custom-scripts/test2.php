@@ -3,31 +3,56 @@ if ($USER->isAdmin()) {
 	CModule::IncludeModule("iblock");
 	
 	$ids = array(
-array('id'=>'67798', 'track' => '11172502013775'),
-array('id'=>'69420', 'track' => '11172502013782'),
-array('id'=>'71129', 'track' => '11172502013799'),
-array('id'=>'71334', 'track' => '11172502013805'),
-array('id'=>'71359', 'track' => '11172502013928'),
-array('id'=>'71328', 'track' => '11172502013812'),
-array('id'=>'71365', 'track' => '11172502013829'),
-array('id'=>'71335', 'track' => '11172502013935'),
-array('id'=>'71329', 'track' => '11172502013836'),
-array('id'=>'71208', 'track' => '11172502013843'),
-array('id'=>'71166', 'track' => '11172502013850'),
-array('id'=>'71367', 'track' => '11172502013942'),
-array('id'=>'71358', 'track' => '11172502013867'),
-array('id'=>'71378', 'track' => '11172502013874'),
-array('id'=>'71395', 'track' => '11172502013881'),
-array('id'=>'71387', 'track' => '11172502013898'),
-array('id'=>'71388', 'track' => '11172502013959'),
-array('id'=>'71320', 'track' => '11172502013904'),
-array('id'=>'71321', 'track' => '11172502013911'),
-array('id'=>'71333', 'track' => 'RA305113722RU'),
-array('id'=>'71325', 'track' => 'RA305113736RU'),
+/*array('id'=>'71472','track'=>'11172502027321'),
+array('id'=>'71373','track'=>'11172502027338'),
+array('id'=>'71439','track'=>'11172502027154'),
+array('id'=>'71442','track'=>'11172502027161'),
+array('id'=>'71445','track'=>'11172502027178'),
+array('id'=>'71451','track'=>'11172502027185'),
+array('id'=>'71399','track'=>'11172502027192'),
+array('id'=>'71410','track'=>'11172502027345'),
+array('id'=>'71404','track'=>'11172502027208'),
+array('id'=>'71368','track'=>'11172502027215'),
+array('id'=>'71477','track'=>'11172502027222'),
+array('id'=>'71468','track'=>'11172502027239'),
+array('id'=>'71496','track'=>'11172502027246'),
+array('id'=>'71501','track'=>'11172502027253'),
+array('id'=>'71511','track'=>'11172502027352'),
+array('id'=>'71538','track'=>'11172502027369'),
+array('id'=>'71353','track'=>'11172502027260'),
+array('id'=>'71536','track'=>'11172502027277'),
+array('id'=>'71542','track'=>'11172502027284'),
+array('id'=>'71552','track'=>'11172502027291'),
+array('id'=>'71564','track'=>'11172502027307'),
+array('id'=>'71450','track'=>'RA305102795RU'),
 
+*/
 	);
 	
-	foreach ($ids as $id) {
+$array1 = explode("\n","
+71513,11172502028236
+71570,11172502028083
+71573,11172502028090
+71362,11172502028106
+71584,11172502028243
+71585,11172502028113
+71602,11172502028120
+71381,11172502028250
+71657,11172502028137
+71638,11172502028144
+71633,11172502028151
+71631,11172502028168
+71617,11172502028175
+");
+
+$array2 = array();
+foreach ($array1 as $for2) {
+	$array2[] = explode(",", $for2);
+}
+	
+	
+	
+	foreach ($array2 as $id) {
 		$trackingNumber = '';
 		$list = \Bitrix\Sale\Internals\OrderTable::getList(array(
 			"select" => array(
@@ -35,7 +60,7 @@ array('id'=>'71325', 'track' => 'RA305113736RU'),
 			),
 			"filter" => array(
 				"!=\Bitrix\Sale\Internals\ShipmentTable:ORDER.TRACKING_NUMBER" => "",
-				"=ID" => $id['id']
+				"=ID" => $id[0]
 			),
 			'limit'=> 1 
 		))->fetchAll();
@@ -47,22 +72,22 @@ array('id'=>'71325', 'track' => 'RA305113736RU'),
 		if (empty($trackingNumber)) {
 			
 			$arFields = array(
-				"TRACKING_NUMBER" => $id['track']
+				"TRACKING_NUMBER" => $id[1]
 			);		
-			if ($update = CSaleOrder::Update($id['id'], $arFields)) {
-				if (CSaleOrder::StatusOrder($id['id'], "I")) {
-					echo $id['id']."*ok*".$id['track']."<br />";
+			if ($update = CSaleOrder::Update($id[0], $arFields)) {
+				if (CSaleOrder::StatusOrder($id[0], "I")) {
+					echo $id[0]."*ok*".$id[1]."<br />";
 				} else {
-					echo $id['id']."*status error*".$id['track']."<br />";
+					echo $id[0]."*status error*".$id[1]."<br />";
 				}
 			} else {
-				echo $id['id']."*false*".$id['track']."<br />";
+				echo $id[0]."*false*".$id[1]."<br />";
 			}
 		} else {
-			if (CSaleOrder::StatusOrder($id['id'], "I")) {
-				echo $id['id'].'*already*'.$trackingNumber.'<br />';
+			if (CSaleOrder::StatusOrder($id[0], "I")) {
+				echo $id[0].'*already*'.$trackingNumber.'<br />';
 			} else {
-				echo $id['id']."*status error*".$id['track']."<br />";
+				echo $id[0]."*status error*".$id[1]."<br />";
 			}
 		}
 	}

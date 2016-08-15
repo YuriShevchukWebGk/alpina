@@ -625,7 +625,8 @@ if ($arResult['MODULES']['currency'])
                 "PROPERTY_LAST_NAME", 
                 "PROPERTY_FIRST_NAME", 
                 "PROPERTY_SHOWINAUTHORS", 
-                "PROPERTY_ORIG_NAME"
+                "PROPERTY_ORIG_NAME",
+				"NAME"
             )
         );
         
@@ -634,13 +635,17 @@ if ($arResult['MODULES']['currency'])
             $ar_properties["FIRST_NAME"] = $authors["PROPERTY_FIRST_NAME_VALUE"];
             $ar_properties["SHOWINAUTHORS"] = $authors["PROPERTY_SHOWINAUTHORS_VALUE"];
             $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
+			$ar_properties["NAME"] = $authors["NAME"];
         
-            if (strlen ($ar_properties['FIRST_NAME']) > 0) {
+            /*if (strlen ($ar_properties['FIRST_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
             }
             if (strlen ($ar_properties['LAST_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
-            }
+            }*/
+			if (strlen ($ar_properties['NAME']) > 0) {
+                $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['NAME'];
+			}
             if (strlen ($ar_properties['ORIG_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= " / " . (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['ORIG_NAME'];
             }      

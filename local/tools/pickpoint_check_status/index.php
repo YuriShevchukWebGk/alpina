@@ -37,12 +37,13 @@
     curl_close($curl);
     $response = json_decode($json_response, true);
     
+	print_r($dataSend);
     //Change orders status on site
-    foreach ($response as $arOrderPickPoint) {
+    /*foreach ($response as $arOrderPickPoint) {
         $arOrder = CSaleOrder::GetByID($arOrderPickPoint["SenderInvoiceNumber"]);
         if ($arOrder && $arOrder["STATUS_ID"] != "F") {
             $arFields = array("STATUS_ID" => "F");
             CSaleOrder::Update($arOrderPickPoint["SenderInvoiceNumber"], $arFields);
         }
-    }
+    }*/
 ?>

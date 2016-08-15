@@ -445,25 +445,15 @@
 	  $cart_num="0";
 	if (empty($cart_sum))
 	  $cart_sum="0";?>	
-	<?if ($USER->IsAuthorized()) {// blackfriday черная пятница
-		if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
-			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
-		} elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
-			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
-			$discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
-		} else {
-			$discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
-		}
-	} else {
-		if ($cart_sum < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
+	<?
+		if ($cart_sum < 3000) {
 			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
-		} elseif ($cart_sum < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
+		} elseif ($cart_sum < 10000) {
 			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
-			$discount = $arResult["SALE_NOTE"][0]["VALUE"];  // процент накопительной скидки
 		} else {
-			$discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
+			$printDiscountText = "<span class='sale_price'>test</span>";
 		}
-	}?>
+	?>
 	<style>
 		#discountMessageClose:hover {
 			background:rgb(236, 236, 236) none repeat scroll 0% 0%;
@@ -490,7 +480,7 @@
 			height:20px;
 		}
 	</style>
-	<div id="discountMessage" style="position:fixed;bottom:30px;right:30px;width:300px;background:#99ABB1;padding:20px;z-index:10000;color:#fff;height:80px;font-family: 'Walshein_regular';">
+	<div id="discountMessage" style="position:fixed;bottom:30px;right:30px;width:300px;background:#99ABB1;padding:25px 20px 20px 20px;z-index:10000;color:#fff;height:80px;font-family: 'Walshein_regular';">
 		<?=$printDiscountText?>
 		<span id="discountMessageClose">X</span>
 		<script>

@@ -1317,6 +1317,20 @@ input:focus{
 .basketIcon:hover{
     background: #fff url("/img/basketIco.png") no-repeat center;    
 }
+.catalogIcon span, .basketIcon span {
+	display: block;
+	position: relative;
+	margin-top: 18px;
+	font-family: "Walshein_regular";
+	font-size: 18px;
+	color: rgb(228, 232, 234);
+}
+.catalogIcon span {
+	margin-left: 72px;
+}
+.basketIcon span {
+	margin-left: -77px;
+}
 .searchWrap{
     background-color: #ECEDEF;
     height: 60px;

@@ -18,6 +18,9 @@ $alpExps['discountBlock']		= (!$alpExps['discountBlock'] ? rand(1,2) : $alpExps[
 if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 	$alpExps['expertReviews']	= (!$alpExps['expertReviews'] ? rand(1,2) : $alpExps['expertReviews']);
 }
+if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
+	$alpExps['iconsWithText']	= (!$alpExps['iconsWithText'] ? rand(1,2) : $alpExps['iconsWithText']);
+}
 ?>
 
 
@@ -52,7 +55,7 @@ if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 }*/?>
 <!-- //Тест Рекомендаций в корзине -->
 
-<!-- Тест Скидок на главной -->
+<!-- Тест Вкладки эксперты -->
 <?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 	if ($alpExps['expertReviews'] == 1) {?>
 		<style>
@@ -70,7 +73,7 @@ if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 		</script>
 	<?} elseif ($alpExps['expertReviews'] == 2) {?>
 		<style>
-			.abShow {display:none!important;}
+			.abHide {display:none!important;}
 		</style>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -84,7 +87,37 @@ if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 		</script>
 	<?}
 }?>
-<!-- //Тест Скидок на главной -->
+<!-- //Тест Вкладки эксперты -->
+
+<!-- Тест Каталога и корзины у иконок -->
+<?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
+	if ($alpExps['iconsWithText'] == 1) {?>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				dataLayer.push({
+					event: 'ab-test-gtm',
+					action: 'iconsWithText',
+					label: 'withText'
+				});
+				$(".catalogIcon").html("<span>Каталог</span>");
+				$(".basketIcon").html("<span>Корзина</span>");
+				console.log('iconsWithText withText');
+			});
+		</script>
+	<?} elseif ($alpExps['iconsWithText'] == 2) {?>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				dataLayer.push({
+					event: 'ab-test-gtm',
+					action: 'iconsWithText',
+					label: 'doNothing'
+				});
+				console.log('iconsWithText doNothing');
+			});
+		</script>
+	<?}
+}?>
+<!-- //Тест Каталога и корзины у иконок -->
 
 <!-- Тест Скидок на главной -->
 <?if ($APPLICATION->GetCurDir() == '/') {
