@@ -134,11 +134,7 @@ $arItemIDs = array(
                             </div>
 						<?}?>
 
-						<?if (($USER->isAdmin()
-							|| $USER->GetID() == 178865
-							|| $USER->GetID() == 168754	
-							|| $USER->GetID() == 178866
-							|| $USER->GetID() == 178885) && (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']))) {?>
+						<?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
 							<div class="digitalBookMark">
 								<p><span class="test"><?= GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
 								<span class="ttip">

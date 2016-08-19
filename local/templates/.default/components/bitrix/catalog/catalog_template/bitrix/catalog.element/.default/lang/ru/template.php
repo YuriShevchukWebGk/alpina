@@ -93,7 +93,7 @@ $MESS["TOMORROW"] = "Завтра";
 $MESS["ON_MONDAY"] = "в понедельник";
 $MESS['ON_MONDAY_WITH_SPACE_ENTITY'] = "в&nbsp;понедельник";
 $MESS["FREE_DIGITAL_BOOK"] = "бесплатная электронная<br />книга в комплекте";
-$MESS["YOU_WILL_GET_FREE_DIGITAL_BOOK"] = "Купив эту книгу, вы автоматически получите ее электронную версию бесплатно.<br />Читайте, как вам удобно!";
+$MESS["YOU_WILL_GET_FREE_DIGITAL_BOOK"] = "Купив эту книгу, вы автоматически <a href='/actions/digitalbooks/' target='_blank'>получите ее электронную версию бесплатно</a>.<br />Читайте, как вам удобно!";
 $MESS["YOU_WILL_GET_A_DIGITAL_BOOK"] = "Купив эту книгу, вы получите электронную книгу «";
 $MESS["BOOK_FOR_GIFT"] = "» в подарок!<br />Читайте, как вам удобно!";
 $MESS["NEW_BOOK_TIP"] = "Книга появилась в продаже меньше двух месяцев назад. Смотреть все новинки <a href='/catalog/new/?SORT=NEW'>по ссылке</a>";

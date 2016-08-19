@@ -242,6 +242,8 @@ if ($_REQUEST["ORDER_ID"])
                         ?>
                         <tr>
                             <td>
+							<?=GetMessage("DIGITAL_BOOK")?>
+							<br />
                                 <?
                                     $service = \Bitrix\Sale\PaySystem\Manager::getObjectById($arResult["ORDER"]['PAY_SYSTEM_ID']);
 

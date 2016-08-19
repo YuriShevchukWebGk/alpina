@@ -21,10 +21,7 @@ if ($USER -> IsAuthorized())
     <section class="l-section-wrap top-section color_1 full">
         <div class="container">
             <div class="top-section__edit-acc">
-                <span class="top-section__edit-acc-inner js-open-acc-edit">Редактировать профиль</span><span class="ordersListA"><a href="/personal/">Список заказов</a></span><span class="wishListA"><a href="/personal/cart/?liked=yes">Список желаний</a></span><span class="exitA"><?if($USER->isAdmin()|| $USER->GetID() == 178865
-	|| $USER->GetID() == 168754	
-	|| $USER->GetID() == 178866
-	|| $USER->GetID() == 178885) {?><a href="/personal/digitalbooks/">Бесплатные электронные книги</a><?}?><a href="/?logout=yes">Выход</a></span>
+                <span class="top-section__edit-acc-inner js-open-acc-edit">Редактировать профиль</span><span class="ordersListA"><a href="/personal/">Список заказов</a></span><span class="wishListA"><a href="/personal/cart/?liked=yes">Список желаний</a></span><span class="exitA"><a href="/personal/digitalbooks/">Бесплатные электронные книги</a><a href="/?logout=yes">Выход</a></span>
             </div>
 
             <?$APPLICATION->IncludeComponent("bitrix:main.profile", "user_profile_sailplay", array(

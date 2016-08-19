@@ -30,7 +30,7 @@
                     <?if(is_object($arResult["NAV_RESULT"])) {?>
                         <span>по запросу "<?= $arResult["REQUEST"]["QUERY"] ?>" (<?= $arResult["NAV_RESULT"]->SelectedRowsCount() . " результатов" ?>)</span>
                     <?}?>
-                </p>    
+                </p>
             </div>
         </div>
         <?/* Получаем рекомендации для поиска от RetailRocket */
@@ -39,7 +39,7 @@
         $recsArray = json_decode($stringRecs);
         $arrFilter = Array('ID' => (array_slice($recsArray, 0, 5)));
         if ($arrFilter['ID'][0] > 0) {?>
-            
+
             <div class="interestingWrap">
                 <div class="catalogWrapper">
                     <p class="title">Те, кто искали «<?= $arResult["REQUEST"]["QUERY"] ?>» купили</p>
@@ -47,8 +47,8 @@
                     <div class="bookEasySlider">
                         <?
                         $APPLICATION->IncludeComponent(
-                            "bitrix:catalog.section", 
-                            "recommended_books", 
+                            "bitrix:catalog.section",
+                            "recommended_books",
                             array(
                                 "IBLOCK_TYPE_ID" => "catalog",
                                 "IBLOCK_ID" => CATALOG_IBLOCK_ID,
@@ -172,9 +172,9 @@
                             false
                         );?>
                     </div>
-                </div>    
+                </div>
             </div>
-        <?}?>                                   
+        <?}?>
         <div class="AuthorsWrapp">
             <p class="title"></p>
             <div class="searchBooksWrap">
@@ -183,27 +183,27 @@
                         /***************
                         *
                         * $arItem["PARAM2"] хранится ID инфоблока, содержащего элемент результатов поиска
-                        * 
+                        *
                         ****************/
 
                         // авторы в результатах поиска
                         if ($arItem["PARAM2"] == AUTHORS_IBLOCK_ID) { ?>
-                            
+
                             <div class="searchBook">
                                 <div>
                                     <a href="<?= $arItem["URL"] ?>">
                                         <div class="search_item_img">
-                                            <? 
-                                            $pict["src"] = $arResult["AUTHOR_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"] 
+                                            <?
+                                            $pict["src"] = $arResult["AUTHOR_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"]
                                                 ? $arResult["AUTHOR_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"]
                                                 : "/images/no_photo.png";
-                                            $pict["width"] = $arResult["AUTHOR_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"] 
+                                            $pict["width"] = $arResult["AUTHOR_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"]
                                                 ? ""
                                                 : "155";
                                             ?>
-                                          
-                                            <img src="<?=$pict["src"]?>" <?if ($pict["width"] != ""){?>width="<?=$pict["width"]?>"<?}?>>    
-                                                
+
+                                            <img src="<?=$pict["src"]?>" <?if ($pict["width"] != ""){?>width="<?=$pict["width"]?>"<?}?>>
+
                                         </div>
                                     </a>
                                 </div>
@@ -220,14 +220,14 @@
                                     </a>
                                 </div>
                             </div>
-                            
+
                         <?}?>
                         <?// книги в результатах поиска
                         if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) {?>
                             <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
                                 if (($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"])
                                     || ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"])) {
-                                
+
                                         $discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
                                 } else {
                                     $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
@@ -246,9 +246,10 @@
                                 $item_discount_value = ceil($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"]["VALUE"]);
                             }
                             if ($item_discount_value > 0) {
-                                $newPrice = $newPrice * (1 - $item_discount_value / 100);    
+                               // arshow($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"]["VALUE"]);
+                                $newPrice = $newPrice * (1 - $item_discount_value / 100);
                             }?>
-                
+                            <??>
                             <div class="searchBook">
                                 <div>
                                     <a href="<?= $arItem["URL"]?>">
@@ -256,7 +257,7 @@
                                             <?if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"]) {?>
                                                 <img src="<?=$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"]?>">
                                             <?} else {?>
-                                                <img src="/images/no_photo.png" width="155">    
+                                                <img src="/images/no_photo.png" width="155">
                                             <?}?>
                                         </div>
                                     </a>
@@ -266,30 +267,30 @@
                                         <p class="bookNames" title="<?= $arItem["TITLE"] ?>"><?= $arItem["TITLE"] ?></p>
                                         <p class="autorName"><?= $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]]["NAME"] ?></p>
                                         <p class="wrapperType"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_COVER_TYPE_VALUE"]?></p>
-                                        <?if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
+                                        <?if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                                         ?>
                                                 <p class="price"><?= ceil( $newPrice) ?> руб.</p>
                                         <?} else if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                                 <p class="price">Ожидаемая дата выхода: <?= strtolower(FormatDate(
-                                                    "j F", 
+                                                    "j F",
                                                     MakeTimeStamp(
-                                                        $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_SOON_DATE_TIME_VALUE"], 
+                                                        $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_SOON_DATE_TIME_VALUE"],
                                                         "DD.MM.YYYY HH:MI:SS"
                                                     )
                                                 )); ?>
-                                                </p>    
+                                                </p>
                                         <?} else {?>
-                                                <p class="price"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_VALUE"] ?></p>    
+                                                <p class="price"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_VALUE"] ?></p>
                                         <?}?>
                                         <div class="description"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PREVIEW_TEXT"]?></div>
                                         <?
-                                        if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) 
+                                        if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                                                 if ($arResult["BASKET_ITEMS"][$arItem["ITEM_ID"]]["QUANTITY"] == 0) {
                                                     $curr_sect_ID = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"];?>
-                                                    <a class="product<?= $arItem["ID"]; ?>" 
-                                                        href="<?= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>" 
+                                                    <a class="product<?= $arItem["ID"]; ?>"
+                                                        href="<?= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>"
                                                         onclick="addtocart(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"];?>'); addToCartTracking(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"]; ?>', '<?= ceil( $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"]) ?>', '<?echo $arResult["BOOK_INFO"]["SECTIONS"][$curr_sect_ID]["SECTION_INFO"]['NAME'];?>', '1');return false;">
                                                             <p class="basket">В корзину</p>
                                                     </a>
@@ -306,7 +307,7 @@
                         <?}?>
                         <?// серии в результатах поиска
                         if ($arItem["PARAM2"] == SERIES_IBLOCK_ID) {?>
-                            
+
                             <div class="searchBook">
                                 <div>
                                     <a href="<?= $arItem["URL"] ?>">
@@ -325,13 +326,13 @@
                                 </div>
                             </div>
 
-                               
+
                         <?}?>
                     <?}?>
                 </div>
             </div>
         </div>
-        
+
         <p>
         </p>
     <?} else {?>
@@ -509,17 +510,17 @@ var ellipsisFill = function(e) {
 
 
 $(document).ready(function(){
-    
+
     var elii = document.querySelectorAll('.bookNames');
     Array.prototype.forEach.call(elii, function(el, i){
-           ellipsisFill(el); 
+           ellipsisFill(el);
     })
 
-    
-    
+
+
     updateSearchPage();
-    
-            
+
+
     // слайдер "те кто искали ..., купили"
     if($('.bookEasySlider').length > 0) {
         easySlider('.bookEasySlider', 6);
@@ -533,7 +534,7 @@ $(document).ready(function(){
     }
     if ($(".SeriesWrapp .searchWidthWrapper .searchBook").size() == 0) {
         $(".SeriesWrapp .title").hide();
-    }   
+    }
 });
 
 </script>

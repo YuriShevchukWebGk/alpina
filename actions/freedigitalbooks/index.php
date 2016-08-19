@@ -8,6 +8,8 @@ if (!$USER->isAdmin()) {
 <html>
 <head>
 <meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1">
+<meta name="viewport" content="width=1200">
 <meta name="format-detection" content="telephone=no">
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -48,10 +50,10 @@ if (!$USER->isAdmin()) {
 <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
 <meta name="theme-color" content="#ffffff">
 
-	<meta property="og:title" content="32 мая. Лишний день весны обязательно нужен!" />
+	<meta property="og:title" content="Читай как тебе удобно! Покупая бумажную книгу, электронную получаешь в подарок" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="http://www.alpinabook.ru/actions/may32/" />
-	<meta property="og:image" content="http://www.alpinabook.ru/actions/cybertuesday/img/headern.jpg" />
+	<meta property="og:url" content="http://www.alpinabook.ru/actions/freedigitalbooks/" />
+	<meta property="og:image" content="http://www.alpinabook.ru/actions/freedigitalbooks/img/astro.jpg" />
 	<meta property="og:site_name" content="www.alpinabook.ru" />
 	<meta property="fb:admins" content="1425804193" />
 	<meta property="fb:app_id" content="138738742872757" /> 
@@ -65,7 +67,7 @@ $(document).ready(function() {
 </script>
 <style>
 body, html {
-	background: url(img/back-1b.jpg) repeat-y #040404;
+	background: url(img/back-1c.jpg) repeat-y #040404 70% 0%;
 	min-width:1200px;
 	height:auto;
 }
@@ -82,28 +84,11 @@ and (max-device-width : 568px) {
 	   min-width:1300px;
    }
 }
-
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 568px) {
-	body, html, footer {
-	   max-width:1300px;
-	   min-width:1300px;
-   }
+.menu li a {
+	font-size: 16px;
 }
 
-@media only screen 
-and (min-device-width : 414px) 
-and (max-device-width : 736px) 
-and (orientation : portrait) {
-	body, html, footer {
-	   max-width:1650px;
-	   min-width:1650px;
-   }	
-}
-
-
-#wrap1, #wrap2, #wrap3, #wrap4 {
+#wrap1, #wrap2, #wrap3, #wrap4, #wrap5 {
 	width: 100%;
 	margin: 0 auto;
 	/*max-width:1000px;*/
@@ -167,23 +152,25 @@ and (orientation : portrait) {
   line-height: 1.25;
   text-align: center;
   position: relative;
-  margin-top:20px;
+  margin: 20px auto 0;
+  max-width: 800px;
   z-index: 28;
 }
-#middle3 a {
+#middle3 a, #middle4 a, #faq a {
 	color:rgb( 151, 222, 15 );
 	text-decoration:underline;
 }
-#middle3 a:hover {
+#middle3 a:hover, #middle4 a:hover, #faq a:hover {
 	text-decoration:none;
 }
 #middle4 {
   font-size: 24px;
   font-family: "Walshein_regular";
-  color: #838383;
+  color: rgb(203, 203, 203);
   text-align: center;
   position: relative;
-  margin-top: 15px;
+  margin: 15px auto 0;
+  max-width: 800px;
   z-index: 29;
 }
 #middle4 span {
@@ -203,16 +190,33 @@ and (orientation : portrait) {
   font-size: 24px;
   font-family: "Walshein_light";
   color: rgb( 225, 225, 225 );
-  line-height: 1.167;
   text-align: center;
   position: relative;
-  margin-top: 50px;
+  margin: 50px auto 0;
+  max-width: 1100px;
   z-index: 34;
 }
 #down1 span {
 	color:rgb( 151, 222, 15 );
 }
+#faq {
+  font-size: 24px;
+  font-family: "Walshein_light";
+  color: rgb( 225, 225, 225 );
+  text-align: left;
+  position: relative;
+  margin: 50px auto 0;
+  max-width: 1100px;
+  z-index: 34;	
+}
 
+#faq .quest {
+	font-size: 32px;
+}
+#faq .headfaq {
+	font-size: 48px;
+	font-weight:bold;
+}
 
 #footer2 {
   font-size: 72px;
@@ -310,15 +314,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	</div>
 	<div id="middle3">
-		Купите книгу на&nbsp;сайте <a href="http://www.alpina.ru">alpina.ru</a> и&nbsp;сразу после оплаты<br />
-		вы&nbsp;получите уникальный одноразовый код. Используйте коды,<br />
-		чтобы скачать элетронную версию в&nbsp;приложении <a href="https://adretaill.onelink.me/3956041590?pid=ialpinabook">&laquo;Бизнес.Книги&raquo;</a>.
+		Купите книгу на&nbsp;сайте <a href="http://www.alpina.ru">alpina.ru</a> и&nbsp;сразу после оплаты
+		вы&nbsp;получите уникальную одноразовую ссылку. Используйте ссылки,
+		чтобы загружать электронные версии книг в&nbsp;приложении <a href="https://adretaill.onelink.me/3956041590?pid=ialpinabook" target="_blank">&laquo;Бизнес.Книги&raquo;</a>
+		на&nbsp;вашем телефоне или планшете.
 	</div>
+	<br />
 	<div id="middle4">
-		<span>Важный момент:</span> в&nbsp;редких случаях у&nbsp;нас может не&nbsp;оказаться<br />
-		электронной книги, которую вы&nbsp;купили в&nbsp;бумаге, и&nbsp;тогда мы<br />
-		подарим вам похожу книгу по&nbsp;этой&nbsp;же теме.
-	</div>	
+		<span>Дорогой друг!</span> <br />
+		В&nbsp;редких случаях у&nbsp;нас может не&nbsp;оказаться электронной книги,
+		которую вы&nbsp;купили в&nbsp;бумаге. Тогда мы&nbsp;подарим вам
+		похожую книгу&nbsp;&mdash; бестселлер или лучшую новинку на&nbsp;ту&nbsp;же тему. 
+		<br /><br />
+		Сейчас услуга &laquo;Знание, а&nbsp;не&nbsp;носитель&raquo; работает
+		на&nbsp;всех платформах Android и&nbsp;на&nbsp;платформах iOS, начиная с&nbsp;версии iOS8 и&nbsp;выше (iOS7&nbsp;на стадии доработки).
+		
+		Если у&nbsp;вас возникают сложности с&nbsp;получением бесплатных электронных книг,
+		напишите нам на&nbsp;адрес <a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a> или позвоните: +7 (495) 980 80 77.
+	</div>
 </div>
 
 <div id="wrap3">
@@ -328,11 +341,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<span>Книга&nbsp;&mdash; это знание, а&nbsp;не&nbsp;носитель.</span>
 	</div>
 	<div id="down2">
-		Нет смысла ждать больших изменений, если можно встать у&nbsp;их&nbsp;истоков. Мы&nbsp;решились быть первым<br />
-		в&nbsp;России и&nbsp;в&nbsp;мире издательством, которое сделало удобство чтения своей официальной политикой.<br />
-		Вам больше не&nbsp;нужно носить с&nbsp;собой тяжелые тома&nbsp;&mdash; книга всегда будет под рукой в&nbsp;телефоне<br />
-		или на&nbsp;планшете. А&nbsp;дома вы&nbsp;сможете наслаждаться скрипом переплета и&nbsp;запахом свежей бумаги, шумно<br />
-		листать страницы и&nbsp;делать пометки на&nbsp;полях.
+		Нет смысла ждать больших изменений, если можно встать у&nbsp;их&nbsp;истоков. Мы&nbsp;решились быть первым в&nbsp;России и&nbsp;в&nbsp;мире издательством, которое сделало удобство чтения своей официальной политикой. Вам больше не&nbsp;нужно носить с&nbsp;собой тяжелые тома&nbsp;&mdash; книга всегда будет под рукой в&nbsp;телефоне или на&nbsp;планшете. А&nbsp;дома вы&nbsp;сможете наслаждаться скрипом переплета и&nbsp;запахом свежей бумаги, шумно листать страницы и&nbsp;делать пометки на&nbsp;полях.
 	</div>
 </div>
 
@@ -349,6 +358,56 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<a href="/catalog/all-books/" class="button">Лучшие книги</a>
 	</div>
 </div>
+
+<div id="wrap5">
+	<div id="faq">
+<span class="headfaq">Часто задаваемые вопросы</span> <br />
+		<br />
+		<span class="quest">ВОПРОС 1: Что делать, если книги не&nbsp;загрузились?</span> <br />
+		<br />
+		1. Каким устройством вы&nbsp;пользуетесь? С&nbsp;любыми телефонами и&nbsp;планшетами на&nbsp;Android проблем быть не&nbsp;должно, так&nbsp;же как с&nbsp;айфонами и&nbsp;айпадами с&nbsp;версией прошивки 8.0 и&nbsp;новее. Трудности могут возникнуть только с&nbsp;версией iOS&nbsp;7 (узнать версию прошивки на&nbsp;своем телефоне можно: Настройки&nbsp;&mdash; Основные&nbsp;&mdash; Об&nbsp;этом устройстве&nbsp;&mdash; Версия). Самый простой вариант решения&nbsp;&mdash; обновить ПО.<br />
+		<br />
+		2. Если это не&nbsp;помогло, проблема может быть в&nbsp;том, что вы&nbsp;вводите не&nbsp;тот логин/пароль при активации уникальной ссылки.<br />
+		При активации ссылки на&nbsp;скачивание бесплатных книг нужно вводить именно логин и&nbsp;пароль от&nbsp;приложения &laquo;Бизнес.Книги&raquo;. Либо просто заходить через фейсбук и&nbsp;в&nbsp;приложении, и&nbsp;на&nbsp;странице скачивания бесплатных книг.<br />
+		Увы, это издержки тестовой версии, над которыми мы&nbsp;уже работаем. В&nbsp;будущем вам не&nbsp;придется делать лишних шагов и&nbsp;электронные книги сами будут автоматически загружаться на&nbsp;ваш телефон или планшет сразу после покупки бумажных книг. Следите за&nbsp;нашими обновлениями :)<br />
+		<br />
+		3. Если&nbsp;же вы&nbsp;все сделали правильно, но&nbsp;по-прежнему книжек не&nbsp;видно, напишите нам, мы&nbsp;быстро ответим вам! shop@alpinabook.ru<br />
+		<br />
+		<span class="quest">ВОПРОС 2: Что делать, если книги загрузились, но&nbsp;не&nbsp;все?</span> <br />
+		<br />
+		Возможно, книги, которые не&nbsp;загрузились, вы&nbsp;уже приобрели ранее в&nbsp;приложении. Проверьте в&nbsp;приложении в&nbsp;разделе &laquo;Мои книги&raquo;.<br />
+		Если книги не&nbsp;загрузились по&nbsp;другой причине, напишите нам на&nbsp;shop@alpinabook.ru, и&nbsp;мы&nbsp;быстро решим проблему.<br />
+		<br />
+		<span class="quest">ВОПРОС 3: Что делать, если в&nbsp;электронном виде загрузились не&nbsp;те&nbsp;книги, которые я&nbsp;заказывал?</span> <br />
+		<br />
+		1. В&nbsp;редких случаях у&nbsp;нас может не&nbsp;оказаться электронной книги, которую вы&nbsp;купили в&nbsp;бумаге. Тогда мы&nbsp;подарим вам похожую книгу&nbsp;&mdash; бестселлер или лучшую новинку на&nbsp;ту&nbsp;же тему. Сейчас таких книг &laquo;по&nbsp;замену&raquo; в&nbsp;нашем ассортименте не&nbsp;более&nbsp;9%, и&nbsp;мы&nbsp;постоянно работаем над тем, чтобы их&nbsp;было еще меньше.<br />
+		<br />
+		2. Какие именно книги вы&nbsp;получите в&nbsp;электронном виде взамен отсутствующих в&nbsp;нашем электронном ассортименте? Это можно увидеть в&nbsp;каждом письме со&nbsp;ссылкой или в&nbsp;личном кабинете, во&nbsp;вкладке &laquo;Бесплатные электронные книги&raquo;.<br />
+		<br />
+		3. Если вы&nbsp;проверили список обещанных электронных книг в&nbsp;письме или личном кабинете и&nbsp;уверены, что загрузилось не&nbsp;то, что должно было, напишите нам на&nbsp;shop@alpinabook.ru.<br />
+		<br />
+		<span class="quest">ВОПРОС 4: Какой пароль вводить на&nbsp;сайте интернет-магазина и&nbsp;в&nbsp;приложении?</span> <br />
+		<br />
+		1. Самое простое&nbsp;&mdash; входить во&nbsp;всех случаях с&nbsp;помощью фейсбука, чтобы не&nbsp;запутаться.<br />
+		<br />
+		2. Если у&nbsp;вас нет акаунта в&nbsp;фейсбуке или вы&nbsp;не&nbsp;хотите его использовать, необходимо зарегистрироваться. Для простоты вы&nbsp;можете завести одинаковые логин/пароль в&nbsp;интернет-магазине и&nbsp;приложении, чтобы не&nbsp;путаться.<br />
+		<br />
+		3. Впрочем, вы&nbsp;можете завести разные логины и&nbsp;пароли для аккаунтов в&nbsp;магазине и&nbsp;приложении, это не&nbsp;помешает вам получать электронные книги. Однако в&nbsp;этом случае важно помнить: на&nbsp;странице активации уникальной ссылки вам нужно вводить данные именно мобильного приложения.<br />
+		<br />
+		<span class="quest">ВОПРОС 5: Могу&nbsp;ли я&nbsp;купить электронные книги без бумажных?</span> <br />
+		<br />
+		Да, конечно. Электронные книги по-прежнему доступны в&nbsp;приложении &laquo;Бизнес.Книги&raquo; по&nbsp;выгодной цене.<br />
+		<br />
+		<span class="quest">ВОПРОС 6: Могу&nbsp;ли я&nbsp;получить книги, которые покупал на&nbsp;вашем сайте ранее, 16&nbsp;августа 2016&nbsp;года?</span> <br />
+		<br />
+		Если&nbsp;бы электронные книги получали только новые пользователи, это было&nbsp;бы несправедливо по&nbsp;отношению к&nbsp;нашим старым друзьям и&nbsp;лояльным покупателям. Мы&nbsp;уже работаем над тем, чтобы вы&nbsp;могли скачать в&nbsp;электронном виде все книги, которые когда-либо заказывали на&nbsp;нашем сайте, и&nbsp;обещаем вам в&nbsp;скором времени выпустить обновление, которое позволит это сделать.<br />
+		<br />
+		<span class="quest">ВОПРОС 7: Что делать, если не&nbsp;удается зарегистрироваться на&nbsp;странице с&nbsp;промокодом и&nbsp;в&nbsp;приложении?</span> <br />
+		<br />
+		Не&nbsp;помним, когда последний раз такое было. Но&nbsp;если это случилось с&nbsp;вами, просто напишите нам на&nbsp;<a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a>, и&nbsp;мы&nbsp;быстро все исправим.	</div>
+</div>
+
+<center><div style="margin:20px auto 40px;"><script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script><script src="//yastatic.net/share2/share.js"></script><div class="ya-share2" data-services="vkontakte,facebook" data-counter=""></div></div></center>
 <footer itemscope="" id="WPFooter" itemtype="http://schema.org/WPFooter">
 <div class="catalogWrapper">
 <div class="footerMenu">
@@ -413,8 +472,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<meta itemprop="logo" content="http://www.alpinabook.ru/img/logo.png">
 	&copy;&nbsp;2000-2016, <span itemprop="name">ООО &laquo;Альпина Паблишер&raquo;</span>
 </span> </div>
-<a target="_blank" href="https://itunes.apple.com/app/id429622051?mt=8&amp;&amp;referrer=click%3Dc6b2bce4-1b6e-4b91-a143-410714207241">
-<img src="img/icons.png" />
+<a target="_blank" href="https://itunes.apple.com/app/id429622051?mt=8">
+<img src="img/appleicon.png" />
+</a>
+<a target="_blank" href="https://play.google.com/store/apps/details?id=ru.alpina.alpina_retail">
+<img src="img/androidicon.png" />
 </a>
 </div>
 <div class="webServ">

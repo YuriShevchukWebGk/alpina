@@ -289,9 +289,9 @@
 					
 					foreach($products['products'] as $product) {
 						if ($product['status'] == 'ok') {
-							$sendinfo .= '<li>'.$product['name'].'</li>';
+							$sendinfo .= '<li style="padding-top:5px;">'.$product['name'].'</li>';
 						} else {
-							$sendinfo .= '<li>Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
+							$sendinfo .= '<li style="padding-top:5px;">Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
 						}
 					}
 					
@@ -306,11 +306,15 @@
 					$userGend->Update($order_list['USER_ID'], $fieldsGend);
 					
 					$freeurl = $products['url'];
+					
+					$useremail = Message::getClientEmail($ID);
 				} else {
 					$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
+					$useremail = 'a.marchenkov@alpinabook.ru';
 				}
 				$mailFields = array(
-					"EMAIL" => "a-marchenkov@yandex.ru",
+					//"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
+					"EMAIL"=> $useremail,
 					"TEXT" => $sendinfo,
 					"URL" => $freeurl,
 					"ORDER_ID" => $ID,
@@ -449,11 +453,15 @@
 					$userGend->Update($order_list['USER_ID'], $fieldsGend);
 					
 					$freeurl = $products['url'];
+					
+					$useremail = Message::getClientEmail($ID);
 				} else {
 					$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
+					$useremail = 'a.marchenkov@alpinabook.ru';
 				}
 				$mailFields = array(
-					"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
+					//"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
+					"EMAIL"=> $useremail,
 					"TEXT" => $sendinfo,
 					"URL" => $freeurl,
 					"ORDER_ID" => $ID,
@@ -1020,7 +1028,7 @@
                             "EMAIL"=> $arFields['PROPERTY_SUB_EMAIL_VALUE'],
                             "BOOK_HREF" => $bookHref,
                             "BOOK_NAME" => $bookName,
-                            "BOOK_IMG" => $bookImg
+                            "BOOK_IMG" => $bookImg['src']
                         );
                         CEvent::Send("BOOK_SUB_MAILING", "s1", $arEventFields,"N");
                         // --- email sending here
@@ -1039,7 +1047,7 @@
                             "EMAIL"=> $arFields['PROPERTY_SUB_EMAIL_VALUE'],
                             "BOOK_HREF" => $bookHref,
                             "BOOK_NAME" => $bookName,
-                            "BOOK_IMG" => $bookImg
+                            "BOOK_IMG" => $bookImg['src']
                         );
                         CEvent::Send("BOOK_SUB_MAILING", "s1", $arEventFields,"N");
 
@@ -1144,7 +1152,7 @@
         }
         if ($orderArr['DELIVERY_ID'] == 2){
             $arFields['EMAIL_ADDITIONAL_INFO'] = "<tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;\" valign=\"top\" colspan=\"2\">";
-            $arFields['EMAIL_ADDITIONAL_INFO'] .= "Заказ будет собран в течение двух рабочих часов. Забрать заказ можно по адресу <em>м.Полежаевская, ул.4-ая Магистральная, д.5, 2 подъезд, 2 этаж.</em><br />Офис работает по будням с 8 до 18 часов.";
+            $arFields['EMAIL_ADDITIONAL_INFO'] .= "Заказ будет собран в&nbsp;течение двух рабочих часов. Забрать заказ можно по&nbsp;адресу <em>м.Полежаевская, ул.4-ая&nbsp;Магистральная, д.5, 2&nbsp;подъезд, 2&nbsp;этаж.</em> <br />Офис работает по&nbsp;будням с&nbsp;8&nbsp;до&nbsp;18&nbsp;часов.";
 			$arFields['EMAIL_ADDITIONAL_INFO'] .= "<br /><br /><b>Как к нам пройти</b><br /><br />Метро «Полежаевская», первый вагон из центра (в связи с реконструкцией станции выход из последнего вагона закрыт), из вестибюля налево. После выхода на улицу огибаете метро справа и двигаетесь вдоль Хорошевского шоссе. Далее проходите мимо ресторана «Макдоналдс», банков «Альфа-Банк» и «Промсвязь Банк», поворачиваете направо и выходите на 4-ю Магистральную улицу. Переходите на противоположную сторону и идете до пересечения 4-й Магистральной улицы с Магистральным переулком. Угловой дом - №5. Вам нужен второй подъезд, второй этаж.";
             $arFields['EMAIL_ADDITIONAL_INFO'] .= "</td></tr>";
 			

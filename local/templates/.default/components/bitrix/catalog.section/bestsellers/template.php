@@ -445,9 +445,9 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
                     categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
                 <?}?>
                 other_books.css("height", other_books_height + "px");
-                //$(".wrapperCategor").css("height", categor_height + "px");
-                //$(".contentWrapp").css("height", categor_height - 10 + "px");
-				//$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
+                $(".wrapperCategor").css("height", categor_height + "px");
+                $(".contentWrapp").css("height", categor_height - 10 + "px");
+				$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
             });
             if (page == maxpage) {
                 $('.showMore').hide();
