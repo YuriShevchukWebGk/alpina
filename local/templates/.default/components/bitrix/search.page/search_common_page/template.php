@@ -9,8 +9,7 @@
 /** @var string $templateFile */
 /** @var string $templateFolder */
 /** @var string $componentPath */
-/** @var CBitrixComponent $component */
-?>
+/** @var CBitrixComponent $component */?>
 <div class="search-page">
 
     <?if (isset($arResult["REQUEST"]["ORIGINAL_QUERY"])) {?>
@@ -325,6 +324,95 @@
                                     </a>
                                 </div>
                             </div>
+
+
+                        <?}?>
+                        
+                        <?// серии в результатах поиска
+                        if ($arItem["PARAM2"] == EXPERTS_IBLOCK_ID) {?>
+                            <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
+                                if (($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"])
+                                    || ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"])) {
+
+                                        $discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
+                                } else {
+                                    $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
+                                }
+                            }
+                            $item_discount_value = 0;
+                            ?>
+                            <?foreach ($arResult["EXPERT_BOOK_INFO"] as $key => $exp_book_arr) {
+                                if ($discount) {
+                                    $newPrice = round (($exp_book_arr["CATALOG_PRICE_1"]) * (1 - $discount / 100), 2);
+                                    if (strlen (stristr($newPrice, ".")) == 2) {
+                                        $newPrice .= "0";
+                                    }
+                                } else {
+                                    $newPrice = $exp_book_arr["CATALOG_PRICE_1"];
+                                }
+                                if (!empty($exp_book_arr["DISCOUNT_INFO"])) {
+                                    $item_discount_value = ceil($exp_book_arr["DISCOUNT_INFO"]["VALUE"]);
+                                }
+                                if ($item_discount_value > 0) {
+                                    // arshow($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"]["VALUE"]);
+                                    $newPrice = $newPrice * (1 - $item_discount_value / 100);
+                                }?>
+                                <div class="searchBook">
+                                    <div>
+                                        <a href="/catalog/<?= $arResult["EXPERT_BOOK_INFO_SECTIONS"][$exp_book_arr["IBLOCK_SECTION_ID"]]["SECTION_INFO"]["CODE"] ?>/<?= $key ?>/">
+                                            <div class="search_item_img">
+                                                <?if ($exp_book_arr["PICTURE"]["src"]) {?>
+                                                    <img src="<?=$exp_book_arr["PICTURE"]["src"]?>">
+                                                <?} else {?>
+                                                    <img src="/images/no_photo.png" width="155">
+                                                <?}?>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="descrWrap">
+                                        <a href="/catalog/<?= $arResult["EXPERT_BOOK_INFO_SECTIONS"][$exp_book_arr["IBLOCK_SECTION_ID"]]["SECTION_INFO"]["CODE"] ?>/<?= $key ?>/">
+                                            <p class="bookNames" title="<?= $exp_book_arr["NAME"] ?>"><?= $exp_book_arr["NAME"] ?></p>
+                                            <p class="autorName"><?= $arResult["BOOK_AUTHOR_INFO"][$exp_book_arr["PROPERTY_AUTHORS_VALUE"]]["NAME"] ?></p>
+                                            <p class="wrapperType"><?= $exp_book_arr["PROPERTY_COVER_TYPE_VALUE"]?></p>
+                                            <?if (($exp_book_arr["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
+                                                && ($exp_book_arr["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
+                                            ?>
+                                                    <p class="price"><?= ceil( $newPrice) ?> руб.</p>
+                                            <?} else if ($exp_book_arr["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                                    <p class="price">Ожидаемая дата выхода: <?= strtolower(FormatDate(
+                                                        "j F",
+                                                        MakeTimeStamp(
+                                                            $exp_book_arr["PROPERTY_SOON_DATE_TIME_VALUE"],
+                                                            "DD.MM.YYYY HH:MI:SS"
+                                                        )
+                                                    )); ?>
+                                                    </p>
+                                            <?} else {?>
+                                                    <p class="price"><?= $exp_book_arr["PROPERTY_STATE_VALUE"] ?></p>
+                                            <?}?>
+                                            <div class="description"><?= $exp_book_arr["PREVIEW_TEXT"]?></div>
+                                            <?
+                                            if (($exp_book_arr["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
+                                                && ($exp_book_arr["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
+                                                    if ($arResult["BASKET_ITEMS"][$key]["QUANTITY"] == 0) {
+                                                        $curr_sect_ID = $exp_book_arr["IBLOCK_SECTION_ID"];?>
+                                                        <a class="product<?= $key; ?>"
+                                                            href="<?= '/search/index.php?action=ADD2BASKET&id=' . $key ?>"
+                                                            onclick="addtocart(<?= $key; ?>, '<?= $exp_book_arr["NAME"];?>'); addToCartTracking(<?= $key; ?>, '<?= $exp_book_arr["NAME"]; ?>', '<?= ceil( $exp_book_arr["CATALOG_PRICE_1"]) ?>', '<?echo $arResult["EXPERT_BOOK_INFO_SECTIONS"][$curr_sect_ID]["SECTION_INFO"]['NAME'];?>', '1');return false;">
+                                                                <p class="basket">В корзину</p>
+                                                        </a>
+                                                    <?} else {?>
+                                                        <a class="product<?= $key; ?>" href="/personal/cart/">
+                                                            <p class="inBasket" style="background-color: #A9A9A9;color: white;">Оформить</p>
+                                                        </a>
+                                                    <?}
+                                            }
+                                            ?>
+                                        </a>
+                                    </div>
+                                </div>
+                            <?}?>
+                            
 
 
                         <?}?>
