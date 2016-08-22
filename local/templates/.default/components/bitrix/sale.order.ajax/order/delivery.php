@@ -184,11 +184,11 @@
                     <?= htmlspecialcharsbx($arDelivery["NAME"])?> -                   
                     <?if(isset($arDelivery["PRICE"])):?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
-                        	<? if ($arDelivery["ID"] == FLIPPOST_ID) {
-                    			echo "Выберите местоположение";
-                    		} else { ?>
-                    			<?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?>
-                    		<? } ?>
+                            <? if ($arDelivery["ID"] == FLIPPOST_ID) {
+                                echo "Выберите местоположение";
+                            } else { ?>
+                                <?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?>
+                            <? } ?>
                         </b>
                         <?   
                             if (strlen($arDelivery["PERIOD_TEXT"])>0)
@@ -260,12 +260,12 @@
                     <? } ?> 
                     
                 <? if ($arDelivery["ID"] == FLIPPOST_ID) { ?>
-                	<div class="flippostSelectContainer">
-                		
-                	</div>
-                	<div class="flippost_error"><?= GetMessage('FLIPPOST_SELECT_EMPTY') ?></div>
-                	<input type="hidden" id="flippost_address" name="flippost_address" value="">
-                	<input type="hidden" id="flippost_cost" name="flippost_cost" value="">
+                    <div class="flippostSelectContainer">
+                        
+                    </div>
+                    <div class="flippost_error"><?= GetMessage('FLIPPOST_SELECT_EMPTY') ?></div>
+                    <input type="hidden" id="flippost_address" name="flippost_address" value="">
+                    <input type="hidden" id="flippost_cost" name="flippost_cost" value="">
                 <? } ?>
 
                 <div class="clear"></div>
