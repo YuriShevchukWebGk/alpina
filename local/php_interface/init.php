@@ -20,6 +20,7 @@
     define ("SPONSORS_IBLOCK_ID", 47);
     define ("WISHLIST_IBLOCK_ID", 17);
     define ("EXPERTS_IBLOCK_ID", 23);
+    define ("EXPERTS_REVIEWS_IBLOCK_ID", 31);
     define ("SERIES_BANNERS_IBLOCK_ID", 54); // 53 - для тестовой копии
     define ("INFO_MESSAGES_IBLOCK_ID", 53); // 52 - для тестовой копии
     define ("SUSPENDED_BOOKS_BUYERS_IBLOCK", 55); // 54 - для тестовой копии
