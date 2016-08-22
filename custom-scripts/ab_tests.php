@@ -105,14 +105,23 @@ if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 			});
 		</script>
 	<?} elseif ($alpExps['iconsWithText'] == 2) {?>
+		<style>
+			.catalogIcon span, .basketIcon span {
+				margin-left: 0px;
+				margin-top: 68px;
+				text-align: center;
+			}
+		</style>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				dataLayer.push({
 					event: 'ab-test-gtm',
 					action: 'iconsWithText',
-					label: 'doNothing'
+					label: 'withTextDown'
 				});
-				console.log('iconsWithText doNothing');
+				$(".catalogIcon").html("<span>Каталог</span>");
+				$(".basketIcon").html("<span>Корзина</span>");
+				console.log('iconsWithText withTextDown');
 			});
 		</script>
 	<?}

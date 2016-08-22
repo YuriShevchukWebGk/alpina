@@ -12,7 +12,7 @@
     <title><?$APPLICATION->ShowTitle()?></title> 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>   
     
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
     <link rel="stylesheet" href="/css/easySlider.css" type="text/css">  
     <link rel="stylesheet" href="/css/selectric.css" type="text/css">  
 
@@ -46,7 +46,7 @@
     <script src="/js/inputmask.js"></script>
     <script src="/js/jquery.selectric.min.js"></script>
 
-    <script src="/js/main.js"></script> 
+    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script> 
 
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />  
