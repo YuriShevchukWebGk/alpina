@@ -87,7 +87,7 @@ document.getElementById('bx_auth_secure').style.display = '';
 
         <noindex>
             <div class="bx-authform-link-container">
-                <p class="forgotPass"><a href="/personal<?=$arResult["AUTH_FORGOT_PASSWORD_URL"]?>" rel="nofollow"><?=GetMessage("AUTH_FORGOT_PASSWORD_2")?></a></p>
+                <p class="forgotPass"><a href="<?//=$arResult["AUTH_FORGOT_PASSWORD_URL"]?>/auth/?forgot_password=yes" rel="nofollow"><?=GetMessage("AUTH_FORGOT_PASSWORD_2")?></a></p>
             </div>
         </noindex>
         <?endif?>

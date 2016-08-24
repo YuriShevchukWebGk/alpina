@@ -155,7 +155,7 @@
     <?$APPLICATION->ShowHead();?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
     <link rel="stylesheet" href="/css/easySlider.css" type="text/css">
 
     <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
@@ -169,7 +169,7 @@
     <script src="<?=SITE_TEMPLATE_PATH?>/js/prettyCheckable.min.js"></script>
     <script src="<?=SITE_TEMPLATE_PATH?>/js/selectize.min.js"></script>
 
-    <script src="/js/main.js"></script> 
+    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script> 
 	<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
 	<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
 	<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">

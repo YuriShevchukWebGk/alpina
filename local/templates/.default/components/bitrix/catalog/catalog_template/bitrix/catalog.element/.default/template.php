@@ -1565,7 +1565,7 @@ $printid = implode(", ", $printid2);?>
             <?}?>
         });
 
-        if (window.innerWidth <= 1680) {
+        if (window.innerWidth <= 1500) {
             $(".catalogIcon").hide();
             $(".basketIcon").hide();
         }

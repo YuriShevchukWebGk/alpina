@@ -47,27 +47,33 @@
     font-style: normal;
 
 }
-@media screen and (max-width: 1240px){
+@media screen and (max-width: 1180px){
     header .telephone{
-    display: none;
+		display: none;
+	}
+	.menu li a {
+		font-size: 16px!important;
+	}
 }
-}
-@media screen and (max-width: 1140px){
+@media screen and (max-width: 1500px){
     .catalogIcon, .basketIcon{
     display: none;
 }
 }
 @media screen and (max-device-width: 414px){
     body{
-    width: 1500px;
-}
-.slideWrapp .catalogWrapper {
-    width: 100%;
-    margin-left: 175px;
-}
-.slideWrapp .firstSlide {
-    width: 1500px !important;
-}
+    width: 1190px;
+	}
+	.slideWrapp .catalogWrapper {
+		width: 100%;
+		margin-left: 175px;
+	}
+	header .telephone{
+		display: inline;
+	}
+	.slideWrapp .firstSlide {
+		width: 1190px !important;
+	}
 }
 body{
     padding: 0;
@@ -613,7 +619,7 @@ header .headBasket{
 .saleWrapp{
     background-color: #f4f4f4;
     min-height: 694px;
-    overflow: hidden;
+    overflow: visible;
     margin-bottom: 40px;
 }
 .saleWrapp .saleSlider li{
@@ -643,6 +649,9 @@ header .headBasket{
     font-size: 24px;
     padding-bottom: 38px;
     padding-top: 35px;
+}
+.saleWrapp .titleMain a{
+    color: #627478;
 }
 .saleWrapp ul{
     width: 9999px;
@@ -4490,8 +4499,8 @@ right: 45px;
 }
 .signinWrapper .forgotPass a{
     text-decoration: none;
-    font-family: "Walshein_medium";
-    font-size: 15px;
+    font-family: "Walshein_light";
+    font-size: 16px;
     color: #CEAD81;
 }
 .signinWrapper .remembMeContainer{
@@ -4611,8 +4620,8 @@ right: 45px;
 }
 .authorisationWrapper .forgotPass a, .authWrapper .forgotPass a {
     color: #cead81;
-    font-family: "Walshein_medium";
-    font-size: 15px;
+    font-family: "Walshein_light";
+    font-size: 16px;
     text-decoration: none;
 }
 .authorisationWrapper .remembMeContainer, .authWrapper .remembMeContainer{

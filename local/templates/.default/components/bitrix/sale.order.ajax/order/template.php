@@ -137,7 +137,9 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 		} else {
 			$(".inputTitle:contains('Получатель')").html('Получатель <span class="bx_sof_req">*</span></p>');
 			$(".hideInfo").hide();
-		}		
+		}	
+        
+        pickPointDeliveryId = "18"; //для доставки pickpoint	
     }
 
     $(function(){

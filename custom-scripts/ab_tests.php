@@ -12,8 +12,7 @@ if ($alpExps['updateExp'] != "040816") {
 /*if ($APPLICATION->GetCurDir() == '/personal/cart/') {
     $alpExps['recsInCart']        = (!$alpExps['recsInCart'] ? rand(1,2) : $alpExps['recsInCart']);
 }*/
-
-$alpExps['discountBlock']		= (!$alpExps['discountBlock'] ? rand(1,2) : $alpExps['discountBlock']);
+//$alpExps['discountBlock']		= (!$alpExps['discountBlock'] ? rand(1,2) : $alpExps['discountBlock']);
 
 if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 	$alpExps['expertReviews']	= (!$alpExps['expertReviews'] ? rand(1,2) : $alpExps['expertReviews']);
@@ -105,22 +104,31 @@ if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 			});
 		</script>
 	<?} elseif ($alpExps['iconsWithText'] == 2) {?>
+		<style>
+			.catalogIcon span, .basketIcon span {
+				margin-left: 0px;
+				margin-top: 68px;
+				text-align: center;
+			}
+		</style>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				dataLayer.push({
 					event: 'ab-test-gtm',
 					action: 'iconsWithText',
-					label: 'doNothing'
+					label: 'withTextDown'
 				});
-				console.log('iconsWithText doNothing');
+				$(".catalogIcon").html("<span>Каталог</span>");
+				$(".basketIcon").html("<span>Корзина</span>");
+				console.log('iconsWithText withTextDown');
 			});
 		</script>
 	<?}
 }?>
 <!-- //Тест Каталога и корзины у иконок -->
 
-<!-- Тест Скидок на главной -->
-<?if ($APPLICATION->GetCurDir() == '/') {
+<!-- Тест Скидок на главной ЗАВЕРШЕН -->
+<?/*if ($APPLICATION->GetCurDir() == '/') {
 	if ($alpExps['discountBlock'] == 1) {?>
 		<style>
 			.blockBestsHide, .blockDiscountHide {display:none;}
@@ -152,8 +160,8 @@ if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 			});
 		</script>
 	<?}
-}?>
-<!-- //Тест Скидок на главной -->
+}*/?>
+<!-- //Тест Скидок на главной ЗАВЕРШЕН -->
 
 <!-- Тест СмартБаннера ЗАВЕРШЕН -->
 <meta name="apple-itunes-app" content="app-id=429622051">
