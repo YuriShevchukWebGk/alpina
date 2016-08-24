@@ -887,6 +887,6 @@ if ($arResult['MODULES']['currency'])
     foreach ($arResult["AUTHOR"] as $key => $author) {
         $arResult["AUTHOR"][$key]["IMAGE_FILE"] = CFile::GetFileArray($author["DETAIL_PICTURE"]);
     }
-    $arResult["STRING_RECS"] = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
-	$APPLICATION->AddHeadString('<meta name="relap-image" content="http://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
+    $arResult["STRING_RECS"] = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
+	$APPLICATION->AddHeadString('<meta name="relap-image" content="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
 ?>
