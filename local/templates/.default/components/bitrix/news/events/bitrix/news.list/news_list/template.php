@@ -374,8 +374,10 @@ $(document).ready(function() {
             $('.moreNews').click(function(){
                 $.fancybox.showLoading();
                 $.get('<?=$arResult["SECTION_PAGE_URL"]?>?PAGEN_<?=$navnum?>='+page, function(data) {
-                    var next_page = $('.events_wrap_2 > .row .bx-newslist-container', data);
-                    $('.events_wrap_2 > .row').append(next_page);
+                    var next_page_top = $('.events_wrap_top > .row .bx-newslist-container', data);
+					var next_page_bottom = $('.events_wrap_2 > .row .bx-newslist-container', data);
+					$('.events_wrap_2 > .row').append(next_page_top);
+                    $('.events_wrap_2 > .row').append(next_page_bottom);
                     page++;            
                 })
                 .done(function() {

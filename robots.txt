@@ -12,8 +12,8 @@ Disallow: */personal/
 Disallow: /*.swf
 Disallow: *twitter
 Disallow: /content/publisher/ads/*
-Sitemap: http://www.alpinabook.ru/sitemap.xml
-Host: www.alpinabook.ru
+Sitemap: https://www.alpinabook.ru/sitemap.xml
+Host: https://www.alpinabook.ru
 
 User-agent: Googlebot-image
 Disallow:

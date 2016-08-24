@@ -45,8 +45,16 @@ $APPLICATION->SetTitle("Бесплатные электронные книги �
 td img {
 	box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);
 }
+#headerimg {
+  background: url(img/header.jpg) no-repeat 50% 0;
+  position: relative;
+  margin-top: 80px;
+  width: 100%;
+  height: 427px;
+  z-index: 31;
+}
 </style>
-<img src="img/header.jpg" />
+<div id="headerimg"></div>
 <div class="howToBodyWrap">
     <div class="centerWrapper" style="padding:40px 0;line-height:200%">
 	
