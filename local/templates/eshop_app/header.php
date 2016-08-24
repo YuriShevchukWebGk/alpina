@@ -53,7 +53,7 @@ IncludeTemplateLangFile(__FILE__);
 <?$APPLICATION->IncludeComponent("bitrix:eshopapp.data","",Array(
 ),false, Array("HIDE_ICONS" => "Y"));
 ?>
-<body id="body" class="<?=$APPLICATION->ShowProperty("BodyClass");?>" itemscope itemtype="http://schema.org/WebPage">
+<body id="body" class="<?=$APPLICATION->ShowProperty("BodyClass");?>" itemscope itemtype="https://schema.org/WebPage">
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

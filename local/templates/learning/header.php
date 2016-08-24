@@ -52,7 +52,7 @@ function ShowSwf(sSwfPath, width1, height1)
 <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="https://schema.org/WebPage">
 <?if ($USER->IsAuthorized()) {
 	$rsCurUser = CUser::GetByID($USER->GetID());
     $arCurUser = $rsCurUser->Fetch();

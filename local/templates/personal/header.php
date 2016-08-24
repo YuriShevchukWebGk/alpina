@@ -194,7 +194,7 @@
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />   
 	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 </head>
-<body class="historyBodyWr" itemscope itemtype="http://schema.org/WebPage">
+<body class="historyBodyWr" itemscope itemtype="https://schema.org/WebPage">
 
 <?if ($USER->IsAuthorized()) {
 	$rsCurUser = CUser::GetByID($USER->GetID());

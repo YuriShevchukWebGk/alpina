@@ -288,7 +288,7 @@
 <?/* Получаем бестселлеры от RetailRocket */
 global $arrFilterPersonal;
 if (isset($_COOKIE["rrpusid"])){
-    $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId=' . $_COOKIE["rrpusid"]);
+    $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId=' . $_COOKIE["rrpusid"]);
     $recsArray = json_decode($stringRecs);
     $arrFilterPersonal = Array('ID' => (array_slice($recsArray, 0, 6)));
 }

@@ -185,7 +185,7 @@ $arItemIDs = array(
 						<div class="characteris">
 							<p class="title"><?= GetMessage("PUBLISHER") ?></p>
 							<p class="text">
-								<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+								<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
 									<span itemprop="name">
 										<?= $arResult["PROPERTIES"]["PUBLISHER"]["VALUE"] ?>
 									</span>
@@ -211,9 +211,9 @@ $arItemIDs = array(
                         <p class="title"><?= GetMessage("COVER_TYPE") ?></p>
                         <p class="text"><?= $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
                         <?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_SOFTCOVER_XML_ID) {?>
-                            <link itemprop="bookFormat" href="http://schema.org/Paperback">
+                            <link itemprop="bookFormat" href="https://schema.org/Paperback">
 						<?} else if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_HARDCOVER_XML_ID) {?>
-                            <link itemprop="bookFormat" href="http://schema.org/Hardcover">
+                            <link itemprop="bookFormat" href="https://schema.org/Hardcover">
 						<?}?>
                     </div>
 					<?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
@@ -224,7 +224,7 @@ $arItemIDs = array(
 					<?}?>
                     <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск') {?>
                         <div class="characteris">
-                            <a href="http://readright.ru/?=alpinabook" target="_blank">
+                            <a href="https://readright.ru/?=alpinabook" target="_blank">
                                 <span class="text"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
                             </a>
                         </div>
@@ -274,7 +274,7 @@ $arItemIDs = array(
                         <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {?>
                             <span style="color:#627478"><?= $arResult["SPONSOR_PREVIEW_TEXT"] ?> </span><br />
                             <?if (!empty($arResult["SPONSOR_PICT"])) {?>
-                                <a href="http://<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
+                                <a href="https://<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
                                 <?} else {?>
                                 <?= $authorFetchedList["NAME"] ?>
                                 <?}?>
@@ -288,7 +288,7 @@ $arItemIDs = array(
                     <!-- /noindex -->
                 </div>
                 <div class="rightColumn">
-                    <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <meta itemprop="priceCurrency" content="RUB" />
                         <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
                                 if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
@@ -317,7 +317,7 @@ $arItemIDs = array(
                                     if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") )
                                         && (intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal") )) {
                                         foreach ($arResult["PRICES"] as $code => $arPrice) {?>
-                                        <link itemprop="availability" href="http://schema.org/InStock">
+                                        <link itemprop="availability" href="https://schema.org/InStock">
 
                                         <?$StockInfo = "InStock";
                                             if (round(($arPrice["VALUE"]) * (1 - $discount / 100), 2) . " " . GetMessage("ROUBLES") == $arPrice["PRINT_VALUE"]) {
@@ -359,12 +359,12 @@ $arItemIDs = array(
                                         }?>
                                         <?}
                                     } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
-                                    <link itemprop="availability" href="http://schema.org/PreOrder">
+                                    <link itemprop="availability" href="https://schema.org/PreOrder">
                                     <? $StockInfo = "SoonStock"; ?>
                                     <p class="newPrice" style="font-size:20px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
 
                                     <?} else {?>
-                                    <link itemprop="availability" href="http://schema.org/OutOfStock">
+                                    <link itemprop="availability" href="https://schema.org/OutOfStock">
                                     <?$StockInfo = "OutOfStock";?>
                                     <?foreach ($arResult["PRICES"] as $code => $arPrice) {
                                             if ($arPrice["DISCOUNT_DIFF"]) {?>
@@ -526,14 +526,14 @@ $arItemIDs = array(
                         <?if (!empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) ) {?>
                             <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherEvents', action: 'clickAppStore', label: '<?= $arResult['NAME'] ?>'});">
                                 <p class="title"><a target="_blank"
-                                    href="http://ad.apps.fm/I7nsUqHgFpiU6SjjFxr_lfE7og6fuV2oOMeOQdRqrE2fuH1E_AVE04uUy-835_z8AOyXPgYuNMr8J2cvDXlBe3JGR4QWfzRXdHADIOS0bhIlj-vcR89M4g_uNUXQBYtJhxsaY6DBokwX4FZL6ZW1oPCYagKnjd3JTKLywLOw94o"
+                                    href="https://ad.apps.fm/I7nsUqHgFpiU6SjjFxr_lfE7og6fuV2oOMeOQdRqrE2fuH1E_AVE04uUy-835_z8AOyXPgYuNMr8J2cvDXlBe3JGR4QWfzRXdHADIOS0bhIlj-vcR89M4g_uNUXQBYtJhxsaY6DBokwX4FZL6ZW1oPCYagKnjd3JTKLywLOw94o"
                                     rel="nofollow"><?= GetMessage("BUY_IN_APPSTORE") ?></a></p>
                             </div><!--/noindex-->
                             <?}?>
                         <?if (!empty ($arResult["PROPERTIES"]["android"]['VALUE']) ) {?>
                             <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherEvents', action: 'clickAndroid', label: '<?= $arResult['NAME'] ?>'});">
                                 <p class="title"><a target="_blank"
-                                    href="http://ad.apps.fm/JbkeS8Wu40Y4o7v66y0V515KLoEjTszcQMJsV6-2VnHFDLXitVHB6BlL95nuoNYfsPXjJaQ96brr8ncAvMfc6wZkKsYjZn26ZgfIprQwFxiMb6nGA0JPaw88nuXsLm5fGy9o7Q8KyEtAHAeX1UXtzRyIF-zfsrprYF9zs6rj2ac8dDeKR2QfG21w5iR5J8PU"
+                                    href="https://ad.apps.fm/JbkeS8Wu40Y4o7v66y0V515KLoEjTszcQMJsV6-2VnHFDLXitVHB6BlL95nuoNYfsPXjJaQ96brr8ncAvMfc6wZkKsYjZn26ZgfIprQwFxiMb6nGA0JPaw88nuXsLm5fGy9o7Q8KyEtAHAeX1UXtzRyIF-zfsrprYF9zs6rj2ac8dDeKR2QfG21w5iR5J8PU"
                                     rel="nofollow"><?= GetMessage("BUY_IN_GOOGLEPLAY") ?></a></p>
                             </div><!--/noindex-->
                             <?}?>

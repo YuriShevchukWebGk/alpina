@@ -34,7 +34,7 @@
         </div>
         <?/* Получаем рекомендации для поиска от RetailRocket */
         global $arrFilter;
-        $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword=' . $arResult["REQUEST"]["QUERY"]);
+        $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword=' . $arResult["REQUEST"]["QUERY"]);
         $recsArray = json_decode($stringRecs);
         $arrFilter = Array('ID' => (array_slice($recsArray, 0, 5)));
         if ($arrFilter['ID'][0] > 0) {?>
@@ -440,7 +440,7 @@
                 <?
                 if (isset($_COOKIE["rrpusid"])){
                     global $arrFilter;
-                    $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
+                    $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
                     $recsArray = json_decode($stringRecs);
                     $arrFilter = Array('ID' => (array_slice($recsArray, 0, 6)));
                 }

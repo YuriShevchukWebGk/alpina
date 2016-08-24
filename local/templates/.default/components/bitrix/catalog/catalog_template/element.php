@@ -15,7 +15,7 @@
 
     $this->setFrameMode(true);?>
 
-<div class="productElementWrapp" itemscope itemtype="http://schema.org/Book">
+<div class="productElementWrapp" itemscope itemtype="https://schema.org/Book">
 <meta itemprop="inLanguage" content="ru-RU"/>
 <div class="centerWrapper">
 <div class="catalogIcon" onmouseover="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'openSmallCatalog'});">
