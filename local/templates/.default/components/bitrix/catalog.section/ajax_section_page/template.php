@@ -120,7 +120,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
          
 
             <? /* Получаем от RetailRocket рекомендации для товара */
-            $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
+            $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
             $recsArray = json_decode($stringRecs);  
             
             if ($recsArray[0] > 0) {

@@ -55,8 +55,8 @@
 		
     <meta property="og:title" content="«Альпина Паблишер» — деловая литература" />
     <meta property="og:type" content="book" />
-    <meta property="og:url" content="http://www.alpinabook.ru" />
-    <meta property="og:image" content="http://www.alpinabook.ru/img/logo.png" />
+    <meta property="og:url" content="https://www.alpinabook.ru" />
+    <meta property="og:image" content="https://www.alpinabook.ru/img/logo.png" />
     <meta property="og:site_name" content="www.alpinabook.ru" />
     <meta property="fb:admins" content="1425804193" />
     <meta property="fb:app_id" content="138738742872757" /> 
@@ -65,7 +65,7 @@
 	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 
 </head>
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="https://schema.org/WebPage">
 
 <? global $USER;
 if ($USER->IsAuthorized()) {
@@ -103,7 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
-<header itemscope="" id="WPHeader" itemtype="http://schema.org/WPHeader">
+<header itemscope="" id="WPHeader" itemtype="https://schema.org/WPHeader">
     <a href="/">
         <div class="logo">
             <?$APPLICATION->IncludeComponent(
@@ -360,7 +360,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             );?> 
         <?/* Получаем рекомендации для главной от RetailRocket */
             global $SellBlockFilter;
-            $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
+            $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
             $recsArray = json_decode($stringRecs);
             $SellBlockFilter = Array('ID' => (array_slice($recsArray,0,6)));
 
@@ -712,11 +712,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 ПРИСОЕДИНЯЙТЕСЬ В СОЦСЕТЯХ
             </p>
             <div class="icons">
-                <a href="http://vk.com/ideabooks" target="_blank"><img src="/img/vk.png"></a>
+                <a href="https://vk.com/ideabooks" target="_blank"><img src="/img/vk.png"></a>
                 <a href="https://twitter.com/AlpinaBookRu"><img src="/img/twitter.png"></a>
                 <a href="https://www.facebook.com/alpinabook/" target="_blank"><img src="/img/facebook.png"></a>
                 <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank"><img src="/img/google.png"></a> 
-                <a href="http://instagram.com/alpinabook" target="_blank"><img src="/img/instagramm.png"></a>
+                <a href="https://instagram.com/alpinabook" target="_blank"><img src="/img/instagramm.png"></a>
             </div>
         </div>
     </div>
@@ -850,7 +850,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <?/* Получаем бестселлеры от RetailRocket */
 
             if (isset($_COOKIE["rrpusid"])){
-                $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
+                $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
                 $recsArray = json_decode($stringRecs);
                 $arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
             }
@@ -993,7 +993,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="recomendation blockBestsHide">
 			<?/* Получаем бестселлеры от RetailRocket */
 				global $BestsOnMain;
-				$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
+				$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
 				$recsArray = json_decode($stringRecs);
 				$BestsOnMain = Array('ID' => (array_slice($recsArray,0,6)));
 
@@ -1156,7 +1156,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				<div class="recomendation blockBestsShow">
 				<?/* Получаем бестселлеры от RetailRocket */
 					global $BestsOnMain;
-					$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
+					$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
 					$recsArray = json_decode($stringRecs);
 					$BestsOnMain = Array('ID' => (array_slice($recsArray,0,6)));
 
