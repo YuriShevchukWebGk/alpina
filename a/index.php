@@ -1,3 +1,3 @@
 <?
-   header("Location: /content/publisher/authors/"); 
+   header("Location: https://alpinaholding.ru/writers/"); 
 ?>

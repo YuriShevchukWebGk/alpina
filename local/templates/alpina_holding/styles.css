@@ -12,16 +12,16 @@ body {
 }
 
 .headerBackroundImage {
-    background: url(images/headerPhoto.png);
+    background: url(images/headerPhoto2.jpg) no-repeat;
     height: 538px;
     width: 100%;
     float:left;
+    background-size: cover;
 }
 
 .headerLogo {
     margin:auto;
     margin-top: 133px;
-    background: url(images/IAlpinaBooks.png);
     width: 525px;
     height: 135px;    
 }
@@ -59,6 +59,16 @@ body {
     background: #f1f1f1;
 }
 
+.contentWrapper .howToBodyWrap{
+    background-color: #f1f1f1;    
+}
+.contentWrapperPage{
+    padding-top: 56px;
+    width: 100%;
+    float:left;
+    background: #f4f4f4;
+}
+
 .contentPress h2{
     color: #414141;
     font-family: 'Walshein_regular';
@@ -78,15 +88,14 @@ body {
     margin-top: 88px;  
 }
 
-.contentPress ul:last-of-type{
-    padding-bottom: 70px;
+.contentPressList{
+    padding-bottom: 70px;   
 }
-
-.contentPress ul li{
+.contentPressListText{
     color: #414141;
     font-family: 'Walshein_regular';
     font-size: 24px;    
-    line-height: 29px;
+    line-height: 29px;    
 }
 
 .contentPress p{
@@ -187,6 +196,7 @@ body {
     overflow: hidden;   
 }
 
+
 .footerInlineMenu {
     float: left; 
     color: #cecece;
@@ -201,6 +211,9 @@ body {
     margin-right: 25px;
 }
 
+.footerInlineMenu a {
+    color: #cecece;
+}
 .footerInlineInfo {
     float: right; 
     color: #737373;
