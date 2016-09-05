@@ -32,10 +32,14 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
-        //валидаторы телефонных номеров
-        $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
-        $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
-        $("#pp_sms_phone").inputmask("+79999999999");
+		if ($.browser.msie && $.browser.version <= 9) {
+			
+		} else {
+			//валидаторы телефонных номеров
+			$("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
+			$("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
+			$("#pp_sms_phone").inputmask("+79999999999");
+		}
 
 
         if($('#pp_sms_phone')){
@@ -80,20 +84,21 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         }         
         hourfordeliv = <?=date("H");?>;
         ourday = <?=date("w");?>;    
-        if (hourfordeliv > 25) {
-            if (ourday == 6){   //суббота
+        if (hourfordeliv < 25) {
+            if (ourday == 1) { //понедельник
                 minDatePlus = 2;
-            } else if (ourday == 0) {    //воскресение
-                //minDatePlus = 1; //blackfriday
+            } else if (ourday == 2) { //вторник
                 minDatePlus = 1;
-            } else if (ourday == 5) {    //пятница                                            
-                minDatePlus = 3;                                               
-            } else {
-                if (hourfordeliv > 19 && ourday == 4) { //четверг после 18 - доставка на понедельник
-                    minDatePlus = 4;
-                } else {
-                    minDatePlus = 1;
-                }                            
+            } else if (ourday == 3) { //среда
+                minDatePlus = 1;
+            } else if (ourday == 4) { //четверг
+                minDatePlus = 4;
+            } else if (ourday == 5) { //пятница
+                minDatePlus = 4;
+            } else if (ourday == 6) { //суббота
+                minDatePlus = 3;
+            } else if (ourday == 0) { //воскресенье
+                minDatePlus = 2;
             }
         } else { // Майские праздники
 
@@ -144,8 +149,16 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 
     $(function(){
         submitForm();
-        setOptions();  
+        setOptions();
     })
+	//далее костыль
+	var stopupdate = false;
+	$('body').click(function(){
+		if (!stopupdate) {
+			setOptions();
+			stopupdate = true;
+		}
+	})
 </script>
 
 

@@ -12,7 +12,7 @@ body {
 }
 
 .headerBackroundImage {
-    background: url(images/headerPhoto2.jpg) no-repeat;
+    background: url(images/headerPhoto3.jpg) no-repeat;
     height: 538px;
     width: 100%;
     float:left;
@@ -21,7 +21,7 @@ body {
 
 .headerLogo {
     margin:auto;
-    margin-top: 133px;
+    margin-top: 190px;
     width: 525px;
     height: 135px;    
 }
@@ -43,7 +43,7 @@ body {
     height: 45px;
     width: 404px; 
     margin:auto;
-    margin-top: 101px;
+    margin-top: 190px;
     text-align: center;
     color: #ffffff;
     font-family: 'Walshein_regular';
@@ -180,7 +180,7 @@ body {
 
 .contentBlockText {
     color: #343434;
-    font-family: 'Walshein_medium';
+    font-family: 'Walshein_regular';
     font-size: 16px;
     line-height: 19px;
     height: 172px;

@@ -184,26 +184,28 @@
             <a onclick="jQuery('#author_form').slideToggle(); return false;" href="#">Чтобы предложить к изданию рукопись, заполните, пожалуйста, заявку. Это можно сделать здесь.</a> 
             <div id="author_form"<?if (!isset($_POST['web_form_submit']) && $_GET['formresult'] != 'addok'):?> style="display:none"<?endif;?>>
                 <?$APPLICATION->IncludeComponent(
-                        "bitrix:form.result.new",
-                        "publisher",
-                        Array(
-                            "WEB_FORM_ID" => "5",
-                            "IGNORE_CUSTOM_TEMPLATE" => "N",
-                            "USE_EXTENDED_ERRORS" => "N",
-                            "SEF_MODE" => "N",
-                            "CACHE_TYPE" => "A",
-                            "CACHE_TIME" => "3600",
-                            "LIST_URL" => "/content/publisher/authors/",
-                            "EDIT_URL" => "/content/publisher/authors/",
-                            "SUCCESS_URL" => "",
-                            "CHAIN_ITEM_TEXT" => "",
-                            "CHAIN_ITEM_LINK" => "",
-                            "VARIABLE_ALIASES" => Array(
-                                "WEB_FORM_ID" => "WEB_FORM_ID",
-                                "RESULT_ID" => "RESULT_ID"
-                            )
-                        )
-                    );?>
+	"bitrix:form.result.new", 
+	"publisher", 
+	array(
+		"WEB_FORM_ID" => "5",
+		"IGNORE_CUSTOM_TEMPLATE" => "N",
+		"USE_EXTENDED_ERRORS" => "N",
+		"SEF_MODE" => "N",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "3600",
+		"LIST_URL" => "",
+		"EDIT_URL" => "",
+		"SUCCESS_URL" => "",
+		"CHAIN_ITEM_TEXT" => "",
+		"CHAIN_ITEM_LINK" => "",
+		"COMPONENT_TEMPLATE" => "publisher",
+		"VARIABLE_ALIASES" => array(
+			"WEB_FORM_ID" => "WEB_FORM_ID",
+			"RESULT_ID" => "RESULT_ID",
+		)
+	),
+	false
+);?>
             </div>
         </div>
     </div>

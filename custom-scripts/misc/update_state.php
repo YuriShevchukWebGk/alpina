@@ -1,5 +1,6 @@
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-if ($USER->isAdmin()) {
+<?$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+
 	global $USER;
     CModule::IncludeModule("iblock");
     CModule::IncludeModule("catalog");
@@ -92,10 +93,7 @@ if ($USER->isAdmin()) {
 	}
 	$REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
 	echo $REQUEST_PROTOCOL;	
-	
-} else {
-	echo "ошибка";
-}
+
 ?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

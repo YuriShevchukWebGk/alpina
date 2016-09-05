@@ -23,7 +23,7 @@
             <a href="/"><img src="/local/templates/alpina_holding/images/IAlpinaBooks.png"></a>
         </div>        
         <div class="headerText">
-            <?$APPLICATION->IncludeComponent(
+            <?/*$APPLICATION->IncludeComponent(
                 "bitrix:main.include",
                 "",
                 Array(
@@ -33,7 +33,7 @@
                     "EDIT_TEMPLATE" => "",
                     "PATH" => "/include/header_text.php"
                 )
-            );?>
+            );*/?>
         </div>
         <div class="headerPublisherRibbon">
             <?$APPLICATION->IncludeComponent(

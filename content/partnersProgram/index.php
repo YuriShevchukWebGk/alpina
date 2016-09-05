@@ -38,20 +38,23 @@ $APPLICATION->SetTitle("Партнерская программа");
     
 <div class="howToBodyWrap">
     <div class="centerWrapper">
-        <?$APPLICATION->IncludeComponent("bitrix:form.result.new", "partner_programm", Array(
-	"SEF_MODE" => "Y",	// Включить поддержку ЧПУ
-		"WEB_FORM_ID" => "9",	// ID веб-формы
-		"LIST_URL" => "result_list.php",	// Страница со списком результатов
-		"EDIT_URL" => "result_edit.php",	// Страница редактирования результата
-		"SUCCESS_URL" => "",	// Страница с сообщением об успешной отправке
-		"CHAIN_ITEM_TEXT" => "",	// Название дополнительного пункта в навигационной цепочке
-		"CHAIN_ITEM_LINK" => "",	// Ссылка на дополнительном пункте в навигационной цепочке
-		"IGNORE_CUSTOM_TEMPLATE" => "Y",	// Игнорировать свой шаблон
-		"USE_EXTENDED_ERRORS" => "Y",	// Использовать расширенный вывод сообщений об ошибках
-		"CACHE_TYPE" => "A",	// Тип кеширования
-		"CACHE_TIME" => "3600",	// Время кеширования (сек.)
-		"SEF_FOLDER" => "/",	// Каталог ЧПУ (относительно корня сайта)
-		"VARIABLE_ALIASES" => ""
+        <?$APPLICATION->IncludeComponent(
+	"bitrix:form.result.new", 
+	"partner_programm", 
+	array(
+		"SEF_MODE" => "Y",
+		"WEB_FORM_ID" => "9",
+		"LIST_URL" => "",
+		"EDIT_URL" => "",
+		"SUCCESS_URL" => "",
+		"CHAIN_ITEM_TEXT" => "",
+		"CHAIN_ITEM_LINK" => "",
+		"IGNORE_CUSTOM_TEMPLATE" => "Y",
+		"USE_EXTENDED_ERRORS" => "Y",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "3600",
+		"SEF_FOLDER" => "/",
+		"COMPONENT_TEMPLATE" => "partner_programm"
 	),
 	false
 );?>   

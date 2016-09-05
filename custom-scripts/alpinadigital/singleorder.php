@@ -52,11 +52,14 @@ if ($products['url'] != 'error') {
 	$userGend->Update($order_list['USER_ID'], $fieldsGend);
 	
 	$freeurl = $products['url'];
+	$useremail = Message::getClientEmail($ID);
 } else {
 	$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
+	$useremail = 'a.marchenkov@alpinabook.ru';
 }
 $mailFields = array(
-	"EMAIL"=> Message::getClientEmail($ID),
+	//"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
+	"EMAIL"=> $useremail,
 	"TEXT" => $sendinfo,
 	"URL" => $freeurl,
 	"ORDER_ID" => $ID,
