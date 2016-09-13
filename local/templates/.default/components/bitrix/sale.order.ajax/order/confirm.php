@@ -328,3 +328,31 @@ if ($_REQUEST["ORDER_ID"])
         $(".orderBody").parent().html(result);
     })
 </script>    
+
+<div id="rfi_popup">
+    <p><?= GetMessage("RFI_RECURRENT_WARNING_MESSAGE") ?></p>
+    <div class="rfi_popup_tabs">
+        <div class="rfi_confirm"><?= GetMessage("RFI_RECURRENT_CONFIRM") ?></div>
+        <div class="rfi_cancel"><?= GetMessage("RFI_RECURRENT_DECLINE") ?></div>
+    </div>
+    <div class="loader_animation">
+        <div class="cssload-bell">
+            <div class="cssload-circle">
+                <div class="cssload-inner"></div>
+            </div>
+            <div class="cssload-circle">
+                <div class="cssload-inner"></div>
+            </div>
+            <div class="cssload-circle">
+                <div class="cssload-inner"></div>
+            </div>
+            <div class="cssload-circle">
+                <div class="cssload-inner"></div>
+            </div>
+            <div class="cssload-circle">
+                <div class="cssload-inner"></div>
+            </div>
+        </div>
+    </div>
+    <div id="rfi_popup_close"></div>
+</div>

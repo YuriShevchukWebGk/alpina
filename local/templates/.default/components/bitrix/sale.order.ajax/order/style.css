@@ -779,3 +779,209 @@ select {
 .sale_order_full_table tr:first-child td:last-child {
     vertical-align: top;
 }
+
+/*preloader*/
+
+.cssload-bell {
+    width: 62px;
+    height: 64px;
+    border-radius: 100%;
+    position: absolute;
+    left: calc(50% - 31px);
+}
+
+.cssload-circle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.cssload-circle .cssload-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    border: 3px solid rgba(0, 171, 184, 0.7);
+    border-right: none;
+    border-top: none;
+    background-clip: padding;
+    box-shadow: inset 0px 0px 6px rgba(0, 171, 184, 0.15);
+}
+
+.cssload-circle:nth-of-type(0) {
+    transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+}
+.cssload-circle:nth-of-type(0) .cssload-inner {
+    animation: cssload-spin 1.1s infinite linear;
+        -o-animation: cssload-spin 1.1s infinite linear;
+        -ms-animation: cssload-spin 1.1s infinite linear;
+        -webkit-animation: cssload-spin 1.1s infinite linear;
+        -moz-animation: cssload-spin 1.1s infinite linear;
+}
+
+.cssload-circle:nth-of-type(1) {
+    transform: rotate(70deg);
+        -o-transform: rotate(70deg);
+        -ms-transform: rotate(70deg);
+        -webkit-transform: rotate(70deg);
+        -moz-transform: rotate(70deg);
+}
+.cssload-circle:nth-of-type(1) .cssload-inner {
+    animation: cssload-spin 1.1s infinite linear;
+        -o-animation: cssload-spin 1.1s infinite linear;
+        -ms-animation: cssload-spin 1.1s infinite linear;
+        -webkit-animation: cssload-spin 1.1s infinite linear;
+        -moz-animation: cssload-spin 1.1s infinite linear;
+}
+
+.cssload-circle:nth-of-type(2) {
+    transform: rotate(140deg);
+        -o-transform: rotate(140deg);
+        -ms-transform: rotate(140deg);
+        -webkit-transform: rotate(140deg);
+        -moz-transform: rotate(140deg);
+}
+.cssload-circle:nth-of-type(2) .cssload-inner {
+    animation: cssload-spin 1.1s infinite linear;
+        -o-animation: cssload-spin 1.1s infinite linear;
+        -ms-animation: cssload-spin 1.1s infinite linear;
+        -webkit-animation: cssload-spin 1.1s infinite linear;
+        -moz-animation: cssload-spin 1.1s infinite linear;
+}
+
+.cssload-bell {
+    animation: cssload-spin 2.75s infinite linear;
+        -o-animation: cssload-spin 2.75s infinite linear;
+        -ms-animation: cssload-spin 2.75s infinite linear;
+        -webkit-animation: cssload-spin 2.75s infinite linear;
+        -moz-animation: cssload-spin 2.75s infinite linear;
+}
+
+
+
+@keyframes cssload-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes cssload-spin {
+    from {
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -o-transform: rotate(360deg);
+    }
+}
+
+@-ms-keyframes cssload-spin {
+    from {
+        -ms-transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes cssload-spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes cssload-spin {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+/*preloader*/
+
+
+#rfi_popup{
+    width:650px;
+    height:250px;
+    background:white;
+    z-index:400;
+    position:absolute;
+    top: -780px;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:0 auto;
+    transform:translate3d(0,900px,0);
+    opacity:0;
+    visibility:hidden;
+    box-shadow: 0px 0px 21px 0px rgba(0,0,0,0.25);
+    border:2px solid #99abb1;
+    transition:all 0.3s ease;
+    font-family: "Walshein_regular";
+}
+
+.rfi_popup_visible{
+    opacity:1 !important;
+    transform:translate3d(0,350px,0) !important;
+    visibility:visible !important;
+}
+
+#rfi_popup p{
+    font-size:18px;
+    text-align:center;
+    margin-top: 70px;
+}
+
+.rfi_confirm, .rfi_cancel{
+    display:inline-block;
+    padding:10px 15px;
+    color:white;
+    cursor:pointer;
+    border-radius: 35px;
+}
+
+.rfi_confirm{
+   background:#00ABB8;
+}
+
+.rfi_cancel{
+    background:#F44336;
+    margin-left: 85px;
+}
+
+.rfi_popup_tabs{
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+#rfi_popup_close{
+    width: 60px;
+    height: 60px;
+    background:url("/img/catalogLeftClose.png") 0 0 no-repeat;
+    position:absolute;
+	top: -30px;
+    right: -30px;
+    cursor:pointer;
+}
+
+.loader_animation{
+    display: none;
+	margin-top: 20px;
+}
