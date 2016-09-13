@@ -63,7 +63,9 @@ $books_list  = CIBlockElement::GetList(
 );
 if (!empty($books_array)) {
     while ($books = $books_list -> Fetch()) {
-        $arResult["BOOK_INFO"][$books["ID"]] = $books;
+		if (!is_array($arResult["BOOK_INFO"][$books["ID"]])) {
+			$arResult["BOOK_INFO"][$books["ID"]] = $books; 
+		}
         $arResult["BOOK_INFO"][$books["ID"]]["PICTURE"] = CFile::ResizeImageGet(
             $books["DETAIL_PICTURE"], 
             array('width'=>165, "height"=>233), 
