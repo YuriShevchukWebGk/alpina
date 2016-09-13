@@ -637,18 +637,18 @@ if ($arResult['MODULES']['currency'])
             $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
 			$ar_properties["NAME"] = $authors["NAME"];
         
-            /*if (strlen ($ar_properties['FIRST_NAME']) > 0) {
+            if (strlen ($ar_properties['FIRST_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
             }
             if (strlen ($ar_properties['LAST_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
-            }*/
-			if (strlen ($ar_properties['NAME']) > 0) {
+            }
+			/*if (strlen ($ar_properties['NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['NAME'];
-			}
+			}*/
             if (strlen ($ar_properties['ORIG_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= " / " . (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['ORIG_NAME'];
-            }      
+            }
         }
     }
 

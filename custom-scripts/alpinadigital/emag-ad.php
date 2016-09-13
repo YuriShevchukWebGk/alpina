@@ -37,7 +37,7 @@ $output = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
 }
 $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => 69654), false, false, array());
 while ($arItems = $dbBasketItems->GetNext()) {
-	$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=70007";
+	$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=6115";
 	$db_props = CIBlockElement::GetProperty(4, $arItems[PRODUCT_ID], array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
 
 	$ch = curl_init();  

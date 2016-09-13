@@ -12,16 +12,16 @@ body {
 }
 
 .headerBackroundImage {
-    background: url(images/headerPhoto.png);
+    background: url(images/headerPhoto3.jpg) no-repeat;
     height: 538px;
     width: 100%;
     float:left;
+    background-size: cover;
 }
 
 .headerLogo {
     margin:auto;
-    margin-top: 133px;
-    background: url(images/IAlpinaBooks.png);
+    margin-top: 190px;
     width: 525px;
     height: 135px;    
 }
@@ -43,7 +43,7 @@ body {
     height: 45px;
     width: 404px; 
     margin:auto;
-    margin-top: 101px;
+    margin-top: 190px;
     text-align: center;
     color: #ffffff;
     font-family: 'Walshein_regular';
@@ -57,6 +57,16 @@ body {
     width: 100%;
     float:left;
     background: #f1f1f1;
+}
+
+.contentWrapper .howToBodyWrap{
+    background-color: #f1f1f1;    
+}
+.contentWrapperPage{
+    padding-top: 56px;
+    width: 100%;
+    float:left;
+    background: #f4f4f4;
 }
 
 .contentPress h2{
@@ -78,15 +88,14 @@ body {
     margin-top: 88px;  
 }
 
-.contentPress ul:last-of-type{
-    padding-bottom: 70px;
+.contentPressList{
+    padding-bottom: 70px;   
 }
-
-.contentPress ul li{
+.contentPressListText{
     color: #414141;
     font-family: 'Walshein_regular';
     font-size: 24px;    
-    line-height: 29px;
+    line-height: 29px;    
 }
 
 .contentPress p{
@@ -171,7 +180,7 @@ body {
 
 .contentBlockText {
     color: #343434;
-    font-family: 'Walshein_medium';
+    font-family: 'Walshein_regular';
     font-size: 16px;
     line-height: 19px;
     height: 172px;
@@ -187,6 +196,7 @@ body {
     overflow: hidden;   
 }
 
+
 .footerInlineMenu {
     float: left; 
     color: #cecece;
@@ -201,6 +211,9 @@ body {
     margin-right: 25px;
 }
 
+.footerInlineMenu a {
+    color: #cecece;
+}
 .footerInlineInfo {
     float: right; 
     color: #737373;

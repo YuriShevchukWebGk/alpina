@@ -111,7 +111,7 @@ while($ar_sales = $rsUsers->Fetch()) {
 	$is_filtered = $resDel->is_filtered; // отфильтрована ли выборка
 	//print_r ($resDel);
 	$el = new CIBlockElement;
-	if ($Del = $resDel->Fetch()) {
+	while ($Del = $resDel->Fetch()) {
 		//$order_count = $Del["PROPERTY_ORDERS_COUNT_VALUE"] + 1;
 		$PROP = array(
 			"ORDERS_COUNT"				=> $Del["PROPERTY_ORDERS_COUNT_VALUE"] + 1,
@@ -137,8 +137,8 @@ while($ar_sales = $rsUsers->Fetch()) {
 		  );
 		//echo '<pre>1';print_r ($Del);echo '</pre>';
 		$DelUp = $el->Update($Del['ID'], $arLoadProductArray);
-		print_r($PROP);
-	} else {	
+	} 
+	print_r($PROP);/*else {	
 		$PROP = array(
 			"ORDERS_COUNT"				=> $order_count,
 			"ORDERS_SUM"				=> $order_sum,
@@ -163,7 +163,7 @@ while($ar_sales = $rsUsers->Fetch()) {
 		  );			
 		$PRODUCT_ID = $el->Add($arLoadProductArray);
 		print_r($PROP);
-	}
+	}*/
 }
 echo 'done!';
 }

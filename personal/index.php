@@ -1,8 +1,9 @@
 <?  
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetTitle("История заказов");  
-?>
-<?if (!$USER->IsAuthorized()) {
+    $orders_count = UserOrdersCount($USER -> GetID());
+    ?>
+<?if (!$USER->IsAuthorized() || ($USER -> IsAuthorized() && intval($orders_count) <= 0)) {
     header("location: profile/"); 
 } else {?>
     <?$APPLICATION->IncludeComponent(

@@ -1,17 +1,36 @@
 <footer>
     <div class="catalogWrapper">
         <div class="footerOverLine">
-            <ul class="footerInlineMenu">
-                <li>Авторам</li>
-                <li>Для СМИ</li>
-                <li>Мероприятия</li>
-                <li>Партнёрская программа</li>
-                <li>Контакты</li>
-            </ul>
+            <?$APPLICATION->IncludeComponent(
+                "bitrix:menu",
+                "footer_menu",
+                Array(
+                    "ALLOW_MULTI_SELECT" => "N",
+                    "CHILD_MENU_TYPE" => "left",
+                    "DELAY" => "N",
+                    "MAX_LEVEL" => "1",
+                    "MENU_CACHE_GET_VARS" => array(""),
+                    "MENU_CACHE_TIME" => "3600",
+                    "MENU_CACHE_TYPE" => "N",
+                    "MENU_CACHE_USE_GROUPS" => "Y",
+                    "ROOT_MENU_TYPE" => "left",
+                    "USE_EXT" => "N"
+                )
+            );?>
             <div class="footerInlineInfo">
-                Москва, 4-я Магистральная улица, д.5, 2 подъезд, 2 этаж
-                +7 (495) 980 80 77 shop@alpinabook.ru
-                © 2000-2016, ООО «Альпина Паблишер»
+            <?$APPLICATION->IncludeComponent(
+	"bitrix:main.include", 
+	".default", 
+	array(
+		"AREA_FILE_RECURSIVE" => "Y",
+		"AREA_FILE_SHOW" => "file",
+		"AREA_FILE_SUFFIX" => "inc",
+		"EDIT_TEMPLATE" => "",
+		"PATH" => "/include/footer_text.php",
+		"COMPONENT_TEMPLATE" => ".default"
+	),
+	false
+);?>
             </div>
         </div>
         <div class="footerUnderLine">
