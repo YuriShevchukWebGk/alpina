@@ -13,18 +13,20 @@ $filter = Array
     //"TIMESTAMP_1"         => "03.12.2013",
     //"TIMESTAMP_2"         => "09.12.2013",
 	//">UF_ORDERS_COUNT"		=>	0,
-    //"LOGIN"             	=> "~newuser",
-	"ID"					=> 15
+    "LOGIN"             	=> "~newuser",
+	//"ID"					=> 20202,
+	"EMAIL"					=> "a-marchenkov@yandex.ru"
 );
 $userList = CUser::GetList(($by="LOGIN"), ($order="desc"), $filter); // выбираем пользователей
 $is_filtered = $userList->is_filtered; // отфильтрована ли выборка ?
 
-$today = strtotime(date('d.m.Y'));
+$today = strtotime(date('d.m.Y'));	
 
 while($userParams = $userList->Fetch()) {
 	$filter = Array
 	(
-		"USER_ID"               => $userParams['ID'],
+		//"USER_ID"               => 20202,
+		"PROPERTY_VAL_BY_CODE_EMAIL"               => "a-marchenkov@yandex.ru",
 		"PAYED" 				=> "Y"
 
 	);
@@ -103,7 +105,7 @@ while($userParams = $userList->Fetch()) {
 		"UF_URADRESS"					=> $allOrders,
 		"UF_PERSON_TYPE_ID" 			=> $person_type_id,
 	);
-	$user->Update($filter['USER_ID'], $fields);		
+	$user->Update($userParams['ID'], $fields);
 }
 echo 'done!<br /><br />';
 

@@ -7,6 +7,12 @@ $arUrlRewrite = array(
 		"PATH" => "/content/reviews/index.php",
 	),
 	array(
+		"CONDITION" => "#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#",
+		"RULE" => "alias=\$1",
+		"ID" => "bitrix:im.router",
+		"PATH" => "/desktop_app/router.php",
+	),
+	array(
 		"CONDITION" => "#^/bitrix/services/ymarket/#",
 		"RULE" => "",
 		"ID" => "",
@@ -19,16 +25,22 @@ $arUrlRewrite = array(
 		"PATH" => "/good-arithmetics-news/index.php",
 	),
 	array(
-		"CONDITION" => "#^/catalog/#",
+		"CONDITION" => "#^/online/(/?)([^/]*)#",
 		"RULE" => "",
-		"ID" => "bitrix:catalog",
-		"PATH" => "/catalog/index.php",
+		"ID" => "bitrix:im.router",
+		"PATH" => "/desktop_app/router.php",
 	),
 	array(
 		"CONDITION" => "#^/authors/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/authors/index.php",
+	),
+	array(
+		"CONDITION" => "#^/catalog/#",
+		"RULE" => "",
+		"ID" => "bitrix:catalog",
+		"PATH" => "/catalog/index.php",
 	),
 	array(
 		"CONDITION" => "#^/events/#",
@@ -43,23 +55,23 @@ $arUrlRewrite = array(
 		"PATH" => "/series/index.php",
 	),
 	array(
-		"CONDITION" => "#^\\??(.*)#",
-		"RULE" => "&\$1",
-		"ID" => "bitrix:catalog.section",
-		"PATH" => "/local/templates/.default/components/bitrix/news/series/bitrix/news.detail/.default/template.php",
-	),
-	array(
 		"CONDITION" => "#^/store/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog.store",
 		"PATH" => "/store/index.php",
 	),
 	array(
+		"CONDITION" => "#^\\??(.*)#",
+		"RULE" => "&\$1",
+		"ID" => "bitrix:catalog.section",
+		"PATH" => "/local/templates/.default/components/bitrix/news/series/bitrix/news.detail/.default/template.php",
+	),
+	array(
 		"CONDITION" => "#^/news/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/news/index.php",
-	)
+	),
 );
 
 ?>

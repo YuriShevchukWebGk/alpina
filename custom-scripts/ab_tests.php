@@ -49,11 +49,10 @@ if ($alpExps['updateExp'] != "050916") {
 <!-- //Тест Шрифта -->
 
 <?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
-	if (preg_match("/^(http:\/\/)?([^\/]+)/i",$APPLICATION->GetCurPage()) && $USER->isAdmin()) {?>
-		<?echo 'dfjkdsjfsdkfj';?>
+	if (!preg_match("/([0-9]+)/i",$APPLICATION->GetCurPage())) {?>
 		<style>
 			.catalogIcon span, .basketIcon span {
-				
+				color: #99ABB1;
 			}
 		</style>
 	<?}?>

@@ -485,7 +485,8 @@
 			if ($val=="C") { // ---- статус собран может быть только для заказов с самовывозом
 				if (Message::getOrderDeliveryType($ID)==2) {
 					$message = new Message();
-					$result = $message->sendMessage($ID,$val);
+					$order = CSaleOrder::GetById($ID);
+					$result = $message->sendMessage($ID,$val,'',$order['PRICE']);
 				}
 			} else {
 				$message = new Message();
@@ -810,7 +811,7 @@
             "N" => "Ваш заказ №order принят. Если будут вопросы – звоните +7(495)9808077",
             "A" => "clientName, Ваш заказ №order в интернет-магазине Альпина Паблишер отменен. Если заказ аннулирован по ошибке, звоните +7(495)9808077",
             "K" => "clientName, Ваш заказ №order отправлен почтой РФ. Номер отправления будет выслан Вам в течение 5 рабочих дней.Если будут вопросы – звоните +7(495)9808077",
-            "C" => "clientName, Ваш заказ №order собран. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, под. 2, этаж 2 по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
+            "C" => "clientName, Ваш заказ №order собран. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, под. 2, этаж 2 по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077. Стоимость ordsum руб.",
             "D10" => "Истекает срок хранения Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "D12" => "Осталось 2 дня до аннулирования Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "CA" => "Ваш заказ order передан курьеру. Курьер cur_name cur_phone"
@@ -908,13 +909,14 @@
         *
         *************/
 
-        public function sendMessage($ID,$val,$curArr){
+        public function sendMessage($ID,$val,$curArr,$ordsum){
 
             $phone = $this->getPhone($ID);
             $name = $this->getClientName($ID);
             $message = preg_replace('/order/',$ID,self::$messages[$val]); // ---- вставляем номер заказа
+			$message = preg_replace('/ordsum/',$ordsum,$message); // ---- вставляем сумму заказа
             $message = preg_replace('/clientName/',$name,$message); // ---- вставляем имя клиента
-            if($curArr){
+            if($curArr != ''){
                 $message = preg_replace('/cur_name/',$curArr['CUR']['NAME'],$message); // ---- вставляем имя курьера
                 $message = preg_replace('/cur_phone/',$curArr['CUR']['PHONE'],$message); // ---- вставляем телефон курьера
             }

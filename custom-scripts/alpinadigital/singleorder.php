@@ -1,7 +1,12 @@
 ﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 if ($USER->isAdmin()) {
+if ($_GET['orderid'] || $_GET['emailbooks']) {
+
 if ($_GET['orderid']) {
-$ID = $_GET['orderid'];
+	$ID = $_GET['orderid'];
+} else {
+	$ID = $_GET['orderidbooks'];
+}
 CModule::IncludeModule("iblock");
 CModule::IncludeModule("sale");
 CModule::IncludeModule("catalog");
@@ -12,6 +17,7 @@ $allBooksUrl = '';
 $bookId = '';
 $recId = '';
 $sendinfo = '';
+
 
 $orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
 if (!empty($orderUser["UF_TEST"])) {
@@ -25,8 +31,13 @@ $ids = '';
 while ($arItems = $dbBasketItems->Fetch()) {
 	$ids .= $arItems["PRODUCT_ID"].',';
 }
+$ids = substr($ids,0,-1);
 
-$products = getUrlForFreeDigitalBook(substr($ids,0,-1));
+if ($_GET['booksid']) {
+	$ids = $_GET['booksid'];
+}
+
+$products = getUrlForFreeDigitalBook($ids);
 
 if ($products['url'] != 'error') {
 	$allUrlsArray[] = array("orderid" => $ID, "products" => $products);
@@ -52,7 +63,11 @@ if ($products['url'] != 'error') {
 	$userGend->Update($order_list['USER_ID'], $fieldsGend);
 	
 	$freeurl = $products['url'];
-	$useremail = Message::getClientEmail($ID);
+	if ($_GET['emailbooks']) {
+		$useremail = $_GET['emailbooks'];
+	} else {
+		$useremail = Message::getClientEmail($ID);
+	}
 } else {
 	$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
 	$useremail = 'a.marchenkov@alpinabook.ru';
@@ -74,7 +89,15 @@ if (CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N")) {
 	<form action="/custom-scripts/alpinadigital/singleorder.php">
 	<input type="text" name="orderid" value="" placeholder="Номер заказа">
 	<input type="submit" value="Отправить бесплатные книги">
-	</form>	
+	</form>
+	<br /><br />
+	Ниже пока отлаживается. Не трогать <br />
+	<form action="/custom-scripts/alpinadigital/singleorder.php">
+	<input type="text" name="orderidbooks" value="" placeholder="Номер заказа" required><br />
+	<input type="text" name="emailbooks" value="" placeholder="Email" required><br />
+	<textarea type="text" name="booksid" value="" rows="20" cols="45" required placeholder="Id книг через запятую без пробелов"></textarea><br /><br />
+	<input type="submit" value="Отправить книги">
+	</form>		
 <?
 }
 } else {
