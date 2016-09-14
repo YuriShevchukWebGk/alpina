@@ -1,4 +1,4 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();  
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
     if($USER->IsAuthorized() || $arParams["ALLOW_AUTO_REGISTER"] == "Y")
     {
@@ -27,15 +27,19 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
     display: block;
 }
 </style>
-<script>  
+<script>
 
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
-        //валидаторы телефонных номеров
-        $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
-        $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
-        $("#pp_sms_phone").inputmask("+79999999999");
+		if ($.browser.msie && $.browser.version <= 9) {
+
+		} else {
+			//валидаторы телефонных номеров
+			$("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
+			$("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
+			$("#pp_sms_phone").inputmask("+79999999999");
+		}
 
 
         if($('#pp_sms_phone')){
@@ -45,9 +49,9 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         //дублируем телефон для pickpoint
         $('body').on('change', '#ORDER_PROP_24', function(){
             $('#pp_sms_phone').val($('#ORDER_PROP_24').val());
-        });     
+        });
         $('body').on('change', '#ORDER_PROP_11', function(){
-            $('#pp_sms_phone').val($('#ORDER_PROP_11').val());       
+            $('#pp_sms_phone').val($('#ORDER_PROP_11').val());
         });
 
         /*-----
@@ -61,39 +65,40 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 $.post("/ajax/rfi_bank_tabs.php", {
                     rfi_bank_tab : $(this).data('rfi-payment')
                     }, function(data) {}
-                );    
+                );
             }
         })
 
         //ограничение на количество символов в комментарии
         $("#ORDER_DESCRIPTION").keydown(function(){
-            var len = $(this).val().length; 
+            var len = $(this).val().length;
             if (len >=300 ) {
-                $(this).val( $(this).val().substr(0,300)); 
+                $(this).val( $(this).val().substr(0,300));
             }
         })
 
         //календарь
-        function disableSpecificDaysAndWeekends(date) {                                                                           
-            var noWeekend = $.datepicker.noWeekends(date); 
-            return !noWeekend[0] ? noWeekend : [true];  
-        }         
+        function disableSpecificDaysAndWeekends(date) {
+            var noWeekend = $.datepicker.noWeekends(date);
+            return !noWeekend[0] ? noWeekend : [true];
+        }
         hourfordeliv = <?=date("H");?>;
-        ourday = <?=date("w");?>;    
-        if (hourfordeliv > 25) {
-            if (ourday == 6){   //суббота
-                minDatePlus = 2;
-            } else if (ourday == 0) {    //воскресение
-                //minDatePlus = 1; //blackfriday
+        ourday = <?=date("w");?>;
+        if (hourfordeliv < 25) {
+            if (ourday == 1) { //понедельник
                 minDatePlus = 1;
-            } else if (ourday == 5) {    //пятница                                            
-                minDatePlus = 3;                                               
-            } else {
-                if (hourfordeliv > 19 && ourday == 4) { //четверг после 18 - доставка на понедельник
-                    minDatePlus = 4;
-                } else {
-                    minDatePlus = 1;
-                }                            
+            } else if (ourday == 2) { //вторник
+                minDatePlus = 1;
+            } else if (ourday == 3) { //среда
+                minDatePlus = 1;
+            } else if (ourday == 4) { //четверг
+                minDatePlus = 1;
+            } else if (ourday == 5) { //пятница
+                minDatePlus = 3;
+            } else if (ourday == 6) { //суббота
+                minDatePlus = 2;
+            } else if (ourday == 0) { //воскресенье
+                minDatePlus = 1;
             }
         } else { // Майские праздники
 
@@ -115,11 +120,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
-        var newDay = ourday + minDatePlus;  
-        //если день доставки попадает на субботу 
+        var newDay = ourday + minDatePlus;
+        //если день доставки попадает на субботу
         if (newDay == 6) {
             curDay = curDay + 3;
-        }     
+        }
         //для физических и юридических лиц
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker({
             minDate: minDatePlus,
@@ -127,23 +132,34 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
             maxDate: "+3w +1d",
             beforeShowDay: disableSpecificDaysAndWeekends, //blackfriday черная пятница
             dateFormat: "dd.mm.yy",
-            setDate:minDatePlus   
-        });           
-        $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker( "setDate", curDay );             
+            setDate:minDatePlus
+        });
+        $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker( "setDate", curDay );
         $("#ORDER_PROP_44, #ORDER_PROP_45").inputmask("d.m.y");
-		
+
 		if ($("#ID_DELIVERY_ID_11").is(':checked')) { //Если выбрана доставка почтой России
 			$(".inputTitle:contains('Получатель')").parent().append('<span class="hideInfo warningMessage" style="display:inline;color:grey">(ФИО полностью)</span>');
 		} else {
 			$(".inputTitle:contains('Получатель')").html('Получатель <span class="bx_sof_req">*</span></p>');
 			$(".hideInfo").hide();
-		}		
+		}
+
+        pickPointDeliveryId = "18"; //для доставки pickpoint
     }
 
     $(function(){
+        $('.application input[type=image]').attr('src','/images/pay.jpg');
         submitForm();
-        setOptions();  
+        setOptions();
     })
+	//далее костыль
+	var stopupdate = false;
+	$('body').click(function(){
+		if (!stopupdate) {
+			setOptions();
+			stopupdate = true;
+		}
+	})
 </script>
 
 
@@ -155,7 +171,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
             <p><a href="/personal/cart/" class="afterImg">Корзина</a><a href="/personal/order/make/" class="afterImg active">Оформление</a><a href="#">Завершение</a></p>
             <?}?>
     </div>
-</div>  
+</div>
 
 <?
     if ($arResult["USER_VALS"]["CONFIRM_ORDER"] == "Y") {
@@ -166,7 +182,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
     }
 ?>
 
-<div class="<?=$bodyClass?>">    
+<div class="<?=$bodyClass?>">
 
 
     <div class="centerWrapper">
@@ -176,8 +192,8 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 <p class="text">Сложности с оформлением заказа? Свяжитесь с нами, мы вам поможем!</p>
                 <p class="telephone">
                     <?$APPLICATION->IncludeComponent(
-                        "bitrix:main.include", 
-                        ".default", 
+                        "bitrix:main.include",
+                        ".default",
                         array(
                             "AREA_FILE_SHOW" => "file",
                             "AREA_FILE_SUFFIX" => "inc",
@@ -187,14 +203,14 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                             "PATH" => "/include/telephone.php"
                         ),
                         false
-                    );?></p>    
+                    );?></p>
                 <p class="mailAdr">shop@alpinabook.ru</p>
-            </div>  
+            </div>
 
             <?}?>
 
 
-        <div class="orderBody">  
+        <div class="orderBody">
 
             <a name="order_form"></a>
 
@@ -232,7 +248,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 ?>
 
                 <div class="bx_order_make">
-                    <? 
+                    <?
                         if(!$USER->IsAuthorized() && $arParams["ALLOW_AUTO_REGISTER"] == "N")
                         {
                             if(!empty($arResult["ERROR"]))
@@ -260,6 +276,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                             else
                             {
                             ?>
+
                             <script type="text/javascript">
                                 <?if(CSaleLocation::isLocationProEnabled()):?>
 
@@ -285,25 +302,25 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 
                                 var BXFormPosting = false;
                                 function submitForm(val)
-                                {     
+                                {
                                     var flag = true;
                                     $(".flippost_error").hide();
-                                    // дополнительная проверка полей и вывод ошибки  
+                                    // дополнительная проверка полей и вывод ошибки
                                     if (val == "Y")
                                     {
                                         if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == ''){
                                             flag = false;
-                                            $('#ORDER_PROP_7').parent("div").children(".warningMessage").show(); 
+                                            $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
                                             // сперва получаем позицию элемента относительно документа
                                             var scrollTop = $('#ORDER_PROP_7').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_7").focus();
-                                        } 
+                                        }
 
                                         if($("#ORDER_PROP_6").size() > 0 && isEmail($('#ORDER_PROP_6').val()) == false){
                                             flag = false;
                                             $('#ORDER_PROP_6').parent("div").children(".warningMessage").html('Некорректно введен e-mail');
-                                            $('#ORDER_PROP_6').parent("div").children(".warningMessage").show(); 
+                                            $('#ORDER_PROP_6').parent("div").children(".warningMessage").show();
                                             var scrollTop = $('#ORDER_PROP_6').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_6").focus();
@@ -311,18 +328,18 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 
                                         if($("#ORDER_PROP_24").size() > 0 && isTelephone($('#ORDER_PROP_24').val()) == false){
                                             flag = false;
-                                            $('#ORDER_PROP_24').parent("div").children(".warningMessage").show(); 
+                                            $('#ORDER_PROP_24').parent("div").children(".warningMessage").show();
                                             var scrollTop = $('#ORDER_PROP_24').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_24").focus();
                                         }
                                         if($("#ORDER_PROP_5").size() > 0 && $('#ORDER_PROP_5').val() == false){
                                             flag = false;
-                                            $('#ORDER_PROP_5').parent("div").children(".warningMessage").show(); 
+                                            $('#ORDER_PROP_5').parent("div").children(".warningMessage").show();
                                             var scrollTop = $('#ORDER_PROP_5').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_5").focus();
-                                        } 
+                                        }
                                         var deliveryFlag= false;
                                         if ($(".js_delivery_block").css("display") == "none") {
                                             deliveryFlag = true;
@@ -335,11 +352,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                         if(deliveryFlag == false){
                                             flag = false;
                                             $('.deliveriWarming').show();
-                                        } 
+                                        }
 
                                         if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == false){
                                             flag = false;
-                                            $('#ORDER_PROP_7').parent("div").children(".warningMessage").show(); 
+                                            $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
                                         }
                                         if (flag) {
 	                                        // склеиваем адрес для flippost
@@ -439,12 +456,12 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
                                     //доп функции/////////////////////////////////
                                     setOptions();
-                                    
-                                    //2. подсветка варианта оплаты для электронных платежей 
+
+                                    //2. подсветка варианта оплаты для электронных платежей
                                     if(localStorage.getItem('active_rfi_button')){
                                         $('li[data-rfi-payment="'+localStorage.getItem('active_rfi_button')+'"]').addClass('active_rfi_button');
                                     }
-                                    
+
                                     // т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса
                                     if ($(".js_delivery_block").length) {
                                         if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
@@ -488,7 +505,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                         }
 
                                         if(!empty($arResult["ERROR"]) && $arResult["USER_VALS"]["FINAL_STEP"] == "Y")
-                                        {   
+                                        {
                                             foreach($arResult["ERROR"] as $v)
                                                 echo ShowError($v);
                                         ?>
@@ -499,7 +516,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             echo "<br>";
                                         }
 
-                                        include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/props_format.php");     
+                                        include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/props_format.php");
                                         include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/person_type.php");
                                     ?>
 
@@ -510,7 +527,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                         if ($arResult["ORDER_PROP"]["USER_PROPS_Y"][2]) {
                                             $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_Y"][2]);
                                         } else {
-                                            $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_Y"][3]); 
+                                            $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_Y"][3]);
                                         }
 
                                         PrintPropsForm($location, $arParams["TEMPLATE_LOCATION"]);
@@ -564,7 +581,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                 </script>
                                 <?
                                     die();
-                                }  
+                                }
                             }
                         }
                     ?>
@@ -578,15 +595,15 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
             <div style="display: none">
                 <?// we need to have all styles for sale.location.selector.steps, but RestartBuffer() cuts off document head with styles in it?>
                 <?$APPLICATION->IncludeComponent(
-                        "bitrix:sale.location.selector.steps", 
-                        ".default", 
+                        "bitrix:sale.location.selector.steps",
+                        ".default",
                         array(
                         ),
                         false
                     );?>
                 <?$APPLICATION->IncludeComponent(
-                        "bitrix:sale.location.selector.search", 
-                        ".default", 
+                        "bitrix:sale.location.selector.search",
+                        ".default",
                         array(
                         ),
                         false

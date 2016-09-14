@@ -20,6 +20,7 @@
     define ("SPONSORS_IBLOCK_ID", 47);
     define ("WISHLIST_IBLOCK_ID", 17);
     define ("EXPERTS_IBLOCK_ID", 23);
+    define ("EXPERTS_REVIEWS_IBLOCK_ID", 31);
     define ("SERIES_BANNERS_IBLOCK_ID", 54); // 53 - для тестовой копии
     define ("INFO_MESSAGES_IBLOCK_ID", 53); // 52 - для тестовой копии
     define ("SUSPENDED_BOOKS_BUYERS_IBLOCK", 55); // 54 - для тестовой копии
@@ -41,8 +42,8 @@
     define ("GIFT_BOOK_QUANTITY_PROPERTY_ID", 428); // 420 - для тестовой копии
     define ("GIFT_BOOK_BUYER_EMAIL_PROPERTY_ID", 429);
     define ("GIFT_COUNPON_IBLOCK_ID", 51); //инфоблок, в котором хранится информация о подарочных сертификатах
-    define ("RECURRENT_URL", "https://www.alpinabook.ru");
-    
+	define ("RECURRENT_URL", "https://www.alpinabook.ru");
+	    
     /**
 	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
 	 * 
@@ -266,6 +267,8 @@
 				$allBooksUrl = '';
 				$bookId = '';
 				$recId = '';
+				$sendinfo = '';
+				
 				$orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
 				if (!empty($orderUser["UF_TEST"])) {
 					$allUrlsArray = unserialize($orderUser["UF_TEST"]);
@@ -273,35 +276,52 @@
 					$allUrlsArray = array();
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
+				
+				$ids = '';
 				while ($arItems = $dbBasketItems->Fetch()) {
-					$booksUrl = getUrlForFreeDigitalBook($arItems["PRODUCT_ID"]);
-					if ($booksUrl["rec"] == 0) {
-						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
-						$bookId = $arItems["PRODUCT_ID"];
-						$recId = $arItems["PRODUCT_ID"];
-					} else {
-						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
-						if ($recBookName = $recBook->GetNext()) {
-							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
-							$bookId = $arItems["PRODUCT_ID"];
-							$recId = $booksUrl["id"];
-						}
-					}
-					$allUrlsArray[] = array("bookid" => $bookId, "recid" => $recId, "url" => $booksUrl["url"]);
+					$ids .= $arItems["PRODUCT_ID"].',';
 				}
 				
-				$links = serialize($allUrlsArray);
-
-				$fieldsGend = Array(
-					"UF_TEST"						=> $links
-				);
-				$userGend = new CUser;
-				$userGend->Update($order_list['USER_ID'], $fieldsGend);
+				$products = getUrlForFreeDigitalBook(substr($ids,0,-1));
 				
+				if ($products['url'] != 'error') {
+					$allUrlsArray[] = array("orderid" => $ID, "products" => $products);
+					
+					$sendinfo .= '<ol>';
+					
+					foreach($products['products'] as $product) {
+						if ($product['status'] == 'ok') {
+							$sendinfo .= '<li style="padding-top:5px;">'.$product['name'].'</li>';
+						} else {
+							$sendinfo .= '<li style="padding-top:5px;">Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
+						}
+					}
+					
+					$sendinfo .= '</ol>';
+					
+					$links = serialize($allUrlsArray);
+
+					$fieldsGend = Array(
+						"UF_TEST"						=> $links
+					);
+					$userGend = new CUser;
+					$userGend->Update($order_list['USER_ID'], $fieldsGend);
+					
+					$freeurl = $products['url'];
+					
+					$useremail = Message::getClientEmail($ID);
+				} else {
+					$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
+					$useremail = 'a.marchenkov@alpinabook.ru';
+				}
 				$mailFields = array(
-					"EMAIL" => "a-marchenkov@yandex.ru",
-					"TEXT" => $allBooksUrl
-				);		
+					//"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
+					"EMAIL"=> $useremail,
+					"TEXT" => $sendinfo,
+					"URL" => $freeurl,
+					"ORDER_ID" => $ID,
+					"ORDER_USER"=> Message::getClientName($ID)
+				);
 				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 				
                 CSaleOrder::StatusOrder($ID, "D");
@@ -394,6 +414,8 @@
 				$allBooksUrl = '';
 				$bookId = '';
 				$recId = '';
+				$sendinfo = '';
+				
 				$orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
 				if (!empty($orderUser["UF_TEST"])) {
 					$allUrlsArray = unserialize($orderUser["UF_TEST"]);
@@ -401,35 +423,52 @@
 					$allUrlsArray = array();
 				}
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
+				
+				$ids = '';
 				while ($arItems = $dbBasketItems->Fetch()) {
-					$booksUrl = getUrlForFreeDigitalBook($arItems["PRODUCT_ID"]);
-					if ($booksUrl["rec"] == 0) {
-						$allBooksUrl .= $arItems["NAME"]." ".$booksUrl["url"]."<br />";
-						$bookId = $arItems["PRODUCT_ID"];
-						$recId = $arItems["PRODUCT_ID"];
-					} else {
-						$recBook = CIBlockElement::GetByID($booksUrl["id"]);
-						if ($recBookName = $recBook->GetNext()) {
-							$allBooksUrl .= $arItems["NAME"]." Рекомендация: ".$recBookName["NAME"]." ".$booksUrl["url"]."<br />";
-							$bookId = $arItems["PRODUCT_ID"];
-							$recId = $booksUrl["id"];
-						}
-					}
-					$allUrlsArray[] = array("bookid" => $bookId, "recid" => $recId, "url" => $booksUrl["url"]);
+					$ids .= $arItems["PRODUCT_ID"].',';
 				}
 				
-				$links = serialize($allUrlsArray);
-
-				$fieldsGend = Array(
-					"UF_TEST"						=> $links
-				);
-				$userGend = new CUser;
-				$userGend->Update($order_list['USER_ID'], $fieldsGend);
+				$products = getUrlForFreeDigitalBook(substr($ids,0,-1));
 				
+				if ($products['url'] != 'error') {
+					$allUrlsArray[] = array("orderid" => $ID, "products" => $products);
+					
+					$sendinfo .= '<ol>';
+					
+					foreach($products['products'] as $product) {
+						if ($product['status'] == 'ok') {
+							$sendinfo .= '<li style="padding-top:5px;">'.$product['name'].'</li>';
+						} else {
+							$sendinfo .= '<li style="padding-top:5px;">Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
+						}
+					}
+					
+					$sendinfo .= '</ol>';
+					
+					$links = serialize($allUrlsArray);
+
+					$fieldsGend = Array(
+						"UF_TEST"						=> $links
+					);
+					$userGend = new CUser;
+					$userGend->Update($order_list['USER_ID'], $fieldsGend);
+					
+					$freeurl = $products['url'];
+					
+					$useremail = Message::getClientEmail($ID);
+				} else {
+					$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
+					$useremail = 'a.marchenkov@alpinabook.ru';
+				}
 				$mailFields = array(
-					"EMAIL" => "a-marchenkov@yandex.ru",
-					"TEXT" => $allBooksUrl
-				);		
+					//"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
+					"EMAIL"=> $useremail,
+					"TEXT" => $sendinfo,
+					"URL" => $freeurl,
+					"ORDER_ID" => $ID,
+					"ORDER_USER"=> Message::getClientName($ID)
+				);
 				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 
                 // при смене статуса и последующего автоматического CSaleOrder::PayOrder 
@@ -447,7 +486,8 @@
 			if ($val=="C") { // ---- статус собран может быть только для заказов с самовывозом
 				if (Message::getOrderDeliveryType($ID)==2) {
 					$message = new Message();
-					$result = $message->sendMessage($ID,$val);
+					$order = CSaleOrder::GetById($ID);
+					$result = $message->sendMessage($ID,$val,'',$order['PRICE']);
 				}
 			} else {
 				$message = new Message();
@@ -490,52 +530,68 @@
 	
 	//Получаем ссылку на бесплатную книгу в приложении Бизнес книги
     function getUrlForFreeDigitalBook($productID) {
-		$check = false;
-		$continue = true;
-		$recTrue = 0;
-		$freeBookUrl = array();
-		while ($check == false) {
-			$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=".$productID;
-			  
-			$ch = curl_init();  
-			  
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_HTTPHEADER,
-				array(
-					"Content-type: application/json",
-					//"X-AD-Email: emaguser",
-					"X-AD-Offer: 1",
-					"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
-				)
-			);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_POST, 1);
-			$output = curl_exec($ch);
-			curl_close($ch);
-
-			$output = json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
-				return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
-			}, $output));  
-			$output = get_object_vars($output[0]);
+		$ids = explode(',', $productID);
+		$forurl = array();
+		$products = array();
+		
+		foreach ($ids as $checkbook) {
 			
-			if (isset($output["url"])) {
-				$freeBookUrl["url"] = $output["url"];
-				$freeBookUrl["rec"] = $recTrue;
-				$check = true;
+			$name = CIBlockElement::GetByID($checkbook)->Fetch();
+			$name = $name['NAME'];
+			$existinstore = CIBlockElement::GetProperty(4, $checkbook, array("sort" => "asc"), Array("CODE"=>"appstore"))->Fetch();
+			
+			if ($existinstore[VALUE] == 231) {
+				$products[] = array('id' => $checkbook, 'status' => 'ok', 'name' => $name, 'rec' => '', 'recname' => '');
+				$forurl[] = $checkbook;
 			} else {
-				if ($continue == true) {
-					$bookReplace = CIBlockElement::GetProperty(4, $productID, array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
-					$productID = $bookReplace['VALUE'];
-					$recTrue = 1;
-					$freeBookUrl["id"] = $bookReplace['VALUE'];
-					$continue = false;
-				} else {
-					$freeBookUrl["url"] = 'false';
-					$freeBookUrl["rec"] = $recTrue;
-					$check = true;
+				$recid = CIBlockElement::GetProperty(4, $checkbook, array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
+				if ($recid[VALUE]) {
+					$recname = CIBlockElement::GetByID($recid[VALUE])->Fetch();
+					$recname = $recname['NAME'];
+					$products[] = array('id' => $checkbook, 'status' => 'rec', 'name' => $name, 'rec' => $recid[VALUE], 'recname' => $recname);
+					$forurl[] = $recid[VALUE];
 				}
 			}
 		}
+		
+		$prepareurl = '';
+		foreach ($forurl as $m => $urlid) {
+			if ($m == 0) {
+				$prepareurl .= '?emag_id[]='.$urlid;
+			} else {
+				$prepareurl .= '&emag_id[]='.$urlid;
+			}			
+		}
+		$freeBookUrl = array();
+
+		$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/".$prepareurl;
+		  
+		$ch = curl_init();  
+		  
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER,
+			array(
+				"Content-type: application/json",
+				"X-AD-Offer: 1",
+				"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
+			)
+		);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		$output = curl_exec($ch);
+		curl_close($ch);
+
+        $outputRes = json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+            return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+        }, $output));
+		$output = get_object_vars($outputRes[0]);
+		
+		if (isset($output["url"])) {
+			$freeBookUrl = array('url' => $output["url"], 'products' => $products);
+		} else {
+			$freeBookUrl = array('url' => 'error', 'products' => $products);
+		}
+
         return $freeBookUrl;
     }
 
@@ -756,7 +812,7 @@
             "N" => "Ваш заказ №order принят. Если будут вопросы – звоните +7(495)9808077",
             "A" => "clientName, Ваш заказ №order в интернет-магазине Альпина Паблишер отменен. Если заказ аннулирован по ошибке, звоните +7(495)9808077",
             "K" => "clientName, Ваш заказ №order отправлен почтой РФ. Номер отправления будет выслан Вам в течение 5 рабочих дней.Если будут вопросы – звоните +7(495)9808077",
-            "C" => "clientName, Ваш заказ №order собран. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
+            "C" => "clientName, Ваш заказ №order собран. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, под. 2, этаж 2 по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077. Стоимость ordsum руб.",
             "D10" => "Истекает срок хранения Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "D12" => "Осталось 2 дня до аннулирования Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "CA" => "Ваш заказ order передан курьеру. Курьер cur_name cur_phone"
@@ -854,13 +910,14 @@
         *
         *************/
 
-        public function sendMessage($ID,$val,$curArr){
+        public function sendMessage($ID,$val,$curArr,$ordsum){
 
             $phone = $this->getPhone($ID);
             $name = $this->getClientName($ID);
             $message = preg_replace('/order/',$ID,self::$messages[$val]); // ---- вставляем номер заказа
+			$message = preg_replace('/ordsum/',$ordsum,$message); // ---- вставляем сумму заказа
             $message = preg_replace('/clientName/',$name,$message); // ---- вставляем имя клиента
-            if($curArr){
+            if($curArr != ''){
                 $message = preg_replace('/cur_name/',$curArr['CUR']['NAME'],$message); // ---- вставляем имя курьера
                 $message = preg_replace('/cur_phone/',$curArr['CUR']['PHONE'],$message); // ---- вставляем телефон курьера
             }
@@ -945,15 +1002,15 @@
 
     function sendMailToBookSubs(&$arParams){
         if($arParams['IBLOCK_ID']==4){
-            $arSelect = Array("NAME","DETAIL_PAGE_URL","PREVIEW_PICTURE","PROPERTY_STATE");
+            $arSelect = Array("NAME","DETAIL_PAGE_URL","DETAIL_PICTURE","PROPERTY_STATE");
             $arFilter = Array("IBLOCK_ID"=>4,"ID"=>$arParams['ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
             $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), $arSelect);
             while($ob = $res->GetNextElement()){
                 $arFields = $ob->GetFields();
                 $oldElStatus = $arFields['PROPERTY_STATE_ENUM_ID'];
                 $bookName = $arFields['NAME'];
-                $bookHref = "http://www.alpinabook.ru".$arFields['DETAIL_PAGE_URL'];
-                $bookImg = CFile::GetPath($arFields['PREVIEW_PICTURE']);
+                $bookHref = "https://www.alpinabook.ru".$arFields['DETAIL_PAGE_URL'];
+				$bookImg = CFile::ResizeImageGet($arFields['DETAIL_PICTURE'], array("width" => 200, "height" => 270), BX_RESIZE_IMAGE_PROPORTIONAL, true);
             }
 
             $newElStatus = $arParams['PROPERTY_VALUES'][56][0]["VALUE"];
@@ -975,7 +1032,7 @@
                             "EMAIL"=> $arFields['PROPERTY_SUB_EMAIL_VALUE'],
                             "BOOK_HREF" => $bookHref,
                             "BOOK_NAME" => $bookName,
-                            "BOOK_IMG" => $bookImg
+                            "BOOK_IMG" => $bookImg['src']
                         );
                         CEvent::Send("BOOK_SUB_MAILING", "s1", $arEventFields,"N");
                         // --- email sending here
@@ -994,7 +1051,7 @@
                             "EMAIL"=> $arFields['PROPERTY_SUB_EMAIL_VALUE'],
                             "BOOK_HREF" => $bookHref,
                             "BOOK_NAME" => $bookName,
-                            "BOOK_IMG" => $bookImg
+                            "BOOK_IMG" => $bookImg['src']
                         );
                         CEvent::Send("BOOK_SUB_MAILING", "s1", $arEventFields,"N");
 
@@ -1080,7 +1137,7 @@
 
         if ($orderArr["PAY_SYSTEM_ID"] == 13 || $orderArr["PAY_SYSTEM_ID"] == 14) {
             //получаем путь до обработчика
-            $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='http://alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."'>ссылке</a>";
+            $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='https://www.alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."'>ссылке</a>";
         }
 
         $arFields['DELIVERY_NAME'] = getOrderDeliverySystemName($orderArr['DELIVERY_ID']);
@@ -1099,11 +1156,11 @@
         }
         if ($orderArr['DELIVERY_ID'] == 2){
             $arFields['EMAIL_ADDITIONAL_INFO'] = "<tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;\" valign=\"top\" colspan=\"2\">";
-            $arFields['EMAIL_ADDITIONAL_INFO'] .= "Заказ будет собран в течение двух рабочих часов. Забрать заказ можно по адресу <em>м.Полежаевская, ул.4-ая Магистральная, д.5, 2 подъезд, 2 этаж.</em><br />Офис работает по будням с 8 до 18 часов.";
+            $arFields['EMAIL_ADDITIONAL_INFO'] .= "Заказ будет собран в&nbsp;течение двух рабочих часов. Забрать заказ можно по&nbsp;адресу <em>м.Полежаевская, ул.4-ая&nbsp;Магистральная, д.5, 2&nbsp;подъезд, 2&nbsp;этаж.</em> <br />Офис работает по&nbsp;будням с&nbsp;8&nbsp;до&nbsp;18&nbsp;часов.";
 			$arFields['EMAIL_ADDITIONAL_INFO'] .= "<br /><br /><b>Как к нам пройти</b><br /><br />Метро «Полежаевская», первый вагон из центра (в связи с реконструкцией станции выход из последнего вагона закрыт), из вестибюля налево. После выхода на улицу огибаете метро справа и двигаетесь вдоль Хорошевского шоссе. Далее проходите мимо ресторана «Макдоналдс», банков «Альфа-Банк» и «Промсвязь Банк», поворачиваете направо и выходите на 4-ю Магистральную улицу. Переходите на противоположную сторону и идете до пересечения 4-й Магистральной улицы с Магистральным переулком. Угловой дом - №5. Вам нужен второй подъезд, второй этаж.";
             $arFields['EMAIL_ADDITIONAL_INFO'] .= "</td></tr>";
 			
-			$arFields['YANDEX_MAP'] = "<tr><td style=\"border-collapse: collapse;padding-bottom:20px;\"><table align=\"left\" width=\"100%\"><tbody><tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" colspan=\"2\" valign=\"top\"><img src=\"http://www.alpinabook.ru/img/ymap.png\" /></td></tr></tbody></table></td></tr>";
+			$arFields['YANDEX_MAP'] = "<tr><td style=\"border-collapse: collapse;padding-bottom:20px;\"><table align=\"left\" width=\"100%\"><tbody><tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" colspan=\"2\" valign=\"top\"><img src=\"https://www.alpinabook.ru/img/ymap.png\" /></td></tr></tbody></table></td></tr>";
         }
 
         if ($arFields['PRICE'] > 2000) {
@@ -1200,7 +1257,7 @@
         while ($arItems = $dbItemsInOrder->Fetch()){
             $bookDescString .= "<tr>";
             $bookDescString .= "<td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" valign=\"top\">";
-            $bookDescString .= "<a href='http://www.alpinabook.ru".$arItems["DETAIL_PAGE_URL"]."?utm_source=autotrigger&utm_medium=email&utm_term=bookordered&utm_campaign=newordermail' target='_blank'>".$arItems['NAME']."</a>";
+            $bookDescString .= "<a href='https://www.alpinabook.ru".$arItems["DETAIL_PAGE_URL"]."?utm_source=autotrigger&utm_medium=email&utm_term=bookordered&utm_campaign=newordermail' target='_blank'>".$arItems['NAME']."</a>";
             $bookDescString .= "</td><td align=\"center\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" width=\"80\">";
             $bookDescString .= $arItems['QUANTITY'];
             $bookDescString .= "</td><td align=\"center\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" width=\"100\">";
@@ -1331,7 +1388,7 @@
             if ($order["PAY_SYSTEM_ID"] == 13)
             {
                 $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
-                <a href="http://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
+                <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
                 </div>';
             }
             else
@@ -1370,19 +1427,19 @@
                 <tbody>
                 <tr>
                 <td height="200" style="border-collapse: collapse;text-align:center;" valign="top" width="100%">
-                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">
+                <a href="https://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">
                 <img alt="'.$NewItemsList["NAME"].'" src="'.$pict["src"].'" style="width: 140px; height: auto;" />
                 </a>
                 </td>
                 </tr>
                 <tr>
                 <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;" valign="top" width="126">
-                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Подробнее о книге</a>
+                <a href="https://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Подробнее о книге</a>
                 </td>
                 </tr>
                 <tr>
                 <td align="center" height="18" style="color: #336699;font-weight: normal; border-collapse: collapse;font-family: Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 150%;padding-top:0;" valign="top" width="126">
-                <a href="http://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Купить</a>
+                <a href="https://www.alpinabook.ru/catalog/'.$curr_sect["CODE"].'/'.$NewItemsList["ID"].'/?utm_source=autotrigger&amp;utm_medium=email&amp;utm_term=newbooks&amp;utm_campaign=newordermail" target="_blank">Купить</a>
                 </td>
                 </tr>
                 </tbody>
@@ -1634,5 +1691,12 @@
                 CEvent::Send ("BOUGHT_SUSPENDED_BOOK", "s1", $mail_fields, "N");
             }
         }
+    }
+    
+     function UserOrdersCount($user_id) {
+        CModule::IncludeModule("sale");
+        $order_list = CSaleOrder::GetList(array(), array("USER_ID" => $user_id), false, false, array());
+        $count = $order_list -> SelectedRowsCount();
+        return $count;
     }
 ?>

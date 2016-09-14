@@ -1044,6 +1044,37 @@ function recalcBasketAjax(params)
         {
             BX.closeWait();
             updateBasketTable(null, result);
+			sum = parseInt(result.BASKET_DATA.allSum);
+			discabs = parseInt(result.BASKET_DATA.DISCOUNT_PRICE_ALL);
+			discrel = ((100*discabs)/(discabs+sum)).toFixed(0);
+			if (sum < 3000 && discrel == 10) {
+				$('#discountMessage').show();
+				$('.sale_price').html('Вам не хватает '+ (3000 - sum).toFixed(2) +' руб. до получения скидки в 19%');
+				console.log(discrel);
+			} else if (sum < 3000 && discrel == 20) {
+				$('#discountMessage').show();
+				$('.sale_price').html('Вам не хватает '+ (3000 - sum).toFixed(2) +' руб. до получения скидки в 28%');
+				console.log(discrel);
+			} else if (sum < 10000 && discrel == 19) {
+				$('#discountMessage').show();
+				$('.sale_price').html('Вам не хватает '+ (10000 - sum).toFixed(2) +' руб. до получения скидки в 28%');
+				console.log(discrel);
+			} else if (sum < 10000 && discrel == 28) {
+				$('#discountMessage').show();
+				$('.sale_price').html('Вам не хватает '+ (10000 - sum).toFixed(2) +' руб. до получения скидки в 36%');
+				console.log(discrel);
+			} else if (sum < 3000 && discrel < 10) {
+				$('#discountMessage').show();
+				$('.sale_price').html('Вам не хватает '+ (3000 - sum).toFixed(2) +' руб. до получения скидки в 10%');
+				console.log(discrel);
+			} else if (sum < 10000 && discrel < 20) {
+				$('#discountMessage').show();
+				$('.sale_price').html('Вам не хватает '+ (10000 - sum).toFixed(2) +' руб. до получения скидки в 20%');
+				console.log(discrel);
+			} else {
+				$('#discountMessage').hide();
+				console.log(discrel);
+			}
         }
     });
 }

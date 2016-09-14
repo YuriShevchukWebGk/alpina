@@ -65,8 +65,13 @@
                 <?}?>
             <p class="wishDeleteContainer">
                 <?if ($_REQUEST["list"] != $user_id) {?>
-                    <a href="javascript:void(0)" 
+                    <?/*<a href="javascript:void(0)" 
                         id="<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>" 
+                        class="wishDelete">
+                        <?= GetMessage("DELETE") ?>
+                    </a>*/?>
+					<a href="javascript:void(0)" 
+                        onclick="delete_wishlist_item(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>);" 
                         class="wishDelete">
                         <?= GetMessage("DELETE") ?>
                     </a>

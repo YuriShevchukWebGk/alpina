@@ -20,8 +20,12 @@ $userList = CUser::GetList(($by="LOGIN"), ($order="desc"), $filter); // выби
 $is_filtered = $userList->is_filtered; // отфильтрована ли выборка ?
 
 $today = strtotime(date('d.m.Y'));
+$i = 0;
 
 while($userParams = $userList->Fetch()) {
+	if ($i > 1000) 
+		continue;
+	$i++;
 	$filter = Array
 	(
 		"USER_ID"               => $userParams['ID'],

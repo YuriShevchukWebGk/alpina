@@ -1,19 +1,13 @@
 User-Agent: *
 Disallow: # empty Disallow instruction SHOULD be there
-Allow: /books/series/?ELEMENT_ID=*
-Allow: /authors/?list=*
 Disallow: /*?
 Disallow: /*admin
 Disallow: /events/*
 Disallow: /bitrix/
-Disallow: /OL/
 Disallow: /*auth/
 Disallow: */personal/
-Disallow: /*.swf
-Disallow: *twitter
-Disallow: /content/publisher/ads/*
-Sitemap: http://www.alpinabook.ru/sitemap.xml
-Host: www.alpinabook.ru
+Sitemap: https://www.alpinabook.ru/sitemap.xml
+Host: https://www.alpinabook.ru
 
 User-agent: Googlebot-image
 Disallow:

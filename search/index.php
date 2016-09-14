@@ -68,7 +68,7 @@ $SearchFilter = array(">CATALOG_PRICE_1" => 0);?>
         "COMPONENT_TEMPLATE" => "search_page",
         "AJAX_OPTION_ADDITIONAL" => "",
         "PRODUCT_PROPERTIES" => array(
-        )
+        )      
     ),
     false
 );*/
@@ -107,8 +107,9 @@ $APPLICATION->IncludeComponent(
 		),
 		"arrFILTER_iblock_catalog" => array(
 			0 => "4",
-			1 => "29",
-			2 => "45",
+			1 => "23",
+			2 => "29",
+			3 => "45",
 		),
 		"arrFILTER_iblock_sebekon_presents" => array(
 			0 => "all",

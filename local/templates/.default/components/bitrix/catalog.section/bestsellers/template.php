@@ -288,7 +288,7 @@
 <?/* Получаем бестселлеры от RetailRocket */
 global $arrFilterPersonal;
 if (isset($_COOKIE["rrpusid"])){
-    $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId=' . $_COOKIE["rrpusid"]);
+    $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId=' . $_COOKIE["rrpusid"]);
     $recsArray = json_decode($stringRecs);
     $arrFilterPersonal = Array('ID' => (array_slice($recsArray, 0, 6)));
 }
@@ -445,9 +445,9 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
                     categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
                 <?}?>
                 other_books.css("height", other_books_height + "px");
-                //$(".wrapperCategor").css("height", categor_height + "px");
-                //$(".contentWrapp").css("height", categor_height - 10 + "px");
-				//$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
+                $(".wrapperCategor").css("height", categor_height + "px");
+                $(".contentWrapp").css("height", categor_height - 10 + "px");
+				$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
             });
             if (page == maxpage) {
                 $('.showMore').hide();

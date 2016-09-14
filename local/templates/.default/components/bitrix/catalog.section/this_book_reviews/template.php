@@ -13,6 +13,9 @@
 $this->setFrameMode(true);
 ?>
 <?if (!empty($arResult["ITEMS"])) {?>
+	<style>
+		.reviewsBlockDetail .reviewDatail {clear:none;}
+	</style>
     <div class="reviewsBlockDetail">
         <ul>
             <?foreach($arResult["ITEMS"] as $arItem) {   
@@ -45,4 +48,17 @@ $this->setFrameMode(true);
             <!-- /dataLayer GTM -->
         });
     </script>
+<?} else {?>
+    <script>
+        $(document).ready(function() {
+            <!-- dataLayer GTM -->
+            dataLayer.push({
+                'expReview' : 'withoutExpReview'
+            });
+            <!-- /dataLayer GTM -->
+        });
+    </script>
+	<style>
+		.abShow {display:none!important;}
+	</style>
 <?}?>

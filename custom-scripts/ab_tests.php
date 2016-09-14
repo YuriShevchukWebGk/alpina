@@ -3,86 +3,67 @@ global $USER;
 $alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
 $alpExps  = (!$alpExps ? array() : $alpExps);
 
-if ($alpExps['updateExp'] != "160516") {
+if ($alpExps['updateExp'] != "050916") {
     $alpExps = array();
-    $alpExps['updateExp'] = "160516";
+    $alpExps['updateExp'] = "050916";
 }
 
-//$alpExps['smartBannerApple']	= (!$alpExps['smartBannerApple'] ? rand(1,2) : $alpExps['smartBannerApple']);
-$alpExps['discountBlock']		= (!$alpExps['discountBlock'] ? rand(1,2) : $alpExps['discountBlock']);
-
-if ($APPLICATION->GetCurDir() == '/personal/cart/') {
-    $alpExps['recsInCart']        = (!$alpExps['recsInCart'] ? rand(1,2) : $alpExps['recsInCart']);
-}
+/*if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
+	$alpExps['lightFont']	= (!$alpExps['lightFont'] ? rand(1,2) : $alpExps['lightFont']);
+}*/
 ?>
 
-
-<!-- Тест Рекомендаций в корзине -->
-<?if ($APPLICATION->GetCurDir() == '/personal/cart/') {
-    if ($alpExps['recsInCart'] == 1) {?>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                dataLayer.push({
-                    event: 'ab-test-gtm',
-                    action: 'recsInCart',
-                    label: 'withRecs'
-                });
-                console.log('recsInCart withRecs');
-            });
-        </script>
-    <?} elseif ($alpExps['recsInCart'] == 2) {?>
-        <style>
-            .recomendation {display:none;}
-        </style>    
-        <script type="text/javascript">
-            $(document).ready(function() {
-                dataLayer.push({
-                    event: 'ab-test-gtm',
-                    action: 'recsInCart',
-                    label: 'withoutRecs'
-                });
-                console.log('recsInCart withoutRecs');
-            });
-        </script>
-    <?}
-}?>
-<!-- //Тест Рекомендаций в корзине -->
-
-<!-- Тест Рекомендаций в корзине -->
-<?if ($APPLICATION->GetCurDir() == '/') {
-	if ($alpExps['discountBlock'] == 1) {?>
-		<style>
-			.blockBestsHide, .blockDiscountHide {display:none;}
-			.blockBestsShow, .blockDiscountShow {display:inline;}
-		</style>
+<!-- Тест Шрифта -->
+<?/*if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
+	if ($alpExps['lightFont'] == 1) {?>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				dataLayer.push({
 					event: 'ab-test-gtm',
-					action: 'discountBlock',
-					label: 'moveUpwards'
+					action: 'lightFont',
+					label: 'regularFont'
 				});
-				console.log('discountBlock moveUpwards');
+				console.log('lightFont regularFont');
 			});
 		</script>
-	<?} elseif ($alpExps['discountBlock'] == 2) {?>
+	<?} elseif ($alpExps['lightFont'] == 2) {?>
 		<style>
-			.blockBestsShow, .blockDiscountShow {display:none;}
-			.saleWrapp {overflow: visible;}
+			.elementDescriptWrap .annotation span, .elementDescriptWrap .annotation ul, .elementDescriptWrap .annotation {
+				font-family: "Walshein_light";
+				font-size: 18px;
+				color: #2e3c3f;
+			}
 		</style>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				dataLayer.push({
 					event: 'ab-test-gtm',
-					action: 'discountBlock',
-					label: 'doNothing'
+					action: 'lightFont',
+					label: 'lightFont'
 				});
-				console.log('discountBlock doNothing');
+				console.log('lightFont lightFont');
 			});
 		</script>
 	<?}
-}?>
-<!-- //Тест Рекомендаций в корзине -->
+}*/?>
+<!-- //Тест Шрифта -->
+
+<?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
+	if (!preg_match("/([0-9]+)/i",$APPLICATION->GetCurPage())) {?>
+		<style>
+			.catalogIcon span, .basketIcon span {
+				color: #99ABB1;
+			}
+		</style>
+	<?}?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".catalogIcon").html("<span>Каталог</span>");
+			$(".basketIcon").html("<span>Корзина</span>");
+		});
+	</script>
+<?}?>
+<!-- //Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
 
 <!-- Тест СмартБаннера ЗАВЕРШЕН -->
 <meta name="apple-itunes-app" content="app-id=429622051">

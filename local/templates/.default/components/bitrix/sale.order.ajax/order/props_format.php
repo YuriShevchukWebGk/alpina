@@ -149,7 +149,7 @@
                             $rows = ($arProperties["SIZE2"] > 10) ? 4 : $arProperties["SIZE2"];
                         ?>
                         <div class="bx_block r3x1">
-                            <textarea rows="<?=$rows?>" cols="<?=$arProperties["SIZE1"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>"></textarea>
+                            <textarea rows="<?=$rows?>" cols="<?=$arProperties["SIZE1"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>"><?=$arProperties["VALUE"]?></textarea>
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                                 <?endif?>

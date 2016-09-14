@@ -178,7 +178,7 @@
         <div class="grayLine"></div>   
 
         <p class="ordContain">    <!--chekingFields('Y')-->
-            <a href="javascript:void();" onclick="submitForm('Y'); return false;" id="ORDER_CONFIRM_BUTTON" class="checkout orderConfirm">
+            <a href="javascript:void(0);" onclick="submitForm('Y'); return false;" id="ORDER_CONFIRM_BUTTON" class="checkout orderConfirm">
                 <?=GetMessage("SOA_TEMPL_BUTTON")?>
             </a>
         </p> 

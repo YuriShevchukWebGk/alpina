@@ -476,14 +476,14 @@ div.bx_section div.bx_block div.bx_element input[type=radio],
     float: none;
     display: block;
     width: 100%;
-    }    
+    }
 }
-@media (max-width:860px){ 
+@media (max-width:860px){
     .bx_order_make .bx_description{
         font-size: 9px;
         color: #7b8c90;
         font-family: "Walshein_regular";
-    }    
+    }
 }
 .bx_order_make .bx_result_price a{color: #12a9e1}
 .bx_order_make .bx_result_price a:hover{text-decoration:none}
@@ -598,7 +598,7 @@ div#order_form_content .errortext {
 .bx-slst .quick-location-tag {
     background: #f8f8f8 none repeat scroll 0 0 !important;
     border-radius: 14px !important;
-    color: #424c4f !important; 
+    color: #424c4f !important;
     font-family: "Walshein_regular" !important;
     padding: 0 24px !important;
 }
@@ -615,16 +615,16 @@ div#order_form_content .errortext {
 .bx-slst .bx-ui-combobox-fake, .bx-slst .bx-ui-combobox-route, .bx-slst .bx-ui-combobox-variant:hover, .bx-slst .bx-ui-combobox-variant-active, .bx-slst .bx-ui-combobox-variant, .bx-slst .bx-ui-combobox-error {
     font-family: "Walshein_regular" !important;
     color: #353535 !important;
-}    
+}
 
 .delivery_price_calc {
     margin:5px 0 -20px 33px;
-}   
+}
 
 .delivery_price_calc a, #tPP a {
     color:#00A0AF;
     border-bottom: 1px dashed #00A0AF;
-}   
+}
 
 .certInput {
     display: none;
@@ -647,20 +647,20 @@ div#order_form_content .errortext {
 .rfi_bank_vars li{
     display:inline-block;
     cursor:pointer;
-    transition:all 0.2s ease; 
+    transition:all 0.2s ease;
     border: 1px solid #cad3dc;
     font-size: 15px;
     height: 27px;
     line-height: 26px;
     margin: 0 0 10px;
-    text-decoration: none;  
+    text-decoration: none;
     background: #f8f8f8 none repeat scroll 0 0;
     border-radius: 14px !important;
-    color: #424c4f; 
+    color: #424c4f;
     font-family: "Walshein_regular" !important;
-    padding: 0 24px !important;       
+    padding: 0 24px !important;
 
-}    
+}
 
 .active_rfi_button{
     background-color:#00a0af !important;
@@ -706,7 +706,7 @@ select {
 #promocode-element-container .g4couter{
     border:none;
 }
-#promocode-element-container .g4cinner:last-child{ 
+#promocode-element-container .g4cinner:last-child{
     background-color: #00abb8;
     height: 50px;
     color: #fff;
@@ -719,7 +719,7 @@ select {
 #promocode-element-container .g4cinner img{
     display:none;
 }
-#promocode-element-container .g4cinner:last-child:after{ 
+#promocode-element-container .g4cinner:last-child:after{
     content: 'Получить подарок';
     position: absolute;
     top: 12px;
@@ -747,7 +747,7 @@ select {
     margin-top: 10px;
 }
 .bx_order_make .bx_result_price{
-    float: left; 
+    float: left;
     position: relative;
     left: 33px;
 }
@@ -766,7 +766,7 @@ select {
     top: 7px;
     position: relative;
     cursor: auto;
-    
+
 }
 .payment_button:after {
     content: 'Оплатить';
@@ -774,7 +774,7 @@ select {
     top: 12px;
     left: 29%;
     font-family: "Walshein_regular";
-    font-size: 19px; 
+    font-size: 19px;
 }
 .sale_order_full_table tr:first-child td:last-child {
     vertical-align: top;

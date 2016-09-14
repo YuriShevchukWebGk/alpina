@@ -1,3 +1,3 @@
 <p class="titleMain">
-	 Спецпредложения
+	 <a href="/catalog/sale/">Спецпредложения</a>
 </p>

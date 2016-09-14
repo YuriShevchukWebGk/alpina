@@ -625,7 +625,8 @@ if ($arResult['MODULES']['currency'])
                 "PROPERTY_LAST_NAME", 
                 "PROPERTY_FIRST_NAME", 
                 "PROPERTY_SHOWINAUTHORS", 
-                "PROPERTY_ORIG_NAME"
+                "PROPERTY_ORIG_NAME",
+				"NAME"
             )
         );
         
@@ -634,6 +635,7 @@ if ($arResult['MODULES']['currency'])
             $ar_properties["FIRST_NAME"] = $authors["PROPERTY_FIRST_NAME_VALUE"];
             $ar_properties["SHOWINAUTHORS"] = $authors["PROPERTY_SHOWINAUTHORS_VALUE"];
             $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
+			$ar_properties["NAME"] = $authors["NAME"];
         
             if (strlen ($ar_properties['FIRST_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
@@ -641,9 +643,12 @@ if ($arResult['MODULES']['currency'])
             if (strlen ($ar_properties['LAST_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
             }
+			/*if (strlen ($ar_properties['NAME']) > 0) {
+                $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['NAME'];
+			}*/
             if (strlen ($ar_properties['ORIG_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= " / " . (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['ORIG_NAME'];
-            }      
+            }
         }
     }
 
@@ -882,6 +887,6 @@ if ($arResult['MODULES']['currency'])
     foreach ($arResult["AUTHOR"] as $key => $author) {
         $arResult["AUTHOR"][$key]["IMAGE_FILE"] = CFile::GetFileArray($author["DETAIL_PICTURE"]);
     }
-    $arResult["STRING_RECS"] = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
-	$APPLICATION->AddHeadString('<meta name="relap-image" content="http://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
+    $arResult["STRING_RECS"] = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
+	$APPLICATION->AddHeadString('<meta name="relap-image" content="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
 ?>
