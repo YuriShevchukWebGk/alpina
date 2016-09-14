@@ -22,7 +22,7 @@ $APPLICATION->SetTitle("Заказы");
 		"DELIVERY2PAY_SYSTEM" => "",
 		"SHOW_ACCOUNT_NUMBER" => "Y",
 		"DELIVERY_NO_SESSION" => "Y",
-		"COMPONENT_TEMPLATE" => ".default",
+		"COMPONENT_TEMPLATE" => "order",
 		"DELIVERY_TO_PAYSYSTEM" => "d2p",
 		"USE_PREPAYMENT" => "N",
 		"PROP_2" => "",
