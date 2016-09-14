@@ -1238,3 +1238,26 @@
     font-family: "Walshein_regular";
     height: 20px;
 }
+.announces_block {
+    height: 160px; 
+    background-color: #dd6eff; 
+    color: #fff;
+    font-family: "Walshein_regular";
+    text-align: center;
+}
+.announces_block .lection_name {
+    height: 65px;
+    font-weight: bold;
+    padding-top: 10px;
+}
+.announces_block .lection_date {
+    height: 25px;
+}
+.announces_block a {
+    color: #fff;
+    border-bottom: 1px dashed #fff;
+}
+.announces_block a:hover {
+    text-decoration: none;
+    border-color: transparent;
+}
