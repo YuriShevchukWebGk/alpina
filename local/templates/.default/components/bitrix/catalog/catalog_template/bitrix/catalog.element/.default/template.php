@@ -93,7 +93,7 @@ $arItemIDs = array(
                             <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
                                 <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
 
-                                    <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>                        
+                                    <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
                                     <?}?>
                                 <?if ($arResult["PICTURE"]["src"]) {?>
                                     <img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" class="bookPreviewLink" alt="<?= $arResult["NAME"] ?>" title="<?= $arResult["NAME"] ?>" />
@@ -114,7 +114,7 @@ $arItemIDs = array(
                                 <p><?= GetMessage("NEW_BOOK") ?></p>
                                 <span class="ttip">
 									<?= GetMessage("NEW_BOOK_TIP") ?>
-                                </span>									
+                                </span>
                             </div>
                         <?}?>
                         <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"] == BESTSELLER_BOOK_XML_ID) {?>
@@ -122,7 +122,7 @@ $arItemIDs = array(
                                 <p><?= GetMessage("BESTSELLER_BOOK") ?></p>
                                 <span class="ttip">
 									<?= GetMessage("BESTSELLER_TIP") ?>
-                                </span>									
+                                </span>
                             </div>
 						<?}?>
 						<?if ($arResult["PROPERTIES"]["editors_choice"]["VALUE_ENUM_ID"] == 235) {?>
@@ -130,7 +130,7 @@ $arItemIDs = array(
                                 <p><?= GetMessage("EDITORS_CHOICE") ?></p>
                                 <span class="ttip">
 									<?= GetMessage("EDITORS_CHOICE_TIP") ?>
-                                </span>									
+                                </span>
                             </div>
 						<?}?>
 
@@ -147,7 +147,7 @@ $arItemIDs = array(
 								}?>
 								</span>
 							</div>
-						<?}?>						
+						<?}?>
                     </div>
 
                     <?if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {?>
@@ -180,7 +180,7 @@ $arItemIDs = array(
                         <p class="text"><?= GetMessage("CHAPTER_SENT") ?></p>
                         <input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>">
                     </div>
-					
+
 					<?if ($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]) {?>
 						<div class="characteris">
 							<p class="title"><?= GetMessage("PUBLISHER") ?></p>
@@ -274,7 +274,7 @@ $arItemIDs = array(
                         <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {?>
                             <span style="color:#627478"><?= $arResult["SPONSOR_PREVIEW_TEXT"] ?> </span><br />
                             <?if (!empty($arResult["SPONSOR_PICT"])) {?>
-                                <a href="https://<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
+                                <a href="<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
                                 <?} else {?>
                                 <?= $authorFetchedList["NAME"] ?>
                                 <?}?>
@@ -331,7 +331,7 @@ $arItemIDs = array(
                                                     $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
                                                     if (strlen (stristr($newPrice, ".")) == 2) {
                                                         $newPrice .= "0";
-                                                    }    
+                                                    }
                                                 } else {
                                                     $newPrice = round (($arPrice["DISCOUNT_VALUE"]), 2);
                                                     if (strlen (stristr($newPrice, ".")) == 2) {
@@ -487,7 +487,7 @@ $arItemIDs = array(
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
                                 }
-								
+
                                 if ($today == 5) {
                                     if ($timenow < 17) {
                                         $samovivoz_day = GetMessage("TODAY");
@@ -515,7 +515,7 @@ $arItemIDs = array(
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
                                 }
-								
+
                                 if ($today == 5) {
                                     if ($timenow < 17) {
                                         $samovivoz_day = GetMessage("TODAY");
@@ -572,7 +572,7 @@ $arItemIDs = array(
                                 "EDIT_TEMPLATE" => ""
                                 ),
                                 false
-                            );?>    
+                            );?>
                         </div>
                     </div>
                     <?if ($arResult["PROPERTIES"]["author_book"]["VALUE"] == "Y") {?>
@@ -1245,8 +1245,8 @@ $printid = implode(", ", $printid2);?>
             }
 
             $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"viewed_books", 
+	"bitrix:catalog.section",
+	"viewed_books",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",
