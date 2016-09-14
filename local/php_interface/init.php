@@ -42,7 +42,8 @@
     define ("GIFT_BOOK_QUANTITY_PROPERTY_ID", 428); // 420 - для тестовой копии
     define ("GIFT_BOOK_BUYER_EMAIL_PROPERTY_ID", 429);
     define ("GIFT_COUNPON_IBLOCK_ID", 51); //инфоблок, в котором хранится информация о подарочных сертификатах
-    
+	define ("RECURRENT_URL", "https://www.alpinabook.ru");
+	    
     /**
 	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
 	 * 
