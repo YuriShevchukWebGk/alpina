@@ -85,7 +85,6 @@
                                     <?
                                 }
                                 ?>
-                                <?//if(10,11,17,30)?>
                                 <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
                                <?
                                 $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
@@ -99,11 +98,11 @@
                                 }?>
                                 <p class="dopInfoText"><?if(empty($track)){
                                     GetMessage("TRACK_NUMBER_NULL");
-                                }elseif($order["ORDER"]["DELIVERY_ID"] == 10 || $order["ORDER"]["DELIVERY_ID"] == 11) {?>
+                                }elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
                                     <?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track)); ?>
-                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == 17){?>
+                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT){?>
                                     <?=GetMessage("TRACK_NUMBER_PICK_POINT") ?>
-                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == 30){?>
+                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST){?>
                                     <?=GetMessage("TRACK_NUMBER_FLIPOST") ?>
                                 <?}?>
                                 </p>

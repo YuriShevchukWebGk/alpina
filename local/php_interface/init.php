@@ -43,7 +43,10 @@
     define ("GIFT_BOOK_BUYER_EMAIL_PROPERTY_ID", 429);
     define ("GIFT_COUNPON_IBLOCK_ID", 51); //инфоблок, в котором хранится информация о подарочных сертификатах
 	define ("RECURRENT_URL", "https://www.alpinabook.ru");
-
+    define ("DELIVERY_MAIL", 10);
+    define ("DELIVERY_MAIL_2", 11);
+    define ("DELIVERY_PICK_POINT", 17);
+    define ("DELIVERY_FLIPOST", 30);
     /**
 	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
 	 *
