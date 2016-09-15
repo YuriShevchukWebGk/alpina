@@ -1239,19 +1239,21 @@
     height: 20px;
 }
 .announces_block {
-    height: 160px; 
     background-color: #dd6eff; 
     color: #fff;
     font-family: "Walshein_regular";
     text-align: center;
 }
 .announces_block .lection_name {
-    height: 65px;
+    max-height: 65px;
+    min-height: 20px;
     font-weight: bold;
     padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .announces_block .lection_date {
-    height: 25px;
+    min-height: 20px;
 }
 .announces_block a {
     color: #fff;

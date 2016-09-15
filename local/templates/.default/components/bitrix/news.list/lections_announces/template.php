@@ -35,11 +35,10 @@ if (!empty($arResult["ITEMS"])) {?>
                         <?= GetMessage("DATE") . strtolower(FormatDate("j F", MakeTimeStamp($arItem['PROPERTIES']['LECTION_DATE']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
                     </div>
                 <?}?>
-                <br>
 		        <?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && $arItem["PREVIEW_TEXT"]):?>
 			        <?echo $arItem["PREVIEW_TEXT"];?>
 		        <?endif;?>
-                <a href="<?=$arItem["PROPERTY_EVENT_LINK_DETAIL_PAGE_URL"]?>"><?= GetMessage("MORE_INFO") ?></a>
+                <a href="<?= $arItem["PROPERTIES"]["EVENT_LINK"]["VALUE"] ?>" target="_blank"><?= GetMessage("MORE_INFO") ?></a>
 	        </p>
         <?endforeach;?>
         <?if($arParams["DISPLAY_BOTTOM_PAGER"]):?>
@@ -47,3 +46,10 @@ if (!empty($arResult["ITEMS"])) {?>
         <?endif;?>
     </div>
 <?}?>
+<script>
+$(document).ready(function(){
+    if ($(".lection_name").height() > 40) {
+        $(".lection_name").css("padding-bottom", "10px");
+    }
+})
+</script>
