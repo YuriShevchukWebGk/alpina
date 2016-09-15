@@ -933,6 +933,7 @@ select {
     opacity:1 !important;
     transform:translate3d(0,350px,0) !important;
     visibility:visible !important;
+    top: -200px !important;
 }
 
 #rfi_popup p{
