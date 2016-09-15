@@ -97,7 +97,7 @@
                                     $track = $shipment->getField('TRACKING_NUMBER');
                                 }?>
                                 <p class="dopInfoText"><?if(empty($track)){
-                                    GetMessage("TRACK_NUMBER_NULL");
+                                    echo GetMessage("TRACK_NUMBER_NULL");
                                 }elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
                                     <?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track)); ?>
                                 <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT){?>
