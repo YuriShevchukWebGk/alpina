@@ -193,3 +193,7 @@
 .historyBodywrap .infoAddrWrap .to_pay a {
     color: red;
 }
+.infoAddrWrap .dopInfoText a{
+    color: blue;
+    text-decoration: underline;
+}
