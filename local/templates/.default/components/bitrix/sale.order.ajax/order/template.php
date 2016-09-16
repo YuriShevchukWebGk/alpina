@@ -68,6 +68,19 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 );
             }
         })
+        
+        $("body").on('click','.recurrent_tabs li:not(:last-child)',function(){
+            if(!$(this).hasClass('active_recurrent_tab')){
+                $(".recurrent_tabs li").removeClass('active_recurrent_tab');
+                $(this).addClass('active_recurrent_tab');
+                localStorage.getItem('active_rfi_recurrent');
+                localStorage.setItem('active_rfi_recurrent', $(this).data('rfi-recurrent-type'));
+                $.post("/ajax/rfi_recurrent.php", {
+                    rfi_recurrent_type : $(this).data('rfi-recurrent-type')
+                    }, function(data) {}
+                );
+            }
+        })
 
         //ограничение на количество символов в комментарии
         $("#ORDER_DESCRIPTION").keydown(function(){
@@ -149,7 +162,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 
     $(function(){
         $('.application input[type=image]').attr('src','/images/pay.jpg');
-        submitForm();
+        try {
+	        submitForm();
+	    }
+	    catch(err) {
+	    }
         setOptions();
     })
 	//далее костыль
@@ -460,6 +477,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                     //2. подсветка варианта оплаты для электронных платежей
                                     if(localStorage.getItem('active_rfi_button')){
                                         $('li[data-rfi-payment="'+localStorage.getItem('active_rfi_button')+'"]').addClass('active_rfi_button');
+                                    }
+                                    
+                                    //2. подсветка варианта оплаты для электронных платежей
+                                    if(localStorage.getItem('active_rfi_recurrent')){
+                                        $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').click();
                                     }
 
                                     // т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса
