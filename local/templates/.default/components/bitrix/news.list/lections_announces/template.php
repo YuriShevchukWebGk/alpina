@@ -22,6 +22,11 @@ if (!empty($arResult["ITEMS"])) {?>
 	        $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
 	        ?>
 	        <p class="news-item" id="<?=$this->GetEditAreaId($arItem['ID']);?>">
+                <?if (!empty($arItem["PROPERTIES"]["EVENT_TYPE"])) {?>
+                    <div class="event_type">
+                        <?= $arItem["PROPERTIES"]["EVENT_TYPE"]["VALUE"] ?>
+                    </div>    
+                <?}?>
 		        <?if($arParams["DISPLAY_NAME"]!="N" && $arItem["NAME"]):?>
 			        <?if(!$arParams["HIDE_LINK_WHEN_NO_DETAIL"] || ($arItem["DETAIL_TEXT"] && $arResult["USER_HAVE_ACCESS"])):?>
 				        <a href="<?echo $arItem["DETAIL_PAGE_URL"]?>"><b><?echo $arItem["NAME"]?></b></a><br />
