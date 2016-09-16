@@ -85,27 +85,32 @@
                                     <?
                                 }
                                 ?>
-                                <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
-                               <?
-                                $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
+                                <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
+                                    <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                   <?
+                                    $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
 
-                                /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
-                                $shipmentCollection = $origin_identifier->getShipmentCollection();
-                                foreach ($shipmentCollection as $shipment) {
-                                if($shipment->isSystem())
-                                    continue;
-                                    $track = $shipment->getField('TRACKING_NUMBER');
-                                }?>
-                                <p class="dopInfoText"><?if(empty($track)){
-                                    echo GetMessage("TRACK_NUMBER_NULL");
-                                }elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
-                                    <?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track)); ?>
-                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT){?>
-                                    <?=GetMessage("TRACK_NUMBER_PICK_POINT") ?>
-                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST){?>
-                                    <?=GetMessage("TRACK_NUMBER_FLIPOST") ?>
+                                    /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
+                                    $shipmentCollection = $origin_identifier->getShipmentCollection();
+                                    foreach ($shipmentCollection as $shipment) {
+                                    if($shipment->isSystem())
+                                        continue;
+                                        $track = $shipment->getField('TRACKING_NUMBER');
+                                    }?>
+                                    <p class="dopInfoText"><?if(empty($track)){
+                                        echo GetMessage("TRACK_NUMBER_NULL");
+                                    }elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
+                                        <?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track)); ?>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT){?>
+                                        <?=GetMessage("TRACK_NUMBER_PICK_POINT") ?>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST){?>
+                                        <?=GetMessage("TRACK_NUMBER_FLIPOST") ?>
+                                    <?}?>
+                                    </p>
                                 <?}?>
-                                </p>
                             </div>
                             <? if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
                                 <div class="issuing_ordering_items">
@@ -156,7 +161,7 @@ $(document).ready(function() {
     $(".tableTitle").next(".orderNumbLine").next(".hiddenOrderInf").css("display", "block");
 
     if ($(".issuing_ordering_items").size() > 0) {
-        $(".infoAddrWrap").css("height", "300px");
+       // $(".infoAddrWrap").css("height", "300px");
     }
 });
 </script>
