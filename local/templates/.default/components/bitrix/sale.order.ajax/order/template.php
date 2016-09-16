@@ -40,7 +40,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 			$("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
 			$("#pp_sms_phone").inputmask("+79999999999");
 		}
-
+        
 
         if($('#pp_sms_phone')){
             var phoneVal = $('#ORDER_PROP_24').val() || $('#ORDER_PROP_11').val();
@@ -305,6 +305,9 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                 {
                                     var flag = true;
                                     $(".flippost_error").hide();
+                                    if ($("#ID_DELIVERY_ID_18").attr("checked") != "checked") {
+                                        $("#ID_DELIVERY_ID_18").closest("div").find(".bx_result_price").find("a").hide();
+                                    }
                                     // дополнительная проверка полей и вывод ошибки
                                     if (val == "Y")
                                     {
@@ -399,7 +402,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             <?endif?>
 
                                         BX.ajax.submit(orderForm, ajaxResult);
-
+                                        
                                     }
                                     return true;
                                 }
@@ -613,3 +616,10 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
             <?endif?>
     </div>
 </div>
+<script>
+$(document).ready(function(){
+        if ($("#ID_DELIVERY_ID_18").attr("checked") != "checked") {
+            $("#ID_DELIVERY_ID_18").closest("div").find(".bx_result_price").find("a").hide();
+        }    
+})
+</script>
