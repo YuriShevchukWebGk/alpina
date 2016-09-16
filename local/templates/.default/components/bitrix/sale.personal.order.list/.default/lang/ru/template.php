@@ -36,8 +36,8 @@ $MESS["FINAL_SUMM"] = "Итого";
 $MESS["CITY"] = "г.";
 $MESS["TRACK_NUMBER"] = "Трек-номер заказа";
 $MESS["TRACK_NUMBER_NULL"] = "Трек-номер Вашему заказу еще не присвоен";
-$MESS["TRACK_NUMBER_MAIL"] = "Трек-номер № #TRACK# можно отследить по ссылке (<a href='https://www.pochta.ru/Tracking##TRACK#'>ссылка</a>)";
-$MESS["TRACK_NUMBER_PICK_POINT"] = "Отследить заказ можно по ссылке(<a href='http://pickpoint.ru/monitoring/'>ссылка</a>)";
-$MESS["TRACK_NUMBER_FLIPOST"] = "Отследить заказ можно по ссылке(<a href='http://flippost.com/instruments/online/'>ссылка</a>)";
+$MESS["TRACK_NUMBER_MAIL"] = "Трек-номер № #TRACK# можно отследить по <a href='https://www.pochta.ru/Tracking##TRACK#' target='_blanck'>ссылке</a>";
+$MESS["TRACK_NUMBER_PICK_POINT"] = "Отследить заказ можно по <a href='http://pickpoint.ru/monitoring/' target='_blanck'>ссылке</a>";
+$MESS["TRACK_NUMBER_FLIPOST"] = "Отследить заказ можно по <a href='http://flippost.com/instruments/online/' target='_blanck'>ссылке</a>";
 
 ?>

@@ -45,7 +45,7 @@
 	define ("RECURRENT_URL", "https://www.alpinabook.ru");
     define ("DELIVERY_MAIL", 10);
     define ("DELIVERY_MAIL_2", 11);
-    define ("DELIVERY_PICK_POINT", 17);
+    define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
     /**
 	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
