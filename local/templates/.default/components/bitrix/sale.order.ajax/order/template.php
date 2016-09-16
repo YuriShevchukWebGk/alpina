@@ -145,6 +145,9 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 		}
 
         pickPointDeliveryId = "18"; //для доставки pickpoint
+        if ($("#ID_DELIVERY_ID_"+pickPointDeliveryId).attr("checked") != "checked") {
+            $("#ID_DELIVERY_ID_"+pickPointDeliveryId).closest("div").find(".bx_result_price").find("a").hide();
+        }
     }
 
     $(function(){
