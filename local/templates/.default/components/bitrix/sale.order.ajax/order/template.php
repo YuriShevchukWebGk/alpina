@@ -144,9 +144,8 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 			$(".hideInfo").hide();
 		}
 
-        pickPointDeliveryId = <?= DELIVERY_PICK_POINT ?>; //для доставки pickpoint
-        if ($("#ID_DELIVERY_ID_"+pickPointDeliveryId).attr("checked") != "checked") {
-            $("#ID_DELIVERY_ID_"+pickPointDeliveryId).closest("div").find(".bx_result_price").find("a").hide();
+        if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
+            $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
     }
 
@@ -308,8 +307,8 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                 {
                                     var flag = true;
                                     $(".flippost_error").hide();
-                                    if ($("#ID_DELIVERY_ID_18").attr("checked") != "checked") {
-                                        $("#ID_DELIVERY_ID_18").closest("div").find(".bx_result_price").find("a").hide();
+                                    if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
+                                        $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
                                     }
                                     // дополнительная проверка полей и вывод ошибки
                                     if (val == "Y")
@@ -621,8 +620,8 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 </div>
 <script>
 $(document).ready(function(){
-        if ($("#ID_DELIVERY_ID_18").attr("checked") != "checked") {
-            $("#ID_DELIVERY_ID_18").closest("div").find(".bx_result_price").find("a").hide();
+        if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
+            $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }    
 })
 </script>
