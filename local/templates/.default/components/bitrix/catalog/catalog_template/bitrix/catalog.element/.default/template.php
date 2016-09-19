@@ -93,7 +93,7 @@ $arItemIDs = array(
                             <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
                                 <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
 
-                                    <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>                        
+                                    <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
                                     <?}?>
                                 <?if ($arResult["PICTURE"]["src"]) {?>
                                     <img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" class="bookPreviewLink" alt="<?= $arResult["NAME"] ?>" title="<?= $arResult["NAME"] ?>" />
@@ -114,7 +114,7 @@ $arItemIDs = array(
                                 <p><?= GetMessage("NEW_BOOK") ?></p>
                                 <span class="ttip">
 									<?= GetMessage("NEW_BOOK_TIP") ?>
-                                </span>									
+                                </span>
                             </div>
                         <?}?>
                         <?if ($arResult["PROPERTIES"]["best_seller"]["VALUE_ENUM_ID"] == BESTSELLER_BOOK_XML_ID) {?>
@@ -122,7 +122,7 @@ $arItemIDs = array(
                                 <p><?= GetMessage("BESTSELLER_BOOK") ?></p>
                                 <span class="ttip">
 									<?= GetMessage("BESTSELLER_TIP") ?>
-                                </span>									
+                                </span>
                             </div>
 						<?}?>
 						<?if ($arResult["PROPERTIES"]["editors_choice"]["VALUE_ENUM_ID"] == 235) {?>
@@ -130,7 +130,7 @@ $arItemIDs = array(
                                 <p><?= GetMessage("EDITORS_CHOICE") ?></p>
                                 <span class="ttip">
 									<?= GetMessage("EDITORS_CHOICE_TIP") ?>
-                                </span>									
+                                </span>
                             </div>
 						<?}?>
 
@@ -147,7 +147,7 @@ $arItemIDs = array(
 								}?>
 								</span>
 							</div>
-						<?}?>						
+						<?}?>
                     </div>
 
                     <?if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {?>
@@ -180,7 +180,7 @@ $arItemIDs = array(
                         <p class="text"><?= GetMessage("CHAPTER_SENT") ?></p>
                         <input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>">
                     </div>
-					
+
 					<?if ($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]) {?>
 						<div class="characteris">
 							<p class="title"><?= GetMessage("PUBLISHER") ?></p>
@@ -274,7 +274,7 @@ $arItemIDs = array(
                         <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {?>
                             <span style="color:#627478"><?= $arResult["SPONSOR_PREVIEW_TEXT"] ?> </span><br />
                             <?if (!empty($arResult["SPONSOR_PICT"])) {?>
-                                <a href="https://<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
+                                <a href="<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
                                 <?} else {?>
                                 <?= $authorFetchedList["NAME"] ?>
                                 <?}?>
@@ -331,7 +331,7 @@ $arItemIDs = array(
                                                     $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
                                                     if (strlen (stristr($newPrice, ".")) == 2) {
                                                         $newPrice .= "0";
-                                                    }    
+                                                    }
                                                 } else {
                                                     $newPrice = round (($arPrice["DISCOUNT_VALUE"]), 2);
                                                     if (strlen (stristr($newPrice, ".")) == 2) {
@@ -487,7 +487,7 @@ $arItemIDs = array(
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
                                 }
-								
+
                                 if ($today == 5) {
                                     if ($timenow < 17) {
                                         $samovivoz_day = GetMessage("TODAY");
@@ -515,7 +515,7 @@ $arItemIDs = array(
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
                                 }
-								
+
                                 if ($today == 5) {
                                     if ($timenow < 17) {
                                         $samovivoz_day = GetMessage("TODAY");
@@ -572,7 +572,7 @@ $arItemIDs = array(
                                 "EDIT_TEMPLATE" => ""
                                 ),
                                 false
-                            );?>    
+                            );?>
                         </div>
                     </div>
                     <?if ($arResult["PROPERTIES"]["author_book"]["VALUE"] == "Y") {?>
@@ -583,6 +583,75 @@ $arItemIDs = array(
                             <a href="#"><p class="takePart">Принять участие</p></a>
                         </div>
                         <?}?>
+                        <? global $author_filter;
+                        $author_filter = array("PROPERTY_AUTHOR_LINK" => $arResult['PROPERTIES']['AUTHORS']['VALUE'][0]);
+                            $APPLICATION->IncludeComponent(
+	"bitrix:news.list", 
+	"lections_announces", 
+	array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"ADD_SECTIONS_CHAIN" => "Y",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"CACHE_FILTER" => "N",
+		"CACHE_GROUPS" => "N",
+		"CACHE_TIME" => "36000000",
+		"CACHE_TYPE" => "A",
+		"CHECK_DATES" => "Y",
+		"DETAIL_URL" => "",
+		"DISPLAY_BOTTOM_PAGER" => "N",
+		"DISPLAY_DATE" => "Y",
+		"DISPLAY_NAME" => "Y",
+		"DISPLAY_PICTURE" => "Y",
+		"DISPLAY_PREVIEW_TEXT" => "Y",
+		"DISPLAY_TOP_PAGER" => "N",
+		"FIELD_CODE" => array(
+			0 => "NAME",
+			1 => "",
+		),
+		"FILTER_NAME" => "author_filter",
+		"HIDE_LINK_WHEN_NO_DETAIL" => "Y",
+		"IBLOCK_ID" => "60",
+		"IBLOCK_TYPE" => "service",
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
+		"INCLUDE_SUBSECTIONS" => "Y",
+		"MESSAGE_404" => "",
+		"NEWS_COUNT" => "1",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_TEMPLATE" => ".default",
+		"PAGER_TITLE" => "Новости",
+		"PARENT_SECTION" => "",
+		"PARENT_SECTION_CODE" => "",
+		"PREVIEW_TRUNCATE_LEN" => "",
+		"PROPERTY_CODE" => array(
+			0 => "LECTION_DATE",
+			1 => "EVENT_LINK",
+			2 => "EVENT_TYPE",
+			3 => "AUTHOR_LINK",
+			4 => "",
+		),
+		"SET_BROWSER_TITLE" => "Y",
+		"SET_LAST_MODIFIED" => "N",
+		"SET_META_DESCRIPTION" => "Y",
+		"SET_META_KEYWORDS" => "Y",
+		"SET_STATUS_404" => "N",
+		"SET_TITLE" => "Y",
+		"SHOW_404" => "N",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC",
+		"COMPONENT_TEMPLATE" => "lections_announces"
+	),
+	false
+);?>       
                 </div>
                 <div class="subscr_result"></div>
                 <div class="centerColumn">
@@ -1245,8 +1314,8 @@ $printid = implode(", ", $printid2);?>
             }
 
             $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"viewed_books", 
+	"bitrix:catalog.section",
+	"viewed_books",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",

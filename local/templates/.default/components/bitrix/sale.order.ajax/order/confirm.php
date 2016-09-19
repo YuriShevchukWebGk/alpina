@@ -86,34 +86,34 @@ if ($_REQUEST["ORDER_ID"])
         </script>
 
         <!--google eCommerce-->
-		<?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
-			<script>
+        <?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
+            <script>
 
-				dataLayer.push({
-					'ecommerce': {
-						'purchase': {
-							'actionField': {
-								'id': '<?=$arResult["ORDER"]["ID"]?>',                         // Transaction ID. Required for purchases and refunds.
-								'affiliation': 'Alpinabook',
-								'revenue': '<?=$arResult['ORDER']['PRICE']?>',                     // Total transaction value (incl. tax and shipping)
-								'tax':'<?=$arResult['ORDER']['TAX_VALUE']?>',
-								'shipping': '<?=$arResult['ORDER']['PRICE_DELIVERY']?>',
-								'coupon': '<?=$couponStr?>'
-							},
-							'products': [
-								<?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
-								{
-									<?=$googleEnhancedECommerce?>
-								},
-								<?}?>
-							]
-						}
-					},
-					'discountPerc': '<?=$_SESSION['EMAIL_DISCOUNT_PERCENT_MED']?>',
-					'discountRUB': '<?=substr($_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'],0,-5)?>'
-				});
-			</script>
-		<?/* Старый код google ecommerce ?>
+                dataLayer.push({
+                    'ecommerce': {
+                        'purchase': {
+                            'actionField': {
+                                'id': '<?=$arResult["ORDER"]["ID"]?>',                         // Transaction ID. Required for purchases and refunds.
+                                'affiliation': 'Alpinabook',
+                                'revenue': '<?=$arResult['ORDER']['PRICE']?>',                     // Total transaction value (incl. tax and shipping)
+                                'tax':'<?=$arResult['ORDER']['TAX_VALUE']?>',
+                                'shipping': '<?=$arResult['ORDER']['PRICE_DELIVERY']?>',
+                                'coupon': '<?=$couponStr?>'
+                            },
+                            'products': [
+                                <?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
+                                {
+                                    <?=$googleEnhancedECommerce?>
+                                },
+                                <?}?>
+                            ]
+                        }
+                    },
+                    'discountPerc': '<?=$_SESSION['EMAIL_DISCOUNT_PERCENT_MED']?>',
+                    'discountRUB': '<?=substr($_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'],0,-5)?>'
+                });
+            </script>
+        <?/* Старый код google ecommerce ?>
         <script>
             dataLayer.push({
                 'transactionId': '<?=$arResult["ORDER"]["ID"]?>',
@@ -131,7 +131,7 @@ if ($_REQUEST["ORDER_ID"])
             });
 
         </script>
-		<?*/?>
+        <?*/?>
         <?  //получаем email из заказа. у физлиц будет EMAIL, у юрлиц F_EMAIL
             $orderProps = CSaleOrderPropsValue::GetList(array(),array("ORDER_ID"=>$arResult["ORDER_ID"],"CODE"=>array("EMAIL","F_EMAIL")),false,false,array());
             while($arProp = $orderProps->Fetch()) {
@@ -185,7 +185,7 @@ if ($_REQUEST["ORDER_ID"])
         <?unset($_SESSION['socioMatic'])?>
         <?unset($_SESSION['criteo'])?>
         <?unset($_SESSION['googleECommerce'])?>
-		<?unset($_SESSION['googleEnhancedECommerce'])?>
+        <?unset($_SESSION['googleEnhancedECommerce'])?>
         <?unset($_SESSION['floctory'])?>
         <?unset($_SESSION['retailRocket'])?>
 
@@ -240,8 +240,8 @@ if ($_REQUEST["ORDER_ID"])
                         ?>
                         <tr>
                             <td>
-							<?=GetMessage("DIGITAL_BOOK")?>
-							<br />
+                            <?=GetMessage("DIGITAL_BOOK")?>
+                            <br />
                                 <?
                                     $service = \Bitrix\Sale\PaySystem\Manager::getObjectById($arResult["ORDER"]['PAY_SYSTEM_ID']);
 
@@ -297,9 +297,9 @@ if ($_REQUEST["ORDER_ID"])
                         }
                     ?>
                 </table>
-			<? } elseif ($arResult["PAY_SYSTEM"]["ID"] == 12) {
-				echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
-			}
+            <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == 12) {
+                echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
+            }
         }?>
 
     </div>
@@ -327,107 +327,4 @@ if ($_REQUEST["ORDER_ID"])
         var result = $(".confirmWrapper").html();
         $(".orderBody").parent().html(result);
     })
-</script>    
-<?
-global $USER;
-$users = CUser::GetList(
-	($by=""),
-	($order=""),
-	Array(
-		"ID" => $USER->GetID()
-	),
-	Array(
-		"SELECT" => Array("UF_RECURRENT_ID")
-	)
-); 
-if ($user = $users->NavNext(true, "f_")) {
-   $userRecurrentID = $user["UF_RECURRENT_ID"];
-}
-
-if ($userRecurrentID && $_SESSION['rfi_bank_tab'] == "spg") { ?>
-    <script>
-    user_confirmed = false;
-    document.addEventListener('DOMContentLoaded',function(){
-        // --- close rfi warning popup
-        document.querySelector("#rfi_popup_close").addEventListener("click", function(e){
-            document.querySelector("#rfi_popup").classList.toggle("rfi_popup_visible");
-        },false)
-        // --- user rejected recurrent payment,so close the popup
-        document.querySelector(".rfi_cancel").addEventListener("click", function(e){
-            document.querySelector("#rfi_popup").classList.toggle("rfi_popup_visible");
-        },false)
-        // --- user confirmed recurrent payment,force form submit with positive flag
-        document.querySelector(".rfi_confirm").addEventListener("click", function(e){
-            //user_confirmed = true;
-            //document.querySelector("#rfi_form_payment").submit();
-            $(".loader_animation").toggle();
-            $(".rfi_popup_tabs").toggle();
-            $("#rfi_popup p").text(<?= GetMessage("RFI_RECURRENT_WAIT_MESSAGE") ?>);
-            var forPost = {};
-                var serForm = $("#rfi_form_payment").serializeArray();
-                for (obj in serForm){
-                    forPost[serForm[obj].name] = serForm[obj].value;
-                }
-                
-                //{"status": "success", "tid": "36515357", "help": false}
-                
-	        $.post("https://partner.rficb.ru/a1lite/input", forPost, function(data) {
-	            var statusText ="";
-	            var finalPath ="";
-	            //console.log(data);
-	            if (data.status == "success" || data.match(/success/)) {    
-	                statusText = <?= GetMessage("RFI_RECURRENT_PAYMENT_SUCCESS") ?>;
-	                finalPath = "http://www.alpinabook.ru/payment_success.php";
-	            } else {
-	                statusText = <?= GetMessage("RFI_RECURRENT_PAYMENT_ERROR") ?>;
-	                finalPath = "http://www.alpinabook.ru/";
-	            }
-	            $(".loader_animation").toggle();
-	            $("#rfi_popup p").text(statusText);
-	            setTimeout(function() {
-	            	window.location = finalPath;
-	            }, 2500)
-	        });
-        },false)
-        
-        document.querySelector("#rfi_form_payment").addEventListener("submit", function(e) {
-            // --- if user don't confirmed recurrent payment in warning popup window aborting form submit and show popup
-            if (!user_confirmed) {
-                e.preventDefault();
-                document.querySelector("#rfi_popup").classList.toggle("rfi_popup_visible");  
-            } else {
-                // --- else submiting from
-                return true;
-            }
-        }, false)
-    }, false);
-	</script>
-    
-    <div id="rfi_popup">
-	    <p><?= GetMessage("RFI_RECURRENT_WARNING_MESSAGE") ?></p>
-	    <div class="rfi_popup_tabs">
-	        <div class="rfi_confirm"><?= GetMessage("RFI_RECURRENT_CONFIRM") ?></div>
-	        <div class="rfi_cancel"><?= GetMessage("RFI_RECURRENT_DECLINE") ?></div>
-	    </div>
-	    <div class="loader_animation">
-	        <div class="cssload-bell">
-	            <div class="cssload-circle">
-	                <div class="cssload-inner"></div>
-	            </div>
-	            <div class="cssload-circle">
-	                <div class="cssload-inner"></div>
-	            </div>
-	            <div class="cssload-circle">
-	                <div class="cssload-inner"></div>
-	            </div>
-	            <div class="cssload-circle">
-	                <div class="cssload-inner"></div>
-	            </div>
-	            <div class="cssload-circle">
-	                <div class="cssload-inner"></div>
-	            </div>
-	        </div>
-	    </div>
-	    <div id="rfi_popup_close"></div>
-	</div>
-<? } ?>
+</script>

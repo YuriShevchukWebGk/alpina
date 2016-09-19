@@ -1238,3 +1238,30 @@
     font-family: "Walshein_regular";
     height: 20px;
 }
+.announces_block {
+    background-color: #dd6eff; 
+    color: #fff;
+    font-family: "Walshein_regular";
+    text-align: center;
+    padding-bottom: 10px;
+    border-radius: 40px;
+}
+.announces_block .lection_name {
+    max-height: 65px;
+    min-height: 20px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.announces_block .lection_date {
+    min-height: 20px;
+}
+.announces_block a {
+    color: #fff;
+    border-bottom: 1px dashed #fff;
+}
+.announces_block a:hover {
+    text-decoration: none;
+    border-color: transparent;
+}

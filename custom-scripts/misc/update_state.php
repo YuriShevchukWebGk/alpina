@@ -24,25 +24,29 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	echo "<br />";	
 
 	echo "<b>Информация о бестселлерах</b><br />";
-	$arFilter = Array("IBLOCK_ID"=>4, "ID"=>$recsArray);
-	$res = CIBlockElement::GetList(Array(), $arFilter);
-	$key = 0;
-	while ($ob = $res->GetNextElement()){
-		$arProps = $ob->GetProperties();
-		$arFields = $ob->GetFields();
-		$return = true;
-		foreach ($bestsellers as $key => $best) {
-			if (in_array($arFields[ID], $best)) {
-				$bestsellers[$key]['new'] = 1;
-				$return = false;
+	if (!empty($recsArray)) {
+		$arFilter = Array("IBLOCK_ID"=>4, "ID"=>$recsArray);
+		$res = CIBlockElement::GetList(Array(), $arFilter);
+		$key = 0;
+		while ($ob = $res->GetNextElement()){
+			$arProps = $ob->GetProperties();
+			$arFields = $ob->GetFields();
+			$return = true;
+			foreach ($bestsellers as $key => $best) {
+				if (in_array($arFields[ID], $best)) {
+					$bestsellers[$key]['new'] = 1;
+					$return = false;
+				}
 			}
-		}
 
-		if ($return) {
-			$bestsellers[] = array('name' => $arFields[NAME], 'id' => $arFields[ID], 'new' => 1, 'old' => 0);
+			if ($return) {
+				$bestsellers[] = array('name' => $arFields[NAME], 'id' => $arFields[ID], 'new' => 1, 'old' => 0);
+			}
+			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => '285'));
+			$key++;
 		}
-		CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => '285'));
-		$key++;
+	} else {
+		echo 'Бестселлеры не получены. Проверить retailrocket';
 	}
 	echo "<br />";	
 	

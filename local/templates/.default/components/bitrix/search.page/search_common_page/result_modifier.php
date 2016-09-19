@@ -84,13 +84,29 @@ if (!empty($books_array)) {
     if (!empty($authors_of_found_books_arr)) { 
         $authors_of_books_list = CIBlockElement::GetList(
             array(), 
-            array("ID" => $authors_of_found_books_arr), 
+            array("ID" => $authors_of_found_books_arr, "IBLOCK_ID" => AUTHORS_IBLOCK_ID), 
             false, 
             false, 
-            array()
+            array(
+				"ID", 
+                "PROPERTY_LAST_NAME", 
+                "PROPERTY_FIRST_NAME", 
+                "PROPERTY_SHOWINAUTHORS", 
+                "PROPERTY_ORIG_NAME",
+				"NAME"
+			)
         );
         while ($authors_of_books = $authors_of_books_list -> Fetch()) {
-            $arResult["BOOK_AUTHOR_INFO"][$authors_of_books["ID"]] = $authors_of_books;
+        	if (!$arResult["BOOK_AUTHOR_INFO"][$authors_of_books["ID"]]) {
+        		$author_name = "";
+	        	if (strlen ($authors_of_books['PROPERTY_FIRST_NAME_VALUE']) > 0) {
+	                $author_name .= (strlen ($author_name) > 0 ? ', ' : '') . $authors_of_books['PROPERTY_FIRST_NAME_VALUE'];
+	            }
+	            if (strlen ($authors_of_books['PROPERTY_LAST_NAME_VALUE']) > 0) {
+	                $author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $authors_of_books['PROPERTY_LAST_NAME_VALUE'];
+	            }
+	            $arResult["BOOK_AUTHOR_INFO"][$authors_of_books["ID"]] = $author_name;	
+	        }
         }
     }
 
