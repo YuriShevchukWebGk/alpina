@@ -100,23 +100,22 @@
                                         continue;
                                         $track = $shipment->getField('TRACKING_NUMBER');
                                     }?>
-                                    <?if(empty($track) && $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2){?>
-                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
-                                        <p class="dopInfoText"><?echo GetMessage("TRACK_NUMBER_NULL");?></p>
-                                    <?}elseif(empty($track) && $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
-                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
-                                        <p class="dopInfoText"><?=GetMessage("TRACK_MESSAGE_PICK_POINT_NULL");?></p>
-                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
+                                    <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
                                         <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track));?></p>
                                     <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT && $order_key == "I"){?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
                                         <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_PICK_POINT") ?></p>
-                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST){?>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST && $order_key == "I" && !empty($track)){?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
                                         <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_FLIPOST") ?></p>
-                                    <?}?>
-
+                                    <?}elseif(empty($track) && $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                        <p class="dopInfoText"><?echo GetMessage("TRACK_NUMBER_NULL");?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST && $order_key != "I") {?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_MESSAGE_PICK_POINT_NULL");?></p>
+                                     <?}?>
                                 <?}?>
                             </div>
                             <? if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
