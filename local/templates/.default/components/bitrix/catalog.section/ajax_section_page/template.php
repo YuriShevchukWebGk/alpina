@@ -415,9 +415,6 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 <p class="showMore">Показать ещё</p>
             <?}?>
             <?=$arResult["NAV_STRING"]?>            
-            <div class="catalogDescription">
-                <?=$arResult["DESCRIPTION"]?>
-            </div>
         </div>
 
 
@@ -477,7 +474,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
 
 
-
+		<div class="catalogDescription">
+			<?=$arResult["DESCRIPTION"]?>
+		</div>
     </div>
 </div>
 
