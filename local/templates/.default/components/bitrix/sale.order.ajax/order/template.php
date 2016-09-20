@@ -654,8 +654,12 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 </div>
 <script>
 $(document).ready(function(){
-        if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
-            $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
-        }    
+	if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
+		$("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
+	}
+	// по-умолчанию выбираем сохраненную карту, если она есть
+	if ($("li[data-rfi-recurrent-type='next']").length) {
+		$("li[data-rfi-recurrent-type='next']").click(); 
+	}
 })
 </script>
