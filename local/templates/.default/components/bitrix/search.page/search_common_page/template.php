@@ -34,7 +34,7 @@
         </div>
         <?/* Получаем рекомендации для поиска от RetailRocket */
         global $arrFilter;
-        $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword=' . $arResult["REQUEST"]["QUERY"]);
+        $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword=' . $arResult["REQUEST"]["QUERY"]);
         $recsArray = json_decode($stringRecs);
         $arrFilter = Array('ID' => (array_slice($recsArray, 0, 5)));
         if ($arrFilter['ID'][0] > 0) {?>
@@ -264,7 +264,7 @@
                                 <div class="descrWrap">
                                     <a href="<?= $arItem["URL"] ?>">
                                         <p class="bookNames" title="<?= $arItem["TITLE"] ?>"><?= $arItem["TITLE"] ?></p>
-                                        <p class="autorName"><?= $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]]["NAME"] ?></p>
+                                        <p class="autorName"><?= $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]] ?></p>
                                         <p class="wrapperType"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                         <?if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
@@ -440,7 +440,7 @@
                 <?
                 if (isset($_COOKIE["rrpusid"])){
                     global $arrFilter;
-                    $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
+                    $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
                     $recsArray = json_decode($stringRecs);
                     $arrFilter = Array('ID' => (array_slice($recsArray, 0, 6)));
                 }

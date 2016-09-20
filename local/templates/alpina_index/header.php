@@ -8,7 +8,8 @@
 <!doctype html>
 <html>
 <head>
-	<!--alpina_index-->
+<!--eski.mobi--><script class="eskimobi" data-type="mobile">!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];e.src?a.src=e.src:e.innerHTML&&(a.innerHTML=e.innerHTML),a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<div id="eski-overlay" style="font-family:Helvetica-Light,Helvetica,Arial,sans-serif;font-weight:light;font-size:300%;line-height:100%;position:absolute;top:42%;left:0;right:0;text-align:center;color: #999;">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...</div><plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h=function(){var c=new Date;c.setTime(c.getTime()+18e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e){var a=b.createElement("script");if(a.onerror=h,"string"==typeof e)g(a,"main-executable","mobify",{src:e});else{var c="var main = "+e.toString()+"; main();";g(a,"main-executable","mobify",{innerHTML:c})}}},f.onerror=h,g(f,"mobify-js","mobify",{src:d})})}(window,document,function(){var ua=navigator.userAgent||navigator.vendor||window.opera,m=false;if(/mobi|phone|ipod|nokia|android/i.test(ua))m=true;if(/msie|windows|media\scenter|opera\smini|ipad|android\s3|android\s2|iphone\sos\s(4|5|6)|ipad\sos\s(4|5|6)/i.test(ua)||screen.width>1024)m=false;return m;},(location.protocol=="https:"?"https:":"http:")+"//pro2.eski.mobi/lib/eski.mobi.min.js",(location.protocol=="https:"?"https:":"http:")+"//pro2.eski.mobi/mobile/alpinabook-ru/eski/mobi.js");</script><!--/eski.mobi-->
+    <!--alpina_index-->
     <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8"> -->
     <title><?$APPLICATION->ShowTitle()?></title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -47,25 +48,27 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
     <meta name="theme-color" content="#ffffff">    
-	<meta name="google-site-verification" content="cUkEF3427PrBhej9QWdjG-Hd6IHnkt7tS_rr88-4B30" />
+    <meta name="google-site-verification" content="cUkEF3427PrBhej9QWdjG-Hd6IHnkt7tS_rr88-4B30" />
+    <meta name="yandex-verification" content="7129a3dd68cb6589" />
+    <meta name="google-site-verification" content="2anNV5c5mKCRA-xCKLOJU2A0UWEJxJ7CiSkjPBd1Ypw" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />  
-	<?$APPLICATION->ShowHead();?>
-	
-		
+    <?$APPLICATION->ShowHead();?>
+    
+        
     <meta property="og:title" content="«Альпина Паблишер» — деловая литература" />
     <meta property="og:type" content="book" />
-    <meta property="og:url" content="http://www.alpinabook.ru" />
-    <meta property="og:image" content="http://www.alpinabook.ru/img/logo.png" />
+    <meta property="og:url" content="https://www.alpinabook.ru" />
+    <meta property="og:image" content="https://www.alpinabook.ru/img/logo.png" />
     <meta property="og:site_name" content="www.alpinabook.ru" />
     <meta property="fb:admins" content="1425804193" />
     <meta property="fb:app_id" content="138738742872757" /> 
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 
 </head>
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="https://schema.org/WebPage">
 
 <? global $USER;
 if ($USER->IsAuthorized()) {
@@ -90,7 +93,7 @@ if ($USER->IsAuthorized()) {
         }];
     </script>
     <?}?> 
-	
+    
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -100,10 +103,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
-	
+    
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
-<header itemscope="" id="WPHeader" itemtype="http://schema.org/WPHeader">
+<header itemscope="" id="WPHeader" itemtype="https://schema.org/WPHeader">
     <a href="/">
         <div class="logo">
             <?$APPLICATION->IncludeComponent(
@@ -360,7 +363,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             );?> 
         <?/* Получаем рекомендации для главной от RetailRocket */
             global $SellBlockFilter;
-            $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
+            $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
             $recsArray = json_decode($stringRecs);
             $SellBlockFilter = Array('ID' => (array_slice($recsArray,0,6)));
 
@@ -591,7 +594,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 false
             );?>  
         <? //$arrFilter_mustread = array('PROPERTY_must_read' => '242', ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
-			$arrFilter_mustread = array('PROPERTY_SERIES' => '66454', ">DETAIL_PICTURE" => 0);
+            $arrFilter_mustread = array('PROPERTY_SERIES' => '66454', ">DETAIL_PICTURE" => 0);
 
             $APPLICATION->IncludeComponent(
                 "bitrix:catalog.section", 
@@ -712,11 +715,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 ПРИСОЕДИНЯЙТЕСЬ В СОЦСЕТЯХ
             </p>
             <div class="icons">
-                <a href="http://vk.com/ideabooks" target="_blank"><img src="/img/vk.png"></a>
+                <a href="https://vk.com/ideabooks" target="_blank"><img src="/img/vk.png"></a>
                 <a href="https://twitter.com/AlpinaBookRu"><img src="/img/twitter.png"></a>
                 <a href="https://www.facebook.com/alpinabook/" target="_blank"><img src="/img/facebook.png"></a>
                 <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank"><img src="/img/google.png"></a> 
-                <a href="http://instagram.com/alpinabook" target="_blank"><img src="/img/instagramm.png"></a>
+                <a href="https://instagram.com/alpinabook" target="_blank"><img src="/img/instagramm.png"></a>
             </div>
         </div>
     </div>
@@ -727,7 +730,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <?/* Получаем бестселлеры от RetailRocket */
 
             if (isset($_COOKIE["rrpusid"])){
-                $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
+                $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
                 $recsArray = json_decode($stringRecs);
                 $arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
             }
@@ -868,17 +871,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <?}?>
 
         <div class="recomendation">
-			<?/* Получаем бестселлеры от RetailRocket */
-				global $BestsOnMain;
-				$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
-				$recsArray = json_decode($stringRecs);
-				$BestsOnMain = Array('ID' => (array_slice($recsArray,0,6)));
+            <?/* Получаем бестселлеры от RetailRocket */
+                global $BestsOnMain;
+                $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
+                $recsArray = json_decode($stringRecs);
+                $BestsOnMain = Array('ID' => (array_slice($recsArray,0,6)));
 
-				if ($BestsOnMain['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем 
+                if ($BestsOnMain['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем 
 
-				} else { // Если рекомендаций нет, подставляем вручную созданные*/
-					$BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
-			}?>		
+                } else { // Если рекомендаций нет, подставляем вручную созданные*/
+                    $BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
+            }?>        
             <p class="titleMain">Бестселлеры</p>
             <?
 
@@ -1030,8 +1033,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         </p>
                     </div>
                 </div>
-			
-				<div>
+            
+                <div>
                 <?$APPLICATION->IncludeComponent(
                         "bitrix:main.include", 
                         ".default", 
@@ -1056,105 +1059,105 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     $disc_items = array ('PROPERTY_discount_on' => '276');
                     //arshow($disc_items);?> 
                 <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"discount_books", 
-	array(
-		"ACTION_VARIABLE" => "action",
-		"ADD_PICT_PROP" => "-",
-		"ADD_PROPERTIES_TO_BASKET" => "Y",
-		"ADD_SECTIONS_CHAIN" => "N",
-		"ADD_TO_BASKET_ACTION" => "ADD",
-		"AJAX_MODE" => "N",
-		"AJAX_OPTION_ADDITIONAL" => "",
-		"AJAX_OPTION_HISTORY" => "N",
-		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y",
-		"BACKGROUND_IMAGE" => "-",
-		"BASKET_URL" => "/personal/basket.php",
-		"BROWSER_TITLE" => "-",
-		"CACHE_FILTER" => "N",
-		"CACHE_GROUPS" => "N",
-		"CACHE_TIME" => "36000000",
-		"CACHE_TYPE" => "A",
-		"COMPONENT_TEMPLATE" => "discount_books",
-		"CONVERT_CURRENCY" => "N",
-		"DETAIL_URL" => "",
-		"DISPLAY_BOTTOM_PAGER" => "Y",
-		"DISPLAY_TOP_PAGER" => "N",
-		"ELEMENT_SORT_FIELD" => "rand",
-		"ELEMENT_SORT_FIELD2" => "id",
-		"ELEMENT_SORT_ORDER" => "asc",
-		"ELEMENT_SORT_ORDER2" => "desc",
-		"FILTER_NAME" => "disc_items",
-		"HIDE_NOT_AVAILABLE" => "N",
-		"IBLOCK_ID" => "4",
-		"IBLOCK_TYPE" => "catalog",
-		"INCLUDE_SUBSECTIONS" => "Y",
-		"LABEL_PROP" => "-",
-		"LINE_ELEMENT_COUNT" => "3",
-		"MESSAGE_404" => "",
-		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-		"MESS_BTN_BUY" => "Купить",
-		"MESS_BTN_DETAIL" => "Подробнее",
-		"MESS_BTN_SUBSCRIBE" => "Подписаться",
-		"MESS_NOT_AVAILABLE" => "Нет в наличии",
-		"META_DESCRIPTION" => "-",
-		"META_KEYWORDS" => "-",
-		"OFFERS_LIMIT" => "5",
-		"PAGER_BASE_LINK_ENABLE" => "N",
-		"PAGER_DESC_NUMBERING" => "N",
-		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-		"PAGER_SHOW_ALL" => "N",
-		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_TEMPLATE" => ".default",
-		"PAGER_TITLE" => "Товары",
-		"PAGE_ELEMENT_COUNT" => "30",
-		"PARTIAL_PRODUCT_PROPERTIES" => "N",
-		"PRICE_CODE" => array(
-			0 => "BASE",
-		),
-		"PRICE_VAT_INCLUDE" => "Y",
-		"PRODUCT_ID_VARIABLE" => "id",
-		"PRODUCT_PROPERTIES" => array(
-		),
-		"PRODUCT_PROPS_VARIABLE" => "prop",
-		"PRODUCT_QUANTITY_VARIABLE" => "",
-		"PRODUCT_SUBSCRIPTION" => "N",
-		"PROPERTY_CODE" => array(
-			0 => "discount_on",
-			1 => "spec_price",
-			2 => "",
-		),
-		"SECTION_CODE" => "",
-		"SECTION_ID" => $_REQUEST["SECTION_ID"],
-		"SECTION_ID_VARIABLE" => "SECTION_ID",
-		"SECTION_URL" => "",
-		"SECTION_USER_FIELDS" => array(
-			0 => "",
-			1 => "",
-		),
-		"SEF_MODE" => "N",
-		"SET_BROWSER_TITLE" => "Y",
-		"SET_LAST_MODIFIED" => "N",
-		"SET_META_DESCRIPTION" => "Y",
-		"SET_META_KEYWORDS" => "Y",
-		"SET_STATUS_404" => "N",
-		"SET_TITLE" => "N",
-		"SHOW_404" => "N",
-		"SHOW_ALL_WO_SECTION" => "Y",
-		"SHOW_CLOSE_POPUP" => "N",
-		"SHOW_DISCOUNT_PERCENT" => "N",
-		"SHOW_OLD_PRICE" => "N",
-		"SHOW_PRICE_COUNT" => "1",
-		"TEMPLATE_THEME" => "blue",
-		"USE_MAIN_ELEMENT_SECTION" => "N",
-		"USE_PRICE_COUNT" => "N",
-		"USE_PRODUCT_QUANTITY" => "N",
-		"DISABLE_INIT_JS_IN_COMPONENT" => "N"
-	),
-	false
+    "bitrix:catalog.section", 
+    "discount_books", 
+    array(
+        "ACTION_VARIABLE" => "action",
+        "ADD_PICT_PROP" => "-",
+        "ADD_PROPERTIES_TO_BASKET" => "Y",
+        "ADD_SECTIONS_CHAIN" => "N",
+        "ADD_TO_BASKET_ACTION" => "ADD",
+        "AJAX_MODE" => "N",
+        "AJAX_OPTION_ADDITIONAL" => "",
+        "AJAX_OPTION_HISTORY" => "N",
+        "AJAX_OPTION_JUMP" => "N",
+        "AJAX_OPTION_STYLE" => "Y",
+        "BACKGROUND_IMAGE" => "-",
+        "BASKET_URL" => "/personal/basket.php",
+        "BROWSER_TITLE" => "-",
+        "CACHE_FILTER" => "N",
+        "CACHE_GROUPS" => "N",
+        "CACHE_TIME" => "36000000",
+        "CACHE_TYPE" => "A",
+        "COMPONENT_TEMPLATE" => "discount_books",
+        "CONVERT_CURRENCY" => "N",
+        "DETAIL_URL" => "",
+        "DISPLAY_BOTTOM_PAGER" => "Y",
+        "DISPLAY_TOP_PAGER" => "N",
+        "ELEMENT_SORT_FIELD" => "rand",
+        "ELEMENT_SORT_FIELD2" => "id",
+        "ELEMENT_SORT_ORDER" => "asc",
+        "ELEMENT_SORT_ORDER2" => "desc",
+        "FILTER_NAME" => "disc_items",
+        "HIDE_NOT_AVAILABLE" => "N",
+        "IBLOCK_ID" => "4",
+        "IBLOCK_TYPE" => "catalog",
+        "INCLUDE_SUBSECTIONS" => "Y",
+        "LABEL_PROP" => "-",
+        "LINE_ELEMENT_COUNT" => "3",
+        "MESSAGE_404" => "",
+        "MESS_BTN_ADD_TO_BASKET" => "В корзину",
+        "MESS_BTN_BUY" => "Купить",
+        "MESS_BTN_DETAIL" => "Подробнее",
+        "MESS_BTN_SUBSCRIBE" => "Подписаться",
+        "MESS_NOT_AVAILABLE" => "Нет в наличии",
+        "META_DESCRIPTION" => "-",
+        "META_KEYWORDS" => "-",
+        "OFFERS_LIMIT" => "5",
+        "PAGER_BASE_LINK_ENABLE" => "N",
+        "PAGER_DESC_NUMBERING" => "N",
+        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+        "PAGER_SHOW_ALL" => "N",
+        "PAGER_SHOW_ALWAYS" => "N",
+        "PAGER_TEMPLATE" => ".default",
+        "PAGER_TITLE" => "Товары",
+        "PAGE_ELEMENT_COUNT" => "30",
+        "PARTIAL_PRODUCT_PROPERTIES" => "N",
+        "PRICE_CODE" => array(
+            0 => "BASE",
+        ),
+        "PRICE_VAT_INCLUDE" => "Y",
+        "PRODUCT_ID_VARIABLE" => "id",
+        "PRODUCT_PROPERTIES" => array(
+        ),
+        "PRODUCT_PROPS_VARIABLE" => "prop",
+        "PRODUCT_QUANTITY_VARIABLE" => "",
+        "PRODUCT_SUBSCRIPTION" => "N",
+        "PROPERTY_CODE" => array(
+            0 => "discount_on",
+            1 => "spec_price",
+            2 => "",
+        ),
+        "SECTION_CODE" => "",
+        "SECTION_ID" => $_REQUEST["SECTION_ID"],
+        "SECTION_ID_VARIABLE" => "SECTION_ID",
+        "SECTION_URL" => "",
+        "SECTION_USER_FIELDS" => array(
+            0 => "",
+            1 => "",
+        ),
+        "SEF_MODE" => "N",
+        "SET_BROWSER_TITLE" => "Y",
+        "SET_LAST_MODIFIED" => "N",
+        "SET_META_DESCRIPTION" => "Y",
+        "SET_META_KEYWORDS" => "Y",
+        "SET_STATUS_404" => "N",
+        "SET_TITLE" => "N",
+        "SHOW_404" => "N",
+        "SHOW_ALL_WO_SECTION" => "Y",
+        "SHOW_CLOSE_POPUP" => "N",
+        "SHOW_DISCOUNT_PERCENT" => "N",
+        "SHOW_OLD_PRICE" => "N",
+        "SHOW_PRICE_COUNT" => "1",
+        "TEMPLATE_THEME" => "blue",
+        "USE_MAIN_ELEMENT_SECTION" => "N",
+        "USE_PRICE_COUNT" => "N",
+        "USE_PRODUCT_QUANTITY" => "N",
+        "DISABLE_INIT_JS_IN_COMPONENT" => "N"
+    ),
+    false
 );?>
-					</div>
+                    </div>
             </div>
         </div>
 

@@ -21,7 +21,7 @@
 
 	<?endif?>
 
-	
+
     <p class="personal_title"><?$APPLICATION->ShowTitle();?></p>
 
     <div class="historyWrap">
@@ -35,64 +35,98 @@
         <?
 
         $key = 0;
-        foreach ($arResult["ORDER_BY_STATUS"] as $order_key => $group) {
-            foreach ($group as $k => $order) {
+        if (!empty($arResult["ORDERS"])) {
+            foreach ($arResult["ORDER_BY_STATUS"] as $order_key => $group) {
+                foreach ($group as $k => $order) {
 
-                $quantity = 0;
-                foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
-                    $quantity += round($arBaskItem["QUANTITY"]);    
-                }
-                
-                $key++;
-                ?>
-                <div class="orderNumbLine">
-                    <p class="ordTitle" data-id="<?= $key ?>"><span><?= GetMessage("SPOL_ORDER") . " " . GetMessage("SPOL_NUM_SIGN") . $order["ORDER"]["ID"] ?></span></p>    
-                    <p class="ordDate"><?= $order["ORDER"]["DATE_INSERT_FORMATED"] ?></p>    
-                    <p class="ordQuant"><?= $quantity ?></p>    
-                    <p class="ordStatus"><?= $arResult["INFO"]["STATUS"][$order_key]["NAME"] ?></p>    
-                    <p class="ordSum"><span><?= ceil($order["ORDER"]["PRICE"]) ?> </span><?= GetMessage("ROUBLES") ?></p>    
-                </div>
+                    $quantity = 0;
+                    foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
+                        $quantity += round($arBaskItem["QUANTITY"]);
+                    }
 
-                <div class="hiddenOrderInf hidOrdInfo<?= $key ?>">
-                    <div class="infoAddrWrap">
-                        <div>
-                            <p class="dopInfoTitle firstCol"><?= GetMessage("CUSTOMER_INFO") ?></p>
-                            <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["LAST_NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["SECOND_NAME"] ?></p>
-                            <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["PERSONAL_PHONE"] ?></p>
-                            <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["EMAIL"] ?></p>
-                            <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p>
-                            <p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
-                            <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
-                            <p class="dopInfoTitle thiCol"><?= GetMessage("PHONE") ?></p>
-                            <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["ORDER_PHONE"] ?></p>
-                        </div>
-                        <div>
-                            <p class="dopInfoTitle"><?= GetMessage("DELIVERY_TYPE") ?></p>
-                            <p class="dopInfoText"><?= $arResult["INFO"]["DELIVERY"][$order["ORDER"]["DELIVERY_ID"]]["NAME"] ?></p>
-                            <p class="dopInfoTitle thiCol"><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--класс отступа сверху -->
-                            <p class="dopInfoText"><?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?></p>
-                            <?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
-                                <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_DATE") ?></p> <!--класс отступа сверху -->
-                                <p class="dopInfoText"><?= CustomPickPoint::getDeliveryDate($order["ORDER"]["ID"]) ?></p>
-                                <?}?>
-                            <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) 
-                                && ($order["ORDER"]["PAYED"] != "Y")) {
-                                ?>
-                                    <p class="dopInfoTitle thiCol to_pay">
-                                        <a href="/personal/order/payment/?ORDER_ID=<?= $order["ORDER"]["ID"] ?>"><?= GetMessage("TO_PAY") ?></a>
-                                    </p>
-                                <?
-                            }
-                            ?>
-                        </div>
-                        <? if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
-                            <div class="issuing_ordering_items">
-                                <p class="dopInfoTitle"><?= GetMessage("PVZ") ?></p>
-                                <p class="dopInfoText"><?= $order["ORDER"]["USER_DESCRIPTION"] ?></p>       
-                            </div>    
-                        <?}?>
+                    $key++;
+                    ?>
+                    <div class="orderNumbLine">
+                        <p class="ordTitle" data-id="<?= $key ?>"><span><?= GetMessage("SPOL_ORDER") . " " . GetMessage("SPOL_NUM_SIGN") . $order["ORDER"]["ID"] ?></span></p>
+                        <p class="ordDate"><?= $order["ORDER"]["DATE_INSERT_FORMATED"] ?></p>
+                        <p class="ordQuant"><?= $quantity ?></p>
+                        <p class="ordStatus"><?= $arResult["INFO"]["STATUS"][$order_key]["NAME"] ?></p>
+                        <p class="ordSum"><span><?= ceil($order["ORDER"]["PRICE"]) ?> </span><?= GetMessage("ROUBLES") ?></p>
                     </div>
-                    <div>
+
+                    <div class="hiddenOrderInf hidOrdInfo<?= $key ?>">
+                        <div class="infoAddrWrap">
+                            <div>
+                                <p class="dopInfoTitle firstCol"><?= GetMessage("CUSTOMER_INFO") ?></p>
+                                <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["LAST_NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["SECOND_NAME"] ?></p>
+                                <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["PERSONAL_PHONE"] ?></p>
+                                <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["EMAIL"] ?></p>
+                                <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p>
+                                <p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
+                                <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
+                                <p class="dopInfoTitle thiCol"><?= GetMessage("PHONE") ?></p>
+                                <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["ORDER_PHONE"] ?></p>
+                            </div>
+                            <div>
+                                <p class="dopInfoTitle"><?= GetMessage("DELIVERY_TYPE") ?></p>
+                                <p class="dopInfoText"><?= $arResult["INFO"]["DELIVERY"][$order["ORDER"]["DELIVERY_ID"]]["NAME"] ?></p>
+                                <p class="dopInfoTitle thiCol"><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--класс отступа сверху -->
+                                <p class="dopInfoText"><?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?></p>
+                                <?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
+                                    <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_DATE") ?></p> <!--класс отступа сверху -->
+                                    <p class="dopInfoText"><?= CustomPickPoint::getDeliveryDate($order["ORDER"]["ID"]) ?></p>
+                                    <?}?>
+                                <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID))
+                                    && ($order["ORDER"]["PAYED"] != "Y")) {
+                                    ?>
+                                        <p class="dopInfoTitle thiCol to_pay">
+                                            <a href="/personal/order/payment/?ORDER_ID=<?= $order["ORDER"]["ID"] ?>"><?= GetMessage("TO_PAY") ?></a>
+                                        </p>
+                                    <?
+                                }
+                                ?>
+                                <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
+
+                                   <?
+                                    $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
+
+                                    /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
+                                    $shipmentCollection = $origin_identifier->getShipmentCollection();
+                                    foreach ($shipmentCollection as $shipment) {
+                                    if($shipment->isSystem())
+                                        continue;
+                                        $track = $shipment->getField('TRACKING_NUMBER');
+                                    }?>
+                                    <?if(empty($track) && $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                        <p class="dopInfoText"><?echo GetMessage("TRACK_NUMBER_NULL");?></p>
+                                    <?}elseif(empty($track) && $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_MESSAGE_PICK_POINT_NULL");?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track));?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT && $order_key == "I"){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_PICK_POINT") ?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_FLIPOST") ?></p>
+                                    <?}?>
+
+                                <?}?>
+                            </div>
+                            <? if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
+                                <div class="issuing_ordering_items">
+                                    <p class="dopInfoTitle"><?= GetMessage("PVZ") ?></p>
+                                    <p class="dopInfoText"><?= $order["ORDER"]["USER_DESCRIPTION"] ?></p>
+                                </div>
+                            <?}?>
+                        </div>
+                        <div>
                         <p class="ordBooksTitle"><?= GetMessage("SPOL_ORDER_DETAIL") ?></p>
                         <table class="orderBooks">
                             <?foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
@@ -118,10 +152,11 @@
                         </table>
                     </div>
                     <div>
-                        <p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p>    
+                        <p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p>
                     </div>
                 </div>
             <?}
+            }
         }?>
 
     </div>
@@ -131,9 +166,9 @@
 $(document).ready(function() {
     $(".tableTitle").next(".orderNumbLine").addClass("active");
     $(".tableTitle").next(".orderNumbLine").next(".hiddenOrderInf").css("display", "block");
-    
+
     if ($(".issuing_ordering_items").size() > 0) {
-        $(".infoAddrWrap").css("height", "300px");
+       // $(".infoAddrWrap").css("height", "300px");
     }
 });
 </script>

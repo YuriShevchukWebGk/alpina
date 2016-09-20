@@ -21,39 +21,39 @@ if (!$USER->isAdmin()) {
 <link href="css/style.css" rel="stylesheet">
 <link href="css/template_57363f3dd71b4bfd17109917de7b3143.css" rel="stylesheet">
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<link rel="apple-touch-icon" sizes="57x57" href="http://www.alpinabook.ru/apple-touch-icon-57x57.png?v=WGG39kPBLm">
-<link rel="apple-touch-icon" sizes="60x60" href="http://www.alpinabook.ru/apple-touch-icon-60x60.png?v=WGG39kPBLm">
-<link rel="apple-touch-icon" sizes="72x72" href="http://www.alpinabook.ru/apple-touch-icon-72x72.png?v=WGG39kPBLm">
-<link rel="apple-touch-icon" sizes="76x76" href="http://www.alpinabook.ru/apple-touch-icon-76x76.png?v=WGG39kPBLm">
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png?v=WGG39kPBLm">
 <link rel="apple-touch-icon" sizes="114x114"
-          href="http://www.alpinabook.ru/apple-touch-icon-114x114.png?v=WGG39kPBLm">
+          href="/apple-touch-icon-114x114.png?v=WGG39kPBLm">
 <link rel="apple-touch-icon" sizes="120x120"
-          href="http://www.alpinabook.ru/apple-touch-icon-120x120.png?v=WGG39kPBLm">
+          href="/apple-touch-icon-120x120.png?v=WGG39kPBLm">
 <link rel="apple-touch-icon" sizes="144x144"
-          href="http://www.alpinabook.ru/apple-touch-icon-144x144.png?v=WGG39kPBLm">
+          href="/apple-touch-icon-144x144.png?v=WGG39kPBLm">
 <link rel="apple-touch-icon" sizes="152x152"
-          href="http://www.alpinabook.ru/apple-touch-icon-152x152.png?v=WGG39kPBLm">
+          href="/apple-touch-icon-152x152.png?v=WGG39kPBLm">
 <link rel="apple-touch-icon" sizes="180x180"
-          href="http://www.alpinabook.ru/apple-touch-icon-180x180.png?v=WGG39kPBLm">
-<link rel="icon" type="image/png" href="http://www.alpinabook.ru/favicon-32x32.png?v=WGG39kPBLm" sizes="32x32">
-<link rel="icon" type="image/png" href="http://www.alpinabook.ru/favicon-194x194.png?v=WGG39kPBLm" sizes="194x194">
-<link rel="icon" type="image/png" href="http://www.alpinabook.ru/favicon-96x96.png?v=WGG39kPBLm" sizes="96x96">
-<link rel="icon" type="image/png" href="http://www.alpinabook.ru/android-chrome-192x192.png?v=WGG39kPBLm"
+          href="/apple-touch-icon-180x180.png?v=WGG39kPBLm">
+<link rel="icon" type="image/png" href="/favicon-32x32.png?v=WGG39kPBLm" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-194x194.png?v=WGG39kPBLm" sizes="194x194">
+<link rel="icon" type="image/png" href="/favicon-96x96.png?v=WGG39kPBLm" sizes="96x96">
+<link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=WGG39kPBLm"
           sizes="192x192">
-<link rel="icon" type="image/png" href="http://www.alpinabook.ru/favicon-16x16.png?v=WGG39kPBLm" sizes="16x16">
-<link rel="manifest" href="http://www.alpinabook.ru/manifest.json?v=WGG39kPBLm">
-<link rel="mask-icon" href="http://www.alpinabook.ru/safari-pinned-tab.svg?v=WGG39kPBLm">
-<link rel="shortcut icon" href="http://www.alpinabook.ru/favicon.ico?v=WGG39kPBLm">
+<link rel="icon" type="image/png" href="/favicon-16x16.png?v=WGG39kPBLm" sizes="16x16">
+<link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
+<link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm">
+<link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
 <meta name="theme-color" content="#ffffff">
 
 	<meta property="og:title" content="Читай как тебе удобно! Покупая бумажную книгу, электронную получаешь в подарок" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="http://www.alpinabook.ru/actions/freedigitalbooks/" />
-	<meta property="og:image" content="http://www.alpinabook.ru/actions/freedigitalbooks/img/astro.jpg" />
+	<meta property="og:url" content="/actions/freedigitalbooks/" />
+	<meta property="og:image" content="/actions/freedigitalbooks/img/astro.jpg" />
 	<meta property="og:site_name" content="www.alpinabook.ru" />
 	<meta property="fb:admins" content="1425804193" />
 	<meta property="fb:app_id" content="138738742872757" /> 
@@ -380,7 +380,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<br />
 		<span class="quest">ВОПРОС 3: Что делать, если в&nbsp;электронном виде загрузились не&nbsp;те&nbsp;книги, которые я&nbsp;заказывал?</span> <br />
 		<br />
-		1. В&nbsp;редких случаях у&nbsp;нас может не&nbsp;оказаться электронной книги, которую вы&nbsp;купили в&nbsp;бумаге. Тогда мы&nbsp;подарим вам похожую книгу&nbsp;&mdash; бестселлер или лучшую новинку на&nbsp;ту&nbsp;же тему. Сейчас таких книг &laquo;по&nbsp;замену&raquo; в&nbsp;нашем ассортименте не&nbsp;более&nbsp;9%, и&nbsp;мы&nbsp;постоянно работаем над тем, чтобы их&nbsp;было еще меньше.<br />
+		1. В&nbsp;редких случаях у&nbsp;нас может не&nbsp;оказаться электронной книги, которую вы&nbsp;купили в&nbsp;бумаге. Тогда мы&nbsp;подарим вам похожую книгу&nbsp;&mdash; бестселлер или лучшую новинку на&nbsp;ту&nbsp;же тему. Сейчас таких книг &laquo;под&nbsp;замену&raquo; в&nbsp;нашем ассортименте не&nbsp;более&nbsp;9%, и&nbsp;мы&nbsp;постоянно работаем над тем, чтобы их&nbsp;было еще меньше.<br />
 		<br />
 		2. Какие именно книги вы&nbsp;получите в&nbsp;электронном виде взамен отсутствующих в&nbsp;нашем электронном ассортименте? Это можно увидеть в&nbsp;каждом письме со&nbsp;ссылкой или в&nbsp;личном кабинете, во&nbsp;вкладке &laquo;Бесплатные электронные книги&raquo;.<br />
 		<br />
@@ -469,7 +469,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span> <div class="years">
 <span itemscope="" itemtype="http://schema.org/Organization">
 	<meta itemprop="url" content="http://www.alpinabook.ru">
-	<meta itemprop="logo" content="http://www.alpinabook.ru/img/logo.png">
+	<meta itemprop="logo" content="/img/logo.png">
 	&copy;&nbsp;2000-2016, <span itemprop="name">ООО &laquo;Альпина Паблишер&raquo;</span>
 </span> </div>
 <a target="_blank" href="https://itunes.apple.com/app/id429622051?mt=8">

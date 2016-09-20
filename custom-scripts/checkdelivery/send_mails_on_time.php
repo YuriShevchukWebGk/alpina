@@ -165,7 +165,7 @@ if ($USER->isAdmin()) {
 			curl_close($curl);
 		// разбираем полученый ответ от сервера, более детальное описание параметров в документации 
 			$response=json_decode($out);
-			echo "Ответ от сервера ".$response->resultState.":".$response->resultInfo." #".$arTrek["ordernum"]." tel:".$arTrek["tel"]."<br />";
+			//echo "Ответ от сервера ".$response->resultState.":".$response->resultInfo." #".$arTrek["ordernum"]." tel:".$arTrek["tel"]."<br />";
 		}
 	}
 
@@ -330,7 +330,7 @@ if ($USER->isAdmin()) {
 		//echo "4d<br />";
 		
 		//$trackingNumber = $list[0]['TRACKING_NUM'];
-		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 < 3 && $arSales["EMP_STATUS_ID"] == $userIDontheway) {
+		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 < 2.5 && $arSales["EMP_STATUS_ID"] == $userIDontheway) {
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Почта</td>

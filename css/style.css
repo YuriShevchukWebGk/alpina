@@ -55,8 +55,11 @@
 }
 @media screen and (max-width: 1180px){
     header .telephone{
-    display: none;
-}
+		display: none;
+	}
+	.menu li a {
+		font-size: 16px!important;
+	}
 }
 @media screen and (max-width: 1500px){
     .catalogIcon, .basketIcon{
@@ -223,7 +226,7 @@ header .headBasket{
 .books>ul>li{
     color: #E4E8EA;
     /*font-family: "Walshein_bold";
-    font-size: 13px; 
+    font-size: 13px;
     text-transform: uppercase; */
     font-family: "Walshein_regular";
     font-size: 24px;
@@ -247,7 +250,7 @@ header .headBasket{
     color: white;
     font-family: "Walshein_regular";
     font-size: 24px;
-    border-bottom: 2px solid #D9D9D9;  
+    border-bottom: 2px solid #D9D9D9;
     text-transform: none;
     text-decoration: none !important;
 }
@@ -273,8 +276,8 @@ header .headBasket{
 }
 .ibooks img{
     position: relative;
-    top: 40px; 
-    padding: 0 22px;   
+    top: 40px;
+    padding: 0 22px;
 }
 .mainWrapp .find{
     margin: 30px auto 0;
@@ -338,7 +341,7 @@ header .headBasket{
     /*width:400px;*/
     /*height:530px;*/
     position:absolute;
-    top: -2px; 
+    top: -2px;
 }
 .book .thirdWrapp{
     height: 100%;
@@ -377,8 +380,8 @@ header .headBasket{
 .thirdWrapp p{
     color: #CBE6E9;
     font-family: "Walshein_black";
-    font-size: 26px; 
-    margin-bottom: 30px;  
+    font-size: 26px;
+    margin-bottom: 30px;
 }
 .container .coverSmall:nth-child(1){
     /* margin-right: -17px; */
@@ -433,7 +436,7 @@ header .headBasket{
 
 .hintWrapp{
     background-color: #f4f4f4;
-    height: 1670px; 
+    height: 1670px;
 }
 .hintWrapp .catalogWrapper{
     width: 1140px;
@@ -452,8 +455,8 @@ header .headBasket{
     color: #627478;
     font-family: "Walshein_regular";
     font-size: 24px;
-    padding-top: 74px;  
-    padding-bottom: 34px; 
+    padding-top: 74px;
+    padding-bottom: 34px;
 }
 .hintWrapp .titleBlock>div{
     display: inline-block;
@@ -471,7 +474,7 @@ header .headBasket{
     font-family: "Walshein_black";
     font-size: 42px;
     line-height: 43px;
-    padding-top: 36px; 
+    padding-top: 36px;
 	height: 218px;
 }
 .hintWrapp .subNameOfGroup{
@@ -493,11 +496,11 @@ header .headBasket{
 }
 .hintWrapp .smallContainer{
     background-color: #ffffff;
-    position: relative; 
+    position: relative;
     height: 365px;
     float: left;
-    width: 259px; 
-    box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14); 
+    width: 259px;
+    box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);
 }
 .firstSection .smallContainer{
     /*display: inline-block;*/
@@ -508,16 +511,16 @@ header .headBasket{
 .hintWrapp .smallContainer p{
     color: #627478;
     font-family: "Walshein_black";
-    font-size: 24px;  
+    font-size: 24px;
     /*padding-left: 34px;*/
-    padding-left: 26px; 
+    padding-left: 26px;
     word-wrap: break-word;
     line-height: 30px;
 }
 .hintWrapp .count{
     color: #9C9C9C !important;
     font-family: "Walshein_regular" !important;
-    font-size: 16px !important;  
+    font-size: 16px !important;
     text-decoration: none !important;
 
 }
@@ -617,6 +620,7 @@ header .headBasket{
     background-color: #637e71;
     height: 360px;
     overflow: hidden;
+	margin-top: 36px;
 }
 
 .saleWrapp{
@@ -701,7 +705,7 @@ header .headBasket{
     padding-left: 20px;
     padding-top: 13px;
     position: relative;
-    width: 396px; 
+    width: 396px;
     /*width: 416px;*/
 }
 .giftWrap input[type=button] {
@@ -733,10 +737,10 @@ header .headBasket{
 }
 .giftWrap .title{
     font-family: "Walshein_black";
-    font-size: 42px;  
+    font-size: 42px;
     color: #486796;
     padding-top: 0;
-    padding-bottom: 0; 
+    padding-bottom: 0;
 }
 .giftWrap p{
     color: #768AAC;
@@ -760,7 +764,7 @@ header .headBasket{
 .allBooksWrapp .titleMain{
     color: #627478;
     font-family: "Walshein_regular";
-    font-size: 24px; 
+    font-size: 24px;
     padding-top: 62px;
     padding-bottom: 30px;
     padding-left: 4px;
@@ -794,7 +798,7 @@ header .headBasket{
 .allBooksWrapp .bookPrice{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 14px;   
+    font-size: 14px;
 }
 .allBooksWrapp .allBooks{
     border: 2px solid #c7a271;
@@ -881,7 +885,7 @@ header .headBasket{
     color: #7B8C90;
     font-size: 13px;
     font-family: "Walshein_regular";
-    text-transform: uppercase;  
+    text-transform: uppercase;
     margin-top: 14px;
 }
 .thisBook .titleBook{
@@ -889,7 +893,7 @@ header .headBasket{
     font-family: "Walshein_regular";
     font-size: 15px;
     line-height: 17px;
-    margin-top: 30px;  
+    margin-top: 30px;
 }
 .sliderElement .thisBook{
     border-top: 1px solid #e2e2e2;
@@ -908,13 +912,13 @@ header .headBasket{
     font-family: "Walshein_black";
     font-size: 26px;
     line-height: 26px;
-    padding-top: 10px; 
+    padding-top: 10px;
     margin-right: 86px;
 }
 .reviewsWrapp .saleSize{
     color: #C7A271;
     font-family: "Walshein_light";
-    font-size: 62px;   
+    font-size: 62px;
 }
 .reviewsWrapp .persent{
     color: #C7A271;
@@ -931,7 +935,7 @@ header .headBasket{
     width: 178px;
 }
 .dopSaleWrap .TwentypercentBlock {
-    margin-right: 28px;    
+    margin-right: 28px;
 }
 .dopSaleWrap .dopSale, .dopSaleWrap .percentBlock, .dopSaleWrap .TwentypercentBlock{
     float: left;
@@ -1024,14 +1028,14 @@ footer{
 .footerMenu p{
     color: #8F8F8F;
     font-family: "Walshein_regular";
-    font-size: 17px;   
+    font-size: 17px;
 }
 .footerMenu a {
     color: #8F8F8F !important;
 }
 .footerContacts .yaMarket p{
     color: #5F5F5F;
-    font-family: "Walshein_regular" ;  
+    font-family: "Walshein_regular" ;
     font-size: 9px;
 }
 .yaMarket .stars{
@@ -1064,9 +1068,9 @@ padding-bottom: 4px;
 .footerContacts .years{
     color: #7A7A7A;
     font-family: "Walshein_regular";
-    font-size: 13px; 
+    font-size: 13px;
     margin-top: 18px;
-    margin-bottom: 50px;  
+    margin-bottom: 50px;
 }
 .footerContacts>div{
     float: left;
@@ -1085,13 +1089,13 @@ padding-bottom: 4px;
     margin-right: 90px;
 }
 .footerMenu>div:nth-child(2){
-    margin-right: 78px;    
+    margin-right: 78px;
 }
 .footerMenu>div:nth-child(3){
-    margin-right: 96px;    
+    margin-right: 96px;
 }
 .footerMenu>div:nth-child(4){
-    margin-right: 110px;  
+    margin-right: 110px;
 }
 .footerMenu>div:nth-child(5){
 
@@ -1146,7 +1150,7 @@ header .menu{
     color: white;
     font-family: "Walshein_black";
     font-size: 62px;
-    line-height: 62px;   
+    line-height: 62px;
     height:124px;
 }
 .slideWrapp .textSlide{
@@ -1161,9 +1165,9 @@ header .menu{
     color: white;
     font-family: "Walshein_black";
     font-size: 42px;
-    line-height: 62px; 
+    line-height: 62px;
     position: relative;
-    z-index: 100;  
+    z-index: 100;
     width: 500px;
 }
 .roundSlideWrapp .textSlide{
@@ -1173,7 +1177,7 @@ header .menu{
     margin-bottom: 36px;
     margin-top: 10px;
     position: relative;
-    z-index: 100; 
+    z-index: 100;
     width: 500px;
 }
 .slideWrapp .firstSlide .catalogWrapper{
@@ -1182,11 +1186,10 @@ header .menu{
 }
 .roundSlideWrapp .firstSlide .catalogWrapper{
     height: 100%;
-    padding-top: 90px;
+    padding-top: 70px;
     /*padding-left: 60px;*/
     padding-left:35px;
-    /*width: 814px;*/
-    width: 780px;
+    width: 814px;
 }
 .roundCatBack{
     position: absolute;
@@ -1314,7 +1317,7 @@ input:focus{
     cursor: pointer;
 }
 .catalogIcon:hover{
-    background: #fff url("/img/catalogLogoMini.png") no-repeat center;    
+    background: #fff url("/img/catalogLogoMini.png") no-repeat center;
 }
 .basketIcon{
     border-radius: 80px;
@@ -1323,25 +1326,21 @@ input:focus{
     position: absolute;
     top: -313px;
     width: 64px;
-    background: #85959a url("/img/basketIcoHovers.png") no-repeat center; 
+    background: #85959a url("/img/basketIcoHovers.png") no-repeat center;
     cursor: pointer;
 }
 .basketIcon:hover{
-    background: #fff url("/img/basketIco.png") no-repeat center;    
+    background: #fff url("/img/basketIco.png") no-repeat center;
 }
 .catalogIcon span, .basketIcon span {
+	margin-left: 0px;
+	margin-top: 68px;
+	text-align: center;
 	display: block;
 	position: relative;
-	margin-top: 18px;
 	font-family: "Walshein_regular";
 	font-size: 18px;
 	color: rgb(228, 232, 234);
-}
-.catalogIcon span {
-	margin-left: 72px;
-}
-.basketIcon span {
-	margin-left: -77px;
 }
 .searchWrap{
     background-color: #ECEDEF;
@@ -1394,17 +1393,17 @@ input:focus{
     padding-top: 50px;
 }
 .events p{
-    color: #424C4F; 
+    color: #424C4F;
     font-family: "Walshein_regular";
-    font-size: 19px;  
+    font-size: 19px;
 }
 .event p{
-    color: #424C4F; 
+    color: #424C4F;
     font-family: "Walshein_regular";
-    font-size: 14px;  
+    font-size: 14px;
 }
 .event .date{
-    color: #7B8C90; 
+    color: #7B8C90;
     padding-bottom: 5px;
 }
 .event{
@@ -1421,8 +1420,8 @@ input:focus{
     font-family: "Walshein_regular";
     font-size: 14px;
     color: #486796;
-    padding-top: 20px;  
-    cursor: pointer;  
+    padding-top: 20px;
+    cursor: pointer;
 }
 .allEvents:after{
     content: url("/img/allEvents.png");
@@ -1431,14 +1430,14 @@ input:focus{
 .authorWrap .citation{
     color: #424D4F;
     font-size: 20px;
-    font-family: "Walshein_light"; 
+    font-family: "Walshein_light";
     padding-top: 48px;
 }
 .authorWrap .autorName{
     color: #7B8C90;
     font-family: "Walshein_bold";
     font-size: 13px;
-    text-transform: uppercase; 
+    text-transform: uppercase;
     margin-top: 18px;
     margin-bottom: 40px;
 }
@@ -1452,8 +1451,8 @@ input:focus{
 .authorWrap .text{
     color: #627478;
     font-family: "Walshein_regular";
-    font-size: 17px; 
-    line-height: 24px;  
+    font-size: 17px;
+    line-height: 24px;
     margin-bottom: 30px;
 }
 .content .textWrap{
@@ -1461,7 +1460,7 @@ input:focus{
     padding-bottom: 34px;
 }
 .autorBooksWrap{
-    height: 906px;
+    height: 1100px;
 }
 .autorBooksWrap .catalogBooks{
     height: 610px;
@@ -1473,14 +1472,14 @@ input:focus{
 .authorsMenuWrap .title{
     color: #FFFFFF;
     font-family: "Walshein_black";
-    font-size: 42px;  
-    padding-top: 42px; 
+    font-size: 42px;
+    padding-top: 42px;
 }
 .authorsMenuWrap .alphabet{
     color: #fff;
     font-family: "Walshein_regular";
     font-size: 19px;
-    padding: 26px 8px; 
+    padding: 26px 8px;
 }
 .alphabet span{
     margin-right: 10px;
@@ -1522,7 +1521,7 @@ input:focus{
     font-family: "Walshein_regular";
     font-size: 14px;
     margin-top: -6px;
-    padding-left: 52px; 
+    padding-left: 52px;
 }
 .authorsWrap .authorWrap p{
     color: #627478;
@@ -1557,7 +1556,7 @@ input:focus{
     font-family: "Walshein_black";
     font-size: 42px;
     padding-left: 2px;
-    padding-top: 32px; 
+    padding-top: 32px;
 }
 .pageTitleWrap span{
     color: #e4e8ea;
@@ -1593,13 +1592,13 @@ input:focus{
     font-family: "Walshein_bold";
     font-size: 13px;
     color: #627478;
-    text-transform: uppercase;  
+    text-transform: uppercase;
     padding-top: 2px;
 }
 .searchBook .price{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 14px;  
+    font-size: 14px;
     padding-top: 10px;
 }
 .searchBook .description{
@@ -1607,7 +1606,7 @@ input:focus{
     font-family: "Walshein_regular";
     font-size: 15px;
     line-height: 22px;
-    padding-top: 10px;  
+    padding-top: 10px;
 }
 .searchBook .basket{
     background-color: #009fad;
@@ -1655,12 +1654,12 @@ input:focus{
 .interestingWrap .title{
     color: #627478;
     font-family: "Walshein_regular";
-    font-size: 24px;  
+    font-size: 24px;
     padding-top: 42px;
     padding-bottom: 32px;
 }
 .bookEasySlider .bookImg{
-    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);   
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);
 }
 .bookEasySlider .bookName {
     color: #424c4f;
@@ -1887,7 +1886,7 @@ right: 45px;
     /*font-weight: bold; */
 }
 .categoryWrapper .leftMenu a {
-    color: #555e60 !important; 
+    color: #555e60 !important;
 }
 .categoryWrapper .leftMenu>ul>li{
     padding-bottom: 18px;
@@ -1895,7 +1894,7 @@ right: 45px;
 }
 .categoryWrapper .leftMenu>ul>li>p:after{
     content: url("/img/leftMenuAft1.png");
-    margin-left: 10px; 
+    margin-left: 10px;
 }
 .categoryWrapper .secondLevel li{
     color: #627478;
@@ -1936,7 +1935,7 @@ right: 45px;
 	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
+	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
     transition: color .3s ease,background-color .3s ease,border-color .3s ease;
     border-radius: 34px;
     color: #c8a474;
@@ -1957,12 +1956,12 @@ right: 45px;
 .otherBooks .nameBook{
     color: #424C4F;
     font-family: "Walshein_regular";
-    font-size: 14px;  
+    font-size: 14px;
     padding-left: 4px;
     padding-top: 5px;
     height: 45px;
     width: 142px;
-    overflow: hidden; 
+    overflow: hidden;
 }
 .otherBooks .bookAutor{
     color: #7B8C90;
@@ -1971,7 +1970,7 @@ right: 45px;
     text-transform: uppercase;
     padding-left: 6px;
     padding-top: 5px;
-    height: 18px;
+    height: 20px;
 	overflow: hidden;
 }
 .otherBooks .tapeOfPack{
@@ -1985,9 +1984,9 @@ right: 45px;
 .otherBooks .priceOfBook{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 14px;  
+    font-size: 14px;
     padding-left: 6px;
-    padding-top: 12px; 
+    padding-top: 12px;
 }
 .otherBooks .basketBook{
     border: 2px solid #c7a271;
@@ -1998,7 +1997,7 @@ right: 45px;
     margin: 16px auto 0;
     padding: 6px 5px;
     text-align: center;
-    width: 122px;  
+    width: 122px;
     cursor: pointer;
 }
 .otherBooks .basketLater{
@@ -2012,7 +2011,7 @@ right: 45px;
     margin: 16px auto 0;
     padding: 6px 5px;
     text-align: center;
-    width: 122px; 
+    width: 122px;
 }
 .otherBooks img{
     left: 0px;
@@ -2046,7 +2045,7 @@ right: 45px;
 }
 .hidingCatalogLeft .webServ a:nth-child(2) img {
     opacity: 0.3;
-} 
+}
 .hidingBasketRight{
     position: fixed;
     background-color: #FFFFFF;
@@ -2061,8 +2060,8 @@ right: 45px;
 .hidingBasketRight .windowClose{
     left: -30px;
     position: absolute;
-    top: 40px;  
-    cursor: pointer;  
+    top: 40px;
+    cursor: pointer;
 }
 .windowClose {
     position: fixed;
@@ -2117,7 +2116,7 @@ right: 45px;
     margin-bottom: 18px;
 }
 .hidingCatalogLeft .categories li p{
-    position: relative;  
+    position: relative;
 }
 .hidingCatalogLeft .categories li p:after{
     content: url("/img/leftMenuAft1.png");
@@ -2157,7 +2156,7 @@ right: 45px;
     font-size: 15px;
     margin-left: 50px;
     margin-top: 56px;
-    text-transform: uppercase; 
+    text-transform: uppercase;
     margin-top: 124px;
 }
 .hidingBasketRight .bonus{
@@ -2183,25 +2182,25 @@ right: 45px;
 .hidingBasketRight .resultText{
     color: #424C4F;
     font-family: "Walshein_regular";
-    font-size: 19px;  
+    font-size: 19px;
 }
 .hidingBasketRight .count{
     color: #7b8c90;
     font-family: "Walshein_regular";
     font-size: 13px;
     padding-left: 22px;
-    padding-top: 5px; 
+    padding-top: 5px;
 }
 .hidingBasketRight .price{
     color: #424c4f;
     font-family: "Walshein_bold";
     font-size: 17px;
-    padding-left: 54px; 
+    padding-left: 54px;
 }
 .hidingBasketRight .price span{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 15px;   
+    font-size: 15px;
 }
 .hidingBasketRight .confirm{
     border: 2px solid;
@@ -2227,8 +2226,8 @@ right: 45px;
     border-bottom: 1px solid #ececec;
 }
 .hidingBasketRight .confirm p:after{
-    content: url("/img/leftBasketAfter.png");  
-    margin-left: 36px; 
+    content: url("/img/leftBasketAfter.png");
+    margin-left: 36px;
     position: relative;
     top: 2px;
 }
@@ -2272,7 +2271,7 @@ right: 45px;
     left: 122px;
     position: absolute;
     top: 19px;
-    width: 24px; 
+    width: 24px;
 }
 .hidingBasketRight .plus{
     background: rgba(0, 0, 0, 0) url("/img/plusImgNew.png") no-repeat scroll 0 0;
@@ -2301,7 +2300,7 @@ right: 45px;
 .wrapperCategor .grayTitle{
     color: #627478;
     font-family: "Walshein_regular";
-    font-size: 24px;  
+    font-size: 24px;
     padding-top: 40px;
     padding-bottom: 36px;
 }
@@ -2370,8 +2369,8 @@ right: 45px;
     width: 108px;
 }
 .wrapperCategor .filterParams li:hover{
-    background-color: #fff; 
-    border-radius: 50px;   
+    background-color: #fff;
+    border-radius: 50px;
 }
 .filterParams li:nth-child(2):hover p:after, .filterParams li:nth-child(3):hover p:after{
     content: url('/img/filtAftPictHov.png');
@@ -2406,7 +2405,7 @@ right: 45px;
     font-family: "Walshein_regular";
     font-size: 24px;
     padding-bottom: 32px;
-    padding-top: 40px; 
+    padding-top: 40px;
 }
 .otherEasySlider .bookImg{
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);
@@ -2415,15 +2414,15 @@ right: 45px;
 .otherEasySlider .bookName{
     color: #424C4F;
     font-family: "Walshein_regular";
-    font-size: 14px;  
+    font-size: 14px;
     height: 44px;
     width: 142px;
-    overflow: hidden; 
+    overflow: hidden;
 }
 .otherEasySlider .bookPrice{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 14px;  
+    font-size: 14px;
 }
 .interestSlider{
     height: 428px;
@@ -2570,7 +2569,7 @@ right: 45px;
 	width: 0; height: 0;
 	border-bottom: 8px solid #FFFFFF;
 	border-right: 8px solid transparent;
-	border-left: 8px solid transparent;                    
+	border-left: 8px solid transparent;
 }
 .elementDescriptWrap .marks>div:hover .ttip {
 	visibility: visible;
@@ -2578,7 +2577,7 @@ right: 45px;
 	top: 99%;
 	left: 0px;
 	/*margin-left: -76px;*/
-	z-index: 999;                    
+	z-index: 999;
 }
 .elementDescriptWrap .buyLater {
     background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 75px 10px;
@@ -2603,7 +2602,7 @@ right: 45px;
 .elementDescriptWrap .takePartWrap{
     border-top: 1px solid #dddddd;
     margin-top: 42px;
-    padding: 14px 6px; 
+    padding: 14px 6px;
     margin-bottom: 20px;
     display: none;
 }
@@ -2650,7 +2649,7 @@ right: 45px;
     color: #424C4F;
     padding-left: 4px;
     font-family: "Walshein_regular";
-    font-size: 14px;  
+    font-size: 14px;
 }
 .socialServises{
     margin-left: 4px;
@@ -2659,7 +2658,7 @@ right: 45px;
 .socialServises .vk{
 
 }
-.socialServises .twit{ 
+.socialServises .twit{
     background-position: -45px !important;
 }
 .socialServises .faceb{
@@ -2705,15 +2704,15 @@ right: 45px;
 }
 .elementDescriptWrap .newPrice span{
     font-family: "Walshein_regular";
-    font-size: 22px;   
+    font-size: 22px;
 }
 .priceBasketWrap .text{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 15px; 
+    font-size: 15px;
     padding: 8px;
     /*margin-bottom: 60px;*/
-    margin-bottom: 85px; 
+    margin-bottom: 85px;
 }
 .elementDescriptWrap .inBasket{
     background-color: #00abb8;
@@ -2738,16 +2737,27 @@ right: 45px;
     font-family: "Walshein_regular";
     font-size: 15px;
     margin-left: 30px;
-    margin-top: 32px; 
+    margin-top: 32px;
     margin-bottom: 32px;
 }
 .shippings li{
     position: relative;
     padding-bottom: 8px;
 }
+.shippings .lastli {
+	margin-top:15px;
+}
 .shippings a{
     color: #00ABB8;
     border-bottom: 1px dashed #00ABB8;
+}
+.noborderlink {
+    color: #00ABB8;
+    border-bottom: 0px!important;
+	text-decoration:underline!important;
+}
+.noborderlink:hover {
+	text-decoration:none!important;
 }
 .shippings li:before{
     content: url("/img/rechShip.png");
@@ -2850,11 +2860,11 @@ right: 45px;
 .productType .cost{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 14px;   
+    font-size: 14px;
 }
 .elementDescriptWrap .otherTypes{
     background: #dfdfdf url("/img/otherTypesBack.png") no-repeat scroll 3px 34px;
-    height: 72px !important; 
+    height: 72px !important;
     margin-right: 0 !important;
     padding: 0 !important;
     width: 16px !important;
@@ -2884,20 +2894,20 @@ right: 45px;
     color: #424D4F;
     font-family: "Walshein_regular";
     font-size: 19px;
-    text-transform: none;  
+    text-transform: none;
     border-bottom: none;
 }
 .elementDescriptWrap .citate{
     color: #424D4F;
     font-family: "Walshein_light";
-    font-size: 20px;  
-    margin-bottom: 20px; 
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 .elementDescriptWrap i{
     color: #424D4F;
     font-family: "Walshein_light";
-    font-size: 20px;  
-    margin-bottom: 20px; 
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 .elementDescriptWrap .citateAutor{
     color: #7B8C90;
@@ -2926,12 +2936,12 @@ right: 45px;
 }
 .productSelectTitle span{
     font-size: 14px;
-    color: #00ABB8; 
-    margin-left: 16px;  
+    color: #00ABB8;
+    margin-left: 16px;
 }
 .productSelectTitle span a{
     font-size: 14px;
-    color: #00ABB8;  
+    color: #00ABB8;
 }
 .elementDescriptWrap .prodSelText{
     color: #627478;
@@ -2962,8 +2972,8 @@ right: 45px;
 }
 
 .elementDescriptWrap .videoWrapp{
-    width: 552px; 
-    margin-bottom: 30px; 
+    width: 552px;
+    margin-bottom: 30px;
 }
 .elementDescriptWrap .keyWords{
     margin-left: 4px;
@@ -3043,20 +3053,20 @@ right: 45px;
 }
 .reviewsSliderWrapp .arrows{
     float: right;
-    padding-top: 38px;   
+    padding-top: 38px;
 }
 .reviewsSliderWrapp .revTitle{
     color: #627478;
     font-family: "Walshein_regular";
     font-size: 24px;
-    padding-top: 40px;   
+    padding-top: 40px;
 }
 .reviewsSliderWrapp .bigSlider{
     height: 466px;
     margin-top: 32px;
     overflow: hidden;
     position: relative;
-    width: 100%;    
+    width: 100%;
 }
 .reviewsSliderWrapp .sliderElement{
     height: 200px !important;
@@ -3082,7 +3092,7 @@ right: 45px;
 .reviewsSliderWrapp .giftWrap img{
     left: 414px;
     position: absolute;
-    top: 0;    
+    top: 0;
 }
 .weRecomWrap .tile{
     color: #627478;
@@ -3158,7 +3168,7 @@ right: 45px;
 .basketHeader .baskHeadMenu li{
     display: inline-block;
     padding-right: 10px;
-}   
+}
 .basketHeader .headPhone{
     height: 40px;
     padding-top: 20px;
@@ -3178,13 +3188,13 @@ right: 45px;
 }
 .breadCrumpWrap .active{
     font-size: 42px;
-    color: #fff;   
+    color: #fff;
 }
 .breadCrumpWrap a{
     font-family: "Walshein_black";
     font-size: 24px;
-    color: #E4E8EA;  
-    text-decoration: none;  
+    color: #E4E8EA;
+    text-decoration: none;
 }
 .orderBodyWrapp{
     background-color: #F4F4F4;
@@ -3206,7 +3216,7 @@ right: 45px;
     width: 192px;
 }
 .helpBlock .text{
-    color: #627478; 
+    color: #627478;
     font-family: "Walshein_regular";
     font-size: 14px;
 }
@@ -3220,8 +3230,8 @@ right: 45px;
     color: #627478;
     font-family: "Walshein_bold";
     font-size: 13px;
-    text-transform: uppercase; 
-    padding-bottom: 16px;  
+    text-transform: uppercase;
+    padding-bottom: 16px;
 }
 .orderBody .blockTitle{
     color: #7B8C90;
@@ -3231,10 +3241,10 @@ right: 45px;
     width: 350px;
 }
 .orderBody .faceText{
-    color: #424C4F; 
+    color: #424C4F;
     font-family: "Walshein_regular";
     font-size: 15px;
-    cursor: pointer; 
+    cursor: pointer;
     padding-left: 4px;
     margin-right: 44px;
 }
@@ -3308,7 +3318,7 @@ right: 45px;
     color: #9AA6AA;
 }
 .orderBody .totalCost span{
-    color: #424C4F;    
+    color: #424C4F;
 }
 .orderBody .totalText{
     float: right;
@@ -3369,7 +3379,7 @@ right: 45px;
     font-family: "Walshein_regular";
 }
 .selectric-items ul, .selectric-items li{
-    font-family: "Walshein_regular";   
+    font-family: "Walshein_regular";
 }
 .orderBody .shippingWrap{
     margin-top: 12px;
@@ -3393,7 +3403,7 @@ right: 45px;
 }
 .totalPriceWrap{
     background-color: #fff;
-    width: 850px;   
+    width: 850px;
     height: 274px;
 }
 .totalPriceWrap .totalPrice{
@@ -3410,7 +3420,7 @@ right: 45px;
     margin-top: 18px;
 }
 .totalPriceWrap .totalCost span{
-    color: #424C4F;    
+    color: #424C4F;
 }
 .totalPriceWrap .totalCost p{
     margin-bottom: 3px;
@@ -3470,7 +3480,7 @@ right: 45px;
     cursor: pointer;
 }
 .cartMenuWrap .basketItems span{
-    color: #BCBCBC;   
+    color: #BCBCBC;
     font-family: "Walshein_regular";
 }
 .cartMenuWrap{
@@ -3510,20 +3520,20 @@ right: 45px;
 .yourBooks .nameOfAutor{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 13px; 
+    font-size: 13px;
     text-transform: uppercase;
     padding-top: 16px;
 }
 .yourBooks .costOfBook{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 13px;  
+    font-size: 13px;
 }
 .yourBooks .bookDelete{
     color: #DB747D;
     font-family: "Walshein_regular";
-    font-size: 13px; 
-    cursor: pointer; 
+    font-size: 13px;
+    cursor: pointer;
 }
 .yourBooks input{
     border: 1px solid #d2d2d2;
@@ -3637,9 +3647,9 @@ right: 45px;
     margin-top: 17px;
 }
 .cartWrapper .finalCost span{
-    color: #424C4F; 
+    color: #424C4F;
     font-family: "Walshein_bold";
-    font-size: 17px; 
+    font-size: 17px;
 }
 .cartWrapper .promoWrap{
     margin-left: 36px;
@@ -3673,12 +3683,12 @@ right: 45px;
     color: #7B8C90;
     font-family: "Walshein_regular";
     font-size: 13px;
-    text-transform: uppercase;  
+    text-transform: uppercase;
 }
 .moreInterestParty .coverSlideType{
     color: #627478;
     font-family: "Walshein_regular";
-    font-size: 14px;  
+    font-size: 14px;
     margin-top: 8px;
     margin-bottom: 12px;
 }
@@ -3690,7 +3700,7 @@ right: 45px;
     width: 66px;
 }
 .moreInterestParty .slideInBasket a{
-    text-decoration: none; 
+    text-decoration: none;
     color: #C7A271;
     font-family: "Walshein_regular";
     font-size: 14px;
@@ -3698,7 +3708,7 @@ right: 45px;
 .moreInterestParty .bookNameSlide{
     color: #424c4f;
     font-family: "Walshein_regular";
-    font-size: 14px; 
+    font-size: 14px;
     margin-top: 20px;
     margin-bottom: 4px;
 }
@@ -3709,14 +3719,14 @@ right: 45px;
 }
 .historyCoverWrap{
     height: 138px;
-    background-color: #99ABB1; 
+    background-color: #99ABB1;
 }
 .historyCoverWrap a {
-    background-color: #99ABB1; 
+    background-color: #99ABB1;
     color: #E4E8EA !important;
 }
 .historyCoverWrap p{
-    color: #E4E8EA;  
+    color: #E4E8EA;
     font-family: "Walshein_regular";
     font-size: 14px;
     padding-top: 28px;
@@ -3774,7 +3784,7 @@ right: 45px;
     margin-bottom: 40px;
 }
 .historyWrap{
-    background-color: #fbfbfb;    
+    background-color: #fbfbfb;
 }
 .historyWrap .tableTitle{
     width: 100%;
@@ -3870,7 +3880,7 @@ right: 45px;
     border-bottom: 1px solid #ececec;
 }
 .historyBodywrap .infoQuant{
-    color: #8F9DA0; 
+    color: #8F9DA0;
     font-family: "Walshein_regular";
     font-size: 13px;
 }
@@ -3885,7 +3895,7 @@ right: 45px;
 .historyBodywrap .infoPriceTd{
     color: #7B8C90;
     font-family: "Walshein_regular";
-    font-size: 14px;  
+    font-size: 14px;
 }
 .historyBodywrap .orderCancel a{
     text-decoration: none;
@@ -3894,9 +3904,6 @@ right: 45px;
     font-size: 14px;
 }
 
-.historyBodywrap .infoAddrWrap{
-    height: 228px;
-}
 .historyBodywrap .infoAddrWrap>div{
     float: left;
     padding: 18px 30px;
@@ -3924,7 +3931,7 @@ right: 45px;
     font-family: "Walshein_regular";
     font-size: 14px;
     margin-left: 30px;
-    margin-top: 20px; 
+    margin-top: 20px;
     margin-bottom: 16px;
 }
 .historyBodywrap  .orderBooks tr{
@@ -3948,7 +3955,7 @@ right: 45px;
     color: #59B6C1;
 }
 .historyWrap .active{
-    background-color: #FBFBFB;   
+    background-color: #FBFBFB;
 }
 .hiddenOrderInf{
     display: none;
@@ -3975,7 +3982,7 @@ right: 45px;
     color: #353535;
     font-size: 15px;
     margin-bottom: 4px;
-    margin-top: 26px;  
+    margin-top: 26px;
 }
 .finishOrdWrap .blokText{
     font-size: 14px;
@@ -4062,7 +4069,7 @@ right: 45px;
     cursor: pointer;
 }
 .deliveryBody{
-    background-color: #F4F4F4;   
+    background-color: #F4F4F4;
 }
 .deliveryTextWrap{
     float: right;
@@ -4072,20 +4079,20 @@ right: 45px;
 }
 .deliveryTypeWrap{
     position: relative;
-    color: #627478; 
+    color: #627478;
     font-family: "Walshein_regular";
     font-size: 17px;
 }
 .deliveryTypeWrap b {
-    font-family: "Walshein_regular";    
+    font-family: "Walshein_regular";
 }
 .deliveryTypeWrap p{
-    color: #627478; 
+    color: #627478;
     font-family: "Walshein_regular";
     font-size: 17px;
 }
 .deliveryTypeWrap li{
-    color: #627478; 
+    color: #627478;
     font-family: "Walshein_regular";
     font-size: 17px;
     position: relative;
@@ -4103,7 +4110,7 @@ right: 45px;
     padding-top: 32px;
 }
 .deliveryTypeWrap li:before{
-    content: url("/img/rechtDeliv.png"); 
+    content: url("/img/rechtDeliv.png");
     left: -22px;
     position: absolute;
     top: -4px;
@@ -4535,7 +4542,7 @@ right: 45px;
 }
 .signinWrapper .socServisesPict img{
     margin-right: 22px;
-} 
+}
 .signinWrapper .paswordIncorrectly{
     color: #627478;
     font-family: "Walshein_regular";
@@ -4768,7 +4775,7 @@ right: 45px;
     margin: 22px 286px;
     padding: 0 22px;
     width: 506px;
-}  
+}
 .lostPassWrapper input[type=submit]{
     background-color: #fff;
     border: 2px solid #c7a271;
@@ -4791,7 +4798,7 @@ right: 45px;
     padding-top: 74px;
     width: 1140px;
     text-align: center;
-    font-family: "Walshein_regular"; 
+    font-family: "Walshein_regular";
 }
 .changePassWrapper .bx-authform-description-container, .changePassWrapper .bx-authform-link-container {
     font-size: 15px;
@@ -5044,7 +5051,7 @@ right: 45px;
     z-index: 990;
 }
 .ContentcatalogIcon:hover{
-    background: #fff url("/img/catalogLogoMini.png") no-repeat center;    
+    background: #fff url("/img/catalogLogoMini.png") no-repeat center;
 }
 .ContentbasketIcon {
     border-radius: 80px;
@@ -5053,12 +5060,12 @@ right: 45px;
     position: absolute;
     top: 353px;
     width: 64px;
-    background: #85959a url("/img/basketIco.png") no-repeat center; 
+    background: #85959a url("/img/basketIco.png") no-repeat center;
     cursor: pointer;
     z-index: 990;
 }
 .ContentbasketIcon:hover{
-    background: #fff url("/img/basketIco.png") no-repeat center;    
+    background: #fff url("/img/basketIco.png") no-repeat center;
 }
 .info-order, .error_message {
     display: none;
@@ -5168,7 +5175,7 @@ right: 45px;
     right: -100px!important;
 }
 .bookPages{
-    display: none;     
+    display: none;
 }
 .courierBlock{
     display: none;
@@ -5182,7 +5189,7 @@ right: 45px;
 }
 .search_item_img {
     width: 155px;
-    height: 200px;    
+    height: 200px;
 }
 .item_img {
     width: 142px;
@@ -5244,12 +5251,12 @@ right: 45px;
 .whereToBuyBodyWrap h1{
     color: #627478;
     font-family: "Walshein_regular";
-    font-size: 24px;    
+    font-size: 24px;
 }
 .whereToBuyBodyWrap p{
     color: #627478;
     font-family: "Walshein_regular";
-    font-size: 17px;   
+    font-size: 17px;
 }
 .whereToBuyBodyWrap .title{
     color: #627478;
@@ -5289,10 +5296,10 @@ table.form-table th, table.form-table td{
 }
 table.form-table{
     background-color: #F4F4F4 !important;
-    text-align: right;    
+    text-align: right;
 }
 table.form-table tr td:nth-child(2){
-    text-align: left;  
+    text-align: left;
 }
 .comingSoonCatIcon{
     left: -90px !important;
@@ -5304,7 +5311,7 @@ table.form-table tr td:nth-child(2){
 }
 .reg_text {
     font-family: "Walshein_regular";
-    font-size: 17px; 
+    font-size: 17px;
 }
 .image_visa {
     background-image: url(/img/payImg.png);
@@ -5389,7 +5396,7 @@ table.form-table tr td:nth-child(2){
 }
 .editorsCatalogIcon{
     left: -105px;
-    top: 48px; 
+    top: 48px;
 }
 .editorsBasketIcon{
     right: -105px;
@@ -5427,7 +5434,7 @@ table.form-table tr td:nth-child(2){
     color: #7b8c90;
     font-family: "Walshein_regular";
     font-size: 14px;
-    text-decoration:line-through; 
+    text-decoration:line-through;
 }
 .saleWrapp .saleSlider .left,
 .saleWrapp .saleSlider .right{
@@ -5524,6 +5531,9 @@ table.form-table tr td:nth-child(2){
     margin-bottom: 20px;
     list-style-type: none;
 }
+.reviewsBlockDetail ul {
+	padding-left: 0px!important;
+}
 .reviewsBlockDetail .reviewDatail{
     clear: both;
     margin-bottom: 32px;
@@ -5554,9 +5564,9 @@ table.form-table tr td:nth-child(2){
 .popupAbout h3{
     color: #627478;
     font-family: "Walshein_regular";
-    font-size: 24px; 
+    font-size: 24px;
 }
-.popupAbout p{      
+.popupAbout p{
 
 }
 .authorsContent {
@@ -5564,7 +5574,7 @@ table.form-table tr td:nth-child(2){
     padding-top: 48px;
     font-family: "Walshein_regular";
     color: #627478;
-    font-size: 17px; 
+    font-size: 17px;
 }
 
 .authorsContent a{

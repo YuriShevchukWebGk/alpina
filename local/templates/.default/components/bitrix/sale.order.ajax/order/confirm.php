@@ -7,7 +7,7 @@ if ($_REQUEST["ORDER_ID"])
 .orderBody {
     background-color: #f4f4f4;
 }
-</style>    
+</style>
 <?}?>
 
 <?
@@ -21,7 +21,7 @@ if ($_REQUEST["ORDER_ID"])
             $arResult["ORDER_PROPS"][$arOrderProps["CODE"]] = $arOrderProps;
         }
         if ($arResult["ORDER_PROPS"]["F_CONTACT_PERSON"]["VALUE"]) {
-            $userName = $arResult["ORDER_PROPS"]["F_CONTACT_PERSON"]["VALUE"]; //для физлица  
+            $userName = $arResult["ORDER_PROPS"]["F_CONTACT_PERSON"]["VALUE"]; //для физлица
         }
         else {
             $userName = $arResult["ORDER_PROPS"]["F_COMPANY_NAME"]["VALUE"]; //для юрлица
@@ -44,7 +44,7 @@ if ($_REQUEST["ORDER_ID"])
                 $couponStr.=', ';
              }
          }
-     ?>    
+     ?>
     <script type="text/javascript">
             // формирование сервиса  Get4Click
             var _iPromoBannerObj = function() {
@@ -60,7 +60,7 @@ if ($_REQUEST["ORDER_ID"])
                     '_orderId': '<?=$arResult["ORDER"]["ID"]?>',
                     '_orderValue': '<?=$arResult["ORDER"]["PRICE"]?>',
                     '_orderCurrency': 'RUB',
-                    '_usedPromoCode': '<?=$couponStr?>' 
+                    '_usedPromoCode': '<?=$couponStr?>'
                 };
 
                 this.lS=function(s){document.write('<sc'+'ript type="text/javascript" src="'+s+'" async="true"></scr'+'ipt>');},
@@ -77,43 +77,43 @@ if ($_REQUEST["ORDER_ID"])
             window.criteo_q = window.criteo_q || [];
             window.criteo_q.push(
                 { event: "setAccount", account: 18519 },
-                <?if($USER->IsAuthorized()){?> 
+                <?if($USER->IsAuthorized()){?>
                     { event: "setEmail", email: "<?=$USER->GetEmail()?>" },
                     <?}?>
                 { event: "setSiteType", type: "d" },
                 { event: "trackTransaction", id: <?=$arResult["ORDER"]["ID"]?>, item: <?=$_SESSION['criteo']?>}
             );
         </script>
-                
-        <!--google eCommerce-->
-		<?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
-			<script>
 
-				dataLayer.push({
-					'ecommerce': {
-						'purchase': {
-							'actionField': {
-								'id': '<?=$arResult["ORDER"]["ID"]?>',                         // Transaction ID. Required for purchases and refunds.
-								'affiliation': 'Alpinabook',
-								'revenue': '<?=$arResult['ORDER']['PRICE']?>',                     // Total transaction value (incl. tax and shipping)
-								'tax':'<?=$arResult['ORDER']['TAX_VALUE']?>',
-								'shipping': '<?=$arResult['ORDER']['PRICE_DELIVERY']?>',
-								'coupon': '<?=$couponStr?>'
-							},
-							'products': [
-								<?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
-								{
-									<?=$googleEnhancedECommerce?>
-								},
-								<?}?>
-							]
-						}
-					},
-					'discountPerc': '<?=$_SESSION['EMAIL_DISCOUNT_PERCENT_MED']?>',
-					'discountRUB': '<?=substr($_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'],0,-5)?>'
-				});
-			</script>
-		<?/* Старый код google ecommerce ?>
+        <!--google eCommerce-->
+        <?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
+            <script>
+
+                dataLayer.push({
+                    'ecommerce': {
+                        'purchase': {
+                            'actionField': {
+                                'id': '<?=$arResult["ORDER"]["ID"]?>',                         // Transaction ID. Required for purchases and refunds.
+                                'affiliation': 'Alpinabook',
+                                'revenue': '<?=$arResult['ORDER']['PRICE']?>',                     // Total transaction value (incl. tax and shipping)
+                                'tax':'<?=$arResult['ORDER']['TAX_VALUE']?>',
+                                'shipping': '<?=$arResult['ORDER']['PRICE_DELIVERY']?>',
+                                'coupon': '<?=$couponStr?>'
+                            },
+                            'products': [
+                                <?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
+                                {
+                                    <?=$googleEnhancedECommerce?>
+                                },
+                                <?}?>
+                            ]
+                        }
+                    },
+                    'discountPerc': '<?=$_SESSION['EMAIL_DISCOUNT_PERCENT_MED']?>',
+                    'discountRUB': '<?=substr($_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'],0,-5)?>'
+                });
+            </script>
+        <?/* Старый код google ecommerce ?>
         <script>
             dataLayer.push({
                 'transactionId': '<?=$arResult["ORDER"]["ID"]?>',
@@ -131,7 +131,7 @@ if ($_REQUEST["ORDER_ID"])
             });
 
         </script>
-		<?*/?>
+        <?*/?>
         <?  //получаем email из заказа. у физлиц будет EMAIL, у юрлиц F_EMAIL
             $orderProps = CSaleOrderPropsValue::GetList(array(),array("ORDER_ID"=>$arResult["ORDER_ID"],"CODE"=>array("EMAIL","F_EMAIL")),false,false,array());
             while($arProp = $orderProps->Fetch()) {
@@ -165,9 +165,9 @@ if ($_REQUEST["ORDER_ID"])
         window._fbq = window._fbq || [];
         window._fbq.push(['track', '6027030777492', {'value':'<?=$arResult['ORDER']['PRICE']?>','currency':'RUB'}]);
         </script>
-        <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6027030777492&amp;cd[value]=<?=$arResult['ORDER']['PRICE']?>&amp;cd[currency]=RUB&amp;noscript=1" /></noscript>        
+        <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6027030777492&amp;cd[value]=<?=$arResult['ORDER']['PRICE']?>&amp;cd[currency]=RUB&amp;noscript=1" /></noscript>
 
-        <script type="text/javascript"> 
+        <script type="text/javascript">
             window.flocktory = window.flocktory || [];
             window.flocktory.push(['postcheckout', {
                 user: {
@@ -179,23 +179,23 @@ if ($_REQUEST["ORDER_ID"])
                     price: <?=$arResult["ORDER"]["PRICE"]?>,
                     items: <?=$_SESSION['floctory']?>
                 },
-            }]);   
+            }]);
         </script>
-        
+
         <?unset($_SESSION['socioMatic'])?>
         <?unset($_SESSION['criteo'])?>
         <?unset($_SESSION['googleECommerce'])?>
-		<?unset($_SESSION['googleEnhancedECommerce'])?>
+        <?unset($_SESSION['googleEnhancedECommerce'])?>
         <?unset($_SESSION['floctory'])?>
-        <?unset($_SESSION['retailRocket'])?>    
-    
+        <?unset($_SESSION['retailRocket'])?>
+
     <?}?>
 
 
 
     <div class="confirmWrapper">
         <div class="finishOrdWrap">
-            <div class="centerWrapper">    
+            <div class="centerWrapper">
                 <div class="rightBlockWrap">
                     <p class="blockTitle">Уважаемый клиент!</p>
                     <p class="blokText">В качестве благодарности за покупку вам предоставляется возможность выбрать один из подарков наших партнеров.</p>
@@ -208,9 +208,9 @@ if ($_REQUEST["ORDER_ID"])
                     <p class="ordHint">Вы можете следить за выполнением заказа в <a href="/personal/order/">Личном кабинете.</a> Обратите внимание, что для входа в этот раздел, вам необходимо будет ввести логин и пароль</p>
                 </div>
             </div>
-        </div> 
-        
-       <? 
+        </div>
+
+       <?
         if (!empty($arResult["PAY_SYSTEM"]))
         {
         ?>
@@ -220,8 +220,26 @@ if ($_REQUEST["ORDER_ID"])
             if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12)
             {
             ?>
-                <table class="sale_order_full_table">
-                    <tr>
+                <table class="sale_order_full_table" >
+                	
+                	<? if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg") { ?>
+                		<script>
+                		$(document).ready(function() {
+                			var forPost = {},
+		                    	serForm = $("#rfi_form_payment").serializeArray();
+		                    	
+		                    for (obj in serForm){
+		                        forPost[serForm[obj].name] = serForm[obj].value;
+		                    }
+
+				            $.post("/ajax/rfi_payment_action.php", forPost, function(data) {
+								console.log(data);
+				            });
+                		})
+                		</script>
+                	<? } ?>
+                	
+                    <tr <? if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg") { ?> style="display: none" <? } ?>>
                         <td class="ps_logo">
                             <div class="pay_name"><?=GetMessage("SOA_TEMPL_PAY")?></div>
                             <?=CFile::ShowImage($arResult["PAY_SYSTEM"]["LOGOTIP"], 100, 100, "border=0", "", false);?>
@@ -230,9 +248,7 @@ if ($_REQUEST["ORDER_ID"])
                         <td>
                             <? if ($arResult["PAY_SYSTEM"]["ID"] == "13")
                             {?>
-                            <a href="<?=$arParams["PATH_TO_PAYMENT"]?>?ORDER_ID=<?=urlencode(urlencode($arResult["ORDER"]["ACCOUNT_NUMBER"]))."&PAYMENT_ID=".$arResult['ORDER']["PAYMENT_ID"]?>" target="_blank">
-                                <div class="payment_button"></div>
-                            </a>
+                                <?= $arResult["PAY_SYSTEM"]["BUFFERED_OUTPUT"]?>
                             <?}?>
                         </td>
                     </tr>
@@ -242,8 +258,8 @@ if ($_REQUEST["ORDER_ID"])
                         ?>
                         <tr>
                             <td>
-							<?=GetMessage("DIGITAL_BOOK")?>
-							<br />
+                            <?=GetMessage("DIGITAL_BOOK")?>
+                            <br />
                                 <?
                                     $service = \Bitrix\Sale\PaySystem\Manager::getObjectById($arResult["ORDER"]['PAY_SYSTEM_ID']);
 
@@ -289,8 +305,8 @@ if ($_REQUEST["ORDER_ID"])
                                         }
                                     }
                                 ?>
-                                
-         
+
+
                             </td>
                             <td>
                             </td>
@@ -299,12 +315,12 @@ if ($_REQUEST["ORDER_ID"])
                         }
                     ?>
                 </table>
-			<? } elseif ($arResult["PAY_SYSTEM"]["ID"] == 12) {
-				echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
-			}
-        }?>  
-        
-    </div>    
+            <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == 12) {
+                echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
+            }
+        }?>
+
+    </div>
 
    <? }
     else
@@ -329,4 +345,4 @@ if ($_REQUEST["ORDER_ID"])
         var result = $(".confirmWrapper").html();
         $(".orderBody").parent().html(result);
     })
-</script>    
+</script>

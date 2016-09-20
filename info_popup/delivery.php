@@ -1,8 +1,5 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetPageProperty("keywords", "книги с доставкой");
-$APPLICATION->SetPageProperty("description", "Как производится доставка книг издательства «Альпина Паблишерз»");
-$APPLICATION->SetTitle("Доставка книг");
 ?> 
 <style>
     #delivery-types a {font-size:1.2em;}

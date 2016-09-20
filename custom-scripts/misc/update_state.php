@@ -1,5 +1,6 @@
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-if ($USER->isAdmin()) {
+<?$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+
 	global $USER;
     CModule::IncludeModule("iblock");
     CModule::IncludeModule("catalog");
@@ -23,25 +24,29 @@ if ($USER->isAdmin()) {
 	echo "<br />";	
 
 	echo "<b>Информация о бестселлерах</b><br />";
-	$arFilter = Array("IBLOCK_ID"=>4, "ID"=>$recsArray);
-	$res = CIBlockElement::GetList(Array(), $arFilter);
-	$key = 0;
-	while ($ob = $res->GetNextElement()){
-		$arProps = $ob->GetProperties();
-		$arFields = $ob->GetFields();
-		$return = true;
-		foreach ($bestsellers as $key => $best) {
-			if (in_array($arFields[ID], $best)) {
-				$bestsellers[$key]['new'] = 1;
-				$return = false;
+	if (!empty($recsArray)) {
+		$arFilter = Array("IBLOCK_ID"=>4, "ID"=>$recsArray);
+		$res = CIBlockElement::GetList(Array(), $arFilter);
+		$key = 0;
+		while ($ob = $res->GetNextElement()){
+			$arProps = $ob->GetProperties();
+			$arFields = $ob->GetFields();
+			$return = true;
+			foreach ($bestsellers as $key => $best) {
+				if (in_array($arFields[ID], $best)) {
+					$bestsellers[$key]['new'] = 1;
+					$return = false;
+				}
 			}
-		}
 
-		if ($return) {
-			$bestsellers[] = array('name' => $arFields[NAME], 'id' => $arFields[ID], 'new' => 1, 'old' => 0);
+			if ($return) {
+				$bestsellers[] = array('name' => $arFields[NAME], 'id' => $arFields[ID], 'new' => 1, 'old' => 0);
+			}
+			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => '285'));
+			$key++;
 		}
-		CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => '285'));
-		$key++;
+	} else {
+		echo 'Бестселлеры не получены. Проверить retailrocket';
 	}
 	echo "<br />";	
 	
@@ -92,10 +97,7 @@ if ($USER->isAdmin()) {
 	}
 	$REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
 	echo $REQUEST_PROTOCOL;	
-	
-} else {
-	echo "ошибка";
-}
+
 ?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>
