@@ -986,3 +986,29 @@ select {
     display: none;
 	margin-top: 20px;
 }
+
+.recurrent_tabs {
+	margin: 10px 0 10px 33px;
+	display: none;
+}
+
+.recurrent_tabs li:not(:last-child) {
+	display: inline-block;
+    cursor: pointer;
+    border: 1px solid #c7a371;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-right: 15px;
+    transition: all 0.2s ease;
+}
+
+.recurrent_tabs li:last-child {
+    font-size: 14px;
+    margin-top: 15px;
+    color: rgb(234, 10, 10);
+}
+
+.active_recurrent_tab {
+	color: white;
+	background: #c7a371;
+}
