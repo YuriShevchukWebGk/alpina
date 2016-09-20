@@ -224,9 +224,7 @@ $arItemIDs = array(
 					<?}?>
                     <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск') {?>
                         <div class="characteris">
-                            <a href="http://readright.ru/?=alpinabook" target="_blank">
-                                <span class="text noborderlink"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
-                            </a>
+                            <a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
                         </div>
 					<?}?>
                     <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
@@ -239,6 +237,13 @@ $arItemIDs = array(
                                 г.
                                 <?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?>
                             </p>
+                        </div>
+					<?}?>
+					<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск') {?>
+						<div class="characteris">
+                            <a href="http://readright.ru/?=alpinabook" target="_blank">
+                                <span class="text noborderlink"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
+                            </a>
                         </div>
 					<?}?>
 					<?if ($arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"]) {?>
@@ -532,7 +537,7 @@ $arItemIDs = array(
                         <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a id='inline2' href='#data2'><?=$samovivoz_day?></a></li>
                         <li><?= GetMessage("MAIL_DELIVERY") ?></li>
                         <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
-						<li class="lastli"><a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" class="noborderlink" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});">Хотите тираж со своим логотипом?</a></li>
+						<?/*<li class="lastli"><a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" class="noborderlink" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});">Хотите тираж со своим логотипом?</a></li>*/?>
 
                     </ul>
 
