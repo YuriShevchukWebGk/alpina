@@ -11,7 +11,7 @@
             "orders", 
             array(
                 "SEF_MODE" => "N",
-                "ORDERS_PER_PAGE" => "20",
+                "ORDERS_PER_PAGE" => "100",
                 "PATH_TO_PAYMENT" => "/personal/order/payment/",
                 "PATH_TO_BASKET" => "/personal/cart/",
                 "SET_TITLE" => "N",

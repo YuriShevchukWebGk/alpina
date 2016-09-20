@@ -165,7 +165,7 @@ if ($USER->isAdmin()) {
 			curl_close($curl);
 		// разбираем полученый ответ от сервера, более детальное описание параметров в документации 
 			$response=json_decode($out);
-			echo "Ответ от сервера ".$response->resultState.":".$response->resultInfo." #".$arTrek["ordernum"]." tel:".$arTrek["tel"]."<br />";
+			//echo "Ответ от сервера ".$response->resultState.":".$response->resultInfo." #".$arTrek["ordernum"]." tel:".$arTrek["tel"]."<br />";
 		}
 	}
 

@@ -86,34 +86,34 @@ if ($_REQUEST["ORDER_ID"])
         </script>
 
         <!--google eCommerce-->
-		<?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
-			<script>
+        <?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
+            <script>
 
-				dataLayer.push({
-					'ecommerce': {
-						'purchase': {
-							'actionField': {
-								'id': '<?=$arResult["ORDER"]["ID"]?>',                         // Transaction ID. Required for purchases and refunds.
-								'affiliation': 'Alpinabook',
-								'revenue': '<?=$arResult['ORDER']['PRICE']?>',                     // Total transaction value (incl. tax and shipping)
-								'tax':'<?=$arResult['ORDER']['TAX_VALUE']?>',
-								'shipping': '<?=$arResult['ORDER']['PRICE_DELIVERY']?>',
-								'coupon': '<?=$couponStr?>'
-							},
-							'products': [
-								<?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
-								{
-									<?=$googleEnhancedECommerce?>
-								},
-								<?}?>
-							]
-						}
-					},
-					'discountPerc': '<?=$_SESSION['EMAIL_DISCOUNT_PERCENT_MED']?>',
-					'discountRUB': '<?=substr($_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'],0,-5)?>'
-				});
-			</script>
-		<?/* Старый код google ecommerce ?>
+                dataLayer.push({
+                    'ecommerce': {
+                        'purchase': {
+                            'actionField': {
+                                'id': '<?=$arResult["ORDER"]["ID"]?>',                         // Transaction ID. Required for purchases and refunds.
+                                'affiliation': 'Alpinabook',
+                                'revenue': '<?=$arResult['ORDER']['PRICE']?>',                     // Total transaction value (incl. tax and shipping)
+                                'tax':'<?=$arResult['ORDER']['TAX_VALUE']?>',
+                                'shipping': '<?=$arResult['ORDER']['PRICE_DELIVERY']?>',
+                                'coupon': '<?=$couponStr?>'
+                            },
+                            'products': [
+                                <?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
+                                {
+                                    <?=$googleEnhancedECommerce?>
+                                },
+                                <?}?>
+                            ]
+                        }
+                    },
+                    'discountPerc': '<?=$_SESSION['EMAIL_DISCOUNT_PERCENT_MED']?>',
+                    'discountRUB': '<?=substr($_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'],0,-5)?>'
+                });
+            </script>
+        <?/* Старый код google ecommerce ?>
         <script>
             dataLayer.push({
                 'transactionId': '<?=$arResult["ORDER"]["ID"]?>',
@@ -131,7 +131,7 @@ if ($_REQUEST["ORDER_ID"])
             });
 
         </script>
-		<?*/?>
+        <?*/?>
         <?  //получаем email из заказа. у физлиц будет EMAIL, у юрлиц F_EMAIL
             $orderProps = CSaleOrderPropsValue::GetList(array(),array("ORDER_ID"=>$arResult["ORDER_ID"],"CODE"=>array("EMAIL","F_EMAIL")),false,false,array());
             while($arProp = $orderProps->Fetch()) {
@@ -185,7 +185,7 @@ if ($_REQUEST["ORDER_ID"])
         <?unset($_SESSION['socioMatic'])?>
         <?unset($_SESSION['criteo'])?>
         <?unset($_SESSION['googleECommerce'])?>
-		<?unset($_SESSION['googleEnhancedECommerce'])?>
+        <?unset($_SESSION['googleEnhancedECommerce'])?>
         <?unset($_SESSION['floctory'])?>
         <?unset($_SESSION['retailRocket'])?>
 
@@ -258,8 +258,8 @@ if ($_REQUEST["ORDER_ID"])
                         ?>
                         <tr>
                             <td>
-							<?=GetMessage("DIGITAL_BOOK")?>
-							<br />
+                            <?=GetMessage("DIGITAL_BOOK")?>
+                            <br />
                                 <?
                                     $service = \Bitrix\Sale\PaySystem\Manager::getObjectById($arResult["ORDER"]['PAY_SYSTEM_ID']);
 
@@ -315,9 +315,9 @@ if ($_REQUEST["ORDER_ID"])
                         }
                     ?>
                 </table>
-			<? } elseif ($arResult["PAY_SYSTEM"]["ID"] == 12) {
-				echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
-			}
+            <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == 12) {
+                echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
+            }
         }?>
 
     </div>

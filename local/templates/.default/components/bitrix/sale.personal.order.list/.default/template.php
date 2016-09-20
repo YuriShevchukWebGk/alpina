@@ -85,27 +85,39 @@
                                     <?
                                 }
                                 ?>
-                                <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
-                               <?
-                                $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
+                                <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
 
-                                /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
-                                $shipmentCollection = $origin_identifier->getShipmentCollection();
-                                foreach ($shipmentCollection as $shipment) {
-                                if($shipment->isSystem())
-                                    continue;
-                                    $track = $shipment->getField('TRACKING_NUMBER');
-                                }?>
-                                <p class="dopInfoText"><?if(empty($track)){
-                                    echo GetMessage("TRACK_NUMBER_NULL");
-                                }elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
-                                    <?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track)); ?>
-                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT){?>
-                                    <?=GetMessage("TRACK_NUMBER_PICK_POINT") ?>
-                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST){?>
-                                    <?=GetMessage("TRACK_NUMBER_FLIPOST") ?>
+                                   <?
+                                    $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
+
+                                    /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
+                                    $shipmentCollection = $origin_identifier->getShipmentCollection();
+                                    foreach ($shipmentCollection as $shipment) {
+                                    if($shipment->isSystem())
+                                        continue;
+                                        $track = $shipment->getField('TRACKING_NUMBER');
+                                    }?>
+                                    <?if(empty($track) && $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                        <p class="dopInfoText"><?echo GetMessage("TRACK_NUMBER_NULL");?></p>
+                                    <?}elseif(empty($track) && $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_MESSAGE_PICK_POINT_NULL");?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track));?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT && $order_key == "I"){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_PICK_POINT") ?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_FLIPOST") ?></p>
+                                    <?}?>
+
                                 <?}?>
-                                </p>
                             </div>
                             <? if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
                                 <div class="issuing_ordering_items">
@@ -115,35 +127,35 @@
                             <?}?>
                         </div>
                         <div>
-                            <p class="ordBooksTitle"><?= GetMessage("SPOL_ORDER_DETAIL") ?></p>
-                            <table class="orderBooks">
-                                <?foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
-                                    ?>
-                                    <tr>
-                                        <td class="infoTextTab infBookName"><?= $arBaskItem["NAME"] ?></td>
-                                        <td class="infoQuant"><?= $arBaskItem["QUANTITY"] ?></td>
-                                        <td class="infoPriceTd"><?= ceil($arBaskItem["PRICE"]) * $arBaskItem["QUANTITY"] ?> <?= GetMessage("ROUBLES") ?></td>
-                                    </tr>
-                                <?}?>
-                                <?if (intval($order["ORDER"]["PRICE_DELIVERY"]) > 0) {?>
-                                    <tr>
-                                        <td class="infoTextTab infBookName"><?= GetMessage("SPOL_DELIVERY") ?></td>
-                                        <td class="infoQuant"></td>
-                                        <td class="infoPriceTd"><?= ceil($order["ORDER"]["PRICE_DELIVERY"]) ?> <?= GetMessage("ROUBLES") ?></td>
-                                    </tr>
-                                <?}?>
+                        <p class="ordBooksTitle"><?= GetMessage("SPOL_ORDER_DETAIL") ?></p>
+                        <table class="orderBooks">
+                            <?foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
+                                ?>
                                 <tr>
-                                    <td class="infoTextTab"><?= GetMessage("FINAL_SUMM") ?></td>
-                                    <td class="infoQuant"></td>
-                                    <td class="infoPriceTd"><?= ceil($order["ORDER"]["PRICE"]) ?> <?= GetMessage("ROUBLES") ?></td>
+                                    <td class="infoTextTab infBookName"><?= $arBaskItem["NAME"] ?></td>
+                                    <td class="infoQuant"><?= $arBaskItem["QUANTITY"] ?></td>
+                                    <td class="infoPriceTd"><?= ceil($arBaskItem["PRICE"]) * $arBaskItem["QUANTITY"] ?> <?= GetMessage("ROUBLES") ?></td>
                                 </tr>
-                            </table>
-                        </div>
-                        <div>
-                            <p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p>
-                        </div>
+                            <?}?>
+                            <?if (intval($order["ORDER"]["PRICE_DELIVERY"]) > 0) {?>
+                                <tr>
+                                    <td class="infoTextTab infBookName"><?= GetMessage("SPOL_DELIVERY") ?></td>
+                                    <td class="infoQuant"></td>
+                                    <td class="infoPriceTd"><?= ceil($order["ORDER"]["PRICE_DELIVERY"]) ?> <?= GetMessage("ROUBLES") ?></td>
+                                </tr>
+                            <?}?>
+                            <tr>
+                                <td class="infoTextTab"><?= GetMessage("FINAL_SUMM") ?></td>
+                                <td class="infoQuant"></td>
+                                <td class="infoPriceTd"><?= ceil($order["ORDER"]["PRICE"]) ?> <?= GetMessage("ROUBLES") ?></td>
+                            </tr>
+                        </table>
                     </div>
-                <?}
+                    <div>
+                        <p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p>
+                    </div>
+                </div>
+            <?}
             }
         }?>
 
@@ -156,7 +168,7 @@ $(document).ready(function() {
     $(".tableTitle").next(".orderNumbLine").next(".hiddenOrderInf").css("display", "block");
 
     if ($(".issuing_ordering_items").size() > 0) {
-        $(".infoAddrWrap").css("height", "300px");
+       // $(".infoAddrWrap").css("height", "300px");
     }
 });
 </script>
