@@ -240,17 +240,26 @@ if ($_REQUEST["ORDER_ID"])
                 	<? } ?>
                 	
                     <tr <? if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg") { ?> style="display: none" <? } ?>>
-                        <td class="ps_logo">
-                            <div class="pay_name"><?=GetMessage("SOA_TEMPL_PAY")?></div>
-                            <?=CFile::ShowImage($arResult["PAY_SYSTEM"]["LOGOTIP"], 100, 100, "border=0", "", false);?>
-                            <div class="paysystem_name"><?= $arResult["PAY_SYSTEM"]["NAME"] ?></div><br>
-                        </td>
-                        <td>
-                            <? if ($arResult["PAY_SYSTEM"]["ID"] == "13")
-                            {?>
-                                <?= $arResult["PAY_SYSTEM"]["BUFFERED_OUTPUT"]?>
-                            <?}?>
-                        </td>
+                        <? if ($arResult["PAY_SYSTEM"]["ID"] != RFI_PAYSYSTEM_ID) { ?>
+	                        <td class="ps_logo">
+	                            <div class="pay_name"><?=GetMessage("SOA_TEMPL_PAY")?></div>
+	                            <?=CFile::ShowImage($arResult["PAY_SYSTEM"]["LOGOTIP"], 100, 100, "border=0", "", false);?>
+	                            <div class="paysystem_name"><?= $arResult["PAY_SYSTEM"]["NAME"] ?></div><br>
+	                        </td>
+	                        <td>
+	                            <? if ($arResult["PAY_SYSTEM"]["ID"] == "13")
+	                            {?>
+	                                <?= $arResult["PAY_SYSTEM"]["BUFFERED_OUTPUT"]?>
+	                            <?}?>
+	                        </td>
+                        <? } else { ?>
+                        	<td colspan="2">
+	                            <? if ($arResult["PAY_SYSTEM"]["ID"] == "13")
+	                            {?>
+	                                <?= $arResult["PAY_SYSTEM"]["BUFFERED_OUTPUT"]?>
+	                            <?}?>
+	                        </td>
+                        <? } ?>
                     </tr>
                     <?
                         if (strlen($arResult["PAY_SYSTEM"]["ACTION_FILE"]) > 0)
