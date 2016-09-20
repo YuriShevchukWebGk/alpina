@@ -59,6 +59,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         * ----*/
         $("body").on('click','.rfi_bank_vars li',function(){
             if(!$(this).hasClass('active_rfi_button')){
+            	if ($(this).data('rfi-payment') == "spg") {
+            		$(".recurrent_tabs").show();
+            	} else {
+            		$(".recurrent_tabs").hide();
+            	}
                 $(".rfi_bank_vars li").removeClass('active_rfi_button');
                 $(this).addClass('active_rfi_button');
                 localStorage.setItem('active_rfi_button',$(this).data('rfi-payment'));
@@ -482,11 +487,18 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                     //2. подсветка варианта оплаты для электронных платежей
                                     if(localStorage.getItem('active_rfi_button')){
                                         $('li[data-rfi-payment="'+localStorage.getItem('active_rfi_button')+'"]').addClass('active_rfi_button');
+                                        if (localStorage.getItem('active_rfi_button') == "spg") {
+						            		$(".recurrent_tabs").show();
+						            	} else {
+						            		$(".recurrent_tabs").hide();
+						            	}
                                     }
                                     
                                     //2. подсветка варианта оплаты для электронных платежей
-                                    if(localStorage.getItem('active_rfi_recurrent')){
+                                    if (localStorage.getItem('active_rfi_recurrent') && $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').length) {
                                         $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').click();
+                                    } else {
+                                    	$('li[data-rfi-recurrent-type="new"]').click();
                                     }
 
                                     // т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса

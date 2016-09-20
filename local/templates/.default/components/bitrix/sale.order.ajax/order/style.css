@@ -989,6 +989,7 @@ select {
 
 .recurrent_tabs {
 	margin: 10px 0 10px 33px;
+	display: none;
 }
 
 .recurrent_tabs li:not(:last-child) {
