@@ -59,11 +59,29 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         * ----*/
         $("body").on('click','.rfi_bank_vars li',function(){
             if(!$(this).hasClass('active_rfi_button')){
+            	if ($(this).data('rfi-payment') == "spg") {
+            		$(".recurrent_tabs").show();
+            	} else {
+            		$(".recurrent_tabs").hide();
+            	}
                 $(".rfi_bank_vars li").removeClass('active_rfi_button');
                 $(this).addClass('active_rfi_button');
                 localStorage.setItem('active_rfi_button',$(this).data('rfi-payment'));
                 $.post("/ajax/rfi_bank_tabs.php", {
                     rfi_bank_tab : $(this).data('rfi-payment')
+                    }, function(data) {}
+                );
+            }
+        })
+        
+        $("body").on('click','.recurrent_tabs li:not(:last-child)',function(){
+            if(!$(this).hasClass('active_recurrent_tab')){
+                $(".recurrent_tabs li").removeClass('active_recurrent_tab');
+                $(this).addClass('active_recurrent_tab');
+                localStorage.getItem('active_rfi_recurrent');
+                localStorage.setItem('active_rfi_recurrent', $(this).data('rfi-recurrent-type'));
+                $.post("/ajax/rfi_recurrent.php", {
+                    rfi_recurrent_type : $(this).data('rfi-recurrent-type')
                     }, function(data) {}
                 );
             }
@@ -151,7 +169,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 
     $(function(){
         $('.application input[type=image]').attr('src','/images/pay.jpg');
-        submitForm();
+        try {
+	        submitForm();
+	    }
+	    catch(err) {
+	    }
         setOptions();
     })
 	//далее костыль
@@ -465,6 +487,18 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                     //2. подсветка варианта оплаты для электронных платежей
                                     if(localStorage.getItem('active_rfi_button')){
                                         $('li[data-rfi-payment="'+localStorage.getItem('active_rfi_button')+'"]').addClass('active_rfi_button');
+                                        if (localStorage.getItem('active_rfi_button') == "spg") {
+						            		$(".recurrent_tabs").show();
+						            	} else {
+						            		$(".recurrent_tabs").hide();
+						            	}
+                                    }
+                                    
+                                    //2. подсветка варианта оплаты для электронных платежей
+                                    if (localStorage.getItem('active_rfi_recurrent') && $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').length) {
+                                        $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').click();
+                                    } else {
+                                    	$('li[data-rfi-recurrent-type="new"]').click();
                                     }
 
                                     // т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса
@@ -620,8 +654,12 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 </div>
 <script>
 $(document).ready(function(){
-        if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
-            $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
-        }    
+	if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
+		$("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
+	}
+	// по-умолчанию выбираем сохраненную карту, если она есть
+	if ($("li[data-rfi-recurrent-type='next']").length) {
+		$("li[data-rfi-recurrent-type='next']").click(); 
+	}
 })
 </script>
