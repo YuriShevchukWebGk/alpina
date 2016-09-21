@@ -39,7 +39,7 @@
             foreach ($arResult["ORDERS"] as $k => $order) {
 
                 $quantity = 0;
-                foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
+                foreach ($order["BASKET_ITEMS"] as $order_key => $arBaskItem) {
                     $quantity += round($arBaskItem["QUANTITY"]);
                 }
 
@@ -78,39 +78,37 @@
                             <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID))
                                 && ($order["ORDER"]["PAYED"] != "Y")) {
                                 ?>
-                                    <p class="dopInfoTitle thiCol to_pay">
-                                        <a href="/personal/order/payment/?ORDER_ID=<?= $order["ORDER"]["ID"] ?>"><?= GetMessage("TO_PAY") ?></a>
-                                    </p>
-                                <?
-                            }
-                            ?>
-                            <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL ||
-                                $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 ||
-                                $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT ||
-                                $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
+                                <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT ||
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
 
-                               <?
-                                $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
+                                   <?
+                                    $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
 
-                                /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
-                                $shipmentCollection = $origin_identifier->getShipmentCollection();
-                                foreach ($shipmentCollection as $shipment) {
-                                if($shipment->isSystem())
-                                    continue;
-                                    $track = $shipment->getField('TRACKING_NUMBER');
-                                }?>
-                                <?if(empty($track)){?>
-                                    <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
-                                    <p class="dopInfoText"><?echo GetMessage("TRACK_NUMBER_NULL");?></p>
-                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
-                                    <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
-                                    <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track));?></p>
-                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT && $order["ORDER"]["STATUS_ID"] == "I"){?>
-                                    <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
-                                    <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_PICK_POINT") ?></p>
-                                <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST){?>
-                                    <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
-                                    <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_FLIPOST") ?></p>
+                                    /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
+                                    $shipmentCollection = $origin_identifier->getShipmentCollection();
+                                    foreach ($shipmentCollection as $shipment) {
+                                    if($shipment->isSystem())
+                                        continue;
+                                        $track = $shipment->getField('TRACKING_NUMBER');
+                                    }?>
+                                    <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_MAIL", Array ("#TRACK#" => $track));?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT && $arResult["INFO"]["STATUS"][$order["ORDER"]["STATUS_ID"]]["ID"] == "I"){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_PICK_POINT") ?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST && $arResult["INFO"]["STATUS"][$order["ORDER"]["STATUS_ID"]]["ID"] == "I" && !empty($track)){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_FLIPOST") ?></p>
+                                    <?}elseif(empty($track) && $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2){?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                        <p class="dopInfoText"><?echo GetMessage("TRACK_NUMBER_NULL");?></p>
+                                    <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST && $arResult["INFO"]["STATUS"][$order["ORDER"]["STATUS_ID"]]["ID"] != "I") {?>
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_MESSAGE_PICK_POINT_NULL");?></p>
+                                     <?}?>
                                 <?}?>
 
                             <?}?>
