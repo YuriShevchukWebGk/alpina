@@ -29,6 +29,7 @@
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("PAYPAL_PAYSYSTEM_ID", 16);
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("FLIPPOST_ID", 30);
     define ("PICKPOINT_DELIVERY_ID", 18);

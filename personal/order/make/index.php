@@ -24,7 +24,7 @@ $APPLICATION->SetTitle("Заказы");
 		"DELIVERY_NO_SESSION" => "Y",
 		"COMPONENT_TEMPLATE" => "order",
 		"DELIVERY_TO_PAYSYSTEM" => "d2p",
-		"USE_PREPAYMENT" => "N",
+		"USE_PREPAYMENT" => "Y",
 		"PROP_2" => "",
 		"ALLOW_NEW_PROFILE" => "Y",
 		"SHOW_PAYMENT_SERVICES_NAMES" => "Y",
