@@ -267,7 +267,7 @@ if ($_REQUEST["ORDER_ID"])
                         ?>
                         <tr>
                             <td>
-                            <?=GetMessage("DIGITAL_BOOK")?>
+                            <span style="color: #627478;font-family: 'Walshein_regular';"><?=GetMessage("DIGITAL_BOOK")?></span>
                             <br />
                                 <?
                                     $service = \Bitrix\Sale\PaySystem\Manager::getObjectById($arResult["ORDER"]['PAY_SYSTEM_ID']);

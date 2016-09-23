@@ -1383,7 +1383,7 @@ input:focus{
 }
 .authorWrap .autorInfo{
     float: left;
-    padding-left: 4px;
+    padding-right: 30px;
     padding-top: 50px;
 }
 .events p{
@@ -1450,7 +1450,6 @@ input:focus{
     margin-bottom: 30px;
 }
 .content .textWrap{
-    padding-left: 394px;
     padding-bottom: 34px;
 }
 .autorBooksWrap{
@@ -2716,7 +2715,17 @@ right: 45px;
     font-size: 19px;
     margin: 0 28px;
     padding: 14px 58px;
+	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
+	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
+.elementDescriptWrap .inBasket:hover {
+	background-color: #00b9c8;
+	color: #f2f2f2;
+}
+	
 .elementDescriptWrap .buyOneClick{
     border: 2px solid #c7a271;
     border-radius: 40px;
@@ -4368,6 +4377,9 @@ right: 45px;
     color: #7b8c90;
     font-family: "Walshein_regular";
     font-size: 14px;
+}
+.menu li a:hover {
+	text-decoration:underline;
 }
 .mainLogoImg{
     left: 60px;

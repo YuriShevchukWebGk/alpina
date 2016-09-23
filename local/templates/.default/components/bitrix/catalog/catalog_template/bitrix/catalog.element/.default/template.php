@@ -317,12 +317,12 @@ $arItemIDs = array(
                         <div class="wrap_prise_top">
                             <?$StockInfo = "";
                                 if (!empty($arResult["PRICES"])) {?>
-									<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                     <?// если свойство товара в состоянии "Новинка" либо не задан - то выводить стандартный блок с ценой,
                                     // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении
                                     if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") )
                                         && (intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal") )) {
                                         foreach ($arResult["PRICES"] as $code => $arPrice) {?>
+										<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                         <link itemprop="availability" href="https://schema.org/InStock">
 
                                         <?$StockInfo = "InStock";
@@ -365,11 +365,13 @@ $arItemIDs = array(
                                         }?>
                                         <?}
                                     } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
+									<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                     <link itemprop="availability" href="https://schema.org/PreOrder">
                                     <? $StockInfo = "SoonStock"; ?>
                                     <p class="newPrice" style="font-size:20px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
 
                                     <?} else {?>
+									<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                     <link itemprop="availability" href="https://schema.org/OutOfStock">
                                     <?$StockInfo = "OutOfStock";?>
                                     <?foreach ($arResult["PRICES"] as $code => $arPrice) {
@@ -513,6 +515,7 @@ $arItemIDs = array(
                                     $delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
+									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 6) {
@@ -661,9 +664,10 @@ $arItemIDs = array(
                 <div class="subscr_result"></div>
                 <div class="centerColumn">
                     <h1 class="productName" itemprop="name"><?=$arResult["NAME"] ?></h1>
-                    <p class="engBookName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></p>
+                    <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
                     <div class="authorReviewWrap">
                         <p class="reviews">
+							<?if($USER->isAdmin()) {?><span class="crr-cnt" data-crr-url="<?=$arResult["ID"]?>" data-crr-chan="<?=$arResult["ID"]?>"></span><?}?>
                             <span class="star"><img src="/img/activeStar.png"></span>
                             <span class="star"><img src="/img/activeStar.png"></span>
                             <span class="star"><img src="/img/activeStar.png"></span>
@@ -1536,4 +1540,15 @@ $printid = implode(", ", $printid2);?>
     })
 
 
+</script>
+<script type="text/javascript">
+cackle_widget = window.cackle_widget || [];
+cackle_widget.push({widget: 'ReviewRating', id: 36574});
+(function() {
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+})();
 </script>

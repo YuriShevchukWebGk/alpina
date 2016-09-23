@@ -11,7 +11,43 @@ if ($alpExps['updateExp'] != "050916") {
 /*if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 	$alpExps['lightFont']	= (!$alpExps['lightFont'] ? rand(1,2) : $alpExps['lightFont']);
 }*/
+
+$alpExps['bigFontMenu']	= (!$alpExps['bigFontMenu'] ? rand(1,2) : $alpExps['bigFontMenu']);
+
 ?>
+<!-- Тест Увеличенного шрифта в меню сверху -->
+<?
+if ($alpExps['bigFontMenu'] == 1) {?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			dataLayer.push({
+				event: 'ab-test-gtm',
+				action: 'bigFontMenu',
+				label: 'regularFontSize'
+			});
+			console.log('bigFontMenu regularFontSize');
+		});
+	</script>
+<?} elseif ($alpExps['bigFontMenu'] == 2) {?>
+	<style>
+		.menu li a {
+			font-size: 16px;
+		}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			dataLayer.push({
+				event: 'ab-test-gtm',
+				action: 'bigFontMenu',
+				label: 'bigFontSize'
+			});
+			console.log('bigFontMenu bigFontSize');
+		});
+	</script>
+<?
+}?>
+<!-- //Тест Увеличенного шрифта в меню сверху -->
+
 
 <!-- Тест Шрифта -->
 <?/*if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
@@ -48,6 +84,8 @@ if ($alpExps['updateExp'] != "050916") {
 }*/?>
 <!-- //Тест Шрифта -->
 
+
+<!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
 <?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
 	if (!preg_match("/([0-9]+)/i",$APPLICATION->GetCurPage())) {?>
 		<style>
