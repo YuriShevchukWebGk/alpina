@@ -63,7 +63,8 @@ $arItemIDs = array(
     'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
 );
 ?>
-            <div class="elementDescriptWrap">
+            <div class="elementDescriptWrap"  itemprop="mainEntity" itemscope itemtype="https://schema.org/Book">
+				<meta itemprop="inLanguage" content="ru-RU"/>
                 <div class="leftColumn">
                     <div class="elementMainPict">
                         <div class="badge">
@@ -189,6 +190,10 @@ $arItemIDs = array(
 									<span itemprop="name">
 										<?= $arResult["PROPERTIES"]["PUBLISHER"]["VALUE"] ?>
 									</span>
+									<?if (strstr($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"], "Альпина") !== false) {?>
+										<meta itemprop="telephone" content="+7 (495) 980-80-77" />
+										<meta itemprop="address" content="г.Москва, ул.4-ая Магистральная, д.5, подъезд 2, этаж 2" />
+									<?}?>
 								</span>
 							</p>
 						</div>
@@ -235,7 +240,7 @@ $arItemIDs = array(
                                     <?= $arResult["PROPERTIES"]["YEAR"]["VALUE"] ?>
                                 </span>
                                 г.
-                                <?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br />' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] : ""?>
+                                <?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br /><span itemprop="bookEdition">' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] .'</span>' : ""?>
                             </p>
                         </div>
 					<?}?>
@@ -667,7 +672,23 @@ $arItemIDs = array(
                     <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
                     <div class="authorReviewWrap">
                         <p class="reviews">
-							<?if($USER->isAdmin()) {?><span class="crr-cnt" data-crr-url="<?=$arResult["ID"]?>" data-crr-chan="<?=$arResult["ID"]?>"></span><?}?>
+
+							<style>
+							.crr {
+	color:#fff!important;
+	font-family: "Walshein_regular"!important;
+	font-size:15px!important;
+}
+.crr .mc-star span {
+	font-size: 18px!important;
+}
+.mc-c .mc-star {
+	vertical-align: bottom !important;
+	color:#f0c15b !important;
+}
+</style>
+							<span class="crr-cnt" data-crr-url="<?=$arResult["ID"]?>" data-crr-chan="<?=$arResult["ID"]?>"></span>
+
                             <span class="star"><img src="/img/activeStar.png"></span>
                             <span class="star"><img src="/img/activeStar.png"></span>
                             <span class="star"><img src="/img/activeStar.png"></span>
@@ -1543,7 +1564,7 @@ $printid = implode(", ", $printid2);?>
 </script>
 <script type="text/javascript">
 cackle_widget = window.cackle_widget || [];
-cackle_widget.push({widget: 'ReviewRating', id: 36574});
+cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{?(it.numr + it.numv) > 0}}{{=it.stars}} оценок: {{=it.numr+it.numv}}{{?}}'<?if (!$USER -> IsAuthorized()) {?>,readonly:'true'<?}?>});
 (function() {
     var mc = document.createElement('script');
     mc.type = 'text/javascript';

@@ -56,8 +56,18 @@
     <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?> 
 	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+	<!-- header .eshop_bootstrap_green -->
 </head>
-<body itemscope itemtype="https://schema.org/WebPage">
+<body itemscope itemtype="
+	<?if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
+		echo 'https://schema.org/ItemPage';
+	} elseif (preg_match("/(.*)\/search\/index.php\?q=(.*)/i", $_SERVER['REQUEST_URI'])) {
+		echo 'https://schema.org/SearchResultsPage';
+	} elseif (preg_match("/(.*)\/catalog\/([a-z]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
+		echo 'https://schema.org/CollectionPage';
+	} else {
+		echo 'https://schema.org/WebPage';
+	}?>">
 <?if ($USER->IsAuthorized()) {
     $rsCurUser = CUser::GetByID($USER->GetID());
     $arCurUser = $rsCurUser->Fetch();

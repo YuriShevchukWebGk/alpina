@@ -66,6 +66,7 @@
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+	<!-- header .index -->
 
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">

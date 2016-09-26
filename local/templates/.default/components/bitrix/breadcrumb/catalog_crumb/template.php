@@ -19,9 +19,10 @@ if(!is_array($css) || !in_array("/bitrix/css/main/font-awesome.css", $css)) {
 }
 
 
-$strReturn .= '<p class="breadCrump" itemscope itemtype="https://schema.org/BreadcrumbList">';
+$strReturn .= '<p class="breadCrump" itemprop="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">';
 
 $itemSize = count($arResult);
+$i = 0;
 for($index = 0; $index < $itemSize; $index++) {
     $title = htmlspecialcharsex($arResult[$index]["TITLE"]);
 
@@ -30,24 +31,24 @@ for($index = 0; $index < $itemSize; $index++) {
     $arrow = ($index > 0? '<i class="fa fa-angle-right"></i>' : '');
 
     // не включать "Каталог" в цепочку навигации
-    
-    if ($arResult[$index]["LINK"] <> "/catalog/" && ($index <> 2)) {
+    if ($arResult[$index]["LINK"] <> "/catalog/" && ($index <> 2) && $title != 'Анонсы лекций') {
+		$i++;
         if(($arResult[$index]["LINK"] <> "" && $index != $itemSize-1)) {
             
               $strReturn .= '
                 <span id="bx_breadcrumb_' . $index . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"'.$child.$nextRef.'>
                     ' . $arrow . '
-                    <a href="' . $arResult[$index]["LINK"] . '" title="' . $title . '" itemprop="item">
+                    <a href="' . $arResult[$index]["LINK"] . '" title="' . $title . '" itemprop="url">
                         <span itemprop="name">' . $title . '</span>
                     </a>
-                    <meta itemprop="position" content="' . ($index == 0 ? 1 : $index) . '" />
+                    <meta itemprop="position" content="' . $i. '" />
                 </span>';  
         } else {
             $strReturn .= '
                 <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                 ' . $arrow . '
-                <span itemprop="item"><span itemprop="name">' . $title . '</span></span>
-                <meta itemprop="position" content="' . ($index == 0 ? 1 : $index) . '" />
+                <span itemprop="name">' . $title . '</span>
+                <meta itemprop="position" content="' . $i . '" />
                 </span>'; 
         }
     }

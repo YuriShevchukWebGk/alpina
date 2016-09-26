@@ -5694,3 +5694,7 @@ table.form-table tr td:nth-child(2){
 	font-size:28px;
 	font-family: "Walshein_light";
 }
+
+.js-history-popup {
+	top: 50px !important;
+}

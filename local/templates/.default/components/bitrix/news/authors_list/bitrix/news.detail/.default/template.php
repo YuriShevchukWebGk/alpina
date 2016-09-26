@@ -15,14 +15,37 @@ global $authorName;
 $authorName = $arResult["PROPERTIES"]["ALT_NAME"]["VALUE"];
 ?>
 
-<div class="authorWrap" itemscope itemtype="http://schema.org/Person">
+<?
+$sects_list = CIBlockSection::GetList (array(), array("IBLOCK_ID" => 29, 'NAME' => substr($arResult["PROPERTIES"]["LAST_NAME"]["VALUE"], 0, 1)), false, array("ID", "NAME"), $filter);
+$sects = $sects_list -> Fetch();
+?>
+
+<div class="authorWrap">
     <div class="titleWrap">
         <div class="catalogWrapper">
-            <p class="breadCrump"><a href="/"><span>Главная /</span></a><a href="/authors"><span> Алфавитный указатель авторов /</span></a><span> <?=substr($arResult["PROPERTIES"]["LAST_NAME"]["VALUE"], 0, 1);?></span></p>
-            <h1 style="margin-top:0;" class="mainTitle" itemprop="name"><?=$arResult["NAME"]?></h1>
+            <p class="breadCrump" itemprop="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+				<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<a itemprop="url" href="/"><span itemprop="name">Главная</span></a>
+					<meta itemprop="position" content="1" />
+				</span> / 
+				<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<a itemprop="url" href="/authors"><span itemprop="name">Алфавитный указатель авторов</span></a>
+					<meta itemprop="position" content="2" />
+				</span> / 
+				<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<a itemprop="url" href="/authors/?list=<?=$sects["ID"]?>"><span itemprop="name"><?=$sects["NAME"]?></span></a>
+					<meta itemprop="position" content="3" />
+				</span> / 
+				<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<span itemprop="name"><?=$arResult["NAME"]?>
+					<meta itemprop="position" content="4" />
+				</span>
+			</p>
+            <h1 style="margin-top:0;" class="mainTitle"><?=$arResult["NAME"]?></h1>
         </div>
     </div>
-    <div class="content">
+    <div class="content" itemprop="mainEntity" itemscope itemtype="http://schema.org/Person">
+		<meta itemprop="name" content="<?=$arResult["NAME"]?>" />
         <div class="catalogWrapper">
             <div class="autorInfo">
                 <div class="autorPhoto">

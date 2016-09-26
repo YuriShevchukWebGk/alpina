@@ -37,7 +37,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 }
 ?>
 
-<div class="wrapperCategor" itemscope itemtype="http://schema.org/ItemList">
+<div class="wrapperCategor" itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
 	<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
     <div class="categoryWrapper">
 
@@ -318,6 +318,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                          <?}?>
                                      </div> 
                                      <p class="nameBook" title="<?= $arItem["NAME"]?>" itemprop="name"><?= $arItem["NAME"]?></p>
+									 <?if ($USER->isAdmin()){?>
+										<span class="crr-cnt" data-crr-url="<?=$arItem["ID"]?>" data-crr-chan="<?=$arItem["ID"]?>"></span>
+									 <?}?>
                                      <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                      <?
@@ -626,6 +629,16 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             $(".categoryWrapper .categoryBooks").hover(function() {
                 $(this).css("height", "390px");
             });
+
         <?}?>    
+cackle_widget = window.cackle_widget || [];
+			cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{=it.stars}}{{?it.numr > 0}} {{=it.numr+it.numv}} {{=it.reviews}}{{?}}'});
+			(function() {
+				var mc = document.createElement('script');
+				mc.type = 'text/javascript';
+				mc.async = true;
+				mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+			})();		
     });
 </script>

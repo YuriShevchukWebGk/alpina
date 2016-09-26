@@ -34,6 +34,7 @@ global $authorName;
                         </div>
                         <p class="bookName" itemprop="name"><?=$arItem["NAME"]?></p>
                         </a>
+						<meta itemprop="description" content="<?=htmlspecialchars(strip_tags($arItem['PREVIEW_TEXT']))?>" />
                         <?
                         if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)
                         {  

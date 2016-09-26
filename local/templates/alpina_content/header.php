@@ -55,8 +55,9 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?> 
 	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
+	<!-- header .content -->
 </head>
-<body itemscope itemtype="https://schema.org/WebPage">
+<body itemscope itemtype="<?=preg_match("/(.*)\/about\/contacts\/(.*)/i", $_SERVER['REQUEST_URI']) ? 'https://schema.org/ContactPage' : 'https://schema.org/WebPage'?>">
 <?if ($USER->IsAuthorized()) {
 	$rsCurUser = CUser::GetByID($USER->GetID());
     $arCurUser = $rsCurUser->Fetch();

@@ -10,7 +10,7 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */?>
-<div class="search-page" itemscope itemtype="http://schema.org/ItemList">
+<div class="search-page" itemprop="mainEntity" itemscope itemtype="http://schema.org/ItemList">
 	<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
     <?if (isset($arResult["REQUEST"]["ORIGINAL_QUERY"])) {?>
         <div class="search-language-guess">
