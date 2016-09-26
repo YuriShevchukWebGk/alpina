@@ -58,35 +58,62 @@
         <?    
             uasort($arResult["PAY_SYSTEM"], "cmpBySort"); // resort arrays according to SORT value
             foreach($arResult["PAY_SYSTEM"] as $arPaySystem)
-            {
+            {   
                 if (strlen(trim(str_replace("<br />", "", $arPaySystem["DESCRIPTION"]))) > 0 || intval($arPaySystem["PRICE"]) > 0)
                 {?>
+                <?  
+                    if ($arPaySystem["ID"] == PAYPAL_PAYSYSTEM_ID) {
+                        global $USER;
+                        if ($USER->IsAdmin()) {?>
+                            <input type="radio"
+                                class="radioInp"
+                                id="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>"
+                                name="PAY_SYSTEM_ID"
+                                value="<?=$arPaySystem["ID"]?>"
+                                <?if ($arPaySystem["CHECKED"]=="Y" && !($arParams["ONLY_FULL_PAY_FROM_ACCOUNT"] == "Y" && $arResult["USER_VALS"]["PAY_CURRENT_ACCOUNT"]=="Y")) echo " checked=\"checked\"";?>
+                                onclick="changePaySystem();" />
+                            <label for="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>" onclick="BX('ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>').checked=true;changePaySystem();" class="faceText">
+                                <?=$arPaySystem["PSA_NAME"];?>
+                            </label>
 
-                <input type="radio"
-                    class="radioInp"
-                    id="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>"
-                    name="PAY_SYSTEM_ID"
-                    value="<?=$arPaySystem["ID"]?>"
-                    <?if ($arPaySystem["CHECKED"]=="Y" && !($arParams["ONLY_FULL_PAY_FROM_ACCOUNT"] == "Y" && $arResult["USER_VALS"]["PAY_CURRENT_ACCOUNT"]=="Y")) echo " checked=\"checked\"";?>
-                    onclick="changePaySystem();" />
-                <label for="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>" onclick="BX('ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>').checked=true;changePaySystem();" class="faceText">
-                    <?=$arPaySystem["PSA_NAME"];?>
-                </label>
+                            <p class="shipingText">
+                                <?
+                                    if (intval($arPaySystem["PRICE"]) > 0)
+                                        echo str_replace("#PAYSYSTEM_PRICE#", SaleFormatCurrency(roundEx($arPaySystem["PRICE"], SALE_VALUE_PRECISION), $arResult["BASE_LANG_CURRENCY"]), GetMessage("SOA_TEMPL_PAYSYSTEM_PRICE"));
+                                    else
+                                        echo $arPaySystem["DESCRIPTION"];
+                                ?>
+                            </p>
 
-                <p class="shipingText">
-                    <?
-                        if (intval($arPaySystem["PRICE"]) > 0)
-                            echo str_replace("#PAYSYSTEM_PRICE#", SaleFormatCurrency(roundEx($arPaySystem["PRICE"], SALE_VALUE_PRECISION), $arResult["BASE_LANG_CURRENCY"]), GetMessage("SOA_TEMPL_PAYSYSTEM_PRICE"));
-                        else
-                            echo $arPaySystem["DESCRIPTION"];
-                    ?>
-                </p>
+                            <div class="clear"></div>    
+                        <?}    
+                    } else {?>
+                        <input type="radio"
+                            class="radioInp"
+                            id="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>"
+                            name="PAY_SYSTEM_ID"
+                            value="<?=$arPaySystem["ID"]?>"
+                            <?if ($arPaySystem["CHECKED"]=="Y" && !($arParams["ONLY_FULL_PAY_FROM_ACCOUNT"] == "Y" && $arResult["USER_VALS"]["PAY_CURRENT_ACCOUNT"]=="Y")) echo " checked=\"checked\"";?>
+                            onclick="changePaySystem();" />
+                        <label for="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>" onclick="BX('ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>').checked=true;changePaySystem();" class="faceText">
+                            <?=$arPaySystem["PSA_NAME"];?>
+                        </label>
 
-                <div class="clear"></div>
+                        <p class="shipingText">
+                            <?
+                                if (intval($arPaySystem["PRICE"]) > 0)
+                                    echo str_replace("#PAYSYSTEM_PRICE#", SaleFormatCurrency(roundEx($arPaySystem["PRICE"], SALE_VALUE_PRECISION), $arResult["BASE_LANG_CURRENCY"]), GetMessage("SOA_TEMPL_PAYSYSTEM_PRICE"));
+                                else
+                                    echo $arPaySystem["DESCRIPTION"];
+                            ?>
+                        </p>
 
-                <?
-                //варианты оплаты для электронных платежей
-                if($arPaySystem['ID'] == RFI_PAYSYSTEM_ID && $arResult["USER_VALS"]['PAY_SYSTEM_ID'] == RFI_PAYSYSTEM_ID){?>
+                        <div class="clear"></div>                    
+                    <?}?>
+
+                <?  
+                    //варианты оплаты для электронных платежей
+                    if($arPaySystem['ID'] == RFI_PAYSYSTEM_ID && $arResult["USER_VALS"]['PAY_SYSTEM_ID'] == RFI_PAYSYSTEM_ID){?>
                     <ul class="rfi_bank_vars">
                         <li data-rfi-payment="wm">WebMoney</li>
                         <li data-rfi-payment="ym">Яндекс деньги</li>
@@ -95,12 +122,12 @@
                         <li data-rfi-payment="mc">Мобильный платеж</li>
                     </ul>
                     <? if ($arResult["UF_RECURRENT_ID"]) { ?>
-	                    <ul class="recurrent_tabs">
-	                    	<li class="active_recurrent_tab" data-rfi-recurrent-type="new"><?= GetMessage("RFI_RECURRENT_NEW_CARD") ?></li>
-	                    	<li data-rfi-recurrent-type="next"><?= $arResult["UF_RECURRENT_CARD_ID"] ?></li>
-	                    	<li><?= GetMessage("RFI_RECURRENT_DESCRIPTION") ?></li>
-	                    </ul>
-                    <? } ?>
+                        <ul class="recurrent_tabs">
+                            <li class="active_recurrent_tab" data-rfi-recurrent-type="new"><?= GetMessage("RFI_RECURRENT_NEW_CARD") ?></li>
+                            <li data-rfi-recurrent-type="next"><?= $arResult["UF_RECURRENT_CARD_ID"] ?></li>
+                            <li><?= GetMessage("RFI_RECURRENT_DESCRIPTION") ?></li>
+                        </ul>
+                        <? } ?>
                     <?}?>          
                 <?}
 
