@@ -58,10 +58,10 @@
         <?    
             uasort($arResult["PAY_SYSTEM"], "cmpBySort"); // resort arrays according to SORT value
             foreach($arResult["PAY_SYSTEM"] as $arPaySystem)
-            {
+            {   
                 if (strlen(trim(str_replace("<br />", "", $arPaySystem["DESCRIPTION"]))) > 0 || intval($arPaySystem["PRICE"]) > 0)
                 {?>
-                <?
+                <?  
                     if ($arPaySystem["ID"] == PAYPAL_PAYSYSTEM_ID) {
                         global $USER;
                         if ($USER->IsAdmin()) {?>
@@ -111,7 +111,7 @@
                         <div class="clear"></div>                    
                     <?}?>
 
-                <?
+                <?  
                     //варианты оплаты для электронных платежей
                     if($arPaySystem['ID'] == RFI_PAYSYSTEM_ID && $arResult["USER_VALS"]['PAY_SYSTEM_ID'] == RFI_PAYSYSTEM_ID){?>
                     <ul class="rfi_bank_vars">
