@@ -2,6 +2,7 @@
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
     $APPLICATION->SetTitle("Оплата заказа");
 ?>
+
 <style type="text/css">
     *{
         font-family: Tahoma;
@@ -19,6 +20,7 @@
         text-align:center;
     }
 </style>
+
 <?$arOrder = CSaleOrder::GetByID($_GET['ORDER_ID']);?>
 <?if($arOrder['PAY_SYSTEM_ID']==13){?>
     <br>
@@ -31,6 +33,7 @@
     </div>
     <br>
     <?}?>
+
 <div style="text-align: center">
     <?$APPLICATION->IncludeComponent(
             "user:sale.order.payment",
@@ -62,5 +65,5 @@
             </tr>
         </table>
     </div>
-    <?}?> 
+    <?}?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

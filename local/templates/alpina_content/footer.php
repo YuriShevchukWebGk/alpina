@@ -7,7 +7,7 @@
                     </a>
                     <br />
                     <br />
-                    <a href="http://blog.alpinabook.ru/" target="_blank">
+                    <a href="https://blog.alpinabook.ru/" target="_blank">
                         <img src="/img/footerBlogLogo.png">
                     </a>				
                 </div>
@@ -146,12 +146,12 @@
                     </a>
                 </div>
                 <div class="webServ">
-                    <a href="http://vk.com/ideabooks" target="_blank" rel="nofollow"><img src="/img/vkImg.png"></a>
+                    <a href="https://vk.com/ideabooks" target="_blank" rel="nofollow"><img src="/img/vkImg.png"></a>
                     <a href="https://twitter.com/AlpinaBookRu" target="_blank" rel="nofollow"><img src="/img/twitterImg.png"></a>
                     <a href="https://www.facebook.com/alpinabook/" target="_blank" rel="nofollow"><img src="/img/fbImg.png"></a>
-                    <a href="http://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/youImg.png"></a>
+                    <a href="https://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/youImg.png"></a>
                     <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/googImg.png"></a>
-                    <a href="http://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
+                    <a href="https://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
                 </div>
             </div>
         </div>
@@ -250,12 +250,12 @@
                 false
             );?>
         <div class="webServ">
-            <a href="http://vk.com/ideabooks" target="_blank" rel="nofollow"><img src="/img/vkGrayImg.png"></a>
+            <a href="https://vk.com/ideabooks" target="_blank" rel="nofollow"><img src="/img/vkGrayImg.png"></a>
             <a href="https://twitter.com/AlpinaBookRu" target="_blank" rel="nofollow"><img src="/img/twitter.png"></a>
             <a href="https://www.facebook.com/alpinabook/" target="_blank" rel="nofollow"><img src="/img/fbGrayImg.png"></a>
-            <a href="http://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/yoGrayImg.png"></a>
+            <a href="https://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/yoGrayImg.png"></a>
             <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/goGrayImg.png"></a>
-            <a href="http://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/inGrayImg.png"></a>  
+            <a href="https://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/inGrayImg.png"></a>  
         </div>
     </div>
 

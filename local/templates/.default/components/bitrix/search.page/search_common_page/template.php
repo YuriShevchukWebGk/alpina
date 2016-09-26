@@ -10,8 +10,8 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */?>
-<div class="search-page">
-
+<div class="search-page" itemscope itemtype="http://schema.org/ItemList">
+	<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
     <?if (isset($arResult["REQUEST"]["ORIGINAL_QUERY"])) {?>
         <div class="search-language-guess">
             <?= GetMessage("CT_BSP_KEYBOARD_WARNING", array("#query#"=>'<a href="'.$arResult["ORIGINAL_QUERY_URL"].'">'.$arResult["REQUEST"]["ORIGINAL_QUERY"].'</a>')) ?>
@@ -27,14 +27,14 @@
                 </div>
                 <p class="title">Результаты поиска
                     <?if(is_object($arResult["NAV_RESULT"])) {?>
-                        <span>по запросу "<?= $arResult["REQUEST"]["QUERY"] ?>" (<?= $arResult["NAV_RESULT"]->SelectedRowsCount() . " результатов" ?>)</span>
+                        <span>по запросу "<?= $arResult["REQUEST"]["QUERY"] ?>" (<span itemprop="numberOfItems"><?= $arResult["NAV_RESULT"]->SelectedRowsCount()?> </span> результатов)</span>
                     <?}?>
                 </p>
             </div>
         </div>
         <?/* Получаем рекомендации для поиска от RetailRocket */
         global $arrFilter;
-        $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword=' . $arResult["REQUEST"]["QUERY"]);
+        $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword=' . $arResult["REQUEST"]["QUERY"]);
         $recsArray = json_decode($stringRecs);
         $arrFilter = Array('ID' => (array_slice($recsArray, 0, 5)));
         if ($arrFilter['ID'][0] > 0) {?>
@@ -249,12 +249,12 @@
                                 $newPrice = $newPrice * (1 - $item_discount_value / 100);
                             }?>
                             <??>
-                            <div class="searchBook">
+                            <div class="searchBook" itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
                                 <div>
                                     <a href="<?= $arItem["URL"]?>">
                                         <div class="search_item_img">
                                             <?if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"]) {?>
-                                                <img src="<?=$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"]?>">
+                                                <img src="<?=$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PICTURE"]["src"]?>" itemprop="image">
                                             <?} else {?>
                                                 <img src="/images/no_photo.png" width="155">
                                             <?}?>
@@ -262,14 +262,15 @@
                                     </a>
                                 </div>
                                 <div class="descrWrap">
-                                    <a href="<?= $arItem["URL"] ?>">
-                                        <p class="bookNames" title="<?= $arItem["TITLE"] ?>"><?= $arItem["TITLE"] ?></p>
-                                        <p class="autorName"><?= $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]]["NAME"] ?></p>
+                                    <a href="<?= $arItem["URL"] ?>" itemprop="url">
+                                        <p class="bookNames" title="<?= $arItem["TITLE"] ?>" itemprop="name"><?= $arItem["TITLE"] ?></p>
+                                        <p class="autorName" itemprop="author"><?= $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]] ?></p>
                                         <p class="wrapperType"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                         <?if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                                         ?>
-                                                <p class="price"><?= ceil( $newPrice) ?> руб.</p>
+                                                <p class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+												<link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?= ceil( $newPrice) ?></span> руб.</p>
                                         <?} else if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                                 <p class="price">Ожидаемая дата выхода: <?= strtolower(FormatDate(
                                                     "j F",
@@ -280,7 +281,7 @@
                                                 )); ?>
                                                 </p>
                                         <?} else {?>
-                                                <p class="price"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_VALUE"] ?></p>
+                                                <p class="price" style="color:red"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_VALUE"] ?></p>
                                         <?}?>
                                         <div class="description"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PREVIEW_TEXT"]?></div>
                                         <?
@@ -288,7 +289,7 @@
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                                                 if ($arResult["BASKET_ITEMS"][$arItem["ITEM_ID"]]["QUANTITY"] == 0) {
                                                     $curr_sect_ID = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"];?>
-                                                    <a class="product<?= $arItem["ID"]; ?>"
+                                                    <a class="product<?= $arItem["ITEM_ID"]; ?>"
                                                         href="<?= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>"
                                                         onclick="addtocart(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"];?>'); addToCartTracking(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"]; ?>', '<?= ceil( $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"]) ?>', '<?echo $arResult["BOOK_INFO"]["SECTIONS"][$curr_sect_ID]["SECTION_INFO"]['NAME'];?>', '1');return false;">
                                                             <p class="basket">В корзину</p>
@@ -388,7 +389,7 @@
                                                     )); ?>
                                                     </p>
                                             <?} else {?>
-                                                    <p class="price"><?= $exp_book_arr["PROPERTY_STATE_VALUE"] ?></p>
+                                                    <p class="price" style="color:red"><?= $exp_book_arr["PROPERTY_STATE_VALUE"] ?></p>
                                             <?}?>
                                             <div class="description"><?= $exp_book_arr["PREVIEW_TEXT"]?></div>
                                             <?
@@ -440,7 +441,7 @@
                 <?
                 if (isset($_COOKIE["rrpusid"])){
                     global $arrFilter;
-                    $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
+                    $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
                     $recsArray = json_decode($stringRecs);
                     $arrFilter = Array('ID' => (array_slice($recsArray, 0, 6)));
                 }

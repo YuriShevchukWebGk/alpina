@@ -60,7 +60,7 @@ if ($USER->isAdmin()) {
 		$db_props = CSaleOrderPropsValue::GetOrderProps($id);
 		while ($arProps = $db_props->Fetch()){
 			if($arProps['CODE']=='PHONE'){
-				$clearedPhone = preg_replace('/[^0-9+]/','',$arProps['VALUE']);
+				$clearedPhone = preg_replace('/[^0-9]/','',$arProps['VALUE']);
 				return $clearedPhone;
 			}
 		}
@@ -91,7 +91,8 @@ if ($USER->isAdmin()) {
 			}
 		}
 	}	
-	
+
+		
 	/***************
 	* Отправляем большой эмэйл
 	*************/
@@ -116,6 +117,77 @@ if ($USER->isAdmin()) {
 		CSaleOrder::Update($id, $arFields);
 		//echo $id."*".$subject."*".$userID."<br />";
 	}
+	
+	function sendNotificationEmailFromManager($id,$subject,$notification,$userID, $latestBooks, $email) {
+		if (empty($email))
+			$email = getClientEmail($id);
+			
+		$arEventFields = array(
+			"EMAIL" => $email,
+			"ORDER_USER" => getClientName($id),
+			"ORDER_ID" => $id,
+			"SUBJECT" => $subject,
+			"NOTIFICATION" => $notification
+		);				
+		CEvent::Send("ON_TIME_NOTIFICATIONS_FROM_MANAGER", "s1", $arEventFields,"N");
+		
+		$arFields = array(
+			"EMP_STATUS_ID" => $userID
+		);
+		CSaleOrder::Update($id, $arFields);
+		//echo $id."*".$subject."*".$userID."<br />";
+	}	
+	
+	function addTrek($data){
+		$userid = "34";
+		$api_key = "2fa4c69a8aba5f8f9a38c35873ca325f";
+		
+		foreach($data as $arTrek){
+			$tracks_id[]=$arTrek["trek"];
+			$tracks[]="{
+			'trackingUserClientPhone':'".$arTrek["tel"]."',
+			'trackingUserClientTrack':'".$arTrek["trek"]."',
+			'trackingUserClientEmail':'".$arTrek["email"]."',
+			'trackingUserClientName':'".$arTrek["name"]."',
+			'trackingUserClientItemCost':".$arTrek["cost"].",
+			'trackingUserClientOrderNumber':'".$arTrek["ordernum"]."',
+			'trackingUserClientDescription':'".$arTrek["descr"]."',
+			'sendToUserEmailFullTracking':false,
+			'sendToAdminEmailFullTracking':false
+			}";
+		}
+		//формируем подпись
+		$trKey=md5($userid.":".implode("",$tracks_id).":".$api_key);
+		echo $arTrek["trek"];
+		//формируем строку для отправки JSON
+		$arr_json="{
+		   'trackingUserId':".$userid.",
+		   'trackingRequestKey':'".$trKey."',
+		   'testMode':false,
+		   'trackingData':[".implode(",",$tracks)."]
+		}";
+
+
+		if( $curl = curl_init() ) {
+			// устанавливаем заголовки соединения 
+			$url='http://apilr2.r-lab.biz/addtrack.ashx';
+			$header[0] = "Accept: text/xml,application/xml,application/xhtml+xml,";
+			$header[0] .= "text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
+			$header[] = "Accept-Charset: utf-8;q=0.7,*;q=0.7";
+			$header[] = "Content-Type: text/plain; charset=utf-8";
+			curl_setopt($curl, CURLOPT_URL, $url);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+			curl_setopt($curl, CURLOPT_POST, true);
+			curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $arr_json);
+			$out = curl_exec($curl);
+			curl_close($curl);
+		// разбираем полученый ответ от сервера, более детальное описание параметров в документации 
+			$response=json_decode($out);
+			echo "Ответ от сервера ".$response->resultState.":".$response->resultInfo." #".$arTrek["ordernum"]." tel:".$arTrek["tel"]."<br />";
+		}
+	}
+
 	
 	$userID1 = 175985; 			//triggerMailUser_1
 	$userID2 = 175986; 			//triggerMailUser_2
@@ -230,16 +302,16 @@ if ($USER->isAdmin()) {
 		"!EMP_STATUS_ID" => array($userIDreturn,$userIDarrived),
 		"@STATUS_ID" => array("I","K"),
 		">=DATE_INSERT" => "07.04.2016",
-		"ID" => 70125
+		//"ID" => 69615
 	);
-	echo "4a<br />";
+
+	//echo "4a<br />";
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
-	echo "4b<br />";
+	//echo "4b<br />";
 	while ($arSales = $rsSales->Fetch())
 	{
 
 		$id = $arSales["ID"];
-		echo $id."<br />";
 		$list = \Bitrix\Sale\Internals\OrderTable::getList(array(
 			"select" => array(
 				"TRACKING_NUM" => "\Bitrix\Sale\Internals\ShipmentTable:ORDER.TRACKING_NUMBER"
@@ -251,7 +323,7 @@ if ($USER->isAdmin()) {
 			'limit'=> 1 
 		))->fetchAll();
 		
-		echo "4c<br />";
+		//echo "4c<br />";
 		
 		if (!empty($list[0]['TRACKING_NUM'])) {
 			$trackingNumber = $list[0]['TRACKING_NUM'];
@@ -260,10 +332,24 @@ if ($USER->isAdmin()) {
 			$trackingNumber = $order["DELIVERY_DOC_NUM"];
 		}
 		
-		echo "4d<br />";
+		if (!empty($trackingNumber) && (preg_match('/([0-9]){13,20}/', $trackingNumber) || preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) && !empty(getPhone($id))) {
+			// составляем массив треков под отправку 
+			$allTreks[]= array(
+				"trek" => $trackingNumber,
+				"name" => getClientName($id),
+				"tel" => getPhone($id),
+				"email" => "shop@alpinabook.ru",
+				"cost" => $arSales[PRICE],
+				"ordernum" => $id,
+				"descr" => ""
+			);
+			addTrek($allTreks);
+		}
+		
+		//echo "4d<br />";
 		
 		//$trackingNumber = $list[0]['TRACKING_NUM'];
-		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 < 3 && $arSales["EMP_STATUS_ID"] == $userIDontheway) {
+		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 < 2.5 && $arSales["EMP_STATUS_ID"] == $userIDontheway) {
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Почта</td>
@@ -277,7 +363,7 @@ if ($USER->isAdmin()) {
 			continue;
 		}
 		
-		echo "4e<br />";
+		//echo "4e<br />";
 		
 		if ($stopAuth) {
 			$finalReport .= "<tr>
@@ -293,12 +379,12 @@ if ($USER->isAdmin()) {
 				continue;
 		}
 		
-		echo "4f<br />";
+		//echo "4f<br />";
 		
 		if (!empty($trackingNumber) &&								// Трекер проставлен
 			preg_match('/([0-9]){13,20}/', $trackingNumber)) {
 				
-			echo "4.1a<br />";
+			//echo "4.1a<br />";
 			
 			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
 			$client2 = '';
@@ -329,11 +415,11 @@ if ($USER->isAdmin()) {
 
 					if ($record->OperationParameters->OperType->Id == 2) {
 							
-						$arFields = array(
-							"EMP_STATUS_ID" => $userID1,
-							"STATUS_ID" => "F"
-						);
-						CSaleOrder::Update($id, $arFields);
+						if (CSaleOrder::StatusOrder($id, "F")) {
+							$arFields = array(
+								"EMP_STATUS_ID" => $userID1
+							);
+							CSaleOrder::Update($id, $arFields);
 						//echo $id."*Заказ почтой выполнен*".$userID1."<br />";
 						$finalReport .= "<tr style='color:green;font-weight:700;'>
 							<td>".$id."</td>
@@ -345,6 +431,7 @@ if ($USER->isAdmin()) {
 							<td>Россия выполнен</td>
 							<td></td>
 							</tr>";	
+						}
 					} elseif ($parcelReturn) {
 						//echo "return ".$id."<br />";
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
@@ -377,7 +464,7 @@ if ($USER->isAdmin()) {
 							</tr>";
 
 						$subject = 'Заказ №'.$id.' поступил в почтовое отделение';
-						$notification = 'Ваш заказ №'.$id.' прибыл в почтовое отделение. Заполнить извещение можно <a href="https://www.pochta.ru/tracking#'.$trackingNumber.'">по данной ссылке</a>.';
+						$notification = 'Ваш заказ №'.$id.' прибыл в почтовое отделение. Заполнить извещение можно <a href="https://www.pochta.ru/form?type=F22&withBarcode=true&Banderol=true&Insured=true&PostId='.$trackingNumber.'">по данной ссылке</a>.';
 						$result = sendNotificationEmail($id, $subject, $notification, $userIDarrived, $newItemsBlock, '');
 
 					} else {
@@ -387,7 +474,7 @@ if ($USER->isAdmin()) {
 						);
 						CSaleOrder::Update($id, $arFields);
 						
-						$finalReport .= "<tr>
+						$finalReport .= "<tr style='color:#6a9868'>
 							<td>".$id."</td>
 							<td>Почта</td>
 							<td>В пути, отправлен на почту</td>
@@ -421,7 +508,7 @@ if ($USER->isAdmin()) {
 			!empty($trackingNumber) &&								// Трекер проставлен
 			preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {			// еще не простален флаг, что доставка по миру
 			
-			echo "4.2a<br />";
+			//echo "4.2a<br />";
 				
 			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
 			$client2 = '';
@@ -450,7 +537,7 @@ if ($USER->isAdmin()) {
 					</tr>";
 			}*/
 			for ($i = 1; $i <= $countUsers; $i++) {
-				echo "4.2b<br />";
+				//echo "4.2b<br />";
 				try {
 					$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
 					$i = $countUsers;
@@ -462,7 +549,7 @@ if ($USER->isAdmin()) {
 						$record = $result->OperationHistoryData->historyRecord;
 					}
 					
-					echo "4.2c<br />";
+					//echo "4.2c<br />";
 					
 					$parcelReturn = false;
 					foreach ($result->OperationHistoryData->historyRecord as $record) {
@@ -471,15 +558,16 @@ if ($USER->isAdmin()) {
 						}
 					}
 					
-					echo "4.2d<br />";
+					//echo "4.2d<br />";
 
 					if ($record->OperationParameters->OperType->Id == 2) {
-						echo "4.2.1a<br />";
-						$arFields = array(
-							"EMP_STATUS_ID" => $userID1,
-							"STATUS_ID" => "F"
-						);
-						CSaleOrder::Update($id, $arFields);
+						//echo "4.2.1a<br />";
+						if (CSaleOrder::StatusOrder($id, "F")) {
+							$arFields = array(
+								"EMP_STATUS_ID" => $userID1
+							);
+							CSaleOrder::Update($id, $arFields);
+						}
 						//echo $id."*Заказ почтой заграницу выполнен*".$userID1."<br />";
 						$finalReport .= "<tr style='color:green;font-weight:700;'>
 							<td>".$id."</td>
@@ -492,7 +580,7 @@ if ($USER->isAdmin()) {
 							<td></td>
 							</tr>";
 					} elseif ($parcelReturn) {
-						echo "4.2.2a<br />";
+						//echo "4.2.2a<br />";
 						//echo "return ".$id."<br />";
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
 							<td>".$id."</td>
@@ -513,11 +601,11 @@ if ($USER->isAdmin()) {
 							"EMP_STATUS_ID" => $userIDabroad
 						);
 						
-						echo "4.2.3a<br />";
+						//echo "4.2.3a<br />";
 						
 						CSaleOrder::Update($id, $arFields);
 						//echo "abroad ".$id."<br />";
-						$finalReport .= "<tr>
+						$finalReport .= "<tr style='color:#6a9868'>
 							<td>".$id."</td>
 							<td>Почта</td>
 							<td>В пути, отправлен на почту</td>
@@ -525,7 +613,7 @@ if ($USER->isAdmin()) {
 							<td>В пути, отправлен на почту</td>
 							<td>".$trackingNumber."</td>
 							<td>Заграницу в пути</td>
-							<td></td>
+							<td>В пути</td>
 							</tr>";
 					}
 				} catch (SoapFault $e) {
@@ -553,7 +641,7 @@ if ($USER->isAdmin()) {
 			);
 			CSaleOrder::Update($id, $arFields);
 			//echo "noid ".$id."<br />";
-			$finalReport .= "<tr>
+			$finalReport .= "<tr style='color:#ff7676'>
 					<td>".$id."</td>
 					<td>Почта</td>
 					<td>В пути, отправлен на почту</td>
@@ -561,7 +649,7 @@ if ($USER->isAdmin()) {
 					<td>В пути, отправлен на почту</td>
 					<td>noid</td>
 					<td>Нет идентификатора</td>
-					<td></td>
+					<td>noid</td>
 					</tr>";
 		} elseif (!empty($trackingNumber) &&								// Трекер проставлен
 				  preg_match('/([0-9]){4}\-([0-9]){4}/i', $trackingNumber)) {
@@ -571,7 +659,7 @@ if ($USER->isAdmin()) {
 			);
 			CSaleOrder::Update($id, $arFields);
 			//echo "noid ".$id."<br />";
-			$finalReport .= "<tr>
+			$finalReport .= "<tr style='color:#6a9868'>
 					<td>".$id."</td>
 					<td>Flippost</td>
 					<td>В пути, отправлен на почту</td>
@@ -598,7 +686,6 @@ if ($USER->isAdmin()) {
 					<td>error</td>
 					</tr>";
 		}
-		echo $id."<br />";
 	}
 	
 	echo "5<br />";
@@ -612,11 +699,12 @@ if ($USER->isAdmin()) {
 	{
 		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 14) {
 			$id = $arSales["ID"];
-			$arFields = array(
-				"EMP_STATUS_ID" => $userID1,
-				"STATUS_ID" => "F"
-			);
-			CSaleOrder::Update($id, $arFields);
+			if (CSaleOrder::StatusOrder($id, "F")) {
+				$arFields = array(
+					"EMP_STATUS_ID" => $userID1
+				);
+				CSaleOrder::Update($id, $arFields);
+			}
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Flippost</td>
@@ -640,16 +728,14 @@ if ($USER->isAdmin()) {
 	while ($arSales = $rsSales->Fetch())
 	{
 		$id = $arSales["ID"];
-		if (
-			(time() - strtotime($arSales[DATE_STATUS]))/86400 > 5 &&	// Если прошло больше пяти дней
+		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 5 &&	// Если прошло больше пяти дней
 			(time() - strtotime($arSales[DATE_STATUS]))/86400 < 10 &&	// и меньше 10 дней
-			$arSales["EMP_STATUS_ID"] != $userID1)						// и еще не отправляли первое уведомление
-			{
+			$arSales["EMP_STATUS_ID"] != $userID1) { 					// и еще не отправляли первое уведомление
 			$subject = 'Заказ №'.$id.' собран и ожидает оплаты. Альпина Паблишер.';
 			$notification = 'Ваш заказ №'.$id.' уже готов. Как только вы оплатите его, мы передадим его вам тем способом доставки, который вы выбрали.<br />
 			Спасибо, что читаете наши книги! <br /><br />
 			Вот, кстати, несколько новинок, которые тоже должны вам понравиться:';
-			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock);
+			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock, '');
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Неоплаченные заказа</td>
@@ -660,15 +746,13 @@ if ($USER->isAdmin()) {
 				<td></td>
 				<td>Прошло пять дней</td>
 				</tr>";	
-		} elseif (
-			(time() - strtotime($arSales[DATE_STATUS]))/86400 >= 10 &&	// Если прошло больше 10 дней
-			$arSales["EMP_STATUS_ID"] != $userID2)						// и еще не отправляли второе уведомление
-			{
+		} elseif ((time() - strtotime($arSales[DATE_STATUS]))/86400 >= 10 &&	// Если прошло больше 10 дней
+			$arSales["EMP_STATUS_ID"] != $userID2) {							// и еще не отправляли второе уведомление
 			$subject = 'Заказ '.$id.' собран и ожидает оплаты. Альпина Паблишер.';
 			$notification = 'Ваш заказ №'.$id.' уже готов. Как только вы оплатите его, мы передадим его вам тем способом доставки, который вы выбрали.<br />
 			Спасибо, что читаете наши книги! <br /><br />
 			Вот, кстати, несколько новинок, которые тоже должны вам понравиться:';
-			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock);
+			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock, '');
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Неоплаченные заказа</td>
@@ -681,6 +765,62 @@ if ($USER->isAdmin()) {
 				</tr>";	
 		}
 	}
+
+    //Data access for PickPoint API
+    $dataLogin = $arParams["PICKPOINT"]["DATA_ACCESS"]; 
+    $ikn = $arParams["PICKPOINT"]["IKN"]; 
+    $urlLogin = "http://e-solution.pickpoint.ru/api/login";
+    
+    //Request for authorization on PickPoint server
+    $content = json_encode($dataLogin);
+    $curl = curl_init($urlLogin);
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER,
+        array("Content-type: application/json"));
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+    $json_response = curl_exec($curl);
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    $response = json_decode($json_response, true);  
+    
+    //Request for received orders
+    $lastDayMonth = mktime(0, 0, 0, date('m')+1, 0, date('Y'));
+    $dataSend = array('SessionId' => $response["SessionId"], 'DateFrom' => '1.'.date('m').'.'.date('Y'), 'DateTo' => strftime("%d", $lastDayMonth).'.'.date('m').'.'.date('Y'), 'State' => 111);
+    $urlLabel = "http://e-solution.pickpoint.ru/api/getInvoicesChangeState";
+    $content = json_encode($dataSend);
+    $curl = curl_init($urlLabel);
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER,
+        array("Content-type: application/json"));
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+    $json_response = curl_exec($curl);
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    $response = json_decode($json_response, true);
+    
+    //Change orders status on site
+    foreach ($response as $arOrderPickPoint) {
+        $arOrder = CSaleOrder::GetByID($arOrderPickPoint["SenderInvoiceNumber"]);
+        if ($arOrder && $arOrder["STATUS_ID"] != "F") {
+			if (CSaleOrder::StatusOrder($arOrderPickPoint["SenderInvoiceNumber"], "F")) {
+				$finalReport .= "<tr style='color:green;font-weight:700;'>
+					<td>".$arOrderPickPoint["SenderInvoiceNumber"]."</td>
+					<td>Pickpoint</td>
+					<td>В пути, отправлен в постомат</td>
+					<td>---</td>
+					<td>Выполнен</td>
+					<td>Pickpoint</td>
+					<td>Pickpoint выполнен</td>
+					<td></td>
+					</tr>";					
+			}
+        }
+    }
+	
 	echo "7<br />";
 	$finalReport .= "</tbody></table>";
 	print $finalReport;
@@ -689,7 +829,8 @@ if ($USER->isAdmin()) {
 		"ORDER_USER" => "Александр",
 		"REPORT" => $finalReport
 	);				
-	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");	
+	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");
+	
 } else {
 	echo "Not authorized";
 }

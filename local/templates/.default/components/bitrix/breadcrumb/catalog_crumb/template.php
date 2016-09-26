@@ -19,7 +19,7 @@ if(!is_array($css) || !in_array("/bitrix/css/main/font-awesome.css", $css)) {
 }
 
 
-$strReturn .= '<p class="breadCrump" itemscope itemtype="http://schema.org/BreadcrumbList">';
+$strReturn .= '<p class="breadCrump" itemscope itemtype="https://schema.org/BreadcrumbList">';
 
 $itemSize = count($arResult);
 for($index = 0; $index < $itemSize; $index++) {
@@ -35,7 +35,7 @@ for($index = 0; $index < $itemSize; $index++) {
         if(($arResult[$index]["LINK"] <> "" && $index != $itemSize-1)) {
             
               $strReturn .= '
-                <span id="bx_breadcrumb_' . $index . '" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"'.$child.$nextRef.'>
+                <span id="bx_breadcrumb_' . $index . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"'.$child.$nextRef.'>
                     ' . $arrow . '
                     <a href="' . $arResult[$index]["LINK"] . '" title="' . $title . '" itemprop="item">
                         <span itemprop="name">' . $title . '</span>
@@ -44,7 +44,7 @@ for($index = 0; $index < $itemSize; $index++) {
                 </span>';  
         } else {
             $strReturn .= '
-                <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                 ' . $arrow . '
                 <span itemprop="item"><span itemprop="name">' . $title . '</span></span>
                 <meta itemprop="position" content="' . ($index == 0 ? 1 : $index) . '" />

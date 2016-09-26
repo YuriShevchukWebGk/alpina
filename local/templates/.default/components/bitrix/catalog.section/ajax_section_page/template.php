@@ -37,7 +37,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 }
 ?>
 
-<div class="wrapperCategor">
+<div class="wrapperCategor" itemscope itemtype="http://schema.org/ItemList">
+	<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
     <div class="categoryWrapper">
 
         <div class="catalogIcon">
@@ -46,7 +47,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
         </div>
 
         <div class="contentWrapp">
-            <h1><?= $arResult["NAME"]?></h1>
+            <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
 
 
 
@@ -120,7 +121,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
          
 
             <? /* Получаем от RetailRocket рекомендации для товара */
-            $stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
+            $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
             $recsArray = json_decode($stringRecs);  
             global $BestsellFilter;
             if ($recsArray[0] > 0) {
@@ -294,7 +295,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                      foreach ($arResult["ITEMS"] as $cell => $arItem) {  
                          foreach ($arItem["PRICES"] as $code => $arPrice) { 
                          ?>
-                         <li>
+                         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
                              <div class="categoryBooks">
                                  <div class="sect_badge">
                                      <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
@@ -305,10 +306,10 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                      }?>
                                  </div>
                                  
-                                 <a href="<?= $arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', <?= ($cell+1)?>, 'Catalog Section');">
+                                 <a href="<?= $arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', <?= ($cell+1)?>, 'Catalog Section');" itemprop="url">
                                      <div class="section_item_img">
                                          <?if ($arResult[$arItem["ID"]]["PICTURE"]["src"]) {?>               
-                                             <img src="<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>" alt="<?= $arItem["NAME"];?>">
+                                             <img src="<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>" alt="<?= $arItem["NAME"];?>" itemprop="image">
                                          <?} else {?>
                                              <img src="/images/no_photo.png" width="142" height="142">    
                                          <?}?>
@@ -316,17 +317,19 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                              <span class="volumes"><?= $arItem["PROPERTIES"]["number_volumes"]["VALUE"]?></span>
                                          <?}?>
                                      </div> 
-                                     <p class="nameBook" title="<?= $arItem["NAME"]?>"><?= $arItem["NAME"]?></p>
-                                     <p class="bookAutor"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
+                                     <p class="nameBook" title="<?= $arItem["NAME"]?>" itemprop="name"><?= $arItem["NAME"]?></p>
+                                     <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                      <?
                                      if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") 
                                         && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
 
                                             if ($arPrice["DISCOUNT_VALUE_VAT"]) { ?>
-                                                <p class="priceOfBook"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                                <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+												<link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? } else { ?>
-                                                <p class="priceOfBook"><?= ceil($arPrice["ORIG_VALUE_VAT"])?> <span>руб.</span></p>
+                                                <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+												<link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? }
                                          ?>
                                  
@@ -415,9 +418,6 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 <p class="showMore">Показать ещё</p>
             <?}?>
             <?=$arResult["NAV_STRING"]?>            
-            <div class="catalogDescription">
-                <?=$arResult["DESCRIPTION"]?>
-            </div>
         </div>
 
 
@@ -477,7 +477,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
 
 
-
+		<div class="catalogDescription" itemprop="description">
+			<?=$arResult["DESCRIPTION"]?>
+		</div>
     </div>
 </div>
 
