@@ -108,9 +108,12 @@
                             ?>
                         </p>
 
-                <?
-                //варианты оплаты для электронных платежей
-                if($arPaySystem['ID'] == RFI_PAYSYSTEM_ID && $arResult["USER_VALS"]['PAY_SYSTEM_ID'] == RFI_PAYSYSTEM_ID){?>
+                        <div class="clear"></div>                    
+                    <?}?>
+
+                <?  
+                    //варианты оплаты для электронных платежей
+                    if($arPaySystem['ID'] == RFI_PAYSYSTEM_ID && $arResult["USER_VALS"]['PAY_SYSTEM_ID'] == RFI_PAYSYSTEM_ID){?>
                     <ul class="rfi_bank_vars">
                         <li data-rfi-payment="wm">WebMoney</li>
                         <li data-rfi-payment="ym">Яндекс деньги</li>
@@ -119,12 +122,12 @@
                         <li data-rfi-payment="mc">Мобильный платеж</li>
                     </ul>
                     <? if ($arResult["UF_RECURRENT_ID"]) { ?>
-	                    <ul class="recurrent_tabs">
-	                    	<li class="active_recurrent_tab" data-rfi-recurrent-type="new"><?= GetMessage("RFI_RECURRENT_NEW_CARD") ?></li>
-	                    	<li data-rfi-recurrent-type="next"><?= $arResult["UF_RECURRENT_CARD_ID"] ?></li>
-	                    	<li><?= GetMessage("RFI_RECURRENT_DESCRIPTION") ?></li>
-	                    </ul>
-                    <? } ?>
+                        <ul class="recurrent_tabs">
+                            <li class="active_recurrent_tab" data-rfi-recurrent-type="new"><?= GetMessage("RFI_RECURRENT_NEW_CARD") ?></li>
+                            <li data-rfi-recurrent-type="next"><?= $arResult["UF_RECURRENT_CARD_ID"] ?></li>
+                            <li><?= GetMessage("RFI_RECURRENT_DESCRIPTION") ?></li>
+                        </ul>
+                        <? } ?>
                     <?}?>          
                 <?}
 
