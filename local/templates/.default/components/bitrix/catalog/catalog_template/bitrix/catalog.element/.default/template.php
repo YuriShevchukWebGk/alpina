@@ -63,7 +63,7 @@ $arItemIDs = array(
     'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
 );
 ?>
-            <div class="elementDescriptWrap"  itemprop="mainEntity" itemscope itemtype="https://schema.org/Book">
+            <div class="elementDescriptWrap" itemprop="mainEntity" itemscope itemtype="https://schema.org/Book">
 				<meta itemprop="inLanguage" content="ru-RU"/>
                 <div class="leftColumn">
                     <div class="elementMainPict">
@@ -300,6 +300,8 @@ $arItemIDs = array(
                 <div class="rightColumn">
                     <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <meta itemprop="priceCurrency" content="RUB" />
+						<link itemprop="itemCondition" href="http://schema.org/NewCondition">
+						<meta itemprop="sku" content="<?=$arResult["ID"]?>" />
                         <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
                                 if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
                                     $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH") . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
@@ -372,6 +374,7 @@ $arItemIDs = array(
                                     } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
 									<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                     <link itemprop="availability" href="https://schema.org/PreOrder">
+									<meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "MM.DD.YYYY HH:MI:SS"))?>" />
                                     <? $StockInfo = "SoonStock"; ?>
                                     <p class="newPrice" style="font-size:20px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
 

@@ -296,6 +296,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                          foreach ($arItem["PRICES"] as $code => $arPrice) { 
                          ?>
                          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
+							<meta itemprop="description" content="<?=htmlspecialchars(strip_tags($arItem["PREVIEW_TEXT"]))?>" />
                              <div class="categoryBooks">
                                  <div class="sect_badge">
                                      <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
@@ -329,10 +330,10 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
                                             if ($arPrice["DISCOUNT_VALUE_VAT"]) { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-												<link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
+												<link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? } else { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-												<link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
+												<link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition">><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? }
                                          ?>
                                  

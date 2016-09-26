@@ -270,7 +270,7 @@
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                                         ?>
                                                 <p class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-												<link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?= ceil( $newPrice) ?></span> руб.</p>
+												<link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil( $newPrice) ?></span> руб.</p>
                                         <?} else if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                                 <p class="price">Ожидаемая дата выхода: <?= strtolower(FormatDate(
                                                     "j F",
@@ -283,7 +283,7 @@
                                         <?} else {?>
                                                 <p class="price" style="color:red"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_VALUE"] ?></p>
                                         <?}?>
-                                        <div class="description"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PREVIEW_TEXT"]?></div>
+                                        <div class="description" itemprop="description"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PREVIEW_TEXT"]?></div>
                                         <?
                                         if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
