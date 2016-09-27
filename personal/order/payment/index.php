@@ -9,6 +9,8 @@ if (!$USER->GetID()) { ?>
 document.addEventListener('DOMContentLoaded', function(){
 	// вырезаем какой-то левый текст из футера
 	document.querySelector(".authorisationWrapper").nextSibling.remove();
+	document.querySelector("#remembMe").removeAttribute("hidden");
+	document.querySelector(".historyMenuWrap").remove();
 })
 </script>
 <style type="text/css">
