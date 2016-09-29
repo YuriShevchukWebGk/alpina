@@ -29,6 +29,7 @@
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("PAYPAL_PAYSYSTEM_ID", 16);
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("FLIPPOST_ID", 30);
     define ("PICKPOINT_DELIVERY_ID", 18);
@@ -42,29 +43,28 @@
     define ("GIFT_BOOK_QUANTITY_PROPERTY_ID", 428); // 420 - для тестовой копии
     define ("GIFT_BOOK_BUYER_EMAIL_PROPERTY_ID", 429);
     define ("GIFT_COUNPON_IBLOCK_ID", 51); //инфоблок, в котором хранится информация о подарочных сертификатах
-    define ("RECURRENT_URL", "https://www.alpinabook.ru");
+	define ("RECURRENT_URL", "https://www.alpinabook.ru");
     define ("DELIVERY_MAIL", 10);
     define ("DELIVERY_MAIL_2", 11);
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
-    define ("PAYPAL_PAYSYSTEM_ID", 16);
     /**
-     * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
-     *
-     * @return array
-     * */
-    function getDefaultFlippostValues() {
-        return $flippost_default_values = array(
-            array(
-                "PRICE" => 1500.00,
-                "WEIGHT" => array(0, 5000)
-            ),
-            array(
-                "PRICE" => 3000.00,
-                "WEIGHT" => 5000
-            ),
-        );
-    }
+	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
+	 *
+	 * @return array
+	 * */
+	function getDefaultFlippostValues() {
+		return $flippost_default_values = array(
+			array(
+				"PRICE" => 1500.00,
+				"WEIGHT" => array(0, 5000)
+			),
+			array(
+				"PRICE" => 3000.00,
+				"WEIGHT" => 5000
+			),
+		);
+	}
 
     /***************
     *
@@ -140,72 +140,72 @@
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
 
-    AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
-    AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
+	AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
+	AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 
-    /**
-     * Handler для доставки flippost. Плюсуем стоимость доставки
-     *
-     * @param array $arFields
-     * @return void
-     *
-     * */
-    function flippostHandlerBefore(&$arFields) {
-        if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
-            $delivery_price = 0;
-            $flippost_default_values = getDefaultFlippostValues();
-            if ($_REQUEST['flippost_cost']) {
-                $delivery_price = $_REQUEST['flippost_cost'];
-            } else {
-                foreach ($flippost_default_values as $default_variant) {
-                    if (is_array($default_variant['WEIGHT'])) {
-                        if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
-                            $delivery_price = $default_variant['PRICE'];
-                            break;
-                        }
-                    } else {
-                        if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
-                            $delivery_price = $default_variant['PRICE'];
-                            break;
-                        }
-                    }
-                }
-            }
-            $arFields['PRICE'] += floatval($delivery_price);
-            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
-        }
-    }
+	/**
+	 * Handler для доставки flippost. Плюсуем стоимость доставки
+	 *
+	 * @param array $arFields
+	 * @return void
+	 *
+	 * */
+	function flippostHandlerBefore(&$arFields) {
+		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+			$delivery_price = 0;
+			$flippost_default_values = getDefaultFlippostValues();
+			if ($_REQUEST['flippost_cost']) {
+				$delivery_price = $_REQUEST['flippost_cost'];
+			} else {
+				foreach ($flippost_default_values as $default_variant) {
+					if (is_array($default_variant['WEIGHT'])) {
+						if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
+							$delivery_price = $default_variant['PRICE'];
+							break;
+						}
+					} else {
+						if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
+							$delivery_price = $default_variant['PRICE'];
+							break;
+						}
+					}
+				}
+			}
+			$arFields['PRICE'] += floatval($delivery_price);
+			$arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+		}
+	}
 
-    /**
-     * Handler для доставки flippost. Изменяем адрес
-     *
-     * @param array $arFields
-     * @return void
-     *
-     * */
-    function flippostHandlerAfter($ID, $arFields) {
-        GLOBAL $arParams;
-        if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
-            $arPropFields = array(
-                "ORDER_ID" => $ID,
-                "NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
-                "VALUE" => $_REQUEST['flippost_address']
-            );
+	/**
+	 * Handler для доставки flippost. Изменяем адрес
+	 *
+	 * @param array $arFields
+	 * @return void
+	 *
+	 * */
+	function flippostHandlerAfter($ID, $arFields) {
+		GLOBAL $arParams;
+		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+			$arPropFields = array(
+				"ORDER_ID" => $ID,
+				"NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
+				"VALUE" => $_REQUEST['flippost_address']
+			);
 
-            $arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
-            $arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
+			$arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
+			$arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
 
-            CSaleOrderPropsValue::Add($arPropFields);
+			CSaleOrderPropsValue::Add($arPropFields);
 
-            // Добавляем полную стоимость заказа в оплату
-            $order_instance = Bitrix\Sale\Order::load($ID);
-            $payment_collection = $order_instance->getPaymentCollection();
-            foreach ($payment_collection as $payment) {
-                $payment->setField('SUM', $arFields['PRICE']);
-                $payment->save();
-            }
-        }
-    }
+			// Добавляем полную стоимость заказа в оплату
+			$order_instance = Bitrix\Sale\Order::load($ID);
+			$payment_collection = $order_instance->getPaymentCollection();
+			foreach ($payment_collection as $payment) {
+				$payment->setField('SUM', $arFields['PRICE']);
+				$payment->save();
+			}
+		}
+	}
 
     //Create gift coupon after buy certificate
     AddEventHandler("sale", "OnOrderAdd", Array("Certificate", "GenerateGiftCoupon"));
@@ -267,72 +267,72 @@
             $order = CSaleOrder::GetById($ID);
             //если текущий статус закана - не один из трех вышеперечисленных, ставим статус "оплачен"
             if (!in_array($order["STATUS_ID"],$arStatus)) {
-                $order_list = CSaleOrder::GetByID($ID);
-                $allBooksUrl = '';
-                $bookId = '';
-                $recId = '';
-                $sendinfo = '';
+				$order_list = CSaleOrder::GetByID($ID);
+				$allBooksUrl = '';
+				$bookId = '';
+				$recId = '';
+				$sendinfo = '';
 
-                $orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
-                if (!empty($orderUser["UF_TEST"])) {
-                    $allUrlsArray = unserialize($orderUser["UF_TEST"]);
-                } else {
-                    $allUrlsArray = array();
-                }
-                $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
+				$orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
+				if (!empty($orderUser["UF_TEST"])) {
+					$allUrlsArray = unserialize($orderUser["UF_TEST"]);
+				} else {
+					$allUrlsArray = array();
+				}
+				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
 
-                $ids = '';
-                while ($arItems = $dbBasketItems->Fetch()) {
-                    $ids .= $arItems["PRODUCT_ID"].',';
-                }
+				$ids = '';
+				while ($arItems = $dbBasketItems->Fetch()) {
+					$ids .= $arItems["PRODUCT_ID"].',';
+				}
 
-                $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
+				$products = getUrlForFreeDigitalBook(substr($ids,0,-1));
 
-                if ($products['url'] != 'error') {
-                    $allUrlsArray[] = array("orderid" => $ID, "products" => $products);
+				if ($products['url'] != 'error') {
+					$allUrlsArray[] = array("orderid" => $ID, "products" => $products);
 
-                    $sendinfo .= '<ol>';
+					$sendinfo .= '<ol>';
 
-                    foreach($products['products'] as $product) {
-                        if ($product['status'] == 'ok') {
-                            $sendinfo .= '<li style="padding-top:5px;">'.$product['name'].'</li>';
-                        } else {
-                            $sendinfo .= '<li style="padding-top:5px;">Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
-                        }
-                    }
+					foreach($products['products'] as $product) {
+						if ($product['status'] == 'ok') {
+							$sendinfo .= '<li style="padding-top:5px;">'.$product['name'].'</li>';
+						} else {
+							$sendinfo .= '<li style="padding-top:5px;">Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
+						}
+					}
 
-                    $sendinfo .= '</ol>';
+					$sendinfo .= '</ol>';
 
-                    $links = serialize($allUrlsArray);
+					$links = serialize($allUrlsArray);
 
-                    $fieldsGend = Array(
-                        "UF_TEST"                        => $links
-                    );
-                    $userGend = new CUser;
-                    $userGend->Update($order_list['USER_ID'], $fieldsGend);
+					$fieldsGend = Array(
+						"UF_TEST"						=> $links
+					);
+					$userGend = new CUser;
+					$userGend->Update($order_list['USER_ID'], $fieldsGend);
 
-                    $freeurl = $products['url'];
+					$freeurl = $products['url'];
 
-                    $useremail = Message::getClientEmail($ID);
-                } else {
-                    $freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
-                    $useremail = 'a.marchenkov@alpinabook.ru';
-                }
-                $mailFields = array(
-                    //"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
-                    "EMAIL"=> $useremail,
-                    "TEXT" => $sendinfo,
-                    "URL" => $freeurl,
-                    "ORDER_ID" => $ID,
-                    "ORDER_USER"=> Message::getClientName($ID)
-                );
-                CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
+					$useremail = Message::getClientEmail($ID);
+				} else {
+					$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
+					$useremail = 'a.marchenkov@alpinabook.ru';
+				}
+				$mailFields = array(
+					//"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
+					"EMAIL"=> $useremail,
+					"TEXT" => $sendinfo,
+					"URL" => $freeurl,
+					"ORDER_ID" => $ID,
+					"ORDER_USER"=> Message::getClientName($ID)
+				);
+				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 
                 CSaleOrder::StatusOrder($ID, "D");
             }
         }
 
-        //Create gift coupon after buy certificate
+		//Create gift coupon after buy certificate
         $IBLOCK_ID = GIFT_COUNPON_IBLOCK_ID;
         if ($val=='Y') {
             GLOBAL $APPLICATION;
@@ -414,66 +414,66 @@
             $order = CSaleOrder::GetById($ID);
             //если флаг оплаты не стоит - ставим
             if ($order["PAYED"] != "Y") {
-                $order_list = CSaleOrder::GetByID($ID);
-                $allBooksUrl = '';
-                $bookId = '';
-                $recId = '';
-                $sendinfo = '';
+				$order_list = CSaleOrder::GetByID($ID);
+				$allBooksUrl = '';
+				$bookId = '';
+				$recId = '';
+				$sendinfo = '';
 
-                $orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
-                if (!empty($orderUser["UF_TEST"])) {
-                    $allUrlsArray = unserialize($orderUser["UF_TEST"]);
-                } else {
-                    $allUrlsArray = array();
-                }
-                $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
+				$orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
+				if (!empty($orderUser["UF_TEST"])) {
+					$allUrlsArray = unserialize($orderUser["UF_TEST"]);
+				} else {
+					$allUrlsArray = array();
+				}
+				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $ID), false, false, array());
 
-                $ids = '';
-                while ($arItems = $dbBasketItems->Fetch()) {
-                    $ids .= $arItems["PRODUCT_ID"].',';
-                }
+				$ids = '';
+				while ($arItems = $dbBasketItems->Fetch()) {
+					$ids .= $arItems["PRODUCT_ID"].',';
+				}
 
-                $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
+				$products = getUrlForFreeDigitalBook(substr($ids,0,-1));
 
-                if ($products['url'] != 'error') {
-                    $allUrlsArray[] = array("orderid" => $ID, "products" => $products);
+				if ($products['url'] != 'error') {
+					$allUrlsArray[] = array("orderid" => $ID, "products" => $products);
 
-                    $sendinfo .= '<ol>';
+					$sendinfo .= '<ol>';
 
-                    foreach($products['products'] as $product) {
-                        if ($product['status'] == 'ok') {
-                            $sendinfo .= '<li style="padding-top:5px;">'.$product['name'].'</li>';
-                        } else {
-                            $sendinfo .= '<li style="padding-top:5px;">Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
-                        }
-                    }
+					foreach($products['products'] as $product) {
+						if ($product['status'] == 'ok') {
+							$sendinfo .= '<li style="padding-top:5px;">'.$product['name'].'</li>';
+						} else {
+							$sendinfo .= '<li style="padding-top:5px;">Вместо книги «'.$product['name'].'», которой нет в наличии, мы дарим вам книгу «'.$product['recname'].'»</li>';
+						}
+					}
 
-                    $sendinfo .= '</ol>';
+					$sendinfo .= '</ol>';
 
-                    $links = serialize($allUrlsArray);
+					$links = serialize($allUrlsArray);
 
-                    $fieldsGend = Array(
-                        "UF_TEST"                        => $links
-                    );
-                    $userGend = new CUser;
-                    $userGend->Update($order_list['USER_ID'], $fieldsGend);
+					$fieldsGend = Array(
+						"UF_TEST"						=> $links
+					);
+					$userGend = new CUser;
+					$userGend->Update($order_list['USER_ID'], $fieldsGend);
 
-                    $freeurl = $products['url'];
+					$freeurl = $products['url'];
 
-                    $useremail = Message::getClientEmail($ID);
-                } else {
-                    $freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
-                    $useremail = 'a.marchenkov@alpinabook.ru';
-                }
-                $mailFields = array(
-                    //"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
-                    "EMAIL"=> $useremail,
-                    "TEXT" => $sendinfo,
-                    "URL" => $freeurl,
-                    "ORDER_ID" => $ID,
-                    "ORDER_USER"=> Message::getClientName($ID)
-                );
-                CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
+					$useremail = Message::getClientEmail($ID);
+				} else {
+					$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
+					$useremail = 'a.marchenkov@alpinabook.ru';
+				}
+				$mailFields = array(
+					//"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
+					"EMAIL"=> $useremail,
+					"TEXT" => $sendinfo,
+					"URL" => $freeurl,
+					"ORDER_ID" => $ID,
+					"ORDER_USER"=> Message::getClientName($ID)
+				);
+				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 
                 // при смене статуса и последующего автоматического CSaleOrder::PayOrder
                 // не срабатывает хендлер OnSalePayOrder, поэтому применяем выполнение функции здесь после оплаты
@@ -485,116 +485,116 @@
         }
 
 
-        //----- Отправка смс при изменении статуса заказа
+		//----- Отправка смс при изменении статуса заказа
         if (array_key_exists($val,Message::$messages)){
-            if ($val=="C") { // ---- статус собран может быть только для заказов с самовывозом
-                if (Message::getOrderDeliveryType($ID)==2) {
-                    $message = new Message();
-                    $order = CSaleOrder::GetById($ID);
-                    $result = $message->sendMessage($ID,$val,'',$order['PRICE']);
-                }
-            } else {
-                $message = new Message();
-                $result = $message->sendMessage($ID,$val);
-            }
+			if ($val=="C") { // ---- статус собран может быть только для заказов с самовывозом
+				if (Message::getOrderDeliveryType($ID)==2) {
+					$message = new Message();
+					$order = CSaleOrder::GetById($ID);
+					$result = $message->sendMessage($ID,$val,'',$order['PRICE']);
+				}
+			} else {
+				$message = new Message();
+				$result = $message->sendMessage($ID,$val);
+			}
         }
 
-        //----- Триггерные письма при изменении статуса заказа
-        if ($val=="C") { // Статус собран
-            if (Message::getOrderDeliveryType($ID)==2) { //2 - ID службы доставки "самовывоз"
-                $arEventFields = array(
-                    "EMAIL"=> Message::getClientEmail($ID),
-                    "ORDER_USER"=> Message::getClientName($ID),
-                    "ORDER_ID"=> $ID
+		//----- Триггерные письма при изменении статуса заказа
+		if ($val=="C") { // Статус собран
+			if (Message::getOrderDeliveryType($ID)==2) { //2 - ID службы доставки "самовывоз"
+				$arEventFields = array(
+					"EMAIL"=> Message::getClientEmail($ID),
+					"ORDER_USER"=> Message::getClientName($ID),
+					"ORDER_ID"=> $ID
 
-                );
-                CEvent::Send("SALE_STATUS_CHANGED_C_NEW", "s1", $arEventFields,"N");
-            }
-        } elseif ($val=="D") { // Статус оплачен
-            if (Message::getOrderDeliveryType($ID) == 2) { // самовывоз
-                $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран в течение двух рабочих часов.';
-            } elseif (Message::getOrderDeliveryType($ID) == 17) { // PickPoint
-                $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки <a href="http://pickpoint.ru/" target="_blank">PickPoint</a>.';
-            } elseif (in_array(Message::getOrderDeliveryType($ID), array(12,13,14,15))) { // Курьерская доставка
-                $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан курьеру. Ожидайте звонок представителя курьерской службы в день доставки.';
-            } else {
-                $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки.';
-            }
+				);
+				CEvent::Send("SALE_STATUS_CHANGED_C_NEW", "s1", $arEventFields,"N");
+			}
+		} elseif ($val=="D") { // Статус оплачен
+			if (Message::getOrderDeliveryType($ID) == 2) { // самовывоз
+				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран в течение двух рабочих часов.';
+			} elseif (Message::getOrderDeliveryType($ID) == 17) { // PickPoint
+				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки <a href="http://pickpoint.ru/" target="_blank">PickPoint</a>.';
+			} elseif (in_array(Message::getOrderDeliveryType($ID), array(12,13,14,15))) { // Курьерская доставка
+				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан курьеру. Ожидайте звонок представителя курьерской службы в день доставки.';
+			} else {
+				$orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки.';
+			}
 
-            $arEventFields = array(
-                "EMAIL" => Message::getClientEmail($ID),
-                "ORDER_USER" => Message::getClientName($ID),
-                "ORDER_ID" => $ID,
-                "ORDER_PAY_INFO" => $orderPayInfo
+			$arEventFields = array(
+				"EMAIL" => Message::getClientEmail($ID),
+				"ORDER_USER" => Message::getClientName($ID),
+				"ORDER_ID" => $ID,
+				"ORDER_PAY_INFO" => $orderPayInfo
 
-            );
-            CEvent::Send("ORDER_PAYED_MANUAL", "s1", $arEventFields,"N");
-        }
+			);
+			CEvent::Send("ORDER_PAYED_MANUAL", "s1", $arEventFields,"N");
+		}
     }
 
-    //Получаем ссылку на бесплатную книгу в приложении Бизнес книги
+	//Получаем ссылку на бесплатную книгу в приложении Бизнес книги
     function getUrlForFreeDigitalBook($productID) {
-        $ids = explode(',', $productID);
-        $forurl = array();
-        $products = array();
+		$ids = explode(',', $productID);
+		$forurl = array();
+		$products = array();
 
-        foreach ($ids as $checkbook) {
+		foreach ($ids as $checkbook) {
 
-            $name = CIBlockElement::GetByID($checkbook)->Fetch();
-            $name = $name['NAME'];
-            $existinstore = CIBlockElement::GetProperty(4, $checkbook, array("sort" => "asc"), Array("CODE"=>"appstore"))->Fetch();
+			$name = CIBlockElement::GetByID($checkbook)->Fetch();
+			$name = $name['NAME'];
+			$existinstore = CIBlockElement::GetProperty(4, $checkbook, array("sort" => "asc"), Array("CODE"=>"appstore"))->Fetch();
 
-            if ($existinstore[VALUE] == 231) {
-                $products[] = array('id' => $checkbook, 'status' => 'ok', 'name' => $name, 'rec' => '', 'recname' => '');
-                $forurl[] = $checkbook;
-            } else {
-                $recid = CIBlockElement::GetProperty(4, $checkbook, array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
-                if ($recid[VALUE]) {
-                    $recname = CIBlockElement::GetByID($recid[VALUE])->Fetch();
-                    $recname = $recname['NAME'];
-                    $products[] = array('id' => $checkbook, 'status' => 'rec', 'name' => $name, 'rec' => $recid[VALUE], 'recname' => $recname);
-                    $forurl[] = $recid[VALUE];
-                }
-            }
-        }
+			if ($existinstore[VALUE] == 231) {
+				$products[] = array('id' => $checkbook, 'status' => 'ok', 'name' => $name, 'rec' => '', 'recname' => '');
+				$forurl[] = $checkbook;
+			} else {
+				$recid = CIBlockElement::GetProperty(4, $checkbook, array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
+				if ($recid[VALUE]) {
+					$recname = CIBlockElement::GetByID($recid[VALUE])->Fetch();
+					$recname = $recname['NAME'];
+					$products[] = array('id' => $checkbook, 'status' => 'rec', 'name' => $name, 'rec' => $recid[VALUE], 'recname' => $recname);
+					$forurl[] = $recid[VALUE];
+				}
+			}
+		}
 
-        $prepareurl = '';
-        foreach ($forurl as $m => $urlid) {
-            if ($m == 0) {
-                $prepareurl .= '?emag_id[]='.$urlid;
-            } else {
-                $prepareurl .= '&emag_id[]='.$urlid;
-            }
-        }
-        $freeBookUrl = array();
+		$prepareurl = '';
+		foreach ($forurl as $m => $urlid) {
+			if ($m == 0) {
+				$prepareurl .= '?emag_id[]='.$urlid;
+			} else {
+				$prepareurl .= '&emag_id[]='.$urlid;
+			}
+		}
+		$freeBookUrl = array();
 
-        $url = "http://api5.alpinadigital.ru/api/v1/gift/emag/".$prepareurl;
+		$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/".$prepareurl;
 
-        $ch = curl_init();
+		$ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER,
-            array(
-                "Content-type: application/json",
-                "X-AD-Offer: 1",
-                "X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
-            )
-        );
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        $output = curl_exec($ch);
-        curl_close($ch);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER,
+			array(
+				"Content-type: application/json",
+				"X-AD-Offer: 1",
+				"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
+			)
+		);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		$output = curl_exec($ch);
+		curl_close($ch);
 
         $outputRes = json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
             return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
         }, $output));
-        $output = get_object_vars($outputRes[0]);
+		$output = get_object_vars($outputRes[0]);
 
-        if (isset($output["url"])) {
-            $freeBookUrl = array('url' => $output["url"], 'products' => $products);
-        } else {
-            $freeBookUrl = array('url' => 'error', 'products' => $products);
-        }
+		if (isset($output["url"])) {
+			$freeBookUrl = array('url' => $output["url"], 'products' => $products);
+		} else {
+			$freeBookUrl = array('url' => 'error', 'products' => $products);
+		}
 
         return $freeBookUrl;
     }
@@ -730,10 +730,10 @@
     {
         function OnAfterUserRegister(&$arFields, &$arTemplate)
         {
-            if ($arTemplate["ID"] == 2) {
-                $arFields["PASS"] = $arFields["PASSWORD"];
-                $arFields["C_PASS"] = $arFields["CONFIRM_PASSWORD"];
-            }
+			if ($arTemplate["ID"] == 2) {
+				$arFields["PASS"] = $arFields["PASSWORD"];
+				$arFields["C_PASS"] = $arFields["CONFIRM_PASSWORD"];
+			}
 
             CModule::IncludeModule('subscribe');
 
@@ -894,14 +894,14 @@
         *
         *************/
 
-           function getClientEmail($id){
-            $db_props = CSaleOrderPropsValue::GetOrderProps($id);
-            while ($arProps = $db_props->Fetch()){
-                if($arProps['CODE']=='EMAIL'){
-                    return $arProps["VALUE"];
-                }
-            }
-        }
+       	function getClientEmail($id){
+			$db_props = CSaleOrderPropsValue::GetOrderProps($id);
+			while ($arProps = $db_props->Fetch()){
+				if($arProps['CODE']=='EMAIL'){
+					return $arProps["VALUE"];
+				}
+			}
+		}
 
         /***************
         *
@@ -919,7 +919,7 @@
             $phone = $this->getPhone($ID);
             $name = $this->getClientName($ID);
             $message = preg_replace('/order/',$ID,self::$messages[$val]); // ---- вставляем номер заказа
-            $message = preg_replace('/ordsum/',$ordsum,$message); // ---- вставляем сумму заказа
+			$message = preg_replace('/ordsum/',$ordsum,$message); // ---- вставляем сумму заказа
             $message = preg_replace('/clientName/',$name,$message); // ---- вставляем имя клиента
             if($curArr != ''){
                 $message = preg_replace('/cur_name/',$curArr['CUR']['NAME'],$message); // ---- вставляем имя курьера
@@ -1014,7 +1014,7 @@
                 $oldElStatus = $arFields['PROPERTY_STATE_ENUM_ID'];
                 $bookName = $arFields['NAME'];
                 $bookHref = "https://www.alpinabook.ru".$arFields['DETAIL_PAGE_URL'];
-                $bookImg = CFile::ResizeImageGet($arFields['DETAIL_PICTURE'], array("width" => 200, "height" => 270), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+				$bookImg = CFile::ResizeImageGet($arFields['DETAIL_PICTURE'], array("width" => 200, "height" => 270), BX_RESIZE_IMAGE_PROPORTIONAL, true);
             }
 
             $newElStatus = $arParams['PROPERTY_VALUES'][56][0]["VALUE"];
@@ -1161,10 +1161,10 @@
         if ($orderArr['DELIVERY_ID'] == 2){
             $arFields['EMAIL_ADDITIONAL_INFO'] = "<tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;\" valign=\"top\" colspan=\"2\">";
             $arFields['EMAIL_ADDITIONAL_INFO'] .= "Заказ будет собран в&nbsp;течение двух рабочих часов. Забрать заказ можно по&nbsp;адресу <em>м.Полежаевская, ул.4-ая&nbsp;Магистральная, д.5, 2&nbsp;подъезд, 2&nbsp;этаж.</em> <br />Офис работает по&nbsp;будням с&nbsp;8&nbsp;до&nbsp;18&nbsp;часов.";
-            $arFields['EMAIL_ADDITIONAL_INFO'] .= "<br /><br /><b>Как к нам пройти</b><br /><br />Метро «Полежаевская», первый вагон из центра (в связи с реконструкцией станции выход из последнего вагона закрыт), из вестибюля налево. После выхода на улицу огибаете метро справа и двигаетесь вдоль Хорошевского шоссе. Далее проходите мимо ресторана «Макдоналдс», банков «Альфа-Банк» и «Промсвязь Банк», поворачиваете направо и выходите на 4-ю Магистральную улицу. Переходите на противоположную сторону и идете до пересечения 4-й Магистральной улицы с Магистральным переулком. Угловой дом - №5. Вам нужен второй подъезд, второй этаж.";
+			$arFields['EMAIL_ADDITIONAL_INFO'] .= "<br /><br /><b>Как к нам пройти</b><br /><br />Метро «Полежаевская», первый вагон из центра (в связи с реконструкцией станции выход из последнего вагона закрыт), из вестибюля налево. После выхода на улицу огибаете метро справа и двигаетесь вдоль Хорошевского шоссе. Далее проходите мимо ресторана «Макдоналдс», банков «Альфа-Банк» и «Промсвязь Банк», поворачиваете направо и выходите на 4-ю Магистральную улицу. Переходите на противоположную сторону и идете до пересечения 4-й Магистральной улицы с Магистральным переулком. Угловой дом - №5. Вам нужен второй подъезд, второй этаж.";
             $arFields['EMAIL_ADDITIONAL_INFO'] .= "</td></tr>";
 
-            $arFields['YANDEX_MAP'] = "<tr><td style=\"border-collapse: collapse;padding-bottom:20px;\"><table align=\"left\" width=\"100%\"><tbody><tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" colspan=\"2\" valign=\"top\"><img src=\"https://www.alpinabook.ru/img/ymap.png\" /></td></tr></tbody></table></td></tr>";
+			$arFields['YANDEX_MAP'] = "<tr><td style=\"border-collapse: collapse;padding-bottom:20px;\"><table align=\"left\" width=\"100%\"><tbody><tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" colspan=\"2\" valign=\"top\"><img src=\"https://www.alpinabook.ru/img/ymap.png\" /></td></tr></tbody></table></td></tr>";
         }
 
         if ($arFields['PRICE'] > 2000) {
@@ -1460,13 +1460,13 @@
     {
         if ($arTemplate["ID"] == 131)
         {
-            $order_list=CSaleOrder::GetByID($arFields['ORDER_ID']);
-            $arFields['HREF']='<a href="https://pochta.ru/tracking#'.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Почты России</a>.';
+			$order_list=CSaleOrder::GetByID($arFields['ORDER_ID']);
+			$arFields['HREF']='<a href="https://pochta.ru/tracking#'.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Почты России</a>.';
             if ($order_list['DELIVERY_ID']==17) {
                 $arFields['HREF']='<a href="http://pickpoint.ru/" target="_blank">на сайте PickPoint</a>.';
             } elseif ($order_list['DELIVERY_ID']==30) {
-                $arFields['HREF']='<a href="http://flippost.com/instruments/online/" target="_blank">Flipost</a>.';
-            }
+				$arFields['HREF']='<a href="http://flippost.com/instruments/online/" target="_blank">Flipost</a>.';
+			}
         }
     }
 
@@ -1641,16 +1641,16 @@
         }
     }
 
-    /*AddEventHandler('main', 'OnEpilog', '_Check404Error', 1);
-    function _Check404Error(){
-       if(defined('ERROR_404') && ERROR_404=='Y' || CHTTP::GetLastStatus() == "404 Not Found"){
-          GLOBAL $APPLICATION;
-          $APPLICATION->RestartBuffer();
-          require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
-          require $_SERVER['DOCUMENT_ROOT'].'/404.php';
-          require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
-       }
-    } */
+	/*AddEventHandler('main', 'OnEpilog', '_Check404Error', 1);
+	function _Check404Error(){
+	   if(defined('ERROR_404') && ERROR_404=='Y' || CHTTP::GetLastStatus() == "404 Not Found"){
+		  GLOBAL $APPLICATION;
+		  $APPLICATION->RestartBuffer();
+		  require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
+		  require $_SERVER['DOCUMENT_ROOT'].'/404.php';
+		  require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/footer.php';
+	   }
+	} */
 
 
     AddEventHandler('sale', 'OnSalePayOrder', 'AddNewGiftIBlockElement');
