@@ -1012,3 +1012,7 @@ select {
 	color: white;
 	background: #c7a371;
 }
+
+.PayPal_button {
+    float: left;
+}
