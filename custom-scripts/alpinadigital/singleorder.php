@@ -1,4 +1,4 @@
-﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 if ($USER->isAdmin()) {
 if ($_GET['orderid'] || $_GET['emailbooks']) {
 
@@ -91,7 +91,7 @@ if (CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N")) {
 	<input type="submit" value="Отправить бесплатные книги">
 	</form>
 	<br /><br />
-	Ниже пока отлаживается. Не трогать <br />
+	
 	<form action="/custom-scripts/alpinadigital/singleorder.php">
 	<input type="text" name="orderidbooks" value="" placeholder="Номер заказа" required><br />
 	<input type="text" name="emailbooks" value="" placeholder="Email" required><br />
