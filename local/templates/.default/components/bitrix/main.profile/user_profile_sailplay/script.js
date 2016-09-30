@@ -31,6 +31,19 @@ $(function(){
         $("input[name=LOGIN]").val($("input[name=EMAIL]").val());     
     })
     
+    $(".saved_card_line li").on("click", function(){
+    	if ($(this).data("delete-card")) {
+    		$.ajax({
+	            type: "POST",
+	            url: "/ajax/delete_recurrent_card.php",
+	            data: {}
+	        }).done(function() {
+				$(".recurrent_card_exists").hide();
+				$(".empty_recurrent_card").show();
+	        });
+    	}
+    })
+    
     BX.addCustomEvent('onAjaxSuccess', function(){$(".account-form").show()}); 
 })
 
