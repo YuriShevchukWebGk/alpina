@@ -95,6 +95,18 @@
         <?// ******************** /User properties ***************************************************?>
         <br />
         <p><?echo $arResult["GROUP_POLICY"]["PASSWORD_REQUIREMENTS"];?></p>
+        <div class="account-form__set2 bank_cards_set">
+            <div class="account-form__set-head"><?= GetMessage('BANK_CARDS') ?></div>
+            <div class="recurrent_card_exists" <? if (!$arResult["UF_RECURRENT_CARD_ID"]) { ?>style="display:none"<? } ?>>
+	            <p><?= GetMessage('EXISTING_CARD_MESSAGE') ?></p>
+				<ul class="saved_card_line">
+					<li><?= $arResult["UF_RECURRENT_CARD_ID"] ?></li>
+					<li data-delete-card="Y"><?= GetMessage('DELETE') ?></li>
+				</ul>
+            </div>
+            <div class="empty_recurrent_card" <? if ($arResult["UF_RECURRENT_CARD_ID"]) { ?>style="display:none"<? } ?>>
+	            <p><?= GetMessage('EMPTY_CARD_MESSAGE') ?></p>
+            </div>
+        </div>
     </form>
-
 </div>
