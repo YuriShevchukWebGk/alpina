@@ -49,6 +49,7 @@ IncludeTemplateLangFile(__FILE__);
         }
     </script> 
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
+	<!-- header .eshop_app -->
 </head>
 <?$APPLICATION->IncludeComponent("bitrix:eshopapp.data","",Array(
 ),false, Array("HIDE_ICONS" => "Y"));

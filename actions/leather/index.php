@@ -103,9 +103,12 @@ font-family: 'Walshein_regular'"><!--+7 (495) 980 80 77-->
     </div>
 </header>
         <div class="allPageWrap" style="padding-top:65px;">
-            <a rel="group" href="img/22.png"><div class="bookResizeBlock1"></div></a>
+            <?/*<a rel="group" href="img/22.png"><div class="bookResizeBlock1"></div></a>
             <a rel="group" href="img/23.png"><div class="bookResizeBlock2"></div></a>
-            <a rel="group" href="img/24.png"><div class="bookResizeBlock3"></div></a>
+            <a rel="group" href="img/24.png"><div class="bookResizeBlock3"></div></a>*/?>
+			<div class="bookResizeBlock1"></div>
+            <div class="bookResizeBlock2"></div>
+            <div class="bookResizeBlock3"></div>
 
 
             <img src="img/curtain.png" class="bigCurtan">

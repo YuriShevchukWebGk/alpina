@@ -61,56 +61,27 @@
             {   
                 if (strlen(trim(str_replace("<br />", "", $arPaySystem["DESCRIPTION"]))) > 0 || intval($arPaySystem["PRICE"]) > 0)
                 {?>
-                <?  
-                    if ($arPaySystem["ID"] == PAYPAL_PAYSYSTEM_ID) {
-                        global $USER;
-                        if ($USER->IsAdmin()) {?>
-                            <input type="radio"
-                                class="radioInp"
-                                id="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>"
-                                name="PAY_SYSTEM_ID"
-                                value="<?=$arPaySystem["ID"]?>"
-                                <?if ($arPaySystem["CHECKED"]=="Y" && !($arParams["ONLY_FULL_PAY_FROM_ACCOUNT"] == "Y" && $arResult["USER_VALS"]["PAY_CURRENT_ACCOUNT"]=="Y")) echo " checked=\"checked\"";?>
-                                onclick="changePaySystem();" />
-                            <label for="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>" onclick="BX('ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>').checked=true;changePaySystem();" class="faceText">
-                                <?=$arPaySystem["PSA_NAME"];?>
-                            </label>
+                <input type="radio"
+                    class="radioInp"
+                    id="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>"
+                    name="PAY_SYSTEM_ID"
+                    value="<?=$arPaySystem["ID"]?>"
+                    <?if ($arPaySystem["CHECKED"]=="Y" && !($arParams["ONLY_FULL_PAY_FROM_ACCOUNT"] == "Y" && $arResult["USER_VALS"]["PAY_CURRENT_ACCOUNT"]=="Y")) echo " checked=\"checked\"";?>
+                    onclick="changePaySystem();" />
+                <label for="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>" onclick="BX('ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>').checked=true;changePaySystem();" class="faceText">
+                    <?=$arPaySystem["PSA_NAME"];?>
+                </label>
 
-                            <p class="shipingText">
-                                <?
-                                    if (intval($arPaySystem["PRICE"]) > 0)
-                                        echo str_replace("#PAYSYSTEM_PRICE#", SaleFormatCurrency(roundEx($arPaySystem["PRICE"], SALE_VALUE_PRECISION), $arResult["BASE_LANG_CURRENCY"]), GetMessage("SOA_TEMPL_PAYSYSTEM_PRICE"));
-                                    else
-                                        echo $arPaySystem["DESCRIPTION"];
-                                ?>
-                            </p>
+                <p class="shipingText">
+                    <?
+                        if (intval($arPaySystem["PRICE"]) > 0)
+                            echo str_replace("#PAYSYSTEM_PRICE#", SaleFormatCurrency(roundEx($arPaySystem["PRICE"], SALE_VALUE_PRECISION), $arResult["BASE_LANG_CURRENCY"]), GetMessage("SOA_TEMPL_PAYSYSTEM_PRICE"));
+                        else
+                            echo $arPaySystem["DESCRIPTION"];
+                    ?>
+                </p>
 
-                            <div class="clear"></div>    
-                        <?}    
-                    } else {?>
-                        <input type="radio"
-                            class="radioInp"
-                            id="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>"
-                            name="PAY_SYSTEM_ID"
-                            value="<?=$arPaySystem["ID"]?>"
-                            <?if ($arPaySystem["CHECKED"]=="Y" && !($arParams["ONLY_FULL_PAY_FROM_ACCOUNT"] == "Y" && $arResult["USER_VALS"]["PAY_CURRENT_ACCOUNT"]=="Y")) echo " checked=\"checked\"";?>
-                            onclick="changePaySystem();" />
-                        <label for="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>" onclick="BX('ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>').checked=true;changePaySystem();" class="faceText">
-                            <?=$arPaySystem["PSA_NAME"];?>
-                        </label>
-
-                        <p class="shipingText">
-                            <?
-                                if (intval($arPaySystem["PRICE"]) > 0)
-                                    echo str_replace("#PAYSYSTEM_PRICE#", SaleFormatCurrency(roundEx($arPaySystem["PRICE"], SALE_VALUE_PRECISION), $arResult["BASE_LANG_CURRENCY"]), GetMessage("SOA_TEMPL_PAYSYSTEM_PRICE"));
-                                else
-                                    echo $arPaySystem["DESCRIPTION"];
-                            ?>
-                        </p>
-
-                        <div class="clear"></div>                    
-                    <?}?>
-
+                <div class="clear"></div>                    
                 <?  
                     //варианты оплаты для электронных платежей
                     if($arPaySystem['ID'] == RFI_PAYSYSTEM_ID && $arResult["USER_VALS"]['PAY_SYSTEM_ID'] == RFI_PAYSYSTEM_ID){?>

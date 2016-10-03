@@ -30,6 +30,7 @@
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
 	<meta name="theme-color" content="#ffffff">	
 <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
+<!-- header .desktop_app -->
 </head>
 <body class="<?=$APPLICATION->ShowProperty("BodyClass");?>">
 <!-- Google Tag Manager -->
