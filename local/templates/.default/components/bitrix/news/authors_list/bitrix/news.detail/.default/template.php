@@ -55,7 +55,7 @@ $sects = $sects_list -> Fetch();
                         <img src="/images/no_photo.png" width="200">
                     <?}?>
                 </div>    
-                <div class='events'>
+                <?/*<div class='events'>
                     <?$APPLICATION->IncludeComponent(
                             "bitrix:news.list", 
                             "events_small_block", 
@@ -120,7 +120,7 @@ $sects = $sects_list -> Fetch();
                             ),
                             false
                         );?>
-                </div>
+                </div>*/?>
             </div>
             <div class="textWrap">
                 <?=html_entity_decode($arResult["PROPERTIES"]["AUTHOR_DETAIL_INFO"]["VALUE"]["TEXT"]);?>

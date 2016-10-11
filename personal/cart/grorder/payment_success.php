@@ -1,5 +1,10 @@
 ﻿
 <?// --- if user came from readright,then redirect him to readright
+file_put_contents(
+    dirname(__FILE__) . "/log.txt",
+    var_export($_GET, 1)."\n",
+    FILE_APPEND
+);
 $string = '<script type="text/javascript">';
 $string .= 'window.location = "http://readright.ru/private_office/?billnumber='.$_GET['order_id'].'"';
 $string .= '</script>';

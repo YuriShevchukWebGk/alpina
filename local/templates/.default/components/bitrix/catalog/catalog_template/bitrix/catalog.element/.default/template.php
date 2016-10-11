@@ -374,7 +374,7 @@ $arItemIDs = array(
                                     } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
 									<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                     <link itemprop="availability" href="https://schema.org/PreOrder">
-									<meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "MM.DD.YYYY HH:MI:SS"))?>" />
+									<meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
                                     <? $StockInfo = "SoonStock"; ?>
                                     <p class="newPrice" style="font-size:20px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
 
@@ -481,6 +481,8 @@ $arItemIDs = array(
                         </form>
                         <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
                     </div>
+					
+					<?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
                     <ul class="shippings">
                         <?
                             $today = date("w");
@@ -551,6 +553,7 @@ $arItemIDs = array(
 						<?/*<li class="lastli"><a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" class="noborderlink" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});">Хотите тираж со своим логотипом?</a></li>*/?>
 
                     </ul>
+					<?}?>
 
                     <div class="typesOfProduct">
                         <?if (!empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) ) {?>
@@ -1569,7 +1572,7 @@ $printid = implode(", ", $printid2);?>
 </script>
 <script type="text/javascript">
 cackle_widget = window.cackle_widget || [];
-cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{?(it.numr + it.numv) > 0}}{{=it.stars}} оценок: {{=it.numr+it.numv}}{{?}}'<?if (!$USER -> IsAuthorized()) {?>,readonly:'true'<?}?>});
+cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{?(it.numr + it.numv) > 0}}{{=it.stars}} оценок: {{=it.numr+it.numv}}{{?}}'});
 (function() {
     var mc = document.createElement('script');
     mc.type = 'text/javascript';

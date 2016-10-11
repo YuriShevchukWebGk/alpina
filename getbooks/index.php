@@ -13,6 +13,7 @@ CModule::IncludeModule('iblock');
 $rs = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 4));
 $res = array();
 while($book = $rs->GetNextElement()) {
+  if(empty($book->GetProperties()["BOOK_CLUB"]["VALUE"])) continue;
   if(empty(CFile::GetPath($book->fields["DETAIL_PICTURE"]))) continue;
   if(empty(CPrice::GetList(array(), array("PRODUCT_ID" => $book->fields["ID"]))->Fetch()["PRICE"])) continue;
 
@@ -23,13 +24,19 @@ while($book = $rs->GetNextElement()) {
     array_push($authors, CIBlockElement::GetList(array(), array("IBLOCK_ID" => 29,"ID" => $pp["VALUE"]))->Fetch()["NAME"]);
   }
 
-
-  array_push($res, array("name" => $book->fields["NAME"],
+  array_push($res, array(
+    "bitrix_id" => $book->fields["ID"],
+    "name" => $book->fields["NAME"],
     "picture" => CFile::GetPath($book->fields["DETAIL_PICTURE"]),
     "price" => CPrice::GetList(array(), array("PRODUCT_ID" => $book->fields["ID"]))->Fetch()["PRICE"],
     "author" => implode($authors, ", "),
-    "publisher" => $book->GetProperties()["PUBLISHER"]["VALUE"]//CIBlockElement::GetProperty(4, $BOOK["ID"], array("sort" => "asc"), array("CODE" => "PUBLISHER"))->Fetch()
-  ));
+    "publisher" => $book->GetProperties()["PUBLISHER"]["VALUE"],
+    "description" => $book->GetProperties()["DESCRIPTION"]["VALUE"],
+    "cover" => $book->GetProperties()["COVER_TYPE"]["VALUE"],
+    "pages" => $book->GetProperties()["PAGES"]["VALUE"],
+    "year" => $book->GetProperties()["YEAR"]["VALUE"],
+    "isbn" => $book->GetProperties()["ISBN"]["VALUE"],
+ ));
 }
 
 echo json_encode($res, JSON_PRETTY_PRINT);

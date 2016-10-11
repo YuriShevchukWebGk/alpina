@@ -125,6 +125,9 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 minDatePlus = 1;
             }
         }
+		if (parseInt($('.order_weight').text()) > 5000) {
+			minDatePlus++;
+		}
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;
