@@ -11,6 +11,22 @@ $string .= '</script>';
 
 if(preg_match('/GR_/',$_GET['order_id'])){
     require_once($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/main/include/prolog_before.php");
+	$postdata = http_build_query(
+        array(
+           'email' => $_GET['email']
+       )
+    );
+
+    $opts = array('http' =>
+       array(
+           'method'  => 'POST',
+           'header'  => 'Content-type: application/x-www-form-urlencoded',
+           'content' => $postdata
+      )
+    );
+    
+    $context  = stream_context_create($opts);
+    $result = file_get_contents('http://readright.ru/gr_orders_payments.php', false, $context);
     echo $string;
 } else {?>
     <?
