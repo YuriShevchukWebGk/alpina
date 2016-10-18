@@ -31,7 +31,7 @@ for($index = 0; $index < $itemSize; $index++) {
     $arrow = ($index > 0? '<i class="fa fa-angle-right"></i>' : '');
 
     // не включать "Каталог" в цепочку навигации
-    if ($arResult[$index]["LINK"] <> "/catalog/" && ($index <> 2) && $title != 'Анонсы лекций') {
+    if ($arResult[$index]["LINK"] <> "/catalog/" && ($index <> 2) && $title != 'Анонсы лекций' && $title != 'Баннеры в мероприятиях') {
 		$i++;
         if(($arResult[$index]["LINK"] <> "" && $index != $itemSize-1)) {
             

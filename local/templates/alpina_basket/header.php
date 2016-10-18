@@ -73,6 +73,7 @@
         }
     </script>
 	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>	
+	<!-- header .alpina_basket -->
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
 <?if ($USER->IsAuthorized()) {

@@ -50,6 +50,7 @@ function ShowSwf(sSwfPath, width1, height1)
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
 	<meta name="theme-color" content="#ffffff">	
 <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
+<!-- header .learning -->
 </head>
 
 <body itemscope itemtype="https://schema.org/WebPage">

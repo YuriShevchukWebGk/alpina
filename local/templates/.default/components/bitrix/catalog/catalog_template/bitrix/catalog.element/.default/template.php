@@ -374,7 +374,7 @@ $arItemIDs = array(
                                     } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
 									<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                     <link itemprop="availability" href="https://schema.org/PreOrder">
-									<meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "MM.DD.YYYY HH:MI:SS"))?>" />
+									<meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
                                     <? $StockInfo = "SoonStock"; ?>
                                     <p class="newPrice" style="font-size:20px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
 
@@ -481,6 +481,8 @@ $arItemIDs = array(
                         </form>
                         <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
                     </div>
+					
+					<?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
                     <ul class="shippings">
                         <?
                             $today = date("w");
@@ -551,6 +553,7 @@ $arItemIDs = array(
 						<?/*<li class="lastli"><a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" class="noborderlink" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});">Хотите тираж со своим логотипом?</a></li>*/?>
 
                     </ul>
+					<?}?>
 
                     <div class="typesOfProduct">
                         <?if (!empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) ) {?>
@@ -599,75 +602,77 @@ $arItemIDs = array(
                             <a href="#"><p class="takePart">Принять участие</p></a>
                         </div>
                         <?}?>
-                        <? global $author_filter;
-                        $author_filter = array("PROPERTY_AUTHOR_LINK" => $arResult['PROPERTIES']['AUTHORS']['VALUE'][0]);
+                        <?if(!empty($arResult['PROPERTIES']['AUTHORS']['VALUE'][0])){?>
+                            <? global $author_filter;
+                            $author_filter = array("PROPERTY_AUTHOR_LINK" => $arResult['PROPERTIES']['AUTHORS']['VALUE'][0]);
                             $APPLICATION->IncludeComponent(
-	"bitrix:news.list", 
-	"lections_announces", 
-	array(
-		"ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"ADD_SECTIONS_CHAIN" => "Y",
-		"AJAX_MODE" => "N",
-		"AJAX_OPTION_ADDITIONAL" => "",
-		"AJAX_OPTION_HISTORY" => "N",
-		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y",
-		"CACHE_FILTER" => "N",
-		"CACHE_GROUPS" => "N",
-		"CACHE_TIME" => "36000000",
-		"CACHE_TYPE" => "A",
-		"CHECK_DATES" => "Y",
-		"DETAIL_URL" => "",
-		"DISPLAY_BOTTOM_PAGER" => "N",
-		"DISPLAY_DATE" => "Y",
-		"DISPLAY_NAME" => "Y",
-		"DISPLAY_PICTURE" => "Y",
-		"DISPLAY_PREVIEW_TEXT" => "Y",
-		"DISPLAY_TOP_PAGER" => "N",
-		"FIELD_CODE" => array(
-			0 => "NAME",
-			1 => "",
-		),
-		"FILTER_NAME" => "author_filter",
-		"HIDE_LINK_WHEN_NO_DETAIL" => "Y",
-		"IBLOCK_ID" => "60",
-		"IBLOCK_TYPE" => "service",
-		"INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
-		"INCLUDE_SUBSECTIONS" => "Y",
-		"MESSAGE_404" => "",
-		"NEWS_COUNT" => "1",
-		"PAGER_BASE_LINK_ENABLE" => "N",
-		"PAGER_DESC_NUMBERING" => "N",
-		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-		"PAGER_SHOW_ALL" => "N",
-		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_TEMPLATE" => ".default",
-		"PAGER_TITLE" => "Новости",
-		"PARENT_SECTION" => "",
-		"PARENT_SECTION_CODE" => "",
-		"PREVIEW_TRUNCATE_LEN" => "",
-		"PROPERTY_CODE" => array(
-			0 => "LECTION_DATE",
-			1 => "EVENT_LINK",
-			2 => "EVENT_TYPE",
-			3 => "AUTHOR_LINK",
-			4 => "",
-		),
-		"SET_BROWSER_TITLE" => "Y",
-		"SET_LAST_MODIFIED" => "N",
-		"SET_META_DESCRIPTION" => "Y",
-		"SET_META_KEYWORDS" => "Y",
-		"SET_STATUS_404" => "N",
-		"SET_TITLE" => "Y",
-		"SHOW_404" => "N",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC",
-		"COMPONENT_TEMPLATE" => "lections_announces"
-	),
-	false
-);?>       
+	                            "bitrix:news.list",
+	                            "lections_announces",
+	                            array(
+		                            "ACTIVE_DATE_FORMAT" => "d.m.Y",
+		                            "ADD_SECTIONS_CHAIN" => "Y",
+		                            "AJAX_MODE" => "N",
+		                            "AJAX_OPTION_ADDITIONAL" => "",
+		                            "AJAX_OPTION_HISTORY" => "N",
+		                            "AJAX_OPTION_JUMP" => "N",
+		                            "AJAX_OPTION_STYLE" => "Y",
+		                            "CACHE_FILTER" => "N",
+		                            "CACHE_GROUPS" => "N",
+		                            "CACHE_TIME" => "36000000",
+		                            "CACHE_TYPE" => "A",
+		                            "CHECK_DATES" => "Y",
+		                            "DETAIL_URL" => "",
+		                            "DISPLAY_BOTTOM_PAGER" => "N",
+		                            "DISPLAY_DATE" => "Y",
+		                            "DISPLAY_NAME" => "Y",
+		                            "DISPLAY_PICTURE" => "Y",
+		                            "DISPLAY_PREVIEW_TEXT" => "Y",
+		                            "DISPLAY_TOP_PAGER" => "N",
+		                            "FIELD_CODE" => array(
+			                            0 => "NAME",
+			                            1 => "",
+		                            ),
+		                            "FILTER_NAME" => "author_filter",
+		                            "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
+		                            "IBLOCK_ID" => "49",
+		                            "IBLOCK_TYPE" => "service",
+		                            "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
+		                            "INCLUDE_SUBSECTIONS" => "Y",
+		                            "MESSAGE_404" => "",
+		                            "NEWS_COUNT" => "1",
+		                            "PAGER_BASE_LINK_ENABLE" => "N",
+		                            "PAGER_DESC_NUMBERING" => "N",
+		                            "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		                            "PAGER_SHOW_ALL" => "N",
+		                            "PAGER_SHOW_ALWAYS" => "N",
+		                            "PAGER_TEMPLATE" => ".default",
+		                            "PAGER_TITLE" => "Новости",
+		                            "PARENT_SECTION" => "",
+		                            "PARENT_SECTION_CODE" => "",
+		                            "PREVIEW_TRUNCATE_LEN" => "",
+		                            "PROPERTY_CODE" => array(
+			                            0 => "LECTION_DATE",
+			                            1 => "EVENT_LINK",
+			                            2 => "EVENT_TYPE",
+			                            3 => "AUTHOR_LINK",
+			                            4 => "",
+		                            ),
+		                            "SET_BROWSER_TITLE" => "Y",
+		                            "SET_LAST_MODIFIED" => "N",
+		                            "SET_META_DESCRIPTION" => "Y",
+		                            "SET_META_KEYWORDS" => "Y",
+		                            "SET_STATUS_404" => "N",
+		                            "SET_TITLE" => "Y",
+		                            "SHOW_404" => "N",
+		                            "SORT_BY1" => "ACTIVE_FROM",
+		                            "SORT_BY2" => "SORT",
+		                            "SORT_ORDER1" => "DESC",
+		                            "SORT_ORDER2" => "ASC",
+		                            "COMPONENT_TEMPLATE" => "lections_announces"
+	                            ),
+	                            false
+                            );?>
+                        <?}?>
                 </div>
                 <div class="subscr_result"></div>
                 <div class="centerColumn">
@@ -1567,7 +1572,7 @@ $printid = implode(", ", $printid2);?>
 </script>
 <script type="text/javascript">
 cackle_widget = window.cackle_widget || [];
-cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{?(it.numr + it.numv) > 0}}{{=it.stars}} оценок: {{=it.numr+it.numv}}{{?}}'<?if (!$USER -> IsAuthorized()) {?>,readonly:'true'<?}?>});
+cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{?(it.numr + it.numv) > 0}}{{=it.stars}} оценок: {{=it.numr+it.numv}}{{?}}'});
 (function() {
     var mc = document.createElement('script');
     mc.type = 'text/javascript';

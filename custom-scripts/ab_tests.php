@@ -8,13 +8,49 @@ if ($alpExps['updateExp'] != "050916") {
     $alpExps['updateExp'] = "050916";
 }
 
-/*if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
-	$alpExps['lightFont']	= (!$alpExps['lightFont'] ? rand(1,2) : $alpExps['lightFont']);
-}*/
+if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI']) || preg_match("/(.*)\/authors\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
+	$alpExps['autoHyphens']	= (!$alpExps['autoHyphens'] ? rand(1,2) : $alpExps['autoHyphens']);
+}
 
 $alpExps['bigFontMenu']	= (!$alpExps['bigFontMenu'] ? rand(1,2) : $alpExps['bigFontMenu']);
 
 ?>
+<!-- Тест Автоматического переноса слов -->
+<?
+if ($alpExps['autoHyphens'] == 1) {?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			dataLayer.push({
+				event: 'ab-test-gtm',
+				action: 'autoHyphens',
+				label: 'withoutHyphens'
+			});
+			console.log('autoHyphens withoutHyphens');
+		});
+	</script>
+<?} elseif ($alpExps['autoHyphens'] == 2) {?>
+	<style>
+		.content .textWrap, #prodBlock1 {
+			-webkit-hyphens: auto;
+			-ms-hyphens: auto;
+			hyphens: auto;
+		}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".content .textWrap, #prodBlock1").attr('lang','ru');
+			dataLayer.push({
+				event: 'ab-test-gtm',
+				action: 'autoHyphens',
+				label: 'autoHyphens'
+			});
+			console.log('autoHyphens autoHyphens');
+		});
+	</script>
+<?
+}?>
+<!-- //Тест Автоматического переноса слов -->
+
 <!-- Тест Увеличенного шрифта в меню сверху -->
 <?
 if ($alpExps['bigFontMenu'] == 1) {?>
@@ -47,43 +83,6 @@ if ($alpExps['bigFontMenu'] == 1) {?>
 <?
 }?>
 <!-- //Тест Увеличенного шрифта в меню сверху -->
-
-
-<!-- Тест Шрифта -->
-<?/*if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
-	if ($alpExps['lightFont'] == 1) {?>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				dataLayer.push({
-					event: 'ab-test-gtm',
-					action: 'lightFont',
-					label: 'regularFont'
-				});
-				console.log('lightFont regularFont');
-			});
-		</script>
-	<?} elseif ($alpExps['lightFont'] == 2) {?>
-		<style>
-			.elementDescriptWrap .annotation span, .elementDescriptWrap .annotation ul, .elementDescriptWrap .annotation {
-				font-family: "Walshein_light";
-				font-size: 18px;
-				color: #2e3c3f;
-			}
-		</style>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				dataLayer.push({
-					event: 'ab-test-gtm',
-					action: 'lightFont',
-					label: 'lightFont'
-				});
-				console.log('lightFont lightFont');
-			});
-		</script>
-	<?}
-}*/?>
-<!-- //Тест Шрифта -->
-
 
 <!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
 <?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {

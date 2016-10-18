@@ -102,11 +102,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
             } else if (ourday == 4) { //четверг
                 minDatePlus = 1;
             } else if (ourday == 5) { //пятница
-                minDatePlus = 4;
-            } else if (ourday == 6) { //суббота
                 minDatePlus = 3;
-            } else if (ourday == 0) { //воскресенье
+            } else if (ourday == 6) { //суббота
                 minDatePlus = 2;
+            } else if (ourday == 0) { //воскресенье
+                minDatePlus = 1;
             }
         } else { // Майские праздники
             if (ourday == 1) { //понедельник
@@ -125,6 +125,9 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 minDatePlus = 1;
             }
         }
+		if (parseInt($('.order_weight').text()) > 5000) {
+			minDatePlus++;
+		}
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;
@@ -598,7 +601,9 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                         false
                     );?>
             </div>
-
+			<div style="padding:10px 0 0 22px;color: #7b8c90;font-family: 'Walshein_regular';font-size: 16px;">
+				Нажимая на кнопку «Оформить заказ» вы соглашаетесь с условиями <a href="/info_popup/oferta.php" class="cartMenuPopup">публичной оферты</a>
+			</div>
             <?endif?>
     </div>
 </div>

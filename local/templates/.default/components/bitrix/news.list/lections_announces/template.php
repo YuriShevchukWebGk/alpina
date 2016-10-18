@@ -25,7 +25,7 @@ if (!empty($arResult["ITEMS"])) {?>
                 <?if (!empty($arItem["PROPERTIES"]["EVENT_TYPE"])) {?>
                     <div class="event_type">
                         <?= $arItem["PROPERTIES"]["EVENT_TYPE"]["VALUE"] ?>
-                    </div>    
+                    </div>
                 <?}?>
 		        <?if($arParams["DISPLAY_NAME"]!="N" && $arItem["NAME"]):?>
 			        <?if(!$arParams["HIDE_LINK_WHEN_NO_DETAIL"] || ($arItem["DETAIL_TEXT"] && $arResult["USER_HAVE_ACCESS"])):?>

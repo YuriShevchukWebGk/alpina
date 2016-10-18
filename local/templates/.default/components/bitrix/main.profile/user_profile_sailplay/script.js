@@ -26,7 +26,7 @@ function SectionClick(id)
 }
 
 $(function(){
-    $("input[name=PERSONAL_PHONE]").inputmask("+7(999)99-99-99");
+    $("input[name=PERSONAL_PHONE]").inputmask("+7(999)999-99-99");
     $("input[name=EMAIL]").blur(function(){
         $("input[name=LOGIN]").val($("input[name=EMAIL]").val());     
     })

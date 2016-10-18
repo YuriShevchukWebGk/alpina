@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
     <?$APPLICATION->ShowHead();?>
 	<meta name="yandex-verification" content="7771afb530c4322e" />
+	<!-- header .alpina_holding -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 <!-- Google Tag Manager -->
