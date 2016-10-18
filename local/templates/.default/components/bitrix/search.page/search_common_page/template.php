@@ -32,6 +32,15 @@
                 </p>
             </div>
         </div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				dataLayer.push({
+					event: 'searchResults',
+					action: 'resultsFound',
+					label: '<?= $arResult["REQUEST"]["QUERY"] ?>'
+				});
+			});
+		</script>
         <?/* Получаем рекомендации для поиска от RetailRocket */
         global $arrFilter;
         $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword=' . $arResult["REQUEST"]["QUERY"]);
@@ -435,7 +444,15 @@
                 <p class="noResText">К сожалению, по запросу "<?= $_REQUEST["q"] ?>" ничего не найдено, попробуйте изменить поисковый запрос или следуйте нашим рекомендациям.</p>
             </div>
         </div>
-
+		<script type="text/javascript">
+			$(document).ready(function() {
+				dataLayer.push({
+					event: 'searchResults',
+					action: 'nothingFound',
+					label: '<?=$_REQUEST["q"]?>'
+				});
+			});
+		</script>
         <div class="categoryWrapperWhite">
             <div class="interestSlideWrap">
                 <?

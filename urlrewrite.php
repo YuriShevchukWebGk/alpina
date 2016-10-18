@@ -25,10 +25,34 @@ $arUrlRewrite = array(
 		"PATH" => "/good-arithmetics-news/index.php",
 	),
 	array(
+		"CONDITION" => "#^/testpersonal/order/#",
+		"RULE" => "",
+		"ID" => "bitrix:sale.personal.order",
+		"PATH" => "/testpersonal/order/index.php",
+	),
+	array(
 		"CONDITION" => "#^/online/(/?)([^/]*)#",
 		"RULE" => "",
 		"ID" => "bitrix:im.router",
 		"PATH" => "/desktop_app/router.php",
+	),
+	array(
+		"CONDITION" => "#^/testcatalog/#",
+		"RULE" => "",
+		"ID" => "bitrix:catalog",
+		"PATH" => "/testcatalog/index.php",
+	),
+	array(
+		"CONDITION" => "#^/teststore/#",
+		"RULE" => "",
+		"ID" => "bitrix:catalog.store",
+		"PATH" => "/teststore/index.php",
+	),
+	array(
+		"CONDITION" => "#^/testnews/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/testnews/index.php",
 	),
 	array(
 		"CONDITION" => "#^/authors/#",

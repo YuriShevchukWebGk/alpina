@@ -2474,6 +2474,7 @@ right: 45px;
 }
 .elementDescriptWrap .elementMainPict img{
     /*    width: 264px;*/
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.18), 0px 10px 7px 0px rgba(0, 0, 0, 0.14);
 }
 .elementDescriptWrap .elementMainPict:hover .overlay{
     display: block;
@@ -2802,7 +2803,7 @@ right: 45px;
 .centerColumn .productName{
     color: #fff;
     font-family: "Walshein_regular";
-    font-size: 24px;
+    font-size: 26px;
     padding-top: 34px;
 }
 .centerColumn .topBlock {
@@ -4645,15 +4646,23 @@ right: 45px;
     margin-top: 1px;
 }
 .authorisationWrapper input[type="submit"], .authWrapper input[type="submit"] {
-    background-color: #ffffff;
-    border: 2px solid #c7a271;
+    background-color: #c7a271;
+    border: 2px solid #fff;
     border-radius: 50px;
-    color: #c7a271;
+    color: #fff;
     font-family: "Walshein_regular";
     font-size: 19px;
     margin: 28px 220px;
     padding: 10px 78px;
     cursor: pointer;
+	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
+	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+}
+.authorisationWrapper input[type="submit"]:hover, .authWrapper input[type="submit"]:hover {
+	background-color:#d0b28c;
 }
 .authorisationWrapper .socServisesText, .authWrapper .socServisesText {
     border-top: 1px solid #ebebeb;

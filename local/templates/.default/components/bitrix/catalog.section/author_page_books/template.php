@@ -30,7 +30,7 @@ global $authorName;
                     <div class="bookWrapp" itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
                         <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
                         <div class="section_item_img">
-                            <img src="<?=$pict["src"]?>" itemprop="image">
+                            <img src="<?=$pict["src"]?>" itemprop="image" alt="Книга «<?=$arItem["NAME"]?>»" title="Книга «<?=$arItem["NAME"]?>»">
                         </div>
                         <p class="bookName" itemprop="name"><?=$arItem["NAME"]?></p>
                         </a>

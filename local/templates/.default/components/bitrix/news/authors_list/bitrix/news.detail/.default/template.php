@@ -19,7 +19,11 @@ $authorName = $arResult["PROPERTIES"]["ALT_NAME"]["VALUE"];
 $sects_list = CIBlockSection::GetList (array(), array("IBLOCK_ID" => 29, 'NAME' => substr($arResult["PROPERTIES"]["LAST_NAME"]["VALUE"], 0, 1)), false, array("ID", "NAME"), $filter);
 $sects = $sects_list -> Fetch();
 ?>
-
+<script>
+$(document).ready(function() {
+	$('#detailReview a:not([href*="alpinabook.ru"])').attr('target','_blank').attr('rel','nofollow'); //Если ссылка в рецензии не содержит alpinabook, то открывает в новой вкладке и закрываем через nofollow
+});
+</script>
 <div class="authorWrap">
     <div class="titleWrap">
         <div class="catalogWrapper">
@@ -37,11 +41,11 @@ $sects = $sects_list -> Fetch();
 					<meta itemprop="position" content="3" />
 				</span> / 
 				<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-					<span itemprop="name"><?=$arResult["NAME"]?>
+					<span itemprop="name"><?=$arResult["NAME"]?></span>
 					<meta itemprop="position" content="4" />
 				</span>
 			</p>
-            <h1 style="margin-top:0;" class="mainTitle"><?=$arResult["NAME"]?></h1>
+            <h1 style="margin-top:0;" class="mainTitle"><?=$arResult["NAME"]?><?echo !empty($arResult["PROPERTIES"]["ORIG_NAME"]["VALUE"]) ? " / ".$arResult["PROPERTIES"]["ORIG_NAME"]["VALUE"] : ""?></h1>
         </div>
     </div>
     <div class="content" itemprop="mainEntity" itemscope itemtype="http://schema.org/Person">
