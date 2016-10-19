@@ -28,8 +28,8 @@
     <input type="hidden" name='send' value='yes'>
 </form>
 <?
-    if($_GET['send'] == 'yes'){
-        if((!empty($_GET['id_from']) && !empty($_GET['id_to']) && !empty($_GET["date_to"])) && ($_GET['id_from'] < $_GET['id_to'])){
+    if ($_GET['send'] == 'yes') {
+        if ((!empty($_GET['id_from']) && !empty($_GET['id_to']) && !empty($_GET["date_to"])) && ($_GET['id_from'] < $_GET['id_to'])) {
             for ($CouponID = $_GET['id_from']; $CouponID <= $_GET['id_to']; $CouponID++) {
                 $arCouponID[] = $CouponID;
             }
@@ -41,8 +41,7 @@
                 'ACTIVE_FROM' => $date_from,
                 'ACTIVE_TO' => $date_to
             );
-            foreach ($arCouponID as $couponID)
-            {
+            foreach ($arCouponID as $couponID) {
                 \Bitrix\Sale\Internals\DiscountCouponTable::update($couponID, $fields);
             }     
         } else {

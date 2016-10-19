@@ -9,8 +9,8 @@
     <input type='submit' value='Сгенерировать .csv'>
     <input type="hidden" name='send' value='yes'>
 </form>
-<?if($_GET['send'] == 'yes'){
-        if((!empty($_GET['id_from']) && !empty($_GET['id_to'])) && ($_GET['id_from'] < $_GET['id_to'])){
+<?if ($_GET['send'] == 'yes') {
+        if ((!empty($_GET['id_from']) && !empty($_GET['id_to'])) && ($_GET['id_from'] < $_GET['id_to'])) {
             for ($CouponID = $_GET['id_from']; $CouponID <= $_GET['id_to']; $CouponID++) {
                 $arCouponID[] = $CouponID;
             }
@@ -19,7 +19,7 @@
                 'select' => array('COUPON'),
                 'filter' => $arFilter
             ));    
-            while($arCoupon = $dbCoupon->Fetch()) {
+            while ($arCoupon = $dbCoupon->Fetch()) {
                 $arCouponCODE[] = $arCoupon["COUPON"];
             }
 
