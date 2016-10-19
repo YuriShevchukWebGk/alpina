@@ -118,9 +118,16 @@
                     $publishing_status = "04";
                     $product_availability = "21";
             }
+            $arItem["PREVIEW_TEXT"] = str_replace('ia_normal', '"ia_normal"', $arItem["PREVIEW_TEXT"]);
+            $preview_text = strip_tags($arItem["PREVIEW_TEXT"]);
+            //$special_symbols = array("&ndash;", "&laquo;", "&raquo;", "&mdash;", "&nbsp;", "&hellip;", "&bdquo;", "&ldquo;", "&rsquo;", "&#33;", "&#37", "&#40", "&#43", "&trade;", "&shy;", "&bull;", "&");
+           // $replacing_array = array("-", '"', '"', "-", " ", "", "'", "'", "'", ".", "%", ":", ":", "&amp;");
+           $special_symbols = array("&ndash;", "&laquo;", "&raquo;", "&mdash;", "&nbsp;", "&hellip;", "&bdquo;", "&ldquo;", "&rsquo;");
+            $replacing_array = array("-", '"', '"', "-", " ", "", "'", "'", "'");
+            $preview_text = htmlspecialchars(str_replace($special_symbols, $replacing_array, $preview_text));
             fwrite($fp, '<Header>'."\n");
             fwrite($fp, '<Sender>'."\n");
-            fwrite($fp, '<SenderName>' . $arItem["PROPERTY_PUBLISHER_VALUE"] . '</SenderName>'."\n");
+            fwrite($fp, '<SenderName>' . htmlspecialchars($arItem["PROPERTY_PUBLISHER_VALUE"]) . '</SenderName>'."\n");
             fwrite($fp, '</Sender>'."\n");
             fwrite($fp, '</Header>'."\n");
             
@@ -168,13 +175,13 @@
           
             fwrite($fp, '<TitleElement>'."\n");
             fwrite($fp, '<TitleElementLevel>01</TitleElementLevel>'."\n");
-            fwrite($fp, '<TitleText>'.$arItem["NAME"].'</TitleText>'."\n");
+            fwrite($fp, '<TitleText>'.htmlspecialchars($arItem["NAME"]).'</TitleText>'."\n");
             fwrite($fp, '</TitleElement>'."\n");
             
             if (strlen($arItem["PROPERTY_ENG_NAME_VALUE"]) > 0) {
                 fwrite($fp, '<TitleElement>'."\n");
                 fwrite($fp, '<TitleElementLevel>01</TitleElementLevel>'."\n");
-                fwrite($fp, '<TitleText language="eng">'.$arItem["PROPERTY_ENG_NAME_VALUE"].'</TitleText>'."\n");
+                fwrite($fp, '<TitleText language="eng">'.htmlspecialchars($arItem["PROPERTY_ENG_NAME_VALUE"]).'</TitleText>'."\n");
                 fwrite($fp, '</TitleElement>'."\n");
             }
            
@@ -232,7 +239,7 @@
             fwrite($fp, '<TextContent>'."\n");
             fwrite($fp, '<TextType>02</TextType>'."\n");
             fwrite($fp, '<ContentAudience>00</ContentAudience>'."\n");
-            fwrite($fp, '<Text>' . $arItem["PREVIEW_TEXT"] . '</Text>'."\n");
+            fwrite($fp, '<Text>' . $preview_text . '</Text>'."\n");
             foreach ($authors_name as $key => $curr_author) {
                 fwrite($fp, '<TextAuthor>' . $curr_author["NAME"] . '</TextAuthor>'."\n");
             }
@@ -261,7 +268,7 @@
                 fwrite($fp, '<ResourceMode>05</ResourceMode>'."\n");
                 fwrite($fp, '<ResourceVersion>'."\n");
                 fwrite($fp, '<ResourceForm>01</ResourceForm>'."\n");
-                fwrite($fp, '<ResourceLink>' . strstr(substr(stristr($arItem["PROPERTY_VIDEO_ABOUT_VALUE"], "src"), 5), '"', true) . '</ResourceLink>'."\n");
+                fwrite($fp, '<ResourceLink>' . htmlspecialchars(strstr(substr(stristr($arItem["PROPERTY_VIDEO_ABOUT_VALUE"], "src"), 5), '"', true)) . '</ResourceLink>'."\n");
                 fwrite($fp, '</ResourceVersion>'."\n");
                 fwrite($fp, '</SupportingResource>'."\n");
             }
@@ -277,7 +284,7 @@
             fwrite($fp, '<PublisherIDType>01</PublisherIDType>'."\n");
             fwrite($fp, '<IDValue>' . $arItem["PROPERTY_PUBLISHER_ENUM_ID"] . '</IDValue>'."\n");
             fwrite($fp, '</PublisherIdentifier>'."\n");
-            fwrite($fp, '<PublisherName>' . $arItem["PROPERTY_PUBLISHER_VALUE"] . '</PublisherName>'."\n");
+            fwrite($fp, '<PublisherName>' . htmlspecialchars($arItem["PROPERTY_PUBLISHER_VALUE"]) . '</PublisherName>'."\n");
             fwrite($fp, '</Publisher>'."\n");
             
             fwrite($fp, '<PublishingStatus>' . $publishing_status . '</PublishingStatus>'."\n");
