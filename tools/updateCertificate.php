@@ -7,8 +7,8 @@
 <br>
 <form action="">    
     ID от <input type='number' name='id_from' value='<?=$_GET['id_from']?>'>
-    ID до <input type='number' name='id_to' value='<?=$_GET['id_to']?>'><br>   
-    Обновить с даты по дату, поля можно оставлять пустыми. <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    ID до <input type='number' name='id_to' value='<?=$_GET['id_to']?>'><br><br>
+    Обновить с даты по дату, поля можно оставлять пустыми.<br>
           <?$APPLICATION->IncludeComponent(
             "bitrix:main.calendar",
             "",
@@ -39,7 +39,8 @@
             $date_from = new \Bitrix\Main\Type\DateTime($date_from);
             $fields = array(
                 'ACTIVE_FROM' => $date_from,
-                'ACTIVE_TO' => $date_to
+                'ACTIVE_TO' => $date_to,
+                'ACTIVE' => 'Y'
             );
             foreach ($arCouponID as $couponID) {
                 \Bitrix\Sale\Internals\DiscountCouponTable::update($couponID, $fields);
