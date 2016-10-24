@@ -1,5 +1,5 @@
 <?
-global $USER;
+/*global $USER;
 if ($USER->GetID() && $USER->IsAuthorized()) {
 	$users = CUser::GetList(
 		($by=""),
@@ -15,5 +15,5 @@ if ($USER->GetID() && $USER->IsAuthorized()) {
 		$arResult["UF_RECURRENT_ID"] = $user["UF_RECURRENT_ID"];
 		$arResult["UF_RECURRENT_CARD_ID"] = $user["UF_RECURRENT_CARD_ID"];
 	}
-}
+}*/
 ?>

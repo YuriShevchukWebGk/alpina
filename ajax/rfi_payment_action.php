@@ -1,6 +1,6 @@
 <?require_once($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/main/include/prolog_before.php");?>
 <?
-global $USER;
+/*global $USER;
 if ($_SESSION['rfi_recurrent_type'] == "next" && $USER->GetID() && $USER->IsAuthorized()) {
 	if (isUserHaveRecurrentCard($USER->GetID())) {	
 		unset($_SESSION['rfi_recurrent_type']);	
@@ -36,5 +36,5 @@ if ($_SESSION['rfi_recurrent_type'] == "next" && $USER->GetID() && $USER->IsAuth
 		$context  = stream_context_create($opts);
 		$result = file_get_contents('https://partner.rficb.ru/a1lite/input', false, $context);
 	}
-}
+}*/
 ?>
