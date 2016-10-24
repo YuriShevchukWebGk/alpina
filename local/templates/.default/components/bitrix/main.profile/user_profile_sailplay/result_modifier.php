@@ -1,6 +1,7 @@
 <?
-	// грузим сохраненные банковские карты пользователя, если они есть
-	global $USER;
+// грузим сохраненные банковские карты пользователя, если они есть
+global $USER;
+if ($USER->GetID() && $USER->IsAuthorized()) {
 	$users = CUser::GetList(
 		($by=""),
 		($order=""),
@@ -14,5 +15,5 @@
 	if ($user = $users->NavNext(true, "f_")) {
 		$arResult["UF_RECURRENT_CARD_ID"] = $user["UF_RECURRENT_CARD_ID"];
 	}
-	
+}
 ?>

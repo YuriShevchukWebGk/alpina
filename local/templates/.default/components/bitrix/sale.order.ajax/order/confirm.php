@@ -216,30 +216,25 @@
             ?>
             <br /><br />
             <div id="promocode-element-container"></div>
-            <?
-                if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12)
-                {
-                ?>
+            <? if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
+        		<? if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg" && $arResult["UF_RECURRENT_ID"]) { ?>
+                <script>
+                    $(document).ready(function() {
+                        var forPost = {},
+                        serForm = $("#rfi_form_payment").serializeArray();
+
+                        for (obj in serForm){
+                            forPost[serForm[obj].name] = serForm[obj].value;
+                        }
+
+                        $.post("/ajax/rfi_payment_action.php", forPost, function(data) {
+                            console.log(data);
+                        });
+                    })
+                </script>
+                <? } ?>
                 <table class="sale_order_full_table" >
-
-                    <? if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg") { ?>
-                        <script>
-                            $(document).ready(function() {
-                                var forPost = {},
-                                serForm = $("#rfi_form_payment").serializeArray();
-
-                                for (obj in serForm){
-                                    forPost[serForm[obj].name] = serForm[obj].value;
-                                }
-
-                                $.post("/ajax/rfi_payment_action.php", forPost, function(data) {
-                                    console.log(data);
-                                });
-                            })
-                        </script>
-                        <? } ?>
-
-                    <tr <? if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg") { ?> style="display: none" <? } ?>>
+                    <tr <? if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg" && $arResult["UF_RECURRENT_ID"]) { ?> style="display: none" <? } ?>>
                         <? if ($arResult["PAY_SYSTEM"]["ID"] != RFI_PAYSYSTEM_ID) { ?>
                             <td class="ps_logo">
                                 <div class="pay_name"><?=GetMessage("SOA_TEMPL_PAY")?></div>
