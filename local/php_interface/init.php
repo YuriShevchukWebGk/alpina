@@ -1710,7 +1710,7 @@
 	 * Проверяет, есть ли у пользователя рекуррентные карты
 	 * 
 	 * @param $user_id int
-	 * @return string|void 
+	 * @return string|bool 
 	 * 
 	 * */
 	function isUserHaveRecurrentCard($user_id) {
@@ -1726,6 +1726,8 @@
 		); 
 		if ($user = $users->NavNext(true, "f_")) {
 			return $user["UF_RECURRENT_CARD_ID"];
+		} else {
+			return false;
 		}
 	}
 ?>
