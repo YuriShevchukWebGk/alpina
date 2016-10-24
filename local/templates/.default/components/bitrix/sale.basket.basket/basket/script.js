@@ -879,7 +879,7 @@ function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
         bIsQuantityFloat = true;
     }
 
-    newVal = (bUseFloatQuantity === false && bIsQuantityFloat === false) ? parseInt(newVal) : parseFloat(newVal).toFixed(2);
+    newVal = (bUseFloatQuantity === false && bIsQuantityFloat === false) ? parseInt(newVal) : parseFloat(newVal).toFixed();
 
     if (bIsCorrectQuantityForRatio)
     {
@@ -928,7 +928,7 @@ function setQuantity(basketId, ratio, sign, bUseFloatQuantity)
 
     if (bUseFloatQuantity)
     {
-        newVal = newVal.toFixed(2);
+        newVal = newVal.toFixed();
     }
 
     if (ratio > 0 && newVal < ratio)
@@ -936,9 +936,9 @@ function setQuantity(basketId, ratio, sign, bUseFloatQuantity)
         newVal = ratio;
     }
 
-    if (!bUseFloatQuantity && newVal != newVal.toFixed(2))
+    if (!bUseFloatQuantity && newVal != newVal.toFixed())
     {
-        newVal = newVal.toFixed(2);
+        newVal = newVal.toFixed();
     }
 
     newVal = getCorrectRatioQuantity(newVal, ratio, bUseFloatQuantity);
@@ -966,7 +966,7 @@ function getCorrectRatioQuantity(quantity, ratio, bUseFloatQuantity)
 
     if (ratio !== 0 && ratio != 1)
     {
-        for (i = ratio, max = parseFloat(quantity) + parseFloat(ratio); i <= max; i = parseFloat(parseFloat(i) + parseFloat(ratio)).toFixed(2))
+        for (i = ratio, max = parseFloat(quantity) + parseFloat(ratio); i <= max; i = parseFloat(parseFloat(i) + parseFloat(ratio)).toFixed())
         {
             result = i;
         }
@@ -981,7 +981,7 @@ function getCorrectRatioQuantity(quantity, ratio, bUseFloatQuantity)
         bIsQuantityFloat = true;
     }
 
-    result = (bUseFloatQuantity === false && bIsQuantityFloat === false) ? parseInt(result, 10) : parseFloat(result).toFixed(2);
+    result = (bUseFloatQuantity === false && bIsQuantityFloat === false) ? parseInt(result, 10) : parseFloat(result).toFixed();
 
     return result;
 }
@@ -1047,32 +1047,35 @@ function recalcBasketAjax(params)
 			sum = parseInt(result.BASKET_DATA.allSum);
 			discabs = parseInt(result.BASKET_DATA.DISCOUNT_PRICE_ALL);
 			discrel = ((100*discabs)/(discabs+sum)).toFixed(0);
-			if (sum < 3000 && discrel == 10) {
+			if (sum < 2000) {
 				$('#discountMessage').show();
-				$('.sale_price').html('Вам не хватает '+ (3000 - sum).toFixed(2) +' руб. до получения скидки в 19%');
+				$('.sale_price').html('Добавьте товаров на '+ (2000 - sum).toFixed() +' руб. и получите БЕСПЛАТНУЮ доставку');
+			} else if (sum < 3000 && discrel == 10) {
+				$('#discountMessage').show();
+				$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 19%');
 				console.log(discrel);
 			} else if (sum < 3000 && discrel == 20) {
 				$('#discountMessage').show();
-				$('.sale_price').html('Вам не хватает '+ (3000 - sum).toFixed(2) +' руб. до получения скидки в 28%');
+				$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 28%');
 				console.log(discrel);
 			} else if (sum < 10000 && discrel == 19) {
 				$('#discountMessage').show();
-				$('.sale_price').html('Вам не хватает '+ (10000 - sum).toFixed(2) +' руб. до получения скидки в 28%');
+				$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 28%');
 				console.log(discrel);
 			} else if (sum < 10000 && discrel == 28) {
 				$('#discountMessage').show();
-				$('.sale_price').html('Вам не хватает '+ (10000 - sum).toFixed(2) +' руб. до получения скидки в 36%');
+				$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 36%');
 				console.log(discrel);
 			} else if (sum < 3000 && discrel < 10) {
 				$('#discountMessage').show();
-				$('.sale_price').html('Вам не хватает '+ (3000 - sum).toFixed(2) +' руб. до получения скидки в 10%');
+				$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 10%');
 				console.log(discrel);
 			} else if (sum < 10000 && discrel < 20) {
 				$('#discountMessage').show();
-				$('.sale_price').html('Вам не хватает '+ (10000 - sum).toFixed(2) +' руб. до получения скидки в 20%');
+				$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 20%');
 				console.log(discrel);
 			} else {
-				$('#discountMessage').hide();
+				$('#discountMessageWrap').hide();
 				console.log(discrel);
 			}
         }

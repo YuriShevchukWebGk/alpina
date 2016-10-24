@@ -13,9 +13,9 @@
 $this->setFrameMode(true);
 ?>
 <?if (!empty($arResult["ITEMS"])) {?>
-	<style>
+	<?/*<style>
 		.reviewsBlockDetail .reviewDatail {clear:none;}
-	</style>
+	</style>*/?>
     <div class="reviewsBlockDetail">
         <ul>
             <?foreach($arResult["ITEMS"] as $arItem) {   

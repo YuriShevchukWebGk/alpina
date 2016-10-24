@@ -154,8 +154,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <style>
 body {
-	background: url(img/back.jpg) no-repeat 50% 50%;
-	height: 2120px;
+	background: url(img/backn.jpg) no-repeat 50% 50%;
+	height: 1863px;
 }
 .topblock {
 	
@@ -259,6 +259,15 @@ body {
 .conditions ul {
     list-style-type: circle;
 }
+.winner {
+	display:inline-block;
+	text-align:center;
+	width:150px;
+}
+.winners {
+	margin: 0 auto;
+	max-width: 600px;
+}
 </style>
 
     <div class="landing">
@@ -323,7 +332,50 @@ body {
 			Приходите без подарка, подарки всем будем дарить мы.<br />
 			16 лет — не шутка, и мы намерены кутить целую неделю!
 		</div>
-		
+			
+		<div class="secondblock" style="margin-top: 40px;">
+			<div class="toptext">
+				Победители
+			</div>
+			<div class="toptext2">
+				Футболку получают заказы:<br />
+				<div class="winners">
+				<div class="winner">75048</div><div class="winner">
+				75097</div><div class="winner">
+				75294</div><div class="winner">
+				75500</div><div class="winner">
+				75398</div><div class="winner">
+				75138</div><div class="winner">
+				74958</div><div class="winner">
+				75471</div><div class="winner">
+				75327</div><div class="winner">
+				75139</div><div class="winner">
+				74958</div><div class="winner">
+				75462</div><div class="winner">
+				75277</div><div class="winner">
+				75359</div><div class="winner">
+				75185</div><div class="winner">
+				75358</div><div class="winner">
+				74944</div><div class="winner">
+				75328</div><div class="winner">
+				75035</div><div class="winner">
+				74948</div><div class="winner">
+				</div>
+
+
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/mha1x58lTPQ" frameborder="0" allowfullscreen></iframe><br /><br />
+				
+				Подарочный сертификат в «Детский мир» получают заказы:<br />
+				75509<br />
+				75234<br />
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/lKmfuNIUbFY" frameborder="0" allowfullscreen></iframe><br /><br />
+				
+				Ящик шампанского получает обладатель заказа 75057<br />
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/FlU8YqC5fsE" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+			
+		<?/*} else {?>
 		<div class="buttons">
 			<div class="wrap">
 				<a href="/catalog/new/?SORT=NEW">Новинки</a>
@@ -341,7 +393,7 @@ body {
 			</div>
 			<!-- /noindex -->
 		</div>
-		
+		<?}*/?>
 		
 		
 		

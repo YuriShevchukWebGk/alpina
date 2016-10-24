@@ -300,7 +300,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	</div>
 	<div id="header3">
 		Покупая бумажную книгу &laquo;Альпины&raquo; на&nbsp;нашем сайте,
-		вы&nbsp;также получаете ее&nbsp;в&nbsp;электронном виде на&nbsp;всех своих устройствах.
+		вы&nbsp;также<br />получаете ее&nbsp;или близкую по&nbsp;теме книгу в&nbsp;электронном<br />виде на&nbsp;всех своих устройствах.
 		<br />
 		<span class="underline">Бесплатно и&nbsp;моментально.</span>
 	</div>

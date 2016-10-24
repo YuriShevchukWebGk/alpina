@@ -228,7 +228,6 @@
                         }
 
                         $.post("/ajax/rfi_payment_action.php", forPost, function(data) {
-                            console.log(data);
                         });
                     })
                 </script>

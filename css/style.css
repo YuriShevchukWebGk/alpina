@@ -5707,3 +5707,8 @@ table.form-table tr td:nth-child(2){
 .js-history-popup {
 	top: 50px !important;
 }
+.content .textWrap, #prodBlock1 {
+	-webkit-hyphens: auto;
+	-ms-hyphens: auto;
+	hyphens: auto;
+}
