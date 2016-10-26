@@ -129,6 +129,7 @@
             fwrite($fp, '<Sender>'."\n");
             fwrite($fp, '<SenderName>' . htmlspecialchars($arItem["PROPERTY_PUBLISHER_VALUE"]) . '</SenderName>'."\n");
             fwrite($fp, '</Sender>'."\n");
+            fwrite($fp, '<SentDateTime>' . date("Ymd") . "</SentDateTime>\n");
             fwrite($fp, '</Header>'."\n");
             
             fwrite($fp, '<Product>'."\n");

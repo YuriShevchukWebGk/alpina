@@ -290,10 +290,10 @@
 
 	if ($psum < 2000) {
 		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
-	} elseif ($psum < 3000 && $pdiscrel == 10) {
+	} elseif ($psum < 3000 && CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()))[0][VALUE] == 10) {
 		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 19%";
 
-	} elseif ($psum < 3000 && $pdiscrel == 20) {
+	} elseif ($psum < 3000 && CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()))[0][VALUE] == 20) {
 		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
 
 	} elseif ($psum < 10000 && $pdiscrel == 19) {

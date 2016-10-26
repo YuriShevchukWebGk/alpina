@@ -373,6 +373,7 @@ $arItemIDs = array(
                                         <?if ($printDiscountText != '') {
                                             echo $printDiscountText; // цена до скидки
                                         }?>
+										В наличии
                                         <?}
                                     } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
 									<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />

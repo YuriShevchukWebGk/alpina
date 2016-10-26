@@ -1050,14 +1050,6 @@ function recalcBasketAjax(params)
 			if (sum < 2000) {
 				$('#discountMessage').show();
 				$('.sale_price').html('Добавьте товаров на '+ (2000 - sum).toFixed() +' руб. и получите БЕСПЛАТНУЮ доставку');
-			} else if (sum < 3000 && discrel == 10) {
-				$('#discountMessage').show();
-				$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 19%');
-				console.log(discrel);
-			} else if (sum < 3000 && discrel == 20) {
-				$('#discountMessage').show();
-				$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 28%');
-				console.log(discrel);
 			} else if (sum < 10000 && discrel == 19) {
 				$('#discountMessage').show();
 				$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 28%');
@@ -1073,6 +1065,14 @@ function recalcBasketAjax(params)
 			} else if (sum < 10000 && discrel < 20) {
 				$('#discountMessage').show();
 				$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 20%');
+				console.log(discrel);
+			} else if (sum < 3000 && discrel == 10) {
+				$('#discountMessage').show();
+				$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 19%');
+				console.log(discrel);
+			} else if (sum < 3000 && discrel == 20) {
+				$('#discountMessage').show();
+				$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 28%');
 				console.log(discrel);
 			} else {
 				$('#discountMessageWrap').hide();
