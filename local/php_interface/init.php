@@ -1703,4 +1703,31 @@
         $count = $order_list -> SelectedRowsCount();
         return $count;
     }
+	
+	
+	/**
+	 * 
+	 * Проверяет, есть ли у пользователя рекуррентные карты
+	 * 
+	 * @param $user_id int
+	 * @return string|bool 
+	 * 
+	 * */
+	function isUserHaveRecurrentCard($user_id) {
+		$users = CUser::GetList(
+			($by = ""),
+			($order = ""),
+			Array(
+				"ID" => $user_id
+			),
+			Array(
+				"SELECT" => Array("UF_RECURRENT_CARD_ID")
+			)
+		); 
+		if ($user = $users->NavNext(true, "f_")) {
+			return $user["UF_RECURRENT_CARD_ID"];
+		} else {
+			return false;
+		}
+	}
 ?>

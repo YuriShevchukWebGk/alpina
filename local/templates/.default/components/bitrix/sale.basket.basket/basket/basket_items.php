@@ -283,6 +283,38 @@
 
 
             <div class="grayDownLine"></div>
+<?
+	$psum = $arResult[allSum];
+	$pdiscabs = $arResult[DISCOUNT_PRICE_ALL];
+	$pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
+
+	if ($psum < 2000) {
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
+	} elseif ($psum < 3000 && CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()))[0][VALUE] == 10) {
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 19%";
+
+	} elseif ($psum < 3000 && CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()))[0][VALUE] == 20) {
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
+
+	} elseif ($psum < 10000 && $pdiscrel == 19) {
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((10000 - $psum), 2)." руб. и получите скидку 28%";
+
+	} elseif ($psum < 10000 && $pdiscrel == 28) {
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((10000 - $psum), 2)." руб. и получите скидку 36%";
+
+	} elseif ($psum < 3000 && $pdiscrel < 10) {
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
+
+	} elseif ($psum < 10000 && $pdiscrel < 20) {
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
+
+	}?>
+
+
+
+			<div id="discountMessageWrap" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
+				<span id="discountMessage" style="background:#fff9b7"><?=$printDiscountText?></span>
+			</div>			
 
             <p class="finalCost"><span id="allSum_FORMATED"><?=str_replace(" ", "&nbsp;", $arResult["allSum_FORMATED"])?></span></p>
             <p class="finalQuant">Кол-во: <span id="totalQuantity"><?=$totalQuantity?></span></p>
@@ -298,7 +330,7 @@
                 // arshow($arDiscount);
             ?>
             <?/*
-            <p class="finalDiscount">Вам не хватает 770 руб. до получения скидки в 10%</p>
+            <p class="finalDiscount">Вам не хватает 770 руб. и получите скидку 10%</p>
             */?>
 
             <p class="promoWrap"><span class="promocode" onclick="$('#coupon').toggle()">Есть промо-код/сертификат?<span></p>
@@ -423,73 +455,3 @@
     <?
         endif;
 ?>
-<?if ($USER->isAdmin()) {
-	CModule::IncludeModule("iblock");
-	CModule::IncludeModule("sale");
-	CModule::IncludeModule("catalog");
-	$arBasketItems = array();
-	$dbBasketItems = CSaleBasket::GetList(
-				  array("NAME" => "ASC","ID" => "ASC"),
-				  array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
-				  false,
-				  false,
-				  array("ID","MODULE","PRODUCT_ID","QUANTITY","CAN_BUY","PRICE"));
-	while ($arItems=$dbBasketItems->Fetch())
-	{
-	  $arItems=CSaleBasket::GetByID($arItems["ID"]);
-	  $arBasketItems[]=$arItems;
-	  $cart_num+=$arItems['QUANTITY'];
-	  $cart_sum+=$arItems['PRICE']*$arItems['QUANTITY'];
-	}
-	if (empty($cart_num))
-	  $cart_num="0";
-	if (empty($cart_sum))
-	  $cart_sum="0";?>	
-	<?
-		if ($cart_sum < 3000) {
-			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
-		} elseif ($cart_sum < 10000) {
-			$printDiscountText = "<span class='sale_price'>Вам не хватает " . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $cart_sum) . " руб. до получения скидки в " . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
-		} else {
-			$printDiscountText = "<span class='sale_price'>test</span>";
-		}
-	?>
-	<style>
-		#discountMessageClose:hover {
-			background:rgb(236, 236, 236) none repeat scroll 0% 0%;
-			color:red;
-		}
-		#discountMessageClose {
-			-webkit-transition: color .3s ease, background-color .3s ease, border-color .3s ease;
-			-moz-transition: color .3s ease, background-color .3s ease, border-color .3s ease;
-			-ms-transition: color .3s ease, background-color .3s ease, border-color .3s ease;
-			-o-transition: color .3s ease, background-color .3s ease, border-color .3s ease;
-			transition: color .3s ease, background-color .3s ease, border-color .3s ease;
-			display:block;
-			position:absolute;
-			top:10px;
-			right:10px;
-			cursor:pointer;
-			font-size:18px;
-			background:#fff;
-			color:#99ABB1;
-			text-align:center;
-			padding:2px;
-			border-radius:12px;
-			width:20px;
-			height:20px;
-		}
-	</style>
-	<div id="discountMessage" style="position:fixed;bottom:30px;right:30px;width:300px;background:#99ABB1;padding:25px 20px 20px 20px;z-index:10000;color:#fff;height:80px;font-family: 'Walshein_regular';">
-		<?=$printDiscountText?>
-		<span id="discountMessageClose">X</span>
-		<script>
-		$(document).ready(function() {
-			$("#discountMessageClose").click(function() {
-				$("#discountMessage").slideUp(1000);
-			});
-		});
-		</script>
-	</div>
-
-<?}?>

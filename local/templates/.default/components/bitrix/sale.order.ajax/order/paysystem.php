@@ -92,13 +92,13 @@
                         <li data-rfi-payment="spg">Visa/Mastercard</li>
                         <li data-rfi-payment="mc">Мобильный платеж</li>
                     </ul>
-                    <? if ($arResult["UF_RECURRENT_ID"]) { ?>
+                    <? /*if ($arResult["UF_RECURRENT_ID"]) { ?>
                         <ul class="recurrent_tabs">
                             <li class="active_recurrent_tab" data-rfi-recurrent-type="new"><?= GetMessage("RFI_RECURRENT_NEW_CARD") ?></li>
                             <li data-rfi-recurrent-type="next"><?= $arResult["UF_RECURRENT_CARD_ID"] ?></li>
                             <li><?= GetMessage("RFI_RECURRENT_DESCRIPTION") ?></li>
                         </ul>
-                        <? } ?>
+                        <? }*/ ?>
                     <?}?>          
                 <?}
 

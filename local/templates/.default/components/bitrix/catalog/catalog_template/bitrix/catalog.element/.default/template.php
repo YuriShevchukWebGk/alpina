@@ -135,16 +135,19 @@ $arItemIDs = array(
                             </div>
 						<?}?>
 
-						<?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
+						<?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365) {?>
 							<div class="digitalBookMark">
-								<p><span class="test"><?= GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
-								<span class="ttip">
-								<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {
-									echo GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");
-								} elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
+								
+								
+								<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+									<p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
+									<span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");?></span>
+								<?} elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
 									$recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
-									if($recBookName = $recBook->GetNext())
-										echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");
+									if($recBookName = $recBook->GetNext()) {?>
+										<p><span class="test">Бесплатная электронная версия книги «<?=substr($recBookName['NAME'],0,30)?><?echo strlen($recBookName['NAME']) > 30 ? '...' : '';?>» в комплекте</span></p>
+										<span class="ttip"><?echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");?></span>
+									<?}
 								}?>
 								</span>
 							</div>
@@ -370,6 +373,7 @@ $arItemIDs = array(
                                         <?if ($printDiscountText != '') {
                                             echo $printDiscountText; // цена до скидки
                                         }?>
+										В наличии
                                         <?}
                                     } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
 									<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
@@ -523,15 +527,19 @@ $arItemIDs = array(
                                     $delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
+									$delivery_day = GetMessage("IN_A_DAY");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
 									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+									$delivery_day = 'в четверг';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+									$delivery_day = 'в четверг';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
+									$delivery_day = 'в четверг';
                                 }
 
                                 if ($today == 5) {
