@@ -311,7 +311,7 @@
                             </td>
                             <? } ?>
                     </tr>
-                    <?
+                    <?  
                         if (strlen($arResult["PAY_SYSTEM"]["ACTION_FILE"]) > 0)
                         {
                         ?>
@@ -379,6 +379,158 @@
                 <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == 12) {
                     echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
                 }
+                $order_props = CSaleOrderPropsValue::GetOrderProps($arResult["ORDER"]["ID"]);
+                while ($props = $order_props -> Fetch()) {
+                    if ($props["CODE"] == "F_COMPANY_NAME") {
+                        $company_name = $props["VALUE"];
+                    }
+                    if ($props["CODE"] == "F_INN") {
+                        $company_inn = $props["VALUE"];
+                    }
+                    if ($props["CODE"] == "F_KPP") {
+                        $company_kpp = $props["VALUE"];
+                    }
+                    if ($props["CODE"] == "F_ADDRESS_FULL") {
+                        $address = $props["VALUE"];
+                    }
+                    if ($props["CODE"] == "PHONE") {
+                        $phone = $props["VALUE"];
+                    } 
+                }
+                if ($arResult["PAY_SYSTEM"]["ID"] == "14" && $arResult["ORDER"]["PERSON_TYPE_ID"] == 2) {
+                    $order_info = CSaleOrder::GetByID($arResult["ORDER"]["ID"]);
+                    ?>
+                    <div style="width: 800px;">
+                        <div style="text-align: center"><?= GetMessage("BLANK_TITLE") ?></div><br>
+                        <table class="receiver_block">
+                            <tr>
+                                <td rowspan="2" colspan="4"><div><?= GetMessage("RECEIVER_BANK_NAME") ?></div><span><?= GetMessage("RECEIVER_BANK_NAME_TITLE") ?></span></td>
+                                <td><?= GetMessage("BIK_TITLE") ?></td>
+                                <td><?= GetMessage("BIK") ?></td>
+                            </tr>
+                            <tr>
+                                <td><?= GetMessage("ACCOUNT_NUMBER_TITLE") ?></td>
+                                <td><?= GetMessage("ACCOUNT_BANK_NUMBER") ?></td>
+                            </tr>
+                            <tr>
+                                <td><?= GetMessage("INN_TITLE") ?></td>
+                                <td><?= GetMessage("INN") ?></td>
+                                <td><?= GetMessage("KPP_TITLE") ?></td>
+                                <td><?= GetMessage("KPP") ?></td>
+                                <td rowspan="2"><?= GetMessage("ACCOUNT_NUMBER_TITLE") ?></td>
+                                <td rowspan="2"><?= GetMessage("ACCOUNT_NUMBER") ?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><div><?= GetMessage("RECEIVER") ?></div><span><?= GetMessage("RECEIVER_TITLE") ?></span></td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div class="order_doc_title"><?= GetMessage("BLANK_NUMBER_TITLE") ?> <?= $arResult["ORDER"]["ID"] ?> <?= GetMessage("FROM_DATE") ?> <?= FormatDate("j F", MakeTimeStamp(date("d.m.Y", strtotime($order_info["DATE_INSERT"])), "DD.MM.YYYY HH:MI:SS")) ?></div>
+                        <br>
+                        <table class="order_company_info">
+                            <tr>
+                                <td><?= GetMessage("PROVIDER_TITLE") ?></td>
+                                <td>Общество с ограниченной ответственностью "Альпина Паблишер", ИНН 7705396957, КПП 770501001, 115035, Москва г, Космодамианская наб, дом № 4/22, корпус Б, оф.ПОМ. IX,  КОМН.1, тел.: (495) 980-53-54</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <table class="order_company_info">
+                            <tr>
+                                <td><?= GetMessage("CONSIGNOR_TITLE") ?></td>
+                                <td>Общество с ограниченной ответственностью "Альпина Паблишер", ИНН 7705396957, КПП 770501001, 115035, Москва г, Космодамианская наб, дом № 4/22, корпус Б, оф.ПОМ. IX,  КОМН.1, тел.: (495) 980-53-54</td>
+                            </tr>
+                        </table>
+                        <br> 
+                        <table class="order_company_info">
+                            <tr>
+                                <td><?= GetMessage("BUYER_TITLE") ?></td>
+                                <td><?= $company_name ?>, ИНН <?= $company_inn ?>, КПП <?= $company_kpp ?>, <?= $address ?>, тел.: <?= $phone ?></td>
+                            </tr>
+                        </table>
+                        <br> 
+                        <table class="order_company_info">
+                            <tr>
+                                <td><?= GetMessage("CONSIGNEE_TITLE") ?></td>
+                                <td><?= $company_name ?>, <?= GetMessage("INN_TITLE") ?> <?= $company_inn ?>, <?= GetMessage("KPP_TITLE") ?> <?= $company_kpp ?>, <?= $address ?>, <?= GetMessage("PHONE_TITLE") ?> <?= $phone ?></td>
+                            </tr>
+                        </table>
+                        <br>
+                        <table class="basket_list">
+                            <tr>
+                                <th><?= GetMessage("NUMBER") ?></th>
+                                <th><?= GetMessage("ITEMS") ?></th>
+                                <th><?= GetMessage("QUANTITY") ?></th>
+                                <th><?= GetMessage("QUANTITY_MEASURE") ?></th>
+                                <th><?= GetMessage("PRICE") ?></th>
+                                <th><?= GetMessage("VAT_RATE") ?></th>
+                                <th><?= GetMessage("VAT") ?></th>
+                                <th><?= GetMessage("SUMMARY") ?></th>
+                            </tr>
+                            <? $count = 1;
+                            $vat_rate = 0;
+                            $basket_list = CSaleBasket::GetList (array(), array("ORDER_ID" => $arResult["ORDER"]["ID"]), false, false, array());
+                            while ($basket = $basket_list -> Fetch()) {
+                               if ($basket["VAT_RATE"] * 10 <= 1) {
+                                   $multiplier = 0.0909;
+                               } else {
+                                   $multiplier = 0.1525;
+                               }?>
+                                <tr>
+                                    <td><?= $count ?></td>
+                                    <td><?= $basket["NAME"] ?></td>
+                                    <td><?= $basket["QUANTITY"] ?></td>
+                                    <td>шт.</td>
+                                    <td><?= round($basket["PRICE"], 2) ?></td>
+                                    <td><?= round($basket["VAT_RATE"] * 100) . "%" ?></td>
+                                    <td><?= round($basket["PRICE"] * $basket["QUANTITY"] * $multiplier, 2) ?></td>
+                                    <td><?= round($basket["PRICE"] * $basket["QUANTITY"], 2) ?></td>
+                                </tr>
+                            <? $count++;
+                            $vat_rate = $basket["VAT_RATE"] * 100;
+                            }
+                            ?>
+                        </table>
+                        <br>
+                        <table class="basket_summary">
+                            <tr>
+                                <td><?= GetMessage("VAT_TEXT") ?></td>
+                                <td><?= GetMessage("PRICE_VALUE") ?></td>
+                                <td><?= round($arResult["ORDER"]["PRICE"] - $arResult["ORDER"]["PRICE_DELIVERY"], 2) ?></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><?= GetMessage("INCLUDING_VAT") . $vat_rate ?>%:</td>
+                                <td><?= round($arResult["ORDER"]["TAX_VALUE"], 2) ?></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><?= GetMessage("TOTAL_TO_PAY") ?></td>
+                                <td><?= round($arResult["ORDER"]["PRICE"] - $arResult["ORDER"]["PRICE_DELIVERY"], 2) ?></td>
+                            </tr>
+                        </table>
+                        <div class="additional_info">
+                           <?= GetMessage("ADDITIONAL_INFO") ?>
+                        </div><br>
+                        <span><?= GetMessage("TOTAL_ITEMS") . round($arResult["ORDER"]["PRICE"] - $arResult["ORDER"]["PRICE_DELIVERY"], 2) . GetMessage("ROUBLES") ?></span><br>
+                        <span class="price_string"><?= num2str(round($arResult["ORDER"]["PRICE"] - $arResult["ORDER"]["PRICE_DELIVERY"], 2)) ?></span>
+                        <div class="quotes_block">
+                            <table>
+                                <tr>
+                                    <td><?= GetMessage("HEAD") ?></td>
+                                    <td><?= GetMessage("CEO") ?><br><div><?= GetMessage("POSITION") ?></div></td>
+                                    <td><br><div><?= GetMessage("QUOTE") ?></div></td>
+                                    <td><?= GetMessage("CEO_NAME") ?><br><div><?= GetMessage("QUOTE_TRANSCRIPT") ?></div></td>
+                                </tr>
+                                <tr>
+                                    <td><?= GetMessage("ACCOUNTANT") ?></td>
+                                    <td></td>
+                                    <td><br><div><?= GetMessage("QUOTE") ?></div></td>
+                                    <td><?= GetMessage("ACCOUNTANT_NAME") ?><br><div><?= GetMessage("QUOTE_TRANSCRIPT") ?></div></td>
+                                </tr>
+                            </table>
+                        </div>
+                  </div>     
+                <?}
         }?>
 
     </div>
