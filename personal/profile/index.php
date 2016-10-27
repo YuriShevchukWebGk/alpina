@@ -105,19 +105,19 @@ else
 </script>
 
 <script type="text/javascript">
-					    var AUTH_HASH = '<?= $hash ?>',
-					    	EMAIL     = '<?= $user_mail ?>';
-					    document.addEventListener('DOMContentLoaded', function () {
-					        var s = document.createElement("script");
-					        s.type = "text/javascript";
-					        s.src = "<?=SITE_TEMPLATE_PATH?>/js/main.min.js";
-					        document.getElementsByTagName("head")[0].appendChild(s);
-					        var ss = document.createElement("link");
-					        ss.type = "text/css";
-					        ss.rel = "stylesheet";
-					        ss.href = "<?=SITE_TEMPLATE_PATH?>/css/main.css";
-					        document.getElementsByTagName("head")[0].appendChild(ss);
-					    });
-					</script>		
+    var AUTH_HASH = '<?= $hash ?>',
+    	EMAIL     = '<?= $user_mail ?>';
+    document.addEventListener('DOMContentLoaded', function () {
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.src = "<?=SITE_TEMPLATE_PATH?>/js/main.min.js";
+        document.getElementsByTagName("head")[0].appendChild(s);
+        var ss = document.createElement("link");
+        ss.type = "text/css";
+        ss.rel = "stylesheet";
+        ss.href = "<?=SITE_TEMPLATE_PATH?>/css/main.css";
+        document.getElementsByTagName("head")[0].appendChild(ss);
+    });
+</script>		
        
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
