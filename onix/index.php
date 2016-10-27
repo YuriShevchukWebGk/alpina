@@ -10,7 +10,13 @@
         fwrite($fp, '<!DOCTYPE ONIXMessage SYSTEM "http://intranet/​onix/​ONIX_BookProduct_3.0_reference.dtd">'."\n");   
         fwrite($fp, '<ONIXMessage release="3.0" xmlns="http://ns.editeur.org/onix/3.0/reference">'."\n");     
         
-
+        fwrite($fp, '<Header>'."\n");
+        fwrite($fp, '<Sender>'."\n");
+        fwrite($fp, '<SenderName>Альпина Паблишер</SenderName>'."\n");
+        fwrite($fp, '</Sender>'."\n");
+        fwrite($fp, '<SentDateTime>' . date("Ymd") . "</SentDateTime>\n");
+        fwrite($fp, '</Header>'."\n");
+            
         $itemsList = CIBlockElement::GetList(array("NAME" => "ASC"), array("IBLOCK_ID" => CATALOG_IBLOCK_ID), false, false, array("NAME", "ID", "PREVIEW_TEXT", "PROPERTY_ENG_NAME", "PROPERTY_ISBN", "PROPERTY_PAGES", "PROPERTY_AUTHORS", "CATALOG_WEIGHT", "PROPERTY_YEAR", "PROPERTY_CIRCULATION", "PROPERTY_PUBLISHER", "PROPERTY_MORE_PHOTO", "PROPERTY_TRANSLATORS", "DETAIL_PICTURE", "PROPERTY_STATE", "PROPERTY_ARTNUMBER", "PROPERTY_video_about"));    
         while ($arItem = $itemsList->Fetch()) {
             $authors_name = array();
@@ -125,26 +131,24 @@
            $special_symbols = array("&ndash;", "&laquo;", "&raquo;", "&mdash;", "&nbsp;", "&hellip;", "&bdquo;", "&ldquo;", "&rsquo;");
             $replacing_array = array("-", '"', '"', "-", " ", "", "'", "'", "'");
             $preview_text = htmlspecialchars(str_replace($special_symbols, $replacing_array, $preview_text));
-            fwrite($fp, '<Header>'."\n");
-            fwrite($fp, '<Sender>'."\n");
-            fwrite($fp, '<SenderName>' . htmlspecialchars($arItem["PROPERTY_PUBLISHER_VALUE"]) . '</SenderName>'."\n");
-            fwrite($fp, '</Sender>'."\n");
-            fwrite($fp, '<SentDateTime>' . date("Ymd") . "</SentDateTime>\n");
-            fwrite($fp, '</Header>'."\n");
             
             fwrite($fp, '<Product>'."\n");
             fwrite($fp, '<RecordReference>' . $arItem["ID"] . '</RecordReference>'."\n");
             fwrite($fp, '<NotificationType>03</NotificationType>'."\n");
            
-            fwrite($fp, '<ProductIdentifier>'."\n");
-            fwrite($fp, '<ProductIDType>01</ProductIDType>'."\n");
-            fwrite($fp, '<IDValue>' . $arItem['PROPERTY_ARTNUMBER_VALUE'] . '</IDValue>'."\n");
-            fwrite($fp, '</ProductIdentifier>'."\n");
+            if ($arItem["PROPERTY_ARTNUMBER_VALUE"]) {
+                fwrite($fp, '<ProductIdentifier>'."\n");
+                fwrite($fp, '<ProductIDType>01</ProductIDType>'."\n");
+                fwrite($fp, '<IDValue>' . $arItem['PROPERTY_ARTNUMBER_VALUE'] . '</IDValue>'."\n");
+                fwrite($fp, '</ProductIdentifier>'."\n");
+            }
             
-            fwrite($fp, '<ProductIdentifier>'."\n");
-            fwrite($fp, '<ProductIDType>15</ProductIDType>'."\n");
-            fwrite($fp, '<IDValue>' . $arItem['PROPERTY_ISBN_VALUE'] . '</IDValue>'."\n");
-            fwrite($fp, '</ProductIdentifier>'."\n");
+            if ($arItem["PROPERTY_ISBN_VALUE"]) {
+                fwrite($fp, '<ProductIdentifier>'."\n");
+                fwrite($fp, '<ProductIDType>15</ProductIDType>'."\n");
+                fwrite($fp, '<IDValue>' . $arItem['PROPERTY_ISBN_VALUE'] . '</IDValue>'."\n");
+                fwrite($fp, '</ProductIdentifier>'."\n");
+            }
             
             fwrite($fp, '<DescriptiveDetail>'."\n");
             
@@ -208,17 +212,19 @@
             }
             fwrite($fp, '</Contributor>'."\n"); 
             
-            fwrite($fp, '<Contributor>'."\n");
-            fwrite($fp, '<SequenceNumber>1</SequenceNumber>'."\n");
-            fwrite($fp, '<ContributorRole>B06</ContributorRole>'."\n");
-            
-            foreach ($translators_name as $key => $curr_translator) {
-                fwrite($fp, '<PersonName>' . $curr_translator["NAME"] . '</PersonName>'."\n");
-                fwrite($fp, '<PersonNameInverted>' . $curr_translator["INVERTED_NAME"] . '</PersonNameInverted>'."\n");
-                fwrite($fp, '<NamesBeforeKey>' . $curr_translator["FIRST_NAME"] . '</NamesBeforeKey>'."\n");
-                fwrite($fp, '<KeyNames>' . $curr_translator["LAST_NAME"] . '</KeyNames>'."\n");   
+            if (!empty($translators_name)) {
+                fwrite($fp, '<Contributor>'."\n");
+                fwrite($fp, '<SequenceNumber>1</SequenceNumber>'."\n");
+                fwrite($fp, '<ContributorRole>B06</ContributorRole>'."\n");
+
+                foreach ($translators_name as $key => $curr_translator) {
+                    fwrite($fp, '<PersonName>' . $curr_translator["NAME"] . '</PersonName>'."\n");
+                    fwrite($fp, '<PersonNameInverted>' . $curr_translator["INVERTED_NAME"] . '</PersonNameInverted>'."\n");
+                    fwrite($fp, '<NamesBeforeKey>' . $curr_translator["FIRST_NAME"] . '</NamesBeforeKey>'."\n");
+                    fwrite($fp, '<KeyNames>' . $curr_translator["LAST_NAME"] . '</KeyNames>'."\n");   
+                }
+                fwrite($fp, '</Contributor>'."\n");    
             }
-            fwrite($fp, '</Contributor>'."\n");
             fwrite($fp, '<NoEdition />'."\n");
          
             fwrite($fp, '<Language>'."\n");
@@ -307,6 +313,7 @@
             fwrite($fp, '<SupplyDetail>'."\n");
             fwrite($fp, '<Supplier>'."\n");
             fwrite($fp, '<SupplierRole>00</SupplierRole>'."\n");
+            fwrite($fp, '<SupplierName>Альпина Паблишер</SupplierName>'."\n");
             fwrite($fp, '</Supplier>'."\n");  
             
             fwrite($fp, '<ProductAvailability>' . $product_availability . '</ProductAvailability>'."\n");  
