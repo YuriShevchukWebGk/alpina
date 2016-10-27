@@ -54,6 +54,37 @@ class SailplayHelper {
 	}
 	
 	/**
+	 * Существует ли пользователь в системе sailplay
+	 * Вернуть просто true или false нельзя, т.к. тогда будет не понятно, что значит false, фейл с запросом или
+	 * пользователя нет, поэтому отправляем массивы со статусами, по умолчанию статус пуст
+	 * http://docs.sailplay.ru/ru/page/api-back-users/
+	 * @param string $token
+	 * @param string $email
+	 * @return array $result
+	 * */
+	public static function isUserExist($token, $email) {
+		GLOBAL $arParams;
+		$result = array("status" => "");
+		$query = 'http://sailplay.ru/api/v2/users/info/?email=' . $email . '&token=' . $token . '&store_department_id=' . $arParams['SAILPLAY']['STORE_ID'] . '&extra_fields=auth_hash';
+		
+		$decoded_result = self::performQuery($query);
+		if ($decoded_result['status'] == "ok") {
+			$result['status'] = "success";
+		} else if ($decoded_result['status'] == "error" && $decoded_result['status_code'] == -4000) {
+			$result['status'] = "fail";
+		}
+		return $result;
+	}
+	
+	/**
+	 * Изменение данных о клиенте в sailplay
+	 * http://docs.sailplay.ru/ru/page/api-back-users/
+	 * @abstract
+	 * */
+	public static function changeUserData() {
+	}
+	
+	/**
 	 * Вспомогательная функция для выполнения запросов
 	 * @param string $query_string
 	 * @return array $decoded_result;
