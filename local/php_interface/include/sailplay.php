@@ -41,17 +41,16 @@ class SailplayHelper {
 	 * http://docs.sailplay.ru/ru/page/api-back-users/
 	 * @param string $token
 	 * @param string $email
-	 * @return string $decoded_result['auth_hash'];
+	 * @param string $first_name
+	 * @param string $last_name
+	 * @return void
 	 * */
-	public static function addNewUser($token, $email) {
+	public static function addNewUser($token, $email, $first_name, $last_name) {
 		GLOBAL $arParams;
 		
-		$query = 'http://sailplay.ru/api/v2/users/info/?email=' . $email . '&token=' . $token . '&store_department_id=' . $arParams['SAILPLAY']['STORE_ID'] . '&extra_fields=auth_hash';
+		$query = 'http://sailplay.ru/api/v2/users/add/?email=' . $email . '&token=' . $token . '&store_department_id=' . $arParams['SAILPLAY']['STORE_ID'] . '&first_name=' . $first_name . '&last_name=' . $last_name;
 		
 		$decoded_result = self::performQuery($query);
-		if ($decoded_result['status'] == "ok") {
-			return $decoded_result['auth_hash'];
-		}
 	}
 	
 	/**

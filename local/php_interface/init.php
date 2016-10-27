@@ -760,14 +760,18 @@
         }
     }
 
-	AddEventHandler("main", "OnAfterUserRegister", "sailPlayRegister");
+	AddEventHandler("main", "OnAfterUserAdd", "sailPlayRegister");
 	
-	function sailPlayRegister($arFields) {
-		file_put_contents(
-		    dirname(__FILE__) . "/log.txt",
-		    var_export($arFields, 1)."\n",
-		    FILE_APPEND
-		);
+	/**
+	 * Добавляем нового юзера Sailplay после его регистрации
+	 * 
+	 * @param array $arFields
+	 * @return void
+	 * */
+	function sailPlayRegister(&$arFields) {
+		if ($token = SailplayHelper::getAuth()) {
+			SailplayHelper::addNewUser($token, $arFields['EMAIL'], $arFields['NAME'], $arFields['LAST_NAME']);
+		}
 	}
 
     AddEventHandler("catalog", "OnDiscountUpdate", "updatingSpecPriceProperty");
@@ -1743,4 +1747,20 @@
 			return false;
 		}
 	}
+	
+	 /**
+     *
+     * @param mixed $data
+     * @param string $file
+     * @return void
+     *
+     * */
+
+    function logger($data, $file) {
+        file_put_contents(
+            $file,
+            var_export($data, 1)."\n",
+            FILE_APPEND
+        );
+    }
 ?>
