@@ -1,4 +1,4 @@
-//Обрезка длинных названий 
+//Обрезка длинных названий
 function truncate(str, maxlength){
     if (str.length > maxlength){
         return str.slice(0, maxlength-3) + '...';
@@ -21,25 +21,25 @@ function roundSliderCall(slideNum){
             duration: 4000,
             easing: 'circleProgressEasing'
         }
-    });    
+    });
 }
 
 //Инициализация анимации смены слайда(главная)
 function roundSliderCallRotate(){//alert(slideNumer);
     if ($('.roundSlider li').length == slideNumer){
-        $('.slideWrapp ul').animate({left:0},500);    
+        $('.slideWrapp ul').animate({left:0},500);
     }else{
-        var slideWidth = $('.slideWrapp li').css('width').slice(0, -2);    
-        $('.slideWrapp ul').animate({left: -(slideWidth*(slideNumer))+'px'},500);        
+        var slideWidth = $('.slideWrapp li').css('width').slice(0, -2);
+        $('.slideWrapp ul').animate({left: -(slideWidth*(slideNumer))+'px'},500);
     }
 
     if($('.roundSlider li').length == slideNumer){
         slideNumer = 1;
     }else{
-        slideNumer++;    
+        slideNumer++;
     }
 
-    roundSliderCall(slideNumer);    
+    roundSliderCall(slideNumer);
 }
 //Инициализация анимации смены слайда(категория)
 function roundSlCallRotateCateg(){
@@ -76,52 +76,52 @@ $(document).ready(function(){
 		$(this).find('img').css({'filter':'none', '-webkit-filter':'none', '-moz-filter':'none', '-o-filter':'none', '-ms-filter':'none'});
 		$('.bookPreviewButton').css('display','none');
 	  }
-	);	
+	);
     //скрывание попапа при клике по фону
     if($('.layout2').length > 0){
         $('.layout2').click(function(){
             $('.layout2').hide();
-            $('.contacsFormMessage').hide();  
+            $('.contacsFormMessage').hide();
         })
     }
     //скрытие текста в карточке товара
     if($('.showAllWrapp').length > 0){
         if($('.showAllWrapp').css('height').slice(0,-2) > 558){
-            $('.showAllWrapp').append('<p class="readMore">Читать далее...</p>');  
-            $('.showAllWrapp').css('height','558px');  
+            $('.showAllWrapp').append('<p class="readMore">Читать далее...</p>');
+            $('.showAllWrapp').css('height','558px');
         }
 
         $('.readMore').click(function(){
             $('.showAllWrapp').css('height','auto');
             $('.readMore').hide();
         })
-        
-        
+
+
     }
-    
+
     //скролящееся меню на странице оплата
     if($('.delivMenuWrapp').length > 0){
         heightFromElement = $(".delivMenuWrapp").offset().top;
         $(window).scroll(function(){
-            console.log(!($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && ($(window).scrollTop() > $(".delivMenuWrapp").offset().top));  
+            console.log(!($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && ($(window).scrollTop() > $(".delivMenuWrapp").offset().top));
 			var scrollBottom = $(window).scrollTop() + $(window).height();
             if(!($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && ($(window).scrollTop() > $(".delivMenuWrapp").offset().top)){
-                $('.delivMenuWrapp').addClass('slidingDelivMenu');   
+                $('.delivMenuWrapp').addClass('slidingDelivMenu');
             }
             if(($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && (($(window).scrollTop() < heightFromElement) || scrollBottom > 3000)){
-                $('.delivMenuWrapp').removeClass('slidingDelivMenu');   
+                $('.delivMenuWrapp').removeClass('slidingDelivMenu');
 				//alert($('footer').height());
             }
-        }) 
-        /* 
+        })
+        /*
         window.onscroll = function(heightFromElement){
         alert(!($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && ($(window).scrollTop() > heightFromElement));
         if(!($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && ($(window).scrollTop() > heightFromElement)){
 
         }*/
         /*else{
-        console.log(2);  
-        $('.delivMenuWrapp').addClass('slidingDelivMenu'); 
+        console.log(2);
+        $('.delivMenuWrapp').addClass('slidingDelivMenu');
         }*/
 
         /*}*/
@@ -147,8 +147,8 @@ $(document).ready(function(){
     if($('.productSelectTitle').length > 0){
         $('.productSelectTitle').click(function(){
             $('.videoWrapp iframe').show();
-            return false;    
-        })    
+            return false;
+        })
     }
 
     if($(".some_info").length > 0){
@@ -157,14 +157,14 @@ $(document).ready(function(){
             $(this).hide();
         })
     }
-    
+
     if($(".subscr_result").length > 0){
         $('.layout').click(function(){
             $('.subscr_result').hide();
             $(this).hide();
         })
     }
-    
+
     // скрывать блок списка купивших в дар книгу при нажатии на свободном месте окна браузера
     if($(".gifted_books_buyers_list").length > 0){
         $('.layout').click(function(){
@@ -186,7 +186,7 @@ $(document).ready(function(){
             var obj = jQuery.parseJSON(strResult);
             if(obj[0]=="error") {
                 $(".error_message").html("Заказ №"+$("#order-id").val()+" не найден.");
-                $(".error_message").slideDown();    
+                $(".error_message").slideDown();
 
             } else if (obj[0] == "error_auth") {
                 $(".error_message").html("Пожалуйста, авторизуйтесь для использования функционала 'Где мой заказ?'");
@@ -209,15 +209,15 @@ $(document).ready(function(){
             $('#cardBlock2').show();
 
         }
-    }        
+    }
 
-    // функционал "Книга в подарок"       
+    // функционал "Книга в подарок"
     /*$(".giftWrap input[type=button]").click(function(){
     $.post("/ajax/request_add.php", {email: $(".giftWrap input[type=text]").val()}, function(data){
     $(".layout").show();
     $(".some_info").show();
     $(".some_info").html(data);
-    })        
+    })
     });*/
 
     $(".giftWrap input[type=button]").click(function(){
@@ -253,11 +253,11 @@ $(document).ready(function(){
 
     if ($(".autorInfo .textWrap").height() > 300)
     {
-        $(".content .catalogWrapper").css("height", $(".autorInfo .textWrap").height() + 100 + "px");    
+        $(".content .catalogWrapper").css("height", $(".autorInfo .textWrap").height() + 100 + "px");
     }
 
     //позиционирование всплывающего блока купивших в дар данную книгу
-    
+
     if($('.ask_form_for_gift').length > 0){
         $('.ask_form_for_gift').click(function(e){
             e.preventDefault();
@@ -274,7 +274,7 @@ $(document).ready(function(){
             $('.gift_popup_form').show();
         })
     }
-    
+
     // вызов функции оформления заказа и вызова формы оплаты на данную книгу, покупаемую в дар
     $(".gift_button").on("click", function(){
         var item_id = $(".item_id").attr("value");
@@ -283,7 +283,7 @@ $(document).ready(function(){
             add_giftbook($(".buyer_name").val(), item_id, $(".gift_quantity").val(), $(".gift_email").val());
         }
     })
-    
+
     // позиционирование всплывающего блока формы ввода пользовательских полей для покупки книги в дар
     if($('.gift_popup_form').length > 0){
         $('.layout').click(function(){
@@ -337,7 +337,7 @@ $(document).ready(function(){
 
     if ($(".hidingBasketRight .basketBooks .basketBook").length == 0)
     {
-        $(".BasketQuant").css("display", "none");    
+        $(".BasketQuant").css("display", "none");
     }
     //плавающий блок в карточке товара
     /*if(('.productElementWrapp').length >0){
@@ -394,15 +394,15 @@ $(document).ready(function(){
             $('#prodBlock'+$(this).attr('data-id')).show();
             if (!$(".productsMenu li:first-child").hasClass("active"))
             {
-                //$(".productsMenu li:first-child").css("width", "90px");    
+                //$(".productsMenu li:first-child").css("width", "90px");
             }
             else
             {
-               // $(".productsMenu li:first-child").css("width", "110px");    
+               // $(".productsMenu li:first-child").css("width", "110px");
             }
             if ($(".productsMenu li:nth-child(2)").hasClass("active"))
             {
-                //$(".productsMenu li:nth-child(2)").css("width", "105px");    
+                //$(".productsMenu li:nth-child(2)").css("width", "105px");
             }
             else
             {
@@ -445,7 +445,7 @@ $(document).ready(function(){
         $(this).parent('div').addClass('active');
         var idOrder = $(this).attr('data-id');
         $(".hidOrdInfo"+idOrder).show();
-    })  
+    })
 
     //Вызываем слайдер на странице поиск(Те что искали, купили)
     if($('.bookEasySlider').length > 0){
@@ -468,25 +468,25 @@ $(document).ready(function(){
     }
 
     if ($(".bestSlider ul li").size() < 6)
-    {   
+    {
         $(".bestSlider .left").hide();
         $(".bestSlider .rigth").hide();
 
     }
 
     if ($(".authorBoolSlider ul li").size() < 6)
-    {   
+    {
         $(".authorBoolSlider .left").hide();
         $(".authorBoolSlider .rigth").hide();
 
     }
     // отображение блоков на странице регистрации/авторизации
-    
+
     if ($(".signinLink").hasClass("active")) {
         $(".registrationBlock").hide();
-        $(".signinBlock").show();    
+        $(".signinBlock").show();
     }
-    
+
     //плагин кастомизации селектов в оформлении заказа
     if($('.userCountry').length > 0){
         $('.userCountry').selectric();
@@ -511,7 +511,7 @@ $(document).ready(function(){
         slideNumer = 1;
         roundSliderCall(slideNumer);
         //Вызов смены слайда
-        interval = setInterval(roundSliderCallRotate, 4000);    
+        interval = setInterval(roundSliderCallRotate, 4000);
     }
     //Измение слайда по клику(слайдер с анимированными кружками)
     $('.slideWrapp .buttons').click(function(e){
@@ -520,8 +520,8 @@ $(document).ready(function(){
         slideNumer = $(this).attr('data-number');
         roundSliderCall(slideNumer);
         interval = setInterval(roundSliderCallRotate, 4000);
-        var slideWidth = $('.slideWrapp li').css('width').slice(0, -2);    
-        $('.slideWrapp ul').animate({left: -(slideWidth*(slideNumer-1))+'px'},500);    
+        var slideWidth = $('.slideWrapp li').css('width').slice(0, -2);
+        $('.slideWrapp ul').animate({left: -(slideWidth*(slideNumer-1))+'px'},500);
     })
 
     //Проверка и подключение слайдера с кругами на странице категории
@@ -557,7 +557,7 @@ $(document).ready(function(){
             $('.categoryWrapper .leftMenu>ul>li>p').removeClass('activeListName');
             $(this).find("p").addClass('activeListName')
             $('.categoryWrapper .leftMenu li ul').hide();
-            $(this).parent('li').find('ul').show();    
+            $(this).parent('li').find('ul').show();
         }
     })
 
@@ -569,7 +569,7 @@ $(document).ready(function(){
             $('.hidingCatalogLeft .leftMenu>ul>li>p').removeClass('activeListName');
             $(this).find("p").addClass('activeListName')
             $('.hidingCatalogLeft li ul').hide();
-            $(this).parent('li').find('ul').show();    
+            $(this).parent('li').find('ul').show();
         }
     })
 
@@ -639,8 +639,8 @@ $(document).ready(function(){
         {
             if($(this).length > 0)
             {
-                $(this).html(truncate($(this).html(), 32));    
-            }    
+                $(this).html(truncate($(this).html(), 32));
+            }
         }
     );
 
@@ -676,7 +676,7 @@ $(document).ready(function(){
             $('.otherEasySlider .rigth').hide();
         }
     });
-    
+
      $(".authorBoolSlider .rigth").on("click", function(){
         $(".authorBoolSlider .left").show();
         attrLeft = $(".authorBoolSlider ul").css("left").split("px");
@@ -685,7 +685,7 @@ $(document).ready(function(){
             $('.authorBoolSlider .rigth').hide();
         }
     });
-    
+
     $(".authorBoolSlider .left").on("click", function(){
         $(".authorBoolSlider .rigth").show();
         if ($(".authorBoolSlider ul").css("left") == '-'+widthOfSlide)
@@ -712,7 +712,7 @@ $(document).ready(function(){
         if($('.otherEasySlider ul').css('left') == '-'+widthOfSlide){
             $('.otherEasySlider .left').hide();
         }
-    })	
+    })
 
     $('.saleWrapp .right').click(function(){
         $('.saleWrapp ul').animate({left:'-='+ widthOfSlide},500);
@@ -749,7 +749,7 @@ $(document).ready(function(){
         if($(this).closest(".recomendation").find("ul").css('left') == '-'+widthOfSlideReccomend){
             $(this).closest(".recomendation").find(".left").hide();
         }
-    })    
+    })
     $('.recomendation .right').click(function(){
         $(this).closest(".recomendation").find("ul").animate({left:'-='+ widthOfSlideReccomend},500);
         $(this).closest(".recomendation").find(".left").show();
@@ -765,51 +765,51 @@ $(document).ready(function(){
     });
 
 
-    //Слайдер отзывы 
+    //Слайдер отзывы
     /*var widthOfSlideReview = '389px';
     var countLiReview = $('.bigSlider ul li').size();
     var ulWidthRewiew = (countLiReview-3)*widthOfSlideReview.slice(0,-2);
     $('#left').click(function(){
     if ($('.bigSlider ul').css('left') == '0px') {
-    $('.bigSlider ul').animate({left:'-'+ulWidthRewiew+'px'},500);        
+    $('.bigSlider ul').animate({left:'-'+ulWidthRewiew+'px'},500);
     }else{
-    $('.bigSlider ul').animate({left:'+='+ widthOfSlideReview},500);    
-    }    
+    $('.bigSlider ul').animate({left:'+='+ widthOfSlideReview},500);
+    }
     })
     $('#right').click(function(){
     if (($('.bigSlider ul').css('left') == '-'+ulWidthRewiew+'px') || ($('.bigSlider ul').css('left') == ulWidthRewiew+'px') || (countLiReview < 4)) {
-    $('.bigSlider ul').animate({left:0},500);    
+    $('.bigSlider ul').animate({left:0},500);
     }else{
-    $('.bigSlider ul').animate({left:'-='+ widthOfSlideReview},500);    
-    }    
+    $('.bigSlider ul').animate({left:'-='+ widthOfSlideReview},500);
+    }
     })*/
 
     // слайдер отзывов на главной
     if (typeof fxSlider == 'function'){
-        fxSlider('bigSlider','left','right', false, 500,3); 
+        fxSlider('bigSlider','left','right', false, 500,3);
     }
 
-    /*var quantityOfReview = $('.bigSlider ul li').length; 
+    /*var quantityOfReview = $('.bigSlider ul li').length;
     var nowSlide = 1;//номер первого видимого слайда
     var reviewSlideWidth = $('.bigSlider ul li').outerWidth(true);
     var sliderEnd = (quantityOfReview-3)*reviewSlideWidth;
-    $('#left').click(function(){ 
+    $('#left').click(function(){
 
     if(nowSlide == 1){
     $('.bigSlider ul').animate({left:'-'+sliderEnd+'px'},500);
-    nowSlide = quantityOfReview-2; 
+    nowSlide = quantityOfReview-2;
     }else{
-    $('.bigSlider ul').animate({left:'+='+reviewSlideWidth+'px'}); 
-    nowSlide--;   
+    $('.bigSlider ul').animate({left:'+='+reviewSlideWidth+'px'});
+    nowSlide--;
     }
     })
     $('#right').click(function(){
     if(nowSlide == (quantityOfReview-2)){
-    $('.bigSlider ul').animate({left:0},500); 
-    nowSlide = 1;        
+    $('.bigSlider ul').animate({left:0},500);
+    nowSlide = 1;
     }else{
     $('.bigSlider ul').animate({left:'-='+reviewSlideWidth+'px'});
-    nowSlide++;    
+    nowSlide++;
     }
     })    */
 
@@ -825,14 +825,14 @@ $(document).ready(function(){
 
 
 
-    //Блоки на главном начальном слайде 
+    //Блоки на главном начальном слайде
     var BlocksChangingFunc;
     $('.books > ul span').mouseover(function(){
-        var $this = $(this); 
+        var $this = $(this);
         BlocksChangingFunc = setTimeout(function(){
             if (!$this.hasClass("active"))
             {
-                //$('.book').css('display','none'); 
+                //$('.book').css('display','none');
                 $('.book').stop(true, true).fadeOut();
                 switch ($this.attr('data-id')){
                     case "1":
@@ -855,8 +855,8 @@ $(document).ready(function(){
                 $('.books > ul li').removeClass('first');
                 $this.parent().addClass('first');
                 $('.books > ul span').removeClass('active');
-                $this.addClass('active'); 
-            }   
+                $this.addClass('active');
+            }
             }, 200);
 
     });
@@ -869,7 +869,7 @@ $(document).ready(function(){
 
 function update_quant(sign, e)
 {
-    //изменение кол-ва в выезжающей корзине 
+    //изменение кол-ва в выезжающей корзине
     /*$('.hidingBasketRight .plus').on('click', function(){
     var numbOfBooks = parseInt($(this).parent().children('p').html());
     var new_count = numbOfBooks+1;
@@ -879,7 +879,7 @@ function update_quant(sign, e)
     $('.hidingBasketRight .minus').on('click', function(){
     var numbOfBooks = $(this).parent().children('p').html();
     if (numbOfBooks > '1'){
-    $(this).parent().children('p').html(numbOfBooks-1);   
+    $(this).parent().children('p').html(numbOfBooks-1);
     }
     update_basket($(this), "minus");
     })*/
@@ -893,9 +893,9 @@ function update_quant(sign, e)
         case "minus":
             if (numbOfBooks > 1)
             {
-                $(e).parent().children('p').html(numbOfBooks-1);   
+                $(e).parent().children('p').html(numbOfBooks-1);
             }
-            break;       
+            break;
     }
     update_basket(e);
 
@@ -910,9 +910,9 @@ function update_basket(e)
         $(".hidingBasketRight").html(data);
         var total_quant = 0;
         $(".basketBook .countMenu .countOfBook").each(function(){
-            total_quant += parseInt($(this).html());        
+            total_quant += parseInt($(this).html());
         });
-        $(".BasketQuant").html(total_quant);  
+        $(".BasketQuant").html(total_quant);
     });
 }
 
@@ -921,17 +921,17 @@ function addtocart(productid, name) {
 
     $.post('/ajax/ajax_add2basket.php', {action: "add", productid: productid, quantity:quantity}, function(data)
         {
-            $(".inBasket").css("background-color", "#A9A9A9"); 
+            $(".inBasket").css("background-color", "#A9A9A9");
             $(".inBasket").html("В корзине");
 
             $("#wishItem_"+productid+" a").css("background-color", "#A9A9A9");
             $("#wishItem_"+productid+" a").css("color", "white");
             $("#wishItem_"+productid+" a").html("В корзине");
 
-            $(".inBasket").closest("a").attr("href", "/personal/cart/");            
+            $(".inBasket").closest("a").attr("href", "/personal/cart/");
             $(".inBasket").closest("a").attr("title", "Перейти в корзину");
             $("#wishItem_"+productid+" a").attr("href", "/personal/cart");
-            $("#wishItem_"+productid+" a").attr("title", "Перейти в корзину"); 
+            $("#wishItem_"+productid+" a").attr("title", "Перейти в корзину");
             $(".inBasket").closest("a").removeAttr("onclick");
             $("#wishItem_"+productid+" a").removeAttr("onclick");
             if ($("a.product"+productid).length > 0)
@@ -953,10 +953,10 @@ function addtocart(productid, name) {
             var total_quant = 0;
             $(".basketBook .countMenu .countOfBook").each(function()
                 {
-                    total_quant += parseInt($(this).html());        
+                    total_quant += parseInt($(this).html());
             });
             $(".BasketQuant").html(total_quant);
-    })  
+    })
 }
 function addtocart_fromwishlist (productid, name) {
     $.post('/ajax/ajax_add2basketfromwishlist.php', {action: "add", productid: productid}, function(data)
@@ -966,24 +966,24 @@ function addtocart_fromwishlist (productid, name) {
             $(".wishlistBlock").find("a#wishItem_"+productid).css("color", "white");
             $(".wishlistBlock").find("a#wishItem_"+productid).html("В корзине");
             $(".wishlistBlock").find("a#wishItem_"+productid).attr("title", "Перейти в корзину");
-            $(".wishlistBlock").find("a#wishItem_"+productid).addClass("goToCart");                            
+            $(".wishlistBlock").find("a#wishItem_"+productid).addClass("goToCart");
             $("#basket_container").html(data);
             // $("#cardBlock2").html(data[1]);
             update_wishlist();
-    })    
+    })
 }
 
 /***********
-* 
+*
 *  добавление в корзину и автоматическое оформление заказа на книгу, покупаемую в дар
-* 
+*
 * @param name - название подвешенного товара
 * @param productid - ID подвешенного товара в инфоблоке товаров
 * @param quantity - количество подвешенного товара, добавленного в заказ
-* @return data : 
+* @return data :
 * в случае успешного создания заказа - ID созданного заказа с подвешенным товаром
-* в противном случае передаётся строка "err" и прерывается работа функции 
-* 
+* в противном случае передаётся строка "err" и прерывается работа функции
+*
 */
 function add_giftbook (name, productid, quantity, email) {
     $.post('/ajax/ajax_addgiftbook.php', {name: name, productid: productid, quantity: quantity, email: email}, function(data) {
@@ -992,24 +992,24 @@ function add_giftbook (name, productid, quantity, email) {
                 document.location.href = "/personal/order/payment/?ORDER_ID=" + data;
             }
         }
-    })    
+    })
 }
 
 /********
 * формирование списка купивших данный подвешенный товар
-* 
+*
 * @param item_id - ID подвешенного товара
-* @return data - HTML-код таблицы с форматированным списком купивших товар и 
+* @return data - HTML-код таблицы с форматированным списком купивших товар и
 * соответствующее кол-во купленного товара
 * @var total_buyers_count - общее купленное кол-во подвешенного товара
-* 
+*
 */
 function makeGiftBuyersList (item_id) {
     $.post('/ajax/making_buyers_list.php', {item_id: item_id}, function(data) {
         if (data != "") {
             $(".layout").show();
-            var winW = $(window).width(), 
-            blokT = window.pageYOffset + ($('.gifted_books_buyers_list').width() / 2), 
+            var winW = $(window).width(),
+            blokT = window.pageYOffset + ($('.gifted_books_buyers_list').width() / 2),
             blokL = winW / 2 - ($('.gifted_books_buyers_list').width() / 2),
             total_buyers_count = 0;
             $('.gifted_books_buyers_list').css({
@@ -1023,11 +1023,11 @@ function makeGiftBuyersList (item_id) {
             });
             $(".rounded_summary_number").html(total_buyers_count);
         }
-    })    
+    })
 }
 function update_wishlist () {
     $.post('/ajax/upd_wishlist.php', {}, function(data)
-        {   
+        {
             $('.cartMenuWrap .basketItems').removeClass("active");
             $(".cartMenuWrap .basketItems:nth-child(2)").addClass("active");
             $("#cardBlock1").hide();
@@ -1054,7 +1054,7 @@ function update_sect_page(sort, direction, sect_code) {
             }
 
             if ($(".bestSlider ul li").size() < 6)
-            {   
+            {
                 $(".bestSlider .left").hide();
                 $(".bestSlider .rigth").hide();
 
@@ -1070,14 +1070,14 @@ function update_sect_page(sort, direction, sect_code) {
                 case "price":
                     $(".filterParams li:nth-child(3)").addClass("active");
                     break;
-            }   
+            }
             if (direction == "desc") {
                 $(".filterParams li.active").addClass("dir_desc");
             }
             $(".filterParams li.active").on("click", function(){
                 if (direction == "asc")
                 {
-                    update_sect_page (sort, "desc", sect_code);    
+                    update_sect_page (sort, "desc", sect_code);
                 }
                 else
                 {
@@ -1087,7 +1087,7 @@ function update_sect_page(sort, direction, sect_code) {
 
             if (($(".filterParams li:nth-child(2)").hasClass("active")) && (direction == "desc"))
             {
-                $(".filterParams li:nth-child(2)").css("width", "153px");    
+                $(".filterParams li:nth-child(2)").css("width", "153px");
             }
 
             $('.categoryWrapper .leftMenu .firstLevel>li>a').click(function(){
@@ -1098,11 +1098,11 @@ function update_sect_page(sort, direction, sect_code) {
                     $('.categoryWrapper .leftMenu>ul>li>p').removeClass('activeListName');
                     $(this).find("p").addClass('activeListName')
                     $('.categoryWrapper .leftMenu li ul').hide();
-                    $(this).parent('li').find('ul').show();    
+                    $(this).parent('li').find('ul').show();
                 }
             })
-    });    
-} 
+    });
+}
 
 function delete_basket_item(productid) {
 
@@ -1112,7 +1112,7 @@ function delete_basket_item(productid) {
             var total_quant = 0;
             $(".basketBook .countMenu .countOfBook").each(function()
                 {
-                    total_quant += parseInt($(this).html());        
+                    total_quant += parseInt($(this).html());
             });
             $(".BasketQuant").html(total_quant);
     })
@@ -1130,24 +1130,24 @@ function delete_wishlist_item(id) {
         {
             $(".wishlistWrapp").html(data);
             $(".wishBookDescription").each(function()
-                { 
+                {
                     if($(this).length > 0)
                     {
-                        $(this).html(truncate($(this).html(), 250));    
-                    }    
-            });         
+                        $(this).html(truncate($(this).html(), 250));
+                    }
+            });
         }
-    });    
+    });
 }
 
-function parseGetParams() { 
-    var $_GET = {}; 
-    var __GET = window.location.search.substring(1).split("&"); 
-    for(var i=0; i<__GET.length; i++) { 
-        var getVar = __GET[i].split("="); 
-        $_GET[getVar[0]] = typeof(getVar[1])=="undefined" ? "" : getVar[1]; 
-    } 
-    return $_GET; 
+function parseGetParams() {
+    var $_GET = {};
+    var __GET = window.location.search.substring(1).split("&");
+    for(var i=0; i<__GET.length; i++) {
+        var getVar = __GET[i].split("=");
+        $_GET[getVar[0]] = typeof(getVar[1])=="undefined" ? "" : getVar[1];
+    }
+    return $_GET;
 }
 
 
@@ -1166,9 +1166,9 @@ function isTelephone(telephone){
 $.post('/ajax/CheckingExistingEmail.php', {email: $("#ORDER_PROP_6").val()}, function(data)
 {
 //$("#hidden_email").html($("#ORDER_PROP_6").html());
-$("#ORDER_PROP_6").attr("value", data); 
+$("#ORDER_PROP_6").attr("value", data);
 chekingFields("Y");
-}) 
+})
 } */
 
 function chekingFields(parametr){
@@ -1176,15 +1176,15 @@ function chekingFields(parametr){
     /*$('input.clientInfo').each(function(){
     if($(this).val() == ""){
     flag = false;
-    $(this).parent("div").children(".warningMessage").show(); 
+    $(this).parent("div").children(".warningMessage").show();
     }else{
-    $(this).parent("div").children(".warningMessage").hide();  
+    $(this).parent("div").children(".warningMessage").hide();
     }
     })*/
 
     if($('#ORDER_PROP_7').val() == ''){
         flag = false;
-        $('#ORDER_PROP_7').parent("div").children(".warningMessage").show(); 
+        $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
         // сперва получаем позицию элемента относительно документа
         var scrollTop = $('#ORDER_PROP_7').offset().top;
         $(document).scrollTop(scrollTop);
@@ -1194,7 +1194,7 @@ function chekingFields(parametr){
     if(isEmail($('#ORDER_PROP_6').val()) == false){
         flag = false;
         $('#ORDER_PROP_6').parent("div").children(".warningMessage").html('Некорректно введен e-mail');
-        $('#ORDER_PROP_6').parent("div").children(".warningMessage").show(); 
+        $('#ORDER_PROP_6').parent("div").children(".warningMessage").show();
         var scrollTop = $('#ORDER_PROP_6').offset().top;
         $(document).scrollTop(scrollTop);
         document.getElementById("ORDER_PROP_6").focus();
@@ -1202,7 +1202,7 @@ function chekingFields(parametr){
 
     if(isTelephone($('#ORDER_PROP_24').val()) == false){
         flag = false;
-        $('#ORDER_PROP_24').parent("div").children(".warningMessage").show(); 
+        $('#ORDER_PROP_24').parent("div").children(".warningMessage").show();
         var scrollTop = $('#ORDER_PROP_24').offset().top;
         $(document).scrollTop(scrollTop);
         document.getElementById("ORDER_PROP_24").focus();
@@ -1220,15 +1220,15 @@ function chekingFields(parametr){
 
     if($('#ORDER_PROP_7').val() == false){
         flag = false;
-        $('#ORDER_PROP_7').parent("div").children(".warningMessage").show(); 
+        $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
     }
 
 
     if(flag){
-        submitForm(parametr); 
+        submitForm(parametr);
     }
 
-    return false; 
+    return false;
 }
 
 function updateSearchPage() {
@@ -1237,21 +1237,21 @@ function updateSearchPage() {
 
     $(".bookName").each(function() {
         if($(this).length > 0) {
-            $(this).html(truncate($(this).html(), 20));    
-        }    
+            $(this).html(truncate($(this).html(), 20));
+        }
     });
 
     /*$(".descrWrap .bookNames").each(function()
     {
     if($(this).length > 0)
     {
-    $(this).html(truncate($(this).html(), 50));    
-    }    
+    $(this).html(truncate($(this).html(), 50));
+    }
     });*/
     $(".descrWrap .description").each(function() {
             if($(this).length > 0) {
-                $(this).html(truncate($(this).html(), 120));    
-            }    
+                $(this).html(truncate($(this).html(), 120));
+            }
     });
     if($('.bookEasySlider').length > 0) {
         easySlider('.bookEasySlider', 6);
@@ -1267,7 +1267,7 @@ function newSubFunction(submitButton){
         $.post("/ajax/book_subscribe.php", {
             book_id : book_id,
             sub_mail : sub_mail
-            }, function(data) {  
+            }, function(data) {
                 if(data.match(/exist/)){
                     $(".subscr_result").html("Вы уже подписаны на появление данной книги в продаже");
                     $(".layout").show();
@@ -1278,7 +1278,7 @@ function newSubFunction(submitButton){
                     $(".layout").show();
                     $(".subscr_result").show();
                     //alert("Мы сообщим Вам о появлении книги.");
-                } 
+                }
         });
     }
     else
@@ -1286,7 +1286,7 @@ function newSubFunction(submitButton){
         $(".subscr_result").html("Введите корректный e-mail адрес.");
         $(".subscr_result").show();
         $(".layout").show();
-            
+
     }
 }
 
@@ -1294,25 +1294,26 @@ function CheckRequestFields() {
     var emailAddres = $('.giftWrap input[type=text]').val();
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (regex.test(emailAddres))
-    {   
+    {
         $.post("/ajax/request_add.php", {email: $(".giftWrap input[type=text]").val()}, function(data){
             $(".layout").show();
             $(".some_info").show();
             $(".some_info").html(data);
-        })     
+        })
     }
     else
     {
         $(".layout").show();
         $(".some_info").show();
         $(".some_info").html('Кажется, вы ошиблись в написании своего адреса');
-    }    
+    }
 }
 
 function SubmitRequest(e){
     if (e.keyCode == 13)
     {
-        CheckRequestFields();    
+        CheckRequestFields();
     }
     return false;
 }
+

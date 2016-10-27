@@ -1016,3 +1016,109 @@ select {
 .PayPal_button {
     float: left;
 }
+.receiver_block {
+    border: 1px solid black; 
+    border-collapse: collapse;
+}
+.receiver_block td {
+    border: 1px solid black;
+}
+.receiver_block tr:nth-child(3) td:nth-child(5), 
+.receiver_block tr:nth-child(3) td:nth-child(6), 
+.receiver_block tr:nth-child(4) td {
+    vertical-align: top;
+}
+.receiver_block tr:first-child td:first-child {
+    width: 50%;
+}
+.receiver_block tr:first-child td:first-child, .receiver_block tr:last-child td {
+    height: 30px; 
+    border-bottom: 1px solid grey;
+}
+.receiver_block tr:first-child td:first-child span, .receiver_block tr:last-child td span {
+    font-size: 10px;
+}
+.order_doc_title {
+    font-size: 18px; 
+    font-weight: bold; 
+    border-bottom: 3px solid black; 
+    padding-bottom: 10px;
+}
+.order_company_info, .basket_summary {
+    width: 100%;
+}
+.order_company_info tr td:first-child {
+    width: 30%;
+}
+.order_company_info tr td:last-child {
+    font-weight: bold;
+}
+.basket_list {
+    border: 3px solid black;
+    border-collapse: collapse;
+}
+.basket_list tr td {
+    font-size: 11px;
+    border: 1px solid black;
+}
+.basket_list tr th {
+    border: 1px solid black;
+}
+.basket_list tr td:first-child {
+    width: 5%;
+    text-align: center;
+}
+.basket_list tr td:nth-child(2) {
+    width: 50%;
+}
+.basket_list tr td:nth-child(4) {
+    width: 5%;
+}
+.basket_list tr td:nth-child(4) {
+    text-align: left;
+}
+.basket_summary {
+    font-weight: bold;
+}
+.basket_list tr td:nth-child(3),
+.basket_list tr td:nth-child(5),
+.basket_list tr td:nth-child(6),
+.basket_list tr td:nth-child(7),
+.basket_list tr td:nth-child(8),
+.basket_summary tr td {
+    text-align: right;
+}
+.basket_summary tr:first-child td:first-child {
+    width: 50%;
+    text-align: left;
+}
+.additional_info {
+    font-size: 11px;
+}
+.price_string {
+    font-weight: bold;
+}
+.quotes_block table {
+    width: 100%;
+}
+.quotes_block table tr td:not(:first-child) {
+    text-align: center;
+}
+.quotes_block table tr td:first-child,
+.quotes_block table tr td:nth-child(2),
+.quotes_block table tr td:last-child {
+    font-weight: bold;
+}
+.quotes_block table tr td:nth-child(3),
+.quotes_block table tr td:last-child {
+    width: 25%;
+}
+.quotes_block table tr td:first-child {
+    vertical-align: middle;
+}
+.quotes_block table tr td:not(:first-child) div {
+    border-top: 1px solid black;
+    font-size: 11px;
+    width: 100%;
+    font-weight: normal;    
+}
