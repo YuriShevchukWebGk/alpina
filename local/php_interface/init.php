@@ -31,6 +31,7 @@
     define ("RFI_PAYSYSTEM_ID", 13);
     define ("PAYPAL_PAYSYSTEM_ID", 16);
     define ("SBERBANK_PAYSYSTEM_ID", 14);
+    define ("CASHLESS_PAYSYSTEM_ID", 12);
     define ("FLIPPOST_ID", 30);
     define ("PICKPOINT_DELIVERY_ID", 18);
     define ("CITY_INDIVIDUAL_ORDER_PROP_ID", 2);
@@ -48,6 +49,7 @@
     define ("DELIVERY_MAIL_2", 11);
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
+    define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
     /**
 	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
 	 *
