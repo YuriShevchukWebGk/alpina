@@ -355,10 +355,10 @@
                     ?>
                 </table>
                 </span>
-                <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == 12) {
+                <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == CASHLESS_PAYSYSTEM_ID) {
                     echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
                 }
-                if ($arResult["PAY_SYSTEM"]["ID"] == "14" && $arResult["ORDER"]["PERSON_TYPE_ID"] == 2) {
+                if ($arResult["PAY_SYSTEM"]["ID"] == SBERBANK_PAYSYSTEM_ID && $arResult["ORDER"]["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                     $order_info = CSaleOrder::GetByID($arResult["ORDER"]["ID"]);
                     ?>
                     <div style="width: 800px;">

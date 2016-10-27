@@ -9,7 +9,7 @@
         fwrite($fp, '<?xml version="1.0" encoding="utf-8"?>'."\n");   
         fwrite($fp, '<!DOCTYPE ONIXMessage SYSTEM "http://intranet/​onix/​ONIX_BookProduct_3.0_reference.dtd">'."\n");   
         fwrite($fp, '<ONIXMessage release="3.0" xmlns="http://ns.editeur.org/onix/3.0/reference">'."\n");     
-
+        
 
         $itemsList = CIBlockElement::GetList(array("NAME" => "ASC"), array("IBLOCK_ID" => CATALOG_IBLOCK_ID), false, false, array("NAME", "ID", "PREVIEW_TEXT", "PROPERTY_ENG_NAME", "PROPERTY_ISBN", "PROPERTY_PAGES", "PROPERTY_AUTHORS", "CATALOG_WEIGHT", "PROPERTY_YEAR", "PROPERTY_CIRCULATION", "PROPERTY_PUBLISHER", "PROPERTY_MORE_PHOTO", "PROPERTY_TRANSLATORS", "DETAIL_PICTURE", "PROPERTY_STATE", "PROPERTY_ARTNUMBER", "PROPERTY_video_about"));    
         while ($arItem = $itemsList->Fetch()) {
