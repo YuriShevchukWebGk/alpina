@@ -5,7 +5,16 @@
     define("NOT_CHECK_PERMISSIONS", true);
     set_time_limit(0);
     //define("LANG", "ru");         
-    require_once ($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/main/include/prolog_before.php");   
+//define("NO_KEEP_STATISTIC", true);
+//define("NOT_CHECK_PERMISSIONS", true);
+//define('SITE_ID', 's1');
+//$DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
+//set_time_limit(0);
+//define("LANG", "ru"); 
+define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]."/custom-scripts/log.txt");
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+
+	if (AddMessage2Log('Скрипт выполнен cron', 'criteo.php'))
 ?>  
 <?
     // -- getting template for our criteo products xml file

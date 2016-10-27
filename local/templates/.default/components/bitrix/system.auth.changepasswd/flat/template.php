@@ -44,7 +44,7 @@ $APPLICATION->SetAdditionalCSS("/bitrix/css/main/system.auth/flat/style.css");
             <div class="bx-authform-formgroup-container">
                 
                 <div class="bx-authform-input-container">
-                    <input type="text" name="USER_CHECKWORD" maxlength="255" value="<?= $arResult["USER_CHECKWORD"] ?>" placeholder="<?= GetMessage("AUTH_CHECKWORD") ?>"/>
+                    <input type="hidden" name="USER_CHECKWORD" maxlength="255" value="<?= $arResult["USER_CHECKWORD"] ?>" placeholder="<?= GetMessage("AUTH_CHECKWORD") ?>"/>
                 </div>
             </div>
 

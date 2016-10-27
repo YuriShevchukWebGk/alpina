@@ -104,11 +104,13 @@ $(document).ready(function(){
         heightFromElement = $(".delivMenuWrapp").offset().top;
         $(window).scroll(function(){
             console.log(!($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && ($(window).scrollTop() > $(".delivMenuWrapp").offset().top));  
+			var scrollBottom = $(window).scrollTop() + $(window).height();
             if(!($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && ($(window).scrollTop() > $(".delivMenuWrapp").offset().top)){
                 $('.delivMenuWrapp').addClass('slidingDelivMenu');   
             }
-            if(($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && ($(window).scrollTop() < heightFromElement)){
+            if(($('.delivMenuWrapp').hasClass('slidingDelivMenu')) && (($(window).scrollTop() < heightFromElement) || scrollBottom > 3000)){
                 $('.delivMenuWrapp').removeClass('slidingDelivMenu');   
+				//alert($('footer').height());
             }
         }) 
         /* 

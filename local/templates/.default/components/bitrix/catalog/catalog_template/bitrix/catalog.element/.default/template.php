@@ -307,18 +307,18 @@ $arItemIDs = array(
 						<meta itemprop="sku" content="<?=$arResult["ID"]?>" />
                         <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
                                 if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
-                                    $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH") . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
+                                    $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH") . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span><br />";
                                 } elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
-                                    $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
+                                    $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span><br />";
                                     $discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
                                 } else {
                                     $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                                 }
                             } else {
                                 if ($cart_sum < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
-                                    $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $cart_sum) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span>";
+                                    $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $cart_sum) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span><br />";
                                 } elseif ($cart_sum < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
-                                    $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $cart_sum) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span>";
+                                    $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $cart_sum) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span><br />";
                                     $discount = $arResult["SALE_NOTE"][0]["VALUE"];  // процент накопительной скидки
                                 } else {
                                     $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
@@ -527,19 +527,19 @@ $arItemIDs = array(
                                     $delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = GetMessage("IN_A_DAY");
+									//$delivery_day = GetMessage("IN_A_DAY");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+									//$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-									$delivery_day = 'в четверг';
+									//$delivery_day = 'в четверг';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-									$delivery_day = 'в четверг';
+									//$delivery_day = 'в четверг';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в четверг';
+									//$delivery_day = 'в четверг';
                                 }
 
                                 if ($today == 5) {
