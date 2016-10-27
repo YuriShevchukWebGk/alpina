@@ -7,7 +7,7 @@
         $fp = @fopen($file_path, "wb");
 
         fwrite($fp, '<?xml version="1.0" encoding="utf-8"?>'."\n");   
-        fwrite($fp, '<!DOCTYPE ONIXMessage SYSTEM "http://intranet/вЂ‹onix/вЂ‹ONIX_BookProduct_3.0_reference.dtd">'."\n");   
+        fwrite($fp, '<!DOCTYPE ONIXMessage SYSTEM "http://intranet/​onix/​ONIX_BookProduct_3.0_reference.dtd">'."\n");   
         fwrite($fp, '<ONIXMessage release="3.0" xmlns="http://ns.editeur.org/onix/3.0/reference">'."\n");     
         
         fwrite($fp, '<Header>'."\n");
