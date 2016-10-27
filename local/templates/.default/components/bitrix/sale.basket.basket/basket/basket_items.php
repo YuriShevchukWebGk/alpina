@@ -192,47 +192,50 @@
                                             elseif ($arHeader["id"] == "QUANTITY"):
                                         ?>
                                         <td class="custom quantityInp">
-                                            <div>
-                                                <?
-                                                    $ratio = isset($arItem["MEASURE_RATIO"]) ? $arItem["MEASURE_RATIO"] : 0;
-                                                    $max = isset($arItem["AVAILABLE_QUANTITY"]) ? "max=\"".$arItem["AVAILABLE_QUANTITY"]."\"" : "";
-                                                    $useFloatQuantity = ($arParams["QUANTITY_FLOAT"] == "Y") ? true : false;
-                                                    $useFloatQuantityJS = ($useFloatQuantity ? "true" : "false");
-                                                ?>
+                                        	<? if ($arItem['PRODUCT_PROVIDER_CLASS'] != "GiftProductProvider") { // для подарков sailplay не выводим +-?>
+	                                            <div>
+	                                                <?
+	                                                    $ratio = isset($arItem["MEASURE_RATIO"]) ? $arItem["MEASURE_RATIO"] : 0;
+	                                                    $max = isset($arItem["AVAILABLE_QUANTITY"]) ? "max=\"".$arItem["AVAILABLE_QUANTITY"]."\"" : "";
+	                                                    $useFloatQuantity = ($arParams["QUANTITY_FLOAT"] == "Y") ? true : false;
+	                                                    $useFloatQuantityJS = ($useFloatQuantity ? "true" : "false");
+	                                                ?>
 
-                                                <?
-                                                    if (!isset($arItem["MEASURE_RATIO"]))
-                                                    {
-                                                        $arItem["MEASURE_RATIO"] = 1;
-                                                    }
+	                                                <?
+	                                                    if (!isset($arItem["MEASURE_RATIO"]))
+	                                                    {
+	                                                        $arItem["MEASURE_RATIO"] = 1;
+	                                                    }
 
-                                                    if (
-                                                        floatval($arItem["MEASURE_RATIO"]) != 0
-                                                    ):
-                                                    ?>
-                                                    <a href="javascript:void(0);" class="minus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'down', <?=$useFloatQuantityJS?>);">-</a>
-                                                    <?endif;?>
-                                                <input
-                                                    class="quantityField"
-                                                    type="text"
-                                                    size="3"
-                                                    id="QUANTITY_INPUT_<?=$arItem["ID"]?>"
-                                                    name="QUANTITY_INPUT_<?=$arItem["ID"]?>"
-                                                    size="2"
-                                                    maxlength="18"
-                                                    min="0"
-                                                    <?=$max?>
-                                                    step="<?=$ratio?>"
-                                                    style="max-width: 50px"
-                                                    value="<?=$arItem["QUANTITY"]?>"
-                                                    onchange="updateQuantity('QUANTITY_INPUT_<?=$arItem["ID"]?>', '<?=$arItem["ID"]?>', <?=$ratio?>, <?=$useFloatQuantityJS?>)"
-                                                    >
-                                                <? if (floatval($arItem["MEASURE_RATIO"]) != 0):?>
-                                                    <a href="javascript:void(0);" class="plus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'up', <?=$useFloatQuantityJS?>);">+</a>
-                                                    <?endif;?>
-                                                <input type="hidden" id="QUANTITY_<?=$arItem['ID']?>" name="QUANTITY_<?=$arItem['ID']?>" value="<?=$arItem["QUANTITY"]?>" />
-                                            </div>
-
+	                                                    if (
+	                                                        floatval($arItem["MEASURE_RATIO"]) != 0
+	                                                    ):
+	                                                    ?>
+	                                                    <a href="javascript:void(0);" class="minus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'down', <?=$useFloatQuantityJS?>);">-</a>
+	                                                    <?endif;?>
+	                                                <input
+	                                                    class="quantityField"
+	                                                    type="text"
+	                                                    size="3"
+	                                                    id="QUANTITY_INPUT_<?=$arItem["ID"]?>"
+	                                                    name="QUANTITY_INPUT_<?=$arItem["ID"]?>"
+	                                                    size="2"
+	                                                    maxlength="18"
+	                                                    min="0"
+	                                                    <?=$max?>
+	                                                    step="<?=$ratio?>"
+	                                                    style="max-width: 50px"
+	                                                    value="<?=$arItem["QUANTITY"]?>"
+	                                                    onchange="updateQuantity('QUANTITY_INPUT_<?=$arItem["ID"]?>', '<?=$arItem["ID"]?>', <?=$ratio?>, <?=$useFloatQuantityJS?>)"
+	                                                    >
+	                                                <? if (floatval($arItem["MEASURE_RATIO"]) != 0):?>
+	                                                    <a href="javascript:void(0);" class="plus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'up', <?=$useFloatQuantityJS?>);">+</a>
+	                                                    <?endif;?>
+	                                                <input type="hidden" id="QUANTITY_<?=$arItem['ID']?>" name="QUANTITY_<?=$arItem['ID']?>" value="<?=$arItem["QUANTITY"]?>" />
+	                                            </div>
+                                            <? } else { ?>
+												<span class="sailplay_basket_quantity"><?= $arItem["QUANTITY"] ?></span>
+                                            <? } ?>
                                         </td>
                                         <?
                                             elseif ($arHeader["id"] == "PRICE"):
@@ -303,16 +306,16 @@
 		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
 
 	} elseif ($psum < 10000 && $pdiscrel == 19) {
-		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((10000 - $psum), 2)." руб. и получите скидку 28%";
+		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((10000 - $psum), 2)." руб. и получите скидку 28%";
 
 	} elseif ($psum < 10000 && $pdiscrel == 28) {
-		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((10000 - $psum), 2)." руб. и получите скидку 36%";
+		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((10000 - $psum), 2)." руб. и получите скидку 36%";
 
 	} elseif ($psum < 3000 && $pdiscrel < 10) {
-		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
+		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
 
 	} elseif ($psum < 10000 && $pdiscrel < 20) {
-		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
+		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
 
 	}?>
 
@@ -389,6 +392,8 @@
 
 		<?$_SESSION['gtmEnchECommerceCheckout'] = $gtmEnchECommerceCheckout;?>
 		<?$_SESSION['itemsForCriteo']			= $itemsForCriteo;?>
+		<?$_SESSION['retailRocketRecs']			= $retailRocketRecs;?>
+
 
         <div class="bx_ordercart_order_pay">
             <?/*

@@ -33,4 +33,5 @@ $MESS["SALE_BASKET_ITEMS_SUBSCRIBED"] = "Ожидаемые";
 $MESS["SALE_BASKET_ITEMS_NOT_AVAILABLE"] = "Отсутствуют";
 $MESS["SALE_NO_ITEMS"] = "В вашей корзине ещё нет товаров.";
 $MESS["SALE_REFRESH"] = "Пересчитать";
+$MESS["SALE_ZERO_COST"] = "Оформление заказа возможно только при общей стоимости больше 1 рубля."
 ?>
