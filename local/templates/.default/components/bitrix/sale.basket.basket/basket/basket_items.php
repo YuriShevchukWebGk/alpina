@@ -15,21 +15,27 @@
     $bPriceType    = false;
 
     if ($normalCount > 0):
-    ?>         
-
-    <div id="basket_items_list">              
+    ?>
+    <script type="text/javascript">
+        $(function(){
+        $('.bx_ordercart').on('click', '.minus, .plus', function(){
+                $(".bx_ordercart").load(window.location.href + " #basket_items_list");
+            })
+        })
+    </script>
+    <div id="basket_items_list">
 
         <div class="yourBooks" id="cardBlock1">
-            <table id="basket_items">   
+            <table id="basket_items">
                 <thead>
                     <tr>
                         <td></td>
                         <?
-                            foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader):                          
+                            foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader):
                                 $arHeader["name"] = (isset($arHeader["name"]) ? (string)$arHeader["name"] : '');
                                 if ($arHeader["name"] == '')
                                     $arHeader["name"] = GetMessage("SALE_".$arHeader["id"]);
-                                $arHeaders[] = $arHeader["id"];   
+                                $arHeaders[] = $arHeader["id"];
 
                                 // remember which values should be shown not in the separate columns, but inside other columns
                                 if (in_array($arHeader["id"], array("TYPE")))
@@ -51,7 +57,7 @@
                                 {
                                     $bDeleteColumn = true;
                                     continue;
-                                }   
+                                }
                                 elseif ($arHeader["id"] == "WEIGHT")
                                 {
                                     $bWeightColumn = true;
@@ -62,11 +68,11 @@
                                 <td class="item" id="col_<?=$arHeader["id"];?>">
                                 <?
                                     elseif ($arHeader["id"] == "PRICE"):
-                                ?>  
+                                ?>
                                 <td class="price counTitle" id="col_<?=$arHeader["id"];?>">
                                 <?
                                     elseif ($arHeader["id"] == "SUM"):  continue;
-                                ?>                                                      
+                                ?>
                                 <?
                                     elseif ($arHeader["id"] == "QUANTITY"):
                                 ?>
@@ -90,12 +96,12 @@
                                 endif;
                         ?>
                     </tr>
-                </thead>           
+                </thead>
 
                 <tbody>
                     <?
                         $totalQuantity = 0; //общее количество товаров в корзине
-						
+
 						/* для инструментов аналитики */
 						$itemsForSociomantic = Array();
 						$itemsForCriteo = Array();
@@ -106,17 +112,17 @@
 						$retailRocketRecs = '';
 						$is = 0;
 						/* конец */
-						
+
                         foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):
                             $totalQuantity += $arItem["QUANTITY"];
                             if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y"):
-							
+
 							array_push($gtmEnchECommerceCheckout,"'name': '".$arItem['NAME']."','id': '".$arItem["PRODUCT_ID"]."','category': '".$parentSectionName."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Google Analytics Items
 							array_push($itemsForCriteo,"'id': '".$arItem["PRODUCT_ID"]."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Criteo Items
 							if ($is < 15)
 								$retailRocketRecs .= $arItem["PRODUCT_ID"].',';
 							$is++;
-                            ?>                       
+                            ?>
                             <tr id="<?=$arItem["ID"]?>">
                                 <?
                                     foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader):
@@ -126,7 +132,7 @@
 
                                         if ($arHeader["id"] == "NAME"):
                                         ?>
-                                        <td class="bookImg ">                                  
+                                        <td class="bookImg ">
                                             <?
                                                 if (strlen($arItem["PREVIEW_PICTURE_SRC"]) > 0):
                                                     $url = $arItem["PREVIEW_PICTURE_SRC"];
@@ -139,14 +145,14 @@
 
                                             <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?><a href="<?=$arItem["DETAIL_PAGE_URL"] ?>"><?endif;?>
                                                 <img src="<?=$url?>">
-                                            <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?></a><?endif;?>                                     
+                                            <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?></a><?endif;?>
 
                                         </td>
-                                        <td class="item bookNameWrap">  
+                                        <td class="item bookNameWrap">
                                             <p class="nameOfBook">
                                                 <a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" >
                                                     <?=$arItem["NAME"]?>
-                                                </a>  
+                                                </a>
                                             </p>
                                             <?
                                             $curr_author = CIBlockElement::GetByID($arItem["PROPERTY_AUTHORS_VALUE"]) -> Fetch();
@@ -154,7 +160,7 @@
                                             {?>
                                                 <p class="nameOfAutor"><?=$curr_author["NAME"]?></p>
                                             <?}?>
-                                            <p class="nameOfType"><?=$arItem["PROPERTY_COVER_TYPE_VALUE"]?></p>  
+                                            <p class="nameOfType"><?=$arItem["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                             <div class="bx_ordercart_itemart">
                                                 <?
                                                     if ($bPropsColumn):
@@ -194,17 +200,17 @@
 	                                                    $useFloatQuantity = ($arParams["QUANTITY_FLOAT"] == "Y") ? true : false;
 	                                                    $useFloatQuantityJS = ($useFloatQuantity ? "true" : "false");
 	                                                ?>
-	
+
 	                                                <?
 	                                                    if (!isset($arItem["MEASURE_RATIO"]))
 	                                                    {
 	                                                        $arItem["MEASURE_RATIO"] = 1;
 	                                                    }
-	
-	                                                    if ( 
+
+	                                                    if (
 	                                                        floatval($arItem["MEASURE_RATIO"]) != 0
 	                                                    ):
-	                                                    ?>                                  
+	                                                    ?>
 	                                                    <a href="javascript:void(0);" class="minus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'down', <?=$useFloatQuantityJS?>);">-</a>
 	                                                    <?endif;?>
 	                                                <input
@@ -221,38 +227,38 @@
 	                                                    style="max-width: 50px"
 	                                                    value="<?=$arItem["QUANTITY"]?>"
 	                                                    onchange="updateQuantity('QUANTITY_INPUT_<?=$arItem["ID"]?>', '<?=$arItem["ID"]?>', <?=$ratio?>, <?=$useFloatQuantityJS?>)"
-	                                                    > 
-	                                                <? if (floatval($arItem["MEASURE_RATIO"]) != 0):?>     
-	                                                    <a href="javascript:void(0);" class="plus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'up', <?=$useFloatQuantityJS?>);">+</a> 
-	                                                    <?endif;?>  
+	                                                    >
+	                                                <? if (floatval($arItem["MEASURE_RATIO"]) != 0):?>
+	                                                    <a href="javascript:void(0);" class="plus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'up', <?=$useFloatQuantityJS?>);">+</a>
+	                                                    <?endif;?>
 	                                                <input type="hidden" id="QUANTITY_<?=$arItem['ID']?>" name="QUANTITY_<?=$arItem['ID']?>" value="<?=$arItem["QUANTITY"]?>" />
 	                                            </div>
                                             <? } else { ?>
-												<span class="sailplay_basket_quantity"><?= $arItem["QUANTITY"] ?></span>                               	
+												<span class="sailplay_basket_quantity"><?= $arItem["QUANTITY"] ?></span>
                                             <? } ?>
                                         </td>
                                         <?
                                             elseif ($arHeader["id"] == "PRICE"):
                                         ?>
                                         <td class="price priceOfBook">
-                                            <p class="current_price costOfBook" id="current_price_<?=$arItem["ID"]?>">                                                   
+                                            <p class="current_price costOfBook" id="current_price_<?=$arItem["ID"]?>">
                                                 <?=$arItem["PRICE_FORMATED"]?>
                                             </p>
                                             <p class="old_price costOfBook" id="old_price_<?=$arItem["ID"]?>">
-                                                <?if (floatval($arItem["DISCOUNT_PRICE_PERCENT"]) > 0):?>                                                     
+                                                <?if (floatval($arItem["DISCOUNT_PRICE_PERCENT"]) > 0):?>
                                                     <?=$arItem["FULL_PRICE_FORMATED"]?>
                                                     <?endif;?>
-                                            </p>                  
+                                            </p>
                                         </td>
                                         <?
                                             elseif ($arHeader["id"] == "DISCOUNT"):
                                         ?>
-                                        <td class="custom price priceOfBook">                                               
+                                        <td class="custom price priceOfBook">
                                             <p id="discount_value_<?=$arItem["ID"]?>" class="costOfBook"><?=$arItem["DISCOUNT_PRICE_PERCENT_FORMATED"]?></p>
-                                        </td> 
+                                        </td>
                                         <?
                                             elseif ($arHeader["id"] == "SUM"):  continue;
-                                        ?>                                                                                  
+                                        ?>
                                         <?
                                             else:
                                         ?>
@@ -282,7 +288,7 @@
                             endforeach;
                     ?>
                 </tbody>
-            </table>     
+            </table>
 
 
             <div class="grayDownLine"></div>
@@ -290,14 +296,14 @@
 	$psum = $arResult[allSum];
 	$pdiscabs = $arResult[DISCOUNT_PRICE_ALL];
 	$pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
-
+    $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
 	if ($psum < 2000) {
-		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
-	} elseif ($psum < 3000 && CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()))[0][VALUE] == 10) {
-		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((3000 - $psum), 2)." руб. и получите скидку 19%";
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
+	} elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 10) {
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 19%";
 
-	} elseif ($psum < 3000 && CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()))[0][VALUE] == 20) {
-		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
+	} elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 20) {
+		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
 
 	} elseif ($psum < 10000 && $pdiscrel == 19) {
 		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((10000 - $psum), 2)." руб. и получите скидку 28%";
@@ -317,7 +323,7 @@
 
 			<div id="discountMessageWrap" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
 				<span id="discountMessage" style="background:#fff9b7"><?=$printDiscountText?></span>
-			</div>			
+			</div>
 
             <p class="finalCost"><span id="allSum_FORMATED"><?=str_replace(" ", "&nbsp;", $arResult["allSum_FORMATED"])?></span></p>
             <p class="finalQuant">Кол-во: <span id="totalQuantity"><?=$totalQuantity?></span></p>
@@ -373,7 +379,7 @@
                 ?>
             </div>
 
-        </div>   
+        </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />
         <input type="hidden" id="offers_props" value="<?=CUtil::JSEscape(implode($arParams["OFFERS_PROPS"], ","))?>" />
@@ -387,10 +393,10 @@
 		<?$_SESSION['gtmEnchECommerceCheckout'] = $gtmEnchECommerceCheckout;?>
 		<?$_SESSION['itemsForCriteo']			= $itemsForCriteo;?>
 		<?$_SESSION['retailRocketRecs']			= $retailRocketRecs;?>
-		
 
-        <div class="bx_ordercart_order_pay">  
-            <?/* 
+
+        <div class="bx_ordercart_order_pay">
+            <?/*
                 <div class="bx_ordercart_order_pay_right">
                 <table class="bx_ordercart_order_sum">
                 <?if ($bWeightColumn && floatval($arResult['allWeight']) > 0):?>
@@ -435,11 +441,11 @@
                 </div>
             */?>
 
-            <div style="clear:both;"></div>  
+            <div style="clear:both;"></div>
             <?if ($arParams["USE_PREPAYMENT"] == "Y" && strlen($arResult["PREPAY_BUTTON"]) > 0):?>
                 <?=$arResult["PREPAY_BUTTON"]?>
                 <span><?=GetMessage("SALE_OR")?></span>
-                <?endif;?>                        
+                <?endif;?>
         </div>
 
     </div>
