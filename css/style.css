@@ -5401,8 +5401,8 @@ table.form-table tr td:nth-child(2){
     background-repeat: no-repeat;
 }
 .slidingDelivMenu{
-    left: -570px;
-    margin-left: 50%;
+    /*left: -570px;
+    margin-left: 50%;*/
     position: fixed;
     top: 40px;
 }
@@ -5711,4 +5711,16 @@ table.form-table tr td:nth-child(2){
 	-webkit-hyphens: auto;
 	-ms-hyphens: auto;
 	hyphens: auto;
+}
+.sailplay_basket_quantity {
+	display: block;
+    margin: 36px auto;
+    text-align: center;
+    color: #7b8c90;
+    font-family: "Walshein_regular";
+    font-size: 14px;
+}
+.basket_zero_cost {
+	color: #AD3b20;
+    font-size: 18px;
 }
