@@ -1,5 +1,6 @@
 <?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
+	require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 
     CModule::IncludeModule("blog");
     CModule::IncludeModule("iblock");
