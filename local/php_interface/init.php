@@ -760,6 +760,16 @@
         }
     }
 
+	AddEventHandler("main", "OnAfterUserRegister", "sailPlayRegister");
+	
+	function sailPlayRegister($arFields) {
+		file_put_contents(
+		    dirname(__FILE__) . "/log.txt",
+		    var_export($arFields, 1)."\n",
+		    FILE_APPEND
+		);
+	}
+
     AddEventHandler("catalog", "OnDiscountUpdate", "updatingSpecPriceProperty");
 
     /******
