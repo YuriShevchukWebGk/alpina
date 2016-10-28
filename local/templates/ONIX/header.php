@@ -13,6 +13,8 @@
    
 
     <?$APPLICATION->ShowHead();?>
-	
+    
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
+<div id="panel"><?$APPLICATION->ShowPanel();?></div>
+<a href="/bitrix/">перейти в административный раздел</a>

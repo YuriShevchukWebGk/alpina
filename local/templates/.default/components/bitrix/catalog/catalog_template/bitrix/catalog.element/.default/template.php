@@ -530,16 +530,16 @@ $arItemIDs = array(
                                     //$delivery_day = GetMessage("IN_A_DAY");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+                                    //$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    //$delivery_day = 'в четверг';
+                                    $delivery_day = 'во вторник';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    //$delivery_day = 'в четверг';
+                                    $delivery_day = 'во вторник';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    //$delivery_day = 'в четверг';
+                                    $delivery_day = 'в среду';
                                 }
 
                                 if ($today == 5) {
