@@ -41,7 +41,7 @@ if ($USER -> IsAuthorized())
         <!-- /container -->
     </section>
     <!-- /l-section-wrap -->
-    <?if (($USER -> IsAdmin() || $USER->GetID() == 187309) && $USER->GetEmail()) { ?>
+    <?if (($USER -> IsAdmin() || $USER->GetID() == 187490) && $USER->GetEmail()) { ?>
     	<?
     		$user_mail = $USER->GetEmail();
 			if ($token = SailplayHelper::getAuth()) { // если удалось соединиться с Sailplay и получить токен

@@ -77,14 +77,6 @@ class SailplayHelper {
 	}
 	
 	/**
-	 * Изменение данных о клиенте в sailplay
-	 * http://docs.sailplay.ru/ru/page/api-back-users/
-	 * @abstract
-	 * */
-	public static function changeUserData() {
-	}
-	
-	/**
 	 * Вспомогательная функция для выполнения запросов
 	 * @param string $query_string
 	 * @return array $decoded_result;
