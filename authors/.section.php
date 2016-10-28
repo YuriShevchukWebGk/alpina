@@ -1,6 +1,7 @@
 <?
 $sSectionName = "Авторы книг";
-$arDirProperties = Array(
-
+$arDirProperties = array(
+   "description" => "Описание и книги автора",
+   "keywords" => "автор, книги"
 );
 ?>

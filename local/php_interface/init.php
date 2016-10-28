@@ -1,5 +1,6 @@
 <?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
+	require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 
     CModule::IncludeModule("blog");
     CModule::IncludeModule("iblock");
@@ -29,7 +30,9 @@
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("PAYPAL_PAYSYSTEM_ID", 16);
     define ("SBERBANK_PAYSYSTEM_ID", 14);
+    define ("CASHLESS_PAYSYSTEM_ID", 12);
     define ("FLIPPOST_ID", 30);
     define ("PICKPOINT_DELIVERY_ID", 18);
     define ("CITY_INDIVIDUAL_ORDER_PROP_ID", 2);
@@ -47,6 +50,7 @@
     define ("DELIVERY_MAIL_2", 11);
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
+    define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
     /**
 	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
 	 *
@@ -755,6 +759,20 @@
             return $arFields;
         }
     }
+
+	AddEventHandler("main", "OnAfterUserAdd", "sailPlayRegister");
+	
+	/**
+	 * Добавляем нового юзера Sailplay после его регистрации
+	 * 
+	 * @param array $arFields
+	 * @return void
+	 * */
+	function sailPlayRegister(&$arFields) {
+		if ($token = SailplayHelper::getAuth()) {
+			SailplayHelper::addNewUser($token, $arFields['EMAIL'], $arFields['NAME'], $arFields['LAST_NAME']);
+		}
+	}
 
     AddEventHandler("catalog", "OnDiscountUpdate", "updatingSpecPriceProperty");
 
@@ -1701,5 +1719,48 @@
         $order_list = CSaleOrder::GetList(array(), array("USER_ID" => $user_id), false, false, array());
         $count = $order_list -> SelectedRowsCount();
         return $count;
+    }
+	
+	
+	/**
+	 * 
+	 * Проверяет, есть ли у пользователя рекуррентные карты
+	 * 
+	 * @param $user_id int
+	 * @return string|bool 
+	 * 
+	 * */
+	function isUserHaveRecurrentCard($user_id) {
+		$users = CUser::GetList(
+			($by = ""),
+			($order = ""),
+			Array(
+				"ID" => $user_id
+			),
+			Array(
+				"SELECT" => Array("UF_RECURRENT_CARD_ID")
+			)
+		); 
+		if ($user = $users->NavNext(true, "f_")) {
+			return $user["UF_RECURRENT_CARD_ID"];
+		} else {
+			return false;
+		}
+	}
+	
+	 /**
+     *
+     * @param mixed $data
+     * @param string $file
+     * @return void
+     *
+     * */
+
+    function logger($data, $file) {
+        file_put_contents(
+            $file,
+            var_export($data, 1)."\n",
+            FILE_APPEND
+        );
     }
 ?>

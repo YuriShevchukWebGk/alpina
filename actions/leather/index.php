@@ -103,9 +103,12 @@ font-family: 'Walshein_regular'"><!--+7 (495) 980 80 77-->
     </div>
 </header>
         <div class="allPageWrap" style="padding-top:65px;">
-            <a rel="group" href="img/22.png"><div class="bookResizeBlock1"></div></a>
+            <?/*<a rel="group" href="img/22.png"><div class="bookResizeBlock1"></div></a>
             <a rel="group" href="img/23.png"><div class="bookResizeBlock2"></div></a>
-            <a rel="group" href="img/24.png"><div class="bookResizeBlock3"></div></a>
+            <a rel="group" href="img/24.png"><div class="bookResizeBlock3"></div></a>*/?>
+			<div class="bookResizeBlock1"></div>
+            <div class="bookResizeBlock2"></div>
+            <div class="bookResizeBlock3"></div>
 
 
             <img src="img/curtain.png" class="bigCurtan">
@@ -121,65 +124,42 @@ font-family: 'Walshein_regular'"><!--+7 (495) 980 80 77-->
                 <a class="contact" href="tel:+74959808077"><p class="callBack"><span>звоните</span> +7 495 980 80 77 </p></a>
 
 
-                <img src="img/sticker1.png" class="allBooksStick">
+                <img src="img/sticker1a.png" class="allBooksStick">
             </div>
             <div class="secondBlockWrap">
-                <p class="BiblioTitle">1. Библиотека руководителя</p>
+                <p class="BiblioTitle">Любая книга в премиум-оформлении</p>
                 <div class="firstPunctText">
-                    <p class="miniTitle">15 главных книг о бизнесе в эксклюзивном дизайне, помещенных в кожаный футляр.</p>
-                    <p class="decorationStyle">Переплет ручной работы из натуральной кожи, тиснение конгревом, золотой и серебрянной фольгой.</p>
-                    <p class="decorationText">Тонированная бумага "слоновая кость" в блоке, шелковая закладка-ляссе.</p>
+                    <p class="miniTitle">Мы готовы переиздать любую книгу издательства в представленном оформлении, превратив ее в настощее произведение искусства.
+<br /><br />
+Переплет ручной работы из натуральной кожи, тиснение конгревом, золотой и серебрянной фольгой. Тонированная бумага "слоновая кость" в блоке, шелковая закладка-ляссе.</p>
                 </div>
                 <div class="decorHint">
                     <p>Торшонированный обрез с окраской и золочением</p>
                 </div>
-                <div class="secondBookBlock"> 
-                    <p>В комплект входят:</p>
-                    <p>1. Айн Рэнд "Атлант расправил плечи"</p>
-                    <p>2. Айн Рэнд "Источник"</p>
-                    <p>3. Стивен Кови "Семь навыков высокоэффективных людей"</p>
-                    <p>4. Джеффри Лайкер "Дао Toyota"</p>
-                    <p>5. Гэвин Кеннеди "Договориться можно обо всем"</p>
-                    <p>6. Маркус Бакингем, Курт Коффман "Сначала нарушьте все правила!"</p>
-                    <p>7. Эрик Рис "Бизнес с нуля"</p>    
-                    <p>8. Ицхак Адизес "Идеальный руководитель"</p>
-                    <p>9. Дж. Вумек, Д.Джонс "Бережливое производство"</p>
-                    <p>10. Светлана Иванова "Искусство подбора персонала"</p>
-                    <p>11. Генрих Альтшуллер "Найти идею"</p>
-                    <p>12. Ричард Брэнсон "Теряя невинность"</p>
-                    <p>13. Марина Мелия "Бизнес - это психология"</p>
-                    <p>14. Михай Чиксентмихайи "Поток"</p>
-                    <p>15. Дэниел Пинк "Драйв"</p>
-                </div>
+
             </div>
             <div class="allBookWrap">
                 <img src="img/foutImage.png" class="fourCircles">
-                <p class="secBiblioTitle">2. Любая книга в премиум-оформлении</p>
-                <p class="boldText">Мы готовы переиздать любую книгу издательства в представленном оформлении, превратив её <br>в настоящее произведение искусства.</p>
-                <p class="italicText">Тонированная бумага "слоновая кость" в блоке, закладка-ляссе из натурального шелка.</p>
-                <img src="img/sticker2.png" class="bookStick">
+                <p class="italicText">Вы можете дополнить любое издание персонифицированными элементами:<br /><br />
+					1. <b>Экслибрисом</b> — уникальным книжным знаком, удостоверяющим владельца книги;<br />
+					2. <b>Страницей с личным посвящением</b> на авантитуле;<br />
+					3. <b>Фронтисписом</b> с портретом автора, дарителя или получателя подарка;<br />
+					4. <b>Сертификатом</b>, подтверждающим принадлежность книги к коллекционному изданию.<br /><br />
+					Наши менеджеры будут рады рассказать вам обо всех дополнительных возможностях.
+				</p>
+
             </div>
-            <div class="thirdSectionWrap">
-                <p class="thirdBiblioTitle">3. Разработка персонифицированного издания</p>
-                <div class="listWrapper">
-                    <p class="thirdQuest">Хотите сделать ОСОБЕННЫЙ подарок важному для вас человеку?</p>
-                    <p class="ulTitle">Вы можете заказать персонифицированное издание любой книги в кожаном футляре, дополнив его:</p>
-                    <p class="listItems"><span>экслибрисом </span>— уникальным книжным знаком, удостоверяющим владельца книги;</p>
-                    <p class="listItems">страницей с <span>личным посвящением</span> на авантитуле;</p>
-                    <p class="listItems"><span>фронтисписом</span> с портретом автора, дарителя или получателя подарка;</p>
-                    <p class="listItems"><span>сертификатом,</span> подтверждающим принадлежность книги к коллекционному изданию.</p>
-                    <p class="nextText">Наши менеджеры будут рады рассказать вам обо всех дополнительных возможностях.</p>
-                </div>
-            </div>
-            <div>
+
+            <div style="background: rgba(0, 0, 0, 0) url('img/bottom.jpg') no-repeat scroll center 0;height:220px;padding-top:30px;">
                 <div class="leftFooterBlock">
                     <p>вы хотите заказать книгу <br>в эксклюзивном оформлении?</p>
                 </div>
                 <div class="rightFooterBlock">
                     <p class="callTo">Звоните руководителю интернет-магазина</p>
+					<p class="callTo">Татьяне Разумовской</p>
                     <p class="telephone"><a  class="contact" href="tel:+74959808077">+7 495 980 80 77</a></p>
                     <p class="orWrite">или пишите:</p>
-                    <p class="emailAddr"><a class="contact" href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a></p>
+                    <p class="emailAddr"><a class="contact" href="mailto:t.razumovskaya@alpinabook.ru">t.razumovskaya@alpinabook.ru</a></p>
                 </div>
             </div>
         </div>

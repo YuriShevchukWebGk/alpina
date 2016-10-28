@@ -255,7 +255,13 @@
                                     false
                                 );?>
                         </div>
-                        <p class="nextPageWrap"><a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'ab-test-gtm',action: 'recsInCart',label: 'nextStepButton'});" class="nextPage"><?=GetMessage("SALE_ORDER")?></a></p> 
+                        <p class="nextPageWrap">
+                        	<? if ($arResult['allSum']) { ?>
+                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'ab-test-gtm',action: 'recsInCart',label: 'nextStepButton'});" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                        	<? } else { ?>
+                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
+                        	<? } ?>
+                        </p> 
 
                     </div>
                 </div>                       

@@ -2,7 +2,7 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Контакты");
 ?> 
-<div itemscope="" itemtype="http://schema.org/ContactPage" class="box-shadow" style="padding:40px;"> 
+<div class="box-shadow" style="padding:40px;"> 
   <h1 class="contacsPopupTitle">Контакты</h1>
   <div class="contactsTextWrap">
                 <h1>Издательство "Альпина Паблишер"</h1>

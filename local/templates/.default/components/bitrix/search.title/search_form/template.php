@@ -24,8 +24,9 @@ $CONTAINER_ID = CUtil::JSEscape($CONTAINER_ID);
 
 if($arParams["SHOW_INPUT"] !== "N"):?>
     <div class="find" id="<?echo $CONTAINER_ID?>">
-    <form action="<?echo $arResult["FORM_ACTION"]?>">
-        <input class="mainSearchField" id="<?echo $INPUT_ID?>" type="text" name="q" placeholder="Поиск" value="" autocomplete="off" required/>&nbsp;<input name="s" type="submit" value="" />
+    <form action="<?echo $arResult["FORM_ACTION"]?>" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
+		<meta itemprop="target" content="https://www.alpinabook.ru/search/index.php?q={q}"/>
+        <input class="mainSearchField" id="<?echo $INPUT_ID?>" type="text" name="q" itemprop="query-input" placeholder="Поиск" value="" autocomplete="off" required/>&nbsp;<input name="s" type="submit" value="" />
     </form>
     </div>
 <?endif?>

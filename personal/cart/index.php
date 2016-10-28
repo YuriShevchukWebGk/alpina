@@ -1,12 +1,12 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetTitle("Корзина — Интернет-магазина Альпина Паблишер");
-    $APPLICATION->SetPageProperty("description", "Здесь перечислены книги, которые я хочу получить"); 
+    $APPLICATION->SetPageProperty("description", "Здесь перечислены книги, которые я хочу получить");
 ?>
 <div id="basket_container">
     <?$APPLICATION->IncludeComponent(
-	"bitrix:sale.basket.basket", 
-	"basket", 
+	"bitrix:sale.basket.basket",
+	"basket",
 	array(
 		"COUNT_DISCOUNT_4_ALL_QUANTITY" => "N",
 		"COLUMNS_LIST" => array(
@@ -21,10 +21,6 @@
 			8 => "PROPERTY_AUTHORS",
 			9 => "PROPERTY_COVER_TYPE",
 		),
-		"AJAX_MODE" => "N",
-		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y",
-		"AJAX_OPTION_HISTORY" => "N",
 		"PATH_TO_ORDER" => "/personal/order/make/",
 		"HIDE_COUPON" => "N",
 		"QUANTITY_FLOAT" => "N",
@@ -53,7 +49,7 @@
 		"GIFTS_MESS_BTN_BUY" => "Выбрать",
 		"GIFTS_MESS_BTN_DETAIL" => "Подробнее",
 		"GIFTS_PAGE_ELEMENT_COUNT" => "4",
-		"GIFTS_CONVERT_CURRENCY" => "N",
+		"GIFTS_CONVERT_CURRENCY" => "Y",
 		"GIFTS_HIDE_NOT_AVAILABLE" => "N",
 		"TEMPLATE_THEME" => "blue",
 		"GIFTS_PLACE" => "BOTTOM"

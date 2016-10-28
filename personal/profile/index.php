@@ -41,9 +41,16 @@ if ($USER -> IsAuthorized())
         <!-- /container -->
     </section>
     <!-- /l-section-wrap -->
-    <?if ($USER -> IsAdmin()) {?>
-        <app></app>
-    <?}?>
+    <?if (($USER -> IsAdmin() || $USER->GetID() == 187309) && $USER->GetEmail()) { ?>
+    	<?
+    		$user_mail = $USER->GetEmail();
+			if ($token = SailplayHelper::getAuth()) { // если удалось соединиться с Sailplay и получить токен
+				if ($hash = SailplayHelper::getUserAuthHash($token, $user_mail)) { // если удалось получить auth_hash для пользователя, то отображаем ЛК ?>
+					<app></app>
+				<? }
+			}
+    	?>
+    <? } ?>
 <?
 }
 else
@@ -98,8 +105,9 @@ else
 </script>
 
 <script type="text/javascript">
-    var AUTH_HASH = '6fcc1b0c966191383b94ca00eb39b3ff1bfc376d',
-    EMAIL = 'test@test,test';
+	<? // в данном случае не принципиально, есть ли у пользователя hash и mail, если их не будет, то функционал sailplay просто не отобразится?>
+    var AUTH_HASH = '<?= $hash ?>',
+    	EMAIL     = '<?= $user_mail ?>';
     document.addEventListener('DOMContentLoaded', function () {
         var s = document.createElement("script");
         s.type = "text/javascript";
@@ -111,6 +119,6 @@ else
         ss.href = "<?=SITE_TEMPLATE_PATH?>/css/main.css";
         document.getElementsByTagName("head")[0].appendChild(ss);
     });
-</script>
+</script>		
        
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

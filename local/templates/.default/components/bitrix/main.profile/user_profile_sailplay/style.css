@@ -32,3 +32,34 @@ div.bx-auth-profile span.bx-auth-secure {background-color:#FFFAE3; border:1px so
 div.bx-auth-profile div.bx-auth-secure-icon {background-image:url(images/sec.png); background-repeat:no-repeat; background-position:center; width:19px; height:18px;}
 div.bx-auth-profile div.bx-auth-secure-unlock {background-image:url(images/sec-unlocked.png);}
 
+.bank_cards_set {
+	margin-top: 30px;
+}
+
+.bank_cards_set .account-form__set-head {
+	margin-bottom: 10px;
+}
+
+.saved_card_line {
+	margin-top: 15px; 
+}
+
+.saved_card_line li {
+	display: inline-block;
+}
+
+.saved_card_line li:first-child {
+	padding: 10px;
+    border: 1px solid #489FAD;
+    border-radius: 5px;
+}
+
+.saved_card_line li:last-child {
+	cursor: pointer;
+	margin-left: 20px;
+    text-align: center;
+    color: #fff;
+    background-color: #00ABB8;
+    border-radius: 25px;
+    padding: 10px 25px;
+}

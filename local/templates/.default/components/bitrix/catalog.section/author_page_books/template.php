@@ -11,14 +11,13 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
+global $authorName;
 ?>
-<?
-
-?>
-
-<div class="autorBooksWrap">
+<div class="autorBooksWrap" itemscope itemtype="http://schema.org/ItemList">
+	<a name="books" />
+	<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>#books" />
     <div class="catalogWrapper">
-        <p class="titleMain">Книги автора</p>
+        <h2 style="margin:0;" class="titleMain" itemprop="name">Книги <?=$authorName?></h2>
         <div class="catalogBooks">
             <?foreach($arResult["ITEMS"] as $arItem)
                 {
@@ -28,26 +27,27 @@ $this->setFrameMode(true);
                         //{
                             $pict = CFile::ResizeImageGet($arItem["PREVIEW_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_EXACT, true);
                         ?>
-                    <div class="bookWrapp">
+                    <div class="bookWrapp" itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
                         <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
                         <div class="section_item_img">
-                            <img src="<?=$pict["src"]?>">
+                            <img src="<?=$pict["src"]?>" itemprop="image" alt="Книга «<?=$arItem["NAME"]?>»" title="Книга «<?=$arItem["NAME"]?>»">
                         </div>
-                        <p class="bookName"><?=$arItem["NAME"]?></p>
+                        <p class="bookName" itemprop="name"><?=$arItem["NAME"]?></p>
                         </a>
+						<meta itemprop="description" content="<?=htmlspecialchars(strip_tags($arItem['PREVIEW_TEXT']))?>" />
                         <?
                         if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)
                         {  
                             if ($arPrice["DISCOUNT_VALUE_VAT"])
                             {
                             ?>
-                            <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                            <p class="bookPrice" itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
                             <?
                             }
                             else
                             {
                             ?>
-                            <p class="bookPrice"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <span>руб.</span></p>
+                            <p class="bookPrice"itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
                             <?
                             }
                         }

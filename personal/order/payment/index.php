@@ -2,7 +2,58 @@
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
     $APPLICATION->SetTitle("Оплата заказа");
 ?>
+<?
+global $USER;
+if (!$USER->GetID()) { ?>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+	// вырезаем какой-то левый текст из футера
+	document.querySelector(".authorisationWrapper").nextSibling.remove();
+	document.querySelector("#remembMe").removeAttribute("hidden");
+	document.querySelector(".historyMenuWrap").remove();
+})
+</script>
+<style type="text/css">
+	.alert-danger {
+		color: #7B8C90;
+	    font-family: "Walshein_regular";
+	    font-size: 24px !important;
+	    margin: 15px 0;	
+	}
+	
+	.bx-authform input[type="text"], .bx-authform input[type="password"] {
+	    background-color: #fdfdfd !important;
+	    border: 1px solid #c1c5c8 !important;
+	    box-shadow: none !important;
+	    color: #353535 !important;
+	    font-family: "Walshein_regular" !important;
+	    font-size: 14px !important;
+	    height: 34px !important;
+	    padding: 0 0 0 14px !important;
+	    width: 248px !important;
+	    margin-bottom: 15px;
+	    display: inline-block;
+	    outline: none;
+	    vertical-align: middle;
+	    background: #fff;
+	    border-radius: 2px;
+	}
+	
+	.btn-primary {
+		background-color: #00a0af !important;
+	    border-radius: 40px;
+	    color: white;
+	    font-family: "Walshein_regular";
+	    font-size: 19px;
+	    padding: 13px 48px;
+	    text-decoration: none;
+	    border-color: transparent !important;
+	    margin-top: 15px;
+	}
+</style>	
 
+<? $APPLICATION->AuthForm('Авторизуйтесь для доступа к странице оплаты', true, true, 'N', false);
+ } else { ?>
 <style type="text/css">
     *{
         font-family: Tahoma;
@@ -66,4 +117,5 @@
         </table>
     </div>
     <?}?>
+<? } ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

@@ -42,20 +42,17 @@ body{
     position:relative;
 }
 .allBookWrap{
-	background: url('img/back2.png') no-repeat;
 	margin-top: 94px;
 	position: relative;
-	padding-top: 126px;
     width: 1192px;
-    height: 291px;
     background-size: cover;
 }
 .allPageWrap{
 	margin: 0 auto;
     width: 1192px;
-    height: 2800px;
+
     position: relative;
-    background: rgba(0, 0, 0, 0) url("img/bigBack.jpg") no-repeat scroll center 0;
+    background: rgba(0, 0, 0, 0) url("img/bigBack1b.jpg") no-repeat scroll center 0;
 }
 .bigCurtan{
 	position: absolute;
@@ -86,7 +83,7 @@ body{
     width: 1192px;
 }
 .allBooksStick{
-	bottom: -6px;
+	bottom: -60px;
     position: absolute;
     right: 144px;
 }
@@ -131,7 +128,7 @@ body{
 	color: #000000;
     font-family: "Walshein_regular";
     font-size: 16px;
-    width: 384px;
+    width: 684px;
     margin-bottom: 4px;
 }
 .firstPunctText{
@@ -202,7 +199,6 @@ body{
 .fourCircles{
 	left: 200px;
     position: absolute;
-    top: -60px;
 }
 .secBiblioTitle{
 	color: #1f1482;
@@ -226,8 +222,9 @@ body{
     font-size: 16px;
     line-height: 20px;
     margin-left: 260px;
+	padding-top: 230px;
     margin-top: 19px;
-    width: 350px;
+    width: 650px;
     padding-bottom: 70px;
 }
 .bookStick{
@@ -294,7 +291,7 @@ body{
 	color: #ffd26d;
     float: left;
     font-family: "Walshein_regular";
-    font-size: 17px;
+    font-size: 15px;
     letter-spacing: 1px;
     margin-left: 214px;
     margin-top: 18px;
@@ -312,7 +309,7 @@ body{
 }
 .callTo{
 	font-family: "Walshein_regular";
-    font-size: 19px;
+    font-size: 18px;
     margin-bottom: 0;
     margin-top: 0;
 }

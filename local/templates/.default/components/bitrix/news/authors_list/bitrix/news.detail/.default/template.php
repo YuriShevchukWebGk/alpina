@@ -11,51 +11,55 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
+global $authorName;
+$authorName = $arResult["PROPERTIES"]["ALT_NAME"]["VALUE"];
 ?>
 
+<?
+$sects_list = CIBlockSection::GetList (array(), array("IBLOCK_ID" => 29, 'NAME' => substr($arResult["PROPERTIES"]["LAST_NAME"]["VALUE"], 0, 1)), false, array("ID", "NAME"), $filter);
+$sects = $sects_list -> Fetch();
+?>
+<script>
+$(document).ready(function() {
+	$('#detailReview a:not([href*="alpinabook.ru"])').attr('target','_blank').attr('rel','nofollow'); //Если ссылка в рецензии не содержит alpinabook, то открывает в новой вкладке и закрываем через nofollow
+});
+</script>
 <div class="authorWrap">
     <div class="titleWrap">
         <div class="catalogWrapper">
-            <p class="breadCrump"><a href="/"><span>Главная /</span></a><a href="/authors"><span> Алфавитный указатель авторов /</span></a><span> <?=substr($arResult["PROPERTIES"]["LAST_NAME"]["VALUE"], 0, 1);?></span></p>
-            <p class="mainTitle"><?=$arResult["NAME"]?></p>
+            <p class="breadCrump" itemprop="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+				<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<a itemprop="url" href="/"><span itemprop="name">Главная</span></a>
+					<meta itemprop="position" content="1" />
+				</span> / 
+				<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<a itemprop="url" href="/authors"><span itemprop="name">Алфавитный указатель авторов</span></a>
+					<meta itemprop="position" content="2" />
+				</span> / 
+				<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<a itemprop="url" href="/authors/?list=<?=$sects["ID"]?>"><span itemprop="name"><?=$sects["NAME"]?></span></a>
+					<meta itemprop="position" content="3" />
+				</span> / 
+				<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+					<span itemprop="name"><?=$arResult["NAME"]?></span>
+					<meta itemprop="position" content="4" />
+				</span>
+			</p>
+            <h1 style="margin-top:0;" class="mainTitle"><?=$arResult["NAME"]?><?echo !empty($arResult["PROPERTIES"]["ORIG_NAME"]["VALUE"]) ? " / ".$arResult["PROPERTIES"]["ORIG_NAME"]["VALUE"] : ""?></h1>
         </div>
     </div>
-    <div class="content">
+    <div class="content" itemprop="mainEntity" itemscope itemtype="http://schema.org/Person">
+		<meta itemprop="name" content="<?=$arResult["NAME"]?>" />
         <div class="catalogWrapper">
             <div class="autorInfo">
                 <div class="autorPhoto">
-                    <?
-                    if ($arResult["DETAIL_PICTURE"]["SRC"])
-                    {
-                    ?>
-                        <img src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>">
-                    <?
-                    }
-                    else
-                    {
-                    ?>
+                    <?if ($arResult["DETAIL_PICTURE"]["SRC"]) {?>
+                        <img src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" itemprop="image" alt="Автор <?=$arResult["NAME"]?>" />
+                    <?} else {?>
                         <img src="/images/no_photo.png" width="200">
-                    <?
-                    }
-                    ?>
+                    <?}?>
                 </div>    
-                <div class='events'>
-                    <?/*?>
-                        <p>Мероприятия автора</p>
-                        <?
-                        $events_list = CIBlockElement::GetList (array("DATE_INSERT" => "DESC"), array("IBLOCK_ID" => 40), false, false, array("ID", "NAME", "DATE_INSERT"));
-                        while ($events = $events_list -> Fetch())
-                        {
-                        ?>
-                        <div class="event">
-                        <p class="date"><?=$events["DATE_INSERT"]?></p>
-                        <p><?=$events["NAME"]?></p>
-                        </div>
-                        <?
-                        }
-                        ?>
-                        <p class="allEvents">Все мероприятия</p>
-                    <?*/?>
+                <?/*<div class='events'>
                     <?$APPLICATION->IncludeComponent(
                             "bitrix:news.list", 
                             "events_small_block", 
@@ -120,23 +124,9 @@ $this->setFrameMode(true);
                             ),
                             false
                         );?>
-                </div>
+                </div>*/?>
             </div>
             <div class="textWrap">
-                <?/*?>
-                    <p class="citation">"Когда я покинул Стоу в 1967 году в возрасте неполных семнадцати лет, напутствующими словани директора были: "Поздравляю, Брэнсон. Я предсказываю, что ты или отправишься в тюрьму, или станешь миллионером"</p>
-                    <p class="autorName">ричард брэнсон</p>    
-                    <p class="title">Ранние годы</p>
-                    <p class="text">Брэнсон начал свой первый бизнес, связанный с звукозаписями, после путешествия по Ла- Маншу и приобретения на распродаже коробок с записями, помеченными как бракованные. Он продал эти записи, развозя их на собственной машине по розничным точкам Лондона. В 1970 году он продолжил продавать бракованные записи по почтовой рассылке. Торгуя под именем Virgin, он продал записей немногим меньше, чем магазины на центральной улице. Имя Virgin было отправной точкой, потому что записи продавались по новым условиям 
-                    (в отличие от других магазинов, где записи были недоступны для прослушивания в будке). </p>
-                    <p class="title">Бизнес-начинания</p>
-                    <p class="text">Брэнсон создал Virgin Atlantic Airways в 1984 году, запустил Virgin Mobile в 1999 году, Virgin 
-                    Blue в Австралии — в 2000 году, а затем потерпел неудачу в 2000 году в предложении о 
-                    покупке National Lottery.</p>
-                    <p class="text">В 1997 году Брэнсон взялся за то, что большинству казалось одним из его рискованных бизнес- начинаний, войдя в железнодорожный бизнес. Компания Virgin Trains выиграла франшизы 
-                    на создание секторов железной дороги в пересеченной сельской местности Intercity и West Coast в системе железной дороги компании British Rail. Вскоре у Virgin Trains начались проблемы с подвижными составами и инфраструктурой, унаследованной от British Rail.</p>
-                    <p class="text">Virgin приобрела в 1996 году европейскую авиакомпанию-перевозчика на короткие расстояния Euro Belgian Airlines и переименовала её в Virgin Express. В 2006 году авиалиния была объединена с SN Brussels Airlines, бывшей Sabena. Объединённая компания получила название Brussels Airlines. Она также основала национальную авиалинию, находящуюся в Нигерии, названную Virgin Nigeria. Ещё одна компания, Virgin America, начала вылеты из аэропорта San Francisco International Airport в августе 2007 года. Брэнсон также разработал бренд Virgin Cola и даже Virgin Vodka, которые не были особенно успешными начинаниями. </p>
-                <?*/?>
                 <?=html_entity_decode($arResult["PROPERTIES"]["AUTHOR_DETAIL_INFO"]["VALUE"]["TEXT"]);?>
             </div>
         </div>    

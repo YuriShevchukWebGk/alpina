@@ -1,5 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetPageProperty("title", "Результаты поиска — Альпина Паблишер");
 $APPLICATION->SetTitle("Поиск");
 global $SearchFilter;
 $SearchFilter = array(">CATALOG_PRICE_1" => 0);?>

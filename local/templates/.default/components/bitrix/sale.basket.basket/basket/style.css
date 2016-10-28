@@ -220,7 +220,7 @@
 	/*float:left;
 	width:50%; */
     float: right;
-    width: 45%;  
+    width: 45%;
 }
 .bx_ordercart .bx_ordercart_order_pay_right{
 	float:left;
@@ -949,9 +949,9 @@ input.bt2:active{border:1px solid #d2d2d2}
 .bookImg a {
     display:block;
     overflow: hidden;
-} 
+}
 
-.infoPunct textarea {    
+.infoPunct textarea {
     width:246px !important;
     min-width: 246px !important;
 }
@@ -969,4 +969,7 @@ font.errortext {
 }
 .promoWrap {
     display: inline-block;
+}
+#cardBlock1{
+    display: block;
 }

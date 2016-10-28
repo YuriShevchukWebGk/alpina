@@ -1389,7 +1389,7 @@ input:focus{
 }
 .authorWrap .autorInfo{
     float: left;
-    padding-left: 4px;
+    padding-right: 30px;
     padding-top: 50px;
 }
 .events p{
@@ -1456,7 +1456,6 @@ input:focus{
     margin-bottom: 30px;
 }
 .content .textWrap{
-    padding-left: 394px;
     padding-bottom: 34px;
 }
 .autorBooksWrap{
@@ -2481,6 +2480,7 @@ right: 45px;
 }
 .elementDescriptWrap .elementMainPict img{
     /*    width: 264px;*/
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.18), 0px 10px 7px 0px rgba(0, 0, 0, 0.14);
 }
 .elementDescriptWrap .elementMainPict:hover .overlay{
     display: block;
@@ -2722,7 +2722,17 @@ right: 45px;
     font-size: 19px;
     margin: 0 28px;
     padding: 14px 58px;
+	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
+	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
+.elementDescriptWrap .inBasket:hover {
+	background-color: #00b9c8;
+	color: #f2f2f2;
+}
+	
 .elementDescriptWrap .buyOneClick{
     border: 2px solid #c7a271;
     border-radius: 40px;
@@ -2799,7 +2809,7 @@ right: 45px;
 .centerColumn .productName{
     color: #fff;
     font-family: "Walshein_regular";
-    font-size: 24px;
+    font-size: 26px;
     padding-top: 34px;
 }
 .centerColumn .topBlock {
@@ -4375,6 +4385,9 @@ right: 45px;
     font-family: "Walshein_regular";
     font-size: 14px;
 }
+.menu li a:hover {
+	text-decoration:underline;
+}
 .mainLogoImg{
     left: 60px;
     position: absolute;
@@ -4639,15 +4652,23 @@ right: 45px;
     margin-top: 1px;
 }
 .authorisationWrapper input[type="submit"], .authWrapper input[type="submit"] {
-    background-color: #ffffff;
-    border: 2px solid #c7a271;
+    background-color: #c7a271;
+    border: 2px solid #fff;
     border-radius: 50px;
-    color: #c7a271;
+    color: #fff;
     font-family: "Walshein_regular";
     font-size: 19px;
     margin: 28px 220px;
     padding: 10px 78px;
     cursor: pointer;
+	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
+	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+}
+.authorisationWrapper input[type="submit"]:hover, .authWrapper input[type="submit"]:hover {
+	background-color:#d0b28c;
 }
 .authorisationWrapper .socServisesText, .authWrapper .socServisesText {
     border-top: 1px solid #ebebeb;
@@ -5386,8 +5407,8 @@ table.form-table tr td:nth-child(2){
     background-repeat: no-repeat;
 }
 .slidingDelivMenu{
-    left: -570px;
-    margin-left: 50%;
+    /*left: -570px;
+    margin-left: 50%;*/
     position: fixed;
     top: 40px;
 }
@@ -5674,4 +5695,38 @@ table.form-table tr td:nth-child(2){
 }
 .title-search-result {
 	width:600px!important;
+}
+.catalogDescription {
+	color: rgb(98, 116, 120);
+	font-family: "Walshein_light";
+	font-size: 16px;
+	line-height: 24px;
+	padding-bottom: 18px;
+	padding-top: 35px;	
+	clear:both;
+}
+.catalogDescription h2 {
+	font-size:28px;
+	font-family: "Walshein_light";
+}
+
+.js-history-popup {
+	top: 50px !important;
+}
+.content .textWrap, #prodBlock1 {
+	-webkit-hyphens: auto;
+	-ms-hyphens: auto;
+	hyphens: auto;
+}
+.sailplay_basket_quantity {
+	display: block;
+    margin: 36px auto;
+    text-align: center;
+    color: #7b8c90;
+    font-family: "Walshein_regular";
+    font-size: 14px;
+}
+.basket_zero_cost {
+	color: #AD3b20;
+    font-size: 18px;
 }

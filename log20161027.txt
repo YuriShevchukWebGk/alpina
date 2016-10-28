@@ -1,0 +1,40 @@
+
+2016-10-27T19:16:44+03:00
+/home/bitrix/www/bitrix/modules/epages.pickpoint/delivery/delivery_pickpoint.php:122
+array (
+  'ID' => '88',
+  'SORT' => '100',
+  'CODE' => '0000073738',
+  'COUNTRY_NAME' => 'Россия',
+  'COUNTRY_SHORT_NAME' => NULL,
+  'COUNTRY_ID' => '70',
+  'COUNTRY_NAME_ORIG' => 'Россия',
+  'COUNTRY_NAME_LANG' => 'Россия',
+  'REGION_NAME_ORIG' => NULL,
+  'REGION_NAME_LANG' => NULL,
+  'CITY_NAME' => 'Москва',
+  'CITY_SHORT_NAME' => NULL,
+  'CITY_ID' => '88',
+  'CITY_NAME_ORIG' => 'Москва',
+  'CITY_NAME_LANG' => 'Москва',
+)
+
+2016-10-27T19:17:41+03:00
+/home/bitrix/www/bitrix/modules/epages.pickpoint/delivery/delivery_pickpoint.php:122
+array (
+  'ID' => '88',
+  'SORT' => '100',
+  'CODE' => '0000073738',
+  'COUNTRY_NAME' => 'Россия',
+  'COUNTRY_SHORT_NAME' => NULL,
+  'COUNTRY_ID' => '70',
+  'COUNTRY_NAME_ORIG' => 'Россия',
+  'COUNTRY_NAME_LANG' => 'Россия',
+  'REGION_NAME_ORIG' => NULL,
+  'REGION_NAME_LANG' => NULL,
+  'CITY_NAME' => 'Москва',
+  'CITY_SHORT_NAME' => NULL,
+  'CITY_ID' => '88',
+  'CITY_NAME_ORIG' => 'Москва',
+  'CITY_NAME_LANG' => 'Москва',
+)

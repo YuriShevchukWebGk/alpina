@@ -63,6 +63,7 @@
             $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.8, width=device-width">');
         }
     </script> 
+	<!-- header .alpina_popup -->
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
 <?if ($USER->IsAuthorized()) {

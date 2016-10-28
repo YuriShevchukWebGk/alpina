@@ -37,7 +37,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 }
 ?>
 
-<div class="wrapperCategor">
+<div class="wrapperCategor" itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
+	<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
     <div class="categoryWrapper">
 
         <div class="catalogIcon">
@@ -46,7 +47,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
         </div>
 
         <div class="contentWrapp">
-            <h1><?= $arResult["NAME"]?></h1>
+            <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
 
 
 
@@ -294,7 +295,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                      foreach ($arResult["ITEMS"] as $cell => $arItem) {  
                          foreach ($arItem["PRICES"] as $code => $arPrice) { 
                          ?>
-                         <li>
+                         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
+							<meta itemprop="description" content="<?=htmlspecialchars(strip_tags($arItem["PREVIEW_TEXT"]))?>" />
                              <div class="categoryBooks">
                                  <div class="sect_badge">
                                      <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
@@ -305,10 +307,10 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                      }?>
                                  </div>
                                  
-                                 <a href="<?= $arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', <?= ($cell+1)?>, 'Catalog Section');">
+                                 <a href="<?= $arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', <?= ($cell+1)?>, 'Catalog Section');" itemprop="url">
                                      <div class="section_item_img">
                                          <?if ($arResult[$arItem["ID"]]["PICTURE"]["src"]) {?>               
-                                             <img src="<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>" alt="<?= $arItem["NAME"];?>">
+                                             <img src="<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>" alt="<?= $arItem["NAME"];?>" itemprop="image">
                                          <?} else {?>
                                              <img src="/images/no_photo.png" width="142" height="142">    
                                          <?}?>
@@ -316,17 +318,22 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                              <span class="volumes"><?= $arItem["PROPERTIES"]["number_volumes"]["VALUE"]?></span>
                                          <?}?>
                                      </div> 
-                                     <p class="nameBook" title="<?= $arItem["NAME"]?>"><?= $arItem["NAME"]?></p>
-                                     <p class="bookAutor"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
+                                     <p class="nameBook" title="<?= $arItem["NAME"]?>" itemprop="name"><?= $arItem["NAME"]?></p>
+									 <?if ($USER->isAdmin()){?>
+										<span class="crr-cnt" data-crr-url="<?=$arItem["ID"]?>" data-crr-chan="<?=$arItem["ID"]?>"></span>
+									 <?}?>
+                                     <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                      <?
                                      if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") 
                                         && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
 
                                             if ($arPrice["DISCOUNT_VALUE_VAT"]) { ?>
-                                                <p class="priceOfBook"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                                <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+												<link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? } else { ?>
-                                                <p class="priceOfBook"><?= ceil($arPrice["ORIG_VALUE_VAT"])?> <span>руб.</span></p>
+                                                <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+												<link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition">><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? }
                                          ?>
                                  
@@ -415,9 +422,6 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 <p class="showMore">Показать ещё</p>
             <?}?>
             <?=$arResult["NAV_STRING"]?>            
-            <div class="catalogDescription">
-                <?=$arResult["DESCRIPTION"]?>
-            </div>
         </div>
 
 
@@ -477,7 +481,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
 
 
-
+		<div class="catalogDescription" itemprop="description">
+			<?=$arResult["DESCRIPTION"]?>
+		</div>
     </div>
 </div>
 
@@ -624,6 +630,16 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             $(".categoryWrapper .categoryBooks").hover(function() {
                 $(this).css("height", "390px");
             });
+
         <?}?>    
+cackle_widget = window.cackle_widget || [];
+			cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{=it.stars}}{{?it.numr > 0}} {{=it.numr+it.numv}} {{=it.reviews}}{{?}}'});
+			(function() {
+				var mc = document.createElement('script');
+				mc.type = 'text/javascript';
+				mc.async = true;
+				mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+			})();		
     });
 </script>

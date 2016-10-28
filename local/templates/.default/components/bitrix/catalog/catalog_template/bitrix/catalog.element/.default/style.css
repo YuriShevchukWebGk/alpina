@@ -1059,6 +1059,9 @@
     padding-top: 34px;
     padding-bottom: 15px;
     min-height: 130px;
+    font-family: "Walshein_regular";
+    font-size: 16px;
+}
 }
 .wrap_prise_top > span{
     color: #627478;

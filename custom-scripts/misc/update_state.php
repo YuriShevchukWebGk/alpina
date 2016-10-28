@@ -1,7 +1,16 @@
-<?$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+<?
+$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+//define("NO_KEEP_STATISTIC", true);
+//define("NOT_CHECK_PERMISSIONS", true);
+//define('SITE_ID', 's1');
+//$DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
+//set_time_limit(0);
+//define("LANG", "ru"); 
+define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]."/custom-scripts/log.txt");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-	global $USER;
+	if (AddMessage2Log('Скрипт выполнен', 'update_state.php'))
+	
     CModule::IncludeModule("iblock");
     CModule::IncludeModule("catalog");
     CModule::IncludeModule("main");
@@ -85,19 +94,12 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	}
 	echo "<br />";	
 	
+	$arEventFields = array(
+		"ORDER_USER" => "Александр",
+		"REPORT" => 'Скрипт выполнен автоматом'
+	);				
+	//CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");	
 	
-	
-	
-	$isSecure = false;
-	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-		$isSecure = true;
-	}
-	elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
-		$isSecure = true;
-	}
-	$REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
-	echo $REQUEST_PROTOCOL;	
-
 ?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

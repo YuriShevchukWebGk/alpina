@@ -1,5 +1,7 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetPageProperty("keywords", "Автор, книг");
+$APPLICATION->SetPageProperty("description", "Описание автора книг");
     $APPLICATION->SetTitle("Авторы книг");
 ?>
 <?$APPLICATION->IncludeComponent(

@@ -23,8 +23,8 @@ foreach ($arParams as $key => $val)
 	if(strpos($key, "STATUS_COLOR_") !== false && strpos($key, "~") !== 0)
 		$arChildParams[$key] = $val;
 
-$_REQUEST["by"] = "STATUS_ID";
-$_REQUEST["order"] = "ASC";
+$_REQUEST["by"] = "DATE_INSERT";
+$_REQUEST["order"] = "DESC";
 
 $APPLICATION->IncludeComponent(
 	"bitrix:sale.personal.order.list",

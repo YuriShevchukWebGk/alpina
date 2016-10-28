@@ -1,5 +1,8 @@
 ﻿<?php
+$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]."/custom-scripts/log.txt");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+if (AddMessage2Log('Скрипт выполнен', 'checkbooks.php'))
 CModule::IncludeModule("iblock");
 CModule::IncludeModule("sale");
 CModule::IncludeModule("catalog");
@@ -238,6 +241,8 @@ if ($USER->isAdmin()) {
 		array('id'=>'82021','rec'=>'5973'),
 		array('id'=>'81365','rec'=>'79730'),
 		array('id'=>'8522','rec'=>'8093'),
+		array('id'=>'80484','rec'=>'8125'),
+		array('id'=>'89045','rec'=>'8722'),
 
 	);
 	
