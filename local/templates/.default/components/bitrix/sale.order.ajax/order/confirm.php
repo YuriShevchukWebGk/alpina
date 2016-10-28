@@ -358,7 +358,7 @@
                 <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == CASHLESS_PAYSYSTEM_ID) {
                     echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
                 }
-                if ($arResult["PAY_SYSTEM"]["ID"] == SBERBANK_PAYSYSTEM_ID && $arResult["ORDER"]["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+                if ($arResult["PAY_SYSTEM"]["ID"] == CASHLESS_PAYSYSTEM_ID && $arResult["ORDER"]["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                     $order_info = CSaleOrder::GetByID($arResult["ORDER"]["ID"]);
                     ?>
                     <div style="width: 800px;">
