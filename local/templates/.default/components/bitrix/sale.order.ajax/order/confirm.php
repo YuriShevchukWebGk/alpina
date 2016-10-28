@@ -357,11 +357,30 @@
                 </span>
                 <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == CASHLESS_PAYSYSTEM_ID) {
                     echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
-                }
+                }?>
+                <br>
+                <?
                 if ($arResult["PAY_SYSTEM"]["ID"] == CASHLESS_PAYSYSTEM_ID && $arResult["ORDER"]["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                     $order_info = CSaleOrder::GetByID($arResult["ORDER"]["ID"]);
-                    ?>
-                    <div style="width: 800px;">
+                    $order_props = CSaleOrderPropsValue::GetOrderProps($arResult["ORDER"]["ID"]);
+                    while ($props = $order_props -> Fetch()) {
+                        if ($props["CODE"] == "F_COMPANY_NAME") {
+                            $company_name = $props["VALUE"];
+                        }
+                        if ($props["CODE"] == "F_INN") {
+                            $company_inn = $props["VALUE"];
+                        }
+                        if ($props["CODE"] == "F_KPP") {
+                            $company_kpp = $props["VALUE"];
+                        }
+                        if ($props["CODE"] == "F_ADDRESS_FULL") {
+                            $address = $props["VALUE"];
+                        }
+                        if ($props["CODE"] == "F_PHONE") {
+                            $phone = $props["VALUE"];
+                        } 
+                    }?>
+                    <div class="expense_offer_block">
                         <div style="text-align: center"><?= GetMessage("BLANK_TITLE") ?></div><br>
                         <table class="receiver_block">
                             <tr>

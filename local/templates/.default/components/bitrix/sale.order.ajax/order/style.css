@@ -1056,6 +1056,7 @@ select {
 .basket_list {
     border: 3px solid black;
     border-collapse: collapse;
+    width: 100%;
 }
 .basket_list tr td {
     font-size: 11px;
@@ -1121,4 +1122,8 @@ select {
     font-size: 11px;
     width: 100%;
     font-weight: normal;    
+}
+.expense_offer_block {
+    width: 800px;
+    font-size: 13px;
 }
