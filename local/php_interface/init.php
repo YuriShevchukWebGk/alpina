@@ -773,6 +773,29 @@
 			SailplayHelper::addNewUser($token, $arFields['EMAIL'], $arFields['NAME'], $arFields['LAST_NAME']);
 		}
 	}
+	
+	AddEventHandler("main", "OnAfterUserAuthorize", "checkSailplayUserExistance");
+	
+	/**
+	 * 
+	 * Проверяем, существует ли пользователь в системе Sailplay,
+	 * если нет, то добавляем его.
+	 * 
+	 * @param array 
+	 * @return void
+	 * */
+	function checkSailplayUserExistance($user) {
+		if ($token = SailplayHelper::getAuth() && $user['user_fields']['EMAIL']) {
+			$result = SailplayHelper::isUserExist($token, $user['user_fields']['EMAIL']);
+			if ($result['status'] == 'fail') {
+				// если такого пользователя нет, то добавим его
+				SailplayHelper::addNewUser($token, $user['user_fields']['EMAIL'], $user['user_fields']['NAME'], $user['user_fields']['LAST_NAME']);
+				logger("new_user", dirname(__FILE__) . "/log.txt");
+			} else {
+				logger("exist", dirname(__FILE__) . "/log.txt");
+			}
+		}
+	}
 
     AddEventHandler("catalog", "OnDiscountUpdate", "updatingSpecPriceProperty");
 
