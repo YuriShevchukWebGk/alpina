@@ -759,20 +759,6 @@
             return $arFields;
         }
     }
-
-	AddEventHandler("main", "OnAfterUserAdd", "sailPlayRegister");
-	
-	/**
-	 * Добавляем нового юзера Sailplay после его регистрации
-	 * 
-	 * @param array $arFields
-	 * @return void
-	 * */
-	function sailPlayRegister(&$arFields) {
-		if ($token = SailplayHelper::getAuth()) {
-			SailplayHelper::addNewUser($token, $arFields['EMAIL'], $arFields['NAME'], $arFields['LAST_NAME']);
-		}
-	}
 	
 	AddEventHandler("main", "OnAfterUserAuthorize", "checkSailplayUserExistance");
 	
@@ -790,9 +776,6 @@
 			if ($result['status'] == 'fail') {
 				// если такого пользователя нет, то добавим его
 				SailplayHelper::addNewUser($token, $user['user_fields']['EMAIL'], $user['user_fields']['NAME'], $user['user_fields']['LAST_NAME']);
-				logger("new_user", dirname(__FILE__) . "/log.txt");
-			} else {
-				logger("exist", dirname(__FILE__) . "/log.txt");
 			}
 		}
 	}
