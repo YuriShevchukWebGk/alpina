@@ -447,7 +447,6 @@
                                 <th><?= GetMessage("SUMMARY") ?></th>
                             </tr>
                             <? $count = 1;
-                            $vat_rate = 0;
                             $arResult["ORDER"]["VAT_RATE_10_SUMM"] = 0;
                             $arResult["ORDER"]["VAT_RATE_18_SUMM"] = 0;
                             $basket_list = CSaleBasket::GetList (array(), array("ORDER_ID" => $arResult["ORDER"]["ID"]), false, false, array());
@@ -470,7 +469,6 @@
                                     <td><?= round($basket["PRICE"] * $basket["QUANTITY"], 2) ?></td>
                                 </tr>
                             <? $count++;
-                            $vat_rate = $basket["VAT_RATE"] * 100;
                             }
                             ?>
                         </table>
