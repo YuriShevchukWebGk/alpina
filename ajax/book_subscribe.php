@@ -5,7 +5,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_b
 
 function subscribeTest($id, $mail) {
     global $USER;
-    
+    if ($id != 'глава') {
     // --- get current el status    
     $arSelect = Array("NAME","PROPERTY_STATE");
     $arFilter = Array("IBLOCK_ID" => 4, "ID" => $id, "ACTIVE_DATE" => "Y", "ACTIVE" => "Y");
@@ -54,6 +54,24 @@ function subscribeTest($id, $mail) {
         //addUnisenderSub($mail,$subName);
         echo "Sub success";
     }
+	} else {
+        $PROP = array();
+        $PROP[385] = '1';  // --- book id
+        $PROP[386] = $mail; // --- subscriber E-mail
+        $PROP[387] = 'Глава из книги';  // --- subscription description
+        $PROP[388] = "3"; // --- subscription id		
+		
+        $arLoadProductArray = Array(
+          "MODIFIED_BY"    => $USER->GetID(), 
+          "IBLOCK_SECTION_ID" => false,         
+          "IBLOCK_ID"      => 41,
+          "PROPERTY_VALUES"=> $PROP,
+          "NAME"           => 'Глава из книги',
+          "ACTIVE"         => "Y",         
+          ); 
+          
+        $el->Add($arLoadProductArray);
+	}
 }
 
 subscribeTest($_POST['book_id'],$_POST['sub_mail']);

@@ -179,12 +179,22 @@ $arItemIDs = array(
                         <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
                         <span></span>
                     </div>
-                    <div class="takePartWrap">
-                        <p class="title"><?= GetMessage("TO_GET_A_CHAPTER") ?></p>
-                        <p class="text"><?= GetMessage("CHAPTER_SENT") ?></p>
-                        <input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>">
-                    </div>
-
+                    <?if (!empty($arResult["PROPERTIES"]["glavatitle"]["VALUE"])) {?>
+						<style>
+						.productElementWrapp {min-height:1500px;}
+						.showAllWrapp {height: 750px;}
+						</style>
+						<script>
+						$(document).ready(function() {
+							$(".showAllWrapp").css('height','850px');
+						});
+						</script>
+						<div class="takePartWrap" style="display:block;margin-bottom:5px;height:auto; border-bottom: 1px solid #dddddd; margin-top:0px;">
+							<p class="title"><?= GetMessage("TO_GET_A_CHAPTER") ?></p>
+							<p class="text">Глава «<?=$arResult["PROPERTIES"]["glavatitle"]["VALUE"]?>» будет отправлена вам на почту</p>
+							<input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>" value="<?= $arResult["MAIL"]; ?>" id="chapter-email" /><button onclick="sendchapter(<?=$arResult[ID];?>);" style="position: relative;left: 217px;top: -36px;border: none;width: 41px;height: 36px;cursor: pointer;background: transparent;">
+						</div>
+					<?}?>
                     <?if ($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]) {?>
                         <div class="characteris">
                             <p class="title"><?= GetMessage("PUBLISHER") ?></p>

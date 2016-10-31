@@ -65,7 +65,17 @@ function close_notice(id){
 	$("#notice_warn").slideUp();
 	$.cookie('notice_warn', id, {path: '/', expires: 3 });
 }
-
+//отправка главы
+function sendchapter(bookid) {
+	$.ajax({
+		type: "POST",
+		url: "/ajax/send_chapter.php",
+		data: {email: $("#chapter-email").val(), book: bookid}
+	}).done(function( strResult ) {
+            if (strResult == 'ok')
+				alert ('Глава отправлена!');
+        });
+};
 $(document).ready(function(){
 
 	$(".element_item_img").hover(
@@ -200,7 +210,7 @@ $(document).ready(function(){
         });
     })
 
-    if($('.basketItems').length > 0){
+   if($('.basketItems').length > 0){
         var GetArr = parseGetParams();
         if(GetArr.liked == "yes"){
             $('.cartMenuWrap .basketItems').removeClass('active');

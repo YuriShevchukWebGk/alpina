@@ -145,10 +145,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </ul>    
     </div>
     <div class="lkWrapp">
-        <div class="headBasket">
+        <a href="/personal/cart/" onclick="return false;"><div class="headBasket">
             <div class="BasketQuant">
             </div>
-        </div>
+        </div></a>
 
         <?
             if(CUser::IsAuthorized())
