@@ -19,7 +19,7 @@
     <script type="text/javascript">
         $(function(){
         $('.bx_ordercart').on('click', '.minus, .plus', function(){
-                $(".bx_ordercart").load(window.location.href + " #basket_items_list");
+                $(".bx_ordercart").load(window.location.href + " .bx_ordercart > *");
             })
         })
     </script>

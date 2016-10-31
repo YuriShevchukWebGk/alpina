@@ -522,7 +522,7 @@ function updateBasketTable(basketItemId, res)
         if (BX('allSum_FORMATED'))
             BX('allSum_FORMATED').innerHTML = res['BASKET_DATA']['allSum_FORMATED'].replace(/\s/g, '&nbsp;');
 
-        BX('priceBasketToCoupon').value = res['BASKET_DATA']['allSum'].replace(/\s/g, '&nbsp;');    
+        BX('priceBasketToCoupon').value = res['BASKET_DATA']['allSum'].replace(/\s/g, '&nbsp;');
 
         if (BX('PRICE_WITHOUT_DISCOUNT'))
             BX('PRICE_WITHOUT_DISCOUNT').innerHTML = (res['BASKET_DATA']['PRICE_WITHOUT_DISCOUNT'] != res['BASKET_DATA']['allSum_FORMATED']) ? res['BASKET_DATA']['PRICE_WITHOUT_DISCOUNT'].replace(/\s/g, '&nbsp;') : '';
@@ -697,7 +697,7 @@ function couponListUpdate(res)
     {
         $("input.good").css("width", $("input.good").val().length * 10);
         $("input.good").css("margin-top", "5px");
-    } 
+    }
     else if ($("input.bad").size() > 0)
     {
         $("input.bad").css("width", $("input.bad").val().length * 10);
@@ -1187,7 +1187,7 @@ BX.ready(function() {
         BX.bindDelegate(couponBlock, 'click', { 'attribute': 'data-coupon' }, BX.delegate(function(e){deleteCoupon(e); }, this));
 });
 
-//Custom coupon 
+//Custom coupon
 function enterCouponCustom() {
     var couponCode = $("#coupon").val();
     var price = $("#priceBasketToCoupon").val();
@@ -1204,7 +1204,7 @@ function enterCouponCustom() {
                 $('#allSum_FORMATED').html('0 руб.');
             }
         }
-    });   
+    });
 }
 $(document).ready(function(){
     if ($("input.good").size() > 0)
@@ -1215,4 +1215,9 @@ $(document).ready(function(){
     {
         $("input.bad").css("width", $("input.bad").val().length * 10);
     }
+
+    $('.bx_ordercart').on('click', '.minus, .plus', function(){
+        $(".bx_ordercart").load(window.location.href + " .bx_ordercart > *");
+    })
 })
+
