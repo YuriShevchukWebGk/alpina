@@ -284,18 +284,26 @@
 </div>
 
 <?//arshow($arResult, true);?>
-<?$APPLICATION->IncludeComponent(
-        "bitrix:catalog.section", 
-        "interesting_items", 
+<?/* Получаем бестселлеры от RetailRocket */
+global $arrFilterPersonal;
+if (isset($_COOKIE["rrpusid"])){
+    $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId=' . $_COOKIE["rrpusid"]);
+    $recsArray = json_decode($stringRecs);
+    $arrFilterPersonal = Array('ID' => (array_slice($recsArray, 0, 6)));
+}
+if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
+    <?$APPLICATION->IncludeComponent(
+        "bitrix:catalog.section",
+        "interesting_items",
         array(
             "IBLOCK_TYPE" => "catalog",
-            "IBLOCK_ID" => "4",
+            "IBLOCK_ID" => CATALOG_IBLOCK_ID,
             "SECTION_ID" => $arResult["ID"],
             "SECTION_CODE" => "",
             "IBLOCK_HEADER_TITLE" => "",
             "ELEMENT_SORT_FIELD" => "ID",
             "ELEMENT_SORT_ORDER" => "desc",
-            "FILTER_NAME" => "",
+            "FILTER_NAME" => "arrFilterPersonal",
             "INCLUDE_SUBSECTIONS" => "N",
             "SHOW_ALL_WO_SECTION" => "Y",
             "PAGE_ELEMENT_COUNT" => "10",
@@ -309,7 +317,7 @@
             ),
             "SECTION_URL" => "",
             "DETAIL_URL" => "",
-            "BASKET_URL" => "/personal/cart/step1a.php",
+            "BASKET_URL" => "/personal/cart/",
             "ACTION_VARIABLE" => "action",
             "PRODUCT_ID_VARIABLE" => "",
             "SECTION_ID_VARIABLE" => "",
@@ -388,7 +396,8 @@
             "MESSAGE_404" => ""
         ),
         false
-    );?>
+    );
+}?>
 </div>
 <script>
     // скрипт ajax-подгрузки товаров в блоке "Все книги"
