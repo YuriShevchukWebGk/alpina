@@ -147,7 +147,7 @@ header .telephone{
     border-left: 1px solid #e2e2e2;
     border-right: 1px solid #e2e2e2;
     float: right;
-    height: 41px;
+    height: 58px;
     padding: 17px 18px 0;
 }
 header .headBasket{
@@ -4576,6 +4576,7 @@ right: 45px;
     background-color: #ffffff;
     height: 606px;
     width: 654px;
+    margin: 0 auto;
 }
 .authorisationWrapper .title, .authWrapper .title{
     color: #627478;

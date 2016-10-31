@@ -1,49 +1,26 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-    $APPLICATION->SetTitle("Персональный раздел");
-    
+    $APPLICATION->SetTitle("Персональный раздел"); 
 ?>
-<style>
-.authWrapper {
-    margin: 0 auto;
-}
-.lkWrapp div {
-    height: 58px;
-}
-.ng-scope{
-    /*display:none;*/
-}
-</style>
-<?
-if ($USER -> IsAuthorized())
-{
-    ?>
+<? if ($USER->IsAuthorized()) { ?>
     <section class="l-section-wrap top-section color_1 full">
         <div class="container">
             <div class="top-section__edit-acc">
                 <span class="top-section__edit-acc-inner js-open-acc-edit">Редактировать профиль</span><span class="ordersListA"><a href="/personal/">Список заказов</a></span><span class="wishListA"><a href="/personal/cart/?liked=yes">Список желаний</a></span><span class="exitA"><a href="/personal/digitalbooks/">Бесплатные электронные книги</a><a href="/?logout=yes">Выход</a></span>
             </div>
-
-            <?$APPLICATION->IncludeComponent("bitrix:main.profile", "user_profile_sailplay", array(
-                "SET_TITLE" => "Y",
-                    "AJAX_MODE" => "Y"
+            <? $APPLICATION->IncludeComponent("bitrix:main.profile", "user_profile_sailplay", array(
+	                "SET_TITLE" => "Y",
+	                "AJAX_MODE" => "Y"
                 ),
                 false,
                 array(
-                "ACTIVE_COMPONENT" => "Y"
+                	"ACTIVE_COMPONENT" => "Y"
                 )
-            );
-            ?>         
-
-
-            <!-- /account-form -->
+            ); ?>
         </div>
-        <!-- /container -->
     </section>
-    <!-- /l-section-wrap -->
-    <?if (($USER -> IsAdmin() || $USER->GetID() == 187490) && $USER->GetEmail()) { ?>
+    <? if ($user_mail = $USER->GetEmail()) { ?>
     	<?
-    		$user_mail = $USER->GetEmail();
 			if ($token = SailplayHelper::getAuth()) { // если удалось соединиться с Sailplay и получить токен
 				if ($hash = SailplayHelper::getUserAuthHash($token, $user_mail)) { // если удалось получить auth_hash для пользователя, то отображаем ЛК ?>
 					<app></app>
@@ -51,27 +28,20 @@ if ($USER -> IsAuthorized())
 			}
     	?>
     <? } ?>
-<?
-}
-else
-{
-?>      
-        <div class="signinWrapper">
-            <div class="centredWrapper">
-                <div class="signinBlock" style="display:block;">
-                    <?
-                    $APPLICATION->IncludeComponent("bitrix:system.auth.authorize", "flat", Array(
-                        "REGISTER_URL" => "/auth/",
-                        "PROFILE_URL" => "/personal/profile/",
-                        "SHOW_ERRORS" => "Y"
-                        ),
-                        false
-                    );
-                    ?>
-                </div>
+<? } else { ?>      
+    <div class="signinWrapper">
+        <div class="centredWrapper">
+            <div class="signinBlock" style="display:block;">
+            <? $APPLICATION->IncludeComponent("bitrix:system.auth.authorize", "flat", Array(
+	                    "REGISTER_URL" => "/auth/",
+	                    "PROFILE_URL"  => "/personal/profile/",
+	                    "SHOW_ERRORS"  => "Y"
+                    ),
+                    false
+                ); ?>
             </div>
         </div>
-    
+    </div>
 <?
 }
 ?>
