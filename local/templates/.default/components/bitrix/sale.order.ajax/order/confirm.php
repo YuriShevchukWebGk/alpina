@@ -355,7 +355,7 @@
                     ?>
                 </table>
                 </span>
-                <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == CASHLESS_PAYSYSTEM_ID) {
+                <? } elseif ($arResult["PAY_SYSTEM"]["ID"] == CASHLESS_PAYSYSTEM_ID && $arResult["ORDER"]["PERSON_TYPE_ID"] != LEGAL_ENTITY_PERSON_TYPE_ID) {
                     echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
                 }?>
                 <br>
@@ -447,13 +447,16 @@
                                 <th><?= GetMessage("SUMMARY") ?></th>
                             </tr>
                             <? $count = 1;
-                            $vat_rate = 0;
+                            $arResult["ORDER"]["VAT_RATE_10_SUMM"] = 0;
+                            $arResult["ORDER"]["VAT_RATE_18_SUMM"] = 0;
                             $basket_list = CSaleBasket::GetList (array(), array("ORDER_ID" => $arResult["ORDER"]["ID"]), false, false, array());
                             while ($basket = $basket_list -> Fetch()) {
                                if ($basket["VAT_RATE"] * 10 <= 1) {
                                    $multiplier = 0.0909;
+                                   $arResult["ORDER"]["VAT_RATE_10_SUMM"] += round($basket["PRICE"] * $basket["QUANTITY"] * $multiplier, 2);
                                } else {
                                    $multiplier = 0.1525;
+                                   $arResult["ORDER"]["VAT_RATE_18_SUMM"] += round($basket["PRICE"] * $basket["QUANTITY"] * $multiplier, 2);
                                }?>
                                 <tr>
                                     <td><?= $count ?></td>
@@ -466,7 +469,6 @@
                                     <td><?= round($basket["PRICE"] * $basket["QUANTITY"], 2) ?></td>
                                 </tr>
                             <? $count++;
-                            $vat_rate = $basket["VAT_RATE"] * 100;
                             }
                             ?>
                         </table>
@@ -477,11 +479,20 @@
                                 <td><?= GetMessage("PRICE_VALUE") ?></td>
                                 <td><?= round($arResult["ORDER"]["PRICE"] - $arResult["ORDER"]["PRICE_DELIVERY"], 2) ?></td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td><?= GetMessage("INCLUDING_VAT") . $vat_rate ?>%:</td>
-                                <td><?= round($arResult["ORDER"]["TAX_VALUE"], 2) ?></td>
-                            </tr>
+                            <? if ($arResult["ORDER"]["VAT_RATE_10_SUMM"] > 0) {?>
+                                <tr>
+                                    <td></td>
+                                    <td><?= GetMessage("INCLUDING_VAT_10") ?></td>
+                                    <td><?= round($arResult["ORDER"]["VAT_RATE_10_SUMM"], 2) ?></td>
+                                </tr>
+                            <? } ?>
+                            <? if ($arResult["ORDER"]["VAT_RATE_18_SUMM"] > 0) {?>
+                                <tr>
+                                    <td></td>
+                                    <td><?= GetMessage("INCLUDING_VAT_18") ?></td>
+                                    <td><?= round($arResult["ORDER"]["VAT_RATE_18_SUMM"], 2) ?></td>
+                                </tr>
+                            <? } ?>
                             <tr>
                                 <td></td>
                                 <td><?= GetMessage("TOTAL_TO_PAY") ?></td>
