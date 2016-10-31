@@ -31,6 +31,12 @@
     font-style: normal;
 }
 @font-face {
+    font-family: 'Walshein_thin';
+    src: url('/fonts/GT-Walsheim-Pro-Trial-Thin.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
     font-family: 'Walshein_medium';
     src: url('/fonts/GT-Walsheim-Pro-Trial-Medium.otf');
     font-weight: normal;
