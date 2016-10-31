@@ -51,10 +51,6 @@
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
     define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
-    define ("BOXBERRY_ID1", 32);
-    define ("BOXBERRY_ID2", 33);
-    define ("BOXBERRY_ID3", 34);
-    define ("BOXBERRY_ID4", 35);
     /**
 	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
 	 *
