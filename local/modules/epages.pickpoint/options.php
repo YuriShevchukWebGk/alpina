@@ -1,7 +1,7 @@
 <?
 $module_id = "epages.pickpoint";
 include($_SERVER["DOCUMENT_ROOT"]."/local/modules/epages.pickpoint/constants.php");
-$CAT_RIGHT = $APPLICATION->GetGroupRight($module_id);
+$CAT_RIGHT = $APPLICATION->GetGroupRight($module_id);       
 if ($CAT_RIGHT>="R"):
 	include($_SERVER["DOCUMENT_ROOT"]."/local/modules/epages.pickpoint/fields.php");
 	global $MESS;
@@ -151,7 +151,7 @@ if ($CAT_RIGHT>="R"):
 		array("DIV" => "edit1", "TAB" => GetMessage("MAIN_TAB_SET"), "ICON" => "support_settings", "TITLE" => GetMessage("MAIN_TAB_TITLE_SET")),
 		array("DIV" => "edit2", "TAB" => GetMessage("MAIN_TAB_TITLE_ZONES"), "ICON" => "support_settings", "TITLE" => GetMessage("MAIN_TAB_TITLE_ZONES")),
 		array("DIV" => "edit3", "TAB" => GetMessage("MAIN_TAB_RIGHTS"), "ICON" => "pickpoint_settings", "TITLE" => GetMessage("MAIN_TAB_TITLE_RIGHTS")),
-	);
+	);          
 	ShowNote(COption::GetOptionString("pickpoint","comment"),COption::GetOptionString("pickpoint","comment_type"));
 	$tabControl = new CAdminTabControl("tabControl", $aTabs);
 	$tabControl->Begin();
@@ -511,7 +511,7 @@ if ($CAT_RIGHT>="R"):
 	<?
 	$tabControl->BeginNextTab();
 	?>
-		<?require_once($_SERVER["DOCUMENT_ROOT"]."/local/modules/main/admin/group_rights.php");?>
+		<?require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/admin/group_rights.php");?>
 		<?$tabControl->Buttons();?>
 		<script language="JavaScript">
 		function RestoreDefaults()

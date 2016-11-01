@@ -4,9 +4,11 @@ if ($_POST['email']) {
 	$email = $_POST['email'];
 	$book = $_POST['book'];
 	
-	$book = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "ID" => $_POST['book']), false, false, array("ID", "NAME")) -> Fetch();
+	$book = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "ID" => $_POST['book']), false, false, array("ID", "NAME", "DETAIL_PICTURE")) -> Fetch();
 	$link = CIBlockElement::GetProperty(4, $_POST['book'], array("sort" => "asc"), Array("CODE"=>"glava"))->Fetch();
 	$link = CFile::GetPath($link['VALUE']);
+	$text = CFile::ResizeImageGet($book["DETAIL_PICTURE"], array("width" => 200, "height" => 270), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+	$text = "<img src='".$text[src]."' align='left' style='margin-right:20px;' />";
 	
 	$mailFields = array(
 		"EMAIL"=> $email,
@@ -37,7 +39,8 @@ if ($_POST['email']) {
 			  "IBLOCK_ID"      => 41,
 			  "PROPERTY_VALUES"=> $PROP,
 			  "NAME"           => 'Глава из книги '.$name,
-			  "ACTIVE"         => "Y",         
+			  "ACTIVE"         => "Y",
+			  "TEXT"		   => $text
 			  ); 
 			  
 			$el->Add($arLoadProductArray);
@@ -45,5 +48,16 @@ if ($_POST['email']) {
 	}
 
 	subscribeTest($_POST['book'],$_POST['email'], $book['NAME']);
+} else {
+	$email = 'a.marchenkov@alpinabook.ru';
+	$book = 7706;
+	
+	$book = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "ID" => $book), false, false, array("ID", "NAME", "DETAIL_PICTURE")) -> Fetch();
+	$link = CIBlockElement::GetProperty(4, $book, array("sort" => "asc"), Array("CODE"=>"glava"))->Fetch();
+	$link = CFile::GetPath($link['VALUE']);
+	
+	$text = CFile::ResizeImageGet($book["DETAIL_PICTURE"], array("width" => 200, "height" => 270), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+	$text = "<img src='".$text[src]."' align='left' style='margin-right:20px;' />";
+	echo $text;
 }
 ?>

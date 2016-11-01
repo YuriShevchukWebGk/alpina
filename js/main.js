@@ -73,7 +73,7 @@ function sendchapter(bookid) {
 		data: {email: $("#chapter-email").val(), book: bookid}
 	}).done(function( strResult ) {
             if (strResult == 'ok')
-				alert ('Глава отправлена!');
+				$(".takePartWrap").html("<span style='color:#00abb8;font-size:20px; font-family: \'Walshein_regular\';'>Глава отправлена</span>");
         });
 };
 $(document).ready(function(){

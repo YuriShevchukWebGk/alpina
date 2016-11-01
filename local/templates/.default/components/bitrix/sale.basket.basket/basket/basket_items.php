@@ -16,13 +16,7 @@
 
     if ($normalCount > 0):
     ?>
-    <script type="text/javascript">
-        $(function(){
-        $('.bx_ordercart').on('click', '.minus, .plus', function(){
-                $(".bx_ordercart").load(window.location.href + " .bx_ordercart > *");
-            })
-        })
-    </script>
+
     <div id="basket_items_list">
 
         <div class="yourBooks" id="cardBlock1">
