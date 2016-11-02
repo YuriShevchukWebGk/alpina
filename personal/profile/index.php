@@ -27,6 +27,28 @@
 				<? }
 			}
     	?>
+    	<? // Прелоадер для sailplay ?>
+	    <style>
+			/* Не самое лучшее решение оставлять стили здесь, но альтернатива это создание отдельного шаблона для /personal/profile/ */ 
+			.historyBodywrap > div > .full, .historyBodywrap > div > .l-section-wrap {
+				display: none;
+			}
+			
+			.historyBodywrap > div:first-child {
+				min-height: 300px;
+			}
+		</style>
+		<script>
+			window.onload = function () { 
+				$(".cssload-container").fadeOut(200);
+				$(".historyBodywrap > div > .full").fadeIn(200);
+				$(".historyBodywrap > div > .l-section-wrap").fadeIn(200);
+				$(".rsOverflow.grab-cursor").css("width", "100%");
+			}
+		</script>
+		<div class="cssload-container">
+			<div class="cssload-whirlpool"></div>
+		</div>
     <? } ?>
 <? } else { ?>      
     <div class="signinWrapper">
