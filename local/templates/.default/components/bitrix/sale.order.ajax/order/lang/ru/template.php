@@ -140,4 +140,5 @@ $MESS["QUOTE_TRANSCRIPT"] = "расшифровка подписи";
 $MESS["CEO_NAME"] = "Ильин А. М.";
 $MESS["ACCOUNTANT_NAME"] = "Блюмберг Елена";
 $MESS["ACCOUNTANT"] = "Бухгалтер";
+$MESS["DELIVERY_SUMM"] = "Доставка с НДС 18%:";
 ?>

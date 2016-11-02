@@ -338,8 +338,13 @@ document.addEventListener('DOMContentLoaded', function(){
             <? } ?>
             <tr>
                 <td></td>
+                <td>Доставка с НДС 18%:</td>
+                <td><?= round($arOrder["PRICE_DELIVERY"], 2) ?></td>
+            </tr>
+            <tr>
+                <td></td>
                 <td>Всего к оплате:</td>
-                <td><?= round($arOrder["PRICE"] - $arOrder["PRICE_DELIVERY"], 2) ?></td>
+                <td><?= round($arOrder["PRICE"], 2) ?></td>
             </tr>
         </table>
         <div class="additional_info">
