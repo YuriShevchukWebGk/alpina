@@ -500,6 +500,11 @@
                             </tr>
                             <tr>
                                 <td></td>
+                                <td><?= GetMessage("INCLUDING_VAT_18") ?></td>
+                                <td><?= round($arResult["ORDER"]["PRICE_DELIVERY"] * (18 / 118), 2) ?></td>
+                            </tr>
+                            <tr>
+                                <td></td>
                                 <td><?= GetMessage("TOTAL_TO_PAY") ?></td>
                                 <td><?= round($arResult["ORDER"]["PRICE"], 2) ?></td>
                             </tr>
@@ -507,8 +512,8 @@
                         <div class="additional_info">
                            <?= GetMessage("ADDITIONAL_INFO") ?>
                         </div><br>
-                        <span><?= GetMessage("TOTAL_ITEMS") . round($arResult["ORDER"]["PRICE"] - $arResult["ORDER"]["PRICE_DELIVERY"], 2) . GetMessage("ROUBLES") ?></span><br>
-                        <span class="price_string"><?= num2str(round($arResult["ORDER"]["PRICE"] - $arResult["ORDER"]["PRICE_DELIVERY"], 2)) ?></span>
+                        <span><?= GetMessage("TOTAL_ITEMS") . $count . GetMessage("FOR_SUMM") . round($arResult["ORDER"]["PRICE"], 2) . GetMessage("ROUBLES") ?></span><br>
+                        <span class="price_string"><?= num2str(round($arResult["ORDER"]["PRICE"], 2)) ?></span>
                         <div class="quotes_block">
                             <table>
                                 <tr>
