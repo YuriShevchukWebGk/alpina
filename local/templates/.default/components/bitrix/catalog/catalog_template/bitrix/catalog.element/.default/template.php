@@ -225,27 +225,29 @@ $arItemIDs = array(
                             </a>
                         </div>
                         <?}?>
-                    <div class="characteris">
-                        <p class="title"><?= GetMessage("COVER_TYPE") ?></p>
-                        <p class="text"><?= $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
-                        <?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_SOFTCOVER_XML_ID) {?>
-                            <link itemprop="bookFormat" href="https://schema.org/Paperback">
-                        <?} else if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_HARDCOVER_XML_ID) {?>
-                            <link itemprop="bookFormat" href="https://schema.org/Hardcover">
-                        <?}?>
-                    </div>
+					<?if($arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != "") {?>
+						<div class="characteris">
+							<p class="title"><?= GetMessage("COVER_TYPE") ?></p>
+							<p class="text"><?= $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
+							<?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_SOFTCOVER_XML_ID) {?>
+								<link itemprop="bookFormat" href="https://schema.org/Paperback">
+							<?} else if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_HARDCOVER_XML_ID) {?>
+								<link itemprop="bookFormat" href="https://schema.org/Hardcover">
+							<?}?>
+						</div>
+					<?}?>
                     <?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
                         <div class="characteris">
                             <p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
                             <p class="text"><span itemprop="numberOfPages"><?= $arResult["PROPERTIES"]["PAGES"]["VALUE"] ?></span><?= GetMessage("PAGES") ?></p>
                         </div>
                     <?}?>
-                    <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск') {?>
+                    <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                         <div class="characteris">
                             <a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
                         </div>
                     <?}?>
-                    <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "") {?>
+                    <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "" && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                         <div class="characteris">
                             <p class="title"><?= $arResult["PROPERTIES"]["YEAR"]["NAME"] ?></p>
                             <p class="text">
@@ -257,7 +259,7 @@ $arItemIDs = array(
                             </p>
                         </div>
                     <?}?>
-                    <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск') {?>
+                    <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                         <div class="characteris">
                             <a href="http://readright.ru/?=alpinabook" target="_blank">
                                 <span class="text noborderlink"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
@@ -380,7 +382,7 @@ $arItemIDs = array(
                                             <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                             <?}?>
 
-                                        <?if ($printDiscountText != '') {
+                                        <?if ($printDiscountText != '' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {
                                             echo $printDiscountText; // цена до скидки
                                         }?>
                                         В наличии
@@ -496,7 +498,7 @@ $arItemIDs = array(
                         <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
                     </div>
                     
-                    <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon') {?>
+                    <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                     <ul class="shippings">
                         <?
                             $today = date("w");
@@ -537,19 +539,19 @@ $arItemIDs = array(
                                     $delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    //$delivery_day = GetMessage("IN_A_DAY");
+                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    //$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+                                    //$delivery_day = 'во вторник';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+                                    //$delivery_day = 'во вторник';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = 'в среду';
+                                    $delivery_day = 'во вторник';
                                 }
 
                                 if ($today == 5) {
@@ -694,7 +696,19 @@ $arItemIDs = array(
                 </div>
                 <div class="subscr_result"></div>
                 <div class="centerColumn">
-                    <h1 class="productName" itemprop="name"><?=$arResult["NAME"] ?></h1>
+                    <h1 class="productName" itemprop="name"><?=$arResult["NAME"] ?>
+					<?
+					$rsUser = CUser::GetByID($USER->GetID())->Fetch();
+					if ($USER->isAdmin() && !empty($rsUser[UF_BOOKSBOUGHT])) {
+						$bought = unserialize($rsUser[UF_BOOKSBOUGHT]);
+						if (in_array($arResult[ID], $bought)) {
+							echo '<span style="width:10px; height:10px; background:green; border-radius:10px;display:block;"></span>';
+						} else {
+							echo 'Еще не купили';
+						}
+
+					}?>
+					</h1>
                     <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
                     <div class="authorReviewWrap">
                         <p class="reviews">

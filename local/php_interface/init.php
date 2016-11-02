@@ -1,7 +1,9 @@
 <?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
 	require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
-
+	require '/home/bitrix/vendor/autoload.php';
+	use Mailgun\Mailgun;
+	
     CModule::IncludeModule("blog");
     CModule::IncludeModule("iblock");
     CModule::IncludeModule("sale");
@@ -11,7 +13,7 @@
     use Bitrix\Main\Loader;
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
-
+	
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -85,7 +87,7 @@
             return $iblockStateProp["ID"];
         }
     }
-
+	
     function arshow($array, $adminCheck = false){
         global $USER;
         $USER = new Cuser;
@@ -106,6 +108,7 @@
         if ($n==1) return $f1;
         return $f5;
     }
+
     function searchNum2Str($num) {
         $nul='ноль';
         $ten=array(
@@ -1064,6 +1067,7 @@
                         CEvent::Send("BOOK_SUB_MAILING", "s1", $arEventFields,"N");
                         // --- email sending here
                         $el->Update($arFields['ID'], $arLoadProductArray);
+				
                     }
 
                 } else if($oldElStatus==23 && !$newElStatus){ // --- status changed from "not availible" to "in stock"

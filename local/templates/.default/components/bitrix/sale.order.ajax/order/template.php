@@ -96,17 +96,17 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
             if (ourday == 1) { //понедельник
                 minDatePlus = 2;
             } else if (ourday == 2) { //вторник
-                minDatePlus = 1;
+                minDatePlus = 2;
             } else if (ourday == 3) { //среда
-                minDatePlus = 1;
+                minDatePlus = 5;
             } else if (ourday == 4) { //четверг
                 minDatePlus = 4;
             } else if (ourday == 5) { //пятница
-                minDatePlus = 4;
+                minDatePlus = 3;
             } else if (ourday == 6) { //суббота
-                minDatePlus = 3;
+                minDatePlus = 2;
             } else if (ourday == 0) { //воскресенье
-                minDatePlus = 3;
+                minDatePlus = 2;
             }
         } else { // Майские праздники
             if (ourday == 1) { //понедельник

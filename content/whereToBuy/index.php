@@ -1211,6 +1211,14 @@ http://www.tdbars.ru/books/about/<br />
 &bull; ул. Собинова, 40&nbsp;/ 13<br />
 <br />
 <br />
+<span style="font-size:22px;"><strong>Нерюнгри, Республика Саха (Якутия)</strong></span><br />
+&nbsp;<br />
+<strong>Книжная Гавань</strong><br />
+&nbsp;<br />
+Улица Мира 21, пав. 15.<br />
+
+<br />
+<br />
 <br />
 <br />
 <span style="font-size:22px;"><strong>Казахстан</strong></span><br />
