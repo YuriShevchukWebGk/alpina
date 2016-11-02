@@ -495,8 +495,13 @@
                             <? } ?>
                             <tr>
                                 <td></td>
+                                <td><?= GetMessage("DELIVERY_SUMM") ?></td>
+                                <td><?= round($arResult["ORDER"]["PRICE_DELIVERY"], 2) ?></td>
+                            </tr>
+                            <tr>
+                                <td></td>
                                 <td><?= GetMessage("TOTAL_TO_PAY") ?></td>
-                                <td><?= round($arResult["ORDER"]["PRICE"] - $arResult["ORDER"]["PRICE_DELIVERY"], 2) ?></td>
+                                <td><?= round($arResult["ORDER"]["PRICE"], 2) ?></td>
                             </tr>
                         </table>
                         <div class="additional_info">
