@@ -44,6 +44,6 @@ $(function(){
     	}
     })
     
-    BX.addCustomEvent('onAjaxSuccess', function(){$(".account-form").show()}); 
+    BX.addCustomEvent('onAjaxSuccess', function(){}); 
 })
 
