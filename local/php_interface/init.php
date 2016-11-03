@@ -53,6 +53,43 @@
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
     define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
+	
+	
+	/**
+	 * 
+	 * Кастомная функция отправки почты через Mailgun
+	 * @link https://documentation.mailgun.com/user_manual.html#sending-via-api
+	 * 
+	 * @param string $to
+	 * @param string $subject
+	 * @param string $message
+	 * @param string $additional_headers
+	 * @param string $additional_parameters
+	 * 
+	 **/ 
+	function custom_mail($to, $subject, $message, $additional_headers = '', $additional_parameters = '') {
+		GLOBAL $arParams;
+		// т.к. доп заголовки битрикс передает строкой, то придется их вырезать
+		$from_pattern = "/(?<=From:)(.*)(?=)/";
+		$bcc_pattern = "/(?<=BCC:)(.*)(?=)/";
+		$from_matches = array();
+		$bcc_matches = array();
+		preg_match($from_pattern, $additional_headers, $from_matches);
+		preg_match($bcc_pattern, $additional_headers, $bcc_matches);
+		
+		$mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
+		$domain = $arParams['MAILGUN']['DOMAIN'];
+		
+		# Make the call to the client.
+		$result = $mailgun->sendMessage($domain, array(
+		    'from'    => $from_matches[0],
+		    'to'      => $to,
+		    'subject' => $subject,
+		    'html'    => $message,
+		    'bcc'     => $bcc_matches[0]
+		));
+	}
+
     /**
 	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
 	 *
@@ -870,8 +907,9 @@
         *************/
 
         function __construct(){
-            $this->user = 33767;
-            $this->password = 'Alpinagamma';
+            global $arParams;
+            $this->user = $arParams["SMS"]["LOGIN"];
+            $this->password = $arParams["SMS"]["PASSWORD"];
         }
 
         /***************
