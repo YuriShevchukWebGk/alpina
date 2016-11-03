@@ -78,16 +78,20 @@
 		preg_match($bcc_pattern, $additional_headers, $bcc_matches);
 		
 		$mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
-		$domain = $arParams['MAILGUN']['DOMAIN'];
-		
-		# Make the call to the client.
-		$result = $mailgun->sendMessage($domain, array(
+		$params = array(
 		    'from'    => $from_matches[0],
 		    'to'      => $to,
 		    'subject' => $subject,
-		    'html'    => $message,
-		    'bcc'     => $bcc_matches[0]
-		));
+		    'html'    => $message
+		);
+		
+		if (trim($bcc_matches[0])) {
+			$params['bcc'] = $bcc_matches[0];
+		}
+		$domain = $arParams['MAILGUN']['DOMAIN'];
+		
+		# Make the call to the client.
+		$result = $mailgun->sendMessage($domain, $params);
 	}
 
     /**
