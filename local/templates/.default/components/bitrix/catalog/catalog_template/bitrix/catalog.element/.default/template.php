@@ -89,7 +89,6 @@ $arItemIDs = array(
                                 <?}
                             ?>
                         </div>
-
                         <div class="element_item_img">
                             <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
                                 <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
@@ -385,7 +384,7 @@ $arItemIDs = array(
                                         <?if ($printDiscountText != '' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {
                                             echo $printDiscountText; // цена до скидки
                                         }?>
-                                        В наличии
+                                        <button style="width:10px; height:10px; background:rgba(0, 255, 0, 0.57); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button> В наличии
                                         <?}
                                     } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
                                     <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
@@ -469,6 +468,14 @@ $arItemIDs = array(
                                 </div>
                             <?}?>
                         <?}?>
+					<?
+					$rsUser = CUser::GetByID($USER->GetID())->Fetch();
+					if (!empty($rsUser[UF_BOOKSBOUGHT])) {
+						$bought = unserialize($rsUser[UF_BOOKSBOUGHT]);
+						if ($arResult[ID] == $bought[$arResult[ID]][ID]) {
+							echo '<center><span style="color: #424c4f;display: inline-block;font-family: \'Walshein_regular\';font-size: 14px;margin-bottom: 5px;line-height: 24px;padding: 4px 22px;background: #fcfcfc none repeat scroll 0 0;width: 220px;"><img src="/images/info.png" align="left" style="margin-left:-10px;margin-top:12px;" />Вы уже купили эту книгу '.$bought[$arResult[ID]]["DATE"].'</span></center>';
+						}
+					}?>							
                     </div>
 
                     <div class="quickOrderDiv" style="display:none;">
@@ -499,6 +506,7 @@ $arItemIDs = array(
                     </div>
                     
                     <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+			
                     <ul class="shippings">
                         <?
                             $today = date("w");
@@ -539,10 +547,10 @@ $arItemIDs = array(
                                     $delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+                                    //$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+                                    //$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                     //$delivery_day = 'во вторник';
@@ -551,7 +559,7 @@ $arItemIDs = array(
                                     //$delivery_day = 'во вторник';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = 'во вторник';
+                                    //$delivery_day = 'во вторник';
                                 }
 
                                 if ($today == 5) {
@@ -696,19 +704,7 @@ $arItemIDs = array(
                 </div>
                 <div class="subscr_result"></div>
                 <div class="centerColumn">
-                    <h1 class="productName" itemprop="name"><?=$arResult["NAME"] ?>
-					<?
-					$rsUser = CUser::GetByID($USER->GetID())->Fetch();
-					if ($USER->isAdmin() && !empty($rsUser[UF_BOOKSBOUGHT])) {
-						$bought = unserialize($rsUser[UF_BOOKSBOUGHT]);
-						if (in_array($arResult[ID], $bought)) {
-							echo '<span style="width:10px; height:10px; background:green; border-radius:10px;display:block;"></span>';
-						} else {
-							echo 'Еще не купили';
-						}
-
-					}?>
-					</h1>
+                    <h1 class="productName" itemprop="name"><?=$arResult["NAME"] ?></h1>
                     <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
                     <div class="authorReviewWrap">
                         <p class="reviews">
