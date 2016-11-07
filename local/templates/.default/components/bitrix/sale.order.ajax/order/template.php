@@ -1,4 +1,5 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+
     if($USER->IsAuthorized() || $arParams["ALLOW_AUTO_REGISTER"] == "Y")
     {
         if($arResult["USER_VALS"]["CONFIRM_ORDER"] == "Y" || $arResult["NEED_REDIRECT"] == "Y")
@@ -13,28 +14,34 @@
             }
         }
     }
+
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
     $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
+
     include ('include/functions.php');
 ?>
 <style>
-/* Лучше так, чем городить адовые городушки на js */
-input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
-    display: block;
-}
+    /* Лучше так, чем городить адовые городушки на js */
+    input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
+        display: block;
+    }
 </style>
 <script>
+
     //дополнительные функции, необходимые для работы
     function setOptions() {
+
         if ($.browser.msie && $.browser.version <= 9) {
+
         } else {
             //валидаторы телефонных номеров
             $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
             $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
             $("#pp_sms_phone").inputmask("+79999999999");
         }
-        
+
+
         if($('#pp_sms_phone')){
             var phoneVal = $('#ORDER_PROP_24').val() || $('#ORDER_PROP_11').val();
             $('#pp_sms_phone').val(phoneVal);
@@ -46,6 +53,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         $('body').on('change', '#ORDER_PROP_11', function(){
             $('#pp_sms_phone').val($('#ORDER_PROP_11').val());
         });
+
         /*-----
         * RFI Bank tab switcher
         * ----*/
@@ -65,7 +73,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 );
             }
         })
-        
+
         $("body").on('click','.recurrent_tabs li:not(:last-child)',function(){
             if(!$(this).hasClass('active_recurrent_tab')){
                 $(".recurrent_tabs li").removeClass('active_recurrent_tab');
@@ -78,6 +86,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 );
             }
         })
+
         //ограничение на количество символов в комментарии
         $("#ORDER_DESCRIPTION").keydown(function(){
             var len = $(this).val().length;
@@ -85,6 +94,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 $(this).val( $(this).val().substr(0,300));
             }
         })
+
         //календарь
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
@@ -94,21 +104,22 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-                minDatePlus = 2;
+                minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-                minDatePlus = 2;
+                minDatePlus = 1;
             } else if (ourday == 3) { //среда
-                minDatePlus = 5;
+                minDatePlus = 1;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 4;
+                minDatePlus = 1;
             } else if (ourday == 5) { //пятница
                 minDatePlus = 3;
             } else if (ourday == 6) { //суббота
                 minDatePlus = 2;
             } else if (ourday == 0) { //воскресенье
-                minDatePlus = 2;
+                minDatePlus = 1;
             }
         } else { // Майские праздники
+
             if (ourday == 1) { //понедельник
                 minDatePlus = 1;
             } else if (ourday == 2) { //вторник
@@ -125,9 +136,6 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                 minDatePlus = 1;
             }
         }
-		if (parseInt($('.order_weight').text()) > 5000) {
-			minDatePlus++;
-		}
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;
@@ -146,23 +154,30 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         });
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker( "setDate", curDay );
         $("#ORDER_PROP_44, #ORDER_PROP_45").inputmask("d.m.y");
+
         if ($("#ID_DELIVERY_ID_11").is(':checked')) { //Если выбрана доставка почтой России
             $(".inputTitle:contains('Получатель')").parent().append('<span class="hideInfo warningMessage" style="display:inline;color:grey">(ФИО полностью)</span>');
         } else {
             $(".inputTitle:contains('Получатель')").html('Получатель <span class="bx_sof_req">*</span></p>');
             $(".hideInfo").hide();
         }
+
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
+
+        //Подсвечиваем активное местоположение в избранных
+        var locationID = $(".bx-ui-slst-target[name=ORDER_PROP_2], .bx-ui-slst-target[name=ORDER_PROP_3]").val();                    
+        $('.quick-location-tag[data-id="' + locationID + '"]').attr("style", 'background: #00a0af !important; color: white !important;');        
     }
+
     $(function(){
         $('.application input[type=image]').attr('src','/images/pay.jpg');
-        try {
-            submitForm();
+        /*try {
+        submitForm();
         }
         catch(err) {
-        }
+        }*/
         setOptions();
     })
     //далее костыль
@@ -174,6 +189,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         }
     })
 </script>
+
 <div class="breadCrumpWrap">
     <div class="centerWrapper">
         <?if($arResult["USER_VALS"]["CONFIRM_ORDER"] == "Y") {?>
@@ -192,7 +208,6 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         $bodyClass = "orderBodyWrapp";
     }
 ?>
-
 <div class="<?=$bodyClass?>">
 
 
@@ -238,16 +253,20 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                             return (strlen($arHeader["name"]) > 0) ? $arHeader["name"] : GetMessage("SALE_".$arHeader["id"]);
                         }
                     }
+
                     if (!function_exists("cmpBySort"))
                     {
                         function cmpBySort($array1, $array2)
                         {
                             if (!isset($array1["SORT"]) || !isset($array2["SORT"]))
                                 return -1;
+
                             if ($array1["SORT"] > $array2["SORT"])
                                 return 1;
+
                             if ($array1["SORT"] < $array2["SORT"])
                                 return -1;
+
                             if ($array1["SORT"] == $array2["SORT"])
                                 return 0;
                         }
@@ -268,6 +287,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                 foreach($arResult["OK_MESSAGE"] as $v)
                                     echo ShowNote($v);
                             }
+
                             include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/auth.php");
                         }
                         else
@@ -285,10 +305,12 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 
                             <script type="text/javascript">
                                 <?if(CSaleLocation::isLocationProEnabled()):?>
+
                                     <?
                                         // spike: for children of cities we place this prompt
                                         $city = \Bitrix\Sale\Location\TypeTable::getList(array('filter' => array('=CODE' => 'CITY'), 'select' => array('ID')))->fetch();
                                     ?>
+
                                     BX.saleOrderAjax.init(<?=CUtil::PhpToJSObject(array(
                                         'source' => $this->__component->getPath().'/get.php',
                                         'cityTypeId' => intval($city['ID']),
@@ -301,7 +323,9 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             )).'</div>'
                                         )
                                     ))?>);
+
                                     <?endif?>
+
                                 var BXFormPosting = false;
                                 function submitForm(val)
                                 {
@@ -321,6 +345,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_7").focus();
                                         }
+
                                         if($("#ORDER_PROP_6").size() > 0 && isEmail($('#ORDER_PROP_6').val()) == false){
                                             flag = false;
                                             $('#ORDER_PROP_6').parent("div").children(".warningMessage").html('Некорректно введен e-mail');
@@ -329,6 +354,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_6").focus();
                                         }
+
                                         if($("#ORDER_PROP_24").size() > 0 && isTelephone($('#ORDER_PROP_24').val()) == false){
                                             flag = false;
                                             $('#ORDER_PROP_24').parent("div").children(".warningMessage").show();
@@ -356,6 +382,7 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             flag = false;
                                             $('.deliveriWarming').show();
                                         }
+
                                         if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == false){
                                             flag = false;
                                             $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
@@ -380,23 +407,28 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                                 } else {
                                                     $('html, body').animate({
                                                         scrollTop: $(".js_delivery_block").offset().top
-                                                    }, 500);
+                                                        }, 500);
                                                     $(".flippost_error").show();
                                                 }
                                             }
                                         }
                                     }
+
                                     if(flag){
+
                                         BXFormPosting = true;
                                         if(val != 'Y')
                                             BX('confirmorder').value = 'N';
+
                                         var orderForm = BX('ORDER_FORM');
                                         BX.showWait();
+
                                         <?if(CSaleLocation::isLocationProEnabled()):?>
                                             BX.saleOrderAjax.cleanUp();
                                             <?endif?>
+
                                         BX.ajax.submit(orderForm, ajaxResult);
-                                        
+
                                     }
                                     return true;
                                 }
@@ -405,22 +437,28 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                 BXFormPosting = true;
                                 if(val != 'Y')
                                 BX('confirmorder').value = 'N';
+
                                 var orderForm = BX('ORDER_FORM');
                                 BX.showWait();
+
                                 <?if(CSaleLocation::isLocationProEnabled()):?>
                                     BX.saleOrderAjax.cleanUp();
                                     <?endif?>
+
                                 BX.ajax.submit(orderForm, ajaxResult);
                                 return true;
                                 } */
+
                                 function ajaxResult(res) {
                                     window.flippost = !(window.flippost instanceof Flippost) ? new Flippost(<?= FLIPPOST_ID ?>) : window.flippost;
                                     var orderForm = BX('ORDER_FORM');
                                     try
                                     {
                                         // if json came, it obviously a successfull order submit
+
                                         var json = JSON.parse(res);
                                         BX.closeWait();
+
                                         if (json.error)
                                         {
                                             BXFormPosting = false;
@@ -434,16 +472,20 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                     catch (e)
                                     {
                                         // json parse failed, so it is a simple chunk of html
+
                                         BXFormPosting = false;
                                         BX('order_form_content').innerHTML = res;
+
                                         <?if(CSaleLocation::isLocationProEnabled()):?>
                                             BX.saleOrderAjax.initDeferredControl();
                                             <?endif?>
                                     }
+
                                     BX.closeWait();
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
                                     //доп функции/////////////////////////////////
                                     setOptions();
+
                                     //2. подсветка варианта оплаты для электронных платежей
                                     if(localStorage.getItem('active_rfi_button')){
                                         $('li[data-rfi-payment="'+localStorage.getItem('active_rfi_button')+'"]').addClass('active_rfi_button');
@@ -453,29 +495,31 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             $(".recurrent_tabs").hide();
                                         }
                                     }
-                                    
+
                                     //2. подсветка варианта оплаты для электронных платежей
                                     if (localStorage.getItem('active_rfi_recurrent') && $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').length) {
                                         $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').click();
                                     } else {
                                         $('li[data-rfi-recurrent-type="new"]').click();
                                     }
+
                                     // т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса
                                     if ($(".js_delivery_block").length) {
                                         if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
                                             !$("#flippostCountrySelect").length ? window.flippost.getData("getCountries") : "";
                                             $(".js_delivery_block").on('change', '.flippostSelect', function() {
                                                 var country = $('select[data-method="getStates"]').val(),
-                                                    state   = $('select[data-method="getCities"]').val(),
-                                                    city    = $('select[data-method="getTarif"]').val(),
-                                                    weight  = parseInt($('.order_weight').text()) / 1000,
-                                                    method  = $(this).data("method"); // какой метод вызывать следующим
+                                                state   = $('select[data-method="getCities"]').val(),
+                                                city    = $('select[data-method="getTarif"]').val(),
+                                                weight  = parseInt($('.order_weight').text()) / 1000,
+                                                method  = $(this).data("method"); // какой метод вызывать следующим
                                                 $(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
                                                 window.flippost.getData(method, country, state, city, weight); // рендерим новые
                                             });
                                         }
                                     }
                                 }
+
                                 function SetContact(profileId)
                                 {
                                     BX("profile_change").value = "Y";
@@ -493,12 +537,14 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                         {
                                             $APPLICATION->RestartBuffer();
                                         }
+
                                         if($_REQUEST['PERMANENT_MODE_STEPS'] == 1)
                                         {
                                         ?>
                                         <input type="hidden" name="PERMANENT_MODE_STEPS" value="1" />
                                         <?
                                         }
+
                                         if(!empty($arResult["ERROR"]) && $arResult["USER_VALS"]["FINAL_STEP"] == "Y")
                                         {
                                             foreach($arResult["ERROR"] as $v)
@@ -510,19 +556,20 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                         <?
                                             echo "<br>";
                                         }
+
                                         include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/props_format.php");
                                         include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/person_type.php");
                                     ?>
-
                                     <p class="blockTitle">Местоположение</p>
                                     <p class="blockText">Выберите страну и город. В зависимости от выбора Вашего местоположения Вам будут предложены способы доставки и самовывоза.</p>
-                                    <br>
+                                    <br>       
                                     <?//блок с местоположением
-                                        if ($arResult["ORDER_PROP"]["USER_PROPS_Y"][2]) {
-                                            $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_Y"][2]);
+                                        if ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]) {
+                                            $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]);
                                         } else {
-                                            $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_Y"][3]);
+                                            $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_N"][3]);
                                         }
+
                                         PrintPropsForm($location, $arParams["TEMPLATE_LOCATION"]);
                                     ?>
 
@@ -537,8 +584,11 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                                             include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/delivery.php");
                                             include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/paysystem.php");
                                         }
+
                                         include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/props.php");
+
                                         include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/related_props.php");
+
                                         include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/summary.php");
                                         if(strlen($arResult["PREPAY_ADIT_FIELDS"]) > 0)
                                             echo $arResult["PREPAY_ADIT_FIELDS"];
@@ -584,12 +634,13 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
 
             <div style="display: none">
                 <?// we need to have all styles for sale.location.selector.steps, but RestartBuffer() cuts off document head with styles in it?>
-                <?$APPLICATION->IncludeComponent(
-                        "bitrix:sale.location.selector.steps",
-                        ".default",
-                        array(
+                <?$APPLICATION->IncludeComponent("bitrix:sale.location.selector.steps", ".default", array(
+
                         ),
-                        false
+                        false,
+                        array(
+                            "ACTIVE_COMPONENT" => "Y"
+                        )
                     );?>
                 <?$APPLICATION->IncludeComponent(
                         "bitrix:sale.location.selector.search",
@@ -599,20 +650,14 @@ input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
                         false
                     );?>
             </div>
-			<div style="padding:10px 0 0 22px;color: #7b8c90;font-family: 'Walshein_regular';font-size: 16px;">
-				Нажимая на кнопку «Оформить заказ» вы соглашаетесь с условиями <a href="/info_popup/oferta.php" class="cartMenuPopup">публичной оферты</a>
-			</div>
+
             <?endif?>
     </div>
 </div>
 <script>
-$(document).ready(function(){
-    if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
-        $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
-    }
-    // по-умолчанию выбираем сохраненную карту, если она есть
-    if ($("li[data-rfi-recurrent-type='next']").length) {
-        $("li[data-rfi-recurrent-type='next']").click(); 
-    }
-})
+    $(document).ready(function(){
+        if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
+            $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
+        }    
+    })
 </script>
