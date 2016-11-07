@@ -8,8 +8,8 @@
     <div class="clientInfoWrap">
         <?
             //удаляем местоположение из общего списка свойств. оно выводится отдельно в файле template.php
-            unset($arResult["ORDER_PROP"]["USER_PROPS_N"][2]);
-            unset($arResult["ORDER_PROP"]["USER_PROPS_N"][3]);  
+            unset($arResult["ORDER_PROP"]["USER_PROPS_Y"][2]);
+            unset($arResult["ORDER_PROP"]["USER_PROPS_Y"][3]);  
             PrintPropsForm($arResult["ORDER_PROP"]["USER_PROPS_Y"], $arParams["TEMPLATE_LOCATION"]);
             PrintPropsForm($arResult["ORDER_PROP"]["RELATED"], $arParams["TEMPLATE_LOCATION"]);
             PrintPropsForm($arResult["ORDER_PROP"]["USER_PROPS_N"], $arParams["TEMPLATE_LOCATION"]);   
