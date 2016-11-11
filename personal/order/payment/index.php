@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <tr>
                 <td rowspan="2" colspan="4"><div>ВТБ 24 (ПАО) Г. МОСКВА</div><span>Банк получателя</span></td>
                 <td>БИК</td>
-                <td>044525716</td>
+                <td><?= BIK_FOR_EXPENSE_OFFER ?></td>
             </tr>
             <tr>
                 <td>Сч. №</td>
