@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <tr>
                 <td rowspan="2" colspan="4"><div>ВТБ 24 (ПАО) Г. МОСКВА</div><span>Банк получателя</span></td>
                 <td>БИК</td>
-                <td>44525716</td>
+                <td><?= BIK_FOR_EXPENSE_OFFER ?></td>
             </tr>
             <tr>
                 <td>Сч. №</td>
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function(){
             </tr>
         </table>
         <br>
-        <div class="order_doc_title">Счет-оферта на оплату № <?= $arOrder["ID"] ?> от <?= FormatDate("j F", MakeTimeStamp(date("d.m.Y", strtotime($arOrder["DATE_INSERT"])), "DD.MM.YYYY HH:MI:SS")) ?></div>
+        <div class="order_doc_title">Счет-оферта на оплату № <?= $arOrder["ID"] ?> от <?= FormatDate("j F", MakeTimeStamp(date("d.m.Y", strtotime($arOrder["DATE_INSERT"])), "DD.MM.YYYY HH:MI:SS")) . " " . date("Y", strtotime($arOrder["DATE_INSERT"])) ?></div>
         <br>
         <table class="order_company_info">
             <tr>

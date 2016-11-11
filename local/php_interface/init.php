@@ -53,8 +53,8 @@
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
     define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
-
-
+    define ("BIK_FOR_EXPENSE_OFFER", "044525716");
+	
 	/**
 	 *
 	 * Кастомная функция отправки почты через Mailgun
