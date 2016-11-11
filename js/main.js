@@ -866,6 +866,14 @@ $(document).ready(function(){
                 $this.parent().addClass('first');
                 $('.books > ul span').removeClass('active');
                 $this.addClass('active');
+				$this.click(function() {
+					return false;
+				});
+				function stopReturn() {
+					setTimeout(function(){
+					$this.unbind('click')}, 800 );
+				}
+				stopReturn();				
             }
             }, 200);
 

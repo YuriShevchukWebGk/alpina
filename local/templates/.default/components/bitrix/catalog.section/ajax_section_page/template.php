@@ -578,8 +578,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     
                     $(".otherBooks").css("height", otherBooksHeight+"px");
                     //$(".wrapperCategor").css("height", categorHeight+"px");
-                    $(".contentWrapp").css("height", categorHeight-10+"px");
-					$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
+                    //$(".contentWrapp").css("height", categorHeight-10+"px");
+					//$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
             });
             if (page == maxpage) {
                 $('.showMore').hide();
@@ -617,8 +617,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                             
                         $(".otherBooks").css("height", otherBooksHeight+"px");
                         //$(".wrapperCategor").css("height", categorHeight+"px");
-                        $(".contentWrapp").css("height", categorHeight-10+"px");
-						$(".wrapperCategor").css("height", $(".wrapperCategor").height()+"px");
+                        //$(".contentWrapp").css("height", categorHeight-10+"px");
+						//$(".wrapperCategor").css("height", $(".wrapperCategor").height()+"px");
 
                 });
                 if (upd_page == maxpage) {
@@ -628,7 +628,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
         <?}?>
         <?if (!$USER -> IsAuthorized()) {?>
             $(".categoryWrapper .categoryBooks").hover(function() {
-                $(this).css("height", "390px");
+                $(this).css("height", "420px");
             });
 
         <?}?>    

@@ -36,6 +36,7 @@ while($book = $rs->GetNextElement()) {
     "pages" => $book->GetProperties()["PAGES"]["VALUE"],
     "year" => $book->GetProperties()["YEAR"]["VALUE"],
     "isbn" => $book->GetProperties()["ISBN"]["VALUE"],
+	  "discount" => CCatalogDiscount::GetDiscountByProduct($book->fields["ID"], array("10"), "N", array("11"), SITE_ID),
  ));
 }
 

@@ -1,6 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Скидки");
+$APPLICATION->SetPageProperty("keywords", "скидки, накопительные скидки, программа лояльности");
+$APPLICATION->SetPageProperty("description", "Программа лояльность, скидки за объем, накопительные скидки в интернет-магазине «Альпина Паблишер»");
+$APPLICATION->SetTitle("Накопительные скидки, скидки за объем. Книги со скидкой в интернет-магазине «Альпина Паблишер»");
 ?><div class="searchWrap">
 	<div class="catalogWrapper">
 		 <?$APPLICATION->IncludeComponent(

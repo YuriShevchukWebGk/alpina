@@ -201,3 +201,7 @@ tabsection,
 .bxe-lis-blue .fa{
 	color: #0083d1;
 }
+@media screen and (max-width: 1500px){
+    .catalogIcon, .basketIcon{
+    display: none;
+}

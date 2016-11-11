@@ -2,7 +2,7 @@
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetPageProperty("keywords", "книги с доставкой");
     $APPLICATION->SetPageProperty("description", "Как производится доставка книг издательства «Альпина Паблишер». Доставка книг по России и миру");
-    $APPLICATION->SetTitle("Доставка");
+    $APPLICATION->SetTitle("Способы доставки. Доставка по Москве, России и миру — интернет-магазин «Альпина Паблишер»");
 ?>
 <div class="searchWrap">
     <div class="catalogWrapper">

@@ -1,9 +1,9 @@
-<?  
+<?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
 	require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 	require '/home/bitrix/vendor/autoload.php';
 	use Mailgun\Mailgun;
-	
+
     CModule::IncludeModule("blog");
     CModule::IncludeModule("iblock");
     CModule::IncludeModule("sale");
@@ -13,7 +13,7 @@
     use Bitrix\Main\Loader;
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
-	
+
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -53,20 +53,20 @@
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
     define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * Кастомная функция отправки почты через Mailgun
 	 * @link https://documentation.mailgun.com/user_manual.html#sending-via-api
-	 * 
+	 *
 	 * @param string $to
 	 * @param string $subject
 	 * @param string $message
 	 * @param string $additional_headers
 	 * @param string $additional_parameters
-	 * 
-	 **/ 
+	 *
+	 **/
 	function custom_mail($to, $subject, $message, $additional_headers = '', $additional_parameters = '') {
 		GLOBAL $arParams;
 		// т.к. доп заголовки битрикс передает строкой, то придется их вырезать
@@ -76,7 +76,7 @@
 		$bcc_matches = array();
 		preg_match($from_pattern, $additional_headers, $from_matches);
 		preg_match($bcc_pattern, $additional_headers, $bcc_matches);
-		
+
 		$mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
 		$params = array(
 		    'from'    => $from_matches[0],
@@ -84,12 +84,12 @@
 		    'subject' => $subject,
 		    'html'    => $message
 		);
-		
+
 		if (trim($bcc_matches[0])) {
 			$params['bcc'] = $bcc_matches[0];
 		}
 		$domain = $arParams['MAILGUN']['DOMAIN'];
-		
+
 		# Make the call to the client.
 		$result = $mailgun->sendMessage($domain, $params);
 	}
@@ -128,7 +128,7 @@
             return $iblockStateProp["ID"];
         }
     }
-	
+
     function arshow($array, $adminCheck = false){
         global $USER;
         $USER = new Cuser;
@@ -803,15 +803,15 @@
             return $arFields;
         }
     }
-	
+
 	AddEventHandler("main", "OnAfterUserAuthorize", "checkSailplayUserExistance");
-	
+
 	/**
-	 * 
+	 *
 	 * Проверяем, существует ли пользователь в системе Sailplay,
 	 * если нет, то добавляем его.
-	 * 
-	 * @param array 
+	 *
+	 * @param array
 	 * @return void
 	 * */
 	function checkSailplayUserExistance($user) {
@@ -1109,7 +1109,7 @@
                         CEvent::Send("BOOK_SUB_MAILING", "s1", $arEventFields,"N");
                         // --- email sending here
                         $el->Update($arFields['ID'], $arLoadProductArray);
-				
+
                     }
 
                 } else if($oldElStatus==23 && !$newElStatus){ // --- status changed from "not availible" to "in stock"
@@ -1772,15 +1772,15 @@
         $count = $order_list -> SelectedRowsCount();
         return $count;
     }
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * Проверяет, есть ли у пользователя рекуррентные карты
-	 * 
+	 *
 	 * @param $user_id int
-	 * @return string|bool 
-	 * 
+	 * @return string|bool
+	 *
 	 * */
 	function isUserHaveRecurrentCard($user_id) {
 		$users = CUser::GetList(
@@ -1792,14 +1792,14 @@
 			Array(
 				"SELECT" => Array("UF_RECURRENT_CARD_ID")
 			)
-		); 
+		);
 		if ($user = $users->NavNext(true, "f_")) {
 			return $user["UF_RECURRENT_CARD_ID"];
 		} else {
 			return false;
 		}
 	}
-	
+
 	 /**
      *
      * @param mixed $data

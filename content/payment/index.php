@@ -1,6 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Оплата");
+$APPLICATION->SetPageProperty("keywords", "оплата, книги, наличные, банковская карта");
+$APPLICATION->SetPageProperty("description", "На странице перечислены способы оплаты, которыми вы можете оплатить заказ");
+$APPLICATION->SetTitle("Способы оплаты в интернет-магазине «Альпина Паблишер»");
 ?>
  <div class="searchWrap">
         <div class="catalogWrapper">

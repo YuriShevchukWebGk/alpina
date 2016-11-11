@@ -26,6 +26,29 @@
     input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         display: block;
     }
+	#order_form_div .location-block-wrapper {
+		max-width: 100%;
+	}
+
+	.bx-slst .quick-location-tag:before {
+	    content: url(/img/beforeInputRadio.png);
+		left: -8px;
+		position: relative;
+		top: 7px;
+	}
+	.bx-slst .quick-location-tag {
+		background:#fff!important;
+		border:0;
+		font-size:16px;
+		padding: 0 48px 0 0 !important;
+	}
+	.addCircle:before {
+		content: url(/img/chekedInpRadio.png)!important;
+	}
+	.rfi_bank_vars {
+		display:none;
+	}
+
 </style>
 <script>
 
@@ -108,15 +131,15 @@
             } else if (ourday == 2) { //вторник
                 minDatePlus = 1;
             } else if (ourday == 3) { //среда
-                minDatePlus = 1;
+                minDatePlus = 2;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 1;
+                minDatePlus = 4;
             } else if (ourday == 5) { //пятница
                 minDatePlus = 3;
             } else if (ourday == 6) { //суббота
-                minDatePlus = 2;
+                minDatePlus = 3;
             } else if (ourday == 0) { //воскресенье
-                minDatePlus = 1;
+                minDatePlus = 2;
             }
         } else { // Майские праздники
 
@@ -168,7 +191,8 @@
 
         //Подсвечиваем активное местоположение в избранных
         var locationID = $(".bx-ui-slst-target[name=ORDER_PROP_2], .bx-ui-slst-target[name=ORDER_PROP_3]").val();                    
-        $('.quick-location-tag[data-id="' + locationID + '"]').attr("style", 'background: #00a0af !important; color: white !important;');        
+        //$('.quick-location-tag[data-id="' + locationID + '"]').attr("style", 'background: #00a0af !important; color: white !important;');        
+		$('.quick-location-tag[data-id="' + locationID + '"]').addClass('addCircle');
     }
 
     $(function(){
@@ -561,8 +585,8 @@
                                         include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/person_type.php");
                                     ?>
                                     <p class="blockTitle">Местоположение</p>
-                                    <p class="blockText">Выберите страну и город. В зависимости от выбора Вашего местоположения Вам будут предложены способы доставки и самовывоза.</p>
-                                    <br>       
+                                    <?/*<p class="blockText">Выберите ваше местоположение</p> <br>*/?>
+                                          
                                     <?//блок с местоположением
                                         if ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]) {
                                             $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]);

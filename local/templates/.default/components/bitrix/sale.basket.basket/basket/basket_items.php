@@ -340,7 +340,7 @@
 
             <div class="bx_ordercart_order_pay_left" id="coupons_block">
                 <div class="bx_ordercart_coupon">
-                    <input type="text" id="coupon" class="couponInput" name="COUPON" value="" onchange="enterCouponCustom();">
+                    <input type="text" id="coupon" class="couponInput" name="COUPON" value="" onchange="enterCouponCustom();" style="margin-right:20px;">
                     <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
                     <?
 //                         arshow($arResult);
