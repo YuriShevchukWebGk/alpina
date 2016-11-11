@@ -405,7 +405,7 @@
                             </tr>
                         </table>
                         <br>
-                        <div class="order_doc_title"><?= GetMessage("BLANK_NUMBER_TITLE") ?> <?= $arResult["ORDER"]["ID"] ?> <?= GetMessage("FROM_DATE") ?> <?= FormatDate("j F", MakeTimeStamp(date("d.m.Y", strtotime($order_info["DATE_INSERT"])), "DD.MM.YYYY HH:MI:SS")) ?></div>
+                        <div class="order_doc_title"><?= GetMessage("BLANK_NUMBER_TITLE") ?> <?= $arResult["ORDER"]["ID"] ?> <?= GetMessage("FROM_DATE") ?> <?= FormatDate("j F", MakeTimeStamp(date("d.m.Y", strtotime($order_info["DATE_INSERT"])), "DD.MM.YYYY HH:MI:SS")) . " " . date("Y", strtotime($order_info["DATE_INSERT"])) ?></div>
                         <br>
                         <table class="order_company_info">
                             <tr>
