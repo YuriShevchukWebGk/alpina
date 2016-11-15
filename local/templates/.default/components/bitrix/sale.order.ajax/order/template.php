@@ -127,7 +127,7 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-                minDatePlus = 1;
+                minDatePlus = 2;
             } else if (ourday == 2) { //вторник
                 minDatePlus = 1;
             } else if (ourday == 3) { //среда
@@ -137,9 +137,9 @@
             } else if (ourday == 5) { //пятница
                 minDatePlus = 3;
             } else if (ourday == 6) { //суббота
-                minDatePlus = 3;
-            } else if (ourday == 0) { //воскресенье
                 minDatePlus = 2;
+            } else if (ourday == 0) { //воскресенье
+                minDatePlus = 1;
             }
         } else { // Майские праздники
 

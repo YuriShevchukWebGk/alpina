@@ -1293,6 +1293,9 @@ input:focus{
 .roundSlider .buttons{
     cursor: pointer;
 }
+.roundSlider > li > a:hover > div > p {
+	text-decoration:underline;
+}
 .books > ul span:hover{
     text-decoration: underline;
 }
@@ -2596,7 +2599,7 @@ right: 45px;
     transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
 	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
-.elementDescriptWrap .buyLater:hover, .hidingBasketRight .confirm:hover {
+.elementDescriptWrap .buyLater:hover, .hidingBasketRight .confirm:hover, .allBooks:hover {
 	background-color: #cab796;
 	color: #fff;
 }

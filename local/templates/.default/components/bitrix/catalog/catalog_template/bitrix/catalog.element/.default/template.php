@@ -134,7 +134,7 @@ $arItemIDs = array(
                             </div>
                         <?}?>
 
-                        <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365) {?>
+                        <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
                             <div class="digitalBookMark">
                                 
                                 
@@ -543,6 +543,7 @@ $arItemIDs = array(
                             } else {
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
+									$delivery_day = "в среду";
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {
@@ -550,16 +551,16 @@ $arItemIDs = array(
                                     //$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+                                    //$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                     //$delivery_day = 'во вторник';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+                                    //$delivery_day = 'во вторник';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = 'во вторник';
+                                    //$delivery_day = 'во вторник';
                                 }
 
                                 if ($today == 5) {

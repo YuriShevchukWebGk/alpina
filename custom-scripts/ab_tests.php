@@ -15,7 +15,46 @@ if ($alpExps['updateExp'] != "261016") {
 if (preg_match("/\/personal\/cart\/(.*)/i", $_SERVER['REQUEST_URI'])) {
     $alpExps['addLinkInCart']    = (!$alpExps['addLinkInCart'] ? rand(1,3) : $alpExps['addLinkInCart']);
 }
+if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false || strpos($APPLICATION->GetCurPage(),"/content/") !== false) {
+    $alpExps['replaceSearchIcon']    = (!$alpExps['replaceSearchIcon'] ? rand(1,2) : $alpExps['replaceSearchIcon']);
+}
 ?>
+<!-- Тест Иконки поиска -->
+<?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false || strpos($APPLICATION->GetCurPage(),"/content/") !== false) {
+    if ($alpExps['replaceSearchIcon'] == 1) {?>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                dataLayer.push({
+                    'event' : 'ab-test-gtm',
+                    'action' : 'replaceSearchIcon',
+                    'label' : 'linkUnchanged'
+                });
+                console.log('replaceSearchIcon linkUnchanged');
+            });
+        </script>
+    <?} elseif ($alpExps['replaceSearchIcon'] == 2) {?>
+		<style>
+			.searchWrap input[type=text] {
+				padding-left:0;
+			}
+			.searchWrap input[type=submit] {
+				right:0;
+				left:auto;
+			}
+		</style>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                dataLayer.push({
+                    'event' : 'ab-test-gtm',
+                    'action' : 'replaceSearchIcon',
+                    'label' : 'linkReplaced'
+                });
+                console.log('replaceSearchIcon linkReplaced');
+            });
+        </script>    
+    <?}?>
+<?}?>
+<!-- //Тест Иконки поиска -->
 
 <!-- Тест Ссылки на Добавьте в корзину -->
 <?if (preg_match("/\/personal\/cart\/(.*)/i", $_SERVER['REQUEST_URI'])) {

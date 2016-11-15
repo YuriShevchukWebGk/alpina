@@ -90,12 +90,6 @@ $arUrlRewrite = array(
 		"ID" => "bitrix:news",
 		"PATH" => "/news/index.php",
 	),
-	array(
-		"CONDITION" => "#^/#",
-		"RULE" => "",
-		"ID" => "bitrix:iblock.element.add.form",
-		"PATH" => "/about/contacts/index.php",
-	),
 );
 
 ?>
