@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function(){
             </tr>
         </table>
         <br>
-        <div class="order_doc_title">Счет-оферта на оплату № <?= $arOrder["ID"] ?> от <?= FormatDate("j F", MakeTimeStamp(date("d.m.Y", strtotime($arOrder["DATE_INSERT"])), "DD.MM.YYYY HH:MI:SS")) . " " . date("Y", strtotime($arOrder["DATE_INSERT"])) ?></div>
+        <div class="order_doc_title">Счет-оферта на оплату № <?= $arOrder["ID"] ?> от <?= FormatDate("j F", MakeTimeStamp(date("d.m.Y", strtotime($arOrder["DATE_INSERT"])), "DD.MM.YYYY HH:MI:SS")) . " " . date("Y", strtotime($arOrder["DATE_INSERT"])) ?> год</div>
         <br>
         <table class="order_company_info">
             <tr>
