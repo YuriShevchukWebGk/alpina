@@ -213,9 +213,6 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         if ($props["CODE"] == "F_ADDRESS_FULL") {
             $address = $props["VALUE"];
-        }
-        if ($props["CODE"] == "F_PHONE") {
-            $phone = $props["VALUE"];
         } 
     }?>
     <div class="expense_offer_block">
@@ -267,14 +264,14 @@ document.addEventListener('DOMContentLoaded', function(){
         <table class="order_company_info">
             <tr>
                 <td>Покупатель:</td>
-                <td><?= $company_name ?>, ИНН <?= $company_inn ?>, КПП <?= $company_kpp ?>, <?= $address ?>, тел.: <?= $phone ?></td>
+                <td><?= $company_name ?>, ИНН <?= $company_inn ?>, КПП <?= $company_kpp ?>, <?= $address ?></td>
             </tr>
         </table>
         <br> 
         <table class="order_company_info">
             <tr>
                 <td>Грузополучатель:</td>
-                <td><?= $company_name ?>, ИНН <?= $company_inn ?>, КПП <?= $company_kpp ?>, <?= $address ?>, тел.: <?= $phone ?></td>
+                <td><?= $company_name ?>, ИНН <?= $company_inn ?>, КПП <?= $company_kpp ?>, <?= $address ?></td>
             </tr>
         </table>
         <br>

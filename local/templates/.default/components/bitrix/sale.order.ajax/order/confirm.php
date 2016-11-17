@@ -376,9 +376,6 @@
                         if ($props["CODE"] == "F_ADDRESS_FULL") {
                             $address = $props["VALUE"];
                         }
-                        if ($props["CODE"] == "F_PHONE") {
-                            $phone = $props["VALUE"];
-                        } 
                     }?>
                     <div class="expense_offer_block">
                         <div style="text-align: center"><?= GetMessage("BLANK_TITLE") ?></div><br>
@@ -424,14 +421,14 @@
                         <table class="order_company_info">
                             <tr>
                                 <td><?= GetMessage("BUYER_TITLE") ?></td>
-                                <td><?= $company_name ?>, ИНН <?= $company_inn ?>, КПП <?= $company_kpp ?>, <?= $address ?>, тел.: <?= $phone ?></td>
+                                <td><?= $company_name ?>, ИНН <?= $company_inn ?>, КПП <?= $company_kpp ?>, <?= $address ?></td>
                             </tr>
                         </table>
                         <br> 
                         <table class="order_company_info">
                             <tr>
                                 <td><?= GetMessage("CONSIGNEE_TITLE") ?></td>
-                                <td><?= $company_name ?>, <?= GetMessage("INN_TITLE") ?> <?= $company_inn ?>, <?= GetMessage("KPP_TITLE") ?> <?= $company_kpp ?>, <?= $address ?>, <?= GetMessage("PHONE_TITLE") ?> <?= $phone ?></td>
+                                <td><?= $company_name ?>, <?= GetMessage("INN_TITLE") ?> <?= $company_inn ?>, <?= GetMessage("KPP_TITLE") ?> <?= $company_kpp ?>, <?= $address ?></td>
                             </tr>
                         </table>
                         <br>
