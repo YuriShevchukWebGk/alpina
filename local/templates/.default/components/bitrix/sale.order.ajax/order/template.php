@@ -131,9 +131,9 @@
             } else if (ourday == 2) { //вторник
                 minDatePlus = 1;
             } else if (ourday == 3) { //среда
-                minDatePlus = 2;
+                minDatePlus = 1;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 4;
+                minDatePlus = 1;
             } else if (ourday == 5) { //пятница
                 minDatePlus = 3;
             } else if (ourday == 6) { //суббота
@@ -676,6 +676,8 @@
             </div>
 
             <?endif?>
+		<br />
+		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь с условиями <a href="/info_popup/oferta.php" onclick="return false;" class="cartMenuPopup">публичной оферты</a></span>
     </div>
 </div>
 <script>

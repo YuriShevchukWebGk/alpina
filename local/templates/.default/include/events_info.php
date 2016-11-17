@@ -42,7 +42,7 @@
 
 <table align="left" width="493" height="137" cellspacing="0" cellpadding="0" border="0"> 
     <tbody> 
-        <tr><td style="-moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none;"> <img width="133" height="200" src="/img/Alisa_Vakauskayte.jpg" alt="Алиса Вакаускайте" title="Алиса Вакаускайте" /> </td><td valign="top" style="-moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none;"> 
+        <tr><td style="-moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none;"> <img width="133" height="200" src="/img/alvak.jpg" alt="Алиса Вакаускайте" title="Алиса Вакаускайте" /> </td><td valign="top" style="-moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none;"> 
                 <p></p>
 
                 <p><strong>Руководитель отдела по работе с партнерами, 
@@ -51,7 +51,7 @@
 
                 <p><strong></strong>тел. (495) 980-53-54, доб. 2115 
                     <br />
-                <a href="mailto:sv@alpinabook.ru">event@alpinabook.ru</a> </p>
+                <a href="mailto:event@alpinabook.ru">event@alpinabook.ru</a> </p>
             </td><td style="-moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none;"></td></tr>
     </tbody>
 </table>

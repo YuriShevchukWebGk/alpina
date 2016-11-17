@@ -97,7 +97,7 @@ $(document).ready(function(){
     //скрытие текста в карточке товара
     if($('.showAllWrapp').length > 0){
         if($('.showAllWrapp').css('height').slice(0,-2) > 558){
-            $('.showAllWrapp').append('<p class="readMore">Читать далее...</p>');
+            $('.showAllWrapp').append('<p class="readMore"><span>Читать далее...</span></p>');
             $('.showAllWrapp').css('height','558px');
         }
 
@@ -871,7 +871,7 @@ $(document).ready(function(){
 				});
 				function stopReturn() {
 					setTimeout(function(){
-					$this.unbind('click')}, 800 );
+					$this.unbind('click')}, 600 );
 				}
 				stopReturn();				
             }

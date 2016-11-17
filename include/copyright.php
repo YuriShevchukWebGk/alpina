@@ -1,5 +1,5 @@
 <span itemprop="author" itemscope itemtype="http://schema.org/Organization">
-	<img src="/images/blackfriday2016.png" />
+	<a href="/actions/blackfriday2016/"><img src="/images/blackfriday2016.png" /></a>
 	<style>
 		footer {
 			height:760px;

@@ -346,8 +346,12 @@ header .headBasket{
     margin-left: 10px;
     vertical-align: top;
 }
-.book > div > a:hover, .variants > div > a:hover, .basketBook > div > a:hover, .afterImg:hover, .bookDelete:hover {
+.book > div > a:hover, .variants > div > a:hover, .basketBook > div > a:hover, .afterImg:hover, .bookDelete:hover, .reviewsWrapp li:hover .autor, .breadCrump a:hover {
 	text-decoration:underline;
+}
+.readMore span:hover {
+	border-bottom: none;
+	padding-bottom: 0;
 }
 .thirdWrapp .text{
     background-color: #00a0af;
@@ -2602,6 +2606,13 @@ right: 45px;
 .elementDescriptWrap .buyLater:hover, .hidingBasketRight .confirm:hover, .allBooks:hover {
 	background-color: #cab796;
 	color: #fff;
+}
+.yaMarket > a:hover > img, .yaMarket > a:hover > p > span > img{
+    filter: brightness(0%);	
+	
+}
+.footerMenu img:hover, .webServ img:hover{
+	filter: brightness(0%);	
 }
 .lkWrapp div:hover{
 	background-color:#eee;
@@ -5499,13 +5510,18 @@ table.form-table tr td:nth-child(2){
 }
 .readMore{
     background-color: #f4f4f4;
-    bottom: -4px;
-    color: #00ABB8;
-    cursor: pointer;
     position: absolute;
+	bottom:0px;
+	height: 27px;
     right: 0;
     text-align: right;
     width: 100%;
+}
+.readMore span {
+	color: #00ABB8!important;
+    cursor: pointer;
+	border-bottom:1px dashed;
+	padding-bottom: 0!important;
 }
 .giftWrapBlock {
     padding-top: 5px;

@@ -1353,7 +1353,7 @@ $printid = implode(", ", $printid2);?>
 <div class="reviewsSliderWrapp">
     <div class="centerWrapper">
         <div class="giftWrap">
-            <img src="/img/trol.png">
+            <img src="/img/fil.png">
             <form action="/" method="post">
                 <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
                 <input type="button" value="">
