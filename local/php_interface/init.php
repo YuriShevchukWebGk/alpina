@@ -56,6 +56,62 @@
     define ("BIK_FOR_EXPENSE_OFFER", "044525716");
 	
 	/**
+	 * 
+	 * Отдельная функция для писем с вложениями, т.к. разобрать то, что шлет битрикс нереально
+	 * @param array $arFields, 
+	 * @param array $arTemplate
+	 * @return bool
+	 * 
+	 * */
+	 
+	/*AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
+
+	function messagesWithAttachments($arFields, $arTemplate) {
+		GLOBAL $arParams;
+		
+		if ($arTemplate['EVENT_NAME'] == "SUBSCRIBE_CONFIRM") {
+			$mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
+			$email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
+			
+			// заменяем все максросы в письме на значения из $arFields
+			// Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
+			$message_body = $arTemplate['MESSAGE'];
+			foreach ($arFields as $field_name => $field_value) {
+				$message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
+			}
+			
+			$params = array(
+			    'from'    => $email_from,
+			    'to'      => $arFields[trim($arTemplate['EMAIL_TO'], "#")],
+			    'subject' => $arTemplate['SUBJECT'],
+			    'html'    => $message_body,
+			);
+	
+			if ($arFields['BCC']) {
+				$params['bcc'] = $arFields['BCC'];
+			}
+			if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+				$attachments = array();
+				foreach ($arTemplate['FILE'] as $file) {
+					if ($file_path = CFile::GetPath($file)) {
+						array_push(
+							$attachments,
+							$file_path
+						);
+					}
+				}
+			}
+			
+			$domain = $arParams['MAILGUN']['DOMAIN'];
+	
+			# Make the call to the client.
+			$result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+			//logger($result, dirname(__FILE__) . "/new_debug.log");
+			return false;
+		}
+	}*/
+	
+	/**
 	 *
 	 * Кастомная функция отправки почты через Mailgun
 	 * @link https://documentation.mailgun.com/user_manual.html#sending-via-api
@@ -1520,6 +1576,7 @@
                 $i++;
             }
             $arFields["NEW_ITEMS_BLOCK"] = $NewItemsBlock;
+			$arFields["PROMO_PARTNER"] = "";
         }
     }
 
