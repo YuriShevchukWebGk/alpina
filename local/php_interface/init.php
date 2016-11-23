@@ -1900,6 +1900,24 @@
                     CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => "N"));
                 }
             }    
+        } else {
+            $discount_info = CCatalogDiscount::GetList (array(), array("ID" => $ID), false, false, array());
+            while ($discount = $discount_info -> Fetch()) {
+                if (!in_array($discount["PRODUCT_ID"], $products_ids)) {
+                    $products_ids[] = $discount["PRODUCT_ID"];    
+                }    
+            }
+            if (!empty($products_ids)) {
+                if ($arFields["ACTIVE"] == "Y") {
+                    foreach ($products_ids as $product_id) {
+                        CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID));
+                    }
+                } else {
+                    foreach ($products_ids as $product_id) {
+                        CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => "N"));
+                    }
+                }
+            }
         } 
     }
 ?>
