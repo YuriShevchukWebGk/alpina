@@ -543,7 +543,7 @@ $arItemIDs = array(
                             } else {
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = "в среду";
+									//$delivery_day = "в среду";
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {

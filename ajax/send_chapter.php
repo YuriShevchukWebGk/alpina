@@ -21,7 +21,7 @@ if ($_POST['email']) {
 	array_splice($recs, 3);
 	
 	if (!empty($recs[0])) {
-		$text .= "<br /><br /><table width='100%'><tbody><tr><td colspan='3' style='padding:20px 0 10px;font-size:24px;text-align:center;'>Рекомедуем обратить внимание</td></tr><tr>";
+		$text .= "<br /><br /><table width='100%'><tbody><tr><td colspan='3' style='padding:20px 0 10px;font-size:24px;text-align:center;'>Рекомендуем обратить внимание</td></tr><tr>";
 		foreach ($recs as $rec) {
 			$recbook = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "ID" => $rec), false, false, array("ID", "NAME", "DETAIL_PICTURE")) -> Fetch();
 			$recpic = CFile::ResizeImageGet($recbook["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);

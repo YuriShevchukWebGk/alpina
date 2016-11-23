@@ -127,7 +127,7 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-                minDatePlus = 2;
+                minDatePlus = 1;
             } else if (ourday == 2) { //вторник
                 minDatePlus = 1;
             } else if (ourday == 3) { //среда
@@ -159,6 +159,9 @@
                 minDatePlus = 1;
             }
         }
+		if (parseInt($('.order_weight').text()) / 1000 > 10) { //Если вес больше 10кг, доставка плюс один день
+			minDatePlus++;
+		}
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;
@@ -180,6 +183,7 @@
 
         if ($("#ID_DELIVERY_ID_11").is(':checked')) { //Если выбрана доставка почтой России
             $(".inputTitle:contains('Получатель')").parent().append('<span class="hideInfo warningMessage" style="display:inline;color:grey">(ФИО полностью)</span>');
+			$(".inputTitle:contains('Адрес доставки')").append('<br /><span class="hideInfo warningMessage" style="display:inline;color:grey;padding-left:0;">(в том числе город)</span>');
         } else {
             $(".inputTitle:contains('Получатель')").html('Получатель <span class="bx_sof_req">*</span></p>');
             $(".hideInfo").hide();

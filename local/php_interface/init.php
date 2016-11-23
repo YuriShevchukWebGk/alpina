@@ -106,7 +106,7 @@
 	
 			# Make the call to the client.
 			$result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-			//logger($result, dirname(__FILE__) . "/new_debug.log");
+			//logger($attachments, dirname(__FILE__) . "/mail_debug.log");
 			return false;
 		}
 	}*/

@@ -6,7 +6,7 @@ $today = date("w");
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="robots" content="noindex, nofollow"/>
+	<meta name="robots" content="index, follow"/>
     <meta charset="utf-8"/>
     <title>Скидки до 70%! Черная пятница 2016 — Интернет-магазин «Альпина Паблишер»</title>
     <meta name="keywords" content=""/>
@@ -65,14 +65,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </ul>    
     </div>
     <div class="lkWrapp">
-  <!--      <a href="/personal/cart/">
-            <div class="headBasket"></div>
-		</a>          -->
-  <!--      <a href="/personal/profile/" id="">
-            <div>
-                <img src="/img/lkImg.png">
-            </div>
-        </a>       -->
         <p class="telephone" style="font-size: 14px;font-family: 'Walshein_regular'">
             +7 (495) 980 80 77
         </p>
@@ -328,12 +320,12 @@ if ($USER->isAdmin()) {
 				<div id="slide2">
 					<div id="slide2img1"></div>
 					<div id="slide2text1">
-						начинаем с интелектуальных книг:
+						Золотой запас
 					</div>
 					<div class="hintWrapp">
 						<?for ($i = 0;$i < 7; $i++) {?>
 							<div class="bookWrap">
-								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
+								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'blackFridayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});"><div class="discount"><?=$booksArray[$i]["discount"]?>%</div>
 									<img src="<?=CFile::ResizeImageGet($booksArray[$i]["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src];?>" alt="<?=$booksArray[$i]["name"]?>" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
 									<p>
 									<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <span class="newprice"><?=round(-$booksArray[$i]["oldprice"]*($booksArray[$i]["discount"]/100-1))?> руб.</span>
@@ -345,7 +337,7 @@ if ($USER->isAdmin()) {
 					<div class="hintWrapp">
 						<?for ($i = 7;$i < 14; $i++) {?>
 							<div class="bookWrap">
-								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
+								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'blackFridayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});"><div class="discount"><?=$booksArray[$i]["discount"]?>%</div>
 									<img src="<?=CFile::ResizeImageGet($booksArray[$i]["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src];?>" alt="<?=$booksArray[$i]["name"]?>" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
 									<p>
 									<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <span class="newprice"><?=round(-$booksArray[$i]["oldprice"]*($booksArray[$i]["discount"]/100-1))?> руб.</span>
@@ -354,14 +346,14 @@ if ($USER->isAdmin()) {
 							</div>
 						<?}?>
 					</div>
-					<div class="hintWrapp" style="margin-top:140px;background: yellow;width: 1700px;margin-left: -46px;box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.18), 0px 10px 7px 0px rgba(0, 0, 0, 0.14);padding-bottom:40px;">
+					<div class="hintWrapp" style="margin-top:140px;background: yellow;box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.18), 0px 10px 7px 0px rgba(0, 0, 0, 0.14);padding-bottom:40px;">
 						<div id="shp2"></div>
 						<div id="slide2text2">
-							начинаем с интелектуальных книг:
+							Ловкость рук и накакого мошенничества
 						</div>					
 						<?for ($i = 14;$i < 21; $i++) {?>
 							<div class="bookWrap">
-								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
+								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'blackFridayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});"><div class="discount"><?=$booksArray[$i]["discount"]?>%</div>
 									<img src="<?=CFile::ResizeImageGet($booksArray[$i]["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src];?>" alt="<?=$booksArray[$i]["name"]?>" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
 									<p>
 									<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <span class="newprice"><?=round(-$booksArray[$i]["oldprice"]*($booksArray[$i]["discount"]/100-1))?> руб.</span>
@@ -373,11 +365,11 @@ if ($USER->isAdmin()) {
 					</div>
 					<div class="hintWrapp">
 						<div id="slide2text3" style="padding-top:70px;">
-							начинаем с интелектуальных книг:
+							Мой первый миллион
 						</div>					
 						<?for ($i = 21;$i < 28; $i++) {?>
 							<div class="bookWrap">
-								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
+								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'blackFridayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});"><div class="discount"><?=$booksArray[$i]["discount"]?>%</div>
 									<img src="<?=CFile::ResizeImageGet($booksArray[$i]["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src];?>" alt="<?=$booksArray[$i]["name"]?>" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
 									<p>
 									<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <span class="newprice"><?=round(-$booksArray[$i]["oldprice"]*($booksArray[$i]["discount"]/100-1))?> руб.</span>
@@ -386,10 +378,13 @@ if ($USER->isAdmin()) {
 							</div>
 						<?}?>
 					</div>
+						<div id="slide2text3" style="padding-top:70px;">
+							Без шума и пыли
+						</div>					
 					<div class="hintWrapp">
 						<?for ($i = 28;$i < 35; $i++) {?>
 							<div class="bookWrap">
-								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
+								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'blackFridayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});"><div class="discount"><?=$booksArray[$i]["discount"]?>%</div>
 									<img src="<?=CFile::ResizeImageGet($booksArray[$i]["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src];?>" alt="<?=$booksArray[$i]["name"]?>" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
 									<p>
 									<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <span class="newprice"><?=round(-$booksArray[$i]["oldprice"]*($booksArray[$i]["discount"]/100-1))?> руб.</span>
@@ -400,13 +395,13 @@ if ($USER->isAdmin()) {
 						<div id="shp4"></div>
 					</div>
 				</div>
-				<div class="hintWrapp" style="margin:100px auto 0;border:3px solid #f4ca00; width:1700px;">
-					<div id="slide2text4" style="padding-top:70px;">
-						начинаем с интелектуальных книг:
-					</div>
+				<div class="hintWrapp" style="margin:100px auto 0;border:3px solid #f4ca00; max-width:1700px;">
+					<center><div id="slide2text4">
+						Идеальное ограбление
+					</div></center>
 					<?for ($i = 35;$i < 42; $i++) {?>
 						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
+							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'blackFridayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});"><div class="discount" style="background:yellow;color:#000"><?=$booksArray[$i]["discount"]?>%</div>
 								<img src="<?=CFile::ResizeImageGet($booksArray[$i]["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src];?>" alt="<?=$booksArray[$i]["name"]?>" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
 								<p>
 								<span class="oldprice" style="color:#fff;"><?=$booksArray[$i]["oldprice"]?> руб.</span> <span class="newprice" style="color:#fff;"><?=round(-$booksArray[$i]["oldprice"]*($booksArray[$i]["discount"]/100-1))?> руб.</span>
@@ -418,12 +413,12 @@ if ($USER->isAdmin()) {
 				</div>	
 				<div id="shp6"></div>
 					<div class="hintWrapp">
-						<?for ($i = 42;$i < 201; $i++) {?>
+						<?for ($i = 42;$i < 200; $i++) {?>
 							<div class="bookWrap">
-								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
+								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'blackFridayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});"><div class="discount" style="background:yellow;color:#000"><?=$booksArray[$i]["discount"]?>%</div>
 									<img src="<?=CFile::ResizeImageGet($booksArray[$i]["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src];?>" alt="<?=$booksArray[$i]["name"]?>" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
 									<p>
-									<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <span class="newprice"><?=round(-$booksArray[$i]["oldprice"]*($booksArray[$i]["discount"]/100-1))?> руб.</span>
+									<span class="oldprice" style="color:#fff;"><?=$booksArray[$i]["oldprice"]?> руб.</span> <span class="newprice" style="color:#fff;"><?=round(-$booksArray[$i]["oldprice"]*($booksArray[$i]["discount"]/100-1))?> руб.</span>
 									</p>									
 								</a>
 							</div>

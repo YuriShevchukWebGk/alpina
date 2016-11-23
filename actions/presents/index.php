@@ -32,10 +32,10 @@ $today = date("w");
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
     <meta name="theme-color" content="#ffffff">
 	
-	<meta property="og:title" content="Книги для учеников и студентов, их родителей и учителей со скидкой до 40%" />
+	<meta property="og:title" content="Новогодние подарки от Альпины" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://www.alpinabook.ru/actions/september1/" />
-	<meta property="og:image" content="https://www.alpinabook.ru/actions/september1/img/board_big.jpg" />
+	<meta property="og:url" content="https://www.alpinabook.ru/actions/presents/" />
+	<meta property="og:image" content="https://www.alpinabook.ru/actions/presents/img/fir.png" />
 	<meta property="og:site_name" content="www.alpinabook.ru" />
 	<meta property="fb:admins" content="1425804193" />
 	<meta property="fb:app_id" content="138738742872757" />
@@ -185,10 +185,10 @@ array('name'=>'Вторая мировая война: Ад на земле ','i
         <div class="mainWrapp">
             <div class="slide1">
 				<div id="slide1text">
-				До Нового Года осталось:<br />
-				<div style="position: absolute;    left: 46%;    top:145px;    font-size: 120px;    color: #fff;"> 45</div><img src="img/button.png" />
+				До Нового Года осталось дней:<br />
+				<div style="position: absolute;    left: 46%;    top:145px;    font-size: 120px;    color: #fff;"> <?=ceil((strtotime('01.01.2017') - time())/86400)?></div><img src="img/button.png" />
 				<br />
-				<div style="font-size:48px;margin-top:-60px;">дней<br /><div style="text-decoration:underline;">А у вас еще нет подарков?</div></div>
+				<div style="font-size:48px;margin-top:-60px;"><?/*дней*/?><br /><div style="text-decoration:underline;">А у вас еще нет подарков?</div></div>
 				</div>
 				<br />
 				
@@ -196,8 +196,7 @@ array('name'=>'Вторая мировая война: Ад на земле ','i
 			<div class="slide3" style="height:200px;">
 				<div id="slide1text">
                 Наши книги – это знания,<br />
-которые изменят жизнь ваших  друзей  в 2017 году!
-
+				которые изменят жизнь ваших  друзей  в 2017 году!
 				</div>
             </div>
 			<div class="slide4">

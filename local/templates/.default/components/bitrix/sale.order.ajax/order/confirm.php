@@ -45,7 +45,7 @@
             }
         }
     ?>
-    <script type="text/javascript">
+    <?/*<script type="text/javascript">
         // формирование сервиса  Get4Click
         var _iPromoBannerObj = function() {
             this.htmlElementId = 'promocode-element-container';
@@ -56,7 +56,7 @@
                 '_customerLastName': '<?=$last_name?>',
                 '_customerEmail': '<?=$arResult["ORDER_PROPS"]["EMAIL"]["VALUE"]?>',
                 '_customerPhone': '<?=$arResult["ORDER_PROPS"]["PHONE"]["VALUE"]?>',
-                /*  '_customerGender': 'CUSTOMER_GENDER',  */
+               // '_customerGender': 'CUSTOMER_GENDER',
                 '_orderId': '<?=$arResult["ORDER"]["ID"]?>',
                 '_orderValue': '<?=$arResult["ORDER"]["PRICE"]?>',
                 '_orderCurrency': 'RUB',
@@ -68,7 +68,7 @@
             var r=[];for(e in this.params){if(typeof(e)==='string'){r.push(e+'='+encodeURIComponent(this.params[e]));}}r.push('method=main');r.push('jsc=iPromoCpnObj');this.lS(('https:'==document.location.protocol ? 'https://':'http://')+'get4click.ru/wrapper.php?'+r.join('&'));};
 
         var iPromoCpnObj = new _iPromoBannerObj();
-    </script>
+    </script>*/?>
 
     <?if (!empty($_SESSION['googleECommerce'])) {?>
         <!--Criteo-->
@@ -138,6 +138,7 @@
                 $userEmal = $arProp["VALUE"];
             }
         ?>
+		<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$USER->GetEmail()?>"></div>
         <script type="text/javascript">
             rrApiOnReady.push(function() {
                 try {
@@ -166,6 +167,7 @@
             window._fbq.push(['track', '6027030777492', {'value':'<?=$arResult['ORDER']['PRICE']?>','currency':'RUB'}]);
         </script>
         <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6027030777492&amp;cd[value]=<?=$arResult['ORDER']['PRICE']?>&amp;cd[currency]=RUB&amp;noscript=1" /></noscript>
+
 
         <script type="text/javascript">
             window.flocktory = window.flocktory || [];

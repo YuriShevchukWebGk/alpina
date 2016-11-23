@@ -102,7 +102,8 @@ body {
 	margin-top:30px;
 }
 #slide2 {
-	width: 1615px;
+	max-width: 1615px;
+	width:100%;
 	height:auto;
 	margin:80px auto 0;
 	background:#f3f0eb;
@@ -175,10 +176,10 @@ body {
 #slide2text4 {
 	color: #fff;
 	padding-top:0!important;
-    position: absolute;
     top: 0px;
     margin-top: -40px;
-    left: 34%;
+	width:550px;
+	padding-top:70px;
     background: #000;
     padding: 0px 50px;
 }
@@ -279,4 +280,7 @@ header .lkWrapp {
 	color:#fdc94e;
 	text-align:center;
 	height:380px;
+}
+.discount {
+	position:absolute;background:#000;color:#fff;border-radius:20px;padding:9px 5px;
 }
