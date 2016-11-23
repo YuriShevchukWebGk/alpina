@@ -1874,6 +1874,14 @@
         );
     }
     
+    /***********
+    * 
+    * при добавлении/изменении скидки на товар проставлять свойство "Показывать иконку скидки" у данного товара
+    * если активность скидки "Да"
+    * 
+    * @var array $products_ids - ID привязанных к скидке товаров
+    * 
+    */
     AddEventHandler("catalog", "OnDiscountUpdate", "activateShowingDiscountIcon");
     AddEventHandler("catalog", "OnDiscountAdd", "activateShowingDiscountIcon");
     
