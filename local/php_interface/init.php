@@ -1875,6 +1875,7 @@
     }
     
     AddEventHandler("catalog", "OnDiscountUpdate", "activateShowingDiscountIcon");
+    AddEventHandler("catalog", "OnDiscountAdd", "activateShowingDiscountIcon");
     
     function activateShowingDiscountIcon ($ID, $arFields) {
         if ($arFields["ACTIVE"] == "Y") {
