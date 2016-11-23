@@ -1,7 +1,7 @@
 <?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
 	require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
-	//require '/home/bitrix/vendor/autoload.php';
+	require '/home/bitrix/vendor/autoload.php';
 	use Mailgun\Mailgun;
 
     CModule::IncludeModule("blog");
