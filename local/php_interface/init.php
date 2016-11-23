@@ -1,7 +1,7 @@
 <?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
 	require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
-	require '/home/bitrix/vendor/autoload.php';
+	//require '/home/bitrix/vendor/autoload.php';
 	use Mailgun\Mailgun;
 
     CModule::IncludeModule("blog");
@@ -107,7 +107,7 @@
 	
 			# Make the call to the client.
 			$result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-			//logger($attachments, dirname(__FILE__) . "/mail_debug.log");
+			//logger($result, dirname(__FILE__) . "/new_debug.log");
 			return false;
 		}
 	}*/
@@ -1886,14 +1886,20 @@
     AddEventHandler("catalog", "OnDiscountAdd", "activateShowingDiscountIcon");
     
     function activateShowingDiscountIcon ($ID, $arFields) {
-        if ($arFields["ACTIVE"] == "Y") {
-            $products_ids = array();
-            foreach ($arFields["PRODUCT_IDS"] as $product_id) {
-                $products_ids[] = $product_id;
-            }
-            foreach ($products_ids as $product_id) {
-                CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID));
-            }
+        $products_ids = array();
+        foreach ($arFields["PRODUCT_IDS"] as $product_id) {
+            $products_ids[] = $product_id;
         }
+        if (!empty($products_ids)) {
+            if ($arFields["ACTIVE"] == "Y") {
+                foreach ($products_ids as $product_id) {
+                    CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID));
+                }
+            } else {
+                foreach ($products_ids as $product_id) {
+                    CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => "N"));
+                }
+            }    
+        } 
     }
 ?>
