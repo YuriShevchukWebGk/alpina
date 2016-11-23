@@ -54,7 +54,7 @@
     define ("DELIVERY_FLIPOST", 30);
     define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
     define ("BIK_FOR_EXPENSE_OFFER", "044525716");
-    define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 354);
+    define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
 	
 	/**
 	 * 
