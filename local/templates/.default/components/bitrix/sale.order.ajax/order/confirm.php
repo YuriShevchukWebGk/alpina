@@ -451,10 +451,10 @@
                             $basket_list = CSaleBasket::GetList (array(), array("ORDER_ID" => $arResult["ORDER"]["ID"]), false, false, array());
                             while ($basket = $basket_list -> Fetch()) {
                                if ($basket["VAT_RATE"] * 10 <= 1) {
-                                   $multiplier = 0.0909;
+                                   $multiplier = 10 / 110;
                                    $arResult["ORDER"]["VAT_RATE_10_SUMM"] += round($basket["PRICE"] * $basket["QUANTITY"] * $multiplier, 2);
                                } else {
-                                   $multiplier = 0.1525;
+                                   $multiplier = 18 / 118;
                                    $arResult["ORDER"]["VAT_RATE_18_SUMM"] += round($basket["PRICE"] * $basket["QUANTITY"] * $multiplier, 2);
                                }?>
                                 <tr>

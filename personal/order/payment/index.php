@@ -292,10 +292,10 @@ document.addEventListener('DOMContentLoaded', function(){
                 $basket_list = CSaleBasket::GetList (array(), array("ORDER_ID" => $arOrder["ID"]), false, false, array());
                 while ($basket = $basket_list -> Fetch()) {
                     if ($basket["VAT_RATE"] * 10 <= 1) {
-                        $multiplier = 0.0909;
+                        $multiplier = 10 / 110;
                         $vat_rate_10_summ += round($basket["PRICE"] * $basket["QUANTITY"] * $multiplier, 2);
                     } else {
-                        $multiplier = 0.1525;
+                        $multiplier = 18 / 118;
                         $vat_rate_18_summ += round($basket["PRICE"] * $basket["QUANTITY"] * $multiplier, 2);
                 }?>
                 <tr>
