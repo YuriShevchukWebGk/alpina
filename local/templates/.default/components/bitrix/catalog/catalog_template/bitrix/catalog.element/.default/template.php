@@ -194,6 +194,7 @@ $arItemIDs = array(
 							<input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>" value="<?= $arResult["MAIL"]; ?>" id="chapter-email" /><button onclick="sendchapter(<?=$arResult[ID];?>);" style="position: relative;left: 217px;top: -36px;border: none;width: 41px;height: 36px;cursor: pointer;background: transparent;">
 						</div>
 					<?}?>
+
                     <?if ($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]) {?>
                         <div class="characteris">
                             <p class="title"><?= GetMessage("PUBLISHER") ?></p>
@@ -506,7 +507,6 @@ $arItemIDs = array(
                     </div>
                     
                     <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
-			
                     <ul class="shippings">
                         <?
                             $today = date("w");
@@ -543,7 +543,6 @@ $arItemIDs = array(
                             } else {
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									//$delivery_day = "в среду";
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {

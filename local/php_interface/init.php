@@ -54,6 +54,7 @@
     define ("DELIVERY_FLIPOST", 30);
     define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
     define ("BIK_FOR_EXPENSE_OFFER", "044525716");
+    define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 354);
 	
 	/**
 	 * 
@@ -1871,5 +1872,28 @@
             var_export($data, 1)."\n",
             FILE_APPEND
         );
+    }
+    
+    /***********
+    * 
+    * при добавлении/изменении скидки на товар проставлять свойство "Показывать иконку скидки" у данного товара
+    * если активность скидки "Да"
+    * 
+    * @var array $products_ids - ID привязанных к скидке товаров
+    * 
+    */
+    AddEventHandler("catalog", "OnDiscountUpdate", "activateShowingDiscountIcon");
+    AddEventHandler("catalog", "OnDiscountAdd", "activateShowingDiscountIcon");
+    
+    function activateShowingDiscountIcon ($ID, $arFields) {
+        if ($arFields["ACTIVE"] == "Y") {
+            $products_ids = array();
+            foreach ($arFields["PRODUCT_IDS"] as $product_id) {
+                $products_ids[] = $product_id;
+            }
+            foreach ($products_ids as $product_id) {
+                CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID));
+            }
+        }
     }
 ?>
