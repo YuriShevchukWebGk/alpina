@@ -210,6 +210,9 @@ $APPLICATION->SetTitle(" Книги для саморазвития | Лучши
 		"PATH_TO_SMILE" => "/bitrix/images/forum/smile/",
 		"PRICE_CODE" => array(
 			0 => "BASE",
+			1 => "Издательский",
+			2 => "Эдельстар",
+			3 => "Интернет-магазин",
 		),
 		"PRICE_VAT_INCLUDE" => "Y",
 		"PRICE_VAT_SHOW_VALUE" => "N",
