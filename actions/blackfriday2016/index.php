@@ -283,29 +283,29 @@ array('name'=>'Яндекс Воложа: История создания ком
 </style>
 
 <?
-if ($USER->isAdmin()) {
-	foreach ($booksArray as $m => $single) {
-		$arSelect = Array("DETAIL_PICTURE");
-		$arFilter = Array("IBLOCK_ID"=>4,"ID"=>$single['id']);
-		$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), $arSelect);
-		while ($ob = $res->GetNextElement()) {
-			$arFields = $ob->GetFields();
-			$booksArray[$m]["DETAIL_PICTURE"] = $arFields["DETAIL_PICTURE"];
-		}
+foreach ($booksArray as $m => $single) {
+	$arSelect = Array("DETAIL_PICTURE");
+	$arFilter = Array("IBLOCK_ID"=>4,"ID"=>$single['id']);
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), $arSelect);
+	while ($ob = $res->GetNextElement()) {
+		$arFields = $ob->GetFields();
+		$booksArray[$m]["DETAIL_PICTURE"] = $arFields["DETAIL_PICTURE"];
 	}
-}?>
+}
+?>
     <div class="landing">
         <div class="mainWrapp">
             <div class="slide1">
 				<div class="slide1text1">
 					ВСЕМ СТОЯТЬ! ЭТО ОГРАБЛЕНИЕ!
 				</div>
-				<center><iframe src="files/bf.html" height="420" width="100%" scrolling="no" style="border:none;margin:0 auto;"></iframe></center>
+				<?if (!$USER->isAdmin() && $today != 4) {?><center><iframe src="files/bf.html" height="420" width="100%" scrolling="no" style="border:none;margin:0 auto;"></iframe></center>
 				<div class="slide1text2">
 					Лучшие книги Альпины дешевле, чем на черном рынке:<br />
 					<span>Скидки — до 70%</span><br />
-					Только три дня, с 24 по 26 ноября
+					Только четыре дня, с 24 по 27 ноября
 				</div>
+				<?} else { echo '<br /><br />';}?>
 				<div class="slide1text3">
 					позвать друзей в банду
 					<script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
@@ -315,7 +315,7 @@ if ($USER->isAdmin()) {
 				
 				<div id="slide1img">
 				</div>
-				<?if ($USER->isAdmin()) {?>
+				<?if ($USER->isAdmin() || $today == 4) {?>
 				<div id="shp1"></div>
 				<div id="slide2">
 					<div id="slide2img1"></div>
@@ -349,7 +349,7 @@ if ($USER->isAdmin()) {
 					<div class="hintWrapp" style="margin-top:140px;background: yellow;box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.18), 0px 10px 7px 0px rgba(0, 0, 0, 0.14);padding-bottom:40px;">
 						<div id="shp2"></div>
 						<div id="slide2text2">
-							Ловкость рук и накакого мошенничества
+							Ловкость рук и никакого мошенничества
 						</div>					
 						<?for ($i = 14;$i < 21; $i++) {?>
 							<div class="bookWrap">
@@ -426,7 +426,7 @@ if ($USER->isAdmin()) {
 						
 					</div>				
 				<div class="slide1text3" style="padding-bottom:50px;">
-					позвать друзей в банду
+					
 					
 				</div>
 				
