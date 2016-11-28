@@ -281,13 +281,13 @@
 
 <?
 if (isset($_COOKIE["rrpusid"])){
-	$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
-	$recsArray = json_decode($stringRecs);
-	$arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
+    $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
+    $recsArray = json_decode($stringRecs);
+    $arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
 }
 if ($arrFilter['ID'][0] > 0) {
 ?>
-	<?$APPLICATION->IncludeComponent(
+    <?$APPLICATION->IncludeComponent(
         "bitrix:catalog.section", 
         "interesting_items", 
         array(
@@ -392,7 +392,8 @@ if ($arrFilter['ID'][0] > 0) {
         ),
         false
     );?>
-<?}?>
+<?}
+?>
 </div>
 <script>
     // скрипт ajax-подгрузки товаров в блоке "Все книги"
@@ -408,7 +409,13 @@ if ($arrFilter['ID'][0] > 0) {
         $('.showMore').click(function(){
             var otherBooks = $(this).siblings(".otherBooks");
             $.fancybox.showLoading();
-            $.get('<?=$arResult["SECTION_PAGE_URL"]?>?PAGEN_<?=$navnum?>='+page, function(data) {
+            <?if (isset($_REQUEST["SORT"])) {?>
+                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';    
+            <?} else {?>
+                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?PAGEN_" . $navnum . "=" ?>';    
+            <?}?>
+                
+            $.get(section_url + page, function(data) {
                 var next_page = $('.otherBooks ul li', data);
                 //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
                 $('.otherBooks ul').append(next_page);
