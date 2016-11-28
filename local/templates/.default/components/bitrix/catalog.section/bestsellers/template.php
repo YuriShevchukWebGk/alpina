@@ -422,7 +422,12 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
         $('.showMore').click(function(){
             var other_books = $(this).siblings(".otherBooks");
             $.fancybox.showLoading();
-            $.get('<?= $arResult["SECTION_PAGE_URL"] ?>?PAGEN_<?= $navnum ?>='+page, function(data) {
+            <?if (isset($_REQUEST["SORT"])) {?>
+                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';    
+            <?} else {?>
+                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?PAGEN_" . $navnum . "=" ?>';    
+            <?}?>
+            $.get(section_url + page, function(data) {
                 var next_page = $('.otherBooks li', data);
                 $('.otherBooks ul').append(next_page);
                 page++;
