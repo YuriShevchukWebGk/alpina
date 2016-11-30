@@ -300,7 +300,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                              <div class="categoryBooks">
                                  <div class="sect_badge">
                                      <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
-                                         && $arItem['PROPERTIES']['spec_price']['VALUE'] ) {
+                                         && $arItem['PROPERTIES']['spec_price']['VALUE']
+                                         && $arItem['PROPERTIES']['show_discount_icon']['VALUE'] == "Y") {
                                                 if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arItem['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
                                                     echo '<img class="discount_badge" src="/img/' . $arItem['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
                                                 }
