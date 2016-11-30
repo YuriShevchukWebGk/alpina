@@ -65,7 +65,7 @@
 	 * 
 	 * */
 	 
-	/*AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
+	AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
 
 	function messagesWithAttachments($arFields, $arTemplate) {
 		GLOBAL $arParams;
@@ -91,7 +91,7 @@
 			if ($arFields['BCC']) {
 				$params['bcc'] = $arFields['BCC'];
 			}
-			if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+			/*if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
 				$attachments = array();
 				foreach ($arTemplate['FILE'] as $file) {
 					if ($file_path = CFile::GetPath($file)) {
@@ -101,16 +101,17 @@
 						);
 					}
 				}
-			}
+			}*/
 			
 			$domain = $arParams['MAILGUN']['DOMAIN'];
 	
 			# Make the call to the client.
-			$result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+			//$result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+			$result = $mailgun->sendMessage($domain, $params, array('attachment' => array("/home/bitrix/www/upload/mail_attachments/99bf6dfaf66ae953e3d2884818576ed3.pdf")));
 			
 			return false;
 		}
-	}*/
+	}
 	
 	/**
 	 *

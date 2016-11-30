@@ -11,6 +11,7 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
+	$gdeSlon = '';
 ?>
 <?if ($_REQUEST["DIRECTION"] == "DESC")
     {?>
@@ -191,7 +192,7 @@
                                         <p class="priceOfBook"><?=strtolower(FormatDate("j F Y", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
                                     <?    
                                     }
-                                    
+										$gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
                                         if ($USER -> IsAuthorized())
                                         {
                                         ?>
@@ -225,7 +226,8 @@
 
 
 
-
+			<!-- GdeSlon -->
+			<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
         
          <?$APPLICATION->IncludeComponent(
                 "bitrix:menu", 

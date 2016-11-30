@@ -11,6 +11,7 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
+	$gdeSlon = '';
 ?>
 
 <div class="wrapperCategor">
@@ -144,7 +145,7 @@
             <div class="otherBooks" id="block1">
                 <ul>
 
-                    <?foreach ($arResult["ITEMS"] as $arItem) {   
+                    <?foreach ($arResult["ITEMS"] as $arItem) {
                         $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                         ?>
                         <li>
@@ -206,6 +207,7 @@
                                         <?
                                         }
                                     }
+									$gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
 
                                     if ($USER -> IsAuthorized()) {?>
                                         <p class="basketLater" id="<?= $arItem["ID"] ?>">Куплю позже</p>
@@ -214,7 +216,8 @@
                         </li>
                     <?}?>
                 </ul>
-
+			<!-- GdeSlon -->
+			<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
             </div>
             <div class="wishlist_info">
                 <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>

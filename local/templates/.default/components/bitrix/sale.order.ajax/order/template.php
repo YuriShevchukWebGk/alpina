@@ -50,6 +50,9 @@
 	}
 
 </style>
+
+<!-- GdeSlon -->
+<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
 <script>
 
     //дополнительные функции, необходимые для работы
@@ -129,9 +132,9 @@
             if (ourday == 1) { //понедельник
                 minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-                minDatePlus = 1;
+                minDatePlus = 3;
             } else if (ourday == 3) { //среда
-                minDatePlus = 1;
+                minDatePlus = 2;
             } else if (ourday == 4) { //четверг
                 minDatePlus = 1;
             } else if (ourday == 5) { //пятница
@@ -159,7 +162,7 @@
                 minDatePlus = 1;
             }
         }
-		if (parseInt($('.order_weight').text()) / 1000 > 10) { //Если вес больше 10кг, доставка плюс один день
+		if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
 			minDatePlus++;
 		}
         //дата, выбранная по умолчанию

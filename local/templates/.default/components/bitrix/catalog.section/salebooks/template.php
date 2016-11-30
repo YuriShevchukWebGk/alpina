@@ -11,6 +11,7 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
+	$gdeSlon = '';
 ?>
 
 <div class="wrapperCategor">
@@ -206,7 +207,7 @@
                                         <?
                                         }
                                     }
-
+									$gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
                                     if ($USER -> IsAuthorized()) {?>
                                         <p class="basketLater" id="<?= $arItem["ID"] ?>">Куплю позже</p>
                                     <?}?>
@@ -225,7 +226,8 @@
                 <p class="showMore">Показать ещё</p>
             <?}?>
         </div>
-
+		<!-- GdeSlon -->
+		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
         <?$APPLICATION->IncludeComponent(
             "bitrix:menu",
             "catalog_left_menu",

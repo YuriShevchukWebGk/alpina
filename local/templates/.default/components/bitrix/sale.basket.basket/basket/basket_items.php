@@ -104,6 +104,7 @@
 						$itemsForRetailRocket = array();
 						$gtmEnchECommerceCheckout = Array();
 						$retailRocketRecs = '';
+						$gdeSlon = '';
 						$is = 0;
 						/* конец */
 
@@ -116,6 +117,10 @@
 							if ($is < 15)
 								$retailRocketRecs .= $arItem["PRODUCT_ID"].',';
 							$is++;
+							
+							for ($i = 0; $i < $arItem["QUANTITY"]; $i++) {						
+								$gdeSlon .= $arItem["PRODUCT_ID"].':'.$arItem["PRICE"].',';
+							}
                             ?>
                             <tr id="<?=$arItem["ID"]?>">
                                 <?
@@ -383,8 +388,11 @@
         <input type="hidden" id="price_vat_show_value" value="<?=($arParams["PRICE_VAT_SHOW_VALUE"] == "Y") ? "Y" : "N"?>" />
         <input type="hidden" id="hide_coupon" value="<?=($arParams["HIDE_COUPON"] == "Y") ? "Y" : "N"?>" />
         <input type="hidden" id="use_prepayment" value="<?=($arParams["USE_PREPAYMENT"] == "Y") ? "Y" : "N"?>" />
-
+		<!-- GdeSlon -->
+		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
+		
 		<?$_SESSION['gtmEnchECommerceCheckout'] = $gtmEnchECommerceCheckout;?>
+		<?$_SESSION['gdeSlon'] 					= $gdeSlon;?>
 		<?$_SESSION['itemsForCriteo']			= $itemsForCriteo;?>
 		<?$_SESSION['retailRocketRecs']			= $retailRocketRecs;?>
 

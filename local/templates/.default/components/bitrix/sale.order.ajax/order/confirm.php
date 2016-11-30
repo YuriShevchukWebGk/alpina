@@ -70,7 +70,7 @@
         var iPromoCpnObj = new _iPromoBannerObj();
     </script>*/?>
 
-    <?if (!empty($_SESSION['googleECommerce'])) {?>
+    <?if (!empty($_SESSION['gtmEnchECommerceCheckout'])) {?>
         <!--Criteo-->
         <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
         <script type="text/javascript">
@@ -85,6 +85,11 @@
             );
         </script>
 
+		<!-- GdeSlon -->
+		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
+		<script type="text/javascript" src="//www.gdeslon.ru/thanks.js?codes=<?=substr($_SESSION['gdeSlon'],0,-1)?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
+		
+		
         <!--google eCommerce-->
         <?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
         <script>
@@ -138,7 +143,6 @@
                 $userEmal = $arProp["VALUE"];
             }
         ?>
-		<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$USER->GetEmail()?>"></div>
         <script type="text/javascript">
             rrApiOnReady.push(function() {
                 try {
@@ -186,6 +190,7 @@
 
         <?unset($_SESSION['socioMatic'])?>
         <?unset($_SESSION['criteo'])?>
+		<?unset($_SESSION['gdeSlon'])?>
         <?unset($_SESSION['googleECommerce'])?>
         <?unset($_SESSION['googleEnhancedECommerce'])?>
         <?unset($_SESSION['floctory'])?>
@@ -211,7 +216,6 @@
                 </div>
             </div>
         </div>
-
         <?
             if (!empty($arResult["PAY_SYSTEM"]))
             {
@@ -532,7 +536,7 @@
                   </div>     
                 <?}
         }?>
-
+<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$USER->GetEmail()?>"></div>				
     </div>
 
     <? }

@@ -11,6 +11,7 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
+$gdeSlon = '';
 ?>
 
 <style>
@@ -100,6 +101,7 @@ $this->setFrameMode(true);
                             <?}
                         ?>
                         <?
+							$gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
                             if ($USER -> IsAuthorized())
                             {
                             ?>
@@ -120,7 +122,8 @@ $this->setFrameMode(true);
                 <a href="#" class="allBooks">Показать ещё</a>
             </div>
 </div>
-
+<!-- GdeSlon -->
+<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
 <script>
 // скрипт ajax-подгрузки товаров в блоке "Все книги"
 $(document).ready(function() {

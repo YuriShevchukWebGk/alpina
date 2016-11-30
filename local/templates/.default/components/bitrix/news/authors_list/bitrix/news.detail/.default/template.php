@@ -14,7 +14,8 @@ $this->setFrameMode(true);
 global $authorName;
 $authorName = $arResult["PROPERTIES"]["ALT_NAME"]["VALUE"];
 ?>
-
+<!-- GdeSlon -->
+<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
 <?
 $sects_list = CIBlockSection::GetList (array(), array("IBLOCK_ID" => 29, 'NAME' => substr($arResult["PROPERTIES"]["LAST_NAME"]["VALUE"], 0, 1)), false, array("ID", "NAME"), $filter);
 $sects = $sects_list -> Fetch();

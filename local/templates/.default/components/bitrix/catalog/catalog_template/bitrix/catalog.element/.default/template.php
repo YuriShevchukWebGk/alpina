@@ -543,23 +543,25 @@ $arItemIDs = array(
                             } else {
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
+									//$delivery_day = 'в среду';
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
+									$delivery_day = 'в пятницу';
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    //$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+                                    $delivery_day = 'в пятницу';
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
                                     //$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    //$delivery_day = 'во вторник';
+                                    $delivery_day = 'во вторник';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    //$delivery_day = 'во вторник';
+                                    $delivery_day = 'в среду';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    //$delivery_day = 'во вторник';
+                                    $delivery_day = 'в среду';
                                 }
 
                                 if ($today == 5) {
@@ -1598,6 +1600,9 @@ $printid = implode(", ", $printid2);?>
 
 
 </script>
+<!-- GdeSon -->
+<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276"></script>
+
 <script type="text/javascript">
 cackle_widget = window.cackle_widget || [];
 cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{?(it.numr + it.numv) > 0}}{{=it.stars}} оценок: {{=it.numr+it.numv}}{{?}}'});

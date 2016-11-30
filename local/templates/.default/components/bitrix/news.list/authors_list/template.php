@@ -12,7 +12,8 @@
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
 ?>    
-
+<!-- GdeSlon -->
+<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
 <div class="authorsMenuWrap">
     <div class="catalogWrapper">
         <p class="title">Алфавитный указатель авторов</p>    

@@ -96,18 +96,12 @@ array('name'=>'Уже взрослый, еще ребенок ','id'=>'8476','li
 array('name'=>'Развитие памяти по методикам спецслужб ','id'=>'8522','link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8522/','img'=>'8','oldprice'=>'399','newprice'=>'','discount'=>'20'),
 array('name'=>'Эйнштейн гуляет по Луне: Наука и искусство запоминания ','id'=>'7815','link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/7815/','img'=>'9','oldprice'=>'399','newprice'=>'','discount'=>'40'),
 array('name'=>'Запомнить все: Усвоение знаний без скуки и зубрежки ','id'=>'8430','link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8430/','img'=>'10','oldprice'=>'479','newprice'=>'','discount'=>'40'),
-array('name'=>'Быстрый ум: Как забывать лишнее и помнить нужное ','id'=>'8159','link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8159/','img'=>'11','oldprice'=>'429','newprice'=>'','discount'=>'40'),
-//
-//Чтобы всё успевать
-array('name'=>'Победи прокрастинацию ','id'=>'8155','link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8155/','img'=>'12','oldprice'=>'479','newprice'=>'','discount'=>'40'),
-array('name'=>'Тайм-менеджмент для школьника ','id'=>'8666','link'=>'/catalog/BooksForParents/8666/','img'=>'13','oldprice'=>'529','newprice'=>'','discount'=>'40'),
-array('name'=>'Тайм-менеджмент для детей ','id'=>'7399','link'=>'/catalog/BooksForParents/7399/','img'=>'14','oldprice'=>'559','newprice'=>'','discount'=>'40'),
-//
-//Для тех, кто ещё не определился с профессией
-array('name'=>'Призвание: Как найти себя во взрослой жизни ','id'=>'8398','link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8398/','img'=>'15','oldprice'=>'318','newprice'=>'','discount'=>'40'),
-//
-//Мозговня
-array('name'=>'Мозг. Инструкция по применению ','id'=>'7724','link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/7724/','img'=>'16','oldprice'=>'479','newprice'=>'','discount'=>'30'),
+array('name'=>'Личная эффективность на 100%: Сбросить балласт, найти себя, достичь цели','id'=>'7190','link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/7190/?from=bflanding','img'=>'/upload/iblock/5f5/5f5420a4b0a2cba3c3583017e618dacf.jpg','oldprice'=>'399','newprice'=>'319,2','discount'=>'20'),
+array('name'=>'Маркетинг от А до Я: 80 концепций, которые должен знать каждый менеджер','id'=>'6385','link'=>'/catalog/Marketing/6385/?from=bflanding','img'=>'/upload/iblock/96e/96efd0e52910728cf72c61741730c7fc.jpg','oldprice'=>'448','newprice'=>'358,4','discount'=>'20'),
+array('name'=>'Меньше, но лучше: Работать надо не 12 часов, а головой','id'=>'7575','link'=>'/catalog/TimeManagment/7575/?from=bflanding','img'=>'/upload/iblock/b41/b41019ae5b503d1dfd97267201793feb.jpg','oldprice'=>'479','newprice'=>'383,2','discount'=>'20'),
+array('name'=>'50 советов по нематериальной мотивации','id'=>'7475','link'=>'/catalog/HR/7475/?from=bflanding','img'=>'/upload/iblock/d27/d27f53266c137551f53bd49951a51e55.jpg','oldprice'=>'399','newprice'=>'199,5','discount'=>'50'),
+array('name'=>'50 советов по рекрутингу','id'=>'7365','link'=>'/catalog/HR/7365/?from=bflanding','img'=>'/upload/iblock/c8e/c8ec1718ce896208b1b79331b6db1331.jpg','oldprice'=>'479','newprice'=>'239,5','discount'=>'50'),
+array('name'=>'MBA в кармане: Практическое руководство по развитию ключевых навыков управления','id'=>'7018','link'=>'/catalog/GeneralManagment/7018/?from=bflanding','img'=>'/upload/iblock/c1f/c1f695e48a7d2a0336ae1eb2615ae5a8.jpg','oldprice'=>'479','newprice'=>'239,5','discount'=>'50'),
 array('name'=>'Мозг зомби ','id'=>'78102','link'=>'/catalog/PopularPsychologyPersonalEffectiveness/78102/','img'=>'17','oldprice'=>'448','newprice'=>'','discount'=>'20'),
 array('name'=>'Мозг прирученный ','id'=>'8320','link'=>'/catalog/PopularPsychologyPersonalEffectiveness/8320/','img'=>'18','oldprice'=>'479','newprice'=>'','discount'=>'40'),
 array('name'=>'Мозгоускорители ','id'=>'75968','link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/75968/','img'=>'19','oldprice'=>'479','newprice'=>'','discount'=>'20'),
@@ -256,7 +250,7 @@ array('name'=>'Вторая мировая война: Ад на земле ','i
 					<?for ($i = 10;$i < 16; $i++) {?>
 						<div class="bookWrap">
 							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
+								<img src="<?=$booksArray[$i]["img"]?>" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
 							</a>
 						</div>
 					<?}?>
@@ -271,7 +265,11 @@ array('name'=>'Вторая мировая война: Ад на земле ','i
             </div>				
             </div>		
 			<div class="footer">
-
+				<div id="slide1text" style="color:#fdc94e; font-size:28px;padding-top:30px;">
+                
+				+7 495 980-8077<br />
+				<a href="mailto:shop@alpinabook.ru" style="color:#fdc94e;">shop@alpinabook.ru</a>
+				</div>
             </div>				
 			
         </div>

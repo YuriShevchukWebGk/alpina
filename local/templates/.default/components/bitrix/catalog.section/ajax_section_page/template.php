@@ -38,7 +38,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 ?>
 
 <div class="wrapperCategor" itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
-	<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
+    <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
     <div class="categoryWrapper">
 
         <div class="catalogIcon">
@@ -292,11 +292,12 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                  <?$criteoCounter = 0; 
                  $criteoItems = Array(); 
                  $gtmEcommerceImpressions = '';
+                 $gdeSlon = '';
                      foreach ($arResult["ITEMS"] as $cell => $arItem) {  
                          foreach ($arItem["PRICES"] as $code => $arPrice) { 
                          ?>
                          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
-							<meta itemprop="description" content="<?=htmlspecialchars(strip_tags($arItem["PREVIEW_TEXT"]))?>" />
+                            <meta itemprop="description" content="<?=htmlspecialchars(strip_tags($arItem["PREVIEW_TEXT"]))?>" />
                              <div class="categoryBooks">
                                  <div class="sect_badge">
                                      <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
@@ -319,9 +320,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                          <?}?>
                                      </div> 
                                      <p class="nameBook" title="<?= $arItem["NAME"]?>" itemprop="name"><?= $arItem["NAME"]?></p>
-									 <?if ($USER->isAdmin()){?>
-										<span class="crr-cnt" data-crr-url="<?=$arItem["ID"]?>" data-crr-chan="<?=$arItem["ID"]?>"></span>
-									 <?}?>
+                                     <?if ($USER->isAdmin()){?>
+                                        <span class="crr-cnt" data-crr-url="<?=$arItem["ID"]?>" data-crr-chan="<?=$arItem["ID"]?>"></span>
+                                     <?}?>
                                      <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                      <?
@@ -330,10 +331,10 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
                                             if ($arPrice["DISCOUNT_VALUE_VAT"]) { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-												<link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
+                                                <link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? } else { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-												<link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition">><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
+                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition">><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? }
                                          ?>
                                  
@@ -361,9 +362,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                          </li>
                          <?      //}
                          }
-                         if($criteoCounter<3){
-                             array_push($criteoItems, $arItem['ID']);  
-                         }
+                        if($criteoCounter<3){
+                            array_push($criteoItems, $arItem['ID']);  
+                        }
                          $criteoCounter++;
 
                          $gtmEcommerceImpressions .= "{";
@@ -373,11 +374,17 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                          $gtmEcommerceImpressions .= "'category': '" . $arResult["NAME"] . "',";
                          $gtmEcommerceImpressions .= "'list': 'category - " . $arResult["NAME"] . "',";
                          $gtmEcommerceImpressions .= "'position': '" . ($cell+1) . "'";
-                         $gtmEcommerceImpressions .= "},";                        
+                         $gtmEcommerceImpressions .= "},";
+
+                         $gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
                          }
                          ?>
-
-                 <script type="text/javascript">
+                         
+                <!-- GdeSlon -->
+                <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
+                
+                
+                <script type="text/javascript">
                      <!-- //dataLayer GTM -->
                      dataLayer.push({
                          'categoryName' : '<?= $arResult["NAME"]?>',
@@ -481,9 +488,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
 
 
-		<div class="catalogDescription" itemprop="description">
-			<?=$arResult["DESCRIPTION"]?>
-		</div>
+        <div class="catalogDescription" itemprop="description">
+            <?=$arResult["DESCRIPTION"]?>
+        </div>
     </div>
 </div>
 
@@ -579,7 +586,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     $(".otherBooks").css("height", otherBooksHeight+"px");
                     //$(".wrapperCategor").css("height", categorHeight+"px");
                     //$(".contentWrapp").css("height", categorHeight-10+"px");
-					//$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
+                    //$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
             });
             if (page == maxpage) {
                 $('.showMore').hide();
@@ -618,7 +625,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                         $(".otherBooks").css("height", otherBooksHeight+"px");
                         //$(".wrapperCategor").css("height", categorHeight+"px");
                         //$(".contentWrapp").css("height", categorHeight-10+"px");
-						//$(".wrapperCategor").css("height", $(".wrapperCategor").height()+"px");
+                        //$(".wrapperCategor").css("height", $(".wrapperCategor").height()+"px");
 
                 });
                 if (upd_page == maxpage) {
@@ -633,13 +640,13 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
         <?}?>    
 cackle_widget = window.cackle_widget || [];
-			cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{=it.stars}}{{?it.numr > 0}} {{=it.numr+it.numv}} {{=it.reviews}}{{?}}'});
-			(function() {
-				var mc = document.createElement('script');
-				mc.type = 'text/javascript';
-				mc.async = true;
-				mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
-			})();		
+            cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{=it.stars}}{{?it.numr > 0}} {{=it.numr+it.numv}} {{=it.reviews}}{{?}}'});
+            (function() {
+                var mc = document.createElement('script');
+                mc.type = 'text/javascript';
+                mc.async = true;
+                mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+            })();        
     });
 </script>

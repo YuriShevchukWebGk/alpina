@@ -2,13 +2,15 @@
 global $USER;
 CModule::IncludeModule("iblock");
 $today = date("w");
+header("Location: http://www.alpinabook.ru/actions/blackfriday/");
+exit();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="robots" content="index, follow"/>
     <meta charset="utf-8"/>
-    <title>Скидки до 70%! Черная пятница 2016 — Интернет-магазин «Альпина Паблишер»</title>
+    <title>Черная пятница 2017 — Интернет-магазин «Альпина Паблишер»</title>
     <meta name="keywords" content=""/>
     <meta name="description" content="Черная пятница в интернет-магазине пройдет с 24 по 26 ноября. Скидки до 70%!"/>
     <link href="css/style.css?123" rel="stylesheet">
@@ -30,7 +32,7 @@ $today = date("w");
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
     <meta name="theme-color" content="#ffffff">
 	
-	<meta property="og:title" content="Настоящие скидки до 70%! Черная пятница 2016 — Интернет-магазин «Альпина Паблишер»" />
+	<meta property="og:title" content="Черная пятница 2017 — Интернет-магазин «Альпина Паблишер»" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="/actions/blackfriday2016/" />
 	<meta property="og:image" content="/images/blackfriday2016.png" />
@@ -270,7 +272,9 @@ array('name'=>'Экономическое равновесие: Теория о�
 array('name'=>'Этюды о моде и стиле','id'=>'5553','link'=>'/catalog/BeautyAndHistoryOfFashion/5553/?from=bflanding','img'=>'/upload/iblock/96d/96d5ae126f0777232d9f625e8da8829b.jpg','oldprice'=>'559','newprice'=>'391,3','discount'=>'30'),
 array('name'=>'Юридический бизнес в России: По материалам третьего юридического форума. Москва, 12 апреля 2007 года','id'=>'6147','link'=>'/catalog/Law/6147/?from=bflanding','img'=>'/upload/iblock/a87/a87aeecfd4c6c45e6f85b2d4a760aeb3.jpg','oldprice'=>'89','newprice'=>'26,7','discount'=>'70'),
 array('name'=>'Я говорю — меня слушают','id'=>'6685','link'=>'/catalog/PrezentatsiiRitorika/6685/?from=bflanding','img'=>'/upload/iblock/37f/37feed6435938c9ffc053e1a60f3b6da.jpg','oldprice'=>'399','newprice'=>'239,4','discount'=>'40'),
-array('name'=>'Яндекс Воложа: История создания компании мечты','id'=>'7891','link'=>'/catalog/SuccessStory/7891/?from=bflanding','img'=>'/upload/iblock/58f/58f8d451cce2e950f022cebb502d9edb.jpg','oldprice'=>'479','newprice'=>'287,4','discount'=>'40')
+array('name'=>'Яндекс Воложа: История создания компании мечты','id'=>'7891','link'=>'/catalog/SuccessStory/7891/?from=bflanding','img'=>'/upload/iblock/58f/58f8d451cce2e950f022cebb502d9edb.jpg','oldprice'=>'479','newprice'=>'287,4','discount'=>'40'),
+array('name'=>'Я еж','id'=>'60909','link'=>'/catalog/KnigiDlyaDetei/60909/?from=bflanding','img'=>'/upload/resize_cache/iblock/4f1/264_394_1/4f1911fa80afa75094088774e9699f5b.jpg','oldprice'=>'299','newprice'=>'143,5','discount'=>'40'),
+array('name'=>'Лидерство','id'=>'60905','link'=>'/catalog/Leadership/60905/?from=bflanding','img'=>'/upload/resize_cache/iblock/eb9/264_394_1/eb99448e8ff0147813c70456098ecb6f.jpg','oldprice'=>'529','newprice'=>'253,9','discount'=>'40')
 );?>
 
 <?$i = 0;?>
@@ -299,14 +303,11 @@ foreach ($booksArray as $m => $single) {
 				<div class="slide1text1">
 					ВСЕМ СТОЯТЬ! ЭТО ОГРАБЛЕНИЕ!
 				</div>
-				<?if (!$USER->isAdmin() && $today != 4) {?><center><iframe src="files/bf.html" height="420" width="100%" scrolling="no" style="border:none;margin:0 auto;"></iframe></center>
-				<div class="slide1text2">
-					Лучшие книги Альпины дешевле, чем на черном рынке:<br />
-					<span>Скидки — до 70%</span><br />
-					Только четыре дня, с 24 по 27 ноября
+				<center><iframe src="files/bf.html" height="420" width="100%" scrolling="no" style="border:none;margin:0 auto;"></iframe></center>
+				<div class="slide1text2" style="margin-top:5px;">
+					<span>Скидки до 70%!</span><br />
 				</div>
-				<?} else { echo '<br /><br />';}?>
-				<div class="slide1text3">
+				<div class="slide1text3" style="margin-top:20px;">
 					позвать друзей в банду
 					<script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
 					<script src="//yastatic.net/share2/share.js"></script>
@@ -315,7 +316,7 @@ foreach ($booksArray as $m => $single) {
 				
 				<div id="slide1img">
 				</div>
-				<?if ($USER->isAdmin() || $today == 4) {?>
+				<?/*
 				<div id="shp1"></div>
 				<div id="slide2">
 					<div id="slide2img1"></div>
@@ -413,7 +414,7 @@ foreach ($booksArray as $m => $single) {
 				</div>	
 				<div id="shp6"></div>
 					<div class="hintWrapp">
-						<?for ($i = 42;$i < 200; $i++) {?>
+						<?for ($i = 42;$i < 202; $i++) {?>
 							<div class="bookWrap">
 								<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'blackFridayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});"><div class="discount" style="background:yellow;color:#000"><?=$booksArray[$i]["discount"]?>%</div>
 									<img src="<?=CFile::ResizeImageGet($booksArray[$i]["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src];?>" alt="<?=$booksArray[$i]["name"]?>" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
@@ -429,15 +430,13 @@ foreach ($booksArray as $m => $single) {
 					
 					
 				</div>
-				
+				*/?>
             </div>
 
 			
             </div>		
-			<div class="footer">
+			
 
-            </div>				
-			<?}?>
         </div>
 
 

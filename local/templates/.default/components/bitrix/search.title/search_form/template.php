@@ -11,6 +11,7 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);?>
+
 <?
 $INPUT_ID = trim($arParams["~INPUT_ID"]);
 if(strlen($INPUT_ID) <= 0)
