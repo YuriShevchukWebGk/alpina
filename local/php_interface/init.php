@@ -70,7 +70,7 @@
 	function messagesWithAttachments($arFields, $arTemplate) {
 		GLOBAL $arParams;
 		
-		if ($arTemplate['EVENT_NAME'] == "SUBSCRIBE_CONFIRM") {
+		if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
 			$mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
 			$email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
 			
@@ -91,23 +91,21 @@
 			if ($arFields['BCC']) {
 				$params['bcc'] = $arFields['BCC'];
 			}
-			/*if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
-				$attachments = array();
-				foreach ($arTemplate['FILE'] as $file) {
-					if ($file_path = CFile::GetPath($file)) {
-						array_push(
-							$attachments,
-							$file_path
-						);
-					}
+
+			$attachments = array();
+			foreach ($arTemplate['FILE'] as $file) {
+				if ($file_path = CFile::GetPath($file)) {
+					array_push(
+						$attachments,
+						$_SERVER["DOCUMENT_ROOT"] . $file_path
+					);
 				}
-			}*/
-			
+			}
+
 			$domain = $arParams['MAILGUN']['DOMAIN'];
 	
 			# Make the call to the client.
-			//$result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-			$result = $mailgun->sendMessage($domain, $params, array('attachment' => array("/home/bitrix/www/upload/mail_attachments/99bf6dfaf66ae953e3d2884818576ed3.pdf")));
+			$result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
 			
 			return false;
 		}
