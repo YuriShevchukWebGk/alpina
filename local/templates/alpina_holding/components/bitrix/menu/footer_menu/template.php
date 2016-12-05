@@ -14,10 +14,10 @@ foreach($arResult as $arItem):?>
 	<?if ($arItem["IS_PARENT"]):?>
 
 		<?if ($arItem["DEPTH_LEVEL"] == 1):?>
-			<li><a <?if($arItem["LINK"] == "https://www.alpinabook.ru/events/"){?>target="_blank"<?}?> href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a>
+			<li><a <?if(strpos($arItem["LINK"], 'http') !== false){?>target="_blank"<?}?> href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a>
 				<ul>
 		<?else:?>
-			<li><a <?if($arItem["LINK"] == "https://www.alpinabook.ru/events/"){?>target="_blank"<?}?> href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a>
+			<li><a <?if(strpos($arItem["LINK"], 'http') !== false){?>target="_blank"<?}?> href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a>
 				<ul>
 		<?endif?>
 
@@ -26,9 +26,9 @@ foreach($arResult as $arItem):?>
 		<?if ($arItem["PERMISSION"] > "D"):?>
 
 			<?if ($arItem["DEPTH_LEVEL"] == 1):?>
-				<li><a <?if($arItem["LINK"] == "https://www.alpinabook.ru/events/"){?>target="_blank"<?}?> href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
+				<li><a <?if(strpos($arItem["LINK"], 'http') !== false){?>target="_blank"<?}?> href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 			<?else:?>
-				<li><a <?if($arItem["LINK"] == "https://www.alpinabook.ru/events/"){?>target="_blank"<?}?> href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
+				<li><a <?if(strpos($arItem["LINK"], 'http') !== false){?>target="_blank"<?}?> href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 			<?endif?>
 
 		<?else:?>

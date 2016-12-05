@@ -297,30 +297,30 @@
 	$pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
     $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
 	if ($psum < 2000) {
-		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
+		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
 	} elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 10) {
-		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 19%";
+		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 19%";
 
 	} elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 20) {
-		$printDiscountText = "<span class='sale_price'>Добавьте товаров на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
+		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
 
 	} elseif ($psum < 10000 && $pdiscrel == 19) {
-		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((10000 - $psum), 2)." руб. и получите скидку 28%";
+		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 28%";
 
 	} elseif ($psum < 10000 && $pdiscrel == 28) {
-		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((10000 - $psum), 2)." руб. и получите скидку 36%";
+		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 36%";
 
 	} elseif ($psum < 3000 && $pdiscrel < 10) {
-		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
+		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
 
 	} elseif ($psum < 10000 && $pdiscrel < 20) {
-		$printDiscountText = "<span class='sale_price'><span class='addlink'>Добавьте товаров</span> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
+		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
 
 	}?>
 
 
 
-			<div id="discountMessageWrap" style="display:none;color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
+			<div id="discountMessageWrap" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
 				<span id="discountMessage" style="background:#fff9b7"><?=$printDiscountText?></span>
 			</div>
 

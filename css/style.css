@@ -2589,13 +2589,13 @@ right: 45px;
 	z-index: 999;
 }
 .elementDescriptWrap .buyLater {
-    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 75px 10px;
+    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
     border: 2px solid #c7a271;
     border-radius: 30px;
     color: #c7a271;
     font-family: "Walshein_regular";
     font-size: 14px;
-    padding: 6px 0 6px 100px;
+    padding: 6px 0 6px 85px;
     margin-bottom: 20px;
 	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;

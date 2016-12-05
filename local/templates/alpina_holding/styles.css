@@ -221,6 +221,7 @@ body {
     font-family: 'Walshein_regular';
     font-size: 16px;
     line-height: 19px;
+	margin-top:30px;
 }   
 
 .footerUnderLine {
@@ -259,5 +260,5 @@ body {
 }
 
 footer {
-    height: 345px;
+    height: 400px;
 }
