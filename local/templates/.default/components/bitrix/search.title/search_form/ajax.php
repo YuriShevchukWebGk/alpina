@@ -19,7 +19,8 @@ if(!empty($arResult["CATEGORIES"])):
 				<?if($category_id === "all"):?>
 					<td class="title-search-all"><a href="<?echo $arItem["URL"]?>"><?echo $arItem["NAME"]?></td>
 				<?elseif(isset($arItem["ICON"])):?>
-					<td class="title-search-item"><a href="<?echo $arItem["URL"]?>"><img src="<?echo $arItem["ICON"]?>"><?echo $arItem["NAME"]?>, <?echo $arItem["COVER_TYPE"];?></td>
+					<td class="title-search-item"><a href="<?echo $arItem["URL"]?>"><img src="<?echo $arItem["ICON"]?>" style="vertical-align:middle;" valign="middle"><?echo $arItem["NAME"]?><br />
+					<?if (!empty($arItem["AUTHOR"])) {?><span class="searchtip"><?echo $arItem["AUTHOR"];?>, <?echo $arItem["COVER_TYPE"];?></span><?}?></td>
 				<?else:?>
 					<td class="title-search-more"><a href="<?echo $arItem["URL"]?>"><?echo $arItem["NAME"]?></td>
 				<?endif;?>

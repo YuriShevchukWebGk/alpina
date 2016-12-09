@@ -320,7 +320,7 @@
 
 
 
-			<div id="discountMessageWrap" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
+			<div id="discountMessageWrap" style="display:none;color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
 				<span id="discountMessage" style="background:#fff9b7"><?=$printDiscountText?></span>
 			</div>
 

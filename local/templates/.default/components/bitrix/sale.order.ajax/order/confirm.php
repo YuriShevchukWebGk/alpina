@@ -86,7 +86,7 @@
         </script>
 
 		<!-- GdeSlon -->
-		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
+		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276"></script>
 		<script type="text/javascript" src="//www.gdeslon.ru/thanks.js?codes=<?=substr($_SESSION['gdeSlon'],0,-1)?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
 		
 		

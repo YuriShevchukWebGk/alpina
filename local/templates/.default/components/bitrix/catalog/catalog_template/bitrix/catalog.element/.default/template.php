@@ -543,25 +543,25 @@ $arItemIDs = array(
                             } else {
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									//$delivery_day = 'в среду';
+									$delivery_day = 'в четверг';
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в пятницу';
+									$delivery_day = 'в четверг';
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = 'в пятницу';
+                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+                                    $delivery_day = 'в среду';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+                                    $delivery_day = 'в среду';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = 'в среду';
+                                    $delivery_day = 'в четверг';
                                 }
 
                                 if ($today == 5) {

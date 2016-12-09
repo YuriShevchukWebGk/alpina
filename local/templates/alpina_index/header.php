@@ -95,7 +95,7 @@ if ($USER->IsAuthorized()) {
     </script>
     <?}?> 
     <!-- GdeSlon -->
-	<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
+	<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=main&amp;mid=79276"></script>
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -208,7 +208,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 "CATEGORY_0" => array(
                     0 => "iblock_catalog",
                 ),
-                "CATEGORY_0_TITLE" => "Результат",
+                "CATEGORY_0_TITLE" => "Результаты",
                 "CHECK_DATES" => "N",
                 "COMPONENT_TEMPLATE" => "search_form",
                 "CONTAINER_ID" => "title-search-top",

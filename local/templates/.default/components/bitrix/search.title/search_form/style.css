@@ -31,11 +31,14 @@ table.title-search-result td {
 	color:black;
 	font-weight:normal;
 	padding-top:2px;
-	padding-bottom:2px;
+	padding-bottom:5px;
 	text-align:left;
 	white-space:nowrap;
 }
-
+table.title-search-result .searchtip {
+	color:#999;
+	font-size:14px;
+}
 table.title-search-result td.title-search-item {
 	padding-left:8px;
 	padding-right:15px;

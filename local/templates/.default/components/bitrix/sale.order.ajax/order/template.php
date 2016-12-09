@@ -122,44 +122,58 @@
         })
 
         //календарь
+		var disabledDates = ['01/01/2017', '01/07/2017']; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
-            return !noWeekend[0] ? noWeekend : [true];
+			if (noWeekend[0]) {
+				return editDays(date);
+			} else {
+				return noWeekend;
+			}			
         }
+		function editDays(date) {
+			for (var i = 0; i < disabledDates.length; i++) {
+				if (new Date(disabledDates[i]).toString() == date.toString()) {             
+					 return [false];
+				}
+			}
+			return [true];
+		}  		
+		
         hourfordeliv = <?=date("H");?>;
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
                 minDatePlus = 2;
             } else if (ourday == 2) { //вторник
-                minDatePlus = 1;
+                minDatePlus = 2;
             } else if (ourday == 3) { //среда
-                minDatePlus = 1;
+                minDatePlus = 5;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 1;
+                minDatePlus = 4;
+            } else if (ourday == 5) { //пятница
+                minDatePlus = 5;
+            } else if (ourday == 6) { //суббота
+                minDatePlus = 4;
+            } else if (ourday == 0) { //воскресенье
+                minDatePlus = 4;
+            }
+        } else { // Майские праздники
+
+            if (ourday == 1) { //понедельник
+                minDatePlus = 2;
+            } else if (ourday == 2) { //вторник
+                minDatePlus = 2;
+            } else if (ourday == 3) { //среда
+                minDatePlus = 2;
+            } else if (ourday == 4) { //четверг
+                minDatePlus = 4;
             } else if (ourday == 5) { //пятница
                 minDatePlus = 4;
             } else if (ourday == 6) { //суббота
                 minDatePlus = 3;
             } else if (ourday == 0) { //воскресенье
                 minDatePlus = 3;
-            }
-        } else { // Майские праздники
-
-            if (ourday == 1) { //понедельник
-                minDatePlus = 1;
-            } else if (ourday == 2) { //вторник
-                minDatePlus = 1;
-            } else if (ourday == 3) { //среда
-                minDatePlus = 1;
-            } else if (ourday == 4) { //четверг
-                minDatePlus = 1;
-            } else if (ourday == 5) { //пятница
-                minDatePlus = 3;
-            } else if (ourday == 6) { //суббота
-                minDatePlus = 2;
-            } else if (ourday == 0) { //воскресенье
-                minDatePlus = 1;
             }
         }
 		if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
