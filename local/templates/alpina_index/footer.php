@@ -6,11 +6,11 @@
                         <a href="/">
                             <img src="/img/footerLogo.png">
                         </a>
-				        <br />
-				        <br />
-				        <a href="https://blog.alpinabook.ru/" target="_blank">
+                        <br />
+                        <br />
+                        <a href="https://blog.alpinabook.ru/" target="_blank">
                             <img src="/img/footerBlogLogo.png">
-                        </a>				
+                        </a>                
                     </div>
                     <div>
                         
@@ -154,7 +154,7 @@
                         <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/googImg.png"></a>
                         <a href="https://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
                         <div id="development">
-                        	Разработка сайта – <a href="https://webgk.ru/" target="_blank">WebGK</a>
+                            Разработка сайта – <a href="http://www.webgk.ru/" target="_blank">WebGK</a>
                         </div>
                     </div>
                 </div>
@@ -263,16 +263,16 @@
             
             <?$APPLICATION->IncludeComponent("bitrix:menu", "left_menu", 
                     Array(
-                        "ROOT_MENU_TYPE" => "left_block",	// Тип меню для первого уровня
-                        "MAX_LEVEL" => "1",	// Уровень вложенности меню
-                        "CHILD_MENU_TYPE" => "top",	// Тип меню для остальных уровней
-                        "USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
-                        "DELAY" => "N",	// Откладывать выполнение шаблона меню
-                        "ALLOW_MULTI_SELECT" => "Y",	// Разрешить несколько активных пунктов одновременно
-                        "MENU_CACHE_TYPE" => "N",	// Тип кеширования
-                        "MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
-                        "MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
-                        "MENU_CACHE_GET_VARS" => "",	// Значимые переменные запроса
+                        "ROOT_MENU_TYPE" => "left_block",    // Тип меню для первого уровня
+                        "MAX_LEVEL" => "1",    // Уровень вложенности меню
+                        "CHILD_MENU_TYPE" => "top",    // Тип меню для остальных уровней
+                        "USE_EXT" => "Y",    // Подключать файлы с именами вида .тип_меню.menu_ext.php
+                        "DELAY" => "N",    // Откладывать выполнение шаблона меню
+                        "ALLOW_MULTI_SELECT" => "Y",    // Разрешить несколько активных пунктов одновременно
+                        "MENU_CACHE_TYPE" => "N",    // Тип кеширования
+                        "MENU_CACHE_TIME" => "3600",    // Время кеширования (сек.)
+                        "MENU_CACHE_USE_GROUPS" => "Y",    // Учитывать права доступа
+                        "MENU_CACHE_GET_VARS" => "",    // Значимые переменные запроса
                         "COMPONENT_TEMPLATE" => "bottom_menu"
                     ),
                     false
@@ -291,11 +291,11 @@
         <div class="hidingBasketRight">
             <?
                 $APPLICATION->IncludeComponent("bitrix:sale.basket.basket.small", "hiding_basket", Array(
-                    "PATH_TO_BASKET" => "/personal/basket.php",	// Страница корзины
-                    "PATH_TO_ORDER" => "/personal/order.php",	// Страница оформления заказа
-                    "SHOW_DELAY" => "Y",	// Показывать отложенные товары
-                    "SHOW_NOTAVAIL" => "Y",	// Показывать товары, недоступные для покупки
-                    "SHOW_SUBSCRIBE" => "Y",	// Показывать товары, на которые подписан покупатель
+                    "PATH_TO_BASKET" => "/personal/basket.php",    // Страница корзины
+                    "PATH_TO_ORDER" => "/personal/order.php",    // Страница оформления заказа
+                    "SHOW_DELAY" => "Y",    // Показывать отложенные товары
+                    "SHOW_NOTAVAIL" => "Y",    // Показывать товары, недоступные для покупки
+                    "SHOW_SUBSCRIBE" => "Y",    // Показывать товары, на которые подписан покупатель
                     ),
                     false
                 );

@@ -145,7 +145,7 @@
             <div class="otherBooks" id="block1">
                 <ul>
 
-                    <?foreach ($arResult["ITEMS"] as $arItem) {
+                    <?foreach ($arResult["ITEMS"] as $arItem) { 
                         $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                         ?>
                         <li>
