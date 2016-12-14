@@ -6,12 +6,8 @@
         header("location: /personal/profile/");
     } else {         
         //проверяем ID заказа из урла. Если он не принадлежит текущему пользователю, делаем редирект на список
-        if (!empty($_REQUEST["ID"]) && intval($_REQUEST["ID"]) > 0) {
-            $order = CSaleOrder::GetById(intval($_REQUEST["ID"]));
-            global $USER;
-            if ($order["USER_ID"] != $USER->GetId()) {
+        if (!empty($_REQUEST["ID"]) && intval($_REQUEST["ID"]) > 0) {             
                 header("location: /personal/order/");    
-            }
         }
     ?>     
     <div class="historyCoverWrap">
