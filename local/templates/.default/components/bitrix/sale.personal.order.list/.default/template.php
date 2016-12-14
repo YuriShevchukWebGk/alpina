@@ -151,7 +151,7 @@
                         </table>
                     </div>
                     <div>
-                        <p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p>
+                        <?/*<p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p> */// Убираем кнопку отмены заказа?> 
                     </div>
                 </div>
             <?}

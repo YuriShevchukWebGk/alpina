@@ -10,6 +10,7 @@ if ($alpExps['updateExp'] != "261016") {
 
 /*if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI']) || preg_match("/(.*)\/authors\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
     $alpExps['autoHyphens']    = (!$alpExps['autoHyphens'] ? rand(1,2) : $alpExps['autoHyphens']);
+    
 }*/
 
 if (preg_match("/\/personal\/cart\/(.*)/i", $_SERVER['REQUEST_URI'])) {

@@ -1019,7 +1019,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="giftWrapBlock">
                     <div class="giftWrap">
 
-                        <img src="/img/fil.png"> 
+                        <img src="/img/twi.png"> 
                         <form action="/" method="post">
                             <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
                             <input type="button" value="">
