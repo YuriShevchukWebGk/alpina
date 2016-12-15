@@ -187,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </style>
 
 <?$arOrder = CSaleOrder::GetByID($_GET['ORDER_ID']);?>
+<? if ($arOrder['PAYED'] == "Y") { echo "Ваш заказ уже оплачен"; } else { ?>
 <?if($arOrder['PAY_SYSTEM_ID']==13){?>
     <br>
     <br>
@@ -197,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function(){
         руб.
     </div>
     <br>
-    <?}?>
+<?}?>
 <?if ($arOrder["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID && $arOrder["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID) {?>
     <?
     $order_props = CSaleOrderPropsValue::GetOrderProps($arOrder["ID"]);
@@ -408,5 +409,6 @@ document.addEventListener('DOMContentLoaded', function(){
         </table>
     </div>
     <?}?>
+    <? } ?>
 <? } ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>
