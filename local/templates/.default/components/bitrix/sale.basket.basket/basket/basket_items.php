@@ -341,11 +341,11 @@
             <p class="finalDiscount">Вам не хватает 770 руб. и получите скидку 10%</p>
             */?>
 
-            <p class="promoWrap"><span class="promocode" onclick="$('#coupon').toggle()">Есть промо-код/сертификат?<span></p>
+            <p class="promoWrap"><span class="promocode" onclick="$('#coupon, #acceptCoupon').toggle()">Есть промо-код/сертификат?<span></p>
 
             <div class="bx_ordercart_order_pay_left" id="coupons_block">
                 <div class="bx_ordercart_coupon">
-                    <input type="text" id="coupon" class="couponInput" name="COUPON" value="" onchange="enterCouponCustom();" style="margin-right:20px;">
+                    <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();return false;">Применить</a>
                     <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
                     <?
 //                         arshow($arResult);

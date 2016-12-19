@@ -87,4 +87,5 @@ if (!empty ($title) )  {
 $curr_elem_info = CIBlockElement::GetByID($arResult["ID"]) -> Fetch();
 $APPLICATION->SetPageProperty("description", $curr_elem_info["PREVIEW_TEXT"]); 
 $APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
+// $APPLICATION->AddHeadString('<meta property="og:image" content="https://www.alpinabook.ru/'.$templateData["OG_IMAGE"].'" />',false);
 ?>

@@ -1,0 +1,17 @@
+
+2016-12-15T13:21:53+03:00
+/home/bitrix/www/bitrix/modules/epages.pickpoint/delivery/delivery_pickpoint.php:123
+array (
+  'ID' => '21278',
+  'SORT' => '100',
+  'CODE' => 'other_russian_cities',
+  'COUNTRY_NAME' => 'по России',
+  'COUNTRY_SHORT_NAME' => 'по России',
+  'COUNTRY_ID' => '21278',
+  'COUNTRY_NAME_ORIG' => 'по России',
+  'COUNTRY_NAME_LANG' => 'по России',
+  'REGION_NAME_ORIG' => NULL,
+  'REGION_NAME_LANG' => NULL,
+  'CITY_NAME_ORIG' => NULL,
+  'CITY_NAME_LANG' => NULL,
+)

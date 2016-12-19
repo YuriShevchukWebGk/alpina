@@ -144,13 +144,13 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-                minDatePlus = 3;
-            } else if (ourday == 2) { //вторник
                 minDatePlus = 2;
+            } else if (ourday == 2) { //вторник
+                minDatePlus = 1;
             } else if (ourday == 3) { //среда
                 minDatePlus = 2;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 4;
+                minDatePlus = 5;
             } else if (ourday == 5) { //пятница
                 minDatePlus = 4;
             } else if (ourday == 6) { //суббота
@@ -200,9 +200,10 @@
 
         if ($("#ID_DELIVERY_ID_11").is(':checked')) { //Если выбрана доставка почтой России
             $(".inputTitle:contains('Получатель')").parent().append('<span class="hideInfo warningMessage" style="display:inline;color:grey">(ФИО полностью)</span>');
-			$(".inputTitle:contains('Адрес доставки')").append('<br /><span class="hideInfo warningMessage" style="display:inline;color:grey;padding-left:0;">(в том числе город)</span>');
+			$(".inputTitle:contains('Адрес доставки')").html('Город и адрес доставки');
         } else {
             $(".inputTitle:contains('Получатель')").html('Получатель <span class="bx_sof_req">*</span></p>');
+			$(".inputTitle:contains('Адрес доставки')").html('Адрес доставки');
             $(".hideInfo").hide();
         }
 

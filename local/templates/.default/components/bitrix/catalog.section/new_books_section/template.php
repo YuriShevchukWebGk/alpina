@@ -137,7 +137,7 @@
 
                                         $curr_author = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
                                     ?>
-                                    <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
+                                    <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" title="<?=$arItem["NAME"]?>">
                                         <div class="section_item_img">
                                             <?
                                             if ($pict["src"])

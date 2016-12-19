@@ -22,7 +22,8 @@ $templateData = array(
     'TEMPLATE_THEME' => $this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].'/style.css',
     'TEMPLATE_CLASS' => 'bx_'.$arParams['TEMPLATE_THEME'],
     'TEMPLATE_LIBRARY' => $templateLibrary,
-    'CURRENCIES' => $currencyList
+    'CURRENCIES' => $currencyList,
+	'OG_IMAGE' => $arResult["PICTURE"]["src"]
 );
 unset($currencyList, $templateLibrary);
 
@@ -540,28 +541,28 @@ $arItemIDs = array(
                                 } else {
                                     $samovivoz_day = GetMessage("TOMORROW");
                                 }
-                            } else {
+                            } else { //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в четверг';
+									$delivery_day = 'в среду';
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в четверг';
+									$delivery_day = 'завтра';
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+                                    $delivery_day = "во вторник";
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'в среду';
+                                    $delivery_day = 'во вторник';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'в среду';
+                                    $delivery_day = 'во вторник';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = 'в четверг';
+                                    $delivery_day = 'в среду';
                                 }
 
                                 if ($today == 5) {

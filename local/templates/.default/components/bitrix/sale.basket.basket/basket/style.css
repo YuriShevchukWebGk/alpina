@@ -941,6 +941,18 @@ input.bt2:active{border:1px solid #d2d2d2}
     text-align: left;
     width: 200px;
 }
+#acceptCoupon {
+	display:none;
+    text-decoration: none;
+    border-bottom: 1px dashed #00A9B6;
+    color: #00A9B6;
+    font-family: "Walshein_regular";
+    font-size: 15px;
+    cursor: pointer;	
+}
+.promocode:hover, #acceptCoupon:hover {
+	border:none;
+}
 
 .old_price {
     text-decoration: line-through;
