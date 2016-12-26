@@ -77,11 +77,16 @@
                                 <?endif?>
                         </div>
                         <?
-                        } elseif ($arProperties["TYPE"] == "TEXT"){
-                            if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
 
+                        } elseif ($arProperties["TYPE"] == "TEXT"){
+                            $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
+                            if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
                             ?>
-                            <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
+                            <?if($arProperties["CODE"] == "PHONE" && !$window){?>
+                                <input class="clientInfo" placeholder="(___) ___ __ __" id="<?=$arProperties["FIELD_NAME"]?>" type="tel" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" />
+                            <?} else {?>
+                                <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
+                            <?}?>
                             <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
                                 <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
                                 <?endif?>
@@ -180,7 +185,7 @@
                                 $locationTemplateP = $_REQUEST['PERMANENT_MODE_STEPS'] == 1 ? 'steps' : $locationTemplateP; // force to "steps"
                             }
                         ?>
-                        
+
                         <?if($locationTemplateP == 'steps'):?>
                             <input type="hidden" id="LOCATION_ALT_PROP_DISPLAY_MANUAL[<?=intval($arProperties["ID"])?>]" name="LOCATION_ALT_PROP_DISPLAY_MANUAL[<?=intval($arProperties["ID"])?>]" value="<?=($_REQUEST['LOCATION_ALT_PROP_DISPLAY_MANUAL'][intval($arProperties["ID"])] ? '1' : '0')?>" />
                             <?endif?>
@@ -221,7 +226,7 @@
                             true,
                             'location-block-wrapper'
                         )?>
-                        
+
                         <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
                             <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                             <?endif?>

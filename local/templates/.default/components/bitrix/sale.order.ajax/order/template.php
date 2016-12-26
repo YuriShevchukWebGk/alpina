@@ -14,7 +14,7 @@
             }
         }
     }
-
+    $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
     $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
@@ -61,10 +61,22 @@
         if ($.browser.msie && $.browser.version <= 9) {
 
         } else {
+            <?if(!$window){?>
             //валидаторы телефонных номеров
-            $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
-            $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
-            $("#pp_sms_phone").inputmask("+79999999999");
+            $('#ORDER_PROP_24').change(function() {
+                $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
+            })
+            $('#ORDER_PROP_11').change(function() {
+                $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
+            })
+            $('#pp_sms_phone').change(function() {
+                $("#pp_sms_phone").inputmask("+79999999999");
+            })
+            <?} else {?>
+                $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
+                $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
+                $("#pp_sms_phone").inputmask("+79999999999");
+            <?}?>
         }
 
 
@@ -129,17 +141,17 @@
 				return editDays(date);
 			} else {
 				return noWeekend;
-			}			
+			}
         }
 		function editDays(date) {
 			for (var i = 0; i < disabledDates.length; i++) {
-				if (new Date(disabledDates[i]).toString() == date.toString()) {             
+				if (new Date(disabledDates[i]).toString() == date.toString()) {
 					 return [false];
 				}
 			}
 			return [true];
-		}  		
-		
+		}
+
         hourfordeliv = <?=date("H");?>;
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
@@ -212,8 +224,8 @@
         }
 
         //Подсвечиваем активное местоположение в избранных
-        var locationID = $(".bx-ui-slst-target[name=ORDER_PROP_2], .bx-ui-slst-target[name=ORDER_PROP_3]").val();                    
-        //$('.quick-location-tag[data-id="' + locationID + '"]').attr("style", 'background: #00a0af !important; color: white !important;');        
+        var locationID = $(".bx-ui-slst-target[name=ORDER_PROP_2], .bx-ui-slst-target[name=ORDER_PROP_3]").val();
+        //$('.quick-location-tag[data-id="' + locationID + '"]').attr("style", 'background: #00a0af !important; color: white !important;');
 		$('.quick-location-tag[data-id="' + locationID + '"]').addClass('addCircle');
     }
 
@@ -608,7 +620,7 @@
                                     ?>
                                     <p class="blockTitle">Местоположение</p>
                                     <?/*<p class="blockText">Выберите ваше местоположение</p> <br>*/?>
-                                          
+
                                     <?//блок с местоположением
                                         if ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]) {
                                             $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]);
@@ -706,6 +718,6 @@
     $(document).ready(function(){
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
-        }    
+        }
     })
 </script>
