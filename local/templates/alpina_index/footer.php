@@ -156,6 +156,9 @@
                         <div id="development">   
                             Разработка сайта – <a href="http://www.webgk.ru/" target="_blank">WebGK</a>
                         </div>
+						  <div id="development">   
+                           <a href="https://www.alpinabook.ru/sitemap/">Карта сайта</a>
+                        </div>
                     </div>
                 </div>
             </div>

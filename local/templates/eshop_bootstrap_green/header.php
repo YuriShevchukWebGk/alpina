@@ -52,7 +52,8 @@
 
     <?$APPLICATION->ShowHead();?>
 
-
+<?/*    <meta property="og:title" content="<?=htmlspecialchars($APPLICATION->ShowTitle())?>" />
+    <meta property="og:description" content="<?=htmlspecialchars($APPLICATION->ShowProperty("description"))?>" />*/?>
     <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?> 
 	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
