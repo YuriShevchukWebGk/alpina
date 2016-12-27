@@ -191,7 +191,7 @@
             setDate:minDatePlus
         });
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker( "setDate", curDay );
-        $("#ORDER_PROP_44, #ORDER_PROP_45").inputmask("d.m.y");
+        $("#ORDER_PROP_44, #ORDER_PROP_45").inputmask("dd.mm.yyyy", { "placeholder": "дд.мм.гггг" });
 
         if ($("#ID_DELIVERY_ID_11").is(':checked')) { //Если выбрана доставка почтой России
             $(".inputTitle:contains('Получатель')").parent().append('<span class="hideInfo warningMessage" style="display:inline;color:grey">(ФИО полностью)</span>');
