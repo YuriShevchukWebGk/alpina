@@ -82,7 +82,7 @@
                             $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
                             if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
                             ?>
-                            <?if($arProperties["CODE"] == "PHONE" && !$window){?>
+                            <?if($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE" && !$window){?>
                                 <input class="clientInfo" placeholder="(___) ___ __ __" id="<?=$arProperties["FIELD_NAME"]?>" type="tel" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" />
                             <?} else {?>
                                 <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
