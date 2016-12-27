@@ -26,11 +26,11 @@ function SectionClick(id)
 }
 
 $(function(){
-    $("input[name=PERSONAL_PHONE]").inputmask("+7(999)999-99-99");
+    $("input[name=PERSONAL_PHONE]").mask("+7(999)999-99-99");
     $("input[name=EMAIL]").blur(function(){
-        $("input[name=LOGIN]").val($("input[name=EMAIL]").val());     
+        $("input[name=LOGIN]").val($("input[name=EMAIL]").val());
     })
-    
+
     $(".saved_card_line li").on("click", function(){
     	if ($(this).data("delete-card")) {
     		$.ajax({
@@ -43,7 +43,7 @@ $(function(){
 	        });
     	}
     })
-    
-    BX.addCustomEvent('onAjaxSuccess', function(){}); 
+
+    BX.addCustomEvent('onAjaxSuccess', function(){});
 })
 
