@@ -61,22 +61,10 @@
         if ($.browser.msie && $.browser.version <= 9) {
 
         } else {
-            <?if(!$window){?>
-            //валидаторы телефонных номеров
-            $('#ORDER_PROP_24').change(function() {
-                $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
-            })
-            $('#ORDER_PROP_11').change(function() {
-                $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
-            })
-            $('#pp_sms_phone').change(function() {
-                $("#pp_sms_phone").inputmask("+79999999999");
-            })
-            <?} else {?>
-                $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
-                $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
-                $("#pp_sms_phone").inputmask("+79999999999");
-            <?}?>
+
+                $("#ORDER_PROP_24").mask("+7 (999) 999-99-99");   //для физлица
+                $("#ORDER_PROP_11").mask("+7 (999) 999-99-99");  //для юрлица
+                $("#pp_sms_phone").mask("+79999999999");
         }
 
 
@@ -191,7 +179,7 @@
             setDate:minDatePlus
         });
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker( "setDate", curDay );
-        $("#ORDER_PROP_44, #ORDER_PROP_45").inputmask("dd.mm.yyyy", { "placeholder": "дд.мм.гггг" });
+        $("#ORDER_PROP_44, #ORDER_PROP_45").mask("99.99.9999",{placeholder:"дд.мм.гггг"});
 
         if ($("#ID_DELIVERY_ID_11").is(':checked')) { //Если выбрана доставка почтой России
             $(".inputTitle:contains('Получатель')").parent().append('<span class="hideInfo warningMessage" style="display:inline;color:grey">(ФИО полностью)</span>');
