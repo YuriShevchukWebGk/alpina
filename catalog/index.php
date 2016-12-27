@@ -234,7 +234,7 @@ $APPLICATION->SetTitle(" Книги для саморазвития | Лучши
         "SET_LAST_MODIFIED" => "N",
         "SET_STATUS_404" => "Y",
         "SET_TITLE" => "N",
-        "SHOW_404" => "N",
+        "SHOW_404" => "Y",
         "SHOW_DEACTIVATED" => "N",
         "SHOW_DISCOUNT_PERCENT" => "Y",
         "SHOW_EMPTY_STORE" => "Y",

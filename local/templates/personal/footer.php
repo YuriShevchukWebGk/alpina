@@ -207,7 +207,10 @@
                         <a href="https://www.facebook.com/alpinabook/"><img src="/img/fbImg.png"></a>
                         <a href="https://www.youtube.com/user/AlpinaPublishers"><img src="/img/youImg.png"></a>
                         <a href="https://plus.google.com/+alpinabook?prsrc=5"><img src="/img/googImg.png"></a>
-                        <a href="https://instagram.com/alpinabook"><img src="/img/instImg.png"></a>        
+                        <a href="https://instagram.com/alpinabook"><img src="/img/instImg.png"></a>     
+						  <div id="development">   
+                           <a href="https://www.alpinabook.ru/sitemap/">Карта сайта</a>
+                        </div>						
                     </div>
                 </div>
             </div>

@@ -193,7 +193,7 @@
                         <?   
                             if (strlen($arDelivery["PERIOD_TEXT"])>0)
                             {
-                                //echo GetMessage('SALE_SADC_TRANSIT').": <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
+                                echo GetMessage('SALE_SADC_TRANSIT').": <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
                             ?><br /><?
                             }
                             if ($arDelivery["PACKS_COUNT"] > 1)

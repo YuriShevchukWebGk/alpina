@@ -75,7 +75,7 @@ if (!empty($authors_IDs)) {
     }
 } 
 if (strlen ($arResult['PROPERTIES']["ISBN"]["VALUE"]) ) {
-    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name ." — ".  GetMessage("TO_BUY_WITH_DELIVERY").' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
+    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name . ' ' . $arResult['PROPERTIES']["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY").' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
 } else if ($MEDIA_TYPE) {
     $title = $arResult["NAME"] . ' ' . $author_name . ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"] .  GetMessage("TO_BUY_WITH_DELIVERY");
 } else {
@@ -88,4 +88,5 @@ $curr_elem_info = CIBlockElement::GetByID($arResult["ID"]) -> Fetch();
 $APPLICATION->SetPageProperty("description", $curr_elem_info["PREVIEW_TEXT"]); 
 $APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
 // $APPLICATION->AddHeadString('<meta property="og:image" content="https://www.alpinabook.ru/'.$templateData["OG_IMAGE"].'" />',false);
+// $APPLICATION->SetPageProperty("og:title", "222222222");
 ?>

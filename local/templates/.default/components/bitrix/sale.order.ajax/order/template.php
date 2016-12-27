@@ -122,7 +122,7 @@
         })
 
         //календарь
-		var disabledDates = ['01/01/2017', '01/07/2017']; //даты для отключения mm/dd/yyyy
+		var disabledDates = ['01/01/2017','01/02/2017','01/03/2017','01/04/2017','01/05/2017','01/06/2017']; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
 			if (noWeekend[0]) {
@@ -144,24 +144,7 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-                minDatePlus = 2;
-            } else if (ourday == 2) { //вторник
-                minDatePlus = 1;
-            } else if (ourday == 3) { //среда
-                minDatePlus = 2;
-            } else if (ourday == 4) { //четверг
-                minDatePlus = 5;
-            } else if (ourday == 5) { //пятница
-                minDatePlus = 4;
-            } else if (ourday == 6) { //суббота
                 minDatePlus = 3;
-            } else if (ourday == 0) { //воскресенье
-                minDatePlus = 3;
-            }
-        } else { // Майские праздники
-
-            if (ourday == 1) { //понедельник
-                minDatePlus = 2;
             } else if (ourday == 2) { //вторник
                 minDatePlus = 2;
             } else if (ourday == 3) { //среда
