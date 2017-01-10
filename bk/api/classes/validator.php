@@ -85,5 +85,19 @@ class Validator {
             return true;
         }
     }
+	
+	/**
+     * Проверяет существование пары ключ => значение
+	 * 
+     * @param array $array
+     * @return bool
+     * 
+     * */
+    
+    public static function isKeyValuePairExists(&$array, $key) {
+        if (array_key_exists($key, $array) && isset($array[$key]) && !empty($array[$key])) {
+            return true;
+        }
+    }
 }
 ?>
