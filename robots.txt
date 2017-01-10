@@ -33,6 +33,7 @@ Disallow: /*utm
 Disallow: /*from
 Disallow: /*gclid
 Disallow: /phpMyAdmin/
+Disallow: /api/
 Disallow: */temporary/
 Disallow: */catalogue/
 Host: https://www.alpinabook.ru
@@ -73,6 +74,7 @@ Disallow: /*utm
 Disallow: /*from
 Disallow: /*gclid
 Disallow: /phpMyAdmin/
+Disallow: /api/
 Disallow: */temporary/
 Disallow: */catalogue/
 Sitemap: https://www.alpinabook.ru/sitemap.xml
