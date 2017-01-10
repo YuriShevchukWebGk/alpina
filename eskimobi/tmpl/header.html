@@ -1,0 +1,86 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title><?= title ?></title>
+
+<?= headMeta ?>
+
+<meta name="HandheldFriendly" content="True" />
+<meta name="format-detection" content="telephone=yes" />
+
+<!--realtime less compiler-->
+<!-- <script>less = { env: 'development'};</script>
+<link rel="stylesheet/less" type="text/css" href="<?= root ?>/css/style.less?{rand}">
+<script src="<?= root ?>/js/less.min.js" type="text/javascript"></script>
+<script>less.watch();</script> -->
+ 
+<!--это для скопмилированного css-->
+<link rel="stylesheet" href="<?= root ?>/css/style.css?{rand}">
+
+<!-- apple web app title -->
+
+<meta name="application-name" content="Alpinabook.ru">
+<meta name="apple-mobile-web-app-title" content="Alpinabook.ru">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="icon" sizes="192x192" href="<?= root ?>/img/apple/192.png">
+<link rel="icon" sizes="128x128" href="<?= root ?>/img/apple/128.png">
+
+<link rel="apple-touch-icon" sizes="128x128" href="<?= root ?>/img/apple/128.png"/>
+<link rel="apple-touch-icon-precomposed" sizes="128x128" href="<?= root ?>/img/apple/128.png"/>
+<link rel="apple-touch-icon" sizes="192x192" href="<?= root ?>/img/apple/128.png"/>
+<link rel="apple-touch-icon-precomposed" sizes="192x192" href="<?= root ?>/img/apple/128.png"/>
+
+<link rel="apple-touch-icon-precomposed" href="<?= root ?>/img/apple/114.png"/>
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?= root ?>/img/apple/114.png"/>
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?= root ?>/img/apple/144.png"/>
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?= root ?>/img/apple/114.png"/>
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?= root ?>/img/apple/144.png"/>
+
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<?= headScripts ?>
+<script type="text/javascript">var $j=jQuery;</script>
+
+</head>
+<body id="top_page" class="<?= classes ?>">
+
+<a href="javascript:void(0)" id="backToTop"></a>
+
+<div id="page">
+  <div id="navigation">
+    <div class="top">
+      <?= user ?>
+      <? if( telephone ){ ?>
+        <a href="tel:<?= telephone ?>"><?= telephone ?></a>
+      <? } ?>
+    </div>
+    <div class="middle">
+      <ul class="first_menu">
+        <span></span>
+        <?= leftmenu ?>  
+      </ul>
+      <?= leftmenu_2 ?>
+    </div>
+  </div>
+
+  <div id="content-wrapper">
+    <header>
+      <div class="header">
+        <a href='javascript:void(0)' id="side_menu"></a>
+        <a href='/' class="logo"><img src="<?= root ?>/img/logo.svg"></a>
+        <?= cart ?>
+      </div>
+      <div class="search">
+        <div class="find" id="title-search-top">
+          <form action="/search/index.php" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction">
+            <meta itemprop="target" content="https://www.alpinabook.ru/search/index.php?q={q}">
+            <input class="mainSearchField" id="title-search-input-top" type="text" name="q" itemprop="query-input" placeholder="Поиск" value="" autocomplete="off" required="">&nbsp;<input name="s" type="submit" value="">
+          </form>
+        </div>
+      </div>
+
+    </header>
+
+    <div id="eski-root">

@@ -1,0 +1,289 @@
+label{
+  display: block;
+  color: #262626;
+  font-size: @small;
+  margin-bottom: 0.5rem;
+}
+button,input,select,textarea {
+  font-size: @normal;
+  font-family: 'gt_walsheim_pro_trial';
+  margin: 0; 
+}
+input, button, textarea {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  .border( #e5e5e5 );
+  color: @color-txt;
+  margin: 0;
+  padding: 7px 11px 9px 11px;
+  letter-spacing: -0.1px;
+  &::-webkit-input-placeholder {color: #707070;}
+  &::-moz-placeholder          {color: #707070;}
+  &:-moz-placeholder           {color: #707070;}
+  &:-ms-input-placeholder      {color: #707070;}
+  &[type='text'],
+  &[type='password'],
+  &[type='email'],
+  &[name="email"] {
+    background-color: #fcfcfc;
+    & + p{
+      color: @color-6;
+      font-size: @tiny;
+      margin-top: -0.5rem;
+      margin-bottom: @pad/2;
+    }
+  }
+  &[type='submit']{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    .btn();
+  }
+  &[type='button'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    &:active{
+      box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,.2);
+    }
+  }
+  &[type="radio"],
+  &[type="checkbox"] {
+    width: auto;
+  }
+}
+button {}
+select {	
+  padding: 0;
+  margin: @pad/2 0 @pad;
+}
+textarea{
+  .transitions(height, 0.3s);
+  height: @pad*6;
+  overflow: auto; /* 1 */
+  vertical-align: top; /* 2 */
+  background-color: #fcfcfc;
+  &:focus {
+    height: @pad*10;
+  }
+}
+label{
+  & + input{
+    margin-bottom: 1rem;
+  }
+}
+
+input[type="checkbox"]{
+  display: none;
+  & + label{
+    padding-left: 2.6rem;
+    position: relative;
+    margin-bottom: 0;
+    &:before{
+      position: absolute;
+      top: -0.4rem;
+      left: -5px;
+      background-image: url(../img/emptyChechBox.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      content: "";
+      display: inline-block;
+      height: 2.6rem;
+      width: 2.6rem;
+    }
+  }
+  &:checked{
+    &+label{
+      &:before{
+        background-image: url(../img/checkedCheckbox.png);
+      }
+    }
+  }
+}
+
+input[type="radio"]{
+  display: none;
+  & + label{
+    display: block;
+    padding-left: 2.6rem;
+    position: relative;
+    margin-bottom: @pad/2;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    b{
+      font-weight: 400;
+    }
+    &:before{
+      position: absolute;
+      top: 0.2rem;
+      left: 0px;
+      background-image: url(../img/radio-no.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 1.6rem;
+      content: "";
+      display: inline-block;
+      height: 1.6rem;
+      width: 1.6rem;
+    }
+  }
+  &:checked{
+    &+label{
+      &:before{
+        background-image: url(../img/radio-yes.png);
+      }
+    }
+  }
+}
+
+select{
+  .border;
+  font-size: @small;
+  border-radius: 0;
+  background: rgba(255,255,255,0);
+  padding: 7px 11px 9px 11px;
+  background: url(../img/icon-chevron-down-dark.png) 95% center no-repeat;
+  background-size: 1.2rem 0.8rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.dropdown-block{
+  position: relative;
+  margin-bottom: @pad/2;
+  .border;
+  padding-left: 3.8rem;
+  cursor: pointer;
+  background: #fcfcfc;
+  .bx-ui-combobox-fake{
+    height: 3.6rem;
+    line-height: 3.6rem;
+  }
+  .bx-ui-combobox-toggle{
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    height: 2rem;
+    width: 2rem;
+    .translate3d(0,-50%,0);
+    background: url(../img/search-select.png) center center no-repeat;
+  }
+  .bx-ui-combobox-container{
+    .chevron-dark-down;
+    .bx-ui-combobox-fake{
+      width: 80%;
+      .ellipsis;
+    }
+    &:after{
+      right: @pad/2;
+      .translate3d(0,-50%,0);
+    }
+  }
+  .bx-ui-combobox-dropdown{
+    display: none;
+    position: absolute;
+    top: 3.6rem;
+    left: -1px;
+    right: -1px;
+    max-height: 300px;
+    overflow: hidden;
+    background: #fff;
+    z-index: 1;
+    .border;
+    .overflow-y;
+    div[style]{
+      display: none !important;
+    }
+    .bx-ui-combobox-variant{
+      padding: @pad/2;
+      cursor: pointer;
+      color: @color-link;
+      padding-right: 3rem;
+      &.bx-ui-combobox-variant-active{
+        color: @color-10;
+      }
+    }
+  }
+  .bx-ui-combobox-loader{
+    display: none;
+  }
+}
+
+.common-input{
+  margin-bottom: 1rem;
+}
+.alert{
+  margin-bottom: @pad/2;
+  clear: both;
+  &.alert-danger{
+    color: red;
+  }
+}
+
+.filterParams{
+  margin-bottom: @pd2;
+  position: relative;
+  .border;
+  padding-top: 5rem;
+  height: 5rem;
+  overflow: hidden;
+  cursor: pointer;
+  background: url(../img/icon-chevron-down-dark.png) 95% 2.3rem no-repeat;
+  background-size: 1.2rem 0.8rem;
+  &:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5rem;
+  }
+  &.js_open{
+    height: auto;
+    a{
+      .bborder;
+    }
+  }
+  li{
+    width: 100% !important;
+    p{
+      margin-bottom: 0;
+      a{
+        padding: @pad - 0.8 @pad;
+        text-decoration: none;
+        color: #677377;
+        font-size: 20px;
+        font-weight: 400;
+        display: block;
+      }
+    }
+    &:last-child{
+      a{
+        border-bottom: none;
+      }
+    }
+    &.active{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      a{
+        padding-left: 4.6rem;
+        &:before{
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: @pad;
+          width: 1.6rem;
+          height: 1.6rem;
+          .translate3d(0,-50%, 0);
+          background: url(../img/filt.png) center center no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+  }
+}
+

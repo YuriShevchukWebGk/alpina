@@ -545,7 +545,7 @@ $arItemIDs = array(
                             } else { //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в четверг';
+									$delivery_day = 'в среду';
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
 									$delivery_day = 'в четверг';
@@ -554,10 +554,10 @@ $arItemIDs = array(
 									$delivery_day = 'в пятницу';
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = "в понедельник";
+                                    $delivery_day = "10 января";
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+                                    $delivery_day = '10 января';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                     $delivery_day = 'во вторник';

@@ -1,0 +1,256 @@
+@import 'font.less';
+@import 'fa.less';
+@import 'vars.less';
+@import 'mixins.less';
+@import 'elements/jquery-ui.less';
+@import 'elements/fancybox.less';
+
+@path: 'fonts';
+
+// @font-face {
+//   font-family: 'gt_walsheim_pro';
+//   src: url('@{path}/gt-walsheim-pro-trial-regular.eot');
+//   src: url('@{path}/gt-walsheim-pro-trial-regular.eot?#iefix') format('embedded-opentype'),
+//        url('@{path}/gt-walsheim-pro-trial-regular.woff2') format('woff2'),
+//        url('@{path}/gt-walsheim-pro-trial-regular.woff') format('woff'),
+//        url('@{path}/gt-walsheim-pro-trial-regular.ttf') format('truetype'),
+//        url('@{path}/gt-walsheim-pro-trial-regular.svg#gt_walsheim_pro_trial_regulRg') format('svg');
+//   font-weight: 400;
+//   font-style: normal;
+// }
+
+// @font-face {
+//   font-family: 'gt_walsheim_pro';
+//   src: url('@{path}/gt-walsheim-pro-trial-bold.eot');
+//   src: url('@{path}/gt-walsheim-pro-trial-bold.eot?#iefix') format('embedded-opentype'),
+//        url('@{path}/gt-walsheim-pro-trial-bold.woff2') format('woff2'),
+//        url('@{path}/gt-walsheim-pro-trial-bold.woff') format('woff'),
+//        url('@{path}/gt-walsheim-pro-trial-bold.ttf') format('truetype'),
+//        url('@{path}/gt-walsheim-pro-trial-bold.svg#gt_walsheim_pro_trialbold') format('svg');
+//   font-weight: 600;
+//   font-style: normal;
+// }
+
+// @font-face {
+//   font-family: 'gt_walsheim_pro';
+//   src: url('@{path}/gt-walsheim-pro-trial-ultra-bold.eot');
+//   src: url('@{path}/gt-walsheim-pro-trial-ultra-bold.eot?#iefix') format('embedded-opentype'),
+//        url('@{path}/gt-walsheim-pro-trial-ultra-bold.woff2') format('woff2'),
+//        url('@{path}/gt-walsheim-pro-trial-ultra-bold.woff') format('woff'),
+//        url('@{path}/gt-walsheim-pro-trial-ultra-bold.ttf') format('truetype'),
+//        url('@{path}/gt-walsheim-pro-trial-ultra-bold.svg#gt_walsheim_pro_trialultraBd') format('svg');
+//   font-weight: 800;
+//   font-style: normal;
+// }
+
+@font-face {
+  font-family: 'gt_walsheim_pro_trial';
+  src: url('@{path}/GT-Walsheim-Pro-Regular.eot');
+  src: url('@{path}/GT-Walsheim-Pro-Regular.eot?#iefix') format('embedded-opentype'),
+       url('@{path}/GT-Walsheim-Pro-Regular.woff') format('woff'),
+       url('@{path}/GT-Walsheim-Pro-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'gt_walsheim_pro_trial';
+  src: url('@{path}/GT-Walsheim-Pro-Bold.eot');
+  src: url('@{path}/GT-Walsheim-Pro-Bold.eot?#iefix') format('embedded-opentype'),
+       url('@{path}/GT-Walsheim-Pro-Bold.woff') format('woff'),
+       url('@{path}/GT-Walsheim-Pro-Bold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'gt_walsheim_pro_trial';
+  src: url('@{path}/GT-Walsheim-Pro-Black.eot');
+  src: url('@{path}/GT-Walsheim-Pro-Black.eot?#iefix') format('embedded-opentype'),
+       url('@{path}/GT-Walsheim-Pro-Black.woff') format('woff'),
+       url('@{path}/GT-Walsheim-Pro-Black.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+/*RESET*/
+article,aside,details,figcaption,figure,footer,header,hgroup,label,nav,section,summary {
+  display: block;
+}
+hr {
+  display: block;
+  margin: @pad 0;
+  margin-left: -@pad/2;
+  margin-right: -@pad/2;
+  width: auto;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  &.bxe-light {
+    border-bottom-color: #e5e5e5;
+  }
+}
+audio,canvas,video {
+  display: inline-block;
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+[hidden] {
+  display: none;
+}
+b,strong {
+  font-weight: bold;
+}
+dfn {
+  font-style: italic;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+sub,sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 0;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0; /* 1 */
+  padding: 0; /* 2 */
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+ul, dd, dt, dl {
+  padding:0; 
+  margin:0;
+  list-style-type: none;
+}
+ /*BASICS*/
+*{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+  outline: none !important;
+}
+.no-mobile {
+	display: none !important;
+}
+html{
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	font-family: sans-serif; /* 1 */
+	-webkit-text-size-adjust: 100%; /* 2 */
+	-ms-text-size-adjust: 100%; /* 2 */
+	font-size: 62.5%;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
+	display: block;
+}
+body{
+	margin: 0;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	color: @color-txt;
+	font-size: @small;
+  line-height: normal;
+	font-family: 'gt_walsheim_pro_trial';
+	font-weight: 400;
+}
+img{
+	display: block;
+	max-width: 100%;
+	height: auto;
+	border: 0;
+}
+/*TYPOGRAPHY*/
+a{
+  .transitions();
+  display: inline-block;
+  color: @color-link;
+  word-break: break-word;
+  text-decoration: underline;
+}
+h1{
+	.h1();
+}
+h2{
+	.h2();
+}
+h3{
+	.h3();
+}
+h4,
+h5,
+h6{
+	.h4();
+}
+p {
+  margin: 0;
+  margin-bottom: @pad;
+  width: auto;	
+  font-size: @small;
+}
+small {
+  font-size: @tiny;
+}
+table,
+form,
+input,
+select,
+textarea,
+iframe,
+object{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  font-size: @normal;
+}
+
+@import 'slick.less';
+@import 'elements/datepicker.less';
+
+@import "elements/totop.less";
+@import "elements/header.less";
+@import "elements/footer.less";
+@import "elements/navi.less";
+@import "elements/page.less";
+@import "elements/form.less";
+@import "elements/popup.less";
+@import "elements/elements.less";
+
+@import "elements/catalog.less";
+@import "elements/detail.less";
+
+@import "elements/main.less";
+@import "elements/cart.less";

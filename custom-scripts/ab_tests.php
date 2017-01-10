@@ -79,9 +79,9 @@ if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false || strpos($APPLICAT
 <meta name="apple-itunes-app" content="app-id=429622051">
 <!-- //Тест СмартБаннера -->
 
-<?/*<script type="text/javascript">
+<script type="text/javascript">
 $(function() {
-	$('body').append('<div style="width:64px;background:#85959a; height:64px; border-radius:80px;text-align:center; position:fixed; bottom:10px; right:10px; cursor:pointer; display:none; color:#fff; font-family:\'Walshein_black\'; font-size:40px;" id="toTop">↑</div>');
+	$('body').append('<div style="width:64px;background:#85959a; height:64px; border-radius:80px;text-align:center; position:fixed; bottom:10px; right:10px; cursor:pointer; display:none; color:#fff; font-family:\'Walshein_black\'; font-size:40px;" id="toTop" class="no-mobile">↑</div>');
 	$(window).scroll(function() {
 		if($(this).scrollTop() != 0) {
 			$('#toTop').fadeIn();
@@ -93,7 +93,7 @@ $(function() {
 		$('body,html').animate({scrollTop:0},800);
 	});
 });
-</script>*/?>
+</script>
 
 <?$APPLICATION->set_cookie("alpExps", serialize($alpExps));
 ## A/B-тестирование на сайте ##?>

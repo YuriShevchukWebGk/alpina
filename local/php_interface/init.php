@@ -1259,14 +1259,14 @@
         $arFields['PROMO_PARTNER'] = '';
         if ($orderArr['PAY_SYSTEM_ID'] == 12) { //если оплата по безналу юриком
             $arFields['EMAIL_PAY_SYSTEM'] = getOrderPaySystemName($orderArr['PAY_SYSTEM_ID']);
-            $arFields['PAYMENT_LINK'] = "Менеджер отправит счет на оплату в рабочее время.<br /><b style='color:red;'>Внимание! Заказы, оплаченные после 25.12.2016, будут отправлены в начале следующего года.</b>";
+            $arFields['PAYMENT_LINK'] = "Менеджер отправит счет на оплату в рабочее время.";
         } else {
             $arFields['EMAIL_PAY_SYSTEM'] = getOrderPaySystemName($orderArr['PAY_SYSTEM_ID']);
         }
 
         if ($orderArr["PAY_SYSTEM_ID"] == 13 || $orderArr["PAY_SYSTEM_ID"] == 14) {
             //получаем путь до обработчика
-            $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='https://www.alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."'>ссылке</a>.<br /><b style='color:red;'>Внимание! Заказы, оплаченные после 25.12.2016, будут отправлены в начале следующего года.</b>";
+            $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='https://www.alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."'>ссылке</a>.";
         }
 
         $arFields['DELIVERY_NAME'] = getOrderDeliverySystemName($orderArr['DELIVERY_ID']);
