@@ -8,6 +8,92 @@ class UserAPI {
 	
 	/**
 	 * 
+	 * Существует ли пользователь с таким email
+	 * 
+	 * @param string $email
+	 * @return int $id
+	 * 
+	 * */
+	private function isUserExist($email) {
+		$filter = Array (
+		    "=EMAIL" => $email,
+		);
+		$params = array(
+			"NAV_PARAMS" => array("nPageSize" => 1),
+			"FIELDS"     => array("ID")
+		);
+		$users = CUser::GetList(
+			($by = "id"),
+			($order = "asc"),
+			$filter,
+			$params
+		);
+		if ($user = $users->Fetch()) {
+		    return $user['ID'];
+		}
+	}
+	
+	/**
+	 * 
+	 * Обновляем пароль пользователя
+	 * В случае, если такой пользователь не найден, то создает его с присланным email/password
+	 * Используется как коллбек в БК
+	 * 
+	 * Ожидаемые поля: 
+	 * - email
+	 * - password
+	 * 
+	 * @param array $params
+	 * @return array
+	 * 
+	 * */
+	public function updateUserPassword($params) {
+		// формируем массив необходимых параметров
+		$data = array(
+			"email"    => $params['email'],
+			"password" => $params['password']
+		);
+		$data = array_filter($data);
+		// валидация и выполнение необходимых действий
+		if ((is_array($data) && !empty($data))) {
+			// проверяем email
+			if (Validator::isKeyValuePairExists($data, "email")) {
+				// проверяем пароль
+				if (Validator::isKeyValuePairExists($data, "password")) {
+					if ($user_id = $this->isUserExist($data['email'])) {
+						// update
+						$user = new CUser;
+						$fields = Array(
+							"PASSWORD"          => $data['password'],
+							"CONFIRM_PASSWORD"  => $data['password']
+						);
+						if ($user->Update($user_id, $fields)) {
+							$this->responseArray['status_code'] = "success";
+							$this->responseArray['data'] = APITools::getLangPhrase("password_updated");
+						} else {
+							$this->responseArray['status_code'] = "error";
+							$this->responseArray['data'] = $user->LAST_ERROR;
+						}
+					} else {
+						$this->addNew($data);
+					}
+				} else {
+					$this->responseArray['status_code'] = "error";
+					$this->responseArray['data'] = sprintf(APITools::getLangPhrase("parameter_missed"), "password");
+				}
+			} else {
+				$this->responseArray['status_code'] = "error";
+				$this->responseArray['data'] = sprintf(APITools::getLangPhrase("parameter_missed"), "email");
+			}
+		} else {
+			$this->responseArray['status_code'] = "error";
+			$this->responseArray['data'] = APITools::getLangPhrase("data_invalid");
+		}
+		return $this->responseArray;
+	}
+	
+	/**
+	 * 
 	 * Отправляем пользователя в БК
 	 * 
 	 * Ожидаемые поля: 
@@ -16,7 +102,7 @@ class UserAPI {
 	 * - name
 	 * 
 	 * @param array $params
-	 * @return string $code
+	 * @return array
 	 * 
 	 * */
 	public function sendUserToBK($params) {
@@ -40,6 +126,64 @@ class UserAPI {
 				
 				// сам запрос к БК
 				APITools::performQuery($data, "/b2b/users");
+			} else {
+				$this->responseArray['status_code'] = "error";
+				$this->responseArray['data'] = sprintf(APITools::getLangPhrase("parameter_missed"), "email");
+			}
+		} else {
+			$this->responseArray['status_code'] = "error";
+			$this->responseArray['data'] = APITools::getLangPhrase("data_invalid");
+		}
+		return $this->responseArray;
+	}
+	
+	/**
+	 * 
+	 * Создаем нового пользователя
+	 * 
+	 * Ожидаемые поля: 
+	 * - email
+	 * - password
+	 * 
+	 * @param array $params
+	 * @return array
+	 * 
+	 * */
+	public function addNew($params) {
+		// формируем массив необходимых параметров
+		$data = array(
+			"email"    => $params['email'],
+			"password" => $params['password']
+		);
+		$data = array_filter($data);
+		// валидация и выполнение необходимых действий
+		if ((is_array($data) && !empty($data))) {
+			// проверяем email
+			if (Validator::isKeyValuePairExists($data, "email")) {
+				// проверяем пароль
+				if (Validator::isKeyValuePairExists($data, "password")) {
+					$user = new CUser;
+					$user_fields = Array(
+						"EMAIL"             => $data['email'],
+						"LOGIN"             => $data['email'],
+						"ACTIVE"            => "Y",
+						"GROUP_ID"          => array(3, 4, 5),
+						"PASSWORD"          => $data['password'],
+						"CONFIRM_PASSWORD"  => $data['password'],
+					);
+					
+					$ID = $user->Add($user_fields);
+					if (intval($ID) > 0) {
+						$this->responseArray['status_code'] = "success";
+						$this->responseArray['data'] = APITools::getLangPhrase("user_added");
+					} else {
+						$this->responseArray['status_code'] = "error";
+						$this->responseArray['data'] = $user->LAST_ERROR;
+					}
+				} else {
+					$this->responseArray['status_code'] = "error";
+					$this->responseArray['data'] = sprintf(APITools::getLangPhrase("parameter_missed"), "password");
+				}
 			} else {
 				$this->responseArray['status_code'] = "error";
 				$this->responseArray['data'] = sprintf(APITools::getLangPhrase("parameter_missed"), "email");
