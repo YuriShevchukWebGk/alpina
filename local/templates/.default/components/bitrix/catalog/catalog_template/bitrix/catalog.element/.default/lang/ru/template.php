@@ -54,6 +54,7 @@ $MESS["GRAMS"] = " г";
 $MESS["ROUBLES"] = "руб.";
 $MESS["EXPECTED_DATE"] = "Ожидаемая дата выхода: ";
 $MESS["NOT_IN_STOCK"] = "Нет в наличии";
+$MESS["IN_STOCK"] = "В наличии";
 $MESS["SUBSCRIBING_DESCRIPTION"] = "Впишите свой <b>e-mail</b>, и вы получите письмо, как только книгу можно будет заказать";
 $MESS["TO_SUBSCRIBE"] = "Подписаться";
 $MESS["ADD_IN_BASKET"] = "В корзину";
