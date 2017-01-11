@@ -974,6 +974,8 @@ function addtocart(productid, name) {
                     total_quant += parseInt($(this).html());
             });
             $(".BasketQuant").html(total_quant);
+            // обновляем блок с ценой и описанием до следующей скидки
+            $(".wrap_prise_top").load(window.location.href + " .wrap_prise_top > *");
     })
 }
 function addtocart_fromwishlist (productid, name) {
