@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 <body>
-    <div class="api_header"><a href="http://ws.zenden.webgk.net/docs/">Alpinabook API</a> Документация для разработчиков</div>
+    <div class="api_header"><a href="/api/docs/">Alpinabook API</a> Документация для разработчиков</div>
     <div class="api_body">
         <div class="api_left_menu">
             <h2>Методы для работы с пользователями</h2>
