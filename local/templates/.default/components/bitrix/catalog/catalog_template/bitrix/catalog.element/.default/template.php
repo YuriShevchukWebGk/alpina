@@ -554,10 +554,10 @@ $arItemIDs = array(
 									$delivery_day = 'в пятницу';
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = "10 января";
+                                    $delivery_day = "в понедельник";
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = '10 января';
+                                    $delivery_day = 'в понедельник';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                     $delivery_day = 'во вторник';
