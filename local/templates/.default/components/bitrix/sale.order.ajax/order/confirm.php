@@ -365,7 +365,7 @@
                     echo '<span style="font-size:18px;color:#424d4f">'.GetMessage("WAIT_FOR_BILL").'</span>';
                 }?>
                 <br>
-                <?
+                <?/* Хрень какая-то. Убираю нафиг 13.01.2017 Марченков
                 if ($arResult["PAY_SYSTEM"]["ID"] == CASHLESS_PAYSYSTEM_ID && $arResult["ORDER"]["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                     $order_info = CSaleOrder::GetByID($arResult["ORDER"]["ID"]);
                     $order_props = CSaleOrderPropsValue::GetOrderProps($arResult["ORDER"]["ID"]);
@@ -534,7 +534,7 @@
                             </table>
                         </div>
                   </div>     
-                <?}
+                <?}*/
         }?>
 <div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$USER->GetEmail()?>"></div>				
     </div>

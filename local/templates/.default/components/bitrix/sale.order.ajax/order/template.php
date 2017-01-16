@@ -144,22 +144,19 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-                if (hourfordeliv < 21)
-					minDatePlus = 2;
-				else
-					minDatePlus = 3;
+				minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-                minDatePlus = 2;
+                minDatePlus = 1;
             } else if (ourday == 3) { //среда
                 minDatePlus = 2;
             } else if (ourday == 4) { //четверг
                 minDatePlus = 4;
             } else if (ourday == 5) { //пятница
-                minDatePlus = 3;
+                minDatePlus = 4;
             } else if (ourday == 6) { //суббота
                 minDatePlus = 3;
             } else if (ourday == 0) { //воскресенье
-                minDatePlus = 3;
+                minDatePlus = 2;
             }
         }
 		if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
