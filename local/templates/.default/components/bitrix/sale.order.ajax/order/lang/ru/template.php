@@ -143,4 +143,5 @@ $MESS["ACCOUNTANT_NAME"] = "Блюмберг Елена";
 $MESS["ACCOUNTANT"] = "Бухгалтер";
 $MESS["DELIVERY_SUMM"] = "Доставка с НДС 18%:";
 $MESS["YEAR"] = " год";
+$MESS["FLIPPOST_DELIVERY_TIME"] = "Срок доставки (дней)";
 ?>
