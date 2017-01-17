@@ -39,7 +39,7 @@ $this->setFrameMode(true);
                     </div>
                     <div class="secondWrapp">
                         <div class="cover">
-                            <?$main_pict = CFile::ResizeImageGet($arResult["ITEMS"][0]["DETAIL_PICTURE"]["ID"], array('width'=>360, 'height'=>540), BX_RESIZE_IMAGE_EXACT, true);
+                            <?$main_pict = CFile::ResizeImageGet($arResult["ITEMS"][0]["DETAIL_PICTURE"]["ID"], array('width'=>360, 'height'=>540), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                             $main_author = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $arResult["ITEMS"][0]["PROPERTIES"]["AUTHORS"]["VALUE"][0]), false, false, array("ID", "NAME")) -> Fetch();?>
                             <a href="<?=$arResult["ITEMS"][0]["DETAIL_PAGE_URL"]?>" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'bookClickNewest', 'label' : 'blockBig'});">
                             <img src="<?=$main_pict["src"]?>" title="<?=$main_author["NAME"].' '.$arResult["ITEMS"][0]["NAME"]?>">

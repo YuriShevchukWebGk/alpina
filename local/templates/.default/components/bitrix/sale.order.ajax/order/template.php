@@ -144,7 +144,7 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-				minDatePlus = 1;
+				minDatePlus = 2;
             } else if (ourday == 2) { //вторник
                 minDatePlus = 1;
             } else if (ourday == 3) { //среда
