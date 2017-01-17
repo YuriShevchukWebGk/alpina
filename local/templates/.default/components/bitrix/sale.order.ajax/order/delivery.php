@@ -264,8 +264,9 @@
                         
                     </div>
                     <div class="flippost_error"><?= GetMessage('FLIPPOST_SELECT_EMPTY') ?></div>
+                    <div id="flippost_delivery_time" class="flippost_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
                     <input type="hidden" id="flippost_address" name="flippost_address" value="">
-                    <input type="hidden" id="flippost_cost" name="flippost_cost" value="">
+                    <input type="hidden" id="flippost_cost" name="flippost_cost" value="">  
                 <? } ?>
 
                 <div class="clear"></div>

@@ -140,7 +140,10 @@ Flippost.prototype.__printPrice = function() {
     $(".ID_DELIVERY_ID_" + self.flippost_id).html(self.returnedData[0].first + ' руб.');
     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(self.returnedData[0].first);
     $('.finalSumTable').html( finalSumWithoutDiscount.toFixed(2) + ' руб.');
-	$("#flippost_cost").val(self.returnedData[0].first);
+    $("#flippost_cost").val(self.returnedData[0].first);
+    var delivery_time = self.returnedData[0].second + 3; //сорк доставки. добавляем к сроку, полученному из запроса 3 дня
+    $("#flippost_delivery_time").show();
+    $("#flippost_delivery_time span").html(delivery_time);
 }
 
  /*******
