@@ -123,8 +123,6 @@
     BX.addCustomEvent('onDeliveryExtraServiceValueChange', function(){ submitForm(); });
 
 </script>
-
-
 <?
     //Check if order have certificate
     $isOnlyCertificate = true;
@@ -184,7 +182,7 @@
                     <?= htmlspecialcharsbx($arDelivery["NAME"])?> -                   
                     <?if(isset($arDelivery["PRICE"])):?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
-                            <? if ($arDelivery["ID"] == FLIPPOST_ID) {
+                            <? if ($arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID) {
                                 echo "Выберите местоположение";
                             } else { ?>
                                 <?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?>
@@ -267,6 +265,15 @@
                     <div id="flippost_delivery_time" class="flippost_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
                     <input type="hidden" id="flippost_address" name="flippost_address" value="">
                     <input type="hidden" id="flippost_cost" name="flippost_cost" value="">  
+                <? } ?>
+                
+                <? if ($arDelivery["ID"] == GURU_DELIVERY_ID) { ?>
+                	<div class="guru_delivery_wrapper">
+                		<b><?= GetMessage('SEARCH_ON_MAP') ?></b>
+						<br><span id="close_map" style="position:fixed; top:-2000px; cursor:pointer; z-index:999; right:75px; background:#cccccc; display:inline-block; padding:2px 4px; padding-bottom:4px; text-decoration:underline;">закрыть</span>
+						<span style="cursor:pointer; display:block; text-decoration:underline;" class="message-map-link"><?= GetMessage('CHOSE_ON_MAP') ?></span>
+						<div id="YMapsID"></div>
+                	</div>
                 <? } ?>
 
                 <div class="clear"></div>

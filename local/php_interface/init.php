@@ -36,6 +36,7 @@
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("CASHLESS_PAYSYSTEM_ID", 12);
     define ("FLIPPOST_ID", 30);
+	define ("GURU_DELIVERY_ID", 43);
     define ("PICKPOINT_DELIVERY_ID", 18);
     define ("CITY_INDIVIDUAL_ORDER_PROP_ID", 2);
     define ("CITY_ENTITY_ORDER_PROP_ID", 3);
