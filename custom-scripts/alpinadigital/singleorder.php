@@ -18,7 +18,6 @@ $bookId = '';
 $recId = '';
 $sendinfo = '';
 
-
 $orderUser = CUser::GetByID($order_list['USER_ID'])->Fetch();
 if (!empty($orderUser["UF_TEST"])) {
 	$allUrlsArray = unserialize($orderUser["UF_TEST"]);
@@ -80,10 +79,14 @@ $mailFields = array(
 	"ORDER_ID" => $ID,
 	"ORDER_USER"=> Message::getClientName($ID)
 );
-if (CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N")) {
-	echo 'ok';
+if ($order_list[PERSON_TYPE_ID] == 1) {
+	if (CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N")) {
+		echo 'ok';
+	} else {
+		echo 'error';
+	}
 } else {
-	echo 'error';
+	echo 'Ошибка: Юридическое лицо';
 }
 } else {?>
 	<form action="/custom-scripts/alpinadigital/singleorder.php">

@@ -292,7 +292,6 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                  <?$criteoCounter = 0; 
                  $criteoItems = Array(); 
                  $gtmEcommerceImpressions = '';
-                 $gdeSlon = '';
                      foreach ($arResult["ITEMS"] as $cell => $arItem) {  
                          foreach ($arItem["PRICES"] as $code => $arPrice) { 
                          ?>
@@ -377,13 +376,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                          $gtmEcommerceImpressions .= "'position': '" . ($cell+1) . "'";
                          $gtmEcommerceImpressions .= "},";
 
-                         $gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
                          }
                          ?>
                          
-                <!-- GdeSlon -->
-                <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
-                
                 
                 <script type="text/javascript">
                      <!-- //dataLayer GTM -->

@@ -83,8 +83,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	}];
 	</script>
 <?}?>
-<!-- GdeSlon -->
-<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
+
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

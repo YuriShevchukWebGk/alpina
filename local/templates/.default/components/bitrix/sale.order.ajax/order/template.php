@@ -51,8 +51,7 @@
 
 </style>
 
-<!-- GdeSlon -->
-<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
+
 <script>
 
     //дополнительные функции, необходимые для работы
@@ -62,8 +61,8 @@
 
         } else {
 
-                $("#ORDER_PROP_24").mask("+7 (999) 999-99-99");   //для физлица
-                $("#ORDER_PROP_11").mask("+7 (999) 999-99-99");  //для юрлица
+                $("#ORDER_PROP_24").mask("+9(999)999-99-999");   //для физлица
+                $("#ORDER_PROP_11").mask("+7(999)999-99-99");  //для юрлица
                 $("#pp_sms_phone").mask("+79999999999");
         }
 
@@ -146,15 +145,15 @@
             if (ourday == 1) { //понедельник
 				minDatePlus = 2;
             } else if (ourday == 2) { //вторник
-                minDatePlus = 1;
+                minDatePlus = 2;
             } else if (ourday == 3) { //среда
                 minDatePlus = 2;
             } else if (ourday == 4) { //четверг
                 minDatePlus = 4;
             } else if (ourday == 5) { //пятница
-                minDatePlus = 4;
-            } else if (ourday == 6) { //суббота
                 minDatePlus = 3;
+            } else if (ourday == 6) { //суббота
+                minDatePlus = 2;
             } else if (ourday == 0) { //воскресенье
                 minDatePlus = 2;
             }
@@ -198,6 +197,13 @@
         var locationID = $(".bx-ui-slst-target[name=ORDER_PROP_2], .bx-ui-slst-target[name=ORDER_PROP_3]").val();
         //$('.quick-location-tag[data-id="' + locationID + '"]').attr("style", 'background: #00a0af !important; color: white !important;');
 		$('.quick-location-tag[data-id="' + locationID + '"]').addClass('addCircle');
+		
+		$('#ORDER_PROP_24, #ORDER_PROP_11').bind("change keyup input click", function() {
+			if (this.value.match(/[^\(\)\-\+0-9]/g)) {
+				this.value = this.value.replace(/[^\(\)\-\+0-9]/g, '');
+			}
+		});
+		$('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
     }
 
     $(function(){

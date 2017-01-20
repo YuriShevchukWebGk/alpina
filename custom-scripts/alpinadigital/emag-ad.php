@@ -37,7 +37,7 @@ $output = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
 }
 $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => 69654), false, false, array());
 while ($arItems = $dbBasketItems->GetNext()) {
-	$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=7849";
+	$url = "http://api5.alpinadigital.ru/api/v1/gift/emag/?emag_id=7190";
 	$db_props = CIBlockElement::GetProperty(4, $arItems[PRODUCT_ID], array("sort" => "asc"), Array("CODE"=>"rec_for_ad"))->Fetch();
 
 	$ch = curl_init();  
@@ -48,7 +48,7 @@ while ($arItems = $dbBasketItems->GetNext()) {
 			"Content-type: application/json",
 			//"X-AD-Email: c87abba6c83e2b0b04a8b67a9eddcc32",
 			"X-AD-Offer: 1",
-			"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
+			"X-AD-Token: a893c81321e1693e0caad8a6a1a6077c"
 		)
 	);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
