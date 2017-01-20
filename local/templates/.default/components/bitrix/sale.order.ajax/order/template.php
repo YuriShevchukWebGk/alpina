@@ -61,7 +61,7 @@
 <!-- GdeSlon -->
 <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
 <script>
-
+	 window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
@@ -554,6 +554,18 @@
                                             });
                                         }
                                     }
+                                    // инициализация карты доставки гуру после каждого аякса
+                                    $.post("http://api.dostavka.guru/client/get_pvz_codes_2.php",
+								    {init: 'get_pvz' }).success(function(data) {
+								        var center_1='';
+								        var center_2='';
+								            var points = eval("obj = " + data);
+								            if(data==''){
+								                alert('Нет соединения с сервером пунктов выдачи!');
+								                return false;
+								            }
+								            maps_init_GURU(points, center_1, center_2);
+								    });
                                 }
 
                                 function SetContact(profileId)
