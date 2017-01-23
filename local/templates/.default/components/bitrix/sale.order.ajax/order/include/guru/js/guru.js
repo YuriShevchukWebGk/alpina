@@ -94,7 +94,15 @@ function new_map_new_center(){
     });
 }
 
+/**
+ * 
+ * Получение стоимости доставки. После возврата результата происходит установка значений.
+ * 
+ * @param int point_id - id постамата
+ * @link http://dostavka.guru/docs/GURU_api_pdf_2_0.pdf
+ */
 function getDeliveryCost(point_id) {
+	// window.THIS_TEMPLATE_PATH сеттится в /sale.order.ajax/order/template.php
 	var href   = window.location.origin + window.THIS_TEMPLATE_PATH + "/include/guru/ajax/get_delivery_cost.php",
 		weight = parseInt($('.order_weight').text()) / 1000,
 		sum    = parseFloat($('.items_sum').text());
@@ -107,7 +115,43 @@ function getDeliveryCost(point_id) {
     	}
     ).success(function(data) {
     	console.log(data);
+    	// ответ приходит в виде  475::7 дн.::only_paid=0::acquiring=0
+    	var delivery_data = data.split("::");
+		fitDeliveryData(delivery_data[1], delivery_data[0]);	
     });
+}
+
+/**
+ * 
+ * Подстановка полученных значений в верстку
+ * 
+ * @param string delivery_time
+ * @param int delivery_price
+ * @link http://dostavka.guru/docs/GURU_api_pdf_2_0.pdf
+ */
+function fitDeliveryData(delivery_time, delivery_price) {
+	// установка цен внизу страницы
+	document.querySelector('.deliveryPriceTable').innerHTML = delivery_price + ' руб.';
+    finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(delivery_price);
+    $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
+    // установка значений для блока с самой доставкой
+    $(".ID_DELIVERY_ID_" + window.GURU_DELIVERY_ID).html(delivery_price + ' руб.');
+    $("#guru_cost").val(delivery_price);
+    $("#guru_delivery_time").show();
+    $("#guru_delivery_time span").html(delivery_time);
+}
+
+/**
+ * 
+ * Подстановка данных об адресе в верстку
+ * 
+ * @param object delivery_data
+ */
+function setAddressData(delivery_data) {
+	// адрес доставки в блоке самой доставки
+	$(".guru_point_addr").html(delivery_data.addr);
+	// далее подставляем инфу в скрытые инпуты, для передачи дальше
+	$("#guru_delivery_data").val(delivery_data.code + "|" + delivery_data.delivery_date);
 }
 
 $(document).ready(function(){
@@ -137,16 +181,24 @@ $(document).ready(function(){
     });
     //ПОЛУЧИТЬ ДАННЫЕ ПО ВЫБОРУ ПУНКТА
     $('.select-point').live('click', function(){
-        var code=$(this).attr('rel');//Код пвз
+        /*var code=$(this).attr('rel');//Код пвз
         var city=$(this).attr('city');//Город пвз
         var name=$(this).attr('name');//Наименование пвз
         var region=$(this).attr('region');//Регтон пвз
         var date_pvz=$(this).attr('date');//Ближайшая дата доставки
+        */
+        var address = $(this).attr('region') + ", " + $(this).attr('city') + ", " + $(this).attr('name'),
+        	delivery_data = {
+	        	code: $(this).attr('rel'),
+	        	addr: address,
+	        	delivery_date: $(this).attr('date')
+	        };
         
-        getDeliveryCost(code);
+        // немного кривовато, но т.к. все скрипты готовые, то оставим так
+        getDeliveryCost(delivery_data.code);
+        setAddressData(delivery_data);
         //Здесь код, который заполнит нужные поля Вашей информационной системы
         //-------------------------------------------------------------------
-        
         close_GURU_map();//закрыть карту
         return false;
     });

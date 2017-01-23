@@ -33,6 +33,11 @@
     input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         display: block;
     }
+    
+    input#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>:checked ~ div.guru_delivery_wrapper {
+        display: block;
+    }
+    
 	#order_form_div .location-block-wrapper {
 		max-width: 100%;
 	}
@@ -61,7 +66,8 @@
 <!-- GdeSlon -->
 <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
 <script>
-	 window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
+	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
+	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
 

@@ -23,7 +23,11 @@ $opts = array('http' =>
 $context  = stream_context_create($opts);
 $result = file_get_contents('http://api.dostavka.guru/client/calc_guru_main_2_0.php', false, $context);
 
-echo "<pre>";
-print_r($result);
-echo "</pre>";
+list($delivery_price, $delivery_time) = split('::', $result);
+echo $result;
+/*if ($delivery_price != "ERROR") {
+	sprintf("%s::%s", $delivery_price, $delivery_time);
+} else {
+	// подхват здесь на случай ошибки
+}*/
 ?>
