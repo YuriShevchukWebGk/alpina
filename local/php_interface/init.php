@@ -310,6 +310,50 @@
 			}
 		}
 	}
+	
+	AddEventHandler("sale", "OnBeforeOrderAdd", "guruHandlerBefore"); // меняем цену для guru
+	AddEventHandler("sale", "OnOrderSave", "guruHandlerAfter"); // меняем адрес для guru
+
+	/**
+	 * Handler для доставки guru. Плюсуем стоимость доставки
+	 *
+	 * @param array $arFields
+	 * @return void
+	 *
+	 * */
+	function guruHandlerBefore(&$arFields) {
+		if ($arFields['DELIVERY_ID'] == GURU_DELIVERY_ID) {
+			$delivery_price = $_REQUEST['guru_cost'];
+			$arFields['PRICE'] += floatval($delivery_price);
+			$arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+		}
+	}
+
+	/**
+	 * Handler для доставки guru. Изменяем адрес
+	 *
+	 * @param array $arFields
+	 * @return void
+	 *
+	 * */
+	function guruHandlerAfter($ID, $arFields) {
+		GLOBAL $arParams;
+		if ($arFields['DELIVERY_ID'] == GURU_DELIVERY_ID) {
+			// Добавляем полную стоимость заказа в оплату
+			$order_instance = Bitrix\Sale\Order::load($ID);
+			$payment_collection = $order_instance->getPaymentCollection();
+			foreach ($payment_collection as $payment) {
+				$payment->setField('SUM', $arFields['PRICE']);
+				$payment->save();
+			}
+			
+			// записываем тех данные в поле адреса id пункта самовывоза|дата доставки
+			$property_collection = $order_instance->getPropertyCollection();
+			$address_property_instance  = $property_collection->getItemByOrderPropertyId($arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"]);
+			$address_property_instance->setValue($_REQUEST['guru_delivery_data']);
+			$order_instance->save();
+		}
+	}
 
     //Create gift coupon after buy certificate
     AddEventHandler("sale", "OnOrderAdd", Array("Certificate", "GenerateGiftCoupon"));

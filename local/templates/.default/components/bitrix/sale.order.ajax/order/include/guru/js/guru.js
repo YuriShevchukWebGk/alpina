@@ -148,10 +148,14 @@ function fitDeliveryData(delivery_time, delivery_price) {
  * @param object delivery_data
  */
 function setAddressData(delivery_data) {
+	$(".guru_error").hide();
 	// адрес доставки в блоке самой доставки
 	$(".guru_point_addr").html(delivery_data.addr);
 	// далее подставляем инфу в скрытые инпуты, для передачи дальше
 	$("#guru_delivery_data").val(delivery_data.code + "|" + delivery_data.delivery_date);
+	$("#ORDER_PROP_5").val(delivery_data.code + "|" + delivery_data.delivery_date);
+	// устанавливаем флаг, что город выбран, нужно для js валидации
+	$("#guru_selected").val(1);
 }
 
 $(document).ready(function(){

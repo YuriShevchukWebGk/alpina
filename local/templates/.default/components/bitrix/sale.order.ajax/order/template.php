@@ -206,6 +206,10 @@
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
+        // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
+        if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
+            $(".clientInfoWrap div[data-property-id-row='5']").hide();
+        }
 
         //Подсвечиваем активное местоположение в избранных
         var locationID = $(".bx-ui-slst-target[name=ORDER_PROP_2], .bx-ui-slst-target[name=ORDER_PROP_3]").val();
@@ -454,6 +458,20 @@
                                                 }
                                             }
                                         }
+                                        // доставка гуру
+                                        if (flag) {
+                                            if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").is(':checked')) {
+                                            	if(!$("#guru_selected").val()) {
+                                            		$('html, body').animate({
+                                                        scrollTop: $(".js_delivery_block").offset().top
+                                                        }, 500);
+                                                    $(".guru_error").show();
+                                                    flag = false; return false;
+                                            	} else {
+                                            		$(".guru_error").hide();
+                                            	}
+                                            }
+                                        }
                                     }
 
                                     if(flag){
@@ -527,6 +545,11 @@
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
                                     //доп функции/////////////////////////////////
                                     setOptions();
+                                    
+                                    // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
+                                    if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
+							            $(".clientInfoWrap div[data-property-id-row='5']").hide();
+							        }
 
                                     //2. подсветка варианта оплаты для электронных платежей
                                     if(localStorage.getItem('active_rfi_button')){

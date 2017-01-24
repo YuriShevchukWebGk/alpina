@@ -275,9 +275,10 @@
 						<span style="cursor:pointer; display:block; text-decoration:underline;" class="message-map-link"><?= GetMessage('CHOSE_ON_MAP') ?></span>
 						<div id="YMapsID"></div>
 						<div class="guru_point_addr"></div>
-						<div id="guru_delivery_time" class="guru_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
+						<div id="guru_delivery_time" class="guru_delivery_time"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
 						<input type="hidden" id="guru_delivery_data" name="guru_delivery_data" value="">
-                    	<input type="hidden" id="guru_cost" name="guru_cost" value="">  
+                    	<input type="hidden" id="guru_cost" name="guru_cost" value="">
+                    	<input type="hidden" id="guru_selected" name="guru_selected" value="">
                 	</div>
                 <? } ?>
 
