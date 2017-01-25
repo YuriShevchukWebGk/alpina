@@ -15,10 +15,10 @@ function OrdersListCourirerListener(){
 			e.preventDefault();
 			if($("#form_tbl_sale_order option[value='status_I']").is(":selected")){
 				this.orderObj.selectedOrderStatus
-				if(this.selectedOrdersCount>1){
-					popUp.show();
-					cHandler.tooManyOrdersSelected();
-				} else if(this.orderObj.selectedOrderStatus){
+				//if(this.selectedOrdersCount>1){
+					//popUp.show();
+					//cHandler.tooManyOrdersSelected();
+				if(this.orderObj.selectedOrderStatus){
 					popUp.show();
 					cHandler.getCouriersList();
 				} else {
@@ -39,7 +39,7 @@ function OrdersListCourirerListener(){
 		
 		$('body').on('DOMSubtreeModified',"#tbl_sale_order_selected_count",function(e){
 			this.selectedOrdersCount = parseInt($("#tbl_sale_order_selected_count span").text());
-			if(this.selectedOrdersCount==1){
+			//if(this.selectedOrdersCount==1){
 				
 				 /**
 				 *
@@ -51,7 +51,7 @@ function OrdersListCourirerListener(){
 				
 				var selectedOrderID = parseInt($(".adm-table-row-active").attr("oncontextmenu").match(/ID=\d+/)[0].replace(/\D+/,''));
 				this.orderObj.getSelectedOrderStatus(selectedOrderID);
-			}
+			//}
 		}.bind(this))
 	}
 	
