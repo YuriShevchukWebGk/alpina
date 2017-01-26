@@ -28,21 +28,31 @@ class OrderToCourier {
         global $USER;
 
         $el = new CIBlockElement;
-
-        $PROP = array();
-        $PROP["ORDER"] = $orderId;
-        $PROP["COURIRER"] = $courierId;
-
-        $arLoadProductArray = Array("MODIFIED_BY" => $USER -> GetID(), "IBLOCK_SECTION_ID" => false, "IBLOCK_ID" => $this -> iblockID, "PROPERTY_VALUES" => $PROP, "NAME" => $orderId);
-
-        if ($relationId = $el -> Add($arLoadProductArray)) {
-            $curInfo = getCourierByID($courierId);
-            $message = new Message();
-            $result = $message->sendMessage($orderId,"CA",$curInfo);
-            echo json_encode(array("status"=>"success","msg" => "Курьер успешно прикреплен к заказу.", "relationId" => $relationId));
-        } else {
-            echo json_encode(array("status"=>"error","msg" => "Не удалось прикрепить курьера к заказу."));
-        }
+		
+		$orders_exploded = explode("|", $orderId);
+		$orders_exploded = array_filter($orders_exploded);
+		$relations_result = array();
+		
+		foreach ($orders_exploded as $orderId) {
+			$PROP = array();
+	        $PROP["ORDER"] = $orderId;
+	        $PROP["COURIRER"] = $courierId;
+	
+	        $arLoadProductArray = Array("MODIFIED_BY" => $USER -> GetID(), "IBLOCK_SECTION_ID" => false, "IBLOCK_ID" => $this -> iblockID, "PROPERTY_VALUES" => $PROP, "NAME" => $orderId);
+	
+	        if ($relationId = $el -> Add($arLoadProductArray)) {
+	            $curInfo = getCourierByID($courierId);
+	            $message = new Message();
+	            $result = $message->sendMessage($orderId,"CA",$curInfo);
+	            $relations_result[$orderId] = $relationId;
+	        }
+		}
+		
+		if (is_array($relations_result) && !empty($relations_result)) {
+			echo json_encode(array("status"=>"success","msg" => "Курьеры успешно прикреплены к заказу.", "relations" => $relations_result));
+		} else {
+			echo json_encode(array("status"=>"error","msg" => "Не удалось прикрепить курьера к заказу."));
+		}
     }
 
     /**
