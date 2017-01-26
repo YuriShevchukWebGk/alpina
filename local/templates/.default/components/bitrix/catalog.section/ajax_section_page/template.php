@@ -292,6 +292,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                  <?$criteoCounter = 0; 
                  $criteoItems = Array(); 
                  $gtmEcommerceImpressions = '';
+				 $gdeslon = '';
                      foreach ($arResult["ITEMS"] as $cell => $arItem) {  
                          foreach ($arItem["PRICES"] as $code => $arPrice) { 
                          ?>
@@ -366,7 +367,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                             array_push($criteoItems, $arItem['ID']);  
                         }
                          $criteoCounter++;
-
+						 
+						$gdeslon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
+						
                          $gtmEcommerceImpressions .= "{";
                          $gtmEcommerceImpressions .= "'name': '" . $arItem["NAME"] . "',";
                          $gtmEcommerceImpressions .= "'id': '" . $arItem['ID'] . "',";
@@ -394,7 +397,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                      });
                      <!-- // dataLayer GTM -->
                  </script>
-
+				<!-- gdeslon -->
+				<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
 
                  <!--Criteo counter-->
                  <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>

@@ -19,6 +19,7 @@
     <?}?>
 
     <?if (count($arResult["SEARCH"]) > 0) {?>
+		<?$gdeslon = '';?>
         <div class="pageTitleWrap">
             <div class="catalogWrapper">
                 <div class="catalogIcon searchCatalogModified">
@@ -259,6 +260,7 @@
                             }?>
                             <??>
                             <div class="searchBook" itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
+								<?$gdeslon .= $arItem["ITEM_ID"].':'.ceil( $newPrice).',';?>
                                 <div>
                                     <a href="<?= $arItem["URL"]?>">
                                         <div class="search_item_img">
@@ -433,6 +435,9 @@
 
         <p>
         </p>
+		<!-- gdeslon -->
+		<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
+		
     <?} else {?>
         <div class="catalogIcon">
         </div>

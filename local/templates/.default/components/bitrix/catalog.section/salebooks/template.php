@@ -24,7 +24,9 @@
 
         <div class="contentWrapp">
             <p class="titleMain"><?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?></p>
-
+				<div class="description">На&nbsp;этой странице вы&nbsp;найдете все книги по&nbsp;очень, очень низкой цене!<br />
+				Если вы&nbsp;где-то найдете эти&nbsp;же книги еще дешевле (что маловероятно) сообщите нам, и&nbsp;мы&nbsp;сделаем вам персональную скидку.
+				</div>
             <?if (is_array($arResult["QUOTE"])) {?>
                 <div class="titleDiv">
                 <?if ($arResult["QUOTE"]["DETAIL_PICTURE"]){?>
@@ -403,7 +405,7 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
 		<?} else {?>
 			categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
 		<?}?>		
-		$(".wrapperCategor").css("height", categor_height + "px");
+		//$(".wrapperCategor").css("height", categor_height + "px");
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_" . $navnum])) {?>
             var page = <?= $_REQUEST["PAGEN_" . $navnum] ?> + 1;

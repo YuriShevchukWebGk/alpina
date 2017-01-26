@@ -105,6 +105,7 @@
 						$gtmEnchECommerceCheckout = Array();
 						$retailRocketRecs = '';
 						$is = 0;
+						$gdeslon = '';
 						/* конец */
 
                         foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):
@@ -116,6 +117,13 @@
 							if ($is < 15)
 								$retailRocketRecs .= $arItem["PRODUCT_ID"].',';
 							$is++;
+							if ($arItem["QUANTITY"] > 1) {
+								for ($gi = 0; $gi < $arItem["QUANTITY"]; $gi++) {
+									$gdeslon .= $arItem["PRODUCT_ID"].':'.$arItem["PRICE"].',';
+								}
+							} else {
+								$gdeslon .= $arItem["PRODUCT_ID"].':'.$arItem["PRICE"].',';
+							}
 
                             ?>
                             <tr id="<?=$arItem["ID"]?>">
@@ -385,9 +393,13 @@
         <input type="hidden" id="hide_coupon" value="<?=($arParams["HIDE_COUPON"] == "Y") ? "Y" : "N"?>" />
         <input type="hidden" id="use_prepayment" value="<?=($arParams["USE_PREPAYMENT"] == "Y") ? "Y" : "N"?>" />
 		
+		<!-- gdeslon -->
+		<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276"></script>
 		<?$_SESSION['gtmEnchECommerceCheckout'] = $gtmEnchECommerceCheckout;?>
 		<?$_SESSION['itemsForCriteo']			= $itemsForCriteo;?>
 		<?$_SESSION['retailRocketRecs']			= $retailRocketRecs;?>
+		<?$_SESSION['gdeslon']					= substr($gdeslon,0,-1);?>
+		
 
 
         <div class="bx_ordercart_order_pay">

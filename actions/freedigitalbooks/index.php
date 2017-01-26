@@ -1,5 +1,6 @@
 ﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 global $USER;
+CModule::IncludeModule("iblock");
 if (!$USER->isAdmin()) {
 	//header(&quot;Location: http://www.alpinabook.ru&laquo;);
 	//exit();
@@ -8,9 +9,6 @@ if (!$USER->isAdmin()) {
 <html>
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width; initial-scale=1">
-<meta name="viewport" content="width=1200">
-<meta name="format-detection" content="telephone=no">
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -88,10 +86,13 @@ and (max-device-width : 568px) {
 	font-size: 16px;
 }
 
-#wrap1, #wrap2, #wrap3, #wrap4, #wrap5 {
+#wrap1, #wrap2, #wrap3, #wrap4, #wrap5, .booksw {
 	width: 100%;
 	margin: 0 auto;
 	/*max-width:1000px;*/
+}
+.booksw .link:hover {
+	background:rgb(228, 255, 230)!important;
 }
 #header1 {
   font-size: 72px;
@@ -134,7 +135,7 @@ and (max-device-width : 568px) {
   line-height: 1.028;
   text-align: center;
   position: relative;
-  margin-top: 240px;
+  margin-top: 160px;
   z-index: 30;
 }
 #middle2 {
@@ -145,6 +146,7 @@ and (max-device-width : 568px) {
   height: 364px;
   z-index: 31;
 }
+
 #middle3 {
   font-size: 24px;
   font-family: "Walshein_light";
@@ -226,7 +228,7 @@ and (max-device-width : 568px) {
   text-align: center;
   margin-right:250px;
   position: relative;
-  margin-top:320px;
+  margin-top:230px;
   z-index: 24;
 }
 #footer3 {
@@ -305,6 +307,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	</div>
 </div>
 
+	<div style="color:#fff;font-size:16px;" class="booksw">
+	<div style="position: relative;margin-top: 80px;width: 100%;z-index: 31;text-align:center;">
+	<?$arSelect = Array("ID", "NAME", "DETAIL_PICTURE","DETAIL_PAGE_URL");
+	$arFilter = Array("IBLOCK_ID"=>4, 'PROPERTY_appstore' => 231, 'PROPERTY_best_seller' => 285 /*'PROPERTY_STATE' => 22*/);
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>3), $arSelect);
+	while($ob = $res->GetNext()) {
+		$bookImg = CFile::ResizeImageGet($ob['DETAIL_PICTURE'], array("width" => 200, "height" => 250), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
+		<a href="<?=$ob['DETAIL_PAGE_URL']?>"><img src="<?=$bookImg[src]?>" alt="<?=$ob[NAME]?>" title="<?=$ob[NAME]?>" style="margin: 0 20px;" /></a>
+	<?}?>
+	<br /><br />
+	<center><a href="/catalog/freedigitalbooks/" class="link" style="font-family: 'Walshein_light';font-size:36px;background-color: rgb( 255, 255, 255 );border-radius: 35px;color: rgb(69, 106, 0);margin: 35px 28px 0;display:block;padding: 14px 58px;width:550px;">Электронная версия в комплекте</a></center>
+	</div>
+	</div>
+
 <div id="wrap2">
 	<div id="middle1">
 		Как это работает?
@@ -346,6 +362,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	</div>
 </div>
 
+	<div style="color:#fff;font-size:16px;" class="booksw">
+	<div style="position: relative;margin-top: 80px;width: 100%;z-index: 31;text-align:center;">
+	<?$arSelect = Array("ID", "NAME", "DETAIL_PICTURE","DETAIL_PAGE_URL");
+	$arFilter = Array("IBLOCK_ID"=>4, 'PROPERTY_appstore' => 231, 'PROPERTY_STATE' => 21);
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>3), $arSelect);
+	while($ob = $res->GetNext()) {
+		$bookImg = CFile::ResizeImageGet($ob['DETAIL_PICTURE'], array("width" => 200, "height" => 250), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
+		<a href="<?=$ob['DETAIL_PAGE_URL']?>"><img src="<?=$bookImg[src]?>" alt="<?=$ob[NAME]?>" title="<?=$ob[NAME]?>" style="margin: 0 20px;" /></a>
+	<?}?>
+	<br /><br />
+	<center><a href="/catalog/freedigitalbooks/" class="link" style="font-family: 'Walshein_light';font-size:36px;background-color: rgb( 255, 255, 255 );border-radius: 35px;color: rgb(69, 106, 0);margin: 35px 28px 0;display:block;padding: 14px 58px;width:580px;">Все книги с электронной версией</a></center>
+	</div>
+	</div>
 <div id="wrap4">
 	<div id="footer1">
 	</div>
@@ -376,7 +405,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<br />
 		<span class="quest">ВОПРОС 2: Что делать, если книги загрузились, но&nbsp;не&nbsp;все?</span> <br />
 		<br />
-		Возможно, книги, которые не&nbsp;загрузились, вы&nbsp;уже приобрели ранее в&nbsp;приложении. Проверьте в&nbsp;приложении в&nbsp;разделе &laquo;Мои книги&raquo;.<br />
+		Возможно, книги, которые не&nbsp;загрузились, вы&nbsp;уже приобрели ранее в&nbsp;приложении. Проверьте в&nbsp;приложении в&nbsp;разделе &laquo;Мои книги&raquo; (Android) или в разделе «Моя коллекция» (iOS).<br />
 		Если книги не&nbsp;загрузились по&nbsp;другой причине, напишите нам на&nbsp;<a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a>, и&nbsp;мы&nbsp;быстро решим проблему.<br />
 		<br />
 		<span class="quest">ВОПРОС 3: Что делать, если в&nbsp;электронном виде загрузились не&nbsp;все&nbsp;книги, которые я&nbsp;заказывал?</span> <br />
