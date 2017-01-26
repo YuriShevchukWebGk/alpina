@@ -19,6 +19,7 @@
     <?}?>
 
     <?if (count($arResult["SEARCH"]) > 0) {?>
+		<?$gdeslon = '';?>
         <div class="pageTitleWrap">
             <div class="catalogWrapper">
                 <div class="catalogIcon searchCatalogModified">
@@ -42,7 +43,6 @@
 			});
 		</script>
         <?/* Получаем рекомендации для поиска от RetailRocket */
-		$gdeSlon = '';
         global $arrFilter;
         $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword=' . $arResult["REQUEST"]["QUERY"]);
         $recsArray = json_decode($stringRecs);
@@ -260,6 +260,7 @@
                             }?>
                             <??>
                             <div class="searchBook" itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
+								<?$gdeslon .= $arItem["ITEM_ID"].':'.ceil( $newPrice).',';?>
                                 <div>
                                     <a href="<?= $arItem["URL"]?>">
                                         <div class="search_item_img">
@@ -314,7 +315,6 @@
                                     </a>
                                 </div>
                             </div>
-							<?$gdeSlon .= $arItem["ITEM_ID"].':'.ceil($newPrice).',';?>
                         <?}?>
                         <?// серии в результатах поиска
                         if ($arItem["PARAM2"] == SERIES_IBLOCK_ID) {?>
@@ -432,11 +432,12 @@
                 </div>
             </div>
         </div>
-		<!-- GdeSlon -->
-		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
 
         <p>
         </p>
+		<!-- gdeslon -->
+		<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
+		
     <?} else {?>
         <div class="catalogIcon">
         </div>

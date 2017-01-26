@@ -179,7 +179,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 <div class="slider_wrap">
 <?$APPLICATION->IncludeComponent(
     "bitrix:news.list", 
-    "main_banners", 
+    "event_banners", 
     array(
         "ACTIVE_DATE_FORMAT" => "d.m.Y",
         "ADD_SECTIONS_CHAIN" => "Y",
@@ -193,7 +193,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
         "CACHE_TIME" => "36000000",
         "CACHE_TYPE" => "A",
         "CHECK_DATES" => "Y",
-        "COMPONENT_TEMPLATE" => "main_banners",
+        "COMPONENT_TEMPLATE" => "event_banners",
         "DETAIL_URL" => "",
         "DISPLAY_BOTTOM_PAGER" => "N",
         "DISPLAY_DATE" => "Y",

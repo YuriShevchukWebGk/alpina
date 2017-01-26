@@ -34,7 +34,7 @@ switch ($_REQUEST["SORT"])
 global $arrFilter;
 
 $arrFilter = array ('PROPERTY_discount_on' => '276');
-?>  
+?> 
 <?$APPLICATION->IncludeComponent("bitrix:catalog.section", "salebooks", Array(
 	"ACTION_VARIABLE" => "action",	// Название переменной, в которой передается действие
 		"ADD_PICT_PROP" => "-",	// Дополнительная картинка основного товара

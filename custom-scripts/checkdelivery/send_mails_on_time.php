@@ -282,7 +282,7 @@ if ($USER->isAdmin()) {
 		"DELIVERY_ID" => array(10,11,16,24,25,26,28),
 		"!EMP_STATUS_ID" => array($userIDreturn,$userIDarrived),
 		"@STATUS_ID" => array("I","K"),
-		">=DATE_INSERT" => "07.04.2016",
+		">=DATE_INSERT" => "01.09.2016",
 		//"ID" => 69615
 	);
 
@@ -313,6 +313,7 @@ if ($USER->isAdmin()) {
 			$trackingNumber = $order["DELIVERY_DOC_NUM"];
 		}
 		
+		/* ОТКЛЮЧАЕМ ОТСЛЕДИТЬ ПОСЫЛКУ!
 		if (!empty($trackingNumber) && (preg_match('/([0-9]){13,20}/', $trackingNumber) || preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) && !empty(getPhone($id))) {
 			// составляем массив треков под отправку 
 			$allTreks[]= array(
@@ -325,7 +326,7 @@ if ($USER->isAdmin()) {
 				"descr" => ""
 			);
 			addTrek($allTreks);
-		}
+		}*/
 		
 		//echo "4d<br />";
 		
@@ -810,8 +811,7 @@ if ($USER->isAdmin()) {
 		"ORDER_USER" => "Александр",
 		"REPORT" => $finalReport
 	);				
-	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");
-	
+	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");	
 } else {
 	echo "Not authorized";
 }

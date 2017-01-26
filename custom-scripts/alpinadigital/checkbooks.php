@@ -67,7 +67,7 @@ if ($USER->isAdmin()) {
 				"Content-type: application/json",
 				//"X-AD-Email: c87abba6c83e2b0b04a8b67a9eddcc32",
 				"X-AD-Offer: 1",
-				"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
+				"X-AD-Token: a893c81321e1693e0caad8a6a1a6077c"
 			)
 		);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  

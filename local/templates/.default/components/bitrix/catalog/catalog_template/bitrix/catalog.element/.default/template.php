@@ -136,21 +136,20 @@ $arItemIDs = array(
                         <?}?>
 
                         <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
-                            <div class="digitalBookMark">
-                                
-                                
-                                <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
-                                    <p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
-                                    <span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");?></span>
-                                <?} elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
-                                    $recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
-                                    if($recBookName = $recBook->GetNext()) {?>
-                                        <p><span class="test">Бесплатная электронная версия книги «<?=substr($recBookName['NAME'],0,30)?><?echo strlen($recBookName['NAME']) > 30 ? '...' : '';?>» в комплекте</span></p>
-                                        <span class="ttip"><?echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");?></span>
-                                    <?}
-                                }?>
-                                </span>
-                            </div>
+							<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+								<div class="digitalBookMark">
+									<p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
+									<span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");?></span>
+								</div>
+							<?}/* elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
+								$recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
+								if($recBookName = $recBook->GetNext()) {?>
+									<div class="digitalBookMark">
+										<p><span class="test">Бесплатная электронная версия книги «<?=substr($recBookName['NAME'],0,30)?><?echo strlen($recBookName['NAME']) > 30 ? '...' : '';?>» в комплекте</span></p>
+										<span class="ttip"><?echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");?></span>
+									</div>
+								<?}
+							}*/?>
                         <?}?>
                     </div>
 
@@ -182,13 +181,7 @@ $arItemIDs = array(
                     <?if (!empty($arResult["PROPERTIES"]["glavatitle"]["VALUE"])) {?>
 						<style>
 						.productElementWrapp {min-height:1500px;}
-						.showAllWrapp {height: 750px;}
 						</style>
-						<script>
-						$(document).ready(function() {
-							$(".showAllWrapp").css('height','850px');
-						});
-						</script>
 						<div class="takePartWrap" style="display:block;margin-bottom:5px;height:auto; border-bottom: 1px solid #dddddd; margin-top:0px;">
 							<p class="title"><?= GetMessage("TO_GET_A_CHAPTER") ?></p>
 							<p class="text">Глава «<?=$arResult["PROPERTIES"]["glavatitle"]["VALUE"]?>» будет отправлена вам на почту</p>
@@ -302,17 +295,15 @@ $arItemIDs = array(
                             <span style="color:#627478"><?= $arResult["SPONSOR_PREVIEW_TEXT"] ?> </span><br />
                             <?if (!empty($arResult["SPONSOR_PICT"])) {?>
                                 <a href="<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
-                                <?} else {?>
+                            <?} else {?>
                                 <?= $authorFetchedList["NAME"] ?>
-                                <?}?>
-
-                            <? $authors .= $author_fetched_list["NAME"] . ", ";
-
-
-                                ##Спонсоры книги?>
                             <?}?>
+
+                            <? $authors .= $author_fetched_list["NAME"] . ", ";?>
+                        <?}?>
                     </div>
                     <!-- /noindex -->
+					<?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
                     <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -545,19 +536,19 @@ $arItemIDs = array(
                             } else { //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									//$delivery_day = 'в среду';
+									$delivery_day = 'в среду';
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
-									//$delivery_day = 'в четверг';
+									$delivery_day = 'в четверг';
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
 									$delivery_day = 'в пятницу';
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = "в понедельник";
+                                    //$delivery_day = "в понедельник";
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+                                    $delivery_day = 'в понедельник';
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                     $delivery_day = 'во вторник';

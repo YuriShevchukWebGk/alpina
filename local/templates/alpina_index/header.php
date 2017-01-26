@@ -67,6 +67,9 @@
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .index -->
+	
+	<!-- gdeslon -->
+	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276"></script>
 
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
@@ -94,8 +97,7 @@ if ($USER->IsAuthorized()) {
         }];
     </script>
     <?}?> 
-    <!-- GdeSlon -->
-	<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=main&amp;mid=79276"></script>
+
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

@@ -209,7 +209,17 @@ function CourierHandler() {
 			
 			// --- ok,let's go
 			if (!relationId && courierId){
-				oID = $("#tr_order_id").next().children(".adm-detail-content-cell-r").text() || parseInt($(".adm-table-row-active").attr("oncontextmenu").match(/ID=\d+/)[0].replace(/\D+/,''));
+				if ($("#tr_order_id").next().children(".adm-detail-content-cell-r").text()) {
+					// это детальная карточка заказа
+					oID = $("#tr_order_id").next().children(".adm-detail-content-cell-r").text();
+				} else {
+					// список заказов
+					orders_temporary_array = [];
+					$(".adm-table-row-active").each(function(){
+						orders_temporary_array.push($(this).attr("oncontextmenu").match(/ID=\d+/)[0].replace(/\D+/,''));
+						oID = orders_temporary_array.join("|");
+					})
+				}
 				// --- create
 				actionObject = {
 					action: "create",
@@ -239,9 +249,8 @@ function CourierHandler() {
 			
 			$.post("/admin_modules/couriers/php/matchCourierAndOrder.php", actionObject , function(data) {   
 				response = JSON.parse(data);
-				if(response.status=="success" && response.relationId){
-					document.querySelector(".adm-table-row-active div.addedCourier").dataset.relationId = response.relationId;
-					console.info(response.msg);
+				if(response.status=="success" && response.relations){
+					console.info(response.relations);
 				} else if(response.status=="success"){
 					console.info(response.msg);
 				} else if(response.status=="error"){

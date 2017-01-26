@@ -1679,11 +1679,11 @@ $(document).ready(function() {
     
     if ((books_block_length < 11) && (books_block_length > 5)) {
         $(".contentWrapp").css("height", "1000px");
-        $(".wrapperCategor").css("height", "1150px");
+        $(".wrapperCategor").css("height", "1250px");
     }
     else if (books_block_length < 6) {
         $(".contentWrapp").css("height", "700px");
-        $(".wrapperCategor").css("height", "770px");       
+        $(".wrapperCategor").css("height", "870px");       
     }
     
     if ($(".categoryWrapperWhite .sliderUl li").size() == 0) {   

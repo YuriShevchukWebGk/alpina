@@ -1,4 +1,4 @@
-﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 if ($USER->isAdmin()) {
 
     CModule::IncludeModule("blog");
@@ -302,7 +302,7 @@ if ($USER->isAdmin()) {
 		"!EMP_STATUS_ID" => array($userIDreturn,$userIDarrived),
 		"@STATUS_ID" => array("I","K"),
 		">=DATE_INSERT" => "07.04.2016",
-		//"ID" => 69615
+		"ID" => 80660
 	);
 
 	//echo "4a<br />";

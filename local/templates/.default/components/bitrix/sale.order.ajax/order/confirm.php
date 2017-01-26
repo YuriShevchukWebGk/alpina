@@ -85,10 +85,6 @@
             );
         </script>
 
-		<!-- GdeSlon -->
-		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276"></script>
-		<script type="text/javascript" src="//www.gdeslon.ru/thanks.js?codes=<?=substr($_SESSION['gdeSlon'],0,-1)?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
-		
 		
         <!--google eCommerce-->
         <?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
@@ -187,14 +183,17 @@
                 },
             }]);
         </script>
-
+		<!-- gdeslon -->
+		<?/*<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=<?=$_SESSION['gdeslon']?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>*/?>
+		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276&amp;codes=<?=$_SESSION['gdeslon']?>"></script>
+		<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
         <?unset($_SESSION['socioMatic'])?>
         <?unset($_SESSION['criteo'])?>
-		<?unset($_SESSION['gdeSlon'])?>
         <?unset($_SESSION['googleECommerce'])?>
         <?unset($_SESSION['googleEnhancedECommerce'])?>
         <?unset($_SESSION['floctory'])?>
         <?unset($_SESSION['retailRocket'])?>
+		<?unset($_SESSION['gdeslon'])?>
 
         <?}?>
 

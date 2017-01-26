@@ -1177,7 +1177,8 @@ function isEmail(email) {
     return regex.test(email);
 }
 function isTelephone(telephone){
-    var regex = /^((8|\+7)[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$/;
+    //var regex = /^((8|\+7)[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$/;
+var regex = /^((\+[0-9]{1})[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$/;
     return regex.test(telephone);
 }
 
