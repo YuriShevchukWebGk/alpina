@@ -1678,9 +1678,10 @@
     //Add coupon list item in admin menu
     AddEventHandler("main", "OnBuildGlobalMenu", "extraMenu");
     function extraMenu(&$adminMenu, &$moduleMenu){
+        //страница со списком купонов в админке
         $moduleMenu[] = array(
             "parent_menu" => "global_menu_marketing",
-            "section" => "webgk.coupons",
+            "section"     => "webgk.coupons",
             "sort"        => 500,
             "url"         => "coupon-list.php?lang=".LANG,
             "text"        => 'Список купонов правил работы с корзиной',
@@ -1688,6 +1689,20 @@
             "icon"        => "form_menu_icon",
             "page_icon"   => "form_page_icon",
             "items_id"    => "menu_webgk.coupons",
+            "items"       => array()
+        );
+        
+        //страница экспорта заказов в "доставка guru"  
+        $moduleMenu[] = array(
+            "parent_menu" => "global_menu_store",
+            "section"     => "webgk.guru_export",
+            "sort"        => 150,
+            "url"         => "guru_export.php?lang=".LANG,
+            "text"        => 'Dostavka guru экспорт',
+            "title"       => 'Экспорт заказов Dostavka guru',
+            "icon"        => "form_menu_icon",
+            "page_icon"   => "form_page_icon",
+            "items_id"    => "menu_webgk.guru_export",
             "items"       => array()
         );
     }
