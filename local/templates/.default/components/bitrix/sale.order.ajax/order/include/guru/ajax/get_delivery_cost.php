@@ -24,10 +24,12 @@ $context  = stream_context_create($opts);
 $result = file_get_contents('http://api.dostavka.guru/client/calc_guru_main_2_0.php', false, $context);
 
 list($delivery_price, $delivery_time) = split('::', $result);
-echo $result;
-/*if ($delivery_price != "ERROR") {
-	sprintf("%s::%s", $delivery_price, $delivery_time);
-} else {
-	// подхват здесь на случай ошибки
-}*/
+
+if ($delivery_price == "ERROR") {
+	$default_values = getDefaultGuruValues();
+	$delivery_price = $default_values['PRICE'];
+	$delivery_time  = $default_values['TIME'];
+}
+
+echo $delivery_price . "::" . $delivery_time;
 ?>

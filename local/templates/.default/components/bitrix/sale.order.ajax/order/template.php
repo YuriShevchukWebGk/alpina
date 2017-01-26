@@ -208,7 +208,8 @@
         }
         // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
         if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
-            $(".clientInfoWrap div[data-property-id-row='5']").hide();
+            $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
+            $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
         }
 
         //Подсвечиваем активное местоположение в избранных
@@ -548,7 +549,8 @@
                                     
                                     // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
                                     if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
-							            $(".clientInfoWrap div[data-property-id-row='5']").hide();
+							            $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
+							            $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
 							        }
 
                                     //2. подсветка варианта оплаты для электронных платежей

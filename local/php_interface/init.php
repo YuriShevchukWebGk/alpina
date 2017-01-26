@@ -168,6 +168,18 @@
 			),
 		);
 	}
+	
+	/**
+	 * Дефолтные значения для доставки гуру на случай, если что-то пошло не так и цена доставки 0
+	 *
+	 * @return array
+	 * */
+	function getDefaultGuruValues() {
+		return $guru_default_values = array(
+			"PRICE" => 269,
+			"TIME"  => 0
+		);
+	}
 
     /***************
     *

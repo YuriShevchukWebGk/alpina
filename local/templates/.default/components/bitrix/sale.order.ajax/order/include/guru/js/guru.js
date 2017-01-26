@@ -137,8 +137,11 @@ function fitDeliveryData(delivery_time, delivery_price) {
     // установка значений для блока с самой доставкой
     $(".ID_DELIVERY_ID_" + window.GURU_DELIVERY_ID).html(delivery_price + ' руб.');
     $("#guru_cost").val(delivery_price);
-    $("#guru_delivery_time").show();
-    $("#guru_delivery_time span").html(delivery_time);
+    if (parseInt(delivery_time) != 0) {
+    	// если значения не будет, то значит произошла ошибка и время доставки не показываем
+    	$("#guru_delivery_time").show();
+    	$("#guru_delivery_time span").html(delivery_time);	
+    }
 }
 
 /**
@@ -153,7 +156,8 @@ function setAddressData(delivery_data) {
 	$(".guru_point_addr").html(delivery_data.addr);
 	// далее подставляем инфу в скрытые инпуты, для передачи дальше
 	$("#guru_delivery_data").val(delivery_data.code + "|" + delivery_data.delivery_date);
-	$("#ORDER_PROP_5").val(delivery_data.code + "|" + delivery_data.delivery_date);
+	$("#ORDER_PROP_5").val(delivery_data.code + "|" + delivery_data.delivery_date); // физ-лицо
+	$("#ORDER_PROP_14").val(delivery_data.code + "|" + delivery_data.delivery_date); // юр-лицо
 	// устанавливаем флаг, что город выбран, нужно для js валидации
 	$("#guru_selected").val(1);
 }
