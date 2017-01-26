@@ -250,7 +250,6 @@ function CourierHandler() {
 			$.post("/admin_modules/couriers/php/matchCourierAndOrder.php", actionObject , function(data) {   
 				response = JSON.parse(data);
 				if(response.status=="success" && response.relations){
-					//document.querySelector(".adm-table-row-active div.addedCourier").dataset.relationId = response.relationId;
 					console.info(response.relations);
 				} else if(response.status=="success"){
 					console.info(response.msg);

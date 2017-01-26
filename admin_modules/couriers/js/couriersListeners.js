@@ -15,9 +15,6 @@ function OrdersListCourirerListener(){
 			e.preventDefault();
 			if($("#form_tbl_sale_order option[value='status_I']").is(":selected")){
 				this.orderObj.selectedOrderStatus
-				//if(this.selectedOrdersCount>1){
-					//popUp.show();
-					//cHandler.tooManyOrdersSelected();
 				if(this.orderObj.selectedOrderStatus){
 					popUp.show();
 					cHandler.getCouriersList();
@@ -39,8 +36,6 @@ function OrdersListCourirerListener(){
 		
 		$('body').on('DOMSubtreeModified',"#tbl_sale_order_selected_count",function(e){
 			this.selectedOrdersCount = parseInt($("#tbl_sale_order_selected_count span").text());
-			//if(this.selectedOrdersCount==1){
-				
 				 /**
 				 *
 				 * Sorry, but it's only one reliable way to get selected order ID.
@@ -51,7 +46,6 @@ function OrdersListCourirerListener(){
 				
 				var selectedOrderID = parseInt($(".adm-table-row-active").attr("oncontextmenu").match(/ID=\d+/)[0].replace(/\D+/,''));
 				this.orderObj.getSelectedOrderStatus(selectedOrderID);
-			//}
 		}.bind(this))
 	}
 	
@@ -87,7 +81,6 @@ function OrderDetailCourirerListener(){
 	this.onloadOrderStatus;
 	
 	this.init = function(){
-		//this.onloadOrderStatus = $("#STATUS_ID option:selected").val();
 		$('body').on('click',"#editStatusDIV .adm-btn",function(e){
 			e.preventDefault();
 			if(document.querySelector("#allow_delivery_name").innerText.match(/Курьер/) && $("#STATUS_ID option:selected").val() == 'I'){
@@ -114,7 +107,6 @@ function OrderDetailCourirerListener(){
 			var courierButtonTemplate = '<tr id="order_detail_courier" style="display:table-row"><td>&nbsp;</td><td valign="middle" data-relation-id="<%=rel_id%>" data-courier-id="<%=cour_id%>" class="btn_order"><a title="<%=button_text%>" onClick="" class="changeCourier adm-btn adm-btn-green" href="javascript:void(0);"><%=button_text%></a></td></tr>'
 			if(retData.status == "success"){
 				console.info(retData.msg);
-				//retData.existingCouriers
 				resultString += courierDataTemplate.replace("<%=current_courier%>",retData.existingCouriers[0].courierInfo);
 				resultString += courierButtonTemplate.replace(/<%=button_text%>/g,"Изменить").replace(/<%=cour_id%>/g,retData.existingCouriers[0].courierID).replace(/<%=rel_id%>/g,retData.existingCouriers[0].relationID);
 			} else if(retData.status == "error"){
