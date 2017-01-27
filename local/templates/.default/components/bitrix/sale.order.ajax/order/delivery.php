@@ -155,6 +155,8 @@
                 if($arDelivery["ID"]==22 && $isOnlyCertificate==true) {  
                     $arDelivery["CHECKED"]='Y';
                 }
+				// если это юр лицо и вес больше 10кг, то мимо
+                if ($arDelivery["ID"] == GURU_DELIVERY_ID && $arResult["USER_VALS"]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID && $arResult['ORDER_WEIGHT'] > GURU_LEGAL_ENTITY_MAX_WEIGHT) { continue; }
 
                 if($arDelivery["ISNEEDEXTRAINFO"] == "Y")
                     $extraParams = "showExtraParamsDialog('".$delivery_id."');";

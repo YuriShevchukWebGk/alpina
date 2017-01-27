@@ -1,4 +1,4 @@
-<?   error_reporting(E_ALL);
+<?
     /** @global CMain $APPLICATION */
     /** @global CUser $USER */
     /** @global string $DBType */
@@ -24,10 +24,9 @@
     $order = "DESC";      
 
     $filter = array(
-        "DELIVERY_ID" => GURU_DELIVERY_ID, 
         "LOGIC" => "OR",
-        array("GURU.ORDER_PROPS_ID" => GURU_F_PERSON_ID, "GURU.VALUE" => "N"),
-        array("GURU.ORDER_PROPS_ID" => GURU_L_PERSON_ID, "GURU.VALUE" => "N")
+        array("GURU.ORDER_PROPS_ID" => GURU_F_PERSON_ID, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID),
+        array("GURU.ORDER_PROPS_ID" => GURU_L_PERSON_ID, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID)
     );    
 
     $getListParams = array(
