@@ -103,7 +103,8 @@
                 <?}?>
         </div>
         <div class="totalText">
-            <span style="display: none;" class="order_weight"><?=$arResult["ORDER_WEIGHT_FORMATED"]?></span>
+            <span style="display: none;" class="order_weight"><?=$arResult["ORDER_DATA"]["ORDER_WEIGHT"]?></span>
+            <span style="display: none;" class="items_sum"><?=$arResult["ORDER_DATA"]["PRICE"]?></span>
             <?if (floatval($arResult['ORDER_WEIGHT']) > 0){?>
                 <p>Вес</p>
                 <?}?>    

@@ -18,14 +18,26 @@
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
     $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
+	// доставка гуру
+	$APPLICATION->AddHeadString('<script src="http://api.dostavka.guru/client/collection-search-provider.js"></script>');
+	$APPLICATION->AddHeadString('<script src="http://api-maps.yandex.ru/2.1/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>');
+	$APPLICATION->SetAdditionalCSS($templateFolder . "/include/guru/css/guru.css");
+	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/guru.js");
+
     $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
     include ('include/functions.php');
 ?>
+
 <style>
     /* Лучше так, чем городить адовые городушки на js */
     input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         display: block;
     }
+    
+    input#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>:checked ~ div.guru_delivery_wrapper {
+        display: block;
+    }
+    
 	#order_form_div .location-block-wrapper {
 		max-width: 100%;
 	}
@@ -53,7 +65,8 @@
 
 
 <script>
-
+	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
+	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
@@ -191,6 +204,11 @@
 
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
+        }
+        // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
+        if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
+            $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
+            $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
         }
 
         //Подсвечиваем активное местоположение в избранных
@@ -447,6 +465,20 @@
                                                 }
                                             }
                                         }
+                                        // доставка гуру
+                                        if (flag) {
+                                            if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").is(':checked')) {
+                                            	if(!$("#guru_selected").val()) {
+                                            		$('html, body').animate({
+                                                        scrollTop: $(".js_delivery_block").offset().top
+                                                        }, 500);
+                                                    $(".guru_error").show();
+                                                    flag = false; return false;
+                                            	} else {
+                                            		$(".guru_error").hide();
+                                            	}
+                                            }
+                                        }
                                     }
 
                                     if(flag){
@@ -520,6 +552,12 @@
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
                                     //доп функции/////////////////////////////////
                                     setOptions();
+                                    
+                                    // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
+                                    if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
+							            $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
+							            $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
+							        }
 
                                     //2. подсветка варианта оплаты для электронных платежей
                                     if(localStorage.getItem('active_rfi_button')){
@@ -553,6 +591,18 @@
                                             });
                                         }
                                     }
+                                    // инициализация карты доставки гуру после каждого аякса
+                                    $.post("http://api.dostavka.guru/client/get_pvz_codes_2.php",
+								    {init: 'get_pvz' }).success(function(data) {
+								        var center_1='';
+								        var center_2='';
+								            var points = eval("obj = " + data);
+								            if(data==''){
+								                alert('Нет соединения с сервером пунктов выдачи!');
+								                return false;
+								            }
+								            maps_init_GURU(points, center_1, center_2);
+								    });
                                 }
 
                                 function SetContact(profileId)

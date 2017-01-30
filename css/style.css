@@ -5739,6 +5739,14 @@ table.form-table tr td:nth-child(2){
     color: red;
     display: none;
 }
+
+.guru_error {
+    width: 365px;
+    margin-bottom: 10px;
+    color: red;
+    display: none;
+}
+
 .title-search-result {
 	width:900px!important;
 }
