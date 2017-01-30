@@ -112,7 +112,7 @@
                                 <div class="categoryBooks">
                                     <?//arshow($arItem["DETAIL_PICTURE"]);?>
                                     <div class="sect_badge">
-                                        <? if (/*($SavingsDiscount > 0) && */($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") && $arItem['PROPERTIES']['spec_price']['VALUE'] )
+                                        <? if (/*($SavingsDiscount > 0) && */($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") && $arItem['PROPERTIES']['spec_price']['VALUE'] && $arItem['PROPERTIES']['show_discount_icon']['VALUE'] == "Y")
                                             {
                                                 switch ($arItem['PROPERTIES']['spec_price']['VALUE'])
                                                 {
