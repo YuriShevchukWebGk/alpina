@@ -1,0 +1,20 @@
+<?
+$MESS["ORDER_ID"] = "ID";
+$MESS["ORDER_DATE_CREATE"] = "Дата создания";
+$MESS["ORDER_STATUS"] = "Статус";
+$MESS["ORDER_USER"] = "Пользователь";
+$MESS["ORDER_SUMM"] = "Сумма заказа";
+$MESS["ORDER_PERSON_TYPE"] = "Тип плательщика";  
+$MESS["DOSTAVKA_GURU_EXPORT"] = 'Экспорт заказов в "Dostavka Guru"';  
+$MESS["ORDERS_TO_EXPORT"] = "Заказы, которые будут экспортированы:";  
+$MESS["DO_EXPORT"] = "Экспортировать";  
+$MESS["NO_ORDERS"] = "Новые заказы для экспорта отсутствуют";  
+$MESS["EXPORT_STATUS"] = "Статус экспорта";  
+$MESS["EXPORT_PROCESSING"] = "Выполняется экспорт...";  
+$MESS["EXPORT_ORDERS_COUNT"] = "Заказов обработано";  
+$MESS["FROM"] = "из";  
+$MESS["PROP_NAME"] = 'Экспортирван в "Dostavka guru"';  
+$MESS["ORDER_UPDATE_ERROR"] = "Заказ экспортирован в Доставка Гуру, но не установлен флаг об отправке!";  
+$MESS["DELIVERY"] = "ДОСТАВКА";  
+$MESS["PVZ"] = "ПВЗ";  
+$MESS["MOSCOW"] = "Москва";  
