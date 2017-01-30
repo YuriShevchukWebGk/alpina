@@ -25,8 +25,8 @@
 
     $filter = array(
         "LOGIC" => "OR",
-        array("GURU.ORDER_PROPS_ID" => GURU_F_PERSON_ID, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID),
-        array("GURU.ORDER_PROPS_ID" => GURU_L_PERSON_ID, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID)
+        array("GURU.ORDER_PROPS_ID" => EXPORTED_TO_GURU_PROPERTY_ID_NATURAL, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID),
+        array("GURU.ORDER_PROPS_ID" => EXPORTED_TO_GURU_PROPERTY_ID_LEGAL, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID)
     );    
 
     $getListParams = array(

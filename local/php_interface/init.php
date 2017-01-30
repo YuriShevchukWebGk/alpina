@@ -37,6 +37,8 @@
     define ("CASHLESS_PAYSYSTEM_ID", 12);
     define ("FLIPPOST_ID", 30);
 	define ("GURU_DELIVERY_ID", 43);
+	define ("EXPORTED_TO_GURU_PROPERTY_ID_NATURAL", 90); // физ. лицо
+	define ("EXPORTED_TO_GURU_PROPERTY_ID_LEGAL", 91); // юр. лицо
     define ("PICKPOINT_DELIVERY_ID", 18);
     define ("CITY_INDIVIDUAL_ORDER_PROP_ID", 2);
     define ("CITY_ENTITY_ORDER_PROP_ID", 3);
@@ -363,11 +365,19 @@
 				$payment->setField('SUM', $arFields['PRICE']);
 				$payment->save();
 			}
-			
+
 			// записываем тех данные в поле адреса id пункта самовывоза|дата доставки
 			$property_collection = $order_instance->getPropertyCollection();
-			$address_property_instance  = $property_collection->getItemByOrderPropertyId($arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"]);
+			if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);
+				$exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_LEGAL);
+			} else {
+				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID);
+				$exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_NATURAL);
+			}
 			$address_property_instance->setValue($_REQUEST['guru_delivery_data']);
+			$exported_to_dg_property_instance->setValue("N");
+			
 			$order_instance->save();
 		}
 	}
