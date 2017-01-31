@@ -123,8 +123,6 @@
     BX.addCustomEvent('onDeliveryExtraServiceValueChange', function(){ submitForm(); });
 
 </script>
-
-
 <?
     //Check if order have certificate
     $isOnlyCertificate = true;
@@ -157,6 +155,8 @@
                 if($arDelivery["ID"]==22 && $isOnlyCertificate==true) {  
                     $arDelivery["CHECKED"]='Y';
                 }
+				// если это юр лицо и вес больше 10кг, то мимо
+                if ($arDelivery["ID"] == GURU_DELIVERY_ID && $arResult["USER_VALS"]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID && $arResult['ORDER_WEIGHT'] > GURU_LEGAL_ENTITY_MAX_WEIGHT) { continue; }
 
                 if($arDelivery["ISNEEDEXTRAINFO"] == "Y")
                     $extraParams = "showExtraParamsDialog('".$delivery_id."');";
@@ -184,7 +184,7 @@
                     <?= htmlspecialcharsbx($arDelivery["NAME"])?> -                   
                     <?if(isset($arDelivery["PRICE"])):?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
-                            <? if ($arDelivery["ID"] == FLIPPOST_ID) {
+                            <? if ($arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID) {
                                 echo "Выберите местоположение";
                             } else { ?>
                                 <?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?>
@@ -267,6 +267,21 @@
                     <div id="flippost_delivery_time" class="flippost_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
                     <input type="hidden" id="flippost_address" name="flippost_address" value="">
                     <input type="hidden" id="flippost_cost" name="flippost_cost" value="">  
+                <? } ?>
+                
+                <? if ($arDelivery["ID"] == GURU_DELIVERY_ID) { ?>
+                	<div class="guru_delivery_wrapper">
+                		<div class="guru_error"><?= GetMessage('GURU_ERROR') ?></div>
+                		<b><?= GetMessage('SEARCH_ON_MAP') ?></b>
+						<br><span id="close_map" style="position:fixed; top:-2000px; cursor:pointer; z-index:999; right:75px; background:#cccccc; display:inline-block; padding:2px 4px; padding-bottom:4px; text-decoration:underline;">закрыть</span>
+						<span style="cursor:pointer; display:block; text-decoration:underline;" class="message-map-link"><?= GetMessage('CHOSE_ON_MAP') ?></span>
+						<div id="YMapsID"></div>
+						<div class="guru_point_addr"></div>
+						<div id="guru_delivery_time" class="guru_delivery_time"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
+						<input type="hidden" id="guru_delivery_data" name="guru_delivery_data" value="">
+                    	<input type="hidden" id="guru_cost" name="guru_cost" value="">
+                    	<input type="hidden" id="guru_selected" name="guru_selected" value="">
+                	</div>
                 <? } ?>
 
                 <div class="clear"></div>

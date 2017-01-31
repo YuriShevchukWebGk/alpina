@@ -1026,3 +1026,21 @@ to {
     font-family: "Walshein_regular";
     margin: 10px 0 0 35px;
 }
+
+.guru_delivery_time { 
+	display: none;
+    color: #627478;
+    font-family: "Walshein_regular";
+	margin-top: 10px;
+}
+
+.guru_point_addr {
+	color: #627478;
+    font-family: "Walshein_regular";
+	margin-top: 10px;
+}
+
+.guru_delivery_wrapper {
+	margin-left: 34px;
+	display: none;
+}

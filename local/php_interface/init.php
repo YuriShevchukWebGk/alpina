@@ -36,6 +36,9 @@
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("CASHLESS_PAYSYSTEM_ID", 12);
     define ("FLIPPOST_ID", 30);
+	define ("GURU_DELIVERY_ID", 43);
+	define ("EXPORTED_TO_GURU_PROPERTY_ID_NATURAL", 90); // физ. лицо
+	define ("EXPORTED_TO_GURU_PROPERTY_ID_LEGAL", 91); // юр. лицо
     define ("PICKPOINT_DELIVERY_ID", 18);
     define ("CITY_INDIVIDUAL_ORDER_PROP_ID", 2);
     define ("CITY_ENTITY_ORDER_PROP_ID", 3);
@@ -55,6 +58,7 @@
     define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
     define ("BIK_FOR_EXPENSE_OFFER", "044525716");
     define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
+    define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
 
     /**
     * 
@@ -155,22 +159,34 @@
     }
 
     /**
-    * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
-    *
-    * @return array
-    * */
-    function getDefaultFlippostValues() {
-        return $flippost_default_values = array(
-            array(
-                "PRICE" => 1500.00,
-                "WEIGHT" => array(0, 5000)
-            ),
-            array(
-                "PRICE" => 3000.00,
-                "WEIGHT" => 5000
-            ),
-        );
-    }
+	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
+	 *
+	 * @return array
+	 * */
+	function getDefaultFlippostValues() {
+		return $flippost_default_values = array(
+			array(
+				"PRICE" => 1500.00,
+				"WEIGHT" => array(0, 5000)
+			),
+			array(
+				"PRICE" => 3000.00,
+				"WEIGHT" => 5000
+			),
+		);
+	}
+	
+	/**
+	 * Дефолтные значения для доставки гуру на случай, если что-то пошло не так и цена доставки 0
+	 *
+	 * @return array
+	 * */
+	function getDefaultGuruValues() {
+		return $guru_default_values = array(
+			"PRICE" => 269,
+			"TIME"  => 0
+		);
+	}
 
     /***************
     *
@@ -247,72 +263,124 @@
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
 
-    AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
-    AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
+	AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
+	AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 
-    /**
-    * Handler для доставки flippost. Плюсуем стоимость доставки
-    *
-    * @param array $arFields
-    * @return void
-    *
-    * */
-    function flippostHandlerBefore(&$arFields) {
-        if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
-            $delivery_price = 0;
-            $flippost_default_values = getDefaultFlippostValues();
-            if ($_REQUEST['flippost_cost']) {
-                $delivery_price = $_REQUEST['flippost_cost'];
-            } else {
-                foreach ($flippost_default_values as $default_variant) {
-                    if (is_array($default_variant['WEIGHT'])) {
-                        if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
-                            $delivery_price = $default_variant['PRICE'];
-                            break;
-                        }
-                    } else {
-                        if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
-                            $delivery_price = $default_variant['PRICE'];
-                            break;
-                        }
-                    }
-                }
-            }
-            $arFields['PRICE'] += floatval($delivery_price);
-            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
-        }
-    }
+	/**
+	 * Handler для доставки flippost. Плюсуем стоимость доставки
+	 *
+	 * @param array $arFields
+	 * @return void
+	 *
+	 * */
+	function flippostHandlerBefore(&$arFields) {
+		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+			$delivery_price = 0;
+			$flippost_default_values = getDefaultFlippostValues();
+			if ($_REQUEST['flippost_cost']) {
+				$delivery_price = $_REQUEST['flippost_cost'];
+			} else {
+				foreach ($flippost_default_values as $default_variant) {
+					if (is_array($default_variant['WEIGHT'])) {
+						if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
+							$delivery_price = $default_variant['PRICE'];
+							break;
+						}
+					} else {
+						if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
+							$delivery_price = $default_variant['PRICE'];
+							break;
+						}
+					}
+				}
+			}
+			$arFields['PRICE'] += floatval($delivery_price);
+			$arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+		}
+	}
 
-    /**
-    * Handler для доставки flippost. Изменяем адрес
-    *
-    * @param array $arFields
-    * @return void
-    *
-    * */
-    function flippostHandlerAfter($ID, $arFields) {
-        GLOBAL $arParams;
-        if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
-            $arPropFields = array(
-                "ORDER_ID" => $ID,
-                "NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
-                "VALUE" => $_REQUEST['flippost_address']
-            );
+	/**
+	 * Handler для доставки flippost. Изменяем адрес
+	 *
+	 * @param array $arFields
+	 * @return void
+	 *
+	 * */
+	function flippostHandlerAfter($ID, $arFields) {
+		GLOBAL $arParams;
+		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+			$arPropFields = array(
+				"ORDER_ID" => $ID,
+				"NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
+				"VALUE" => $_REQUEST['flippost_address']
+			);
 
-            $arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
-            $arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
+			$arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
+			$arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
 
-            CSaleOrderPropsValue::Add($arPropFields);
+			CSaleOrderPropsValue::Add($arPropFields);
 
-            // Добавляем полную стоимость заказа в оплату
-            $order_instance = Bitrix\Sale\Order::load($ID);
-            $payment_collection = $order_instance->getPaymentCollection();
-            foreach ($payment_collection as $payment) {
-                $payment->setField('SUM', $arFields['PRICE']);
-                $payment->save();
-            }
-        }
-    }
+			// Добавляем полную стоимость заказа в оплату
+			$order_instance = Bitrix\Sale\Order::load($ID);
+			$payment_collection = $order_instance->getPaymentCollection();
+			foreach ($payment_collection as $payment) {
+				$payment->setField('SUM', $arFields['PRICE']);
+				$payment->save();
+			}
+		}
+	}
+	
+	AddEventHandler("sale", "OnBeforeOrderAdd", "guruHandlerBefore"); // меняем цену для guru
+	AddEventHandler("sale", "OnOrderSave", "guruHandlerAfter"); // меняем адрес для guru
+
+	/**
+	 * Handler для доставки guru. Плюсуем стоимость доставки
+	 *
+	 * @param array $arFields
+	 * @return void
+	 *
+	 * */
+	function guruHandlerBefore(&$arFields) {
+		if ($arFields['DELIVERY_ID'] == GURU_DELIVERY_ID) {
+			$delivery_price = $_REQUEST['guru_cost'];
+			$arFields['PRICE'] += floatval($delivery_price);
+			$arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+		}
+	}
+
+	/**
+	 * Handler для доставки guru. Изменяем адрес
+	 *
+	 * @param array $arFields
+	 * @return void
+	 *
+	 * */
+	function guruHandlerAfter($ID, $arFields) {
+		GLOBAL $arParams;
+		if ($arFields['DELIVERY_ID'] == GURU_DELIVERY_ID) {
+			// Добавляем полную стоимость заказа в оплату
+			$order_instance = Bitrix\Sale\Order::load($ID);
+			$payment_collection = $order_instance->getPaymentCollection();
+			foreach ($payment_collection as $payment) {
+				$payment->setField('SUM', $arFields['PRICE']);
+				$payment->save();
+			}
+
+			// записываем тех данные в поле адреса id пункта самовывоза|дата доставки
+			$property_collection = $order_instance->getPropertyCollection();
+			if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);
+				$exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_LEGAL);
+			} else {
+				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID);
+				$exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_NATURAL);
+			}
+			$address_property_instance->setValue($_REQUEST['guru_delivery_data']);
+			$exported_to_dg_property_instance->setValue("N");
+			
+			$order_instance->save();
+		}
+	}
 
     //Create gift coupon after buy certificate
     AddEventHandler("sale", "OnOrderAdd", Array("Certificate", "GenerateGiftCoupon"));
