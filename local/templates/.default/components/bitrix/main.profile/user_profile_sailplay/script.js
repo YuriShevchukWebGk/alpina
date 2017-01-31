@@ -47,3 +47,13 @@ $(function(){
     BX.addCustomEvent('onAjaxSuccess', function(){});
 })
 
+// Обрабтка формы, для возможности смены пароля при регистрации через Социальные сервисы
+$(document).ready(function(){
+    $(".account-form").on('submit', function(){   
+        $.ajax({
+            type: "POST",
+            url: "/ajax/change_socservices_external_id.php",
+            data: {}
+        })          
+    });
+});
