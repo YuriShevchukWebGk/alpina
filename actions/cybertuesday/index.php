@@ -69,6 +69,10 @@ $today = date("w");
 .bookWrap a {
 	text-decoration:none;
 }
+.diff {
+	color: green!important;
+	font-size: 14px!important;
+}
 .bookWrap img {
 	width:140px;
 	box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);
@@ -105,7 +109,7 @@ $today = date("w");
 	background:url(img/a.jpg) no-repeat 100% 26%, url(img/b.jpg) no-repeat 0% 39%,url(img/c.jpg) no-repeat 0% 68%,url(img/d.jpg) no-repeat 100% 100% #f7ebe0;
 }
 .landing .slide1 {
-	background: url(img/headern.jpg) no-repeat 50% 50%;
+	background: url(img/headern201701.jpg) no-repeat 50% 50%;
 }
 .landing .slide2 {
 	background: url(img/middle.jpg) no-repeat 50% 50%;
@@ -132,7 +136,8 @@ header .lkWrapp {
 	margin: 0 auto;
 	top: 473px;
 	color: rgb(255, 255, 255);
-	font-size: 23px;
+	font-size: 24px;
+	font-family: "Walshein_regular";
 	text-align: center;
 	width: 668px;	
 	line-height:140%;
@@ -195,122 +200,58 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 </header>
 <?$booksArray = array(
-array("img"=>"7","name"=>"Тюремные люди","discount"=>"40","oldprice"=>"285","newprice"=>"171","RND"=>"0,00861689737103621","link"=>"/catalog/BiographiesAndMemoirs/8165/","ID"=>"8165"),
-array("img"=>"39","name"=>"Мифы об эволюции человека","discount"=>"20","oldprice"=>"359","newprice"=>"287,2","RND"=>"0,0505727488061175","link"=>"/catalog/PopularScience/8454/","ID"=>"8454"),
-array("img"=>"30","name"=>"Книга о самых невообразимых животных: Бестиарий XXI века","discount"=>"20","oldprice"=>"725","newprice"=>"580","RND"=>"0,0871301297345309","link"=>"/catalog/PopularScience/8446/","ID"=>"8446"),
-array("img"=>"32","name"=>"Странная девочка","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,0919438588634316","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/8712/","ID"=>"8712"),
-array("img"=>"27","name"=>"Бьюти-мифы: Вся правда о ботоксе","discount"=>"20","oldprice"=>"529","newprice"=>"423,2","RND"=>"0,117020048723384","link"=>"/catalog/BeautyAndHistoryOfFashion/8254/","ID"=>"8254"),
-array("img"=>"43","name"=>"Вторая мировая война: Ад на земле","discount"=>"20","oldprice"=>"899","newprice"=>"719,2","RND"=>"0,138452890901276","link"=>"/catalog/PublicismDocumentaryProse/8246/","ID"=>"8246"),
-array("img"=>"9","name"=>"Групповой портрет на фоне мира","discount"=>"40","oldprice"=>"4269","newprice"=>"2561,4","RND"=>"0,167712681110883","link"=>"/catalog/Gifts/66427/","ID"=>"66427"),
-array("img"=>"44","name"=>"Шпаргалки для боссов: Жесткие и честные уроки управления","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,175679242682875","link"=>"/catalog/GeneralManagment/8698/","ID"=>"8698"),
-array("img"=>"3","name"=>"Антистресс для занятых людей: Медитативная раскраска","discount"=>"40","oldprice"=>"318","newprice"=>"190,8","RND"=>"0,221048978974571","link"=>"/catalog/CreativityAndCreation/8434/","ID"=>"8434"),
-array("img"=>"17","name"=>"Аргументируй это! Как убедить кого угодно в чем угодно","discount"=>"30","oldprice"=>"559","newprice"=>"391,3","RND"=>"0,26663043586228","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8242/","ID"=>"8242"),
-array("img"=>"48","name"=>"Здоровый сон - счастливый ребенок","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,271025771367114","link"=>"/catalog/BooksForParents/8175/","ID"=>"8175"),
-array("img"=>"35","name"=>"Как придумать идею","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,276755177857528","link"=>"/catalog/CreativityAndCreation/8314/","ID"=>"8314"),
-array("img"=>"51","name"=>"Семь навыков высокоэффективных людей (Обложка с клапанами","discount"=>"10","oldprice"=>"448","newprice"=>"403,2","RND"=>"0,285377467203807","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8194/","ID"=>"8194"),
-array("img"=>"36","name"=>"Цена человека. Заложник чеченской войны","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,303469441824816","link"=>"/catalog/PublicismDocumentaryProse/8460/","ID"=>"8460"),
-array("img"=>"14","name"=>"После трех уже поздно (обложка с клапанами)","discount"=>"30","oldprice"=>"369","newprice"=>"258,3","RND"=>"0,305563318169919","link"=>"/catalog/BooksForParents/66487/","ID"=>"66487"),
-array("img"=>"52","name"=>"Руководство астронавта по жизни на Земле. Чему научили меня 4000 часов на орбите","discount"=>"20","oldprice"=>"448","newprice"=>"358,4","RND"=>"0,308490119321168","link"=>"/catalog/PublicismDocumentaryProse/8402/","ID"=>"8402"),
-array("img"=>"40","name"=>"Застенчивый ребенок","discount"=>"20","oldprice"=>"339","newprice"=>"271,2","RND"=>"0,311082373120711","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/8584/","ID"=>"8584"),
-array("img"=>"23","name"=>"Режим гения: Распорядок дня великих людей","discount"=>"30","oldprice"=>"479","newprice"=>"335,3","RND"=>"0,390291348823001","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/7819/","ID"=>"7819"),
-array("img"=>"33","name"=>"Медитация для занятых людей: Восстановление внутренней гармонии где бы вы ни были","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,391233234062537","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8756/","ID"=>"8756"),
-array("img"=>"31","name"=>"Не кричите на детей! Как разрешать конфликты с детьми и делать так","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,420052417733542","link"=>"/catalog/BooksForParents/8714/","ID"=>"8714"),
-array("img"=>"37","name"=>"Искусство думать: Латеральное мышление как способ решения сложных задач","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,444915346209703","link"=>"/catalog/CreativityAndCreation/8382/","ID"=>"8382"),
-array("img"=>"28","name"=>"Ловушка для внимания: Как вызвать и удержать интерес к идее","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,499730059137612","link"=>"/catalog/Marketing/8594/","ID"=>"8594"),
-array("img"=>"21","name"=>"Спотыкаясь о счастье","discount"=>"30","oldprice"=>"448","newprice"=>"313,6","RND"=>"0,523504158025795","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8278/","ID"=>"8278"),
-array("img"=>"12","name"=>"Результативность: Секреты эффективного поведения","discount"=>"40","oldprice"=>"639","newprice"=>"383,4","RND"=>"0,558199435982334","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8101/","ID"=>"8101"),
-array("img"=>"50","name"=>"Атлант расправил плечи (три тома в одной книге)","discount"=>"20","oldprice"=>"749","newprice"=>"599,2","RND"=>"0,564808043147991","link"=>"/catalog/Gifts/65392/","ID"=>"65392"),
-array("img"=>"25","name"=>"Сам себе шеф-повар: Как научиться готовить без рецептов (Обложка)","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,577940523429363","link"=>"/catalog/HealthAndHealthyFood/8650/","ID"=>"8650"),
-array("img"=>"49","name"=>"Британия: MIND THE GAP","discount"=>"20","oldprice"=>"318","newprice"=>"254,4","RND"=>"0,586825741746038","link"=>"/catalog/HobbyTravelingCars/8085/","ID"=>"8085"),
-array("img"=>"8","name"=>"Сама уверенность: Как преодолеть внутренние барьеры и реализовать себя","discount"=>"40","oldprice"=>"479","newprice"=>"287,4","RND"=>"0,593505542583972","link"=>"/catalog/SelfConfidence/8464/","ID"=>"8464"),
-array("img"=>"22","name"=>"Бунин и Набоков. История соперничества","discount"=>"30","oldprice"=>"318","newprice"=>"222,6","RND"=>"0,597715587269234","link"=>"/catalog/BiographiesAndMemoirs/8177/","ID"=>"8177"),
-array("img"=>"53","name"=>"Я бабочка","discount"=>"10","oldprice"=>"299","newprice"=>"269,1","RND"=>"0,645255857858363","link"=>"/catalog/KnigiDlyaDetei/8784/","ID"=>"8784"),
-array("img"=>"47","name"=>"Трололо: Нельзя просто так взять и выпустить книгу про троллинг","discount"=>"20","oldprice"=>"529","newprice"=>"423,2","RND"=>"0,663816154385093","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/8752/","ID"=>"8752"),
-array("img"=>"10","name"=>"Экономическое равновесие: Теория объемной геометрии в экономике","discount"=>"40","oldprice"=>"399","newprice"=>"239,4","RND"=>"0,675457959425869","link"=>"/catalog/InvestmentsStock/8410/","ID"=>"8410"),
-array("img"=>"19","name"=>"Крылья мечты: Медитативная раскраска для взрослых","discount"=>"30","oldprice"=>"399","newprice"=>"279,3","RND"=>"0,677838225991471","link"=>"/catalog/CreativityAndCreation/8598/","ID"=>"8598"),
-array("img"=>"29","name"=>"Развитие памяти по методикам спецслужб","discount"=>"20","oldprice"=>"729","newprice"=>"583,2","RND"=>"0,681925263218149","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8093/","ID"=>"8093"),
-array("img"=>"41","name"=>"Инструменты бережливого производства II: Карманное руководство по практике применения Lean","discount"=>"20","oldprice"=>"224","newprice"=>"179,2","RND"=>"0,686962292589153","link"=>"/catalog/LeanManufacturingQualityManagement/5609/","ID"=>"5609"),
-array("img"=>"2","name"=>"Работа мировых рынков: Управление финансовой инфраструктурой","discount"=>"40","oldprice"=>"1049","newprice"=>"629,4","RND"=>"0,690463201176673","link"=>"/catalog/Economics/8516/","ID"=>"8516"),
-array("img"=>"45","name"=>"Суперобъекты: Звезды размером с город","discount"=>"20","oldprice"=>"448","newprice"=>"358,4","RND"=>"0,69949877772491","link"=>"/catalog/PopularScience/8760/","ID"=>"8760"),
-array("img"=>"1","name"=>"Антистресс для занятых людей: Медитативная раскраска (Макси)","discount"=>"40","oldprice"=>"399","newprice"=>"239,4","RND"=>"0,730866640814943","link"=>"/catalog/CreativityAndCreation/8624/","ID"=>"8624"),
-array("img"=>"26","name"=>"Договориться можно обо всем! (Обложка)","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,737713712822109","link"=>"/catalog/NegotiationsBusinessCommunication/66435/","ID"=>"66435"),
-array("img"=>"11","name"=>"Самоучитель топ-менеджера","discount"=>"40","oldprice"=>"709","newprice"=>"425,4","RND"=>"0,747616018399384","link"=>"/catalog/GeneralManagment/7718/","ID"=>"7718"),
-array("img"=>"18","name"=>"Ваши взрослые дети: Руководство для родителей","discount"=>"30","oldprice"=>"399","newprice"=>"279,3","RND"=>"0,754936239738891","link"=>"/catalog/BooksForParents/8696/","ID"=>"8696"),
-array("img"=>"13","name"=>"160 развивающих игр для детей от рождения до 3 лет","discount"=>"30","oldprice"=>"448","newprice"=>"313,6","RND"=>"0,825587775753728","link"=>"/catalog/BooksForParents/7893/","ID"=>"7893"),
-array("img"=>"34","name"=>"Успеть за 120 минут: Как создать условия для максимально эффективной работы","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,8404238698637","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8856/","ID"=>"8856"),
-array("img"=>"42","name"=>"Иллюзия выбора: Кто принимает решения за нас и почему это не всегда плохо","discount"=>"20","oldprice"=>"529","newprice"=>"423,2","RND"=>"0,843359536688697","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/60907/","ID"=>"60907"),
-array("img"=>"46","name"=>"Теряя невинность: Как я построил бизнес","discount"=>"20","oldprice"=>"639","newprice"=>"511,2","RND"=>"0,843391413798734","link"=>"/catalog/SuccessStory/66516/","ID"=>"66516"),
-array("img"=>"15","name"=>"Визуализируй это! Как использовать графику","discount"=>"30","oldprice"=>"559","newprice"=>"391,3","RND"=>"0,846113603258287","link"=>"/catalog/PrezentatsiiRitorika/7833/","ID"=>"7833"),
-array("img"=>"24","name"=>"Эти важные мелочи: 163 способа добиться совершенства","discount"=>"30","oldprice"=>"639","newprice"=>"447,3","RND"=>"0,860224469263107","link"=>"/catalog/GeneralManagment/6908/","ID"=>"6908"),
-array("img"=>"20","name"=>"Правила общения с детьми: 12 «нельзя»","discount"=>"30","oldprice"=>"299","newprice"=>"209,3","RND"=>"0,866405066414735","link"=>"/catalog/BooksForParents/8654/","ID"=>"8654"),
-array("img"=>"16","name"=>"Психология ребенка от 0 до 2: Как общение стимулирует развитие","discount"=>"30","oldprice"=>"399","newprice"=>"279,3","RND"=>"0,905260388123887","link"=>"/catalog/BooksForParents/8700/","ID"=>"8700"),
-array("img"=>"6","name"=>"Русское влияние в Евразии","discount"=>"40","oldprice"=>"639","newprice"=>"383,4","RND"=>"0,914136263106618","link"=>"/catalog/Policy/8228/","ID"=>"8228"),
-array("img"=>"4","name"=>"Личная власть","discount"=>"40","oldprice"=>"399","newprice"=>"239,4","RND"=>"0,937882430598084","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/7887/","ID"=>"7887"),
-array("img"=>"5","name"=>"Быть женщиной: Откровения отъявленной феминистки","discount"=>"40","oldprice"=>"318","newprice"=>"190,8","RND"=>"0,944929365465586","link"=>"/catalog/SelfConfidence/8149/","ID"=>"8149"),
-array("img"=>"38","name"=>"Книга о потерянном времени: У вас больше возможностей","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,976896985249441","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8470/","ID"=>"8470")
+array('no'=>0, 'img'=>'/upload/resize_cache/iblock/841/140_270_1/8411c6f97bf15f2c7e827fc4591769ea.jpg', 'name'=>'Атлант расправил плечи (в 3-х томах)', 'discount'=>40, 'oldprice'=>1199, 'newprice'=>719.4, 'link'=>'/catalog/BusinessNovels/6115/', 'diff'=>479.6, 'id'=>6115),
+array('no'=>1, 'img'=>'/upload/resize_cache/iblock/6ee/140_270_1/6eeda12a7e8b1b9de58c7591f823ebec.jpg', 'name'=>'SPQR: История Древнего Рима', 'discount'=>30, 'oldprice'=>725, 'newprice'=>507.5, 'link'=>'/catalog/PopularScience/90639/', 'diff'=>217.5, 'id'=>90639),
+array('no'=>2, 'img'=>'/upload/resize_cache/iblock/fdc/140_270_1/fdcb64a96e155bdeb55629423bc17271.jpg', 'name'=>'Пиши, сокращай: Как создавать сильный текст', 'discount'=>30, 'oldprice'=>589, 'newprice'=>412.3, 'link'=>'/catalog/Marketing/81365/', 'diff'=>176.7, 'id'=>81365),
+array('no'=>3, 'img'=>'/upload/resize_cache/iblock/6c8/140_270_1/6c8166e737b30343a4ce1f575eb1097b.jpg', 'name'=>'Битва за Рунет: Как власть манипулирует информацией и следит за каждым из нас', 'discount'=>40, 'oldprice'=>479, 'newprice'=>287.4, 'link'=>'/catalog/PublicismDocumentaryProse/89045/', 'diff'=>191.6, 'id'=>89045),
+array('no'=>4, 'img'=>'/upload/resize_cache/iblock/1a0/140_270_1/1a04302caca56c9421b775be6d3ef486.jpg', 'name'=>'Доброе утро каждый день: Как рано вставать и все успевать', 'discount'=>30, 'oldprice'=>399, 'newprice'=>279.3, 'link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/80496/', 'diff'=>119.7, 'id'=>80496),
+array('no'=>5, 'img'=>'/upload/resize_cache/iblock/69b/140_270_1/69b1e3379ddeb5aa3033e059bbb2d8dd.jpg', 'name'=>'Взрывной рост: Почему экспоненциальные организации в десятки раз продуктивнее вашей (и что с этим делать)', 'discount'=>30, 'oldprice'=>559, 'newprice'=>391.3, 'link'=>'/catalog/StartupsInnovativeEntrepreneurship/115583/', 'diff'=>167.7, 'id'=>115583),
+array('no'=>6, 'img'=>'/upload/resize_cache/iblock/f14/140_270_1/f144022648b133b378fc14383598db8c.jpg', 'name'=>'Иностранный для взрослых: Как выучить новый язык в любом возрасте', 'discount'=>30, 'oldprice'=>479, 'newprice'=>335.3, 'link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/82845/', 'diff'=>143.7, 'id'=>82845),
+array('no'=>7, 'img'=>'/upload/resize_cache/iblock/213/140_270_1/213fa194a0207161f052f170285ef6fd.jpg', 'name'=>'Мой взгляд на будущее мира', 'discount'=>30, 'oldprice'=>559, 'newprice'=>391.3, 'link'=>'/catalog/Economics/115014/', 'diff'=>167.7, 'id'=>115014),
+array('no'=>8, 'img'=>'/upload/resize_cache/iblock/a8c/140_270_1/a8c2da982d3fc28a33e9c10ef25a2920.jpg', 'name'=>'Современные яды: Дозы, действие, последствия', 'discount'=>30, 'oldprice'=>479, 'newprice'=>335.3, 'link'=>'/catalog/PopularScience/84737/', 'diff'=>143.7, 'id'=>84737),
+array('no'=>9, 'img'=>'/upload/resize_cache/iblock/7f8/140_270_1/7f86d9a2fde2004fed75d41128c0760b.jpg', 'name'=>'Работа с возражениями: 200 приемов продаж для холодных звонков и личных встреч', 'discount'=>30, 'oldprice'=>448, 'newprice'=>313.6, 'link'=>'/catalog/Sales/94415/', 'diff'=>134.4, 'id'=>94415),
+array('no'=>10, 'img'=>'/upload/resize_cache/iblock/9d1/140_270_1/9d114306c33f0c81c32abb08d8ff34e3.jpg', 'name'=>'Анатомия истории: 22 шага к созданию успешного сценария', 'discount'=>40, 'oldprice'=>559, 'newprice'=>335.4, 'link'=>'/catalog/ArtOfWriting/79730/', 'diff'=>223.6, 'id'=>79730),
+array('no'=>11, 'img'=>'/upload/resize_cache/iblock/7fe/140_270_1/7fe8a129b8a09109b56726b6b556c265.jpg', 'name'=>'Будущее работы: Что нужно делать сегодня, чтобы быть востребованным завтра', 'discount'=>40, 'oldprice'=>479, 'newprice'=>287.4, 'link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/7089/', 'diff'=>191.6, 'id'=>7089),
+array('no'=>12, 'img'=>'/upload/resize_cache/iblock/5c8/140_270_1/5c82584b7cccf32f9624000ed930285f.jpg', 'name'=>'Будущее разума', 'discount'=>30, 'oldprice'=>529, 'newprice'=>370.3, 'link'=>'/catalog/PopularScience/8290/', 'diff'=>158.7, 'id'=>8290),
+array('no'=>13, 'img'=>'/upload/resize_cache/iblock/089/140_270_1/0891627cedc50f0ed139ea937b591090.jpg', 'name'=>'В поисках энергии: Ресурсные войны, новые технологии и будущее энергетики', 'discount'=>30, 'oldprice'=>1199, 'newprice'=>839.3, 'link'=>'/catalog/Economics/8052/', 'diff'=>359.7, 'id'=>8052),
+array('no'=>14, 'img'=>'/upload/resize_cache/iblock/9ca/140_270_1/9cae643a0b6a3321c10fe0c46837c832.png', 'name'=>'Вязание без слез: Базовые техники и понятные схемы для создания изделий любого размера', 'discount'=>40, 'oldprice'=>448, 'newprice'=>268.8, 'link'=>'/catalog/CreativityAndCreation/68998/', 'diff'=>179.2, 'id'=>68998),
+array('no'=>15, 'img'=>'/upload/resize_cache/iblock/151/140_270_1/151be4194890b1b5fde34e6307134de1.jpg', 'name'=>'География гениальности: Где и почему рождаются великие идеи', 'discount'=>40, 'oldprice'=>479, 'newprice'=>287.4, 'link'=>'/catalog/CreativityAndCreation/80512/', 'diff'=>191.6, 'id'=>80512),
+array('no'=>16, 'img'=>'/upload/resize_cache/iblock/ef9/140_270_1/ef92d13119c1a35cc9a360041bd326df.jpg', 'name'=>'Век тревожности: Страхи, надежды, неврозы и поиски душевного покоя', 'discount'=>40, 'oldprice'=>479, 'newprice'=>287.4, 'link'=>'/catalog/PopularPsychologyPersonalEffectiveness/66418/', 'diff'=>191.6, 'id'=>66418),
+array('no'=>17, 'img'=>'/upload/resize_cache/iblock/e23/140_270_1/e239ba5966620c68bb98d25a472f828d.jpg', 'name'=>'Голубая точка. Космическое будущее человечества', 'discount'=>30, 'oldprice'=>479, 'newprice'=>335.3, 'link'=>'/catalog/PopularScience/75264/', 'diff'=>143.7, 'id'=>75264),
+array('no'=>18, 'img'=>'/upload/resize_cache/iblock/065/140_270_1/0650a925343a7fa64d73fd62fe227fca.jpg', 'name'=>'Двухшаговые продажи: Практические рекомендации', 'discount'=>40, 'oldprice'=>399, 'newprice'=>239.4, 'link'=>'/catalog/Sales/8342/', 'diff'=>159.6, 'id'=>8342),
+array('no'=>19, 'img'=>'/upload/resize_cache/iblock/c17/140_270_1/c17ce1ede7a262fc8e11c9ec6c0fa74c.png', 'name'=>'Еда без границ. Правила вкусных путешествий', 'discount'=>40, 'oldprice'=>448, 'newprice'=>268.8, 'link'=>'/catalog/HobbyTravelingCars/92702/', 'diff'=>179.2, 'id'=>92702),
+array('no'=>20, 'img'=>'/upload/resize_cache/iblock/9b4/140_270_1/9b4b4df5c8f68a11a1a293cbcc1b63a8.png', 'name'=>'Торт: Кулинарный детектив', 'discount'=>40, 'oldprice'=>399, 'newprice'=>239.4, 'link'=>'/catalog/Fiction/89560/', 'diff'=>159.6, 'id'=>89560),
+array('no'=>21, 'img'=>'/upload/resize_cache/iblock/ddf/140_270_1/ddfcb363f585e3ad69f878a8b7e81f00.jpg', 'name'=>'Захватчики: Люди и собаки против неандертальцев', 'discount'=>30, 'oldprice'=>448, 'newprice'=>313.6, 'link'=>'/catalog/PopularScience/86999/', 'diff'=>134.4, 'id'=>86999),
+array('no'=>22, 'img'=>'/upload/resize_cache/iblock/d07/140_270_1/d07c4d0661ee0bbb0622eea90a43899f.jpg', 'name'=>'Искусство жить просто: Как избавиться от лишнего и обогатить свою жизнь (Покетбук)', 'discount'=>40, 'oldprice'=>318, 'newprice'=>190.8, 'link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8272/', 'diff'=>127.2, 'id'=>8272),
+array('no'=>23, 'img'=>'/upload/resize_cache/iblock/ede/140_270_1/ede16721e1422a179217cf9c5b1c3bbf.jpg', 'name'=>'Как мы покупали русский интернет', 'discount'=>40, 'oldprice'=>479, 'newprice'=>287.4, 'link'=>'/catalog/SuccessStory/93327/', 'diff'=>191.6, 'id'=>93327),
+array('no'=>24, 'img'=>'/upload/resize_cache/iblock/48b/140_270_1/48b25d6b4d76105e6d7a7a87973c8340.jpg', 'name'=>'Культурный код: Как мы живем, что покупаем и почему', 'discount'=>40, 'oldprice'=>479, 'newprice'=>287.4, 'link'=>'/catalog/Marketing/5787/', 'diff'=>191.6, 'id'=>5787),
+array('no'=>25, 'img'=>'/upload/resize_cache/iblock/2c1/140_270_1/2c141a801368a26f03e13d64d6759f75.jpg', 'name'=>'Математическая смекалка', 'discount'=>40, 'oldprice'=>448, 'newprice'=>268.8, 'link'=>'/catalog/CreativityAndCreation/68989/', 'diff'=>179.2, 'id'=>68989),
+array('no'=>26, 'img'=>'/upload/resize_cache/iblock/64a/140_270_1/64a6027fa7fdbe80c375598f0647f0fb.jpg', 'name'=>'Поток: Психология оптимального переживания', 'discount'=>40, 'oldprice'=>448, 'newprice'=>268.8, 'link'=>'/catalog/PopularPsychologyPersonalEffectiveness/66494/', 'diff'=>179.2, 'id'=>66494),
+array('no'=>27, 'img'=>'/upload/resize_cache/iblock/bec/140_270_1/beca338fbb8a11ac0a9b51f74f6a35fa.jpg', 'name'=>'Развитие памяти по методикам спецслужб: Карманная версия', 'discount'=>40, 'oldprice'=>399, 'newprice'=>239.4, 'link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8522/', 'diff'=>159.6, 'id'=>8522),
+array('no'=>28, 'img'=>'/upload/resize_cache/iblock/92f/140_270_1/92f54b5767eb71aad316d9043fdcc6de.jpg', 'name'=>'Странная девочка, которая влюбилась в мозг: Как знание нейробиологии помогает стать привлекательнее, счастливее и лучше', 'discount'=>40, 'oldprice'=>479, 'newprice'=>287.4, 'link'=>'/catalog/PopularPsychologyPersonalEffectiveness/8712/', 'diff'=>191.6, 'id'=>8712),
+array('no'=>29, 'img'=>'/upload/resize_cache/iblock/b81/140_270_1/b816d8a17d57b69b01d88597e0ad0aa3.jpg', 'name'=>'Темная материя и динозавры: Удивительная взаимосвязь событий во Вселенной', 'discount'=>30, 'oldprice'=>559, 'newprice'=>391.3, 'link'=>'/catalog/PopularScience/94623/', 'diff'=>167.7, 'id'=>94623),
+array('no'=>30, 'img'=>'/upload/resize_cache/iblock/767/140_270_1/767635674b4bd22b91610dab4e7e0cd1.jpg', 'name'=>'Стив Джобс о бизнесе: 250 высказываний человека, изменившего мир', 'discount'=>40, 'oldprice'=>399, 'newprice'=>239.4, 'link'=>'/catalog/SuccessStory/7143/', 'diff'=>159.6, 'id'=>7143),
+array('no'=>31, 'img'=>'/upload/resize_cache/iblock/dd1/140_270_1/dd112b8b4c6cb26f22213635e5037af5.jpg', 'name'=>'Навыки ребенка в действии: Как помочь детям преодолеть психологические проблемы', 'discount'=>40, 'oldprice'=>269, 'newprice'=>161.4, 'link'=>'/catalog/BooksForParents/7643/', 'diff'=>107.6, 'id'=>7643),
+array('no'=>32, 'img'=>'/upload/resize_cache/iblock/01c/140_270_1/01cc08bc7e472ec8a742635026de2526.png', 'name'=>'Как начать жить и не облажаться', 'discount'=>40, 'oldprice'=>448, 'newprice'=>268.8, 'link'=>'/catalog/PopularPsychologyPersonalEffectiveness/84633/', 'diff'=>179.2, 'id'=>84633),
+array('no'=>33, 'img'=>'/upload/resize_cache/iblock/50e/140_270_1/50e9875b74c36faafe9435dd25bb6dfd.jpg', 'name'=>'Я английский бульдог', 'discount'=>40, 'oldprice'=>299, 'newprice'=>179.4, 'link'=>'/catalog/KnigiDlyaDetei/82282/', 'diff'=>119.6, 'id'=>82282),
+array('no'=>34, 'img'=>'/upload/resize_cache/iblock/4a5/140_270_1/4a5ce1635f0501f43b5d40cde91899e2.jpg', 'name'=>'Управление результативностью: Как преодолеть разрыв между объявленной стратегией и реальными процессами', 'discount'=>40, 'oldprice'=>599, 'newprice'=>359.4, 'link'=>'/catalog/GeneralManagment/8788/', 'diff'=>239.6, 'id'=>8788),
+array('no'=>35, 'img'=>'/upload/resize_cache/iblock/034/140_270_1/0341a322a5dfbba3aa42fb29f15980f6.jpg', 'name'=>'Антистресс для занятых людей: Медитативная раскраска (Макси)', 'discount'=>40, 'oldprice'=>399, 'newprice'=>239.4, 'link'=>'/catalog/CreativityAndCreation/8624/', 'diff'=>159.6, 'id'=>8624),
+array('no'=>36, 'img'=>'/upload/resize_cache/iblock/c02/140_270_1/c0218856aef4811ca7f7c0805ecdd54e.jpg', 'name'=>'E-Learning: Как сделать электронное обучение понятным, качественным и доступным', 'discount'=>40, 'oldprice'=>799, 'newprice'=>479.4, 'link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8860/', 'diff'=>319.6, 'id'=>8860),
+array('no'=>37, 'img'=>'/upload/resize_cache/iblock/d19/140_270_1/d19be8f7bccdd1daabac8ccfdd92c92d.jpg', 'name'=>'Икигай: Японский секрет долгой и счастливой жизни', 'discount'=>30, 'oldprice'=>399, 'newprice'=>279.3, 'link'=>'/catalog/PopularPsychologyPersonalEffectiveness/67639/', 'diff'=>119.7, 'id'=>67639),
+array('no'=>38, 'img'=>'/upload/resize_cache/iblock/5a5/140_270_1/5a55d11db008d2787e1727133d9fd57c.jpg', 'name'=>'Играем в науку', 'discount'=>30, 'oldprice'=>479, 'newprice'=>335.3, 'link'=>'/catalog/KnigiDlyaDetei/117349/', 'diff'=>143.7, 'id'=>117349),
+array('no'=>39, 'img'=>'/upload/resize_cache/iblock/532/140_270_1/532f0db427c546f4e691d071075857e4.jpg', 'name'=>'Проектируя бизнес: Как захватить рынок, адаптируясь к переменам. Опыт Coca-Cola', 'discount'=>30, 'oldprice'=>529, 'newprice'=>370.3, 'link'=>'/catalog/ProjectManagment/67413/', 'diff'=>158.7, 'id'=>67413),
+array('no'=>40, 'img'=>'/upload/resize_cache/iblock/9a5/140_270_1/9a54cef90d970b87fd0cef3103c76630.jpg', 'name'=>'Правила любви', 'discount'=>40, 'oldprice'=>399, 'newprice'=>239.4, 'link'=>'/catalog/PopularPsychologyPersonalEffectiveness/6307/', 'diff'=>159.6, 'id'=>6307),
+array('no'=>41, 'img'=>'/upload/resize_cache/iblock/9d5/140_270_1/9d517448b84b28f8d065fe6e28cca1ce.jpg', 'name'=>'Теперь я ем всё, что хочу! Система питания Давида Яна', 'discount'=>30, 'oldprice'=>285, 'newprice'=>199.5, 'link'=>'/catalog/HealthAndHealthyFood/7653/', 'diff'=>85.5, 'id'=>7653),
+array('no'=>42, 'img'=>'/upload/resize_cache/iblock/9cc/140_270_1/9cc9b5ab511fac8f2e4d978557a986d9.jpg', 'name'=>'Спортивное питание: Что есть до, во время и после тренировки', 'discount'=>30, 'oldprice'=>529, 'newprice'=>370.3, 'link'=>'/catalog/HealthAndHealthyFood/68979/', 'diff'=>158.7, 'id'=>68979),
+array('no'=>43, 'img'=>'/upload/resize_cache/iblock/326/140_270_1/326ddd9d7b7ac62bd8a9ed1fac9d0f74.jpg', 'name'=>'Вечер веселых танцев', 'discount'=>40, 'oldprice'=>239, 'newprice'=>143.4, 'link'=>'/catalog/KnigiDlyaDetei/8636/', 'diff'=>95.6, 'id'=>8636),
+array('no'=>44, 'img'=>'/upload/resize_cache/iblock/f2c/140_270_1/f2c1ce83ab67b54fb0343d3cf7937724.jpg', 'name'=>'Будущее медицины: Ваше здоровье в ваших руках', 'discount'=>30, 'oldprice'=>599, 'newprice'=>419.3, 'link'=>'/catalog/PopularScience/76690/', 'diff'=>179.7, 'id'=>76690),
+array('no'=>45, 'img'=>'/upload/resize_cache/iblock/e48/140_270_1/e485722857500f0fb00557f28c8a85b8.jpg', 'name'=>'Как стать богатым', 'discount'=>30, 'oldprice'=>399, 'newprice'=>279.3, 'link'=>'/catalog/SuccessStory/6001/', 'diff'=>119.7, 'id'=>6001),
+array('no'=>46, 'img'=>'/upload/resize_cache/iblock/a8a/140_270_1/a8a67117c42a23b412228eb6f7879c48.jpg', 'name'=>'15 секретов управления временем: Как успешные люди успевают все', 'discount'=>40, 'oldprice'=>448, 'newprice'=>268.8, 'link'=>'/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/80824/', 'diff'=>179.2, 'id'=>80824),
+array('no'=>47, 'img'=>'/upload/resize_cache/iblock/ef1/140_270_1/ef1e5f448b9806a7f46f49eed125cb3b.jpg', 'name'=>'Идеальный маркетинг: О чем забыли 98% маркетологов', 'discount'=>40, 'oldprice'=>609, 'newprice'=>365.4, 'link'=>'/catalog/Marketing/8498/', 'diff'=>243.6, 'id'=>8498),
+array('no'=>48, 'img'=>'/upload/resize_cache/iblock/5b0/140_270_1/5b04862da9b3f3cf3bd141fa546a0087.jpg', 'name'=>'Хороший стресс как способ стать сильнее и лучше', 'discount'=>30, 'oldprice'=>529, 'newprice'=>370.3, 'link'=>'/catalog/PopularPsychologyPersonalEffectiveness/69966/', 'diff'=>158.7, 'id'=>69966),
+array('no'=>49, 'img'=>'/upload/resize_cache/iblock/8a0/140_270_1/8a0c73a6c41bb16aba2e135b27568d3e.jpg', 'name'=>'Конверсия: Как превратить лиды в продажи', 'discount'=>30, 'oldprice'=>529, 'newprice'=>370.3, 'link'=>'/catalog/Marketing/92952/', 'diff'=>158.7, 'id'=>92952),
+
 );?>
-
-<?
-global $USER;
-$alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
-$alpExps  = (!$alpExps ? array() : $alpExps);
-
-if ($alpExps['updateExp'] != "160516") {
-	$alpExps = array();
-	$alpExps['updateExp'] = "160516";
-}
-
-$alpExps['cyberTuesday']	= (!$alpExps['cyberTuesday'] ? rand(1,3) : $alpExps['cyberTuesday']);
-?>
-
-<?if ($alpExps['cyberTuesday'] == 1) {?>
-	<?
-	$randKeys = shuffle($booksArray);
-	$label = 'randomizeProds';
-	?>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			dataLayer.push({
-				event: 'ab-test-gtm',
-				action: 'cyberTuesday',
-				label: '<?=$label?>'
-			});
-			console.log('cyberTuesday <?=$label?>');
-		});
-	</script>
-<?} elseif ($alpExps['cyberTuesday'] == 2) {?>
-	<?
-	$randKeys = shuffle($booksArray);
-	$label = 'fixedProds';
-	?>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			dataLayer.push({
-				event: 'ab-test-gtm',
-				action: 'cyberTuesday',
-				label: '<?=$label?>'
-			});
-			console.log('cyberTuesday <?=$label?>');
-		});
-	</script>
-<?} elseif ($alpExps['cyberTuesday'] == 3) {?>
-	<?
-	$label = 'customizedProds';
-	?>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			dataLayer.push({
-				event: 'ab-test-gtm',
-				action: 'cyberTuesday',
-				label: '<?=$label?>'
-			});
-			console.log('cyberTuesday <?=$label?>');
-		});
-	</script>
-<?}?>
-
-
-<?$APPLICATION->set_cookie("alpExps", serialize($alpExps));?>
 
 <?$i = 0;?>
 
@@ -319,298 +260,60 @@ $alpExps['cyberTuesday']	= (!$alpExps['cyberTuesday'] ? rand(1,3) : $alpExps['cy
             <div class="slide1">
 				<div id="slide1text">
                 Не сбавляем обороты, не переводим дух!<br />
-				Честные скидки от <b>10%</b> до <b>40%</b> на лучшие новинки весны и <br />
+				Честные скидки от <b>30%</b> до <b>40%</b> на лучшие новинки зимы<br /> и
 				бестселлеры всех времён (года)
 				</div>
             </div>
-			<?if ($label == 'customizedProds') {?>
-				<style>
-				.mainWrapp {
-					background:url(img/a.jpg) no-repeat 100% 26%, url(img/b.jpg) no-repeat 0% 39%,url(img/c.jpg) no-repeat 0% 58%,url(img/d.jpg) no-repeat 100% 100% #f7ebe0;
-				}
-				</style>
-				<?$booksArray = array(
-				array("img"=>"50","name"=>"Атлант расправил плечи (три тома в одной книге)","discount"=>"20","oldprice"=>"749","newprice"=>"599,2","RND"=>"0,564808043147991","link"=>"/catalog/Gifts/65392/","ID"=>"65392"),
-				array("img"=>"51","name"=>"Семь навыков высокоэффективных людей (Обложка с клапанами","discount"=>"10","oldprice"=>"448","newprice"=>"403,2","RND"=>"0,285377467203807","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8194/","ID"=>"8194"),
-				array("img"=>"3","name"=>"Антистресс для занятых людей: Медитативная раскраска","discount"=>"40","oldprice"=>"318","newprice"=>"190,8","RND"=>"0,221048978974571","link"=>"/catalog/CreativityAndCreation/8434/","ID"=>"8434"),
-				array("img"=>"1","name"=>"Антистресс для занятых людей: Медитативная раскраска (Макси)","discount"=>"40","oldprice"=>"399","newprice"=>"239,4","RND"=>"0,730866640814943","link"=>"/catalog/CreativityAndCreation/8624/","ID"=>"8624"),
-				array("img"=>"19","name"=>"Крылья мечты: Медитативная раскраска для взрослых","discount"=>"30","oldprice"=>"399","newprice"=>"279,3","RND"=>"0,677838225991471","link"=>"/catalog/CreativityAndCreation/8598/","ID"=>"8598"),
-				array("img"=>"13","name"=>"160 развивающих игр для детей от рождения до 3 лет","discount"=>"30","oldprice"=>"448","newprice"=>"313,6","RND"=>"0,825587775753728","link"=>"/catalog/BooksForParents/7893/","ID"=>"7893"),
-				array("img"=>"14","name"=>"После трех уже поздно (обложка с клапанами)","discount"=>"30","oldprice"=>"369","newprice"=>"258,3","RND"=>"0,305563318169919","link"=>"/catalog/BooksForParents/66487/","ID"=>"66487"),
-				array("img"=>"16","name"=>"Психология ребенка от 0 до 2: Как общение стимулирует развитие","discount"=>"30","oldprice"=>"399","newprice"=>"279,3","RND"=>"0,905260388123887","link"=>"/catalog/BooksForParents/8700/","ID"=>"8700"),
-				array("img"=>"18","name"=>"Ваши взрослые дети: Руководство для родителей","discount"=>"30","oldprice"=>"399","newprice"=>"279,3","RND"=>"0,754936239738891","link"=>"/catalog/BooksForParents/8696/","ID"=>"8696"),
-				array("img"=>"20","name"=>"Правила общения с детьми: 12 «нельзя»","discount"=>"30","oldprice"=>"299","newprice"=>"209,3","RND"=>"0,866405066414735","link"=>"/catalog/BooksForParents/8654/","ID"=>"8654"),
-				array("img"=>"31","name"=>"Не кричите на детей! Как разрешать конфликты с детьми и делать так","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,420052417733542","link"=>"/catalog/BooksForParents/8714/","ID"=>"8714"),
-				array("img"=>"40","name"=>"Застенчивый ребенок","discount"=>"20","oldprice"=>"339","newprice"=>"271,2","RND"=>"0,311082373120711","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/8584/","ID"=>"8584"),
-				array("img"=>"48","name"=>"Здоровый сон - счастливый ребенок","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,271025771367114","link"=>"/catalog/BooksForParents/8175/","ID"=>"8175"),
-				array("img"=>"53","name"=>"Я бабочка","discount"=>"10","oldprice"=>"299","newprice"=>"269,1","RND"=>"0,645255857858363","link"=>"/catalog/KnigiDlyaDetei/8784/","ID"=>"8784"),
-				array("img"=>"9","name"=>"Групповой портрет на фоне мира","discount"=>"40","oldprice"=>"4269","newprice"=>"2561,4","RND"=>"0,167712681110883","link"=>"/catalog/Gifts/66427/","ID"=>"66427"),
-				array("img"=>"8","name"=>"Сама уверенность: Как преодолеть внутренние барьеры и реализовать себя","discount"=>"40","oldprice"=>"479","newprice"=>"287,4","RND"=>"0,593505542583972","link"=>"/catalog/SelfConfidence/8464/","ID"=>"8464"),
-				array("img"=>"25","name"=>"Сам себе шеф-повар: Как научиться готовить без рецептов (Обложка)","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,577940523429363","link"=>"/catalog/HealthAndHealthyFood/8650/","ID"=>"8650"),
-				array("img"=>"27","name"=>"Бьюти-мифы: Вся правда о ботоксе","discount"=>"20","oldprice"=>"529","newprice"=>"423,2","RND"=>"0,117020048723384","link"=>"/catalog/BeautyAndHistoryOfFashion/8254/","ID"=>"8254"),
-				array("img"=>"38","name"=>"Книга о потерянном времени: У вас больше возможностей","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,976896985249441","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8470/","ID"=>"8470"),
-				array("img"=>"5","name"=>"Быть женщиной: Откровения отъявленной феминистки","discount"=>"40","oldprice"=>"318","newprice"=>"190,8","RND"=>"0,944929365465586","link"=>"/catalog/SelfConfidence/8149/","ID"=>"8149"),
-				array("img"=>"2","name"=>"Работа мировых рынков: Управление финансовой инфраструктурой","discount"=>"40","oldprice"=>"1049","newprice"=>"629,4","RND"=>"0,690463201176673","link"=>"/catalog/Economics/8516/","ID"=>"8516"),
-				array("img"=>"6","name"=>"Русское влияние в Евразии","discount"=>"40","oldprice"=>"639","newprice"=>"383,4","RND"=>"0,914136263106618","link"=>"/catalog/Policy/8228/","ID"=>"8228"),
-				array("img"=>"10","name"=>"Экономическое равновесие: Теория объемной геометрии в экономике","discount"=>"40","oldprice"=>"399","newprice"=>"239,4","RND"=>"0,675457959425869","link"=>"/catalog/InvestmentsStock/8410/","ID"=>"8410"),
-				array("img"=>"11","name"=>"Самоучитель топ-менеджера","discount"=>"40","oldprice"=>"709","newprice"=>"425,4","RND"=>"0,747616018399384","link"=>"/catalog/GeneralManagment/7718/","ID"=>"7718"),
-				array("img"=>"12","name"=>"Результативность: Секреты эффективного поведения","discount"=>"40","oldprice"=>"639","newprice"=>"383,4","RND"=>"0,558199435982334","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8101/","ID"=>"8101"),
-				array("img"=>"41","name"=>"Инструменты бережливого производства II: Карманное руководство по практике применения Lean","discount"=>"20","oldprice"=>"224","newprice"=>"179,2","RND"=>"0,686962292589153","link"=>"/catalog/LeanManufacturingQualityManagement/5609/","ID"=>"5609"),
-				array("img"=>"46","name"=>"Теряя невинность: Как я построил бизнес","discount"=>"20","oldprice"=>"639","newprice"=>"511,2","RND"=>"0,843391413798734","link"=>"/catalog/SuccessStory/66516/","ID"=>"66516"),
-				array("img"=>"35","name"=>"Как придумать идею","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,276755177857528","link"=>"/catalog/CreativityAndCreation/8314/","ID"=>"8314"),
-				array("img"=>"44","name"=>"Шпаргалки для боссов: Жесткие и честные уроки управления","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,175679242682875","link"=>"/catalog/GeneralManagment/8698/","ID"=>"8698"),
-				array("img"=>"42","name"=>"Иллюзия выбора: Кто принимает решения за нас и почему это не всегда плохо","discount"=>"20","oldprice"=>"529","newprice"=>"423,2","RND"=>"0,843359536688697","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/60907/","ID"=>"60907"),
-				array("img"=>"15","name"=>"Визуализируй это! Как использовать графику","discount"=>"30","oldprice"=>"559","newprice"=>"391,3","RND"=>"0,846113603258287","link"=>"/catalog/PrezentatsiiRitorika/7833/","ID"=>"7833"),
-				array("img"=>"28","name"=>"Ловушка для внимания: Как вызвать и удержать интерес к идее","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,499730059137612","link"=>"/catalog/Marketing/8594/","ID"=>"8594"),
-				array("img"=>"17","name"=>"Аргументируй это! Как убедить кого угодно в чем угодно","discount"=>"30","oldprice"=>"559","newprice"=>"391,3","RND"=>"0,26663043586228","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8242/","ID"=>"8242"),
-				array("img"=>"26","name"=>"Договориться можно обо всем! (Обложка)","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,737713712822109","link"=>"/catalog/NegotiationsBusinessCommunication/66435/","ID"=>"66435"),
-				array("img"=>"29","name"=>"Развитие памяти по методикам спецслужб","discount"=>"20","oldprice"=>"729","newprice"=>"583,2","RND"=>"0,681925263218149","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8093/","ID"=>"8093"),
-				array("img"=>"23","name"=>"Режим гения: Распорядок дня великих людей","discount"=>"30","oldprice"=>"479","newprice"=>"335,3","RND"=>"0,390291348823001","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/7819/","ID"=>"7819"),
-				array("img"=>"24","name"=>"Эти важные мелочи: 163 способа добиться совершенства","discount"=>"30","oldprice"=>"639","newprice"=>"447,3","RND"=>"0,860224469263107","link"=>"/catalog/GeneralManagment/6908/","ID"=>"6908"),
-				array("img"=>"32","name"=>"Странная девочка","discount"=>"20","oldprice"=>"479","newprice"=>"383,2","RND"=>"0,0919438588634316","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/8712/","ID"=>"8712"),
-				array("img"=>"33","name"=>"Медитация для занятых людей: Восстановление внутренней гармонии где бы вы ни были","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,391233234062537","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8756/","ID"=>"8756"),
-				array("img"=>"34","name"=>"Успеть за 120 минут: Как создать условия для максимально эффективной работы","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,8404238698637","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8856/","ID"=>"8856"),
-				array("img"=>"37","name"=>"Искусство думать: Латеральное мышление как способ решения сложных задач","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,444915346209703","link"=>"/catalog/CreativityAndCreation/8382/","ID"=>"8382"),
-				array("img"=>"4","name"=>"Личная власть","discount"=>"40","oldprice"=>"399","newprice"=>"239,4","RND"=>"0,937882430598084","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/7887/","ID"=>"7887"),
-				array("img"=>"21","name"=>"Спотыкаясь о счастье","discount"=>"30","oldprice"=>"448","newprice"=>"313,6","RND"=>"0,523504158025795","link"=>"/catalog/PersonalEffectivenessPracticalSkillManagerialPsychology/8278/","ID"=>"8278"),
-				array("img"=>"30","name"=>"Книга о самых невообразимых животных: Бестиарий XXI века","discount"=>"20","oldprice"=>"725","newprice"=>"580","RND"=>"0,0871301297345309","link"=>"/catalog/PopularScience/8446/","ID"=>"8446"),
-				array("img"=>"39","name"=>"Мифы об эволюции человека","discount"=>"20","oldprice"=>"359","newprice"=>"287,2","RND"=>"0,0505727488061175","link"=>"/catalog/PopularScience/8454/","ID"=>"8454"),
-				array("img"=>"43","name"=>"Вторая мировая война: Ад на земле","discount"=>"20","oldprice"=>"899","newprice"=>"719,2","RND"=>"0,138452890901276","link"=>"/catalog/PublicismDocumentaryProse/8246/","ID"=>"8246"),
-				array("img"=>"45","name"=>"Суперобъекты: Звезды размером с город","discount"=>"20","oldprice"=>"448","newprice"=>"358,4","RND"=>"0,69949877772491","link"=>"/catalog/PopularScience/8760/","ID"=>"8760"),
-				array("img"=>"52","name"=>"Руководство астронавта по жизни на Земле. Чему научили меня 4000 часов на орбите","discount"=>"20","oldprice"=>"448","newprice"=>"358,4","RND"=>"0,308490119321168","link"=>"/catalog/PublicismDocumentaryProse/8402/","ID"=>"8402"),
-				array("img"=>"47","name"=>"Трололо: Нельзя просто так взять и выпустить книгу про троллинг","discount"=>"20","oldprice"=>"529","newprice"=>"423,2","RND"=>"0,663816154385093","link"=>"/catalog/PopularPsychologyPersonalEffectiveness/8752/","ID"=>"8752"),
-				array("img"=>"49","name"=>"Британия: MIND THE GAP","discount"=>"20","oldprice"=>"318","newprice"=>"254,4","RND"=>"0,586825741746038","link"=>"/catalog/HobbyTravelingCars/8085/","ID"=>"8085"),
-				array("img"=>"22","name"=>"Бунин и Набоков. История соперничества","discount"=>"30","oldprice"=>"318","newprice"=>"222,6","RND"=>"0,597715587269234","link"=>"/catalog/BiographiesAndMemoirs/8177/","ID"=>"8177"),
-				array("img"=>"7","name"=>"Тюремные люди","discount"=>"40","oldprice"=>"285","newprice"=>"171","RND"=>"0,00861689737103621","link"=>"/catalog/BiographiesAndMemoirs/8165/","ID"=>"8165"),
-				array("img"=>"36","name"=>"Цена человека. Заложник чеченской войны","discount"=>"20","oldprice"=>"399","newprice"=>"319,2","RND"=>"0,303469441824816","link"=>"/catalog/PublicismDocumentaryProse/8460/","ID"=>"8460")
-				);?>
-				
-				<div class="bg">
-					<!-- 1 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Бестселлеры всех времён</p>
-					<?for ($i = $i;$i < 2; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
+			<?if ($USER->isAdmin()) {?><center><iframe src="files/bf.html" height="420" width="100%" scrolling="no" style="border:none;margin:0 auto;"></iframe></center><?}?>
+			<div class="bg">
+				<div class="hintWrapp">
+				<?foreach ($booksArray as $book) {
+					if ($i < 24) {?>
+					<div class="bookWrap">
+						<a href="<?=$book["link"]?>?from=cybertuesday">
+							<img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" title="<?=$book["name"]?>" />
+							<p>
+							<span class="oldprice"><?=$book["oldprice"]?> руб.</span> <span class="diff">-<?=$book["diff"]?> руб.</span>
+							<br />
+							<span class="newprice"><?=$book["newprice"]?> руб.</span>
+							</p>
+						</a>
 					</div>
-					<!-- 2 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Медитативные раскраски</p>
-					<?for ($i = $i;$i < 5; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
-					<!-- 3 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Детям и родителям</p>
-					<?for ($i = $i;$i < 14; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
-					<!-- 4 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Роскошный подарок</p>
-					<?for ($i = $i;$i < 15; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
-					<!-- 5 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Женские хитрости</p>
-					<?for ($i = $i;$i < 20; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
-					<div class="slide2"></div>
-					<!-- 6 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Экономика</p>
-					<?for ($i = $i;$i < 23; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
-					<!-- 7 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Бизнес</p>
-					<?for ($i = $i;$i < 30; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
-					<!-- 8 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Переговоры и презентации</p>
-					<?for ($i = $i;$i < 34; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
-					<!-- 9 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Личная эффективность</p>
-					<?for ($i = $i;$i < 43; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
-					<!-- 10 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Научпоп</p>
-					<?for ($i = $i;$i < 48; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
-					<!-- 11 -->
-					<div class="hintWrapp">
-					<p class="titleMain">Культура и общество</p>
-					<?for ($i = $i;$i < 53; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>					
-				</div>				
-				
-				
-				
-			<?} else {?>
-				<div class="bg">
-					<div class="hintWrapp">
-					<?foreach ($booksArray as $book) {
-						if ($i < 24) {?>
-						<div class="bookWrap">
-							<a href="<?=$book["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$book["name"]?>'});">
-								<img src="files/<?=$book["img"]?>.jpg" alt="<?=$book["name"]?>" title="<?=$book["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$book["oldprice"]?> руб.</span> <?/*<span>-<?=$book["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$book["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?
-						$i++;
-						}
-					}?>
-					</div>
-					<div class="slide2"></div>
-					<div class="hintWrapp">
-						<?for ($i = $i;$i < 53; $i++) {?>
-						<div class="bookWrap">
-							<a href="<?=$booksArray[$i]["link"]?>" onclick="dataLayer.push({event: 'ab-test-gtm', action: 'cyberTuesdayClick-<?=$label?>',label: '<?=$booksArray[$i]["name"]?>'});">
-								<img src="files/<?=$booksArray[$i]["img"]?>.jpg" alt="<?=$booksArray[$i]["name"]?>" title="<?=$booksArray[$i]["name"]?>" />
-								<p>
-								<span class="oldprice"><?=$booksArray[$i]["oldprice"]?> руб.</span> <?/*<span>-<?=$booksArray[$i]["discount"]?>%</span>*/?>
-								<br />
-								<span class="newprice"><?=$booksArray[$i]["newprice"]?> руб.</span>
-								</p>
-							</a>
-						</div>
-						<?}?>
-					</div>
+					<?
+					$i++;
+					}
+				}?>
 				</div>
-			<?}?>
+				<div class="slide2"></div>
+				<div class="hintWrapp">
+				<?
+				$i = 0;
+				foreach ($booksArray as $book) {
+					if ($i > 23) {?>
+					<div class="bookWrap">
+						<a href="<?=$book["link"]?>?from=cybertuesday">
+							<img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" title="<?=$book["name"]?>" />
+							<p>
+							<span class="oldprice"><?=$book["oldprice"]?> руб.</span> <span class="diff">-<?=$book["diff"]?> руб.</span>
+							<br />
+							<span class="newprice"><?=$book["newprice"]?> руб.</span>
+							</p>
+						</a>
+					</div>
+					<?
+					}
+					$i++;
+				}?>
+				</div>
+			</div>
+
         </div>
 
         <div class="footer">
             <img src="img/footer.jpg" alt="" />
 			<script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
 			<script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
-			<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus" data-counter="" style="position: absolute;left: 48%;bottom: 200px;"></div>
+			<div class="ya-share2" data-services="vkontakte,facebook" data-counter="" style="position: absolute;left: 48%;bottom: 200px;"></div>
         </div>
     </div>
 
