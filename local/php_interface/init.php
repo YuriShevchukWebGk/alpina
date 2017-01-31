@@ -1,8 +1,8 @@
 <?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
 	require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
-	require '/home/bitrix/vendor/autoload.php';
-	use Mailgun\Mailgun;
+	//require '/home/bitrix/vendor/autoload.php';
+	//use Mailgun\Mailgun;
 
     CModule::IncludeModule("blog");
     CModule::IncludeModule("iblock");
@@ -826,6 +826,39 @@
             }
         }
         return false;
+    }
+    
+    AddEventHandler("main", "OnAfterUserRegister", Array("AlpinaBK", "sendUserToBK"));
+	// общий класс для методов, связанных с бизнес книгами
+    class AlpinaBK {
+    	
+		/**
+		 * 
+		 * Регистрируем нового пользователя в БК после регистрации на сайте
+		 * 
+		 * */
+    	public static function sendUserToBK(&$arFields) {
+    		$postdata = http_build_query(
+		        array(
+		           'method' => 'sendUserToBK',
+		           'token' => BK_TOKEN,
+		           'email' => $arFields['EMAIL'],
+		           'password' => $arFields['PASSWORD'],
+		           'name' => $arFields['NAME'] . " " . $arFields['LAST_NAME']
+		       )
+		    );
+		
+		    $opts = array('http' =>
+		       array(
+		           'method'  => 'POST',
+		           'header'  => 'Content-type: application/x-www-form-urlencoded',
+		           'content' => $postdata
+		      )
+		    );
+		    
+		    $context  = stream_context_create($opts);
+		    $result = file_get_contents('https://www.alpinabook.ru/api/user/', false, $context);
+    	}
     }
 
     AddEventHandler("main", "OnAfterUserRegister", Array("OnAfterUserRegisterHandler", "OnAfterUserRegister"));
