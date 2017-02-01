@@ -657,7 +657,7 @@ $arItemIDs = array(
                                     ),
                                     "FILTER_NAME" => "author_filter",
                                     "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
-                                    "IBLOCK_ID" => "49",
+                                    "IBLOCK_ID" => LECTIONS_ANNOUNCES_IBLOCK_ID,
                                     "IBLOCK_TYPE" => "service",
                                     "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
                                     "INCLUDE_SUBSECTIONS" => "Y",
