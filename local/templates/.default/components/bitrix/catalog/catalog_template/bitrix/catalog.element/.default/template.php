@@ -539,10 +539,13 @@ $arItemIDs = array(
 									//$delivery_day = 'завтра';
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в четверг';
+									if ($timenow < 23)
+										$delivery_day = 'в пятницу';
+									else
+										$delivery_day = 'в понедельник';
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в пятницу';
+									$delivery_day = 'в понедельник';
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
                                     $delivery_day = "в понедельник";

@@ -1,6 +1,6 @@
 ﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 global $USER;
-$today = date("w");
+
 /*if ($today == 3) {
 	header("Location: http://www.alpinabook.ru/actions/may32/");
 	exit();
@@ -264,7 +264,8 @@ array('no'=>49, 'img'=>'/upload/resize_cache/iblock/8a0/140_270_1/8a0c73a6c41bb1
 				бестселлеры всех времён (года)
 				</div>
             </div>
-			<?if ($USER->isAdmin()) {?><center><iframe src="files/bf.html" height="420" width="100%" scrolling="no" style="border:none;margin:0 auto;"></iframe></center><?}?>
+			
+			<?if ($USER->isAdmin()) {?>
 			<div class="bg">
 				<div class="hintWrapp">
 				<?foreach ($booksArray as $book) {
@@ -306,7 +307,7 @@ array('no'=>49, 'img'=>'/upload/resize_cache/iblock/8a0/140_270_1/8a0c73a6c41bb1
 				}?>
 				</div>
 			</div>
-
+			<?}?>
         </div>
 
         <div class="footer">

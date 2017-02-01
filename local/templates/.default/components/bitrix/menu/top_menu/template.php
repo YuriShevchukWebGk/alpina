@@ -21,4 +21,6 @@ foreach($arResult as $arItem):
 <li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?endforeach;?>
 <?/*<li><a class="topMenuLink" style="color:#dd6eff!important" href="/actions/freedigitalbooks/">Бесплатные электронные книги</a></li>*/?>
-<li><a class="topMenuLink" style="color:red!important" href="/actions/cybertuesday/">Кибервторник</a></li>
+<?if (date('d') == 31) {?><li><a class="topMenuLink" style="color:red!important" href="/actions/cybertuesday/">Кибервторник</a></li><?} else {?>
+<li><a class="topMenuLink" style="color:#dd6eff!important" href="/actions/freedigitalbooks/">Бесплатные электронные книги</a></li>
+<?}?>

@@ -158,9 +158,12 @@
             if (ourday == 1) { //понедельник
 				minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-                minDatePlus = 2;
+                if (hourfordeliv < 23)
+					minDatePlus = 3;
+				else
+					minDatePlus = 6;
             } else if (ourday == 3) { //среда
-                minDatePlus = 2;
+                minDatePlus = 5;
             } else if (ourday == 4) { //четверг
                 minDatePlus = 2;
             } else if (ourday == 5) { //пятница
