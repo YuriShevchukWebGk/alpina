@@ -75,8 +75,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="landing">
 					<a name="0" />
 					<br /><br />
-					<img src="files/a.jpg" align="center" /><br /><br />
-					<img src="files/b.jpg" align="center" /><br /><br />
+			Секционный зал
+<br />
+			<img src="files/a.jpg" align="center" /><br /><br />
+			Хирургические инструменты
+<br />
+			<img src="files/b.jpg" align="center" /><br /><br />
 					<a name="1" />
 			Фото 1.  Татуировка «Привет работникам морга!»
 <br />
