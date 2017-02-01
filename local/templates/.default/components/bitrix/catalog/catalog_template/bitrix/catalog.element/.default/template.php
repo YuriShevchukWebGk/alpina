@@ -22,8 +22,8 @@ $templateData = array(
     'TEMPLATE_THEME' => $this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].'/style.css',
     'TEMPLATE_CLASS' => 'bx_'.$arParams['TEMPLATE_THEME'],
     'TEMPLATE_LIBRARY' => $templateLibrary,
-    'CURRENCIES' => $currencyList,
-	'OG_IMAGE' => $arResult["PICTURE"]["src"]
+    'CURRENCIES' => $currencyList,    
+    'OG_IMAGE' => $arResult["PICTURE"]["src"]
 );
 unset($currencyList, $templateLibrary);
 
@@ -136,20 +136,21 @@ $arItemIDs = array(
                         <?}?>
 
                         <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
-							<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
-								<div class="digitalBookMark">
-									<p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
-									<span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");?></span>
-								</div>
-							<?}/* elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
-								$recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
-								if($recBookName = $recBook->GetNext()) {?>
-									<div class="digitalBookMark">
-										<p><span class="test">Бесплатная электронная версия книги «<?=substr($recBookName['NAME'],0,30)?><?echo strlen($recBookName['NAME']) > 30 ? '...' : '';?>» в комплекте</span></p>
-										<span class="ttip"><?echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");?></span>
-									</div>
-								<?}
-							}*/?>
+
+                            <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+                                <div class="digitalBookMark">
+                                    <p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
+                                    <span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");?></span>
+                                </div>
+                            <?}/* elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
+                                $recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
+                                if($recBookName = $recBook->GetNext()) {?>
+                                    <div class="digitalBookMark">
+                                        <p><span class="test">Бесплатная электронная версия книги «<?=substr($recBookName['NAME'],0,30)?><?echo strlen($recBookName['NAME']) > 30 ? '...' : '';?>» в комплекте</span></p>
+                                        <span class="ttip"><?echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");?></span>
+                                    </div>
+                                <?}
+                            }*/?>
                         <?}?>
                     </div>
 
@@ -273,6 +274,7 @@ $arItemIDs = array(
 							</div>
 						<?}?>
 					<?}?>
+                       
                     <?if ($arResult["CATALOG_WEIGHT"]) {
                             $weight = $arResult["CATALOG_WEIGHT"];
                         } else if ($arResult["PROPERTIES"]["LATEST_WEIGHT"]["VALUE"]) {
@@ -302,8 +304,8 @@ $arItemIDs = array(
                             <? $authors .= $author_fetched_list["NAME"] . ", ";?>
                         <?}?>
                     </div>
-                    <!-- /noindex -->
-					<?##Спонсоры книги?>
+                    <!-- /noindex -->      
+                    <?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
                     <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -462,14 +464,15 @@ $arItemIDs = array(
                                 </div>
                             <?}?>
                         <?}?>
-					<?
-					$rsUser = CUser::GetByID($USER->GetID())->Fetch();
-					if (!empty($rsUser[UF_BOOKSBOUGHT])) {
-						$bought = unserialize($rsUser[UF_BOOKSBOUGHT]);
-						if ($arResult[ID] == $bought[$arResult[ID]][ID]) {
-							echo '<center><span style="color: #424c4f;display: inline-block;font-family: \'Walshein_regular\';font-size: 14px;margin-bottom: 5px;line-height: 24px;padding: 4px 22px;background: #fcfcfc none repeat scroll 0 0;width: 220px;"><img src="/images/info.png" align="left" style="margin-left:-10px;margin-top:12px;" />Вы уже купили эту книгу '.$bought[$arResult[ID]]["DATE"].'</span></center>';
-						}
-					}?>							
+
+                    <?
+                    $rsUser = CUser::GetByID($USER->GetID())->Fetch();
+                    if (!empty($rsUser[UF_BOOKSBOUGHT])) {
+                        $bought = unserialize($rsUser[UF_BOOKSBOUGHT]);
+                        if ($arResult[ID] == $bought[$arResult[ID]][ID]) {
+                            echo '<center><span style="color: #424c4f;display: inline-block;font-family: \'Walshein_regular\';font-size: 14px;margin-bottom: 5px;line-height: 24px;padding: 4px 22px;background: #fcfcfc none repeat scroll 0 0;width: 220px;"><img src="/images/info.png" align="left" style="margin-left:-10px;margin-top:12px;" />Вы уже купили эту книгу '.$bought[$arResult[ID]]["DATE"].'</span></center>';
+                        }
+                    }?>                            
                     </div>
 
                     <div class="quickOrderDiv" style="display:none;">
@@ -546,6 +549,7 @@ $arItemIDs = array(
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
 									$delivery_day = 'в понедельник';
+
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
                                     $delivery_day = "в понедельник";
@@ -660,7 +664,8 @@ $arItemIDs = array(
                                     ),
                                     "FILTER_NAME" => "author_filter",
                                     "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
-                                    "IBLOCK_ID" => "49",
+
+                                    "IBLOCK_ID" => LECTIONS_ANNOUNCES_IBLOCK_ID,
                                     "IBLOCK_TYPE" => "service",
                                     "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
                                     "INCLUDE_SUBSECTIONS" => "Y",
