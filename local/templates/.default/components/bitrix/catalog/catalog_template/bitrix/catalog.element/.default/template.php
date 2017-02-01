@@ -23,7 +23,7 @@ $templateData = array(
     'TEMPLATE_CLASS' => 'bx_'.$arParams['TEMPLATE_THEME'],
     'TEMPLATE_LIBRARY' => $templateLibrary,
     'CURRENCIES' => $currencyList,
-	'OG_IMAGE' => $arResult["PICTURE"]["src"]
+    'OG_IMAGE' => $arResult["PICTURE"]["src"]
 );
 unset($currencyList, $templateLibrary);
 
@@ -136,20 +136,20 @@ $arItemIDs = array(
                         <?}?>
 
                         <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
-							<?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
-								<div class="digitalBookMark">
-									<p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
-									<span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");?></span>
-								</div>
-							<?}/* elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
-								$recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
-								if($recBookName = $recBook->GetNext()) {?>
-									<div class="digitalBookMark">
-										<p><span class="test">Бесплатная электронная версия книги «<?=substr($recBookName['NAME'],0,30)?><?echo strlen($recBookName['NAME']) > 30 ? '...' : '';?>» в комплекте</span></p>
-										<span class="ttip"><?echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");?></span>
-									</div>
-								<?}
-							}*/?>
+                            <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+                                <div class="digitalBookMark">
+                                    <p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
+                                    <span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");?></span>
+                                </div>
+                            <?}/* elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
+                                $recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
+                                if($recBookName = $recBook->GetNext()) {?>
+                                    <div class="digitalBookMark">
+                                        <p><span class="test">Бесплатная электронная версия книги «<?=substr($recBookName['NAME'],0,30)?><?echo strlen($recBookName['NAME']) > 30 ? '...' : '';?>» в комплекте</span></p>
+                                        <span class="ttip"><?echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");?></span>
+                                    </div>
+                                <?}
+                            }*/?>
                         <?}?>
                     </div>
 
@@ -179,100 +179,100 @@ $arItemIDs = array(
                         <span></span>
                     </div>
                     <?if (!empty($arResult["PROPERTIES"]["glavatitle"]["VALUE"])) {?>
-						<style>
-						.productElementWrapp {min-height:1500px;}
-						</style>
-						<div class="takePartWrap" style="display:block;margin-bottom:5px;height:auto; border-bottom: 1px solid #dddddd; margin-top:0px;">
-							<p class="title"><?= GetMessage("TO_GET_A_CHAPTER") ?></p>
-							<p class="text">Глава «<?=$arResult["PROPERTIES"]["glavatitle"]["VALUE"]?>» будет отправлена вам на почту</p>
-							<input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>" value="<?= $arResult["MAIL"]; ?>" id="chapter-email" /><button onclick="sendchapter(<?=$arResult[ID];?>);" style="position: relative;left: 217px;top: -36px;border: none;width: 41px;height: 36px;cursor: pointer;background: transparent;">
-						</div>
-					<?}?>
-					<?if ($arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
-						<?if ($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]) {?>
-							<div class="characteris">
-								<p class="title"><?= GetMessage("PUBLISHER") ?></p>
-								<p class="text">
-									<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-										<span itemprop="name">
-											<?= $arResult["PROPERTIES"]["PUBLISHER"]["VALUE"] ?>
-										</span>
-										<?if (strstr($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"], "Альпина") !== false) {?>
-											<meta itemprop="telephone" content="+7 (495) 980-80-77" />
-											<meta itemprop="address" content="г.Москва, ул.4-ая Магистральная, д.5, подъезд 2, этаж 2" />
-										<?}?>
-									</span>
-								</p>
-							</div>
-						<?}?>
-						<?if ($arResult["PROPERTIES"]["ISBN"]["VALUE"]) {?>
-							<div class="characteris">
-								<p class="title"><?= GetMessage("ISBN") ?></p>
-								<p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>
-							</div>
-						<?}?>
-						<?if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {?>
-							<div class="characteris">
-								<p class="title"><?= GetMessage("SERIES") ?></p>
-								<a href="/series/<?= $arResult["CURR_SERIES"]["ID"] ?>/">
-									<span class="text"><?= $arResult["CURR_SERIES"]["NAME"] ?></span>
-								</a>
-							</div>
-							<?}?>
-						<?if($arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != "") {?>
-							<div class="characteris">
-								<p class="title"><?= GetMessage("COVER_TYPE") ?></p>
-								<p class="text"><?= $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
-								<?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_SOFTCOVER_XML_ID) {?>
-									<link itemprop="bookFormat" href="https://schema.org/Paperback">
-								<?} else if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_HARDCOVER_XML_ID) {?>
-									<link itemprop="bookFormat" href="https://schema.org/Hardcover">
-								<?}?>
-							</div>
-						<?}?>
-						<?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
-							<div class="characteris">
-								<p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
-								<p class="text"><span itemprop="numberOfPages"><?= $arResult["PROPERTIES"]["PAGES"]["VALUE"] ?></span><?= GetMessage("PAGES") ?></p>
-							</div>
-						<?}?>
-						<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
-							<div class="characteris">
-								<a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
-							</div>
-						<?}?>
-						<?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "" && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
-							<div class="characteris">
-								<p class="title"><?= $arResult["PROPERTIES"]["YEAR"]["NAME"] ?></p>
-								<p class="text">
-									<span itemprop="datePublished">
-										<?= $arResult["PROPERTIES"]["YEAR"]["VALUE"] ?>
-									</span>
-									г.
-									<?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br /><span itemprop="bookEdition">' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] .'</span>' : ""?>
-								</p>
-							</div>
-						<?}?>
-						<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
-							<div class="characteris">
-								<a href="http://readright.ru/?=alpinabook" target="_blank">
-									<span class="text noborderlink"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
-								</a>
-							</div>
-						<?}?>
-						<?if ($arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"]) {?>
-							<div class="characteris">
-								<p class="title"><?= GetMessage("SIZES") ?></p>
-								<p class="text"><?= $arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"] ?></p>
-							</div>
-						<?}?>
-						<?if ($arResult["PROPERTIES"]["DURATION"]["VALUE"]) {?>
-							<div class="characteris">
-								<p class="title"><?= GetMessage("DURATION") ?></p>
-								<p class="text"><?= $arResult["PROPERTIES"]["DURATION"]["VALUE"] ?></p>
-							</div>
-						<?}?>
-					<?}?>
+                        <style>
+                        .productElementWrapp {min-height:1500px;}
+                        </style>
+                        <div class="takePartWrap" style="display:block;margin-bottom:5px;height:auto; border-bottom: 1px solid #dddddd; margin-top:0px;">
+                            <p class="title"><?= GetMessage("TO_GET_A_CHAPTER") ?></p>
+                            <p class="text">Глава «<?=$arResult["PROPERTIES"]["glavatitle"]["VALUE"]?>» будет отправлена вам на почту</p>
+                            <input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>" value="<?= $arResult["MAIL"]; ?>" id="chapter-email" /><button onclick="sendchapter(<?=$arResult[ID];?>);" style="position: relative;left: 217px;top: -36px;border: none;width: 41px;height: 36px;cursor: pointer;background: transparent;">
+                        </div>
+                    <?}?>
+                    <?if ($arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+                        <?if ($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"]) {?>
+                            <div class="characteris">
+                                <p class="title"><?= GetMessage("PUBLISHER") ?></p>
+                                <p class="text">
+                                    <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                                        <span itemprop="name">
+                                            <?= $arResult["PROPERTIES"]["PUBLISHER"]["VALUE"] ?>
+                                        </span>
+                                        <?if (strstr($arResult["PROPERTIES"]["PUBLISHER"]["VALUE"], "Альпина") !== false) {?>
+                                            <meta itemprop="telephone" content="+7 (495) 980-80-77" />
+                                            <meta itemprop="address" content="г.Москва, ул.4-ая Магистральная, д.5, подъезд 2, этаж 2" />
+                                        <?}?>
+                                    </span>
+                                </p>
+                            </div>
+                        <?}?>
+                        <?if ($arResult["PROPERTIES"]["ISBN"]["VALUE"]) {?>
+                            <div class="characteris">
+                                <p class="title"><?= GetMessage("ISBN") ?></p>
+                                <p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>
+                            </div>
+                        <?}?>
+                        <?if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {?>
+                            <div class="characteris">
+                                <p class="title"><?= GetMessage("SERIES") ?></p>
+                                <a href="/series/<?= $arResult["CURR_SERIES"]["ID"] ?>/">
+                                    <span class="text"><?= $arResult["CURR_SERIES"]["NAME"] ?></span>
+                                </a>
+                            </div>
+                            <?}?>
+                        <?if($arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != "") {?>
+                            <div class="characteris">
+                                <p class="title"><?= GetMessage("COVER_TYPE") ?></p>
+                                <p class="text"><?= $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
+                                <?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_SOFTCOVER_XML_ID) {?>
+                                    <link itemprop="bookFormat" href="https://schema.org/Paperback">
+                                <?} else if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_HARDCOVER_XML_ID) {?>
+                                    <link itemprop="bookFormat" href="https://schema.org/Hardcover">
+                                <?}?>
+                            </div>
+                        <?}?>
+                        <?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
+                            <div class="characteris">
+                                <p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
+                                <p class="text"><span itemprop="numberOfPages"><?= $arResult["PROPERTIES"]["PAGES"]["VALUE"] ?></span><?= GetMessage("PAGES") ?></p>
+                            </div>
+                        <?}?>
+                        <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+                            <div class="characteris">
+                                <a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
+                            </div>
+                        <?}?>
+                        <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "" && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+                            <div class="characteris">
+                                <p class="title"><?= $arResult["PROPERTIES"]["YEAR"]["NAME"] ?></p>
+                                <p class="text">
+                                    <span itemprop="datePublished">
+                                        <?= $arResult["PROPERTIES"]["YEAR"]["VALUE"] ?>
+                                    </span>
+                                    г.
+                                    <?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br /><span itemprop="bookEdition">' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] .'</span>' : ""?>
+                                </p>
+                            </div>
+                        <?}?>
+                        <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+                            <div class="characteris">
+                                <a href="http://readright.ru/?=alpinabook" target="_blank">
+                                    <span class="text noborderlink"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
+                                </a>
+                            </div>
+                        <?}?>
+                        <?if ($arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"]) {?>
+                            <div class="characteris">
+                                <p class="title"><?= GetMessage("SIZES") ?></p>
+                                <p class="text"><?= $arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"] ?></p>
+                            </div>
+                        <?}?>
+                        <?if ($arResult["PROPERTIES"]["DURATION"]["VALUE"]) {?>
+                            <div class="characteris">
+                                <p class="title"><?= GetMessage("DURATION") ?></p>
+                                <p class="text"><?= $arResult["PROPERTIES"]["DURATION"]["VALUE"] ?></p>
+                            </div>
+                        <?}?>
+                    <?}?>
                     <?if ($arResult["CATALOG_WEIGHT"]) {
                             $weight = $arResult["CATALOG_WEIGHT"];
                         } else if ($arResult["PROPERTIES"]["LATEST_WEIGHT"]["VALUE"]) {
@@ -303,7 +303,7 @@ $arItemIDs = array(
                         <?}?>
                     </div>
                     <!-- /noindex -->
-					<?##Спонсоры книги?>
+                    <?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
                     <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -462,14 +462,14 @@ $arItemIDs = array(
                                 </div>
                             <?}?>
                         <?}?>
-					<?
-					$rsUser = CUser::GetByID($USER->GetID())->Fetch();
-					if (!empty($rsUser[UF_BOOKSBOUGHT])) {
-						$bought = unserialize($rsUser[UF_BOOKSBOUGHT]);
-						if ($arResult[ID] == $bought[$arResult[ID]][ID]) {
-							echo '<center><span style="color: #424c4f;display: inline-block;font-family: \'Walshein_regular\';font-size: 14px;margin-bottom: 5px;line-height: 24px;padding: 4px 22px;background: #fcfcfc none repeat scroll 0 0;width: 220px;"><img src="/images/info.png" align="left" style="margin-left:-10px;margin-top:12px;" />Вы уже купили эту книгу '.$bought[$arResult[ID]]["DATE"].'</span></center>';
-						}
-					}?>							
+                    <?
+                    $rsUser = CUser::GetByID($USER->GetID())->Fetch();
+                    if (!empty($rsUser[UF_BOOKSBOUGHT])) {
+                        $bought = unserialize($rsUser[UF_BOOKSBOUGHT]);
+                        if ($arResult[ID] == $bought[$arResult[ID]][ID]) {
+                            echo '<center><span style="color: #424c4f;display: inline-block;font-family: \'Walshein_regular\';font-size: 14px;margin-bottom: 5px;line-height: 24px;padding: 4px 22px;background: #fcfcfc none repeat scroll 0 0;width: 220px;"><img src="/images/info.png" align="left" style="margin-left:-10px;margin-top:12px;" />Вы уже купили эту книгу '.$bought[$arResult[ID]]["DATE"].'</span></center>';
+                        }
+                    }?>                            
                     </div>
 
                     <div class="quickOrderDiv" style="display:none;">
@@ -536,16 +536,19 @@ $arItemIDs = array(
                             } else { //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в среду';
+                                    //$delivery_day = 'завтра';
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в четверг';
+                                    if ($timenow < 23)
+                                        $delivery_day = 'в пятницу';
+                                    else
+                                        $delivery_day = 'в понедельник';
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в пятницу';
+                                    $delivery_day = 'в понедельник';
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    //$delivery_day = "в понедельник";
+                                    $delivery_day = "в понедельник";
                                 } elseif ($today == 5) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                     $delivery_day = 'в понедельник';
@@ -554,7 +557,7 @@ $arItemIDs = array(
                                     $delivery_day = 'во вторник';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = 'во вторник';
+                                    $delivery_day = 'завтра';
                                 }
 
                                 if ($today == 5) {

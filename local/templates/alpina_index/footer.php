@@ -8,7 +8,7 @@
                         </a>
                         <br />
                         <br />
-                        <a href="https://blog.alpinabook.ru/" target="_blank">
+                        <a href="http://blog.alpinabook.ru/" target="_blank">
                             <img src="/img/footerBlogLogo.png">
                         </a>                
                     </div>
