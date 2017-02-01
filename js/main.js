@@ -1091,7 +1091,7 @@ function update_sect_page(sort, direction, sect_code) {
                     $(".filterParams li:nth-child(3)").addClass("active");
                     break;
             }
-            if (direction == "desc") {
+            if (sort != "popularity" && direction == "desc") {
                 $(".filterParams li.active").addClass("dir_desc");
             }
             $(".filterParams li.active").on("click", function(){
@@ -1099,7 +1099,7 @@ function update_sect_page(sort, direction, sect_code) {
                 {
                     update_sect_page (sort, "desc", sect_code);
                 }
-                else
+                else if (sort != "popularity")
                 {
                     update_sect_page (sort, "asc", sect_code);
                 }

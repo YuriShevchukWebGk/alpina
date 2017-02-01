@@ -106,11 +106,11 @@ switch ($_REQUEST["SORT"])
     
     case "POPULARITY":
     $sort = "PROPERTY_POPULARITY";          //PROPERTY_POPULARITY
-    //$order = "asc";
+    $order = "desc";
     break;
     
     default:
-    $sort = "PROPERTY_STATEDATE";
+    $sort = "PROPERTY_POPULARITY";
     $order = "desc";
     break;
 }
