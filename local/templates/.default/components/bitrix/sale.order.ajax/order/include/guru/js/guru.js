@@ -114,7 +114,6 @@ function getDeliveryCost(point_id) {
     		point_id: point_id,
     	}
     ).success(function(data) {
-    	console.log(data);
     	// ответ приходит в виде  475::7 дн.::only_paid=0::acquiring=0
     	var delivery_data = data.split("::");
 		fitDeliveryData(delivery_data[1], delivery_data[0]);	
@@ -189,12 +188,6 @@ $(document).ready(function(){
     });
     //ПОЛУЧИТЬ ДАННЫЕ ПО ВЫБОРУ ПУНКТА
     $('.select-point').live('click', function(){
-        /*var code=$(this).attr('rel');//Код пвз
-        var city=$(this).attr('city');//Город пвз
-        var name=$(this).attr('name');//Наименование пвз
-        var region=$(this).attr('region');//Регтон пвз
-        var date_pvz=$(this).attr('date');//Ближайшая дата доставки
-        */
         var address = $(this).attr('region') + ", " + $(this).attr('city') + ", " + $(this).attr('name'),
         	delivery_data = {
 	        	code: $(this).attr('rel'),
@@ -205,8 +198,6 @@ $(document).ready(function(){
         // немного кривовато, но т.к. все скрипты готовые, то оставим так
         getDeliveryCost(delivery_data.code);
         setAddressData(delivery_data);
-        //Здесь код, который заполнит нужные поля Вашей информационной системы
-        //-------------------------------------------------------------------
         close_GURU_map();//закрыть карту
         return false;
     });
