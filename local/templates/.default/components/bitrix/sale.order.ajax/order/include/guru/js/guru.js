@@ -24,7 +24,7 @@ function maps_init_GURU(points, center_1, center_2){
 		    collection.add(
 		        new ymaps.Placemark(points[i].coords, {
 			            balloonContentHeader: points[i].label+' ',
-			            balloonContentBody: ''+points[i].way_desc+'<div>Время работы: <b>'+points[i].time+'</b><br>'+points[i].params+'Срок доставки в днях: <b>'+points[i].days+'</b><br><input style="padding:8px;" type="button" pf="'+points[i].pf+'" value="Выбрать" class="select-point" rel="'+points[i].id+'" city="'+points[i].city+'" name="'+points[i].label+'" region="'+points[i].region+'"  date="'+points[i].date+'"> </div>',
+			            balloonContentBody: ''+points[i].way_desc+'<div>Время работы: <b>'+points[i].time+'</b><br>'+points[i].params+'<br><input style="padding:8px;" type="button" pf="'+points[i].pf+'" value="Выбрать" class="select-point" rel="'+points[i].id+'" city="'+points[i].city+'" name="'+points[i].label+'" region="'+points[i].region+'"  date="'+points[i].date+'"> </div>',
 			            balloonContentFooter: '<b>Точный адрес:</b> <i>'+points[i].desc+'</i>',
 			            hintContent: points[i].label,
 			            searchStr: '<b>'+points[i].label+'</b> '+points[i].desc+'<br>'
@@ -140,7 +140,7 @@ function fitDeliveryData(delivery_time, delivery_price) {
     if (parseInt(delivery_time) != 0) {
     	// если значения не будет, то значит произошла ошибка и время доставки не показываем
     	$("#guru_delivery_time").show();
-    	$("#guru_delivery_time span").html(delivery_time);	
+    	$("#guru_delivery_time span").html((parseInt(delivery_time) + 2) + " дн.");	
     }
 }
 
