@@ -24,7 +24,7 @@ function maps_init_GURU(points, center_1, center_2){
 		    collection.add(
 		        new ymaps.Placemark(points[i].coords, {
 			            balloonContentHeader: points[i].label+' ',
-			            balloonContentBody: ''+points[i].way_desc+'<div>Время работы: <b>'+points[i].time+'</b><br>'+points[i].params+'Срок доставки в днях: <b>'+points[i].days+'</b><br><input style="padding:8px;" type="button" pf="'+points[i].pf+'" value="Выбрать" class="select-point" rel="'+points[i].id+'" city="'+points[i].city+'" name="'+points[i].label+'" region="'+points[i].region+'"  date="'+points[i].date+'"> </div>',
+			            balloonContentBody: ''+points[i].way_desc+'<div>Время работы: <b>'+points[i].time+'</b><br>'+points[i].params+'<br><input style="padding:8px;" type="button" pf="'+points[i].pf+'" value="Выбрать" class="select-point" rel="'+points[i].id+'" city="'+points[i].city+'" name="'+points[i].label+'" region="'+points[i].region+'"  date="'+points[i].date+'"> </div>',
 			            balloonContentFooter: '<b>Точный адрес:</b> <i>'+points[i].desc+'</i>',
 			            hintContent: points[i].label,
 			            searchStr: '<b>'+points[i].label+'</b> '+points[i].desc+'<br>'
@@ -114,7 +114,6 @@ function getDeliveryCost(point_id) {
     		point_id: point_id,
     	}
     ).success(function(data) {
-    	console.log(data);
     	// ответ приходит в виде  475::7 дн.::only_paid=0::acquiring=0
     	var delivery_data = data.split("::");
 		fitDeliveryData(delivery_data[1], delivery_data[0]);	
@@ -140,7 +139,7 @@ function fitDeliveryData(delivery_time, delivery_price) {
     if (parseInt(delivery_time) != 0) {
     	// если значения не будет, то значит произошла ошибка и время доставки не показываем
     	$("#guru_delivery_time").show();
-    	$("#guru_delivery_time span").html(delivery_time);	
+    	$("#guru_delivery_time span").html((parseInt(delivery_time) + 2) + " дн.");	
     }
 }
 
@@ -189,12 +188,6 @@ $(document).ready(function(){
     });
     //ПОЛУЧИТЬ ДАННЫЕ ПО ВЫБОРУ ПУНКТА
     $('.select-point').live('click', function(){
-        /*var code=$(this).attr('rel');//Код пвз
-        var city=$(this).attr('city');//Город пвз
-        var name=$(this).attr('name');//Наименование пвз
-        var region=$(this).attr('region');//Регтон пвз
-        var date_pvz=$(this).attr('date');//Ближайшая дата доставки
-        */
         var address = $(this).attr('region') + ", " + $(this).attr('city') + ", " + $(this).attr('name'),
         	delivery_data = {
 	        	code: $(this).attr('rel'),
@@ -205,8 +198,6 @@ $(document).ready(function(){
         // немного кривовато, но т.к. все скрипты готовые, то оставим так
         getDeliveryCost(delivery_data.code);
         setAddressData(delivery_data);
-        //Здесь код, который заполнит нужные поля Вашей информационной системы
-        //-------------------------------------------------------------------
         close_GURU_map();//закрыть карту
         return false;
     });
