@@ -20,7 +20,7 @@
     $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
 	// доставка гуру
 	$APPLICATION->AddHeadString('<script src="http://api.dostavka.guru/client/collection-search-provider.js"></script>');
-	$APPLICATION->AddHeadString('<script src="http://api-maps.yandex.ru/2.1/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>');
+	$APPLICATION->AddHeadString('<script src="https://api-maps.yandex.ru/2.1/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>');
 	$APPLICATION->SetAdditionalCSS($templateFolder . "/include/guru/css/guru.css");
 	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/guru.js");
 
@@ -165,7 +165,7 @@
             } else if (ourday == 3) { //среда
                 minDatePlus = 5;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 2;
+                minDatePlus = 5;
             } else if (ourday == 5) { //пятница
                 minDatePlus = 3;
             } else if (ourday == 6) { //суббота

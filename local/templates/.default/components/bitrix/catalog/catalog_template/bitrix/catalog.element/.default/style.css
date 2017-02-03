@@ -1247,7 +1247,7 @@
     font-family: "Walshein_regular";
     text-align: center;
     padding-bottom: 10px;
-    border-radius: 40px;
+    border-radius: 30px;
 }
 .announces_block .lection_name {
     max-height: 65px;
@@ -1262,9 +1262,9 @@
 }
 .announces_block a {
     color: #fff;
-    border-bottom: 1px dashed #fff;
+	text-decoration:underline!important;
 }
 .announces_block a:hover {
-    text-decoration: none;
     border-color: transparent;
+	text-decoration:none;
 }
