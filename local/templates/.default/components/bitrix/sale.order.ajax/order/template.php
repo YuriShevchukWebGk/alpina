@@ -19,7 +19,8 @@
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
     $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
 	// доставка гуру
-	$APPLICATION->AddHeadString('<script src="http://api.dostavka.guru/client/collection-search-provider.js"></script>');
+	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/collection-search-provider.js");
+	//$APPLICATION->AddHeadString('<script src="http://api.dostavka.guru/client/collection-search-provider.js"></script>');
 	$APPLICATION->AddHeadString('<script src="https://api-maps.yandex.ru/2.1/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>');
 	$APPLICATION->SetAdditionalCSS($templateFolder . "/include/guru/css/guru.css");
 	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/guru.js");
@@ -595,12 +596,15 @@
                                         }
                                     }
                                     // инициализация карты доставки гуру после каждого аякса
-                                    $.post("http://api.dostavka.guru/client/get_pvz_codes_2.php",
-								    {init: 'get_pvz' }).success(function(data) {
+                                   $.post(
+								   	window.location.origin + window.THIS_TEMPLATE_PATH + "/include/guru/ajax/pvz_init.php",
+								    {}
+								   ).success(function(data) {
+								   		var pvz = JSON.parse(data);
 								        var center_1='';
 								        var center_2='';
-								            var points = eval("obj = " + data);
-								            if(data==''){
+								            var points = eval("obj = " + pvz.result);
+								            if(pvz.result==''){
 								                alert('Нет соединения с сервером пунктов выдачи!');
 								                return false;
 								            }

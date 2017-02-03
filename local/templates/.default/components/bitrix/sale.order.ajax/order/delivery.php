@@ -156,7 +156,7 @@
                     $arDelivery["CHECKED"]='Y';
                 }
 				// если это юр лицо и вес больше 10кг, то мимо
-                if ($arDelivery["ID"] == GURU_DELIVERY_ID && $arResult["USER_VALS"]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID && $arResult['ORDER_WEIGHT'] > GURU_LEGAL_ENTITY_MAX_WEIGHT) { continue; }
+                if (($arDelivery["ID"] == GURU_DELIVERY_ID && !$USER->IsAdmin()) || ($arDelivery["ID"] == GURU_DELIVERY_ID && $arResult["USER_VALS"]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID && $arResult['ORDER_WEIGHT'] > GURU_LEGAL_ENTITY_MAX_WEIGHT)) { continue; }
 
                 if($arDelivery["ISNEEDEXTRAINFO"] == "Y")
                     $extraParams = "showExtraParamsDialog('".$delivery_id."');";
@@ -269,7 +269,7 @@
                     <input type="hidden" id="flippost_cost" name="flippost_cost" value="">  
                 <? } ?>
                 
-                <? if ($arDelivery["ID"] == GURU_DELIVERY_ID) { ?>
+                <? if ($arDelivery["ID"] == GURU_DELIVERY_ID && $USER->IsAdmin()) { ?>
                 	<div class="guru_delivery_wrapper">
                 		<div class="guru_error"><?= GetMessage('GURU_ERROR') ?></div>
                 		<b><?= GetMessage('SEARCH_ON_MAP') ?></b>

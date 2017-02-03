@@ -1,66 +1,68 @@
 //Создание точек на карте------
 function maps_init_GURU(points, center_1, center_2){
-	if (center_1=='') {
-		var center_1=55.755768;
-		var center_2=37.617671;
-	}
-	
-	ymaps.ready(init);
-	
-	function init() {
-		var myMap = new ymaps.Map('YMapsID', {
-		    center: [center_1, center_2],
-		    zoom: 8,
-		    behaviors: ["default", "scrollZoom"]
-		}),
-		
-		collection = new ymaps.GeoObjectCollection();
-		myMap.controls.add(
-		   new ymaps.control.ZoomControl()
-		);    
-		myMap.geoObjects.add(collection);
-		
-		for(var i = 0, len = points.length; i < len; i++) {
-		    collection.add(
-		        new ymaps.Placemark(points[i].coords, {
-			            balloonContentHeader: points[i].label+' ',
-			            balloonContentBody: ''+points[i].way_desc+'<div>Время работы: <b>'+points[i].time+'</b><br>'+points[i].params+'<br><input style="padding:8px;" type="button" pf="'+points[i].pf+'" value="Выбрать" class="select-point" rel="'+points[i].id+'" city="'+points[i].city+'" name="'+points[i].label+'" region="'+points[i].region+'"  date="'+points[i].date+'"> </div>',
-			            balloonContentFooter: '<b>Точный адрес:</b> <i>'+points[i].desc+'</i>',
-			            hintContent: points[i].label,
-			            searchStr: '<b>'+points[i].label+'</b> '+points[i].desc+'<br>'
-			        },
-					{
-						iconLayout: 'default#image',
-						iconImageHref: 'http://dostavka.guru/map_icon2.png',
-						iconImageSize: [31, 40],
-						iconImageOffset: [-20, -20],
-						// Определим интерактивную область над картинкой.
-						iconShape: {
-						    type: 'Circle',
-						    coordinates: [0, 0],
-						    radius: 20
-						}
-					}            
-		        )
-		    );
+	if (!$("#YMapsID ymaps").lenght) {
+		if (center_1=='') {
+			var center_1=55.755768;
+			var center_2=37.617671;
 		}
-		document.getElementById('message-map-link').onclick = function () {        
-			if($('.geo_class').val()){
-				var myGeocoder = ymaps.geocode($('.geo_class').val()+' Россия');
-			    var ccc=myGeocoder.then(
-			        function (res) {
-			            if(res.geoObjects.get(0).geometry.getCoordinates()!=''){
-			                myMap.setCenter(res.geoObjects.get(0).geometry.getCoordinates(), 11, {
-			                    checkZoomRange: true
-			                });
-			            }        
-			        },
-			        function (err) {
-			            alert('Ошибка: объект на карте не найден!');
-			        }
-			    );    
+		
+		ymaps.ready(init);
+		
+		function init() {
+			var myMap = new ymaps.Map('YMapsID', {
+			    center: [center_1, center_2],
+			    zoom: 8,
+			    behaviors: ["default", "scrollZoom"]
+			}),
+			
+			collection = new ymaps.GeoObjectCollection();
+			myMap.controls.add(
+			   new ymaps.control.ZoomControl()
+			);    
+			myMap.geoObjects.add(collection);
+			
+			for(var i = 0, len = points.length; i < len; i++) {
+			    collection.add(
+			        new ymaps.Placemark(points[i].coords, {
+				            balloonContentHeader: points[i].label+' ',
+				            balloonContentBody: ''+points[i].way_desc+'<div>Время работы: <b>'+points[i].time+'</b><br>'+points[i].params+'<br><input style="padding:8px;" type="button" pf="'+points[i].pf+'" value="Выбрать" class="select-point" rel="'+points[i].id+'" city="'+points[i].city+'" name="'+points[i].label+'" region="'+points[i].region+'"  date="'+points[i].date+'"> </div>',
+				            balloonContentFooter: '<b>Точный адрес:</b> <i>'+points[i].desc+'</i>',
+				            hintContent: points[i].label,
+				            searchStr: '<b>'+points[i].label+'</b> '+points[i].desc+'<br>'
+				        },
+						{
+							iconLayout: 'default#image',
+							iconImageHref: window.location.origin + window.THIS_TEMPLATE_PATH + "/include/guru/img/map_icon2.png",
+							iconImageSize: [31, 40],
+							iconImageOffset: [-20, -20],
+							// Определим интерактивную область над картинкой.
+							iconShape: {
+							    type: 'Circle',
+							    coordinates: [0, 0],
+							    radius: 20
+							}
+						}            
+			        )
+			    );
 			}
-		};    
+			document.getElementById('message-map-link').onclick = function () {        
+				if($('.geo_class').val()){
+					var myGeocoder = ymaps.geocode($('.geo_class').val()+' Россия');
+				    var ccc=myGeocoder.then(
+				        function (res) {
+				            if(res.geoObjects.get(0).geometry.getCoordinates()!=''){
+				                myMap.setCenter(res.geoObjects.get(0).geometry.getCoordinates(), 11, {
+				                    checkZoomRange: true
+				                });
+				            }        
+				        },
+				        function (err) {
+				            alert('Ошибка: объект на карте не найден!');
+				        }
+				    );    
+				}
+			};    
+		}
 	}
 }
 //---------------------------------------
@@ -80,17 +82,19 @@ function close_GURU_map(){
 //------------
 //создание карты
 function new_map_new_center(){
-    $.post("http://api.dostavka.guru/client/get_pvz_codes_2.php",
-    {init: 'get_pvz' }).success(function(data) {
-        var center_1='37.617671';
-        var center_2='55.755768';
-            var points = eval("obj = " + data);
-            if(data==''){
+    $.post(
+	   	window.location.origin + window.THIS_TEMPLATE_PATH + "/include/guru/ajax/pvz_init.php",
+	    {}
+    ).success(function(data) {
+   		var pvz = JSON.parse(data);
+        var center_1='';
+        var center_2='';
+            var points = eval("obj = " + pvz.result);
+            if(pvz.result==''){
                 alert('Нет соединения с сервером пунктов выдачи!');
                 return false;
             }
             maps_init_GURU(points, center_1, center_2);
-            open_GURU_map();
     });
 }
 
@@ -162,12 +166,15 @@ function setAddressData(delivery_data) {
 }
 
 $(document).ready(function(){
-    $.post("http://api.dostavka.guru/client/get_pvz_codes_2.php",
-    {init: 'get_pvz' }).success(function(data) {
+   $.post(
+   	window.location.origin + window.THIS_TEMPLATE_PATH + "/include/guru/ajax/pvz_init.php",
+    {}
+   ).success(function(data) {
+   		var pvz = JSON.parse(data);
         var center_1='';
         var center_2='';
-            var points = eval("obj = " + data);
-            if(data==''){
+            var points = eval("obj = " + pvz.result);
+            if(pvz.result==''){
                 alert('Нет соединения с сервером пунктов выдачи!');
                 return false;
             }

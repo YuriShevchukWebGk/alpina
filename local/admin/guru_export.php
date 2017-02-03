@@ -57,13 +57,14 @@
     $order_id_array = array_unique($order_id_array);
 
     $user_id_list = array_unique($user_id_list);
-
-    //собираем данные пользователей
-    $user_list = array();
-    $user_info = CUser::GetList($by = "ID", $sort = "ASC", array("ID" => implode(" | ", $user_id_list)));
-    while ($ar_user = $user_info->Fetch()) {
-        $user_list[$ar_user["ID"]] = $ar_user["EMAIL"];    
-    }
+	if (!empty($user_id_list)) {
+		//собираем данные пользователей
+	    $user_list = array();
+	    $user_info = CUser::GetList($by = "ID", $sort = "ASC", array("ID" => implode(" | ", $user_id_list)));
+	    while ($ar_user = $user_info->Fetch()) {
+	        $user_list[$ar_user["ID"]] = $ar_user["EMAIL"];
+	    }	
+	}
 
     //собираем статусы заказа
     $status_list = array();
@@ -138,7 +139,7 @@
             "partner_id" => GURU_CLIENT_ID ,
             "key" => GURU_CLIENT_KEY ,
             "usluga" => GetMessage("DELIVERY"),
-            "order_number" => $current_order_id."-".date("U"),
+            "order_number" => $current_order_id,
             "sposob_dostavki" => GetMessage("PVZ"),
             "date_dost" => $date_delivery,
             "region_iz" => GetMessage("MOSCOW"),

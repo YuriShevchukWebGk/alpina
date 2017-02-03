@@ -23,9 +23,10 @@ $opts = array('http' =>
 $context  = stream_context_create($opts);
 $result = file_get_contents('http://api.dostavka.guru/client/calc_guru_main_2_0.php', false, $context);
 
+
 list($delivery_price, $delivery_time) = split('::', $result);
 
-if ($delivery_price == "ERROR") {
+if ($delivery_price == "ERROR" || $delivery_price == 0) {
 	$default_values = getDefaultGuruValues();
 	$delivery_price = $default_values['PRICE'];
 	$delivery_time  = $default_values['TIME'];
