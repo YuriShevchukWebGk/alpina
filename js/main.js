@@ -926,10 +926,7 @@ function update_basket(e)
     var product = $(e).closest(".basketBook").attr("product-id");
     $.post("/ajax/ajax_add2basket.php", {quantity: quantity, id: id, product: product, action: 'update'}, function(data){
         $(".hidingBasketRight").html(data);
-        var total_quant = 0;
-        $(".basketBook .countMenu .countOfBook").each(function(){
-            total_quant += parseInt($(this).html());
-        });
+        var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
         $(".BasketQuant").html(total_quant);
     });
 }
@@ -968,11 +965,7 @@ function addtocart(productid, name) {
             }
             $(".BasketQuant").css("display", "block");
             $(".hidingBasketRight").html(data);
-            var total_quant = 0;
-            $(".basketBook .countMenu .countOfBook").each(function()
-                {
-                    total_quant += parseInt($(this).html());
-            });
+            var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
             $(".BasketQuant").html(total_quant);
             // обновляем блок с ценой и описанием до следующей скидки
             $(".wrap_prise_top").load(window.location.href + " .wrap_prise_top > *");
@@ -1129,11 +1122,7 @@ function delete_basket_item(productid) {
     $.post('/ajax/ajax_deletefrombasket.php', {productid: productid}, function(data)
         {
             $(".hidingBasketRight").html(data);
-            var total_quant = 0;
-            $(".basketBook .countMenu .countOfBook").each(function()
-                {
-                    total_quant += parseInt($(this).html());
-            });
+            var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
             $(".BasketQuant").html(total_quant);
     })
 }
