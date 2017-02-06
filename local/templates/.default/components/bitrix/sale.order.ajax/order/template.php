@@ -159,20 +159,17 @@
             if (ourday == 1) { //понедельник
 				minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-                if (hourfordeliv < 23)
-					minDatePlus = 3;
-				else
-					minDatePlus = 6;
+				minDatePlus = 1;
             } else if (ourday == 3) { //среда
                 minDatePlus = 5;
             } else if (ourday == 4) { //четверг
                 minDatePlus = 5;
             } else if (ourday == 5) { //пятница
-                minDatePlus = 3;
+                minDatePlus = 4;
             } else if (ourday == 6) { //суббота
                 minDatePlus = 3;
             } else if (ourday == 0) { //воскресенье
-                minDatePlus = 1;
+                minDatePlus = 3;
             }
         }
 		if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
