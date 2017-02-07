@@ -25,8 +25,8 @@
 
     $filter = array(
         "LOGIC" => "OR",
-        array("GURU.ORDER_PROPS_ID" => EXPORTED_TO_GURU_PROPERTY_ID_NATURAL, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID),
-        array("GURU.ORDER_PROPS_ID" => EXPORTED_TO_GURU_PROPERTY_ID_LEGAL, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID)
+        array("GURU.ORDER_PROPS_ID" => EXPORTED_TO_GURU_PROPERTY_ID_NATURAL, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID, "PAYED" => "Y"),
+        array("GURU.ORDER_PROPS_ID" => EXPORTED_TO_GURU_PROPERTY_ID_LEGAL, "GURU.VALUE" => "N", "DELIVERY_ID" => GURU_DELIVERY_ID, "PAYED" => "Y")
     );    
 
     $getListParams = array(
@@ -53,18 +53,18 @@
         $order_list[$arOrder["ID"]] = $arOrder;
         $user_id_list[] = $arOrder["USER_ID"];
     }
-    
+
     $order_id_array = array_unique($order_id_array);
 
     $user_id_list = array_unique($user_id_list);
-	if (!empty($user_id_list)) {
-		//собираем данные пользователей
-	    $user_list = array();
-	    $user_info = CUser::GetList($by = "ID", $sort = "ASC", array("ID" => implode(" | ", $user_id_list)));
-	    while ($ar_user = $user_info->Fetch()) {
-	        $user_list[$ar_user["ID"]] = $ar_user["EMAIL"];
-	    }	
-	}
+    if (!empty($user_id_list)) {
+        //собираем данные пользователей
+        $user_list = array();
+        $user_info = CUser::GetList($by = "ID", $sort = "ASC", array("ID" => implode(" | ", $user_id_list)));
+        while ($ar_user = $user_info->Fetch()) {
+            $user_list[$ar_user["ID"]] = $ar_user["EMAIL"];
+        }	
+    }
 
     //собираем статусы заказа
     $status_list = array();
@@ -100,7 +100,7 @@
         while($ar_order_prop = $rs_order_props->Fetch()) {
             $order_props[$ar_order_prop["CODE"]] = $ar_order_prop;  
         }  
-       
+
         //выбираем нужные поля
         //имя получателя
         $cont_name = (!empty($order_props["F_CONTACT_PERSON"]["VALUE"]) ? $order_props["F_CONTACT_PERSON"]["VALUE"] : $order_props["F_NAME"]["VALUE"]);
@@ -150,7 +150,7 @@
             "ves_kg" => $weight,
             "ocen_sum" => $ar_order["PRICE"]
         );
-        
+
         $post_data = http_build_query($order_data);
 
         $opts = array('http' =>
@@ -191,12 +191,31 @@
 <script>
     $(function() {
         //задаем начальные параметры
-        order_id_array = [<?=implode(",", $order_id_array)?>];   
+        order_id_array = [];   
         interval = false;  
+
+        //обработка чекбокса "выбрать все"
+        $(".js-order-box-all").on("click", function() {
+            var checkBoxes = $(".js-order-box");
+            checkBoxes.prop("checked", !checkBoxes.prop("checked"));    
+        })
     })
 
     //функция-обертка для экспорта заказов с интервалом в 1 секунду
     function export_orders_data() {
+
+        $(".js-order-box").each(function(){
+            if ($(this).prop("checked")) {
+                order_id_array.push($(this).data("order-id"));
+            }
+        }) 
+
+        if (order_id_array.length == 0) {
+            alert("<?=GetMessage("NO_ORDERS_SELECT")?>");
+            return false;
+        }
+        
+
         $(".js-export-processing").show();
         $(".js-export-status").show();
         $('.js-orders-exported').html("0");
@@ -213,7 +232,6 @@
         if (len <= 0) {
             //если массив пуст, то прерываем импорт
             clearInterval(interval);
-            $(".adm-btn-save").hide();
             $(".js-export-processing").hide();
             return false    
         } else {
@@ -266,6 +284,12 @@
 
                 <td class="adm-list-table-cell">
                     <div class="adm-list-table-cell-inner">
+                        <input type="checkbox" value="" class="js-order-box-all" >
+                    </div>                  
+                </td>
+
+                <td class="adm-list-table-cell">
+                    <div class="adm-list-table-cell-inner">
                         <?=GetMessage("ORDER_ID")?>
                     </div>                  
                 </td>
@@ -307,6 +331,7 @@
                 foreach ($order_list as $arOrder) {?>
                 <tr>
                     <td class="adm-list-table-cell"><?=$i?></td>
+                    <td class="adm-list-table-cell"><input type="checkbox" value="" class="js-order-box" data-order-id="<?=$arOrder["ID"]?>"></td>
                     <td class="adm-list-table-cell"><a href="sale_order_detail.php?ID=<?=$arOrder["ID"]?>" target="_blank"><?=$arOrder["ID"]?></a></td>
                     <td class="adm-list-table-cell"><?=$arOrder["DATE_INSERT"]?></td>
                     <td class="adm-list-table-cell"><?=$status_list[$arOrder["STATUS_ID"]]?></td>
