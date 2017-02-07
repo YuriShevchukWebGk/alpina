@@ -539,7 +539,7 @@ $arItemIDs = array(
                             } else { //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									//$delivery_day = 'завтра';
+									$delivery_day = 'в среду';
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
 									$delivery_day = 'в пятницу';
