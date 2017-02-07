@@ -139,7 +139,7 @@
             "partner_id" => GURU_CLIENT_ID ,
             "key" => GURU_CLIENT_KEY ,
             "usluga" => GetMessage("DELIVERY"),
-            "order_number" => $current_order_id,
+            "order_number" => $current_order_id.date("U"),
             "sposob_dostavki" => GetMessage("PVZ"),
             "date_dost" => $date_delivery,
             "region_iz" => GetMessage("MOSCOW"),
@@ -245,7 +245,11 @@
                 $.post("<?=$APPLICATION->GetCurPage()?>", {ID: current_order_id, export_order: "yes"}, function(data){
                     var exported_orders_count = parseInt($('.js-orders-exported').html());
                     $('.js-orders-exported').html(exported_orders_count + 1);
-                    $(".js-export-" + current_order_id).html(data);     
+                    $(".js-export-" + current_order_id).html(data);    
+                    if (data == "OK") {
+                        $(".js-order-box[data-order-id=" + current_order_id + "]").attr("disabled", "disabled");    
+                        $(".js-order-box[data-order-id=" + current_order_id + "]").removeAttr("checked");    
+                    } 
                 });
             }
         }       
