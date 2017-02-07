@@ -18,3 +18,4 @@ $MESS["ORDER_UPDATE_ERROR"] = "Заказ экспортирован в Дост
 $MESS["DELIVERY"] = "ДОСТАВКА";  
 $MESS["PVZ"] = "ПВЗ";  
 $MESS["MOSCOW"] = "Москва";  
+$MESS["NO_ORDERS_SELECT"] = "Не выбрано ни одного заказа!";
