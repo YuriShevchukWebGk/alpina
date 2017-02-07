@@ -313,7 +313,9 @@ $arItemIDs = array(
                         <link itemprop="itemCondition" href="http://schema.org/NewCondition">
                         <meta itemprop="sku" content="<?=$arResult["ID"]?>" />
                         <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
-                                if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
+                                if ($arResult["ITEM_WITHOUT_DISCOUNT"] == "Y") {
+                                    $discount = 0;
+                                } elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
                                     $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH") . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span><br />";
                                 } elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
                                     $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["SAVINGS_DISCOUNT"][0]["SUMM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span><br />";
@@ -322,7 +324,9 @@ $arItemIDs = array(
                                     $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                                 }
                             } else {
-                                if ($arResult["CART_SUM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
+                                if ($arResult["ITEM_WITHOUT_DISCOUNT"] == "Y") {
+                                    $discount = 0;
+                                } elseif ($arResult["CART_SUM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
                                     $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][0]["RANGE_FROM"] - $arResult["CART_SUM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][0]["VALUE"] . "%</span><br />";
                                 } elseif ($arResult["CART_SUM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
                                     $printDiscountText = "<span class='sale_price'>" . GetMessage("NOT_ENOUGH")  . ($arResult["SALE_NOTE"][1]["RANGE_FROM"] - $arResult["CART_SUM"]) . GetMessage("AMOUNT_UNTIL_DISCOUNT") . $arResult["SALE_NOTE"][1]["VALUE"] . "%</span><br />";
@@ -333,7 +337,7 @@ $arItemIDs = array(
                         }?>
                         <div class="wrap_prise_top">
                             <?$StockInfo = "";
-                                if (!empty($arResult["PRICES"])) {?>
+                                if (!empty($arResult["PRICES"])) { ?>
                                     <?// если свойство товара в состоянии "Новинка" либо не задан - то выводить стандартный блок с ценой,
                                     // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении
                                     if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") )

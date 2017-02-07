@@ -766,15 +766,58 @@ if ($arResult['MODULES']['currency'])
         } 
         $arResult["BASKET_ITEMS"]["sum_pruce"] += $arBasketItems["PRICE"];
 
-    } 
-    
+    }
+    $basket_items = CSaleBasket::GetList(
+        array("ID" => "ASC"), 
+        array(
+            'FUSER_ID' => CSaleBasket::GetBasketUserID(),
+            'LID' => SITE_ID,
+            'ORDER_ID' => 'NULL'
+        ),
+        false,
+        false,
+        array(
+            'ID', 'PRODUCT_ID', 'QUANTITY', 'PRICE', 'DISCOUNT_PRICE', 'WEIGHT'
+        )
+    );
+
+   $allSum = 0;
+   $allWeight = 0;
+   $arItems = array();
+   
+   while ($basket_items_array = $basket_items->Fetch()) {   
+      $allSum += ($arItem["PRICE"] * $arItem["QUANTITY"]);
+      $allWeight += ($arItem["WEIGHT"] * $arItem["QUANTITY"]);
+      $arItems[] = $basket_items_array;
+   }  
+   $arOrder = array(
+       'SITE_ID' => SITE_ID,
+       'USER_ID' => CSaleBasket::GetBasketUserID(),
+       'ORDER_PRICE' => $allSum,
+       'ORDER_WEIGHT' => $allWeight,
+       'BASKET_ITEMS' => $arItems
+   );
+   
+   $arOptions = array(
+      'COUNT_DISCOUNT_4_ALL_QUANTITY' => 'Y',
+   );
+   
+   $arErrors = array();
+   
+   CSaleDiscount::DoProcessOrder($arOrder, $arOptions, $arErrors);
+   foreach ($arOrder["BASKET_ITEMS"] as $arOneItem) {
+       if ($arOneItem["PRODUCT_ID"] == $arResult["ID"] && $arOneItem["DISCOUNT_PRICE"] < 1) {
+           $arResult["ITEM_WITHOUT_DISCOUNT"] = "Y";
+       }
+   } 
+ 
     $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
     $ar_sale = array();
     while($ar_sale=$rr->Fetch()) {
         $arResult["SALE_NOTE"][] = $ar_sale;
     }
     $arResult["SAVINGS_DISCOUNT"] =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
-    
+
     if($USER->IsAuthorized()){
         $rsCurUser = CUser::GetByID($USER->GetID());
         $arCurUser = $rsCurUser->Fetch();
