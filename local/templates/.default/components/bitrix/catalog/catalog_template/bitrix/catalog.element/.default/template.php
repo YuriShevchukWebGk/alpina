@@ -11,6 +11,129 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
 ?>
+<?
+$alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
+$alpExps  = (!$alpExps ? array() : $alpExps);
+
+if ($alpExps['updateExp'] != "130217") {
+	$alpExps = array();
+	$alpExps['updateExp'] = "130217";
+}
+
+if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
+	$alpExps['bgAdjustment']    = (!$alpExps['bgAdjustment'] ? rand(1,2) : $alpExps['bgAdjustment']);
+	
+}
+
+if ($alpExps['bgAdjustment'] == 1) {
+	// перевод цвета из HEX в RGB
+	function hexToRgb($color) {
+		// проверяем наличие # в начале, если есть, то отрезаем ее
+		if ($color[0] == '#') {
+			$color = substr($color, 1);
+		}
+	   
+		// разбираем строку на массив
+		if (strlen($color) == 6) { // если hex цвет в полной форме - 6 символов
+			list($red, $green, $blue) = array(
+				$color[0] . $color[1],
+				$color[2] . $color[3],
+				$color[4] . $color[5]
+			);
+		} elseif (strlen($cvet) == 3) { // если hex цвет в сокращенной форме - 3 символа
+			list($red, $green, $blue) = array(
+				$color[0]. $color[0],
+				$color[1]. $color[1],
+				$color[2]. $color[2]
+			);
+		}else{
+			return false; 
+		}
+	 
+		// переводим шестнадцатиричные числа в десятичные
+		$red = hexdec($red); 
+		$green = hexdec($green);
+		$blue = hexdec($blue);
+		 
+		// вернем результат
+		return array(
+			'red' => $red, 
+			'green' => $green, 
+			'blue' => $blue
+		);
+	}	
+	
+	include_once("/home/bitrix/www/custom-scripts/colors/colors.inc.php");
+
+	$image_to_read = "/home/bitrix/www/".$arResult["PICTURE"]["src"];
+	
+	$colors_to_show = 8;
+	
+	$pal = new GetMostCommonColors();
+	$pal->image = $image_to_read;
+	$colors=$pal->Get_Color();
+	$colors_key=array_keys($colors);
+	$mincolor = array();
+	
+	$bgcolors = array();
+	for ($i = 0; $i < $colors_to_show; $i++) {
+		$bgcolors[] = "#".$colors_key[$i];
+		$mincolor[$i]['sum'] = hexToRgb($bgcolors[$i])['red'] + hexToRgb($bgcolors[$i])['green'] + hexToRgb($bgcolors[$i])['blue'];
+		$mincolor[$i]['color'] = "#".$colors_key[$i];
+	}
+
+	$mincolor = min($mincolor);
+	
+	$m = 0;
+	while (hexToRgb($bgcolors[$m])['red'] > 190 && hexToRgb($bgcolors[$m])['green'] > 190 && hexToRgb($bgcolors[$m])['blue'] > 190 || (hexToRgb($bgcolors[$m])['red'] > 200 && hexToRgb($bgcolors[$m])['green'] > 200 && hexToRgb($bgcolors[$m])['blue'] < 100)) {
+		$m++;
+		$bgcolors[0] = $bgcolors[$m];
+	}
+	/*echo $mincolor['sum'];
+	print_r(hexToRgb($bgcolors[$m]));*/
+	if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
+		$mincolor['color'] = "#555";
+	}
+	?>
+	<style>
+		.productElementWrapp:before {
+			background-color: <?=$bgcolors[0]?>;
+			opacity: 0.3;
+		}
+		.crr .mc-star span {
+			color: <?=$mincolor['color']?>!important;
+		}
+		.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr {
+			color: <?=$mincolor['color']?>!important;
+		}
+		.catalogIcon {
+			background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
+			opacity: 0.8;
+		}
+		.basketIcon {
+			background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
+			opacity: 0.8;
+		}		
+	</style>
+	<script>
+	$(document).ready(function() {
+		dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'bgAdjustment', 'label' : 'bgColorChanged'});
+	});
+	</script>
+<?} elseif ($alpExps['bgAdjustment'] == 2) {?>
+	<style>
+	.crr {
+		color:#fff!important;
+	}
+	</style>
+	<script>
+		$(document).ready(function() {
+			dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'bgAdjustment', 'label' : 'bgColorDefault'});
+		});
+	</script>
+<?}
+$APPLICATION->set_cookie("alpExps", serialize($alpExps));?>
+
 <?$this->setFrameMode(true);
 $templateLibrary = array('popup');
 $currencyList = '';
@@ -543,26 +666,23 @@ $arItemIDs = array(
                             } else { //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в среду';
+									//$delivery_day = 'в среду';
                                 } elseif ($today == 2) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в пятницу';
+									$delivery_day = 'в четверг';
                                 } elseif ($today == 3) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в понедельник';
-
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = "во вторник";
+                                    //$delivery_day = "во вторник";
                                 } elseif ($today == 5) {
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+                                    //$delivery_day = 'во вторник';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = 'в среду';
+                                    //$delivery_day = 'в среду';
                                 }
 
                                 if ($today == 5) {
@@ -715,7 +835,6 @@ $arItemIDs = array(
 
                             <style>
                             .crr {
-    color:#fff!important;
     font-family: "Walshein_regular"!important;
     font-size:15px!important;
 }
@@ -964,7 +1083,7 @@ $arItemIDs = array(
                                     false
                                 );?>
 
-                            <?= $arResult["DETAIL_TEXT"] ?>
+                            <?= typo($arResult["DETAIL_TEXT"]) ?>
                         </div>
 
                         <?$videosCount  = 0;

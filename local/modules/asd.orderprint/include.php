@@ -7,7 +7,7 @@ class CASDOrderPrint {
 
 	public static function OnAdminListDisplayHandler(&$list) {
 		if ($GLOBALS['APPLICATION']->GetCurPage() == '/bitrix/admin/sale_order.php' || $GLOBALS['APPLICATION']->GetCurPage() == '/bitrix/admin/print_list.php') {
-			require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/asd.orderprint/classes/general/orderprint.php');
+			require_once($_SERVER['DOCUMENT_ROOT'].'/local/modules/asd.orderprint/classes/general/orderprint.php');
 			$strForm = '<div id="asd_orderprint_form" style="display:none">
 						'.bitrix_sessid_post().'
 							<select name="asd_print">';

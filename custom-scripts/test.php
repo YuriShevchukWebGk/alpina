@@ -1,29 +1,12 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-
-	CModule::IncludeModule("iblock");
-	CModule::IncludeModule("sale");
-$arFilter = Array(
-	"USER_ID" => $USER->GetID(),
-	"PAYED" => "Y"
-   );
-
-   $books = array();
-   
-$db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
-$i = 0;
-while ($ar_sales = $db_sales->Fetch())
+if(CModule::IncludeModule('iblock'))
 {
-	$dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $ar_sales[ID]));
-	while ($book = $dbItemsInOrder->GetNext()) {
-		$books[$book[PRODUCT_ID]]['ID'] = $book[PRODUCT_ID];
-		$books[$book[PRODUCT_ID]]['DATE'] = substr($ar_sales[DATE_INSERT],0,10);
-		$i++;
-	}
+$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y");
+$res = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID","NAME", "SHOW_COUNTER", "SHOW_COUNTER_START"));
+while($ar_fields = $res->GetNext())
+{
+echo "У элемента ".$ar_fields[NAME]." ".round(($ar_fields[SHOW_COUNTER]/(((time() - strtotime($ar_fields[SHOW_COUNTER_START]))/3600/24)))*2)." показов<br>";}
 }
-array_unique($books);
-echo '<pre>';
-print_r($books);
-echo '</pre>';
 
 ?>
 
