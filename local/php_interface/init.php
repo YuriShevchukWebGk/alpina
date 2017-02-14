@@ -829,6 +829,7 @@
     }
     
     AddEventHandler("main", "OnAfterUserRegister", Array("AlpinaBK", "sendUserToBK"));
+	AddEventHandler("main", "OnAfterUserUpdate",  Array("AlpinaBK", "updateUserPassword"));
 	// общий класс для методов, связанных с бизнес книгами
     class AlpinaBK {
     	
@@ -859,6 +860,68 @@
 		    $context  = stream_context_create($opts);
 		    $result = file_get_contents('https://www.alpinabook.ru/api/user/', false, $context);
     	}
+    	
+    	/**
+		 * 
+		 * При сбросе пароля ищем пользователя в БК, если он там есть, то меняем ему пароль на такой же,
+		 * если нет, то регистрируем нового пользователя в БК
+		 * 
+		 * @param array $fields
+		 * 
+		 * */
+    	public static function updateUserPassword(&$fields) {
+			// проверяем, что сбрасывают именно пароль
+			/*if ($fields['PASSWORD'] && $fields['CONFIRM_PASSWORD'] && $fields['PASSWORD'] == $fields['CONFIRM_PASSWORD']) {
+				// получение данных пользователя
+				$user = CUser::GetByID($fields['ID']);
+				$user = $user->Fetch();	
+				// запрос на существование пользователя в БК
+				$data = array(
+					'email' => $user['EMAIL']
+				);
+				ksort($data);
+				
+				$string_to_hash = http_build_query($data);
+				$sig = md5($string_to_hash . BK_API_TOKEN);
+				
+				$data['sig'] = $sig;
+				
+				$user = performQuery(
+					$data,
+					"GET",
+					BK_REQUESTS_URL . 'b2b/users'
+				);
+				
+				$user = json_decode($user, true);
+
+				if ($user['id']) {
+					// если пользователь есть, то сбросим пароль
+					$data = array(
+						'password' => $fields['PASSWORD']
+					);
+					ksort($data);
+					
+					$string_to_hash = http_build_query($data);
+					$sig = md5($string_to_hash . BK_API_TOKEN);
+					
+					$data['sig'] = $sig;
+					
+					$user = performQuery(
+						$data,
+						"POST",
+						BK_REQUESTS_URL . 'b2b/users/' . $user['id']
+					);
+				} else {
+					// если нет, то создадим
+					self::sendUserToBK(array(
+						"EMAIL"     => $user['EMAIL'],
+						"PASSWORD"  => $fields['PASSWORD'],
+						"NAME"      => $user['NAME'],
+						"LAST_NAME" => $user['LAST_NAME']
+					));
+				}
+			}
+    	}*/
     }
 
     AddEventHandler("main", "OnAfterUserRegister", Array("OnAfterUserRegisterHandler", "OnAfterUserRegister"));
@@ -1905,6 +1968,40 @@
             FILE_APPEND
         );
     }
+	
+	/**
+	 * 
+	 * Выполнить запрос
+	 * 
+	 * @param array $data
+	 * @param string $method
+	 * @param string $request
+	 * @param string $headers
+	 * @return mixed $result
+	 * 
+	 * */
+
+    function performQuery($data, $method = "GET", $request, $headers) {
+		$postdata = http_build_query(
+			$data
+	    );
+	
+	    $opts = array(
+		    'http' => array(
+				'method'  => $method,
+				'header'  => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL . $headers,
+				'content' => $postdata
+			),
+			'ssl' => array(
+		        'verify_peer' => false
+		    )
+	    );
+	    
+	    $context  = stream_context_create($opts);
+	    $result = file_get_contents($request, false, $context);
+		
+		return $result;
+	}
     
     /***********
     * 
