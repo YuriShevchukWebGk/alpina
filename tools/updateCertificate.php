@@ -29,7 +29,7 @@
 </form>
 <?
     if ($_GET['send'] == 'yes') {
-        if ((!empty($_GET['id_from']) && !empty($_GET['id_to']) && !empty($_GET["date_to"])) && ($_GET['id_from'] < $_GET['id_to'])) {
+        if ((!empty($_GET['id_from']) && !empty($_GET['id_to']) && !empty($_GET["date_to"])) && ($_GET['id_from'] <= $_GET['id_to'])) {
             for ($CouponID = $_GET['id_from']; $CouponID <= $_GET['id_to']; $CouponID++) {
                 $arCouponID[] = $CouponID;
             }
