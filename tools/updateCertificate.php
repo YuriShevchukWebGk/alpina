@@ -5,7 +5,7 @@
 <br>
 Обновление подарочных сертификатов.<br>
 <br>
-<form action="">    
+<form action="">
     ID от <input type='number' name='id_from' value='<?=$_GET['id_from']?>'>
     ID до <input type='number' name='id_to' value='<?=$_GET['id_to']?>'><br><br>
     Обновить с даты по дату, поля можно оставлять пустыми.<br>
@@ -13,7 +13,7 @@
             "bitrix:main.calendar",
             "",
             Array(
-                "COMPONENT_TEMPLATE" => ".default",                                                  
+                "COMPONENT_TEMPLATE" => ".default",
                 "FORM_NAME" => "",
                 "HIDE_TIMEBAR" => "N",
                 "INPUT_NAME" => "date_from",
@@ -44,9 +44,9 @@
             );
             foreach ($arCouponID as $couponID) {
                 \Bitrix\Sale\Internals\DiscountCouponTable::update($couponID, $fields);
-            }     
+            }
         } else {
-            echo "Не удалось обновить сертификаты";    
+            echo "Не удалось обновить сертификаты";
         }
     }
 ?>

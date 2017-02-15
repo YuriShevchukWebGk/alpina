@@ -20,10 +20,7 @@ if ($alpExps['updateExp'] != "130217") {
 	$alpExps['updateExp'] = "130217";
 }
 
-if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
-	$alpExps['bgAdjustment']    = (!$alpExps['bgAdjustment'] ? rand(1,2) : $alpExps['bgAdjustment']);
-	
-}
+$alpExps['bgAdjustment']    = (!$alpExps['bgAdjustment'] ? rand(1,2) : $alpExps['bgAdjustment']);
 
 if ($alpExps['bgAdjustment'] == 1) {
 	// перевод цвета из HEX в RGB
@@ -63,9 +60,9 @@ if ($alpExps['bgAdjustment'] == 1) {
 		);
 	}	
 	
-	include_once("/home/bitrix/www/custom-scripts/colors/colors.inc.php");
+	include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/colors/colors.inc.php');
 
-	$image_to_read = "/home/bitrix/www/".$arResult["PICTURE"]["src"];
+	$image_to_read = $_SERVER["DOCUMENT_ROOT"] . "/" .$arResult["PICTURE"]["src"];
 	
 	$colors_to_show = 8;
 	
@@ -85,12 +82,20 @@ if ($alpExps['bgAdjustment'] == 1) {
 	$mincolor = min($mincolor);
 	
 	$m = 0;
-	while (hexToRgb($bgcolors[$m])['red'] > 190 && hexToRgb($bgcolors[$m])['green'] > 190 && hexToRgb($bgcolors[$m])['blue'] > 190 || (hexToRgb($bgcolors[$m])['red'] > 200 && hexToRgb($bgcolors[$m])['green'] > 200 && hexToRgb($bgcolors[$m])['blue'] < 100)) {
+	while (hexToRgb($bgcolors[$m])['red'] > 190 && hexToRgb($bgcolors[$m])['green'] > 190 && hexToRgb($bgcolors[$m])['blue'] > 190 || (hexToRgb($bgcolors[$m])['red'] > 200 && hexToRgb($bgcolors[$m])['green'] > 200 && hexToRgb($bgcolors[$m])['blue'] < 100) || (hexToRgb($bgcolors[$m])['red'] > 190 && hexToRgb($bgcolors[$m])['green'] < 90 && hexToRgb($bgcolors[$m])['blue'] < 90)) {
 		$m++;
 		$bgcolors[0] = $bgcolors[$m];
 	}
-	/*echo $mincolor['sum'];
-	print_r(hexToRgb($bgcolors[$m]));*/
+	$bgsum = hexToRgb($bgcolors[$m])['red'] + hexToRgb($bgcolors[$m])['green'] + hexToRgb($bgcolors[$m])['blue'];
+	
+	if ($bgsum < 20)
+		$bgcolors[0] = "#777777";
+	
+	if ($USER->isAdmin()) {
+		echo $bgsum;
+		echo $mincolor['sum'];
+		print_r(hexToRgb($bgcolors[0]));
+	}
 	if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
 		$mincolor['color'] = "#555";
 	}
@@ -100,10 +105,7 @@ if ($alpExps['bgAdjustment'] == 1) {
 			background-color: <?=$bgcolors[0]?>;
 			opacity: 0.3;
 		}
-		.crr .mc-star span {
-			color: <?=$mincolor['color']?>!important;
-		}
-		.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr {
+		.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span {
 			color: <?=$mincolor['color']?>!important;
 		}
 		.catalogIcon {
@@ -133,6 +135,20 @@ if ($alpExps['bgAdjustment'] == 1) {
 	</script>
 <?}
 $APPLICATION->set_cookie("alpExps", serialize($alpExps));?>
+
+<?if ($USER->isAdmin()) {
+	$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "ID"=>$arResult["ID"]);
+	$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID","NAME", "SHOW_COUNTER", "SHOW_COUNTER_START"));
+	$props = $props->GetNext();
+	{?>
+		<script>
+			function shown() {
+				$('body').append('<div style="position:fixed; width:200px; height:100px; right:50px; bottom:50px;background:<?=$bgcolors[0]?>; opacity:0.3;"><span style="color:<?=$mincolor['color']?>;"><?echo "Сегодня ".$props[NAME]." просмотрели ".round(($props[SHOW_COUNTER]/(((time() - strtotime($props[SHOW_COUNTER_START]))/3600/24)))/24*date("G")*2)." человека"?></span></div>');
+			};
+			setTimeout(shown, 5000);
+		</script>
+	<?}?>
+<?}?>
 
 <?$this->setFrameMode(true);
 $templateLibrary = array('popup');
@@ -668,10 +684,15 @@ $arItemIDs = array(
                                     $delivery_day = GetMessage("TOMORROW");
 									//$delivery_day = 'в среду';
                                 } elseif ($today == 2) {
-                                    $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в четверг';
+									if ($timenow < 7)
+										$delivery_day = 'сегодня';
+									else
+										$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {
-                                    $delivery_day = GetMessage("TOMORROW");
+									if ($timenow < 8)
+										$delivery_day = 'сегодня';
+									else
+										$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
                                     //$delivery_day = "во вторник";

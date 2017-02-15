@@ -159,9 +159,15 @@
             if (ourday == 1) { //понедельник
 				minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-				minDatePlus = 2;
+				if (hourfordeliv < 7)
+					minDatePlus = 0;
+				else
+					minDatePlus = 1;
             } else if (ourday == 3) { //среда
-                minDatePlus = 1;
+				if (hourfordeliv < 8)
+					minDatePlus = '15.02.2017';
+				else
+					minDatePlus = 1;
             } else if (ourday == 4) { //четверг
                 minDatePlus = 1;
             } else if (ourday == 5) { //пятница
