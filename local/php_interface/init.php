@@ -871,57 +871,65 @@
 		 * */
     	public static function updateUserPassword(&$fields) {
 			// проверяем, что сбрасывают именно пароль
-			/*if ($fields['PASSWORD'] && $fields['CONFIRM_PASSWORD'] && $fields['PASSWORD'] == $fields['CONFIRM_PASSWORD']) {
+			if ($fields['PASSWORD'] && $fields['CONFIRM_PASSWORD'] && $fields['RESULT']) {
 				// получение данных пользователя
 				$user = CUser::GetByID($fields['ID']);
 				$user = $user->Fetch();	
-				// запрос на существование пользователя в БК
+				// --- запрос на существование пользователя в БК ---
 				$data = array(
 					'email' => $user['EMAIL']
 				);
 				ksort($data);
 				
 				$string_to_hash = http_build_query($data);
-				$sig = md5($string_to_hash . BK_API_TOKEN);
+				$sig = md5($string_to_hash . BK_API_SECRET_KEY);
 				
 				$data['sig'] = $sig;
 				
-				$user = performQuery(
-					$data,
-					"GET",
-					BK_REQUESTS_URL . 'b2b/users'
-				);
-				
-				$user = json_decode($user, true);
-
-				if ($user['id']) {
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users?' . http_build_query($data));
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				    'X-Auth-Token: ' . BK_API_TOKEN,
+				));
+				$data = curl_exec($ch);
+				curl_close($ch);
+				// --- запрос на существование пользователя в БК ---
+				$user = json_decode($data, true);
+				if ($user[0]['id']) {
 					// если пользователь есть, то сбросим пароль
 					$data = array(
-						'password' => $fields['PASSWORD']
+						'password' => $fields['CONFIRM_PASSWORD']
 					);
 					ksort($data);
 					
 					$string_to_hash = http_build_query($data);
-					$sig = md5($string_to_hash . BK_API_TOKEN);
+					$sig = md5($string_to_hash . BK_API_SECRET_KEY);
 					
 					$data['sig'] = $sig;
 					
-					$user = performQuery(
-						$data,
-						"POST",
-						BK_REQUESTS_URL . 'b2b/users/' . $user['id']
-					);
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users/' . $user[0]['id']);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+					curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					    'X-Auth-Token: ' . BK_API_TOKEN,
+					));
+					$data = curl_exec($ch);
+					curl_close($ch);
+					// --- запрос сброс пароля в БК ---
 				} else {
 					// если нет, то создадим
 					self::sendUserToBK(array(
 						"EMAIL"     => $user['EMAIL'],
-						"PASSWORD"  => $fields['PASSWORD'],
+						"PASSWORD"  => $fields['CONFIRM_PASSWORD'],
 						"NAME"      => $user['NAME'],
 						"LAST_NAME" => $user['LAST_NAME']
 					));
 				}
 			}
-    	}*/
+    	}
     }
 
     AddEventHandler("main", "OnAfterUserRegister", Array("OnAfterUserRegisterHandler", "OnAfterUserRegister"));
