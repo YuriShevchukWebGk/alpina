@@ -17,7 +17,8 @@
 
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
-    $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
+    $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');    
+    $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>'); 
 	// доставка гуру
 	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/collection-search-provider.js");
 	//$APPLICATION->AddHeadString('<script src="http://api.dostavka.guru/client/collection-search-provider.js"></script>');
@@ -37,7 +38,11 @@
     
     input#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>:checked ~ div.guru_delivery_wrapper {
         display: block;
-    }
+    } 
+       
+    input#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>:checked ~ div.boxberry_delivery_wrapper {
+        display: block;
+    }  
     
 	#order_form_div .location-block-wrapper {
 		max-width: 100%;
@@ -68,6 +73,7 @@
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
+    window.BOXBERRY_PICKUP_DELIVERY_ID = '<?= BOXBERRY_PICKUP_DELIVERY_ID ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
@@ -157,33 +163,33 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-				minDatePlus = 1;
+                minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-				if (hourfordeliv < 7)
-					minDatePlus = 0;
-				else
-					minDatePlus = 1;
+                if (hourfordeliv < 7)
+                    minDatePlus = 0;
+                else
+                    minDatePlus = 1;
             } else if (ourday == 3) { //среда
-				if (hourfordeliv < 8)
-					minDatePlus = '15.02.2017';
-				else
-					minDatePlus = 1;
+                if (hourfordeliv < 8)
+                    minDatePlus = '15.02.2017';
+                else
+                    minDatePlus = 1;
             } else if (ourday == 4) { //четверг
-				if (hourfordeliv < 9)
-					minDatePlus = '16.02.2017';
-				else
-					minDatePlus = 1;
+                if (hourfordeliv < 9)
+                        minDatePlus = '16.02.2017';
+                    else
+                        minDatePlus = 1;
             } else if (ourday == 5) { //пятница
-				minDatePlus = 3;
+                minDatePlus = 3;
             } else if (ourday == 6) { //суббота
                 minDatePlus = 2;
             } else if (ourday == 0) { //воскресенье
                 minDatePlus = 1;
             }
         }
-		if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
-			minDatePlus++;
-		}
+        if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
+            minDatePlus++;
+        }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;
@@ -217,6 +223,11 @@
         }
         // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
         if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
+            $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
+            $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
+        }         
+        // скрываем поле "Адрес" для доставки boxberry, т.к. мы будем писать туда свои данные        
+        if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").attr("checked") == "checked") {
             $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
             $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
         }
@@ -488,7 +499,7 @@
                                             		$(".guru_error").hide();
                                             	}
                                             }
-                                        }
+                                        }                                       
                                     }
 
                                     if(flag){
