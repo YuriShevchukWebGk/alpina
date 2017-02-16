@@ -169,7 +169,10 @@
 				else
 					minDatePlus = 1;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 1;
+				if (hourfordeliv < 9)
+					minDatePlus = '16.02.2017';
+				else
+					minDatePlus = 1;
             } else if (ourday == 5) { //пятница
 				minDatePlus = 3;
             } else if (ourday == 6) { //суббота
