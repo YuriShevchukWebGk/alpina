@@ -60,7 +60,7 @@ if ($alpExps['bgAdjustment'] == 1) {
 		);
 	}	
 	
-	include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/colors/colors.inc.php');
+	include_once($_SERVER["DOCUMENT_ROOT"] . '/local/php_interface/include/colors.inc.php');
 
 	$image_to_read = $_SERVER["DOCUMENT_ROOT"] . "/" .$arResult["PICTURE"]["src"];
 	
@@ -74,27 +74,30 @@ if ($alpExps['bgAdjustment'] == 1) {
 	
 	$bgcolors = array();
 	for ($i = 0; $i < $colors_to_show; $i++) {
-		$bgcolors[] = "#".$colors_key[$i];
-		$mincolor[$i]['sum'] = hexToRgb($bgcolors[$i])['red'] + hexToRgb($bgcolors[$i])['green'] + hexToRgb($bgcolors[$i])['blue'];
+		$bgcolors[] = "#".$colors_key[$i];   
+        $hexToRgbMess = hexToRgb($bgcolors[$i]); 
+		$mincolor[$i]['sum'] = $hexToRgbMess['red'] + $hexToRgbMess['green'] + $hexToRgbMess['blue'];
 		$mincolor[$i]['color'] = "#".$colors_key[$i];
-	}
-
+	}     
 	$mincolor = min($mincolor);
 	
 	$m = 0;
-	while (hexToRgb($bgcolors[$m])['red'] > 190 && hexToRgb($bgcolors[$m])['green'] > 190 && hexToRgb($bgcolors[$m])['blue'] > 190 || (hexToRgb($bgcolors[$m])['red'] > 200 && hexToRgb($bgcolors[$m])['green'] > 200 && hexToRgb($bgcolors[$m])['blue'] < 100) || (hexToRgb($bgcolors[$m])['red'] > 190 && hexToRgb($bgcolors[$m])['green'] < 90 && hexToRgb($bgcolors[$m])['blue'] < 90)) {
-		$m++;
+    $hexToRgbMess = hexToRgb($bgcolors[$m]); 
+	while ($hexToRgbMess['red'] > 190 && $hexToRgbMess['green'] > 190 && $hexToRgbMess['blue'] > 190 || ($hexToRgbMess['red'] > 200 && $hexToRgbMess['green'] > 200 && $hexToRgbMess['blue'] < 100) || ($hexToRgbMess['red'] > 190 && $hexToRgbMess['green'] < 90 && $hexToRgbMess['blue'] < 90)) {
+		$m++;                                    
 		$bgcolors[0] = $bgcolors[$m];
+        $hexToRgbMess = hexToRgb($bgcolors[$m]);
 	}
-	$bgsum = hexToRgb($bgcolors[$m])['red'] + hexToRgb($bgcolors[$m])['green'] + hexToRgb($bgcolors[$m])['blue'];
+    $hexToRgbMess = hexToRgb($bgcolors[$m]);     
+	$bgsum = $hexToRgbMess['red'] + $hexToRgbMess['green'] + $hexToRgbMess['blue'];
 	
 	if ($bgsum < 20)
 		$bgcolors[0] = "#777777";
 	
 	if ($USER->isAdmin()) {
-		//echo $bgsum;
-		//echo $mincolor['sum'];
-		//print_r(hexToRgb($bgcolors[0]));
+		echo $bgsum;
+		echo $mincolor['sum'];
+		print_r(hexToRgb($bgcolors[0]));
 	}
 	if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
 		$mincolor['color'] = "#555";

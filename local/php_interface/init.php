@@ -425,15 +425,15 @@
 
             // записываем тех данные в поле адреса id пункта самовывоза
             $property_collection = $order_instance->getPropertyCollection();
-            if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
-                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);  
+            if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {                                                 
                 $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL);              
-            } else {
-                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID); 
+            } else {                                                                                                               
                 $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL);            
-            }
-            $address_property_instance->setValue($_REQUEST['boxberry_delivery_data']);                
-            $exported_to_dg_property_instance->setValue("N");          
+            }        
+            $exported_to_dg_property_instance_value = $exported_to_dg_property_instance->GetValue();
+            if (empty($exported_to_dg_property_instance_value)) {                         
+                $exported_to_dg_property_instance->setValue("N");                             
+            }                                                     
             $order_instance->save();  
         }
     }
