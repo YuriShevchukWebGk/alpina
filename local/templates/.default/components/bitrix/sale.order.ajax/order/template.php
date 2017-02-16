@@ -17,7 +17,8 @@
 
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
-    $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
+    $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');    
+    $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>'); 
 	// доставка гуру
 	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/collection-search-provider.js");
 	//$APPLICATION->AddHeadString('<script src="http://api.dostavka.guru/client/collection-search-provider.js"></script>');
@@ -162,24 +163,30 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-				minDatePlus = 2;
+                minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-				minDatePlus = 1;
+                if (hourfordeliv < 7)
+                    minDatePlus = 0;
+                else
+                    minDatePlus = 1;
             } else if (ourday == 3) { //среда
-                minDatePlus = 5;
+                if (hourfordeliv < 8)
+                    minDatePlus = '15.02.2017';
+                else
+                    minDatePlus = 1;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 5;
+                minDatePlus = 1;
             } else if (ourday == 5) { //пятница
-                minDatePlus = 4;
+                minDatePlus = 3;
             } else if (ourday == 6) { //суббота
-                minDatePlus = 3;
+                minDatePlus = 2;
             } else if (ourday == 0) { //воскресенье
-                minDatePlus = 3;
+                minDatePlus = 1;
             }
         }
-		if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
-			minDatePlus++;
-		}
+        if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
+            minDatePlus++;
+        }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;

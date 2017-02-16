@@ -11,6 +11,145 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
 ?>
+<?
+$alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
+$alpExps  = (!$alpExps ? array() : $alpExps);
+
+if ($alpExps['updateExp'] != "130217") {
+	$alpExps = array();
+	$alpExps['updateExp'] = "130217";
+}
+
+$alpExps['bgAdjustment']    = (!$alpExps['bgAdjustment'] ? rand(1,2) : $alpExps['bgAdjustment']);
+
+if ($alpExps['bgAdjustment'] == 1) {
+	// перевод цвета из HEX в RGB
+	function hexToRgb($color) {
+		// проверяем наличие # в начале, если есть, то отрезаем ее
+		if ($color[0] == '#') {
+			$color = substr($color, 1);
+		}
+	   
+		// разбираем строку на массив
+		if (strlen($color) == 6) { // если hex цвет в полной форме - 6 символов
+			list($red, $green, $blue) = array(
+				$color[0] . $color[1],
+				$color[2] . $color[3],
+				$color[4] . $color[5]
+			);
+		} elseif (strlen($cvet) == 3) { // если hex цвет в сокращенной форме - 3 символа
+			list($red, $green, $blue) = array(
+				$color[0]. $color[0],
+				$color[1]. $color[1],
+				$color[2]. $color[2]
+			);
+		}else{
+			return false; 
+		}
+	 
+		// переводим шестнадцатиричные числа в десятичные
+		$red = hexdec($red); 
+		$green = hexdec($green);
+		$blue = hexdec($blue);
+		 
+		// вернем результат
+		return array(
+			'red' => $red, 
+			'green' => $green, 
+			'blue' => $blue
+		);
+	}	
+	
+	include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/colors/colors.inc.php');
+
+	$image_to_read = $_SERVER["DOCUMENT_ROOT"] . "/" .$arResult["PICTURE"]["src"];
+	
+	$colors_to_show = 8;
+	
+	$pal = new GetMostCommonColors();
+	$pal->image = $image_to_read;
+	$colors=$pal->Get_Color();
+	$colors_key=array_keys($colors);
+	$mincolor = array();
+	
+	$bgcolors = array();
+	for ($i = 0; $i < $colors_to_show; $i++) {
+		$bgcolors[] = "#".$colors_key[$i];
+		$mincolor[$i]['sum'] = hexToRgb($bgcolors[$i])['red'] + hexToRgb($bgcolors[$i])['green'] + hexToRgb($bgcolors[$i])['blue'];
+		$mincolor[$i]['color'] = "#".$colors_key[$i];
+	}
+
+	$mincolor = min($mincolor);
+	
+	$m = 0;
+	while (hexToRgb($bgcolors[$m])['red'] > 190 && hexToRgb($bgcolors[$m])['green'] > 190 && hexToRgb($bgcolors[$m])['blue'] > 190 || (hexToRgb($bgcolors[$m])['red'] > 200 && hexToRgb($bgcolors[$m])['green'] > 200 && hexToRgb($bgcolors[$m])['blue'] < 100) || (hexToRgb($bgcolors[$m])['red'] > 190 && hexToRgb($bgcolors[$m])['green'] < 90 && hexToRgb($bgcolors[$m])['blue'] < 90)) {
+		$m++;
+		$bgcolors[0] = $bgcolors[$m];
+	}
+	$bgsum = hexToRgb($bgcolors[$m])['red'] + hexToRgb($bgcolors[$m])['green'] + hexToRgb($bgcolors[$m])['blue'];
+	
+	if ($bgsum < 20)
+		$bgcolors[0] = "#777777";
+	
+	if ($USER->isAdmin()) {
+		echo $bgsum;
+		echo $mincolor['sum'];
+		print_r(hexToRgb($bgcolors[0]));
+	}
+	if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
+		$mincolor['color'] = "#555";
+	}
+	?>
+	<style>
+		.productElementWrapp:before {
+			background-color: <?=$bgcolors[0]?>;
+			opacity: 0.3;
+		}
+		.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span {
+			color: <?=$mincolor['color']?>!important;
+		}
+		.catalogIcon {
+			background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
+			opacity: 0.8;
+		}
+		.basketIcon {
+			background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
+			opacity: 0.8;
+		}		
+	</style>
+	<script>
+	$(document).ready(function() {
+		dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'bgAdjustment', 'label' : 'bgColorChanged'});
+	});
+	</script>
+<?} elseif ($alpExps['bgAdjustment'] == 2) {?>
+	<style>
+	.crr {
+		color:#fff!important;
+	}
+	</style>
+	<script>
+		$(document).ready(function() {
+			dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'bgAdjustment', 'label' : 'bgColorDefault'});
+		});
+	</script>
+<?}
+$APPLICATION->set_cookie("alpExps", serialize($alpExps));?>
+
+<?if ($USER->isAdmin()) {
+	$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "ID"=>$arResult["ID"]);
+	$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID","NAME", "SHOW_COUNTER", "SHOW_COUNTER_START"));
+	$props = $props->GetNext();
+	{?>
+		<script>
+			function shown() {
+				$('body').append('<div style="position:fixed; width:200px; height:100px; right:50px; bottom:50px;background:<?=$bgcolors[0]?>; opacity:0.3;"><span style="color:<?=$mincolor['color']?>;"><?echo "Сегодня ".$props[NAME]." просмотрели ".round(($props[SHOW_COUNTER]/(((time() - strtotime($props[SHOW_COUNTER_START]))/3600/24)))/24*date("G")*2)." человека"?></span></div>');
+			};
+			setTimeout(shown, 5000);
+		</script>
+	<?}?>
+<?}?>
+
 <?$this->setFrameMode(true);
 $templateLibrary = array('popup');
 $currencyList = '';
@@ -543,26 +682,28 @@ $arItemIDs = array(
                             } else { //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
                                 if ($today == 1) {
                                     $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в среду';
+									//$delivery_day = 'в среду';
                                 } elseif ($today == 2) {
-                                    $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в пятницу';
+									if ($timenow < 7)
+										$delivery_day = 'сегодня';
+									else
+										$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {
-                                    $delivery_day = GetMessage("TOMORROW");
-									$delivery_day = 'в понедельник';
-
+									if ($timenow < 8)
+										$delivery_day = 'сегодня';
+									else
+										$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 4) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = "во вторник";
+                                    //$delivery_day = "во вторник";
                                 } elseif ($today == 5) {
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    $delivery_day = 'во вторник';
+                                    //$delivery_day = 'во вторник';
                                 } elseif ($today == 0) {
                                     $delivery_day = GetMessage("TOMORROW");
-                                    $delivery_day = 'в среду';
+                                    //$delivery_day = 'в среду';
                                 }
 
                                 if ($today == 5) {
@@ -715,7 +856,6 @@ $arItemIDs = array(
 
                             <style>
                             .crr {
-    color:#fff!important;
     font-family: "Walshein_regular"!important;
     font-size:15px!important;
 }
@@ -964,7 +1104,7 @@ $arItemIDs = array(
                                     false
                                 );?>
 
-                            <?= $arResult["DETAIL_TEXT"] ?>
+                            <?= typo($arResult["DETAIL_TEXT"]) ?>
                         </div>
 
                         <?$videosCount  = 0;

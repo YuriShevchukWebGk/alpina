@@ -121,8 +121,8 @@
                         <tr>
                             <td>
                                 <div class="remembMeContainer">
-                                    <input type="checkbox" name="USER_SUBSCRIBE" id="subscription" hidden checked="checked" />
-                                    <label for="subscription" class="remembMeText">Я хочу подписаться на рассылку.</label>
+                                    <?/*<input type="checkbox" name="USER_SUBSCRIBE" id="subscription" hidden checked="checked" />*/?>
+                                    <?/*<label for="subscription" class="remembMeText">Я хочу подписаться на рассылку.</label>*/?>
                                 </div>
                             </td>
                         </tr>

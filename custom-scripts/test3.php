@@ -1,4 +1,4 @@
-﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 if ($USER->isAdmin()) {
 	CModule::IncludeModule("iblock");
 	if ($_POST[ids] && $_POST[status]) {
@@ -51,7 +51,7 @@ if ($USER->isAdmin()) {
 				18.<br />
 				19.<br />
 				20.<br />
-			</td><td><textarea rows="20" cols="5" name="ids" required></textarea></td></tr></tbody></table></p>
+			</td><td><textarea rows="200" cols="5" name="ids" required></textarea></td></tr></tbody></table></p>
 			<p><select size="9" name="status" required>
 				<option value='A'>Аннулирован</option>
 				<option value='C'>Собран</option>

@@ -323,7 +323,3 @@
         <?}?>
     </body>
 </html>
-<?
-if($APPLICATION->GetPageProperty("keywords-new") != '')
-	$APPLICATION->SetPageProperty("keywords", $APPLICATION->GetPageProperty("keywords-new"));
-?>

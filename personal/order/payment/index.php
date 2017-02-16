@@ -188,6 +188,24 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <?$arOrder = CSaleOrder::GetByID($_GET['ORDER_ID']);?>
 <? if ($arOrder['PAYED'] == "Y") { echo "Ваш заказ уже оплачен"; } else { ?>
+	
+<?
+// новый виджет РФИ 
+/*if ($arOrder['PAY_SYSTEM_ID'] == 13 && $USER->IsAdmin()) {
+	$APPLICATION->ShowHead();
+?>
+	<? $APPLICATION->IncludeComponent(
+		"webgk:rfi.widget",
+		"",
+		Array(
+			"ORDER_ID" => 85379
+		),
+		false
+	); ?>
+<?
+	die();
+}*/ ?>	
+	
 <?if($arOrder['PAY_SYSTEM_ID']==13){?>
     <br>
     <br>

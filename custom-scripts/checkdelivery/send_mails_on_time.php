@@ -862,7 +862,8 @@ if ($USER->isAdmin()) {
 	
 	$arEventFields = array(
 		"ORDER_USER" => "Александр",
-		"REPORT" => $finalReport
+		"REPORT" => $finalReport,
+		"EMAIL" => "a.marchenkov@alpinabook.ru"
 	);				
 	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");
 } else {

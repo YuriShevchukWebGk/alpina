@@ -1327,3 +1327,16 @@ function SubmitRequest(e){
     return false;
 }
 
+$(function() {
+	$('body').append('<div style="width:64px;background:#85959a; height:64px; border-radius:80px;text-align:center; position:fixed; bottom:10px; right:10px; cursor:pointer; display:none; color:#fff; font-family:\'Walshein_black\'; font-size:40px;" id="toTop" class="no-mobile">↑</div>');
+	$(window).scroll(function() {
+		if($(this).scrollTop() != 0) {
+			$('#toTop').fadeIn();
+		} else {
+			$('#toTop').fadeOut();
+		}
+	});
+	$('#toTop').click(function() {
+		$('body,html').animate({scrollTop:0},800);
+	});
+});
