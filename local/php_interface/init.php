@@ -830,6 +830,8 @@
     
     AddEventHandler("main", "OnAfterUserRegister", Array("AlpinaBK", "sendUserToBK"));
 	AddEventHandler("main", "OnAfterUserUpdate",  Array("AlpinaBK", "updateUserPassword"));
+	AddEventHandler("main", "OnBeforeUserLogin", Array("AlpinaBK", "checkUserBeforeLogin"));
+
 	// общий класс для методов, связанных с бизнес книгами
     class AlpinaBK {
     	
@@ -927,6 +929,69 @@
 						"NAME"      => $user['NAME'],
 						"LAST_NAME" => $user['LAST_NAME']
 					));
+				}
+			}
+    	}
+
+    	/**
+		 * 
+		 * Реализация единого алгоритма авторизации
+		 * 
+		 * @param array $fields
+		 * 
+		 * */
+    	public static function checkUserBeforeLogin(&$fields) {
+			// пробуем найти юзера в битрикс	
+			$users = CUser::GetList(
+				($by = "id"),
+				($order = "asc"),
+				array(
+			    	"=EMAIL" => $fields['LOGIN']
+				),
+				array(
+					"FIELDS" => array("ID", "EMAIL", "PASSWORD")
+				)
+			);
+			if ($user = $users->Fetch()) {
+			    $current_hash = $user['PASSWORD'];
+				$password = $fields['PASSWORD'];
+				$salt = substr($current_hash, 0, (strlen($current_hash) - 32));
+				
+				$current_password = substr($current_hash, -32);
+				$password = md5($salt . $password);
+				// если пароли совпадают, то все ок, просто авторизуем, если нет, то проверим его на БК
+				if ($current_password != $password) {
+					$data = array(
+						'email'    => $fields['LOGIN'],
+						'password' => $fields['PASSWORD']
+					);
+					
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_POST, true);
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					    'X-AD-Offer: 1'
+					));
+					$data = curl_exec($ch);
+					curl_close($ch);
+					$bk_response = json_decode($data, true);
+					// если пользователь смог авторизоваться, то меняем его пароль в битриксе на этот
+					if ($bk_response[0]["id"]) {
+						$user_update = new CUser;
+						$user_update->Update(
+							$user["ID"],
+							array(
+							  "PASSWORD"         => $fields['PASSWORD'],
+							  "CONFIRM_PASSWORD" => $fields['PASSWORD']
+							)
+						);
+						global $USER;
+						if (!is_object($USER)) $USER = new CUser;
+						$auth_result = $USER->Login($fields['LOGIN'], $fields['PASSWORD'], "Y", "Y");
+					}
 				}
 			}
     	}
