@@ -694,8 +694,10 @@ $arItemIDs = array(
 									else
 										$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 4) {
-                                    $delivery_day = GetMessage("TOMORROW");
-                                    //$delivery_day = "во вторник";
+									if ($timenow < 9)
+										$delivery_day = 'сегодня';
+									else
+										$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 5) {
 									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 6) {
