@@ -37,7 +37,11 @@
     
     input#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>:checked ~ div.guru_delivery_wrapper {
         display: block;
-    }
+    } 
+       
+    input#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>:checked ~ div.boxberry_delivery_wrapper {
+        display: block;
+    }  
     
 	#order_form_div .location-block-wrapper {
 		max-width: 100%;
@@ -68,6 +72,7 @@
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
+    window.BOXBERRY_PICKUP_DELIVERY_ID = '<?= BOXBERRY_PICKUP_DELIVERY_ID ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
@@ -208,6 +213,11 @@
         }
         // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
         if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
+            $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
+            $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
+        }         
+        // скрываем поле "Адрес" для доставки boxberry, т.к. мы будем писать туда свои данные        
+        if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").attr("checked") == "checked") {
             $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
             $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
         }
@@ -479,7 +489,7 @@
                                             		$(".guru_error").hide();
                                             	}
                                             }
-                                        }
+                                        }                                       
                                     }
 
                                     if(flag){

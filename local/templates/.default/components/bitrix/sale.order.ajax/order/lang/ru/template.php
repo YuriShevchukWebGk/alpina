@@ -148,4 +148,5 @@ $MESS["GURU_DELIVERY_TIME"] = "Примерный срок доставки";
 $MESS["SEARCH_ON_MAP"] = "Поиск пунктов на карте:";
 $MESS["CHOSE_ON_MAP"] = "Выбрать на карте";
 $MESS["GURU_ERROR"] = "Местоположение не выбрано";
+$MESS["BOXBERRY_ERROR"] = "Местоположение не выбрано";
 ?>

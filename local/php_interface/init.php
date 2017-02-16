@@ -370,10 +370,10 @@
 			// записываем тех данные в поле адреса id пункта самовывоза|дата доставки
 			$property_collection = $order_instance->getPropertyCollection();
 			if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
-				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);
+				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);              
 				$exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_LEGAL);
 			} else {
-				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID);
+				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID);             
 				$exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_NATURAL);
 			}
 			$address_property_instance->setValue($_REQUEST['guru_delivery_data']);
@@ -382,6 +382,58 @@
 			$order_instance->save();
 		}
 	}
+                                                          
+    //Обновление заказа для доставки Boxberry
+    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberryHandlerBefore"); // меняем цену для boxberry
+    AddEventHandler("sale", "OnOrderSave", "boxberryHandlerAfter"); // меняем адрес для boxberry
+
+    /**
+     * Handler для доставки boxberry. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberryHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == BOXBERRY_PICKUP_DELIVERY_ID) {
+            $delivery_price = $_REQUEST['boxberry_cost'];
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+        }
+    }
+
+    /**
+     * Handler для доставки boxberry. Изменяем адрес
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberryHandlerAfter($ID, $arFields) {
+        GLOBAL $arParams;
+        if ($arFields['DELIVERY_ID'] == BOXBERRY_PICKUP_DELIVERY_ID) {
+            // Добавляем полную стоимость заказа в оплату
+            $order_instance = Bitrix\Sale\Order::load($ID);
+            $payment_collection = $order_instance->getPaymentCollection();
+            foreach ($payment_collection as $payment) {
+                $payment->setField('SUM', $arFields['PRICE']);
+                $payment->save();
+            }
+
+            // записываем тех данные в поле адреса id пункта самовывоза
+            $property_collection = $order_instance->getPropertyCollection();
+            if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);  
+                $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL);              
+            } else {
+                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID); 
+                $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL);            
+            }
+            $address_property_instance->setValue($_REQUEST['boxberry_delivery_data']);
+            $exported_to_dg_property_instance->setValue("N");          
+            $order_instance->save();  
+        }
+    }
 
     //Create gift coupon after buy certificate
     AddEventHandler("sale", "OnOrderAdd", Array("Certificate", "GenerateGiftCoupon"));
@@ -1776,6 +1828,20 @@
             "icon"        => "form_menu_icon",
             "page_icon"   => "form_page_icon",
             "items_id"    => "menu_webgk.guru_export",
+            "items"       => array()
+        );
+        
+        //страница экспорта заказов в "boxberry"  
+        $moduleMenu[] = array(
+            "parent_menu" => "global_menu_store",
+            "section"     => "webgk.boxberry_export",
+            "sort"        => 150,
+            "url"         => "boxberry_export.php?lang=".LANG,
+            "text"        => 'Boxberry экспорт',
+            "title"       => 'Экспорт заказов Boxberry',
+            "icon"        => "form_menu_icon",
+            "page_icon"   => "form_page_icon",
+            "items_id"    => "menu_webgk.boxberry_export",
             "items"       => array()
         );
     }
