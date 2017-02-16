@@ -123,8 +123,8 @@ $APPLICATION->IncludeComponent(
             array(
                 "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
                 "IBLOCK_ID" => $arParams["IBLOCK_ID"],
-                "ELEMENT_SORT_FIELD" => "PROPERTY_STATE",
-                "ELEMENT_SORT_ORDER" => "asc",
+                "ELEMENT_SORT_FIELD" => "PROPERTY_shows_a_day",
+                "ELEMENT_SORT_ORDER" => "desc",
                 "ELEMENT_SORT_FIELD2" => $sort,
                 "ELEMENT_SORT_ORDER2" => $order,
                 "PROPERTY_CODE" => $arParams["LIST_PROPERTY_CODE"],

@@ -15,7 +15,7 @@
     Loader::includeModule('sale');
     require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/prolog.php");  
     require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/general/admin_tool.php");
-
+    
     Loc::loadMessages(__FILE__);
 
     $sTableID = "tbl_sale_order";  

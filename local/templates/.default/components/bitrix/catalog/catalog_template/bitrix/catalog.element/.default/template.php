@@ -92,9 +92,9 @@ if ($alpExps['bgAdjustment'] == 1) {
 		$bgcolors[0] = "#777777";
 	
 	if ($USER->isAdmin()) {
-		echo $bgsum;
-		echo $mincolor['sum'];
-		print_r(hexToRgb($bgcolors[0]));
+		//echo $bgsum;
+		//echo $mincolor['sum'];
+		//print_r(hexToRgb($bgcolors[0]));
 	}
 	if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
 		$mincolor['color'] = "#555";

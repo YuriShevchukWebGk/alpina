@@ -1,8 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetPageProperty("keywords", "форекс книги трейдингу лучшие учебник для начинающих купить forex");
-$APPLICATION->SetPageProperty("description", "«Альпина Паблишер» — ведущее российское издательство предлагает купить книги для финансистов в своем интернет магазине с доставкой  в Москве и по всей России. Наш телефон в Москве: +7 (495) 980 80 77");
-$APPLICATION->SetTitle(" Книги для саморазвития | Лучшие книги по саморазвитию | Книги для самосовершенствования | Популярные книги для саморазвития мужчин и женщин | Издательство «Альпина Паблишер»");
+$APPLICATION->SetPageProperty("keywords", "книжный интернет магазин, деловая литература, бизнес книга, доставка книг, интернет магазин книг");
+$APPLICATION->SetPageProperty("description", "Электронная онлайн-библиотека Альпина Паблишер");
+$APPLICATION->SetTitle("Книги для саморазвития | Лучшие книги по саморазвитию | Книги для самосовершенствования | Популярные книги для саморазвития мужчин и женщин | Издательство «Альпина Паблишер»");
 ?><?$APPLICATION->IncludeComponent(
 	"bitrix:catalog", 
 	"catalog_template", 
@@ -90,7 +90,7 @@ $APPLICATION->SetTitle(" Книги для саморазвития | Лучши
 		"DISABLE_INIT_JS_IN_COMPONENT" => "N",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
-		"ELEMENT_SORT_FIELD" => "show_counter",
+		"ELEMENT_SORT_FIELD" => "PROPERTY_shows_a_day",
 		"ELEMENT_SORT_FIELD2" => "PROPERTY_STATE",
 		"ELEMENT_SORT_ORDER" => "asc",
 		"ELEMENT_SORT_ORDER2" => "asc",
