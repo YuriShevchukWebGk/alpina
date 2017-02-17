@@ -287,6 +287,7 @@
                     <div class="boxberry_delivery_wrapper">                                                                                                                 
                         <div class="boxberry_error"><?= GetMessage('BOXBERRY_ERROR') ?></div>                                                                                                                                                                            
                         <a href="#" class="message-map-link" style="cursor: pointer; display: block;  text-decoration: underline; color:#000;" onclick="boxberry.open('boxberry_callback', '<?= BOXBERRY_TOKEN_API?>', 'Москва', '68', <?= $arResult['ORDER_DATA']['ORDER_PRICE']?>, <?= $arResult['ORDER_DATA']['ORDER_WEIGHT']?>, 0, 50, 50, 50); return false"><?= GetMessage('CHOSE_ON_MAP') ?></a>   
+                        <div class="boxberry_point_addr"></div>
                         <div id="boxberry_delivery_time" class="boxberry_delivery_time"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
                         <input type="hidden" id="boxberry_delivery_data" name="boxberry_delivery_data" value="">
                         <input type="hidden" id="boxberry_cost" name="boxberry_cost" value="">
