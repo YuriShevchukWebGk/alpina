@@ -141,7 +141,7 @@
         })
 
         //календарь
-		var disabledDates = ['01/01/2017','01/02/2017','01/03/2017','01/04/2017','01/05/2017','01/06/2017']; //даты для отключения mm/dd/yyyy
+		var disabledDates = ['02/23/2017','02/24/2017','03/08/2017','01/04/2017','01/05/2017','01/06/2017']; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
 			if (noWeekend[0]) {

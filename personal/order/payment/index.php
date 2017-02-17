@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     <td>Бухгалтер</td>
                     <td></td>
                     <td><br><div>подпись</div></td>
-                    <td>Блюмберг Елена<br><div>расшифровка подписи</div></td>
+                    <td>Хорева Елена<br><div>расшифровка подписи</div></td>
                 </tr>
             </table>
         </div>
