@@ -403,7 +403,7 @@
                                 var BXFormPosting = false;
                                 function submitForm(val)
                                 {
-                                    var flag = true;
+                                    var flag = true;  
                                     $(".flippost_error").hide();
                                     if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
                                         $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
@@ -427,7 +427,7 @@
                                             var scrollTop = $('#ORDER_PROP_6').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_6").focus();
-                                        }
+                                        } 
 
                                         if($("#ORDER_PROP_24").size() > 0 && isTelephone($('#ORDER_PROP_24').val()) == false){
                                             flag = false;
@@ -435,18 +435,18 @@
                                             var scrollTop = $('#ORDER_PROP_24').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_24").focus();
-                                        }
+                                        } 
                                         if($("#ORDER_PROP_5").size() > 0 && $('#ORDER_PROP_5').val() == false){
                                             flag = false;
                                             $('#ORDER_PROP_5').parent("div").children(".warningMessage").show();
                                             var scrollTop = $('#ORDER_PROP_5').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_5").focus();
-                                        }
+                                        }   
                                         var deliveryFlag= false;
                                         if ($(".js_delivery_block").css("display") == "none") {
                                             deliveryFlag = true;
-                                        }
+                                        }   
                                         $('input[name=DELIVERY_ID]').each(function(){
                                             if($(this).prop("checked")){
                                                 deliveryFlag = true;
@@ -455,12 +455,12 @@
                                         if(deliveryFlag == false){
                                             flag = false;
                                             $('.deliveriWarming').show();
-                                        }
+                                        }     
 
                                         if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == false){
                                             flag = false;
                                             $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
-                                        }
+                                        }  
                                         if (flag) {
                                             // склеиваем адрес для flippost
                                             if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
@@ -499,7 +499,19 @@
                                             		$(".guru_error").hide();
                                             	}
                                             }
-                                        }                                       
+                                        }      
+                                        // доставка boxberry
+                                        if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").is(':checked')) {
+                                            if(!$("#boxberry_selected").val()) {
+                                                $('html, body').animate({
+                                                    scrollTop: $(".js_delivery_block").offset().top
+                                                    }, 500);
+                                                $(".boxberry_error").show();
+                                                flag = false; return false;
+                                            } else {
+                                                $(".boxberry_error").hide();
+                                            }
+                                        }                                  
                                     }
 
                                     if(flag){
