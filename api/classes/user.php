@@ -172,7 +172,7 @@ class UserAPI {
 				ksort($data);
 				
 				$string_to_hash = http_build_query($data);
-				$sig = md5($string_to_hash . BK_API_TOKEN);
+				$sig = md5($string_to_hash . BK_API_SECRET_KEY);
 				
 				$data['sig'] = $sig;
 				

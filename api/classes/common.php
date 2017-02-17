@@ -74,7 +74,7 @@ class APITools {
 	    $opts = array(
 		    'http' => array(
 				'method'  => 'POST',
-				'header'  => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL . 'X-AD-Offer: 1' . PHP_EOL,
+				'header'  => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL . 'X-AD-Offer: 1' . PHP_EOL . 'X-Auth-Token: ' . BK_API_TOKEN . PHP_EOL,
 				'content' => $postdata
 			),
 			'ssl' => array(
