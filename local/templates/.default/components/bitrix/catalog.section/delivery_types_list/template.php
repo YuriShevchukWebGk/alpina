@@ -20,7 +20,7 @@ $this->setFrameMode(true);
                     <p class="title"><?=$arItem["NAME"]?></p>
                     <? if ($arItem["PREVIEW_PICTURE"]["ID"])
                     {?>
-                        <img src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>">
+                        <img src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" align="left">
                     <?}?>
                     <?=$arItem["PREVIEW_TEXT"]?>
                 </div>

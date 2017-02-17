@@ -35,6 +35,8 @@ foreach ($array3 as $for2) {
 			if ($update = CSaleOrder::Update($id[0], $arFields)) {
 				if (CSaleOrder::StatusOrder($id[0], "I")) {
 					echo $id[0]."*ok*".$id[1]."<br />";
+					$message = new Message();
+					$result = $message->sendMessage($id[0],'PS');
 				} else {
 					echo $id[0]."*status error*".$id[1]."<br />";
 				}

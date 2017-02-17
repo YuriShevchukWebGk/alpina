@@ -227,6 +227,11 @@ foreach($arResult["SEARCH"] as $i=>$arItem)
     if($ar_props = $db_props->Fetch()){
         $arResult["SEARCH"][$i]["COVER_TYPE"] = $ar_props["VALUE_ENUM"];
     }
+	$db_props = CIBlockElement::GetProperty($arResult["SEARCH"][$i]["PARAM2"], $arResult["SEARCH"][$i]["ITEM_ID"], array("sort"=>"asc"), array("CODE"=>"AUTHORS")); 
+    if($ar_props = $db_props->Fetch()){
+		$res = CIBlockElement::GetByID($ar_props["VALUE"])->GetNext();
+		$arResult["SEARCH"][$i]["AUTHOR"] = $res['NAME'];
+    }
 }
 
 

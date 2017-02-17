@@ -2,7 +2,13 @@
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetTitle("Заказы");
     global $USER;
-    if (!$USER->IsAuthorized()) { header("location: /personal/profile/");} else {
+    if (!$USER->IsAuthorized()) { 
+        header("location: /personal/profile/");
+    } else {         
+        //проверяем ID заказа из урла. Если он не принадлежит текущему пользователю, делаем редирект на список
+        if (!empty($_REQUEST["ID"]) && intval($_REQUEST["ID"]) > 0) {             
+                header("location: /personal/order/");    
+        }
     ?>     
     <div class="historyCoverWrap">
         <div class="centerWrapper">

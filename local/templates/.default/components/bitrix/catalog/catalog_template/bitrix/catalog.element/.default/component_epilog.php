@@ -75,11 +75,11 @@ if (!empty($authors_IDs)) {
     }
 } 
 if (strlen ($arResult['PROPERTIES']["ISBN"]["VALUE"]) ) {
-    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name ." — ".  GetMessage("TO_BUY_WITH_DELIVERY").' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
+    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name . ' ' . $arResult['PROPERTIES']["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY").' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
 } else if ($MEDIA_TYPE) {
     $title = $arResult["NAME"] . ' ' . $author_name . ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"] .  GetMessage("TO_BUY_WITH_DELIVERY");
 } else {
-    $title = $arResult["NAME"] . ' ' . $author_name . GetMessage("TO_BUY_WITH_DELIVERY");    
+    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name . ' ' . $arResult['PROPERTIES']["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY");
 }
 if (!empty ($title) )  {
     $APPLICATION -> SetPageProperty("title", $title);
@@ -87,4 +87,21 @@ if (!empty ($title) )  {
 $curr_elem_info = CIBlockElement::GetByID($arResult["ID"]) -> Fetch();
 $APPLICATION->SetPageProperty("description", $curr_elem_info["PREVIEW_TEXT"]); 
 $APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
+
+	if($arResult['IBLOCK_SECTION_ID']=='132' || $arResult['IBLOCK_SECTION_ID']=='133'){
+		$sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
+		$key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
+		$APPLICATION->SetPageProperty("description", 'Издательство Альпина Паблишер предлагает купить книгу '.$arResult["NAME"].', автор '.$author_name.' и другие книги в разделе "'.$sect_name.'" в собственном интернет-магазине. Доступны печатные и цифровые версии.'); 
+		$APPLICATION->SetPageProperty("keywords", 'купить книга '.$key_name);
+		$APPLICATION->SetPageProperty("keywords-new", 'купить книга '.$key_name);
+	}
+	
+	$APPLICATION->AddHeadString('<meta property="og:title" content=\''.$APPLICATION->GetPageProperty('title').'\' />',false);
+	$APPLICATION->AddHeadString('<meta property="og:description" content=\''.strip_tags($APPLICATION->GetPageProperty('description')).'\' />',false);
+	$APPLICATION->AddHeadString('<meta property="og:image" content="https://'.SITE_SERVER_NAME.$templateData["OG_IMAGE"].'" />',false);
+	$APPLICATION->AddHeadString('<meta property="og:type" content="website" />',false);
+	$APPLICATION->AddHeadString('<meta property="og:url" content="'.'https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage().'" />',false);
+	$APPLICATION->AddHeadString('<meta property="og:site_name" content="ООО «Альпина Паблишер»" />',false);
+	$APPLICATION->AddHeadString('<meta property="og:locale" content="ru_RU" />',false);
+	// $APPLICATION->SetPageProperty('FACEBOOK_META', $fb_meta);
 ?>

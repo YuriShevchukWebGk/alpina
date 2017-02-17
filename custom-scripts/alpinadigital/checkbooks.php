@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
 define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]."/custom-scripts/log.txt");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
@@ -67,7 +67,7 @@ if ($USER->isAdmin()) {
 				"Content-type: application/json",
 				//"X-AD-Email: c87abba6c83e2b0b04a8b67a9eddcc32",
 				"X-AD-Offer: 1",
-				"X-AD-Token: c87abba6c83e2b0b04a8b67a9eddcc32"
+				"X-AD-Token: a893c81321e1693e0caad8a6a1a6077c"
 			)
 		);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
@@ -141,7 +141,7 @@ if ($USER->isAdmin()) {
 		}
 	}
 	
-	$manual = array(
+	/*$manual = array(
 		array('id'=>'7099','rec'=>'6990'),
 		array('id'=>'7127','rec'=>'6908'),
 		array('id'=>'8056','rec'=>'66516'),
@@ -224,7 +224,6 @@ if ($USER->isAdmin()) {
 		array('id'=>'82390','rec'=>'66437'),
 		array('id'=>'82482','rec'=>'5671'),
 		array('id'=>'82547','rec'=>'8436'),
-		array('id'=>'82845','rec'=>'8482'),
 		array('id'=>'82852','rec'=>'7996'),
 		array('id'=>'80012','rec'=>'7712'),
 		array('id'=>'83116','rec'=>'8175'),
@@ -243,8 +242,8 @@ if ($USER->isAdmin()) {
 		array('id'=>'89045','rec'=>'8722'),
 		array('id'=>'78987','rec'=>'7911'),
 
-	);
-	
+	);*/
+	$manual = array();
 	foreach ($manual as $addrec) {
 		$obEl = new CIBlockElement();
 		CIBlockElement::SetPropertyValuesEx($addrec['id'], 4, array('rec_for_ad' => $addrec['rec'], 'appstore' => '', 'android' => ''));

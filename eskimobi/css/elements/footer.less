@@ -1,0 +1,229 @@
+footer{
+  background-color: #383838;
+  .full;
+  margin-top: @pad2;
+  @media @media_pad{
+    text-align: center;
+  }
+  .catalogWrapper{
+    padding-top: 3.4rem;
+    padding-bottom: 2.3rem;
+    padding-left: @pd;
+    padding-right: @pd;
+  }
+  .bborder;
+  border-color: #444 !important;
+  .yaMarket{
+    a{
+      display: block;
+      width: 15.2rem;
+      clear: both;
+      overflow: hidden;
+      margin-bottom: @pad2;
+      @media @media_pad{
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    img{
+      margin-bottom: 1.3rem;
+    }
+    img+p{
+      display: inline-block;
+      color: #5f5f5f;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-right: 0.7rem;
+      margin-bottom: 0;
+      float: left;
+      vertical-align: top;
+      line-height: 1.5rem;
+    }
+    .stars{
+      display: inline-block;
+      margin-bottom: 0;
+      float: left;
+      vertical-align: top;
+      span{
+        float: left;
+        margin-right: 0.1rem;
+        img{
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  .years{
+    margin-bottom: @pad2;
+    text-align: left;
+    img{
+      max-width: 10rem;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: @pd2;
+    }
+    @media @media_pad{
+      text-align: center;
+    }
+  }
+  .adress{
+    font-size: 0;
+    line-height: 0;
+    text-align: center;
+    // margin-bottom: 2.4rem;
+    > a{
+      display: inline-block;
+      width: 13rem;
+      &:last-child{
+        margin-left: 0.8rem;
+      }
+    }
+    br{
+      display: none;
+    }
+    span[itemprop="address"]{
+      display: block;
+      clear: both;
+      span[itemprop="addressLocality"],
+      span[itemprop="streetAddress"]{
+        opacity: 0.85;
+        color: #9b9b9b;
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 2.2rem;
+        padding-right: 0.4rem;
+      }
+      .phone{
+        display: inline-block;
+        clear: both;
+        opacity: 0.5;
+        color: @color-0;
+        font-size: @xxxl;
+        line-height: @xxxl + 0.4;
+        margin-bottom: 18px;
+      }
+      .mail{
+        margin-top: 2.2rem;
+        font-size: 1.7rem;
+        color: #c6b08b;
+        line-height: 2.1rem;
+        span{
+          display: inline-block;
+          margin-top: 0.4rem;
+          .bborder;
+          border-color: #c6b08b;
+        }
+      }
+    }
+    span[itemprop="name"]{
+      display: none;
+    }
+  }
+  #development{
+    display: none;
+  }
+  .webServ{
+    margin-bottom: 2.7rem;
+    .bborder;
+    border-color: #747474;
+    padding-bottom: @pd;
+    margin-left: -@pd;
+    margin-right: -@pd;
+    width: auto;
+    a{
+      display: inline-block;
+      background-image: url(../img/social.png);
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      margin: 0 1.3rem;
+      img{
+        display: none;
+      }
+      &[href*="vk.com"]{
+        width: 2.6rem;
+        height: 1.9rem;
+        background-image: url(../img/vk.png);
+        background-position: 0 0;
+      }
+      &[href*="facebook.com"]{
+        width: 1.1rem;
+        height: 2.3rem;
+        background-image: url(../img/fb.png);
+        background-position: 0 0;
+      }
+      &[href*="youtube.com"]{
+        width: 2.8rem;
+        height: 2.1rem;
+        background-image: url(../img/yt.png);
+        background-position: 0 0;
+      }
+      &[href*="google.com"]{
+        width: 3.6rem;
+        height: 2.3rem;
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAXCAYAAABj7u2bAAACD0lEQVRIS7WXSYsUQRCFv6cOIu4MgiiKiAeXg4LMRVA8eNAfLB5E3GDEHe8eRJmRcQGX0REZDXmSJTlF9nRWdhmX7uqKyHgZ8WJpUSERsR3YBcwBAawBq5J+V5gPUtEk7Yiw82PAYWB3Qe8X8B54Jcmfo0gRUEQcBU6niNQ4ege8kPSjRnkznQ2AIsLPZ4EjDQevAnckOaXN0gd0bhMw3wFHYCuwE9iWef0JPJT0qRlJMvwHKKXJ0cnFt30DvJT0rXsREVuAg8ApwN8N5susYGz/F1BE+LZXepwxaZ9KWplC/DlJjl6VJFrkRbKhWjtAx4EzvROfSVqq8jJAKVXv1czkVn6hDtBFYF+m9EHSgwF+qlWnAooIk/Ral750slO13PeSuGP9GlnvKi6lqSuCjh7dGXdTo/XzuiLC+bzc83Cz1FMiwkReqEED3JP0OXF0HrhQYbdoQHuBSz3l66WxMBDQoqSPLYD+V4SaAQ3h0H7gRCH0PuNA7/fbkty93VZcPHUcSgYzVVlEHALOZ4Dcw26UxsjUKkuAmvtQqjxfaE8GaEXSoxKJawG1dupJw/iJpLcTANlmR/ZuLY9k6yyznUv5JGBe5eJSv9869VumvYepp70XuL6YOwbztaLnFFXG3IcM5vGs2+NYG6NXj+djrCCz7NTeldyJXwPLrZzp520ioFyx8K/Dm6P3GKdpVPkDNP76RM3gPwkAAAAASUVORK5CYII=');
+        background-position: 0 0;
+      }
+      &[href*="instagram.com"]{
+        width: 2.2rem;
+        height: 2.2rem;
+        background-image: url(../img/insta.png);
+        background-position: 0 0;
+      }
+      &[href*="twitter.com"]{
+        width: 2.7rem;
+        height: 2.1rem;
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAVCAYAAAC33pUlAAAB7klEQVRIS62VS08UQRSFvyMqKGoILx+JxgckGhZsZEUQNf5ndyZsREOIiSuUBBYkhIASHiov9Zoz6TI9Q/d0t2NtZtJVdb+qW/ecK4CIkKTw/yYjIq4AE8AtYAD4BewCa5K2U2zgJrCn7MMDwMC1urCIGAFmgEslezaAnxnoh6TFBJsFhoEVSatVwIjoB150AeVDfAOWgasJ9gpwSjw2gY+SzsqgEfEkS1/VuTx/DFwG3ifYHDCU23kCfAI2JP3ujBgRneu7QZ3KZb9hgj0GJgt2+FTO/aakgzQfES+BwTrXApYkbXltgrmSnle8wSmwDxwB41n11eG9lfQ1D3sE+I2mgIt1IjRYs5Cykm42D9xoEKDuUmv3tSTr728ay96sbtCydQeSFtJkupmF+cxa6DV6x/5VSSttsMxFXF12hOv/EfhG0vdzsAw4CtwB7gIXeoRuSVrKx2ilMaefp8DtHiGtcwOuwsNuMOvN7uDfXsZnSXagttF2syyV9shpYOwfaTstHyxoWedguZReA9x67jeA7gHvyky8EBYRBj0E7iUt1gDa/z5IsvEWDkWE0+X+5DZgnbkpNnETB3cfXK86kGF9Waqcriaitpe6I1i4NunK0Vn67tZ2dPc2i9u3td5cyg5ogdr5vwDbRb2uG/EP3HKkQZOEvFUAAAAASUVORK5CYII=');
+        background-position: 0 0;
+      }
+      img{
+        width: 100%;
+      }
+    }
+  }
+  .author{
+    [itemprop="address"]{
+      display: none;
+    }
+    br{
+      display: none;
+    }
+    opacity: 0.6;
+    color: #9b9b9b;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 2.4rem;
+    display: block;
+    text-align: center;
+  }
+}
+.footer{
+  background-color: #323232;
+  padding: @pad + 0.3 @pad / 2;
+  a{
+    display: block;
+    text-align: center;
+    font-size: 1.5rem;
+    color: @color-0;
+    opacity: 0.75;
+    margin-bottom: @pad;
+    .outer-link;
+    vertical-align: middle;
+    span{
+      .bborder;
+      border-color: #747474;
+      display: inline-block;
+      padding-top: 0.4rem;
+      line-height: 2.4rem;
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+}
+
+.hidingCatalogLeft{
+  display: none;
+}
+.windowClose{
+  display: none;
+}

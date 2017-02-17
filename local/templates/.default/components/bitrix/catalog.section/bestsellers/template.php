@@ -145,13 +145,13 @@
             <div class="otherBooks" id="block1">
                 <ul>
 
-                    <?foreach ($arResult["ITEMS"] as $arItem) {
+                    <?foreach ($arResult["ITEMS"] as $arItem) { 
                         $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                         ?>
                         <li>
                             <div class="categoryBooks">
                                 <div class="sect_badge">
-                                    <? if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") && $arItem['PROPERTIES']['spec_price']['VALUE'] ) {
+                                    <? if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") && $arItem['PROPERTIES']['spec_price']['VALUE'] && $arItem['PROPERTIES']['show_discount_icon']['VALUE'] == "Y") {
                                         switch ($arItem['PROPERTIES']['spec_price']['VALUE']) {
                                             case 10:
                                                 echo '<img class="discount_badge" src="/img/10percent.png">';

@@ -926,10 +926,7 @@ function update_basket(e)
     var product = $(e).closest(".basketBook").attr("product-id");
     $.post("/ajax/ajax_add2basket.php", {quantity: quantity, id: id, product: product, action: 'update'}, function(data){
         $(".hidingBasketRight").html(data);
-        var total_quant = 0;
-        $(".basketBook .countMenu .countOfBook").each(function(){
-            total_quant += parseInt($(this).html());
-        });
+        var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
         $(".BasketQuant").html(total_quant);
     });
 }
@@ -968,12 +965,10 @@ function addtocart(productid, name) {
             }
             $(".BasketQuant").css("display", "block");
             $(".hidingBasketRight").html(data);
-            var total_quant = 0;
-            $(".basketBook .countMenu .countOfBook").each(function()
-                {
-                    total_quant += parseInt($(this).html());
-            });
+            var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
             $(".BasketQuant").html(total_quant);
+            // обновляем блок с ценой и описанием до следующей скидки
+            $(".wrap_prise_top").load(window.location.href + " .wrap_prise_top > *");
     })
 }
 function addtocart_fromwishlist (productid, name) {
@@ -1089,7 +1084,7 @@ function update_sect_page(sort, direction, sect_code) {
                     $(".filterParams li:nth-child(3)").addClass("active");
                     break;
             }
-            if (direction == "desc") {
+            if (sort != "popularity" && direction == "desc") {
                 $(".filterParams li.active").addClass("dir_desc");
             }
             $(".filterParams li.active").on("click", function(){
@@ -1097,7 +1092,7 @@ function update_sect_page(sort, direction, sect_code) {
                 {
                     update_sect_page (sort, "desc", sect_code);
                 }
-                else
+                else if (sort != "popularity")
                 {
                     update_sect_page (sort, "asc", sect_code);
                 }
@@ -1127,11 +1122,7 @@ function delete_basket_item(productid) {
     $.post('/ajax/ajax_deletefrombasket.php', {productid: productid}, function(data)
         {
             $(".hidingBasketRight").html(data);
-            var total_quant = 0;
-            $(".basketBook .countMenu .countOfBook").each(function()
-                {
-                    total_quant += parseInt($(this).html());
-            });
+            var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
             $(".BasketQuant").html(total_quant);
     })
 }
@@ -1175,7 +1166,8 @@ function isEmail(email) {
     return regex.test(email);
 }
 function isTelephone(telephone){
-    var regex = /^((8|\+7)[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$/;
+    //var regex = /^((8|\+7)[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$/;
+var regex = /^((\+[0-9]{1})[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$/;
     return regex.test(telephone);
 }
 
@@ -1335,3 +1327,16 @@ function SubmitRequest(e){
     return false;
 }
 
+$(function() {
+	$('body').append('<div style="width:64px;background:#85959a; height:64px; border-radius:80px;text-align:center; position:fixed; bottom:10px; right:10px; cursor:pointer; display:none; color:#fff; font-family:\'Walshein_black\'; font-size:40px;" id="toTop" class="no-mobile">↑</div>');
+	$(window).scroll(function() {
+		if($(this).scrollTop() != 0) {
+			$('#toTop').fadeIn();
+		} else {
+			$('#toTop').fadeOut();
+		}
+	});
+	$('#toTop').click(function() {
+		$('body,html').animate({scrollTop:0},800);
+	});
+});

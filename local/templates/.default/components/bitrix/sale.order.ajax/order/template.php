@@ -17,15 +17,33 @@
 
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
-    $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
+    $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');    
+    $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>'); 
+	// доставка гуру
+	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/collection-search-provider.js");
+	//$APPLICATION->AddHeadString('<script src="http://api.dostavka.guru/client/collection-search-provider.js"></script>');
+	$APPLICATION->AddHeadString('<script src="https://api-maps.yandex.ru/2.1/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>');
+	$APPLICATION->SetAdditionalCSS($templateFolder . "/include/guru/css/guru.css");
+	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/guru.js");
 
+    $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
     include ('include/functions.php');
 ?>
+
 <style>
     /* Лучше так, чем городить адовые городушки на js */
     input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         display: block;
     }
+    
+    input#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>:checked ~ div.guru_delivery_wrapper {
+        display: block;
+    } 
+       
+    input#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>:checked ~ div.boxberry_delivery_wrapper {
+        display: block;
+    }  
+    
 	#order_form_div .location-block-wrapper {
 		max-width: 100%;
 	}
@@ -51,20 +69,21 @@
 
 </style>
 
-<!-- GdeSlon -->
-<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
-<script>
 
+<script>
+	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
+	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
+    window.BOXBERRY_PICKUP_DELIVERY_ID = '<?= BOXBERRY_PICKUP_DELIVERY_ID ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
         if ($.browser.msie && $.browser.version <= 9) {
 
         } else {
-            //валидаторы телефонных номеров
-            $("#ORDER_PROP_24").inputmask("+7 (999) 999-99-99");   //для физлица
-            $("#ORDER_PROP_11").inputmask("+7 (999) 999-99-99");  //для юрлица
-            $("#pp_sms_phone").inputmask("+79999999999");
+
+                $("#ORDER_PROP_24").mask("+9(999)999-99-999");   //для физлица
+                $("#ORDER_PROP_11").mask("+7(999)999-99-99");  //для юрлица
+                $("#pp_sms_phone").mask("+79999999999");
         }
 
 
@@ -122,38 +141,44 @@
         })
 
         //календарь
+		var disabledDates = ['01/01/2017','01/02/2017','01/03/2017','01/04/2017','01/05/2017','01/06/2017']; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
-            return !noWeekend[0] ? noWeekend : [true];
+			if (noWeekend[0]) {
+				return editDays(date);
+			} else {
+				return noWeekend;
+			}
         }
+		function editDays(date) {
+			for (var i = 0; i < disabledDates.length; i++) {
+				if (new Date(disabledDates[i]).toString() == date.toString()) {
+					 return [false];
+				}
+			}
+			return [true];
+		}
+
         hourfordeliv = <?=date("H");?>;
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-                minDatePlus = 2;
-            } else if (ourday == 2) { //вторник
-                minDatePlus = 1;
-            } else if (ourday == 3) { //среда
-                minDatePlus = 1;
-            } else if (ourday == 4) { //четверг
-                minDatePlus = 1;
-            } else if (ourday == 5) { //пятница
-                minDatePlus = 4;
-            } else if (ourday == 6) { //суббота
-                minDatePlus = 3;
-            } else if (ourday == 0) { //воскресенье
-                minDatePlus = 3;
-            }
-        } else { // Майские праздники
-
-            if (ourday == 1) { //понедельник
                 minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-                minDatePlus = 1;
+                if (hourfordeliv < 7)
+                    minDatePlus = 0;
+                else
+                    minDatePlus = 1;
             } else if (ourday == 3) { //среда
-                minDatePlus = 1;
+                if (hourfordeliv < 8)
+                    minDatePlus = '15.02.2017';
+                else
+                    minDatePlus = 1;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 1;
+                if (hourfordeliv < 9)
+                        minDatePlus = '16.02.2017';
+                    else
+                        minDatePlus = 1;
             } else if (ourday == 5) { //пятница
                 minDatePlus = 3;
             } else if (ourday == 6) { //суббота
@@ -162,9 +187,9 @@
                 minDatePlus = 1;
             }
         }
-		if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
-			minDatePlus++;
-		}
+        if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
+            minDatePlus++;
+        }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;
@@ -182,24 +207,42 @@
             setDate:minDatePlus
         });
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker( "setDate", curDay );
-        $("#ORDER_PROP_44, #ORDER_PROP_45").inputmask("d.m.y");
+        $("#ORDER_PROP_44, #ORDER_PROP_45").mask("99.99.9999",{placeholder:"дд.мм.гггг"});
 
         if ($("#ID_DELIVERY_ID_11").is(':checked')) { //Если выбрана доставка почтой России
             $(".inputTitle:contains('Получатель')").parent().append('<span class="hideInfo warningMessage" style="display:inline;color:grey">(ФИО полностью)</span>');
-			$(".inputTitle:contains('Адрес доставки')").append('<br /><span class="hideInfo warningMessage" style="display:inline;color:grey;padding-left:0;">(в том числе город)</span>');
+			$(".inputTitle:contains('Адрес доставки')").html('Город и адрес доставки');
         } else {
             $(".inputTitle:contains('Получатель')").html('Получатель <span class="bx_sof_req">*</span></p>');
+			$(".inputTitle:contains('Адрес доставки')").html('Адрес доставки');
             $(".hideInfo").hide();
         }
 
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
+        // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
+        if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
+            $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
+            $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
+        }         
+        // скрываем поле "Адрес" для доставки boxberry, т.к. мы будем писать туда свои данные        
+        if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").attr("checked") == "checked") {
+            $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
+            $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
+        }
 
         //Подсвечиваем активное местоположение в избранных
-        var locationID = $(".bx-ui-slst-target[name=ORDER_PROP_2], .bx-ui-slst-target[name=ORDER_PROP_3]").val();                    
-        //$('.quick-location-tag[data-id="' + locationID + '"]').attr("style", 'background: #00a0af !important; color: white !important;');        
+        var locationID = $(".bx-ui-slst-target[name=ORDER_PROP_2], .bx-ui-slst-target[name=ORDER_PROP_3]").val();
+        //$('.quick-location-tag[data-id="' + locationID + '"]').attr("style", 'background: #00a0af !important; color: white !important;');
 		$('.quick-location-tag[data-id="' + locationID + '"]').addClass('addCircle');
+		
+		$('#ORDER_PROP_24, #ORDER_PROP_11').bind("change keyup input click", function() {
+			if (this.value.match(/[^\(\)\-\+0-9]/g)) {
+				this.value = this.value.replace(/[^\(\)\-\+0-9]/g, '');
+			}
+		});
+		$('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
     }
 
     $(function(){
@@ -443,6 +486,20 @@
                                                 }
                                             }
                                         }
+                                        // доставка гуру
+                                        if (flag) {
+                                            if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").is(':checked')) {
+                                            	if(!$("#guru_selected").val()) {
+                                            		$('html, body').animate({
+                                                        scrollTop: $(".js_delivery_block").offset().top
+                                                        }, 500);
+                                                    $(".guru_error").show();
+                                                    flag = false; return false;
+                                            	} else {
+                                            		$(".guru_error").hide();
+                                            	}
+                                            }
+                                        }                                       
                                     }
 
                                     if(flag){
@@ -516,6 +573,12 @@
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
                                     //доп функции/////////////////////////////////
                                     setOptions();
+                                    
+                                    // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
+                                    if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
+							            $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
+							            $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
+							        }
 
                                     //2. подсветка варианта оплаты для электронных платежей
                                     if(localStorage.getItem('active_rfi_button')){
@@ -549,6 +612,21 @@
                                             });
                                         }
                                     }
+                                    // инициализация карты доставки гуру после каждого аякса
+                                   $.post(
+								   	window.location.origin + window.THIS_TEMPLATE_PATH + "/include/guru/ajax/pvz_init.php",
+								    {}
+								   ).success(function(data) {
+								   		var pvz = JSON.parse(data);
+								        var center_1='';
+								        var center_2='';
+								            var points = eval("obj = " + pvz.result);
+								            if(pvz.result==''){
+								                alert('Нет соединения с сервером пунктов выдачи!');
+								                return false;
+								            }
+								            maps_init_GURU(points, center_1, center_2);
+								    });
                                 }
 
                                 function SetContact(profileId)
@@ -593,7 +671,7 @@
                                     ?>
                                     <p class="blockTitle">Местоположение</p>
                                     <?/*<p class="blockText">Выберите ваше местоположение</p> <br>*/?>
-                                          
+
                                     <?//блок с местоположением
                                         if ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]) {
                                             $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]);
@@ -691,6 +769,6 @@
     $(document).ready(function(){
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
-        }    
+        }
     })
 </script>

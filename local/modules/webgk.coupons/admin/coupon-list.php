@@ -44,6 +44,8 @@
             unset($arFilter[$key]);
         }
     }
+    
+   
 
     //Get all coupons
     $rsData = Internals\DiscountCouponTable::getList(array('filter' => $arFilter));
@@ -55,13 +57,13 @@
         $arIblockCoupons[$arIblockCoupon["PROPERTY_COUPON_VALUE"]] = $arIblockCoupon;
     }
 
-    $arFilter = array("!PROPERTY_VAL_BY_CODE_CODE_COUPON" => '-');
+    $arFilter = array("!PROPERTY_VAL_BY_CODE_CODE_COUPON" => false);
     $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
     while ($arSales = $rsSales->Fetch()) {
         $obCouponProp = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $arSales["ID"], "CODE" => "CODE_COUPON"));
         $arCouponProp = $obCouponProp->Fetch();
         $arCouponOrders[$arCouponProp["VALUE"]] = $arCouponProp;
-    }
+    }  
 
     //Page navigation
     $rsData = new CAdminResult($rsData, $sTableId);

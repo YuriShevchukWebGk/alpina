@@ -8,7 +8,7 @@
 } else {?>
     <?$APPLICATION->IncludeComponent(
 	"bitrix:sale.personal.order", 
-	"list", 
+	"orders", 
 	array(
 		"SEF_MODE" => "N",
 		"ORDERS_PER_PAGE" => "100",
@@ -30,8 +30,7 @@
 		"NAV_TEMPLATE" => "",
 		"CUSTOM_SELECT_PROPS" => array(
 		),
-		"HISTORIC_STATUSES" => array(
-		),
+		"HISTORIC_STATUSES" => array(""),
 		"STATUS_COLOR_N" => "green",
 		"STATUS_COLOR_C" => "gray",
 		"STATUS_COLOR_E" => "gray",

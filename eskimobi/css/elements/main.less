@@ -1,0 +1,200 @@
+.mainWrapp{
+	.full;
+	.interShop{
+		padding-top: 27px;
+		text-align: center;
+		background-color: @color-11;
+		text-transform: uppercase;
+		color: #ced5d7;
+		font-size: 13px;
+		padding-bottom: 1.1rem;
+		margin-bottom: 0;
+	}
+
+	.ibooks{
+		background-color: @color-11;
+		font-size: 3.6rem;
+		text-align: center;
+		color: @color-0;
+		font-weight: 600;
+		padding-bottom: 2.5rem;
+		margin-bottom: 0;
+		img{
+			display: inline-block;
+			width: 6.7rem;
+			vertical-align: middle;
+			margin: 0 1rem;
+		}
+	}
+
+	#title-search-top{
+		display: none;
+	}
+	.books{
+		.catalogIcon,
+		.basketIcon,
+		.book,
+		> ul,
+		.socServ{
+			display: none;
+		}
+		.book.bookNew{
+			display: block;
+			background-color: @color-11;
+			a[href="/catalog/new/"]{
+				display: none;
+			}
+		}
+		.slick-slide{
+			a{
+				width: 100%;
+				display: block;
+				padding: 0 1rem;
+				img{
+					width: 100%;
+					max-width: auto
+				}
+			}
+		}
+	}
+	.slick-list{
+		img{
+			height: auto !important;
+		}
+	}
+}
+
+.x-home{
+	#eski-root{
+		background: #f4f4f4;
+	}
+	.bookWrapp{
+		.mixin-book-wrap;
+		.section_item_img{
+			.mixin-book-img;
+		}
+		.bookName{
+			.mixin-book-name-text;
+		}
+		.tapeOfPack{
+			.mixin-book-type;
+			margin-bottom: 0;
+		}
+		.bookPriceLine{
+			display: none;
+		}
+		.bookPrice{
+			.mixin-price;
+		}
+	}
+	.EditorChoiceWrapp{
+		.slide_block;
+		.slick-slide{
+			.bg-light;
+			margin: @pd2 @pd;
+			@media @media_pad{
+				margin: @pd2 @pd/2;
+			}
+		}
+		a{
+			text-decoration: none;
+			padding-top: 3rem;
+			p:first-child,
+			.nameOfGroup{
+				color: #677377;
+				font-size: 24px;
+				font-weight: 900;
+				margin-bottom: 0;
+				margin-left: 1.9rem;
+				margin-right: 1.9rem;
+			}
+			.nameOfGroup{
+				margin-top: 3rem;
+			}
+			p.count,
+			.subNameOfGroup{
+				color: #9b9b9b;
+				font-size: 16px;
+				font-weight: 400;
+				margin-top: 1rem;
+				margin-bottom: 4rem;
+				margin-left: 1.9rem;
+				margin-right: 1.9rem;
+			}
+			.subNameOfGroup{
+				margin-bottom: 3.5rem;
+			}
+			.description{
+				display: none;
+			}
+			img{
+				width: 100%;
+				max-width: none;
+				height: auto !important;
+				&:first-child{
+					margin-top: -3rem;
+				}
+			}
+		}
+	}
+
+	.allBooksWrapp{
+		.bg-light;
+		.slide_block;
+		.catalogWrapper{
+			overflow: hidden;
+		}
+		.catalogBooks{
+			width: 100%;
+			clear: both;
+			padding: @pad2 @pd - 1rem;
+			padding-bottom: 0;
+			text-align: left;
+			.bookWrapp{
+				.mixin-book-wrap;
+				.mixin-book-wrap-50;
+			}
+			.item_img{
+				.mixin-book-img;
+			}
+			.bookName{
+				.mixin-book-name-text;
+			}
+			.bookAutor{
+				.mixin-book-autor;
+			}
+			.tapeOfPack{
+				.mixin-book-type;
+				margin-bottom: 0;
+			}
+			.bookPriceLine{
+				display: none;
+			}
+			.bookPrice{
+				.mixin-price;
+			}
+			& + .allBooks{
+				// margin-top: 0;
+				// margin-bottom: 3.4rem;
+				display: none;
+			}
+		}
+	}
+	.hintWrapp{
+		.recomendation{
+			.slide_block;
+			& + .recomendation{
+				.bg-light;
+			}
+		}
+		.saleSlider{
+			clear: both;
+		}
+		.saleWrapp{
+			.recomendation{
+				.bg-light;
+			}
+		}
+	}
+}
+

@@ -2,28 +2,28 @@
 $aMenuLinks = Array(
 	Array(
 		"Оплата", 
-		"/content/payment/", 
+		"https://www.alpinabook.ru/content/payment/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Доставка", 
-		"/content/delivery/", 
+		"https://www.alpinabook.ru/content/delivery/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Скидки", 
-		"/content/discounts/", 
+		"https://www.alpinabook.ru/content/discounts/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Контакты", 
-		"/about/contacts/", 
+		"https://www.alpinabook.ru/about/contacts/", 
 		Array(), 
 		Array(), 
 		"" 

@@ -1,5 +1,6 @@
 ﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 global $USER;
+CModule::IncludeModule("iblock");
 if (!$USER->isAdmin()) {
 	//header(&quot;Location: http://www.alpinabook.ru&laquo;);
 	//exit();
@@ -8,9 +9,6 @@ if (!$USER->isAdmin()) {
 <html>
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width; initial-scale=1">
-<meta name="viewport" content="width=1200">
-<meta name="format-detection" content="telephone=no">
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -88,10 +86,13 @@ and (max-device-width : 568px) {
 	font-size: 16px;
 }
 
-#wrap1, #wrap2, #wrap3, #wrap4, #wrap5 {
+#wrap1, #wrap2, #wrap3, #wrap4, #wrap5, .booksw {
 	width: 100%;
 	margin: 0 auto;
 	/*max-width:1000px;*/
+}
+.booksw .link:hover {
+	background:rgb(228, 255, 230)!important;
 }
 #header1 {
   font-size: 72px;
@@ -134,7 +135,7 @@ and (max-device-width : 568px) {
   line-height: 1.028;
   text-align: center;
   position: relative;
-  margin-top: 240px;
+  margin-top: 160px;
   z-index: 30;
 }
 #middle2 {
@@ -145,6 +146,7 @@ and (max-device-width : 568px) {
   height: 364px;
   z-index: 31;
 }
+
 #middle3 {
   font-size: 24px;
   font-family: "Walshein_light";
@@ -226,7 +228,7 @@ and (max-device-width : 568px) {
   text-align: center;
   margin-right:250px;
   position: relative;
-  margin-top:320px;
+  margin-top:230px;
   z-index: 24;
 }
 #footer3 {
@@ -299,12 +301,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		Это не&nbsp;временная акция, но&nbsp;наш новый принцип:
 	</div>
 	<div id="header3">
-		Покупая бумажную книгу &laquo;Альпины&raquo; на&nbsp;нашем сайте,
-		вы&nbsp;также<br />получаете ее&nbsp;или близкую по&nbsp;теме книгу в&nbsp;электронном<br />виде на&nbsp;всех своих устройствах.
+		Покупая бумажную книгу &laquo;Альпины&raquo; на&nbsp;нашем сайте, вы&nbsp;также	получаете ее&nbsp;в&nbsp;электронном виде на&nbsp;своих устройствах iOS и&nbsp;Android. <a href="#req" style="color:red;font-size:72px;">*</a>
 		<br />
 		<span class="underline">Бесплатно и&nbsp;моментально.</span>
 	</div>
 </div>
+
+	<div style="color:#fff;font-size:16px;" class="booksw">
+	<div style="position: relative;margin-top: 80px;width: 100%;z-index: 31;text-align:center;">
+	<?$arSelect = Array("ID", "NAME", "DETAIL_PICTURE","DETAIL_PAGE_URL");
+	$arFilter = Array("IBLOCK_ID"=>4, 'PROPERTY_appstore' => 231, 'PROPERTY_best_seller' => 285 /*'PROPERTY_STATE' => 22*/);
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>3), $arSelect);
+	while($ob = $res->GetNext()) {
+		$bookImg = CFile::ResizeImageGet($ob['DETAIL_PICTURE'], array("width" => 200, "height" => 250), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
+		<a href="<?=$ob['DETAIL_PAGE_URL']?>"><img src="<?=$bookImg[src]?>" alt="<?=$ob[NAME]?>" title="<?=$ob[NAME]?>" style="margin: 0 20px;" /></a>
+	<?}?>
+	<br /><br />
+	<center><a href="/catalog/freedigitalbooks/" class="link" style="font-family: 'Walshein_light';font-size:36px;background-color: rgb( 255, 255, 255 );border-radius: 35px;color: rgb(69, 106, 0);margin: 35px 28px 0;display:block;padding: 14px 58px;width:550px;">Электронная версия в комплекте</a></center>
+	</div>
+	</div>
 
 <div id="wrap2">
 	<div id="middle1">
@@ -321,10 +336,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	</div>
 	<br />
 	<div id="middle4">
+		<a name="req"></a>
 		<span>Дорогой друг!</span> <br />
-		В&nbsp;редких случаях у&nbsp;нас может не&nbsp;оказаться электронной книги,
-		которую вы&nbsp;купили в&nbsp;бумаге. Тогда мы&nbsp;подарим вам
-		похожую книгу&nbsp;&mdash; бестселлер или лучшую новинку на&nbsp;ту&nbsp;же тему. 
+		<?/*В&nbsp;редких случаях у&nbsp;нас может не&nbsp;оказаться электронной книги, которую вы&nbsp;купили в&nbsp;бумаге. На&nbsp;такие книги наше предложение не&nbsp;распространяется.*/?>
+		Предложение распространяется на&nbsp;книги со&nbsp;специальным знаком &laquo;Бесплатная электронная книга в&nbsp;комплекте&raquo;,<br />как на&nbsp;изображении ниже.
+		<br /><br />
+		<img src="img/badge.jpg" style="border-radius: 15px;" />
 		<br /><br />
 		Сейчас услуга &laquo;Знание, а&nbsp;не&nbsp;носитель&raquo; работает
 		на&nbsp;всех платформах Android и&nbsp;на&nbsp;платформах iOS, начиная с&nbsp;версии iOS8 и&nbsp;выше (iOS7&nbsp;на стадии доработки).
@@ -345,6 +362,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	</div>
 </div>
 
+	<div style="color:#fff;font-size:16px;" class="booksw">
+	<div style="position: relative;margin-top: 80px;width: 100%;z-index: 31;text-align:center;">
+	<?$arSelect = Array("ID", "NAME", "DETAIL_PICTURE","DETAIL_PAGE_URL");
+	$arFilter = Array("IBLOCK_ID"=>4, 'PROPERTY_appstore' => 231, 'PROPERTY_STATE' => 21);
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>3), $arSelect);
+	while($ob = $res->GetNext()) {
+		$bookImg = CFile::ResizeImageGet($ob['DETAIL_PICTURE'], array("width" => 200, "height" => 250), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
+		<a href="<?=$ob['DETAIL_PAGE_URL']?>"><img src="<?=$bookImg[src]?>" alt="<?=$ob[NAME]?>" title="<?=$ob[NAME]?>" style="margin: 0 20px;" /></a>
+	<?}?>
+	<br /><br />
+	<center><a href="/catalog/freedigitalbooks/" class="link" style="font-family: 'Walshein_light';font-size:36px;background-color: rgb( 255, 255, 255 );border-radius: 35px;color: rgb(69, 106, 0);margin: 35px 28px 0;display:block;padding: 14px 58px;width:580px;">Все книги с электронной версией</a></center>
+	</div>
+	</div>
 <div id="wrap4">
 	<div id="footer1">
 	</div>
@@ -371,20 +401,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		При активации ссылки на&nbsp;скачивание бесплатных книг нужно вводить именно логин и&nbsp;пароль от&nbsp;приложения &laquo;Бизнес.Книги&raquo;. Либо просто заходить через фейсбук и&nbsp;в&nbsp;приложении, и&nbsp;на&nbsp;странице скачивания бесплатных книг.<br />
 		Увы, это издержки тестовой версии, над которыми мы&nbsp;уже работаем. В&nbsp;будущем вам не&nbsp;придется делать лишних шагов и&nbsp;электронные книги сами будут автоматически загружаться на&nbsp;ваш телефон или планшет сразу после покупки бумажных книг. Следите за&nbsp;нашими обновлениями :)<br />
 		<br />
-		3. Если&nbsp;же вы&nbsp;все сделали правильно, но&nbsp;по-прежнему книжек не&nbsp;видно, напишите нам, мы&nbsp;быстро ответим вам! shop@alpinabook.ru<br />
+		3. Если&nbsp;же вы&nbsp;все сделали правильно, но&nbsp;по-прежнему книжек не&nbsp;видно, напишите нам, мы&nbsp;быстро ответим вам!&nbsp;<a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a><br />
 		<br />
 		<span class="quest">ВОПРОС 2: Что делать, если книги загрузились, но&nbsp;не&nbsp;все?</span> <br />
 		<br />
-		Возможно, книги, которые не&nbsp;загрузились, вы&nbsp;уже приобрели ранее в&nbsp;приложении. Проверьте в&nbsp;приложении в&nbsp;разделе &laquo;Мои книги&raquo;.<br />
-		Если книги не&nbsp;загрузились по&nbsp;другой причине, напишите нам на&nbsp;shop@alpinabook.ru, и&nbsp;мы&nbsp;быстро решим проблему.<br />
+		Возможно, книги, которые не&nbsp;загрузились, вы&nbsp;уже приобрели ранее в&nbsp;приложении. Проверьте в&nbsp;приложении в&nbsp;разделе &laquo;Мои книги&raquo; (Android) или в разделе «Моя коллекция» (iOS).<br />
+		Если книги не&nbsp;загрузились по&nbsp;другой причине, напишите нам на&nbsp;<a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a>, и&nbsp;мы&nbsp;быстро решим проблему.<br />
 		<br />
-		<span class="quest">ВОПРОС 3: Что делать, если в&nbsp;электронном виде загрузились не&nbsp;те&nbsp;книги, которые я&nbsp;заказывал?</span> <br />
+		<span class="quest">ВОПРОС 3: Что делать, если в&nbsp;электронном виде загрузились не&nbsp;все&nbsp;книги, которые я&nbsp;заказывал?</span> <br />
 		<br />
-		1. В&nbsp;редких случаях у&nbsp;нас может не&nbsp;оказаться электронной книги, которую вы&nbsp;купили в&nbsp;бумаге. Тогда мы&nbsp;подарим вам похожую книгу&nbsp;&mdash; бестселлер или лучшую новинку на&nbsp;ту&nbsp;же тему. Сейчас таких книг &laquo;под&nbsp;замену&raquo; в&nbsp;нашем ассортименте не&nbsp;более&nbsp;9%, и&nbsp;мы&nbsp;постоянно работаем над тем, чтобы их&nbsp;было еще меньше.<br />
+		1. Будьте внимательны, в&nbsp;редких случаях у&nbsp;нас может не&nbsp;оказаться электронной книги, которую вы&nbsp;купили в&nbsp;бумаге. Тогда в&nbsp;карточке книги вы&nbsp;просто не&nbsp;увидите упоминания о&nbsp;бесплатной электронной книге. Мы&nbsp;постоянно работаем над тем, чтобы таких книг было меньше.<br />
 		<br />
-		2. Какие именно книги вы&nbsp;получите в&nbsp;электронном виде взамен отсутствующих в&nbsp;нашем электронном ассортименте? Это можно увидеть в&nbsp;каждом письме со&nbsp;ссылкой или в&nbsp;личном кабинете, во&nbsp;вкладке &laquo;Бесплатные электронные книги&raquo;.<br />
-		<br />
-		3. Если вы&nbsp;проверили список обещанных электронных книг в&nbsp;письме или личном кабинете и&nbsp;уверены, что загрузилось не&nbsp;то, что должно было, напишите нам на&nbsp;shop@alpinabook.ru.<br />
+		2. Если вы&nbsp;проверили список обещанных электронных книг в&nbsp;письме или личном кабинете и&nbsp;уверены, что загрузилось не&nbsp;то, что должно было, напишите нам на&nbsp;<a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a>.<br />
 		<br />
 		<span class="quest">ВОПРОС 4: Какой пароль вводить на&nbsp;сайте интернет-магазина и&nbsp;в&nbsp;приложении?</span> <br />
 		<br />
@@ -404,8 +432,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<br />
 		<span class="quest">ВОПРОС 7: Что делать, если не&nbsp;удается зарегистрироваться на&nbsp;странице с&nbsp;промокодом и&nbsp;в&nbsp;приложении?</span> <br />
 		<br />
-		Не&nbsp;помним, когда последний раз такое было. Но&nbsp;если это случилось с&nbsp;вами, просто напишите нам на&nbsp;<a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a>, и&nbsp;мы&nbsp;быстро все исправим.	</div>
-</div>
+		Не&nbsp;помним, когда последний раз такое было. Но&nbsp;если это случилось с&nbsp;вами, просто напишите нам на&nbsp;<a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a>, и&nbsp;мы&nbsp;быстро все исправим.<br />
+		<br />
+		<span class="quest">ВОПРОС 8: Если я&nbsp;покупаю несколько экземпляров одной и&nbsp;той&nbsp;же книги, получу&nbsp;ли я&nbsp;несколько экземпляров электронной?</span><br /><br />
+
+		Нет, одному пользователю, зарегистрированному в&nbsp;приложении, мы&nbsp;подарим только одну электронную книгу на&nbsp;его мобильгное устройство. Кроме того, услуга &laquo;Знание, а&nbsp;не&nbsp;носитель&raquo; действует только для физических лиц и&nbsp;не&nbsp;распространяется на&nbsp;юридических лиц.</div>
+		</div>
 
 <center><div style="margin:20px auto 40px;"><script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script><script src="//yastatic.net/share2/share.js"></script><div class="ya-share2" data-services="vkontakte,facebook" data-counter=""></div></div></center>
 <footer itemscope="" id="WPFooter" itemtype="http://schema.org/WPFooter">

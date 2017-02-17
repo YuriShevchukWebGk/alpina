@@ -94,7 +94,13 @@ p{
     padding: 0;
     margin: 0;
 }
-
+h6 {
+    font-size: 22px;
+    font-weight: 400;
+	color: #627478;
+    font-family: "Walshein_regular";
+	margin:3px 0;
+}
 header{
     background-color: #ffffff;
     height: 58px;
@@ -367,7 +373,7 @@ header .headBasket{
 }
 .thirdWrapp img {
     /*height:238px;*/
-    height: 247px;
+    /*height: 247px;*/
     /*width:160px;*/
     margin-left: 20px;
     margin-bottom: -3px;
@@ -4155,19 +4161,20 @@ right: 45px;
 .deliveryTypeWrap .title{
     color: #627478;
     font-family: "Walshein_regular";
-    font-size: 24px;
-    padding-bottom: 40px;
+    font-size: 32px;
+    padding-bottom: 46px;
     padding-top: 32px;
 }
 .deliveryTypeWrap li:before{
     content: url("/img/rechtDeliv.png");
-    left: -22px;
+    /*left: -22px;
     position: absolute;
-    top: -4px;
+    top: -4px;*/
+	margin: 0 20px;
 }
 .deliveryTypeWrap ul{
     margin-bottom: 20px;
-    padding-left: 154px;
+    /*padding-left: 154px;*/
     padding-top: 5px;
 }
 .deliveryTypeWrap .deliveryTime{
@@ -5739,6 +5746,14 @@ table.form-table tr td:nth-child(2){
     color: red;
     display: none;
 }
+
+.guru_error {
+    width: 365px;
+    margin-bottom: 10px;
+    color: red;
+    display: none;
+}
+
 .title-search-result {
 	width:900px!important;
 }

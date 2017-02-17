@@ -123,8 +123,6 @@
     BX.addCustomEvent('onDeliveryExtraServiceValueChange', function(){ submitForm(); });
 
 </script>
-
-
 <?
     //Check if order have certificate
     $isOnlyCertificate = true;
@@ -157,6 +155,8 @@
                 if($arDelivery["ID"]==22 && $isOnlyCertificate==true) {  
                     $arDelivery["CHECKED"]='Y';
                 }
+                // если это юр лицо и вес больше 10кг, то мимо
+                if (($arDelivery["ID"] == GURU_DELIVERY_ID && !$USER->IsAdmin()) || ($arDelivery["ID"] == GURU_DELIVERY_ID && $arResult["USER_VALS"]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID && $arResult['ORDER_WEIGHT'] > GURU_LEGAL_ENTITY_MAX_WEIGHT)) { continue; }
 
                 if($arDelivery["ISNEEDEXTRAINFO"] == "Y")
                     $extraParams = "showExtraParamsDialog('".$delivery_id."');";
@@ -169,8 +169,7 @@
                     $clickHandler = "onClick = \"BX('ID_DELIVERY_ID_".$arDelivery["ID"]."').checked=true;".$extraParams."submitForm();\"";
 
             ?>  
-            <div <?if ((!$USER->IsAdmin()) && (($arDelivery["ID"] == BOXBERRY_ID1) || ($arDelivery["ID"] == BOXBERRY_ID2) || ($arDelivery["ID"] == BOXBERRY_ID3) || ($arDelivery["ID"] == BOXBERRY_ID4))) { echo "style = 'display:none;'"; }?>>
-
+            <div>
                 <input type="radio"
                     class="radioInp"
                     id="ID_DELIVERY_ID_<?= $arDelivery["ID"] ?>"
@@ -178,13 +177,12 @@
                     value="<?= $arDelivery["ID"] ?>"
                     <?if ($arDelivery["CHECKED"]=="Y") echo " checked";?>
                     onclick="submitForm();"
-                    />
-
+                    /> 
                 <label for="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>" class="faceText">
                     <?= htmlspecialcharsbx($arDelivery["NAME"])?> -                   
                     <?if(isset($arDelivery["PRICE"])):?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
-                            <? if ($arDelivery["ID"] == FLIPPOST_ID) {
+                            <? if ($arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID) {
                                 echo "Выберите местоположение";
                             } else { ?>
                                 <?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?>
@@ -193,7 +191,7 @@
                         <?   
                             if (strlen($arDelivery["PERIOD_TEXT"])>0)
                             {
-                                echo GetMessage('SALE_SADC_TRANSIT').": <b>".$arDelivery["PERIOD_TEXT"]."</b>";
+                                echo GetMessage('SALE_SADC_TRANSIT').": <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
                             ?><br /><?
                             }
                             if ($arDelivery["PACKS_COUNT"] > 1)
@@ -264,8 +262,34 @@
                         
                     </div>
                     <div class="flippost_error"><?= GetMessage('FLIPPOST_SELECT_EMPTY') ?></div>
+                    <div id="flippost_delivery_time" class="flippost_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
                     <input type="hidden" id="flippost_address" name="flippost_address" value="">
-                    <input type="hidden" id="flippost_cost" name="flippost_cost" value="">
+                    <input type="hidden" id="flippost_cost" name="flippost_cost" value="">  
+                <? } ?>
+                
+                <? if ($arDelivery["ID"] == GURU_DELIVERY_ID && $USER->IsAdmin()) { ?>
+                    <div class="guru_delivery_wrapper">
+                        <div class="guru_error"><?= GetMessage('GURU_ERROR') ?></div>
+                        <b><?= GetMessage('SEARCH_ON_MAP') ?></b>
+                        <br><span id="close_map" style="position:fixed; top:-2000px; cursor:pointer; z-index:999; right:75px; background:#cccccc; display:inline-block; padding:2px 4px; padding-bottom:4px; text-decoration:underline;">закрыть</span>
+                        <span style="cursor:pointer; display:block; text-decoration:underline;" class="message-map-link"><?= GetMessage('CHOSE_ON_MAP') ?></span>
+                        <div id="YMapsID"></div>
+                        <div class="guru_point_addr"></div>
+                        <div id="guru_delivery_time" class="guru_delivery_time"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
+                        <input type="hidden" id="guru_delivery_data" name="guru_delivery_data" value="">
+                        <input type="hidden" id="guru_cost" name="guru_cost" value="">
+                        <input type="hidden" id="guru_selected" name="guru_selected" value="">
+                    </div>
+                <? } ?>                                                
+                <? if ($arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID && $USER->IsAdmin()) { ?>
+                    <div class="boxberry_delivery_wrapper">                                                                                                                 
+                        <div class="boxberry_error"><?= GetMessage('BOXBERRY_ERROR') ?></div>                                                                                                                                                                            
+                        <a href="#" class="message-map-link" style="cursor: pointer; display: block;  text-decoration: underline; color:#000;" onclick="boxberry.open('boxberry_callback', '<?= BOXBERRY_TOKEN_API?>', 'Москва', '68', <?= $arResult['ORDER_DATA']['ORDER_PRICE']?>, <?= $arResult['ORDER_DATA']['ORDER_WEIGHT']?>, 0, 50, 50, 50); return false"><?= GetMessage('CHOSE_ON_MAP') ?></a>   
+                        <div id="boxberry_delivery_time" class="boxberry_delivery_time"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
+                        <input type="hidden" id="boxberry_delivery_data" name="boxberry_delivery_data" value="">
+                        <input type="hidden" id="boxberry_cost" name="boxberry_cost" value="">
+                        <input type="hidden" id="boxberry_selected" name="boxberry_selected" value="">
+                    </div>
                 <? } ?>
 
                 <div class="clear"></div>

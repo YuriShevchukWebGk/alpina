@@ -1,0 +1,29 @@
+
+#backToTop {
+	position: fixed;
+	bottom: @pad/2;
+	right: @pad/2;
+	text-decoration: none;
+	background: #eee;
+	color: #333;
+	text-shadow: 0 1px 0 #fff;
+	text-align: center;
+	padding: 1.7rem 2rem;
+	display: none;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  .radius( 50px );
+	&:before{
+	  .icon-arrow-up();
+	  display: inline-block;
+	}
+	/*.large;*/
+	z-index: 9999999;
+	.transitions(all,0.5s);
+	opacity: 0;
+	&.show {
+		display: block;
+		opacity: .99;
+		/*top: @pad;*/
+	}
+}

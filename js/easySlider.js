@@ -15,7 +15,7 @@ function easySlider(className, PageQuantitySlides){
     }
     
     $(className+" ul").addClass('sliderUl');
-    var widthOfSlide = $(sliderElClass).width();
+    var widthOfSlide = $(sliderElClass).width()*4;
     var quantityOfElements = $(className +' '+sliderElClass).size();
     var VisibleUlWidth = PageQuantitySlides * widthOfSlide;
 

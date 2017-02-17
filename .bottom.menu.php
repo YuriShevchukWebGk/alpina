@@ -2,21 +2,21 @@
 $aMenuLinks = Array(
 	Array(
 		"О группе компаний", 
-		"/content/publisher/", 
+		"https://www.alpinabook.ru/content/publisher/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Алфавитный указатель авторов", 
-		"/authors/", 
+		"https://www.alpinabook.ru/authors/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Партнерская программа", 
-		"/content/partnersProgram/", 
+		"https://www.alpinabook.ru/content/partnersProgram/", 
 		Array(), 
 		Array(), 
 		"" 

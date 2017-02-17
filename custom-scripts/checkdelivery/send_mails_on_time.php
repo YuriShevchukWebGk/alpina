@@ -1,4 +1,5 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+set_time_limit(0);
 if ($USER->isAdmin()) {
 
     CModule::IncludeModule("blog");
@@ -280,9 +281,9 @@ if ($USER->isAdmin()) {
 	/* III Проверяем доставку почтой */
 	$arFilter = Array(
 		"DELIVERY_ID" => array(10,11,16,24,25,26,28),
-		"!EMP_STATUS_ID" => array($userIDreturn,$userIDarrived),
+		"!EMP_STATUS_ID" => array($userIDreturn),
 		"@STATUS_ID" => array("I","K"),
-		">=DATE_INSERT" => "07.04.2016",
+		">=DATE_INSERT" => "01.09.2016",
 		//"ID" => 69615
 	);
 
@@ -313,6 +314,7 @@ if ($USER->isAdmin()) {
 			$trackingNumber = $order["DELIVERY_DOC_NUM"];
 		}
 		
+		/* ОТКЛЮЧАЕМ ОТСЛЕДИТЬ ПОСЫЛКУ!
 		if (!empty($trackingNumber) && (preg_match('/([0-9]){13,20}/', $trackingNumber) || preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) && !empty(getPhone($id))) {
 			// составляем массив треков под отправку 
 			$allTreks[]= array(
@@ -325,7 +327,7 @@ if ($USER->isAdmin()) {
 				"descr" => ""
 			);
 			addTrek($allTreks);
-		}
+		}*/
 		
 		//echo "4d<br />";
 		
@@ -338,7 +340,7 @@ if ($USER->isAdmin()) {
 				<td>---</td>
 				<td>В пути, отправлен на почту</td>
 				<td>".$trackingNumber."</td>
-				<td>Ждем поступлени в отделение</td>
+				<td>Ждем поступление в отделение</td>
 				<td>Уже проверяли</td>
 				</tr>";			
 			continue;
@@ -393,7 +395,14 @@ if ($USER->isAdmin()) {
 							$parcelReturn = true;
 						}
 					}
-
+					
+					/*
+					*
+					*
+					Заказ выполнен
+					*
+					*
+					*/
 					if ($record->OperationParameters->OperType->Id == 2) {
 							
 						if (CSaleOrder::StatusOrder($id, "F")) {
@@ -401,20 +410,26 @@ if ($USER->isAdmin()) {
 								"EMP_STATUS_ID" => $userID1
 							);
 							CSaleOrder::Update($id, $arFields);
-						//echo $id."*Заказ почтой выполнен*".$userID1."<br />";
-						$finalReport .= "<tr style='color:green;font-weight:700;'>
-							<td>".$id."</td>
-							<td>Почта</td>
-							<td>В пути, отправлен на почту</td>
-							<td>".$userID1."</td>
-							<td>Выполнен</td>
-							<td>".$trackingNumber."</td>
-							<td>Россия выполнен</td>
-							<td></td>
-							</tr>";	
+							
+							$finalReport .= "<tr style='color:green;font-weight:700;'>
+								<td>".$id."</td>
+								<td>Почта</td>
+								<td>В пути, отправлен на почту</td>
+								<td>".$userID1."</td>
+								<td>Выполнен</td>
+								<td>".$trackingNumber."</td>
+								<td>Россия выполнен</td>
+								<td></td>
+								</tr>";	
 						}
+					/*
+					*
+					*
+					Заказ возвращается
+					*
+					*
+					*/						
 					} elseif ($parcelReturn) {
-						//echo "return ".$id."<br />";
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
 							<td>".$id."</td>
 							<td>Почта</td>
@@ -430,9 +445,16 @@ if ($USER->isAdmin()) {
 						$notification = 'Истек срок хранения заказа №'.$id.'. Необходимо отправить заказ повторно.';
 						$result = sendNotificationEmail($id, $subject, $notification, $userIDreturn, '', 'm.danilova@alpinabook.ru');
 						
+					/*
+					*
+					*
+					Заказ поступил в почтовое отделение
+					*
+					*
+					*/
 					} elseif ($record->OperationParameters->OperType->Id == 8 &&
-							  $record->OperationParameters->OperAttr->Id == 2) {
-						//echo "поступил в отделение ".$id."<br />";
+							  $record->OperationParameters->OperAttr->Id == 2 &&
+							  $arSales["EMP_STATUS_ID"] != $userIDarrived) {
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
 							<td>".$id."</td>
 							<td>Почта</td>
@@ -443,13 +465,47 @@ if ($USER->isAdmin()) {
 							<td>Прибыло в место вручения</td>
 							<td>Уведомить клиента</td>
 							</tr>";
-
+							
+						$message = new Message();
+						$result = $message->sendMessage($id,'PD');
+						
 						$subject = 'Заказ №'.$id.' поступил в почтовое отделение';
 						$notification = 'Ваш заказ №'.$id.' прибыл в почтовое отделение. Заполнить извещение можно <a href="https://www.pochta.ru/form?type=F22&withBarcode=true&Banderol=true&Insured=true&PostId='.$trackingNumber.'">по данной ссылке</a>.';
 						$result = sendNotificationEmail($id, $subject, $notification, $userIDarrived, $newItemsBlock, '');
-
+					/*
+					*
+					*
+					Прошло 20 дней
+					*
+					*
+					*/
+					} elseif ((time() - strtotime($arSales[DATE_STATUS]))/86400 > 19 && (time() - strtotime($arSales[DATE_STATUS]))/86400 < 21 && $arSales["EMP_STATUS_ID"] == $userIDarrived) {
+						$finalReport .= "<tr style='color:red;font-weight:700;'>
+							<td>".$id."</td>
+							<td>Почта</td>
+							<td>В пути, отправлен на почту</td>
+							<td>".$userIDreturn."</td>
+							<td>В пути, отправлен на почту</td>
+							<td>".$trackingNumber."</td>
+							<td>Прошло 20 дней</td>
+							<td>Уведомить клиента</td>
+							</tr>";
+							
+						$message = new Message();
+						$result = $message->sendMessage($id,'PA');
+						
+						$subject = 'Заказ №'.$id.' истекает срок хранения';
+						$notification = 'Истекает срок хранения заказа №'.$id.'. Пожалуйста, заберите заказ в почтовом отделении. Заполнить извещение можно <a href="https://www.pochta.ru/form?type=F22&withBarcode=true&Banderol=true&Insured=true&PostId='.$trackingNumber.'">по данной ссылке</a>. Спасибо!';
+						$result = sendNotificationEmail($id, $subject, $notification, $userIDarrived, $newItemsBlock, '');
+						
+					/*
+					*
+					*
+					Заказ в пути
+					*
+					*
+					*/					
 					} else {
-						//echo 'Заказ в пути'.$id.'<br />';
 						$arFields = array(
 							"EMP_STATUS_ID" => $userIDontheway
 						);
@@ -467,8 +523,6 @@ if ($USER->isAdmin()) {
 							</tr>";	
 					}
 				} catch (SoapFault $e) {
-					//var_dump($e); 
-					//echo 'Ошибка авторизации<br />';
 					$params3['AuthorizationHeader'] = $allUsers[$i];
 					if ($i == $countUsers) {
 						$finalReport .= "<tr>
@@ -808,12 +862,12 @@ if ($USER->isAdmin()) {
 	
 	$arEventFields = array(
 		"ORDER_USER" => "Александр",
-		"REPORT" => $finalReport
+		"REPORT" => $finalReport,
+		"EMAIL" => "a.marchenkov@alpinabook.ru"
 	);				
 	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");
-	
 } else {
-	echo "Not authorized";
+	echo "authorize";
 }
 ?>
 

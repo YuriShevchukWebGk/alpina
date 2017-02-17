@@ -1,0 +1,828 @@
+.js-cart-preview{
+	.layout{
+		background: rgba(255,255,255,0);
+	}
+	.headBasket{
+		.cart-close();
+	}
+}
+
+
+.countMenu{
+	width: 13rem;
+	.plus{
+		.mixin-plus;
+	}
+	.minus{
+		.mixin-minus;
+	}
+	.countOfBook{
+		.mixin-count;
+	}
+}
+.hidingBasketRight{
+	position: fixed;
+	top: 8rem;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1001;
+	background: @color-0;
+	.overflow-y;
+	display: none;
+	.confirmTopWrap{
+		display: none;
+	}
+	.title{
+		background-color: #889ba1;
+		color: white;
+		font-size: 2.2rem;
+		font-weight: 800;
+		line-height: 3.1rem;
+		padding: 2.8rem @pad;
+		margin-bottom: 0;
+	}
+	.basketBooks{
+		padding: @pad;
+		padding-bottom: 0;
+		.basketBook{
+			overflow: hidden;
+			margin-bottom: @pad2;
+			padding-bottom: @pad2;
+			.bborder;
+			.bookImage{
+				width: 35%;
+				& + div{
+					padding-left: @pad/2;
+					width: 65%;
+				}
+			}
+			> div{
+				float: left;
+				> *{
+					float: right;
+					clear: right;
+				}
+				a{
+					text-decoration: none;
+					.bookNameBask{
+						font-size: 16px;
+						font-weight: 400;
+						line-height: 20px;
+						color: @color-9;
+						margin-bottom: 1.7rem;
+					}
+				}
+				.bookPrice{
+					text-align: right;
+					margin-bottom: 1rem;
+					font-size: @small;
+				}
+
+				.delItem{
+					cursor: pointer;
+					text-align: right;
+					margin: 1.8rem 0;
+					margin-bottom: 0;
+					&:after{
+						content: 'Удалить';
+						color: red;
+					}
+					img{
+						display: none;
+					}
+				}
+			}
+		}
+	}
+	.bottomBlock{
+		padding-bottom: @pad2;
+		.result{
+			padding: 0 @pad;
+			clear: both;
+			overflow: hidden;
+			p{
+				display: inline-block;
+				margin-bottom: 0;
+			}
+			.resultText{
+				.mixin-result-text;
+			}
+			.count{
+				line-height: 31px;
+				display: none;
+			}
+			.price{
+				.mixin-result-price;
+			}
+		}
+		.bottomBasketConfirm{
+			p{
+				margin-bottom: 0;
+			}
+			.btn;
+		}
+	}
+}
+
+.x-cart{
+	&.x-liked{
+
+	}
+	.interestSlideWrap{
+		display: none;
+	}
+	.cartMenuWrap{
+		margin-bottom: @pad2;
+		.basketItems{
+			cursor: pointer;
+			&:last-child{
+				p{
+					margin-bottom: 0;
+				}
+			}
+			p{
+				color: @color-link;
+				text-decoration: underline;
+				span{
+					margin-left: @pad;
+				}
+			}
+			&.active{
+				p{
+					color: @color-6;
+					font-size: @normal;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+	.yourBooks{
+		display: none;
+		.errortext{
+			display: block;
+			font-size: @xxl;
+			margin-bottom: @pad2;
+		}
+	}
+	.wishlistBlock{
+		.wishElement{
+			.bborder;
+			padding-bottom: @pad/2;
+			margin-bottom: @pad2;
+			position: relative;
+			> p{
+				margin-bottom: 0;
+				a{
+					display: block;
+					text-decoration: none;
+					margin-bottom: 0.8rem;
+					line-height: 20px;
+					color: @color-10;
+				}
+			}
+			.imgContainer{
+				width: 12rem;
+				float: left;
+			}
+			.wishBookName{
+				padding-left: 12rem + @pad/2;
+				a{
+					color: @color-6;
+					font-size: @normal;
+					margin-bottom: 0.8rem;
+					.ellipsis;
+				}
+			}
+			.wishBookAutor{
+				padding-left: 12rem + @pad/2;
+				a{
+					color: @color-10;
+					text-transform: uppercase;
+					.ellipsis;
+				}
+			}
+			.wishBookPrice{
+				padding-left: 12rem + @pad/2;
+				margin-bottom: 0.8rem;
+			}
+			.wishBookDescription{
+				padding-left: @pad/2;
+				max-height: 8.2rem;
+				font-size: @small;
+				line-height: 2rem;
+				overflow: hidden;
+			}
+			.inBasketContainer{
+				padding-top: @pad2;
+				clear: both;
+				a{
+					.btn;
+					margin-top: 0;
+				}
+			}
+			.wishDeleteContainer{
+				a{
+					.btn;
+					.btn-link;
+					margin-top: 0;
+					color: @color-14 !important;
+				}
+			}
+		}
+	}
+	.recomendation{
+		display: none;
+	}
+	.socialWishWrapper{
+		.socialWishText{
+			color: #68797d;
+			font-size: @normal;
+			font-weight: 400;
+			line-height: 20px;
+			margin-bottom: 1rem;
+		}	
+		.b-share{
+			padding: 0;
+			margin: 0;
+			margin-bottom: @pad2;
+			.b-share__handle{
+				background: rgba(255,255,255,0) !important;
+			}
+			.b-share-icon{
+				display: block;
+		    float: left;
+		    width: 3.2rem;
+		    height: 3.2rem;
+		    background: url(../img/social-set.png) left top no-repeat;
+		    background-size: auto 3.2rem;
+		    margin-right: 1.4rem;
+			}
+			.b-share-icon_vkontakte{
+				background-position: 0 0;
+			}
+			.b-share-icon_facebook{
+				background-position: -46px 0 !important;
+			}
+			.b-share-icon_twitter{
+				background-position: -92px 0 !important;
+			}
+			.b-share-icon_odnoklassniki{
+				background-position: -139px 0 !important;
+			}
+			.b-share-icon_gplus{
+				background-position: -185px 0 !important;
+			}
+			.b-share-counter{
+				display: none !important;
+			}
+		}
+	}
+	pre{
+		display: none;
+	}
+	.nextPageWrap{
+		display: none;
+	}
+}
+
+.x-personal.x-cart{
+	.header{
+		.headBasket{
+			.cart-close;
+		}
+	}
+}
+
+#basket_container{
+	#warning_message{
+
+	}
+	#basket_form{
+		#basket_items{
+			display: block;
+			.bborder;
+			margin-bottom: @pad2;
+			thead{
+				display: none;
+			}
+			tbody{
+				display: block;
+				tr{
+					display: block;
+					position: relative;
+					overflow: hidden;
+					margin-bottom: 3.7rem - 1.6;
+					padding: 0;
+					@media @media_pad{
+						max-width: 45rem;
+						margin-left: auto;
+						margin-right: auto;
+					}
+					td{
+						display: block;
+						padding: 0;
+					}
+				}
+			}
+			.bookImg {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 6.5rem;
+				img{
+					width: 100%;
+				}
+			}
+			.bookNameWrap{
+				padding-left: 7.5rem;
+				min-height: 9rem;
+				margin-bottom: @pad;
+				.nameOfBook{
+					.mixin-book-name;
+				}
+				.nameOfAutor{
+					.mixin-book-autor;
+				}
+				.nameOfType{
+					.mixin-book-type;
+					margin-bottom: 0;
+				}
+			}
+			.priceOfBook.custom{
+				overflow: hidden;
+				margin-bottom: @pad/2;
+				&:before{
+					content: 'Скидка';
+					display: block;
+					width: 30%;
+					float: left;
+					color: #7c7c7c;
+					font-size: @tiny;
+					font-weight: 400;
+					line-height: 17px;
+				}
+				p{
+					margin-bottom: 0;
+					display: block;
+					float: right;
+					width: 50%;
+					text-align: right;
+					color: @color-10;
+				}
+			}
+			.priceOfBook:not(.custom){
+				overflow: hidden;
+				margin-bottom: @pad/2;
+				&:before{
+					content: 'Цена';
+					display: block;
+					width: 30%;
+					float: left;
+					color: #7c7c7c;
+					font-size: @tiny;
+					font-weight: 400;
+					line-height: 17px;
+				}
+				p{
+					margin-bottom: 0;
+					display: block;
+					float: right;
+					text-align: right;
+					margin-left: @pad;
+					color: @color-10;
+				}
+				.current_price{
+				}
+				.old_price{
+					color: @color-5;
+					text-decoration: line-through;
+				}
+			}
+			.quantityInp{
+				overflow: hidden;
+				&:before{
+					content: 'Количество';
+					display: block;
+					width: 30%;
+					float: left;
+					color: #7c7c7c;
+					font-size: @tiny;
+					font-weight: 400;
+					line-height: 31px;
+				}
+				>div{
+					width: 12rem;
+					float: right;
+				}
+				label{
+					display: none;
+				}
+				a{
+					&.minus{
+						.mixin-minus;
+					}
+					&.plus{
+						.mixin-plus;
+					}
+				}
+				input{
+					.mixin-count;
+				}
+			}
+			td[class="custom"]{
+				display: none;
+			}
+			.cancelBook{
+				float: right;
+				a{
+					display: inline-block;
+					padding: 1.6rem 0;
+					color: @color-14;
+				}
+			}
+		}
+	}
+	#discountMessageWrap{
+		padding: @pad/2 !important;
+		.border;
+		text-align: center !important;
+		font-family: inherit !important;
+		margin-bottom: @pad;
+		span{
+			background: none !important;
+		}
+		a{
+			color: @color-9;
+		}
+		.rub{
+			a{
+				display: none;
+			}
+		}
+	}
+	.finalCost{
+		float: right;
+		.mixin-result-price;
+	}
+	.finalQuant{
+		display: none;
+	}
+	.finalText{
+		float: left;
+		.mixin-result-text;
+	}
+	.promoWrap{
+		overflow: hidden;
+		clear: both;
+		.promocode{
+			cursor: pointer;
+			color: @color-link;
+			border-bottom: 0.1rem dashed @color-link;
+			display: inline-block;
+		}
+	}
+	#coupons_block{
+		label{
+			display: none;
+		}
+		#coupon{
+			display: none;
+			& ~ *{
+				display: none;
+			}
+		}
+		.bx_ordercart_coupon{
+			margin-bottom: @pad;
+			input[name="OLD_COUPON[]"]{
+				padding: 0 ;
+				border: none;
+				color: @color-14;
+				line-height: 2ю3rem;
+				margin-top: 0 !important;
+			}
+			span{
+				display: inline-block;
+				line-height: 2rem;
+				vertical-align: middle;
+				float: right;
+				&:after{
+					.fa;
+					content: '\f147';
+					color: @color-14;
+					font-size: 3rem;
+					margin-left: @pad;
+				}
+			}
+			.bx_ordercart_coupon_notes{
+				display: inline-block;
+				line-height: 2.5rem;
+				margin-left: @pad;
+				float: right;
+				display: none;
+			}
+		}
+	}
+	.nextPageWrap{
+		display: block;
+		a{
+			.btn;
+		}
+	}
+}
+
+#IML_pvz {
+  position: absolute;
+  z-index: 2100;
+  display: none;
+  background-color: white;
+  padding: 10px;
+  overflow: auto;
+  font-family: Verdana;
+  width: 900px;
+}
+
+.orderBodyWrapp{
+	.centerWrapper{
+		padding-bottom: @pad3;
+		div[style]:last-child:not(.bx-ui-combobox-dropdown){
+			display: none !important;
+		}
+	}
+	.helpBlock{
+		display: none;
+	}
+	.warningMessage{
+		display: none;
+		font-size: @tiny;
+		color: @color-14;
+	}
+	.bx_sof_req{
+		color: @color-14;
+	}
+	.orderBody{
+		a[name="order_form"]{
+			display: none;
+		}
+	}
+	#order_form_div{
+		br{
+			display: none;
+		}
+		.blockTitle{
+			color: @color-6;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 20px;
+			margin-bottom: @pad;
+			span{
+				display: none;
+			}
+		}
+		.infoPunct{
+			position: relative;
+			overflow: hidden;
+			input,
+			textarea{
+				margin-bottom: 1rem;
+			}
+		}
+		.bx_description{
+			color: #68797d;
+			font-size: 12px;
+			font-weight: 400;
+			line-height: 16px;
+			margin-top: -0.5rem;
+			margin-bottom: 2rem;
+		}
+		.inputTitle{
+			color: #262626;
+			margin-bottom: 0.5rem;
+			& + .certInput{
+				display: none;
+			}
+			p{
+				margin-bottom: 0;
+			}
+		}
+		
+		.blockText{
+			margin-bottom: @pad/2;
+		}
+		label{
+			display: block;
+			clear: both;
+			&[for="PERSON_TYPE_1"]{
+				margin-bottom: @pad;
+			}
+			&[for="PERSON_TYPE_2"]{
+				margin-bottom: 0;
+			}
+		}
+		.section{
+			overflow: hidden;
+		}
+		.section,
+		.bx-ui-slst-pool,
+		.js_delivery_block{
+			.bborder;
+			margin-bottom: @pad2;
+			padding-bottom: @pad2;
+		}
+
+		.flippost_error{
+			display: none;
+		}
+
+		.location-block-wrapper{
+			.bx-slst{
+				& > .bx-ui-slst-pool{
+					display: none !important;
+				} 
+			}
+			.quick-locations{
+				a{
+					.mixin-cap;
+				}
+			}
+		}
+
+		.shipingText{
+			color: #68797d;
+			font-size: 12px;
+			font-weight: 400;
+			line-height: 16px;
+			margin-bottom: @pad2;
+			padding-left: 2.6rem;
+		}
+
+		.rfi_bank_vars{
+			overflow: hidden;
+			padding-top: @pad2;
+			li{
+				.mixin-cap;
+				float: left;
+			}
+		}
+		// label[for="ID_PAY_SYSTEM_ID_13"],
+		// label[for="ID_DELIVERY_ID_2"]{
+		// 	& + .shipingText{
+		// 		margin-bottom: 0;
+		// 	}
+		// }
+
+		div[data-property-id-row="58"],
+		div[data-property-id-row="59"],
+		div[data-property-id-row="60"],
+		div[data-property-id-row="61"],
+		div[data-property-id-row="62"],
+		div[data-property-id-row="63"]{
+			display: none;
+		}
+
+		.bx_ordercart{
+			.totalPriceWrap{
+				.totalCost{
+					float: right;
+					width: 50%;
+				}
+				.totalCost{
+					display: none;
+				}
+				.totalText{
+					display: none;
+				}
+				p{
+					margin-bottom: 0;
+				}
+				#eski_tottal{
+					padding-bottom: @pad;
+					margin-bottom: @pad3;
+					.bborder;
+					.color-left{
+						color: #333 !important;
+						font-size: 14px;
+						font-weight: 400;
+						line-height: 20px;
+					}
+					.color-right{
+						color: #7c7c7c !important;
+						font-size: 12px;
+						font-weight: 400;
+						line-height: 20px;
+						margin-bottom: @pad/2;
+					}
+					div{
+						.color-right;
+						span{
+							.color-left;
+							float: right;
+						}
+						&:nth-child(3){
+							.color-left;
+							color: #333 !important;
+							font-size: 14px !important;
+							text-align: right;
+							span{
+								.color-right;
+								float: left;
+							}
+						}
+						&:last-child{
+							color: #68797d !important;
+							font-size: 16px !important;
+							font-weight: 400 !important;
+							line-height: 31px !important;
+							span{
+								color: #5caab6 !important;
+								font-size: 24px !important;
+								font-weight: 700 !important;
+								line-height: 31px !important;
+							}
+						}
+					}
+				}
+			}
+			.orderConfirm{
+				.btn;
+			}
+		}
+	}
+}
+
+
+.x-order{
+	#content-wrapper{
+		padding-top: 8rem;
+	}
+	header{
+		.search{
+			display: none;
+		}
+	}
+	.finishOrdWrap{
+		margin-bottom: @pad2;
+		br{
+			display: none;
+		}
+		.rightBlockWrap{
+			display: none;
+		}
+		.mainInfoWrap{
+			.ordTitle{
+				color: @color-6;
+				font-size: 22px;
+				font-weight: 800;
+				line-height: 31px;
+				margin-bottom: @pad3;
+				padding-top: @pad/2;
+			}
+			.OrdAkses{
+				color: @color-6;
+				font-size: @normal;
+				line-height: 2rem;
+			}
+			.ordHint{
+				color: @color-6;
+				font-size: @normal;
+				line-height: 2rem;
+			}
+		}
+		#promocode-element-container{
+			margin-top: @pad2;
+			padding-top: @pad3;
+			.tborder;
+			.g4couter{
+				border: none;
+				padding: 0;
+				white-space: pre-wrap;
+			}
+			.g4cstrong{
+				color: @color-6;
+				font-size: 16px;
+				font-weight: 400;
+				line-height: 20px;
+				margin-bottom: @pad;
+				display: block;
+				width: 100%;
+			}
+			.g4cinner{
+				color: @color-6;
+				font-size: 16px;
+				font-weight: 400;
+				line-height: 20px;
+				display: block;
+				width: 100%;
+			}
+			.g4cinner_r{
+				&:after{
+					content: 'Получить подарок';
+					.btn;
+				}
+				img{
+					display: none;
+				}
+			}
+		}
+	}
+}

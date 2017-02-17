@@ -102,7 +102,7 @@ class Flippost{
                 break;
             case 'getTarif':
                     $firstParam = 'tarif';
-                    $secondParam = '';
+                    $secondParam = 'delivery';
                 break;
         }
         

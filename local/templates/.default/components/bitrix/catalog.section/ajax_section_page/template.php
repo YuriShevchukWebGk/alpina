@@ -260,11 +260,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
          <ul class="filterParams">
              <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])) { ?> class="active" <?}?>>
                  <p data-id="1">
-                     <?if ($_REQUEST['SORT'] == 'POPULARITY' && $_REQUEST["DIRECTION"] == 'ASC') {?>
                          <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=POPULARITY&DIRECTION=DESC" onclick="update_sect_page('popularity', 'desc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По популярности</a>
-                     <?} else {?>
-                         <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=POPULARITY&DIRECTION=ASC" onclick="update_sect_page('popularity', 'asc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По популярности</a>
-                     <?}?>
                  </p>
              </li>
              <li <?if ($_REQUEST['SORT'] == 'DATE'){?>class="active"<?}?>>
@@ -292,7 +288,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                  <?$criteoCounter = 0; 
                  $criteoItems = Array(); 
                  $gtmEcommerceImpressions = '';
-                 $gdeSlon = '';
+                 $gdeslon = '';
                      foreach ($arResult["ITEMS"] as $cell => $arItem) {  
                          foreach ($arItem["PRICES"] as $code => $arPrice) { 
                          ?>
@@ -367,7 +363,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                             array_push($criteoItems, $arItem['ID']);  
                         }
                          $criteoCounter++;
-
+                         
+                        $gdeslon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
+                        
                          $gtmEcommerceImpressions .= "{";
                          $gtmEcommerceImpressions .= "'name': '" . $arItem["NAME"] . "',";
                          $gtmEcommerceImpressions .= "'id': '" . $arItem['ID'] . "',";
@@ -377,13 +375,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                          $gtmEcommerceImpressions .= "'position': '" . ($cell+1) . "'";
                          $gtmEcommerceImpressions .= "},";
 
-                         $gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
                          }
                          ?>
                          
-                <!-- GdeSlon -->
-                <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
-                
                 
                 <script type="text/javascript">
                      <!-- //dataLayer GTM -->
@@ -399,7 +393,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                      });
                      <!-- // dataLayer GTM -->
                  </script>
-
+                <!-- gdeslon -->
+                <script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
 
                  <!--Criteo counter-->
                  <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>

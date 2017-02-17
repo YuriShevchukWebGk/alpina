@@ -9,55 +9,55 @@
                 <span class="top-section__edit-acc-inner js-open-acc-edit">Редактировать профиль</span><span class="ordersListA"><a href="/personal/">Список заказов</a></span><span class="wishListA"><a href="/personal/cart/?liked=yes">Список желаний</a></span><span class="exitA"><a href="http://ebook.alpinabook.ru">Перейти в бизнес-книги</a><a href="/personal/digitalbooks/">Бесплатные электронные книги</a><a href="/?logout=yes">Выход</a></span>
             </div>
             <? $APPLICATION->IncludeComponent("bitrix:main.profile", "user_profile_sailplay", array(
-	                "SET_TITLE" => "Y",
-	                "AJAX_MODE" => "Y"
+                    "SET_TITLE" => "Y",
+                    "AJAX_MODE" => "Y"
                 ),
                 false,
                 array(
-                	"ACTIVE_COMPONENT" => "Y"
+                    "ACTIVE_COMPONENT" => "Y"
                 )
             ); ?>
         </div>
     </section>
     <? if ($user_mail = $USER->GetEmail()) { ?>
-    	<?
-			if ($token = SailplayHelper::getAuth()) { // если удалось соединиться с Sailplay и получить токен
-				if ($hash = SailplayHelper::getUserAuthHash($token, $user_mail)) { // если удалось получить auth_hash для пользователя, то отображаем ЛК ?>
-					<app></app>
-				<? }
-			}
-    	?>
-    	<? // Прелоадер для sailplay ?>
-	    <style>
-			/* Не самое лучшее решение оставлять стили здесь, но альтернатива это создание отдельного шаблона для /personal/profile/ */ 
-			.historyBodywrap > div > .full, .historyBodywrap > div > .l-section-wrap {
-				display: none;
-			}
-			
-			.historyBodywrap > div:first-child {
-				min-height: 300px;
-			}
-		</style>
-		<script>
-			window.onload = function () { 
-				$(".cssload-container").fadeOut(200);
-				$(".historyBodywrap > div > .full").fadeIn(200);
-				$(".historyBodywrap > div > .l-section-wrap").fadeIn(200);
-				$(".rsOverflow.grab-cursor").css("width", "100%");
-			}
-		</script>
-		<div class="cssload-container">
-			<div class="cssload-whirlpool"></div>
-		</div>
+        <?
+            if ($token = SailplayHelper::getAuth()) { // если удалось соединиться с Sailplay и получить токен
+                if ($hash = SailplayHelper::getUserAuthHash($token, $user_mail)) { // если удалось получить auth_hash для пользователя, то отображаем ЛК ?>
+                    <app></app>
+                <? }
+            }
+        ?>
+        <? // Прелоадер для sailplay ?>
+        <style>
+            /* Не самое лучшее решение оставлять стили здесь, но альтернатива это создание отдельного шаблона для /personal/profile/ */ 
+            .historyBodywrap > div > .full, .historyBodywrap > div > .l-section-wrap {
+                display: none;
+            }
+            
+            .historyBodywrap > div:first-child {
+                min-height: 300px;
+            }
+        </style>
+        <script>
+            window.onload = function () { 
+                $(".cssload-container").fadeOut(200);
+                $(".historyBodywrap > div > .full").fadeIn(200);
+                $(".historyBodywrap > div > .l-section-wrap").fadeIn(200);
+                $(".rsOverflow.grab-cursor").css("width", "100%");
+            }
+        </script>
+        <div class="cssload-container">
+            <div class="cssload-whirlpool"></div>
+        </div>
     <? } ?>
 <? } else { ?>      
     <div class="signinWrapper">
         <div class="centredWrapper">
             <div class="signinBlock" style="display:block;">
             <? $APPLICATION->IncludeComponent("bitrix:system.auth.authorize", "flat", Array(
-	                    "REGISTER_URL" => "/auth/",
-	                    "PROFILE_URL"  => "/personal/profile/",
-	                    "SHOW_ERRORS"  => "Y"
+                        "REGISTER_URL" => "/auth/",
+                        "PROFILE_URL"  => "/personal/profile/",
+                        "SHOW_ERRORS"  => "Y"
                     ),
                     false
                 ); ?>
@@ -97,9 +97,9 @@
 </script>
 
 <script type="text/javascript">
-	<? // в данном случае не принципиально, есть ли у пользователя hash и mail, если их не будет, то функционал sailplay просто не отобразится?>
+    <? // в данном случае не принципиально, есть ли у пользователя hash и mail, если их не будет, то функционал sailplay просто не отобразится?>
     var AUTH_HASH = '<?= $hash ?>',
-    	EMAIL     = '<?= $user_mail ?>';
+        EMAIL     = '<?= $user_mail ?>';
     document.addEventListener('DOMContentLoaded', function () {
         var s = document.createElement("script");
         s.type = "text/javascript";
@@ -111,6 +111,6 @@
         ss.href = "<?=SITE_TEMPLATE_PATH?>/css/main.css";
         document.getElementsByTagName("head")[0].appendChild(ss);
     });
-</script>		
+</script>        
        
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

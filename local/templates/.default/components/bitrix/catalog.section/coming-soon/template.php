@@ -66,44 +66,7 @@
                 </div>
                 <?}?>
              <?// блок с цитатой END?>  
-            <ul class="filterParams">
-                <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])){?>class="active"<?}?>><p data-id="1">
-                        <?if ($_REQUEST['SORT'] == 'POPULARITY' && $_REQUEST["DIRECTION"] == 'ASC')
-                            {?>
-                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=POPULARITY&DIRECTION=DESC">По популярности</a>
-                            <?}
-                            else
-                            {?>
-                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=POPULARITY&DIRECTION=ASC">По популярности</a>
-                            <?}?>
-                    </p>
-                </li>
-                <li <?if ($_REQUEST['SORT'] == 'DATE' || $_REQUEST['SORT'] == 'NEW'){?>class="active"<?}?>><p data-id="2">
-                        <?if ($_REQUEST['SORT'] == 'DATE' && $_REQUEST["DIRECTION"] == 'ASC')
-                            {?>
-                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=DATE&DIRECTION=DESC">По дате выхода</a>
-                            <?}
-                            else
-                            {?>
-                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=DATE&DIRECTION=ASC">По дате выхода</a>        
-                            <?}?>
-                    </p>                                                                                     
-                </li>
-                <?if($arParams['HIDE_PRICE_SORT'] != 'Y'){?>
-                    <li <?if ($_REQUEST['SORT'] == 'PRICE'){?>class="active"<?}?>><p data-id="3">
-                        <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC')
-                            {?>
-                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=PRICE&DIRECTION=DESC">По цене</a>
-                            <?}
-                            else
-                            {?>
-                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=PRICE&DIRECTION=ASC">По цене</a>
-                            <?}?>
-                    </p>
-                    </li>    
-                <?}?>
-                
-            </ul>
+
             <??>
             <div class="otherBooks" id="block1">
                 <ul>

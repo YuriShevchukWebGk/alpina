@@ -109,7 +109,7 @@ td img {
 					}
 					
 					$printbooks .= '<br style="clear:both;"><br /><br /><br />';
-					$printbooks .= '<center><span class="headingmin">С помощью ссылки вы можете скачать бесплатно:</span></center>';
+					$printbooks .= '<center><span class="headingmin">С помощью ссылки вы можете получить бесплатно:</span></center>';
 					
 					foreach ($freeBook['products']['products'] as $m => $product) {
 						$pic = CIBlockElement::GetByID($product['id'])->Fetch();
@@ -131,7 +131,7 @@ td img {
 						//$printbooks .= '<li>'.$name[NAME].'</li>';
 					}
 					$printbooks .= '</ol><br style="clear:both;" /><br />';
-					$printbooks .= '<center><span class="biglink">По этой ссылке вы можете скачать<br />бесплатные электронные книги<br /><a href="'.$freeBook['products']['url'].'" target="_blank">Скачать</a></span></center><br /><br /><br />';
+					$printbooks .= '<center><span class="biglink">По этой ссылке вы можете получить<br />бесплатные электронные книги<br /><a href="'.$freeBook['products']['url'].'" target="_blank">Получить</a></span></center><br /><br /><br />';
 				} else {
 					//echo 'error<br />';
 				}

@@ -1,0 +1,198 @@
+header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 99;
+	.header{
+		display: block;
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+		background: @color-0;
+		> * {
+			display: block;
+			vertical-align: middle;
+			text-align: center;
+			height: 8rem;
+		}
+		a,
+		.headBasket{
+			min-width: 8rem;
+		}
+		img{
+			height: 3.8rem;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		#side_menu{
+			max-width: 8.6rem;
+			float: left;
+			.background( '../img/menu.svg', 2.5rem center, 2rem 1.7rem );
+		}
+		.logo{
+			text-align: center;
+			position: absolute;
+			left: 8.6rem;
+			right: 8.6rem;
+			padding: 2rem 0;
+		}
+		.headBasket{
+			position: relative;
+			cursor: pointer;
+			max-width: 8.6rem;
+			float: right;
+			.background( '../img/basket_alpina.svg', 3.2rem center, 2.4rem );
+			.BasketQuant{
+				position: absolute;
+				top: 4.2rem;
+				right: 1.9rem;
+				.translate3d(0%, -100%, 0);
+				width: 1.8rem;
+				height: 1.8rem;
+				line-height: 1.7rem;
+				text-align: center;
+				background: @color-7;
+				border-radius: 50px;
+				font-size: @tiny;
+				color: @color-0;
+			}
+		}
+	}
+	.search{
+		#title-search-top{
+			position: relative;
+			font-size: 0;
+			line-height: 0;
+			border-bottom: 0.1rem solid #dbdbdb;
+			label{
+				display: none;
+			}
+			input[type="submit"]{
+				position: absolute;
+				top: 50%;
+				right: 2.2rem;
+				width: 2.1rem;
+				height: 2.1rem;
+				background-color: rgba(255,255,255,0);
+				border: none;
+				padding: 0;
+				margin-top: -1rem;
+				min-width: inherit !important;
+			}
+			.topSearchField,
+			.mainSearchField{
+				padding: 2rem 6rem 1.9rem 2.4rem;
+				font-size: @l;
+				border: none;
+				color: @color-0;
+				&::-webkit-input-placeholder {color:@color-0;}
+				&::-moz-placeholder          {color:@color-0;}
+				&:-moz-placeholder           {color:@color-0;}
+				&:-ms-input-placeholder      {color:@color-0;}
+			}
+			.topSearchField{
+				background-color: #9daaaf;
+				& ~ input[type="submit"]{
+					.background( '../img/search-active.png', center, 99% );
+				}
+			}
+			.mainSearchField{
+				background-color: #f4f4f4;
+				color: @color-8;
+				&::-webkit-input-placeholder {color:@color-8;}
+				&::-moz-placeholder          {color:@color-8;}
+				&:-moz-placeholder           {color:@color-8;}
+				&:-ms-input-placeholder      {color:@color-8;}
+				box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.2);
+				border-bottom: none;
+				& ~ input[type="submit"]{
+					.background( '../img/search.png', center, 99% );
+					border-radius: 0 !important;
+				}
+			}
+		}
+	}
+}
+
+div.title-search-result{
+	display: none;
+	position: fixed !important;
+	top: 14rem !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	width: auto;
+	.bg-dark;
+	.tborder;
+	border-width: 0.2rem;
+	.title-search-result{
+		display: block;
+		width: 100%;
+		tbody{
+			display: block;
+			background: @color-0;
+			padding-bottom: 1.3rem;
+		}
+		tr{
+			display: block;
+		}
+	}
+	th{
+		display: none;
+	}
+	#row_1{
+		th{
+			display: block;
+			color: #7c7c7c;
+			font-weight: 400;
+			text-align: left;
+			padding: @pad/2 @pad - 0.5;
+			.bg-dark;
+		}
+		td{
+			margin-top: 1.3rem;
+		}
+	}
+	td,
+	.title-search-all{
+		display: block;
+		white-space: nowrap;
+	}
+	.title-search-item{
+		a{
+			padding: 1.3rem 2.6rem;
+			text-decoration: none;
+			color: @color-9;
+			display: block;
+			b{
+				font-weight: 400;
+				color: red;
+			}
+			&:before{
+				.fa;
+				content: "\f105";
+				margin-right: 0.5rem;
+				color: @color-9;
+			}
+		}
+		img{
+			display: none;
+		}
+	}
+	.title-search-all{
+		a{
+			padding: 1.3rem @pad - 0.5;
+			padding-top: 1rem;
+		}
+	}
+	.title-search-more{
+		display: none;
+	}
+	.title-search-separator{
+		display: none;
+	}
+	.title-search-fader{
+		display: none !important;
+	}
+}
+

@@ -3,58 +3,30 @@ global $USER;
 $alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
 $alpExps  = (!$alpExps ? array() : $alpExps);
 
-if ($alpExps['updateExp'] != "261016") {
+if ($alpExps['updateExp'] != "130217") {
     $alpExps = array();
-    $alpExps['updateExp'] = "261016";
+    $alpExps['updateExp'] = "130217";
 }
 
-/*if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI']) || preg_match("/(.*)\/authors\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
-    $alpExps['autoHyphens']    = (!$alpExps['autoHyphens'] ? rand(1,2) : $alpExps['autoHyphens']);
+/*if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
+    $alpExps['bgAdjustment']    = (!$alpExps['bgAdjustment'] ? rand(1,2) : $alpExps['bgAdjustment']);
+    
 }*/
-
-if (preg_match("/\/personal\/cart\/(.*)/i", $_SERVER['REQUEST_URI'])) {
-    $alpExps['addLinkInCart']    = (!$alpExps['addLinkInCart'] ? rand(1,3) : $alpExps['addLinkInCart']);
-}
-if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false || strpos($APPLICATION->GetCurPage(),"/content/") !== false) {
-    $alpExps['replaceSearchIcon']    = (!$alpExps['replaceSearchIcon'] ? rand(1,2) : $alpExps['replaceSearchIcon']);
-}
 ?>
-<!-- Тест Иконки поиска -->
-<?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false || strpos($APPLICATION->GetCurPage(),"/content/") !== false) {
-    if ($alpExps['replaceSearchIcon'] == 1) {?>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                dataLayer.push({
-                    'event' : 'ab-test-gtm',
-                    'action' : 'replaceSearchIcon',
-                    'label' : 'linkUnchanged'
-                });
-                console.log('replaceSearchIcon linkUnchanged');
-            });
-        </script>
-    <?} elseif ($alpExps['replaceSearchIcon'] == 2) {?>
-		<style>
-			.searchWrap input[type=text] {
-				padding-left:0;
-			}
-			.searchWrap input[type=submit] {
-				right:0;
-				left:auto;
-			}
-		</style>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                dataLayer.push({
-                    'event' : 'ab-test-gtm',
-                    'action' : 'replaceSearchIcon',
-                    'label' : 'linkReplaced'
-                });
-                console.log('replaceSearchIcon linkReplaced');
-            });
-        </script>    
-    <?}?>
+
+
+<!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
+<?if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {?>
+
+	
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".catalogIcon").html("<span>Каталог</span>");
+            $(".basketIcon").html("<span>Корзина</span>");
+        });
+    </script>
 <?}?>
-<!-- //Тест Иконки поиска -->
+<!-- //Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
 
 <!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
 <?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
