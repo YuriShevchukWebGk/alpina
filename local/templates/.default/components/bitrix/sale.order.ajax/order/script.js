@@ -478,7 +478,7 @@ function focus_imput() {
 //Передаем данные в скрытые поля input для доставки boxberry
 function setAddressDataBoxberry(delivery_data) {
     $(".boxberry_error").hide();
-    // адрес доставки в блоке самой доставки
+    // адрес доставки в блоке самой доставки 
     $(".boxberry_point_addr").html(delivery_data.address);
     // далее подставляем инфу в скрытые инпуты, для передачи дальше    
     $("#boxberry_delivery_data").val(delivery_data.id);  
@@ -513,7 +513,7 @@ function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
 //Callback функция для boxberry
 function boxberry_callback(result){ 
     // установка цен внизу страницы
-    document.querySelector('.deliveryPriceTable').innerHTML = result.price + ' руб.';
+    document.querySelector('.deliveryPriceTable').innerHTML = result.price + ' руб.';             
     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
     $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
     

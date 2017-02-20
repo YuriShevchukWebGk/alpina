@@ -156,7 +156,9 @@
                     $arDelivery["CHECKED"]='Y';
                 }
                 // если это юр лицо и вес больше 10кг, то мимо
-                if (($arDelivery["ID"] == GURU_DELIVERY_ID && !$USER->IsAdmin()) || ($arDelivery["ID"] == GURU_DELIVERY_ID && $arResult["USER_VALS"]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID && $arResult['ORDER_WEIGHT'] > GURU_LEGAL_ENTITY_MAX_WEIGHT)) { continue; }
+                if (($arDelivery["ID"] == GURU_DELIVERY_ID && !$USER->IsAdmin())
+                    || ($arDelivery["ID"] == GURU_DELIVERY_ID && $arResult["USER_VALS"]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID && $arResult['ORDER_WEIGHT'] > GURU_LEGAL_ENTITY_MAX_WEIGHT)
+                        || ($arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID && !$USER->IsAdmin())) { continue; }
 
                 if($arDelivery["ISNEEDEXTRAINFO"] == "Y")
                     $extraParams = "showExtraParamsDialog('".$delivery_id."');";
@@ -285,6 +287,7 @@
                     <div class="boxberry_delivery_wrapper">                                                                                                                 
                         <div class="boxberry_error"><?= GetMessage('BOXBERRY_ERROR') ?></div>                                                                                                                                                                            
                         <a href="#" class="message-map-link" style="cursor: pointer; display: block;  text-decoration: underline; color:#000;" onclick="boxberry.open('boxberry_callback', '<?= BOXBERRY_TOKEN_API?>', 'Москва', '68', <?= $arResult['ORDER_DATA']['ORDER_PRICE']?>, <?= $arResult['ORDER_DATA']['ORDER_WEIGHT']?>, 0, 50, 50, 50); return false"><?= GetMessage('CHOSE_ON_MAP') ?></a>   
+                        <div class="boxberry_point_addr"></div>
                         <div id="boxberry_delivery_time" class="boxberry_delivery_time"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
                         <input type="hidden" id="boxberry_delivery_data" name="boxberry_delivery_data" value="">
                         <input type="hidden" id="boxberry_cost" name="boxberry_cost" value="">
