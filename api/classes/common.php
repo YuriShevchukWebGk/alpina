@@ -64,10 +64,7 @@ class APITools {
 	 * */
 	static public function performQuery($data, $request) {
 		
-		//self::arshow($data);
-		//self::arshow($request);
-		
-		/*$postdata = http_build_query(
+		$postdata = http_build_query(
 			$data
 	    );
 	
@@ -85,7 +82,7 @@ class APITools {
 	    $context  = stream_context_create($opts);
 	    $result = file_get_contents(BK_REQUESTS_URL . $request, false, $context);
 		
-		return $result;*/
+		return $result;
 	}
 }
 ?>
