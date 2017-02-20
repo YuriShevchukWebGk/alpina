@@ -959,6 +959,212 @@
         }
         return false;
     }
+    
+    AddEventHandler("main", "OnAfterUserRegister", Array("AlpinaBK", "sendUserToBK"));
+	AddEventHandler("main", "OnAfterUserUpdate",  Array("AlpinaBK", "updateUserPassword"));
+	AddEventHandler("main", "OnBeforeUserLogin", Array("AlpinaBK", "checkUserBeforeLogin"));
+
+	// общий класс для методов, связанных с бизнес книгами
+    class AlpinaBK {
+    	
+		/**
+		 * 
+		 * Регистрируем нового пользователя в БК после регистрации на сайте
+		 * 
+		 * */
+    	public static function sendUserToBK(&$arFields) {
+    		$postdata = http_build_query(
+		        array(
+		           'method' => 'sendUserToBK',
+		           'token' => BK_TOKEN,
+		           'email' => $arFields['EMAIL'],
+		           'password' => $arFields['PASSWORD'],
+		           'name' => $arFields['NAME'] . " " . $arFields['LAST_NAME']
+		       )
+		    );
+		
+		    $opts = array('http' =>
+		       array(
+		           'method'  => 'POST',
+		           'header'  => 'Content-type: application/x-www-form-urlencoded',
+		           'content' => $postdata
+		      )
+		    );
+		    
+		    $context  = stream_context_create($opts);
+		    $result = file_get_contents('https://www.alpinabook.ru/api/user/', false, $context);
+    	}
+    	
+    	/**
+		 * 
+		 * При сбросе пароля ищем пользователя в БК, если он там есть, то меняем ему пароль на такой же,
+		 * если нет, то регистрируем нового пользователя в БК
+		 * 
+		 * @param array $fields
+		 * 
+		 * */
+    	public static function updateUserPassword(&$fields) {
+			// проверяем, что сбрасывают именно пароль
+			if ($fields['PASSWORD'] && $fields['CONFIRM_PASSWORD'] && $fields['RESULT']) {
+				// получение данных пользователя
+				$user = CUser::GetByID($fields['ID']);
+				$user = $user->Fetch();	
+				// --- запрос на существование пользователя в БК ---
+				$data = array(
+					'email' => $user['EMAIL']
+				);
+				ksort($data);
+				
+				$string_to_hash = http_build_query($data);
+				$sig = md5($string_to_hash . BK_API_SECRET_KEY);
+				
+				$data['sig'] = $sig;
+				
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users?' . http_build_query($data));
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				    'X-Auth-Token: ' . BK_API_TOKEN,
+				));
+				$data = curl_exec($ch);
+				curl_close($ch);
+				// --- запрос на существование пользователя в БК ---
+				$user = json_decode($data, true);
+				if ($user[0]['id']) {
+					// если пользователь есть, то сбросим пароль
+					$data = array(
+						'password' => $fields['CONFIRM_PASSWORD']
+					);
+					ksort($data);
+					
+					$string_to_hash = http_build_query($data);
+					$sig = md5($string_to_hash . BK_API_SECRET_KEY);
+					
+					$data['sig'] = $sig;
+					
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users/' . $user[0]['id']);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+					curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					    'X-Auth-Token: ' . BK_API_TOKEN,
+					));
+					$data = curl_exec($ch);
+					curl_close($ch);
+					// --- запрос сброс пароля в БК ---
+				} else {
+					// если нет, то создадим
+					self::sendUserToBK(array(
+						"EMAIL"     => $user['EMAIL'],
+						"PASSWORD"  => $fields['CONFIRM_PASSWORD'],
+						"NAME"      => $user['NAME'],
+						"LAST_NAME" => $user['LAST_NAME']
+					));
+				}
+			}
+    	}
+
+    	/**
+		 * 
+		 * Реализация единого алгоритма авторизации
+		 * 
+		 * @param array $fields
+		 * 
+		 * */
+    	public static function checkUserBeforeLogin(&$fields) {
+			// пробуем найти юзера в битрикс	
+			$users = CUser::GetList(
+				($by = "id"),
+				($order = "asc"),
+				array(
+			    	"=EMAIL" => $fields['LOGIN']
+				),
+				array(
+					"FIELDS" => array("ID", "EMAIL", "PASSWORD")
+				)
+			);
+			// если пользователь найден, то дальше работает с ним
+			if ($user = $users->Fetch()) {
+			    $current_hash = $user['PASSWORD'];
+				$password = $fields['PASSWORD'];
+				$salt = substr($current_hash, 0, (strlen($current_hash) - 32));
+				
+				$current_password = substr($current_hash, -32);
+				$password = md5($salt . $password);
+				// если пароли совпадают, то все ок, просто авторизуем, если нет, то проверим его на БК
+				if ($current_password != $password) {
+					$data = array(
+						'email'    => $fields['LOGIN'],
+						'password' => $fields['PASSWORD']
+					);
+					
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_POST, true);
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					    'X-AD-Offer: 1'
+					));
+					$data = curl_exec($ch);
+					curl_close($ch);
+					$bk_response = json_decode($data, true);
+					// если пользователь смог авторизоваться, то меняем его пароль в битриксе на этот
+					if ($bk_response[0]["id"]) {
+						$user_update = new CUser;
+						$user_update->Update(
+							$user["ID"],
+							array(
+							  "PASSWORD"         => $fields['PASSWORD'],
+							  "CONFIRM_PASSWORD" => $fields['PASSWORD']
+							)
+						);
+						global $USER;
+						if (!is_object($USER)) $USER = new CUser;
+						$auth_result = $USER->Login($fields['LOGIN'], $fields['PASSWORD'], "Y", "Y");
+					}
+				}
+			} else {
+				// если нет, то проверяем, есть ли он в БК
+				$data = array(
+					'email'    => $fields['LOGIN'],
+					'password' => $fields['PASSWORD']
+				);
+				
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				    'X-AD-Offer: 1'
+				));
+				$data = curl_exec($ch);
+				curl_close($ch);
+				$bk_response = json_decode($data, true);
+				// если пользователь смог авторизоваться, то регистрируем его в альпине
+				if ($bk_response[0]["id"]) {
+					$user = new CUser;
+					$user_fields = Array(
+						"EMAIL"             => $fields['LOGIN'],
+						"LOGIN"             => $fields['LOGIN'],
+						"ACTIVE"            => "Y",
+						"GROUP_ID"          => array(3, 4, 5),
+						"PASSWORD"          => $fields['PASSWORD'],
+						"CONFIRM_PASSWORD"  => $fields['PASSWORD']
+					);
+					
+					$ID = $user->Add($user_fields);
+					global $USER;
+					if (!is_object($USER)) $USER = new CUser;
+					$auth_result = $USER->Login($fields['LOGIN'], $fields['PASSWORD'], "Y", "Y");
+				}
+			}
+    	}
+    }
 
     AddEventHandler("main", "OnAfterUserRegister", Array("OnAfterUserRegisterHandler", "OnAfterUserRegister"));
     class OnAfterUserRegisterHandler
@@ -2042,7 +2248,41 @@
             FILE_APPEND
         );
     }
+	
+	/**
+	 * 
+	 * Выполнить запрос
+	 * 
+	 * @param array $data
+	 * @param string $method
+	 * @param string $request
+	 * @param string $headers
+	 * @return mixed $result
+	 * 
+	 * */
 
+    function performQuery($data, $method = "GET", $request, $headers) {
+		$postdata = http_build_query(
+			$data
+	    );
+	
+	    $opts = array(
+		    'http' => array(
+				'method'  => $method,
+				'header'  => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL . $headers,
+				'content' => $postdata
+			),
+			'ssl' => array(
+		        'verify_peer' => false
+		    )
+	    );
+	    
+	    $context  = stream_context_create($opts);
+	    $result = file_get_contents($request, false, $context);
+		
+		return $result;
+	}
+	
     /***********
     * 
     * при добавлении/изменении скидки на товар проставлять свойство "Показывать иконку скидки" у данного товара
