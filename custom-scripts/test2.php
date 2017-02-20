@@ -44,10 +44,20 @@ foreach ($array3 as $for2) {
 				echo $id[0]."*false*".$id[1]."<br />";
 			}
 		} else {
-			if (CSaleOrder::StatusOrder($id[0], "I")) {
-				echo $id[0].'*already*'.$trackingNumber.'<br />';
+			$arFields = array(
+				"TRACKING_NUMBER" => $id[1]
+			);		
+			if ($update = CSaleOrder::Update($id[0], $arFields)) {
+				echo $id[0]."*ok arleady*".$id[1]."<br />";
+				if (CSaleOrder::StatusOrder($id[0], "I")) {
+					//echo $id[0]."*ok arleady*".$id[1]."<br />";
+					//$message = new Message();
+					//$result = $message->sendMessage($id[0],'PS');
+				} else {
+					//echo $id[0]."*status error*".$id[1]."<br />";
+				}
 			} else {
-				echo $id[0]."*status error*".$id[1]."<br />";
+				echo $id[0]."*false*".$id[1]."<br />";
 			}
 		}
 	}

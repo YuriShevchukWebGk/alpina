@@ -103,5 +103,6 @@ $APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
 	$APPLICATION->AddHeadString('<meta property="og:url" content="'.'https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage().'" />',false);
 	$APPLICATION->AddHeadString('<meta property="og:site_name" content="ООО «Альпина Паблишер»" />',false);
 	$APPLICATION->AddHeadString('<meta property="og:locale" content="ru_RU" />',false);
+	$APPLICATION->AddHeadString('<meta name="relap-title" content="'.$arResult["NAME"].'">',false);
 	// $APPLICATION->SetPageProperty('FACEBOOK_META', $fb_meta);
 ?>
