@@ -230,6 +230,8 @@
         if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").attr("checked") == "checked") {
             $(".clientInfoWrap div[data-property-id-row='5']").hide(); // физ лицо
             $(".clientInfoWrap div[data-property-id-row='14']").hide(); // юр лицо
+            $(".clientInfoWrap div[data-property-id-row='94']").hide(); // физ лицо
+            $(".clientInfoWrap div[data-property-id-row='95']").hide(); // юр лицо
         }
 
         //Подсвечиваем активное местоположение в избранных
@@ -403,7 +405,8 @@
                                 var BXFormPosting = false;
                                 function submitForm(val)
                                 {
-                                    var flag = true;  
+                                    var flag = true;
+                                                     
                                     $(".flippost_error").hide();
                                     if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
                                         $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
@@ -455,7 +458,7 @@
                                         if(deliveryFlag == false){
                                             flag = false;
                                             $('.deliveriWarming').show();
-                                        }     
+                                        }      
 
                                         if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == false){
                                             flag = false;
@@ -500,7 +503,7 @@
                                             	}
                                             }
                                         }      
-                                        // доставка boxberry
+                                        // доставка boxberry 
                                         if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").is(':checked')) {
                                             if(!$("#boxberry_selected").val()) {
                                                 $('html, body').animate({
@@ -549,7 +552,7 @@
                                 return true;
                                 } */
 
-                                function ajaxResult(res) {
+                                function ajaxResult(res) {                                    
                                     window.flippost = !(window.flippost instanceof Flippost) ? new Flippost(<?= FLIPPOST_ID ?>) : window.flippost;
                                     var orderForm = BX('ORDER_FORM');
                                     try
@@ -609,6 +612,24 @@
                                         $('li[data-rfi-recurrent-type="new"]').click();
                                     }
 
+                                    //Заполняем поля при повторном выборе
+                                    if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").is(':checked') && window.boxberry_result) {
+                                            var result = window.boxberry_result;                 
+                                            $('.deliveryPriceTable').html(result.price + ' руб.');   
+                                            finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
+                                            $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');                                                  
+                                            // установка значений для блока с самой доставкой
+                                            $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(result.price + ' руб.');
+                                            $("#boxberry_cost").val(result.price);
+                                            if (parseInt(result.period) != 0) {
+                                                // если значения не будет, то значит произошла ошибка и время доставки не показываем
+                                                $(".boxberry_delivery_time").show();
+                                                $(".boxberry_delivery_time span").html((parseInt(result.period) + 2) + " дн.");    
+                                            }                                                        
+                                            setAddressDataBoxberry(result);
+                                            fitDeliveryDataBoxberry(result.period, result.price);    
+                                    };
+                                    
                                     // т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса
                                     if ($(".js_delivery_block").length) {
                                         if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
