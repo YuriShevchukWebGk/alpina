@@ -32,6 +32,8 @@ while ($property = $order_props->Fetch()) {
 	}
 }
 
+$arResult['ORDER_ID'] = $order_id;
+$arResult['PAYED'] = $order['PAYED'];
 $arResult['PRICE'] = $order['PRICE'];
 
 // для заказов, оплаченных сертификатом подставляем стоимость из параметров заказа
