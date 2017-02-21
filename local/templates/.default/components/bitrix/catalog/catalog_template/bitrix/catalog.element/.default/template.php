@@ -687,7 +687,7 @@ $arItemIDs = array(
                                     $delivery_day = GetMessage("TOMORROW");
 									//$delivery_day = 'в среду';
                                 } elseif ($today == 2) {
-									if ($timenow < 7)
+									if ($timenow < 9)
 										$delivery_day = 'сегодня';
 									else
 										$delivery_day = GetMessage("TOMORROW");

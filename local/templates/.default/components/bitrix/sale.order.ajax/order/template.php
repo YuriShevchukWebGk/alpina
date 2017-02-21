@@ -165,13 +165,13 @@
             if (ourday == 1) { //понедельник
                 minDatePlus = 1;
             } else if (ourday == 2) { //вторник
-                if (hourfordeliv < 7)
-                    minDatePlus = 0;
+                if (hourfordeliv < 9)
+                    minDatePlus = '21.02.2017';
                 else
                     minDatePlus = 1;
             } else if (ourday == 3) { //среда
                 if (hourfordeliv < 8)
-                    minDatePlus = '15.02.2017';
+                    minDatePlus = '22.02.2017';
                 else
                     minDatePlus = 1;
             } else if (ourday == 4) { //четверг
@@ -620,6 +620,8 @@
                                                 weight  = parseInt($('.order_weight').text()) / 1000,
                                                 method  = $(this).data("method"); // какой метод вызывать следующим
                                                 $(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
+												if (!weight)
+													weight = 1;
                                                 window.flippost.getData(method, country, state, city, weight); // рендерим новые
                                             });
                                         }
