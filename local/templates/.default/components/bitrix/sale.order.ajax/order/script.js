@@ -482,6 +482,8 @@ function setAddressDataBoxberry(delivery_data) {
     $(".boxberry_point_addr").html(delivery_data.address);
     // далее подставляем инфу в скрытые инпуты, для передачи дальше    
     $("#boxberry_delivery_data").val(delivery_data.id);  
+    $("#ORDER_PROP_94").val(delivery_data.address); // физ-лицо       
+    $("#ORDER_PROP_95").val(delivery_data.address); // юр-лицо  
     $("#ORDER_PROP_5").val(delivery_data.id); // физ-лицо       
     $("#ORDER_PROP_14").val(delivery_data.id); // юр-лицо  
     // устанавливаем флаг, что город выбран, нужно для js валидации
@@ -512,6 +514,7 @@ function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
 
 //Callback функция для boxberry
 function boxberry_callback(result){ 
+    window.boxberry_result = result;
     // установка цен внизу страницы
     document.querySelector('.deliveryPriceTable').innerHTML = result.price + ' руб.';             
     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
