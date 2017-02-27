@@ -1272,7 +1272,7 @@ function updateSearchPage() {
 function newSubFunction(submitButton){
     var book_id = submitButton.previousElementSibling.dataset.book_id;
     var sub_mail = submitButton.previousElementSibling.value;
-    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    var re = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if(re.test(sub_mail)){
         $.post("/ajax/book_subscribe.php", {
             book_id : book_id,

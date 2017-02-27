@@ -221,7 +221,17 @@
             ?>
             <br /><br />
             <div id="promocode-element-container"></div>
-            <? if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
+            <?
+            if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID) { ?>
+            	<? $APPLICATION->IncludeComponent(
+					"webgk:rfi.widget",
+					"",
+					Array(
+						"ORDER_ID" => $_REQUEST["ORDER_ID"]
+					),
+					false
+				); ?>
+            <? } else if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
                 <table class="sale_order_full_table" >
                     <tr <? /*if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg" && $arResult["UF_RECURRENT_ID"]) { ?> style="display: none" <? }*/ ?>>
                         <? if ($arResult["PAY_SYSTEM"]["ID"] != RFI_PAYSYSTEM_ID) { ?>
@@ -301,8 +311,6 @@
                         ?>
                         <tr>
                             <td>
-                                <span style="color: #627478;font-family: 'Walshein_regular';"><?=GetMessage("DIGITAL_BOOK")?></span>
-                                <br />
                                 <span <?if($arResult["PAY_SYSTEM"]["ID"] == PAYPAL_PAYSYSTEM_ID) echo "style='display:none'"?>>
                                 <?
                                     $service = \Bitrix\Sale\PaySystem\Manager::getObjectById($arResult["ORDER"]['PAY_SYSTEM_ID']);
