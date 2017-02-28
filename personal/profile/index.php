@@ -3,7 +3,7 @@
     $APPLICATION->SetTitle("Персональный раздел"); 
 ?>
 <? if ($USER->IsAuthorized()) { ?>
-    <section class="l-section-wrap top-section color_1 full historyOrderList">
+    <section class="l-section-wrap top-section color_1 full">
         <div class="container">
             <? $APPLICATION->IncludeComponent("bitrix:main.profile", "user_profile_sailplay", array(
                     "SET_TITLE" => "Y",
@@ -15,41 +15,7 @@
                 )
             ); ?>
         </div> 
-    </section>               
-    <br>                     
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>                    
-    <br>              
+    </section>              
     <? if ($user_mail = $USER->GetEmail()) { ?>
         <?
             if ($token = SailplayHelper::getAuth()) { // если удалось соединиться с Sailplay и получить токен

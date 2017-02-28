@@ -16,12 +16,11 @@
 .top-section__edit-acc .exitA a{
     color:#fff;
     padding-left: 30px;
-}
+} 
 .top-section__edit-acc.slidingTop {
     height: 58px;
     padding-top: 19px;
-    left: 0;
-    padding-left: 62px;
+    left: 0;             
     width: 100%;
     position: fixed;
     z-index: 100;

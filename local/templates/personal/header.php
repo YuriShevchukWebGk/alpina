@@ -157,12 +157,12 @@
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
-    <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/main.css" type="text/css">
     <link rel="stylesheet" href="/css/easySlider.css" type="text/css">
 
     <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
     <script type="text/javascript" src="/js/fancybox-2/helpers/jquery.fancybox-thumbs.js"></script>   
-    <script type="text/javascript" src="/js/main.min.js"></script>
+    <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/main.min.js"></script>
 
     <script src="/js/circle-progress.js"></script>
     <script src="/js/jquery.appear.js"></script>

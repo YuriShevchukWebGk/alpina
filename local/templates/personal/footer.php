@@ -2,44 +2,6 @@
             <?if ($APPLICATION->GetCurDir() != "/personal/profile/") {?>
                  
                 </div>
-         
-                <div class="historyMenuWrap">
-                    <ul>
-                        <?/*?>
-                        <li>
-                            <a href="/personal/" class="active">персональные данные</a>
-                        </li>
-                        <li>
-                            <a href="/personal/order">история заказов</a>
-                        </li>
-                        <li>
-                            <a href="/personal/wishlist">список желаемых покупок</a>
-                        </li>
-                        <li>
-                            <a href="/personal/change_pw">сменить пароль</a>
-                        </li>
-                        <?*/?>
-                        <?/*$APPLICATION->IncludeComponent(
-                        "bitrix:menu", 
-                        "personal_left_menu", 
-                        array(
-                            "ROOT_MENU_TYPE" => "personal_left",
-                            "MAX_LEVEL" => "1",
-                            "CHILD_MENU_TYPE" => "top",
-                            "USE_EXT" => "Y",
-                            "DELAY" => "N",
-                            "ALLOW_MULTI_SELECT" => "Y",
-                            "MENU_CACHE_TYPE" => "N",
-                            "MENU_CACHE_TIME" => "3600",
-                            "MENU_CACHE_USE_GROUPS" => "Y",
-                            "MENU_CACHE_GET_VARS" => array(
-                            ),
-                            "COMPONENT_TEMPLATE" => "personal_left_menu"
-                            ),
-                        false
-                        );*/?>
-                    </ul>
-                </div>
                 
             <?}?>
                 

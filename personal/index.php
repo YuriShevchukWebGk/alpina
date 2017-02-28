@@ -49,27 +49,6 @@
 		"STATUS_COLOR_K" => "gray"
 	),
 	false
-);?><?}?> 
-<script>
-    /*$(document).ready(function(){
-        $(".historyBodywrap > div").removeClass("centerWrapper");
-    }); */
-</script> 
-          <script type="text/javascript">
-    <? // в данном случае не принципиально, есть ли у пользователя hash и mail, если их не будет, то функционал sailplay просто не отобразится?>
-    var AUTH_HASH = '<?= $hash ?>',
-        EMAIL     = '<?= $user_mail ?>';
-    document.addEventListener('DOMContentLoaded', function () {
-        var s = document.createElement("script");
-        s.type = "text/javascript";
-        s.src = "<?=SITE_TEMPLATE_PATH?>/js/main.min.js";
-        document.getElementsByTagName("head")[0].appendChild(s);
-        var ss = document.createElement("link");
-        ss.type = "text/css";
-        ss.rel = "stylesheet";
-        ss.href = "<?=SITE_TEMPLATE_PATH?>/css/main.css";
-        document.getElementsByTagName("head")[0].appendChild(ss);
-    });
-</script> 
+);?><?}?>      
        
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
