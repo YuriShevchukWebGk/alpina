@@ -3,7 +3,7 @@
     $APPLICATION->SetTitle("История заказов");  
     $orders_count = UserOrdersCount($USER -> GetID());
     ?>
-<?if (!$USER->IsAuthorized() || ($USER -> IsAuthorized() && intval($orders_count) <= 0)) {
+<?if (!$USER->IsAuthorized() || ($USER -> IsAuthorized() && intval($orders_count) <= 0)) {  
     header("location: profile/"); 
 } else {?>
     <?$APPLICATION->IncludeComponent(
@@ -49,12 +49,6 @@
 		"STATUS_COLOR_K" => "gray"
 	),
 	false
-);?><?}?> 
-<script>
-    $(document).ready(function(){
-        $(".historyBodywrap > div").addClass("centerWrapper");
-    });
-</script> 
-
+);?><?}?>      
        
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
