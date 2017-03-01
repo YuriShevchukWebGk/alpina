@@ -108,7 +108,18 @@ $(document).ready(function(){
 
 
     }
-
+    //Плавающая шапка на странице профиля
+    $(window).on('scroll', function(){
+        if($(window).scrollTop() > 210) {
+            $('.top-section__edit-acc').addClass('slidingTop');    
+        };    
+        if($(window).scrollTop() < 210) {
+            $('.top-section__edit-acc').removeClass('slidingTop');    
+        };            
+    })                                                       
+    
+    
+    
     //скролящееся меню на странице оплата
     if($('.delivMenuWrapp').length > 0){
         heightFromElement = $(".delivMenuWrapp").offset().top;

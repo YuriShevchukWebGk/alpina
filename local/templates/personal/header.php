@@ -157,10 +157,12 @@
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/main.css" type="text/css">
     <link rel="stylesheet" href="/css/easySlider.css" type="text/css">
 
     <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
-    <script type="text/javascript" src="/js/fancybox-2/helpers/jquery.fancybox-thumbs.js"></script>
+    <script type="text/javascript" src="/js/fancybox-2/helpers/jquery.fancybox-thumbs.js"></script>   
+    <script type="text/javascript" src="<?=SITE_TEMPLATE_PATH?>/js/main.min.js"></script>
 
     <script src="/js/circle-progress.js"></script>
     <script src="/js/jquery.appear.js"></script>
@@ -341,10 +343,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 
 <div class="historyBodywrap">
-    <div class="">
+    <div class="">                       
     
-    <?if ($APPLICATION->GetCurDir() != "/personal/profile/") {?>
+    <?if (($APPLICATION->GetCurDir() != "/personal/profile/") && ($APPLICATION->GetCurDir() != "/personal/")) {?>  
 
         <div class="orderHistorWrap">
         
-        <?}?>
+    <?}?>
+    <?if ($USER->IsAuthorized()) {?>
+    <div class="top-section__edit-acc">
+        <div class="centerWrapper">           
+            <span class="top-section__edit-acc-inner js-open-acc-edit">Редактировать профиль</span>
+            <span class="ordersListA"><a href="/personal/">Список заказов</a></span>
+            <span class="wishListA"><a href="/personal/cart/?liked=yes">Список желаний</a></span>
+            <span class="exitA"><?/*<a href="http://ebook.alpinabook.ru" target="_blank">Перейти в бизнес-книги</a><a href="/personal/digitalbooks/">Бесплатные электронные книги</a>*/?><a href="/?logout=yes">Выход</a></span>
+        </div>
+    </div>
+    <?}?>
