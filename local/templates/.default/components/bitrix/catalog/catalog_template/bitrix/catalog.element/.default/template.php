@@ -95,9 +95,9 @@ if ($alpExps['bgAdjustment'] == 1) {
 		$bgcolors[0] = "#777777";
 	
 	if ($USER->isAdmin()) {
-		echo $bgsum;
+		/*echo $bgsum;
 		echo $mincolor['sum'];
-		print_r(hexToRgb($bgcolors[0]));
+		print_r(hexToRgb($bgcolors[0]));*/
 	}
 	if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
 		$mincolor['color'] = "#555";
@@ -108,8 +108,11 @@ if ($alpExps['bgAdjustment'] == 1) {
 			background-color: <?=$bgcolors[0]?>;
 			opacity: 0.3;
 		}
-		.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span {
+		.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
 			color: <?=$mincolor['color']?>!important;
+		}
+		#diffversions .passive span {
+			border-bottom: 1px dashed <?=$mincolor['color']?>;
 		}
 		.catalogIcon {
 			background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
@@ -363,7 +366,7 @@ $arItemIDs = array(
 							</div>
 							<?}?>
 						<?if($arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != "") {?>
-							<div class="characteris">
+							<div class="characteris epubHide">
 								<p class="title"><?= GetMessage("COVER_TYPE") ?></p>
 								<p class="text"><?= $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
 								<?if ($arResult["PROPERTIES"]['COVER_TYPE']['VALUE_ENUM_ID'] == COVER_TYPE_SOFTCOVER_XML_ID) {?>
@@ -373,6 +376,10 @@ $arItemIDs = array(
 								<?}?>
 							</div>
 						<?}?>
+						<div class="characteris epub" style="display:none;">
+							<p class="title">Форматы</p>
+							<p class="text">epub</p>
+						</div>
 						<?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
 							<div class="characteris">
 								<p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
@@ -380,7 +387,7 @@ $arItemIDs = array(
 							</div>
 						<?}?>
 						<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
-							<div class="characteris">
+							<div class="characteris epubHide">
 								<a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
 							</div>
 						<?}?>
@@ -397,14 +404,14 @@ $arItemIDs = array(
 							</div>
 						<?}?>
 						<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
-							<div class="characteris">
+							<div class="characteris epubHide">
 								<a href="http://readright.ru/?=alpinabook" target="_blank">
 									<span class="text noborderlink"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
 								</a>
 							</div>
 						<?}?>
 						<?if ($arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"]) {?>
-							<div class="characteris">
+							<div class="characteris epubHide">
 								<p class="title"><?= GetMessage("SIZES") ?></p>
 								<p class="text"><?= $arResult["PROPERTIES"]["COVER_FORMAT"]["VALUE"] ?></p>
 							</div>
@@ -423,7 +430,7 @@ $arItemIDs = array(
                             $weight = $arResult["PROPERTIES"]["LATEST_WEIGHT"]["VALUE"];
                         }
                         if ($weight) {?>
-                        <div class="characteris">
+                        <div class="characteris epubHide">
                             <p class="title"><?= GetMessage("WEIGHT") ?></p>
                             <p class="text"><?= $weight ?><?= GetMessage("GRAMS") ?></p>
                         </div>
@@ -450,7 +457,49 @@ $arItemIDs = array(
                     <?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
-                    <div class="priceBasketWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+					<?if ($USER->isAdmin()) {?>
+						<style>
+							#paperversion, #digitalversion {
+								font-family:'Walshein_regular';font-size: 16px;padding: 10px 20px;color: #00abb8;display:block;float:left;width:92px;
+							}
+							.elementDescriptWrap .priceBasketWrap {
+								clear:both;
+							}
+							#diffversions .active {
+								background:#ecedef;
+							}
+							#diffversions .passive:hover span {
+								border-bottom: none;
+							}
+							.elementDescriptWrap .inBasket {
+								padding: 14px 30px;
+							}
+						</style>
+						<div id="diffversions">
+							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span>Бумажная</span></a>
+							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span>Электронная</span></a>
+						</div>
+						<script>
+							function selectversion(cl,id) {
+								if (cl == "passive") {
+									$("#diffversions").find(".passive").removeClass("passive").addClass("temp");
+									$("#diffversions").find(".active").removeClass("active").addClass("passive");
+									$("#diffversions").find(".temp").addClass("active").removeClass("temp");
+								}
+								if (id == "paperversion") {
+									$(".paperVersionWrap, .digitalBookMark, .typesOfProduct, .shippings, .buyLater, .epubHide").show();
+									$(".digitalVersionWrap, .epub").hide();
+								} else {
+									$(".paperVersionWrap, .digitalBookMark, .typesOfProduct, .shippings, .buyLater, .epubHide").hide();
+									$(".digitalVersionWrap, .epub").show();
+								}
+								return false;
+
+							}
+							
+						</script>
+					<?}?>
+                    <div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <meta itemprop="priceCurrency" content="RUB" />
                         <link itemprop="itemCondition" href="http://schema.org/NewCondition">
                         <meta itemprop="sku" content="<?=$arResult["ID"]?>" />
@@ -621,6 +670,20 @@ $arItemIDs = array(
                     }?>                            
                     </div>
 
+					<?if ($USER->isAdmin()){?>
+					<div class="priceBasketWrap digitalVersionWrap" style="display:none;">
+						<div class="wrap_prise_top">
+							<p class="newPrice">499 <span>руб.</span></p>
+						</div>
+						
+						<div class="wrap_prise_bottom">
+							<a href="#">
+								<p class="inBasket">Купить на ebook</p>
+							</a>
+						</div>
+					</div>
+					<?}?>
+                        					
                     <div class="quickOrderDiv" style="display:none;">
                         <form method="post" id="quickOrderForm">
                             <input type="hidden" name="frmQuickOrderSent" value="Y">
@@ -692,9 +755,9 @@ $arItemIDs = array(
 									else
 										$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 3) {
-									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+									$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 4) {
-									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+									$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 5) {
 									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 6) {

@@ -22,6 +22,13 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
+		"Бесплатные электронные книги", 
+		"/actions/freedigitalbooks/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"Контакты", 
 		"https://www.alpinabook.ru/about/contacts/", 
 		Array(), 

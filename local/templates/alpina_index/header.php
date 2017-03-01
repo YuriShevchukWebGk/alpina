@@ -197,7 +197,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="mainWrapp" itemprop="mainContentOfPage">
     <!--<div class="grayBack"></div>-->
     <p class="interShop">
-        Интернет-магазин
+        Интернет-магазин издательства
     </p>
     <p class="ibooks">
         я<img src="/img/logoBig.png">книги

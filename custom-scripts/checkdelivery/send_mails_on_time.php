@@ -467,7 +467,7 @@ if ($USER->isAdmin()) {
 							</tr>";
 							
 						$message = new Message();
-						$result = $message->sendMessage($id,'PD');
+						$result = $message->sendMessage($id,'PD','','',$trackingNumber);						
 						
 						$subject = 'Заказ №'.$id.' поступил в почтовое отделение';
 						$notification = 'Ваш заказ №'.$id.' прибыл в почтовое отделение. Заполнить извещение можно <a href="https://www.pochta.ru/form?type=F22&withBarcode=true&Banderol=true&Insured=true&PostId='.$trackingNumber.'">по данной ссылке</a>.';
