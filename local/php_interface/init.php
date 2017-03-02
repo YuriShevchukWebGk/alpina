@@ -908,22 +908,6 @@
         {
             $arFields['LOGIN'] = $arFields['EMAIL'];
 
-            //Check if email already registred
-            $filter = Array("EMAIL" => $arFields['EMAIL']);
-            $obUsers = CUser::GetList(($by="id"), ($order="desc"), $filter); // РІС‹Р±РёСЂР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
-            while($arUser = $obUsers->Fetch()){
-                $arUsers[]=$arUser;
-            }
-
-            if (count($arUsers)==1){
-                $login = 'newuser_'.$arFields["EMAIL"];
-            } else if (count($arUsers)>1) {
-                $login = 'newuser_'.count($arUsers).'_'.$arFields["EMAIL"];
-            } else {
-                $login = $arFields['EMAIL'];
-            }
-            $arFields['LOGIN'] = $login;
-
             return $arFields;
         }
     }
@@ -1433,22 +1417,6 @@
         function OnBeforeUserAdd(&$arFields)
         {
             $arFields['LOGIN'] = $arFields['EMAIL'];
-
-            //Check if email already registred
-            $filter = Array("EMAIL" => $arFields['EMAIL']);
-            $obUsers = CUser::GetList(($by="id"), ($order="desc"), $filter); // выбираем пользователей
-            while($arUser = $obUsers->Fetch()){
-                $arUsers[]=$arUser;
-            }
-
-            if (count($arUsers)==1){
-                $login = 'newuser_'.$arFields["EMAIL"];
-            } else if (count($arUsers)>1) {
-                $login = 'newuser_'.count($arUsers).'_'.$arFields["EMAIL"];
-            } else {
-                $login = $arFields['EMAIL'];
-            }
-            $arFields['LOGIN'] = $login;
 
             return $arFields;
 
