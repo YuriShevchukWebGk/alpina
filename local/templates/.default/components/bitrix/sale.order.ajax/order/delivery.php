@@ -143,7 +143,7 @@
         {
             $width = ($arParams["SHOW_STORES_IMAGES"] == "Y") ? 850 : 700;
         ?>
-        <p class="blockTitle">Способ доставки<span class="deliveriWarming">Укажите спопсоб доставки</span></p>
+        <p class="blockTitle">Способ доставки<span class="deliveriWarming">Укажите способ доставки</span></p>
         <?
             foreach ($arResult["DELIVERY"] as $delivery_id => $arDelivery) {
                 if($arDelivery["ID"]!=22 && $isOnlyCertificate==true) {
@@ -285,7 +285,7 @@
                 <? } ?>                                                
                 <? if ($arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID && $USER->IsAdmin()) { ?>
                     <div class="boxberry_delivery_wrapper">                                                                                                                 
-                        <div class="boxberry_error"><?= GetMessage('BOXBERRY_ERROR') ?></div>                                                                                                                                                                            
+                        <div class="boxberry_error"><?= GetMessage('BOXBERRY_ERROR') ?></div>                                                                                                                                                                     
                         <a href="#" class="message-map-link" style="cursor: pointer; display: block;  text-decoration: underline; color:#000;" onclick="boxberry.open('boxberry_callback', '<?= BOXBERRY_TOKEN_API?>', 'Москва', '68', <?= $arResult['ORDER_DATA']['ORDER_PRICE']?>, <?= $arResult['ORDER_DATA']['ORDER_WEIGHT']?>, 0, 50, 50, 50); return false"><?= GetMessage('CHOSE_ON_MAP') ?></a>   
                         <div class="boxberry_point_addr"></div>
                         <div id="boxberry_delivery_time" class="boxberry_delivery_time"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
