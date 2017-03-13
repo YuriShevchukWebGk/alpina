@@ -724,7 +724,7 @@
 
 
         //----- Отправка смс при изменении статуса заказа
-        if (array_key_exists($val,Message::$messages)){
+        /*if (array_key_exists($val,Message::$messages)){
             if ($val=="C") { // ---- статус собран может быть только для заказов с самовывозом
                 if (Message::getOrderDeliveryType($ID)==2) {
                     $message = new Message();
@@ -735,7 +735,7 @@
                 $message = new Message();
                 $result = $message->sendMessage($ID,$val);
             }
-        }
+        }*/
 
         //----- Триггерные письма при изменении статуса заказа
         if ($val=="C") { // Статус собран
@@ -755,6 +755,8 @@
                 $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки <a href="http://pickpoint.ru/" target="_blank">PickPoint</a>.';
             } elseif (in_array(Message::getOrderDeliveryType($ID), array(12,13,14,15))) { // Курьерская доставка
                 $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан курьеру. Ожидайте звонок представителя курьерской службы в день доставки.';
+            } elseif (in_array(Message::getOrderDeliveryType($ID), array(49))) { // Boxberry
+                $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки <a href="http://boxberry.ru/" target="_blank">Boxberry</a>.';
             } else {
                 $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки.';
             }

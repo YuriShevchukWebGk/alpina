@@ -191,7 +191,7 @@
         $SDATA['delivery_sum'] = $ar_order['PRICE_DELIVERY'];
         $SDATA['vid'] = 1;
         $SDATA['shop'] = array(
-            'name' => $pvz_id,  //нужно распарсить данные из заказа
+            'name' => $pvz_id, 
             'name1' => '010'
         );
 
@@ -201,16 +201,15 @@
             
         // Отправляем массив на сервер boxberry используя CURL.
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://test.api.boxberry.de/json.php');
+        curl_setopt($ch, CURLOPT_URL, 'http://api.boxberry.de/json.php');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-            'token'=> '21585.rvpqfebe',
+            'token'=> BOXBERRY_TOKEN,
             'method'=> 'ParselCreate',
             'sdata'=> json_encode($SDATA)
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $data = json_decode(curl_exec($ch),1);     
-        arshow($data);   
+        $data = json_decode(curl_exec($ch),1);  
         if($data['err'] or count($data)<=0) {
             // если произошла ошибка и ответ не был получен.
             echo $data['err'];                                           
