@@ -81,7 +81,7 @@
 
         } else {
 
-                $("#ORDER_PROP_24").mask("+9(999)999-99-999");   //для физлица
+                $("#ORDER_PROP_24").mask("+9(999)999-99-999",{placeholder:"+7(777)777-77-77"})   //для физлица
                 $("#ORDER_PROP_11").mask("+7(999)999-99-99");  //для юрлица
                 $("#pp_sms_phone").mask("+79999999999");
         }
@@ -163,18 +163,30 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-                minDatePlus = 1;
-            } else if (ourday == 2) { //вторник
                 if (hourfordeliv < 9)
-                    minDatePlus = '21.02.2017';
+                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
                 else
                     minDatePlus = 1;
+            } else if (ourday == 2) { //вторник
+                if (hourfordeliv < 9)
+                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
+                else
+                    minDatePlus = 2;
             } else if (ourday == 3) { //среда
-				minDatePlus = 1;
+				if (hourfordeliv < 9)
+                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
+                else
+                    minDatePlus = 1;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 1;
+                if (hourfordeliv < 9)
+                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
+                else
+                    minDatePlus = 1;
             } else if (ourday == 5) { //пятница
-                minDatePlus = 3;
+                if (hourfordeliv < 9)
+                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
+                else
+                    minDatePlus = 3;
             } else if (ourday == 6) { //суббота
                 minDatePlus = 2;
             } else if (ourday == 0) { //воскресенье
@@ -238,7 +250,11 @@
 				this.value = this.value.replace(/[^\(\)\-\+0-9]/g, '');
 			}
 		});
-		$('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
+		$("#ORDER_PROP_24,#ORDER_PROP_11").focus(function() {
+			if ($("#ORDER_PROP_24,#ORDER_PROP_11").val() == '') {
+				$('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
+			}
+		});
     }
 
     $(function(){

@@ -1351,3 +1351,22 @@ $(function() {
 		$('body,html').animate({scrollTop:0},800);
 	});
 });
+
+//Переключение между вкладками элетронных книги и бумажных в карточке товара
+function selectversion(cl,id) {
+	if (cl == "passive") {
+		$("#diffversions").find(".passive").removeClass("passive").addClass("temp");
+		$("#diffversions").find(".active").removeClass("active").addClass("passive");
+		$("#diffversions").find(".temp").addClass("active").removeClass("temp");
+	}
+	if (id == "paperversion") {
+		$(".paperVersionWrap, .digitalBookMark, .typesOfProduct, .shippings, .buyLater, .epubHide").show();
+		$(".digitalVersionWrap, .epub").hide();
+	} else {
+		$(".paperVersionWrap, .digitalBookMark, .typesOfProduct, .shippings, .buyLater, .epubHide").hide();
+		$(".digitalVersionWrap, .epub").show();
+	}
+	var bookName = $(".productName").text();
+	dataLayer.push({'event' : 'selectVersion', 'action' : id+' '+cl, 'label': bookName});
+	return false;
+}

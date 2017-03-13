@@ -63,6 +63,14 @@
     define("TRADING_FINANCE_SECTION_ID", 111);	
 	define("WIDGET_PREVIEW_WIDTH", 70);
 	define("WIDGET_PREVIEW_HEIGHT", 90);
+	
+	function is_legal_face_order($order_id) {
+		CModule::IncludeModule("sale");
+		$order = CSaleOrder::GetByID($order_id);
+		if ($order['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+			return true;
+		}
+	}
 
     /**
     * 
@@ -750,6 +758,8 @@
                 $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран в течение двух рабочих часов.';
             } elseif (Message::getOrderDeliveryType($ID) == 17) { // PickPoint
                 $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки <a href="http://pickpoint.ru/" target="_blank">PickPoint</a>.';
+            } elseif (Message::getOrderDeliveryType($ID) == 49) { // Boxberry
+                $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки <a href="http://boxberry.ru/" target="_blank">Boxberry</a>.';
             } elseif (in_array(Message::getOrderDeliveryType($ID), array(12,13,14,15))) { // Курьерская доставка
                 $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан курьеру. Ожидайте звонок представителя курьерской службы в день доставки.';
             } else {
@@ -1281,10 +1291,10 @@
             "D10" => "Истекает срок хранения Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "D12" => "Осталось 2 дня до аннулирования Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "CA" => "Ваш заказ order уже в пути. Курьер cur_name cur_phone",
-			"PS" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в Ваше почтовое отделение!",
-			"PD" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» доставлен в почтовое отделение! Трек-номер trackingNumber. С собой необходимо иметь паспорт.",
+			"PS" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в почтовое отделение",
+			"PD" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» доставлен в почтовое отделение! Трек-номер trackingNumber. С собой необходимо иметь паспорт",
 			"P10" => "Здравствуйте, clientName! Пожалуйста, заберите заказ из магазина «Альпина Паблишер» в почтовом отделении. Трек-номер trackingNumber",
-			"PA" => "Здравствуйте, clientName! Срок хранения заказа №order из интернет-магазина «Альпина Паблишер» истекает."			
+			"PA" => "Здравствуйте, clientName! Срок хранения заказа №order из интернет-магазина «Альпина Паблишер» истекает"			
             //"I" => "Ваш заказ №order в пути. Если будут вопросы – звоните +7(495)9808077"
         );
 
@@ -1942,6 +1952,8 @@
                 $arFields['HREF']='<a href="http://pickpoint.ru/" target="_blank">на сайте PickPoint</a>.';
             } elseif ($order_list['DELIVERY_ID']==30) {
                 $arFields['HREF']='<a href="http://flippost.com/instruments/online/" target="_blank">Flipost</a>.';
+            } elseif ($order_list['DELIVERY_ID']==49) {
+                $arFields['HREF']='<a href="http://boxberry.ru/departure_track/?id='.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">Boxberry</a>.';
             }
         }
     }

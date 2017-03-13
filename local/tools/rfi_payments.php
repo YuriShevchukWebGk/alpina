@@ -1,9 +1,4 @@
 <? if (preg_match('/GR_/', $_POST['order_id'])) {
-	file_put_contents(
-	    $_SERVER["DOCUMENT_ROOT"] . "/logs/result.txt",
-	    var_export($_POST, 1)."\n",
-	    FILE_APPEND
-	);
     require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_before.php");
 	$postdata = http_build_query(
         array(

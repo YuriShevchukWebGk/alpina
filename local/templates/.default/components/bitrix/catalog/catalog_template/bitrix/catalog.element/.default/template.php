@@ -12,135 +12,101 @@
     /** @var CBitrixComponent $component */
 ?>
 <?
-$alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
-$alpExps  = (!$alpExps ? array() : $alpExps);
+###
+#Тест вкладок электронной и бумажной версий
+###
+if ($arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE'] > 0) {
+	$alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
+	$alpExps  = (!$alpExps ? array() : $alpExps);
 
-if ($alpExps['updateExp'] != "130217") {
-	$alpExps = array();
-	$alpExps['updateExp'] = "130217";
+	if ($alpExps['updateExp'] != "130317") {
+		$alpExps = array();
+		$alpExps['updateExp'] = "130317";
+	}
+
+	$alpExps['selectVersion']    = (!$alpExps['selectVersion'] ? rand(1,2) : $alpExps['selectVersion']);
+	if ($alpExps['selectVersion'] == 1) {?>
+		<script>
+			$(document).ready(function() {
+				dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'selectVersion', 'label' : 'withDigitalButton'});
+				console.log('withDigitalButton');
+			});
+		</script>
+	<?} elseif ($alpExps['selectVersion'] == 2) {?>
+		<script>
+			$(document).ready(function() {
+				dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'selectVersion', 'label' : 'withoutDigitalButton'});
+				console.log('withoutDigitalButton');
+			});
+		</script>
+	<?}
 }
+?>
 
-$alpExps['bgAdjustment']    = (!$alpExps['bgAdjustment'] ? rand(1,2) : $alpExps['bgAdjustment']);
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . '/local/php_interface/include/colors.inc.php');
 
-if ($alpExps['bgAdjustment'] == 1) {
-	// перевод цвета из HEX в RGB
-	function hexToRgb($color) {
-		// проверяем наличие # в начале, если есть, то отрезаем ее
-		if ($color[0] == '#') {
-			$color = substr($color, 1);
-		}
-	   
-		// разбираем строку на массив
-		if (strlen($color) == 6) { // если hex цвет в полной форме - 6 символов
-			list($red, $green, $blue) = array(
-				$color[0] . $color[1],
-				$color[2] . $color[3],
-				$color[4] . $color[5]
-			);
-		} elseif (strlen($cvet) == 3) { // если hex цвет в сокращенной форме - 3 символа
-			list($red, $green, $blue) = array(
-				$color[0]. $color[0],
-				$color[1]. $color[1],
-				$color[2]. $color[2]
-			);
-		}else{
-			return false; 
-		}
-	 
-		// переводим шестнадцатиричные числа в десятичные
-		$red = hexdec($red); 
-		$green = hexdec($green);
-		$blue = hexdec($blue);
-		 
-		// вернем результат
-		return array(
-			'red' => $red, 
-			'green' => $green, 
-			'blue' => $blue
-		);
-	}	
-	
-	include_once($_SERVER["DOCUMENT_ROOT"] . '/local/php_interface/include/colors.inc.php');
+$image_to_read = $_SERVER["DOCUMENT_ROOT"] . "/" .$arResult["PICTURE"]["src"];
 
-	$image_to_read = $_SERVER["DOCUMENT_ROOT"] . "/" .$arResult["PICTURE"]["src"];
-	
-	$colors_to_show = 8;
-	
-	$pal = new GetMostCommonColors();
-	$pal->image = $image_to_read;
-	$colors=$pal->Get_Color();
-	$colors_key=array_keys($colors);
-	$mincolor = array();
-	
-	$bgcolors = array();
-	for ($i = 0; $i < $colors_to_show; $i++) {
-		$bgcolors[] = "#".$colors_key[$i];   
-        $hexToRgbMess = hexToRgb($bgcolors[$i]); 
-		$mincolor[$i]['sum'] = $hexToRgbMess['red'] + $hexToRgbMess['green'] + $hexToRgbMess['blue'];
-		$mincolor[$i]['color'] = "#".$colors_key[$i];
-	}     
-	$mincolor = min($mincolor);
-	
-	$m = 0;
-    $hexToRgbMess = hexToRgb($bgcolors[$m]); 
-	while ($hexToRgbMess['red'] > 190 && $hexToRgbMess['green'] > 190 && $hexToRgbMess['blue'] > 190 || ($hexToRgbMess['red'] > 200 && $hexToRgbMess['green'] > 200 && $hexToRgbMess['blue'] < 100) || ($hexToRgbMess['red'] > 190 && $hexToRgbMess['green'] < 90 && $hexToRgbMess['blue'] < 90)) {
-		$m++;                                    
-		$bgcolors[0] = $bgcolors[$m];
-        $hexToRgbMess = hexToRgb($bgcolors[$m]);
+$colors_to_show = 8;
+
+$pal = new GetMostCommonColors();
+$pal->image = $image_to_read;
+$colors=$pal->Get_Color();
+$colors_key=array_keys($colors);
+$mincolor = array();
+
+$bgcolors = array();
+for ($i = 0; $i < $colors_to_show; $i++) {
+	$bgcolors[] = "#".$colors_key[$i];   
+	$hexToRgbMess = hexToRgb($bgcolors[$i]); 
+	$mincolor[$i]['sum'] = $hexToRgbMess['red'] + $hexToRgbMess['green'] + $hexToRgbMess['blue'];
+	$mincolor[$i]['color'] = "#".$colors_key[$i];
+}     
+$mincolor = min($mincolor);
+
+$m = 0;
+$hexToRgbMess = hexToRgb($bgcolors[$m]); 
+while ($hexToRgbMess['red'] > 190 && $hexToRgbMess['green'] > 190 && $hexToRgbMess['blue'] > 190 || ($hexToRgbMess['red'] > 200 && $hexToRgbMess['green'] > 200 && $hexToRgbMess['blue'] < 100) || ($hexToRgbMess['red'] > 190 && $hexToRgbMess['green'] < 90 && $hexToRgbMess['blue'] < 90)) {
+	$m++;                                    
+	$bgcolors[0] = $bgcolors[$m];
+	$hexToRgbMess = hexToRgb($bgcolors[$m]);
+}
+$hexToRgbMess = hexToRgb($bgcolors[$m]);     
+$bgsum = $hexToRgbMess['red'] + $hexToRgbMess['green'] + $hexToRgbMess['blue'];
+
+if ($bgsum < 20)
+	$bgcolors[0] = "#777777";
+
+if ($USER->isAdmin()) {
+	/*echo $bgsum;
+	echo $mincolor['sum'];
+	print_r(hexToRgb($bgcolors[0]));*/
+}
+if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
+	$mincolor['color'] = "#555";
+}
+?>
+<style>
+	.productElementWrapp:before {
+		background-color: <?=$bgcolors[0]?>;
+		opacity: 0.3;
 	}
-    $hexToRgbMess = hexToRgb($bgcolors[$m]);     
-	$bgsum = $hexToRgbMess['red'] + $hexToRgbMess['green'] + $hexToRgbMess['blue'];
-	
-	if ($bgsum < 20)
-		$bgcolors[0] = "#777777";
-	
-	if ($USER->isAdmin()) {
-		/*echo $bgsum;
-		echo $mincolor['sum'];
-		print_r(hexToRgb($bgcolors[0]));*/
+	.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
+		color: <?=$mincolor['color']?>!important;
 	}
-	if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
-		$mincolor['color'] = "#555";
+	#diffversions .passive span {
+		border-bottom: 1px dashed <?=$mincolor['color']?>;
 	}
-	?>
-	<style>
-		.productElementWrapp:before {
-			background-color: <?=$bgcolors[0]?>;
-			opacity: 0.3;
-		}
-		.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
-			color: <?=$mincolor['color']?>!important;
-		}
-		#diffversions .passive span {
-			border-bottom: 1px dashed <?=$mincolor['color']?>;
-		}
-		.catalogIcon {
-			background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
-			opacity: 0.8;
-		}
-		.basketIcon {
-			background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
-			opacity: 0.8;
-		}		
-	</style>
-	<script>
-	$(document).ready(function() {
-		dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'bgAdjustment', 'label' : 'bgColorChanged'});
-	});
-	</script>
-<?} elseif ($alpExps['bgAdjustment'] == 2) {?>
-	<style>
-	.crr {
-		color:#fff!important;
+	.catalogIcon {
+		background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
+		opacity: 0.8;
 	}
-	</style>
-	<script>
-		$(document).ready(function() {
-			dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'bgAdjustment', 'label' : 'bgColorDefault'});
-		});
-	</script>
-<?}
-$APPLICATION->set_cookie("alpExps", serialize($alpExps));?>
+	.basketIcon {
+		background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
+		opacity: 0.8;
+	}		
+</style>
 
 <?if ($USER->isAdmin()) {
 	$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "ID"=>$arResult["ID"]);
@@ -457,46 +423,17 @@ $arItemIDs = array(
                     <?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
-					<?if ($USER->isAdmin()) {?>
-						<style>
-							#paperversion, #digitalversion {
-								font-family:'Walshein_regular';font-size: 16px;padding: 10px 20px;color: #00abb8;display:block;float:left;width:92px;
-							}
-							.elementDescriptWrap .priceBasketWrap {
-								clear:both;
-							}
-							#diffversions .active {
-								background:#ecedef;
-							}
-							#diffversions .passive:hover span {
-								border-bottom: none;
-							}
-							.elementDescriptWrap .inBasket {
-								padding: 14px 30px;
-							}
-						</style>
+					<?if ($alpExps['selectVersion'] == 1) {?>
 						<div id="diffversions">
-							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span>Бумажная</span></a>
-							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span>Электронная</span></a>
+							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
+							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
 						</div>
 						<script>
-							function selectversion(cl,id) {
-								if (cl == "passive") {
-									$("#diffversions").find(".passive").removeClass("passive").addClass("temp");
-									$("#diffversions").find(".active").removeClass("active").addClass("passive");
-									$("#diffversions").find(".temp").addClass("active").removeClass("temp");
-								}
-								if (id == "paperversion") {
-									$(".paperVersionWrap, .digitalBookMark, .typesOfProduct, .shippings, .buyLater, .epubHide").show();
-									$(".digitalVersionWrap, .epub").hide();
-								} else {
-									$(".paperVersionWrap, .digitalBookMark, .typesOfProduct, .shippings, .buyLater, .epubHide").hide();
-									$(".digitalVersionWrap, .epub").show();
-								}
-								return false;
-
-							}
-							
+							<?if ($_SERVER['HTTP_REFERER'] == 'https://relap.io/' || strpos($_SERVER['HTTP_REFERER'],"theoryandpractice.ru") !== false) {?>
+								$(document).ready(function() {
+									selectversion('passive','digitalversion');
+								});
+							<?}?>
 						</script>
 					<?}?>
                     <div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -670,18 +607,21 @@ $arItemIDs = array(
                     }?>                            
                     </div>
 
-					<?if ($USER->isAdmin()){?>
+					<?if ($alpExps['selectVersion'] == 1) {?>
+					<!--noindex-->
 					<div class="priceBasketWrap digitalVersionWrap" style="display:none;">
 						<div class="wrap_prise_top">
-							<p class="newPrice">499 <span>руб.</span></p>
+							epub
+							<p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span>руб.</span></p>
 						</div>
 						
 						<div class="wrap_prise_bottom">
-							<a href="#">
-								<p class="inBasket">Купить на ebook</p>
+							<a href="https://ebook.alpinabook.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE']?>" target="_blank" rel="nofollow">
+								<p class="inBasket">Купить в Бизнес.Книги</p>
 							</a>
 						</div>
 					</div>
+					<!--/noindex-->
 					<?}?>
                         					
                     <div class="quickOrderDiv" style="display:none;">
@@ -759,7 +699,10 @@ $arItemIDs = array(
                                 } elseif ($today == 4) {
 									$delivery_day = GetMessage("TOMORROW");
                                 } elseif ($today == 5) {
-									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+									if ($timenow < 9)
+										$delivery_day = 'сегодня';
+									else
+										$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                 } elseif ($today == 6) {
                                     $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
                                     //$delivery_day = 'во вторник';

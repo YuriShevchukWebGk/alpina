@@ -15,21 +15,38 @@ $emails_arr = array();
 $temp_users_arr = array();
 $original_users_list = array();
 $original_users_emails = array();
-$users_list = CUser::GetList ($by = "id", $order = "desc", array(">ID" => 155000), array("ID", "LOGIN", "EMAIL"));
-$users_count = 0;
-while ($users_fetch = $users_list -> Fetch()) {
+$emails_list = array();
+$users_list = CUser::GetList ($by = "id", $order = "desc", array("LOGIN" => "newuser"), array("ID", "LOGIN", "EMAIL"));
+$users_count = 0;                                                        
+/*while ($users_fetch = $users_list -> Fetch()) {
     if (strlen($users_fetch["EMAIL"]) > 0) {
         $users[strtolower($users_fetch["EMAIL"])][] = array("ID" => $users_fetch["ID"], "LOGIN" => $users_fetch["LOGIN"]);
     }
-}                        
+}*/
 $i = 0;
+while ($users_fetch = $users_list -> Fetch()) {
+    //if ($i < 500) {
+        if (strlen($users_fetch["EMAIL"]) > 0) {
+            $emails_list[] = $users_fetch["EMAIL"];
+        }
+    //}
+    //$i++;
+}
+$emails_list = array_unique($emails_list);
+foreach ($emails_list as $curr_email) {
+    $users_list_by_email = CUser::GetList ($by = "id", $order = "desc", array("EMAIL" => $curr_email), array("ID", "LOGIN", "EMAIL"));
+    while ($users_by_email = $users_list_by_email -> Fetch()) {
+            $users[strtolower($users_by_email["EMAIL"])][] = array("ID" => $users_by_email["ID"], "LOGIN" => $users_by_email["LOGIN"]);
+    }    
+}
+                       
 foreach ($users as $email => $val) {
-    //if ($i < 2500) {
+    //if ($i < 500) {
         foreach ($val as $key => $arr) {
             $temp_users[$email][] = array("ID" => $arr["ID"], "LOGIN" => $arr["LOGIN"]);
     //    }
-    //
-        $i++; 
+    
+     //   $i++; 
     }   
 }
 $j = 0;
@@ -84,16 +101,14 @@ foreach ($orders_arr as $email => $val) {
                  $this_order_info = CSaleOrder::GetByID($order_id);
                  $this_delivery_info = CSaleDelivery::GetList(array(), array("LID" => SITE_ID, "ID" => $this_order_info["DELIVERY_ID"]), false, false, array());
                  $delivery_info_rows = $this_delivery_info -> SelectedRowsCount();
-                 if ($order_id == 47004) {
-                     arshow($delivery_info_rows);
-                 }
+                 
                  if (strlen($this_order_info["PAY_SYSTEM_ID"]) <= 0 || $this_order_info["PAY_SYSTEM_ID"] == 0) {
                      $arFields["PAY_SYSTEM_ID"] = 11;
                  }
                  if (strlen($this_order_info["DELIVERY_ID"]) <= 0 || $this_order_info["DELIVERY_ID"] == 0 || $delivery_info_rows <= 0) {
                      $arFields["DELIVERY_ID"] = 2;
                  }
-               CSaleOrder::Update ($order_id, $arFields);    
+              // CSaleOrder::Update ($order_id, $arFields);    
              }    
     }
      
@@ -105,9 +120,9 @@ foreach ($emails_arr as $email => $user_copies_arr) {
              foreach ($user_copies_arr as $user_copy_id) {
                 $user_info = CSaleUserAccount::GetByUserID($user_copy_id, "RUB");
                 if($user_info["CURRENT_BUDGET"] > 0) {
-                   CSaleUserAccount::Update($user_info["ID"], array("CURRENT_BUDGET" => 0));
+                 //  CSaleUserAccount::Update($user_info["ID"], array("CURRENT_BUDGET" => 0));
                 }
-                 CUser::Delete($user_copy_id);    
+                // CUser::Delete($user_copy_id);    
              }
      }    
 }?> 

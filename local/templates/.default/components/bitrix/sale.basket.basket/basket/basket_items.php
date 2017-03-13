@@ -97,9 +97,7 @@
                         $totalQuantity = 0; //общее количество товаров в корзине
 
 						/* для инструментов аналитики */
-						$itemsForSociomantic = Array();
 						$itemsForCriteo = Array();
-						$googleECommerce = Array();
 						$itemsForFloctory = Array();
 						$itemsForRetailRocket = array();
 						$gtmEnchECommerceCheckout = Array();

@@ -76,6 +76,48 @@ $output = get_object_vars($output[0]);
 
 $checkbook = CIBlockElement::GetProperty(4, 7831, array("sort" => "asc"), Array("CODE"=>"appstore"))->Fetch();
 echo $_SERVER['REMOTE_ADDR'];
+echo '<br />';
 echo $checkbook[VALUE];
+echo '<br /><br />';
+
+$books = [94620,90651];
+
+$data = [
+    "email" => "a.marchenkov@alpinabook.ru",
+	"external_id" => $books
+];
+ksort($data);
+
+$string_to_hash = http_build_query($data);
+$sig = md5($string_to_hash . "6c6b6101a814744178362c41d2bbc07c");
+
+$data['sig'] = $sig;
+
+$postdata = http_build_query(
+    $data
+);
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://api5.alpinadigital.ru/api/v2/b2b/books?" . $postdata);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'X-Auth-Token: a893c81321e1693e0caad8a6a1a6077c',
+]);
+$data = curl_exec($ch);
+curl_close($ch);
+$data = json_decode(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+		return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+	}, $data));
+	
+echo '<pre>';
+print_r($data);
+echo '<br />';
+foreach ($data as $oned) {
+	echo(get_object_vars(get_object_vars($oned)['prices'][0])['reference_price']);
+	echo '<br />';
+	echo explode('/', get_object_vars($oned)['shop_link'])[5];
+	echo '<br />';
+}
+echo '</pre>';
 //print_r($output['url']);
 ?>

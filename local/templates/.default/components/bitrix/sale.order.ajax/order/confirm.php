@@ -70,6 +70,7 @@
         var iPromoCpnObj = new _iPromoBannerObj();
     </script>*/?>
 
+	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276"></script>
     <?if (!empty($_SESSION['gtmEnchECommerceCheckout'])) {?>
         <!--Criteo-->
         <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
@@ -102,9 +103,9 @@
                             'coupon': '<?=$couponStr?>'
                         },
                         'products': [
-                            <?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
+                            <?foreach($_SESSION['gtmEnchECommerceCheckout'] as $gtmEnchECommerceCheckout){?>
                                 {
-                                    <?=$googleEnhancedECommerce?>
+                                    <?=$gtmEnchECommerceCheckout?>
                                 },
                                 <?}?>
                         ]
@@ -187,10 +188,8 @@
 		<?/*<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=<?=$_SESSION['gdeslon']?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>*/?>
 		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276&amp;codes=<?=$_SESSION['gdeslon']?>"></script>
 		<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
-        <?unset($_SESSION['socioMatic'])?>
         <?unset($_SESSION['criteo'])?>
-        <?unset($_SESSION['googleECommerce'])?>
-        <?unset($_SESSION['googleEnhancedECommerce'])?>
+        <?unset($_SESSION['gtmEnchECommerceCheckout'])?>
         <?unset($_SESSION['floctory'])?>
         <?unset($_SESSION['retailRocket'])?>
 		<?unset($_SESSION['gdeslon'])?>

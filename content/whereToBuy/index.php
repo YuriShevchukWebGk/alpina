@@ -68,7 +68,7 @@ http://bearbooks.ru/<br />
 Тел.: (499) 476-16-90<br />
 <br />
 <strong>Молодая гвардия</strong><br />
-http://www.bookmg.ru/<br />
+http://www.dkmg.ru/<br />
 ул. Большая Полянка, д.&nbsp;28<br />
 Тел.: (495) 780-33-70, (499) 238-50-01<br />
 <br />
