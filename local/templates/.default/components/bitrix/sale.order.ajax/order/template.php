@@ -73,7 +73,9 @@
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
-    window.BOXBERRY_PICKUP_DELIVERY_ID = '<?= BOXBERRY_PICKUP_DELIVERY_ID ?>';
+    window.BOXBERRY_PICKUP_DELIVERY_ID = '<?= BOXBERRY_PICKUP_DELIVERY_ID ?>';           
+    window.ORDER_PRICE = '<?= $arResult['ORDER_DATA']['ORDER_PRICE'] ?>';      
+    window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
@@ -81,7 +83,7 @@
 
         } else {
 
-                $("#ORDER_PROP_24").mask("+9(999)999-99-999",{placeholder:"+7(777)777-77-77"})   //для физлица
+                $("#ORDER_PROP_24").mask("+9(999)999-99-999");   //для физлица
                 $("#ORDER_PROP_11").mask("+7(999)999-99-99");  //для юрлица
                 $("#pp_sms_phone").mask("+79999999999");
         }
@@ -141,7 +143,7 @@
         })
 
         //календарь
-		var disabledDates = ['03/08/2017','02/24/2017','03/08/2017','01/04/2017','01/05/2017','01/06/2017']; //даты для отключения mm/dd/yyyy
+		var disabledDates = ['02/23/2017','02/24/2017','03/08/2017','01/04/2017','01/05/2017','01/06/2017']; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
 			if (noWeekend[0]) {
@@ -163,30 +165,18 @@
         ourday = <?=date("w");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
-                if (hourfordeliv < 9)
-                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
-                else
-                    minDatePlus = 1;
+                minDatePlus = 1;
             } else if (ourday == 2) { //вторник
                 if (hourfordeliv < 9)
-                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
+                    minDatePlus = '21.02.2017';
                 else
-                    minDatePlus = 2;
+                    minDatePlus = 1;
             } else if (ourday == 3) { //среда
-				if (hourfordeliv < 9)
-                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
-                else
-                    minDatePlus = 1;
+				minDatePlus = 5;
             } else if (ourday == 4) { //четверг
-                if (hourfordeliv < 9)
-                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
-                else
-                    minDatePlus = 1;
+                minDatePlus = 4;
             } else if (ourday == 5) { //пятница
-                if (hourfordeliv < 9)
-                    minDatePlus = '<?=date('d.m.Y', strtotime('today'))?>';
-                else
-                    minDatePlus = 3;
+                minDatePlus = 3;
             } else if (ourday == 6) { //суббота
                 minDatePlus = 2;
             } else if (ourday == 0) { //воскресенье
@@ -250,11 +240,7 @@
 				this.value = this.value.replace(/[^\(\)\-\+0-9]/g, '');
 			}
 		});
-		$("#ORDER_PROP_24,#ORDER_PROP_11").focus(function() {
-			if ($("#ORDER_PROP_24,#ORDER_PROP_11").val() == '') {
-				$('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
-			}
-		});
+		$('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
     }
 
     $(function(){
@@ -815,5 +801,5 @@
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
-    })
+    })                                                 
 </script>

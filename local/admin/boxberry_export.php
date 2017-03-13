@@ -201,34 +201,27 @@
             
         // Отправляем массив на сервер boxberry используя CURL.
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://api.boxberry.de/json.php');
+        curl_setopt($ch, CURLOPT_URL, 'http://test.api.boxberry.de/json.php');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-            'token'=> BOXBERRY_TOKEN,
+            'token'=> '21585.rvpqfebe',
             'method'=> 'ParselCreate',
             'sdata'=> json_encode($SDATA)
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $data = json_decode(curl_exec($ch),1);
+        $data = json_decode(curl_exec($ch),1);     
+        arshow($data);   
         if($data['err'] or count($data)<=0) {
             // если произошла ошибка и ответ не был получен.
-            echo $data['err'];
+            echo $data['err'];                                           
         }
         else
-        {
-            // все отлично, ответ получен, теперь в массиве $data.
-            // (если был указан штрих-код то переменная label будет отсутствовать).
-            /*
-            $data=array(
-            'track'=>'XXXXXXXX', // Трекинг код для посылки.
-            'label'=>'http://' // Ссылка на скачивание PDF файла с этикетками.
-            );
-            */
-            
+        {                                                                                      
             //иначе выполняем необходимые действия с заказом
             //проверяем данные, которые пришли в ответе. Если они корректные - обновляем заказ: устанавлфваем флаг "экспортирован в boxberry"
             $prop_data = array("ORDER_ID" => $current_order_id , "VALUE" => "Y");
-            if (CSaleOrderPropsValue::Update($order_props["EXPORTED_TO_B"]["ID"], $prop_data)) {
+            if (CSaleOrderPropsValue::Update($order_props["EXPORTED_TO_B"]["ID"], $prop_data) && CSaleOrder::Update($current_order_id, array("TRACKING_NUMBER" => $data['track']))) {                
+                CSaleOrder::StatusOrder($current_order_id, "I");
                 echo "OK";
             } else {
                 echo GetMessage("ORDER_UPDATE_ERROR");

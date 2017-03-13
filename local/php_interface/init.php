@@ -13,7 +13,7 @@
     use Bitrix\Main\Loader;
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
-
+    
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -63,14 +63,9 @@
     define("TRADING_FINANCE_SECTION_ID", 111);	
 	define("WIDGET_PREVIEW_WIDTH", 70);
 	define("WIDGET_PREVIEW_HEIGHT", 90);
-	
-	function is_legal_face_order($order_id) {
-		CModule::IncludeModule("sale");
-		$order = CSaleOrder::GetByID($order_id);
-		if ($order['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
-			return true;
-		}
-	}
+    define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
+    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
 
     /**
     * 
@@ -758,8 +753,6 @@
                 $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран в течение двух рабочих часов.';
             } elseif (Message::getOrderDeliveryType($ID) == 17) { // PickPoint
                 $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки <a href="http://pickpoint.ru/" target="_blank">PickPoint</a>.';
-            } elseif (Message::getOrderDeliveryType($ID) == 49) { // Boxberry
-                $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан в службу доставки <a href="http://boxberry.ru/" target="_blank">Boxberry</a>.';
             } elseif (in_array(Message::getOrderDeliveryType($ID), array(12,13,14,15))) { // Курьерская доставка
                 $orderPayInfo = 'По Вашему заказу поступила оплата. Он будет собран и передан курьеру. Ожидайте звонок представителя курьерской службы в день доставки.';
             } else {
@@ -917,22 +910,6 @@
         function OnBeforeUserRegister(&$arFields)
         {
             $arFields['LOGIN'] = $arFields['EMAIL'];
-
-            //Check if email already registred
-            $filter = Array("EMAIL" => $arFields['EMAIL']);
-            $obUsers = CUser::GetList(($by="id"), ($order="desc"), $filter); // РІС‹Р±РёСЂР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
-            while($arUser = $obUsers->Fetch()){
-                $arUsers[]=$arUser;
-            }
-
-            if (count($arUsers)==1){
-                $login = 'newuser_'.$arFields["EMAIL"];
-            } else if (count($arUsers)>1) {
-                $login = 'newuser_'.count($arUsers).'_'.$arFields["EMAIL"];
-            } else {
-                $login = $arFields['EMAIL'];
-            }
-            $arFields['LOGIN'] = $login;
 
             return $arFields;
         }
@@ -1291,10 +1268,10 @@
             "D10" => "Истекает срок хранения Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "D12" => "Осталось 2 дня до аннулирования Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "CA" => "Ваш заказ order уже в пути. Курьер cur_name cur_phone",
-			"PS" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в почтовое отделение",
-			"PD" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» доставлен в почтовое отделение! Трек-номер trackingNumber. С собой необходимо иметь паспорт",
-			"P10" => "Здравствуйте, clientName! Пожалуйста, заберите заказ из магазина «Альпина Паблишер» в почтовом отделении. Трек-номер trackingNumber",
-			"PA" => "Здравствуйте, clientName! Срок хранения заказа №order из интернет-магазина «Альпина Паблишер» истекает"			
+			"PS" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в Ваше почтовое отделение! Мы будем держать Вас в курсе событий!",
+			"PD" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» доставлен в Ваше почтовое отделение! Пожалуйста, получите Вашу посылку! Для этого придите в Ваше отделение и назовите оператору трекинг-код. С собой необходимо иметь паспорт. Спасибо за выбор нашего магазина!",
+			"P10" => "Здравствуйте, clientName! Пожалуйста, заберите Ваш заказ из магазина «Альпина Паблишер» в Вашем почтовом отделении.",
+			"PA" => "Здравствуйте, clientName! Срок хранения Вашего заказ №order из интернет-магазина «Альпина Паблишер» истекает. Пожалуйста, заберите Ваш заказ в почтовом отделении. Спасибо!"			
             //"I" => "Ваш заказ №order в пути. Если будут вопросы – звоните +7(495)9808077"
         );
 
@@ -1390,14 +1367,11 @@
         *
         *************/
 
-        public function sendMessage($ID,$val,$curArr,$ordsum,$track){
+        public function sendMessage($ID,$val,$curArr,$ordsum){
 
             $phone = $this->getPhone($ID);
             $name = $this->getClientName($ID);
             $message = preg_replace('/order/',$ID,self::$messages[$val]); // ---- вставляем номер заказа
-			if($track != ''){
-				$message = preg_replace('/trackingNumber/',$track,$message); // ---- вставляем трек заказа
-			}
             $message = preg_replace('/ordsum/',$ordsum,$message); // ---- вставляем сумму заказа
             $message = preg_replace('/clientName/',$name,$message); // ---- вставляем имя клиента
             if($curArr != ''){
@@ -1446,22 +1420,6 @@
         function OnBeforeUserAdd(&$arFields)
         {
             $arFields['LOGIN'] = $arFields['EMAIL'];
-
-            //Check if email already registred
-            $filter = Array("EMAIL" => $arFields['EMAIL']);
-            $obUsers = CUser::GetList(($by="id"), ($order="desc"), $filter); // выбираем пользователей
-            while($arUser = $obUsers->Fetch()){
-                $arUsers[]=$arUser;
-            }
-
-            if (count($arUsers)==1){
-                $login = 'newuser_'.$arFields["EMAIL"];
-            } else if (count($arUsers)>1) {
-                $login = 'newuser_'.count($arUsers).'_'.$arFields["EMAIL"];
-            } else {
-                $login = $arFields['EMAIL'];
-            }
-            $arFields['LOGIN'] = $login;
 
             return $arFields;
 
@@ -1952,8 +1910,6 @@
                 $arFields['HREF']='<a href="http://pickpoint.ru/" target="_blank">на сайте PickPoint</a>.';
             } elseif ($order_list['DELIVERY_ID']==30) {
                 $arFields['HREF']='<a href="http://flippost.com/instruments/online/" target="_blank">Flipost</a>.';
-            } elseif ($order_list['DELIVERY_ID']==49) {
-                $arFields['HREF']='<a href="http://boxberry.ru/departure_track/?id='.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">Boxberry</a>.';
             }
         }
     }
@@ -2344,4 +2300,39 @@
             }
         } 
     }
+    
+    //агент для выгрузки статусов заказов из личного кабинета Boxberry
+    function BoxberryListStatuses() {
+        $arFilter = Array(      
+           "!TRACKING_NUMBER" => null,
+           "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,   
+           "!STATUS_ID" => F                                                                 
+        );          
+        if ($db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter)) {
+            while ($ar_sales = $db_sales->Fetch()) {
+                $orders_tracking_number[$ar_sales['ID']] = $ar_sales['TRACKING_NUMBER'];
+            }
+        };                                
+        foreach($orders_tracking_number as $order_id => $order_tracking_number) {
+            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;
+            // XXXXXX - код отслеживания заказа          
+            $handle = fopen($url, "rb");
+            $contents = stream_get_contents($handle);
+            fclose($handle);
+            $data=json_decode($contents,true);      
+            if ($data['err']) {
+                // если произошла ошибка и ответ не был получен:
+                echo $data['err'];
+            } else {
+                foreach($data[statuses] as $status) {
+                    $last_status = $status;
+                }                         
+                //ждем данных от боксберри
+                if($last_status['NAME'] == BOXBERRY_DELIVERY_SUCCES || $last_status['NAME'] == BOXBERRY_DELIVERED) {
+                    CSaleOrder::StatusOrder($order_id, "F");   
+                }
+            }    
+        }
+        return BoxberryListStatuses();        
+    }                                              
 ?>
