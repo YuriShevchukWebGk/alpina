@@ -13,7 +13,7 @@
     use Bitrix\Main\Loader;
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
-
+    
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -63,6 +63,9 @@
     define("TRADING_FINANCE_SECTION_ID", 111);	
 	define("WIDGET_PREVIEW_WIDTH", 70);
 	define("WIDGET_PREVIEW_HEIGHT", 90);
+    define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
+    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
 
     /**
     * 
@@ -2297,4 +2300,39 @@
             }
         } 
     }
+    
+    //агент для выгрузки статусов заказов из личного кабинета Boxberry
+    function BoxberryListStatuses() {
+        $arFilter = Array(      
+           "!TRACKING_NUMBER" => null,
+           "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,   
+           "!STATUS_ID" => F                                                                 
+        );          
+        if ($db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter)) {
+            while ($ar_sales = $db_sales->Fetch()) {
+                $orders_tracking_number[$ar_sales['ID']] = $ar_sales['TRACKING_NUMBER'];
+            }
+        };                                
+        foreach($orders_tracking_number as $order_id => $order_tracking_number) {
+            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;
+            // XXXXXX - код отслеживания заказа          
+            $handle = fopen($url, "rb");
+            $contents = stream_get_contents($handle);
+            fclose($handle);
+            $data=json_decode($contents,true);      
+            if ($data['err']) {
+                // если произошла ошибка и ответ не был получен:
+                echo $data['err'];
+            } else {
+                foreach($data[statuses] as $status) {
+                    $last_status = $status;
+                }                         
+                //ждем данных от боксберри
+                if($last_status['NAME'] == BOXBERRY_DELIVERY_SUCCES || $last_status['NAME'] == BOXBERRY_DELIVERED) {
+                    CSaleOrder::StatusOrder($order_id, "F");   
+                }
+            }    
+        }
+        return BoxberryListStatuses();        
+    }   
 ?>
