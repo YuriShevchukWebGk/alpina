@@ -52,14 +52,15 @@
         }
     </script>
     <div class="grayLine"></div>
-
+    <?if($arResult['ORDER_DATA']['DELIVERY_LOCATION'] == MOSCOW_LOCATION_ID);?>
     <div class="bx_section">
         <p class="blockTitle">Способ оплаты</p>
         <?    
             uasort($arResult["PAY_SYSTEM"], "cmpBySort"); // resort arrays according to SORT value
             foreach($arResult["PAY_SYSTEM"] as $arPaySystem)
-            {   
-                if (strlen(trim(str_replace("<br />", "", $arPaySystem["DESCRIPTION"]))) > 0 || intval($arPaySystem["PRICE"]) > 0)
+            {       
+                //Убираем PayPal для Москвы и МО                      
+                if ((strlen(trim(str_replace("<br />", "", $arPaySystem["DESCRIPTION"]))) > 0 || intval($arPaySystem["PRICE"]) > 0) && !($arResult['ORDER_DATA']['DELIVERY_LOCATION'] == MOSCOW_LOCATION_ID && $arPaySystem['ID'] == PAYPAL_PAYSYSTEM_ID))
                 {?>
                 <input type="radio"
                     class="radioInp"
