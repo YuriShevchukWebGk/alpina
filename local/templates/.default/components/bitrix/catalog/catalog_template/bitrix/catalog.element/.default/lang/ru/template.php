@@ -103,6 +103,8 @@ $MESS["BESTSELLER_TIP"] = "Один из лидеров продаж! Смотр
 $MESS["BOOK"] = "Книга ";
 $MESS["EDITORS_CHOICE"] = "Editor's choice";
 $MESS["EDITORS_CHOICE_TIP"] = "Выбор главного редактора. Смотреть все выбранные книги <a href='/catalog/editors-choice/'>по ссылке</a>";
-$MESS["PAPER_V"] = "Бумажная";
+$MESS["PAPER_V"] = "Бумажная + электронная";
 $MESS["DIGITAL_V"] = "Электронная";
+$MESS["EPUB"] = "epub";
+$MESS["BUY_EPUB"] = "Купить в Бизнес.Книги";
 ?>

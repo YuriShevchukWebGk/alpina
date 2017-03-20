@@ -979,7 +979,7 @@ function addtocart(productid, name) {
             var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
             $(".BasketQuant").html(total_quant);
             // обновляем блок с ценой и описанием до следующей скидки
-            $(".wrap_prise_top").load(window.location.href + " .wrap_prise_top > *");
+            //$(".wrap_prise_top").load(window.location.href + " .wrap_prise_top > *");
     })
 }
 function addtocart_fromwishlist (productid, name) {

@@ -25,7 +25,7 @@ $this->setFrameMode(true);
                 ?>
                 <li>
                     <div class="bookWrapp">
-                        <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '', 'Cart');dataLayer.push({event: 'ab-test-gtm',action: 'recsInCart',label: 'productClick'});">
+                        <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '', 'Cart');dataLayer.push({event: 'otherEvents',action: 'recsInCart',label: 'productClick'});">
                             <div class="section_item_img">
                                 <?if($pict["src"] != ''){?>
                                     <img src="<?=$pict["src"]?>">    
@@ -37,7 +37,7 @@ $this->setFrameMode(true);
                             <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                             <p class="bookPrice"><?=$arPrice['PRINT_DISCOUNT_VALUE']?></p>
                         </a>
-						<a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','', '1');dataLayer.push({event: 'ab-test-gtm',action: 'recsInCart',label: 'addToCart'});"><p class="basketBook">Добавить к заказу</p></a>
+						<a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','', '1');dataLayer.push({event: 'otherEvents',action: 'recsInCart',label: 'addToCart'});"><p class="basketBook">Добавить к заказу</p></a>
                     </div>    
                 </li>    
                 <?}

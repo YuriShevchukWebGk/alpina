@@ -15,7 +15,7 @@
 ###
 #Тест вкладок электронной и бумажной версий
 ###
-if ($arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE'] > 0) {
+if ($arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE'] > 0 && !checkMobile()) {
 	$alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
 	$alpExps  = (!$alpExps ? array() : $alpExps);
 
@@ -40,6 +40,7 @@ if ($arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE'] > 0) {
 			});
 		</script>
 	<?}
+	$APPLICATION->set_cookie("alpExps", serialize($alpExps));
 }
 ?>
 
@@ -115,9 +116,9 @@ if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $
 	{?>
 		<script>
 			function shown() {
-				$('body').append('<div style="position:fixed; width:200px; height:100px; right:50px; bottom:50px;background:<?=$bgcolors[0]?>; opacity:0.3;"><span style="color:<?=$mincolor['color']?>;"><?echo "Сегодня ".$props[NAME]." просмотрели ".round(($props[SHOW_COUNTER]/(((time() - strtotime($props[SHOW_COUNTER_START]))/3600/24)))/24*date("G")*2)." человека"?></span></div>');
+				$('.typesOfProduct').before('<div style="margin-left:25px;width:205px;height:49px;"><div style="width: 205px; height: 49px; background: <?=$bgcolors[0]?>; position: absolute; opacity: 0.3;"></div><span style="color:<?=$mincolor['color']?>;font-family: \'Walshein_regular\';font-size:15px;padding: 3px 0 3px 5px; display: block;"><?echo "За последний день книгу просмотрели ".round(($props[SHOW_COUNTER]/(((time() - strtotime($props[SHOW_COUNTER_START]))/3600/24)))*2)." человека"?></span></div>');
 			};
-			setTimeout(shown, 5000);
+			setTimeout(shown, 1000);
 		</script>
 	<?}?>
 <?}?>
@@ -292,7 +293,7 @@ $arItemIDs = array(
                     </div>
                     <?if (!empty($arResult["PROPERTIES"]["glavatitle"]["VALUE"])) {?>
 						<style>
-						.productElementWrapp {min-height:1500px;}
+						.productElementWrapp {min-height:1300px;}
 						</style>
 						<div class="takePartWrap" style="display:block;margin-bottom:5px;height:auto; border-bottom: 1px solid #dddddd; margin-top:0px;">
 							<p class="title"><?= GetMessage("TO_GET_A_CHAPTER") ?></p>
@@ -411,7 +412,7 @@ $arItemIDs = array(
                         <?foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {?>
                             <span style="color:#627478"><?= $arResult["SPONSOR_PREVIEW_TEXT"] ?> </span><br />
                             <?if (!empty($arResult["SPONSOR_PICT"])) {?>
-                                <a href="<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank" rel="nofollow"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
+                                <a href="<?= $arResult["SPONSOR_WEBSITE_VALUE"] ?>" class="sponsor_website" target="_blank"><img src="<?= $arResult["SPONSOR_PICT"] ?>"> </a>
                             <?} else {?>
                                 <?= $authorFetchedList["NAME"] ?>
                             <?}?>
@@ -423,7 +424,7 @@ $arItemIDs = array(
                     <?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
-					<?if ($alpExps['selectVersion'] == 1) {?>
+					<?if ($alpExps['selectVersion'] == 1 && !checkMobile()) {?>
 						<div id="diffversions">
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
@@ -607,22 +608,25 @@ $arItemIDs = array(
                     }?>                            
                     </div>
 
-					<?if ($alpExps['selectVersion'] == 1) {?>
+					<?if ($alpExps['selectVersion'] == 1 && !checkMobile()) {?>
 					<!--noindex-->
 					<div class="priceBasketWrap digitalVersionWrap" style="display:none;">
 						<div class="wrap_prise_top">
-							epub
-							<p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span>руб.</span></p>
+							<?= GetMessage("EPUB") ?>
+							<p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span><?= GetMessage("ROUBLES") ?></span></p>
 						</div>
 						
 						<div class="wrap_prise_bottom">
-							<a href="https://ebook.alpinabook.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE']?>" target="_blank" rel="nofollow">
-								<p class="inBasket">Купить в Бизнес.Книги</p>
+							<a href="https://ebook.alpinabook.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE']?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" target="_blank" rel="nofollow" onclick="dataLayer.push({'event' : 'selectVersion', 'action' : 'leaveSite', 'label': '<?= $arResult["NAME"]; ?>'});">
+								<p class="inBasket"><?= GetMessage("BUY_EPUB") ?></p>
 							</a>
 						</div>
 					</div>
 					<!--/noindex-->
-					<?}?>
+					<?}
+					###
+					#Конец a/b-теста
+					###?>
                         					
                     <div class="quickOrderDiv" style="display:none;">
                         <form method="post" id="quickOrderForm">
@@ -1331,15 +1335,14 @@ if (!empty ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0]) ) {
 
 <? /* Получаем от RetailRocket рекомендации для товара */
 global $recommFilter;
-$recsArray = json_decode ($arResult["STRING_RECS"]);
+$recsArray = $arResult["STRING_RECS"];
 
 if ($recsArray[0] > 0) {
-    $printid2 = array_slice ($recsArray, 1, 6);
-    foreach ($printid2 as $recBook) {
+    foreach ($recsArray as $recBook) {
         $recommFilter['ID'][] = $recBook;
     }
 }
-$printid = implode(", ", $printid2);?>
+$printid = implode(", ", $recsArray);?>
 <script>
     function rrAsyncInit() {
         try {rrApi.view(<?= $arResult['ID']; ?>);} catch(e) {}
