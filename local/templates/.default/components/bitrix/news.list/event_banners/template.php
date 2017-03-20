@@ -12,12 +12,12 @@
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
     ?>
-	<style>
-	.slideWrapp {background-color:#fff;}
-	.circle strong {color:#333;}
-	.slideWrapp .titleSlide {color:#666;}
-	.slideWrapp .textSlide {color:#888;}
-	</style>
+    <style>
+    .slideWrapp {background-color:#fff;}
+    .circle strong {color:#333;}
+    .slideWrapp .titleSlide {color:#666;}
+    .slideWrapp .textSlide {color:#888;}
+    </style>
 <div class="slideWrapp">
     <ul class="roundSlider">
         <?foreach($arResult["ITEMS"] as $key => $arItem)
@@ -26,26 +26,26 @@
                 <?if ($arItem["PROPERTIES"]["LINK"]["VALUE"]){?>
                     <a href="<?=$arItem["PROPERTIES"]["LINK"]["VALUE"]?>" target="_blank" onclick="dataLayer.push({'event' : 'otherEvents', 'action' : 'bannersOnMain', 'label' : '<?=$arItem["NAME"]?>'});">
                 <?}?>
-				<div class="catalogWrapper">
-					<p class="titleSlide">
-						<?=$arItem["PREVIEW_TEXT"]?>
-					</p>
-					<p class="textSlide">
-						<?=$arItem["DETAIL_TEXT"]?>
-					</p>
-					<?foreach($arResult["ITEMS"] as $item_key => $item_value)
-						{?>
-						<!-- определение текущего слайда и присвоение класса к соответствующей кнопке слайда с соответствующей анимацией -->
+                <div class="catalogWrapper">
+                    <p class="titleSlide">
+                        <?=$arItem["PREVIEW_TEXT"]?>
+                    </p>
+                    <p class="textSlide">
+                        <?=$arItem["DETAIL_TEXT"]?>
+                    </p>
+                    <?foreach($arResult["ITEMS"] as $item_key => $item_value)
+                        {?>
+                        <!-- определение текущего слайда и присвоение класса к соответствующей кнопке слайда с соответствующей анимацией -->
 
-						<div class="<?if ($item_key==$key){?>circle circle<?=($item_key+1)?><?}else{?>buttons" data-number="<?=($item_key+1)?><?}?>">
-							<?if($item_key==$key) {?><strong><?=($item_key+1)?></strong><?} else {?><p><?=($item_key+1)?></p><?}?>
-						</div>
+                        <div class="<?if ($item_key==$key){?>circle circle<?=($item_key+1)?><?}else{?>buttons" data-number="<?=($item_key+1)?><?}?>">
+                            <?if($item_key==$key) {?><strong><?=($item_key+1)?></strong><?} else {?><p><?=($item_key+1)?></p><?}?>
+                        </div>
 
-						<?}?>
-				</div> 
-				<?if ($arItem["PROPERTIES"]["LINK"]["VALUE"]){?>
-					</a>
-				<?}?>   
+                        <?}?>
+                </div> 
+                <?if ($arItem["PROPERTIES"]["LINK"]["VALUE"]){?>
+                    </a>
+                <?}?>   
             </li>
             <?}?>
     </ul>

@@ -15,43 +15,10 @@ $this->addExternalCss("/bitrix/css/main/bootstrap.css");
 $this->addExternalCss("/bitrix/css/main/font-awesome.css");
 $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].'/style.css');
 ?>
-<div class="deliveryPageTitleWrap">
-    <div class="centerWrapper">
-        <p><?= GetMessage("MAIN_PAGE") ?></p>
-        <? 
-            if (strstr($APPLICATION -> GetCurDir(), "events", true) != "") {?>
-                <h1><?= GetMessage("EVENTS") ?></h1>
-            <?
-            } else if (strstr($APPLICATION -> GetCurDir(), "news", true) != "") {
-            ?>
-                <h1><?= GetMessage("NEWS") ?></h1>
-            <?
-            }
-        ?>
-    </div>
-</div>
-
 <div class="newsBodyWrap" id="events_wrap">
     <div class="centerWrapper">
-        <?if (strstr($APPLICATION -> GetCurDir(), "events", true) != "") {?>
-            <div class="events_info">
-                <?$APPLICATION->IncludeComponent(
-                        "bitrix:main.include", 
-                        ".default", 
-                        array(
-                            "AREA_FILE_SHOW" => "file",
-                            "AREA_FILE_SUFFIX" => "inc",
-                            "AREA_FILE_RECURSIVE" => "Y",
-                            "EDIT_TEMPLATE" => "",
-                            "COMPONENT_TEMPLATE" => ".default",
-                            "PATH" => "/local/templates/.default/include/events_info.php"
-                        ),
-                        false
-                    );?>
-            </div>
-        <?}?>
-        
-        <div class="bx-newslist events_wrap_top">
+        <p class="titleMain"><?= GetMessage("EVENTS_ARCHIVE_TITLE") ?></p>
+        <div class="bx-newslist archive_events_wrap_top">
             <?if($arParams["DISPLAY_TOP_PAGER"]) {?>
                 <?=$arResult["NAV_STRING"]?><br />
             <?}?>
@@ -65,7 +32,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                         }?>
                       
                         <?
-                        if (strtotime($arItem["DATE_ACTIVE_TO"]) > time() && $i < 7) {
+                        if (strtotime($arItem["DATE_ACTIVE_TO"]) < time() && $i < 7) {
                             $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
                             $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
                         ?>
@@ -176,6 +143,9 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                       }?>
                 <?}?>
             </div>
+            <a class="archive_detail_page_link" href="/events/events-archive/" target="_blank">
+                <span><?= GetMessage("ARCHIVE_DETAIL_LINK_MESSAGE"); ?></span>
+            </a>
         </div>
     </div>
 </div>
@@ -364,39 +334,4 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
         </div>
     </div>
 </div>
-<?*/?>
-<script>
-// функция по раскрытию дополнительных элементов списка новостей при нажатии на "Показать ещё"
-$(document).ready(function() {
-        <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
-        <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
-            var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
-        <?}else{?>
-            var page = 2;
-        <?}?>
-        var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
-            $('.moreNews').click(function(){
-                $.fancybox.showLoading();
-                $.get('<?=$arResult["SECTION_PAGE_URL"]?>?PAGEN_<?=$navnum?>='+page, function(data) {
-                    var next_page_top = $('.events_wrap_top > .row .bx-newslist-container', data);
-                    var next_page_bottom = $('.events_wrap_2 > .row .bx-newslist-container', data);
-                    $('.events_wrap_2 > .row').append(next_page_top);
-                    $('.events_wrap_2 > .row').append(next_page_bottom);
-                    page++;            
-                })
-                .done(function() {
-                    $.fancybox.hideLoading();
-                    $(".bx-newslist-content").each(function() {
-                        if($(this).length > 0) {
-                            $(this).html(truncate($(this).html(), 280));    
-                        }    
-                    })
-    
-                });
-                if (page == maxpage) {
-                    $('.moreNews').hide();
-                }
-                return false;
-            });
-    });
-</script>  
+<?*/?>  
