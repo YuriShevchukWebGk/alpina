@@ -67,16 +67,16 @@ $arUrlRewrite = array(
 		"PATH" => "/authors/index.php",
 	),
 	array(
-		"CONDITION" => "#^/series/#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/series/index.php",
-	),
-	array(
 		"CONDITION" => "#^/events/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/events/index.php",
+	),
+	array(
+		"CONDITION" => "#^/series/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/series/index.php",
 	),
 	array(
 		"CONDITION" => "#^/store/#",
