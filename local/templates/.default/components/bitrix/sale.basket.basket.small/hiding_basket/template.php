@@ -12,7 +12,7 @@
         $thisItem = CIBlockElement::GetList(array(), array("ID"=>$arItem["PRODUCT_ID"]), false, false, array("ID", "DETAIL_PICTURE", "DETAIL_PAGE_URL"))->Fetch();
         $thisItemSect = CIBlockSection::GetByID($thisItem["IBLOCK_SECTION_ID"]) -> Fetch();
         $thisItemPict = CFile::GetPath($thisItem["DETAIL_PICTURE"]);
-        ?>
+        ?>                  
     <div class="basketBook" basket-id="<?=$arItem["ID"]?>" product-id="<?=$arItem["PRODUCT_ID"]?>">
         <div class="bookImage">
             <a href="/catalog/<?=$thisItemSect["CODE"]?>/<?=$thisItem["ID"]?>/"><img src="<?=$thisItemPict?>"></a>
