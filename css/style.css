@@ -1247,6 +1247,7 @@ header .menu{
 .circle{
     position: relative;
     display: inline-block;
+    top: 84px;
 }
 .slideWrapp .buttons{
     background-color: #546b60;
@@ -1258,7 +1259,8 @@ header .menu{
     color: white;
     font-family: "Walshein_bold";
     font-size: 13px;
-    top: -23px;
+    /*top: -23px;*/
+    top: 61px;
     position: relative;
     margin-right: 6px;
 }

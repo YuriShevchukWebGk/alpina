@@ -33,7 +33,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                 <?foreach($arResult["ITEMS"] as $key => $arItem) {?>
                     <?//if($key >= 6){
                         if (time() > strtotime($arItem["DATE_ACTIVE_TO"])) {
-                            $arItem["NAME"] = "<span style='color:rgb(210, 210, 210);'>".$arItem["NAME"]." (завершено)</span>";
+                            $arItem["NAME"] = "<span style='color:rgb(210, 210, 210);'>".$arItem["NAME"]." (Р·Р°РІРµСЂС€РµРЅРѕ)</span>";
                         }?>
                         <? 
                             $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
@@ -135,13 +135,13 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                     <?//}?>
                 <?}?>
             </div>
-             <span class="moreNews">Показать ещё</span>
+             <span class="moreNews">РџРѕРєР°Р·Р°С‚СЊ РµС‰С‘</span>
         </div>
     </div>
 </div>
 <?*/?>
 <script>
-// функция по раскрытию дополнительных элементов списка новостей при нажатии на "Показать ещё"
+// С„СѓРЅРєС†РёСЏ РїРѕ СЂР°СЃРєСЂС‹С‚РёСЋ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ СЃРїРёСЃРєР° РЅРѕРІРѕСЃС‚РµР№ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° "РџРѕРєР°Р·Р°С‚СЊ РµС‰С‘"
 $(document).ready(function() {
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
