@@ -57,7 +57,7 @@
 	.bx-slst .quick-location-tag {
 		background:#fff!important;
 		border:0;
-		font-size:16px;
+		font-size:18px;
 		padding: 0 48px 0 0 !important;
 	}
 	.addCircle:before {
@@ -168,15 +168,24 @@
                 minDatePlus = 1;
             } else if (ourday == 2) { //вторник
                 if (hourfordeliv < 9)
-                    minDatePlus = '21.02.2017';
+                    minDatePlus = '<?=date("d.m.Y");?>';
                 else
                     minDatePlus = 1;
             } else if (ourday == 3) { //среда
-				minDatePlus = 5;
+				if (hourfordeliv < 9)
+                    minDatePlus = '<?=date("d.m.Y");?>';
+                else
+                    minDatePlus = 1;
             } else if (ourday == 4) { //четверг
-                minDatePlus = 4;
+                if (hourfordeliv < 9)
+                    minDatePlus = '<?=date("d.m.Y");?>';
+                else
+                    minDatePlus = 1;
             } else if (ourday == 5) { //пятница
-                minDatePlus = 3;
+                if (hourfordeliv < 9)
+                    minDatePlus = '<?=date("d.m.Y");?>';
+                else
+                    minDatePlus = 3;
             } else if (ourday == 6) { //суббота
                 minDatePlus = 2;
             } else if (ourday == 0) { //воскресенье

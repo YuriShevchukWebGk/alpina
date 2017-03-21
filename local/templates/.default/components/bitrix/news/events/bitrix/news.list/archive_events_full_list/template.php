@@ -21,7 +21,6 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
         <h1><?= GetMessage("EVENTS_ARCHIVE") ?></h1>
     </div>
 </div>
-
 <script>
 // С„СѓРЅРєС†РёСЏ РїРѕ СЂР°СЃРєСЂС‹С‚РёСЋ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ СЃРїРёСЃРєР° РЅРѕРІРѕСЃС‚РµР№ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° "РџРѕРєР°Р·Р°С‚СЊ РµС‰С‘"
 $(document).ready(function() {

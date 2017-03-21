@@ -733,10 +733,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <?/* Получаем бестселлеры от RetailRocket */
 
-            if (isset($_COOKIE["rrpusid"])){
-                $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId='.$_COOKIE["rrpusid"]);
-                $recsArray = json_decode($stringRecs);
-                $arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
+            if (isset($_COOKIE["rcuid"])){
+                $stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"]);
+                $recsArray = array_slice(json_decode($stringRecs, true), 0, 6);
+				$arrFilter = array();
+				foreach($recsArray as $val) {
+					$arrFilter[ID][] = $val[ItemId];
+				}
             }
             if ($arrFilter['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
             <div class="recomendation">
