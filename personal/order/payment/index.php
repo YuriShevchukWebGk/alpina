@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	die();
 }*/ ?>	
 	
-<?if($arOrder['PAY_SYSTEM_ID']==13){?>
+<?if($arOrder['PAY_SYSTEM_ID']== 13){?>
     <br>
     <br>
     <div style="width:100%;text-align: center">
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function(){
         );?>
 </div>
 <?}?>
-<?if($arOrder['PAY_SYSTEM_ID']==13){?>
+<?if($arOrder['PAY_SYSTEM_ID']== 13){?>
     <div style="text-align: center">
         <table class="rfi_result_table">
             <colspan>

@@ -57,7 +57,7 @@
 	.bx-slst .quick-location-tag {
 		background:#fff!important;
 		border:0;
-		font-size:16px;
+		font-size:18px;
 		padding: 0 48px 0 0 !important;
 	}
 	.addCircle:before {

@@ -201,7 +201,7 @@ $APPLICATION->IncludeComponent(
     false
 );   ?>
 </div>
-<? global $archive_events_filter;
+<?global $archive_events_filter;
 $archive_events_filter = array("<DATE_ACTIVE_TO" => date("d.m.Y"));
 $APPLICATION->IncludeComponent(
     "bitrix:news.list",
@@ -209,7 +209,7 @@ $APPLICATION->IncludeComponent(
     Array(
         "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
         "IBLOCK_ID" => $arParams["IBLOCK_ID"],
-        "NEWS_COUNT" => $arParams["NEWS_COUNT"],
+        "NEWS_COUNT" => "20",
 
         "SORT_BY1" => $arParams["SORT_BY1"],
         "SORT_ORDER1" => $arParams["SORT_ORDER1"],
@@ -284,3 +284,4 @@ $APPLICATION->IncludeComponent(
     ),
     $component
 );?>
+?>
