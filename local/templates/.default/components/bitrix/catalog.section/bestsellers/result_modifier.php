@@ -504,7 +504,7 @@ foreach ($arResult["ITEMS"] as $arItem) {
 }
 
 // получение информации об авторе каждой из книг
-
+/*
 $authors = CIBlockElement::GetList(
     array(),
     array(
@@ -516,7 +516,7 @@ $authors = CIBlockElement::GetList(
 );
 while ($authors_list = $authors -> Fetch()) {
     $arResult["AUTHORS"][$authors_list["ID"]] = $authors_list;
-}
+}*/
 // если товар находится в корзине - записывать необходимую информацию о нём в @arResult 
 // (например, количество товара в корзине)
 $db_basket_items = CSaleBasket::GetList(
