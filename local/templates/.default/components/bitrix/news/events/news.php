@@ -62,7 +62,7 @@ $APPLICATION->IncludeComponent(
 		"NEWS_COUNT" => $arParams["NEWS_COUNT"],
 
 		"SORT_BY1" => $arParams["SORT_BY1"],
-		"SORT_ORDER1" => $arParams["SORT_ORDER1"],
+		"SORT_ORDER1" => "ASC",
 		"SORT_BY2" => $arParams["SORT_BY2"],
 		"SORT_ORDER2" => $arParams["SORT_ORDER2"],
 

@@ -65,7 +65,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                         }?>
                       
                         <?
-                        if (strtotime($arItem["DATE_ACTIVE_TO"]) > time() && $i < 7) {
+                        if (strtotime($arItem["DATE_ACTIVE_TO"]) > time()) {
                             $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
                             $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
                         ?>
@@ -172,7 +172,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                             </div>
                             </a>
                         </div>
-                      <? $i++; 
+                      <? 
                       }?>
                 <?}?>
             </div>
