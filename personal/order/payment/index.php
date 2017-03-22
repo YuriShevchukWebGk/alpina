@@ -189,16 +189,16 @@
     <?$arOrder = CSaleOrder::GetByID($_GET['ORDER_ID']);?>
     <? if ($arOrder['PAYED'] == "Y") { echo "Ваш заказ уже оплачен"; } else { ?>
 
-        <?
+        <?  /*
             // новый виджет РФИ 
-            /*if ($arOrder['PAY_SYSTEM_ID'] == 13 && $USER->IsAdmin()) {
+            if ($arOrder['PAY_SYSTEM_ID'] == RFI_PAYSYSTEM_ID ) {
             $APPLICATION->ShowHead();
             ?>
             <? $APPLICATION->IncludeComponent(
             "webgk:rfi.widget",
             "",
             Array(
-            "ORDER_ID" => 85379
+            "ORDER_ID" => $_REQUEST["ORDER_ID"]
             ),
             false
             ); ?>
@@ -207,6 +207,7 @@
         }*/ ?>	
 
         <?if($arOrder['PAY_SYSTEM_ID']== RFI_PAYSYSTEM_ID){?>
+            <?= $APPLICATION->ShowHead();?>
             <br>
             <br>
             <div style="width:100%;text-align: center">
@@ -214,9 +215,18 @@
                 от <?=$arOrder['DATE_STATUS']?><br>
                 Сумма к оплате по счету: <?=$arOrder['PRICE']?>
                 руб.
-            </div>
-            <br>
-            <?}?>
+                <? $APPLICATION->IncludeComponent(
+                        "webgk:rfi.widget",
+                        "",
+                        Array(
+                            "ORDER_ID" => $_REQUEST["ORDER_ID"]
+                        ),
+                        false
+                    ); ?>
+                <?die(); }?>
+        </div>
+        <br>
+
         <?if ($arOrder["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID && $arOrder["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID) {?>
             <?
                 $order_props = CSaleOrderPropsValue::GetOrderProps($arOrder["ID"]);
@@ -393,15 +403,6 @@
                     </table>
                 </div>
             </div> 
-            <?} else if($arOrder['PAY_SYSTEM_ID']== RFI_PAYSYSTEM_ID){?>
-            <? $APPLICATION->IncludeComponent(
-                    "webgk:rfi.widget",
-                    "",
-                    Array(
-                        "ORDER_ID" => $_REQUEST["ORDER_ID"]
-                    ),
-                    false
-                ); ?>
             <?} else {?>
             <div style="text-align: center">
                 <?$APPLICATION->IncludeComponent(
@@ -412,7 +413,7 @@
                     );?>
             </div>
             <?}?>
-        
+
         <? } ?>
     <? } ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

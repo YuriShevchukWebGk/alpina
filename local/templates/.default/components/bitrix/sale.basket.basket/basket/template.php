@@ -32,7 +32,7 @@
 
 <div class="breadCrumpWrap">
     <div class="centerWrapper">
-        <p><a href="/personal/cart/" class="afterImg active">Корзина</a><a href="javascript:void(0)" onclick="checkOut();" class="afterImg">Оформление</a><a href="#">Завершение</a></p>
+        <p><a href="/personal/cart/" class="afterImg active" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCartClick'});">Корзина</a><a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCheckoutClick'});" class="afterImg">Оформление</a><a href="#" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCompleteClick'});return false;">Завершение</a></p>
     </div>
 </div>
 
@@ -50,8 +50,8 @@
         ?>
 
         <div class="cartMenuWrap">
-            <div class="basketItems active" data-id="1"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
-            <div class="basketItems" data-id="2"><p>Список желаний <span>(0)</span></p></div>
+            <div class="basketItems active" data-id="1" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForOrderClick'});"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
+            <div class="basketItems" data-id="2" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'wishlistBookmarkClick'});"><p>Список желаний <span>(0)</span></p></div>
         </div>
 
         <?
@@ -256,7 +256,7 @@
                         </div>
                         <p class="nextPageWrap">
                         	<? if ($arResult['allSum']) { ?>
-                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'otherEvents',action: 'recsInCart',label: 'nextStepButton'});" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
                         	<? } else { ?>
                         		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
                         	<? } ?>
@@ -956,10 +956,11 @@
             $(".cartMenuWrap .basketItems:first-child").removeClass("active");
             $('.cartMenuWrap .basketItems:nth-child(2)').addClass("active");
             $("#cardBlock2").show();
-            <?} else if (!$_REQUEST["liked"]) {?> 
+		<?} else if (!$_REQUEST["liked"]) {?> 
             $('.cartMenuWrap .basketItems:nth-child(2)').removeClass("active");
             $('.cartMenuWrap .basketItems:first-child').addClass("active");
             $("#cardBlock1").show();
-            <?}?>   
-    })
+		<?}?>   
+		dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'pageLoaded'});	
+    });
 </script>

@@ -144,14 +144,14 @@
                                                     endif;
                                             ?>
 
-                                            <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?><a href="<?=$arItem["DETAIL_PAGE_URL"] ?>"><?endif;?>
+                                            <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?><a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});"><?endif;?>
                                                 <img src="<?=$url?>">
                                             <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?></a><?endif;?>
 
                                         </td>
                                         <td class="item bookNameWrap">
                                             <p class="nameOfBook">
-                                                <a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" >
+                                                <a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});" >
                                                     <?=$arItem["NAME"]?>
                                                 </a>
                                             </p>
@@ -212,7 +212,7 @@
 	                                                        floatval($arItem["MEASURE_RATIO"]) != 0
 	                                                    ):
 	                                                    ?>
-	                                                    <a href="javascript:void(0);" class="minus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'down', <?=$useFloatQuantityJS?>);">-</a>
+	                                                    <a href="javascript:void(0);" class="minus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'down', <?=$useFloatQuantityJS?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'minusOne'});">-</a>
 	                                                    <?endif;?>
 	                                                <input
 	                                                    class="quantityField"
@@ -227,10 +227,10 @@
 	                                                    step="<?=$ratio?>"
 	                                                    style="max-width: 50px"
 	                                                    value="<?=$arItem["QUANTITY"]?>"
-	                                                    onchange="updateQuantity('QUANTITY_INPUT_<?=$arItem["ID"]?>', '<?=$arItem["ID"]?>', <?=$ratio?>, <?=$useFloatQuantityJS?>)"
+	                                                    onchange="updateQuantity('QUANTITY_INPUT_<?=$arItem["ID"]?>', '<?=$arItem["ID"]?>', <?=$ratio?>, <?=$useFloatQuantityJS?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'updateQuantity'});"
 	                                                    >
 	                                                <? if (floatval($arItem["MEASURE_RATIO"]) != 0):?>
-	                                                    <a href="javascript:void(0);" class="plus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'up', <?=$useFloatQuantityJS?>);">+</a>
+	                                                    <a href="javascript:void(0);" class="plus" onclick="setQuantity(<?=$arItem["ID"]?>, <?=$arItem["MEASURE_RATIO"]?>, 'up', <?=$useFloatQuantityJS?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'plusOne'});">+</a>
 	                                                    <?endif;?>
 	                                                <input type="hidden" id="QUANTITY_<?=$arItem['ID']?>" name="QUANTITY_<?=$arItem['ID']?>" value="<?=$arItem["QUANTITY"]?>" />
 	                                            </div>
@@ -277,7 +277,7 @@
                                         <?
                                             if ($bDeleteColumn):
                                             ?>
-                                            <a class="bookDelete" href="<?=str_replace("#ID#", $arItem["ID"], $arUrls["delete"])?>"><?=GetMessage("SALE_DELETE")?></a>
+                                            <a class="bookDelete" href="<?=str_replace("#ID#", $arItem["ID"], $arUrls["delete"])?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'deleteBook'});"><?=GetMessage("SALE_DELETE")?></a>
                                             <?endif;?>
                                     </td>
                                     <?
@@ -343,11 +343,11 @@
             <p class="finalDiscount">Вам не хватает 770 руб. и получите скидку 10%</p>
             */?>
 
-            <p class="promoWrap"><span class="promocode" onclick="$('#coupon, #acceptCoupon').toggle()">Есть промо-код/сертификат?<span></p>
+            <p class="promoWrap"><span class="promocode" onclick="$('#coupon, #acceptCoupon').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промо-код/сертификат?<span></p>
 
             <div class="bx_ordercart_order_pay_left" id="coupons_block">
                 <div class="bx_ordercart_coupon">
-                    <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();return false;">Применить</a>
+                    <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
                     <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
                     <?
 //                         arshow($arResult);
