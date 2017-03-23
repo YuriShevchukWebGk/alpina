@@ -52,7 +52,7 @@ $this->setFrameMode(true);
 <?endif?>
 
 <? global $events_filter;
-$events_filter = array(">DATE_ACTIVE_FROM" => date("d.m.Y"));
+$events_filter = array(">DATE_ACTIVE_TO" => date("d.m.Y"));
 $APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"news_list",
