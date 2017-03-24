@@ -2340,12 +2340,12 @@
                     $last_status = $status;
                 }                         
                 //ждем данных от боксберри
-                if($last_status['NAME'] == BOXBERRY_DELIVERY_SUCCES || $last_status['NAME'] == BOXBERRY_DELIVERED) {
+                if($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {
                     CSaleOrder::StatusOrder($order_id, "F");   
                 }
             }    
         }
-        return BoxberryListStatuses();        
+        return 'BoxberryListStatuses()';        
     }      
     
     //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет

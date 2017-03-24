@@ -294,6 +294,7 @@ $arItemIDs = array(
                     <?if (!empty($arResult["PROPERTIES"]["glavatitle"]["VALUE"])) {?>
 						<style>
 						.productElementWrapp {min-height:1300px;}
+						.authorBooksWrapp, .weRecomWrap {clear:both;}
 						</style>
 						<div class="takePartWrap" style="display:block;margin-bottom:5px;height:auto; border-bottom: 1px solid #dddddd; margin-top:0px;">
 							<p class="title"><?= GetMessage("TO_GET_A_CHAPTER") ?></p>
@@ -590,6 +591,7 @@ $arItemIDs = array(
                                         <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
                                             <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p>
                                         </a>
+										<div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                                         <?} else {?>
                                         <a href="/personal/cart/"><p class="inBasket" style="background-color: #A9A9A9;"><?= GetMessage("ALREADY_IN_BASKET") ?></p></a>
                                         <?}?>

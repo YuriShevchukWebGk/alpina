@@ -13,7 +13,7 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
     
 }*/
 ?>
-
+<script src="/custom-scripts/progressbar/nprogress.js"></script>
 
 <!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
 <?if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {?>

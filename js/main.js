@@ -892,7 +892,17 @@ $(document).ready(function(){
     $(".books > ul span").mouseout(function(){
         clearTimeout(BlocksChangingFunc);
     })
-
+	
+	//Progress Bar START
+	$('a').click(function() {
+		var link = $(this).attr("href");
+		if (!link.match(/[\#\(\)]/)) {
+			NProgress.start();
+		};
+	});
+	NProgress.set(0.6);
+	setTimeout(function() { NProgress.done();}, 200);
+	//Progress Bar END
 });
 
 
@@ -944,9 +954,15 @@ function update_basket(e)
 
 function addtocart(productid, name) {
     quantity = $(".transparent_input").val();
-
+	$(".inBasket").hide();
+	$("#loadingInfo").show();
+	
+	$("a.product"+productid).find(".basketBook").css("background-color", "#A9A9A9");
+	
     $.post('/ajax/ajax_add2basket.php', {action: "add", productid: productid, quantity:quantity}, function(data)
         {
+			$("#loadingInfo").hide();
+			$(".inBasket").show();
             $(".inBasket").css("background-color", "#A9A9A9");
             $(".inBasket").html("В корзине");
 

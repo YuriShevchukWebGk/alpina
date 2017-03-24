@@ -182,6 +182,7 @@
             <a href="javascript:void(0);" onclick="submitForm('Y'); return false;" id="ORDER_CONFIRM_BUTTON" class="checkout orderConfirm">
                 <?=GetMessage("SOA_TEMPL_BUTTON")?>
             </a>
+			<div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
         </p> 
 
     </div>

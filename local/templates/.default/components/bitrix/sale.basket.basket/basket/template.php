@@ -29,7 +29,35 @@
         'ADD_URL' => $arUrls["add"]
     );
 ?>
+<style>
+#nprogresss {
+	margin:0 auto;
+}
+	#nprogresss .spinner-icon {
+	width: 36px;
+	height: 36px;
+	box-sizing: border-box;
 
+	border: solid 4px transparent;
+	border-top-color: #00abb8;
+	border-left-color: #00abb8;
+	border-radius: 50%;
+	margin: 0 auto;
+
+	-webkit-animation: nprogresss-spinner 400ms linear infinite;
+	animation: nprogresss-spinner 400ms linear infinite;
+	}
+
+	@-webkit-keyframes nprogresss-spinner {
+	0%   { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+	}
+	@keyframes nprogresss-spinner {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+	}
+
+</style>
 <div class="breadCrumpWrap">
     <div class="centerWrapper">
         <p><a href="/personal/cart/" class="afterImg active" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCartClick'});">Корзина</a><a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCheckoutClick'});" class="afterImg">Оформление</a><a href="#" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCompleteClick'});return false;">Завершение</a></p>
@@ -256,7 +284,7 @@
                         </div>
                         <p class="nextPageWrap">
                         	<? if ($arResult['allSum']) { ?>
-                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
                         	<? } else { ?>
                         		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
                         	<? } ?>

@@ -274,10 +274,18 @@
 <div class="breadCrumpWrap">
     <div class="centerWrapper">
         <?if($arResult["USER_VALS"]["CONFIRM_ORDER"] == "Y") {?>
-            <p><a href="/personal/cart/" class="afterImg">Корзина</a><a href="/personal/order/make/" class="afterImg ">Оформление</a><a href="#" class="active">Завершение</a></p>
-            <? } else {?>
-            <p><a href="/personal/cart/" class="afterImg">Корзина</a><a href="/personal/order/make/" class="afterImg active">Оформление</a><a href="#">Завершение</a></p>
-            <?}?>
+            <p>
+				<a href="/personal/cart/" class="afterImg" onclick="dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'bigLinksCartClick'});">Корзина</a>
+				<a href="/personal/order/make/" class="afterImg " onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'bigLinksCheckoutClick'});">Оформление</a>
+				<a href="#" class="active" onclick="dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'bigLinksCompleteClick'});return false;">Завершение</a>
+			</p>
+		<? } else {?>
+            <p>
+				<a href="/personal/cart/" class="afterImg" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'bigLinksCartClick'});">Корзина</a>
+				<a href="/personal/order/make/" class="afterImg active" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'bigLinksCheckoutClick'});">Оформление</a>
+				<a href="#" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'bigLinksCompleteClick'});return false;">Завершение</a>
+			</p>
+		<?}?>
     </div>
 </div>
 
@@ -385,6 +393,9 @@
                             ?>
 
                             <script type="text/javascript">
+								$(document).ready(function(){
+									dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'pageLoaded'});
+								});
                                 <?if(CSaleLocation::isLocationProEnabled()):?>
 
                                     <?
@@ -408,8 +419,19 @@
                                     <?endif?>
 
                                 var BXFormPosting = false;
+								var pageLoaded = false;
+								var orderSubmitted = false;
+								
                                 function submitForm(val)
                                 {
+									$("#ORDER_CONFIRM_BUTTON").hide();
+									$("#loadingInfo").show();
+									
+									if (!pageLoaded) {
+										dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'submitForm'});
+										pageLoaded = true;
+									}
+									
                                     var flag = true;
                                                      
                                     $(".flippost_error").hide();
@@ -426,6 +448,7 @@
                                             var scrollTop = $('#ORDER_PROP_7').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_7").focus();
+											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorName'});
                                         }
 
                                         if($("#ORDER_PROP_6").size() > 0 && isEmail($('#ORDER_PROP_6').val()) == false){
@@ -435,6 +458,7 @@
                                             var scrollTop = $('#ORDER_PROP_6').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_6").focus();
+											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorEmail'});
                                         } 
 
                                         if($("#ORDER_PROP_24").size() > 0 && isTelephone($('#ORDER_PROP_24').val()) == false){
@@ -443,6 +467,7 @@
                                             var scrollTop = $('#ORDER_PROP_24').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_24").focus();
+											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorPhone'});
                                         } 
                                         if($("#ORDER_PROP_5").size() > 0 && $('#ORDER_PROP_5').val() == false){
                                             flag = false;
@@ -450,7 +475,8 @@
                                             var scrollTop = $('#ORDER_PROP_5').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_5").focus();
-                                        }   
+											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorDeliveryAddress'});
+                                        }
                                         var deliveryFlag= false;
                                         if ($(".js_delivery_block").css("display") == "none") {
                                             deliveryFlag = true;
@@ -523,6 +549,10 @@
                                     }
 
                                     if(flag){
+										if (!orderSubmitted) {
+											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'orderSubmitted'});
+											orderSubmitted = true;
+										}
 
                                         BXFormPosting = true;
                                         if(val != 'Y')
@@ -537,7 +567,11 @@
 
                                         BX.ajax.submit(orderForm, ajaxResult);
 
-                                    }
+                                    } else {
+										dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorOccured'});
+										$("#ORDER_CONFIRM_BUTTON").show();
+										$("#loadingInfo").hide();
+									}
                                     return true;
                                 }
                                 /*function SwitchingPersonType(val)
@@ -802,7 +836,7 @@
 
             <?endif?>
 		<br />
-		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь с условиями <a href="/info_popup/oferta.php" onclick="return false;" class="cartMenuPopup">публичной оферты</a></span>
+		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь с условиями <a href="/info_popup/oferta.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showOferta'});return false;" class="cartMenuPopup">публичной оферты</a></span>
     </div>
 </div>
 <script>

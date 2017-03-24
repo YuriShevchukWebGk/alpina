@@ -500,22 +500,25 @@ $arResult["QUOTE_IMAGE"] = CFile::ResizeImageGet (
 
 foreach ($arResult["ITEMS"] as $arItem) {
     $ar_item_IDs[] = $arItem["ID"];
-    $authors_IDs[] = $arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0];
+    if ($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0] > 0) {
+        $authors_IDs[] = $arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0];
+    }
 }
 
 // получение информации об авторе каждой из книг
-
-$authors = CIBlockElement::GetList(
-    array(),
-    array(
-        "ID" => $authors_IDs
-    ),
-    false,
-    false,
-    array()
-);
-while ($authors_list = $authors -> Fetch()) {
-    $arResult["AUTHORS"][$authors_list["ID"]] = $authors_list;
+if (!empty($authors_IDs)) {
+    $authors = CIBlockElement::GetList(
+        array(),
+        array(
+            "ID" => $authors_IDs
+        ),
+        false,
+        false,
+        array()
+    );
+    while ($authors_list = $authors -> Fetch()) {
+        $arResult["AUTHORS"][$authors_list["ID"]] = $authors_list;
+    }
 }
 // если товар находится в корзине - записывать необходимую информацию о нём в @arResult 
 // (например, количество товара в корзине)
