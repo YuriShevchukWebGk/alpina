@@ -1,9 +1,5 @@
 <?   
-/*if ($_REQUEST["change_password"]) {
-    define("NEED_AUTH", true);
-}  */
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");         
-
 ?>
  
 <?if ($_REQUEST["forgot_password"]) {?>
@@ -56,7 +52,7 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 
                 <div class="registrationBlock">
 
-                    <?$APPLICATION->IncludeComponent("bitrix:system.auth.registration", "flat", Array(
+                    <?$APPLICATION->IncludeComponent("bitrix:system.auth.registration", "flat", Array( 
 
                         ),
                         false
