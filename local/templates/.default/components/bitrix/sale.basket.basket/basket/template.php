@@ -298,12 +298,11 @@
 				/* Получаем рекомендации для корзины от RetailRocket */
 				global $arrFilter;
 				//echo $retailRocketRecs;
-				if (isset($_COOKIE["rrpusid"])){
-					//$retailRocketRecs = (substr($retailRocketRecs,0,-1));
-					$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.(substr($retailRocketRecs,0,-1)));
-					$recsArray = json_decode($stringRecs);
-					$arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
-				}
+				//$retailRocketRecs = (substr($retailRocketRecs,0,-1));
+				$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.(substr($retailRocketRecs,0,-1)));
+				$recsArray = json_decode($stringRecs);
+				$arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
+
 				if ($arrFilter['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
 				<div class="recomendation">
 					<p class="grayTitle">С заказанными книгами читают</p>

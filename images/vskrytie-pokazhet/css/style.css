@@ -134,16 +134,9 @@
     }
 }
 @media screen and (max-device-width: 414px){
-    body{
-        width:1500px;
-    }
-    .slideWrapp .catalogWrapper {
-        width: 100%;
-        margin-left:175px;
-    }
-    .slideWrapp .firstSlide {
-        width:1500px !important;
-    }
+	.menu li a {
+		font-size:24px!important;
+	}
 }
 body{
     padding: 0;
@@ -167,7 +160,6 @@ p{
 .landing{
     position: relative;
   /*  width: 1769px;*/
-    min-width: 1024px;
     max-width: 1769px;
     margin: 0 auto;
     background: #fff;
@@ -1350,7 +1342,7 @@ footer .webServ{
     margin: 0 auto;
     position: relative;
     /*width: 1140px;*/
-    width: 700px;
+    width: 100%;
     text-align: center;
 }
 header .menu{
@@ -5808,3 +5800,4 @@ table.form-table tr td:nth-child(2){
     color: #fff !important;
     padding-left: 30px;
 }
+	

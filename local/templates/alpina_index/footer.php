@@ -15,68 +15,68 @@
                     <div>
                         
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_1", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu_1"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_1", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_1"
+	),
+	false
+);?>
                     </div>
                     <div>
                         
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_1", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom2",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_1", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom2",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_1"
+	),
+	false
+);?>
                     </div>
                     <div>
                         
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_2", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom3",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_2", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom3",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_2"
+	),
+	false
+);?>
                     </div>
                     <div>
                         
@@ -155,9 +155,6 @@
                         <a href="https://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
                         <div id="development">   
                             Разработка сайта – <a href="http://www.webgk.ru/" target="_blank">WebGK</a>
-                        </div>
-                          <div id="development">   
-                           <a href="https://www.alpinabook.ru/sitemap/">Карта сайта</a>
                         </div>
                     </div>
                 </div>
@@ -292,7 +289,7 @@
 
         
         <div class="hidingBasketRight">
-            <?
+            <?/*
             $APPLICATION->IncludeComponent("bitrix:sale.basket.basket", "hiding_basket", Array(
                 "ACTION_VARIABLE" => "basketAction",    // Название переменной действия
                     "AUTO_CALCULATION" => "Y",    // Автопересчет корзины
@@ -333,7 +330,7 @@
                     "COMPONENT_TEMPLATE" => ".default"
                 ),
                 false
-            );
+            );*/
             ?>
         </div>
         <div class="layout"></div>

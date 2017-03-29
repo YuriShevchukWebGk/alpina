@@ -867,7 +867,7 @@
             }
         }
 
-        function OnOrderCustomCouponHandler($ID, $arFields) {
+        function OnOrderCustomCouponHandler($ID, $arFields) {                                          
             if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N")  {
                 //Update coupon
                 Loader::includeModule('sale');
@@ -971,7 +971,7 @@
 		 * Регистрируем нового пользователя в БК после регистрации на сайте
 		 * 
 		 * */
-    	public static function sendUserToBK(&$arFields) {
+    	public static function sendUserToBK($arFields) {
     		$postdata = http_build_query(
 		        array(
 		           'method' => 'sendUserToBK',
@@ -2345,7 +2345,7 @@
                 }
             }    
         }
-        return 'BoxberryListStatuses()';        
+        return 'BoxberryListStatuses();';        
     }      
     
     //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет
@@ -2359,7 +2359,7 @@
         $userID = $USER->GetID();
         $curPage = $APPLICATION->GetCurPage(); 
         $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';    
-        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.txt';
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';
         logger($order_log, $file);  
-    }                                           
+    }                                 
 ?>

@@ -10,6 +10,7 @@
     /** @var string $templateFolder */
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
+	$this->setFrameMode(true);
 ?>
 <?
 ###
@@ -43,7 +44,83 @@ if ($arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE'] > 0 && !checkMobile()
 	$APPLICATION->set_cookie("alpExps", serialize($alpExps));
 }
 ?>
+<?$frame = $this->createFrame()->begin();?>
+<script>
+$(document).ready(function(){
+	<!-- //dataLayer GTM -->
+	dataLayer.push({
+		'stockInfo' : '<?= $StockInfo ?>',
+		'productId' : '<?= $arResult["ID"] ?>',
+		'productName' : '<?= $arResult["NAME"] ?>',
+		'productPrice' : '<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>',
+		'videoPresence' : '<?= $videosCount > 0 ? 'WithVideo' : 'WithoutVideo'; ?>'
+	});
+	<!-- // dataLayer GTM -->
 
+	$(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
+	$(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
+	if ($(".element_item_img img").height() < 394 && $(".element_item_img img").height() > 100) {
+		$(".element_item_img").height($(".element_item_img img").height());
+	}
+	$("a#inline1, a#inline2, a#inline3").fancybox({
+		'hideOnContentClick': true
+	});
+	if ($(".grouped_elements").length > 0) {
+
+		$("a.grouped_elements").fancybox({
+			'transitionIn'    :    'elastic',
+			'transitionOut'    :    'elastic',
+			'speedIn'        :    600,
+			'speedOut'        :    200,
+			'overlayShow'    :    false
+		});
+
+	}
+
+	if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+	   $('.elementMainPict .fancybox').attr('target', '_blank');
+	   $('.elementMainPict .fancybox').removeClass('fancybox');
+	}else{
+		$('.elementMainPict .fancybox').fancybox({
+			'centerOnScroll' : true,
+			'scrolling'      : true,
+			'showNavArrows'  : true
+		});
+	}
+
+	$('a.fancybox').fancybox({
+		'width'   :   1140,
+		'height'   :   800
+	});
+	$(".leftColumn .signingPopup").fancybox({
+		<?if ($arResult["SIGNING_IMAGE_INFO"]["WIDTH"]) {?>
+			'width'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["WIDTH"] ?>+20,
+			'height'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["HEIGHT"] ?>+20,
+			'scrolling'      : false
+		<?} else {?>
+			'width'   :   1140,
+			'height'   :   800,
+			'scrolling'      : false
+		<?}?>
+	});
+
+	if (window.innerWidth <= 1500) {
+		$(".catalogIcon").hide();
+		$(".basketIcon").hide();
+	}
+
+	$(".buyLater").click(function(){
+		$.post("/ajax/ajax_add2wishlist.php", {id: <?= $arResult["ID"] ?>}, function(data){
+			$(".layout").show();
+			$(".wishlist_info").css("top", window.pageYOffset+"px")
+			$(".wishlist_info").show();
+			$(".wishlist_info span").html(data);
+
+		})
+	});
+	docReadyComponent();
+});
+</script>
 <?
 include_once($_SERVER["DOCUMENT_ROOT"] . '/local/php_interface/include/colors.inc.php');
 
@@ -79,11 +156,6 @@ $bgsum = $hexToRgbMess['red'] + $hexToRgbMess['green'] + $hexToRgbMess['blue'];
 if ($bgsum < 20)
 	$bgcolors[0] = "#777777";
 
-if ($USER->isAdmin()) {
-	/*echo $bgsum;
-	echo $mincolor['sum'];
-	print_r(hexToRgb($bgcolors[0]));*/
-}
 if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
 	$mincolor['color'] = "#555";
 }
@@ -319,10 +391,16 @@ $arItemIDs = array(
 								</p>
 							</div>
 						<?}?>
-						<?if ($arResult["PROPERTIES"]["ISBN"]["VALUE"]) {?>
+						<?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "" && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
 							<div class="characteris">
-								<p class="title"><?= GetMessage("ISBN") ?></p>
-								<p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>
+								<p class="title"><?= $arResult["PROPERTIES"]["YEAR"]["NAME"] ?></p>
+								<p class="text">
+									<span itemprop="datePublished">
+										<?= $arResult["PROPERTIES"]["YEAR"]["VALUE"] ?>
+									</span>
+									г.
+									<?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br /><span itemprop="bookEdition">' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] .'</span>' : ""?>
+								</p>
 							</div>
 						<?}?>
 						<?if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {?>
@@ -332,7 +410,7 @@ $arItemIDs = array(
 									<span class="text"><?= $arResult["CURR_SERIES"]["NAME"] ?></span>
 								</a>
 							</div>
-							<?}?>
+						<?}?>
 						<?if($arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != "") {?>
 							<div class="characteris epubHide">
 								<p class="title"><?= GetMessage("COVER_TYPE") ?></p>
@@ -348,27 +426,21 @@ $arItemIDs = array(
 							<p class="title">Форматы</p>
 							<p class="text">epub</p>
 						</div>
+						<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+							<div class="characteris epubHide">
+								<a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
+							</div>
+						<?}?>
 						<?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
 							<div class="characteris">
 								<p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
 								<p class="text"><span itemprop="numberOfPages"><?= $arResult["PROPERTIES"]["PAGES"]["VALUE"] ?></span><?= GetMessage("PAGES") ?></p>
 							</div>
 						<?}?>
-						<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
-							<div class="characteris epubHide">
-								<a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
-							</div>
-						<?}?>
-						<?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "" && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+						<?if ($arResult["PROPERTIES"]["ISBN"]["VALUE"]) {?>
 							<div class="characteris">
-								<p class="title"><?= $arResult["PROPERTIES"]["YEAR"]["NAME"] ?></p>
-								<p class="text">
-									<span itemprop="datePublished">
-										<?= $arResult["PROPERTIES"]["YEAR"]["VALUE"] ?>
-									</span>
-									г.
-									<?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br /><span itemprop="bookEdition">' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] .'</span>' : ""?>
-								</p>
+								<p class="title"><?= GetMessage("ISBN") ?></p>
+								<p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>
 							</div>
 						<?}?>
 						<?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
@@ -434,6 +506,11 @@ $arItemIDs = array(
 							<?if ($_SERVER['HTTP_REFERER'] == 'https://relap.io/' || strpos($_SERVER['HTTP_REFERER'],"theoryandpractice.ru") !== false) {?>
 								$(document).ready(function() {
 									selectversion('passive','digitalversion');
+									var digitalLink = $(".digitalLink").attr("href");
+									$(".digitalLink").attr("href", digitalLink+"&utm_content=tnp");
+									<?if ($USER->isAdmin()) {?>
+									console.log($(".digitalLink").attr("href"));
+									<?}?>
 								});
 							<?}?>
 						</script>
@@ -481,7 +558,7 @@ $arItemIDs = array(
                                                 $discount = false;
                                             };
                                             if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                            <div class="oldPrice"><span><?= $arPrice["PRINT_VALUE"] ?></span><p></p></div>
+                                            <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
                                             <?// расчитываем накопительную скидку от стоимости
                                                 if ($discount) {
                                                     $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
@@ -500,7 +577,7 @@ $arItemIDs = array(
                                                 if (strlen (stristr($newPrice, ".")) == 2) {
                                                     $newPrice .= "0";
                                             }?>
-                                            <div class="oldPrice"><span><?= $arPrice["PRINT_VALUE"] ?></span><p></p></div>
+                                            <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
                                             <?// расчитываем накопительную скидку от стоимости?>
                                             <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                             <?} else {
@@ -529,7 +606,7 @@ $arItemIDs = array(
                                     <?$StockInfo = "OutOfStock";?>
                                     <?foreach ($arResult["PRICES"] as $code => $arPrice) {
                                             if ($arPrice["DISCOUNT_DIFF"]) {?>
-                                            <div class="oldPrice"><span><?= $arPrice["PRINT_VALUE"] ?></span><p></p></div>
+                                            <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
                                             <?}?>
                                         <?if ($arPrice["DISCOUNT_VALUE_VAT"]) {
                                                 $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
@@ -619,7 +696,7 @@ $arItemIDs = array(
 						</div>
 						
 						<div class="wrap_prise_bottom">
-							<a href="https://ebook.alpinabook.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE']?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" target="_blank" rel="nofollow" onclick="dataLayer.push({'event' : 'selectVersion', 'action' : 'leaveSite', 'label': '<?= $arResult["NAME"]; ?>'});">
+							<a href="https://ebook.alpinabook.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE']?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({'event' : 'selectVersion', 'action' : 'leaveSite', 'label': '<?= $arResult["NAME"]; ?>'});">
 								<p class="inBasket"><?= GetMessage("BUY_EPUB") ?></p>
 							</a>
 						</div>
@@ -731,7 +808,7 @@ $arItemIDs = array(
                             }?>
                         <li><?= GetMessage("MSK_DELIVERY") ?><br /><a id='inline1' href='#data1'><?=$delivery_day?></a></li>
                         <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a id='inline2' href='#data2'><?=$samovivoz_day?></a></li>
-                        <li><?= GetMessage("MAIL_DELIVERY") ?></li>
+                        <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a id='inline3' href='#data3'><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
                         <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                         <?/*<li class="lastli"><a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" class="noborderlink" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});">Хотите тираж со своим логотипом?</a></li>*/?>
 
@@ -767,10 +844,21 @@ $arItemIDs = array(
                         </div>
                     </div>
                     <div class="pickupBlock">
-                        <div style="width:500px;" id="data2">
+                        <div id="data2">
                             <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
                                 "AREA_FILE_SHOW" => "file",
                                 "PATH" => "/include/pickupBlock.php",
+                                "EDIT_TEMPLATE" => ""
+                                ),
+                                false
+                            );?>
+                        </div>
+                    </div>
+					<div class="countryBlock">
+                        <div id="data3">
+                            <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
+                                "AREA_FILE_SHOW" => "file",
+                                "PATH" => "/include/countryBlock.php",
                                 "EDIT_TEMPLATE" => ""
                                 ),
                                 false
@@ -801,8 +889,8 @@ $arItemIDs = array(
                                     "AJAX_OPTION_STYLE" => "Y",
                                     "CACHE_FILTER" => "N",
                                     "CACHE_GROUPS" => "N",
-                                    "CACHE_TIME" => "36000000",
-                                    "CACHE_TYPE" => "A",
+                                    "CACHE_TIME" => "36000",
+                                    "CACHE_TYPE" => "Y",
                                     "CHECK_DATES" => "Y",
                                     "DETAIL_URL" => "",
                                     "DISPLAY_BOTTOM_PAGER" => "N",
@@ -1061,8 +1149,8 @@ $arItemIDs = array(
                                         "AJAX_OPTION_STYLE" => "Y",
                                         "AJAX_OPTION_HISTORY" => "N",
                                         "AJAX_OPTION_ADDITIONAL" => "",
-                                        "CACHE_TYPE" => "A",
-                                        "CACHE_TIME" => "36000000",
+                                        "CACHE_TYPE" => "Y",
+                                        "CACHE_TIME" => "3600",
                                         "CACHE_GROUPS" => "Y",
                                         "SET_TITLE" => "N",
                                         "SET_BROWSER_TITLE" => "N",
@@ -1280,8 +1368,8 @@ if (!empty ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0]) ) {
             "AJAX_OPTION_STYLE" => "Y",
             "AJAX_OPTION_HISTORY" => "N",
             "AJAX_OPTION_ADDITIONAL" => "",
-            "CACHE_TYPE" => "A",
-            "CACHE_TIME" => "36000000",
+            "CACHE_TYPE" => "Y",
+            "CACHE_TIME" => "3600",
             "CACHE_GROUPS" => "N",
             "SET_TITLE" => "Y",
             "SET_BROWSER_TITLE" => "N",
@@ -1502,7 +1590,7 @@ $printid = implode(", ", $recsArray);?>
         </div>
     </div>
 <?}?>
-
+<?$frame->end();?>
 <div class="reviewsSliderWrapp">
     <div class="centerWrapper">
         <div class="giftWrap">
@@ -1525,7 +1613,20 @@ $printid = implode(", ", $recsArray);?>
         <p class="sliderName youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></p>
 
         <? global $arFilter;
-        $latestSeen = unserialize ($APPLICATION->get_cookie("LASTEST_SEEN") );
+		// LATEST SEEN ###############
+		$latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));   
+		$latestSeen  = (!$latestSeen ? array() : $latestSeen);
+		// Remove 
+		//unset($latestSeen[$arResult['ID']]);
+		$key = array_search($arResult['ID'], $latestSeen, true);
+		if (empty($key)) {
+			$latestSeen[time()] = $arResult['ID'];
+		}
+		if (count($latestSeen) > 6) {
+			 array_splice($latestSeen,0,-6);
+		}
+
+
         if ($latestSeen) {
             $arFilter = array('ID' => array());
             //$latestSeen = array_slice (array_reverse (array_keys ($latestSeen) ), 0, 6);
@@ -1605,8 +1706,8 @@ $printid = implode(", ", $recsArray);?>
         "AJAX_OPTION_STYLE" => "Y",
         "AJAX_OPTION_HISTORY" => "N",
         "AJAX_OPTION_ADDITIONAL" => "",
-        "CACHE_TYPE" => "N",
-        "CACHE_TIME" => "36000000",
+        "CACHE_TYPE" => "Y",
+        "CACHE_TIME" => "3600",
         "CACHE_GROUPS" => "N",
         "SET_TITLE" => "N",
         "SET_BROWSER_TITLE" => "N",
@@ -1658,100 +1759,16 @@ $printid = implode(", ", $recsArray);?>
     ),
     false
 );
+		$APPLICATION->set_cookie("LASTEST_SEEN", serialize($latestSeen));
+		if (isset($_COOKIE['BITRIX_SM_LASTEST_SEEN_NEW'])) {
+			unset($_COOKIE['BITRIX_SM_LASTEST_SEEN_NEW']);
+			setcookie('BITRIX_SM_LASTEST_SEEN_NEW', null, -1, '/');
+			return true;
+		}
         }?>
     </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        <!-- //dataLayer GTM -->
-        dataLayer.push({
-            'stockInfo' : '<?= $StockInfo ?>',
-            'productId' : '<?= $arResult["ID"] ?>',
-            'productName' : '<?= $arResult["NAME"] ?>',
-            'productPrice' : '<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>',
-            'videoPresence' : '<?= $videosCount > 0 ? 'WithVideo' : 'WithoutVideo'; ?>'
-        });
-        <!-- // dataLayer GTM -->
-
-        <?if ($arResult["ID"] == 7194) {?>
-        /*dataLayer.push({
-          'ecommerce': {
-            'refund': {
-              'actionField': {'id': '65813'}         // Transaction ID. Required for purchases and refunds.
-            }
-          }
-        });*/
-
-        <?}?>
-        $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
-        $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
-        if ($(".element_item_img img").height() < 394 && $(".element_item_img img").height() > 100) {
-            $(".element_item_img").height($(".element_item_img img").height());
-        }
-        $("a#inline1").fancybox({
-            'hideOnContentClick': true
-        });
-        $("a#inline2").fancybox({
-            'hideOnContentClick': true
-        });
-        if ($(".grouped_elements").length > 0) {
-
-            $("a.grouped_elements").fancybox({
-                'transitionIn'    :    'elastic',
-                'transitionOut'    :    'elastic',
-                'speedIn'        :    600,
-                'speedOut'        :    200,
-                'overlayShow'    :    false
-            });
-
-        }
-
-        if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-           $('.elementMainPict .fancybox').attr('target', '_blank');
-           $('.elementMainPict .fancybox').removeClass('fancybox');
-        }else{
-            $('.elementMainPict .fancybox').fancybox({
-                'centerOnScroll' : true,
-                'scrolling'      : true,
-                'showNavArrows'  : true
-            });
-        }
-
-        $('a.fancybox').fancybox({
-            'width'   :   1140,
-            'height'   :   800
-        });
-        $(".leftColumn .signingPopup").fancybox({
-            <?if ($arResult["SIGNING_IMAGE_INFO"]["WIDTH"]) {?>
-                'width'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["WIDTH"] ?>+20,
-                'height'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["HEIGHT"] ?>+20,
-                'scrolling'      : false
-            <?} else {?>
-                'width'   :   1140,
-                'height'   :   800,
-                'scrolling'      : false
-            <?}?>
-        });
-
-        if (window.innerWidth <= 1500) {
-            $(".catalogIcon").hide();
-            $(".basketIcon").hide();
-        }
-
-        $(".buyLater").click(function(){
-            $.post("/ajax/ajax_add2wishlist.php", {id: <?= $arResult["ID"] ?>}, function(data){
-                $(".layout").show();
-                $(".wishlist_info").css("top", window.pageYOffset+"px")
-                $(".wishlist_info").show();
-                $(".wishlist_info span").html(data);
-
-            })
-        })
-    })
-
-
-</script>
 <!-- GdeSon -->
 <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276"></script>
 

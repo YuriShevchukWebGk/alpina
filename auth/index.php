@@ -1,11 +1,11 @@
 <?   
-if ($_REQUEST["change_password"]) {
+/*if ($_REQUEST["change_password"]) {
     define("NEED_AUTH", true);
-}
+}  */
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");         
 
 ?>
-
+ 
 <?if ($_REQUEST["forgot_password"]) {?>
     <div class="historyCoverWrap">
         <div class="centerWrapper">
@@ -22,7 +22,10 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
             );
         ?>
     </div>
-<?} else {?>    
+<?} else {
+
+
+?>    
     <div class="historyCoverWrap">
         <div class="centerWrapper">
             <p>Главная</p>    
@@ -41,7 +44,7 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 
 
                 <div class="signinBlock">
-
+                    <??>
                     <?$APPLICATION->IncludeComponent("bitrix:system.auth.authorize", "flat", Array(
                         "REGISTER_URL" => "",
                         "PROFILE_URL" => "",

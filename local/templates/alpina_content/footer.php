@@ -152,9 +152,6 @@
                     <a href="https://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/youImg.png"></a>
                     <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/googImg.png"></a>
                     <a href="https://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
-											  <div id="development">   
-                           <a href="https://www.alpinabook.ru/sitemap/">Карта сайта</a>
-                        </div>
                 </div>
             </div>
         </div>
