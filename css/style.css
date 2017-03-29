@@ -4616,6 +4616,10 @@ right: 45px;
     margin-left: 310px;
     margin-top: 12px;
 }
+
+.signinWrapper .paswordIncorrectly#existingEmail{   
+    margin-top: -12px;
+}
 .authorisationWrapper{
     background-color: #ffffff;
     height: 606px;
@@ -9312,4 +9316,24 @@ animation: loadingInfo-spinner 400ms linear infinite;
 @keyframes loadingInfo-spinner {
 0%   { transform: rotate(0deg); }
 100% { transform: rotate(360deg); }
+}
+
+.registrationBlock .bx-registration-table .RegisterButton {
+    background-color: #ffffff;
+    border: 2px solid #c7a271;
+    border-radius: 50px;
+    color: #c7a271;
+    font-family: "Walshein_regular";
+    font-size: 19px;
+    margin: 28px 462px;
+    padding: 10px 78px;
+    cursor: pointer;
+    width: 120px;
+    text-align: center;    
+} 
+
+.registrationBlock .bx-registration-table .CaptchaRegistration {                
+    margin-bottom: 12px;
+    margin-left: 310px;
+    margin-top: 12px;
 }

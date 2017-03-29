@@ -9,7 +9,7 @@ if ($_REQUEST["email"]) {
     }
     
     if (count($arUsers) == 1) {
-        $login = 'newuser_' . htmlspecialcharsbx($_REQUEST["email"]);
+        $login = 'newuser_' . htmlspecialcharsbx($_REQUEST["email"]);   
     } else if (count($arUsers)>1) {
         $login = 'newuser_'.count($arUsers).'_' . htmlspecialcharsbx($_REQUEST["email"]);
     }
