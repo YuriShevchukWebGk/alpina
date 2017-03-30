@@ -196,7 +196,7 @@
                         ****************/
 
                         // авторы в результатах поиска
-                        if ($arItem["PARAM2"] == AUTHORS_IBLOCK_ID) { ?>
+                        if ($arItem["PARAM2"] == AUTHORS_IBLOCK_ID) { ?>                
 
                             <div class="searchBook">
                                 <div>
@@ -232,7 +232,7 @@
 
                         <?}?>
                         <?// книги в результатах поиска
-                        if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) {?>
+                        if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) {?>     
                             <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
                                 if (($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"])
                                     || ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"])) {
@@ -271,11 +271,11 @@
                                             <?}?>
                                         </div>
                                     </a>
-                                </div>
+                                </div>  
                                 <div class="descrWrap">
                                     <a href="<?= $arItem["URL"] ?>" itemprop="url">
-                                        <p class="bookNames" title="<?= $arItem["TITLE"] ?>" itemprop="name"><?= $arItem["TITLE"] ?></p>
-                                        <p class="autorName" itemprop="author"><?= $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]] ?></p>
+                                        <p class="bookNames" title="<?= $arItem["TITLE"] ?>" itemprop="name"><?= $arItem["TITLE"] ?></p>                              
+                                        <p class="autorName" itemprop="author"><?= $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]]['NAME'] ?></p>
                                         <p class="wrapperType"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                         <?if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {

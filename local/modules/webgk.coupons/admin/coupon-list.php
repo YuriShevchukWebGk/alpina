@@ -16,7 +16,7 @@
     $lAdmin = new CAdminList($sTableId, $oSort);
 
     //Filter initialization
-    $arFilterFields = array("couponId", "discountId", "active", "coupon", "dateApply", "activeTo", "orderBuy", "orederApply");
+    $arFilterFields = array("couponId", "discountId", "active", "coupon", "dateApply", "activeTo", "orderBuy", "orederApply", "couponCode");
     $lAdmin->InitFilter($arFilterFields);
 
     $arSalesCoupon = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $_REQUEST["orederApply"], "CODE" => "CODE_COUPON"));
@@ -30,13 +30,15 @@
     $CouponSelect = array("ID", "IBLOCK_ID", "NAME", "PROPERTY_ORDER", "PROPERTY_COUPON");
     $blockCoupon = CIBlockElement::GetList(array("ID" => "ASC"),  array("IBLOCK_ID" => $arParams["COUPON_LIST"]["IBLOCK_ID"], "PROPERTY_ORDER" => $_REQUEST["orderBuy"]), false, false, $CouponSelect);
     while ($IblockCoupon = $blockCoupon->Fetch()) {
-        $blockCoupons[] = $IblockCoupon["PROPERTY_COUPON_VALUE"];
+        if($IblockCoupon["PROPERTY_COUPON_VALUE"]){
+            $blockCoupons[] = $IblockCoupon["PROPERTY_COUPON_VALUE"];
+        }
     }
 
     $arFilter = array();
      $arFilter = array('ID' => intval($_REQUEST["id"]), 'DISCOUNT_ID' => intval($_REQUEST["discountId"]), 'ACTIVE' => $_REQUEST["active"], "COUPON" => $_REQUEST["couponCode"],
         ">=DATE_APPLY" => $_REQUEST["dateApplyFrom"], "<=DATE_APPLY" => $_REQUEST["dateApplyTo"], ">=ACTIVE_TO" => $_REQUEST["activeToFrom"], "<=ACTIVE_TO" => $_REQUEST["activeToTo"],
-        "COUPON" => $arCouponOrder["VALUE"], "ID" => $blockCoupons);
+        );
 
     //Unset key's with empty value
     foreach($arFilter as $key => $value) {
@@ -44,8 +46,8 @@
             unset($arFilter[$key]);
         }
     }
-    
-   
+    arshow($arCouponOrder);
+
 
     //Get all coupons
     $rsData = Internals\DiscountCouponTable::getList(array('filter' => $arFilter));
@@ -63,7 +65,7 @@
         $obCouponProp = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $arSales["ID"], "CODE" => "CODE_COUPON"));
         $arCouponProp = $obCouponProp->Fetch();
         $arCouponOrders[$arCouponProp["VALUE"]] = $arCouponProp;
-    }  
+    }
 
     //Page navigation
     $rsData = new CAdminResult($rsData, $sTableId);

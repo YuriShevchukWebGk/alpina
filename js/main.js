@@ -897,9 +897,11 @@ $(document).ready(function(){
 	$('a').click(function() {
 		var link = $(this).attr("href");
 		var target = $(this).attr("target");
-		if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)/) && target != "_blank") {
-			NProgress.start();
-		};
+		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
+			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)/) && target != "_blank") {
+				NProgress.start();
+			};
+		}
 	});
 	NProgress.set(0.6);
 	setTimeout(function() { NProgress.done();}, 200);
@@ -1765,9 +1767,11 @@ function docReadyComponent() {
 	$('a').click(function() {
 		var link = $(this).attr("href");
 		var target = $(this).attr("target");
-		if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)/) && target != "_blank") {
-			NProgress.start();
-		};
+		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
+			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)/) && target != "_blank") {
+				NProgress.start();
+			};
+		}
 	});
 	NProgress.set(0.6);
 	setTimeout(function() { NProgress.done();}, 200);

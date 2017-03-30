@@ -11,7 +11,7 @@
 false
 ); */
 
-echo date('h-i-s, j-m-y, it is w Day');
+echo date('h-i-s, j-m-y, it is w Day');     
  /*
 $users = array();
 $emails_arr = array();

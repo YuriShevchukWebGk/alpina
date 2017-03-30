@@ -9329,3 +9329,7 @@ animation: loadingInfo-spinner 400ms linear infinite;
     margin-left: 310px;
     margin-top: 12px;
 }
+
+.lostPassWrapper .changePassWrapper {
+    font-family: "Walshein_regular";        
+}

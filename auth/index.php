@@ -2,7 +2,7 @@
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");         
 ?>
  
-<?if ($_REQUEST["forgot_password"]) {?>
+<?if ($_REQUEST["forgot_password"] || $_REQUEST["change_password"]) {?>
     <div class="historyCoverWrap">
         <div class="centerWrapper">
             <p>Главная</p>    
@@ -10,18 +10,15 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
         </div>
     </div>
     <div class="lostPassWrapper">
-        <?
+        <?  
             $APPLICATION->IncludeComponent("bitrix:main.profile", "eshop", Array(
                 "SET_TITLE" => "Y",    // Устанавливать заголовок страницы
                 ),
                 false
             );
         ?>
-    </div>
-<?} else {
-
-
-?>    
+    </div> 
+<?} else {?>    
     <div class="historyCoverWrap">
         <div class="centerWrapper">
             <p>Главная</p>    
