@@ -818,7 +818,7 @@
         }
         $freeBookUrl = array();
 
-        $url = "http://api5.alpinadigital.ru/api/v1/gift/emag/".$prepareurl;
+        $url = "https://api5.alpinadigital.ru/api/v1/gift/emag/".$prepareurl;
 
         $ch = curl_init();
 
@@ -1922,6 +1922,8 @@
                 $arFields['HREF']='<a href="http://pickpoint.ru/" target="_blank">на сайте PickPoint</a>.';
             } elseif ($order_list['DELIVERY_ID']==30) {
                 $arFields['HREF']='<a href="http://flippost.com/instruments/online/" target="_blank">Flipost</a>.';
+            } elseif ($order_list['DELIVERY_ID']==49) {
+                $arFields['HREF']='<a href="http://boxberry.ru/tracking/" target="_blank">на сайте Boxberry</a>.';
             }
         }
     }

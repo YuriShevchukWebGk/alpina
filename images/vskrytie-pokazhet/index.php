@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<meta name="robots" content="index, follow"/>
-    <meta charset="utf-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e,n){function r(){}function o(t,e,n){return function(){return i(t,[(new Date).getTime()].concat(u(arguments)),e?null:this,n),e?void 0:this}}var i=t("handle"),a=t(2),u=t(3),c=t("ee").get("tracer"),f=NREUM;"undefined"==typeof window.newrelic&&(newrelic=f);var s=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit"],p="api-",l=p+"ixn-";a(s,function(t,e){f[e]=o(p+e,!0,"api")}),f.addPageAction=o(p+"addPageAction",!0),e.exports=newrelic,f.interaction=function(){return(new r).get()};var d=r.prototype={createTracer:function(t,e){var n={},r=this,o="function"==typeof e;return i(l+"tracer",[Date.now(),t,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[Date.now(),r,o],n),o)try{return e.apply(this,arguments)}finally{c.emit("fn-end",[Date.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){d[e]=o(l+e)}),newrelic.noticeError=function(t){"string"==typeof t&&(t=new Error(t)),i("err",[t,(new Date).getTime()])}},{}],2:[function(t,e,n){function r(t,e){var n=[],r="",i=0;for(r in t)o.call(t,r)&&(n[i]=e(r,t[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],3:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(o<0?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=r},{}],ee:[function(t,e,n){function r(){}function o(t){function e(t){return t&&t instanceof r?t:t?u(t,a,i):i()}function n(n,r,o){t&&t(n,r,o);for(var i=e(o),a=l(n),u=a.length,c=0;c<u;c++)a[c].apply(i,r);var s=f[m[n]];return s&&s.push([w,n,r,i]),i}function p(t,e){g[t]=l(t).concat(e)}function l(t){return g[t]||[]}function d(t){return s[t]=s[t]||o(n)}function v(t,e){c(t,function(t,n){e=e||"feature",m[n]=e,e in f||(f[e]=[])})}var g={},m={},w={on:p,emit:n,get:d,listeners:l,context:e,buffer:v};return w}function i(){return new r}var a="nr@context",u=t("gos"),c=t(2),f={},s={},p=e.exports=o();p.backlog=f},{}],gos:[function(t,e,n){function r(t,e,n){if(o.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[e]=r,r}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){o.buffer([t],r),o.emit(t,e,n)}var o=t("ee").get("handle");e.exports=r,r.ee=o},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!h++){var t=y.info=NREUM.info,e=s.getElementsByTagName("script")[0];if(t&&t.licenseKey&&t.applicationID&&e){c(m,function(e,n){t[e]||(t[e]=n)});var n="https"===g.split(":")[0]||t.sslForHttp;y.proto=n?"https://":"http://",u("mark",["onload",a()],null,"api");var r=s.createElement("script");r.src=y.proto+t.agent,e.parentNode.insertBefore(r,e)}}}function o(){"complete"===s.readyState&&i()}function i(){u("mark",["domContent",a()],null,"api")}function a(){return(new Date).getTime()}var u=t("handle"),c=t(2),f=window,s=f.document,p="addEventListener",l="attachEvent",d=f.XMLHttpRequest,v=d&&d.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:d,REQ:f.Request,EV:f.Event,PR:f.Promise,MO:f.MutationObserver},t(1);var g=""+location,m={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-974.min.js"},w=d&&v&&v[p]&&!/CriOS/.test(navigator.userAgent),y=e.exports={offset:a(),origin:g,features:{},xhrWrappable:w};s[p]?(s[p]("DOMContentLoaded",i,!1),f[p]("load",r,!1)):(s[l]("onreadystatechange",o),f[l]("onload",r)),u("mark",["firstbyte",a()],null,"api");var h=0},{}]},{},["loader"]);</script>
+	<meta name="robots" content="noindex, nofollow"/>
+    <meta charset="utf-8"/>
     <title>Фотографии из книги «Вскрытие покажет: Записки увлеченного судмедэксперта»</title>
     <meta name="keywords" content=""/>
     <meta name="description" content="Фотографии из книги «Вскрытие покажет: Записки увлеченного судмедэксперта»"/>
@@ -28,31 +28,18 @@
 	
 	<meta property="og:title" content="Фотографии из книги «Вскрытие покажет: Записки увлеченного судмедэксперта»" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="/actions/blackfriday2016/" />
-	<meta property="og:image" content="/images/blackfriday2016.png" />
 	<meta property="og:site_name" content="www.alpinabook.ru" />
 	<meta property="fb:admins" content="1425804193" />
 	<meta property="fb:app_id" content="138738742872757" />
 
 </head>
 <body>
-<script>
-$(document).ready(function() {
-	if ($.cookie('im18') == 'yes') {
-		$("#screen").hide();
-	}
-});
-function yes() {
-	$("#screen").fadeOut(2000);
-	$.cookie('im18', 'yes');
-}
-</script>
 <div style="width:100%;height:100%;min-height:1200px;background:#333;position:fixed;color:#fefefe;z-index:100;" id="screen">
 	<div style="margin:0 auto; width:100%; max-width:600px; background:#222;color:#fefefe;padding:50px;font-size:24px;margin-top:60px;">
-		Данный материал не&nbsp;рекомендуется к&nbsp;просмотру беременным и&nbsp;впечатлительным людям.<br /><br />
-		Я&nbsp;подтверждаю, что мне исполнилось 18&nbsp;лет.
+		Данный материал не&nbsp;рекомендуется к&nbsp;просмотру беременным и&nbsp;впечатлительным людям!<br /><br />
+		Я&nbsp;подтверждаю, что мне исполнилось 18&nbsp;лет, и&nbsp;я&nbsp;обладаю устойчивой психикой.
 		<br /><br />
-		<a href="#" style="font-size:52px;text-align:left;display:block;float:left;left:0;color:#a24848;" onclick="yes();return false;">Да</a> <a href="/?from=vsrkytie-pokazhet" style="font-size:52px;text-align:right;color:#a24848; display:block; right:0;">Нет</a> 
+		<a href="#" style="font-size:52px;text-align:left;display:block;float:left;left:0;color:#eee;" onclick="yes();return false;">Да</a> <a href="/?from=vsrkytie-pokazhet" onclick="dataLayer.push({event: 'otherEvents', action: 'photos18+', label: 'No'});" style="font-size:52px;text-align:right;color:#a24848; display:block; right:0;">Нет</a> 
 	</div>
 </div>
 <style>
@@ -72,6 +59,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
+
+<script>
+$(document).ready(function() {
+	if ($.cookie('im18') == 'yes') {
+		$("#screen").hide();
+		dataLayer.push({event: 'otherEvents', action: 'photos18+', label: 'Yes by Cookie'});
+	}
+});
+function yes() {
+	$("#screen").fadeOut(1500);
+	$.cookie('im18', 'yes');
+	dataLayer.push({event: 'otherEvents', action: 'photos18+', label: 'Yes'});
+}
+$(function() {
+	$('body').append('<div style="width:64px;background:#85959a; height:64px; border-radius:80px;text-align:center; position:fixed; bottom:10px; right:10px; cursor:pointer; display:none; color:#fff; font-family:\'Walshein_black\'; font-size:40px;" id="toTop" class="no-mobile">↑</div>');
+	$(window).scroll(function() {
+		if($(this).scrollTop() != 0) {
+			$('#toTop').fadeIn();
+		} else {
+			$('#toTop').fadeOut();
+		}
+	});
+	$('#toTop').click(function() {
+		$('body,html').animate({scrollTop:0},800);
+		dataLayer.push({event: 'otherEvents', action: 'photos18+', label: 'toTop'});
+	});
+});
+</script>
+
 <header style="border-bottom:1px solid #eee;">
     <a href="/">
         <div class="logo catalogLogo">
@@ -93,7 +109,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </header>
 <div class="landing"><br /><br />
 <h1>Фотографии из книги<br />«Вскрытие покажет: Записки увлеченного судмедэксперта»</h1>
-<a href="/catalog/PopularScience/124350/"><img src="/upload/resize_cache/iblock/a65/264_394_1/a65f76425f225e63e57eebc2ffdb3ee0.jpg" style="width:100%; max-width:264px;" align="center" /></a>
+<a href="/catalog/PopularScience/124350/?from=photos18+"><img src="/upload/resize_cache/iblock/a65/264_394_1/a65f76425f225e63e57eebc2ffdb3ee0.jpg" style="width:100%; max-width:264px;" align="center" /></a>
 <a name="0" />
 <br /><br />
 Секционный зал
@@ -367,6 +383,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <br />
 <img src="files/70.jpg" style="width:100%; max-width:800px;" align="center" /><br /><br />
 </div>
+<div style="width: 64px; background: rgb(133, 149, 154); height: 64px; border-radius: 80px; text-align: center; position: fixed; bottom: 10px; right: 10px; cursor: pointer; color: rgb(255, 255, 255); font-family: Walshein_black; font-size: 40px;" id="toTop" class="no-mobile">↑</div>
 </body>
  </html>
  

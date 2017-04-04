@@ -20,5 +20,4 @@ foreach($arResult as $arItem):
 <?endif*/?>
 <li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?endforeach;?>
-<li><a class="topMenuLink" href="/actions/daysofbigchanges/" style="color:red!important;font-weight:700;">Скидки до 40%</a></li>
-<?/*<li><a class="topMenuLink" href="/actions/freedigitalbooks/" target="_blank">Бесплатные электронные книги</a></li>*/?>
+<li><a class="topMenuLink" href="/actions/freedigitalbooks/" target="_blank">Бесплатные электронные книги</a></li>

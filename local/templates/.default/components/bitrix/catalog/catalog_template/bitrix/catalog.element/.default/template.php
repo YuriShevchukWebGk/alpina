@@ -44,7 +44,7 @@ if ($arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE'] > 0 && !checkMobile()
 	$APPLICATION->set_cookie("alpExps", serialize($alpExps));
 }
 ?>
-<?$frame = $this->createFrame()->begin();?>
+
 <script>
 $(document).ready(function(){
 	<!-- //dataLayer GTM -->
@@ -1590,7 +1590,6 @@ $printid = implode(", ", $recsArray);?>
         </div>
     </div>
 <?}?>
-<?$frame->end();?>
 <div class="reviewsSliderWrapp">
     <div class="centerWrapper">
         <div class="giftWrap">

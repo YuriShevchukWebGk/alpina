@@ -27,6 +27,7 @@
         $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), $arrFilter, false, array("nTopCount" => 50))->Fetch();
     }
     $productItem = $dbItemsInOrder;  */
+    
     $CouponSelect = array("ID", "IBLOCK_ID", "NAME", "PROPERTY_ORDER", "PROPERTY_COUPON");
     $blockCoupon = CIBlockElement::GetList(array("ID" => "ASC"),  array("IBLOCK_ID" => $arParams["COUPON_LIST"]["IBLOCK_ID"], "PROPERTY_ORDER" => $_REQUEST["orderBuy"]), false, false, $CouponSelect);
     while ($IblockCoupon = $blockCoupon->Fetch()) {
@@ -46,7 +47,6 @@
             unset($arFilter[$key]);
         }
     }
-    arshow($arCouponOrder);
 
 
     //Get all coupons

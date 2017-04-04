@@ -18,14 +18,14 @@ $this->setFrameMode(true);
     <div class="authorBooksWrapp">
         <p>Другие книги автора</p>    
         <div class="authorBoolSlider">
-            <div>
-                <ul>
+            <div class="sliderContainer">
+                <ul class="sliderUl">
                     <?foreach ($arResult["ITEMS"] as $arItem)
                     {
                         $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                         foreach ($arItem["PRICES"] as $arPrice)
                         {?>
-                    <li>
+                    <li class="sliderElement">
                         <div class="">
                             <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
                             <div class="section_item_img">
