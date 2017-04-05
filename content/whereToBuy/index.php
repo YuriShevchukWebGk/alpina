@@ -1262,8 +1262,9 @@ http://www.tdbars.ru/books/about/<br />
 <br />
 04073, г. Киев, проспект Московский, 6, оф.&nbsp;34<br />
 (8 10 38) 044 502-62-70 (многоканальный)<br />
-marina@elga.kiev.ua<br />
-&bull; Интернет-магазин www.kniga-v-podarok.com.ua<br />
+099-190-05-12, 068-575-80-55<br />
+marina@elga.kiev.ua, vadim@elga.kiev.ua<br />
+
 <span style="font-size:22px;"><strong>Латвия, Рига:</strong></span><br />
 <strong>Сеть магазинов &laquo;</strong><strong>Polaris</strong><strong>&raquo; </strong><br />
 <br />

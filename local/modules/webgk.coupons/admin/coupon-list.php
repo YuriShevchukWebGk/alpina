@@ -27,9 +27,8 @@
         $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), $arrFilter, false, array("nTopCount" => 50))->Fetch();
     }
     $productItem = $dbItemsInOrder;  */
-    
     $CouponSelect = array("ID", "IBLOCK_ID", "NAME", "PROPERTY_ORDER", "PROPERTY_COUPON");
-    $blockCoupon = CIBlockElement::GetList(array("ID" => "ASC"),  array("IBLOCK_ID" => $arParams["COUPON_LIST"]["IBLOCK_ID"], "PROPERTY_ORDER" => $_REQUEST["orderBuy"]), false, false, $CouponSelect);
+    $blockCoupon = CIBlockElement::GetList(array("ID" => "ASC"),  array("IBLOCK_ID" => GIFT_COUNPON_IBLOCK_ID, "PROPERTY_ORDER" => $_REQUEST["orderBuy"]), false, false, $CouponSelect);
     while ($IblockCoupon = $blockCoupon->Fetch()) {
         if($IblockCoupon["PROPERTY_COUPON_VALUE"]){
             $blockCoupons[] = $IblockCoupon["PROPERTY_COUPON_VALUE"];
@@ -47,14 +46,18 @@
             unset($arFilter[$key]);
         }
     }
-
+	
+	
+	if ($_REQUEST["orderBuy"] && count($blockCoupons)) {
+		$arFilter['ID'] = $blockCoupons;
+	}
 
     //Get all coupons
     $rsData = Internals\DiscountCouponTable::getList(array('filter' => $arFilter));
 
     //Get iblock info about coupon
     $arCouponSelect = array("ID", "IBLOCK_ID", "NAME", "PROPERTY_ORDER", "PROPERTY_COUPON");
-    $obIblockCoupon = CIBlockElement::GetList(array("ID" => "ASC"),  array("IBLOCK_ID" => $arParams["COUPON_LIST"]["IBLOCK_ID"]), false, false, $arCouponSelect);
+    $obIblockCoupon = CIBlockElement::GetList(array("ID" => "ASC"),  array("IBLOCK_ID" => GIFT_COUNPON_IBLOCK_ID), false, false, $arCouponSelect);
     while ($arIblockCoupon = $obIblockCoupon->Fetch()) {
         $arIblockCoupons[$arIblockCoupon["PROPERTY_COUPON_VALUE"]] = $arIblockCoupon;
     }

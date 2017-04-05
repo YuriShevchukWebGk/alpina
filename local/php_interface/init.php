@@ -65,7 +65,8 @@
 	define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
     define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
-    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry      
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
 
     /**
     * 
@@ -458,7 +459,7 @@
         {
             GLOBAL $APPLICATION;
             //Get gift certificate
-            $db_res = CIBlockElement::GetList(Array("ID" => "ASC"),  Array("SECTION_ID" => "143"), false);
+            $db_res = CIBlockElement::GetList(Array("ID" => "ASC"),  Array("SECTION_ID" => 143), false);
             while ($ar_res = $db_res->Fetch()) {
                 $arDiscounts[$ar_res["ID"]]=$ar_res;
             }
@@ -466,7 +467,7 @@
             $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("FUSER_ID" => CSaleBasket::GetBasketUserID(),"DELAY"=>'N', 'CAN_BUY'=>'Y', "ORDER_ID" => NULL));
 
             while ($arItemsInOrder = $dbItemsInOrder->Fetch()) {
-                $arItems[$arItemsInOrder["PRODUCT_ID"]]=$arItemsInOrder;
+                $arItems[$arItemsInOrder["PRODUCT_ID"]] = $arItemsInOrder;
                 for ($x=0; $x<$arItemsInOrder["QUANTITY"]; $x++) {
                     if (in_array($arItemsInOrder["PRODUCT_ID"], array_keys($arDiscounts))) {
 
@@ -2350,8 +2351,8 @@
         return 'BoxberryListStatuses();';        
     }      
     
-    //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет
-    Main\EventManager::getInstance()->addEventHandler('sale', 'OnSaleOrderBeforeSaved', 'OnBeforeOrderUpdateLogger');     
+    //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет                                      
+    Main\EventManager::getInstance()->addEventHandler('sale', 'OnSaleOrderBeforeSaved', 'OnBeforeOrderUpdateLogger');               
     function OnBeforeOrderUpdateLogger(Main\Event $event) { 
         $order = $event->getParameter("ENTITY"); 
         $status_id = $order->GetField("STATUS_ID");

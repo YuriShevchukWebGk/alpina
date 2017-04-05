@@ -125,7 +125,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             $recsArray = json_decode($stringRecs);  
             global $BestsellFilter;
             if ($recsArray[0] > 0) {
-                $printid2 = array_slice($recsArray, 1, 6);
+                $printid2 = array_slice($recsArray, 0, 4);
                 foreach ($printid2 as $rec_book) {
                     $BestsellFilter['ID'][] = $rec_book;
                 }
@@ -517,7 +517,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             $sort = "PRICE";
             break;
             
-            case "PROPERTY_POPULARITY":
+            case "PROPERTY_shows_a_day":
             $sort = "POPULARITY";
             break;
             

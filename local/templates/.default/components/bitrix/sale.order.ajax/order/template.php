@@ -174,9 +174,9 @@
                 else
                     minDatePlus = 1;
             } else if (ourday == 3) { //среда
-				if (hourfordeliv < 9)
-                    minDatePlus = '<?=date("d.m.Y");?>';
-                else
+				//if (hourfordeliv < 9)
+                //    minDatePlus = '<?=date("d.m.Y");?>';
+                //else
                     minDatePlus = 1;
             } else if (ourday == 4) { //четверг
                 if (hourfordeliv < 9)

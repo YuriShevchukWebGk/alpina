@@ -181,21 +181,7 @@ if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $
 	}		
 </style>
 
-<?if ($USER->isAdmin()) {
-	$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "ID"=>$arResult["ID"]);
-	$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID","NAME", "SHOW_COUNTER", "SHOW_COUNTER_START"));
-	$props = $props->GetNext();
-	{?>
-		<script>
-			function shown() {
-				$('.typesOfProduct').before('<div style="margin-left:25px;width:205px;height:49px;"><div style="width: 205px; height: 49px; background: <?=$bgcolors[0]?>; position: absolute; opacity: 0.3;"></div><span style="color:<?=$mincolor['color']?>;font-family: \'Walshein_regular\';font-size:15px;padding: 3px 0 3px 5px; display: block;"><?echo "За последний день книгу просмотрели ".round(($props[SHOW_COUNTER]/(((time() - strtotime($props[SHOW_COUNTER_START]))/3600/24)))*2)." человека"?></span></div>');
-			};
-			setTimeout(shown, 1000);
-		</script>
-	<?}?>
-<?}?>
-
-<?$this->setFrameMode(true);
+<?
 $templateLibrary = array('popup');
 $currencyList = '';
 if (!empty($arResult['CURRENCIES'])) {
@@ -293,7 +279,7 @@ $arItemIDs = array(
                                 <?}?>
                         </div>
                     </div>
-                    <div class="marks">
+                    <div class="marks"<?if ($arResult["PROPERTIES"]["page_views_ga"]["VALUE"] > 2) {?> style="min-height:30px;"<?}?>>
                         <?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == NEW_BOOK_STATE_XML_ID) {?>
                             <div class="newBookMark">
                                 <p><?= GetMessage("NEW_BOOK") ?></p>
@@ -318,25 +304,23 @@ $arItemIDs = array(
                                 </span>
                             </div>
                         <?}?>
-
+						<?if ($arResult["PROPERTIES"]["page_views_ga"]["VALUE"] > 2) {?>
+							<div class="editorsBookMark no-mobile" style="background-color:transparent;color:#424D4F;text-align:center;position:absolute;margin:8px 0 0;padding-left:0;">
+								<img src="/img/eye_big.png" width="20" align="center" alt="Просмотров за сутки" /><span style="display:block;margin-top:-3px;padding-left:5px;float:right; color: #424D4F;font-family: 'Walshein_regular';font-size: 15px;"><?=$arResult["PROPERTIES"]["page_views_ga"]["VALUE"]?></span>
+								<span class="ttip">Просмотров за сутки</span>
+							</div>
+						<?}?>
                         <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
-
                             <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+								<br />
                                 <div class="digitalBookMark">
                                     <p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
                                     <span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");?></span>
                                 </div>
-                            <?}/* elseif (!empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) {
-                                $recBook = CIBlockElement::GetByID($arResult["PROPERTIES"]["rec_for_ad"]['VALUE']);
-                                if($recBookName = $recBook->GetNext()) {?>
-                                    <div class="digitalBookMark">
-                                        <p><span class="test">Бесплатная электронная версия книги «<?=substr($recBookName['NAME'],0,30)?><?echo strlen($recBookName['NAME']) > 30 ? '...' : '';?>» в комплекте</span></p>
-                                        <span class="ttip"><?echo GetMessage("YOU_WILL_GET_A_DIGITAL_BOOK") . $recBookName['NAME'] . GetMessage("BOOK_FOR_GIFT");?></span>
-                                    </div>
-                                <?}
-                            }*/?>
+                            <?}?>
                         <?}?>
                     </div>
+
 
                     <?if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {?>
                         <a href="<?= $arResult["SIGN_PICTURE"] ?>" class="fancybox fancybox.iframe signingPopup">
@@ -735,7 +719,6 @@ $arItemIDs = array(
                     </div>
                     
                     <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
-                    <ul class="shippings">
                         <?
                             $today = date("w");
                             $timenow = date("G");
@@ -806,12 +789,12 @@ $arItemIDs = array(
                                     $samovivoz_day = GetMessage("TOMORROW");
                                 }
                             }?>
+                    <ul class="shippings">
                         <li><?= GetMessage("MSK_DELIVERY") ?><br /><a id='inline1' href='#data1'><?=$delivery_day?></a></li>
+						<li>1239 <a id='inline3' href='#data3'><?= GetMessage("POSTOMATS") ?></a></li>
                         <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a id='inline2' href='#data2'><?=$samovivoz_day?></a></li>
                         <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a id='inline3' href='#data3'><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
                         <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
-                        <?/*<li class="lastli"><a href="http://www.alpinab2b.ru/spetsialnyy-tirazh/" target="_blank" class="noborderlink" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});">Хотите тираж со своим логотипом?</a></li>*/?>
-
                     </ul>
                     <?}?>
 
