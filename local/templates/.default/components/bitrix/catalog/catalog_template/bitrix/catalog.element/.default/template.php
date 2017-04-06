@@ -648,7 +648,197 @@ $arItemIDs = array(
                                             ); ?>">
                                         <a href="javascript:void(0)" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>
                                     </span>
-                                    <?if ($arResult["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
+                                    <?if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) {?>
+                                        <style>
+                                        .certificate_popup {
+                                            background-color: #ffffff;
+                                            height: 606px;
+                                            position: fixed;
+                                            width: 654px;
+                                            z-index: 1100;  
+                                            display: block;  
+                                            top: 50%;
+                                            left: 50%;
+                                            margin: -303px 0 0 -327px;
+											font-family: "Walshein_regular";
+											font-size: 24px;
+											box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.18), 0 0 5px 0 rgba(0, 0, 0, 0.14);
+                                        }
+                                        
+                                        .certificate_buy_type {
+                                        }
+                                        
+                                        .certificate_buy_type ul {
+                                     		display: flex;
+                                        }
+                                        
+                                        .certificate_buy_type li {
+                                        	cursor: pointer;
+                                        	display: flex;
+                                        	height: 60px;
+                                        	flex: 1 1;
+                                        	align-items: center;
+                                        	justify-content: center;
+                                        	border-bottom: 1px solid #ecedef;
+                                        }
+                                        
+                                        .certificate_buy_type li:first-child {
+                                        	border-right: 1px solid #ecedef;
+                                        }
+                                        
+                                        .natural_person input[type="text"] {
+                                        	background-color: #fbfbfb;
+										    border: 2px solid #f0f0f0;
+										    color: #8d8d8d;
+										    font-family: "Walshein_regular";
+										    font-size: 20px;
+										    height: 58px;
+										    margin: 0 45px 20px;
+										    padding: 0 20px;
+										    width: 518px;
+                                        }
+                                        
+                                        .legal_person input[type="text"] {
+                                            background-color: #fbfbfb;
+										    border: 2px solid #f0f0f0;
+										    color: #8d8d8d;
+										    font-family: "Walshein_regular";
+										    font-size: 15px;
+										    height: 28px;
+										    margin: 0 45px 15px;
+										    padding: 0 20px;
+										    width: 518px;
+                                        }
+                                        
+                                        .popup_form_data > div {
+                                        	display: none;
+                                        	position: absolute;
+                                        }
+                                        
+                                        .popup_form_data { 
+                                        	display: flex;
+                                        	width: 100%;
+                                        	height: 100%;
+                                        	position: relative;
+                                        	padding-top: 20px;
+                                        }
+                                        
+                                        .certificate_popup form {
+                                        	height: 100%;
+                                        }
+                                        
+                                        .certificate_tab_active {
+                                        	background: #00b9c8;
+                                        	color: #f2f2f2;
+                                        }
+                                        
+                                        .certificate_popup_close {
+                                        	position: absolute;
+                                        	cursor: pointer;
+                                        	top: -17px;
+											right: -48px;
+                                        }
+                                        
+                                        .active_certificate_block {
+                                        	display: block !important;
+                                        }
+                                        </style>                         
+                                        <div class="certificate_popup">
+                                        	<form id="certificate_form">
+	                                        	<div class="certificate_buy_type">
+	                                        		<ul>
+	                                        			<li data-popup-block="natural_person" class="certificate_tab_active">Физ. лицо</li>
+	                                        			<li data-popup-block="legal_person">Юр. лицо</li>
+	                                        		</ul>
+	                                        	</div>
+	                                        	<div class="popup_form_data">
+	                                        		<div class="natural_person active_certificate_block">
+	                                        			<input type='text' placeholder="Имя" name="natural_name" id="natural_name">                
+			                                            <br>                                                                                                
+			                                            <input type='text' placeholder="Email" name="natural_email" id="natural_email">    
+			                                            <br>                                   
+			                                            <a href="#" onclick="create_certificate_order(); return false;">Купить</a>
+	                                        		</div>
+	                                        		<div class="legal_person">
+	                                        			<input type='text' placeholder="Наименование" name="legal_name" id="legal_name">                
+			                                            <br>
+			                                            <input type='text' placeholder="Email" name="legal_email" id="legal_email">    
+			                                            <br>                                                                                        
+			                                            <input type='text' placeholder="ИНН" name="inn" id="inn">    
+			                                            <br>
+			                                            <input type='text' placeholder="КПП" name="kpp" id="kpp">    
+			                                            <br>
+			                                            <input type='text' placeholder="БИК" name="bik" id="bik">    
+			                                            <br>
+			                                            <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">    
+			                                            <br>
+			                                            <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">    
+			                                            <br>
+			                                            <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">    
+			                                            <br>
+			                                            <input type='text' placeholder="Юридический адрес" name="legal_email" id="legal_email">    
+			                                            <br>                          
+			                                            <a href="#" onclick="create_certificate_order(); return false;">Купить</a>
+	                                        		</div>
+	                                        	</div>
+	                                        	<input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
+	                                        	<input type="hidden" name="certificate_quantity" value="1"/>
+	                                        	<input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
+                                            </form>
+                                            <div class="certificate_popup_close">
+                                            	<img src="/images/rfi_popup_close.png" alt="" />
+                                            </div>    
+                                        </div>
+                                        <script>
+                                        function buy_certificate_popup(){
+                                            $('.layout').show();
+                                            $('.certificate_popup').show();                                                
+                                        }                                               
+                                        function create_certificate_order(){
+                                        	var form_valid = true;
+                                        	
+                                        	$(".active_certificate_block input").each(function(){
+                                        		if (!$(this).val()) {
+                                        			form_valid = false;
+                                        			$(this).css("border-color", "red");
+                                        		} else {
+                                        			$(this).css("border-color", "#f0f0f0");
+                                        		}
+                                        	});
+                                        	
+                                        	if (form_valid) {
+                                        		$("input[name='certificate_quantity']").val($(".transparent_input").val());
+                                        		$.ajax({
+	                                                url: '/ajax/ajax_create_certificate_order.php',
+	                                                type: "POST",
+	                                                data: {
+	                                                    data: $("#certificate_form").serialize()
+	                                                }
+	                                            }).done(function(strResult) {
+	                                                console.log(strResult);
+	                                            });
+                                        	}
+                                        }
+                                        // переключение табов в попапе
+                                        $(".certificate_buy_type li").click(function() {
+											if(!$(this).hasClass("certificate_tab_active")) {
+												$(".certificate_buy_type li").removeClass("certificate_tab_active");
+												$(this).addClass("certificate_tab_active");
+												$(".popup_form_data > div").removeClass("active_certificate_block");
+												$("div[class='" + $(this).data("popup-block") + "']").addClass("active_certificate_block");
+											}
+										});
+										// закрытие попапа
+										$(".certificate_popup_close").click(function(){
+											$(".certificate_popup").hide();
+											$('.layout').hide();
+										})
+                                        </script>
+                                        <a href="#" onclick="buy_certificate_popup(); return false;">
+                                            <p class="inBasket"><?= GetMessage("CT_BCE_CATALOG_BUY") ?></p>
+                                        </a>
+                                        <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>    
+                                    <?} elseif ($arResult["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
                                         <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
                                             <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p>
                                         </a>
