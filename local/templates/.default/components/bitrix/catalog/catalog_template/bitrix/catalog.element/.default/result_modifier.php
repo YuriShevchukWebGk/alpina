@@ -924,4 +924,5 @@ if ($arResult['MODULES']['currency'])
 		$arResult["STRING_RECS"] = array_slice(json_decode($recsArray), 0, 6);
 	}
 	$APPLICATION->AddHeadString('<meta name="relap-image" content="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
+	$this->__component->arResultCacheKeys = array_merge($this->__component->arResultCacheKeys, array_keys($arResult));
 ?>
