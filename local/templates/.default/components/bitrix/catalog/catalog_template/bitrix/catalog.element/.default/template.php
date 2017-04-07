@@ -12,38 +12,6 @@
     /** @var CBitrixComponent $component */
 	$this->setFrameMode(true);
 ?>
-<?
-###
-#Тест вкладок электронной и бумажной версий
-###
-if ($arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE'] > 0 && !checkMobile()) {
-	$alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
-	$alpExps  = (!$alpExps ? array() : $alpExps);
-
-	if ($alpExps['updateExp'] != "130317") {
-		$alpExps = array();
-		$alpExps['updateExp'] = "130317";
-	}
-
-	$alpExps['selectVersion']    = (!$alpExps['selectVersion'] ? rand(1,2) : $alpExps['selectVersion']);
-	if ($alpExps['selectVersion'] == 1) {?>
-		<script>
-			$(document).ready(function() {
-				dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'selectVersion', 'label' : 'withDigitalButton'});
-				console.log('withDigitalButton');
-			});
-		</script>
-	<?} elseif ($alpExps['selectVersion'] == 2) {?>
-		<script>
-			$(document).ready(function() {
-				dataLayer.push({'event' : 'ab-test-gtm', 'action' : 'selectVersion', 'label' : 'withoutDigitalButton'});
-				console.log('withoutDigitalButton');
-			});
-		</script>
-	<?}
-	$APPLICATION->set_cookie("alpExps", serialize($alpExps));
-}
-?>
 
 <script>
 $(document).ready(function(){
@@ -305,7 +273,7 @@ $arItemIDs = array(
                             </div>
                         <?}?>
 						<?if ($arResult["PROPERTIES"]["page_views_ga"]["VALUE"] > 2) {?>
-							<div class="editorsBookMark no-mobile" style="background-color:transparent;color:#424D4F;text-align:center;position:absolute;margin:8px 0 0;padding-left:0;">
+							<div class="editorsBookMark no-mobile" style="background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0;padding-left:0;">
 								<img src="/img/eye_big.png" width="20" align="center" alt="Просмотров за сутки" /><span style="display:block;margin-top:-3px;padding-left:5px;float:right; color: #424D4F;font-family: 'Walshein_regular';font-size: 15px;"><?=$arResult["PROPERTIES"]["page_views_ga"]["VALUE"]?></span>
 								<span class="ttip">Просмотров за сутки</span>
 							</div>
@@ -481,7 +449,7 @@ $arItemIDs = array(
                     <?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
-					<?if ($alpExps['selectVersion'] == 1 && !checkMobile()) {?>
+					<?if (!checkMobile() && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
 						<div id="diffversions">
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
@@ -615,7 +583,7 @@ $arItemIDs = array(
                                             <p>
                                                 <span class="subscribeDesc"><?= GetMessage("SUBSCRIBING_DESCRIPTION") ?></span>
                                             </p>
-                                            <input data-book_id="<?= $arResult['ID'] ?>" type="text" value="<?= $arResult["MAIL"]; ?>" name="email" class="subscribeEmail"/>
+                                            <input data-book_id="<?= $arResult['ID'] ?>" type="text" value="<?= $arResult["MAIL"]; ?>" name="email" class="subscribeEmail" placeholder="Ваш e-mail" />
                                             <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="<?= GetMessage("TO_SUBSCRIBE") ?>"/>
 
                                         </div>
@@ -628,7 +596,7 @@ $arItemIDs = array(
                                         <p>
                                             <span class="subscribeDesc"><?= GetMessage("SUBSCRIBING_DESCRIPTION") ?></span>
                                         </p>
-                                        <input data-book_id="<?= $arResult['ID'] ?>" type="text" value="<?= $arResult["MAIL"]; ?>" name="email" class="subscribeEmail"/>
+                                        <input data-book_id="<?= $arResult['ID'] ?>" type="text" value="<?= $arResult["MAIL"]; ?>" name="email" class="subscribeEmail" placeholder="Ваш e-mail" />
                                         <input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="<?= GetMessage("TO_SUBSCRIBE") ?>"/>
                                     </div>
                                 </form>
@@ -671,7 +639,7 @@ $arItemIDs = array(
                     }?>                            
                     </div>
 
-					<?if ($alpExps['selectVersion'] == 1 && !checkMobile()) {?>
+					<?if (!checkMobile() && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
 					<!--noindex-->
 					<div class="priceBasketWrap digitalVersionWrap" style="display:none;">
 						<div class="wrap_prise_top">
@@ -686,10 +654,7 @@ $arItemIDs = array(
 						</div>
 					</div>
 					<!--/noindex-->
-					<?}
-					###
-					#Конец a/b-теста
-					###?>
+					<?}?>
                         					
                     <div class="quickOrderDiv" style="display:none;">
                         <form method="post" id="quickOrderForm">

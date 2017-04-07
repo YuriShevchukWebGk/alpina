@@ -282,14 +282,6 @@
                                     false
                                 );?>
                         </div>
-                        <p class="nextPageWrap">
-                        	<? if ($arResult['allSum']) { ?>
-                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
-                        	<? } else { ?>
-                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
-                        	<? } ?>
-                        </p> 
-
                     </div>
                 </div>                       
 

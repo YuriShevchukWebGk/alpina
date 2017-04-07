@@ -16,7 +16,28 @@
 
     if ($normalCount > 0):
     ?>
-
+<script>
+	function getBookInfo(id, rec) {
+		$.ajax({
+			type: "POST",
+			url: "/ajax/book_info_inbasket.php",
+			data: {id: id, rec:rec}
+		}).done(function(strResult) {
+			$("#bookInfo").append(strResult);
+			$("body").css('overflow','hidden');
+			NProgress.done();
+		});
+	}
+	function closeInfo() {
+		$('#bookInfo').empty();
+		$("body").css('overflow','auto');
+	}
+	$(document).ready(function() {
+		$('.stopProp').click(function(e) {
+			e.stopPropagation();
+		});
+	});
+</script>
     <div id="basket_items_list">
 
         <div class="yourBooks" id="cardBlock1">
@@ -143,17 +164,15 @@
                                                     $url = $templateFolder."/images/no_photo.png";
                                                     endif;
                                             ?>
-
-                                            <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?><a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});"><?endif;?>
-                                                <img src="<?=$url?>">
-                                            <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?></a><?endif;?>
-
+											<?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?><a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});<?if (!checkMobile()) echo 'getBookInfo('.$arItem["PRODUCT_ID"].',0);return false';?>"><?endif;?>
+												<img src="<?=$url?>">
+											<?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?></a><?endif;?>
                                         </td>
                                         <td class="item bookNameWrap">
                                             <p class="nameOfBook">
-                                                <a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});" >
-                                                    <?=$arItem["NAME"]?>
-                                                </a>
+												<a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});<?if (!checkMobile()) echo 'getBookInfo('.$arItem["PRODUCT_ID"].',0);return false';?>" >
+													<?=$arItem["NAME"]?>
+												</a>
                                             </p>
                                             <?
                                             $curr_author = CIBlockElement::GetByID($arItem["PROPERTY_AUTHORS_VALUE"]) -> Fetch();
@@ -379,7 +398,13 @@
                     }
                 ?>
             </div>
-
+                        <p class="nextPageWrap">
+                        	<? if ($arResult['allSum']) { ?>
+                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                        	<? } else { ?>
+                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
+                        	<? } ?>
+                        </p> 
         </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />
@@ -451,8 +476,8 @@
                 <?=$arResult["PREPAY_BUTTON"]?>
                 <span><?=GetMessage("SALE_OR")?></span>
                 <?endif;?>
-        </div>
 
+        </div>
     </div>
     <?
         else:
@@ -471,3 +496,4 @@
     <?
         endif;
 ?>
+<div id="bookInfo"></div>
