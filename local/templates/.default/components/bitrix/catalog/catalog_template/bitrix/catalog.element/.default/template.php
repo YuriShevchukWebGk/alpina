@@ -776,7 +776,7 @@ $arItemIDs = array(
 			                                            <br>
 			                                            <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">    
 			                                            <br>
-			                                            <input type='text' placeholder="Юридический адрес" name="legal_email" id="legal_email">    
+			                                            <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">    
 			                                            <br>                          
 			                                            <a href="#" onclick="create_certificate_order(); return false;">Купить</a>
 	                                        		</div>
@@ -796,7 +796,7 @@ $arItemIDs = array(
                                         }                                               
                                         function create_certificate_order(){
                                         	var form_valid = true;
-                                        	
+                                        	// просматриваем все поля на предмет заполненности
                                         	$(".active_certificate_block input").each(function(){
                                         		if (!$(this).val()) {
                                         			form_valid = false;
@@ -805,14 +805,15 @@ $arItemIDs = array(
                                         			$(this).css("border-color", "#f0f0f0");
                                         		}
                                         	});
-                                        	
+                                        	// если все ок, то сабмитим
                                         	if (form_valid) {
                                         		$("input[name='certificate_quantity']").val($(".transparent_input").val());
                                         		$.ajax({
 	                                                url: '/ajax/ajax_create_certificate_order.php',
 	                                                type: "POST",
 	                                                data: {
-	                                                    data: $("#certificate_form").serialize()
+	                                                    data: $("#certificate_form").serialize(),
+	                                                    person_type: $(".certificate_tab_active").data("popup-block")
 	                                                }
 	                                            }).done(function(strResult) {
 	                                                console.log(strResult);

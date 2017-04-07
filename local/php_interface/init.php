@@ -67,6 +67,15 @@
     define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
     define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry      
     define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
+    
+    define("CERTIFICATE_IBLOCK_ID", 67); //Инфоблок с заказами сертификатов
+    define("NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT", "LEGAL_NEW_CERTIFICATE"); // тип почтового события при покупке нового серификата юр лицом
+    
+    define("CERTIFICATE_NATURAL_PERSON_PROPERTY_ID", 906);
+	define("CERTIFICATE_LEGAL_PERSON_PROPERTY_ID", 907);
+	
+	define("CERTIFICATE_ORDERS_COUPONS_ID_FIELD", 766);
+	define("CERTIFICATE_ORDERS_COUPONS_CODE_FIELD", 767);
 
     /**
     * 
@@ -2364,5 +2373,93 @@
         $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';    
         $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';
         logger($order_log, $file);  
-    }                                 
+    }
+	
+	/**
+	 * 
+	 * Создаем купоны для заказа сертификатов
+	 * 
+	 * @param int $order_id - номер заказа, хотя это просто номер элемента инфоблока
+	 * @param int $quantity
+	 * @param int $basket_rule_id
+	 * 
+	 * */
+	
+	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) {
+		for ($i = 1; $i <= $quantity; $i++) {    
+             
+	        //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
+	        $arFields['COUPON'] = CatalogGenerateCoupon();        
+	        $arFields['DISCOUNT_ID'] = $basket_rule_id;     
+	        $arFields['ACTIVE'] = "N";        
+	        $arFields['TYPE'] = 2;
+	        $arFields['MAX_USE'] = 1;        
+	        
+	        //Фукнкция из ядра, создаем новый купон в правилах корзины        
+	        $obCoupon = \Bitrix\Sale\Internals\DiscountCouponTable::add($arFields);
+	        
+	        //Получаем ID сгенерированного купона                                                   
+	        $discountIterator = \Bitrix\Sale\Internals\DiscountCouponTable::getList(array(
+	            'select' => array('ID'),
+	            'filter' => array('COUPON' => $arFields['COUPON'])
+	        ));    
+	        
+	        //Собираем массив с ID купонов         
+	        if($arDiscountIterator = $discountIterator -> fetch()) {
+	            $arCertificateID[] = $arDiscountIterator['ID'];
+	        } 
+	        //Собираем массив с кодами купонов 
+	        $arCouponCode[] = $arFields['COUPON'];                                                  
+	    }
+
+	    $props = array(
+	        'COUPON_ID'   => $arCertificateID,
+	        'COUPON_CODE' => $arCouponCode,
+	    );
+		
+	    // Установим новое значение для данного свойства данного элемента
+	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
+	}
+	
+	AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "certificatePayed");
+	
+	/**
+	 * 
+	 * Проверяем, оплачен ли заказ сертификата
+	 * За свойство оплачен выдается свойство активность
+	 * 
+	 * */
+	
+	function certificatePayed(&$arParams) {
+		if ($arParams['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
+			$new_value = $arParams['ACTIVE'];
+			$current_object = CIBlockElement::GetList(
+				Array(),
+				Array("ID" => $arParams['ID']),
+				false,
+				Array("nPageSize" => 1),
+				Array("ID", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY")
+			);
+			if ($current_values = $current_object->Fetch()) {
+				$current_value = $current_values['ACTIVE'];
+				$order_id = $current_values['ID'];
+				$quantity = $current_values['PROPERTY_CERT_QUANTITY_VALUE'];
+				$basket_rule_id = $current_values['XML_ID'];
+			}
+			
+			if ($current_value == "N" && $current_value != $new_value) {
+				unset($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_ID_FIELD]);
+				unset($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
+				generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
+			}
+		}
+	}
+	
+	// класс для отправки сообщений о новых заказах сертификатов
+	class CertificateMail {
+		public static function newLegalPersonOrder($order_id) {
+			$view_link = sprintf("/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=service&ID=%d", CERTIFICATE_IBLOCK_ID, $order_id);
+			CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("VIEW_LINK" => $view_link),"N");
+		}
+	}                    
 ?>
