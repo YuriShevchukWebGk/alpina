@@ -648,107 +648,13 @@ $arItemIDs = array(
                                             ); ?>">
                                         <a href="javascript:void(0)" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>
                                     </span>
-                                    <?if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) {?>
-                                        <style>
-                                        .certificate_popup {
-                                            background-color: #ffffff;
-                                            height: 606px;
-                                            position: fixed;
-                                            width: 654px;
-                                            z-index: 1100;  
-                                            display: block;  
-                                            top: 50%;
-                                            left: 50%;
-                                            margin: -303px 0 0 -327px;
-											font-family: "Walshein_regular";
-											font-size: 24px;
-											box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.18), 0 0 5px 0 rgba(0, 0, 0, 0.14);
-                                        }
-                                        
-                                        .certificate_buy_type {
-                                        }
-                                        
-                                        .certificate_buy_type ul {
-                                     		display: flex;
-                                        }
-                                        
-                                        .certificate_buy_type li {
-                                        	cursor: pointer;
-                                        	display: flex;
-                                        	height: 60px;
-                                        	flex: 1 1;
-                                        	align-items: center;
-                                        	justify-content: center;
-                                        	border-bottom: 1px solid #ecedef;
-                                        }
-                                        
-                                        .certificate_buy_type li:first-child {
-                                        	border-right: 1px solid #ecedef;
-                                        }
-                                        
-                                        .natural_person input[type="text"] {
-                                        	background-color: #fbfbfb;
-										    border: 2px solid #f0f0f0;
-										    color: #8d8d8d;
-										    font-family: "Walshein_regular";
-										    font-size: 20px;
-										    height: 58px;
-										    margin: 0 45px 20px;
-										    padding: 0 20px;
-										    width: 518px;
-                                        }
-                                        
-                                        .legal_person input[type="text"] {
-                                            background-color: #fbfbfb;
-										    border: 2px solid #f0f0f0;
-										    color: #8d8d8d;
-										    font-family: "Walshein_regular";
-										    font-size: 15px;
-										    height: 28px;
-										    margin: 0 45px 15px;
-										    padding: 0 20px;
-										    width: 518px;
-                                        }
-                                        
-                                        .popup_form_data > div {
-                                        	display: none;
-                                        	position: absolute;
-                                        }
-                                        
-                                        .popup_form_data { 
-                                        	display: flex;
-                                        	width: 100%;
-                                        	height: 100%;
-                                        	position: relative;
-                                        	padding-top: 20px;
-                                        }
-                                        
-                                        .certificate_popup form {
-                                        	height: 100%;
-                                        }
-                                        
-                                        .certificate_tab_active {
-                                        	background: #00b9c8;
-                                        	color: #f2f2f2;
-                                        }
-                                        
-                                        .certificate_popup_close {
-                                        	position: absolute;
-                                        	cursor: pointer;
-                                        	top: -17px;
-											right: -48px;
-                                        }
-                                        
-                                        .active_certificate_block {
-                                        	display: block !important;
-                                        }
-                                        </style>                         
+                                    <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>                     
                                         <div class="certificate_popup">
                                         	<form id="certificate_form">
 	                                        	<div class="certificate_buy_type">
 	                                        		<ul>
-	                                        			<li data-popup-block="natural_person" class="certificate_tab_active">Физ. лицо</li>
-	                                        			<li data-popup-block="legal_person">Юр. лицо</li>
+	                                        			<li data-popup-block="natural_person" class="certificate_tab_active"><?= GetMessage("NATURAL_PERSON") ?></li>
+	                                        			<li data-popup-block="legal_person"><?= GetMessage("LEGAL_PERSON") ?></li>
 	                                        		</ul>
 	                                        	</div>
 	                                        	<div class="popup_form_data">
@@ -757,7 +663,7 @@ $arItemIDs = array(
 			                                            <br>                                                                                                
 			                                            <input type='text' placeholder="Email" name="natural_email" id="natural_email">    
 			                                            <br>                                   
-			                                            <a href="#" onclick="create_certificate_order(); return false;">Купить</a>
+			                                            <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
 	                                        		</div>
 	                                        		<div class="legal_person">
 	                                        			<input type='text' placeholder="Наименование" name="legal_name" id="legal_name">                
@@ -778,7 +684,7 @@ $arItemIDs = array(
 			                                            <br>
 			                                            <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">    
 			                                            <br>                          
-			                                            <a href="#" onclick="create_certificate_order(); return false;">Купить</a>
+			                                            <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
 	                                        		</div>
 	                                        	</div>
 	                                        	<input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
@@ -787,7 +693,24 @@ $arItemIDs = array(
                                             </form>
                                             <div class="certificate_popup_close">
                                             	<img src="/images/rfi_popup_close.png" alt="" />
-                                            </div>    
+                                            </div>
+                                            <div class="rfi_block">
+                                            	<? $APPLICATION->IncludeComponent(
+									                "webgk:rfi.widget",
+									                "",
+									                Array(
+									                    "ORDER_ID"      => "CERT_",
+									                    "OTHER_PAYMENT" => "Y",
+									                    "OTHER_PARAMS"  => array(
+															"PAYSUM"   => $newPrice,
+															"EMAIL"    => "",
+															"PHONE"    => "",
+															"COMMENT"  => str_replace("#SUM#", $newPrice, GetMessage("CERTIFICATE_BUY_COMMENT"))
+														)
+									                ),
+									                false
+									            ); ?>
+                                            </div>
                                         </div>
                                         <script>
                                         function buy_certificate_popup(){
@@ -807,16 +730,36 @@ $arItemIDs = array(
                                         	});
                                         	// если все ок, то сабмитим
                                         	if (form_valid) {
+                                        		var natural_person_email = $("#natural_email").val(),
+                                        			selected_tab = $(".certificate_tab_active").data("popup-block");
                                         		$("input[name='certificate_quantity']").val($(".transparent_input").val());
                                         		$.ajax({
 	                                                url: '/ajax/ajax_create_certificate_order.php',
 	                                                type: "POST",
 	                                                data: {
 	                                                    data: $("#certificate_form").serialize(),
-	                                                    person_type: $(".certificate_tab_active").data("popup-block")
+	                                                    person_type: selected_tab
 	                                                }
-	                                            }).done(function(strResult) {
-	                                                console.log(strResult);
+	                                            }).done(function(result) {
+	                                                var certificate_result = JSON.parse(result);
+	                                                if (certificate_result.status == "success") {
+	                                                	order_id = certificate_result.data;
+	                                                	$("#certificate_form").remove();
+	                                                	if (selected_tab == "natural_person") {
+	                                                		// физ. лицо
+	                                                		var success_message = "<?= GetMessage('NATURAL_SUCCESS_MESSAGE') ?>";
+	                                                		$(".submit_rfi").data("email", natural_person_email);
+	                                                		$(".submit_rfi").data("comment", "CERT_" + order_id);
+	                                                		$(".submit_rfi").click();
+	                                                		$("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
+	                                                	} else {
+	                                                		// юр. лицо
+	                                                		var success_message = "<?= GetMessage('LEGAL_SUCCESS_MESSAGE') ?>";
+	                                                		$("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
+	                                                	}
+	                                                } else {
+	                                                	console.error(certificate_result.data);
+	                                                }
 	                                            });
                                         	}
                                         }

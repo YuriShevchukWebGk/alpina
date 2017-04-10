@@ -2421,7 +2421,7 @@
 	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
 	}
 	
-	AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "certificatePayed");
+	AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "certificatePayed");
 	
 	/**
 	 * 
@@ -2432,7 +2432,6 @@
 	
 	function certificatePayed(&$arParams) {
 		if ($arParams['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
-			$new_value = $arParams['ACTIVE'];
 			$current_object = CIBlockElement::GetList(
 				Array(),
 				Array("ID" => $arParams['ID']),
@@ -2441,15 +2440,12 @@
 				Array("ID", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY")
 			);
 			if ($current_values = $current_object->Fetch()) {
-				$current_value = $current_values['ACTIVE'];
 				$order_id = $current_values['ID'];
 				$quantity = $current_values['PROPERTY_CERT_QUANTITY_VALUE'];
 				$basket_rule_id = $current_values['XML_ID'];
 			}
-			
-			if ($current_value == "N" && $current_value != $new_value) {
-				unset($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_ID_FIELD]);
-				unset($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
+			$first_coupon_array_key = key($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
+			if (!$arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParams['ACTIVE'] == "Y") {
 				generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
 			}
 		}

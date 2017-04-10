@@ -3,11 +3,11 @@
 global $USER;
 $arResult['KEY'] = RFI_TEST_KEY;
 
-if ($arParams['READRIGHT_PAYMENT'] == "Y") {
-	$arResult['PRICE'] = $arParams['READRIGHT_PARAMS']['PAYSUM'];
-	$arResult['COMMENT'] = $arParams['READRIGHT_PARAMS']['COMMENT'];
-	$arResult['EMAIL'] = $arParams['READRIGHT_PARAMS']['EMAIL'];
-	$arResult['PHONE'] = $arParams['READRIGHT_PARAMS']['PHONE'];
+if ($arParams['OTHER_PAYMENT'] == "Y") {
+	$arResult['PRICE'] = $arParams['OTHER_PARAMS']['PAYSUM'];
+	$arResult['COMMENT'] = $arParams['OTHER_PARAMS']['COMMENT'];
+	$arResult['EMAIL'] = $arParams['OTHER_PARAMS']['EMAIL'];
+	$arResult['PHONE'] = $arParams['OTHER_PARAMS']['PHONE'];
 	$arResult['ORDER_ID'] = $arParams['ORDER_ID'];
 } else {
 	$order_id = $arParams['ORDER_ID'];

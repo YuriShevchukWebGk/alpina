@@ -109,4 +109,10 @@ $MESS["EPUB"] = "ePub";
 $MESS["BUY_EPUB"] = "Купить в Бизнес.Книги";
 $MESS["COUNTRY_DELIVERY"] = "от 2-х дней";
 $MESS["POSTOMATS"] = "пунктов выдачи";
+$MESS["NATURAL_PERSON"] = "Физ. лицо";
+$MESS["LEGAL_PERSON"] = "Юр. лицо";
+$MESS["PAY"] = "Оплатить";
+$MESS["LEGAL_SUCCESS_MESSAGE"] = "Ваш заказ принят, менеджер вышлет счет вам на email. Номер Вашего заказа #NUM#";
+$MESS["NATURAL_SUCCESS_MESSAGE"] = "Ваш заказ успешно принят, номер заказа #NUM#";
+$MESS["CERTIFICATE_BUY_COMMENT"] = "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# рублей";
 ?>
