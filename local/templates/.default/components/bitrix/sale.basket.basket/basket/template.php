@@ -29,10 +29,38 @@
         'ADD_URL' => $arUrls["add"]
     );
 ?>
+<style>
+#nprogresss {
+	margin:0 auto;
+}
+	#nprogresss .spinner-icon {
+	width: 36px;
+	height: 36px;
+	box-sizing: border-box;
 
+	border: solid 4px transparent;
+	border-top-color: #00abb8;
+	border-left-color: #00abb8;
+	border-radius: 50%;
+	margin: 0 auto;
+
+	-webkit-animation: nprogresss-spinner 400ms linear infinite;
+	animation: nprogresss-spinner 400ms linear infinite;
+	}
+
+	@-webkit-keyframes nprogresss-spinner {
+	0%   { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+	}
+	@keyframes nprogresss-spinner {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+	}
+
+</style>
 <div class="breadCrumpWrap">
     <div class="centerWrapper">
-        <p><a href="/personal/cart/" class="afterImg active">Корзина</a><a href="javascript:void(0)" onclick="checkOut();" class="afterImg">Оформление</a><a href="#">Завершение</a></p>
+        <p><a href="/personal/cart/" class="afterImg active" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCartClick'});">Корзина</a><a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCheckoutClick'});" class="afterImg">Оформление</a><a href="#" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCompleteClick'});return false;">Завершение</a></p>
     </div>
 </div>
 
@@ -50,8 +78,8 @@
         ?>
 
         <div class="cartMenuWrap">
-            <div class="basketItems active" data-id="1"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
-            <div class="basketItems" data-id="2"><p>Список желаний <span>(0)</span></p></div>
+            <div class="basketItems active" data-id="1" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForOrderClick'});"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
+            <div class="basketItems" data-id="2" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'wishlistBookmarkClick'});"><p>Список желаний <span>(0)</span></p></div>
         </div>
 
         <?
@@ -254,14 +282,6 @@
                                     false
                                 );?>
                         </div>
-                        <p class="nextPageWrap">
-                        	<? if ($arResult['allSum']) { ?>
-                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'otherEvents',action: 'recsInCart',label: 'nextStepButton'});" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
-                        	<? } else { ?>
-                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
-                        	<? } ?>
-                        </p> 
-
                     </div>
                 </div>                       
 
@@ -270,12 +290,11 @@
 				/* Получаем рекомендации для корзины от RetailRocket */
 				global $arrFilter;
 				//echo $retailRocketRecs;
-				if (isset($_COOKIE["rrpusid"])){
-					//$retailRocketRecs = (substr($retailRocketRecs,0,-1));
-					$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.(substr($retailRocketRecs,0,-1)));
-					$recsArray = json_decode($stringRecs);
-					$arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
-				}
+				//$retailRocketRecs = (substr($retailRocketRecs,0,-1));
+				$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.(substr($retailRocketRecs,0,-1)));
+				$recsArray = json_decode($stringRecs);
+				$arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
+
 				if ($arrFilter['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
 				<div class="recomendation">
 					<p class="grayTitle">С заказанными книгами читают</p>
@@ -956,10 +975,11 @@
             $(".cartMenuWrap .basketItems:first-child").removeClass("active");
             $('.cartMenuWrap .basketItems:nth-child(2)').addClass("active");
             $("#cardBlock2").show();
-            <?} else if (!$_REQUEST["liked"]) {?> 
+		<?} else if (!$_REQUEST["liked"]) {?> 
             $('.cartMenuWrap .basketItems:nth-child(2)').removeClass("active");
             $('.cartMenuWrap .basketItems:first-child').addClass("active");
             $("#cardBlock1").show();
-            <?}?>   
-    })
+		<?}?>   
+		dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'pageLoaded'});	
+    });
 </script>

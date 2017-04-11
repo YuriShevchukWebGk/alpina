@@ -12,7 +12,11 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-
+<style>
+.sliderElementMin{
+    width: 234px;   
+}
+</style>
 <div class="bestSlider">
     <div>
         <ul>

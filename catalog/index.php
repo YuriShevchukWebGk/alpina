@@ -26,7 +26,7 @@ $APPLICATION->SetTitle("Книги для саморазвития | Лучши�
 		"CACHE_GROUPS" => "N",
 		"CACHE_NOTES" => "",
 		"CACHE_TIME" => "36000000",
-		"CACHE_TYPE" => "A",
+		"CACHE_TYPE" => "N",
 		"COMMON_ADD_TO_BASKET_ACTION" => "",
 		"COMMON_SHOW_CLOSE_POPUP" => "N",
 		"CONVERT_CURRENCY" => "Y",
@@ -279,6 +279,8 @@ $APPLICATION->SetTitle("Книги для саморазвития | Лучши�
 		"DETAIL_STRICT_SECTION_CHECK" => "N",
 		"FILE_404" => "",
 		"COMPATIBLE_MODE" => "Y",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO",
 		"SEF_URL_TEMPLATES" => array(
 			"sections" => "",
 			"section" => "#SECTION_CODE#/",

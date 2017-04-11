@@ -11,9 +11,15 @@ if ($_POST['email']) {
 	$link = CFile::GetPath($link['VALUE']);
 	$text = CFile::ResizeImageGet($book["DETAIL_PICTURE"], array("width" => 200, "height" => 270), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 	
+	if (strpos($link,"selcdn.ru") !== false) {
+		$text = "<a href='https://www.alpinabook.ru/catalog/temporary/".$_POST['book']."/' target='_blank'><img src='https://www.alpinabook.ru".$text[src]."' align='left' style='margin-right:20px;' /></a>
+			Скачать главу из книги <a href='https://www.alpinabook.ru/catalog/temporary/".$_POST['book']."/' target='_blank'>«".$book['NAME']."»</a> можно по ссылке ниже. Приятного чтения!<br /><br /><br />
+			<center><a href='".$link."' style='padding: 14px 58px; color:#fff; background: #00abb8; border-radius: 35px;font-size:20px;text-decoration:none;' target='_blank'>Скачать главу</a></center>";
+	} else {
 	$text = "<a href='https://www.alpinabook.ru/catalog/temporary/".$_POST['book']."/' target='_blank'><img src='https://www.alpinabook.ru".$text[src]."' align='left' style='margin-right:20px;' /></a>
 			Скачать главу из книги <a href='https://www.alpinabook.ru/catalog/temporary/".$_POST['book']."/' target='_blank'>«".$book['NAME']."»</a> можно по ссылке ниже. Приятного чтения!<br /><br /><br />
-			<center><a href='https://www.alpinabook.ru".$link."' style='padding: 14px 58px; color:#fff; background: #00abb8; border-radius: 35px;font-size:20px;text-decoration:none;' target='_blank'>Скачать главу</a></center>";
+			<center><a href='".$link."' style='padding: 14px 58px; color:#fff; background: #00abb8; border-radius: 35px;font-size:20px;text-decoration:none;' target='_blank'>Скачать главу</a></center>";
+	}
 	$images = array();
 	$images[] = $text[src];
 	

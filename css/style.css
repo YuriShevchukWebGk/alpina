@@ -55,27 +55,27 @@
 }
 @media screen and (max-width: 1180px){
     header .telephone{
-		display: none;
-	}
-	.menu li a {
-		font-size: 16px!important;
-	}
+        display: none;
+    }
+    .menu li a {
+        font-size: 16px!important;
+    }
 }
 }
 @media screen and (max-device-width: 414px){
     body{
     width: 1190px;
-	}
-	.slideWrapp .catalogWrapper {
-		width: 100%;
-		margin-left: 175px;
-	}
-	header .telephone{
-		display: inline;
-	}
-	.slideWrapp .firstSlide {
-		width: 1190px !important;
-	}
+    }
+    .slideWrapp .catalogWrapper {
+        width: 100%;
+        margin-left: 175px;
+    }
+    header .telephone{
+        display: inline;
+    }
+    .slideWrapp .firstSlide {
+        width: 1190px !important;
+    }
 }
 body{
     padding: 0;
@@ -97,9 +97,9 @@ p{
 h6 {
     font-size: 22px;
     font-weight: 400;
-	color: #627478;
+    color: #627478;
     font-family: "Walshein_regular";
-	margin:3px 0;
+    margin:3px 0;
 }
 header{
     background-color: #ffffff;
@@ -149,7 +149,7 @@ header .telephone{
     border-left: 1px solid #e2e2e2;
     border-right: 1px solid #e2e2e2;
     float: right;
-    height: 58px;
+    height: 42px;
     padding: 17px 18px 0;
 }
 header .headBasket{
@@ -353,11 +353,11 @@ header .headBasket{
     vertical-align: top;
 }
 .book > div > a:hover, .variants > div > a:hover, .basketBook > div > a:hover, .afterImg:hover, .bookDelete:hover, .reviewsWrapp li:hover .autor, .breadCrump a:hover {
-	text-decoration:underline;
+    text-decoration:underline;
 }
 .readMore span:hover {
-	border-bottom: none;
-	padding-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
 }
 .thirdWrapp .text{
     background-color: #00a0af;
@@ -484,7 +484,7 @@ header .headBasket{
     font-size: 42px;
     line-height: 43px;
     padding-top: 36px;
-	height: 218px;
+    height: 218px;
 }
 .hintWrapp .subNameOfGroup{
     border-top: 2px solid #829093;
@@ -629,7 +629,7 @@ header .headBasket{
     background-color: #637e71;
     height: 360px;
     overflow: hidden;
-	margin-top: 36px;
+    margin-top: 36px;
 }
 
 .saleWrapp{
@@ -1206,7 +1206,7 @@ header .menu{
     top: 0;
 }
 .slideWrapp .firstSlide{
-    background: rgba(0, 0, 0, 0) url("/img/roundSlideBack.png") no-repeat scroll 75% 0;
+    background: rgba(0, 0, 0, 0) url("/img/roundSlideBack.png") no-repeat scroll 50% 0;
 }
 .roundSlideWrapp .firstSlide{
     /*background: rgba(0, 0, 0, 0) url("/img/roundSlideBack.png") no-repeat scroll 75% 0;*/
@@ -1247,6 +1247,7 @@ header .menu{
 .circle{
     position: relative;
     display: inline-block;
+    top: 84px;
 }
 .slideWrapp .buttons{
     background-color: #546b60;
@@ -1258,7 +1259,8 @@ header .menu{
     color: white;
     font-family: "Walshein_bold";
     font-size: 13px;
-    top: -23px;
+    /*top: -23px;*/
+    top: 61px;
     position: relative;
     margin-right: 6px;
 }
@@ -1304,7 +1306,7 @@ input:focus{
     cursor: pointer;
 }
 .roundSlider > li > a:hover > div > p {
-	text-decoration:underline;
+    text-decoration:underline;
 }
 .books > ul span:hover{
     text-decoration: underline;
@@ -1345,14 +1347,14 @@ input:focus{
     background: #fff url("/img/basketIco.png") no-repeat center;
 }
 .catalogIcon span, .basketIcon span {
-	margin-left: 0px;
-	margin-top: 68px;
-	text-align: center;
-	display: block;
-	position: relative;
-	font-family: "Walshein_regular";
-	font-size: 18px;
-	color: rgb(228, 232, 234);
+    margin-left: 0px;
+    margin-top: 68px;
+    text-align: center;
+    display: block;
+    position: relative;
+    font-family: "Walshein_regular";
+    font-size: 18px;
+    color: rgb(228, 232, 234);
 }
 .searchWrap{
     background-color: #ECEDEF;
@@ -1900,7 +1902,7 @@ right: 45px;
     color: #555e60 !important;
 }
 .categoryWrapper .leftMenu a:hover {
-	text-decoration:underline;
+    text-decoration:underline;
 }
 .categoryWrapper .leftMenu>ul>li{
     padding-bottom: 18px;
@@ -1946,10 +1948,10 @@ right: 45px;
 }
 .categoryWrapper .showMore{
     border: 2px solid #c8a474;
-	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
     transition: color .3s ease,background-color .3s ease,border-color .3s ease;
     border-radius: 34px;
     color: #c8a474;
@@ -1962,7 +1964,7 @@ right: 45px;
     cursor: pointer;
 }
 .categoryWrapper .showMore:hover{
-	background:#e6e6e6;
+    background:#e6e6e6;
 }
 .categoryWrapper .otherBooks{
     height: 1302px;
@@ -1985,7 +1987,7 @@ right: 45px;
     padding-left: 6px;
     padding-top: 5px;
     height: 20px;
-	overflow: hidden;
+    overflow: hidden;
 }
 .otherBooks .tapeOfPack{
     color: #627478;
@@ -2495,7 +2497,7 @@ right: 45px;
 }
 .elementDescriptWrap .elementMainPict .element_item_img img{
     /*    width: 264px;*/
-	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.18), 0px 10px 7px 0px rgba(0, 0, 0, 0.14);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.18), 0px 10px 7px 0px rgba(0, 0, 0, 0.14);
 }
 .elementDescriptWrap .elementMainPict:hover .overlay{
     display: block;
@@ -2527,7 +2529,7 @@ right: 45px;
 .elementDescriptWrap .marks{
     padding-top: 12px;
     margin-bottom: 20px;
-	display:inline-block;
+    display:inline-block;
 }
 .elementDescriptWrap .marks>div{
     border-radius: 3px;
@@ -2538,10 +2540,10 @@ right: 45px;
     margin: 10px 10px 0 0;
     padding: 4px 9px;
     text-transform: uppercase;
-	width: auto;
-	cursor:help;
-	position: relative;
-	display: inline;
+    width: auto;
+    cursor:help;
+    position: relative;
+    display: inline;
 }
 .elementDescriptWrap .newBookMark{
     background-color: #00A0AF;
@@ -2551,51 +2553,51 @@ right: 45px;
 }
 .elementDescriptWrap .digitalBookMark{
     background-color: #dd6eff;
-	margin-top: -24px;
+    margin-top: -24px;
 }
 .elementDescriptWrap .editorsBookMark{
     background-color: #249822;
 }
 
 .elementDescriptWrap .marks>div .ttip {
-	position: absolute;
-	width:140px;
-	color: #627478;
-	background: #FFFFFF;
-	height: auto;
-	line-height: 30px;
-	text-align: center;
-	visibility: hidden;
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.18), 0 0 1px 0 rgba(0, 0, 0, 0.14);
-	width: 264px;
-	padding: 4px 9px;
-	text-align:left;
-	font-size: 14px;
-	line-height: 140%;
-	text-transform: none;
-	font-family: "Walshein_regular";
+    position: absolute;
+    width:140px;
+    color: #627478;
+    background: #FFFFFF;
+    height: auto;
+    line-height: 30px;
+    text-align: center;
+    visibility: hidden;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.18), 0 0 1px 0 rgba(0, 0, 0, 0.14);
+    width: 264px;
+    padding: 4px 9px;
+    text-align:left;
+    font-size: 14px;
+    line-height: 140%;
+    text-transform: none;
+    font-family: "Walshein_regular";
 }
 .elementDescriptWrap .marks>div .ttip:before {
-	content: '';
-	position: absolute;
-	top: -8px;
-	left: 10%;
-	margin-left: -8px;
-	width: 0; height: 0;
-	border-bottom: 8px solid #FFFFFF;
-	border-right: 8px solid transparent;
-	border-left: 8px solid transparent;
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 10%;
+    margin-left: -8px;
+    width: 0; height: 0;
+    border-bottom: 8px solid #FFFFFF;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
 }
 .elementDescriptWrap .marks>div:hover .ttip {
-	visibility: visible;
-	opacity: 1;
-	top: 99%;
-	left: 0px;
-	/*margin-left: -76px;*/
-	z-index: 999;
+    visibility: visible;
+    opacity: 1;
+    top: 99%;
+    left: 0px;
+    /*margin-left: -76px;*/
+    z-index: 999;
 }
 .elementDescriptWrap .buyLater {
-    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
+    background: rgba(0, 0, 0, 0) url("/img/buyLaterHeart.png") no-repeat scroll 60px 10px;
     border: 2px solid #c7a271;
     border-radius: 30px;
     color: #c7a271;
@@ -2603,28 +2605,28 @@ right: 45px;
     font-size: 14px;
     padding: 6px 0 6px 85px;
     margin-bottom: 20px;
-	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;    
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
 .elementDescriptWrap .buyLater:hover, .hidingBasketRight .confirm:hover, .allBooks:hover {
-	background-color: #cab796;
-	color: #fff;
+    background-color: #cab796;
+    color: #fff;
 }
 .yaMarket > a:hover > img, .yaMarket > a:hover > p > span > img{
-    filter: brightness(0%);	
-	
+    filter: brightness(0%);    
+    
 }
 .footerMenu img:hover, .webServ img:hover{
-	filter: brightness(0%);	
+    filter: brightness(0%);    
 }
 .lkWrapp div:hover{
-	background-color:#eee;
+    background-color:#eee;
 }
 .elementDescriptWrap .AlreadyInWishlist {
-    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
+    background: rgba(0, 0, 0, 0) url("/img/buyLaterHeart.png") no-repeat scroll 60px 10px;
     border: 2px solid #c7a271;
     border-radius: 30px;
     color: #c7a271;
@@ -2720,7 +2722,12 @@ right: 45px;
     height: 15px;
     display: inline-block;
     position: relative;
-    left: -4px;
+}
+.elementDescriptWrap .oldPrice .cross {
+	text-decoration: line-through;
+}
+.elementDescriptWrap .oldPrice .diff {
+	color:#00ABB8;
 }
 .oldPrice p{
     background-color: #7b8c90;
@@ -2756,17 +2763,17 @@ right: 45px;
     font-size: 19px;
     margin: 0 28px;
     padding: 14px 58px;
-	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;    
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
 .elementDescriptWrap .inBasket:hover {
-	background-color: #00b9c8;
-	color: #f2f2f2;
+    background-color: #00b9c8;
+    color: #f2f2f2;
 }
-	
+    
 .elementDescriptWrap .buyOneClick{
     border: 2px solid #c7a271;
     border-radius: 40px;
@@ -2789,7 +2796,7 @@ right: 45px;
     padding-bottom: 8px;
 }
 .shippings .lastli {
-	margin-top:15px;
+    margin-top:15px;
 }
 .shippings a{
     color: #00ABB8;
@@ -2798,10 +2805,10 @@ right: 45px;
 .noborderlink {
     color: #00ABB8;
     border-bottom: 0px!important;
-	text-decoration:underline!important;
+    text-decoration:underline!important;
 }
 .noborderlink:hover {
-	text-decoration:none!important;
+    text-decoration:none!important;
 }
 .shippings li:before{
     content: url("/img/rechShip.png");
@@ -3562,7 +3569,7 @@ right: 45px;
     padding-top: 34px;
 }
 .nameOfBook:hover {
-	text-decoration:underline;
+    text-decoration:underline;
 }
 .yourBooks .nameOfAutor{
     color: #7B8C90;
@@ -3715,15 +3722,15 @@ right: 45px;
     margin-top: 54px;
     margin-bottom: 40px;
     text-align: center;
-	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;    
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
 .cartWrapper .nextPageWrap a:hover, .ordContain a:hover {
-	background-color: #00b9c8;
-	color: #f2f2f2;	
+    background-color: #00b9c8;
+    color: #f2f2f2;    
 }
 .moreInterestParty>div>p{
     color: #627478;
@@ -4173,7 +4180,7 @@ right: 45px;
     /*left: -22px;
     position: absolute;
     top: -4px;*/
-	margin: 0 20px;
+    margin: 0 20px;
 }
 .deliveryTypeWrap ul{
     margin-bottom: 20px;
@@ -4386,22 +4393,22 @@ right: 45px;
     text-decoration: none;
 }
 .bookPreviewButton{
-	border: 2px solid #ad9069;
-	border-radius: 40px;
-	color: rgb(255, 191, 105);
-	font-family: 'Walshein_regular';
-	font-size: 16px;
-	margin: 0 auto;
-	padding: 6px 0;
-	text-align: center;
-	text-decoration: none;
-	width: 200px;
-	position: absolute;
-	top:40%;
-	left:20px;
-	display:none;
-	z-index:100;
-	background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #ad9069;
+    border-radius: 40px;
+    color: rgb(255, 191, 105);
+    font-family: 'Walshein_regular';
+    font-size: 16px;
+    margin: 0 auto;
+    padding: 6px 0;
+    text-align: center;
+    text-decoration: none;
+    width: 200px;
+    position: absolute;
+    top:40%;
+    left:20px;
+    display:none;
+    z-index:100;
+    background: rgba(0, 0, 0, 0.5);
 }
 .breadCrump span a{
     color: #e4e8ea;
@@ -4436,7 +4443,7 @@ right: 45px;
     font-size: 14px;
 }
 .menu li a:hover {
-	text-decoration:underline;
+    text-decoration:underline;
 }
 .mainLogoImg{
     left: 60px;
@@ -4614,6 +4621,10 @@ right: 45px;
     margin-left: 310px;
     margin-top: 12px;
 }
+
+.signinWrapper .paswordIncorrectly#existingEmail{   
+    margin-top: -12px;
+}
 .authorisationWrapper{
     background-color: #ffffff;
     height: 606px;
@@ -4712,14 +4723,14 @@ right: 45px;
     margin: 28px 220px;
     padding: 10px 78px;
     cursor: pointer;
-	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;    
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
 .authorisationWrapper input[type="submit"]:hover, .authWrapper input[type="submit"]:hover {
-	background-color:#d0b28c;
+    background-color:#d0b28c;
 }
 .authorisationWrapper .socServisesText, .authWrapper .socServisesText {
     border-top: 1px solid #ebebeb;
@@ -5249,13 +5260,10 @@ right: 45px;
 .bookPages{
     display: none;
 }
-.courierBlock{
+.courierBlock, .pickupBlock, .countryBlock{
     display: none;
 }
 
-.pickupBlock{
-    display: none;
-}
 .videoWrapp iframe{
     display:none;
 }
@@ -5810,7 +5818,7 @@ table.form-table th, table.form-table td{
 }
 .elementDescriptWrap .elementMainPict .element_item_img img{
     /*    width: 264px;*/
-	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.18), 0px 10px 7px 0px rgba(0, 0, 0, 0.14);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.18), 0px 10px 7px 0px rgba(0, 0, 0, 0.14);
 }
 .elementDescriptWrap .elementMainPict:hover .overlay{
     display: block;
@@ -5842,7 +5850,7 @@ table.form-table th, table.form-table td{
 .elementDescriptWrap .marks{
     padding-top: 12px;
     margin-bottom: 20px;
-	display:inline-block;
+    display:inline-block;
 }
 .elementDescriptWrap .marks>div{
     border-radius: 3px;
@@ -5853,10 +5861,10 @@ table.form-table th, table.form-table td{
     margin: 10px 10px 0 0;
     padding: 4px 9px;
     text-transform: uppercase;
-	width: auto;
-	cursor:help;
-	position: relative;
-	display: inline;
+    width: auto;
+    cursor:help;
+    position: relative;
+    display: inline;
 }
 .elementDescriptWrap .newBookMark{
     background-color: #00A0AF;
@@ -5866,80 +5874,61 @@ table.form-table th, table.form-table td{
 }
 .elementDescriptWrap .digitalBookMark{
     background-color: #dd6eff;
-	margin-top: -24px;
+    margin-top: -24px;
 }
 .elementDescriptWrap .editorsBookMark{
     background-color: #249822;
 }
 
 .elementDescriptWrap .marks>div .ttip {
-	position: absolute;
-	width:140px;
-	color: #627478;
-	background: #FFFFFF;
-	height: auto;
-	line-height: 30px;
-	text-align: center;
-	visibility: hidden;
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.18), 0 0 1px 0 rgba(0, 0, 0, 0.14);
-	width: 264px;
-	padding: 4px 9px;
-	text-align:left;
-	font-size: 14px;
-	line-height: 140%;
-	text-transform: none;
-	font-family: "Walshein_regular";
+    position: absolute;
+    width:140px;
+    color: #627478;
+    background: #FFFFFF;
+    height: auto;
+    line-height: 30px;
+    text-align: center;
+    visibility: hidden;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.18), 0 0 1px 0 rgba(0, 0, 0, 0.14);
+    width: 264px;
+    padding: 4px 9px;
+    text-align:left;
+    font-size: 14px;
+    line-height: 140%;
+    text-transform: none;
+    font-family: "Walshein_regular";
 }
 .elementDescriptWrap .marks>div .ttip:before {
-	content: '';
-	position: absolute;
-	top: -8px;
-	left: 10%;
-	margin-left: -8px;
-	width: 0; height: 0;
-	border-bottom: 8px solid #FFFFFF;
-	border-right: 8px solid transparent;
-	border-left: 8px solid transparent;
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 10%;
+    margin-left: -8px;
+    width: 0; height: 0;
+    border-bottom: 8px solid #FFFFFF;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
 }
 .elementDescriptWrap .marks>div:hover .ttip {
-	visibility: visible;
-	opacity: 1;
-	top: 99%;
-	left: 0px;
-	/*margin-left: -76px;*/
-	z-index: 999;
-}
-.elementDescriptWrap .buyLater {
-    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
-    border: 2px solid #c7a271;
-    border-radius: 30px;
-    color: #c7a271;
-    font-family: "Walshein_regular";
-    font-size: 14px;
-    padding: 6px 0 6px 85px;
-    margin-bottom: 20px;
-	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-}
-.elementDescriptWrap .buyLater:hover, .hidingBasketRight .confirm:hover, .allBooks:hover {
-	background-color: #cab796;
-	color: #fff;
+    visibility: visible;
+    opacity: 1;
+    top: 99%;
+    left: 0px;
+    /*margin-left: -76px;*/
+    z-index: 999;
 }
 .yaMarket > a:hover > img, .yaMarket > a:hover > p > span > img{
-    filter: brightness(0%);	
-	
+    filter: brightness(0%);    
+    
 }
 .footerMenu img:hover, .webServ img:hover{
-	filter: brightness(0%);	
+    filter: brightness(0%);    
 }
 .lkWrapp div:hover{
-	background-color:#eee;
+    background-color:#eee;
 }
 .elementDescriptWrap .AlreadyInWishlist {
-    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
+    background: rgba(0, 0, 0, 0) url("/img/buyLaterHeart.png") no-repeat scroll 60px 10px;
     border: 2px solid #c7a271;
     border-radius: 30px;
     color: #c7a271;
@@ -6027,16 +6016,6 @@ table.form-table th, table.form-table td{
     padding-top: 34px;
     padding-bottom: 34px;
 }
-.elementDescriptWrap .oldPrice{
-    /*border-bottom: 2px solid #7b8c90;*/
-    color: #7b8c90;
-    font-family: "Walshein_regular";
-    font-size: 22px;
-    height: 15px;
-    display: inline-block;
-    position: relative;
-    left: -4px;
-}
 .oldPrice p{
     background-color: #7b8c90;
     height: 2px;
@@ -6071,17 +6050,17 @@ table.form-table th, table.form-table td{
     font-size: 19px;
     margin: 0 28px;
     padding: 14px 58px;
-	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;    
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
 .elementDescriptWrap .inBasket:hover {
-	background-color: #00b9c8;
-	color: #f2f2f2;
+    background-color: #00b9c8;
+    color: #f2f2f2;
 }
-	
+    
 .elementDescriptWrap .buyOneClick{
     border: 2px solid #c7a271;
     border-radius: 40px;
@@ -6104,7 +6083,7 @@ table.form-table th, table.form-table td{
     padding-bottom: 8px;
 }
 .shippings .lastli {
-	margin-top:15px;
+    margin-top:15px;
 }
 .shippings a{
     color: #00ABB8;
@@ -6113,10 +6092,10 @@ table.form-table th, table.form-table td{
 .noborderlink {
     color: #00ABB8;
     border-bottom: 0px!important;
-	text-decoration:underline!important;
+    text-decoration:underline!important;
 }
 .noborderlink:hover {
-	text-decoration:none!important;
+    text-decoration:none!important;
 }
 .shippings li:before{
     content: url("/img/rechShip.png");
@@ -6499,6 +6478,7 @@ table.form-table th, table.form-table td{
 }
 .weRecomWrap{
     padding-bottom: 90px;
+	clear:both;
 }
 .basketHeader{
     background-color: #fff;
@@ -6877,7 +6857,7 @@ table.form-table th, table.form-table td{
     padding-top: 34px;
 }
 .nameOfBook:hover {
-	text-decoration:underline;
+    text-decoration:underline;
 }
 .yourBooks .nameOfAutor{
     color: #7B8C90;
@@ -7030,15 +7010,15 @@ table.form-table th, table.form-table td{
     margin-top: 54px;
     margin-bottom: 40px;
     text-align: center;
-	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;    
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
 .cartWrapper .nextPageWrap a:hover, .ordContain a:hover {
-	background-color: #00b9c8;
-	color: #f2f2f2;	
+    background-color: #00b9c8;
+    color: #f2f2f2;    
 }
 .moreInterestParty>div>p{
     color: #627478;
@@ -7488,7 +7468,7 @@ table.form-table th, table.form-table td{
     /*left: -22px;
     position: absolute;
     top: -4px;*/
-	margin: 0 20px;
+    margin: 0 20px;
 }
 .deliveryTypeWrap ul{
     margin-bottom: 20px;
@@ -7701,22 +7681,22 @@ table.form-table th, table.form-table td{
     text-decoration: none;
 }
 .bookPreviewButton{
-	border: 2px solid #ad9069;
-	border-radius: 40px;
-	color: rgb(255, 191, 105);
-	font-family: 'Walshein_regular';
-	font-size: 16px;
-	margin: 0 auto;
-	padding: 6px 0;
-	text-align: center;
-	text-decoration: none;
-	width: 200px;
-	position: absolute;
-	top:40%;
-	left:20px;
-	display:none;
-	z-index:100;
-	background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #ad9069;
+    border-radius: 40px;
+    color: rgb(255, 191, 105);
+    font-family: 'Walshein_regular';
+    font-size: 16px;
+    margin: 0 auto;
+    padding: 6px 0;
+    text-align: center;
+    text-decoration: none;
+    width: 200px;
+    position: absolute;
+    top:40%;
+    left:20px;
+    display:none;
+    z-index:100;
+    background: rgba(0, 0, 0, 0.5);
 }
 .breadCrump span a{
     color: #e4e8ea;
@@ -7751,7 +7731,7 @@ table.form-table th, table.form-table td{
     font-size: 14px;
 }
 .menu li a:hover {
-	text-decoration:underline;
+    text-decoration:underline;
 }
 .mainLogoImg{
     left: 60px;
@@ -8027,14 +8007,14 @@ table.form-table th, table.form-table td{
     margin: 28px 220px;
     padding: 10px 78px;
     cursor: pointer;
-	webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-	-ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;	
-	-o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;    
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
 }
 .authorisationWrapper input[type="submit"]:hover, .authWrapper input[type="submit"]:hover {
-	background-color:#d0b28c;
+    background-color:#d0b28c;
 }
 .authorisationWrapper .socServisesText, .authWrapper .socServisesText {
     border-top: 1px solid #ebebeb;
@@ -8836,17 +8816,17 @@ table.form-table tr td:nth-child(2){
 .readMore{
     background-color: #f4f4f4;
     position: absolute;
-	bottom:0px;
-	height: 27px;
+    bottom:0px;
+    height: 27px;
     right: 0;
     text-align: right;
     width: 100%;
 }
 .readMore span {
-	color: #00ABB8!important;
+    color: #00ABB8!important;
     cursor: pointer;
-	border-bottom:1px dashed;
-	padding-bottom: 0!important;
+    border-bottom:1px dashed;
+    padding-bottom: 0!important;
 }
 .giftWrapBlock {
     padding-top: 5px;
@@ -8924,7 +8904,7 @@ table.form-table tr td:nth-child(2){
     list-style-type: none;
 }
 .reviewsBlockDetail ul {
-	padding-left: 0px!important;
+    padding-left: 0px!important;
 }
 .reviewsBlockDetail .reviewDatail{
     clear: both;
@@ -9029,35 +9009,35 @@ table.form-table tr td:nth-child(2){
 }
 
 .flippostSelectContainer {
-	margin-left: 34px;
-	display: none;
+    margin-left: 34px;
+    display: none;
 }
 
 .flippostSelectContainer > select:not(:first-child){
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 .flippostSelect {
-	width: 368px !important;
-	display: block !important;
+    width: 368px !important;
+    display: block !important;
 }
 
 #development {
-	font-family: 'Walshein_regular';
-	color: #b3b3b3;
-	font-size: 15px;
-	width: 100%;
-	text-align: right;
-	margin-top: 11px;
+    font-family: 'Walshein_regular';
+    color: #b3b3b3;
+    font-size: 15px;
+    width: 100%;
+    text-align: right;
+    margin-top: 11px;
 }
 
 #development a {
-	color: #ac9f8a;
-	text-decoration: underline;
+    color: #ac9f8a;
+    text-decoration: underline;
 }
 
 .flippost_error {
-	position: relative;
+    position: relative;
     top: -30px;
     right: -420px;
     width: 200px;
@@ -9073,32 +9053,32 @@ table.form-table tr td:nth-child(2){
 }
 
 .title-search-result {
-	width:900px!important;
+    width:900px!important;
 }
 .catalogDescription {
-	color: rgb(98, 116, 120);
-	font-family: "Walshein_light";
-	font-size: 16px;
-	line-height: 24px;
-	padding-bottom: 18px;
-	padding-top: 35px;	
-	clear:both;
+    color: rgb(98, 116, 120);
+    font-family: "Walshein_light";
+    font-size: 16px;
+    line-height: 24px;
+    padding-bottom: 18px;
+    padding-top: 35px;    
+    clear:both;
 }
 .catalogDescription h2 {
-	font-size:28px;
-	font-family: "Walshein_light";
+    font-size:28px;
+    font-family: "Walshein_light";
 }
 
 .js-history-popup {
-	top: 50px !important;
+    top: 50px !important;
 }
 .content .textWrap, #prodBlock1 {
-	-webkit-hyphens: auto;
-	-ms-hyphens: auto;
-	hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 .sailplay_basket_quantity {
-	display: block;
+    display: block;
     margin: 36px auto;
     text-align: center;
     color: #7b8c90;
@@ -9106,32 +9086,231 @@ table.form-table tr td:nth-child(2){
     font-size: 14px;
 }
 .basket_zero_cost {
-	color: #AD3b20;
+    color: #AD3b20;
     font-size: 18px;
 }
 .bookWrapp a:hover > .bookName, .categoryBooks a:hover > .nameBook{
-	text-decoration:underline;
+    text-decoration:underline;
 }
 
 #paperversion, #digitalversion {
-	font-family:'Walshein_regular';font-size: 16px;padding: 10px 20px 0;color: #00abb8;display:block;float:left;width:92px;height:52px;
+    font-family:'Walshein_regular';font-size: 16px;padding: 10px 20px 0;color: #00abb8;display:block;float:left;width:92px;height:52px;
 }
 #digitalversion {
-	line-height: 45px;
+    line-height: 45px;
 }
 .elementDescriptWrap .priceBasketWrap {
-	clear:both;
+    clear:both;
 }
 #diffversions .active {
-	background:#ecedef;
+    background:#ecedef;
 }
 #diffversions .passive:hover span {
-	border-bottom: none;
+    border-bottom: none;
 }
 .digitalVersionWrap .inBasket {
-	padding: 14px 10px;
-	margin: 0 20px;
+    padding: 14px 10px;
+    margin: 0 20px;
 }
 .typesOfProduct {
-	visibility:hidden;
+    visibility:hidden;
+}
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #00abb8;
+
+  position: fixed;
+  z-index: 1501;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #00abb8, 0 0 5px #00abb8;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1501;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #00abb8;
+  border-left-color: #00abb8;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #00abb8;
+
+  position: fixed;
+  z-index: 1501;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #00abb8, 0 0 5px #00abb8;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #00abb8;
+  border-left-color: #00abb8;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loadingInfo {
+	margin:0 auto;
+}
+
+#loadingInfo .spinner-icon {
+width: 36px;
+height: 36px;
+box-sizing: border-box;
+
+border: solid 4px transparent;
+border-top-color: #00abb8;
+border-left-color: #00abb8;
+border-radius: 50%;
+margin: 0 auto;
+
+-webkit-animation: loadingInfo-spinner 400ms linear infinite;
+animation: loadingInfo-spinner 400ms linear infinite;
+}
+
+@-webkit-keyframes loadingInfo-spinner {
+0%   { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes loadingInfo-spinner {
+0%   { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+.registrationBlock .bx-registration-table .RegisterButton {
+    background-color: #ffffff;
+    border: 2px solid #c7a271;
+    border-radius: 50px;
+    color: #c7a271;
+    font-family: "Walshein_regular";
+    font-size: 19px;
+    margin: 28px 462px;
+    padding: 10px 78px;
+    cursor: pointer;
+    width: 120px;
+    text-align: center;    
+} 
+
+.registrationBlock .bx-registration-table .CaptchaRegistration {                
+    margin-bottom: 12px;
+    margin-left: 310px;
+    margin-top: 12px;
+}
+
+.lostPassWrapper .changePassWrapper {
+    font-family: "Walshein_regular";        
 }

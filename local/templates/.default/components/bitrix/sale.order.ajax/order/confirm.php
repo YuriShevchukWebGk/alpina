@@ -184,10 +184,16 @@
                 },
             }]);
         </script>
+		
+		<script>
+			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'paymentID <?=$arResult["ORDER"]["PAY_SYSTEM_ID"]?>'});
+			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'deliveryID <?=$arResult["ORDER"]["DELIVERY_ID"]?>'});
+			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'personType <?=$arResult["ORDER"]["PERSON_TYPE_ID"]?>'});
+		</script>
 		<!-- gdeslon -->
 		<?/*<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=<?=$_SESSION['gdeslon']?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>*/?>
 		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276&amp;codes=<?=$_SESSION['gdeslon']?>"></script>
-		<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
+		<script type="text/javascript" src="//www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
         <?unset($_SESSION['criteo'])?>
         <?unset($_SESSION['gtmEnchECommerceCheckout'])?>
         <?unset($_SESSION['floctory'])?>
@@ -567,5 +573,8 @@
     $(function(){
         var result = $(".confirmWrapper").html();
         $(".orderBody").parent().html(result);
-    })
+    });
+	$(document).ready(function(){
+    	dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'pageLoaded'});
+    });
 </script>

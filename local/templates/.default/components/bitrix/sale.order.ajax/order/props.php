@@ -15,7 +15,7 @@
             PrintPropsForm($arResult["ORDER_PROP"]["USER_PROPS_N"], $arParams["TEMPLATE_LOCATION"]);   
         ?>             
         <div class="infoPunct">
-            <p class="inputTitle">Дополнительные данные<br />(например, второй номер<br />телефона, домофон<br />и другие комментарии)</p>
+            <p class="inputTitle">Дополнительные данные <br />(например, второй номер <br />телефона, домофон <br />и другие комментарии)</p>
             <textarea name="ORDER_DESCRIPTION" id="ORDER_DESCRIPTION"><?=$arResult["USER_VALS"]["ORDER_DESCRIPTION"]?></textarea>
             <input type="hidden" name="" value="">
         </div>   

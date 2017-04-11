@@ -122,7 +122,7 @@
 
     BX.addCustomEvent('onDeliveryExtraServiceValueChange', function(){ submitForm(); });
 
-</script>
+</script> 
 <?
     //Check if order have certificate
     $isOnlyCertificate = true;

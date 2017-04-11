@@ -9,7 +9,10 @@
         "ALLOW_DELETE" => "Y"
     ),
 false
-);*/
+); */
+
+echo date('h-i-s, j-m-y, it is w Day');     
+ /*
 $users = array();
 $emails_arr = array();
 $temp_users_arr = array();
@@ -17,12 +20,12 @@ $original_users_list = array();
 $original_users_emails = array();
 $emails_list = array();
 $users_list = CUser::GetList ($by = "id", $order = "desc", array("LOGIN" => "newuser"), array("ID", "LOGIN", "EMAIL"));
-$users_count = 0;                                                        
+$users_count = 0;*/                                                        
 /*while ($users_fetch = $users_list -> Fetch()) {
     if (strlen($users_fetch["EMAIL"]) > 0) {
         $users[strtolower($users_fetch["EMAIL"])][] = array("ID" => $users_fetch["ID"], "LOGIN" => $users_fetch["LOGIN"]);
     }
-}*/
+}*/ /*
 $i = 0;
 while ($users_fetch = $users_list -> Fetch()) {
     //if ($i < 500) {
@@ -52,7 +55,7 @@ foreach ($users as $email => $val) {
 $j = 0;
 foreach ($temp_users as $email => $val) {
         foreach ($val as $key => $arr) {
-            if ((($arr["LOGIN"] != $email && strstr($arr["LOGIN"], "newuser")) /*&& $email == "newuser@alpinabook.ru")*/ && isset($arr["ID"]) && $arr["ID"] != $original_users_list[$email])) {
+            if ((($arr["LOGIN"] != $email && strstr($arr["LOGIN"], "newuser")) *//*&& $email == "newuser@alpinabook.ru")*/ /*&& isset($arr["ID"]) && $arr["ID"] != $original_users_list[$email])) {
                 //if ($j < 50) {
                     $emails_arr[$email][] = $arr["ID"];    
                // }
@@ -67,11 +70,11 @@ $original_users_list["newuser@alpinabook.ru"] = 2940;
 $original_users_emails[] = "newuser@alpinabook.ru";
 $orders_arr = array();
 $users_copies = array();
-foreach ($emails_arr as $email => $email_arr) {
+foreach ($emails_arr as $email => $email_arr) { */
     /*$order_list = CSaleOrder::GetList (array(), array("USER_ID" => $email_arr));
     while ($order = $order_list -> Fetch()) {
         $orders[$email][] = $order["ID"];
-    }*/
+    }*//*
     if (in_array($email, $original_users_emails) && !empty($email_arr)){
          //echo $i . "<br>";
          foreach ($email_arr as $curr_email) {   
@@ -83,7 +86,7 @@ foreach ($emails_arr as $email => $email_arr) {
          //arshow($emails_arr[$email]);
       }
 }
-
+*/
 /*foreach ($users as $email => $val) {
     foreach ($val as $key => $arr) {
         if ($arr["LOGIN"] != $email && strstr($arr["LOGIN"], "newuser")) {
@@ -94,7 +97,7 @@ foreach ($emails_arr as $email => $email_arr) {
 $orders = array();
 arshow($orders);*/
 //arshow($orders_arr);
-foreach ($orders_arr as $email => $val) {
+/*foreach ($orders_arr as $email => $val) {
          $arFields = array("USER_ID" => $original_users_list[$email]);
          foreach ($val as $key => $order_id) {
              if (strlen($order_id) > 0) {
@@ -125,5 +128,5 @@ foreach ($emails_arr as $email => $user_copies_arr) {
                 // CUser::Delete($user_copy_id);    
              }
      }    
-}?> 
+}*/?> 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -65,7 +65,8 @@
 	define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
     define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
-    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry      
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
 
     /**
     * 
@@ -458,7 +459,7 @@
         {
             GLOBAL $APPLICATION;
             //Get gift certificate
-            $db_res = CIBlockElement::GetList(Array("ID" => "ASC"),  Array("SECTION_ID" => "143"), false);
+            $db_res = CIBlockElement::GetList(Array("ID" => "ASC"),  Array("SECTION_ID" => 143), false);
             while ($ar_res = $db_res->Fetch()) {
                 $arDiscounts[$ar_res["ID"]]=$ar_res;
             }
@@ -466,7 +467,7 @@
             $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("FUSER_ID" => CSaleBasket::GetBasketUserID(),"DELAY"=>'N', 'CAN_BUY'=>'Y', "ORDER_ID" => NULL));
 
             while ($arItemsInOrder = $dbItemsInOrder->Fetch()) {
-                $arItems[$arItemsInOrder["PRODUCT_ID"]]=$arItemsInOrder;
+                $arItems[$arItemsInOrder["PRODUCT_ID"]] = $arItemsInOrder;
                 for ($x=0; $x<$arItemsInOrder["QUANTITY"]; $x++) {
                     if (in_array($arItemsInOrder["PRODUCT_ID"], array_keys($arDiscounts))) {
 
@@ -818,7 +819,7 @@
         }
         $freeBookUrl = array();
 
-        $url = "http://api5.alpinadigital.ru/api/v1/gift/emag/".$prepareurl;
+        $url = "https://api5.alpinadigital.ru/api/v1/gift/emag/".$prepareurl;
 
         $ch = curl_init();
 
@@ -867,7 +868,7 @@
             }
         }
 
-        function OnOrderCustomCouponHandler($ID, $arFields) {
+        function OnOrderCustomCouponHandler($ID, $arFields) {                                          
             if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N")  {
                 //Update coupon
                 Loader::includeModule('sale');
@@ -971,7 +972,7 @@
 		 * Регистрируем нового пользователя в БК после регистрации на сайте
 		 * 
 		 * */
-    	public static function sendUserToBK(&$arFields) {
+    	public static function sendUserToBK($arFields) {
     		$postdata = http_build_query(
 		        array(
 		           'method' => 'sendUserToBK',
@@ -1922,6 +1923,8 @@
                 $arFields['HREF']='<a href="http://pickpoint.ru/" target="_blank">на сайте PickPoint</a>.';
             } elseif ($order_list['DELIVERY_ID']==30) {
                 $arFields['HREF']='<a href="http://flippost.com/instruments/online/" target="_blank">Flipost</a>.';
+            } elseif ($order_list['DELIVERY_ID']==49) {
+                $arFields['HREF']='<a href="http://boxberry.ru/tracking/" target="_blank">на сайте Boxberry</a>.';
             }
         }
     }
@@ -2340,16 +2343,16 @@
                     $last_status = $status;
                 }                         
                 //ждем данных от боксберри
-                if($last_status['NAME'] == BOXBERRY_DELIVERY_SUCCES || $last_status['NAME'] == BOXBERRY_DELIVERED) {
+                if($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {
                     CSaleOrder::StatusOrder($order_id, "F");   
                 }
             }    
         }
-        return BoxberryListStatuses();        
+        return 'BoxberryListStatuses();';        
     }      
     
-    //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет
-    Main\EventManager::getInstance()->addEventHandler('sale', 'OnSaleOrderBeforeSaved', 'OnBeforeOrderUpdateLogger');     
+    //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет                                      
+    Main\EventManager::getInstance()->addEventHandler('sale', 'OnSaleOrderBeforeSaved', 'OnBeforeOrderUpdateLogger');               
     function OnBeforeOrderUpdateLogger(Main\Event $event) { 
         $order = $event->getParameter("ENTITY"); 
         $status_id = $order->GetField("STATUS_ID");
@@ -2359,7 +2362,7 @@
         $userID = $USER->GetID();
         $curPage = $APPLICATION->GetCurPage(); 
         $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';    
-        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.txt';
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';
         logger($order_log, $file);  
-    }                                           
+    }                                 
 ?>

@@ -50,7 +50,7 @@ $APPLICATION->SetTitle("Мероприятия");
 		"META_KEYWORDS" => "-",
 		"NEWS_COUNT" => "10000",
 		"NUM_DAYS" => "180",
-		"NUM_NEWS" => "20",
+		"NUM_NEWS" => "24",
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"PAGER_DESC_NUMBERING" => "N",
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000000",

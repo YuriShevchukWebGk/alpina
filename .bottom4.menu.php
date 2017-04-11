@@ -22,8 +22,8 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Авторам", 
-		"https://www.alpinabook.ru/content/publisher/authors/", 
+		"Карта сайта", 
+		"/sitemap/", 
 		Array(), 
 		Array(), 
 		"" 
