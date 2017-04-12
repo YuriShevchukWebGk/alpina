@@ -3,7 +3,7 @@
 //You may customize user card fields to display
 $arResult['USER_PROPERTY'] = array(
 	"UF_DEPARTMENT",
-);                                           
+);
 
 //Code below searches for appropriate icon for search index item.
 //All filenames should be lowercase.
@@ -57,7 +57,7 @@ $arResult['USER_PROPERTY'] = array(
 
 //12
 //default.png
-/*
+
 $arIBlocks = array();
 
 $image_path = $this->GetFolder()."/images/";
@@ -72,11 +72,6 @@ foreach($arResult["CATEGORIES"] as $category_id => $arCategory)
 			$arResult["SEARCH"][] = &$arResult["CATEGORIES"][$category_id]["ITEMS"][$i];
 	}
 }
-
-
-
-            
-            
 
 foreach($arResult["SEARCH"] as $i=>$arItem)
 {
@@ -222,15 +217,6 @@ foreach($arResult["SEARCH"] as $i=>$arItem)
 	}
 
 	$arResult["SEARCH"][$i]["ICON"] = $image_path.$file;
-    
-    $db_props = CIBlockElement::GetProperty($arResult["SEARCH"][$i]["PARAM2"], $arResult["SEARCH"][$i]["ITEM_ID"], array("sort"=>"asc"), array("CODE"=>"COVER_TYPE")); 
-    if($ar_props = $db_props->Fetch()){
-        $arResult["SEARCH"][$i]["COVER_TYPE"] = $ar_props["VALUE_ENUM"];
-    }
-	$db_props = CIBlockElement::GetProperty($arResult["SEARCH"][$i]["PARAM2"], $arResult["SEARCH"][$i]["ITEM_ID"], array("sort"=>"asc"), array("CODE"=>"AUTHORS")); 
-    if($ar_props = $db_props->Fetch()){
-		$res = CIBlockElement::GetByID($ar_props["VALUE"])->GetNext();
-		$arResult["SEARCH"][$i]["AUTHOR"] = $res['NAME'];
-    }
-}*/
+}
+
 ?>
