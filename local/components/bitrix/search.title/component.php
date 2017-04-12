@@ -6,7 +6,7 @@ CModule::IncludeModule('highloadblock');
 use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Entity;
 
-$hl_block = HL\HighloadBlockTable::getById(3)->fetch();
+$hl_block = HL\HighloadBlockTable::getById(SEACRH_INDEX_HL_ID)->fetch();
 $entity = HL\HighloadBlockTable::compileEntity($hl_block);
 $entity_data_class = $entity->getDataClass();
 $entity_table_name = $hl_block['TABLE_NAME'];
