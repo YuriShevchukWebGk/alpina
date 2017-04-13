@@ -2414,7 +2414,7 @@
                 }     
                 $arHLData['UF_IBLOCK_ID'] = $arFields['ID'];         
             }                                                                   
-            $hlblock = HL\HighloadBlockTable::getById(3)->fetch(); 
+            $hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch(); 
             $entity = HL\HighloadBlockTable::compileEntity($hlblock);
             $entity_data_class = $entity->getDataClass();         
             $rsElementID = $entity_data_class::getList(array(
