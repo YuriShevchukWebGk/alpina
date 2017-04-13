@@ -9,11 +9,14 @@
     CModule::IncludeModule("sale");
     CModule::IncludeModule("catalog");
     CModule::IncludeModule("main");
+    CModule::IncludeModule('highloadblock');
     use Bitrix\Main;
     use Bitrix\Main\Loader;
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
-    
+    use Bitrix\Highloadblock as HL;
+    use Bitrix\Main\Entity;       
+                                
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -64,9 +67,10 @@
 	define("WIDGET_PREVIEW_WIDTH", 70);
 	define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
-    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
-    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry      
-    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
+    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry   
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry                  
+    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                                                                      
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами           
 
     /**
     * 
@@ -2363,6 +2367,66 @@
         $curPage = $APPLICATION->GetCurPage(); 
         $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';    
         $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';
-        logger($order_log, $file);  
-    }                                 
+        logger($order_log, $file);
+    }            
+    
+    
+    
+    //Обновление HL блока с поисковыми индексами  
+     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'iblock',
+        'OnAfterIBlockElementUpdate',
+        'HLBlockElementUpdate'
+    ); 
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'iblock',
+        'OnAfterIBlockElementAdd',
+        'HLBlockElementUpdate'
+    );                               
+    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){   
+        if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {   
+            $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL");
+            $arFilter = Array("ID"=>$arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");                  
+            $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);  
+            while($arFields = $res->GetNext())
+            {                       
+                if (!empty($arFields['NAME'])) {
+                    $arHLData['UF_TITLE'] = preg_replace("/([^a-zA-Z\sа-яА-Я0-9])/u","",$arFields['NAME']);
+                }                                                                                
+                if (!empty($arFields['DETAIL_PAGE_URL'])) {
+                    $arHLData['UF_DETAIL_PAGE_URL'] = $arFields['DETAIL_PAGE_URL'];
+                }                                                                            
+                if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
+                    $arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
+                } 
+                if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {                             
+                    if (empty($arHLData['UF_AUTHOR'])) {
+                        $autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);            
+                        if ($autorsAr = $autorsOb -> fetch()) {
+                            $arHLData['UF_AUTHOR'] = $autorsAr['NAME'];
+                        }            
+                    } 
+                }
+                if(!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {                             
+                    if (empty($arHLData['UF_COVER_TYPE'])) {   
+                        $arHLData['UF_COVER_TYPE'] = $arFields['PROPERTY_COVER_TYPE_VALUE'];  
+                    } 
+                }     
+                $arHLData['UF_IBLOCK_ID'] = $arFields['ID'];         
+            }                                                                   
+            $hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch(); 
+            $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+            $entity_data_class = $entity->getDataClass();         
+            $rsElementID = $entity_data_class::getList(array(
+               "select" => array("ID"),
+               "order"  => array("ID" => "ASC"),
+               "filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
+            ));                                     
+            if($arElementID = $rsElementID->Fetch()){
+                $result = $entity_data_class::update($arElementID['ID'], $arHLData);    
+            } else {               
+                $result = $entity_data_class::add($arHLData);
+            }
+        }                                                                                    
+    }                
 ?>
