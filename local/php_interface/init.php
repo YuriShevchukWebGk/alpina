@@ -16,8 +16,7 @@
     use Bitrix\Sale\Internals;
     use Bitrix\Highloadblock as HL;
     use Bitrix\Main\Entity;       
-
-    
+                                
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -68,14 +67,10 @@
 	define("WIDGET_PREVIEW_WIDTH", 70);
 	define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
-    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
-<<<<<<< HEAD
+    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry   
     define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry                  
-    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска
-=======
-    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry      
-    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
->>>>>>> upstream/master
+    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                                                                      
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами           
 
     /**
     * 
@@ -2433,5 +2428,5 @@
                 $result = $entity_data_class::add($arHLData);
             }
         }                                                                                    
-    }                   
+    }                
 ?>
