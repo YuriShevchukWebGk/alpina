@@ -149,7 +149,7 @@ header .telephone{
     border-left: 1px solid #e2e2e2;
     border-right: 1px solid #e2e2e2;
     float: right;
-    height: 58px;
+    height: 42px;
     padding: 17px 18px 0;
 }
 header .headBasket{
@@ -2597,7 +2597,7 @@ right: 45px;
     z-index: 999;
 }
 .elementDescriptWrap .buyLater {
-    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
+    background: rgba(0, 0, 0, 0) url("/img/buyLaterHeart.png") no-repeat scroll 60px 10px;
     border: 2px solid #c7a271;
     border-radius: 30px;
     color: #c7a271;
@@ -2626,7 +2626,7 @@ right: 45px;
     background-color:#eee;
 }
 .elementDescriptWrap .AlreadyInWishlist {
-    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
+    background: rgba(0, 0, 0, 0) url("/img/buyLaterHeart.png") no-repeat scroll 60px 10px;
     border: 2px solid #c7a271;
     border-radius: 30px;
     color: #c7a271;
@@ -2722,7 +2722,12 @@ right: 45px;
     height: 15px;
     display: inline-block;
     position: relative;
-    left: -4px;
+}
+.elementDescriptWrap .oldPrice .cross {
+	text-decoration: line-through;
+}
+.elementDescriptWrap .oldPrice .diff {
+	color:#00ABB8;
 }
 .oldPrice p{
     background-color: #7b8c90;
@@ -4616,6 +4621,10 @@ right: 45px;
     margin-left: 310px;
     margin-top: 12px;
 }
+
+.signinWrapper .paswordIncorrectly#existingEmail{   
+    margin-top: -12px;
+}
 .authorisationWrapper{
     background-color: #ffffff;
     height: 606px;
@@ -5251,13 +5260,10 @@ right: 45px;
 .bookPages{
     display: none;
 }
-.courierBlock{
+.courierBlock, .pickupBlock, .countryBlock{
     display: none;
 }
 
-.pickupBlock{
-    display: none;
-}
 .videoWrapp iframe{
     display:none;
 }
@@ -5911,25 +5917,6 @@ table.form-table th, table.form-table td{
     /*margin-left: -76px;*/
     z-index: 999;
 }
-.elementDescriptWrap .buyLater {
-    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
-    border: 2px solid #c7a271;
-    border-radius: 30px;
-    color: #c7a271;
-    font-family: "Walshein_regular";
-    font-size: 14px;
-    padding: 6px 0 6px 85px;
-    margin-bottom: 20px;
-    webkit-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;    
-    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-}
-.elementDescriptWrap .buyLater:hover, .hidingBasketRight .confirm:hover, .allBooks:hover {
-    background-color: #cab796;
-    color: #fff;
-}
 .yaMarket > a:hover > img, .yaMarket > a:hover > p > span > img{
     filter: brightness(0%);    
     
@@ -5941,7 +5928,7 @@ table.form-table th, table.form-table td{
     background-color:#eee;
 }
 .elementDescriptWrap .AlreadyInWishlist {
-    background: rgba(0, 0, 0, 0) url("/img/laterBuyBack.png") no-repeat scroll 60px 10px;
+    background: rgba(0, 0, 0, 0) url("/img/buyLaterHeart.png") no-repeat scroll 60px 10px;
     border: 2px solid #c7a271;
     border-radius: 30px;
     color: #c7a271;
@@ -6028,16 +6015,6 @@ table.form-table th, table.form-table td{
     text-align: center;
     padding-top: 34px;
     padding-bottom: 34px;
-}
-.elementDescriptWrap .oldPrice{
-    /*border-bottom: 2px solid #7b8c90;*/
-    color: #7b8c90;
-    font-family: "Walshein_regular";
-    font-size: 22px;
-    height: 15px;
-    display: inline-block;
-    position: relative;
-    left: -4px;
 }
 .oldPrice p{
     background-color: #7b8c90;
@@ -9312,4 +9289,28 @@ animation: loadingInfo-spinner 400ms linear infinite;
 @keyframes loadingInfo-spinner {
 0%   { transform: rotate(0deg); }
 100% { transform: rotate(360deg); }
+}
+
+.registrationBlock .bx-registration-table .RegisterButton {
+    background-color: #ffffff;
+    border: 2px solid #c7a271;
+    border-radius: 50px;
+    color: #c7a271;
+    font-family: "Walshein_regular";
+    font-size: 19px;
+    margin: 28px 462px;
+    padding: 10px 78px;
+    cursor: pointer;
+    width: 120px;
+    text-align: center;    
+} 
+
+.registrationBlock .bx-registration-table .CaptchaRegistration {                
+    margin-bottom: 12px;
+    margin-left: 310px;
+    margin-top: 12px;
+}
+
+.lostPassWrapper .changePassWrapper {
+    font-family: "Walshein_regular";        
 }

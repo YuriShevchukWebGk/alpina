@@ -5,7 +5,7 @@
 switch ($_REQUEST["sort"])
 {
     case "popularity":
-    $sort = "PROPERTY_POPULARITY";
+    $sort = "PROPERTY_shows_a_day";
     break;
     
     case "date":

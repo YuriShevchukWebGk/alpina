@@ -11,6 +11,9 @@
 		data-email="<?= $arResult['EMAIL'] ?>"
 		data-phone="<?= $arResult['PHONE'] ?>"
 		data-comment="<?= $arResult['ORDER_ID'] ?>"
+		<? if (preg_match('/GR_/', $arResult['ORDER_ID'])) { ?>
+			data-orderid="<?= $arResult['ORDER_ID'] ?>"
+		<? } ?>
 		href="#">
 		<?= GetMessage("PAY") ?>
 	</a>

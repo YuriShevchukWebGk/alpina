@@ -503,9 +503,17 @@ function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
     } else {                                                
         var delivery_message = delivery_price + ' руб.';                                                                                       
     }      
-    document.querySelector('.deliveryPriceTable').innerHTML = delivery_message;
+    document.querySelector('.deliveryPriceTable').innerHTML = delivery_message;    
+    
+    //Для eskimobi
+    $('#eski_tottal div:eq(3) span').html(delivery_message);
+    
     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(delivery_price);
-    $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
+    $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');    
+    
+    //Для eskimobi
+    $('#eski_tottal div:eq(4) span').html(finalSumWithoutDiscount.toFixed(2));  
+      
     // установка значений для блока с самой доставкой
     $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(delivery_message);
     $("#boxberry_cost").val(delivery_price);

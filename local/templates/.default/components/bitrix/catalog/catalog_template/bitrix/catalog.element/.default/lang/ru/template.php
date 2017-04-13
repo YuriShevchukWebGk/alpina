@@ -107,4 +107,6 @@ $MESS["PAPER_V"] = "Бумажная + электронная";
 $MESS["DIGITAL_V"] = "Электронная";
 $MESS["EPUB"] = "ePub";
 $MESS["BUY_EPUB"] = "Купить в Бизнес.Книги";
+$MESS["COUNTRY_DELIVERY"] = "от 2-х дней";
+$MESS["POSTOMATS"] = "пунктов выдачи";
 ?>

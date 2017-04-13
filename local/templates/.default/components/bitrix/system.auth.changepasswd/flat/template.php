@@ -10,13 +10,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
 
 //one css for all system.auth.* forms
 $APPLICATION->SetAdditionalCSS("/bitrix/css/main/system.auth/flat/style.css");
-?>
-<div class="historyCoverWrap">
-    <div class="centerWrapper">
-        <p><?= GetMessage("MAIN_PAGE") ?></p>    
-        <h1><?= GetMessage("PASSWORD_CHANGE") ?></h1>
-    </div>
-</div>
+?>           
 <div class="changePassWrapper">
     <div class="bx-authform">
 

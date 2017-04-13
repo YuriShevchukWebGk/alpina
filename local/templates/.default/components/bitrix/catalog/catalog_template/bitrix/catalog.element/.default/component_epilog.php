@@ -75,11 +75,11 @@ if (!empty($authors_IDs)) {
     }
 } 
 if (strlen ($arResult['PROPERTIES']["ISBN"]["VALUE"]) ) {
-    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name . ' ' . $arResult['PROPERTIES']["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY").' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
+    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name . ' ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY").' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
 } else if ($MEDIA_TYPE) {
     $title = $arResult["NAME"] . ' ' . $author_name . ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"] .  GetMessage("TO_BUY_WITH_DELIVERY");
 } else {
-    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name . ' ' . $arResult['PROPERTIES']["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY");
+    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name . ' ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY");
 }
 if (!empty ($title) )  {
     $APPLICATION -> SetPageProperty("title", $title);

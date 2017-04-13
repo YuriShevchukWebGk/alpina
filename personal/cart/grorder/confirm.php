@@ -130,7 +130,7 @@
             arshow($_POST);
             }*/
         ?>
-
+		<?= $APPLICATION->ShowHead();?>
         <?if(CModule::IncludeModule("iblock"))
             {
                 $arFilter = Array("IBLOCK_ID"=>48, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_RUBRIC" => $arSection["ID"]);
@@ -168,7 +168,14 @@
                 "webgk:rfi.widget",
                 "",
                 Array(
-                    "ORDER_ID" => $_REQUEST["ORDER_ID"]
+                    "ORDER_ID"          => $num,
+                    "READRIGHT_PAYMENT" => "Y",
+                    "READRIGHT_PARAMS"  => array(
+						"PAYSUM"   => htmlspecialcharsbx($_POST["paysum"]),
+						"EMAIL"    => htmlspecialcharsbx($_POST["email"]),
+						"PHONE"    => htmlspecialcharsbx($_POST['telephone']),
+						"COMMENT"  => $num
+					)
                 ),
                 false
             ); ?>

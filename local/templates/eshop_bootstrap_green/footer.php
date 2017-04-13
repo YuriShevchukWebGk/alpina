@@ -161,9 +161,6 @@
                         <a href="http://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/youImg.png"></a>
                         <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/googImg.png"></a>
                         <a href="http://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
-                          <div id="development">   
-                           <a href="https://www.alpinabook.ru/sitemap/">Карта сайта</a>
-                        </div>                        
                     </div>
                 </div>
             </div>
@@ -183,7 +180,7 @@
                 <div class="BasketQuant">
                 </div>
             </div>
-            <?
+            <? 
             if(CUser::IsAuthorized()) {
                 ?>
                 <a href="/personal/cart/?liked=yes">
@@ -292,7 +289,7 @@
 
         <img src="/img/catalogLeftClose.png" class="windowClose" onclick="$('.hidingBasketRight, .layout').hide();">
         <div class="hidingBasketRight">
-            <?
+            <?/*
             $APPLICATION->IncludeComponent("bitrix:sale.basket.basket", "hiding_basket", Array(
                 "ACTION_VARIABLE" => "basketAction",    // Название переменной действия
                     "AUTO_CALCULATION" => "Y",    // Автопересчет корзины
@@ -333,7 +330,7 @@
                     "COMPONENT_TEMPLATE" => ".default"
                 ),
                 false
-            );
+            );*/
             ?>
         </div>
         <div class="layout"></div>
@@ -352,9 +349,9 @@
                     );?>
             </div>
         <?}?>
-    </body>
-</html>
+    </body>  
+</html>   
 <?
 if($APPLICATION->GetPageProperty("keywords-new") != '')
-    $APPLICATION->SetPageProperty("keywords", $APPLICATION->GetPageProperty("keywords-new"));
+    $APPLICATION->SetPageProperty("keywords", $APPLICATION->GetPageProperty("keywords-new")); 
 ?>

@@ -383,9 +383,9 @@ div.bx_section div.bx_block div.bx_element input[type=radio],
     border: none;
     border-bottom: 1px solid #dcdfe2;
 }
-.bx_order_make .bx_section{
+/*.bx_order_make .bx_section{
     margin-bottom: 20px;
-}
+}*/
 .bx_order_make .bx_section h4{
     display: block;
     margin-bottom: 10px;
@@ -1062,4 +1062,6 @@ to {
     margin-left: 34px;
     display: none;
 }
-
+.bx_section .clear {
+	padding-bottom:15px;
+}

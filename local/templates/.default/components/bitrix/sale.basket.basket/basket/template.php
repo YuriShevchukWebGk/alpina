@@ -282,14 +282,6 @@
                                     false
                                 );?>
                         </div>
-                        <p class="nextPageWrap">
-                        	<? if ($arResult['allSum']) { ?>
-                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
-                        	<? } else { ?>
-                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
-                        	<? } ?>
-                        </p> 
-
                     </div>
                 </div>                       
 
@@ -298,12 +290,11 @@
 				/* Получаем рекомендации для корзины от RetailRocket */
 				global $arrFilter;
 				//echo $retailRocketRecs;
-				if (isset($_COOKIE["rrpusid"])){
-					//$retailRocketRecs = (substr($retailRocketRecs,0,-1));
-					$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.(substr($retailRocketRecs,0,-1)));
-					$recsArray = json_decode($stringRecs);
-					$arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
-				}
+				//$retailRocketRecs = (substr($retailRocketRecs,0,-1));
+				$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.(substr($retailRocketRecs,0,-1)));
+				$recsArray = json_decode($stringRecs);
+				$arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
+
 				if ($arrFilter['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
 				<div class="recomendation">
 					<p class="grayTitle">С заказанными книгами читают</p>

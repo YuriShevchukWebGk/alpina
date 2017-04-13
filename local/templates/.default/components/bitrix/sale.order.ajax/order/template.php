@@ -66,7 +66,9 @@
 	.rfi_bank_vars {
 		display:none;
 	}
-
+	.shipingText {
+		cursor:pointer;
+	}
 </style>
 
 
@@ -172,9 +174,9 @@
                 else
                     minDatePlus = 1;
             } else if (ourday == 3) { //среда
-				if (hourfordeliv < 9)
-                    minDatePlus = '<?=date("d.m.Y");?>';
-                else
+				//if (hourfordeliv < 9)
+                //    minDatePlus = '<?=date("d.m.Y");?>';
+                //else
                     minDatePlus = 1;
             } else if (ourday == 4) { //четверг
                 if (hourfordeliv < 9)
@@ -218,8 +220,8 @@
             $(".inputTitle:contains('Получатель')").parent().append('<span class="hideInfo warningMessage" style="display:inline;color:grey">(ФИО полностью)</span>');
 			$(".inputTitle:contains('Адрес доставки')").html('Город и адрес доставки');
         } else {
-            $(".inputTitle:contains('Получатель')").html('Получатель <span class="bx_sof_req">*</span></p>');
-			$(".inputTitle:contains('Адрес доставки')").html('Адрес доставки');
+            $(".inputTitle:contains('Получатель')").html('Получатель <span class="bx_sof_req">*</span>');
+			$(".inputTitle:contains('Адрес доставки')").html('Адрес доставки <span class="bx_sof_req">*</span>');
             $(".hideInfo").hide();
         }
 
@@ -304,7 +306,7 @@
 
         <?if ($arResult["USER_VALS"]["CONFIRM_ORDER"] != "Y") {?>
             <div class="helpBlock">
-                <p class="text">Сложности с оформлением заказа? Свяжитесь с нами, мы вам поможем!</p>
+                <p class="text">Если возникнут сложности с&nbsp;оформлением заказа, свяжитесь&nbsp;&mdash; поможем!</p>
                 <p class="telephone">
                     <?$APPLICATION->IncludeComponent(
                         "bitrix:main.include",

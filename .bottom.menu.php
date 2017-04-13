@@ -20,6 +20,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Авторам", 
+		"/content/publisher/authors/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>

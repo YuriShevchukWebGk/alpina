@@ -1,12 +1,8 @@
 <?   
-if ($_REQUEST["change_password"]) {
-    define("NEED_AUTH", true);
-}
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");         
-
 ?>
-
-<?if ($_REQUEST["forgot_password"]) {?>
+ 
+<?if ($_REQUEST["forgot_password"] || $_REQUEST["change_password"]) {?>
     <div class="historyCoverWrap">
         <div class="centerWrapper">
             <p>Главная</p>    
@@ -14,14 +10,14 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
         </div>
     </div>
     <div class="lostPassWrapper">
-        <?
+        <?  
             $APPLICATION->IncludeComponent("bitrix:main.profile", "eshop", Array(
                 "SET_TITLE" => "Y",    // Устанавливать заголовок страницы
                 ),
                 false
             );
         ?>
-    </div>
+    </div> 
 <?} else {?>    
     <div class="historyCoverWrap">
         <div class="centerWrapper">
@@ -41,7 +37,7 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 
 
                 <div class="signinBlock">
-
+                    <??>
                     <?$APPLICATION->IncludeComponent("bitrix:system.auth.authorize", "flat", Array(
                         "REGISTER_URL" => "",
                         "PROFILE_URL" => "",
@@ -53,7 +49,7 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 
                 <div class="registrationBlock">
 
-                    <?$APPLICATION->IncludeComponent("bitrix:system.auth.registration", "flat", Array(
+                    <?$APPLICATION->IncludeComponent("bitrix:system.auth.registration", "flat", Array( 
 
                         ),
                         false

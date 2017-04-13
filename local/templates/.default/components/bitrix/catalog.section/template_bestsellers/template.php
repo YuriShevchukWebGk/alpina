@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-
+<?$frame = $this->createFrame()->begin();?>
 
                 <div class="book bookBest">
                     <div class="firstWrapp">
@@ -83,3 +83,4 @@ $this->setFrameMode(true);
                     </div>
                 </div>
 
+<?$frame->end();?>
