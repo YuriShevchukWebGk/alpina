@@ -9,11 +9,14 @@
     CModule::IncludeModule("sale");
     CModule::IncludeModule("catalog");
     CModule::IncludeModule("main");
+    CModule::IncludeModule('highloadblock');
     use Bitrix\Main;
     use Bitrix\Main\Loader;
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
-    
+    use Bitrix\Highloadblock as HL;
+    use Bitrix\Main\Entity;       
+                                
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -37,9 +40,9 @@
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("CASHLESS_PAYSYSTEM_ID", 12);
     define ("FLIPPOST_ID", 30);
-	define ("GURU_DELIVERY_ID", 43);
-	define ("EXPORTED_TO_GURU_PROPERTY_ID_NATURAL", 90); // физ. лицо
-	define ("EXPORTED_TO_GURU_PROPERTY_ID_LEGAL", 91); // юр. лицо
+    define ("GURU_DELIVERY_ID", 43);
+    define ("EXPORTED_TO_GURU_PROPERTY_ID_NATURAL", 90); // физ. лицо
+    define ("EXPORTED_TO_GURU_PROPERTY_ID_LEGAL", 91); // юр. лицо
     define ("PICKPOINT_DELIVERY_ID", 18);
     define ("CITY_INDIVIDUAL_ORDER_PROP_ID", 2);
     define ("CITY_ENTITY_ORDER_PROP_ID", 3);
@@ -60,14 +63,14 @@
     define ("BIK_FOR_EXPENSE_OFFER", "044525716");
     define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
     define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
-    define("TRADING_FINANCE_SECTION_ID", 111);	
-	define("WIDGET_PREVIEW_WIDTH", 70);
-	define("WIDGET_PREVIEW_HEIGHT", 90);
+    define("TRADING_FINANCE_SECTION_ID", 111);    
+    define("WIDGET_PREVIEW_WIDTH", 70);
+    define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
-    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
-    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry      
-    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами              
-    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска
+    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry   
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry                  
+    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                                                                      
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами           
 
     /**
     * 
@@ -164,38 +167,38 @@
 
         $domain = $arParams['MAILGUN']['DOMAIN'];
         # Make the call to the client.
-		$result = $mailgun->sendMessage($domain, $params);
+        $result = $mailgun->sendMessage($domain, $params);
     }
 
     /**
-	 * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
-	 *
-	 * @return array
-	 * */
-	function getDefaultFlippostValues() {
-		return $flippost_default_values = array(
-			array(
-				"PRICE" => 1500.00,
-				"WEIGHT" => array(0, 5000)
-			),
-			array(
-				"PRICE" => 3000.00,
-				"WEIGHT" => 5000
-			),
-		);
-	}
-	
-	/**
-	 * Дефолтные значения для доставки гуру на случай, если что-то пошло не так и цена доставки 0
-	 *
-	 * @return array
-	 * */
-	function getDefaultGuruValues() {
-		return $guru_default_values = array(
-			"PRICE" => 269,
-			"TIME"  => 0
-		);
-	}
+     * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
+     *
+     * @return array
+     * */
+    function getDefaultFlippostValues() {
+        return $flippost_default_values = array(
+            array(
+                "PRICE" => 1500.00,
+                "WEIGHT" => array(0, 5000)
+            ),
+            array(
+                "PRICE" => 3000.00,
+                "WEIGHT" => 5000
+            ),
+        );
+    }
+    
+    /**
+     * Дефолтные значения для доставки гуру на случай, если что-то пошло не так и цена доставки 0
+     *
+     * @return array
+     * */
+    function getDefaultGuruValues() {
+        return $guru_default_values = array(
+            "PRICE" => 269,
+            "TIME"  => 0
+        );
+    }
 
     /***************
     *
@@ -234,17 +237,17 @@
         if ($n==1) return $f1;
         return $f5;
     }
-	/**
-	 * Проверка на мобильное устройство
-	 * */
-	function checkMobile() {
-		$useragent = $_SERVER['HTTP_USER_AGENT'];
-		if (preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4)))
-			return true;
-		else
-			return false;
-	}
-	
+    /**
+     * Проверка на мобильное устройство
+     * */
+    function checkMobile() {
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+        if (preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4)))
+            return true;
+        else
+            return false;
+    }
+    
     function searchNum2Str($num) {
         $nul='ноль';
         $ten=array(
@@ -282,124 +285,124 @@
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
 
-	AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
-	AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
+    AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
+    AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 
-	/**
-	 * Handler для доставки flippost. Плюсуем стоимость доставки
-	 *
-	 * @param array $arFields
-	 * @return void
-	 *
-	 * */
-	function flippostHandlerBefore(&$arFields) {
-		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
-			$delivery_price = 0;
-			$flippost_default_values = getDefaultFlippostValues();
-			if ($_REQUEST['flippost_cost']) {
-				$delivery_price = $_REQUEST['flippost_cost'];
-			} else {
-				foreach ($flippost_default_values as $default_variant) {
-					if (is_array($default_variant['WEIGHT'])) {
-						if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
-							$delivery_price = $default_variant['PRICE'];
-							break;
-						}
-					} else {
-						if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
-							$delivery_price = $default_variant['PRICE'];
-							break;
-						}
-					}
-				}
-			}
-			$arFields['PRICE'] += floatval($delivery_price);
-			$arFields['PRICE_DELIVERY'] = floatval($delivery_price);
-		}
-	}
+    /**
+     * Handler для доставки flippost. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function flippostHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+            $delivery_price = 0;
+            $flippost_default_values = getDefaultFlippostValues();
+            if ($_REQUEST['flippost_cost']) {
+                $delivery_price = $_REQUEST['flippost_cost'];
+            } else {
+                foreach ($flippost_default_values as $default_variant) {
+                    if (is_array($default_variant['WEIGHT'])) {
+                        if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    } else {
+                        if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    }
+                }
+            }
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+        }
+    }
 
-	/**
-	 * Handler для доставки flippost. Изменяем адрес
-	 *
-	 * @param array $arFields
-	 * @return void
-	 *
-	 * */
-	function flippostHandlerAfter($ID, $arFields) {
-		GLOBAL $arParams;
-		if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
-			$arPropFields = array(
-				"ORDER_ID" => $ID,
-				"NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
-				"VALUE" => $_REQUEST['flippost_address']
-			);
+    /**
+     * Handler для доставки flippost. Изменяем адрес
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function flippostHandlerAfter($ID, $arFields) {
+        GLOBAL $arParams;
+        if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
+            $arPropFields = array(
+                "ORDER_ID" => $ID,
+                "NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
+                "VALUE" => $_REQUEST['flippost_address']
+            );
 
-			$arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
-			$arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
+            $arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
+            $arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
 
-			CSaleOrderPropsValue::Add($arPropFields);
+            CSaleOrderPropsValue::Add($arPropFields);
 
-			// Добавляем полную стоимость заказа в оплату
-			$order_instance = Bitrix\Sale\Order::load($ID);
-			$payment_collection = $order_instance->getPaymentCollection();
-			foreach ($payment_collection as $payment) {
-				$payment->setField('SUM', $arFields['PRICE']);
-				$payment->save();
-			}
-		}
-	}
-	
-	AddEventHandler("sale", "OnBeforeOrderAdd", "guruHandlerBefore"); // меняем цену для guru
-	AddEventHandler("sale", "OnOrderSave", "guruHandlerAfter"); // меняем адрес для guru
+            // Добавляем полную стоимость заказа в оплату
+            $order_instance = Bitrix\Sale\Order::load($ID);
+            $payment_collection = $order_instance->getPaymentCollection();
+            foreach ($payment_collection as $payment) {
+                $payment->setField('SUM', $arFields['PRICE']);
+                $payment->save();
+            }
+        }
+    }
+    
+    AddEventHandler("sale", "OnBeforeOrderAdd", "guruHandlerBefore"); // меняем цену для guru
+    AddEventHandler("sale", "OnOrderSave", "guruHandlerAfter"); // меняем адрес для guru
 
-	/**
-	 * Handler для доставки guru. Плюсуем стоимость доставки
-	 *
-	 * @param array $arFields
-	 * @return void
-	 *
-	 * */
-	function guruHandlerBefore(&$arFields) {
-		if ($arFields['DELIVERY_ID'] == GURU_DELIVERY_ID) {
-			$delivery_price = $_REQUEST['guru_cost'];
-			$arFields['PRICE'] += floatval($delivery_price);
-			$arFields['PRICE_DELIVERY'] = floatval($delivery_price);
-		}
-	}
+    /**
+     * Handler для доставки guru. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function guruHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == GURU_DELIVERY_ID) {
+            $delivery_price = $_REQUEST['guru_cost'];
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+        }
+    }
 
-	/**
-	 * Handler для доставки guru. Изменяем адрес
-	 *
-	 * @param array $arFields
-	 * @return void
-	 *
-	 * */
-	function guruHandlerAfter($ID, $arFields) {
-		GLOBAL $arParams;
-		if ($arFields['DELIVERY_ID'] == GURU_DELIVERY_ID) {
-			// Добавляем полную стоимость заказа в оплату
-			$order_instance = Bitrix\Sale\Order::load($ID);
-			$payment_collection = $order_instance->getPaymentCollection();
-			foreach ($payment_collection as $payment) {
-				$payment->setField('SUM', $arFields['PRICE']);
-				$payment->save();
-			}
+    /**
+     * Handler для доставки guru. Изменяем адрес
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function guruHandlerAfter($ID, $arFields) {
+        GLOBAL $arParams;
+        if ($arFields['DELIVERY_ID'] == GURU_DELIVERY_ID) {
+            // Добавляем полную стоимость заказа в оплату
+            $order_instance = Bitrix\Sale\Order::load($ID);
+            $payment_collection = $order_instance->getPaymentCollection();
+            foreach ($payment_collection as $payment) {
+                $payment->setField('SUM', $arFields['PRICE']);
+                $payment->save();
+            }
 
-			// записываем тех данные в поле адреса id пункта самовывоза|дата доставки
-			$property_collection = $order_instance->getPropertyCollection();
-			if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
-				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);              
-				$exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_LEGAL);
-			} else {
-				$address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID);             
-				$exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_NATURAL);
-			}
-			$address_property_instance->setValue($_REQUEST['guru_delivery_data']);
-			$exported_to_dg_property_instance->setValue("N");
-			
-			$order_instance->save();
-		}
-	}
+            // записываем тех данные в поле адреса id пункта самовывоза|дата доставки
+            $property_collection = $order_instance->getPropertyCollection();
+            if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);              
+                $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_LEGAL);
+            } else {
+                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID);             
+                $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_NATURAL);
+            }
+            $address_property_instance->setValue($_REQUEST['guru_delivery_data']);
+            $exported_to_dg_property_instance->setValue("N");
+            
+            $order_instance->save();
+        }
+    }
                                                           
     //Обновление заказа для доставки Boxberry
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberryHandlerBefore"); // меняем цену для boxberry
@@ -552,7 +555,7 @@
                     $links = serialize($allUrlsArray);
 
                     $fieldsGend = Array(
-                        "UF_TEST"						=> $links
+                        "UF_TEST"                        => $links
                     );
                     $userGend = new CUser;
                     $userGend->Update($order_list['USER_ID'], $fieldsGend);
@@ -701,7 +704,7 @@
                     $links = serialize($allUrlsArray);
 
                     $fieldsGend = Array(
-                        "UF_TEST"						=> $links
+                        "UF_TEST"                        => $links
                     );
                     $userGend = new CUser;
                     $userGend->Update($order_list['USER_ID'], $fieldsGend);
@@ -962,209 +965,209 @@
     }
     
     AddEventHandler("main", "OnAfterUserRegister", Array("AlpinaBK", "sendUserToBK"));
-	AddEventHandler("main", "OnAfterUserUpdate",  Array("AlpinaBK", "updateUserPassword"));
-	AddEventHandler("main", "OnBeforeUserLogin", Array("AlpinaBK", "checkUserBeforeLogin"));
+    AddEventHandler("main", "OnAfterUserUpdate",  Array("AlpinaBK", "updateUserPassword"));
+    AddEventHandler("main", "OnBeforeUserLogin", Array("AlpinaBK", "checkUserBeforeLogin"));
 
-	// общий класс для методов, связанных с бизнес книгами
+    // общий класс для методов, связанных с бизнес книгами
     class AlpinaBK {
-    	
-		/**
-		 * 
-		 * Регистрируем нового пользователя в БК после регистрации на сайте
-		 * 
-		 * */
-    	public static function sendUserToBK($arFields) {
-    		$postdata = http_build_query(
-		        array(
-		           'method' => 'sendUserToBK',
-		           'token' => BK_TOKEN,
-		           'email' => $arFields['EMAIL'],
-		           'password' => $arFields['PASSWORD'],
-		           'name' => $arFields['NAME'] . " " . $arFields['LAST_NAME']
-		       )
-		    );
-		
-		    $opts = array('http' =>
-		       array(
-		           'method'  => 'POST',
-		           'header'  => 'Content-type: application/x-www-form-urlencoded',
-		           'content' => $postdata
-		      )
-		    );
-		    
-		    $context  = stream_context_create($opts);
-		    $result = file_get_contents('https://www.alpinabook.ru/api/user/', false, $context);
-    	}
-    	
-    	/**
-		 * 
-		 * При сбросе пароля ищем пользователя в БК, если он там есть, то меняем ему пароль на такой же,
-		 * если нет, то регистрируем нового пользователя в БК
-		 * 
-		 * @param array $fields
-		 * 
-		 * */
-    	public static function updateUserPassword(&$fields) {
-			// проверяем, что сбрасывают именно пароль
-			if ($fields['PASSWORD'] && $fields['CONFIRM_PASSWORD'] && $fields['RESULT']) {
-				// получение данных пользователя
-				$user = CUser::GetByID($fields['ID']);
-				$user = $user->Fetch();	
-				// --- запрос на существование пользователя в БК ---
-				$data = array(
-					'email' => $user['EMAIL']
-				);
-				ksort($data);
-				
-				$string_to_hash = http_build_query($data);
-				$sig = md5($string_to_hash . BK_API_SECRET_KEY);
-				
-				$data['sig'] = $sig;
-				
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users?' . http_build_query($data));
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-				    'X-Auth-Token: ' . BK_API_TOKEN,
-				));
-				$data = curl_exec($ch);
-				curl_close($ch);
-				// --- запрос на существование пользователя в БК ---
-				$user = json_decode($data, true);
-				if ($user[0]['id']) {
-					// если пользователь есть, то сбросим пароль
-					$data = array(
-						'password' => $fields['CONFIRM_PASSWORD']
-					);
-					ksort($data);
-					
-					$string_to_hash = http_build_query($data);
-					$sig = md5($string_to_hash . BK_API_SECRET_KEY);
-					
-					$data['sig'] = $sig;
-					
-					$ch = curl_init();
-					curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users/' . $user[0]['id']);
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-					curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-					    'X-Auth-Token: ' . BK_API_TOKEN,
-					));
-					$data = curl_exec($ch);
-					curl_close($ch);
-					// --- запрос сброс пароля в БК ---
-				} else {
-					// если нет, то создадим
-					self::sendUserToBK(array(
-						"EMAIL"     => $user['EMAIL'],
-						"PASSWORD"  => $fields['CONFIRM_PASSWORD'],
-						"NAME"      => $user['NAME'],
-						"LAST_NAME" => $user['LAST_NAME']
-					));
-				}
-			}
-    	}
+        
+        /**
+         * 
+         * Регистрируем нового пользователя в БК после регистрации на сайте
+         * 
+         * */
+        public static function sendUserToBK($arFields) {
+            $postdata = http_build_query(
+                array(
+                   'method' => 'sendUserToBK',
+                   'token' => BK_TOKEN,
+                   'email' => $arFields['EMAIL'],
+                   'password' => $arFields['PASSWORD'],
+                   'name' => $arFields['NAME'] . " " . $arFields['LAST_NAME']
+               )
+            );
+        
+            $opts = array('http' =>
+               array(
+                   'method'  => 'POST',
+                   'header'  => 'Content-type: application/x-www-form-urlencoded',
+                   'content' => $postdata
+              )
+            );
+            
+            $context  = stream_context_create($opts);
+            $result = file_get_contents('https://www.alpinabook.ru/api/user/', false, $context);
+        }
+        
+        /**
+         * 
+         * При сбросе пароля ищем пользователя в БК, если он там есть, то меняем ему пароль на такой же,
+         * если нет, то регистрируем нового пользователя в БК
+         * 
+         * @param array $fields
+         * 
+         * */
+        public static function updateUserPassword(&$fields) {
+            // проверяем, что сбрасывают именно пароль
+            if ($fields['PASSWORD'] && $fields['CONFIRM_PASSWORD'] && $fields['RESULT']) {
+                // получение данных пользователя
+                $user = CUser::GetByID($fields['ID']);
+                $user = $user->Fetch();    
+                // --- запрос на существование пользователя в БК ---
+                $data = array(
+                    'email' => $user['EMAIL']
+                );
+                ksort($data);
+                
+                $string_to_hash = http_build_query($data);
+                $sig = md5($string_to_hash . BK_API_SECRET_KEY);
+                
+                $data['sig'] = $sig;
+                
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users?' . http_build_query($data));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'X-Auth-Token: ' . BK_API_TOKEN,
+                ));
+                $data = curl_exec($ch);
+                curl_close($ch);
+                // --- запрос на существование пользователя в БК ---
+                $user = json_decode($data, true);
+                if ($user[0]['id']) {
+                    // если пользователь есть, то сбросим пароль
+                    $data = array(
+                        'password' => $fields['CONFIRM_PASSWORD']
+                    );
+                    ksort($data);
+                    
+                    $string_to_hash = http_build_query($data);
+                    $sig = md5($string_to_hash . BK_API_SECRET_KEY);
+                    
+                    $data['sig'] = $sig;
+                    
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users/' . $user[0]['id']);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        'X-Auth-Token: ' . BK_API_TOKEN,
+                    ));
+                    $data = curl_exec($ch);
+                    curl_close($ch);
+                    // --- запрос сброс пароля в БК ---
+                } else {
+                    // если нет, то создадим
+                    self::sendUserToBK(array(
+                        "EMAIL"     => $user['EMAIL'],
+                        "PASSWORD"  => $fields['CONFIRM_PASSWORD'],
+                        "NAME"      => $user['NAME'],
+                        "LAST_NAME" => $user['LAST_NAME']
+                    ));
+                }
+            }
+        }
 
-    	/**
-		 * 
-		 * Реализация единого алгоритма авторизации
-		 * 
-		 * @param array $fields
-		 * 
-		 * */
-    	public static function checkUserBeforeLogin(&$fields) {
-			// пробуем найти юзера в битрикс	
-			$users = CUser::GetList(
-				($by = "id"),
-				($order = "asc"),
-				array(
-			    	"=EMAIL" => $fields['LOGIN']
-				),
-				array(
-					"FIELDS" => array("ID", "EMAIL", "PASSWORD")
-				)
-			);
-			// если пользователь найден, то дальше работает с ним
-			if ($user = $users->Fetch()) {
-			    $current_hash = $user['PASSWORD'];
-				$password = $fields['PASSWORD'];
-				$salt = substr($current_hash, 0, (strlen($current_hash) - 32));
-				
-				$current_password = substr($current_hash, -32);
-				$password = md5($salt . $password);
-				// если пароли совпадают, то все ок, просто авторизуем, если нет, то проверим его на БК
-				if ($current_password != $password) {
-					$data = array(
-						'email'    => $fields['LOGIN'],
-						'password' => $fields['PASSWORD']
-					);
-					
-					$ch = curl_init();
-					curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-					curl_setopt($ch, CURLOPT_POST, true);
-					curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-					    'X-AD-Offer: 1'
-					));
-					$data = curl_exec($ch);
-					curl_close($ch);
-					$bk_response = json_decode($data, true);
-					// если пользователь смог авторизоваться, то меняем его пароль в битриксе на этот
-					if ($bk_response[0]["id"]) {
-						$user_update = new CUser;
-						$user_update->Update(
-							$user["ID"],
-							array(
-							  "PASSWORD"         => $fields['PASSWORD'],
-							  "CONFIRM_PASSWORD" => $fields['PASSWORD']
-							)
-						);
-						global $USER;
-						if (!is_object($USER)) $USER = new CUser;
-						$auth_result = $USER->Login($fields['LOGIN'], $fields['PASSWORD'], "Y", "Y");
-					}
-				}
-			} else {
-				// если нет, то проверяем, есть ли он в БК
-				$data = array(
-					'email'    => $fields['LOGIN'],
-					'password' => $fields['PASSWORD']
-				);
-				
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($ch, CURLOPT_POST, true);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-				    'X-AD-Offer: 1'
-				));
-				$data = curl_exec($ch);
-				curl_close($ch);
-				$bk_response = json_decode($data, true);
-				// если пользователь смог авторизоваться, то регистрируем его в альпине
-				if ($bk_response[0]["id"]) {
-					$user = new CUser;
-					$user_fields = Array(
-						"EMAIL"             => $fields['LOGIN'],
-						"LOGIN"             => $fields['LOGIN'],
-						"ACTIVE"            => "Y",
-						"GROUP_ID"          => array(3, 4, 5),
-						"PASSWORD"          => $fields['PASSWORD'],
-						"CONFIRM_PASSWORD"  => $fields['PASSWORD']
-					);
-					
-					$ID = $user->Add($user_fields);
-					global $USER;
-					if (!is_object($USER)) $USER = new CUser;
-					$auth_result = $USER->Login($fields['LOGIN'], $fields['PASSWORD'], "Y", "Y");
-				}
-			}
-    	}
+        /**
+         * 
+         * Реализация единого алгоритма авторизации
+         * 
+         * @param array $fields
+         * 
+         * */
+        public static function checkUserBeforeLogin(&$fields) {
+            // пробуем найти юзера в битрикс    
+            $users = CUser::GetList(
+                ($by = "id"),
+                ($order = "asc"),
+                array(
+                    "=EMAIL" => $fields['LOGIN']
+                ),
+                array(
+                    "FIELDS" => array("ID", "EMAIL", "PASSWORD")
+                )
+            );
+            // если пользователь найден, то дальше работает с ним
+            if ($user = $users->Fetch()) {
+                $current_hash = $user['PASSWORD'];
+                $password = $fields['PASSWORD'];
+                $salt = substr($current_hash, 0, (strlen($current_hash) - 32));
+                
+                $current_password = substr($current_hash, -32);
+                $password = md5($salt . $password);
+                // если пароли совпадают, то все ок, просто авторизуем, если нет, то проверим его на БК
+                if ($current_password != $password) {
+                    $data = array(
+                        'email'    => $fields['LOGIN'],
+                        'password' => $fields['PASSWORD']
+                    );
+                    
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        'X-AD-Offer: 1'
+                    ));
+                    $data = curl_exec($ch);
+                    curl_close($ch);
+                    $bk_response = json_decode($data, true);
+                    // если пользователь смог авторизоваться, то меняем его пароль в битриксе на этот
+                    if ($bk_response[0]["id"]) {
+                        $user_update = new CUser;
+                        $user_update->Update(
+                            $user["ID"],
+                            array(
+                              "PASSWORD"         => $fields['PASSWORD'],
+                              "CONFIRM_PASSWORD" => $fields['PASSWORD']
+                            )
+                        );
+                        global $USER;
+                        if (!is_object($USER)) $USER = new CUser;
+                        $auth_result = $USER->Login($fields['LOGIN'], $fields['PASSWORD'], "Y", "Y");
+                    }
+                }
+            } else {
+                // если нет, то проверяем, есть ли он в БК
+                $data = array(
+                    'email'    => $fields['LOGIN'],
+                    'password' => $fields['PASSWORD']
+                );
+                
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'X-AD-Offer: 1'
+                ));
+                $data = curl_exec($ch);
+                curl_close($ch);
+                $bk_response = json_decode($data, true);
+                // если пользователь смог авторизоваться, то регистрируем его в альпине
+                if ($bk_response[0]["id"]) {
+                    $user = new CUser;
+                    $user_fields = Array(
+                        "EMAIL"             => $fields['LOGIN'],
+                        "LOGIN"             => $fields['LOGIN'],
+                        "ACTIVE"            => "Y",
+                        "GROUP_ID"          => array(3, 4, 5),
+                        "PASSWORD"          => $fields['PASSWORD'],
+                        "CONFIRM_PASSWORD"  => $fields['PASSWORD']
+                    );
+                    
+                    $ID = $user->Add($user_fields);
+                    global $USER;
+                    if (!is_object($USER)) $USER = new CUser;
+                    $auth_result = $USER->Login($fields['LOGIN'], $fields['PASSWORD'], "Y", "Y");
+                }
+            }
+        }
     }
 
     AddEventHandler("main", "OnAfterUserRegister", Array("OnAfterUserRegisterHandler", "OnAfterUserRegister"));
@@ -1282,10 +1285,10 @@
             "D10" => "Истекает срок хранения Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "D12" => "Осталось 2 дня до аннулирования Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
             "CA" => "Ваш заказ order уже в пути. Курьер cur_name cur_phone",
-			"PS" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в Ваше почтовое отделение! Мы будем держать Вас в курсе событий!",
-			"PD" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» доставлен почтовое отделение. Придите отделение и назовите оператору трекинг-код tracking. С собой необходимо иметь паспорт. Спасибо!",
-			"P10" => "Здравствуйте, clientName! Пожалуйста, заберите Ваш заказ из магазина «Альпина Паблишер» в Вашем почтовом отделении.",
-			"PA" => "Здравствуйте, clientName! Срок хранения Вашего заказ №order из интернет-магазина «Альпина Паблишер» истекает. Пожалуйста, заберите заказ в почтовом отделении. Трекинг-код tracking. Спасибо!"			
+            "PS" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в Ваше почтовое отделение! Мы будем держать Вас в курсе событий!",
+            "PD" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» доставлен в Ваше почтовое отделение! Пожалуйста, получите Вашу посылку! Для этого придите в Ваше отделение и назовите оператору трекинг-код. С собой необходимо иметь паспорт. Спасибо за выбор нашего магазина!",
+            "P10" => "Здравствуйте, clientName! Пожалуйста, заберите Ваш заказ из магазина «Альпина Паблишер» в Вашем почтовом отделении.",
+            "PA" => "Здравствуйте, clientName! Срок хранения Вашего заказ №order из интернет-магазина «Альпина Паблишер» истекает. Пожалуйста, заберите Ваш заказ в почтовом отделении. Спасибо!"            
             //"I" => "Ваш заказ №order в пути. Если будут вопросы – звоните +7(495)9808077"
         );
 
@@ -1381,13 +1384,12 @@
         *
         *************/
 
-        public function sendMessage($ID,$val,$curArr,$ordsum,$tracking){
+        public function sendMessage($ID,$val,$curArr,$ordsum){
 
             $phone = $this->getPhone($ID);
             $name = $this->getClientName($ID);
             $message = preg_replace('/order/',$ID,self::$messages[$val]); // ---- вставляем номер заказа
             $message = preg_replace('/ordsum/',$ordsum,$message); // ---- вставляем сумму заказа
-			$message = preg_replace('/tracking/',$tracking,$message); // ---- вставляем трек-номер
             $message = preg_replace('/clientName/',$name,$message); // ---- вставляем имя клиента
             if($curArr != ''){
                 $message = preg_replace('/cur_name/',$curArr['CUR']['NAME'],$message); // ---- вставляем имя курьера
@@ -1563,11 +1565,11 @@
         $out[] = $kop.' '.morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
-	
-	function typo($str){      
-		$pattern = '/\s+(в|без|до|из|к|на|по|о|от|перед|при|через|с|у|и|нет|за|над|для|об|под|про|но|что|не|или)\s+/';
-		return preg_replace($pattern, ' \1&nbsp;', $str);
-	}
+    
+    function typo($str){      
+        $pattern = '/\s+(в|без|до|из|к|на|по|о|от|перед|при|через|с|у|и|нет|за|над|для|об|под|про|но|что|не|или)\s+/';
+        return preg_replace($pattern, ' \1&nbsp;', $str);
+    }
 
     /**
     * Склоняем словоформу
@@ -2236,41 +2238,41 @@
             FILE_APPEND
         );
     }
-	
-	/**
-	 * 
-	 * Выполнить запрос
-	 * 
-	 * @param array $data
-	 * @param string $method
-	 * @param string $request
-	 * @param string $headers
-	 * @return mixed $result
-	 * 
-	 * */
+    
+    /**
+     * 
+     * Выполнить запрос
+     * 
+     * @param array $data
+     * @param string $method
+     * @param string $request
+     * @param string $headers
+     * @return mixed $result
+     * 
+     * */
 
     function performQuery($data, $method = "GET", $request, $headers) {
-		$postdata = http_build_query(
-			$data
-	    );
-	
-	    $opts = array(
-		    'http' => array(
-				'method'  => $method,
-				'header'  => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL . $headers,
-				'content' => $postdata
-			),
-			'ssl' => array(
-		        'verify_peer' => false
-		    )
-	    );
-	    
-	    $context  = stream_context_create($opts);
-	    $result = file_get_contents($request, false, $context);
-		
-		return $result;
-	}
-	
+        $postdata = http_build_query(
+            $data
+        );
+    
+        $opts = array(
+            'http' => array(
+                'method'  => $method,
+                'header'  => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL . $headers,
+                'content' => $postdata
+            ),
+            'ssl' => array(
+                'verify_peer' => false
+            )
+        );
+        
+        $context  = stream_context_create($opts);
+        $result = file_get_contents($request, false, $context);
+        
+        return $result;
+    }
+    
     /***********
     * 
     * при добавлении/изменении скидки на товар проставлять свойство "Показывать иконку скидки" у данного товара
@@ -2365,6 +2367,71 @@
         $curPage = $APPLICATION->GetCurPage(); 
         $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';    
         $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';
-        logger($order_log, $file);  
-    }                                 
+        logger($order_log, $file);
+    }            
+    
+    
+    
+    //Обновление HL блока с поисковыми индексами  
+     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'iblock',
+        'OnAfterIBlockElementUpdate',
+        'HLBlockElementUpdate'
+    ); 
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'iblock',
+        'OnAfterIBlockElementAdd',
+        'HLBlockElementUpdate'
+    );                              
+    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){ 
+        if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {   
+            $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL");
+            $arFilter = Array("ID"=>$arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");                  
+            $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);  
+            while($arFields = $res->GetNext())
+            {                             
+                if (!empty($arFields['NAME'])) {
+                    $arHLData['UF_TITLE'] = preg_replace("/([^a-zA-Z\sа-яёА-ЯЁ0-9])/u","",$arFields['NAME']);
+                }                   
+                if (!empty($arFields['NAME'])) {
+                    $arHLData['UF_TITLE_REAL'] = $arFields['NAME'];
+                }                                                                              
+                if (!empty($arFields['DETAIL_PAGE_URL'])) {
+                    $arHLData['UF_DETAIL_PAGE_URL'] = $arFields['DETAIL_PAGE_URL'];
+                }                                                                            
+                if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
+                    $arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
+                } 
+                if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {                             
+                    if (empty($arHLData['UF_AUTHOR'])) {
+                        $autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);            
+                        if ($autorsAr = $autorsOb -> fetch()) {
+                            $arHLData['UF_AUTHOR'] = $autorsAr['NAME'];
+                        }            
+                    } 
+                }
+                if(!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {                             
+                    if (empty($arHLData['UF_COVER_TYPE'])) {   
+                        $arHLData['UF_COVER_TYPE'] = $arFields['PROPERTY_COVER_TYPE_VALUE'];  
+                    } 
+                }     
+                $arHLData['UF_IBLOCK_ID'] = $arFields['ID'];  
+            }                         
+            if($arHLData){                                          
+                $hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch(); 
+                $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+                $entity_data_class = $entity->getDataClass();         
+                $rsElementID = $entity_data_class::getList(array(
+                   "select" => array("ID"),
+                   "order"  => array("ID" => "ASC"),
+                   "filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
+                ));                                     
+                if($arElementID = $rsElementID->Fetch()){
+                    $result = $entity_data_class::update($arElementID['ID'], $arHLData);    
+                } else {               
+                    $result = $entity_data_class::add($arHLData);
+                } 
+            }       
+        }                                                                                    
+    }                
 ?>
