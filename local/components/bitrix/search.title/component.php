@@ -75,7 +75,7 @@ if(
     $result = new CDBResult($result, $table_id);  
     while ($search_tip = $result->Fetch()) {         
         $arResult["CATEGORIES"][$i]["ITEMS"][] = array(
-            "NAME"          => $search_tip['UF_TITLE'],
+            "NAME"          => $search_tip['UF_TITLE_REAL'],
             "URL"           => $search_tip['UF_DETAIL_PAGE_URL'],
             "AUTHOR"        => $search_tip['UF_AUTHOR'],
             "COVER_TYPE"    => $search_tip['UF_COVER_TYPE']       
