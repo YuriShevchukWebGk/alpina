@@ -104,5 +104,6 @@ $APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
 	$APPLICATION->AddHeadString('<meta property="og:site_name" content="ООО «Альпина Паблишер»" />',false);
 	$APPLICATION->AddHeadString('<meta property="og:locale" content="ru_RU" />',false);
 	$APPLICATION->AddHeadString('<meta name="relap-title" content="'.$arResult["NAME"].'">',false);
+	$APPLICATION->AddHeadString('<link rel="prefetch" href="'.$arResult["MAIN_PICTURE"].'">',false);
 	// $APPLICATION->SetPageProperty('FACEBOOK_META', $fb_meta);
 ?>

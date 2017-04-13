@@ -11,6 +11,8 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
 	$this->setFrameMode(true);
+	$checkMobile = checkMobile();
+	include_once($_SERVER["DOCUMENT_ROOT"].'/custom-scripts/checkdelivery/options.php');
 ?>
 
 <script>
@@ -30,7 +32,7 @@ $(document).ready(function(){
 	if ($(".element_item_img img").height() < 394 && $(".element_item_img img").height() > 100) {
 		$(".element_item_img").height($(".element_item_img img").height());
 	}
-	$("a#inline1, a#inline2, a#inline3").fancybox({
+	<?/*$("a#inline1, a#inline2, a#inline3").fancybox({
 		'hideOnContentClick': true
 	});
 	if ($(".grouped_elements").length > 0) {
@@ -59,7 +61,7 @@ $(document).ready(function(){
 	$('a.fancybox').fancybox({
 		'width'   :   1140,
 		'height'   :   800
-	});
+	});*/?>
 	$(".leftColumn .signingPopup").fancybox({
 		<?if ($arResult["SIGNING_IMAGE_INFO"]["WIDTH"]) {?>
 			'width'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["WIDTH"] ?>+20,
@@ -86,7 +88,8 @@ $(document).ready(function(){
 
 		})
 	});
-	docReadyComponent();
+
+	docReadyComponent(<?= $arResult["ID"] ?>);
 });
 </script>
 <?
@@ -221,19 +224,23 @@ $arItemIDs = array(
                             }
                         ?>
 
-                        <div class="bookPages">
+                        <?/*<div class="bookPages">
                             <?
                                 if ($arResult["MAIN_PICTURE"]) {?>
                                 <a class="grouped_elements" rel="group1" href="<?= $arResult["MAIN_PICTURE"] ?>"><img src="<?= $arResult["MAIN_PICTURE"] ?>"></a>
                                 <?}
                             ?>
-                        </div>
+                        </div>*/?>
                         <div class="element_item_img">
                             <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
-                                <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
-
+								<?if (!$checkMobile) {?>
+									<a href="#" class="bookPreviewLink" onclick="getPreview(<?= $arResult["ID"] ?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;">
+								<?} else {?>
+									<a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
+								<?}?>
                                     <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
-                                    <?}?>
+								<?}?>
+								
                                 <?if ($arResult["PICTURE"]["src"]) {?>
                                     <img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" class="bookPreviewLink" alt="<?= $arResult["NAME"] ?>" title="<?= $arResult["NAME"] ?>" />
                                     <?} else {?>
@@ -273,9 +280,10 @@ $arItemIDs = array(
                             </div>
                         <?}?>
 						<?if ($arResult["PROPERTIES"]["page_views_ga"]["VALUE"] > 2) {?>
-							<div class="editorsBookMark no-mobile" style="background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0;padding-left:0;">
-								<img src="/img/eye_big.png" width="20" align="center" alt="Просмотров за сутки" /><span style="display:block;margin-top:-3px;padding-left:5px;float:right; color: #424D4F;font-family: 'Walshein_regular';font-size: 15px;"><?=$arResult["PROPERTIES"]["page_views_ga"]["VALUE"]?></span>
-								<span class="ttip">Просмотров за сутки</span>
+							<div class="no-mobile ga-views">
+								<img src="/img/eye_big.png?1" align="center" alt="Просмотров за сутки" />
+								<span class="bookViews"><?=$arResult["PROPERTIES"]["page_views_ga"]["VALUE"]?></span>
+								<span class="ttip"><?=GetMessage("VIEWS_A_DAY");?></span>
 							</div>
 						<?}?>
                         <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
@@ -283,7 +291,7 @@ $arItemIDs = array(
 								<br />
                                 <div class="digitalBookMark">
                                     <p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
-                                    <span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK");?></span>
+                                    <span class="ttip"><?=GetMessage("YOU_WILL_GET_FREE_DIGITAL_BOOK")?></span>
                                 </div>
                             <?}?>
                         <?}?>
@@ -320,10 +328,10 @@ $arItemIDs = array(
 						.productElementWrapp {min-height:1300px;}
 						.authorBooksWrapp, .weRecomWrap {clear:both;}
 						</style>
-						<div class="takePartWrap" style="display:block;margin-bottom:5px;height:auto; border-bottom: 1px solid #dddddd; margin-top:0px;">
+						<div class="takePartWrap">
 							<p class="title"><?= GetMessage("TO_GET_A_CHAPTER") ?></p>
 							<p class="text">Глава «<?=$arResult["PROPERTIES"]["glavatitle"]["VALUE"]?>» будет отправлена вам на почту</p>
-							<input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>" value="<?= $arResult["MAIL"]; ?>" id="chapter-email" /><button onclick="sendchapter(<?=$arResult[ID];?>);" style="position: relative;left: 217px;top: -36px;border: none;width: 41px;height: 36px;cursor: pointer;background: transparent;">
+							<input type="text" placeholder="<?= GetMessage("YOUR_EMAIL") ?>" value="<?= $arResult["MAIL"]; ?>" id="chapter-email" name="email" /><button onclick="sendchapter(<?=$arResult[ID];?>);">
 						</div>
 					<?}?>
 					<?if ($arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
@@ -449,7 +457,7 @@ $arItemIDs = array(
                     <?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
-					<?if (!checkMobile() && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+					<?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
 						<div id="diffversions">
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
@@ -467,6 +475,7 @@ $arItemIDs = array(
 							<?}?>
 						</script>
 					<?}?>
+					<?$frame = $this->createFrame()->begin();?>
                     <div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                         <meta itemprop="priceCurrency" content="RUB" />
                         <link itemprop="itemCondition" href="http://schema.org/NewCondition">
@@ -638,8 +647,9 @@ $arItemIDs = array(
                         }
                     }?>                            
                     </div>
+					<?$frame->end();?>
 
-					<?if (!checkMobile() && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+					<?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
 					<!--noindex-->
 					<div class="priceBasketWrap digitalVersionWrap" style="display:none;">
 						<div class="wrap_prise_top">
@@ -688,78 +698,55 @@ $arItemIDs = array(
                             $today = date("w");
                             $timenow = date("G");
 
-                            if ($timenow > 25) { //НОВОГОДНИЕ ПРАЗДНИКИ
-                                if ($today == 1) {
-                                    $delivery_day = GetMessage("TOMORROW");
-                                } elseif ($today == 2) {
-                                    $delivery_day = GetMessage("TOMORROW");
-                                } elseif ($today == 3) {
-                                    $delivery_day = GetMessage("TOMORROW");
-                                } elseif ($today == 4) {
-                                    $delivery_day = GetMessage("TOMORROW");
-                                } elseif ($today == 5) {
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                } elseif ($today == 6) {
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                } elseif ($today == 0) {
-                                    $delivery_day = GetMessage("TOMORROW");
-                                }
-
-                                if ($today == 5) {
-                                    if ($timenow < 17) {
-                                        $samovivoz_day = GetMessage("TODAY");
-                                    } else {
-                                        $samovivoz_day = GetMessage("ON_MONDAY"); //на праздники тут меняем день, потом обратно
-                                    }
-                                } elseif ($timenow < 17 && $today != 6) {
-                                    $samovivoz_day = GetMessage("TODAY");
-                                } else {
-                                    $samovivoz_day = GetMessage("TOMORROW");
-                                }
-                            } else { //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
-                                if ($today == 1) {
-                                    $delivery_day = GetMessage("TOMORROW");
-									//$delivery_day = 'в среду';
-                                } elseif ($today == 2) {
-									if ($timenow < 9)
-										$delivery_day = 'сегодня';
-									else
-										$delivery_day = GetMessage("TOMORROW");
-                                } elseif ($today == 3) {
+                            //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
+							/*if ($today == 1) {
+								$delivery_day = GetMessage("TOMORROW");
+								//$delivery_day = 'в среду';
+							} elseif ($today == 2) {
+								if ($timenow < 9)
+									$delivery_day = 'сегодня';
+								else
 									$delivery_day = GetMessage("TOMORROW");
-                                } elseif ($today == 4) {
-									$delivery_day = GetMessage("TOMORROW");
-                                } elseif ($today == 5) {
-									if ($timenow < 9)
-										$delivery_day = 'сегодня';
-									else
-										$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                } elseif ($today == 6) {
-                                    $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                                    //$delivery_day = 'во вторник';
-                                } elseif ($today == 0) {
-                                    $delivery_day = GetMessage("TOMORROW");
-                                    //$delivery_day = 'в среду';
-                                }
+								$delivery_day = 'в пятницу';
+							} elseif ($today == 3) {
+								$delivery_day = GetMessage("TOMORROW");
+								$delivery_day = 'в пятницу';
+							} elseif ($today == 4) {
+								$delivery_day = GetMessage("TOMORROW");
+							} elseif ($today == 5) {
+								if ($timenow < 9)
+									$delivery_day = 'сегодня';
+								else
+									$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+							} elseif ($today == 6) {
+								$delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
+								//$delivery_day = 'во вторник';
+							} elseif ($today == 0) {
+								$delivery_day = GetMessage("TOMORROW");
+								//$delivery_day = 'в среду';
+							}*/
 
-                                if ($today == 5) {
-                                    if ($timenow < 17) {
-                                        $samovivoz_day = GetMessage("TODAY");
-                                    } else {
-                                        $samovivoz_day = GetMessage("ON_MONDAY"); //на праздники тут меняем день, потом обратно
-                                    }
-                                } elseif ($timenow < 17 && $today != 6) {
-                                    $samovivoz_day = GetMessage("TODAY");
-                                } else {
-                                    $samovivoz_day = GetMessage("TOMORROW");
-                                }
-                            }?>
+							if ($today == 5) {
+								if ($timenow < 17) {
+									$samovivoz_day = GetMessage("TODAY");
+								} else {
+									$samovivoz_day = GetMessage("ON_MONDAY");
+								}
+							} elseif ($today == 6 || $today == 0) {
+								$samovivoz_day = GetMessage("ON_MONDAY");
+							} elseif ($timenow < 17) {
+								$samovivoz_day = GetMessage("TODAY");
+							} else {
+								$samovivoz_day = GetMessage("TOMORROW");
+							}
+							$delivery_day = $setProps['deliveryDayName'];
+                            ?>
                     <ul class="shippings">
-                        <li><?= GetMessage("MSK_DELIVERY") ?><br /><a id='inline1' href='#data1'><?=$delivery_day?></a></li>
-						<li>1239 <a id='inline3' href='#data3'><?= GetMessage("POSTOMATS") ?></a></li>
-                        <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a id='inline2' href='#data2'><?=$samovivoz_day?></a></li>
-                        <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a id='inline3' href='#data3'><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
-                        <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+						<li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
+						<li>1239 <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a></li>
+						<li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
+						<li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
+						<li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     </ul>
                     <?}?>
 
@@ -780,7 +767,7 @@ $arItemIDs = array(
                             <?}?>
                     </div>
 
-                    <div class="courierBlock">
+                    <?/*<div class="courierBlock">
                         <div id="data1">
                             <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
                                 "AREA_FILE_SHOW" => "file",
@@ -812,7 +799,7 @@ $arItemIDs = array(
                                 false
                             );?>
                         </div>
-                    </div>
+                    </div>*/?>
                     <?if ($arResult["PROPERTIES"]["author_book"]["VALUE"] == "Y") {?>
                         <div class="productAction">
                             <img src="/img/actionPicture.png">
@@ -903,25 +890,31 @@ $arItemIDs = array(
 
                             <style>
                             .crr {
-    font-family: "Walshein_regular"!important;
-    font-size:15px!important;
-}
-.crr .mc-star span {
-    font-size: 18px!important;
-}
-.mc-c .mc-star {
-    vertical-align: bottom !important;
-    color:#f0c15b !important;
-}
-</style>
+								font-family: "Walshein_regular"!important;
+								font-size:15px!important;
+							}
+							.crr .mc-star span {
+								font-size: 18px!important;
+							}
+							.mc-c .mc-star {
+								vertical-align: bottom !important;
+								color:#f0c15b !important;
+							}
+							.mc-c .mc-btn2 {
+								    color: rgba(255, 255, 255, 0.87)!important;
+									background: #5cb85c!important;
+									font-family: Walshein_regular!important;
+							}
+							.mc-c div {
+								font-family: Walshein_light!important;
+								font-size:16px!important;
+							}
+							.cr .mc-review-time {
+								font-size: 14px!important;
+								color:#3f4a4d!important;
+							}
+							</style>
                             <span class="crr-cnt" data-crr-url="<?=$arResult["ID"]?>" data-crr-chan="<?=$arResult["ID"]?>"></span>
-
-                            <span class="star"><img src="/img/activeStar.png"></span>
-                            <span class="star"><img src="/img/activeStar.png"></span>
-                            <span class="star"><img src="/img/activeStar.png"></span>
-                            <span class="star"><img src="/img/activeStar.png"></span>
-                            <span class="star"><img src="/img/unactiveStar.png"></span>
-                            <span class="countOfRev"><?//=$reviews_count." ".format_by_count($reviews_count, 'отзыв', 'отзыва', 'отзывов');?></span>
                         </p>
 
 
@@ -931,90 +924,13 @@ $arItemIDs = array(
 
                     </div>
 
-                    <?/* Пока закрыли другие варианты книги. Думаем, как сделать блок понятным для посетителей
-                        <div class="typesOfProduct">
-                        <div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickCurrentVersion', label: '<?=$arResult['NAME']?>'})">
-                        <p class="title"><?=$arResult["PROPERTIES"]['COVER_TYPE']['VALUE']?></p>
-                        <?
-                        foreach ($arResult["PRICES"] as $code => $arPrice)
-                        {
-                        if ($arPrice["DISCOUNT_VALUE_VAT"])
-                        {
-                        ?>
-                        <p class="cost"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> руб.</p>
-                        <?
-                        }
-                        else
-                        {
-                        ?>
-                        <p class="cost"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> руб.</p>
-                        <?  }
-                        }
-                        ?>
-                        </div>
-                        <?if (!empty($arResult["PROPERTIES"]["pereplet_v"]['VALUE'])) {
-                        $pPrice = CPrice::GetList(array(),array("PRODUCT_ID"=>$arResult["PROPERTIES"]["pereplet_v"]['VALUE'],"CATALOG_GROUP_ID"=>$arResult["PRICES"][$arParams["PRICE_CODE"][0]]["PRICE_ID"]))->Fetch();
-                        ?>
-                        <?$pereplet_v = CCatalogProduct::GetByIDEx($arResult["PROPERTIES"]["pereplet_v"]['VALUE']);?>
-                        <?if ($pPrice["PRICE"]) {?>
-                        <div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickHardCover', label: '<?=$arResult['NAME']?>'});">
-                        <a href="<?=$pereplet_v["DETAIL_PAGE_URL"]?>"><p class="title">Твердый переплет</p>
-                        <p class="cost"><?echo round($pPrice["PRICE"],0);?> руб.</p></a>
-                        <?$arFile = CFile::GetFileArray($pereplet_v["DETAIL_PICTURE"]);    ?>
-                        </div>
-                        <?}?>
-                        <?}?>
-
-                        <?if (!empty($arResult["PROPERTIES"]["oblozhka_v"]['VALUE'])) {?>
-                        <?$oblozhka_v = CCatalogProduct::GetByIDEx($arResult["PROPERTIES"]["oblozhka_v"]['VALUE']);?>
-                        <div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickSoftCover', label: '<?=$arResult['NAME']?>'});">
-                        <a href="<?=$oblozhka_v["DETAIL_PAGE_URL"]?>"><p class="title">Мягкая обложка</p>
-                        <p class="cost"><?echo $oblozhka_v["PRICES"][11]['PRICE'];?> руб.</p></a>
-                        <?$arFile = CFile::GetFileArray($oblozhka_v["DETAIL_PICTURE"]);    ?>
-                        </div>
-                        <?}?>
-                        <?if (!empty($arResult["PROPERTIES"]["superobl_v"]['VALUE'])) {?>
-                        <?$superobl_v = CCatalogProduct::GetByIDEx($arResult["PROPERTIES"]["superobl_v"]['VALUE']);?>
-                        <div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickSuperCover', label: '<?=$arResult['NAME']?>'});">
-                        <a href="<?=$superobl_v["DETAIL_PAGE_URL"]?>"><p class="title">Суперобложка</p>
-                        <p class="cost"><?echo $superobl_v["PRICES"][11]['PRICE'];?> руб.</p></a>
-                        <?$arFile = CFile::GetFileArray($superobl_v["DETAIL_PICTURE"]);    ?>
-                        </div>
-                        <?}?>
-                        <?if (!empty($arResult["PROPERTIES"]["audio_v"]['VALUE'])) {?>
-                        <?$superobl_v = CCatalogProduct::GetByIDEx($arResult["PROPERTIES"]["audio_v"]['VALUE']);?>
-                        <div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAudio', label: '<?=$arResult['NAME']?>'});">
-                        <a href="<?=$superobl_v["DETAIL_PAGE_URL"]?>"><p class="title">Аудиокнига</p>
-                        <p class="cost"><?echo $superobl_v["PRICES"][11]['PRICE'];?> руб.</p></a>
-                        <?$arFile = CFile::GetFileArray($superobl_v["DETAIL_PICTURE"]);    ?>
-                        </div>
-                        <?}?>
-                        <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
-                        <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAppStore', label: '<?=$arResult['NAME']?>'});">
-                        <p class="title"><a target="_blank"
-                        href="http://ad.apps.fm/I7nsUqHgFpiU6SjjFxr_lfE7og6fuV2oOMeOQdRqrE2fuH1E_AVE04uUy-835_z8AOyXPgYuNMr8J2cvDXlBe3JGR4QWfzRXdHADIOS0bhIlj-vcR89M4g_uNUXQBYtJhxsaY6DBokwX4FZL6ZW1oPCYagKnjd3JTKLywLOw94o"
-                        rel="nofollow">Купить электронную книгу в
-                        <span>iPhone/iPad</span></a></p>
-                        <?//<div class="imgCover" style="margin-top:-144px;"><img src="/bitrix/templates/books/images/appStoreBK_1.png" height="70" style="height:70px;" /></div>?>
-                        </div><!--/noindex-->
-                        <?}?>
-                        <?if (!empty($arResult["PROPERTIES"]["android"]['VALUE'])) {?>
-                        <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherFormatsBlock', action: 'clickAndroid', label: '<?=$arResult['NAME']?>'});">
-                        <p class="title"><a target="_blank"
-                        href="http://ad.apps.fm/JbkeS8Wu40Y4o7v66y0V515KLoEjTszcQMJsV6-2VnHFDLXitVHB6BlL95nuoNYfsPXjJaQ96brr8ncAvMfc6wZkKsYjZn26ZgfIprQwFxiMb6nGA0JPaw88nuXsLm5fGy9o7Q8KyEtAHAeX1UXtzRyIF-zfsrprYF9zs6rj2ac8dDeKR2QfG21w5iR5J8PU"
-                        rel="nofollow">Купить электронную книгу в
-                        <span>Android</span></a></p>
-                        <?//<div class="imgCover" style="margin-top:-144px;"><img src="/bitrix/templates/books/images/appStoreBK_1.png" height="70" style="height:70px;" /></div>?>
-                        </div><!--/noindex-->
-                        <?}?>
-                    </div>*/?>
                     <ul class="productsMenu">
                         <li class="active tabsInElement" data-id="1"><?= GetMessage("ANNOTATION_TITLE") ?></li>
                         <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
                         <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
-                            <li data-id="2" class="tabsInElement"><?= GetMessage("REVIEWS_TITLE") ?></li>
+                            <li data-id="2" class="tabsInElement"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</li>
                        <?}?>
-                        <li data-id="3" class="tabsInElement"><?= GetMessage("COMMENTS_TITLE") ?></li>
+                        <li data-id="3" class="tabsInElement" id="commentsLink"><?= GetMessage("COMMENTS_TITLE") ?></li>
                     </ul>
 
                     <div class="annotation" id="prodBlock1">
@@ -1036,7 +952,7 @@ $arItemIDs = array(
                                         "SECTION_CODE" => "",
                                         "SECTION_USER_FIELDS" => array(
                                             0 => "",
-                                            1 => "",
+                                            1 => "", 
                                         ),
                                         "ELEMENT_SORT_FIELD" => "id",
                                         "ELEMENT_SORT_ORDER" => "desc",
@@ -1187,28 +1103,38 @@ $arItemIDs = array(
                         <div class="recenzion" id="prodBlock2">
                             <?foreach ($arResult["REVIEWS"] as $reviewList) {?>
                                 <?if (!empty($reviewList["PREVIEW_TEXT"])) {?>
-                                    <a href="/content/reviews/<?=$reviewList['ID']?>/" target="_blank">
-                                        <?}?>
-                                    <span class="recenz_author_name"><?= $reviewList["NAME"] ?></span>
-                                    <?if (!empty($reviewList["PREVIEW_TEXT"])) {?>
-                                    </a>
-                                    <?}?>
-                                <div class="recenz_text">
-                                    <?= $reviewList["PREVIEW_TEXT"] ?>
-                                    <? if ($reviewList["PREVIEW_TEXT"] == "") {
-                                        echo $reviewList["DETAIL_TEXT"];
-                                    }?>
-                                    <?if (!empty($reviewList["PROPERTY_SOURCE_LINK_VALUE"])) {?><!-- noindex -->
-                                        <a href="<?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?>" rel="nofollow" target="_blank"><?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?></a><!-- /noindex -->
-                                        <?}?>
-                                </div>
+									<?if (!$checkMobile) {?>
+										<a href="/content/reviews/<?=$reviewList['ID']?>/" onclick="getReview(<?=$reviewList['ID']?>);return false;">
+											<span class="recenz_author_name"><?= $reviewList["NAME"] ?></span>
+										</a>
+										<div class="recenz_text">
+											<?echo substr(strip_tags($reviewList["PREVIEW_TEXT"]),0,400).'... ';?>
+											<a href="/content/reviews/<?=$reviewList['ID']?>/" onclick="getReview(<?=$reviewList['ID']?>);return false;" class="readFullReview"><?=GetMessage("SHOW_FULL_REVIEW")?></a>
+										</div>
+									<?} else {?>
+										<a href="/content/reviews/<?=$reviewList['ID']?>/" target="_blank">
+										<span class="recenz_author_name"><?= $reviewList["NAME"] ?></span>
+										</a>
 
-                                <?}?>
+										<div class="recenz_text">
+											<?= $reviewList["PREVIEW_TEXT"] ?>
+											<? if ($reviewList["PREVIEW_TEXT"] == "") {
+												echo $reviewList["DETAIL_TEXT"];
+											}
+											
+											/*if (!empty($reviewList["PROPERTY_SOURCE_LINK_VALUE"])) {?><!-- noindex -->
+												<a href="<?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?>" rel="nofollow" target="_blank"><?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?></a><!-- /noindex -->
+											<?}*/?>
+										</div>
+									<?}?>
+								<?}?>
+							<?}?>
                         </div>
                         <?}?>
                     <div class="review" id="prodBlock3">
                         <div class="ReviewsFormWrap">
-                            <?$APPLICATION-> IncludeComponent("cackle.reviews", ".default", array( "CHANNEL_ID" => $arResult["ID"] ), false);?>
+							<div id="cackleReviews"></div>
+                            <?//$APPLICATION-> IncludeComponent("cackle.reviews", ".default", array( "CHANNEL_ID" => $arResult["ID"] ), false);?>
                         </div>
                     </div>
                     <div class="aboutAutor" id="prodBlock4">
@@ -1715,13 +1641,59 @@ $printid = implode(", ", $recsArray);?>
         }?>
     </div>
 </div>
-
+<div id="ajaxBlock"></div>
 <!-- GdeSon -->
 <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276"></script>
 
 <script type="text/javascript">
 cackle_widget = window.cackle_widget || [];
-cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{?(it.numr + it.numv) > 0}}{{=it.stars}} оценок: {{=it.numr+it.numv}}{{?}}'});
+cackle_widget.push({
+	widget: 'ReviewRating',
+	id: 36574,
+	html: '{{?(it.numr + it.numv) > 0}}{{=it.stars}} оценок: {{=it.numr+it.numv}}{{?}}'
+});
+
+cackle_widget.push({
+	widget: 'Review',
+	id: 36574,
+	msg: {
+		yRecom: 'Я рекомендую эту книгу',
+		recom: 'Рекомендую книгу',
+		anonym2: 'Представьтесь, пожалуйста',
+		formhead: 'Отзыв о книге',
+		vbtitle: 'Этот пользователь купил книгу',
+		pros: 'Понравилось'
+	},
+	callback: {
+	    ready: [function() {
+			$(".mc-rate, .mc-breakdwn, .mc-menu, .mc-c>meta, .mc-c>span").remove();
+			$(".mc-c").removeAttr('itemtype').removeAttr('itemscope');
+			$('.mc-revtitle:contains("Понравилось")').next().attr("itemprop", "reviewBody");
+			$(".ReviewsFormWrap").css("margin-top", "0");
+			$(".mc-formbtn").css("cssText", "width: 100%!important; margin-bottom:20px!important;");
+		}]
+	},
+	container: 'cackleReviews',
+	channel: <?= $arResult["ID"] ?>,
+	providers: 'vkontakte;facebook;twitter;yandex;odnoklassniki;other;'
+});
+
+function cackleReviewsCount() {
+	$.getJSON("https://cackle.me/review/36574/rating", {len: 1, 0:'<?= $arResult["ID"] ?>'}, function(data){
+		console.log(data);
+		var countReviews = data.res.split(':')[1];
+		if (countReviews > 0)
+			$("#commentsLink").append(' ('+countReviews+')');
+		
+		var bookRating = (data.res.split(':')[3] / (parseInt(data.res.split(':')[1]) + parseInt(data.res.split(':')[2]))).toFixed(1);
+		if (bookRating > 4.4)
+			$(".crr-cnt").after("<style>.mc-c .mcicon-star-half-o:before {content: '\\f005'!important;}</style>");
+		
+		$(".crr-cnt").after('<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"><meta itemprop="ratingValue" content="'+ bookRating +'" /><meta itemprop="reviewCount" content="'+ (parseInt(data.res.split(':')[1]) + parseInt(data.res.split(':')[2])) +'" /><meta itemprop="bestRating" content="5" /><meta itemprop="bestRating" content="5" /></span>');
+	})
+}
+cackleReviewsCount();
+
 (function() {
     var mc = document.createElement('script');
     mc.type = 'text/javascript';

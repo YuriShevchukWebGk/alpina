@@ -31,15 +31,8 @@ switch ($_REQUEST["SORT"])
     $order = "desc";
 }
 global $arrFilter;
-$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
-$recsArray = json_decode($stringRecs);
-$arrFilter = Array('ID' => $recsArray);
-
-if ($arrFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем 
-
-} else { // Если рекомендаций нет, подставляем вручную созданные*/
-	$arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
-}?>  
+$arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
+?>  
 <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog.section", 
 	"bestsellers", 

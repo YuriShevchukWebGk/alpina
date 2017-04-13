@@ -1,6 +1,6 @@
-h1,h2,h3,h4,h5,h6{font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;font-weight: 500;}
+h1,h2,h3,h4,h5,h6{font-family: "Walshein_regular","Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;font-weight: 500;}
 /*p{
-	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-family: "Walshein_regular","Helvetica Neue", Arial, Helvetica, sans-serif;
 	font-size: 14px;
 }*/
 p.bxe-first-letter:first-letter{
@@ -37,7 +37,7 @@ blockquote p{
   	font-size: 20px;
   	font-style: italic;
 	color: #757575;
-  	font-family: Georgia, "Helvetica Neue", Arial,  Helvetica, sans-serif;
+  	font-family: "Walshein_regular",Georgia, "Helvetica Neue", Arial,  Helvetica, sans-serif;
 }
 @media (max-width: 768px){
 	blockquote p {
@@ -105,7 +105,7 @@ img.pull-right{
 	border: none;
 	border-radius: 1px;
 	font-size: 14px;
-    font-family: "Walshein_regular";
+    font-family: "Walshein_regular","Walshein_regular";
     /*width: 620px; */
     margin: 0 auto;
 }

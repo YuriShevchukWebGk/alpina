@@ -28,6 +28,7 @@
 
     $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
     include ('include/functions.php');
+	include ($_SERVER["DOCUMENT_ROOT"].'/custom-scripts/checkdelivery/options.php');
 ?>
 
 <style>
@@ -163,8 +164,8 @@
 			return [true];
 		}
 
-        hourfordeliv = <?=date("H");?>;
         ourday = <?=date("w");?>;
+		/*hourfordeliv = <?=date("H");?>;
         if (hourfordeliv < 25) {
             if (ourday == 1) { //понедельник
                 minDatePlus = 1;
@@ -173,11 +174,13 @@
                     minDatePlus = '<?=date("d.m.Y");?>';
                 else
                     minDatePlus = 1;
+				minDatePlus = 3;
             } else if (ourday == 3) { //среда
-				//if (hourfordeliv < 9)
-                //    minDatePlus = '<?=date("d.m.Y");?>';
-                //else
+				if (hourfordeliv < 9)
+                    minDatePlus = '<?=date("d.m.Y");?>';
+                else
                     minDatePlus = 1;
+				minDatePlus = 2;
             } else if (ourday == 4) { //четверг
                 if (hourfordeliv < 9)
                     minDatePlus = '<?=date("d.m.Y");?>';
@@ -193,8 +196,11 @@
             } else if (ourday == 0) { //воскресенье
                 minDatePlus = 1;
             }
-        }
-        if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 10кг, доставка плюс один день
+        }*/
+		
+		minDatePlus = <?=$setProps['nextDay']?>;
+		
+        if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             minDatePlus++;
         }
         //дата, выбранная по умолчанию

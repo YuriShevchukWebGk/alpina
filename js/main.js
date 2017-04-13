@@ -77,7 +77,6 @@ function sendchapter(bookid) {
         });
 };
 $(document).ready(function(){
-
 	$(".element_item_img").hover(
 	  function() {
 		$(this).find('img').css({'filter':'grayscale(0.7)', '-webkit-filter':'grayscale(0.7)', '-moz-filter':'grayscale(0.7)', '-o-filter':'grayscale(0.7)', '-ms-filter':'grayscale(0.7)'});
@@ -1390,7 +1389,7 @@ function selectversion(cl,id) {
 	return false;
 }
 
-function docReadyComponent() {
+function docReadyComponent(id) {
 	$(".element_item_img").hover(
 	  function() {
 		$(this).find('img').css({'filter':'grayscale(0.7)', '-webkit-filter':'grayscale(0.7)', '-moz-filter':'grayscale(0.7)', '-o-filter':'grayscale(0.7)', '-ms-filter':'grayscale(0.7)'});
@@ -1416,6 +1415,14 @@ function docReadyComponent() {
 
 	}
 
+	$.ajax({
+		type: "POST",
+		url: "/ajax/book_views.php",
+		data: {id: id}
+	}).done(function( strResult ) {
+		$(".bookViews").html(strResult);
+	 });
+	 
 	if($('.wishlist_info').length > 0){
 		$('.layout').click(function(){
 			if($('.wishlist_info').css('display') == 'block'){
@@ -1768,7 +1775,7 @@ function docReadyComponent() {
 		var link = $(this).attr("href");
 		var target = $(this).attr("target");
 		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
-			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)/) && target != "_blank") {
+			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)|\/personal\/profile\//) && target != "_blank") {
 				NProgress.start();
 			};
 		}

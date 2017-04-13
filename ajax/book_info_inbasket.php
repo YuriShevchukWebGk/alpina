@@ -28,7 +28,7 @@ if ($_REQUEST["id"])
 	$return = '<style>.awayLink:hover {background-color: #cab796!important;color: #fff!important;} .addLink:hover {background-color: #c7a271!important;color: #fff!important;} .closeIcon:after {position: absolute;background: url("/img/close.png") left center;width: 21px;height: 21px;right: 2%;top: 5%;margin-left: -15px;margin-top: -8px;cursor: pointer;display: block;content: "";} .closeIcon:hover:after {background: url("/img/close.png") right center;}</style>';
 	$return .= '<script>$(document).ready(function() { $(".stopProp").click(function(e) { e.stopPropagation(); }); });</script>';
 	$return .= '<div style="position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 999999999998; background: rgba(206,206,206,.62);overflow-y:auto;" onclick="closeInfo();" class="hideInfo">';
-	$return .= '<div style="max-width: 1040px; width:100%;min-width:800px;margin-left: -520px; margin-top: -300px;box-shadow: 0 0 1px 0px rgba(0,0,0,.7); top: 50%; left: 50%; position: absolute; background: #fff; padding: 30px; z-index: 999999999999;display: block;font-family: \'Walshein_regular\';" class="stopProp">';
+	$return .= '<div style="max-width: 1040px; width:100%;min-width:800px;margin-left: -520px; margin-top: 7%;margin-bottom:7%;box-shadow: 0 0 1px 0px rgba(0,0,0,.7); top: 0; left: 50%; position: absolute; background: #fff; padding: 30px; z-index: 999999999999;display: block;font-family: \'Walshein_regular\';" class="stopProp">';
 	$return .= '<div class="closeIcon" style="cursor:pointer;" onclick="closeInfo();"></div>';
 	$return .= '<div>';
 

@@ -235,10 +235,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             false
         );?>     
     <div class="books">
-        <div class="catalogIcon" onmouseover="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'openSmallCatalog'});">
+        <div class="catalogIcon">
             <span class="catalog_text"></span>
         </div>
-        <div class="basketIcon" onmouseover="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'openSmallCart'});">
+        <div class="basketIcon">
         </div>
 
         <? 
@@ -259,7 +259,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			0 => "",
 			1 => "",
 		),
-		"ELEMENT_SORT_FIELD" => "PROPERTY_big_index_image",
+		//"ELEMENT_SORT_FIELD" => "PROPERTY_big_index_image",
+		"ELEMENT_SORT_FIELD" => "PROPERTY_page_views_ga",
 		"ELEMENT_SORT_ORDER" => "desc",
 		"ELEMENT_SORT_FIELD2" => "rand",
 		"ELEMENT_SORT_ORDER2" => "desc",
@@ -375,17 +376,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 );?> 
 			<?
             global $SellBlockFilter;
-			/* Получаем рекомендации для главной от RetailRocket */
-            /*$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
-            $recsArray = json_decode($stringRecs);
-            $SellBlockFilter = Array('ID' => (array_slice($recsArray,0,6)));
-
-            if ($SellBlockFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем 
-
-            } else {
-                $SellBlockFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
-            }*/ 
-			$SellBlockFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
+			$SellBlockFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
             $APPLICATION->IncludeComponent(
 			"bitrix:catalog.section", 
 			"template_bestsellers", 
@@ -412,8 +403,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"DETAIL_URL" => "",
 				"DISPLAY_BOTTOM_PAGER" => "N",
 				"DISPLAY_TOP_PAGER" => "N",
-				"ELEMENT_SORT_FIELD" => "PROPERTY_big_index_image",
-				"ELEMENT_SORT_FIELD2" => "PROPERTY_SALES_CNT",
+				"ELEMENT_SORT_FIELD" => "PROPERTY_shows_a_day",
+				"ELEMENT_SORT_FIELD2" => "rand",
 				"ELEMENT_SORT_ORDER" => "desc",
 				"ELEMENT_SORT_ORDER2" => "desc",
 				"FILTER_NAME" => "SellBlockFilter",
@@ -515,7 +506,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			0 => "",
 			1 => "",
 		),
-		"ELEMENT_SORT_FIELD" => "PROPERTY_big_index_image",
+		"ELEMENT_SORT_FIELD" => "rand",
 		"ELEMENT_SORT_ORDER" => "desc",
 		"ELEMENT_SORT_FIELD2" => "rand",
 		"ELEMENT_SORT_ORDER2" => "desc",
@@ -612,7 +603,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	),
 	false
 );?>  
-        <? //$arrFilter_mustread = array('PROPERTY_must_read' => '242', ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
+        <?
             $arrFilter_mustread = array('PROPERTY_SERIES' => '66454', ">DETAIL_PICTURE" => 0);
 
             $APPLICATION->IncludeComponent(
@@ -738,9 +729,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </p>
             <div class="icons">
                 <a href="https://vk.com/ideabooks" target="_blank"><img src="/img/vk.png"></a>
-                <a href="https://twitter.com/AlpinaBookRu"><img src="/img/twitter.png"></a>
+                <a href="https://twitter.com/AlpinaBookRu" target="_blank"><img src="/img/twitter.png"></a>
                 <a href="https://www.facebook.com/alpinabook/" target="_blank"><img src="/img/facebook.png"></a>
-                <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank"><img src="/img/google.png"></a> 
                 <a href="https://instagram.com/alpinabook" target="_blank"><img src="/img/instagramm.png"></a>
             </div>
         </div>
@@ -749,7 +739,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="hintWrapp">
     <div class="catalogWrapper saleWrapp">
 
-        <?/* Получаем бестселлеры от RetailRocket */
+        <?/* Получаем персональные рекомендации RetailRocket */
 
             if (isset($_COOKIE["rcuid"])){
                 $stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"]);
@@ -759,9 +749,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					$arrFilter[ID][] = $val[ItemId];
 				}
             }
-            if ($arrFilter['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
-            <div class="recomendation">
-                <p class="titleMain">Вам может быть интересно</p>
+            ?>
+			<?if ($arrFilter['ID'][0] > 0) {?>
+				<div class="recomendation" style="display:block;">
+			<?} else {?>
+				<div class="recomendation" style="display:none;">
+				<style>
+					.hintWrapp {height:100%!important};
+				</style>
+			<?}?>
+			
+			<p class="titleMain"><a href="/catalog/personal-books/">Вам может быть интересно</a></p>
                 <?
                     $APPLICATION->IncludeComponent(
                         "bitrix:catalog.section", 
@@ -889,37 +887,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         false
                     );?>
             </div>
-            <?} else {?>
-            <style>
-                .hintWrapp {height:100%!important};
-            </style>
-            <?}?>
 
-        <div class="recomendation">
+        <div class="">
             <?
 			global $BestsOnMain;
-			/* Получаем бестселлеры от RetailRocket */
-			/*$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
-			$recsArray = json_decode($stringRecs);
-			$BestsOnMain = Array('ID' => (array_slice($recsArray,0,6)));
-
-			if ($BestsOnMain['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем 
-
-			} else {
-				$BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
-			}*/
-			$BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);?>     
-            <p class="titleMain">Бестселлеры</p>
+			$BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);?>     
+            <p class="titleMain"><a href="/catalog/bestsellers/">Бестселлеры</a></p>
             <?
 
                 $APPLICATION->IncludeComponent(
 	"bitrix:catalog.section", 
-	"recommended_books", 
+	"bestsellers_slider", 
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",
 		"BASKET_URL" => "/personal/cart/",
-		"COMPONENT_TEMPLATE" => "recommended_books",
+		"COMPONENT_TEMPLATE" => "bestsellers_slider",
 		"IBLOCK_TYPE" => "catalog",
 		"SECTION_ID" => $_REQUEST["SECTION_ID"],
 		"SECTION_CODE" => "",
@@ -927,7 +910,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			0 => "",
 			1 => "",
 		),
-		"ELEMENT_SORT_FIELD" => "PROPERTY_POPULARITY",
+		"ELEMENT_SORT_FIELD" => "PROPERTY_shows_a_day",
 		"ELEMENT_SORT_ORDER" => "desc",
 		"ELEMENT_SORT_FIELD2" => "rand",
 		"ELEMENT_SORT_ORDER2" => "desc",
