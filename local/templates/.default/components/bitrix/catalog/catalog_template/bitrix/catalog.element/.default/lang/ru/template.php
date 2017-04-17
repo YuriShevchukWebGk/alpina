@@ -64,7 +64,7 @@ $MESS["NAME_FIELD_TITLE"] = "Имя*";
 $MESS["PHONE_FIELD_TITLE"] = "Телефон*";
 $MESS["EMAIL_FIELD_TITLE"] = "Email*";
 $MESS["COURIER_DELIVERY"] = "Курьерская доставка <a id='inline1' href='#data1'>по Москве и Подмосковью</a>";
-$MESS["MAIL_DELIVERY"] = "Доставка по всей России";
+$MESS["MAIL_DELIVERY"] = "Доставка почтой <a href='#' onclick=\"getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;\">от недели</a>";
 $MESS["INTERNATIONAL_DELIVERY"] = "Международная доставка";
 $MESS["PICKUP_DELIVERY"] = "Самовывоз <a id='inline2' href='#data2'>м.Полежаевская</a>";
 $MESS["BUY_IN_APPSTORE"] = "Купить электронную книгу<br />в <span>iPhone/iPad</span>";
@@ -107,8 +107,7 @@ $MESS["PAPER_V"] = "Бумажная + электронная";
 $MESS["DIGITAL_V"] = "Электронная";
 $MESS["EPUB"] = "ePub";
 $MESS["BUY_EPUB"] = "Купить в Бизнес.Книги";
-$MESS["COUNTRY_DELIVERY"] = "от 2-х дней";
-$MESS["POSTOMATS"] = "пунктов выдачи";
+$MESS["POSTOMATS"] = "1239 <a href='#' onclick=\"getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;\">пунктов выдачи</a> по России";
 $MESS["SHOW_FULL_REVIEW"] = "Читать полностью";
 $MESS["VIEWS_A_DAY"] = "Просмотров за сутки";
 ?>

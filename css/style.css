@@ -486,7 +486,7 @@ header .headBasket{margin-right:0}
 .shippings a{color:#00ABB8;border-bottom:1px dashed #00ABB8}
 .noborderlink{color:#00ABB8;border-bottom:0!important;text-decoration:underline!important}
 .noborderlink:hover{text-decoration:none!important}
-.shippings li:before{content:url(/img/rechShip.png);left:-24px;position:absolute;top:-4px}
+.shippings li:before{content:"\2022";left:-15px;position:absolute;}
 .productAction{border-bottom:1px solid #DDD;padding-bottom:22px}
 .productAction .title{color:#486796;font-family:Walshein_black;font-size:24px;padding-left:4px;padding-top:8px}
 .centerColumn .productAutor,.elementDescriptWrap .productsMenu{font-family:Walshein_bold;text-transform:uppercase}
@@ -1022,3 +1022,4 @@ table.form-table tr td:nth-child(2){text-align:left}
 .bookViews{display:block;margin-top:-3px;padding-left:5px;float:right; color: #424D4F;font-family: 'Walshein_regular';font-size: 15px;}
 .ga-views {background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0!important;padding-left:0!important;}
 .ga-views .ttip {width:140px!important;}
+.gap {padding:0 5px}.gap:before {content: "\003E"}

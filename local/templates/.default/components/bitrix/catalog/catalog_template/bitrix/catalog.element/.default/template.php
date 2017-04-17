@@ -205,7 +205,7 @@ $arItemIDs = array(
     'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
 );
 ?>
-            <div class="elementDescriptWrap" itemprop="mainEntity" itemscope itemtype="https://schema.org/Book">
+            <div class="elementDescriptWrap" itemscope itemtype="https://schema.org/Book">
                 <meta itemprop="inLanguage" content="ru-RU"/>
                 <div class="leftColumn">
                     <div class="elementMainPict">
@@ -743,9 +743,9 @@ $arItemIDs = array(
                             ?>
                     <ul class="shippings">
 						<li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
-						<li>1239 <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a></li>
+						<li><?= GetMessage("POSTOMATS") ?></li>
 						<li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
-						<li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
+						<li><?= GetMessage("MAIL_DELIVERY") ?></li>
 						<li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     </ul>
                     <?}?>
@@ -906,8 +906,9 @@ $arItemIDs = array(
 									font-family: Walshein_regular!important;
 							}
 							.mc-c div {
-								font-family: Walshein_light!important;
-								font-size:16px!important;
+								font-family: Walshein_regular!important;
+								font-size:15px!important;
+								color:#424C4F!important;
 							}
 							.cr .mc-review-time {
 								font-size: 14px!important;
