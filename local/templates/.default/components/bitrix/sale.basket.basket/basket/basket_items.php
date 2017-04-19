@@ -38,8 +38,7 @@
 		});
 	});
 </script>
-    <div id="basket_items_list">
-
+    <div id="basket_items_list"> 
         <div class="yourBooks" id="cardBlock1">
             <table id="basket_items">
                 <thead>
@@ -127,10 +126,9 @@
 						$gdeslon = '';
 						/* конец */
 
-                        foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):
+                        foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):     
+                            if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y"): 
                             $totalQuantity += $arItem["QUANTITY"];
-                            if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y"):
-
 							array_push($gtmEnchECommerceCheckout,"'name': '".$arItem['NAME']."','id': '".$arItem["PRODUCT_ID"]."','category': '".$parentSectionName."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Google Analytics Items
 							array_push($itemsForCriteo,"'id': '".$arItem["PRODUCT_ID"]."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Criteo Items
 							if ($is < 15)
@@ -483,15 +481,17 @@
         else:
     ?>
     <div id="basket_items_list">
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan="<?=$numCells?>" style="text-align:center">
-                        <div class=""><?=GetMessage("SALE_NO_ITEMS");?></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="yourBooks" id="cardBlock1">
+            <table>
+                <tbody>
+                    <tr>
+                        <td colspan="<?=$numCells?>" style="text-align:center; width: 300px;">
+                            <div class=""><?=GetMessage("SALE_NO_ITEMS");?></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <?
         endif;

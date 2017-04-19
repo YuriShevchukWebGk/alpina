@@ -322,7 +322,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                      <?}?>
                                      <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                                     <?
+                                     <?              
                                      if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") 
                                         && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
 
@@ -344,12 +344,10 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                                 <p class="basketBook" style="background-color: #A9A9A9; color: white;">Оформить</p>
                                             </a> 
                                          <?}?>
-                                 <?} else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {?>
+                                 <?} elseif (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {?>
                                     <p class="priceOfBook"><?= $arItem["PROPERTIES"]["STATE"]["VALUE"]?></p>
-                                            
                                  <?} else {?>
                                     <p class="priceOfBook"><?= strtolower(FormatDate("j F", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
-                                         
                                  <?}?>
                              </a>
                                  <? if ($USER -> IsAuthorized()) { ?>

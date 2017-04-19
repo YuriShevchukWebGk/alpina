@@ -508,8 +508,7 @@ $arItemIDs = array(
                                 if (!empty($arResult["PRICES"])) { ?>
                                     <?// если свойство товара в состоянии "Новинка" либо не задан - то выводить стандартный блок с ценой,
                                     // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении
-                                    if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") )
-                                        && (intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal") )) {
+                                    if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal") )) {
                                         foreach ($arResult["PRICES"] as $code => $arPrice) {?>
                                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                         <link itemprop="availability" href="https://schema.org/InStock">
@@ -560,7 +559,7 @@ $arItemIDs = array(
                                     <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
                                     <? $StockInfo = "SoonStock"; ?>
                                     <p class="newPrice" style="font-size:20px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
-
+                                        
                                     <?} else {?>
                                     <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                     <link itemprop="availability" href="https://schema.org/OutOfStock">
@@ -585,8 +584,7 @@ $arItemIDs = array(
                                         <?}?>
                                     <p class="newPrice notAvailable" style="font-size:28px;"><?= GetMessage("NOT_IN_STOCK") ?></p>
                                     <?}?>
-                                <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
-                                        || (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
+                                <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                                     <form>
                                         <div>
                                             <p>
@@ -610,11 +608,9 @@ $arItemIDs = array(
                                     </div>
                                 </form>
                                 <?}?>
-                        </div>
-
+                        </div>                                
                         <?if (!empty ($arResult["PRICES"]) ) {?>
-                            <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
-                                    && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
+                            <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                                 <div class="wrap_prise_bottom">
                                     <span class="item_buttons_counter_block">
 
@@ -624,10 +620,14 @@ $arItemIDs = array(
                                                 : $arResult['CATALOG_MEASURE_RATIO']
                                             ); ?>">
                                         <a href="javascript:void(0)" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>
-                                    </span>
+                                    </span>                                    
                                     <?if ($arResult["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
-                                        <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
-                                            <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p>
+                                        <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
+                                            <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                                <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p> 
+                                            <?} else {?>
+                                                <p class="inBasket"><?= GetMessage("ADD_TO_PREORDER") ?></p>                                                 
+                                            <?}?>                                                     
                                         </a>
 										<div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                                         <?} else {?>

@@ -954,14 +954,15 @@ function update_basket(e)
     });
 }
 
-function addtocart(productid, name) {
+function addtocart(productid, name, product_status) {
+    //product_status 22-нет в наличии;
     quantity = $(".transparent_input").val();
 	$(".inBasket").hide();
 	$("#loadingInfo").show();
 	
 	$("a.product"+productid).find(".basketBook").css("background-color", "#A9A9A9");
 	
-    $.post('/ajax/ajax_add2basket.php', {action: "add", productid: productid, quantity:quantity}, function(data)
+    $.post('/ajax/ajax_add2basket.php', {action: "add", productid: productid, quantity:quantity, product_status:product_status}, function(data)
         {
 			$("#loadingInfo").hide();
 			$(".inBasket").show();

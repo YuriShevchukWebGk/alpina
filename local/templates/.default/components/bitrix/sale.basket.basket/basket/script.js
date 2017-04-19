@@ -59,8 +59,7 @@ function updateBasketTable(basketItemId, res)
 
     rows = table.rows;
     lastRow = rows[rows.length - 1];
-    bUseFloatQuantity = (res.PARAMS.QUANTITY_FLOAT === 'Y');
-
+    bUseFloatQuantity = (res.PARAMS.QUANTITY_FLOAT === 'Y');      
     // insert new row instead of original basket item row
     if (basketItemId !== null && !!res.BASKET_DATA)
     {
@@ -910,7 +909,9 @@ function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
     //update total quantity
     var totalQuantity = 0;
     $(".quantityField").each(function(){
-        totalQuantity = totalQuantity*1 + parseInt($(this).val());
+        if(!($(this).hasClass('preOrderInput'))){   
+            totalQuantity = totalQuantity*1 + parseInt($(this).val()); 
+        }                                                         
     })
     $("#totalQuantity").html(totalQuantity);
 }
@@ -1027,57 +1028,55 @@ function recalcBasketAjax(params)
     {
         for (i = 1; items.rows.length > i; i++)
             postData['QUANTITY_' + items.rows[i].id] = BX('QUANTITY_' + items.rows[i].id).value;
-    }
-
+    }                                                                                
     if (!!delayedItems && delayedItems.rows.length > 0)
     {
-        for (i = 1; delayedItems.rows.length > i; i++)
-            postData['DELAY_' + delayedItems.rows[i].id] = 'Y';
-    }
-
+        for (i = 1; delayedItems.rows.length > i; i++) {
+            if(delayedItems.rows[i].id != '') {
+                postData['DELAY_' + delayedItems.rows[i].id] = 'Y';
+                postData['QUANTITY_' + delayedItems.rows[i].id] = BX('QUANTITY_' + delayedItems.rows[i].id).value;
+            }                                                                                                    
+        }                                                                                         
+    }                                  
     BX.ajax({
-        url: '/bitrix/components/bitrix/sale.basket.basket/ajax.php',
+        url: '/local/components/bitrix/sale.basket.basket/ajax.php',
         method: 'POST',
         data: postData,
         dataType: 'json',
         onsuccess: function(result)
-        {
+        {                                                     
             BX.closeWait();
-            updateBasketTable(null, result);
-			sum = parseInt(result.BASKET_DATA.allSum);
-			discabs = parseInt(result.BASKET_DATA.DISCOUNT_PRICE_ALL);
-			discrel = ((100*discabs)/(discabs+sum)).toFixed(0);
-			if (sum < 2000) {
-				$('#discountMessage').show();
-				$('.sale_price').html('Добавьте товаров на '+ (2000 - sum).toFixed() +' руб. и получите БЕСПЛАТНУЮ доставку');
-			} else if (sum < 10000 && discrel == 19) {
-				$('#discountMessage').show();
-				//$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 28%');
-				console.log(discrel);
-			} else if (sum < 10000 && discrel == 28) {
-				$('#discountMessage').show();
-				//$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 36%');
-				console.log(discrel);
-			} else if (sum < 3000 && discrel < 10) {
-				$('#discountMessage').show();
-				$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 10%');
-				console.log(discrel);
-			} else if (sum < 10000 && discrel < 20) {
-				$('#discountMessage').show();
-				$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 20%');
-				console.log(discrel);
-			} else if (sum < 3000 && discrel == 10) {
-				$('#discountMessage').show();
-				//$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 19%');
-				console.log(discrel);
-			} else if (sum < 3000 && discrel == 20) {
-				$('#discountMessage').show();
-				//$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 28%');
-				console.log(discrel);
-			} else {
-				$('#discountMessageWrap').hide();
-				console.log(discrel);
-			}
+            console.log(1);   
+            console.log(result);   
+            console.log(2);   
+            updateBasketTable(null, result);         
+            sum = parseInt(result.BASKET_DATA.allSum);
+            discabs = parseInt(result.BASKET_DATA.DISCOUNT_PRICE_ALL);
+            discrel = ((100*discabs)/(discabs+sum)).toFixed(0);
+            if (sum < 2000) {
+                $('#discountMessage').show();
+                $('.sale_price').html('Добавьте товаров на '+ (2000 - sum).toFixed() +' руб. и получите БЕСПЛАТНУЮ доставку');
+            } else if (sum < 10000 && discrel == 19) {
+                $('#discountMessage').show();
+                //$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 28%'); 
+            } else if (sum < 10000 && discrel == 28) {
+                $('#discountMessage').show();
+                //$('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 36%');         
+            } else if (sum < 3000 && discrel < 10) {
+                $('#discountMessage').show();
+                $('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 10%');        
+            } else if (sum < 10000 && discrel < 20) {
+                $('#discountMessage').show();
+                $('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 20%');    
+            } else if (sum < 3000 && discrel == 10) {
+                $('#discountMessage').show();
+                //$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 19%');    
+            } else if (sum < 3000 && discrel == 20) {
+                $('#discountMessage').show();
+                //$('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 28%');  
+            } else {
+                $('#discountMessageWrap').hide();                                    
+            }
         }
     });
 }

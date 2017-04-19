@@ -12,7 +12,6 @@
                 //$allproducts = explode("-", $_REQUEST["productid"]);
                 //foreach ($allproducts as $product) {
                 $product = intval($_REQUEST["productid"]);
-
                 //$product = intval($_POST["add2basket"]);
                 //проверим     
                 $res = CIBlockElement::GetByID($product);
@@ -23,7 +22,7 @@
                     
                     $ar_res = CPrice::GetBasePrice($PRODUCT["ID"]); 
                     $price=$ar_res["PRICE"];
-                    if(intval($price)==0){ 
+                    if(intval($price) == 0){ 
                         $price = 0;
                         $arFields = array(
                             "PRODUCT_ID" => $PRODUCT["ID"],
@@ -34,21 +33,25 @@
                             "LID" => "s1",
                             "NAME" => $PRODUCT["NAME"],
                             "PRODUCT_PROVIDER_CLASS" => "CCatalogProductProvider",
-                            "MODULE" => "catalog"
+                            "MODULE" => "catalog" 
                         );
-                        $basket_id = CSaleBasket::Add($arFields);
-                        $arItem = CSaleBasket::GetByID($basket_id );
+                        $basket_id = CSaleBasket::Add($arFields);     
+                        $arItem = CSaleBasket::GetByID($basket_id); 
                         if($arItem["QUANTITY"]!= $quantity) 
                         {
                             $arFields = array("QUANTITY" => $arItem["QUANTITY"]+$quantity);
                             CSaleBasket::Update($basket_id, $arFields);
-                        }
-
-                    }else
-                        $basket_id = Add2BasketByProductID($product,$quantity);
-
-                }
-
+                        }            
+                    } else {                        
+                        $basket_id = Add2BasketByProductID($product,$quantity); 
+                        if($_REQUEST['product_status'] == '22') {
+                            $arFields = array(    
+                               "DELAY" => "Y"
+                            );
+                            CSaleBasket::Update($basket_id, $arFields);                                 
+                        } 
+                    }    
+                }        
             }
             break;
 
