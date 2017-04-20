@@ -545,7 +545,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             $sort = "POPULARITY";
             break;
             
-            case "PROPERTY_YEAR":
+            case "PROPERTY_SOON_DATE_TIME":
             $sort = "DATE";
             break;
         }?>

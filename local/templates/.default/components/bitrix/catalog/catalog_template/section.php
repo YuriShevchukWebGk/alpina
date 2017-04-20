@@ -97,7 +97,7 @@ else
 switch ($_REQUEST["SORT"])
 {
     case "DATE":
-    $sort = "PROPERTY_YEAR";
+    $sort = "PROPERTY_SOON_DATE_TIME";
     break;
     
     case "PRICE":
