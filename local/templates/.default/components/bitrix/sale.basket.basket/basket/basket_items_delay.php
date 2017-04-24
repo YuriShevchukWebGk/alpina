@@ -37,81 +37,66 @@
                 e.stopPropagation();
             });
         });
-    </script>                 
+    </script>  
+    <style>
+    .preOrderBottom {                          
+        width: 1140px;                     
+        margin-left: -3px;
+        margin-bottom: -3px;
+    }
+    .grayBlock {
+        background-color: #F4F4F4; 
+        height: 40px;            
+        margin-top: 64px;
+        margin-bottom: 22px;
+    }       
+    tr:last-child .grayBlock {   
+        margin-bottom: 0px;
+    }                           
+    .cartWrapper #basket_items_delayed .yourBooks {
+        padding-bottom: 0px;    
+    }          
+    .cartWrapper #basket_items_delayed .grayDownLine {
+        margin-top: 13px;    
+    }          
+    .cartWrapper tbody tr.preorderTableHeaders {
+        color: #7B8C90;
+        font-size: 13px;   
+        height: 21px;     
+    }
+    .cartWrapper #basket_items_delayed .couponInput {
+        border: 1px solid #bababa;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.21) inset;
+        color: #000;
+        display: none;
+        font-size: 16px;
+        font-weight: bold;
+        height: 34px;
+        line-height: 34px;
+        /* margin-left: 35px; */
+        margin-left: 20px;
+        margin-top: 10px;
+        text-align: left;
+        width: 200px;
+    }
+    .cartWrapper #basket_items_delayed .acceptCoupon {  
+        display: none;   
+        text-decoration: none;
+        border-bottom: 1px dashed #00A9B6;
+        color: #00A9B6;
+        font-family: "Walshein_regular";
+        font-size: 15px;
+        cursor: pointer;
+    }
+    .cartWrapper #basket_items_delayed .nextPage {
+        background: url(/img/nextPageBack.png) 276px 19px no-repeat #00a9b6;
+    }
+    </style>                          
     <div id="basket_items_delayed">    
         <div class="yourBooks" id="cardBlock3" style="display:none">
             <div class="preorder_item_block">
-                <table id="delayed_items">
-                    <thead>
-                        <tr>
-                            <td></td>
-                            <?
-                                foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader) {
-                                    $arHeader["name"] = (isset($arHeader["name"]) ? (string)$arHeader["name"] : '');
-                                    if ($arHeader["name"] == '')
-                                        $arHeader["name"] = GetMessage("SALE_".$arHeader["id"]);
-                                    $arHeaders[] = $arHeader["id"];
-
-                                    // remember which values should be shown not in the separate columns, but inside other columns
-                                    if (in_array($arHeader["id"], array("TYPE")))
-                                    {
-                                        $bPriceType = true;
-                                        continue;
-                                    }
-                                    elseif ($arHeader["id"] == "PROPS")
-                                    {
-                                        $bPropsColumn = true;
-                                        continue;
-                                    }
-                                    elseif ($arHeader["id"] == "DELAY")
-                                    {
-                                        $bDelayColumn = true;
-                                        continue;
-                                    }
-                                    elseif ($arHeader["id"] == "DELETE")
-                                    {
-                                        $bDeleteColumn = true;
-                                        continue;
-                                    }
-                                    elseif ($arHeader["id"] == "WEIGHT")
-                                    {
-                                        $bWeightColumn = true;
-                                    }
-
-                                    if ($arHeader["id"] == "NAME"):
-                                    ?>
-                                    <td class="item" id="col_<?=$arHeader["id"];?>">
-                                    <?
-                                        elseif ($arHeader["id"] == "PRICE"):
-                                    ?>
-                                    <td class="price counTitle" id="col_<?=$arHeader["id"];?>">
-                                    <?
-                                        elseif ($arHeader["id"] == "SUM"):  continue;
-                                    ?>
-                                    <?
-                                        elseif ($arHeader["id"] == "QUANTITY"):
-                                    ?>
-                                    <td class="price quanTitle" id="col_<?=$arHeader["id"];?>">
-                                    <?
-                                        else:
-                                    ?>
-                                    <td class="custom" id="col_<?=$arHeader["id"];?>">
-                                        <?
-                                            endif;
-                                    ?>
-                                    <?=$arHeader["name"]; ?>
-                                </td>
-                                <?
-                                };
-
-                                if ($bDeleteColumn || $bDelayColumn){
-                                ?>
-                                <td class="custom"></td>
-                                <?
-                                }
-                            ?>
-                        </tr>
-                    </thead> 
+                <table id="delayed_items">    
                     <tbody> 
                         <?
                             $totalQuantity = 0; //общее количество товаров в корзине 
@@ -143,6 +128,74 @@
                                         }
 
                                     ?>
+                                    <tr class="preorderTableHeaders">
+                                        <td></td>
+                                        <?
+                                            foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader) {
+                                                $arHeader["name"] = (isset($arHeader["name"]) ? (string)$arHeader["name"] : '');
+                                                if ($arHeader["name"] == '')
+                                                    $arHeader["name"] = GetMessage("SALE_".$arHeader["id"]);
+                                                $arHeaders[] = $arHeader["id"];
+
+                                                // remember which values should be shown not in the separate columns, but inside other columns
+                                                if (in_array($arHeader["id"], array("TYPE")))
+                                                {
+                                                    $bPriceType = true;
+                                                    continue;
+                                                }
+                                                elseif ($arHeader["id"] == "PROPS")
+                                                {
+                                                    $bPropsColumn = true;
+                                                    continue;
+                                                }
+                                                elseif ($arHeader["id"] == "DELAY")
+                                                {
+                                                    $bDelayColumn = true;
+                                                    continue;
+                                                }
+                                                elseif ($arHeader["id"] == "DELETE")
+                                                {
+                                                    $bDeleteColumn = true;
+                                                    continue;
+                                                }
+                                                elseif ($arHeader["id"] == "WEIGHT")
+                                                {
+                                                    $bWeightColumn = true;
+                                                }
+
+                                                if ($arHeader["id"] == "NAME"):
+                                                ?>
+                                                <td class="item" id="col_<?=$arHeader["id"];?>">
+                                                <?
+                                                    elseif ($arHeader["id"] == "PRICE"):
+                                                ?>
+                                                <td class="price counTitle" id="col_<?=$arHeader["id"];?>">
+                                                <?
+                                                    elseif ($arHeader["id"] == "SUM"):  continue;
+                                                ?>
+                                                <?
+                                                    elseif ($arHeader["id"] == "QUANTITY"):
+                                                ?>
+                                                <td class="price quanTitle" id="col_<?=$arHeader["id"];?>">
+                                                <?
+                                                    else:
+                                                ?>
+                                                <td class="custom" id="col_<?=$arHeader["id"];?>">
+                                                    <?
+                                                        endif;
+                                                ?>
+                                                <?=$arHeader["name"]; ?>
+                                            </td>
+                                            <?
+                                            };
+
+                                            if ($bDeleteColumn || $bDelayColumn){
+                                            ?>
+                                            <td class="custom"></td>
+                                            <?
+                                            }
+                                        ?>
+                                    </tr>
                                     <tr id="<?=$arItem["ID"]?>">
                                         <?
                                             foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader){
@@ -259,7 +312,7 @@
                                                 <?
                                                     elseif ($arHeader["id"] == "PRICE"):
                                                 ?>
-                                                <td class="price priceOfBook">
+                                                <td class="price priceOfBook" id="current_discount_td_<?=$arItem["ID"]?>">
                                                     <p class="current_price costOfBook" id="current_price_<?=$arItem["ID"]?>">
                                                         <?=$arItem["PRICE_FORMATED"]?>
                                                     </p>
@@ -272,13 +325,12 @@
                                                 <?
                                                     elseif ($arHeader["id"] == "DISCOUNT"):
                                                 ?>
-                                                <td class="custom price priceOfBook">
-                                                    <p id="discount_value_<?=$arItem["ID"]?>" class="costOfBook"><?=$arItem["DISCOUNT_PRICE_PERCENT_FORMATED"]?></p>
+                                                <td class="custom price priceOfBook" id="current_price_td_<?=$arItem["ID"]?>">
+                                                    <p id="discount_value_<?=$arItem["ID"]?>" class="costOfBook"><?if($arItem["DISCOUNT_PRICE_PERCENT_FORMATED"]) { echo $arItem["DISCOUNT_PRICE_PERCENT_FORMATED"];} else { echo '0.00%';}?></p>
                                                 </td>
                                                 <?
                                                     elseif ($arHeader["id"] == "SUM"):  continue;
-                                                ?>
-                                                <?
+                                                ?>                                                                                                                                                                                            <?
                                                     else:
                                                 ?>
                                                 <td class="custom">
@@ -303,59 +355,34 @@
                                                 endif;
                                         ?>     
                                     </tr>
-                                    <tr>
-                                        <td colspan='8'>
-                                            <style>
-                                            .preOrderBottom {                          
-                                                width: 1140px;                     
-                                                margin-left: -3px;
-                                                margin-bottom: -3px;
-                                            }
-                                            .grayBlock {
-                                                background-color: #F4F4F4; 
-                                                height: 40px;            
-                                                margin-top: 64px;
-                                            }
-                                            .cartWrapper #basket_items_delayed .yourBooks {
-                                                padding-bottom: 0px;    
-                                            }          
-                                            .cartWrapper #basket_items_delayed .grayDownLine {
-                                                margin-top: 13px;    
-                                            }          
-                                            </style>
-                                            <div class="preOrderBottom"> 
+                                    <tr id="basket_bottom_<?=$arItem["ID"]?>">
+                                        <td colspan='8'>    
+                                            <div id="pre_order_bottom_<?=$arItem["ID"]?>" class="preOrderBottom"> 
                                             <div class="grayDownLine"></div>
-                                            <?                        
-                                                //arshow($arResult);
-                                                $psum =  $arItem['PRICE']*$arItem['QUANTITY'];
-                                                $pdiscabs = $arResult[DISCOUNT_PRICE_ALL];
-                                                $pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
-                                                $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
+                                            
+                                            <?   
+                                                $printDiscountText = ''; 
+                                                if($arItem['DISCOUNT_PRICE'] > 0) {
+                                                    $psum = $arItem['DISCOUNT_PRICE'] * $arItem['QUANTITY'];  
+                                                } else {
+                                                    $psum = $arItem['BASE_PRICE'] * $arItem['QUANTITY'];                                                    
+                                                }                                
+                                                $pdiscabs = $arItem['DISCOUNT_PRICE'];      
+                                                $pdiscrel = $arItem['DISCOUNT_PRICE_PERCENT'];   
+                                                $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));  
                                                 if ($psum < 2000) {
-                                                    $printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
-                                                } elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 10) {
-                                                    //$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 19%";
-
-                                                } elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 20) {
-                                                    //$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
-
-                                                } elseif ($psum < 10000 && $pdiscrel == 19) {
-                                                    //$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 28%";
-
-                                                } elseif ($psum < 10000 && $pdiscrel == 28) {
-                                                    //$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 36%";
-
+                                                    $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
                                                 } elseif ($psum < 3000 && $pdiscrel < 10) {
-                                                    $printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
-
+                                                    $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
                                                 } elseif ($psum < 10000 && $pdiscrel < 20) {
-                                                    $printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
-
+                                                    $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
                                                 }
-                                                ?>   
-                                                
+                                                ?>        
+                                                 <div id="discountMessageWrap_<?=$arItem["ID"]?>" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
+                                                    <span id="discountMessage_<?=$arItem["ID"]?>" style="background:#fff9b7"><span class='sale_price_<?=$arItem["ID"]?>'><?=$printDiscountText?></span></span>
+                                                </div>
 
-                                                <p class="finalCost"><span id="allSum_FORMATED_<?=$arItem["ID"]?>"><?=str_replace(" ", "&nbsp;", $arItem['PRICE']*$arItem['QUANTITY'])?></span></p>
+                                                <p class="finalCost"><span id="allSum_FORMATED_<?=$arItem["ID"]?>"><?=str_replace(" ", "&nbsp;", $arItem['SUM'])?></span></p>
                                                 <p class="finalQuant">Кол-во: <span id="totalQuantity_<?=$arItem["ID"]?>"><?=$arItem['QUANTITY']?></span></p>
                                                 <p class="finalText">Итого</p>
                                                 <?
@@ -366,17 +393,18 @@
                                                         'filter' => $filterCoup
                                                     ));
                                                     $arDiscount = $discountIteratorCoup->fetch();
-                                                    // arshow($arDiscount);
                                                 ?>
                                                 <?/*
                                                     <p class="finalDiscount">Вам не хватает 770 руб. и получите скидку 10%</p>
                                                 */?> 
-                                                <p class="promoWrap"><span class="promocode" onclick="$('#coupon, #acceptCoupon').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промо-код/сертификат?<span></p>
-
+                                                <p class="promoWrap"><span class="promocode" onclick="$('#coupon_<?=$arItem['ID']?>, #acceptCoupon_<?=$arItem['ID']?>').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промо-код/сертификат?<span></p>
                                                 <div class="bx_ordercart_order_pay_left" id="coupons_block">
                                                     <div class="bx_ordercart_coupon">
-                                                        <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
-                                                        <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
+                                                        <input type="text" id="coupon_<?=$arItem['ID']?>" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon_<?=$arItem['ID']?>" class="acceptCoupon" onclick="enterCouponCustom(<?=$arItem['ID']?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
+                                                        <?//Форматируем сумму для одной позиции товара?>
+                                                        <?$ItemSum = 0;?>
+                                                        <?$ItemSum = preg_replace("/[^0-9]/", '', $arItem["SUM"]);?> 
+                                                        <input type="hidden" id="priceBasketToCoupon_<?=$arItem['ID']?>" value="<?=$ItemSum?>">
                                                     </div><?
                                                         if (!empty($arResult['COUPON_LIST']))
                                                         {
@@ -404,7 +432,7 @@
                                                     }?>
                                                 </div>
                                                 <p class="nextPageWrap">  
-                                                    <a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                                                    <a href="javascript:void(0)" onclick="checkOut(<?=$arItem['ID']?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_PREORDER")?></a>
                                                 </p>
                                                 <div class="grayBlock">
                                                 

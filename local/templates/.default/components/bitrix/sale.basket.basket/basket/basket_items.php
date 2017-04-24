@@ -310,37 +310,20 @@
 
 
             <div class="grayDownLine"></div>
-<?
-	$psum = $arResult[allSum];
-	$pdiscabs = $arResult[DISCOUNT_PRICE_ALL];
-	$pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
-    $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
-	if ($psum < 2000) {
-		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
-	} elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 10) {
-		//$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 19%";
-
-	} elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 20) {
-		//$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
-
-	} elseif ($psum < 10000 && $pdiscrel == 19) {
-		//$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 28%";
-
-	} elseif ($psum < 10000 && $pdiscrel == 28) {
-		//$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 36%";
-
-	} elseif ($psum < 3000 && $pdiscrel < 10) {
-		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
-
-	} elseif ($psum < 10000 && $pdiscrel < 20) {
-		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
-
-	}?>
-
-
-
+            <?
+	        $psum = $arResult['allSum'];
+	        $pdiscabs = $arResult['DISCOUNT_PRICE_ALL'];
+	        $pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
+            $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
+	        if ($psum < 2000) {
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
+	        } elseif ($psum < 3000 && $pdiscrel < 10) {
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
+	        } elseif ($psum < 10000 && $pdiscrel < 20) {
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
+	        }?>
 			<div id="discountMessageWrap" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
-				<span id="discountMessage" style="background:#fff9b7"><?=$printDiscountText?></span>
+				<span id="discountMessage" style="background:#fff9b7"><span class='sale_price'><?=$printDiscountText?></span></span>
 			</div>
 
             <p class="finalCost"><span id="allSum_FORMATED"><?=str_replace(" ", "&nbsp;", $arResult["allSum_FORMATED"])?></span></p>
@@ -353,8 +336,7 @@
                 $discountIteratorCoup = Internals\DiscountTable::getList(array(
                     'filter' => $filterCoup
                 ));
-                $arDiscount = $discountIteratorCoup->fetch();
-                // arshow($arDiscount);
+                $arDiscount = $discountIteratorCoup->fetch();    
             ?>
             <?/*
             <p class="finalDiscount">Вам не хватает 770 руб. и получите скидку 10%</p>
@@ -365,10 +347,7 @@
             <div class="bx_ordercart_order_pay_left" id="coupons_block">
                 <div class="bx_ordercart_coupon">
                     <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
-                    <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
-                    <?
-//                         arshow($arResult);
-                     ?>
+                    <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">       
                 </div><?
                     if (!empty($arResult['COUPON_LIST']))
                     {

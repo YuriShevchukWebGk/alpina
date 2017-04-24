@@ -2,7 +2,7 @@
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetTitle("Корзина — Интернет-магазина Альпина Паблишер");
     $APPLICATION->SetPageProperty("description", "Здесь перечислены книги, которые я хочу получить");
-?>
+?>        
 <div id="basket_container">
     <?$APPLICATION->IncludeComponent(
 	"bitrix:sale.basket.basket",

@@ -352,8 +352,10 @@ $(document).ready(function(){
             $('.registrationBlock').hide();
         })
     }
-    update_quant();
-
+    
+    if ($('.hidingBasketRight').length > 0 || $('#basket_container').length > 0 ) {
+        update_quant();                                               
+    } 
 
     if ($(".hidingBasketRight .basketBooks .basketBook").length == 0)
     {
@@ -1532,8 +1534,11 @@ function docReadyComponent(id) {
 			$('.signinBlock').show();
 			$('.registrationBlock').hide();
 		})
-	}
-	update_quant();
+	} 
+    
+    alert(123);
+    //Если возникнут проблемы с корзиной нужно вернуть             
+	//update_quant();
 
 
 	if ($(".hidingBasketRight .basketBooks .basketBook").length == 0)

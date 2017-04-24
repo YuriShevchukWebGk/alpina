@@ -1,7 +1,54 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-    CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
+    CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock"); CModule::IncludeModule('highloadblock');
 ?>
-<?  
+<?      
+    use Bitrix\Highloadblock as HL;
+    use Bitrix\Main\Entity;
+    
+    $arBasketItems = array();
+    //Если в корзине есть отложенные/предзаказанные товары, соберем всю информацию из HL блока, и вернем корзину в то состояние, которое было до оформления заказа
+    $hasDelayedItems = '';
+    $dbBasketItems = CSaleBasket::GetList( array("NAME" => "ASC", "ID" => "ASC"), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"), false, false, array("ID", "QUANTITY", "DELAY"));
+    while ($arItems = $dbBasketItems->Fetch()) { 
+        $arBasketItems[] = array("UF_BASKET_ID" => $arItems['ID'], "UF_DELAY_BEFORE" => $arItems['DELAY'], "UF_ACTIVE" => "Y");
+        $arBasketID[] = $arItems['ID'];  
+        if ($arItems['DELAY'] == 'Y') {
+            $hasDelayedItems = 'Y';
+        }
+    }    
+    
+    if ($hasDelayedItems) {       
+
+        $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
+        $entity = HL\HighloadBlockTable::compileEntity($hl_block);
+        $entity_data_class = $entity->getDataClass();   
+                       
+        $table_id = 'tbl_' . $entity_table_name;
+         
+        $basket_item_filter = array(                                                                       
+            'UF_BASKET_ID' => $arBasketID
+        );
+                                                    
+        $result = $entity_data_class::getList(array(
+            "select" => array('*'),
+            "filter" => $basket_item_filter, 
+            "order"  => array("ID" => "ASC")
+        )); 
+
+        $result = new CDBResult($result, $table_id);  
+        while ($basket_item = $result->Fetch()) {         
+            $ar_basket_items[] = $basket_item;    
+            $entity_data_class::Delete($basket_item['ID']); 
+        }                        
+
+        foreach($ar_basket_items as $hl_basket_item) {
+            $arFields = array(  
+               "DELAY" => $hl_basket_item['UF_DELAY_BEFORE']
+            );    
+            CSaleBasket::Update($hl_basket_item['UF_BASKET_ID'], $arFields);        
+        }          
+    }
+    
     switch ($_REQUEST["action"])
     {
         case "add":

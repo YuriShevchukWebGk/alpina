@@ -69,7 +69,8 @@
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
     define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry   
     define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry                  
-    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                                                                      
+    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                           
+    define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа                                                                                          
     define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами           
 
     /**
