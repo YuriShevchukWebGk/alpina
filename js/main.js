@@ -1534,8 +1534,7 @@ function docReadyComponent(id) {
 			$('.registrationBlock').hide();
 		})
 	} 
-    
-    alert(123);
+                      
     //Если возникнут проблемы с корзиной нужно вернуть             
 	//update_quant();
 
