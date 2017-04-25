@@ -143,7 +143,7 @@ div.bx_section div.bx_block div.bx_element input[type=radio],
 }
 
 .location-active {
-    background-color: red !important;        
+    background-color: red !important;
 }
 
 .bx-ui-slst-pool {
@@ -1027,7 +1027,7 @@ to {
     margin: 10px 0 0 35px;
 }
 
-.guru_delivery_time { 
+.guru_delivery_time {
 	display: none;
     color: #627478;
     font-family: "Walshein_regular";
@@ -1045,7 +1045,7 @@ to {
 	display: none;
 }
 
-.boxberry_delivery_time { 
+.boxberry_delivery_time {
     display: none;
     color: #627478;
     font-family: "Walshein_regular";
@@ -1064,4 +1064,18 @@ to {
 }
 .bx_section .clear {
 	padding-bottom:15px;
+}
+.boxbery_error{
+    clear: both;
+    margin-left: 35px;
+    display: none;
+}
+.boxberySelectContainer select{
+    clear: both;
+    float: left;
+}
+.boxberySelectContainer,
+.boxbery_delivery_time{
+    margin-left: 35px;
+    clear: both;
 }

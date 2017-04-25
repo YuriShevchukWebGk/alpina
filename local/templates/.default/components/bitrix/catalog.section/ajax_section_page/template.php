@@ -37,19 +37,44 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 }
 ?>
 
-<div class="wrapperCategor" itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
-    <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
+<div class="wrapperCategor">
     <div class="categoryWrapper">
 
         <div class="catalogIcon">
         </div>
         <div class="basketIcon">
         </div>
-
         <div class="contentWrapp">
-            <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
-
-
+			<p class="breadCrump no-mobile" itemprop="breadcrumb" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+				<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+					<a href="/" title="Главная страница" itemprop="item">
+						<span itemprop="name">Главная страница</span>
+					</a>
+					<meta itemprop="position" content="1">
+				</span>
+				<?
+				$num = 2;
+				$navChain = CIBlockSection::GetNavChain(4, $arResult["ID"]); 
+				$stopNum = $navChain->nSelectedCount + 1;
+				while ($arNav = $navChain->GetNext()) {?>
+				<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+					<span class="gap"></span>
+					<?if ($num != $stopNum) {?>
+						<a href="/catalog<?=$arNav[SECTION_PAGE_URL]?>" title="<?=$arNav[NAME]?>" itemprop="item">
+					<?}?>
+						<span itemprop="name"><?=$arNav[NAME]?></span>
+					<?if ($num != $stopNum) {?>
+						</a>
+					<?}?>
+					<meta itemprop="position" content="<?=$num?>">
+				</span>
+				<?
+				$num++;
+				}?>
+			</p>
+			<div itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
+			<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
+			<h1 itemprop="name"><?= $arResult["NAME"]?></h1>
 
             <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
@@ -117,9 +142,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 ),
                 false
             );?>
-
-         
-
+			
             <? /* Получаем от RetailRocket рекомендации для товара */
             $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
             $recsArray = json_decode($stringRecs);  
@@ -425,7 +448,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             <?if (($arResult["NAV_RESULT"]->NavPageCount) > 1) {?>
                 <p class="showMore">Показать ещё</p>
             <?}?>
-            <?=$arResult["NAV_STRING"]?>            
+            <?=$arResult["NAV_STRING"]?>
+			</div>
         </div>
 
 
@@ -513,7 +537,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             }
         })
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;
-        switch ($arParams["ELEMENT_SORT_FIELD2"]) {
+        switch ($arParams["ELEMENT_SORT_FIELD"]) {
             case "CATALOG_PRICE_1":
             $sort = "PRICE";
             break;
@@ -522,7 +546,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             $sort = "POPULARITY";
             break;
             
-            case "PROPERTY_YEAR":
+            case "PROPERTY_SOON_DATE_TIME":
             $sort = "DATE";
             break;
         }?>
