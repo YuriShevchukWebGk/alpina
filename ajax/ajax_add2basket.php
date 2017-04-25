@@ -6,6 +6,7 @@
     use Bitrix\Main\Entity;
     
     $arBasketItems = array();
+    
     //Если в корзине есть отложенные/предзаказанные товары, соберем всю информацию из HL блока, и вернем корзину в то состояние, которое было до оформления заказа
     $hasDelayedItems = '';
     $dbBasketItems = CSaleBasket::GetList( array("NAME" => "ASC", "ID" => "ASC"), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"), false, false, array("ID", "QUANTITY", "DELAY"));
@@ -17,8 +18,7 @@
         }
     }    
     
-    if ($hasDelayedItems) {       
-
+    if ($hasDelayedItems) {  
         $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
         $entity = HL\HighloadBlockTable::compileEntity($hl_block);
         $entity_data_class = $entity->getDataClass();   
@@ -125,6 +125,8 @@
             }
             next($prod_values);
         }
+    //Нужно чтобы корзина не выводилась на странице оформления заказа
+    if (!preg_match("/\/personal\/cart\//i", $_SERVER['SCRIPT_URI'])) {
         $APPLICATION->IncludeComponent("bitrix:sale.basket.basket", "hiding_basket", Array(
             "ACTION_VARIABLE" => "basketAction",    // Название переменной действия
                 "AUTO_CALCULATION" => "Y",    // Автопересчет корзины
@@ -166,4 +168,5 @@
             ),
             false
         );
+    }
 ?>

@@ -387,7 +387,9 @@ header .headBasket{margin-right:0}
 .hidingCatalogLeft .webServ{margin-top:146px}
 .hidingCatalogLeft .webServ img{padding-left:0;padding-right:15px}
 .hidingCatalogLeft li{cursor:pointer}
-.hidingBasketRight .title{color:#424c4f;font-size:15px;margin-left:50px;text-transform:uppercase;margin-top:124px}
+.hidingBasketRight .title{display:inline-block; color:#c6c9ca;font-size:15px;margin-left:50px;text-transform:uppercase;margin-top:124px;cursor:pointer;} 
+.hidingBasketRight .title.active{color:#424c4f;cursor:default;} 
+.hidingBasketRight #preorder_title{margin-left:90px;}                                                                
 .hidingBasketRight .bonus{color:#7b8c90;font-size:15px;padding:18px 50px;margin-bottom:10px}
 .hidingBasketRight .result{border-bottom:1px solid #ececec;border-top:1px solid #ececec;height:53px;margin-bottom:28px;padding-left:48px;padding-top:14px;width:100%}
 .hidingBasketRight .resultText{color:#424C4F;font-size:19px}

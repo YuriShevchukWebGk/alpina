@@ -13,22 +13,17 @@ $entity_data_class = $entity->getDataClass();
 
 $preorderID = $_REQUEST['preorderID'];  
 $arBasketItems = array();
-
+                                                            
 $dbBasketItems = CSaleBasket::GetList( array("NAME" => "ASC", "ID" => "ASC"), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"), false, false, array("ID", "QUANTITY", "DELAY"));
 while ($arItems = $dbBasketItems->Fetch()) { 
     $arBasketItems[] = array("UF_BASKET_ID" => $arItems['ID'], "UF_DELAY_BEFORE" => $arItems['DELAY'], "UF_ACTIVE" => "Y");
 }
-           
-foreach ($arBasketItems as $data) {                   
-    $result = $entity_data_class::add($data);
-    $ID = $result->getId();
-    if($result->isSuccess()){       
-        echo 'В справочник добавлена запись '.$ID.'<br />';
-    } else {
-        echo 'Ошибка добавления записи';
-    }    
-    if($data['UF_BASKET_ID'] == $preorderID) {
-        $arTestData = $data['UF_BASKET_ID'];                      
+                                                                    
+foreach ($arBasketItems as $data) {      
+    //Сохраняем информацию о заказе в HL блок             
+    $result = $entity_data_class::add($data);            
+    //Переводим все товары в отложенные, кроме предзаказанного    
+    if($data['UF_BASKET_ID'] == $preorderID) {                      
         $arFields = array(  
            "DELAY" => "N"
         ); 

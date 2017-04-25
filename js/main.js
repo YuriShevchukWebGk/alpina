@@ -940,8 +940,7 @@ function update_quant(sign, e)
             }
             break;
     }
-    update_basket(e);
-
+    update_basket(e);                                                
 }
 
 function update_basket(e)

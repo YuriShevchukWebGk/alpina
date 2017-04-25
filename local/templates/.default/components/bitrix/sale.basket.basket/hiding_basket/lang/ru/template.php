@@ -36,7 +36,8 @@ $MESS["SALE_REFRESH"] = "Пересчитать";
 $MESS["SALE_COUPON_APPLY"] = "Ок";
 $MESS["SALE_COUPON_APPLY_TITLE"] = "Нажмите для применения нового купона";
                                             
-$MESS ['TSB1_CART'] = "Корзина";
+$MESS ['TSB1_CART'] = "Корзина";            
+$MESS ['TSB1_PREORDER'] = "Предзаказ";
 $MESS ['TSB1_TOTAL_PRICE'] = "Кол-во: ";                
 
 $MESS ['TSB1_2ORDER'] = "Оформить заказ";

@@ -1110,9 +1110,14 @@ function recalcBasketAjax(params)
                         var formated_price = real_price.toFixed(2) + ' руб.';     
                         var real_full_price = real_price * item.QUANTITY;
                         var final_sum = real_full_price.toFixed(2) + ' руб.';                                      
-                    } else {
+                    } else { 
                         final_sum = item.SUM;
-                        formated_discount = item.DISCOUNT_PRICE_PERCENT_FORMATED;  
+                        if(item.DISCOUNT_PRICE_PERCENT_FORMATED == '') {
+                            formated_discount = '0.00%';   
+                        } else {
+                            formated_discount = item.DISCOUNT_PRICE_PERCENT_FORMATED;
+                        }
+                                                                                  
                     }                                                  
                     $("#discount_value_" + params.basketID).html(formated_discount);  
                     $("#allSum_FORMATED_" + params.basketID).html(final_sum);

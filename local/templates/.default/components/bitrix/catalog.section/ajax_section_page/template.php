@@ -323,9 +323,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                      <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                      <?              
-                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") 
-                                        && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
-
+                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) { 
                                             if ($arPrice["DISCOUNT_VALUE_VAT"]) { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                                 <link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
@@ -336,8 +334,13 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                          ?>
                                  
                                          <?if ($arResult[$arItem["ID"]]["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
-                                            <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); return false;">
-                                                <p class="basketBook">В корзину</p>
+                                            <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=$arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); return false;">
+                                                <?if(intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                                    <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET")?></p> 
+                                                <?} else {?>
+                                                    <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_PREORDER")?></p>                                                 
+                                                <?}?>                                                     
+                                            </a>
                                             </a>
                                          <?} else {?>
                                             <a class="product<?= $arItem["ID"];?>" href="/personal/cart/">
