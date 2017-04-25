@@ -214,18 +214,18 @@ if ($_POST['email']) {
 	
 	function subscribeTest($id, $mail, $name) {
 		$arSelect = Array("ID");
-		$arFilter = Array("IBLOCK_ID" => 41,"ACTIVE" => "Y","PROPERTY_SUB_EMAIL" => $mail);
+		$name = 'Глава из книги '.$name;
+		$arFilter = Array("IBLOCK_ID" => 41,"ACTIVE" => "Y","NAME" => $name, "PROPERTY_SUB_EMAIL" => $mail);
 		$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize" => 9999), $arSelect);
 		
-		if($ob = $res -> GetNextElement()) { //
-			
+		if($ob = $res -> GetNextElement()) {
 		} else {	
 			$el = new CIBlockElement;
 			global $USER;
 			$PROP = array();
 			$PROP[385] = '1';  // --- book id
 			$PROP[386] = $mail; // --- subscriber E-mail
-			$PROP[387] = 'Глава из книги '.$name;  // --- subscription description
+			$PROP[387] = $name;  // --- subscription description
 			$PROP[388] = "3"; // --- subscription id		
 			
 			$arLoadProductArray = Array(
@@ -233,7 +233,7 @@ if ($_POST['email']) {
 			  "IBLOCK_SECTION_ID" => false,         
 			  "IBLOCK_ID"      => 41,
 			  "PROPERTY_VALUES"=> $PROP,
-			  "NAME"           => 'Глава из книги '.$name,
+			  "NAME"           => $name,
 			  "ACTIVE"         => "Y",
 			  ); 
 			  
@@ -242,6 +242,57 @@ if ($_POST['email']) {
 	}
 
 	subscribeTest($_POST['book'],$_POST['email'], $book['NAME']);
+	
+	/*function chapterRfm($id, $mail) {
+		$arSelect = array(
+			"ID",
+			"NAME"
+		);
+		
+		$filter = array(
+			"IBLOCK_ID" => 67,
+			"ACTIVE" => "Y",
+			"NAME" => $mail
+		);
+
+		$res = CIBlockElement::GetList(Array("PROPERTY_LASTORDER" => "DESC"), $filter, false, array(), $arSelect);
+
+		if ($ob = $res -> GetNextElement()) {
+			$ob = $ob->GetFields();
+			$res1 = CIBlockElement::GetByID($ob[ID]);
+			$obRes1 = $res1->GetNextElement();
+			$ar_res1 = $obRes1->GetProperties();
+			
+			if (!empty($ar_res1[WISHBOOKS][VALUE])) {
+				array_push($ar_res1[WISHBOOKS][VALUE], $id);
+				CIBlockElement::SetPropertyValuesEx($ob[ID], 67, array('WISHBOOKS' => $ar_res1[WISHBOOKS][VALUE]));
+			} else {
+				CIBlockElement::SetPropertyValuesEx($ob[ID], 67, array('WISHBOOKS' => $id));
+			}
+		} else {
+			$el = new CIBlockElement;
+			$PROP = array();
+			$PROP[800] = 'sendchapter';
+			$PROP[802] = $id;
+			
+			$arLoadProductArray = Array(
+				"MODIFIED_BY"    => 15,
+				"IBLOCK_SECTION" => false,
+				"IBLOCK_ID"      => 67,
+				"PROPERTY_VALUES"=> $PROP,
+				"NAME"           => $mail,
+				"ACTIVE"         => "Y"
+			);
+			
+			if ($el->Add($arLoadProductArray))
+				echo 1;
+			else
+				echo 2;
+		}
+	}
+	
+	chapterRfm($_POST['book'],$_POST['email']);*/
+	
 } else {
 	$email = 'a.marchenkov@alpinabook.ru';
 	$book = 7706;

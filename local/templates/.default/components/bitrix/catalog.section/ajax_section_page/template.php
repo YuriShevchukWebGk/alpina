@@ -536,7 +536,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             }
         })
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;
-        switch ($arParams["ELEMENT_SORT_FIELD2"]) {
+        switch ($arParams["ELEMENT_SORT_FIELD"]) {
             case "CATALOG_PRICE_1":
             $sort = "PRICE";
             break;

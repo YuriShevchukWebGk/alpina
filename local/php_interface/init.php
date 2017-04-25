@@ -15,8 +15,8 @@
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
     use Bitrix\Highloadblock as HL;
-    use Bitrix\Main\Entity;       
-                                
+    use Bitrix\Main\Entity;
+
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -40,6 +40,7 @@
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("CASHLESS_PAYSYSTEM_ID", 12);
     define ("FLIPPOST_ID", 30);
+    define ("BOXBERY_ID", 50);
     define ("GURU_DELIVERY_ID", 43);
     define ("EXPORTED_TO_GURU_PROPERTY_ID_NATURAL", 90); // физ. лицо
     define ("EXPORTED_TO_GURU_PROPERTY_ID_LEGAL", 91); // юр. лицо
@@ -63,22 +64,22 @@
     define ("BIK_FOR_EXPENSE_OFFER", "044525716");
     define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
     define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
-    define("TRADING_FINANCE_SECTION_ID", 111);    
+    define("TRADING_FINANCE_SECTION_ID", 111);
     define("WIDGET_PREVIEW_WIDTH", 70);
     define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
-    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry   
-    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry                  
-    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                                                                      
-    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами           
+    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
+    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
 
     /**
-    * 
+    *
     * Отдельная функция для писем с вложениями, т.к. разобрать то, что шлет битрикс нереально
-    * @param array $arFields, 
+    * @param array $arFields,
     * @param array $arTemplate
     * @return bool
-    * 
+    *
     * */
 
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
@@ -139,7 +140,7 @@
     * @param string $additional_parameters
     *
     **/
-    function custom_mail($to, $subject, $message, $additional_headers = '', $additional_parameters = '') {     
+    function custom_mail($to, $subject, $message, $additional_headers = '', $additional_parameters = '') {
 
         GLOBAL $arParams;
 
@@ -163,7 +164,7 @@
 
         if (trim($bcc_matches[0])) {
             $params['bcc'] = $bcc_matches[0];
-        }       
+        }
 
         $domain = $arParams['MAILGUN']['DOMAIN'];
         # Make the call to the client.
@@ -187,7 +188,7 @@
             ),
         );
     }
-    
+
     /**
      * Дефолтные значения для доставки гуру на случай, если что-то пошло не так и цена доставки 0
      *
@@ -247,7 +248,7 @@
         else
             return false;
     }
-    
+
     function searchNum2Str($num) {
         $nul='ноль';
         $ten=array(
@@ -351,7 +352,7 @@
             }
         }
     }
-    
+
     AddEventHandler("sale", "OnBeforeOrderAdd", "guruHandlerBefore"); // меняем цену для guru
     AddEventHandler("sale", "OnOrderSave", "guruHandlerAfter"); // меняем адрес для guru
 
@@ -391,19 +392,19 @@
             // записываем тех данные в поле адреса id пункта самовывоза|дата доставки
             $property_collection = $order_instance->getPropertyCollection();
             if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
-                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);              
+                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_ENTITY_ORDER_PROP_ID);
                 $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_LEGAL);
             } else {
-                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID);             
+                $address_property_instance = $property_collection->getItemByOrderPropertyId(ADDRESS_INDIVIDUAL_ORDER_PROP_ID);
                 $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_GURU_PROPERTY_ID_NATURAL);
             }
             $address_property_instance->setValue($_REQUEST['guru_delivery_data']);
             $exported_to_dg_property_instance->setValue("N");
-            
+
             $order_instance->save();
         }
     }
-                                                          
+
     //Обновление заказа для доставки Boxberry
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberryHandlerBefore"); // меняем цену для boxberry
     AddEventHandler("sale", "OnOrderSave", "boxberryHandlerAfter"); // меняем адрес для boxberry
@@ -443,16 +444,16 @@
 
             // записываем тех данные в поле адреса id пункта самовывоза
             $property_collection = $order_instance->getPropertyCollection();
-            if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {                                                 
-                $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL);              
-            } else {                                                                                                               
-                $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL);            
-            }        
+            if ($arFields['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+                $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL);
+            } else {
+                $exported_to_dg_property_instance = $property_collection->getItemByOrderPropertyId(EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL);
+            }
             $exported_to_dg_property_instance_value = $exported_to_dg_property_instance->GetValue();
-            if (empty($exported_to_dg_property_instance_value)) {                         
-                $exported_to_dg_property_instance->setValue("N");                             
-            }                                                     
-            $order_instance->save();  
+            if (empty($exported_to_dg_property_instance_value)) {
+                $exported_to_dg_property_instance->setValue("N");
+            }
+            $order_instance->save();
         }
     }
 
@@ -872,7 +873,7 @@
             }
         }
 
-        function OnOrderCustomCouponHandler($ID, $arFields) {                                          
+        function OnOrderCustomCouponHandler($ID, $arFields) {
             if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N")  {
                 //Update coupon
                 Loader::includeModule('sale');
@@ -963,18 +964,18 @@
         }
         return false;
     }
-    
+
     AddEventHandler("main", "OnAfterUserRegister", Array("AlpinaBK", "sendUserToBK"));
     AddEventHandler("main", "OnAfterUserUpdate",  Array("AlpinaBK", "updateUserPassword"));
     AddEventHandler("main", "OnBeforeUserLogin", Array("AlpinaBK", "checkUserBeforeLogin"));
 
     // общий класс для методов, связанных с бизнес книгами
     class AlpinaBK {
-        
+
         /**
-         * 
+         *
          * Регистрируем нового пользователя в БК после регистрации на сайте
-         * 
+         *
          * */
         public static function sendUserToBK($arFields) {
             $postdata = http_build_query(
@@ -986,7 +987,7 @@
                    'name' => $arFields['NAME'] . " " . $arFields['LAST_NAME']
                )
             );
-        
+
             $opts = array('http' =>
                array(
                    'method'  => 'POST',
@@ -994,36 +995,36 @@
                    'content' => $postdata
               )
             );
-            
+
             $context  = stream_context_create($opts);
             $result = file_get_contents('https://www.alpinabook.ru/api/user/', false, $context);
         }
-        
+
         /**
-         * 
+         *
          * При сбросе пароля ищем пользователя в БК, если он там есть, то меняем ему пароль на такой же,
          * если нет, то регистрируем нового пользователя в БК
-         * 
+         *
          * @param array $fields
-         * 
+         *
          * */
         public static function updateUserPassword(&$fields) {
             // проверяем, что сбрасывают именно пароль
             if ($fields['PASSWORD'] && $fields['CONFIRM_PASSWORD'] && $fields['RESULT']) {
                 // получение данных пользователя
                 $user = CUser::GetByID($fields['ID']);
-                $user = $user->Fetch();    
+                $user = $user->Fetch();
                 // --- запрос на существование пользователя в БК ---
                 $data = array(
                     'email' => $user['EMAIL']
                 );
                 ksort($data);
-                
+
                 $string_to_hash = http_build_query($data);
                 $sig = md5($string_to_hash . BK_API_SECRET_KEY);
-                
+
                 $data['sig'] = $sig;
-                
+
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users?' . http_build_query($data));
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -1040,12 +1041,12 @@
                         'password' => $fields['CONFIRM_PASSWORD']
                     );
                     ksort($data);
-                    
+
                     $string_to_hash = http_build_query($data);
                     $sig = md5($string_to_hash . BK_API_SECRET_KEY);
-                    
+
                     $data['sig'] = $sig;
-                    
+
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'b2b/users/' . $user[0]['id']);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -1070,14 +1071,14 @@
         }
 
         /**
-         * 
+         *
          * Реализация единого алгоритма авторизации
-         * 
+         *
          * @param array $fields
-         * 
+         *
          * */
         public static function checkUserBeforeLogin(&$fields) {
-            // пробуем найти юзера в битрикс    
+            // пробуем найти юзера в битрикс
             $users = CUser::GetList(
                 ($by = "id"),
                 ($order = "asc"),
@@ -1093,7 +1094,7 @@
                 $current_hash = $user['PASSWORD'];
                 $password = $fields['PASSWORD'];
                 $salt = substr($current_hash, 0, (strlen($current_hash) - 32));
-                
+
                 $current_password = substr($current_hash, -32);
                 $password = md5($salt . $password);
                 // если пароли совпадают, то все ок, просто авторизуем, если нет, то проверим его на БК
@@ -1102,7 +1103,7 @@
                         'email'    => $fields['LOGIN'],
                         'password' => $fields['PASSWORD']
                     );
-                    
+
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -1136,7 +1137,7 @@
                     'email'    => $fields['LOGIN'],
                     'password' => $fields['PASSWORD']
                 );
-                
+
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -1160,7 +1161,7 @@
                         "PASSWORD"          => $fields['PASSWORD'],
                         "CONFIRM_PASSWORD"  => $fields['PASSWORD']
                     );
-                    
+
                     $ID = $user->Add($user_fields);
                     global $USER;
                     if (!is_object($USER)) $USER = new CUser;
@@ -1288,7 +1289,7 @@
             "PS" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в Ваше почтовое отделение! Мы будем держать Вас в курсе событий!",
             "PD" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» доставлен в Ваше почтовое отделение! Пожалуйста, получите Вашу посылку! Для этого придите в Ваше отделение и назовите оператору трекинг-код. С собой необходимо иметь паспорт. Спасибо за выбор нашего магазина!",
             "P10" => "Здравствуйте, clientName! Пожалуйста, заберите Ваш заказ из магазина «Альпина Паблишер» в Вашем почтовом отделении.",
-            "PA" => "Здравствуйте, clientName! Срок хранения Вашего заказ №order из интернет-магазина «Альпина Паблишер» истекает. Пожалуйста, заберите Ваш заказ в почтовом отделении. Спасибо!"            
+            "PA" => "Здравствуйте, clientName! Срок хранения Вашего заказ №order из интернет-магазина «Альпина Паблишер» истекает. Пожалуйста, заберите Ваш заказ в почтовом отделении. Спасибо!"
             //"I" => "Ваш заказ №order в пути. Если будут вопросы – звоните +7(495)9808077"
         );
 
@@ -1565,8 +1566,8 @@
         $out[] = $kop.' '.morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
-    
-    function typo($str){      
+
+    function typo($str){
         $pattern = '/\s+(в|без|до|из|к|на|по|о|от|перед|при|через|с|у|и|нет|за|над|для|об|под|про|но|что|не|или)\s+/';
         return preg_replace($pattern, ' \1&nbsp;', $str);
     }
@@ -2020,8 +2021,8 @@
             "items_id"    => "menu_webgk.coupons",
             "items"       => array()
         );
-        
-        //страница экспорта заказов в "доставка guru"  
+
+        //страница экспорта заказов в "доставка guru"
         $moduleMenu[] = array(
             "parent_menu" => "global_menu_store",
             "section"     => "webgk.guru_export",
@@ -2034,8 +2035,8 @@
             "items_id"    => "menu_webgk.guru_export",
             "items"       => array()
         );
-        
-        //страница экспорта заказов в "boxberry"  
+
+        //страница экспорта заказов в "boxberry"
         $moduleMenu[] = array(
             "parent_menu" => "global_menu_store",
             "section"     => "webgk.boxberry_export",
@@ -2238,24 +2239,24 @@
             FILE_APPEND
         );
     }
-    
+
     /**
-     * 
+     *
      * Выполнить запрос
-     * 
+     *
      * @param array $data
      * @param string $method
      * @param string $request
      * @param string $headers
      * @return mixed $result
-     * 
+     *
      * */
 
     function performQuery($data, $method = "GET", $request, $headers) {
         $postdata = http_build_query(
             $data
         );
-    
+
         $opts = array(
             'http' => array(
                 'method'  => $method,
@@ -2266,20 +2267,20 @@
                 'verify_peer' => false
             )
         );
-        
+
         $context  = stream_context_create($opts);
         $result = file_get_contents($request, false, $context);
-        
+
         return $result;
     }
-    
+
     /***********
-    * 
+    *
     * при добавлении/изменении скидки на товар проставлять свойство "Показывать иконку скидки" у данного товара
     * если активность скидки "Да"
-    * 
+    *
     * @var array $products_ids - ID привязанных к скидке товаров
-    * 
+    *
     */
     AddEventHandler("catalog", "OnDiscountUpdate", "activateShowingDiscountIcon");
     AddEventHandler("catalog", "OnDiscountAdd", "activateShowingDiscountIcon");
@@ -2298,13 +2299,13 @@
                 foreach ($products_ids as $product_id) {
                     CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => "N"));
                 }
-            }    
+            }
         } else {
             $discount_info = CCatalogDiscount::GetList (array(), array("ID" => $ID), false, false, array());
             while ($discount = $discount_info -> Fetch()) {
                 if (!in_array($discount["PRODUCT_ID"], $products_ids)) {
-                    $products_ids[] = $discount["PRODUCT_ID"];    
-                }    
+                    $products_ids[] = $discount["PRODUCT_ID"];
+                }
             }
             if (!empty($products_ids)) {
                 if ($arFields["ACTIVE"] == "Y") {
@@ -2317,121 +2318,121 @@
                     }
                 }
             }
-        } 
+        }
     }
-    
+
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
     function BoxberryListStatuses() {
-        $arFilter = Array(      
+        $arFilter = Array(
            "!TRACKING_NUMBER" => null,
-           "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,   
-           "!STATUS_ID" => F                                                                 
-        );          
+           "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,
+           "!STATUS_ID" => F
+        );
         if ($db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter)) {
             while ($ar_sales = $db_sales->Fetch()) {
                 $orders_tracking_number[$ar_sales['ID']] = $ar_sales['TRACKING_NUMBER'];
             }
-        };                                
+        };
         foreach($orders_tracking_number as $order_id => $order_tracking_number) {
             $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;
-            // XXXXXX - код отслеживания заказа          
+            // XXXXXX - код отслеживания заказа
             $handle = fopen($url, "rb");
             $contents = stream_get_contents($handle);
             fclose($handle);
-            $data=json_decode($contents,true);      
+            $data=json_decode($contents,true);
             if ($data['err']) {
                 // если произошла ошибка и ответ не был получен:
                 echo $data['err'];
             } else {
                 foreach($data[statuses] as $status) {
                     $last_status = $status;
-                }                         
+                }
                 //ждем данных от боксберри
                 if($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {
-                    CSaleOrder::StatusOrder($order_id, "F");   
+                    CSaleOrder::StatusOrder($order_id, "F");
                 }
-            }    
+            }
         }
-        return 'BoxberryListStatuses();';        
-    }      
-    
-    //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет                                      
-    Main\EventManager::getInstance()->addEventHandler('sale', 'OnSaleOrderBeforeSaved', 'OnBeforeOrderUpdateLogger');               
-    function OnBeforeOrderUpdateLogger(Main\Event $event) { 
-        $order = $event->getParameter("ENTITY"); 
+        return 'BoxberryListStatuses();';
+    }
+
+    //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет
+    Main\EventManager::getInstance()->addEventHandler('sale', 'OnSaleOrderBeforeSaved', 'OnBeforeOrderUpdateLogger');
+    function OnBeforeOrderUpdateLogger(Main\Event $event) {
+        $order = $event->getParameter("ENTITY");
         $status_id = $order->GetField("STATUS_ID");
-        $order_id = $order->GetField("ID");    
+        $order_id = $order->GetField("ID");
         $date = date('Y-m-d, H:i:s');
-        global $APPLICATION, $USER; 
+        global $APPLICATION, $USER;
         $userID = $USER->GetID();
-        $curPage = $APPLICATION->GetCurPage(); 
-        $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';    
+        $curPage = $APPLICATION->GetCurPage();
+        $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';
         $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';
         logger($order_log, $file);
-    }            
-    
-    
-    
-    //Обновление HL блока с поисковыми индексами  
+    }
+
+
+
+    //Обновление HL блока с поисковыми индексами
      \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'iblock',
         'OnAfterIBlockElementUpdate',
         'HLBlockElementUpdate'
-    ); 
+    );
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'iblock',
         'OnAfterIBlockElementAdd',
         'HLBlockElementUpdate'
-    );                              
-    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){ 
-        if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {   
+    );
+    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){
+        if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
             $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL");
-            $arFilter = Array("ID"=>$arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");                  
-            $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);  
+            $arFilter = Array("ID"=>$arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
+            $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
             while($arFields = $res->GetNext())
-            {                             
+            {
                 if (!empty($arFields['NAME'])) {
                     $arHLData['UF_TITLE'] = preg_replace("/([^a-zA-Z\sа-яёА-ЯЁ0-9])/u","",$arFields['NAME']);
-                }                   
+                }
                 if (!empty($arFields['NAME'])) {
                     $arHLData['UF_TITLE_REAL'] = $arFields['NAME'];
-                }                                                                              
+                }
                 if (!empty($arFields['DETAIL_PAGE_URL'])) {
                     $arHLData['UF_DETAIL_PAGE_URL'] = $arFields['DETAIL_PAGE_URL'];
-                }                                                                            
+                }
                 if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
                     $arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
-                } 
-                if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {                             
+                }
+                if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
                     if (empty($arHLData['UF_AUTHOR'])) {
-                        $autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);            
+                        $autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);
                         if ($autorsAr = $autorsOb -> fetch()) {
                             $arHLData['UF_AUTHOR'] = $autorsAr['NAME'];
-                        }            
-                    } 
+                        }
+                    }
                 }
-                if(!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {                             
-                    if (empty($arHLData['UF_COVER_TYPE'])) {   
-                        $arHLData['UF_COVER_TYPE'] = $arFields['PROPERTY_COVER_TYPE_VALUE'];  
-                    } 
-                }     
-                $arHLData['UF_IBLOCK_ID'] = $arFields['ID'];  
-            }                         
-            if($arHLData){                                          
-                $hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch(); 
+                if(!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {
+                    if (empty($arHLData['UF_COVER_TYPE'])) {
+                        $arHLData['UF_COVER_TYPE'] = $arFields['PROPERTY_COVER_TYPE_VALUE'];
+                    }
+                }
+                $arHLData['UF_IBLOCK_ID'] = $arFields['ID'];
+            }
+            if($arHLData){
+                $hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
                 $entity = HL\HighloadBlockTable::compileEntity($hlblock);
-                $entity_data_class = $entity->getDataClass();         
+                $entity_data_class = $entity->getDataClass();
                 $rsElementID = $entity_data_class::getList(array(
                    "select" => array("ID"),
                    "order"  => array("ID" => "ASC"),
                    "filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
-                ));                                     
+                ));
                 if($arElementID = $rsElementID->Fetch()){
-                    $result = $entity_data_class::update($arElementID['ID'], $arHLData);    
-                } else {               
+                    $result = $entity_data_class::update($arElementID['ID'], $arHLData);
+                } else {
                     $result = $entity_data_class::add($arHLData);
-                } 
-            }       
-        }                                                                                    
-    }                
+                }
+            }
+        }
+    }
 ?>

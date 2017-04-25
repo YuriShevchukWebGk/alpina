@@ -286,7 +286,7 @@ $arItemIDs = array(
 								<span class="ttip"><?=GetMessage("VIEWS_A_DAY");?></span>
 							</div>
 						<?}?>
-                        <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
+                        <?if (!empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
                             <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
 								<br />
                                 <div class="digitalBookMark">
@@ -457,7 +457,7 @@ $arItemIDs = array(
                     <?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
-					<?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+					<?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
 						<div id="diffversions">
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
@@ -649,7 +649,7 @@ $arItemIDs = array(
                     </div>
 					<?$frame->end();?>
 
-					<?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+					<?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
 					<!--noindex-->
 					<div class="priceBasketWrap digitalVersionWrap" style="display:none;">
 						<div class="wrap_prise_top">
@@ -742,7 +742,7 @@ $arItemIDs = array(
 							$delivery_day = $setProps['deliveryDayName'];
                             ?>
                     <ul class="shippings">
-						<li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
+						<li><?= GetMessage("MSK_DELIVERY") ?> <a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
 						<li><?= GetMessage("POSTOMATS") ?></li>
 						<li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
 						<li><?= GetMessage("MAIL_DELIVERY") ?></li>
