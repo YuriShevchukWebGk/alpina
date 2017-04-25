@@ -205,7 +205,7 @@ $arItemIDs = array(
     'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
 );
 ?>
-            <div class="elementDescriptWrap" itemscope itemtype="https://schema.org/Book">
+            <div class="elementDescriptWrap" itemprop="mainEntity" itemscope itemtype="https://schema.org/Book">
                 <meta itemprop="inLanguage" content="ru-RU"/>
                 <div class="leftColumn">
                     <div class="elementMainPict">
@@ -286,7 +286,7 @@ $arItemIDs = array(
 								<span class="ttip"><?=GetMessage("VIEWS_A_DAY");?></span>
 							</div>
 						<?}?>
-                        <?if (!empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
+                        <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
                             <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
 								<br />
                                 <div class="digitalBookMark">
@@ -457,7 +457,7 @@ $arItemIDs = array(
                     <?##Спонсоры книги?>
                 </div>
                 <div class="rightColumn">
-					<?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
+					<?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
 						<div id="diffversions">
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
 							<a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
@@ -508,8 +508,7 @@ $arItemIDs = array(
                                 if (!empty($arResult["PRICES"])) { ?>
                                     <?// если свойство товара в состоянии "Новинка" либо не задан - то выводить стандартный блок с ценой,
                                     // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении
-                                    if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") )
-                                        && (intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal") )) {
+                                    if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal") )) {
                                         foreach ($arResult["PRICES"] as $code => $arPrice) {?>
                                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                         <link itemprop="availability" href="https://schema.org/InStock">
@@ -560,7 +559,7 @@ $arItemIDs = array(
                                     <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
                                     <? $StockInfo = "SoonStock"; ?>
                                     <p class="newPrice" style="font-size:20px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
-
+                                        
                                     <?} else {?>
                                     <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                                     <link itemprop="availability" href="https://schema.org/OutOfStock">
@@ -585,8 +584,7 @@ $arItemIDs = array(
                                         <?}?>
                                     <p class="newPrice notAvailable" style="font-size:28px;"><?= GetMessage("NOT_IN_STOCK") ?></p>
                                     <?}?>
-                                <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
-                                        || (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
+                                <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                                     <form>
                                         <div>
                                             <p>
@@ -610,11 +608,9 @@ $arItemIDs = array(
                                     </div>
                                 </form>
                                 <?}?>
-                        </div>
-
+                        </div>                                
                         <?if (!empty ($arResult["PRICES"]) ) {?>
-                            <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
-                                    && (intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
+                            <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                                 <div class="wrap_prise_bottom">
                                     <span class="item_buttons_counter_block">
 
@@ -624,10 +620,14 @@ $arItemIDs = array(
                                                 : $arResult['CATALOG_MEASURE_RATIO']
                                             ); ?>">
                                         <a href="javascript:void(0)" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>
-                                    </span>
+                                    </span>                                    
                                     <?if ($arResult["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
-                                        <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
-                                            <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p>
+                                        <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
+                                            <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                                <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p> 
+                                            <?} else {?>
+                                                <p class="inBasket"><?= GetMessage("ADD_TO_PREORDER") ?></p>                                                 
+                                            <?}?>                                                     
                                         </a>
 										<div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                                         <?} else {?>
@@ -649,7 +649,7 @@ $arItemIDs = array(
                     </div>
 					<?$frame->end();?>
 
-					<?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
+					<?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
 					<!--noindex-->
 					<div class="priceBasketWrap digitalVersionWrap" style="display:none;">
 						<div class="wrap_prise_top">
@@ -742,10 +742,10 @@ $arItemIDs = array(
 							$delivery_day = $setProps['deliveryDayName'];
                             ?>
                     <ul class="shippings">
-						<li><?= GetMessage("MSK_DELIVERY") ?> <a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
-						<li><?= GetMessage("POSTOMATS") ?></li>
+						<li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
+						<li>1239 <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a></li>
 						<li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
-						<li><?= GetMessage("MAIL_DELIVERY") ?></li>
+						<li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
 						<li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     </ul>
                     <?}?>
@@ -906,9 +906,8 @@ $arItemIDs = array(
 									font-family: Walshein_regular!important;
 							}
 							.mc-c div {
-								font-family: Walshein_regular!important;
-								font-size:15px!important;
-								color:#424C4F!important;
+								font-family: Walshein_light!important;
+								font-size:16px!important;
 							}
 							.cr .mc-review-time {
 								font-size: 14px!important;

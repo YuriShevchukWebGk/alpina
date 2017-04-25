@@ -67,11 +67,12 @@
     define("TRADING_FINANCE_SECTION_ID", 111);
     define("WIDGET_PREVIEW_WIDTH", 70);
     define("WIDGET_PREVIEW_HEIGHT", 90);
-    define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
-    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
-    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
-    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска
-    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
+    define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки       
+    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry   
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry                  
+    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                           
+    define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа                                                                                          
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами           
 
     /**
     *
@@ -2430,9 +2431,58 @@
                 if($arElementID = $rsElementID->Fetch()){
                     $result = $entity_data_class::update($arElementID['ID'], $arHLData);
                 } else {
-                    $result = $entity_data_class::add($arHLData);
-                }
+                    $result = $entity_data_class::add($arHLData);   
+                } 
+            }       
+        }                                                                                    
+    }
+    
+    //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа    
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'main',
+        'OnProlog',
+        'UpdateBasket'
+    );
+    function UpdateBasket(){                                                       
+        if (preg_match("/\/personal\/cart\//i", $_SERVER['SCRIPT_URI'])) {                
+            require_once($_SERVER["DOCUMENT_ROOT"]."/ajax/ajax_add2basket.php");
+        }                                                                               
+    }
+       
+    //Удаляем предзаказанный товар из HL блока, после оформления заказа
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'sale',
+        'OnOrderSave',
+        'DeleteBasketElementFromHL'
+    );
+    function DeleteBasketElementFromHL($orderId, $arFields, $arOrder, $isNew){  
+        if($isNew){
+            $arBasketItems = array();   
+            foreach($arOrder['BASKET_ITEMS'] as $basketItem){
+                $arBasketItems[] = $basketItem;
+                $arBasketID[] = $basketItem['ID'];         
+            }      
+            
+            $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
+            $entity = HL\HighloadBlockTable::compileEntity($hl_block);
+            $entity_data_class = $entity->getDataClass();   
+                           
+            $table_id = 'tbl_' . $entity_table_name;
+             
+            $basket_item_filter = array(                                                                       
+                'UF_BASKET_ID' => $arBasketID
+            );
+                                                        
+            $result = $entity_data_class::getList(array(
+                "select" => array('*'),
+                "filter" => $basket_item_filter, 
+                "order"  => array("ID" => "ASC")
+            ));      
+            
+            $result = new CDBResult($result, $table_id);  
+            while ($basket_item = $result->Fetch()) {   
+                $entity_data_class::Delete($basket_item['ID']); 
             }
-        }
+        }                    
     }
 ?>

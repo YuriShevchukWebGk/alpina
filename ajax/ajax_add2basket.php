@@ -1,7 +1,54 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-    CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
+    CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock"); CModule::IncludeModule('highloadblock');
 ?>
-<?  
+<?      
+    use Bitrix\Highloadblock as HL;
+    use Bitrix\Main\Entity;
+    
+    $arBasketItems = array();
+    
+    //Если в корзине есть отложенные/предзаказанные товары, соберем всю информацию из HL блока, и вернем корзину в то состояние, которое было до оформления заказа
+    $hasDelayedItems = '';
+    $dbBasketItems = CSaleBasket::GetList( array("NAME" => "ASC", "ID" => "ASC"), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"), false, false, array("ID", "QUANTITY", "DELAY"));
+    while ($arItems = $dbBasketItems->Fetch()) { 
+        $arBasketItems[] = array("UF_BASKET_ID" => $arItems['ID'], "UF_DELAY_BEFORE" => $arItems['DELAY'], "UF_ACTIVE" => "Y");
+        $arBasketID[] = $arItems['ID'];  
+        if ($arItems['DELAY'] == 'Y') {
+            $hasDelayedItems = 'Y';
+        }
+    }    
+    
+    if ($hasDelayedItems) {  
+        $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
+        $entity = HL\HighloadBlockTable::compileEntity($hl_block);
+        $entity_data_class = $entity->getDataClass();   
+                       
+        $table_id = 'tbl_' . $entity_table_name;
+         
+        $basket_item_filter = array(                                                                       
+            'UF_BASKET_ID' => $arBasketID
+        );
+                                                    
+        $result = $entity_data_class::getList(array(
+            "select" => array('*'),
+            "filter" => $basket_item_filter, 
+            "order"  => array("ID" => "ASC")
+        )); 
+
+        $result = new CDBResult($result, $table_id);  
+        while ($basket_item = $result->Fetch()) {         
+            $ar_basket_items[] = $basket_item;    
+            $entity_data_class::Delete($basket_item['ID']); 
+        }                        
+
+        foreach($ar_basket_items as $hl_basket_item) {
+            $arFields = array(  
+               "DELAY" => $hl_basket_item['UF_DELAY_BEFORE']
+            );    
+            CSaleBasket::Update($hl_basket_item['UF_BASKET_ID'], $arFields);        
+        }          
+    }
+    
     switch ($_REQUEST["action"])
     {
         case "add":
@@ -12,7 +59,6 @@
                 //$allproducts = explode("-", $_REQUEST["productid"]);
                 //foreach ($allproducts as $product) {
                 $product = intval($_REQUEST["productid"]);
-
                 //$product = intval($_POST["add2basket"]);
                 //проверим     
                 $res = CIBlockElement::GetByID($product);
@@ -23,7 +69,7 @@
                     
                     $ar_res = CPrice::GetBasePrice($PRODUCT["ID"]); 
                     $price=$ar_res["PRICE"];
-                    if(intval($price)==0){ 
+                    if(intval($price) == 0){ 
                         $price = 0;
                         $arFields = array(
                             "PRODUCT_ID" => $PRODUCT["ID"],
@@ -34,21 +80,25 @@
                             "LID" => "s1",
                             "NAME" => $PRODUCT["NAME"],
                             "PRODUCT_PROVIDER_CLASS" => "CCatalogProductProvider",
-                            "MODULE" => "catalog"
+                            "MODULE" => "catalog" 
                         );
-                        $basket_id = CSaleBasket::Add($arFields);
-                        $arItem = CSaleBasket::GetByID($basket_id );
+                        $basket_id = CSaleBasket::Add($arFields);     
+                        $arItem = CSaleBasket::GetByID($basket_id); 
                         if($arItem["QUANTITY"]!= $quantity) 
                         {
                             $arFields = array("QUANTITY" => $arItem["QUANTITY"]+$quantity);
                             CSaleBasket::Update($basket_id, $arFields);
-                        }
-
-                    }else
-                        $basket_id = Add2BasketByProductID($product,$quantity);
-
-                }
-
+                        }            
+                    } else {                        
+                        $basket_id = Add2BasketByProductID($product,$quantity); 
+                        if($_REQUEST['product_status'] == '22') {
+                            $arFields = array(    
+                               "DELAY" => "Y"
+                            );
+                            CSaleBasket::Update($basket_id, $arFields);                                 
+                        } 
+                    }    
+                }        
             }
             break;
 
@@ -75,6 +125,8 @@
             }
             next($prod_values);
         }
+    //Нужно чтобы корзина не выводилась на странице оформления заказа
+    if (!preg_match("/\/personal\/cart\//i", $_SERVER['SCRIPT_URI'])) {
         $APPLICATION->IncludeComponent("bitrix:sale.basket.basket", "hiding_basket", Array(
             "ACTION_VARIABLE" => "basketAction",    // Название переменной действия
                 "AUTO_CALCULATION" => "Y",    // Автопересчет корзины
@@ -116,4 +168,5 @@
             ),
             false
         );
+    }
 ?>

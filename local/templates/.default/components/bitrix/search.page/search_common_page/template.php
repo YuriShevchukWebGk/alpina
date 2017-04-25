@@ -16,8 +16,7 @@
         <div class="search-language-guess">
             <?= GetMessage("CT_BSP_KEYBOARD_WARNING", array("#query#"=>'<a href="'.$arResult["ORIGINAL_QUERY_URL"].'">'.$arResult["REQUEST"]["ORIGINAL_QUERY"].'</a>')) ?>
             </div>
-    <?}?>
-
+    <?}?>                                                     
     <?if (count($arResult["SEARCH"]) > 0) {?>
 		<?$gdeslon = '';?>
         <div class="pageTitleWrap">
@@ -304,15 +303,18 @@
                                                 <p class="price" style="color:red"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_VALUE"] ?></p>
                                         <?}?>
                                         <div class="description" itemprop="description"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PREVIEW_TEXT"]?></div>
-                                        <?
-                                        if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
-                                            && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
+                                        <?                 
+                                        if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
                                                 if ($arResult["BASKET_ITEMS"][$arItem["ITEM_ID"]]["QUANTITY"] == 0) {
                                                     $curr_sect_ID = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"];?>
                                                     <a class="product<?= $arItem["ITEM_ID"]; ?>"
                                                         href="<?= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>"
-                                                        onclick="addtocart(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"];?>'); addToCartTracking(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"]; ?>', '<?= ceil( $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"]) ?>', '<?echo $arResult["BOOK_INFO"]["SECTIONS"][$curr_sect_ID]["SECTION_INFO"]['NAME'];?>', '1');return false;">
-                                                            <p class="basket">В корзину</p>
+                                                        onclick="addtocart(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"];?>', '<?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"];?>'); addToCartTracking(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"]; ?>', '<?= ceil( $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"]) ?>', '<?echo $arResult["BOOK_INFO"]["SECTIONS"][$curr_sect_ID]["SECTION_INFO"]['NAME'];?>', '1');return false;">
+                                                        <?if(intval($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                                            <p class="basket"><?=GetMessage("ADD_IN_BASKET")?></p> 
+                                                        <?} else {?>
+                                                            <p class="basket"><?=GetMessage("ADD_TO_PREORDER")?></p>                                                 
+                                                        <?}?>                             
                                                     </a>
                                                 <?} else {?>
                                                     <a class="product<?= $arItem["ITEM_ID"]; ?>" href="/personal/cart/">
