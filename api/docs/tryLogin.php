@@ -6,7 +6,7 @@
             </div>
              <h2>URL для запроса</h2>
             <div class="url_ex">
-                https://<?=$_SERVER['SERVER_NAME']?>/api/user/
+                http://<?=$_SERVER['SERVER_NAME']?>/api/user/
             </div>
             <h2>Формат ответа</h2>
             <div class="resp_ex">
@@ -50,7 +50,7 @@
             <h2>Пример запроса методом GET</h2>
             
             <div class="code_example">
-                <code>https://<?=$_SERVER['SERVER_NAME']?>/api/user/?method=tryLogin&token=123456789qwertyuiopasdfghjklzxcv&email=test@test.ru&password=123456</code>
+                <code>http://<?=$_SERVER['SERVER_NAME']?>/api/user/?method=tryLogin&token=123456789qwertyuiopasdfghjklzxcv&email=test@test.ru&password=123456</code>
             </div>
             
             <h2>Пример запроса методом POST на языке PHP</h2>
@@ -75,7 +75,7 @@
     );
     
     $context  = stream_context_create($opts);
-    $result = file_get_contents('https://<?=$_SERVER['SERVER_NAME']?>/api/user/', false, $context);
+    $result = file_get_contents('http://<?=$_SERVER['SERVER_NAME']?>/api/user/', false, $context);
     
     print_r($result);
             </pre>

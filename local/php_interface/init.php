@@ -992,7 +992,7 @@
 		    );
 		    
 		    $context  = stream_context_create($opts);
-		    $result = file_get_contents('https://www.alpinabook.ru/api/user/', false, $context);
+		    $result = file_get_contents('http://dev-alpinabook.webgk.ru/api/user/', false, $context);
     	}
     	
     	/**
@@ -1084,6 +1084,7 @@
 					"FIELDS" => array("ID", "EMAIL", "PASSWORD")
 				)
 			);
+			// если пользователь найден, то дальше работает с ним
 			if ($user = $users->Fetch()) {
 			    $current_hash = $user['PASSWORD'];
 				$password = $fields['PASSWORD'];
@@ -1124,6 +1125,42 @@
 						if (!is_object($USER)) $USER = new CUser;
 						$auth_result = $USER->Login($fields['LOGIN'], $fields['PASSWORD'], "Y", "Y");
 					}
+				}
+			} else {
+				// если нет, то проверяем, есть ли он в БК
+				$data = array(
+					'email'    => $fields['LOGIN'],
+					'password' => $fields['PASSWORD']
+				);
+				
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, BK_REQUESTS_URL . 'users/login');
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				    'X-AD-Offer: 1'
+				));
+				$data = curl_exec($ch);
+				curl_close($ch);
+				$bk_response = json_decode($data, true);
+				// если пользователь смог авторизоваться, то регистрируем его в альпине
+				if ($bk_response[0]["id"]) {
+					$user = new CUser;
+					$user_fields = Array(
+						"EMAIL"             => $fields['LOGIN'],
+						"LOGIN"             => $fields['LOGIN'],
+						"ACTIVE"            => "Y",
+						"GROUP_ID"          => array(3, 4, 5),
+						"PASSWORD"          => $fields['PASSWORD'],
+						"CONFIRM_PASSWORD"  => $fields['PASSWORD']
+					);
+					
+					$ID = $user->Add($user_fields);
+					global $USER;
+					if (!is_object($USER)) $USER = new CUser;
+					$auth_result = $USER->Login($fields['LOGIN'], $fields['PASSWORD'], "Y", "Y");
 				}
 			}
     	}

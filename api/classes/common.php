@@ -67,14 +67,14 @@ class APITools {
 		//self::arshow($data);
 		//self::arshow($request);
 		
-		/*$postdata = http_build_query(
+		$postdata = http_build_query(
 			$data
 	    );
 	
 	    $opts = array(
 		    'http' => array(
 				'method'  => 'POST',
-				'header'  => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL . 'X-AD-Offer: 1' . PHP_EOL,
+				'header'  => 'Content-Type: application/x-www-form-urlencoded' . PHP_EOL . 'X-AD-Offer: 1' . PHP_EOL . 'X-Auth-Token: ' . BK_API_TOKEN . PHP_EOL,
 				'content' => $postdata
 			),
 			'ssl' => array(
@@ -85,7 +85,7 @@ class APITools {
 	    $context  = stream_context_create($opts);
 	    $result = file_get_contents(BK_REQUESTS_URL . $request, false, $context);
 		
-		return $result;*/
+		return $result;
 	}
 }
 ?>
