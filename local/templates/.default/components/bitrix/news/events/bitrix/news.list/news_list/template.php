@@ -57,13 +57,15 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
             <?}?>
             <div class="row">
             
-                <?foreach($arResult["ITEMS"] as $key => $arItem) {?>
-                    <?if($key < 6){
-						if (time() > strtotime($arItem["DATE_ACTIVE_TO"])) {
-							$arItem["NAME"] = "<span style='color:rgb(210, 210, 210);'>".$arItem["NAME"]." (завершено)</span>";
-						}?>
+                <? $i = 1;
+                foreach($arResult["ITEMS"] as $key => $arItem) {?>
+                    <?//if($key < 6){
+                        if (time() > strtotime($arItem["DATE_ACTIVE_TO"])) {
+                            $arItem["NAME"] = "<span style='color:rgb(210, 210, 210);'>".$arItem["NAME"]." (завершено)</span>";
+                        }?>
                       
-                        <? 
+                        <?
+                        if (strtotime($arItem["DATE_ACTIVE_TO"]) > time()) {
                             $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
                             $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
                         ?>
@@ -170,12 +172,14 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
                             </div>
                             </a>
                         </div>
-                      <? }?>
+                      <? 
+                      }?>
                 <?}?>
             </div>
         </div>
     </div>
-</div> 
+</div>
+<?/*?> 
 <div class="slider_wrap">
 <?$APPLICATION->IncludeComponent(
     "bitrix:news.list", 
@@ -253,9 +257,9 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
             
                 <?foreach($arResult["ITEMS"] as $key => $arItem) {?>
                     <?if($key >= 6){
-						if (time() > strtotime($arItem["DATE_ACTIVE_TO"])) {
-							$arItem["NAME"] = "<span style='color:rgb(210, 210, 210);'>".$arItem["NAME"]." (завершено)</span>";
-						}?>
+                        if (time() > strtotime($arItem["DATE_ACTIVE_TO"])) {
+                            $arItem["NAME"] = "<span style='color:rgb(210, 210, 210);'>".$arItem["NAME"]." (завершено)</span>";
+                        }?>
                         <? 
                             $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
                             $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
@@ -360,7 +364,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
         </div>
     </div>
 </div>
-
+<?*/?>
 <script>
 // функция по раскрытию дополнительных элементов списка новостей при нажатии на "Показать ещё"
 $(document).ready(function() {
@@ -375,8 +379,8 @@ $(document).ready(function() {
                 $.fancybox.showLoading();
                 $.get('<?=$arResult["SECTION_PAGE_URL"]?>?PAGEN_<?=$navnum?>='+page, function(data) {
                     var next_page_top = $('.events_wrap_top > .row .bx-newslist-container', data);
-					var next_page_bottom = $('.events_wrap_2 > .row .bx-newslist-container', data);
-					$('.events_wrap_2 > .row').append(next_page_top);
+                    var next_page_bottom = $('.events_wrap_2 > .row .bx-newslist-container', data);
+                    $('.events_wrap_2 > .row').append(next_page_top);
                     $('.events_wrap_2 > .row').append(next_page_bottom);
                     page++;            
                 })

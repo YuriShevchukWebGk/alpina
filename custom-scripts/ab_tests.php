@@ -1,5 +1,5 @@
 <?## A/B-тестирование на сайте ##
-global $USER;
+/*global $USER;
 $alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
 $alpExps  = (!$alpExps ? array() : $alpExps);
 
@@ -8,12 +8,12 @@ if ($alpExps['updateExp'] != "130217") {
     $alpExps['updateExp'] = "130217";
 }
 
-/*if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
+if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
     $alpExps['bgAdjustment']    = (!$alpExps['bgAdjustment'] ? rand(1,2) : $alpExps['bgAdjustment']);
     
 }*/
 ?>
-
+<script src="/custom-scripts/progressbar/nprogress.js"></script>
 
 <!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
 <?if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {?>
@@ -50,5 +50,5 @@ if ($alpExps['updateExp'] != "130217") {
 <meta name="apple-itunes-app" content="app-id=429622051">
 <!-- //Тест СмартБаннера -->
 
-<?$APPLICATION->set_cookie("alpExps", serialize($alpExps));
+<?//$APPLICATION->set_cookie("alpExps", serialize($alpExps));
 ## A/B-тестирование на сайте ##?>

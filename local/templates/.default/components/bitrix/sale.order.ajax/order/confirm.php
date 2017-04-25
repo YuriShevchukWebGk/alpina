@@ -70,6 +70,7 @@
         var iPromoCpnObj = new _iPromoBannerObj();
     </script>*/?>
 
+	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276"></script>
     <?if (!empty($_SESSION['gtmEnchECommerceCheckout'])) {?>
         <!--Criteo-->
         <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
@@ -102,9 +103,9 @@
                             'coupon': '<?=$couponStr?>'
                         },
                         'products': [
-                            <?foreach($_SESSION['googleEnhancedECommerce'] as $googleEnhancedECommerce){?>
+                            <?foreach($_SESSION['gtmEnchECommerceCheckout'] as $gtmEnchECommerceCheckout){?>
                                 {
-                                    <?=$googleEnhancedECommerce?>
+                                    <?=$gtmEnchECommerceCheckout?>
                                 },
                                 <?}?>
                         ]
@@ -183,14 +184,18 @@
                 },
             }]);
         </script>
+		
+		<script>
+			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'paymentID <?=$arResult["ORDER"]["PAY_SYSTEM_ID"]?>'});
+			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'deliveryID <?=$arResult["ORDER"]["DELIVERY_ID"]?>'});
+			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'personType <?=$arResult["ORDER"]["PERSON_TYPE_ID"]?>'});
+		</script>
 		<!-- gdeslon -->
 		<?/*<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=<?=$_SESSION['gdeslon']?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>*/?>
 		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276&amp;codes=<?=$_SESSION['gdeslon']?>"></script>
-		<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
-        <?unset($_SESSION['socioMatic'])?>
+		<script type="text/javascript" src="//www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
         <?unset($_SESSION['criteo'])?>
-        <?unset($_SESSION['googleECommerce'])?>
-        <?unset($_SESSION['googleEnhancedECommerce'])?>
+        <?unset($_SESSION['gtmEnchECommerceCheckout'])?>
         <?unset($_SESSION['floctory'])?>
         <?unset($_SESSION['retailRocket'])?>
 		<?unset($_SESSION['gdeslon'])?>
@@ -211,7 +216,7 @@
                 <div class="mainInfoWrap">
                     <p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
                     <p class="OrdAkses">Ваш заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
-                    <p class="ordHint">Вы можете следить за выполнением заказа в <a href="/personal/order/">Личном кабинете.</a> Обратите внимание, что для входа в этот раздел, вам необходимо будет ввести логин и пароль</p>
+                    <p class="ordHint">Вы можете следить за выполнением заказа в <a href="/personal/order/">Личном кабинете.</a> Обратите внимание, что для входа в этот раздел вам необходимо будет ввести логин и пароль</p>
                 </div>
             </div>
         </div>
@@ -221,7 +226,17 @@
             ?>
             <br /><br />
             <div id="promocode-element-container"></div>
-            <? if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
+            <?
+            if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID) { ?>
+            	<? $APPLICATION->IncludeComponent(
+					"webgk:rfi.widget",
+					"",
+					Array(
+						"ORDER_ID" => $_REQUEST["ORDER_ID"]
+					),
+					false
+				); ?>
+            <? } else if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
                 <table class="sale_order_full_table" >
                     <tr <? /*if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg" && $arResult["UF_RECURRENT_ID"]) { ?> style="display: none" <? }*/ ?>>
                         <? if ($arResult["PAY_SYSTEM"]["ID"] != RFI_PAYSYSTEM_ID) { ?>
@@ -301,8 +316,6 @@
                         ?>
                         <tr>
                             <td>
-                                <span style="color: #627478;font-family: 'Walshein_regular';"><?=GetMessage("DIGITAL_BOOK")?></span>
-                                <br />
                                 <span <?if($arResult["PAY_SYSTEM"]["ID"] == PAYPAL_PAYSYSTEM_ID) echo "style='display:none'"?>>
                                 <?
                                     $service = \Bitrix\Sale\PaySystem\Manager::getObjectById($arResult["ORDER"]['PAY_SYSTEM_ID']);
@@ -560,5 +573,8 @@
     $(function(){
         var result = $(".confirmWrapper").html();
         $(".orderBody").parent().html(result);
-    })
+    });
+	$(document).ready(function(){
+    	dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'pageLoaded'});
+    });
 </script>

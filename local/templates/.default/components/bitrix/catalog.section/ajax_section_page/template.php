@@ -37,19 +37,44 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 }
 ?>
 
-<div class="wrapperCategor" itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
-    <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
+<div class="wrapperCategor">
     <div class="categoryWrapper">
 
         <div class="catalogIcon">
         </div>
         <div class="basketIcon">
         </div>
-
         <div class="contentWrapp">
-            <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
-
-
+			<p class="breadCrump no-mobile" itemprop="breadcrumb" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+				<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+					<a href="/" title="Главная страница" itemprop="item">
+						<span itemprop="name">Главная страница</span>
+					</a>
+					<meta itemprop="position" content="1">
+				</span>
+				<?
+				$num = 2;
+				$navChain = CIBlockSection::GetNavChain(4, $arResult["ID"]); 
+				$stopNum = $navChain->nSelectedCount + 1;
+				while ($arNav = $navChain->GetNext()) {?>
+				<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+					<span class="gap"></span>
+					<?if ($num != $stopNum) {?>
+						<a href="/catalog<?=$arNav[SECTION_PAGE_URL]?>" title="<?=$arNav[NAME]?>" itemprop="item">
+					<?}?>
+						<span itemprop="name"><?=$arNav[NAME]?></span>
+					<?if ($num != $stopNum) {?>
+						</a>
+					<?}?>
+					<meta itemprop="position" content="<?=$num?>">
+				</span>
+				<?
+				$num++;
+				}?>
+			</p>
+			<div itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
+			<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
+			<h1 itemprop="name"><?= $arResult["NAME"]?></h1>
 
             <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
@@ -117,15 +142,13 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 ),
                 false
             );?>
-
-         
-
+			
             <? /* Получаем от RetailRocket рекомендации для товара */
             $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
             $recsArray = json_decode($stringRecs);  
             global $BestsellFilter;
             if ($recsArray[0] > 0) {
-                $printid2 = array_slice($recsArray, 1, 6);
+                $printid2 = array_slice($recsArray, 0, 4);
                 foreach ($printid2 as $rec_book) {
                     $BestsellFilter['ID'][] = $rec_book;
                 }
@@ -322,10 +345,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                      <?}?>
                                      <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                                     <?
-                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") 
-                                        && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
-
+                                     <?              
+                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) { 
                                             if ($arPrice["DISCOUNT_VALUE_VAT"]) { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                                 <link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
@@ -336,20 +357,23 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                          ?>
                                  
                                          <?if ($arResult[$arItem["ID"]]["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
-                                            <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); return false;">
-                                                <p class="basketBook">В корзину</p>
+                                            <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=$arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); return false;">
+                                                <?if(intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                                    <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET")?></p> 
+                                                <?} else {?>
+                                                    <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_PREORDER")?></p>                                                 
+                                                <?}?>                                                     
+                                            </a>
                                             </a>
                                          <?} else {?>
                                             <a class="product<?= $arItem["ID"];?>" href="/personal/cart/">
                                                 <p class="basketBook" style="background-color: #A9A9A9; color: white;">Оформить</p>
                                             </a> 
                                          <?}?>
-                                 <?} else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {?>
+                                 <?} elseif (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {?>
                                     <p class="priceOfBook"><?= $arItem["PROPERTIES"]["STATE"]["VALUE"]?></p>
-                                            
                                  <?} else {?>
                                     <p class="priceOfBook"><?= strtolower(FormatDate("j F", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
-                                         
                                  <?}?>
                              </a>
                                  <? if ($USER -> IsAuthorized()) { ?>
@@ -424,7 +448,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             <?if (($arResult["NAV_RESULT"]->NavPageCount) > 1) {?>
                 <p class="showMore">Показать ещё</p>
             <?}?>
-            <?=$arResult["NAV_STRING"]?>            
+            <?=$arResult["NAV_STRING"]?>
+			</div>
         </div>
 
 
@@ -512,16 +537,16 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             }
         })
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;
-        switch ($arParams["ELEMENT_SORT_FIELD2"]) {
+        switch ($arParams["ELEMENT_SORT_FIELD"]) {
             case "CATALOG_PRICE_1":
             $sort = "PRICE";
             break;
             
-            case "PROPERTY_POPULARITY":
+            case "PROPERTY_shows_a_day":
             $sort = "POPULARITY";
             break;
             
-            case "PROPERTY_YEAR":
+            case "PROPERTY_SOON_DATE_TIME":
             $sort = "DATE";
             break;
         }?>

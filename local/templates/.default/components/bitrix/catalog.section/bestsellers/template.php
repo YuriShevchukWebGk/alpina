@@ -41,107 +41,7 @@
                     <p class="text"><?= $arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"] ?></p>
                 </div>
             <?}?>
-            <? global $SeriesRoundBanner;
-            $SeriesRoundBanner = array("PROPERTY_BIND_TO_SERIE" => $arResult["SERIES"]["ID"]);
-			/* УБИРАЕМ БАННЕРЫ ПОКА
-            $APPLICATION->IncludeComponent(
-                "bitrix:news.list", 
-                "series_banners", 
-                array(
-                    "ACTIVE_DATE_FORMAT" => "d.m.Y",
-                    "ADD_SECTIONS_CHAIN" => "Y",
-                    "AJAX_MODE" => "N",
-                    "AJAX_OPTION_ADDITIONAL" => "",
-                    "AJAX_OPTION_HISTORY" => "N",
-                    "AJAX_OPTION_JUMP" => "N",
-                    "AJAX_OPTION_STYLE" => "Y",
-                    "CACHE_FILTER" => "N",
-                    "CACHE_GROUPS" => "N",
-                    "CACHE_TIME" => "36000000",
-                    "CACHE_TYPE" => "A",
-                    "CHECK_DATES" => "Y",
-                    "COMPONENT_TEMPLATE" => "section_banners",
-                    "DETAIL_URL" => "",
-                    "DISPLAY_BOTTOM_PAGER" => "Y",
-                    "DISPLAY_DATE" => "Y",
-                    "DISPLAY_NAME" => "Y",
-                    "DISPLAY_PICTURE" => "Y",
-                    "DISPLAY_PREVIEW_TEXT" => "Y",
-                    "DISPLAY_TOP_PAGER" => "N",
-                    "FIELD_CODE" => array(
-                        0 => "DETAIL_PICTURE",
-                        1 => "",
-                    ),
-                    "FILTER_NAME" => "SeriesRoundBanner",
-                    "HIDE_LINK_WHEN_NO_DETAIL" => "N",
-                    "IBLOCK_ID" => SERIES_BANNERS_IBLOCK_ID,
-                    "IBLOCK_TYPE" => "news",
-                    "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
-                    "INCLUDE_SUBSECTIONS" => "Y",
-                    "MESSAGE_404" => "",
-                    "NEWS_COUNT" => "20",
-                    "PAGER_BASE_LINK_ENABLE" => "N",
-                    "PAGER_DESC_NUMBERING" => "N",
-                    "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-                    "PAGER_SHOW_ALL" => "N",
-                    "PAGER_SHOW_ALWAYS" => "N",
-                    "PAGER_TEMPLATE" => ".default",
-                    "PAGER_TITLE" => "Баннеры серии",
-                    "PARENT_SECTION" => "",
-                    "PARENT_SECTION_CODE" => "",
-                    "PREVIEW_TRUNCATE_LEN" => "",
-                    "PROPERTY_CODE" => array(
-                        0 => "SERIE_BANNER_LINK",
-                        1 => "",
-                    ),
-                    "SET_BROWSER_TITLE" => "Y",
-                    "SET_LAST_MODIFIED" => "N",
-                    "SET_META_DESCRIPTION" => "Y",
-                    "SET_META_KEYWORDS" => "Y",
-                    "SET_STATUS_404" => "N",
-                    "SET_TITLE" => "Y",
-                    "SHOW_404" => "N",
-                    "SORT_BY1" => "ACTIVE_FROM",
-                    "SORT_BY2" => "SORT",
-                    "SORT_ORDER1" => "DESC",
-                    "SORT_ORDER2" => "ASC"
-                ),
-                false
-            );*/?>
-             <?// блок с цитатой END?>
-            <ul class="filterParams">
-                <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])) {?>class="active <?if ($_REQUEST["DIRECTION"] == "DESC"){?>descArrow<?}?>"<?}?>>
-                    <p data-id="1">
-                        <?if ($_REQUEST['SORT'] == 'POPULARITY' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                            <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=POPULARITY&DIRECTION=DESC">По популярности</a>
-                        <?} else {?>
-                            <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=POPULARITY&DIRECTION=ASC">По популярности</a>
-                        <?}?>
-                    </p>
-                </li>
-                <li <?if ($_REQUEST['SORT'] == 'DATE' || $_REQUEST['SORT'] == 'NEW') {?>class="active <?if ($_REQUEST["DIRECTION"] == "DESC"){?>descArrow<?}?>"<?}?>>
-                    <p data-id="2">
-                        <?if ($_REQUEST['SORT'] == 'DATE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                            <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=DATE&DIRECTION=DESC">По дате выхода</a>
-                        <?} else {?>
-                            <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=DATE&DIRECTION=ASC">По дате выхода</a>
-                        <?}?>
-                    </p>
-                </li>
-                <?if ($arParams['HIDE_PRICE_SORT'] != 'Y'){?>
-                    <li <?if ($_REQUEST['SORT'] == 'PRICE') {?>class="active <?if ($_REQUEST["DIRECTION"] == "DESC"){?>descArrow<?}?>"<?}?>>
-                        <p data-id="3">
-                            <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                                <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=PRICE&DIRECTION=DESC">По цене</a>
-                            <?} else {?>
-                                <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=PRICE&DIRECTION=ASC">По цене</a>
-                            <?}?>
-                        </p>
-                    </li>
-                <?}?>
-
-            </ul>
-            <??>
+<?$frame = $this->createFrame()->begin();?>
             <div class="otherBooks" id="block1">
                 <ul>
 
@@ -219,6 +119,7 @@
 			<!-- GdeSlon -->
 			<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
             </div>
+			<?$frame->end();?>
             <div class="wishlist_info">
                 <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
                 <span></span>

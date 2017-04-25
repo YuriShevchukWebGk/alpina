@@ -60,6 +60,18 @@
 
 <div class="bx_ordercart">
     <div class="totalPriceWrap">
+
+        <p class="ordContain">    <!--chekingFields('Y')-->
+            <a href="javascript:void(0);" onclick="submitForm('Y'); return false;" id="ORDER_CONFIRM_BUTTON" class="checkout orderConfirm">
+                <?=GetMessage("SOA_TEMPL_BUTTON")?>
+            </a>
+			<div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
+        </p> 
+		
+        <div style="clear:both;"></div> 
+		<br />
+        <div class="grayLine"></div>   
+
         <div class="totalCost">
             <? if($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"]=="N") { 
                     $priceCustCoup = ((float)$arResult["ORDER_TOTAL_PRICE_FORMATED"] - (float)$_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"]);
@@ -174,15 +186,6 @@
         </div>       
 
 
-        <div style="clear:both;"></div> 
-
-        <div class="grayLine"></div>   
-
-        <p class="ordContain">    <!--chekingFields('Y')-->
-            <a href="javascript:void(0);" onclick="submitForm('Y'); return false;" id="ORDER_CONFIRM_BUTTON" class="checkout orderConfirm">
-                <?=GetMessage("SOA_TEMPL_BUTTON")?>
-            </a>
-        </p> 
 
     </div>
 

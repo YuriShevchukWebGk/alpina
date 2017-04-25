@@ -12,9 +12,27 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-<?/*
-*/?>
-
+<?$frame = $this->createFrame()->begin();?>
+<?if (isset($_COOKIE["rcuid"])){?>
+	<style>
+		.recomendation {display:block!important};
+	</style>
+	<script>
+	$(document).ready(function(){
+		$(".recomendation").show();
+	});
+	</script>
+<?} else {?>
+	<style>
+		.hintWrapp {height:100%!important};
+		.recomendation {display:none};
+	</style>
+	<script>
+	$(document).ready(function(){
+		$(".recomendation").hide();
+	});
+	</script>
+<?}?>
 <div class="saleSlider">
     <ul>
 
@@ -46,4 +64,4 @@ $this->setFrameMode(true);
     <img src="/img/arrowLeft.png" class="left">
     <img src="/img/arrowRight.png" class="right">
 </div>
-
+<?$frame->end();?>

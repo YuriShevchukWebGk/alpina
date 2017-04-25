@@ -2942,7 +2942,26 @@ $(document).ready(function(){
     if ($(".productName").height() + $(".engBookName").height() > 100)
     {  
         $(".productsMenu").css("margin-top", "70px");   
-    }  
+    } 
+	
+	$('.wrap_prise_bottom .minus').click(function () {
+        var $input = $(this).parent().find('input');
+        var count = parseInt($input.val()) - 1;
+        count = count < 1 ? 1 : count;
+        $input.val(count);
+        $input.change();
+        return false;
+    });
+    $('.wrap_prise_bottom .plus').click(function () {
+        var $input = $(this).parent().find('input');
+        $input.val(parseInt($input.val()) + 1);
+        $input.change();
+        return false;
+    });
+	
+	$('.stopProp').click(function(e) {
+		e.stopPropagation();
+	});
 });
 
 
@@ -2969,19 +2988,42 @@ $(function(){
    setItemBgHeight();   
     
 })
-$(document).ready(function() {
-    $('.wrap_prise_bottom .minus').click(function () {
-        var $input = $(this).parent().find('input');
-        var count = parseInt($input.val()) - 1;
-        count = count < 1 ? 1 : count;
-        $input.val(count);
-        $input.change();
-        return false;
-    });
-    $('.wrap_prise_bottom .plus').click(function () {
-        var $input = $(this).parent().find('input');
-        $input.val(parseInt($input.val()) + 1);
-        $input.change();
-        return false;
-    });
-});
+
+function getReview(id) {
+	$.ajax({
+		type: "POST",
+		url: "/ajax/book_review.php",
+		data: {id: id}
+	}).done(function(strResult) {
+		$("#ajaxBlock").append(strResult);
+		$("body").css('overflow','hidden');
+		NProgress.done();
+	});
+}
+
+function getInfo(id) {
+	$.ajax({
+		type: "POST",
+		url: "/ajax/info_popup.php",
+		data: {info: id}
+	}).done(function(strResult) {
+		$("#ajaxBlock").append(strResult);
+		$("body").css('overflow','hidden');
+	});
+}
+
+function getPreview(id,stock) {
+	$.ajax({
+		type: "POST",
+		url: "/ajax/book_preview.php",
+		data: {id: id, stock: stock}
+	}).done(function(strResult) {
+		$("#ajaxBlock").append(strResult);
+		$("body").css('overflow','hidden');
+	});
+}
+
+function closeInfo() {
+	$('#ajaxBlock').empty();
+	$("body").css('overflow','auto');
+}

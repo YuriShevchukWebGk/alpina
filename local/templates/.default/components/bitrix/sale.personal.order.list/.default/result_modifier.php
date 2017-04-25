@@ -63,19 +63,33 @@
     }
 
     $users_info = CUser::GetList (($by = "id"), ($sort = "desc"), array("ID" => $user_IDs[0]));
-    
+                  
     while ($users = $users_info -> Fetch()) {
         $arResult["USER_INFO"][$users["ID"]] = $users;    
     }
-
+                            
     $order_info = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_IDs), false, false, array());
-    while ($info = $order_info->Fetch()) {   
-        if (in_array($info["ORDER_PROPS_ID"], array(CITY_INDIVIDUAL_ORDER_PROP_ID, CITY_ENTITY_ORDER_PROP_ID))) {
-            $arResult["ORDER_INFO"][$info["ORDER_ID"]]["DELIVERY_CITY"] = CSaleLocation::GetByID($info["VALUE"]);
-        }
-        if (in_array($info["ORDER_PROPS_ID"], array(ADDRESS_INDIVIDUAL_ORDER_PROP_ID, ADDRESS_ENTITY_ORDER_PROP_ID))) {
-            $arResult["ORDER_INFO"][$info["ORDER_ID"]]["DELIVERY_ADDR"] = $info["VALUE"];
-        }
+    while ($info = $order_info->Fetch()) {
+        $boxberryDelivery = '';
+        foreach ($arResult["ORDERS"] as $orderNum => $order) {
+            if($order['ORDER']['ID'] == $info["ORDER_ID"]) {
+                if($arResult["ORDERS"][$orderNum]['ORDER']['DELIVERY_ID'] == BOXBERRY_PICKUP_DELIVERY_ID) {
+                    $boxberryDelivery = 'Y';
+                };
+            }
+        }                   
+        if($boxberryDelivery == 'Y') {                                                  
+            if (in_array($info["ORDER_PROPS_ID"], array(PVZ_ADRESS_NATURAL, PVZ_ADRESS_LEGAL))) {        
+                $arResult["ORDER_INFO"][$info["ORDER_ID"]]["DELIVERY_ADDR"] = $info["VALUE"];         
+            }         
+        } else {
+            if (in_array($info["ORDER_PROPS_ID"], array(CITY_INDIVIDUAL_ORDER_PROP_ID, CITY_ENTITY_ORDER_PROP_ID))) {
+                $arResult["ORDER_INFO"][$info["ORDER_ID"]]["DELIVERY_CITY"] = CSaleLocation::GetByID($info["VALUE"]);
+            }
+            if (in_array($info["ORDER_PROPS_ID"], array(ADDRESS_INDIVIDUAL_ORDER_PROP_ID, ADDRESS_ENTITY_ORDER_PROP_ID))) {
+                $arResult["ORDER_INFO"][$info["ORDER_ID"]]["DELIVERY_ADDR"] = $info["VALUE"];
+            } 
+        }  
         if (in_array($info["CODE"], array("PHONE", "F_PHONE"))) {
             $arResult["ORDER_INFO"][$info["ORDER_ID"]]["ORDER_PHONE"] = $info["VALUE"];
         } 

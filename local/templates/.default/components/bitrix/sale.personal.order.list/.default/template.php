@@ -2,29 +2,29 @@
 
 <?if(!empty($arResult['ERRORS']['FATAL'])):?>
 
-	<?foreach($arResult['ERRORS']['FATAL'] as $error):?>
-		<?//=ShowError($error)?>
-	<?endforeach?>
+    <?foreach($arResult['ERRORS']['FATAL'] as $error):?>
+        <?//=ShowError($error)?>
+    <?endforeach?>
 
-	<?$component = $this->__component;?>
-	<?if($arParams['AUTH_FORM_IN_TEMPLATE'] && isset($arResult['ERRORS']['FATAL'][$component::E_NOT_AUTHORIZED])):?>
-		<?$APPLICATION->AuthForm('', false, false, 'N', false);?>
-	<?endif?>
+    <?$component = $this->__component;?>
+    <?if($arParams['AUTH_FORM_IN_TEMPLATE'] && isset($arResult['ERRORS']['FATAL'][$component::E_NOT_AUTHORIZED])):?>
+        <?$APPLICATION->AuthForm('', false, false, 'N', false);?>
+    <?endif?>
 
 <?else:?>
 
-	<?if(!empty($arResult['ERRORS']['NONFATAL'])):?>
+    <?if(!empty($arResult['ERRORS']['NONFATAL'])):?>
 
-		<?foreach($arResult['ERRORS']['NONFATAL'] as $error):?>
-			<?=ShowError($error)?>
-		<?endforeach?>
+        <?foreach($arResult['ERRORS']['NONFATAL'] as $error):?>
+            <?=ShowError($error)?>
+        <?endforeach?>
 
-	<?endif?>
+    <?endif?>
 
-
+    <div class="orderHistorWrap">                                                                           
     <p class="personal_title"><?$APPLICATION->ShowTitle();?></p>
 
-    <div class="historyWrap">
+    <div class="historyWrap">                      
         <div class="tableTitle">
             <p class="numbTitle"><?= GetMessage("NUMBER"); ?></p>
             <p class="dateTitle"><?= GetMessage("DATE"); ?></p>
@@ -51,8 +51,7 @@
                     <p class="ordQuant"><?= $quantity ?></p>
                     <p class="ordStatus"><?= $arResult["INFO"]["STATUS"][$order["ORDER"]["STATUS_ID"]]["NAME"] ?></p>
                     <p class="ordSum"><span><?= ceil($order["ORDER"]["PRICE"]) ?> </span><?= GetMessage("ROUBLES") ?></p>
-                </div>
-
+                </div>                                                        
                 <div class="hiddenOrderInf hidOrdInfo<?= $key ?>">
                     <div class="infoAddrWrap">
                         <div>
@@ -60,8 +59,10 @@
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["LAST_NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["SECOND_NAME"] ?></p>
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["PERSONAL_PHONE"] ?></p>
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["EMAIL"] ?></p>
-                            <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p>
-                            <p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
+                            <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p> 
+                            <?if($arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]) {?>
+                                <p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
+                            <?}?>                                                                                                                                     
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
                             <p class="dopInfoTitle thiCol"><?= GetMessage("PHONE") ?></p>
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["ORDER_PHONE"] ?></p>
@@ -71,11 +72,11 @@
                             <p class="dopInfoText"><?= $arResult["INFO"]["DELIVERY"][$order["ORDER"]["DELIVERY_ID"]]["NAME"] ?></p>
                             <p class="dopInfoTitle thiCol"><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--класс отступа сверху -->
                             <p class="dopInfoText">
-								<?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) && $order["ORDER"]["PAYED"] != "Y"){?>
-									<a href="/personal/order/payment/?ORDER_ID=<?=$order["ORDER"]["ID"]?>"><?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?></a>
-								<?} else {?>
-									<?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?>
-								<?}?></p>
+                                <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) && $order["ORDER"]["PAYED"] != "Y"){?>
+                                    <a href="/personal/order/payment/?ORDER_ID=<?=$order["ORDER"]["ID"]?>"><?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?></a>
+                                <?} else {?>
+                                    <?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?>
+                                <?}?></p>
                             <?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
                                 <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_DATE") ?></p> <!--класс отступа сверху -->
                                 <p class="dopInfoText"><?= CustomPickPoint::getDeliveryDate($order["ORDER"]["ID"]) ?></p>
@@ -157,6 +158,7 @@
             <?}
         }?>
 
+    </div>
     </div>
 <?endif?>
 

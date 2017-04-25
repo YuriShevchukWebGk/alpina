@@ -106,7 +106,8 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	while ($oneb = $props->GetNext()) {
 		$shows = round($oneb[SHOW_COUNTER]/(((time() - strtotime($oneb[SHOW_COUNTER_START]))/3600/24))*1000);
 		echo $oneb[ID].' - '.$shows.'<br />';
-		CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('shows_a_day' => $shows));
+		//CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('shows_a_day' => $shows));
+		CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('shows_a_day' => 1));
 	}
 	
 	//CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");	

@@ -64,9 +64,7 @@ class APITools {
 	 * */
 	static public function performQuery($data, $request) {
 		
-		//self::arshow($data);
-		//self::arshow($request);
-		
+
 		$postdata = http_build_query(
 			$data
 	    );

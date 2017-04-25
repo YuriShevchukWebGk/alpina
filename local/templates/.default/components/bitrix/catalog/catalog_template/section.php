@@ -97,7 +97,7 @@ else
 switch ($_REQUEST["SORT"])
 {
     case "DATE":
-    $sort = "PROPERTY_YEAR";
+    $sort = "PROPERTY_SOON_DATE_TIME";
     break;
     
     case "PRICE":
@@ -105,12 +105,12 @@ switch ($_REQUEST["SORT"])
     break;
     
     case "POPULARITY":
-    $sort = "PROPERTY_POPULARITY";          //PROPERTY_POPULARITY
+    $sort = "PROPERTY_shows_a_day";          //PROPERTY_shows_a_day
     $order = "desc";
     break;
     
     default:
-    $sort = "PROPERTY_POPULARITY";
+    $sort = "PROPERTY_shows_a_day";
     $order = "desc";
     break;
 }
@@ -123,10 +123,10 @@ $APPLICATION->IncludeComponent(
             array(
                 "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
                 "IBLOCK_ID" => $arParams["IBLOCK_ID"],
-                "ELEMENT_SORT_FIELD" => "PROPERTY_shows_a_day",
-                "ELEMENT_SORT_ORDER" => "desc",
-                "ELEMENT_SORT_FIELD2" => $sort,
-                "ELEMENT_SORT_ORDER2" => $order,
+                "ELEMENT_SORT_FIELD" => $sort,
+                "ELEMENT_SORT_ORDER" => $order,
+                "ELEMENT_SORT_FIELD2" => "PROPERTY_shows_a_day",
+                "ELEMENT_SORT_ORDER2" => "desc",
                 "PROPERTY_CODE" => $arParams["LIST_PROPERTY_CODE"],
                 "META_KEYWORDS" => $arParams["LIST_META_KEYWORDS"],
                 "META_DESCRIPTION" => $arParams["LIST_META_DESCRIPTION"],

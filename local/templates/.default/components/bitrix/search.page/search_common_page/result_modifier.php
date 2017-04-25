@@ -96,7 +96,7 @@ if (!empty($books_array)) {
 				"NAME"
 			)
         );
-        while ($authors_of_books = $authors_of_books_list -> Fetch()) {
+        while ($authors_of_books = $authors_of_books_list -> Fetch()) {       
         	if (!$arResult["BOOK_AUTHOR_INFO"][$authors_of_books["ID"]]) {
         		$author_name = "";
 	        	if (strlen ($authors_of_books['PROPERTY_FIRST_NAME_VALUE']) > 0) {
@@ -107,7 +107,7 @@ if (!empty($books_array)) {
 	            }
 	            $arResult["BOOK_AUTHOR_INFO"][$authors_of_books["ID"]] = $author_name;	
 	        }
-        }
+        }  
     }
 
     $basket_items_list = CSaleBasket::GetList(
@@ -198,7 +198,7 @@ if (!empty($experts_books_arr)) {
         if ($books["PROPERTY_AUTHORS_VALUE"]) {
             $authors_of_found_books_arr[] = $books["PROPERTY_AUTHORS_VALUE"];
         }
-    }
+    }    
     $sections_info_list = CIBlockSection::GetList(array(), array("ID" => $books_sections_IDs), false, array(), false);
     while ($sections_info = $sections_info_list -> Fetch()) {
         $arResult["EXPERT_BOOK_INFO_SECTIONS"][$sections_info["ID"]]["SECTION_INFO"] = $sections_info;    
@@ -212,9 +212,9 @@ if (!empty($experts_books_arr)) {
             array()
         );
         while ($authors_of_books = $authors_of_books_list -> Fetch()) {
-            $arResult["BOOK_AUTHOR_INFO"][$authors_of_books["ID"]] = $authors_of_books;
+            $arResult["BOOK_AUTHOR_INFO"][$authors_of_books["ID"]] = $authors_of_books;  
         }
-    }
+    }                                        
 
     $basket_items_list = CSaleBasket::GetList(
         array(), 
@@ -238,7 +238,7 @@ if (!empty($experts_books_arr)) {
     while ($basket_items = $basket_items_list -> Fetch()) {
         $arResult["BASKET_ITEMS"][$basket_items["PRODUCT_ID"]] = $basket_items;    
     }
-}
+}                                               
 
 $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
     $ar_sale = array();

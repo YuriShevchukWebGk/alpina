@@ -14,5 +14,9 @@
                 <li><a href="updateUserPassword.php">updateUserPassword</a></li>
                 <li><a href="addNew.php">addNew</a></li>  
             </ul>
+            <h2>Методы для работы с книгами</h2>
+            <ul>
+                <li><a href="getBookPrice.php">getBookPrice</a></li>
+            </ul>
         
         </div>

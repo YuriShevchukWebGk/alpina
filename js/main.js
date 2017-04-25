@@ -77,7 +77,6 @@ function sendchapter(bookid) {
         });
 };
 $(document).ready(function(){
-
 	$(".element_item_img").hover(
 	  function() {
 		$(this).find('img').css({'filter':'grayscale(0.7)', '-webkit-filter':'grayscale(0.7)', '-moz-filter':'grayscale(0.7)', '-o-filter':'grayscale(0.7)', '-ms-filter':'grayscale(0.7)'});
@@ -108,7 +107,18 @@ $(document).ready(function(){
 
 
     }
-
+    //Плавающая шапка на странице профиля
+    $(window).on('scroll', function(){
+        if($(window).scrollTop() > 210) {
+            $('.top-section__edit-acc').addClass('slidingTop');    
+        };    
+        if($(window).scrollTop() < 210) {
+            $('.top-section__edit-acc').removeClass('slidingTop');    
+        };            
+    })                                                       
+    
+    
+    
     //скролящееся меню на странице оплата
     if($('.delivMenuWrapp').length > 0){
         heightFromElement = $(".delivMenuWrapp").offset().top;
@@ -342,8 +352,10 @@ $(document).ready(function(){
             $('.registrationBlock').hide();
         })
     }
-    update_quant();
-
+    
+    if ($('.hidingBasketRight').length > 0 || $('#basket_container').length > 0 ) {
+        update_quant();                                               
+    } 
 
     if ($(".hidingBasketRight .basketBooks .basketBook").length == 0)
     {
@@ -881,7 +893,20 @@ $(document).ready(function(){
     $(".books > ul span").mouseout(function(){
         clearTimeout(BlocksChangingFunc);
     })
-
+	
+	//Progress Bar START
+	$('a').click(function() {
+		var link = $(this).attr("href");
+		var target = $(this).attr("target");
+		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
+			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)/) && target != "_blank") {
+				NProgress.start();
+			};
+		}
+	});
+	NProgress.set(0.6);
+	setTimeout(function() { NProgress.done();}, 200);
+	//Progress Bar END
 });
 
 
@@ -915,8 +940,7 @@ function update_quant(sign, e)
             }
             break;
     }
-    update_basket(e);
-
+    update_basket(e);                                                
 }
 
 function update_basket(e)
@@ -931,11 +955,18 @@ function update_basket(e)
     });
 }
 
-function addtocart(productid, name) {
+function addtocart(productid, name, product_status) {
+    //product_status 22-нет в наличии;
     quantity = $(".transparent_input").val();
-
-    $.post('/ajax/ajax_add2basket.php', {action: "add", productid: productid, quantity:quantity}, function(data)
+	$(".inBasket").hide();
+	$("#loadingInfo").show();
+	
+	$("a.product"+productid).find(".basketBook").css("background-color", "#A9A9A9");
+	
+    $.post('/ajax/ajax_add2basket.php', {action: "add", productid: productid, quantity:quantity, product_status:product_status}, function(data)
         {
+			$("#loadingInfo").hide();
+			$(".inBasket").show();
             $(".inBasket").css("background-color", "#A9A9A9");
             $(".inBasket").html("В корзине");
 
@@ -968,7 +999,7 @@ function addtocart(productid, name) {
             var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
             $(".BasketQuant").html(total_quant);
             // обновляем блок с ценой и описанием до следующей скидки
-            $(".wrap_prise_top").load(window.location.href + " .wrap_prise_top > *");
+            //$(".wrap_prise_top").load(window.location.href + " .wrap_prise_top > *");
     })
 }
 function addtocart_fromwishlist (productid, name) {
@@ -1272,7 +1303,7 @@ function updateSearchPage() {
 function newSubFunction(submitButton){
     var book_id = submitButton.previousElementSibling.dataset.book_id;
     var sub_mail = submitButton.previousElementSibling.value;
-    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    var re = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if(re.test(sub_mail)){
         $.post("/ajax/book_subscribe.php", {
             book_id : book_id,
@@ -1340,3 +1371,420 @@ $(function() {
 		$('body,html').animate({scrollTop:0},800);
 	});
 });
+
+//Переключение между вкладками элетронных книги и бумажных в карточке товара
+function selectversion(cl,id) {
+	if (cl == "passive") {
+		$("#diffversions").find(".passive").removeClass("passive").addClass("temp");
+		$("#diffversions").find(".active").removeClass("active").addClass("passive");
+		$("#diffversions").find(".temp").addClass("active").removeClass("temp");
+	}
+	if (id == "paperversion") {
+		$(".paperVersionWrap, .digitalBookMark, .typesOfProduct, .shippings, .buyLater, .epubHide").show();
+		$(".digitalVersionWrap, .epub").hide();
+	} else {
+		$(".paperVersionWrap, .digitalBookMark, .typesOfProduct, .shippings, .buyLater, .epubHide").hide();
+		$(".digitalVersionWrap, .epub").show();
+	}
+	var bookName = $(".productName").text();
+	dataLayer.push({'event' : 'selectVersion', 'action' : id+' '+cl, 'label': bookName});
+	return false;
+}
+
+function docReadyComponent(id) {
+	$(".element_item_img").hover(
+	  function() {
+		$(this).find('img').css({'filter':'grayscale(0.7)', '-webkit-filter':'grayscale(0.7)', '-moz-filter':'grayscale(0.7)', '-o-filter':'grayscale(0.7)', '-ms-filter':'grayscale(0.7)'});
+		$('.bookPreviewButton').css('display','block');
+	  }, function() {
+		$(this).find('img').css({'filter':'none', '-webkit-filter':'none', '-moz-filter':'none', '-o-filter':'none', '-ms-filter':'none'});
+		$('.bookPreviewButton').css('display','none');
+	  }
+	);
+
+	//скрытие текста в карточке товара
+	if($('.showAllWrapp').length > 0){
+		if($('.showAllWrapp').css('height').slice(0,-2) > 558){
+			$('.showAllWrapp').append('<p class="readMore"><span>Читать далее...</span></p>');
+			$('.showAllWrapp').css('height','558px');
+		}
+
+		$('.readMore').click(function(){
+			$('.showAllWrapp').css('height','auto');
+			$('.readMore').hide();
+		})
+
+
+	}
+
+	$.ajax({
+		type: "POST",
+		url: "/ajax/book_views.php",
+		data: {id: id}
+	}).done(function( strResult ) {
+		$(".bookViews").html(strResult);
+	 });
+	 
+	if($('.wishlist_info').length > 0){
+		$('.layout').click(function(){
+			if($('.wishlist_info').css('display') == 'block'){
+				$(this).hide();
+				$('.wishlist_info').hide();
+			}
+		})
+	}
+
+
+
+	if($('.videoWrapp').length > 0){
+		$('.videoWrapp iframe:nth-child(1)').show();
+	}
+	if($('.productSelectTitle').length > 0){
+		$('.productSelectTitle').click(function(){
+			$('.videoWrapp iframe').show();
+			return false;
+		})
+	}
+
+	if($(".some_info").length > 0){
+		$('.layout').click(function(){
+			$('.some_info').hide();
+			$(this).hide();
+		})
+	}
+
+	if($(".subscr_result").length > 0){
+		$('.layout').click(function(){
+			$('.subscr_result').hide();
+			$(this).hide();
+		})
+	}
+
+	$(".giftWrap input[type=button]").click(function(){
+
+		CheckRequestFields();
+	});
+
+	// скрывать всплывайки при нажатии на любом свободном месте
+	$(".some_info").click(function(){
+		$(".some_info").hide();
+		$(".layout").hide();
+	});
+
+	// скрывать стрелки слайдера, если элементов меньше 6
+	if ($(".saleSlider ul li").size() < 6)
+	{
+		$(".saleSlider .left").hide();
+		$(".saleSlider .right").hide();
+	}
+
+	if ($(".otherEasySlider ul li").size() < 6)
+	{
+		$(".otherEasySlider .left").hide();
+		$(".otherEasySlider .rigth").hide();
+	}
+
+	// если блок "Мероприятия товара" отображается - поправить вёрстку страницы автора
+
+	if ($(".autorInfo .events").css("display") == "block")
+	{
+		$(".content").css("min-height", "840px");
+	}
+
+	if ($(".autorInfo .textWrap").height() > 300)
+	{
+		$(".content .catalogWrapper").css("height", $(".autorInfo .textWrap").height() + 100 + "px");
+	}
+
+	if($('#authorisationPopup').length > 0){
+		$('#authorisationPopup').click(function(e){
+			e.preventDefault();
+			$('.layout').show();
+
+			var winH = $(window).height();
+			var winW = $(window).width();
+			var blokT = winH / 2 - ($('.authorisationWrapper').height() / 2);
+			var blokL = winW / 2 - ($('.authorisationWrapper').width() / 2);
+			$('.authorisationWrapper').css({
+				"top" : blokT,
+				"left": blokL
+			});
+
+			$('.authorisationWrapper').show();
+		})
+	}
+
+	if($('#authorisationClose').length > 0){
+		$('#authorisationClose, .layout').click(function(){
+			$('.layout').hide();
+			$('.authorisationWrapper').hide();
+		})
+	}
+	if($('.signinWrapper').length > 0){
+		$('.registrationLink').click(function(){
+			$(this).addClass('active');
+			$('.signinLink').removeClass('active');
+			$('.signinBlock').hide();
+			$('.registrationBlock').show();
+		});
+		$('.signinLink').click(function(){
+			$(this).addClass('active');
+			$('.registrationLink').removeClass('active');
+			$('.signinBlock').show();
+			$('.registrationBlock').hide();
+		})
+	} 
+                      
+    //Если возникнут проблемы с корзиной нужно вернуть             
+	//update_quant();
+
+
+	if ($(".hidingBasketRight .basketBooks .basketBook").length == 0)
+	{
+		$(".BasketQuant").css("display", "none");
+	}
+	//плавающий блок в карточке товара
+	/*if(('.productElementWrapp').length >0){
+	if ($(window).scrollTop() > $('.productAction').offset().top + $('.productAction').height() ){
+	$('.priceBasketWrap').css({'position':'fixed', 'top':'20px', 'left':'20px'})
+	};
+	}*/
+	//картока товара. Раскрытие торговых предложений
+	if ($('.elementDescriptWrap .otherTypes').length > 0){
+		$('.elementDescriptWrap .otherTypes').click(function(){
+			var wrapBlockHeight = $('.typesOfProduct').height();
+			var countType = $('.productType').length;
+			var BLOCKSINLINE = 3;//это так по дизайну
+			var lines = Math.ceil(countType/BLOCKSINLINE);
+			if ($('.typesOfProduct').height() < 180)
+			{
+				$('.typesOfProduct').height(wrapBlockHeight*lines);
+			}
+		});
+	};
+
+	//смена блоков на детальной карточке
+	if($('.productElementWrapp').length >0){
+		$('.productsMenu li').click(function(){
+			$('.productsMenu li').removeClass('active');
+			$(this).addClass('active');
+			$('#prodBlock1, #prodBlock2, #prodBlock3, #prodBlock4, #prodBlock5').hide();
+			$('#prodBlock'+$(this).attr('data-id')).show();
+			if (!$(".productsMenu li:first-child").hasClass("active"))
+			{
+				//$(".productsMenu li:first-child").css("width", "90px");
+			}
+			else
+			{
+			   // $(".productsMenu li:first-child").css("width", "110px");
+			}
+			if ($(".productsMenu li:nth-child(2)").hasClass("active"))
+			{
+				//$(".productsMenu li:nth-child(2)").css("width", "105px");
+			}
+			else
+			{
+
+			}
+			$(".productsMenu li:not(:first-child, :nth-child(2))").each(function(){
+				if (!$(this).hasClass("active"))
+				{
+				   // $(this).css("width", "80px");
+				}
+				else
+				{
+				  //  $(this).css("width", "91px");
+				}
+			});
+			if ($("#prodBlock3").css("display") == "block") {
+				$("#prodBlock3").css("height", $(".ReviewsFormWrap").height() + 90);
+			}
+		})
+	}
+
+
+	//Верхнее меню на главной
+	$(window).scroll(function(){
+		$('.slidingTopMenu').show();
+		/*$(".footer_search_form").html($(".searchWrap .catalogWrapper").html());
+		$(".searchWrap .catalogWrapper").html("");
+		$(".headFind").each(function(){
+		$(this).removeClass("headFind");
+		$(this).addClass("headFindCatalog");
+		});*/
+		if($(window).scrollTop() == 0){
+			$('.slidingTopMenu').hide();
+			/*$(".searchWrap .catalogWrapper").html($(".footer_search_form").html());
+			$(".footer_search_form").html("");
+			$(".headFindCatalog").each(function(){
+			$(this).removeClass("headFindCatalog");
+			$(this).addClass("headFind");
+			});*/
+
+		}
+	})
+
+	$(".bookName").each(function()
+		{
+			if($(this).length > 0)
+			{
+				$(this).html(truncate($(this).html(), 32));
+			}
+		}
+	);
+
+
+
+
+
+	$('.slideWrapp li').css('width',$(window).width()+'px');
+
+
+
+	var widthOfSlide = '196px';
+	var intwidthOfSlide = 196;
+	var countLi = $('.saleWrapp ul li').size();
+	if (countLi < 6)
+	{
+		$(".saleWrapp .left").hide();
+		$(".saleWrapp .right").hide();
+	}
+	//alert(attrLeft[0]);
+	$(".saleWrapp .right").on("click", function(){
+		attrLeft = $(".saleWrapp ul").css("left").split("px");
+		if (attrLeft[0] <= -(countLi-7)*intwidthOfSlide)
+		{
+			$('.saleWrapp .right').hide();
+		}
+	});
+
+	$(".otherEasySlider .right").on("click", function(){
+		attrLeft = $(".otherEasySlider ul").css("left").split("px");
+		if (attrLeft[0] <= -(countLi-7)*intwidthOfSlide)
+		{
+			$('.otherEasySlider .rigth').hide();
+		}
+	});
+
+	 $(".authorBoolSlider .rigth").on("click", function(){
+		$(".authorBoolSlider .left").show();
+		attrLeft = $(".authorBoolSlider ul").css("left").split("px");
+		if (attrLeft[0] <= -(countLi-7)*intwidthOfSlide)
+		{
+			$('.authorBoolSlider .rigth').hide();
+		}
+	});
+
+	$(".authorBoolSlider .left").on("click", function(){
+		$(".authorBoolSlider .rigth").show();
+		if ($(".authorBoolSlider ul").css("left") == '-'+widthOfSlide)
+		{
+			$('.authorBoolSlider .left').hide();
+		}
+	});
+
+	var ulWidth = (countLi-7) * widthOfSlide.slice(0, -2);
+
+	$('.saleWrapp .left').click(function(){
+		$('.saleWrapp ul').animate({left:'+='+ widthOfSlide},500);
+		$('.saleWrapp .right').show();
+
+		if($('.saleWrapp ul').css('left') == '-'+widthOfSlide){
+			$('.saleWrapp .left').hide();
+		}
+	})
+
+	$('.otherEasySlider .left').click(function(){
+		$('.otherEasySlider ul').animate({left:'+='+ widthOfSlide},500);
+		$('.otherEasySlider .rigth').show();
+
+		if($('.otherEasySlider ul').css('left') == '-'+widthOfSlide){
+			$('.otherEasySlider .left').hide();
+		}
+	})
+
+	$('.saleWrapp .right').click(function(){
+		$('.saleWrapp ul').animate({left:'-='+ widthOfSlide},500);
+		$('.saleWrapp .left').show();
+
+		if($('.saleWrapp ul').css('left') == '-'+ulWidth+'px'){
+			$('.saleWrapp .right').hide();
+		}
+	})
+	if($('.saleWrapp ul').css('left') == '0px'){
+		$('.saleWrapp .left').hide();
+	}
+
+	var widthOfSlideReccomend = '196px';
+	var intwidthOfSlideReccomend = 196;
+	var countLiRec = $('.recomendation ul li').size();
+	if (countLiRec < 7)
+	{
+		$(".recomendation .left").hide();
+		$(".recomendation .right").hide();
+	}
+	var ulWidthRec = (countLi-7) * widthOfSlideReccomend.slice(0, -2);
+	$(".recomendation .right").on("click", function(){
+		attrLeft = $(this).closest(".recomendation").find("ul").css("left").split("px");
+		if (attrLeft[0] <= -(countLi-7)*intwidthOfSlideReccomend)
+		{
+			$(this).hide();
+		}
+	});
+	$('.recomendation .left').click(function(){
+		$(this).closest(".recomendation").find("ul").animate({left:'+='+ widthOfSlideReccomend},500);
+		$(this).closest(".recomendation").find(".right").show();
+
+		if($(this).closest(".recomendation").find("ul").css('left') == '-'+widthOfSlideReccomend){
+			$(this).closest(".recomendation").find(".left").hide();
+		}
+	})
+	$('.recomendation .right').click(function(){
+		$(this).closest(".recomendation").find("ul").animate({left:'-='+ widthOfSlideReccomend},500);
+		$(this).closest(".recomendation").find(".left").show();
+
+		if($(this).closest(".recomendation").find("ul").css('left') == '-'+ulWidthRec+'px'){
+			$(this).closest(".recomendation").find(".right").hide();
+		}
+	})
+	$(".recomendation").each(function(){
+		if($(this).find('ul').css('left') == '0px'){
+			$(this).find('.left').hide();
+		}
+	});
+
+
+	// слайдер отзывов на главной
+	if (typeof fxSlider == 'function'){
+		fxSlider('bigSlider','left','right', false, 500,3);
+	}
+
+
+
+	//убираем placeholder поиск вверху главной
+	$('#title-search-input-top').focus(function(){
+		$(this).data('placeholder',$(this).attr('placeholder'))
+		$(this).attr('placeholder','');
+	});
+	$('#title-search-input-top').blur(function(){
+		$(this).attr('placeholder',$(this).data('placeholder'));
+	});
+
+	$(".books > ul span").mouseout(function(){
+		clearTimeout(BlocksChangingFunc);
+	})
+	
+	//Progress Bar START
+	$('a').click(function() {
+		var link = $(this).attr("href");
+		var target = $(this).attr("target");
+		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
+			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)|\/personal\/profile\//) && target != "_blank") {
+				NProgress.start();
+			};
+		}
+	});
+	NProgress.set(0.6);
+	setTimeout(function() { NProgress.done();}, 200);
+	//Progress Bar END
+}

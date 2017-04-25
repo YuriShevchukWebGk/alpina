@@ -129,7 +129,7 @@
     foreach ($arResult["BASKET_ITEMS"] as $prodId => $arProd) {
         $arElement = CIBlockElement::GetByID($arProd["PRODUCT_ID"])->Fetch();
         if ($arElement["IBLOCK_SECTION_ID"] != 143){
-            $isOnlyCertificate = false;  
+            $isOnlyCertificate = false;
         }
     }
 ?>
@@ -143,20 +143,21 @@
         {
             $width = ($arParams["SHOW_STORES_IMAGES"] == "Y") ? 850 : 700;
         ?>
-        <p class="blockTitle">Способ доставки<span class="deliveriWarming">Укажите спопсоб доставки</span></p>
+        <p class="blockTitle">Способ доставки<span class="deliveriWarming">Укажите способ доставки</span></p>
         <?
             foreach ($arResult["DELIVERY"] as $delivery_id => $arDelivery) {
                 if($arDelivery["ID"]!=22 && $isOnlyCertificate==true) {
                     continue;
-                } 
+                }
                 if($arDelivery["ID"]==22 && $isOnlyCertificate!=true) {
                     continue;
                 }
-                if($arDelivery["ID"]==22 && $isOnlyCertificate==true) {  
+                if($arDelivery["ID"]==22 && $isOnlyCertificate==true) {
                     $arDelivery["CHECKED"]='Y';
                 }
                 // если это юр лицо и вес больше 10кг, то мимо
-                if (($arDelivery["ID"] == GURU_DELIVERY_ID && !$USER->IsAdmin()) || ($arDelivery["ID"] == GURU_DELIVERY_ID && $arResult["USER_VALS"]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID && $arResult['ORDER_WEIGHT'] > GURU_LEGAL_ENTITY_MAX_WEIGHT)) { continue; }
+                if (($arDelivery["ID"] == GURU_DELIVERY_ID && !$USER->IsAdmin())
+                    || ($arDelivery["ID"] == GURU_DELIVERY_ID && $arResult["USER_VALS"]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID && $arResult['ORDER_WEIGHT'] > GURU_LEGAL_ENTITY_MAX_WEIGHT)) { continue; }
 
                 if($arDelivery["ISNEEDEXTRAINFO"] == "Y")
                     $extraParams = "showExtraParamsDialog('".$delivery_id."');";
@@ -168,7 +169,7 @@
                 else
                     $clickHandler = "onClick = \"BX('ID_DELIVERY_ID_".$arDelivery["ID"]."').checked=true;".$extraParams."submitForm();\"";
 
-            ?>  
+            ?>
             <div>
                 <input type="radio"
                     class="radioInp"
@@ -177,18 +178,18 @@
                     value="<?= $arDelivery["ID"] ?>"
                     <?if ($arDelivery["CHECKED"]=="Y") echo " checked";?>
                     onclick="submitForm();"
-                    /> 
+                    />
                 <label for="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>" class="faceText">
-                    <?= htmlspecialcharsbx($arDelivery["NAME"])?> -                   
+                    <?= htmlspecialcharsbx($arDelivery["NAME"])?> -
                     <?if(isset($arDelivery["PRICE"])):?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
-                            <? if ($arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID) {
+                            <? if ($arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERY_ID) {
                                 echo "Выберите местоположение";
                             } else { ?>
                                 <?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?>
                             <? } ?>
                         </b>
-                        <?   
+                        <?
                             if (strlen($arDelivery["PERIOD_TEXT"])>0)
                             {
                                 echo GetMessage('SALE_SADC_TRANSIT').": <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
@@ -198,11 +199,11 @@
                             {
                                 echo '<br />';
                                 echo GetMessage('SALE_SADC_PACKS').': <b>'.$arDelivery["PACKS_COUNT"].'</b>';
-                            }  
+                            }
                         ?>
                         <?endif;?>
 
-                </label>      
+                </label>
 
 
                 <p class="shipingText" <?=$clickHandler?>>
@@ -217,9 +218,9 @@
                             <span class="ora-store" id="store_desc"><?=htmlspecialcharsbx($arResult["STORE_LIST"][$arResult["BUYER_STORE"]]["TITLE"])?></span>
                         </span>
                         <?
-                            endif;
-                    ?>    
-                </p>  
+                        endif;
+                    ?>
+                </p>
 
                 <?if ($arDelivery['CHECKED'] == 'Y'):?>
                     <table class="delivery_extra_services">
@@ -235,8 +236,7 @@
                                 <td rowspan="2" class="price">
                                     <?
 
-                                        if ($price = $extraService->getPrice())
-                                        {
+                                        if ($price = $extraService->getPrice()) {
                                             echo GetMessage('SOA_TEMPL_SUM_PRICE').': ';
                                             echo '<strong>'.SaleFormatCurrency($price, $arResult['BASE_LANG_CURRENCY']).'</strong>';
                                         }
@@ -245,8 +245,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="description"> 
-                                    <?=$extraService->getDescription()?>    
+                                <td colspan="2" class="description">
+                                    <?=$extraService->getDescription()?>
                                 </td>
                             </tr>
                             <?endforeach?>
@@ -255,18 +255,27 @@
 
                 <?  if ($delivery_id =="21") { ?>
                     <div id="IML_PVZ"></div>
-                    <? } ?> 
-                    
+                    <? } ?>
+
                 <? if ($arDelivery["ID"] == FLIPPOST_ID) { ?>
                     <div class="flippostSelectContainer">
-                        
+
                     </div>
                     <div class="flippost_error"><?= GetMessage('FLIPPOST_SELECT_EMPTY') ?></div>
                     <div id="flippost_delivery_time" class="flippost_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
                     <input type="hidden" id="flippost_address" name="flippost_address" value="">
-                    <input type="hidden" id="flippost_cost" name="flippost_cost" value="">  
+                    <input type="hidden" id="flippost_cost" name="flippost_cost" value="">
                 <? } ?>
-                
+                <? if ($arDelivery["ID"] == BOXBERY_ID && $USER->IsAdmin()) { ?>
+                    <div class="boxberySelectContainer">
+
+                    </div>
+                    <div class="boxbery_error"><?= GetMessage('BOXBERY_SELECT_EMPTY') ?></div>
+                    <div id="boxbery_delivery_time" class="boxbery_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
+                    <input type="hidden" id="boxbery_address" name="boxbery_address" value="">
+                    <input type="hidden" id="boxbery_cost" name="boxbery_cost" value="">
+                <? } ?>
+
                 <? if ($arDelivery["ID"] == GURU_DELIVERY_ID && $USER->IsAdmin()) { ?>
                     <div class="guru_delivery_wrapper">
                         <div class="guru_error"><?= GetMessage('GURU_ERROR') ?></div>
@@ -280,11 +289,12 @@
                         <input type="hidden" id="guru_cost" name="guru_cost" value="">
                         <input type="hidden" id="guru_selected" name="guru_selected" value="">
                     </div>
-                <? } ?>                                                
-                <? if ($arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID && $USER->IsAdmin()) { ?>
-                    <div class="boxberry_delivery_wrapper">                                                                                                                 
-                        <div class="boxberry_error"><?= GetMessage('BOXBERRY_ERROR') ?></div>                                                                                                                                                                            
-                        <a href="#" class="message-map-link" style="cursor: pointer; display: block;  text-decoration: underline; color:#000;" onclick="boxberry.open('boxberry_callback', '<?= BOXBERRY_TOKEN_API?>', 'Москва', '68', <?= $arResult['ORDER_DATA']['ORDER_PRICE']?>, <?= $arResult['ORDER_DATA']['ORDER_WEIGHT']?>, 0, 50, 50, 50); return false"><?= GetMessage('CHOSE_ON_MAP') ?></a>   
+                <? } ?>
+                <? if ($arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID) { ?>
+                    <div class="boxberry_delivery_wrapper">
+                        <div class="boxberry_error"><?= GetMessage('BOXBERRY_ERROR') ?></div>
+                        <a href="#" class="message-map-link" style="cursor: pointer; display: block;  text-decoration: underline; color:#000;" onclick="boxberry.open('boxberry_callback', '<?= BOXBERRY_TOKEN_API?>', 'Москва', '68', <?= $arResult['ORDER_DATA']['ORDER_PRICE']?>, <?= $arResult['ORDER_DATA']['ORDER_WEIGHT']?>, 0, 50, 50, 50); return false"><?= GetMessage('CHOSE_ON_MAP') ?></a>
+                        <div class="boxberry_point_addr"></div>
                         <div id="boxberry_delivery_time" class="boxberry_delivery_time"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
                         <input type="hidden" id="boxberry_delivery_data" name="boxberry_delivery_data" value="">
                         <input type="hidden" id="boxberry_cost" name="boxberry_cost" value="">
@@ -293,7 +303,7 @@
                 <? } ?>
 
                 <div class="clear"></div>
-            </div>          
+            </div>
             <?
             }
         }

@@ -191,7 +191,7 @@
         $SDATA['delivery_sum'] = $ar_order['PRICE_DELIVERY'];
         $SDATA['vid'] = 1;
         $SDATA['shop'] = array(
-            'name' => $pvz_id,  //нужно распарсить данные из заказа
+            'name' => $pvz_id, 
             'name1' => '010'
         );
 
@@ -209,26 +209,18 @@
             'sdata'=> json_encode($SDATA)
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $data = json_decode(curl_exec($ch),1);
+        $data = json_decode(curl_exec($ch),1);  
         if($data['err'] or count($data)<=0) {
             // если произошла ошибка и ответ не был получен.
-            echo $data['err'];
+            echo $data['err'];                                           
         }
         else
-        {
-            // все отлично, ответ получен, теперь в массиве $data.
-            // (если был указан штрих-код то переменная label будет отсутствовать).
-            /*
-            $data=array(
-            'track'=>'XXXXXXXX', // Трекинг код для посылки.
-            'label'=>'http://' // Ссылка на скачивание PDF файла с этикетками.
-            );
-            */
-            
+        {                                                                                      
             //иначе выполняем необходимые действия с заказом
             //проверяем данные, которые пришли в ответе. Если они корректные - обновляем заказ: устанавлфваем флаг "экспортирован в boxberry"
             $prop_data = array("ORDER_ID" => $current_order_id , "VALUE" => "Y");
-            if (CSaleOrderPropsValue::Update($order_props["EXPORTED_TO_B"]["ID"], $prop_data)) {
+            if (CSaleOrderPropsValue::Update($order_props["EXPORTED_TO_B"]["ID"], $prop_data) && CSaleOrder::Update($current_order_id, array("TRACKING_NUMBER" => $data['track']))) {                
+                CSaleOrder::StatusOrder($current_order_id, "I");
                 echo "OK";
             } else {
                 echo GetMessage("ORDER_UPDATE_ERROR");

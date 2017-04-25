@@ -1,5 +1,6 @@
 <?
 $MESS["SALE_ORDER"] = "Продолжить";
+$MESS["SALE_PREORDER"] = "Оформить предзаказ";
 $MESS["SALE_OR"] = "или";
 $MESS["SALE_NAME"] = "Название";
 $MESS["SALE_PROPS"] = "Свойства";

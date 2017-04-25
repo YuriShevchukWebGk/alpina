@@ -8,5 +8,7 @@ $api_messages = array(
 	"user_added"             => "Пользователь успешно добавлен",
 	"password_updated"       => "Пароль успешно обновлен",
 	"user_authorized"        => "Пользователь успешно авторизован",
+	"book_does_not_exist"    => "Книга не найдена",
+	"price_does_not_exist"   => "Цена не найдена"
 );
 ?>

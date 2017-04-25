@@ -11,9 +11,15 @@ if ($_POST['email']) {
 	$link = CFile::GetPath($link['VALUE']);
 	$text = CFile::ResizeImageGet($book["DETAIL_PICTURE"], array("width" => 200, "height" => 270), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 	
+	if (strpos($link,"selcdn.ru") !== false) {
+		$text = "<a href='https://www.alpinabook.ru/catalog/temporary/".$_POST['book']."/' target='_blank'><img src='https://www.alpinabook.ru".$text[src]."' align='left' style='margin-right:20px;' /></a>
+			Скачать главу из книги <a href='https://www.alpinabook.ru/catalog/temporary/".$_POST['book']."/' target='_blank'>«".$book['NAME']."»</a> можно по ссылке ниже. Приятного чтения!<br /><br /><br />
+			<center><a href='".$link."' style='padding: 14px 58px; color:#fff; background: #00abb8; border-radius: 35px;font-size:20px;text-decoration:none;' target='_blank'>Скачать главу</a></center>";
+	} else {
 	$text = "<a href='https://www.alpinabook.ru/catalog/temporary/".$_POST['book']."/' target='_blank'><img src='https://www.alpinabook.ru".$text[src]."' align='left' style='margin-right:20px;' /></a>
 			Скачать главу из книги <a href='https://www.alpinabook.ru/catalog/temporary/".$_POST['book']."/' target='_blank'>«".$book['NAME']."»</a> можно по ссылке ниже. Приятного чтения!<br /><br /><br />
-			<center><a href='https://www.alpinabook.ru".$link."' style='padding: 14px 58px; color:#fff; background: #00abb8; border-radius: 35px;font-size:20px;text-decoration:none;' target='_blank'>Скачать главу</a></center>";
+			<center><a href='".$link."' style='padding: 14px 58px; color:#fff; background: #00abb8; border-radius: 35px;font-size:20px;text-decoration:none;' target='_blank'>Скачать главу</a></center>";
+	}
 	$images = array();
 	$images[] = $text[src];
 	
@@ -208,18 +214,18 @@ if ($_POST['email']) {
 	
 	function subscribeTest($id, $mail, $name) {
 		$arSelect = Array("ID");
-		$arFilter = Array("IBLOCK_ID" => 41,"ACTIVE" => "Y","PROPERTY_SUB_EMAIL" => $mail);
+		$name = 'Глава из книги '.$name;
+		$arFilter = Array("IBLOCK_ID" => 41,"ACTIVE" => "Y","NAME" => $name, "PROPERTY_SUB_EMAIL" => $mail);
 		$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize" => 9999), $arSelect);
 		
-		if($ob = $res -> GetNextElement()) { //
-			
+		if($ob = $res -> GetNextElement()) {
 		} else {	
 			$el = new CIBlockElement;
 			global $USER;
 			$PROP = array();
 			$PROP[385] = '1';  // --- book id
 			$PROP[386] = $mail; // --- subscriber E-mail
-			$PROP[387] = 'Глава из книги '.$name;  // --- subscription description
+			$PROP[387] = $name;  // --- subscription description
 			$PROP[388] = "3"; // --- subscription id		
 			
 			$arLoadProductArray = Array(
@@ -227,7 +233,7 @@ if ($_POST['email']) {
 			  "IBLOCK_SECTION_ID" => false,         
 			  "IBLOCK_ID"      => 41,
 			  "PROPERTY_VALUES"=> $PROP,
-			  "NAME"           => 'Глава из книги '.$name,
+			  "NAME"           => $name,
 			  "ACTIVE"         => "Y",
 			  ); 
 			  
@@ -236,6 +242,57 @@ if ($_POST['email']) {
 	}
 
 	subscribeTest($_POST['book'],$_POST['email'], $book['NAME']);
+	
+	/*function chapterRfm($id, $mail) {
+		$arSelect = array(
+			"ID",
+			"NAME"
+		);
+		
+		$filter = array(
+			"IBLOCK_ID" => 67,
+			"ACTIVE" => "Y",
+			"NAME" => $mail
+		);
+
+		$res = CIBlockElement::GetList(Array("PROPERTY_LASTORDER" => "DESC"), $filter, false, array(), $arSelect);
+
+		if ($ob = $res -> GetNextElement()) {
+			$ob = $ob->GetFields();
+			$res1 = CIBlockElement::GetByID($ob[ID]);
+			$obRes1 = $res1->GetNextElement();
+			$ar_res1 = $obRes1->GetProperties();
+			
+			if (!empty($ar_res1[WISHBOOKS][VALUE])) {
+				array_push($ar_res1[WISHBOOKS][VALUE], $id);
+				CIBlockElement::SetPropertyValuesEx($ob[ID], 67, array('WISHBOOKS' => $ar_res1[WISHBOOKS][VALUE]));
+			} else {
+				CIBlockElement::SetPropertyValuesEx($ob[ID], 67, array('WISHBOOKS' => $id));
+			}
+		} else {
+			$el = new CIBlockElement;
+			$PROP = array();
+			$PROP[800] = 'sendchapter';
+			$PROP[802] = $id;
+			
+			$arLoadProductArray = Array(
+				"MODIFIED_BY"    => 15,
+				"IBLOCK_SECTION" => false,
+				"IBLOCK_ID"      => 67,
+				"PROPERTY_VALUES"=> $PROP,
+				"NAME"           => $mail,
+				"ACTIVE"         => "Y"
+			);
+			
+			if ($el->Add($arLoadProductArray))
+				echo 1;
+			else
+				echo 2;
+		}
+	}
+	
+	chapterRfm($_POST['book'],$_POST['email']);*/
+	
 } else {
 	$email = 'a.marchenkov@alpinabook.ru';
 	$book = 7706;

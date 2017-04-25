@@ -15,68 +15,68 @@
                     <div>
                         
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_1", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu_1"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_1", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_1"
+	),
+	false
+);?>
                     </div>
                     <div>
                         
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_1", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom2",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_1", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom2",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_1"
+	),
+	false
+);?>
                     </div>
                     <div>
                         
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_2", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom3",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_2", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom3",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_2"
+	),
+	false
+);?>
                     </div>
                     <div>
                         
@@ -155,9 +155,6 @@
                         <a href="https://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
                         <div id="development">   
                             Разработка сайта – <a href="http://www.webgk.ru/" target="_blank">WebGK</a>
-                        </div>
-						  <div id="development">   
-                           <a href="https://www.alpinabook.ru/sitemap/">Карта сайта</a>
                         </div>
                     </div>
                 </div>
@@ -292,16 +289,48 @@
 
         
         <div class="hidingBasketRight">
-            <?
-                $APPLICATION->IncludeComponent("bitrix:sale.basket.basket.small", "hiding_basket", Array(
-                    "PATH_TO_BASKET" => "/personal/basket.php",    // Страница корзины
-                    "PATH_TO_ORDER" => "/personal/order.php",    // Страница оформления заказа
-                    "SHOW_DELAY" => "Y",    // Показывать отложенные товары
-                    "SHOW_NOTAVAIL" => "Y",    // Показывать товары, недоступные для покупки
-                    "SHOW_SUBSCRIBE" => "Y",    // Показывать товары, на которые подписан покупатель
+            <?/*
+            $APPLICATION->IncludeComponent("bitrix:sale.basket.basket", "hiding_basket", Array(
+                "ACTION_VARIABLE" => "basketAction",    // Название переменной действия
+                    "AUTO_CALCULATION" => "Y",    // Автопересчет корзины
+                    "COLUMNS_LIST" => array(    // Выводимые колонки
+                        0 => "NAME",
+                        1 => "DISCOUNT",
+                        2 => "DELETE",
+                        3 => "DELAY",
+                        4 => "TYPE",
+                        5 => "PRICE",
+                        6 => "QUANTITY",
                     ),
-                    false
-                );
+                    "CORRECT_RATIO" => "N",    // Автоматически рассчитывать количество товара кратное коэффициенту
+                    "GIFTS_BLOCK_TITLE" => "Выберите один из подарков",    // Текст заголовка "Подарки"
+                    "GIFTS_CONVERT_CURRENCY" => "N",    // Показывать цены в одной валюте
+                    "GIFTS_HIDE_BLOCK_TITLE" => "N",    // Скрыть заголовок "Подарки"
+                    "GIFTS_HIDE_NOT_AVAILABLE" => "N",    // Не отображать товары, которых нет на складах
+                    "GIFTS_MESS_BTN_BUY" => "Выбрать",    // Текст кнопки "Выбрать"
+                    "GIFTS_MESS_BTN_DETAIL" => "Подробнее",    // Текст кнопки "Подробнее"
+                    "GIFTS_PAGE_ELEMENT_COUNT" => "4",    // Количество элементов в строке
+                    "GIFTS_PLACE" => "BOTTOM",    // Вывод блока "Подарки"
+                    "GIFTS_PRODUCT_PROPS_VARIABLE" => "prop",    // Название переменной, в которой передаются характеристики товара
+                    "GIFTS_PRODUCT_QUANTITY_VARIABLE" => "quantity",    // Название переменной, в которой передается количество товара
+                    "GIFTS_SHOW_DISCOUNT_PERCENT" => "Y",    // Показывать процент скидки
+                    "GIFTS_SHOW_IMAGE" => "Y",    // Показывать изображение
+                    "GIFTS_SHOW_NAME" => "Y",    // Показывать название
+                    "GIFTS_SHOW_OLD_PRICE" => "N",    // Показывать старую цену
+                    "GIFTS_TEXT_LABEL_GIFT" => "Подарок",    // Текст метки "Подарка"
+                    "HIDE_COUPON" => "N",    // Спрятать поле ввода купона
+                    "PATH_TO_ORDER" => "/personal/cart/",    // Страница оформления заказа
+                    "PRICE_VAT_SHOW_VALUE" => "N",    // Отображать значение НДС
+                    "QUANTITY_FLOAT" => "N",    // Использовать дробное значение количества
+                    "SET_TITLE" => "Y",    // Устанавливать заголовок страницы
+                    "TEMPLATE_THEME" => "blue",    // Цветовая тема
+                    "USE_ENHANCED_ECOMMERCE" => "N",    // Отправлять данные электронной торговли в Google и Яндекс
+                    "USE_GIFTS" => "Y",    // Показывать блок "Подарки"
+                    "USE_PREPAYMENT" => "N",    // Использовать предавторизацию для оформления заказа (PayPal Express Checkout)
+                    "COMPONENT_TEMPLATE" => ".default"
+                ),
+                false
+            );*/
             ?>
         </div>
         <div class="layout"></div>

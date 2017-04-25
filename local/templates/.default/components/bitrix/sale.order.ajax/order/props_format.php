@@ -43,7 +43,7 @@
             return $res;
         }
     }
-
+         
     if (!function_exists("PrintPropsForm")){
         function PrintPropsForm($arSource = array(), $locationTemplate = ".default") {
             if (!empty($arSource)){ ?>
@@ -53,7 +53,7 @@
                     }
                     else {
                         $class = "";
-                } ?>
+                } ?>     
                 <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>">
                     <?if ($arProperties["TYPE"] != "LOCATION") {?>
 
@@ -316,7 +316,7 @@
                     </script>
                     <?endif?>
                 <?
-                }
+                }       
             ?>
 
             <?

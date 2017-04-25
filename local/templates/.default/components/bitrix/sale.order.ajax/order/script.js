@@ -478,10 +478,12 @@ function focus_imput() {
 //Передаем данные в скрытые поля input для доставки boxberry
 function setAddressDataBoxberry(delivery_data) {
     $(".boxberry_error").hide();
-    // адрес доставки в блоке самой доставки
+    // адрес доставки в блоке самой доставки 
     $(".boxberry_point_addr").html(delivery_data.address);
     // далее подставляем инфу в скрытые инпуты, для передачи дальше    
     $("#boxberry_delivery_data").val(delivery_data.id);  
+    $("#ORDER_PROP_94").val(delivery_data.address); // физ-лицо       
+    $("#ORDER_PROP_95").val(delivery_data.address); // юр-лицо  
     $("#ORDER_PROP_5").val(delivery_data.id); // физ-лицо       
     $("#ORDER_PROP_14").val(delivery_data.id); // юр-лицо  
     // устанавливаем флаг, что город выбран, нужно для js валидации
@@ -495,12 +497,25 @@ function setAddressDataBoxberry(delivery_data) {
  * @param string delivery_time                          
  */
 function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
-    // установка цен внизу страницы  
-    document.querySelector('.deliveryPriceTable').innerHTML = delivery_price + ' руб.';
+    // установка цен внизу страницы
+    if (delivery_price == 0) {                         
+        var delivery_message = 'Бесплатно';                                       
+    } else {                                                
+        var delivery_message = delivery_price + ' руб.';                                                                                       
+    }      
+    document.querySelector('.deliveryPriceTable').innerHTML = delivery_message;    
+    
+    //Для eskimobi
+    $('#eski_tottal div:eq(3) span').html(delivery_message);
+    
     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(delivery_price);
-    $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
+    $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');    
+    
+    //Для eskimobi
+    $('#eski_tottal div:eq(4) span').html(finalSumWithoutDiscount.toFixed(2));  
+      
     // установка значений для блока с самой доставкой
-    $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(delivery_price + ' руб.');
+    $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(delivery_message);
     $("#boxberry_cost").val(delivery_price);
     if (parseInt(delivery_time) != 0) {
         // если значения не будет, то значит произошла ошибка и время доставки не показываем
@@ -512,20 +527,7 @@ function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
 
 //Callback функция для boxberry
 function boxberry_callback(result){ 
-    // установка цен внизу страницы
-    document.querySelector('.deliveryPriceTable').innerHTML = result.price + ' руб.';
-    finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
-    $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
-    
-    // установка значений для блока с самой доставкой
-    $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(result.price + ' руб.');
-    $("#boxberry_cost").val(result.price);
-    if (parseInt(result.period) != 0) {
-        // если значения не будет, то значит произошла ошибка и время доставки не показываем
-        $(".boxberry_delivery_time").show();
-        $(".boxberry_delivery_time span").html((parseInt(result.period) + 2) + " дн.");    
-    }
-                
+    window.boxberry_result = result;
     setAddressDataBoxberry(result);
     fitDeliveryDataBoxberry(result.period, result.price);
 }

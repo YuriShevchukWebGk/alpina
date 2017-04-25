@@ -41,7 +41,9 @@ $(document).ready(function(){
               if( tt.hasClass('js_no') == false ){
                 tt.addClass('js_no');
               }
-            }else{
+            }else if ( tt.text().match(/\%/gi) ){
+				tt.html( tt.text().split('.')[0] +''+ '%' );
+			} else {
               if( tt.hasClass('js_no') == true ){
                 tt.removeClass('js_no');
               }

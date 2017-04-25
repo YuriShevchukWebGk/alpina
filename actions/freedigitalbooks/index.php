@@ -1,4 +1,4 @@
-﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 global $USER;
 CModule::IncludeModule("iblock");
 if (!$USER->isAdmin()) {
@@ -344,7 +344,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<img src="img/badge.jpg" style="border-radius: 15px;" />
 		<br /><br />
 		Сейчас услуга &laquo;Знание, а&nbsp;не&nbsp;носитель&raquo; работает
-		на&nbsp;всех платформах Android и&nbsp;на&nbsp;платформах iOS, начиная с&nbsp;версии iOS8 и&nbsp;выше (iOS7&nbsp;на стадии доработки).
+		на&nbsp;всех платформах Android и&nbsp;на&nbsp;платформах iOS, начиная с&nbsp;версии iOS8 и&nbsp;выше.
 		
 		Если у&nbsp;вас возникают сложности с&nbsp;получением бесплатных электронных книг,
 		напишите нам на&nbsp;адрес <a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a> или позвоните: +7 (495) 980 80 77.

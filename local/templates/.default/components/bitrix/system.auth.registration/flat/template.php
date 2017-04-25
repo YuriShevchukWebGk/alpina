@@ -28,7 +28,7 @@
                 <p><?echo GetMessage("AUTH_EMAIL_WILL_BE_SENT")?></p>
                 <?endif?>
         <noindex>
-            <form method="post" action="<?=$arResult["AUTH_URL"]?>" name="bform">
+            <form method="post" action="<?=$arResult["AUTH_URL"]?>" name="bform" id="js_register_submit">
                 <?
                     if (strlen($arResult["BACKURL"]) > 0)
                     {
@@ -59,8 +59,11 @@
                             <td><input type="text" name="USER_LOGIN" maxlength="50" value="<?=$arResult["USER_LOGIN"]?>" class="bx-auth-input" /></td>
                             </tr>
                         <?*/?>
-                        <tr>
-                            <td><input type="text" name="USER_EMAIL" maxlength="255" value="<?=$arResult["USER_EMAIL"]?>" class="bx-auth-input" placeholder="<?=GetMessage("AUTH_EMAIL")?>"/></td>
+                        <tr>                                                                                                           
+                            <td>
+                            
+                            <p class="paswordIncorrectly" id="existingEmail" style="display:none"><?=GetMessage("EXISTING_EMAIL");?></p>
+                            <input type="text" name="USER_EMAIL" maxlength="255" value="<?=$arResult["USER_EMAIL"]?>" class="bx-auth-input" placeholder="<?=GetMessage("AUTH_EMAIL")?>"/></td>
                         </tr>
                         <tr>
                             <td><input type="password" class="reg_password" name="USER_PASSWORD" maxlength="50" value="<?=$arResult["USER_PASSWORD"]?>" class="bx-auth-input" autocomplete="off" placeholder="<?=GetMessage("AUTH_PASSWORD_REQ")?>"/>
@@ -101,18 +104,18 @@
                             /* CAPTCHA */
                             if ($arResult["USE_CAPTCHA"] == "Y")
                             {
-                            ?>
+                            ?>         
                             <tr>
-                                <td><b><?=GetMessage("CAPTCHA_REGF_TITLE")?></b></td>
+                                <td><p class="paswordIncorrectly"><?=GetMessage("CAPTCHA_REGF_TITLE")?></p></td>
                             </tr>
                             <tr>
                                 <td>
                                     <input type="hidden" name="captcha_sid" value="<?=$arResult["CAPTCHA_CODE"]?>" />
-                                    <img src="/bitrix/tools/captcha.php?captcha_sid=<?=$arResult["CAPTCHA_CODE"]?>" width="180" height="40" alt="CAPTCHA" />
+                                    <img class="CaptchaRegistration" src="/bitrix/tools/captcha.php?captcha_sid=<?=$arResult["CAPTCHA_CODE"]?>" width="180" height="40" alt="CAPTCHA" />
                                 </td>
-                            </tr>
+                            </tr>                                                                                  
                             <tr>
-                                <td><input type="text" name="captcha_word" maxlength="50" value="" /></td>
+                                <td><input type="text" name="captcha_word" maxlength="50" value="" placeholder="<?=GetMessage("CAPTCHA_REGF_PROMT")?>" /></td>
                             </tr>
                             <?
                             }
@@ -129,7 +132,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td><input type="submit" name="Register" value="<?=GetMessage("AUTH_REGISTER")?>" onclick="return checkRegisterFields();" /></td>
+                            <td><input class="RegisterButton" name="Register" value="<?=GetMessage("AUTH_REGISTER")?>" onclick="return checkRegisterFields();" /></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -139,35 +142,56 @@
         <script type="text/javascript">
             document.bform.USER_NAME.focus();
 
-            function checkRegisterFields(){
-                flag = true;
-                if($('input[name=USER_NAME]').val() == ''){
-                    flag = false;
-                    $('input[name=USER_NAME]').css('border-color','#FF0000');
-                }
-                if($('input[name=USER_LAST_NAME]').val() == ''){
-                    flag = false;
-                    $('input[name=USER_LAST_NAME]').css('border-color','#FF0000');
-                }
-                if(isEmail($('input[name=USER_EMAIL]').val()) == false){
-                    flag = false;
-                    $('input[name=USER_EMAIL]').css('border-color','#FF0000');
-                }
-                if($('.reg_password').val().length < 6){
-                    flag = false;
-                    $('.reg_password').css('border-color','#FF0000');
-                }
-                if($('.reg_password').val() != $('.reg_confirm_password').val()){
-                    flag = false;
-                    $('.reg_confirm_password').css('border-color','#FF0000');
-                }
-				if (flag == true) {
-					dataLayer.push({'event' : 'otherEvents', 'action' : 'registrationButtonPush', 'label' : 'true'});
-				} else {
-					dataLayer.push({'event' : 'otherEvents', 'action' : 'registrationButtonPush', 'label' : 'false'});
-				}
-                return flag;        
-
+            function checkRegisterFields() {                 
+                flag = true;  
+                if($('input[name=USER_EMAIL]').val() != ''){
+                    emailVal = $('input[name=USER_EMAIL]').val();  
+                    $.ajax({
+                        url : "/ajax/CheckingExistingEmail.php",
+                        type: "POST",
+                        data : { email: emailVal },
+                        success: function(data)
+                        {                  
+                            if (data != '') { 
+                                flag = false;
+                                $('input[name=USER_EMAIL]').css('border-color','#FF0000');   
+                                $('#existingEmail').fadeIn();                              
+                            }                                             
+                            if($('input[name=USER_NAME]').val() == ''){
+                                flag = false;
+                                $('input[name=USER_NAME]').css('border-color','#FF0000');
+                            }
+                            if($('input[name=USER_LAST_NAME]').val() == ''){
+                                flag = false;
+                                $('input[name=USER_LAST_NAME]').css('border-color','#FF0000');
+                            }
+                            if(isEmail($('input[name=USER_EMAIL]').val()) == false){
+                                flag = false;                                 
+                                $('input[name=USER_EMAIL]').css('border-color','#FF0000');                  
+                            }                   
+                            if($('.reg_password').val().length < 6){
+                                flag = false;
+                                $('.reg_password').css('border-color','#FF0000');
+                            }
+                            if($('.reg_password').val() != $('.reg_confirm_password').val()){
+                                flag = false;
+                                $('.reg_confirm_password').css('border-color','#FF0000');
+                            }
+                            if (flag == true) {
+                                dataLayer.push({'event' : 'otherEvents', 'action' : 'registrationButtonPush', 'label' : 'true'});
+                            } else {
+                                dataLayer.push({'event' : 'otherEvents', 'action' : 'registrationButtonPush', 'label' : 'false'});
+                            }        
+                            if(flag){
+                                $("#js_register_submit").submit();
+                            } 
+                        }, 
+                        error: function()                      
+                        {                
+                            return false; 
+                        }                                              
+                    });                    
+                }                
             }
 
         </script>
