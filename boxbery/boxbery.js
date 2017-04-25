@@ -3,10 +3,10 @@ function Boxbery(boxbery_id) {
     self.boxbery_id = boxbery_id;
     self.queryObj = {};
     self.returnedData = [];
-    self.availibleMethods = ['CourierListCities', 'ListPoints', 'ListZips','DeliveryCosts'];
+    self.availibleMethods = ['CourierListCities', 'CourierListCities&Region', 'ListZips','DeliveryCosts'];
     self.selectFirstString = {
         'CourierListCities':'Выберите область',
-        'ListPoints':'Выберите регион',
+        'CourierListCities&Region':'Выберите регион',
         'ListZips':'Выберите город'
     };
 }
@@ -33,12 +33,6 @@ Boxbery.prototype.__makeQueryArray = function(method, country, state, city, weig
         case 'CourierListCities':
             self.queryObj = {
                 method : method
-            };
-            break;
-        case 'ListPoints':
-            self.queryObj = {
-                method : method,
-                country : country
             };
             break;
         case 'ListZips':
@@ -76,12 +70,12 @@ Boxbery.prototype.__makeQueryArray = function(method, country, state, city, weig
 Boxbery.prototype.__getQueryData = function(method,country) {
     $.post("/boxbery/delivery_post.php", self.queryObj, function(data) {
         self.returnedData = JSON.parse(data);
-        if(method=='ListPoints' && self.returnedData.length == 0){ // --- some countries don't have states,get cities in this case
+        console.log(data);
+/*        if(method=='CourierListCities' && self.returnedData.length == 0){ // --- some countries don't have states,get cities in this case
             self.getData('CourierListCities',country);
         } else {
             self.__makeSelectTag(method);
-        }
-
+        }      */
     });
 }
 
@@ -98,12 +92,12 @@ Boxbery.prototype.__getQueryData = function(method,country) {
  *******/
 
 Boxbery.prototype.__makeSelectTag = function(method) {
-    nextMethodIndex = self.availibleMethods.indexOf(method) + 1;
+    //nextMethodIndex = self.availibleMethods.indexOf(method) + 1;
 
-    if(!self.availibleMethods[nextMethodIndex]){ // -- final API method getTarif don't have select tag
+   /* if(!self.availibleMethods[nextMethodIndex]){ // -- final API method getTarif don't have select tag
         self.__printPrice();
         return false;
-    }
+    }    */
 
     select_tag = document.createElement('select');
     select_tag.setAttribute("class", 'boxberySelect');
@@ -120,9 +114,9 @@ Boxbery.prototype.__makeSelectTag = function(method) {
     select_tag.appendChild(option_tag);
 
     self.returnedData.forEach(function(elem) {
-
         option_tag = document.createElement('option');
         option_tag.setAttribute("value", elem.first);
+        console.log(elem.second);
         option_tag.innerHTML = elem.second.replace(/\(.+\)/, '');
         select_tag.appendChild(option_tag);
     });
@@ -138,7 +132,7 @@ Boxbery.prototype.__makeSelectTag = function(method) {
  *
  *******/
 
-Boxbery.prototype.__printPrice = function() {
+/*Boxbery.prototype.__printPrice = function() {
     document.querySelector('.deliveryPriceTable').innerHTML = self.returnedData[0].first + ' руб.';
     $(".ID_DELIVERY_ID_" + self.boxbery_id).html(self.returnedData[0].first + ' руб.');
     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(self.returnedData[0].first);
@@ -147,7 +141,7 @@ Boxbery.prototype.__printPrice = function() {
     var delivery_time = Math.round(self.returnedData[0].second) + 3; //сорк доставки. добавляем к сроку, полученному из запроса 3 дня
     $("#boxbery_delivery_time").show();
     $("#boxbery_delivery_time span").html(delivery_time);
-}
+}   */
 
  /*******
  *

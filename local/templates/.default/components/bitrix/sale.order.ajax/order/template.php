@@ -543,7 +543,7 @@
                                                 if (flag) {
                                                     var boxbery_address = [
                                                         $('select[data-method="CourierListCities"] option:checked').text(), // страна
-                                                        $('select[data-method="CourierListCities"] option:checked').text(), // область
+                                                        $('select[data-method="CourierListCities&1"] option:checked').text(), // область
                                                         $('select[data-method="ListZips"] option:checked').text(), // город
                                                     ],
                                                     boxbery_string_address = "";
@@ -733,7 +733,7 @@
                                             !$("#boxberyCountrySelect").length ? window.boxbery.getData("CourierListCities") : "";
                                             $(".js_delivery_block").on('change', '.boxberySelect', function() {
                                                 var country = $('select[data-method="CourierListCities"]').val(),
-                                                state   = $('select[data-method="CourierListCities"]').val(),
+                                                state   = $('select[data-method="CourierListCities&1"]').val(),
                                                 city    = $('select[data-method="ListZips"]').val(),
                                                 weight  = parseInt($('.order_weight').text()) / 1000,
                                                 method  = $(this).data("method"); // какой метод вызывать следующим
