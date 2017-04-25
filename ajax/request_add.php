@@ -28,8 +28,14 @@ if ($_REQUEST["email"])
                      "NAME" => $_REQUEST["email"],
                      "ACTIVE" => "Y"
                  );
-                 $el->Add($arFields);
-                 $str = "Спасибо, что решили читать нас! Мы уже отправили вам письмо с подарком";
+                 
+				 if ($el->Add($arFields)) {
+					$str = "Спасибо, что решили читать нас! Мы уже отправили вам письмо с подарком";
+					$mailFields = array(
+						"EMAIL"=> $_REQUEST["email"]
+					);					
+					CEvent::Send("SUBSCRIBE_CONFIRM", "s1", $mailFields, "N");
+				 }
              }
              else
              {

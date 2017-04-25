@@ -16,8 +16,8 @@
         $handle = fopen($url, "rb");
         $contents = stream_get_contents($handle);
         fclose($handle);
-        $data = json_decode($contents,true);
+        echo $contents;
+       // $data=json_decode($contents,true);
 
-        echo json_encode(Boxbery::getData($data));
 
 ?>

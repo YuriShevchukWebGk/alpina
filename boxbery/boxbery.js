@@ -69,8 +69,11 @@ Boxbery.prototype.__makeQueryArray = function(method, country, state, city, weig
 
 Boxbery.prototype.__getQueryData = function(method,country) {
     $.post("/boxbery/delivery_post.php", self.queryObj, function(data) {
-        self.returnedData = JSON.parse(data);
-        console.log(data);
+     //   self.returnedData = JSON.parse(data);
+
+        city = JSON.parse(data);
+        self.__makeSelectTag(method);
+       // console.log(city);
 /*        if(method=='CourierListCities' && self.returnedData.length == 0){ // --- some countries don't have states,get cities in this case
             self.getData('CourierListCities',country);
         } else {
@@ -92,7 +95,7 @@ Boxbery.prototype.__getQueryData = function(method,country) {
  *******/
 
 Boxbery.prototype.__makeSelectTag = function(method) {
-    //nextMethodIndex = self.availibleMethods.indexOf(method) + 1;
+    nextMethodIndex = self.availibleMethods.indexOf(method) + 1;
 
    /* if(!self.availibleMethods[nextMethodIndex]){ // -- final API method getTarif don't have select tag
         self.__printPrice();
@@ -112,15 +115,20 @@ Boxbery.prototype.__makeSelectTag = function(method) {
     option_tag.innerHTML = self.selectFirstString[method];
     option_tag.value = "";
     select_tag.appendChild(option_tag);
+    var Area = array(),
+    Region = array(),
+    City = array();
+    city.forEach(function(elem) {
+        Area = Area.push(elem.Area);
+        Region = Region.push(elem.Region);
+        City = City.push(elem.City);
 
-    self.returnedData.forEach(function(elem) {
         option_tag = document.createElement('option');
-        option_tag.setAttribute("value", elem.first);
-        console.log(elem.second);
-        option_tag.innerHTML = elem.second.replace(/\(.+\)/, '');
+        option_tag.setAttribute("value", elem.Area);
+        option_tag.innerHTML = elem.Area;
         select_tag.appendChild(option_tag);
     });
-
+    console.log(Area);
     document.querySelector('.boxberySelectContainer').appendChild(select_tag);
 }
 
