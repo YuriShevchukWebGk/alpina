@@ -27,4 +27,6 @@ $MESS["CT_BSP_KEYBOARD_WARNING"] = "В запросе \"#query#\" восстан
 $MESS["AUTHORS_TITLE"] = "Авторы";
 $MESS["BOOKS_TITLE"] = "Книги";
 $MESS["SERIES_TITLE"] = "Серии";
+$MESS["ADD_IN_BASKET"] = "В корзину";
+$MESS["ADD_TO_PREORDER"] = "Предзаказ";                    
 ?>

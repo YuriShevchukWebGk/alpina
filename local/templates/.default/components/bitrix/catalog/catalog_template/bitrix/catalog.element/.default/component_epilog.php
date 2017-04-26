@@ -30,7 +30,7 @@ BX.ready(BX.defer(function(){
 	{
 		window.<? echo $templateData['JS_OBJ']; ?>.allowViewedCount(true);
 	}
-}));   
+}));
 </script><?
 }
 // установка мета-свойств заголовка и описания
@@ -88,21 +88,22 @@ $curr_elem_info = CIBlockElement::GetByID($arResult["ID"]) -> Fetch();
 $APPLICATION->SetPageProperty("description", $curr_elem_info["PREVIEW_TEXT"]); 
 $APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
 
-	if($arResult['IBLOCK_SECTION_ID']=='132' || $arResult['IBLOCK_SECTION_ID']=='133'){
-		$sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
-		$key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
-		$APPLICATION->SetPageProperty("description", 'Издательство Альпина Паблишер предлагает купить книгу '.$arResult["NAME"].', автор '.$author_name.' и другие книги в разделе "'.$sect_name.'" в собственном интернет-магазине. Доступны печатные и цифровые версии.'); 
-		$APPLICATION->SetPageProperty("keywords", 'купить книга '.$key_name);
-		$APPLICATION->SetPageProperty("keywords-new", 'купить книга '.$key_name);
-	}
+if($arResult['IBLOCK_SECTION_ID']=='132' || $arResult['IBLOCK_SECTION_ID']=='133'){
+	$sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
+	$key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
+	$APPLICATION->SetPageProperty("description", 'Издательство Альпина Паблишер предлагает купить книгу '.$arResult["NAME"].', автор '.$author_name.' и другие книги в разделе "'.$sect_name.'" в собственном интернет-магазине. Доступны печатные и цифровые версии.'); 
+	$APPLICATION->SetPageProperty("keywords", 'купить книга '.$key_name);
+	$APPLICATION->SetPageProperty("keywords-new", 'купить книга '.$key_name);
+}
 	
-	$APPLICATION->AddHeadString('<meta property="og:title" content=\''.$APPLICATION->GetPageProperty('title').'\' />',false);
-	$APPLICATION->AddHeadString('<meta property="og:description" content=\''.strip_tags($APPLICATION->GetPageProperty('description')).'\' />',false);
-	$APPLICATION->AddHeadString('<meta property="og:image" content="https://'.SITE_SERVER_NAME.$templateData["OG_IMAGE"].'" />',false);
-	$APPLICATION->AddHeadString('<meta property="og:type" content="website" />',false);
-	$APPLICATION->AddHeadString('<meta property="og:url" content="'.'https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage().'" />',false);
-	$APPLICATION->AddHeadString('<meta property="og:site_name" content="ООО «Альпина Паблишер»" />',false);
-	$APPLICATION->AddHeadString('<meta property="og:locale" content="ru_RU" />',false);
-	$APPLICATION->AddHeadString('<meta name="relap-title" content="'.$arResult["NAME"].'">',false);
-	// $APPLICATION->SetPageProperty('FACEBOOK_META', $fb_meta);
+$APPLICATION->AddHeadString('<meta property="og:title" content=\''.$APPLICATION->GetPageProperty('title').'\' />',false);
+$APPLICATION->AddHeadString('<meta property="og:description" content=\''.strip_tags($APPLICATION->GetPageProperty('description')).'\' />',false);
+$APPLICATION->AddHeadString('<meta property="og:image" content="https://'.SITE_SERVER_NAME.$templateData["OG_IMAGE"].'" />',false);
+$APPLICATION->AddHeadString('<meta property="og:type" content="website" />',false);
+$APPLICATION->AddHeadString('<meta property="og:url" content="'.'https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage().'" />',false);
+$APPLICATION->AddHeadString('<meta property="og:site_name" content="ООО «Альпина Паблишер»" />',false);
+$APPLICATION->AddHeadString('<meta property="og:locale" content="ru_RU" />',false);
+$APPLICATION->AddHeadString('<meta name="relap-title" content="'.$arResult["NAME"].'">',false);
+$APPLICATION->AddHeadString('<link rel="prefetch" href="'.$arResult["MAIN_PICTURE"].'">',false);
+// $APPLICATION->SetPageProperty('FACEBOOK_META', $fb_meta);   
 ?>

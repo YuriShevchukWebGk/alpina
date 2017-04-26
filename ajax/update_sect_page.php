@@ -9,7 +9,7 @@ switch ($_REQUEST["sort"])
     break;
     
     case "date":
-    $sort = "PROPERTY_STATEDATE";
+    $sort = "PROPERTY_SOON_DATE_TIME";
     break;
     
     case "price":
@@ -25,10 +25,10 @@ $APPLICATION->IncludeComponent(
             array(
                 "IBLOCK_TYPE" => "catalog",
                 "IBLOCK_ID" => "4",
-                "ELEMENT_SORT_FIELD" => "PROPERTY_STATE",
-                "ELEMENT_SORT_ORDER" => "asc",
-                "ELEMENT_SORT_FIELD2" => $sort,
-                "ELEMENT_SORT_ORDER2" => $order,
+                "ELEMENT_SORT_FIELD" => $sort,
+                "ELEMENT_SORT_ORDER" => $order,
+                "ELEMENT_SORT_FIELD2" => "PROPERTY_STATE",
+                "ELEMENT_SORT_ORDER2" => "desc",
                 "PROPERTY_CODE" => array(
                     0 => "AUTHORS",
                     1 => "NEWPRODUCT",

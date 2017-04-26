@@ -25,7 +25,7 @@ $this->setFrameMode(true);
                 ?>
                 <li>
                     <div class="bookWrapp">
-                        <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '', 'Cart');dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'recsProductClick'});">
+                        <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '', 'Cart');dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'recsProductClick'});<?if (!checkMobile()) echo 'getBookInfo('.$arItem["ID"].',1);return false';?>">
                             <div class="section_item_img">
                                 <?if($pict["src"] != ''){?>
                                     <img src="<?=$pict["src"]?>">    

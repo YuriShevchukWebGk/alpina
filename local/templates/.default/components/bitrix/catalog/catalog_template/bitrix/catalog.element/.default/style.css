@@ -1001,10 +1001,14 @@
 }
 
 .subscribeEmail {
-   height:  30px;
-   line-height: 30px;
-   width:210px;
-   margin:10px auto;
+	height:  30px;
+	line-height: 30px;
+	width:210px;
+	margin:10px auto;
+	color: #8d8d8d;
+	font-family: "Walshein_regular";
+	font-size: 15px;
+	padding: 0 10px;
 }
 
 .getSubscribe {

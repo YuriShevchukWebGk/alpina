@@ -3,7 +3,7 @@
 //You may customize user card fields to display
 $arResult['USER_PROPERTY'] = array(
 	"UF_DEPARTMENT",
-);
+);                                           
 
 //Code below searches for appropriate icon for search index item.
 //All filenames should be lowercase.
@@ -57,7 +57,7 @@ $arResult['USER_PROPERTY'] = array(
 
 //12
 //default.png
-
+/*
 $arIBlocks = array();
 
 $image_path = $this->GetFolder()."/images/";
@@ -232,7 +232,5 @@ foreach($arResult["SEARCH"] as $i=>$arItem)
 		$res = CIBlockElement::GetByID($ar_props["VALUE"])->GetNext();
 		$arResult["SEARCH"][$i]["AUTHOR"] = $res['NAME'];
     }
-}
-
-
+}*/
 ?>

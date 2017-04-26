@@ -28,7 +28,8 @@ for($index = 0; $index < $itemSize; $index++) {
 
     $nextRef = ($index < $itemSize-2 && $arResult[$index+1]["LINK"] <> ""? '' : '');
 
-    $arrow = ($index > 0? '<i class="fa fa-angle-right"></i>' : '');
+    //$arrow = ($index > 0? '<i class="fa fa-angle-right"></i>' : '');
+	$arrow = ($index > 0? '<span class="gap"></span>' : '');
 
     // не включать "Каталог" в цепочку навигации
     if ($arResult[$index]["LINK"] <> "/catalog/" && ($index <> 2) && $title != 'Анонсы лекций' && $title != 'Баннеры в мероприятиях') {
@@ -38,7 +39,7 @@ for($index = 0; $index < $itemSize; $index++) {
               $strReturn .= '
                 <span id="bx_breadcrumb_' . $index . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"'.$child.$nextRef.'>
                     ' . $arrow . '
-                    <a href="' . $arResult[$index]["LINK"] . '" title="' . $title . '" itemprop="url">
+                    <a href="' . $arResult[$index]["LINK"] . '" title="' . $title . '" itemprop="item">
                         <span itemprop="name">' . $title . '</span>
                     </a>
                     <meta itemprop="position" content="' . $i. '" />

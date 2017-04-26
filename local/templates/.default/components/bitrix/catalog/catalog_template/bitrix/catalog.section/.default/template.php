@@ -367,13 +367,16 @@
                                             }
                                             ?>
                                         </a>
-                                    <?  if ($dbBasketItems["QUANTITY"] == 0)
-                                            {?>
-                                            <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>');return false;"><p class="basketBook">В корзину</p></a>
-                                            <?   }
-                                            else
-                                            {?>
-                                            <a class="product<?=$arItem["ID"];?>" href="/personal/cart/"><p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p></a> 
+                                            <?if ($dbBasketItems["QUANTITY"] == 0) {?>
+                                                <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); return false;">
+                                                    <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                                        <p class="basketBook"><?=GetMessage("ADD_IN_BASKET")?></p> 
+                                                    <?} else {?>
+                                                        <p class="basketBook"><?=GetMessage("ADD_TO_PREORDER")?></p>                                                 
+                                                    <?}?>                                                     
+                                                </a>
+                                            <?} else {?>
+                                                <a class="product<?=$arItem["ID"];?>" href="/personal/cart/"><p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p></a> 
                                             <?}
                                         }
                                         else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23)

@@ -77,7 +77,6 @@ function sendchapter(bookid) {
         });
 };
 $(document).ready(function(){
-
 	$(".element_item_img").hover(
 	  function() {
 		$(this).find('img').css({'filter':'grayscale(0.7)', '-webkit-filter':'grayscale(0.7)', '-moz-filter':'grayscale(0.7)', '-o-filter':'grayscale(0.7)', '-ms-filter':'grayscale(0.7)'});
@@ -353,8 +352,10 @@ $(document).ready(function(){
             $('.registrationBlock').hide();
         })
     }
-    update_quant();
-
+    
+    if ($('.hidingBasketRight').length > 0 || $('#basket_container').length > 0 ) {
+        update_quant();                                               
+    } 
 
     if ($(".hidingBasketRight .basketBooks .basketBook").length == 0)
     {
@@ -939,8 +940,7 @@ function update_quant(sign, e)
             }
             break;
     }
-    update_basket(e);
-
+    update_basket(e);                                                
 }
 
 function update_basket(e)
@@ -955,14 +955,15 @@ function update_basket(e)
     });
 }
 
-function addtocart(productid, name) {
+function addtocart(productid, name, product_status) {
+    //product_status 22-нет в наличии;
     quantity = $(".transparent_input").val();
 	$(".inBasket").hide();
 	$("#loadingInfo").show();
 	
 	$("a.product"+productid).find(".basketBook").css("background-color", "#A9A9A9");
 	
-    $.post('/ajax/ajax_add2basket.php', {action: "add", productid: productid, quantity:quantity}, function(data)
+    $.post('/ajax/ajax_add2basket.php', {action: "add", productid: productid, quantity:quantity, product_status:product_status}, function(data)
         {
 			$("#loadingInfo").hide();
 			$(".inBasket").show();
@@ -1390,7 +1391,7 @@ function selectversion(cl,id) {
 	return false;
 }
 
-function docReadyComponent() {
+function docReadyComponent(id) {
 	$(".element_item_img").hover(
 	  function() {
 		$(this).find('img').css({'filter':'grayscale(0.7)', '-webkit-filter':'grayscale(0.7)', '-moz-filter':'grayscale(0.7)', '-o-filter':'grayscale(0.7)', '-ms-filter':'grayscale(0.7)'});
@@ -1416,6 +1417,14 @@ function docReadyComponent() {
 
 	}
 
+	$.ajax({
+		type: "POST",
+		url: "/ajax/book_views.php",
+		data: {id: id}
+	}).done(function( strResult ) {
+		$(".bookViews").html(strResult);
+	 });
+	 
 	if($('.wishlist_info').length > 0){
 		$('.layout').click(function(){
 			if($('.wishlist_info').css('display') == 'block'){
@@ -1524,8 +1533,10 @@ function docReadyComponent() {
 			$('.signinBlock').show();
 			$('.registrationBlock').hide();
 		})
-	}
-	update_quant();
+	} 
+                      
+    //Если возникнут проблемы с корзиной нужно вернуть             
+	//update_quant();
 
 
 	if ($(".hidingBasketRight .basketBooks .basketBook").length == 0)
@@ -1768,7 +1779,7 @@ function docReadyComponent() {
 		var link = $(this).attr("href");
 		var target = $(this).attr("target");
 		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
-			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)/) && target != "_blank") {
+			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)|\/personal\/profile\//) && target != "_blank") {
 				NProgress.start();
 			};
 		}

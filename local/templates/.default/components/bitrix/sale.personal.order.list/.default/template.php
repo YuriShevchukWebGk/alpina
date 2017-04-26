@@ -51,8 +51,7 @@
                     <p class="ordQuant"><?= $quantity ?></p>
                     <p class="ordStatus"><?= $arResult["INFO"]["STATUS"][$order["ORDER"]["STATUS_ID"]]["NAME"] ?></p>
                     <p class="ordSum"><span><?= ceil($order["ORDER"]["PRICE"]) ?> </span><?= GetMessage("ROUBLES") ?></p>
-                </div>
-
+                </div>                                                        
                 <div class="hiddenOrderInf hidOrdInfo<?= $key ?>">
                     <div class="infoAddrWrap">
                         <div>
@@ -60,8 +59,10 @@
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["LAST_NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["SECOND_NAME"] ?></p>
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["PERSONAL_PHONE"] ?></p>
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["EMAIL"] ?></p>
-                            <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p>
-                            <p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
+                            <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p> 
+                            <?if($arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]) {?>
+                                <p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
+                            <?}?>                                                                                                                                     
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
                             <p class="dopInfoTitle thiCol"><?= GetMessage("PHONE") ?></p>
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["ORDER_PHONE"] ?></p>

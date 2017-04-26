@@ -16,9 +16,29 @@
 
     if ($normalCount > 0):
     ?>
-
-    <div id="basket_items_list">
-
+<script>
+	function getBookInfo(id, rec) {
+		$.ajax({
+			type: "POST",
+			url: "/ajax/book_info_inbasket.php",
+			data: {id: id, rec:rec}
+		}).done(function(strResult) {
+			$("#bookInfo").append(strResult);
+			$("body").css('overflow','hidden');
+			NProgress.done();
+		});
+	}
+	function closeInfo() {
+		$('#bookInfo').empty();
+		$("body").css('overflow','auto');
+	}
+	$(document).ready(function() {
+		$('.stopProp').click(function(e) {
+			e.stopPropagation();
+		});
+	});
+</script>
+    <div id="basket_items_list"> 
         <div class="yourBooks" id="cardBlock1">
             <table id="basket_items">
                 <thead>
@@ -106,10 +126,9 @@
 						$gdeslon = '';
 						/* конец */
 
-                        foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):
+                        foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):     
+                            if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y"): 
                             $totalQuantity += $arItem["QUANTITY"];
-                            if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y"):
-
 							array_push($gtmEnchECommerceCheckout,"'name': '".$arItem['NAME']."','id': '".$arItem["PRODUCT_ID"]."','category': '".$parentSectionName."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Google Analytics Items
 							array_push($itemsForCriteo,"'id': '".$arItem["PRODUCT_ID"]."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Criteo Items
 							if ($is < 15)
@@ -143,17 +162,15 @@
                                                     $url = $templateFolder."/images/no_photo.png";
                                                     endif;
                                             ?>
-
-                                            <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?><a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});"><?endif;?>
-                                                <img src="<?=$url?>">
-                                            <?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?></a><?endif;?>
-
+											<?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?><a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});<?if (!checkMobile()) echo 'getBookInfo('.$arItem["PRODUCT_ID"].',0);return false';?>"><?endif;?>
+												<img src="<?=$url?>">
+											<?if (strlen($arItem["DETAIL_PAGE_URL"]) > 0):?></a><?endif;?>
                                         </td>
                                         <td class="item bookNameWrap">
                                             <p class="nameOfBook">
-                                                <a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});" >
-                                                    <?=$arItem["NAME"]?>
-                                                </a>
+												<a href="<?=$arItem["DETAIL_PAGE_URL"] ?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'mainProductClick'});<?if (!checkMobile()) echo 'getBookInfo('.$arItem["PRODUCT_ID"].',0);return false';?>" >
+													<?=$arItem["NAME"]?>
+												</a>
                                             </p>
                                             <?
                                             $curr_author = CIBlockElement::GetByID($arItem["PROPERTY_AUTHORS_VALUE"]) -> Fetch();
@@ -293,37 +310,20 @@
 
 
             <div class="grayDownLine"></div>
-<?
-	$psum = $arResult[allSum];
-	$pdiscabs = $arResult[DISCOUNT_PRICE_ALL];
-	$pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
-    $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
-	if ($psum < 2000) {
-		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
-	} elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 10) {
-		//$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 19%";
-
-	} elseif ($psum < 3000 && $discount_user[0]['VALUE'] == 20) {
-		//$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 28%";
-
-	} elseif ($psum < 10000 && $pdiscrel == 19) {
-		//$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 28%";
-
-	} elseif ($psum < 10000 && $pdiscrel == 28) {
-		//$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 36%";
-
-	} elseif ($psum < 3000 && $pdiscrel < 10) {
-		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
-
-	} elseif ($psum < 10000 && $pdiscrel < 20) {
-		$printDiscountText = "<span class='sale_price'><a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
-
-	}?>
-
-
-
+            <?
+	        $psum = $arResult['allSum'];
+	        $pdiscabs = $arResult['DISCOUNT_PRICE_ALL'];
+	        $pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
+            $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
+	        if ($psum < 2000) {
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
+	        } elseif ($psum < 3000 && $pdiscrel < 10) {
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
+	        } elseif ($psum < 10000 && $pdiscrel < 20) {
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
+	        }?>
 			<div id="discountMessageWrap" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
-				<span id="discountMessage" style="background:#fff9b7"><?=$printDiscountText?></span>
+				<span id="discountMessage" style="background:#fff9b7"><span class='sale_price'><?=$printDiscountText?></span></span>
 			</div>
 
             <p class="finalCost"><span id="allSum_FORMATED"><?=str_replace(" ", "&nbsp;", $arResult["allSum_FORMATED"])?></span></p>
@@ -336,8 +336,7 @@
                 $discountIteratorCoup = Internals\DiscountTable::getList(array(
                     'filter' => $filterCoup
                 ));
-                $arDiscount = $discountIteratorCoup->fetch();
-                // arshow($arDiscount);
+                $arDiscount = $discountIteratorCoup->fetch();    
             ?>
             <?/*
             <p class="finalDiscount">Вам не хватает 770 руб. и получите скидку 10%</p>
@@ -348,10 +347,7 @@
             <div class="bx_ordercart_order_pay_left" id="coupons_block">
                 <div class="bx_ordercart_coupon">
                     <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
-                    <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
-                    <?
-//                         arshow($arResult);
-                     ?>
+                    <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">       
                 </div><?
                     if (!empty($arResult['COUPON_LIST']))
                     {
@@ -379,7 +375,13 @@
                     }
                 ?>
             </div>
-
+                        <p class="nextPageWrap">
+                        	<? if ($arResult['allSum']) { ?>
+                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                        	<? } else { ?>
+                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
+                        	<? } ?>
+                        </p> 
         </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />
@@ -451,23 +453,26 @@
                 <?=$arResult["PREPAY_BUTTON"]?>
                 <span><?=GetMessage("SALE_OR")?></span>
                 <?endif;?>
-        </div>
 
+        </div>
     </div>
     <?
         else:
     ?>
     <div id="basket_items_list">
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan="<?=$numCells?>" style="text-align:center">
-                        <div class=""><?=GetMessage("SALE_NO_ITEMS");?></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="yourBooks" id="cardBlock1">
+            <table>
+                <tbody>
+                    <tr>
+                        <td colspan="<?=$numCells?>" style="text-align:center; width: 300px;">
+                            <div class=""><?=GetMessage("SALE_NO_ITEMS");?></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <?
         endif;
 ?>
+<div id="bookInfo"></div>

@@ -1,4 +1,5 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+                                      
     /** @var array $arParams */
     /** @var array $arResult */
     /** @global CMain $APPLICATION */
@@ -57,7 +58,7 @@
 	100% { transform: rotate(360deg); }
 	}
 
-</style>
+</style>     
 <div class="breadCrumpWrap">
     <div class="centerWrapper">
         <p><a href="/personal/cart/" class="afterImg active" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCartClick'});">Корзина</a><a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCheckoutClick'});" class="afterImg">Оформление</a><a href="#" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCompleteClick'});return false;">Завершение</a></p>
@@ -80,6 +81,9 @@
         <div class="cartMenuWrap">
             <div class="basketItems active" data-id="1" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForOrderClick'});"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
             <div class="basketItems" data-id="2" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'wishlistBookmarkClick'});"><p>Список желаний <span>(0)</span></p></div>
+            <?if(count($arResult["ITEMS"]["DelDelCanBuy"]) > 0) {?>
+                <div class="basketItems" data-id="3" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForPreorderClick'});"><p>Предзаказ <span>(<?=count($arResult["ITEMS"]["DelDelCanBuy"])?>)</span></p></div>                 
+            <?}?>
         </div>
 
         <?
@@ -119,7 +123,9 @@
                     <div class="bx_ordercart">     
 
                         <?
-                            include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items.php");
+                            include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items.php");            
+                            include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items_delay.php");
+                            //include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items_delayed.php");  
                         ?>     
 
                         <div class="yourBooks" id="cardBlock2">
@@ -282,14 +288,6 @@
                                     false
                                 );?>
                         </div>
-                        <p class="nextPageWrap">
-                        	<? if ($arResult['allSum']) { ?>
-                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
-                        	<? } else { ?>
-                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
-                        	<? } ?>
-                        </p> 
-
                     </div>
                 </div>                       
 
