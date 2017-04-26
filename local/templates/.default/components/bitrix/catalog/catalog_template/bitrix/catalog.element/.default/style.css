@@ -1272,3 +1272,128 @@
     border-color: transparent;
 	text-decoration:none;
 }
+
+/* Попап для сертификатов  */
+.certificate_popup {
+    background-color: #ffffff;
+    height: 606px;
+    position: fixed;
+    width: 654px;
+    z-index: 1100;  
+    display: block;  
+    top: 50%;
+    left: 50%;
+    margin: -303px 0 0 -327px;
+	font-family: "Walshein_regular";
+	font-size: 24px;
+	box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.18), 0 0 5px 0 rgba(0, 0, 0, 0.14);
+}
+
+.certificate_buy_type ul {
+	display: flex;
+}
+
+.certificate_buy_type li {
+	cursor: pointer;
+	display: flex;
+	height: 60px;
+	flex: 1 1;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid #ecedef;
+}
+
+.certificate_buy_type li:first-child {
+	border-right: 1px solid #ecedef;
+}
+
+.natural_person input[type="text"] {
+	background-color: #fbfbfb;
+    border: 2px solid #f0f0f0;
+    color: #8d8d8d;
+    font-family: "Walshein_regular";
+    font-size: 20px;
+    height: 58px;
+    margin: 0 45px 20px;
+    padding: 0 20px;
+    width: 518px;
+}
+
+.legal_person input[type="text"] {
+    background-color: #fbfbfb;
+    border: 2px solid #f0f0f0;
+    color: #8d8d8d;
+    font-family: "Walshein_regular";
+    font-size: 15px;
+    height: 28px;
+    margin: 0 45px 15px;
+    padding: 0 20px;
+    width: 518px;
+}
+
+.popup_form_data > div {
+	display: none;
+	position: absolute;
+}
+
+.popup_form_data { 
+	display: flex;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	padding-top: 20px;
+}
+
+.certificate_popup form {
+	height: 100%;
+}
+
+.certificate_tab_active {
+	background: #00b9c8;
+	color: #f2f2f2;
+}
+
+.certificate_popup_close {
+	position: absolute;
+	cursor: pointer;
+	top: -17px;
+	right: -48px;
+}
+
+.active_certificate_block {
+	display: block !important;
+}
+
+.popup_form_data a {
+	width: 230px;
+	height: 59px;
+	border-color: #fff;
+	background-color: rgba(227, 27, 66, 0.9);
+	border-radius: 15px;
+	font-size: 28px;
+	color: #fff;
+	font-family: sans-serif;
+	cursor: pointer;
+	outline: none;
+	transition: 0.1s;
+	box-sizing: content-box;
+	-webkit-border-radius: 15px;
+	-o-border-radius: 15px;
+	-moz-border-radius: 15px;
+	text-align: center;
+	padding-top: 13px;
+	box-sizing: border-box;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.certificate_popup > span {
+	position: absolute;
+    width: 100%;
+    left: 0;
+    top: 42%;
+}
+
+.certificate_popup .rfi_block {
+	display: none;
+}
