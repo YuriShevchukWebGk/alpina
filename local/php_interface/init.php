@@ -72,6 +72,7 @@
     define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
     define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска
     define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
+    define("MAIL_FROM_DEFAULT", 'shop@alpinabook.ru'); //Инфоблок с подарочными сертификатами
 
     /**
     *
@@ -81,52 +82,6 @@
     * @return bool
     *
     * */
-
-    AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
-
-    function messagesWithAttachments($arFields, $arTemplate) {
-        GLOBAL $arParams;
-
-        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
-            $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
-            $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
-
-            // заменяем все максросы в письме на значения из $arFields
-            // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
-            $message_body = $arTemplate['MESSAGE'];
-            foreach ($arFields as $field_name => $field_value) {
-                $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
-            }
-
-            $params = array(
-                'from'    => $email_from,
-                'to'      => $arFields[trim($arTemplate['EMAIL_TO'], "#")],
-                'subject' => $arTemplate['SUBJECT'],
-                'html'    => $message_body,
-            );
-
-            if ($arFields['BCC']) {
-                $params['bcc'] = $arFields['BCC'];
-            }
-
-            $attachments = array();
-            foreach ($arTemplate['FILE'] as $file) {
-                if ($file_path = CFile::GetPath($file)) {
-                    array_push(
-                        $attachments,
-                        $_SERVER["DOCUMENT_ROOT"] . $file_path
-                    );
-                }
-            }
-
-            $domain = $arParams['MAILGUN']['DOMAIN'];
-
-            # Make the call to the client.
-            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-
-            return false;
-        }
-    }
 
     /**
     *
@@ -154,7 +109,7 @@
 
         $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
         $params = array(
-            'from'    => $from_matches[0],
+            'from'    => ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
             'to'      => $to,
             'subject' => $subject,
             'html'    => $message
@@ -165,11 +120,60 @@
         if (trim($bcc_matches[0])) {
             $params['bcc'] = $bcc_matches[0];
         }
-
+        $attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = $arParams['MAILGUN']['DOMAIN'];
         # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params);
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
     }
+
+    AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
+
+    function messagesWithAttachments($arFields, $arTemplate) {
+        GLOBAL $arParams;
+        custom_mail('st@webgk.ru','sub', print_r($arFields, true));
+        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+            $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
+            $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
+
+            // заменяем все максросы в письме на значения из $arFields
+            // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
+            $message_body = $arTemplate['MESSAGE'];
+            foreach ($arFields as $field_name => $field_value) {
+                $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
+            }
+
+            $params = array(
+                'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
+                'to'      => $arFields[trim($arTemplate['EMAIL_TO'], "#")],
+                'subject' => $arTemplate['SUBJECT'],
+                'html'    => $message_body,
+            );
+
+            if ($arFields['BCC']) {
+                $params['bcc'] = $arFields['BCC'];
+            }
+
+            $attachments = array();
+            foreach ($arTemplate['FILE'] as $file) {
+                if ($file_path = CFile::GetPath($file)) {
+                    $attachments = $file_path;
+                    /*array_push(
+                        $attachments,
+                        $_SERVER["DOCUMENT_ROOT"] . $file_path
+                    );*/
+                }
+            }
+
+            $domain = $arParams['MAILGUN']['DOMAIN'];
+
+            # Make the call to the client.
+            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+
+            return false;
+        }
+    }
+
+
 
     /**
      * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
