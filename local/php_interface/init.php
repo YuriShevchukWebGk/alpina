@@ -130,8 +130,9 @@
 
     function messagesWithAttachments($arFields, $arTemplate) {
         GLOBAL $arParams;
-        custom_mail('st@webgk.ru','sub', print_r($arFields, true));
+
         if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+
             $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
             $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
 
@@ -144,7 +145,7 @@
 
             $params = array(
                 'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
-                'to'      => $arFields[trim($arTemplate['EMAIL_TO'], "#")],
+                'to'      => trim($arTemplate['EMAIL_TO'], "#"),
                 'subject' => $arTemplate['SUBJECT'],
                 'html'    => $message_body,
             );
@@ -152,7 +153,7 @@
             if ($arFields['BCC']) {
                 $params['bcc'] = $arFields['BCC'];
             }
-
+            //custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], print_r($arFields, true));
             $attachments = array();
             foreach ($arTemplate['FILE'] as $file) {
                 if ($file_path = CFile::GetPath($file)) {
