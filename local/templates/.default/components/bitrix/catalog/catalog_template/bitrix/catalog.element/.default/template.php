@@ -649,7 +649,7 @@ $arItemIDs = array(
                                         <a href="javascript:void(0)" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>
                                     </span>
                                     <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>                     
-                                        <div class="certificate_popup">
+                                        <div class="certificate_popup" style="display:none">
                                         	<form id="certificate_form">
 	                                        	<div class="certificate_buy_type">
 	                                        		<ul>
@@ -711,7 +711,7 @@ $arItemIDs = array(
 									                false
 									            ); ?>
                                             </div>
-                                        </div>
+                                        </div>  
                                         <script>
                                         function buy_certificate_popup(){
                                             $('.layout').show();
@@ -747,9 +747,10 @@ $arItemIDs = array(
 	                                                	$("#certificate_form").remove();
 	                                                	if (selected_tab == "natural_person") {
 	                                                		// физ. лицо
-	                                                		var success_message = "<?= GetMessage('NATURAL_SUCCESS_MESSAGE') ?>";
-	                                                		$(".submit_rfi").data("email", natural_person_email);
-	                                                		$(".submit_rfi").data("comment", "CERT_" + order_id);
+	                                                		var success_message = "<?= GetMessage('NATURAL_SUCCESS_MESSAGE') ?>"; 
+	                                                		$(".submit_rfi").attr("data-email", natural_person_email);  
+                                                            $(".submit_rfi").attr("data-comment", "CERT_" + order_id);  
+                                                            $(".submit_rfi").attr("data-orderid", "CERT_" + order_id);  
 	                                                		$(".submit_rfi").click();
 	                                                		$("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
 	                                                	} else {

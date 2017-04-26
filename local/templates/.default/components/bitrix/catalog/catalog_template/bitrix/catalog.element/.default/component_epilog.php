@@ -30,7 +30,7 @@ BX.ready(BX.defer(function(){
 	{
 		window.<? echo $templateData['JS_OBJ']; ?>.allowViewedCount(true);
 	}
-}));
+}));   
 </script><?
 }
 // установка мета-свойств заголовка и описания

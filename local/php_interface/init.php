@@ -85,7 +85,7 @@
     * @return bool
     * 
     * */
-
+                                    
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
 
     function messagesWithAttachments($arFields, $arTemplate) {
@@ -2418,7 +2418,10 @@
 	    );
 		
 	    // Установим новое значение для данного свойства данного элемента
-	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
+	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);    
+        
+        //Возвращаем новые купоны      
+        return $arCouponCode;
 	}
 	
 	AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "certificatePayed");
@@ -2437,17 +2440,49 @@
 				Array("ID" => $arParams['ID']),
 				false,
 				Array("nPageSize" => 1),
-				Array("ID", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY")
+				Array("ID", "NAME", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY", "PROPERTY_NATURAL_EMAIL", "PROPERTY_NATURAL_NAME", "PROPERTY_LEGAL_EMAIL", "PROPERTY_LEGAL_NAME")
 			);
-			if ($current_values = $current_object->Fetch()) {
+			if ($current_values = $current_object->Fetch()) {   
 				$order_id = $current_values['ID'];
 				$quantity = $current_values['PROPERTY_CERT_QUANTITY_VALUE'];
 				$basket_rule_id = $current_values['XML_ID'];
+                $cert_name = $current_values['NAME'];
+                $user_email = '';
+                $user_name = '';
+                if(!empty($current_values['PROPERTY_NATURAL_EMAIL']) && !empty($current_values['PROPERTY_NATURAL_NAME'])) {
+                    $user_name = $current_values['PROPERTY_NATURAL_NAME'];    
+                    $user_email = $current_values['PROPERTY_NATURAL_EMAIL'];    
+                } elseif(!empty($current_values['PROPERTY_LEGAL_EMAIL']) && !empty($current_values['PROPERTY_LEGAL_NAME'])) {
+                    $user_name = $current_values['PROPERTY_LEGAL_NAME']; 
+                    $user_email = $current_values['PROPERTY_LEGAL_EMAIL'];   
+                }
 			}
 			$first_coupon_array_key = key($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
+            //Сохраним все купоны после генерации
+            $arCoupons = array();
 			if (!$arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParams['ACTIVE'] == "Y") {
-				generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
-			}
+				$arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
+			} 
+            $couponListHTML = '';     
+            foreach($arCoupons as $couponItem) {
+                if (!empty($couponItem)) {
+                     $couponListHTML .=  '<tr><td align="right" style="border-collapse: collapse;color:#393939;font-family: "Open Sans","Segoe UI",Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;" valign="top">';
+                     $couponListHTML .=  $couponItem; 
+                     $couponListHTML .=  '</td></tr>';                     
+                }                                 
+            }                              
+            $arMailFields = array(  
+                "COUPON_LIST" => $couponListHTML, 
+                "ORDER_ID" => $order_id, 
+                "USER_EMAIL" => $user_email, 
+                "USER_NAME" => $user_name, 
+                "CERT_NAME" => $cert_name, 
+                "CERT_QUANTITY" => $quantity
+            ); 
+            //Допилить письмо и шаблон                        
+            if (!empty($arCoupons) && !empty($userEmail)) {
+                CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("COUPON_LIST" => $couponListHTML, "USER_EMAIL" => $user_email, "USER_NAME" => $user_name, "CERT_NAME" => $cert_name, "CERT_QUANTITY" => $quantity),"N");  
+            }       
 		}
 	}
 	
@@ -2457,5 +2492,5 @@
 			$view_link = sprintf("/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=service&ID=%d", CERTIFICATE_IBLOCK_ID, $order_id);
 			CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("VIEW_LINK" => $view_link),"N");
 		}
-	}                    
+	} 
 ?>
