@@ -324,3 +324,20 @@
         }
     }
 ?>
+<link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
+<script type="text/javascript">
+    $("#ORDER_PROP_15").suggestions({
+        token: "cd41cd8e2a0c9110de18d4a4d80c85795f75b49e",
+        type: "PARTY",
+        count: 5,
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function(suggestion) {
+            console.log(suggestion);
+        }
+    });
+</script>
