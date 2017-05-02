@@ -10,12 +10,14 @@
     CCatalogDiscountCoupon::ClearCoupon();
     if(!empty($_POST["coupon"]) && !empty($_POST["price"]) && $_POST["action"] == "check"){
 
-        $price = intval($_POST["price"]);
+        $price = intval($_POST["price"]);    
         $filter = array('=COUPON' => $_POST["coupon"]);
         $discountIterator = Internals\DiscountCouponTable::getList(array(
             'filter' => $filter
         ));
-        $arCoupon = $discountIterator->fetch();
+        $arCoupon = $discountIterator->fetch(); 
+                
+        $result["TEST_INFO_arCoupon"] = $arCoupon;
 
         if (!empty($arCoupon["ACTIVE_TO"])) {
             $couponActiveTo = current($arCoupon["ACTIVE_TO"]); 
@@ -25,6 +27,7 @@
         
         if ($currentDateTimestamp >= $couponActiveToTimestamp && isset($couponActiveToTimestamp)) {
             $result["DEFAULT_COUPON"] = 'Y';
+            $result["TEST_INFO_DateTimestamp"] = 'Y';
         } else {
             if (!empty($arCoupon) && $arCoupon["ACTIVE"] == "Y" ) {
                 $filterCoup = array('=ID' => $arCoupon["DISCOUNT_ID"]);
@@ -36,6 +39,7 @@
                 if ($discountVal > $price) {
                     CCatalogDiscountCoupon::ClearCoupon();
                     $result["DEFAULT_COUPON"] = 'N';
+                    $result["TEST_INFO_ClearCoupon"] = 'N';
                     $_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] = 'N';
                     $_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"] = $discountVal;
                     $_SESSION["CUSTOM_COUPON"]["COUPON_CODE"] = $_POST["coupon"];
@@ -43,12 +47,14 @@
                 } else {
                     CCatalogDiscountCoupon::SetCoupon($arCoupon["COUPON"]);
                     $result["DEFAULT_COUPON"] = 'Y';
+                    $result["TEST_INFO_SetCoupon_!empty(arCoupon)"] = 'Y';
                     $_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] = 'Y';
                     $_SESSION["CUSTOM_COUPON"]["COUPON_ID"] = $arCoupon["ID"];
                 }      
             } else {
                 CCatalogDiscountCoupon::SetCoupon($arCoupon["COUPON"]);
                 $result["DEFAULT_COUPON"] = 'Y';
+                $result["TEST_INFO_SetCoupon"] = 'Y';
                 $_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] = 'Y';
                 $_SESSION["CUSTOM_COUPON"]["COUPON_ID"] = $arCoupon["ID"];
             }
