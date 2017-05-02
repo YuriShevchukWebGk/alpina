@@ -542,7 +542,7 @@ function couponCreate(couponBlock, oneCoupon)
         return;
     if (oneCoupon.JS_STATUS === 'BAD')
         couponClass = 'bad';
-    else if (oneCoupon.JS_STATUS === 'APPLYED')
+    else if (oneCoupon.JS_STATUS === 'APPLYED' || oneCoupon.JS_STATUS === 'ENTERED')
         couponClass = 'good';
     
     couponBlock.appendChild(BX.create(
@@ -658,7 +658,7 @@ function couponListUpdate(res)
                         couponClass = 'disabled';
                         if (res.COUPON_LIST[i].JS_STATUS === 'BAD')
                             couponClass = 'bad';
-                        else if (res.COUPON_LIST[i].JS_STATUS === 'APPLYED')
+                        else if (res.COUPON_LIST[i].JS_STATUS === 'APPLYED' || res.COUPON_LIST[i].JS_STATUS === 'ENTERED')
                             couponClass = 'good';
 
                         BX.adjust(couponsCollection[key], {props: {className: couponClass}});

@@ -115,19 +115,23 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
 
 
 
-        function emptyOption(){
-            select_tag = document.createElement('select');
-            select_tag.setAttribute("class", 'boxberySelect');
+        function emptyOption(operator){
+              if(operator){
+                select_tag = document.createElement('select');
+                select_tag.setAttribute("class", 'boxberySelect');
 
-            if (method == 'CourierListCities') {
-                select_tag.setAttribute("id", 'boxberyCountrySelect');
+                if (method == 'CourierListCities') {
+                    select_tag.setAttribute("id", 'boxberyCountrySelect');
+                }
+                select_tag.setAttribute("data-method", self.availibleMethods[nextMethodIndex]);
+                option_tag = document.createElement('option');
+                option_tag.innerHTML = self.selectFirstString[method];
+                option_tag.value = "";
+
+                select_tag.appendChild(option_tag);
+            } else {
+                select_tag = '';
             }
-
-            select_tag.setAttribute("data-method", self.availibleMethods[nextMethodIndex]);
-            option_tag = document.createElement('option');
-            option_tag.innerHTML = self.selectFirstString[method];
-            option_tag.value = "";
-            select_tag.appendChild(option_tag);
         }
         var Region = [],
             City = [],
@@ -161,7 +165,7 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
 
 
     if(method == 'CourierListCities'){
-        emptyOption();
+        emptyOption(true);
         for(elem in Region) {
             option_tag = document.createElement('option');
             option_tag.setAttribute("value", elem);
@@ -174,7 +178,7 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
         console.log(state);
         console.log(Region[state]);
         if(Region[state]){
-            emptyOption();
+            emptyOption(true);
             for(elem in Region) {
                 if(Region[elem] && elem == state){
                     empty_region = 'N';
@@ -192,14 +196,14 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
             };
         } else {
             method = 'ListZips';
-            select_tag = '';
+            emptyOption(false);
         }
 
 
     }else if('ListZips' == method){
         var key = 0;
         var arCity = [];
-        emptyOption();
+        emptyOption(true);
         for(arrElem in City) {
             for(cityName in City[arrElem]) {
                 key++;
