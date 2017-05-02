@@ -544,7 +544,7 @@ function couponCreate(couponBlock, oneCoupon)
         couponClass = 'bad';
     else if (oneCoupon.JS_STATUS === 'APPLYED')
         couponClass = 'good';
-
+    
     couponBlock.appendChild(BX.create(
         'div',
         {

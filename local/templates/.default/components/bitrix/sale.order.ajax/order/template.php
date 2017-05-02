@@ -543,8 +543,8 @@
                                                 if (flag) {
                                                     var boxbery_address = [
                                                         $('select[data-method="CourierListCities"] option:checked').text(), // страна
-                                                        $('select[data-method="CourierListCities&1"] option:checked').text(), // область
-                                                        $('select[data-method="ListZips"] option:checked').text(), // город
+                                                        $('select[data-method="CourierListCities&Region"] option:checked').text(), // область
+                                                        $('select[data-method="CourierListCities&City"] option:checked').text(), // город
                                                     ],
                                                     boxbery_string_address = "";
                                                     boxbery_string_address = boxbery_address.join(", ");
@@ -731,16 +731,18 @@
                                     if ($(".js_delivery_block").length) {
                                         if ($("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").is(':checked')) {
                                             !$("#boxberyCountrySelect").length ? window.boxbery.getData("CourierListCities") : "";
+                                            var boxbery_id = $("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").val();
                                             $(".js_delivery_block").on('change', '.boxberySelect', function() {
                                                 var country = $('select[data-method="CourierListCities"]').val(),
-                                                state   = $('select[data-method="CourierListCities&1"]').val(),
-                                                city    = $('select[data-method="ListZips"]').val(),
+                                                state   = $('select[data-method="CourierListCities&Region"]').val(),
+                                              //  city    = $('select[data-method="DeliveryCosts"]').val(),
+                                                zip    = $('select[data-method="DeliveryCosts"]').val(),
                                                 weight  = parseInt($('.order_weight').text()) / 1000,
                                                 method  = $(this).data("method"); // какой метод вызывать следующим
                                                 $(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
                                                 if (!weight)
                                                     weight = 1;
-                                                window.boxbery.getData(method, country, state, city, weight); // рендерим новые
+                                                window.boxbery.getData(method, country, state, zip, weight, boxbery_id); // рендерим новые
                                             });
                                         }
                                     }

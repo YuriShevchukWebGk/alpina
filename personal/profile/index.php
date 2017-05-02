@@ -94,6 +94,7 @@
 </script>         
 
 <script>
+//sailplay init
     $(document).ready(function () {
         var AUTH_HASH = '<?= $hash ?>';
         var EMAIL = '<?= $user_mail ?>';

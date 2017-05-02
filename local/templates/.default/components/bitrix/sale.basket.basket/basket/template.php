@@ -921,7 +921,7 @@
             </div>			
             <?
             }
-
+            
             if($arParams['USE_GIFTS'] == 'Y') {   
                 $APPLICATION->IncludeComponent(
                     "bitrix:sale.gift.basket",

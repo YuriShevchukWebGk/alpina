@@ -145,7 +145,7 @@
 
             $params = array(
                 'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
-                'to'      => trim($arTemplate['EMAIL_TO'], "#"),
+                'to'      => $arFields["EMAIL"],//trim($arTemplate['EMAIL_TO'], "#"),
                 'subject' => $arTemplate['SUBJECT'],
                 'html'    => $message_body,
             );
@@ -153,7 +153,7 @@
             if ($arFields['BCC']) {
                 $params['bcc'] = $arFields['BCC'];
             }
-            //custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], print_r($arFields, true));
+           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], print_r($arFields, true));
             $attachments = array();
             foreach ($arTemplate['FILE'] as $file) {
                 if ($file_path = CFile::GetPath($file)) {
@@ -2327,11 +2327,11 @@
     }
 
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
-    function BoxberryListStatuses() {
+    function BoxberryListStatuses() {   
         $arFilter = Array(
            "!TRACKING_NUMBER" => null,
            "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,
-           "!STATUS_ID" => F
+           "!STATUS_ID" => 'F'
         );
         if ($db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter)) {
             while ($ar_sales = $db_sales->Fetch()) {
