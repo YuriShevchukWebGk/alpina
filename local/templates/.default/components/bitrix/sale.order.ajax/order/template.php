@@ -29,9 +29,14 @@
     $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
     include ('include/functions.php');
 	include ($_SERVER["DOCUMENT_ROOT"].'/custom-scripts/checkdelivery/options.php');
-?>
-
-<style>
+/*?>
+<link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
+<?*/?><style>
     /* Лучше так, чем городить адовые городушки на js */
     input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         display: block;
@@ -543,8 +548,8 @@
                                                 if (flag) {
                                                     var boxbery_address = [
                                                         $('select[data-method="CourierListCities"] option:checked').text(), // страна
-                                                        $('select[data-method="CourierListCities"] option:checked').text(), // область
-                                                        $('select[data-method="ListZips"] option:checked').text(), // город
+                                                        $('select[data-method="CourierListCities&Region"] option:checked').text(), // область
+                                                        $('select[data-method="CourierListCities&City"] option:checked').text(), // город
                                                     ],
                                                     boxbery_string_address = "";
                                                     boxbery_string_address = boxbery_address.join(", ");
@@ -668,6 +673,34 @@
                                     BX.closeWait();
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
                                     //доп функции/////////////////////////////////
+                                    /*$("#ORDER_PROP_15").suggestions({
+                                        token: "cd41cd8e2a0c9110de18d4a4d80c85795f75b49e",
+                                        type: "PARTY",
+                                        count: 5,*/
+                                        /* Вызывается, когда пользователь выбирает одну из подсказок */
+                                        /*onSelect: function(suggestion) {
+                                            $("#ORDER_PROP_10").val(suggestion['value']);
+                                            $("#ORDER_PROP_15").val(suggestion['data']['inn']);
+                                            $("#ORDER_PROP_16").val(suggestion['data']['kpp']);
+                                            $("#ORDER_PROP_8").html(suggestion['data']['address']['unrestricted_value']);
+                                        }
+                                    });
+                                    $("#ORDER_PROP_32").suggestions({
+                                        token: "cd41cd8e2a0c9110de18d4a4d80c85795f75b49e",
+                                        type: "BANK",
+                                        count: 5,*/
+                                        /* Вызывается, когда пользователь выбирает одну из подсказок */
+                                        /*onSelect: function(bank_suggestion) {
+                                            $("#ORDER_PROP_32").val(bank_suggestion['data']['bic']);
+                                            $("#ORDER_PROP_64").val(bank_suggestion['data']['correspondent_account']);
+                                            $("#ORDER_PROP_65").val(bank_suggestion['value']);
+                                        }
+                                    });
+                                    $(".certInput, .infoPunct .bx_block").each(function(){
+                                        if ($(this).css("display") == "none") {
+                                            $(this).closest(".infoPunct").find(".inputTitle").hide();
+                                        }
+                                    });*/
                                     setOptions();
 
                                     // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
@@ -731,16 +764,18 @@
                                     if ($(".js_delivery_block").length) {
                                         if ($("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").is(':checked')) {
                                             !$("#boxberyCountrySelect").length ? window.boxbery.getData("CourierListCities") : "";
+                                            var boxbery_id = $("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").val();
                                             $(".js_delivery_block").on('change', '.boxberySelect', function() {
                                                 var country = $('select[data-method="CourierListCities"]').val(),
-                                                state   = $('select[data-method="CourierListCities"]').val(),
-                                                city    = $('select[data-method="ListZips"]').val(),
+                                                state   = $('select[data-method="CourierListCities&Region"]').val(),
+                                              //  city    = $('select[data-method="DeliveryCosts"]').val(),
+                                                zip    = $('select[data-method="DeliveryCosts"]').val(),
                                                 weight  = parseInt($('.order_weight').text()) / 1000,
                                                 method  = $(this).data("method"); // какой метод вызывать следующим
                                                 $(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
                                                 if (!weight)
                                                     weight = 1;
-                                                window.boxbery.getData(method, country, state, city, weight); // рендерим новые
+                                                window.boxbery.getData(method, country, state, zip, weight, boxbery_id); // рендерим новые
                                             });
                                         }
                                     }
@@ -902,5 +937,11 @@
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
+        
+        $(".certInput, .infoPunct .bx_block").each(function(){
+            if ($(this).css("display") == "none") {
+                $(this).closest(".infoPunct").find(".inputTitle").hide();
+            }
+        });
     })
 </script>

@@ -238,7 +238,7 @@
                         <?} else {?>
                         <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
                             <?}?>
-                        <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
+                        <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>              
                         <?}?>
 
                     <?if ($arResult["PICTURE"]["src"]) {?>
@@ -696,15 +696,15 @@
                                             <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
+                                    <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>      
                                     <input type="hidden" name="certificate_quantity" value="1"/>                      
-                                    <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>
+                                    <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>    
                                     <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
                                 </form>
                                 <div class="certificate_popup_close">
                                     <img src="/images/rfi_popup_close.png" alt="" />
                                 </div>
-                                <div class="rfi_block">
+                                <div class="rfi_block">              
                                 <?
                                     $APPLICATION->IncludeComponent(
                                         "webgk:rfi.widget",
@@ -732,8 +732,8 @@
                             <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
                                 <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                     <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p> 
-                                    <?} else {?>
-                                    <p class="inBasket toPreorder"><?= GetMessage("ADD_TO_PREORDER_FULL") ?></p>                                                 
+                                    <?} else {?>  
+                                    <p class="inBasket toPreorder"><?= GetMessage("ADD_TO_PREORDER_FULL") ?></p>    
                                     <?}?>    
                             </a>
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
@@ -1175,8 +1175,7 @@
                     );?>
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
-            </div>
-
+            </div>  
             <?$videosCount  = 0;
                 foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
                     $videosCount++;
@@ -1204,8 +1203,7 @@
                 }
                 echo "</ul>";
             }?>
-        </div>
-
+        </div>                   
         <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
             <div class="recenzion" id="prodBlock2">
                 <?foreach ($arResult["REVIEWS"] as $reviewList) {?>

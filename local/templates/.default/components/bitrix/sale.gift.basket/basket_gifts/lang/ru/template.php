@@ -19,6 +19,6 @@ $MESS["CVP_CATALOG_BTN_MESSAGE_CLOSE"] = "Закрыть";
 $MESS["CVP_CATALOG_BTN_MESSAGE_BASKET_REDIRECT"] = "Перейти в корзину";
 $MESS["CVP_CATALOG_BTN_MESSAGE_SEND_PROPS"] = "Выбрать";
 $MESS["CVP_MSG_YOU_HAVE_NOT_YET"] = "Вы еще не просмотрели ни один товар.";
-$MESS["SGB_TPL_BLOCK_TITLE_DEFAULT"] = "Выберите один из подарков";
+$MESS["SGB_TPL_BLOCK_TITLE_DEFAULT"] = "Выберите подарок";
 $MESS["SGB_TPL_TEXT_LABEL_GIFT_DEFAULT"] = "Подарок";
 ?>

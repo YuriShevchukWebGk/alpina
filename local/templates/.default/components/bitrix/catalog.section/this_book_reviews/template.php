@@ -23,9 +23,11 @@ $this->setFrameMode(true);
 
                 <li>
                     <div class="reviewDatail">
-                        <div class="reviewImgContain">
-                            <img src="<?=$arResult["EXPERTS"][$expert_ID]["PICTURE"]?>" alt="">
-                        </div>
+						<?if (!empty($arResult["EXPERTS"][$expert_ID]["PICTURE"])) {?>
+							<div class="reviewImgContain">
+								<img src="<?=$arResult["EXPERTS"][$expert_ID]["PICTURE"]?>" alt="">
+							</div>
+						<?}?>
                         <p class="reviewsText"><?=$arItem["PREVIEW_TEXT"]?></p>
                         <p class="autor">
 							<br />

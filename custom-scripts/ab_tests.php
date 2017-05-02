@@ -1,5 +1,7 @@
 <?## A/B-тестирование на сайте ##
-/*global $USER;
+global $USER;
+$USER->LoginHitByHash();
+/*
 $alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
 $alpExps  = (!$alpExps ? array() : $alpExps);
 

@@ -1,26 +1,26 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetTitle("Персональный раздел"); 
-?>
+?>   
 <? if ($USER->IsAuthorized()) { ?>
     <section class="l-section-wrap top-section color_1 full">
         <div class="container">
             <? $APPLICATION->IncludeComponent("bitrix:main.profile", "user_profile_sailplay", array(
                     "SET_TITLE" => "Y",
                     "AJAX_MODE" => "Y"
-                ),
-                false,
-                array(
-                    "ACTIVE_COMPONENT" => "Y"
-                )
-            ); ?>
+                    ),
+                    false,
+                    array(
+                        "ACTIVE_COMPONENT" => "Y"
+                    )
+                ); ?>
         </div> 
     </section>              
     <? if ($user_mail = $USER->GetEmail()) { ?>
         <?
             if ($token = SailplayHelper::getAuth()) { // если удалось соединиться с Sailplay и получить токен
                 if ($hash = SailplayHelper::getUserAuthHash($token, $user_mail)) { // если удалось получить auth_hash для пользователя, то отображаем ЛК ?>
-                    <app></app>
+                <app></app>
                 <? }
             }
         ?>
@@ -30,7 +30,7 @@
             .historyBodywrap > div > .full, .historyBodywrap > div > .l-section-wrap {
                 display: none;
             }
-            
+
             .historyBodywrap > div:first-child {
                 min-height: 300px;
             }
@@ -46,23 +46,23 @@
         <div class="cssload-container">
             <div class="cssload-whirlpool"></div>
         </div>
-    <? } ?>
-<? } else { ?>      
+        <? } ?>
+    <? } else { ?>      
     <div class="signinWrapper">
         <div class="centredWrapper">
             <div class="signinBlock" style="display:block;">
-            <? $APPLICATION->IncludeComponent("bitrix:system.auth.authorize", "flat", Array(
+                <? $APPLICATION->IncludeComponent("bitrix:system.auth.authorize", "flat", Array(
                         "REGISTER_URL" => "/auth/",
                         "PROFILE_URL"  => "/personal/profile/",
                         "SHOW_ERRORS"  => "Y"
-                    ),
-                    false
-                ); ?>
+                        ),
+                        false
+                    ); ?>
             </div>
         </div>
     </div>
-<?
-}
+    <?
+    }
 ?>
 <script>
     function openForm() {
@@ -88,26 +88,18 @@
         $('.js-close-acc-edit').click(function () {
             accForm.slideUp(300);
         });
-        
+
         openForm();
     });
-</script>
+</script>         
 
-<script type="text/javascript">
-    <? // в данном случае не принципиально, есть ли у пользователя hash и mail, если их не будет, то функционал sailplay просто не отобразится?>
-    var AUTH_HASH = '<?= $hash ?>',
-        EMAIL     = '<?= $user_mail ?>';
-    document.addEventListener('DOMContentLoaded', function () {
-        var s = document.createElement("script");
-        s.type = "text/javascript";
-        s.src = "<?=SITE_TEMPLATE_PATH?>/js/main.min.js";
-        document.getElementsByTagName("head")[0].appendChild(s);
-        var ss = document.createElement("link");
-        ss.type = "text/css";
-        ss.rel = "stylesheet";
-        ss.href = "<?=SITE_TEMPLATE_PATH?>/css/main.css";
-        document.getElementsByTagName("head")[0].appendChild(ss);
+<script>
+//sailplay init
+    $(document).ready(function () {
+        var AUTH_HASH = '<?= $hash ?>';
+        var EMAIL = '<?= $user_mail ?>';
+        startLoyaltyApp(AUTH_HASH);
     });
-</script>        
+</script>  
        
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -2944,26 +2944,29 @@ $(document).ready(function(){
         $(".productsMenu").css("margin-top", "70px");   
     } 
 	
-	$('.wrap_prise_bottom .minus').click(function () {
-        var $input = $(this).parent().find('input');
-        var count = parseInt($input.val()) - 1;
-        count = count < 1 ? 1 : count;
-        $input.val(count);
-        $input.change();
-        return false;
-    });
-    $('.wrap_prise_bottom .plus').click(function () {
-        var $input = $(this).parent().find('input');
-        $input.val(parseInt($input.val()) + 1);
-        $input.change();
-        return false;
-    });
 	
 	$('.stopProp').click(function(e) {
 		e.stopPropagation();
 	});
 });
 
+function changeQ(dest) {
+	if (dest == '-') {
+		var $input = $('.wrap_prise_bottom .minus').parent().find('input');
+		var count = parseInt($input.val()) - 1;
+		count = count < 1 ? 1 : count;
+		$input.val(count);
+		$input.change();
+		return false;
+	} else if (dest == '+') {
+		var $input = $('.wrap_prise_bottom .plus').parent().find('input');
+		var count = parseInt($input.val()) + 1;
+		count = count < 1 ? 1 : count;
+		$input.val(count);
+		$input.change();
+		return false;
+	}
+}
 
  //расчет высоты серой подложки
 function setItemBgHeight() {
