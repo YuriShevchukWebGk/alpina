@@ -178,6 +178,13 @@ $(document).ready(function(){
         })
     }
 
+    if($(".certificate_popup").length > 0){
+        $('.layout').click(function(){
+            $('.certificate_popup').hide();
+            $(this).hide();
+        })
+    }
+    
     if($(".subscr_result").length > 0){
         $('.layout').click(function(){
             $('.subscr_result').hide();
@@ -911,7 +918,7 @@ $(document).ready(function(){
 
 
 function update_quant(sign, e)
-{
+{                  
     //изменение кол-ва в выезжающей корзине
     /*$('.hidingBasketRight .plus').on('click', function(){
     var numbOfBooks = parseInt($(this).parent().children('p').html());
@@ -948,7 +955,8 @@ function update_basket(e)
     var quantity = $(e).closest(".countMenu").find(".countOfBook").html();
     var id = $(e).closest(".basketBook").attr("basket-id");
     var product = $(e).closest(".basketBook").attr("product-id");
-    $.post("/ajax/ajax_add2basket.php", {quantity: quantity, id: id, product: product, action: 'update'}, function(data){
+    var delay = $(e).closest(".basketBook").attr("basket-delay");
+    $.post("/ajax/ajax_add2basket.php", {quantity: quantity, id: id, product: product, delay: delay, action: 'update'}, function(data){
         $(".hidingBasketRight").html(data);
         var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
         $(".BasketQuant").html(total_quant);

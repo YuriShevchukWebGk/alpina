@@ -84,7 +84,10 @@
              
     define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                           
     define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа                                                                                          
-    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами                         
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами     
+    
+    define ("DELIVERY_DATE_LEGAL_ORDER_PROP_ID", 45);   
+    define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);                     
 
     /**
     *
@@ -2573,51 +2576,55 @@
     }
     
     //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа    
+    //Не пашет
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'main',
         'OnProlog',
         'UpdateBasket'
     );
-    function UpdateBasket(){                                                       
-        if (preg_match("/\/personal\/cart\//i", $_SERVER['SCRIPT_URI'])) {                
+    function UpdateBasket(){  
+        global $APPLICATION;
+        $url = $APPLICATION->GetCurPage();                                      
+        if (preg_match("/personal\/cart/i", $url)) {  
             require_once($_SERVER["DOCUMENT_ROOT"]."/ajax/ajax_add2basket.php");
         }                                                                               
     }
-       
-    //Удаляем предзаказанный товар из HL блока, после оформления заказа
+                   
+    //Удаляем предзаказанный товар из HL блока и меняем статус заказа на предзаказ, перед созданием заказа
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'sale',
-        'OnOrderSave',
+        'OnBeforeOrderAdd',
         'DeleteBasketElementFromHL'
     );
-    function DeleteBasketElementFromHL($orderId, $arFields, $arOrder, $isNew){  
-        if($isNew){
-            $arBasketItems = array();   
-            foreach($arOrder['BASKET_ITEMS'] as $basketItem){
-                $arBasketItems[] = $basketItem;
-                $arBasketID[] = $basketItem['ID'];         
-            }      
-            
-            $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
-            $entity = HL\HighloadBlockTable::compileEntity($hl_block);
-            $entity_data_class = $entity->getDataClass();   
-                           
-            $table_id = 'tbl_' . $entity_table_name;
-             
-            $basket_item_filter = array(                                                                       
-                'UF_BASKET_ID' => $arBasketID
-            );
-                                                        
-            $result = $entity_data_class::getList(array(
-                "select" => array('*'),
-                "filter" => $basket_item_filter, 
-                "order"  => array("ID" => "ASC")
-            ));      
-            
-            $result = new CDBResult($result, $table_id);  
-            while ($basket_item = $result->Fetch()) {   
-                $entity_data_class::Delete($basket_item['ID']); 
-            }
-        }                    
-    }                     
+    function DeleteBasketElementFromHL(&$arFields){         
+        $arBasketItems = array();   
+        foreach($arFields['BASKET_ITEMS'] as $basketItem){
+            $arBasketItems[] = $basketItem;
+            $arBasketID[] = $basketItem['ID'];         
+        }      
+        
+        $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
+        $entity = HL\HighloadBlockTable::compileEntity($hl_block);
+        $entity_data_class = $entity->getDataClass();   
+                       
+        $table_id = 'tbl_' . $entity_table_name;
+         
+        $basket_item_filter = array(                                                                       
+            'UF_BASKET_ID' => $arBasketID
+        );
+                                                    
+        $result = $entity_data_class::getList(array(
+            "select" => array('*'),
+            "filter" => $basket_item_filter, 
+            "order"  => array("ID" => "ASC")
+        ));      
+        
+        $result = new CDBResult($result, $table_id);  
+        while ($basket_item = $result->Fetch()) {  
+            if  ($basket_item['UF_DELAY_BEFORE'] == 'Y') {
+                $arFields['STATUS_ID'] = 'PR';          
+            } 
+            $entity_data_class::Delete($basket_item['ID']); 
+        }                   
+    }            
 ?>

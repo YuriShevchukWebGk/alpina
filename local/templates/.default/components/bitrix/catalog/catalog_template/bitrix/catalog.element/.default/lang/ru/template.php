@@ -59,6 +59,7 @@ $MESS["SUBSCRIBING_DESCRIPTION"] = "Впишите свой <b>e-mail</b>, и в
 $MESS["TO_SUBSCRIBE"] = "Подписаться";
 $MESS["ADD_IN_BASKET"] = "В корзину";
 $MESS["ADD_TO_PREORDER"] = "Предзаказ";
+$MESS["ADD_TO_PREORDER_FULL"] = "Предварительный заказ";
 $MESS["ALREADY_IN_BASKET"] = "В корзине";
 $MESS["TO_BUY_IN_1_CLICK"] = "Купить в 1 клик";
 $MESS["NAME_FIELD_TITLE"] = "Имя*";

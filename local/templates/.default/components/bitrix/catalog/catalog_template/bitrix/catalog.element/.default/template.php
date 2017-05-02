@@ -238,7 +238,7 @@
                         <?} else {?>
                         <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
                             <?}?>
-                        <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
+                        <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>              
                         <?}?>
 
                     <?if ($arResult["PICTURE"]["src"]) {?>
@@ -508,7 +508,7 @@
                     if (!empty($arResult["PRICES"])) { ?>
                     <?// если свойство товара в состоянии "Новинка" либо не задан - то выводить стандартный блок с ценой,
                         // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении
-                        if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal") )) {
+                        if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) && (intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))) {
                             foreach ($arResult["PRICES"] as $code => $arPrice) {?>
                             <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                             <link itemprop="availability" href="https://schema.org/InStock">
@@ -554,12 +554,48 @@
                             <button style="width:10px; height:10px; background:rgba(0, 255, 0, 0.57); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button><span>&nbsp;<?= GetMessage("IN_STOCK") ?></span>
                             <?}
                         } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
-                        <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
+                        <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />   
                         <link itemprop="availability" href="https://schema.org/PreOrder">
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
-                        <? $StockInfo = "SoonStock"; ?>
-                        <p class="newPrice" style="font-size:20px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
+                        <p class="newPrice" style="font-size:20px;margin-top: -10px;"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
 
+                        <?foreach ($arResult["PRICES"] as $code => $arPrice) {?>
+                            <?$StockInfo = "SoonStock";
+                                if (round(($arPrice["VALUE"]) * (1 - $discount / 100), 2) . " " . GetMessage("ROUBLES") == $arPrice["PRINT_VALUE"]) {
+                                    $discount = false;
+                                };
+                                if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                <?// расчитываем накопительную скидку от стоимости
+                                    if ($discount) {
+                                        $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
+                                        if (strlen (stristr($newPrice, ".")) == 2) {
+                                            $newPrice .= "0";
+                                        }
+                                    } else {
+                                        $newPrice = round (($arPrice["DISCOUNT_VALUE"]), 2);
+                                        if (strlen (stristr($newPrice, ".")) == 2) {
+                                            $newPrice .= "0";
+                                        }
+                                }?>
+                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                <?} else if ($discount) {
+                                    $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
+                                    if (strlen (stristr($newPrice, ".")) == 2) {
+                                        $newPrice .= "0";
+                                }?>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                <?// расчитываем накопительную скидку от стоимости?>
+                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                <?} else {
+                                    $newPrice = round($arPrice["VALUE_VAT"], 2);
+                                    if (strlen(stristr($newPrice, ".")) == 2) {
+                                        $newPrice .= "0";
+                                }?>
+                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                <?}?>  
+                            <button style="width:10px; height:10px; background:rgba(255, 255, 0, 0.75); box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.12); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button><span>&nbsp;<?= GetMessage("ADD_TO_PREORDER") ?></span>
+                            <?}?>    
                         <?} else {?>
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/OutOfStock">
@@ -660,98 +696,34 @@
                                             <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
-                                    <input type="hidden" name="certificate_quantity" value="1"/>
+                                    <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>      
+                                    <input type="hidden" name="certificate_quantity" value="1"/>                      
+                                    <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>    
                                     <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
                                 </form>
                                 <div class="certificate_popup_close">
                                     <img src="/images/rfi_popup_close.png" alt="" />
                                 </div>
-                                <div class="rfi_block">
-                                    <? $APPLICATION->IncludeComponent(
-                                            "webgk:rfi.widget",
-                                            "",
-                                            Array(
-                                                "ORDER_ID"      => "CERT_",
-                                                "OTHER_PAYMENT" => "Y",
-                                                "OTHER_PARAMS"  => array(
-                                                    "PAYSUM"   => $newPrice,
-                                                    "EMAIL"    => "",
-                                                    "PHONE"    => "",
-                                                    "COMMENT"  => str_replace("#SUM#", $newPrice, GetMessage("CERTIFICATE_BUY_COMMENT"))
-                                                )
-                                            ),
-                                            false
-                                        ); ?>
+                                <div class="rfi_block">              
+                                <?
+                                    $APPLICATION->IncludeComponent(
+                                        "webgk:rfi.widget",
+                                        "",
+                                        Array(
+                                            "ORDER_ID"      => "CERT_",
+                                            "OTHER_PAYMENT" => "Y",
+                                            "OTHER_PARAMS"  => array(
+                                                "PAYSUM"   => $newPrice,
+                                                "EMAIL"    => "",
+                                                "PHONE"    => "",
+                                                "COMMENT"  => str_replace("#SUM#", $newPrice, "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# рублей")
+                                            )
+                                        ),
+                                        false
+                                    );
+                                ?>
                                 </div>
-                            </div>  
-                            <script>
-                                function buy_certificate_popup(){
-                                    $('.layout').show();
-                                    $('.certificate_popup').show();                                                
-                                }                                               
-                                function create_certificate_order(){
-                                    var form_valid = true;
-                                    // просматриваем все поля на предмет заполненности
-                                    $(".active_certificate_block input").each(function(){
-                                        if (!$(this).val()) {
-                                            form_valid = false;
-                                            $(this).css("border-color", "red");
-                                        } else {
-                                            $(this).css("border-color", "#f0f0f0");
-                                        }
-                                    });
-                                    // если все ок, то сабмитим
-                                    if (form_valid) {
-                                        var natural_person_email = $("#natural_email").val(),
-                                        selected_tab = $(".certificate_tab_active").data("popup-block");
-                                        $("input[name='certificate_quantity']").val($(".transparent_input").val());
-                                        $.ajax({
-                                            url: '/ajax/ajax_create_certificate_order.php',
-                                            type: "POST",
-                                            data: {
-                                                data: $("#certificate_form").serialize(),
-                                                person_type: selected_tab
-                                            }
-                                        }).done(function(result) {
-                                            var certificate_result = JSON.parse(result);
-                                            if (certificate_result.status == "success") {
-                                                order_id = certificate_result.data;
-                                                $("#certificate_form").remove();
-                                                if (selected_tab == "natural_person") {
-                                                    // физ. лицо
-                                                    var success_message = "<?= GetMessage('NATURAL_SUCCESS_MESSAGE') ?>"; 
-                                                    $(".submit_rfi").attr("data-email", natural_person_email);  
-                                                    $(".submit_rfi").attr("data-comment", "CERT_" + order_id);  
-                                                    $(".submit_rfi").attr("data-orderid", "CERT_" + order_id);  
-                                                    $(".submit_rfi").click();
-                                                    $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
-                                                } else {
-                                                    // юр. лицо
-                                                    var success_message = "<?= GetMessage('LEGAL_SUCCESS_MESSAGE') ?>";
-                                                    $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
-                                                }
-                                            } else {
-                                                console.error(certificate_result.data);
-                                            }
-                                        });
-                                    }
-                                }
-                                // переключение табов в попапе
-                                $(".certificate_buy_type li").click(function() {
-                                    if(!$(this).hasClass("certificate_tab_active")) {
-                                        $(".certificate_buy_type li").removeClass("certificate_tab_active");
-                                        $(this).addClass("certificate_tab_active");
-                                        $(".popup_form_data > div").removeClass("active_certificate_block");
-                                        $("div[class='" + $(this).data("popup-block") + "']").addClass("active_certificate_block");
-                                    }
-                                });
-                                // закрытие попапа
-                                $(".certificate_popup_close").click(function(){
-                                    $(".certificate_popup").hide();
-                                    $('.layout').hide();
-                                })
-                            </script>
+                            </div>     
                             <a href="#" onclick="buy_certificate_popup(); return false;">
                                 <p class="inBasket"><?= GetMessage("CT_BCE_CATALOG_BUY") ?></p>
                             </a>
@@ -760,8 +732,8 @@
                             <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
                                 <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                     <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p> 
-                                    <?} else {?>
-                                    <p class="inBasket"><?= GetMessage("ADD_TO_PREORDER") ?></p>                                                 
+                                    <?} else {?>  
+                                    <p class="inBasket toPreorder"><?= GetMessage("ADD_TO_PREORDER_FULL") ?></p>    
                                     <?}?>    
                             </a>
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
@@ -1203,8 +1175,7 @@
                     );?>
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
-            </div>
-
+            </div>  
             <?$videosCount  = 0;
                 foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
                     $videosCount++;
@@ -1232,8 +1203,7 @@
                 }
                 echo "</ul>";
             }?>
-        </div>
-
+        </div>                   
         <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
             <div class="recenzion" id="prodBlock2">
                 <?foreach ($arResult["REVIEWS"] as $reviewList) {?>

@@ -4,7 +4,7 @@ $bDelayColumn  = false;
 $bDeleteColumn = false;
 $bWeightColumn = false;
 $bPropsColumn  = false;
-?>
+?>                 
 <div id="basket_items_delayed" class="bx_ordercart_order_table_container" style="display:none">
 	<table id="delayed_items">
 		<thead>
