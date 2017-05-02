@@ -79,10 +79,25 @@
         ?>
 
         <div class="cartMenuWrap">
-            <div class="basketItems active" data-id="1" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForOrderClick'});"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
+            <?//Проверяем только ли предзаказ в корзине?>
+            <?$onlyPreorder = false;?>
+            <?$hasItems = false;?>
+            <?$hasPreorderItems = false;?>
+            <?foreach($arResult["GRID"]["ROWS"] as $k => $arItem) {
+                if($arItem["DELAY"] == "N") { 
+                    $hasItems = true;         
+                } 
+                if($arItem["DELAY"] == "Y") { 
+                    $hasPreorderItems = true;        
+                }     
+            }
+            if (!$hasItems && $hasPreorderItems) {
+                $onlyPreorder = true;    
+            }?>                                                                            
+            <div class="basketItems <?if(!$onlyPreorder && !$_REQUEST['preorder']){ echo 'active'; }?>" data-id="1" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForOrderClick'});"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
             <div class="basketItems" data-id="2" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'wishlistBookmarkClick'});"><p>Список желаний <span>(0)</span></p></div>
             <?if(count($arResult["ITEMS"]["DelDelCanBuy"]) > 0) {?>
-                <div class="basketItems" data-id="3" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForPreorderClick'});"><p>Предзаказ <span>(<?=count($arResult["ITEMS"]["DelDelCanBuy"])?>)</span></p></div>                 
+                <div class="basketItems <?if($onlyPreorder || $_REQUEST['preorder']){ echo 'active'; }?>" data-id="3" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForPreorderClick'});"><p>Предзаказ <span>(<?=count($arResult["ITEMS"]["DelDelCanBuy"])?>)</span></p></div>                 
             <?}?>
         </div>
 

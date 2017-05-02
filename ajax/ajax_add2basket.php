@@ -6,7 +6,7 @@
     use Bitrix\Main\Entity;
     
     $arBasketItems = array();
-    
+                                  
     //Если в корзине есть отложенные/предзаказанные товары, соберем всю информацию из HL блока, и вернем корзину в то состояние, которое было до оформления заказа
     $hasDelayedItems = '';
     $dbBasketItems = CSaleBasket::GetList( array("NAME" => "ASC", "ID" => "ASC"), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"), false, false, array("ID", "QUANTITY", "DELAY"));
@@ -65,8 +65,7 @@
                 if($ar_res = $res->GetNext()) 
                 {
                     $arProps = array();
-                    $PRODUCT = $ar_res;
-                    
+                    $PRODUCT = $ar_res;    
                     $ar_res = CPrice::GetBasePrice($PRODUCT["ID"]); 
                     $price=$ar_res["PRICE"];
                     if(intval($price) == 0){ 
@@ -102,7 +101,7 @@
             }
             break;
 
-        case "update":
+        case "update":                   
             $arFields = array(
                 "QUANTITY"=>$_REQUEST["quantity"]
             );
@@ -126,7 +125,9 @@
             next($prod_values);
         }
     //Нужно чтобы корзина не выводилась на странице оформления заказа
-    if (!preg_match("/\/personal\/cart\//i", $_SERVER['SCRIPT_URI'])) {
+        global $APPLICATION;
+        $url = $APPLICATION->GetCurPage();                                      
+        if (!preg_match("/personal\/cart/i", $url)) {  
         $APPLICATION->IncludeComponent("bitrix:sale.basket.basket", "hiding_basket", Array(
             "ACTION_VARIABLE" => "basketAction",    // Название переменной действия
                 "AUTO_CALCULATION" => "Y",    // Автопересчет корзины
@@ -164,7 +165,8 @@
                 "USE_ENHANCED_ECOMMERCE" => "N",    // Отправлять данные электронной торговли в Google и Яндекс
                 "USE_GIFTS" => "Y",    // Показывать блок "Подарки"
                 "USE_PREPAYMENT" => "N",    // Использовать предавторизацию для оформления заказа (PayPal Express Checkout)
-                "COMPONENT_TEMPLATE" => ".default"
+                "COMPONENT_TEMPLATE" => ".default",
+                "DELAY" => $_REQUEST["delay"] //Не менять вкладку, для изменения предзаказа
             ),
             false
         );
