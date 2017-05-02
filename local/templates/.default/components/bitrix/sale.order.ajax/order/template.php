@@ -938,15 +938,7 @@
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
-        $("#ORDER_PROP_15").suggestions({
-            token: "cd41cd8e2a0c9110de18d4a4d80c85795f75b49e",
-            type: "PARTY",
-            count: 5,
-            /* Вызывается, когда пользователь выбирает одну из подсказок */
-            onSelect: function(suggestion) {
-                console.log(suggestion);
-            }
-        });
+        
         $(".certInput, .infoPunct .bx_block").each(function(){
             if ($(this).css("display") == "none") {
                 $(this).closest(".infoPunct").find(".inputTitle").hide();
