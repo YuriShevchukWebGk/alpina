@@ -139,15 +139,15 @@
         //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = $arParams['MAILGUN']['DOMAIN'];
         # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params, array(
+        $result = $mailgun->sendMessage($domain, $params /*array(
         'attachments' => array(
             array(
                     'type' => 'application/pdf',
                     'name' => 'file.pdf',
                     'content' => base64_encode(file_get_contents($attachments))
                 )
-            )
-            ));
+            )  */
+            );
         }
 
 
