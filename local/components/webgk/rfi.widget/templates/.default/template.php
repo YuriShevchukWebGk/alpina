@@ -5,7 +5,7 @@
 <? } else { ?>
 	<a  class="rfi_button submit_rfi" 
 		data-open="widget"
-		data-key="ShP3Q5fhyDawG+lkHMAoSm25oNITf6mofg+C7yNo+Es="
+		data-key="<?=RFI_TEST_KEY?>"
 		data-cost="<?= $arResult['PRICE'] ?>"
 		data-name="<?= $arResult['COMMENT'] ?>"
 		data-email="<?= $arResult['EMAIL'] ?>"
