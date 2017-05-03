@@ -3,10 +3,10 @@ function Boxbery(boxbery_id) {
     self.boxbery_id = boxbery_id;
     self.queryObj = {};
     self.returnedData = [];
-    self.availibleMethods = ['CourierListCities', 'ListPoints', 'ListZips','DeliveryCosts'];
+    self.availibleMethods = ['CourierListCities', 'CourierListCities&Region', 'ListZips','DeliveryCosts'];
     self.selectFirstString = {
         'CourierListCities':'Выберите область',
-        'ListPoints':'Выберите регион',
+        'CourierListCities&Region':'Выберите регион',
         'ListZips':'Выберите город'
     };
 }
@@ -27,7 +27,7 @@ function Boxbery(boxbery_id) {
  *
  *******/
 
-Boxbery.prototype.__makeQueryArray = function(method, country, state, city, weight) {
+Boxbery.prototype.__makeQueryArray = function(method, country, state, zip, weight, boxbery_id) {
 
     switch(method) {
         case 'CourierListCities':
@@ -35,24 +35,21 @@ Boxbery.prototype.__makeQueryArray = function(method, country, state, city, weig
                 method : method
             };
             break;
-        case 'ListPoints':
+        case 'CourierListCities&Region':
             self.queryObj = {
-                method : method,
-                country : country
+                method : method
             };
             break;
         case 'ListZips':
             self.queryObj = {
                 method : method,
-                country : country,
-                state : state
+                zip : zip,
             };
             break;
         case 'DeliveryCosts':
             self.queryObj = {
                 method : method,
-                country : country,
-                city : city,
+                zip : zip,
                 weight : weight,
             };
             break;
@@ -73,15 +70,17 @@ Boxbery.prototype.__makeQueryArray = function(method, country, state, city, weig
  *******/
 
 
-Boxbery.prototype.__getQueryData = function(method,country) {
+Boxbery.prototype.__getQueryData = function(method, country, state, zip, boxbery_id) {
     $.post("/boxbery/delivery_post.php", self.queryObj, function(data) {
-        self.returnedData = JSON.parse(data);
-        if(method=='ListPoints' && self.returnedData.length == 0){ // --- some countries don't have states,get cities in this case
+     //   self.returnedData = JSON.parse(data);
+
+        city = JSON.parse(data);
+        self.__makeSelectTag(method, country, state, zip, boxbery_id);
+/*        if(method=='CourierListCities' && self.returnedData.length == 0){ // --- some countries don't have states,get cities in this case
             self.getData('CourierListCities',country);
         } else {
             self.__makeSelectTag(method);
-        }
-
+        }      */
     });
 }
 
@@ -97,35 +96,145 @@ Boxbery.prototype.__getQueryData = function(method,country) {
  *
  *******/
 
-Boxbery.prototype.__makeSelectTag = function(method) {
+Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxbery_id) {
     nextMethodIndex = self.availibleMethods.indexOf(method) + 1;
 
     if(!self.availibleMethods[nextMethodIndex]){ // -- final API method getTarif don't have select tag
-        self.__printPrice();
+        self.__printPrice(boxbery_id);
         return false;
     }
+        function in_array(value, array)
+        {
+            for(var i = 0; i < array.length; i++)
+            {
+                if(array[i] == value) return true;
+            }
+            return false;
+        }
 
-    select_tag = document.createElement('select');
-    select_tag.setAttribute("class", 'boxberySelect');
 
-    if (method == 'CourierListCities') {
-        select_tag.setAttribute("id", 'boxberyCountrySelect');
+
+
+        function emptyOption(operator){
+              if(operator){
+                select_tag = document.createElement('select');
+                select_tag.setAttribute("class", 'boxberySelect');
+
+                if (method == 'CourierListCities') {
+                    select_tag.setAttribute("id", 'boxberyCountrySelect');
+                }
+                select_tag.setAttribute("data-method", self.availibleMethods[nextMethodIndex]);
+                option_tag = document.createElement('option');
+                option_tag.innerHTML = self.selectFirstString[method];
+                option_tag.value = "";
+
+                select_tag.appendChild(option_tag);
+            } else {
+                select_tag = '';
+            }
+        }
+        var Region = [],
+            City = [],
+            ZipCity = [];
+        var citiName = [];
+
+        if(country == undefined){
+            method_city = state+'#';
+        } else {
+            method_city = state+'#'+country;
+        }
+    // if(method != 'ListZips'){
+
+        city.forEach(function(elem) {
+            Region[elem.Area] = elem.Region;
+
+            citiName = elem.City;
+
+            if(!City[elem.Area+'#'+elem.Region]){
+                City[elem.Area+'#'+elem.Region] = [];
+                City[elem.Area+'#'+elem.Region].push(citiName);
+            } else {
+               City[elem.Area+'#'+elem.Region].push(citiName);
+            }
+
+        });
+
+        city.forEach(function(elem) {
+            ZipCity[elem.City] = elem.Zip
+        });
+
+
+    if(method == 'CourierListCities'){
+        emptyOption(true);
+        for(elem in Region) {
+            option_tag = document.createElement('option');
+            option_tag.setAttribute("value", elem);
+            option_tag.innerHTML = elem;
+            select_tag.appendChild(option_tag);
+
+        }
+    }else if('CourierListCities&Region' == method){
+
+        console.log(state);
+        console.log(Region[state]);
+        if(Region[state]){
+            emptyOption(true);
+            for(elem in Region) {
+                if(Region[elem] && elem == state){
+                    empty_region = 'N';
+                    option_tag = document.createElement('option');
+                    option_tag.setAttribute("value", Region[elem]);
+                    option_tag.innerHTML = Region[elem];
+                    select_tag.appendChild(option_tag);
+                } else {
+                    empty_region = 'Y';
+
+                    var foo = $('select[data-method="ListZips"]'); // сносим все последующие селекты, т.к. они больше не нужны
+
+                    foo.detach(); //удаляем элемент
+                }
+            };
+        } else {
+            method = 'ListZips';
+            emptyOption(false);
+        }
+
+
+    }else if('ListZips' == method){
+        var key = 0;
+        var arCity = [];
+        emptyOption(true);
+        for(arrElem in City) {
+            for(cityName in City[arrElem]) {
+                key++;
+                if(arrElem == method_city && !in_array( City[arrElem][cityName], arCity )){
+                    option_tag = document.createElement('option');
+                    option_tag.setAttribute("value", ZipCity[City[arrElem][cityName]]);
+                    option_tag.innerHTML = City[arrElem][cityName];
+                    select_tag.appendChild(option_tag);
+                }
+                arCity[key] = City[arrElem][cityName];
+            }
+        };
+
     }
 
-    select_tag.setAttribute("data-method", self.availibleMethods[nextMethodIndex]);
+  /*  if('ListZips' == method){
+        var arCity = [];
+        var key = 0
+        for(elem in City) {
+            key++;
+            if(!in_array( City[elem], arCity ) ){
+                option_tag = document.createElement('option');
+                option_tag.setAttribute("value", elem);
+                option_tag.innerHTML = City[elem];
+                select_tag.appendChild(option_tag);
+            }
+            arCity[key] = City[elem];
+        };
 
-    option_tag = document.createElement('option');
-    option_tag.innerHTML = self.selectFirstString[method];
-    option_tag.value = "";
-    select_tag.appendChild(option_tag);
+    }     */
 
-    self.returnedData.forEach(function(elem) {
-
-        option_tag = document.createElement('option');
-        option_tag.setAttribute("value", elem.first);
-        option_tag.innerHTML = elem.second.replace(/\(.+\)/, '');
-        select_tag.appendChild(option_tag);
-    });
 
     document.querySelector('.boxberySelectContainer').appendChild(select_tag);
 }
@@ -138,13 +247,13 @@ Boxbery.prototype.__makeSelectTag = function(method) {
  *
  *******/
 
-Boxbery.prototype.__printPrice = function() {
-    document.querySelector('.deliveryPriceTable').innerHTML = self.returnedData[0].first + ' руб.';
-    $(".ID_DELIVERY_ID_" + self.boxbery_id).html(self.returnedData[0].first + ' руб.');
-    finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(self.returnedData[0].first);
+Boxbery.prototype.__printPrice = function(boxbery_id) {
+    document.querySelector('.deliveryPriceTable').innerHTML = city.price + ' руб.';
+    $(".ID_DELIVERY_ID_50").html(city.price + ' руб.');
+    finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(city.price);
     $('.finalSumTable').html( finalSumWithoutDiscount.toFixed(2) + ' руб.');
-    $("#boxbery_cost").val(self.returnedData[0].first);
-    var delivery_time = Math.round(self.returnedData[0].second) + 3; //сорк доставки. добавляем к сроку, полученному из запроса 3 дня
+    $("#boxbery_cost").val(city.delivery_period);
+    var delivery_time = Math.round(city.delivery_period) + 3; //сорк доставки. добавляем к сроку, полученному из запроса 3 дня
     $("#boxbery_delivery_time").show();
     $("#boxbery_delivery_time span").html(delivery_time);
 }
@@ -161,7 +270,7 @@ Boxbery.prototype.__printPrice = function() {
  *
  *******/
 
-Boxbery.prototype.getData = function(method, country, state, city, weight) {
-    self.__makeQueryArray(method, country, state, city, weight);
-    self.__getQueryData(method,country);
+Boxbery.prototype.getData = function(method, country, state, city, weight, zip, boxbery_id) {
+    self.__makeQueryArray(method, country, state, city, weight, zip, boxbery_id);
+    self.__getQueryData(method,country, state, zip, boxbery_id);
 }

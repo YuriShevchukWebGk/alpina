@@ -549,7 +549,6 @@ function couponCreate(couponBlock, oneCoupon)
             }    
         });
     }
-
     couponBlock.appendChild(BX.create(
         'div',
         {

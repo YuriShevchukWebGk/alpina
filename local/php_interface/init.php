@@ -71,6 +71,7 @@
     define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
     define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry      
     define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
+    define("MAIL_FROM_DEFAULT", 'shop@alpinabook.ru'); //Инфоблок с подарочными сертификатами
     
     define("CERTIFICATE_IBLOCK_ID", 67); //Инфоблок с заказами сертификатов
     define("NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT", "LEGAL_NEW_CERTIFICATE"); // тип почтового события при покупке нового серификата юр лицом
@@ -83,7 +84,10 @@
              
     define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                           
     define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа                                                                                          
-    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами                         
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами     
+    
+    define ("DELIVERY_DATE_LEGAL_ORDER_PROP_ID", 45);   
+    define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);                     
 
     /**
     *
@@ -93,52 +97,7 @@
     * @return bool
     *
     * */
-                                    
-    AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
 
-    function messagesWithAttachments($arFields, $arTemplate) {
-        GLOBAL $arParams;
-
-        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
-            $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
-            $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
-
-            // заменяем все максросы в письме на значения из $arFields
-            // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
-            $message_body = $arTemplate['MESSAGE'];
-            foreach ($arFields as $field_name => $field_value) {
-                $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
-            }
-
-            $params = array(
-                'from'    => $email_from,
-                'to'      => $arFields[trim($arTemplate['EMAIL_TO'], "#")],
-                'subject' => $arTemplate['SUBJECT'],
-                'html'    => $message_body,
-            );
-
-            if ($arFields['BCC']) {
-                $params['bcc'] = $arFields['BCC'];
-            }
-
-            $attachments = array();
-            foreach ($arTemplate['FILE'] as $file) {
-                if ($file_path = CFile::GetPath($file)) {
-                    array_push(
-                        $attachments,
-                        $_SERVER["DOCUMENT_ROOT"] . $file_path
-                    );
-                }
-            }
-
-            $domain = $arParams['MAILGUN']['DOMAIN'];
-
-            # Make the call to the client.
-            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-
-            return false;
-        }
-    }
 
     /**
     *
@@ -166,7 +125,7 @@
 
         $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
         $params = array(
-            'from'    => $from_matches[0],
+            'from'    => ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
             'to'      => $to,
             'subject' => $subject,
             'html'    => $message
@@ -177,11 +136,62 @@
         if (trim($bcc_matches[0])) {
             $params['bcc'] = $bcc_matches[0];
         }
-
+        $attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = $arParams['MAILGUN']['DOMAIN'];
         # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params);
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
     }
+
+
+    AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
+
+    function messagesWithAttachments($arFields, $arTemplate) {
+        GLOBAL $arParams;
+
+        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+
+            $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
+            $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
+
+            // заменяем все максросы в письме на значения из $arFields
+            // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
+            $message_body = $arTemplate['MESSAGE'];
+            foreach ($arFields as $field_name => $field_value) {
+                $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
+            }
+
+            $params = array(
+                'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
+                'to'      => $arFields["EMAIL"],//trim($arTemplate['EMAIL_TO'], "#"),
+                'subject' => $arTemplate['SUBJECT'],
+                'html'    => $message_body,
+            );
+
+            if ($arFields['BCC']) {
+                $params['bcc'] = $arFields['BCC'];
+            }
+           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], print_r($arFields, true));
+            $attachments = array();
+            foreach ($arTemplate['FILE'] as $file) {
+                if ($file_path = CFile::GetPath($file)) {
+                    $attachments = $file_path;
+                    /*array_push(
+                        $attachments,
+                        $_SERVER["DOCUMENT_ROOT"] . $file_path
+                    );*/
+                }
+            }
+
+            $domain = $arParams['MAILGUN']['DOMAIN'];
+
+            # Make the call to the client.
+            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+
+            return false;
+        }
+    }
+
+
 
     /**
      * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
@@ -2334,11 +2344,11 @@
     }
 
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
-    function BoxberryListStatuses() {
+    function BoxberryListStatuses() {   
         $arFilter = Array(
            "!TRACKING_NUMBER" => null,
            "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,
-           "!STATUS_ID" => F
+           "!STATUS_ID" => 'F'
         );
         if ($db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter)) {
             while ($ar_sales = $db_sales->Fetch()) {
@@ -2566,51 +2576,55 @@
     }
     
     //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа    
+    //Не пашет
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'main',
         'OnProlog',
         'UpdateBasket'
     );
-    function UpdateBasket(){                                                       
-        if (preg_match("/\/personal\/cart\//i", $_SERVER['SCRIPT_URI'])) {                
+    function UpdateBasket(){  
+        global $APPLICATION;
+        $url = $APPLICATION->GetCurPage();                                      
+        if (preg_match("/personal\/cart/i", $url)) {  
             require_once($_SERVER["DOCUMENT_ROOT"]."/ajax/ajax_add2basket.php");
         }                                                                               
     }
-       
-    //Удаляем предзаказанный товар из HL блока, после оформления заказа
+                   
+    //Удаляем предзаказанный товар из HL блока и меняем статус заказа на предзаказ, перед созданием заказа
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'sale',
-        'OnOrderSave',
+        'OnBeforeOrderAdd',
         'DeleteBasketElementFromHL'
     );
-    function DeleteBasketElementFromHL($orderId, $arFields, $arOrder, $isNew){  
-        if($isNew){
-            $arBasketItems = array();   
-            foreach($arOrder['BASKET_ITEMS'] as $basketItem){
-                $arBasketItems[] = $basketItem;
-                $arBasketID[] = $basketItem['ID'];         
-            }      
-            
-            $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
-            $entity = HL\HighloadBlockTable::compileEntity($hl_block);
-            $entity_data_class = $entity->getDataClass();   
-                           
-            $table_id = 'tbl_' . $entity_table_name;
-             
-            $basket_item_filter = array(                                                                       
-                'UF_BASKET_ID' => $arBasketID
-            );
-                                                        
-            $result = $entity_data_class::getList(array(
-                "select" => array('*'),
-                "filter" => $basket_item_filter, 
-                "order"  => array("ID" => "ASC")
-            ));      
-            
-            $result = new CDBResult($result, $table_id);  
-            while ($basket_item = $result->Fetch()) {   
-                $entity_data_class::Delete($basket_item['ID']); 
-            }
-        }                    
-    }                     
+    function DeleteBasketElementFromHL(&$arFields){         
+        $arBasketItems = array();   
+        foreach($arFields['BASKET_ITEMS'] as $basketItem){
+            $arBasketItems[] = $basketItem;
+            $arBasketID[] = $basketItem['ID'];         
+        }      
+        
+        $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
+        $entity = HL\HighloadBlockTable::compileEntity($hl_block);
+        $entity_data_class = $entity->getDataClass();   
+                       
+        $table_id = 'tbl_' . $entity_table_name;
+         
+        $basket_item_filter = array(                                                                       
+            'UF_BASKET_ID' => $arBasketID
+        );
+                                                    
+        $result = $entity_data_class::getList(array(
+            "select" => array('*'),
+            "filter" => $basket_item_filter, 
+            "order"  => array("ID" => "ASC")
+        ));      
+        
+        $result = new CDBResult($result, $table_id);  
+        while ($basket_item = $result->Fetch()) {  
+            if  ($basket_item['UF_DELAY_BEFORE'] == 'Y') {
+                $arFields['STATUS_ID'] = 'PR';          
+            } 
+            $entity_data_class::Delete($basket_item['ID']); 
+        }                   
+    }            
 ?>

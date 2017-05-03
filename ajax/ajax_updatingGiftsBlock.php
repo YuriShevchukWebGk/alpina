@@ -1,5 +1,6 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
+<<<<<<< HEAD
     $APPLICATION->IncludeComponent(
         "bitrix:sale.gift.basket",
         "basket_gifts",
@@ -39,3 +40,7 @@ CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::Incl
         false
     );
 ?>
+=======
+
+$APPLICATION -> ShowViewContent('gifts_block');?>
+>>>>>>> upstream/master
