@@ -84,14 +84,14 @@
             <?$hasItems = false;?>
             <?$hasPreorderItems = false;?>
             <?foreach($arResult["GRID"]["ROWS"] as $k => $arItem) {
-                if($arItem["DELAY"] == "N") { 
+                if($arItem["DELAY"] == "N") {  
                     $hasItems = true;         
                 } 
-                if($arItem["DELAY"] == "Y") { 
+                if($arItem["DELAY"] == "Y") {  
                     $hasPreorderItems = true;        
                 }     
             }
-            if (!$hasItems && $hasPreorderItems) {
+            if (!$hasItems && $hasPreorderItems) {    
                 $onlyPreorder = true;    
             }?>                                                                            
             <div class="basketItems <?if(!$onlyPreorder && !$_REQUEST['preorder']){ echo 'active'; }?>" data-id="1" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForOrderClick'});"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
@@ -302,7 +302,7 @@
                                     ),
                                     false
                                 );?>
-                        </div>
+                        </div>  
                     </div>
                 </div>                       
 
@@ -995,7 +995,7 @@
 
 <script>
     $(document).ready(function(){
-        <?if ($_REQUEST["action"]) {?>  
+        <?/*if ($_REQUEST["action"]) {?>  
             $(".cartMenuWrap .basketItems:first-child").removeClass("active");
             $('.cartMenuWrap .basketItems:nth-child(2)').addClass("active");
             $("#cardBlock2").show();
@@ -1003,7 +1003,7 @@
             $('.cartMenuWrap .basketItems:nth-child(2)').removeClass("active");
             $('.cartMenuWrap .basketItems:first-child').addClass("active");
             $("#cardBlock1").show();
-		<?}?>   
+		<?}*/?>   
 		dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'pageLoaded'});	
     });
 </script>

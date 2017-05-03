@@ -1010,10 +1010,9 @@ function addtocart(productid, name, product_status) {
             //$(".wrap_prise_top").load(window.location.href + " .wrap_prise_top > *");
     })
 }
-function addtocart_fromwishlist (productid, name) {
-    $.post('/ajax/ajax_add2basketfromwishlist.php', {action: "add", productid: productid}, function(data)
-        {
-
+function addtocart_fromwishlist (productid, name, product_status) {
+    $.post('/ajax/ajax_add2basketfromwishlist.php', {action: "add", productid: productid, product_status: product_status}, function(data)
+        {  
             $(".wishlistBlock").find("a#wishItem_"+productid).css("background-color", "#A9A9A9");
             $(".wishlistBlock").find("a#wishItem_"+productid).css("color", "white");
             $(".wishlistBlock").find("a#wishItem_"+productid).html("В корзине");
