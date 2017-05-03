@@ -293,7 +293,7 @@
 
 				<input type="hidden" name="BasketOrder" value="BasketOrder" />
                 <div class="gifts_block">
-                    <?$this -> SetViewTarget('gifts_block');
+                    <?
                         if($arParams['USE_GIFTS'] == 'Y') {   
                             $APPLICATION->IncludeComponent(
                                 "bitrix:sale.gift.basket",
@@ -334,8 +334,7 @@
                                 false
                             );
                         }
-                        $this -> EndViewTarget();
-                        $APPLICATION -> ShowViewContent('gifts_block');?>
+                        ?>
                     </div>
 				<?
 				/* Получаем рекомендации для корзины от RetailRocket */
@@ -989,6 +988,9 @@
             $('.cartMenuWrap .basketItems:first-child').addClass("active");
             $("#cardBlock1").show();
 		<?}?>   
-		dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'pageLoaded'});	
+		dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'pageLoaded'});
+        if ($(".gifts_block").find("div").size() > 0) {
+            $(".gifts_block").show();
+        }	
     });
 </script>
