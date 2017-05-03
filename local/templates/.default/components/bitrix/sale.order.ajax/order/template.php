@@ -951,7 +951,7 @@
         });
         
         $("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
-            $(this).hide();
+            $(this).closest(".infoPunct").hide();
         })
     })
 </script>
