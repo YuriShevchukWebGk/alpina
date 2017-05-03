@@ -139,8 +139,16 @@
         //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = $arParams['MAILGUN']['DOMAIN'];
         # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-    }
+        $result = $mailgun->sendMessage($domain, $params, array(
+        'attachments' => array(
+            array(
+                    'type' => 'application/pdf',
+                    'name' => 'file.pdf',
+                    'content' => base64_encode(file_get_contents($attachments))
+                )
+            )
+            ));
+        }
 
 
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
@@ -180,7 +188,7 @@
                     );*/
                 }
             }
-            custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $attachments, $attachments);
+           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $attachments, $attachments);
 
             $domain = $arParams['MAILGUN']['DOMAIN'];
 

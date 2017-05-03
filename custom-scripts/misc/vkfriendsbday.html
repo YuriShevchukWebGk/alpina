@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IGR VkBirthdayExporter</title>
+    <style type="text/css">
+    #vkLogin{float: left}
+    #author{float: right}
+    #export{width: 100%}
+    </style>
+    <script src="https://vk.com/js/api/openapi.js" type="text/javascript"></script>
+    <script language="javascript">
+    var Base64 = {
+        // private property
+        _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+
+        // public method for encoding
+        encode : function (input) {
+            var output = "";
+            var chr1, chr2, chr2raw, chr3, chr3raw, enc1, enc2, enc3, enc4;
+            var i = 0;
+
+            //input = Base64._utf8_encode(input);
+
+            while (i < input.length) {
+
+                    chr1 = input.charCodeAt(i++) & 0xFF;
+                    chr2 = isNaN(chr2raw = input.charCodeAt(i++)) ? NaN : (chr2raw & 0xFF);
+                    chr3 = isNaN(chr3raw = input.charCodeAt(i++)) ? NaN : (chr3raw & 0xFF);
+
+                    enc1 = chr1 >> 2;
+                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+                    enc4 = chr3 & 63;
+
+                    if (isNaN(chr2)) {
+                            enc3 = enc4 = 64;
+                    } else if (isNaN(chr3)) {
+                            enc4 = 64;
+                    }
+
+                    output = output +
+                    this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+                    this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+
+            }
+
+            return output;
+        }
+    }
+    function Init()
+    {
+        VK.init({apiId: 2045096});
+        VK.UI.button("vkLogin");
+    }
+    function icsEvent(info)
+    {
+        var s = 'BEGIN:VEVENT\n';
+        for(var i in info)
+            s += i+':'+info[i]+'\n';
+        s += 'END:VEVENT\n';
+        return s;
+    }
+    function zeroPrefix(num)
+    {
+        return (num < 10) ? '0' + num : num;
+    }
+    function authInfo(response)
+    {
+        if(!response.session) return;
+        
+        VK.api('friends.get', {fields: 'first_name,last_name,bdate'}, function(data){
+            var exportData = 'BEGIN:VCALENDAR\nPRODID:IGR VkFriendExporter\nVERSION:2.0\n';
+            
+            data = data.response;
+            for(var i in data)
+            if(data[i].bdate)
+            {
+                var info = data[i];
+                
+                var bdparts = info.bdate.split('.');
+                bdparts[0] = zeroPrefix(bdparts[0]);
+                bdparts[1] = zeroPrefix(bdparts[1]);
+                if(!bdparts[2]) bdparts[2] = 2000;
+                
+                var now = new Date();
+                exportData += icsEvent({
+                    DTSTART    : bdparts.reverse().join(''),
+                    RRULE      : 'FREQ=YEARLY',
+                    LOCATION   : 'VKontakte',
+                    UID        : 'vk'+info.uid,
+                    DTSTAMP    : ''
+                                 +now.getUTCFullYear()
+                                 +zeroPrefix(now.getUTCMonth()+1)
+                                 +zeroPrefix(now.getUTCDate())
+                                 +'T'
+                                 +zeroPrefix(now.getUTCHours())
+                                 +zeroPrefix(now.getUTCMinutes())
+                                 +zeroPrefix(now.getUTCSeconds())
+                                 +'Z',
+                    SUMMARY    : info.first_name+' '+info.last_name,
+                    CLASS      : 'PRIVATE',
+                    URL        : 'https://vk.com/id'+info.uid,
+                    CATEGORIES : 'Friends,Birthdays',
+                    TRANSP     : 'TRANSPARENT'
+                });
+            }
+        
+            exportData += 'END:VCALENDAR\n';
+        
+            document.getElementById('export').value = exportData;
+        });
+    }
+    </script>
+</head>
+<body onload="Init()">
+    <div id="vkLogin" onclick="VK.Auth.login(authInfo, 2)">Fetch</div><div id="author">Author: <a href="mailto:RReverser@gmail.com">RReverser</a></div>
+<textarea id="export" name="export" rows="20" style="width:400px"></textarea><br />
+<input type="button" onclick="location.href='data:application/force-download;base64,'+Base64.encode(document.getElementById('export').value)" value="Save (experimental)" />
+</body>
+</html>
