@@ -16,7 +16,7 @@
     use Bitrix\Sale\Internals;
     use Bitrix\Highloadblock as HL;
     use Bitrix\Main\Entity;
-
+    
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -319,8 +319,8 @@
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
 
-    AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
-    AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
+    /*AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
+    AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost */
 
     /**
      * Handler для доставки flippost. Плюсуем стоимость доставки
@@ -329,7 +329,7 @@
      * @return void
      *
      * */
-    function flippostHandlerBefore(&$arFields) {
+    /*function flippostHandlerBefore(&$arFields) {
         if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
             $delivery_price = 0;
             $flippost_default_values = getDefaultFlippostValues();
@@ -353,7 +353,11 @@
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
-    }
+    }                                      */
+    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
+    AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
+
+
 
     /**
      * Handler для доставки flippost. Изменяем адрес
@@ -383,6 +387,39 @@
                 $payment->setField('SUM', $arFields['PRICE']);
                 $payment->save();
             }
+        }
+    }
+
+    /**
+     * Handler для доставки boxbery. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function flippostHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+            $delivery_price = 0;
+            $boxbery_default_values = getDefaultFlippostValues();
+            if ($_REQUEST['boxbery_cost']) {
+                $delivery_price = $_REQUEST['boxbery_cost'];
+            } else {
+                foreach ($boxbery_default_values as $default_variant) {
+                    if (is_array($default_variant['WEIGHT'])) {
+                        if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    } else {
+                        if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    }
+                }
+            }
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
     }
 
