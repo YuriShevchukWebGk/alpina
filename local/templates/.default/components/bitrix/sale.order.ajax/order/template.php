@@ -29,14 +29,13 @@
     $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
     include ('include/functions.php');
 	include ($_SERVER["DOCUMENT_ROOT"].'/custom-scripts/checkdelivery/options.php');
-/*?>
+?>
 <link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!--[if lt IE 10]>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
 <![endif]-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
-<?*/?><style>
+<style>
     /* Лучше так, чем городить адовые городушки на js */
     input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
         display: block;
@@ -432,7 +431,7 @@
                                             )).'</div>'
                                         )
                                     ))?>);
-
+                  
                                     <?endif?>
 
                                 var BXFormPosting = false;
@@ -513,6 +512,7 @@
                                             flag = false;
                                             $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
                                         }
+                  
                                         if (flag) {
                                             // склеиваем адрес для flippost
                                             if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
@@ -589,6 +589,7 @@
                                                 $(".boxberry_error").hide();
                                             }
                                         }
+                    
                                     }
 
                                     if(flag){
@@ -673,12 +674,13 @@
                                     BX.closeWait();
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
                                     //доп функции/////////////////////////////////
-                                    /*$("#ORDER_PROP_15").suggestions({
-                                        token: "cd41cd8e2a0c9110de18d4a4d80c85795f75b49e",
+                                    
+                                    $("#ORDER_PROP_15").suggestions({
+                                        token: <?= DADATA_API_CODE ?>,
                                         type: "PARTY",
-                                        count: 5,*/
+                                        count: 5,
                                         /* Вызывается, когда пользователь выбирает одну из подсказок */
-                                        /*onSelect: function(suggestion) {
+                                        onSelect: function(suggestion) {
                                             $("#ORDER_PROP_10").val(suggestion['value']);
                                             $("#ORDER_PROP_15").val(suggestion['data']['inn']);
                                             $("#ORDER_PROP_16").val(suggestion['data']['kpp']);
@@ -686,11 +688,11 @@
                                         }
                                     });
                                     $("#ORDER_PROP_32").suggestions({
-                                        token: "cd41cd8e2a0c9110de18d4a4d80c85795f75b49e",
+                                        token: <?= DADATA_API_CODE ?>,
                                         type: "BANK",
-                                        count: 5,*/
+                                        count: 5,
                                         /* Вызывается, когда пользователь выбирает одну из подсказок */
-                                        /*onSelect: function(bank_suggestion) {
+                                        onSelect: function(bank_suggestion) {
                                             $("#ORDER_PROP_32").val(bank_suggestion['data']['bic']);
                                             $("#ORDER_PROP_64").val(bank_suggestion['data']['correspondent_account']);
                                             $("#ORDER_PROP_65").val(bank_suggestion['value']);
@@ -700,7 +702,7 @@
                                         if ($(this).css("display") == "none") {
                                             $(this).closest(".infoPunct").find(".inputTitle").hide();
                                         }
-                                    });*/
+                                    });
                                     setOptions();
 
                                     // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
