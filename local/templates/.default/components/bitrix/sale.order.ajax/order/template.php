@@ -676,7 +676,7 @@
                                     //доп функции/////////////////////////////////
                                     
                                     $("#ORDER_PROP_15").suggestions({
-                                        token: "cd41cd8e2a0c9110de18d4a4d80c85795f75b49e",
+                                        token: <?= DADATA_API_CODE ?>,
                                         type: "PARTY",
                                         count: 5,
                                         /* Вызывается, когда пользователь выбирает одну из подсказок */
@@ -688,7 +688,7 @@
                                         }
                                     });
                                     $("#ORDER_PROP_32").suggestions({
-                                        token: "cd41cd8e2a0c9110de18d4a4d80c85795f75b49e",
+                                        token: <?= DADATA_API_CODE ?>,
                                         type: "BANK",
                                         count: 5,
                                         /* Вызывается, когда пользователь выбирает одну из подсказок */
