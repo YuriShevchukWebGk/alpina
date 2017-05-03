@@ -207,8 +207,8 @@
             }
         }*/
 
-		minDatePlus = <?=$setProps['nextDay']?>;
-
+		//minDatePlus = <?//=$setProps['nextDay']?>;
+        var minDatePlus;
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             minDatePlus++;
         }
@@ -548,8 +548,8 @@
                                                 if (flag) {
                                                     var boxbery_address = [
                                                         $('select[data-method="CourierListCities"] option:checked').text(), // страна
-                                                        $('select[data-method="CourierListCities&Region"] option:checked').text(), // область
-                                                        $('select[data-method="CourierListCities&City"] option:checked').text(), // город
+                                                        $('select[data-method="ListZips"] option:checked').text(), // область
+                                                        $('select[data-method="DeliveryCosts"] option:checked').text(), // город
                                                     ],
                                                     boxbery_string_address = "";
                                                     boxbery_string_address = boxbery_address.join(", ");
@@ -701,7 +701,7 @@
                                             $(this).closest(".infoPunct").find(".inputTitle").hide();
                                         }
                                     });*/
-                                    setOptions();
+                                   // setOptions();
 
                                     // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
                                     if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
@@ -770,7 +770,7 @@
                                                 state   = $('select[data-method="CourierListCities&Region"]').val(),
                                               //  city    = $('select[data-method="DeliveryCosts"]').val(),
                                                 zip    = $('select[data-method="DeliveryCosts"]').val(),
-                                                weight  = parseInt($('.order_weight').text()) / 1000,
+                                                weight  = parseInt($('.order_weight').text()),
                                                 method  = $(this).data("method"); // какой метод вызывать следующим
                                                 $(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
                                                 if (!weight)
@@ -937,7 +937,7 @@
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
-        
+
         $(".certInput, .infoPunct .bx_block").each(function(){
             if ($(this).css("display") == "none") {
                 $(this).closest(".infoPunct").find(".inputTitle").hide();

@@ -63,31 +63,31 @@
     define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
     define ("BIK_FOR_EXPENSE_OFFER", "044525716");
     define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
-    define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру                               
-    define("TRADING_FINANCE_SECTION_ID", 111);	
-	define("WIDGET_PREVIEW_WIDTH", 70);
-	define("WIDGET_PREVIEW_HEIGHT", 90);
+    define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
+    define("TRADING_FINANCE_SECTION_ID", 111);
+    define("WIDGET_PREVIEW_WIDTH", 70);
+    define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
     define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
-    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry      
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
     define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
     define("MAIL_FROM_DEFAULT", 'shop@alpinabook.ru'); //Инфоблок с подарочными сертификатами
-    
+
     define("CERTIFICATE_IBLOCK_ID", 67); //Инфоблок с заказами сертификатов
     define("NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT", "LEGAL_NEW_CERTIFICATE"); // тип почтового события при покупке нового серификата юр лицом
-    
+
     define("CERTIFICATE_NATURAL_PERSON_PROPERTY_ID", 906);
-	define("CERTIFICATE_LEGAL_PERSON_PROPERTY_ID", 907);
-	
-	define("CERTIFICATE_ORDERS_COUPONS_ID_FIELD", 766);
-	define("CERTIFICATE_ORDERS_COUPONS_CODE_FIELD", 767);
-             
-    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                           
-    define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа                                                                                          
-    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами     
-    
-    define ("DELIVERY_DATE_LEGAL_ORDER_PROP_ID", 45);   
-    define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);                     
+    define("CERTIFICATE_LEGAL_PERSON_PROPERTY_ID", 907);
+
+    define("CERTIFICATE_ORDERS_COUPONS_ID_FIELD", 766);
+    define("CERTIFICATE_ORDERS_COUPONS_CODE_FIELD", 767);
+
+    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска
+    define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
+
+    define ("DELIVERY_DATE_LEGAL_ORDER_PROP_ID", 45);
+    define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);
 
     /**
     *
@@ -111,7 +111,7 @@
     * @param string $additional_parameters
     *
     **/
-    function custom_mail($to, $subject, $message, $additional_headers = '', $additional_parameters = '') {
+    function custom_mail($to, $subject, $message, $attachments, $additional_headers = '', $additional_parameters = '') {
 
         GLOBAL $arParams;
 
@@ -136,11 +136,19 @@
         if (trim($bcc_matches[0])) {
             $params['bcc'] = $bcc_matches[0];
         }
-        $attachments = 'https://www.alpinabook.ru/img/twi.png';
+        //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = $arParams['MAILGUN']['DOMAIN'];
         # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-    }
+        $result = $mailgun->sendMessage($domain, $params /*array(
+        'attachments' => array(
+            array(
+                    'type' => 'application/pdf',
+                    'name' => 'file.pdf',
+                    'content' => base64_encode(file_get_contents($attachments))
+                )
+            )  */
+            );
+        }
 
 
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
@@ -170,7 +178,6 @@
             if ($arFields['BCC']) {
                 $params['bcc'] = $arFields['BCC'];
             }
-           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], print_r($arFields, true));
             $attachments = array();
             foreach ($arTemplate['FILE'] as $file) {
                 if ($file_path = CFile::GetPath($file)) {
@@ -181,6 +188,7 @@
                     );*/
                 }
             }
+           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $attachments, $attachments);
 
             $domain = $arParams['MAILGUN']['DOMAIN'];
 
@@ -240,7 +248,7 @@
         }
     }
 
-    function arshow($array, $adminCheck = false){
+    function arshow($array, $adminCheck = false, $dieAfterArshow = false){
         global $USER;
         $USER = new Cuser;
         if ($adminCheck) {
@@ -251,6 +259,9 @@
         echo "<pre>";
         print_r($array);
         echo "</pre>";
+        if ($dieAfterArshow) {
+            die();
+        }
     }
     function morph($n, $f1, $f2, $f5) {
         $n = abs(intval($n)) % 100;
@@ -341,6 +352,77 @@
             }
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+        }
+    }
+
+    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
+    AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
+
+
+
+    /**
+     * Handler для доставки boxbery. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberyHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+            $delivery_price = 0;
+
+            $boxbery_default_values = getDefaultFlippostValues();
+
+            if ($_REQUEST['boxbery_cost']) {
+                $delivery_price = $_REQUEST['boxbery_cost'];
+            } else {
+                foreach ($boxbery_default_values as $default_variant) {
+                    if (is_array($default_variant['WEIGHT'])) {
+                        if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    } else {
+                        if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    }
+                }
+            }
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+        }
+    }
+
+    /**
+     * Handler для доставки boxbery. Изменяем адрес
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberyHandlerAfter($ID, $arFields) {
+        GLOBAL $arParams;
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+            $arPropFields = array(
+                "ORDER_ID" => $ID,
+                "NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
+                "VALUE" => $_REQUEST['boxbery_address']
+            );
+
+            $arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
+            $arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
+
+            CSaleOrderPropsValue::Add($arPropFields);
+
+            // Добавляем полную стоимость заказа в оплату
+            $order_instance = Bitrix\Sale\Order::load($ID);
+            $payment_collection = $order_instance->getPaymentCollection();
+            foreach ($payment_collection as $payment) {
+                $payment->setField('SUM', $arFields['PRICE']);
+                $payment->save();
+            }
         }
     }
 
@@ -2344,7 +2426,7 @@
     }
 
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
-    function BoxberryListStatuses() {   
+    function BoxberryListStatuses() {
         $arFilter = Array(
            "!TRACKING_NUMBER" => null,
            "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,
@@ -2389,128 +2471,128 @@
         $userID = $USER->GetID();
         $curPage = $APPLICATION->GetCurPage();
         $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';
-        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';    
-        logger($order_log, $file);  
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';
+        logger($order_log, $file);
     }
-	
-	/**
-	 * 
-	 * Создаем купоны для заказа сертификатов
-	 * 
-	 * @param int $order_id - номер заказа, хотя это просто номер элемента инфоблока
-	 * @param int $quantity
-	 * @param int $basket_rule_id
-	 * 
-	 * */
-	
-	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) {
-		for ($i = 1; $i <= $quantity; $i++) {    
-             
-	        //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
-	        $arFields['COUPON'] = CatalogGenerateCoupon();        
-	        $arFields['DISCOUNT_ID'] = $basket_rule_id;     
-	        $arFields['ACTIVE'] = "N";        
-	        $arFields['TYPE'] = 2;
-	        $arFields['MAX_USE'] = 1;        
-	        
-	        //Фукнкция из ядра, создаем новый купон в правилах корзины        
-	        $obCoupon = \Bitrix\Sale\Internals\DiscountCouponTable::add($arFields);
-	        
-	        //Получаем ID сгенерированного купона                                                   
-	        $discountIterator = \Bitrix\Sale\Internals\DiscountCouponTable::getList(array(
-	            'select' => array('ID'),
-	            'filter' => array('COUPON' => $arFields['COUPON'])
-	        ));    
-	        
-	        //Собираем массив с ID купонов         
-	        if($arDiscountIterator = $discountIterator -> fetch()) {
-	            $arCertificateID[] = $arDiscountIterator['ID'];
-	        } 
-	        //Собираем массив с кодами купонов 
-	        $arCouponCode[] = $arFields['COUPON'];                                                  
-	    }
 
-	    $props = array(
-	        'COUPON_ID'   => $arCertificateID,
-	        'COUPON_CODE' => $arCouponCode,
-	    );
-		
-	    // Установим новое значение для данного свойства данного элемента
-	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);    
-        
-        //Возвращаем новые купоны      
+    /**
+     *
+     * Создаем купоны для заказа сертификатов
+     *
+     * @param int $order_id - номер заказа, хотя это просто номер элемента инфоблока
+     * @param int $quantity
+     * @param int $basket_rule_id
+     *
+     * */
+
+    function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) {
+        for ($i = 1; $i <= $quantity; $i++) {
+
+            //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
+            $arFields['COUPON'] = CatalogGenerateCoupon();
+            $arFields['DISCOUNT_ID'] = $basket_rule_id;
+            $arFields['ACTIVE'] = "N";
+            $arFields['TYPE'] = 2;
+            $arFields['MAX_USE'] = 1;
+
+            //Фукнкция из ядра, создаем новый купон в правилах корзины
+            $obCoupon = \Bitrix\Sale\Internals\DiscountCouponTable::add($arFields);
+
+            //Получаем ID сгенерированного купона
+            $discountIterator = \Bitrix\Sale\Internals\DiscountCouponTable::getList(array(
+                'select' => array('ID'),
+                'filter' => array('COUPON' => $arFields['COUPON'])
+            ));
+
+            //Собираем массив с ID купонов
+            if($arDiscountIterator = $discountIterator -> fetch()) {
+                $arCertificateID[] = $arDiscountIterator['ID'];
+            }
+            //Собираем массив с кодами купонов
+            $arCouponCode[] = $arFields['COUPON'];
+        }
+
+        $props = array(
+            'COUPON_ID'   => $arCertificateID,
+            'COUPON_CODE' => $arCouponCode,
+        );
+
+        // Установим новое значение для данного свойства данного элемента
+        CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
+
+        //Возвращаем новые купоны
         return $arCouponCode;
-	}
-	
-	AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "certificatePayed");
-	
-	/**
-	 * 
-	 * Проверяем, оплачен ли заказ сертификата
-	 * За свойство оплачен выдается свойство активность
-	 * 
-	 * */
-	
-	function certificatePayed(&$arParams) {
-		if ($arParams['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
-			$current_object = CIBlockElement::GetList(
-				Array(),
-				Array("ID" => $arParams['ID']),
-				false,
-				Array("nPageSize" => 1),
-				Array("ID", "NAME", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY", "PROPERTY_NATURAL_EMAIL", "PROPERTY_NATURAL_NAME", "PROPERTY_LEGAL_EMAIL", "PROPERTY_LEGAL_NAME")
-			);
-			if ($current_values = $current_object->Fetch()) {   
-				$order_id = $current_values['ID'];
-				$quantity = $current_values['PROPERTY_CERT_QUANTITY_VALUE'];
-				$basket_rule_id = $current_values['XML_ID'];
+    }
+
+    AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "certificatePayed");
+
+    /**
+     *
+     * Проверяем, оплачен ли заказ сертификата
+     * За свойство оплачен выдается свойство активность
+     *
+     * */
+
+    function certificatePayed(&$arParams) {
+        if ($arParams['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
+            $current_object = CIBlockElement::GetList(
+                Array(),
+                Array("ID" => $arParams['ID']),
+                false,
+                Array("nPageSize" => 1),
+                Array("ID", "NAME", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY", "PROPERTY_NATURAL_EMAIL", "PROPERTY_NATURAL_NAME", "PROPERTY_LEGAL_EMAIL", "PROPERTY_LEGAL_NAME")
+            );
+            if ($current_values = $current_object->Fetch()) {
+                $order_id = $current_values['ID'];
+                $quantity = $current_values['PROPERTY_CERT_QUANTITY_VALUE'];
+                $basket_rule_id = $current_values['XML_ID'];
                 $cert_name = $current_values['NAME'];
                 $user_email = '';
                 $user_name = '';
                 if(!empty($current_values['PROPERTY_NATURAL_EMAIL']) && !empty($current_values['PROPERTY_NATURAL_NAME'])) {
-                    $user_name = $current_values['PROPERTY_NATURAL_NAME'];    
-                    $user_email = $current_values['PROPERTY_NATURAL_EMAIL'];    
+                    $user_name = $current_values['PROPERTY_NATURAL_NAME'];
+                    $user_email = $current_values['PROPERTY_NATURAL_EMAIL'];
                 } elseif(!empty($current_values['PROPERTY_LEGAL_EMAIL']) && !empty($current_values['PROPERTY_LEGAL_NAME'])) {
-                    $user_name = $current_values['PROPERTY_LEGAL_NAME']; 
-                    $user_email = $current_values['PROPERTY_LEGAL_EMAIL'];   
+                    $user_name = $current_values['PROPERTY_LEGAL_NAME'];
+                    $user_email = $current_values['PROPERTY_LEGAL_EMAIL'];
                 }
-			}
-			$first_coupon_array_key = key($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
+            }
+            $first_coupon_array_key = key($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
             //Сохраним все купоны после генерации
             $arCoupons = array();
-			if (!$arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParams['ACTIVE'] == "Y") {
-				$arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
-			} 
-            $couponListHTML = '';     
+            if (!$arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParams['ACTIVE'] == "Y") {
+                $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
+            }
+            $couponListHTML = '';
             foreach($arCoupons as $couponItem) {
                 if (!empty($couponItem)) {
                      $couponListHTML .=  '<tr><td align="right" style="border-collapse: collapse;color:#393939;font-family: "Open Sans","Segoe UI",Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;" valign="top">';
-                     $couponListHTML .=  $couponItem; 
-                     $couponListHTML .=  '</td></tr>';                     
-                }                                 
-            }                              
-            $arMailFields = array(  
-                "COUPON_LIST" => $couponListHTML, 
-                "ORDER_ID" => $order_id, 
-                "USER_EMAIL" => $user_email, 
-                "USER_NAME" => $user_name, 
-                "CERT_NAME" => $cert_name, 
+                     $couponListHTML .=  $couponItem;
+                     $couponListHTML .=  '</td></tr>';
+                }
+            }
+            $arMailFields = array(
+                "COUPON_LIST" => $couponListHTML,
+                "ORDER_ID" => $order_id,
+                "USER_EMAIL" => $user_email,
+                "USER_NAME" => $user_name,
+                "CERT_NAME" => $cert_name,
                 "CERT_QUANTITY" => $quantity
-            ); 
-            //Допилить письмо и шаблон                        
+            );
+            //Допилить письмо и шаблон
             if (!empty($arCoupons) && !empty($userEmail)) {
-                CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("COUPON_LIST" => $couponListHTML, "USER_EMAIL" => $user_email, "USER_NAME" => $user_name, "CERT_NAME" => $cert_name, "CERT_QUANTITY" => $quantity),"N");  
-            }       
-		}
-	}
-	
-	// класс для отправки сообщений о новых заказах сертификатов
-	class CertificateMail {
-		public static function newLegalPersonOrder($order_id) {
-			$view_link = sprintf("/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=service&ID=%d", CERTIFICATE_IBLOCK_ID, $order_id);
-			CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("VIEW_LINK" => $view_link),"N");
-		}
-	}              
+                CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("COUPON_LIST" => $couponListHTML, "USER_EMAIL" => $user_email, "USER_NAME" => $user_name, "CERT_NAME" => $cert_name, "CERT_QUANTITY" => $quantity),"N");
+            }
+        }
+    }
+
+    // класс для отправки сообщений о новых заказах сертификатов
+    class CertificateMail {
+        public static function newLegalPersonOrder($order_id) {
+            $view_link = sprintf("/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=service&ID=%d", CERTIFICATE_IBLOCK_ID, $order_id);
+            CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("VIEW_LINK" => $view_link),"N");
+        }
+    }
 
     //Обновление HL блока с поисковыми индексами
      \Bitrix\Main\EventManager::getInstance()->addEventHandler(
@@ -2569,62 +2651,62 @@
                 if($arElementID = $rsElementID->Fetch()){
                     $result = $entity_data_class::update($arElementID['ID'], $arHLData);
                 } else {
-                    $result = $entity_data_class::add($arHLData);   
-                } 
-            }       
-        }                                                                                    
+                    $result = $entity_data_class::add($arHLData);
+                }
+            }
+        }
     }
-    
-    //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа    
+
+    //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа
     //Не пашет
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'main',
         'OnProlog',
         'UpdateBasket'
     );
-    function UpdateBasket(){  
+    function UpdateBasket(){
         global $APPLICATION;
-        $url = $APPLICATION->GetCurPage();                                      
-        if (preg_match("/personal\/cart/i", $url)) {  
+        $url = $APPLICATION->GetCurPage();
+        if (preg_match("/personal\/cart/i", $url)) {
             require_once($_SERVER["DOCUMENT_ROOT"]."/ajax/ajax_add2basket.php");
-        }                                                                               
+        }
     }
-                   
+
     //Удаляем предзаказанный товар из HL блока и меняем статус заказа на предзаказ, перед созданием заказа
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'sale',
         'OnBeforeOrderAdd',
         'DeleteBasketElementFromHL'
     );
-    function DeleteBasketElementFromHL(&$arFields){         
-        $arBasketItems = array();   
+    function DeleteBasketElementFromHL(&$arFields){
+        $arBasketItems = array();
         foreach($arFields['BASKET_ITEMS'] as $basketItem){
             $arBasketItems[] = $basketItem;
-            $arBasketID[] = $basketItem['ID'];         
-        }      
-        
+            $arBasketID[] = $basketItem['ID'];
+        }
+
         $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
         $entity = HL\HighloadBlockTable::compileEntity($hl_block);
-        $entity_data_class = $entity->getDataClass();   
-                       
+        $entity_data_class = $entity->getDataClass();
+
         $table_id = 'tbl_' . $entity_table_name;
-         
-        $basket_item_filter = array(                                                                       
+
+        $basket_item_filter = array(
             'UF_BASKET_ID' => $arBasketID
         );
-                                                    
+
         $result = $entity_data_class::getList(array(
             "select" => array('*'),
-            "filter" => $basket_item_filter, 
+            "filter" => $basket_item_filter,
             "order"  => array("ID" => "ASC")
-        ));      
-        
-        $result = new CDBResult($result, $table_id);  
-        while ($basket_item = $result->Fetch()) {  
+        ));
+
+        $result = new CDBResult($result, $table_id);
+        while ($basket_item = $result->Fetch()) {
             if  ($basket_item['UF_DELAY_BEFORE'] == 'Y') {
-                $arFields['STATUS_ID'] = 'PR';          
-            } 
-            $entity_data_class::Delete($basket_item['ID']); 
-        }                   
-    }            
+                $arFields['STATUS_ID'] = 'PR';
+            }
+            $entity_data_class::Delete($basket_item['ID']);
+        }
+    }
 ?>
