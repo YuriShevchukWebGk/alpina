@@ -676,7 +676,7 @@
                                     //доп функции/////////////////////////////////
                                     
                                     $("#ORDER_PROP_15").suggestions({
-                                        token: <?= DADATA_API_CODE ?>,
+                                        token: "<?= DADATA_API_CODE ?>",
                                         type: "PARTY",
                                         count: 5,
                                         /* Вызывается, когда пользователь выбирает одну из подсказок */
@@ -688,7 +688,7 @@
                                         }
                                     });
                                     $("#ORDER_PROP_32").suggestions({
-                                        token: <?= DADATA_API_CODE ?>,
+                                        token: "<?= DADATA_API_CODE ?>",
                                         type: "BANK",
                                         count: 5,
                                         /* Вызывается, когда пользователь выбирает одну из подсказок */
@@ -703,6 +703,10 @@
                                             $(this).closest(".infoPunct").find(".inputTitle").hide();
                                         }
                                     });
+                                    $("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
+                                        $(this).closest(".infoPunct").hide();
+                                    });
+                                    
                                     setOptions();
 
                                     // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
@@ -945,5 +949,9 @@
                 $(this).closest(".infoPunct").find(".inputTitle").hide();
             }
         });
+        
+        $("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
+            $(this).hide();
+        })
     })
 </script>
