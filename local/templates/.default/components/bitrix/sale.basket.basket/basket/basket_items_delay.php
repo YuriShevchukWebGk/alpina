@@ -525,17 +525,6 @@
     <?
     } else {
     ?>
-    <div id="basket_items_delayed">
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan="<?=$numCells?>" style="text-align:center">
-                        <div class=""><?=GetMessage("SALE_NO_ITEMS");?></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
     <?
     };
 ?>

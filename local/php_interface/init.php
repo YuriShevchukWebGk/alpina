@@ -65,8 +65,9 @@
     define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
     define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
     define("TRADING_FINANCE_SECTION_ID", 111);
-    define("WIDGET_PREVIEW_WIDTH", 70);
-    define("WIDGET_PREVIEW_HEIGHT", 90);
+
+	define("WIDGET_PREVIEW_WIDTH", 70);
+	define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
     define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
     define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
@@ -77,10 +78,10 @@
     define("NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT", "LEGAL_NEW_CERTIFICATE"); // тип почтового события при покупке нового серификата юр лицом
 
     define("CERTIFICATE_NATURAL_PERSON_PROPERTY_ID", 906);
-    define("CERTIFICATE_LEGAL_PERSON_PROPERTY_ID", 907);
+	define("CERTIFICATE_LEGAL_PERSON_PROPERTY_ID", 907);
 
-    define("CERTIFICATE_ORDERS_COUPONS_ID_FIELD", 766);
-    define("CERTIFICATE_ORDERS_COUPONS_CODE_FIELD", 767);
+	define("CERTIFICATE_ORDERS_COUPONS_ID_FIELD", 766);
+	define("CERTIFICATE_ORDERS_COUPONS_CODE_FIELD", 767);
 
     define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска
     define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа
@@ -319,8 +320,8 @@
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
 
-    AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
-    AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
+    /*AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
+    AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost */
 
     /**
      * Handler для доставки flippost. Плюсуем стоимость доставки
@@ -329,7 +330,7 @@
      * @return void
      *
      * */
-    function flippostHandlerBefore(&$arFields) {
+    /*function flippostHandlerBefore(&$arFields) {
         if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
             $delivery_price = 0;
             $flippost_default_values = getDefaultFlippostValues();
@@ -353,7 +354,11 @@
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
-    }
+    }                                      */
+    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
+    AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
+
+
 
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
     AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
@@ -455,6 +460,39 @@
                 $payment->setField('SUM', $arFields['PRICE']);
                 $payment->save();
             }
+        }
+    }
+
+    /**
+     * Handler для доставки boxbery. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function flippostHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+            $delivery_price = 0;
+            $boxbery_default_values = getDefaultFlippostValues();
+            if ($_REQUEST['boxbery_cost']) {
+                $delivery_price = $_REQUEST['boxbery_cost'];
+            } else {
+                foreach ($boxbery_default_values as $default_variant) {
+                    if (is_array($default_variant['WEIGHT'])) {
+                        if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    } else {
+                        if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    }
+                }
+            }
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
     }
 
@@ -2476,77 +2514,77 @@
         logger($order_log, $file);
     }
 
-    /**
-     *
-     * Создаем купоны для заказа сертификатов
-     *
-     * @param int $order_id - номер заказа, хотя это просто номер элемента инфоблока
-     * @param int $quantity
-     * @param int $basket_rule_id
-     *
-     * */
+	/**
+	 *
+	 * Создаем купоны для заказа сертификатов
+	 *
+	 * @param int $order_id - номер заказа, хотя это просто номер элемента инфоблока
+	 * @param int $quantity
+	 * @param int $basket_rule_id
+	 *
+	 * */
 
-    function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) {
-        for ($i = 1; $i <= $quantity; $i++) {
+	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) {
+		for ($i = 1; $i <= $quantity; $i++) {
 
-            //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
-            $arFields['COUPON'] = CatalogGenerateCoupon();
-            $arFields['DISCOUNT_ID'] = $basket_rule_id;
-            $arFields['ACTIVE'] = "N";
-            $arFields['TYPE'] = 2;
-            $arFields['MAX_USE'] = 1;
+	        //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
+	        $arFields['COUPON'] = CatalogGenerateCoupon();
+	        $arFields['DISCOUNT_ID'] = $basket_rule_id;
+	        $arFields['ACTIVE'] = "N";
+	        $arFields['TYPE'] = 2;
+	        $arFields['MAX_USE'] = 1;
 
-            //Фукнкция из ядра, создаем новый купон в правилах корзины
-            $obCoupon = \Bitrix\Sale\Internals\DiscountCouponTable::add($arFields);
+	        //Фукнкция из ядра, создаем новый купон в правилах корзины
+	        $obCoupon = \Bitrix\Sale\Internals\DiscountCouponTable::add($arFields);
 
-            //Получаем ID сгенерированного купона
-            $discountIterator = \Bitrix\Sale\Internals\DiscountCouponTable::getList(array(
-                'select' => array('ID'),
-                'filter' => array('COUPON' => $arFields['COUPON'])
-            ));
+	        //Получаем ID сгенерированного купона
+	        $discountIterator = \Bitrix\Sale\Internals\DiscountCouponTable::getList(array(
+	            'select' => array('ID'),
+	            'filter' => array('COUPON' => $arFields['COUPON'])
+	        ));
 
-            //Собираем массив с ID купонов
-            if($arDiscountIterator = $discountIterator -> fetch()) {
-                $arCertificateID[] = $arDiscountIterator['ID'];
-            }
-            //Собираем массив с кодами купонов
-            $arCouponCode[] = $arFields['COUPON'];
-        }
+	        //Собираем массив с ID купонов
+	        if($arDiscountIterator = $discountIterator -> fetch()) {
+	            $arCertificateID[] = $arDiscountIterator['ID'];
+	        }
+	        //Собираем массив с кодами купонов
+	        $arCouponCode[] = $arFields['COUPON'];
+	    }
 
-        $props = array(
-            'COUPON_ID'   => $arCertificateID,
-            'COUPON_CODE' => $arCouponCode,
-        );
+	    $props = array(
+	        'COUPON_ID'   => $arCertificateID,
+	        'COUPON_CODE' => $arCouponCode,
+	    );
 
-        // Установим новое значение для данного свойства данного элемента
-        CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
+	    // Установим новое значение для данного свойства данного элемента
+	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
 
         //Возвращаем новые купоны
         return $arCouponCode;
-    }
+	}
 
-    AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "certificatePayed");
+	AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "certificatePayed");
 
-    /**
-     *
-     * Проверяем, оплачен ли заказ сертификата
-     * За свойство оплачен выдается свойство активность
-     *
-     * */
+	/**
+	 *
+	 * Проверяем, оплачен ли заказ сертификата
+	 * За свойство оплачен выдается свойство активность
+	 *
+	 * */
 
-    function certificatePayed(&$arParams) {
-        if ($arParams['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
-            $current_object = CIBlockElement::GetList(
-                Array(),
-                Array("ID" => $arParams['ID']),
-                false,
-                Array("nPageSize" => 1),
-                Array("ID", "NAME", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY", "PROPERTY_NATURAL_EMAIL", "PROPERTY_NATURAL_NAME", "PROPERTY_LEGAL_EMAIL", "PROPERTY_LEGAL_NAME")
-            );
-            if ($current_values = $current_object->Fetch()) {
-                $order_id = $current_values['ID'];
-                $quantity = $current_values['PROPERTY_CERT_QUANTITY_VALUE'];
-                $basket_rule_id = $current_values['XML_ID'];
+	function certificatePayed(&$arParams) {
+		if ($arParams['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
+			$current_object = CIBlockElement::GetList(
+				Array(),
+				Array("ID" => $arParams['ID']),
+				false,
+				Array("nPageSize" => 1),
+				Array("ID", "NAME", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY", "PROPERTY_NATURAL_EMAIL", "PROPERTY_NATURAL_NAME", "PROPERTY_LEGAL_EMAIL", "PROPERTY_LEGAL_NAME")
+			);
+			if ($current_values = $current_object->Fetch()) {
+				$order_id = $current_values['ID'];
+				$quantity = $current_values['PROPERTY_CERT_QUANTITY_VALUE'];
+				$basket_rule_id = $current_values['XML_ID'];
                 $cert_name = $current_values['NAME'];
                 $user_email = '';
                 $user_name = '';
@@ -2584,16 +2622,16 @@
             if (!empty($arCoupons) && !empty($userEmail)) {
                 CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("COUPON_LIST" => $couponListHTML, "USER_EMAIL" => $user_email, "USER_NAME" => $user_name, "CERT_NAME" => $cert_name, "CERT_QUANTITY" => $quantity),"N");
             }
-        }
-    }
+		}
+	}
 
-    // класс для отправки сообщений о новых заказах сертификатов
-    class CertificateMail {
-        public static function newLegalPersonOrder($order_id) {
-            $view_link = sprintf("/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=service&ID=%d", CERTIFICATE_IBLOCK_ID, $order_id);
-            CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("VIEW_LINK" => $view_link),"N");
-        }
-    }
+	// класс для отправки сообщений о новых заказах сертификатов
+	class CertificateMail {
+		public static function newLegalPersonOrder($order_id) {
+			$view_link = sprintf("/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=service&ID=%d", CERTIFICATE_IBLOCK_ID, $order_id);
+			CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("VIEW_LINK" => $view_link),"N");
+		}
+	}
 
     //Обновление HL блока с поисковыми индексами
      \Bitrix\Main\EventManager::getInstance()->addEventHandler(

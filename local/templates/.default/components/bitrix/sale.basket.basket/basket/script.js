@@ -541,9 +541,14 @@ function couponCreate(couponBlock, oneCoupon)
         return;
     if (oneCoupon.JS_STATUS === 'BAD')
         couponClass = 'bad';
-    else if (oneCoupon.JS_STATUS === 'APPLYED' || oneCoupon.JS_STATUS === 'ENTERED')
+    else if (oneCoupon.JS_STATUS === 'APPLYED' || oneCoupon.JS_STATUS === 'ENTERED') {
         couponClass = 'good';
-    
+        $(".gifts_block").load(document.location.href + " .gifts_block > *", function(response, status, xhr){
+            if ($(".gifts_block").find("div").size() > 0) {
+                $(".gifts_block").show();
+            }    
+        });
+    }
     couponBlock.appendChild(BX.create(
         'div',
         {
@@ -657,8 +662,13 @@ function couponListUpdate(res)
                         couponClass = 'disabled';
                         if (res.COUPON_LIST[i].JS_STATUS === 'BAD')
                             couponClass = 'bad';
-                        else if (res.COUPON_LIST[i].JS_STATUS === 'APPLYED' || res.COUPON_LIST[i].JS_STATUS === 'ENTERED')
+                        else if (res.COUPON_LIST[i].JS_STATUS === 'APPLYED' || res.COUPON_LIST[i].JS_STATUS === 'ENTERED') {
                             couponClass = 'good';
+                            $(".gifts_block").load(document.location.href + " .gifts_block > *");
+                            if ($(".gifts_block").find("div").size() > 0) {
+                                $(".gifts_block").show();
+                            }
+                        }
 
                         BX.adjust(couponsCollection[key], {props: {className: couponClass}});
                         BX.adjust(couponsCollection[key].nextSibling, {props: {className: couponClass}});
@@ -1251,7 +1261,7 @@ BX.ready(function() {
     }
     couponBlock = BX('coupons_block');
     if (!!couponBlock)
-        BX.bindDelegate(couponBlock, 'click', { 'attribute': 'data-coupon' }, BX.delegate(function(e){deleteCoupon(e); }, this));
+        BX.bindDelegate(couponBlock, 'click', { 'attribute': 'data-coupon' }, BX.delegate(function(e){deleteCoupon(e); $(".gifts_block").hide();}, this));
 });
 
 //Custom coupon
