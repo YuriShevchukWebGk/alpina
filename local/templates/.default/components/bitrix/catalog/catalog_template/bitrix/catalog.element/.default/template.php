@@ -600,14 +600,14 @@
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/OutOfStock">
                         <?$StockInfo = "OutOfStock";?>
-                        <?foreach ($arResult["PRICES"] as $code => $arPrice) {
-                                if ($arPrice["DISCOUNT_DIFF"]) {?>
+                        <?foreach ($arResult["PRICES"] as $code => $arPrice) {                    
+                            if ($arPrice["DISCOUNT_DIFF"]) {?>
                                 <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
-                                <?}?>
+                            <?}?>
                             <?if ($arPrice["DISCOUNT_VALUE_VAT"]) {
-                                    $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
-                                    if (strlen(stristr($newPrice, ".")) == 2) {
-                                        $newPrice .= "0";
+                                $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
+                                if (strlen(stristr($newPrice, ".")) == 2) {
+                                    $newPrice .= "0";
                                 }?>
                                 <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                 <?} else {
@@ -617,7 +617,7 @@
                                 }?>
                                 <p class="newPrice"><span><?= $newPrice ?></span> <span><?= GetMessage("ROUBLES") ?></span></p>
                                 <?}?>
-                            <?}?>
+                            <?}?> 
                         <p class="newPrice notAvailable" style="font-size:28px;"><?= GetMessage("NOT_IN_STOCK") ?></p>
                         <?}?>
                     <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
@@ -724,7 +724,10 @@
                                 ?>
                                 </div>
                             </div>     
-                            <a href="#" onclick="buy_certificate_popup(); return false;">
+                            <?
+                            global $USER;                          
+                            ?> 
+                            <a href="#" onclick="<?if ($USER->IsAdmin()) {echo 'buy_certificate_popup();';}?> return false;">
                                 <p class="inBasket"><?= GetMessage("CT_BCE_CATALOG_BUY") ?></p>
                             </a>
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>    

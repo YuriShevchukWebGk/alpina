@@ -703,9 +703,9 @@
                                             $(this).closest(".infoPunct").find(".inputTitle").hide();
                                         }
                                     });
-                                    $("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
+                                    /*$("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
                                         $(this).closest(".infoPunct").hide();
-                                    });
+                                    });*/
                                     
                                     setOptions();
 

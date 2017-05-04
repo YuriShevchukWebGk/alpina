@@ -79,15 +79,19 @@ $mailFields = array(
 	"ORDER_ID" => $ID,
 	"ORDER_USER"=> Message::getClientName($ID)
 );
-//if ($order_list[PERSON_TYPE_ID] == 1) {
-	if (CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N")) {
-		echo 'ok';
-	} else {
-		echo 'error';
-	}
-/*} else {
-	echo 'Ошибка: Юридическое лицо';
-}*/
+
+if (CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N")) {?>
+	<div style="font-size:40px;margin:200px auto 0;">
+	<center>ok - <?=$_GET['orderid']?><br /><br />
+	<form action="/custom-scripts/alpinadigital/singleorder.php">
+	<input type="text" name="orderid" value="" placeholder="Номер заказа" style="font-size:40px;"><br /><br />
+	<input type="submit" value="Отправить бесплатные книги" style="font-size:40px;">
+	</form></center>
+	</div>
+<?} else {
+	echo 'error';
+}
+
 } else {?>
 	<form action="/custom-scripts/alpinadigital/singleorder.php">
 	<input type="text" name="orderid" value="" placeholder="Номер заказа">

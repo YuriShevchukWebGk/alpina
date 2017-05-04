@@ -13,7 +13,8 @@ if ($certificate_data['certificate_quantity'] > 0) {
     
     $properties = array(
         "BUYER_TYPE"    => $_POST['person_type'] == "natural_person" ? CERTIFICATE_NATURAL_PERSON_PROPERTY_ID : CERTIFICATE_LEGAL_PERSON_PROPERTY_ID,
-        "CERT_QUANTITY" => $certificate_data['certificate_quantity']
+        "CERT_QUANTITY" => $certificate_data['certificate_quantity'],
+        "CERT_PRICE" => $certificate_data['certificate_price']      
     );
 
     switch ($_POST['person_type']) {
@@ -37,11 +38,11 @@ if ($certificate_data['certificate_quantity'] > 0) {
     
     // общие поля
     $fields = array(
-        "ACTIVE"          => "N",
-        "NAME"            => $certificate_data['certificate_name'],
-        "IBLOCK_ID"       => CERTIFICATE_IBLOCK_ID,
-        "XML_ID"          => $certificate_data['basket_rule'],
-        "PROPERTY_VALUES" => $properties
+        "ACTIVE"            => "N",
+        "NAME"              => $certificate_data['certificate_name'],
+        "IBLOCK_ID"         => CERTIFICATE_IBLOCK_ID,
+        "XML_ID"            => $certificate_data['basket_rule'],
+        "PROPERTY_VALUES"   => $properties                          
     );
     
     if ($product_id = $element_object->Add($fields)) {
