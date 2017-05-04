@@ -16,7 +16,7 @@
     use Bitrix\Sale\Internals;
     use Bitrix\Highloadblock as HL;
     use Bitrix\Main\Entity;
-    
+
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -65,6 +65,7 @@
     define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
     define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
     define("TRADING_FINANCE_SECTION_ID", 111);
+
 	define("WIDGET_PREVIEW_WIDTH", 70);
 	define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
@@ -358,6 +359,78 @@
     AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
 
 
+
+    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
+    AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
+
+
+
+    /**
+     * Handler для доставки boxbery. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberyHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+            $delivery_price = 0;
+
+            $boxbery_default_values = getDefaultFlippostValues();
+
+            if ($_REQUEST['boxbery_cost']) {
+                $delivery_price = $_REQUEST['boxbery_cost'];
+            } else {
+                foreach ($boxbery_default_values as $default_variant) {
+                    if (is_array($default_variant['WEIGHT'])) {
+                        if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    } else {
+                        if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    }
+                }
+            }
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+        }
+    }
+
+    /**
+     * Handler для доставки boxbery. Изменяем адрес
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberyHandlerAfter($ID, $arFields) {
+        GLOBAL $arParams;
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+
+            $arPropFields = array(
+                "ORDER_ID" => $ID,
+                "NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
+                "VALUE" => $_REQUEST['boxbery_address']
+            );
+
+            $arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
+            $arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
+
+            CSaleOrderPropsValue::Add($arPropFields);
+
+            // Добавляем полную стоимость заказа в оплату
+            $order_instance = Bitrix\Sale\Order::load($ID);
+            $payment_collection = $order_instance->getPaymentCollection();
+            foreach ($payment_collection as $payment) {
+                $payment->setField('SUM', $arFields['PRICE']);
+                $payment->save();
+            }
+        }
+    }
 
     /**
      * Handler для доставки flippost. Изменяем адрес
@@ -2522,13 +2595,13 @@
                     $user_name = $current_values['PROPERTY_LEGAL_NAME'];
                     $user_email = $current_values['PROPERTY_LEGAL_EMAIL'];
                 }
-			}
-			$first_coupon_array_key = key($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
+            }
+            $first_coupon_array_key = key($arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
             //Сохраним все купоны после генерации
             $arCoupons = array();
-			if (!$arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParams['ACTIVE'] == "Y") {
-				$arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
-			}
+            if (!$arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParams['ACTIVE'] == "Y") {
+                $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
+            }
             $couponListHTML = '';
             foreach($arCoupons as $couponItem) {
                 if (!empty($couponItem)) {
