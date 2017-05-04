@@ -547,7 +547,7 @@
                                                 });
                                                 if (flag) {
                                                     var boxbery_address = [
-                                                        $('select[data-method="CourierListCities"] option:checked').text(), // страна
+                                                        $('select[data-method="CourierListCities&Region"] option:checked').text(), // страна
                                                         $('select[data-method="ListZips"] option:checked').text(), // область
                                                         $('select[data-method="DeliveryCosts"] option:checked').text(), // город
                                                     ],
@@ -776,6 +776,7 @@
                                                 if (!weight)
                                                     weight = 1;
                                                 window.boxbery.getData(method, country, state, zip, weight, boxbery_id); // рендерим новые
+
                                             });
                                         }
                                     }

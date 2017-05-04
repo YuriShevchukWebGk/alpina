@@ -405,6 +405,7 @@
     function boxberyHandlerAfter($ID, $arFields) {
         GLOBAL $arParams;
         if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+
             $arPropFields = array(
                 "ORDER_ID" => $ID,
                 "NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
