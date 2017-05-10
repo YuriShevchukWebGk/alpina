@@ -121,8 +121,11 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
                 select_tag.appendChild(option_tag);
             } else {
                 select_tag = '';
-                window.boxbery.getData("ListZips", country, state); // рендерим новые
-
+                if(country == "Москва"){
+                    window.boxbery.getData("DeliveryCosts", country, state); // рендерим новые
+                } else {
+                    window.boxbery.getData("ListZips", country, state); // рендерим новые
+                }
             }
         }
         var Region = [],
@@ -137,7 +140,16 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
         }
 
         city.forEach(function(elem) {
-            Region[elem.Area] = elem.Region;
+            if(elem.Area == "Москва"){
+                Region[elem.Area] = elem.Region;
+            } else if(elem.Area == "Московская"){
+                Region[elem.Area] = elem.Region;
+            }
+        })
+        city.forEach(function(elem) {
+            if(elem.Area != "Москва" && elem.Area != "Московская"){
+                Region[elem.Area] = elem.Region;
+            }
 
             citiName = elem.City;
             if(!City[elem.Area+'#'+elem.Region]){
@@ -149,8 +161,14 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
 
         });
 
+      /*  var key, Region = new Array();
+            for (key in Region_old){
+                console.log(Region_old[key]);
+                Region [Area[Region_old[key]]] = Region_old [key];
+            }
+                */
         city.forEach(function(elem) {
-            ZipCity[elem.City] = elem.Zip
+              ZipCity[elem.City] = elem.Zip
         });
 
     var empty_region = true;

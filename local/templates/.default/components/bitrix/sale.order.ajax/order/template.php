@@ -553,7 +553,7 @@
                                                     ],
                                                     boxbery_string_address = "";
                                                     boxbery_string_address = boxbery_address.join(", ");
-                                                    $("#ORDER_PROP_5").val(boxbery_string_address + " " + $("#ORDER_PROP_5").val());
+                                                    $("#ORDER_DESCRIPTION").val(boxbery_string_address + " " + $("#ORDER_DESCRIPTION").val());
                                                     $(".boxbery_error").hide();
                                                 } else {
                                                     $('html, body').animate({
@@ -780,6 +780,7 @@
                                                 weight  = parseInt($('.order_weight').text()),
                                                 method  = $(this).data("method"); // какой метод вызывать следующим
                                                 $(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
+
                                                 if (!weight)
                                                     weight = 1;
                                                 window.boxbery.getData(method, country, state, zip, weight, boxbery_id); // рендерим новые
