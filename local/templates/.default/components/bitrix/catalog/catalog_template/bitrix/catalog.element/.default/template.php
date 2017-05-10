@@ -462,18 +462,6 @@
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
             </div>
-            <script>
-                <?if ($_SERVER['HTTP_REFERER'] == 'https://relap.io/' || strpos($_SERVER['HTTP_REFERER'],"theoryandpractice.ru") !== false) {?>
-                    $(document).ready(function() {
-                        selectversion('passive','digitalversion');
-                        var digitalLink = $(".digitalLink").attr("href");
-                        $(".digitalLink").attr("href", digitalLink+"&utm_content=tnp");
-                        <?if ($USER->isAdmin()) {?>
-                            console.log($(".digitalLink").attr("href"));
-                            <?}?>
-                    });
-                    <?}?>
-            </script>
             <?}?>
         <?$frame = $this->createFrame()->begin();?>
         <div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -600,7 +588,7 @@
                                 <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                 <?}?>  
                             <button style="width:10px; height:10px; background:rgba(255, 255, 0, 0.75); box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.12); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button><span>&nbsp;<?= GetMessage("ADD_TO_PREORDER") ?></span>
-                            <?}?>    
+                            <?}?>
                         <?} else {?>
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/OutOfStock">
@@ -649,18 +637,18 @@
                         </div>
                     </form>
                     <?}?>
-            </div>                                
+            </div>                   
             <?if (!empty ($arResult["PRICES"]) ) {?>
                 <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                     <div class="wrap_prise_bottom">
                         <span class="item_buttons_counter_block">
 
-                            <a href="javascript:void(0)" class="minus" id="<?= $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
+                            <a href="#" onclick="changeQ('-');return false;" class="minus" id="<?= $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
                             <input id="<?= $arResult['QUANTITY']; ?>" type="text" class="tac transparent_input" value="<?= (isset($arResult['OFFERS']) && !empty($arResult['OFFERS'])
                                     ? 1
                                     : $arResult['CATALOG_MEASURE_RATIO']
                                 ); ?>">
-                            <a href="javascript:void(0)" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>     
+                            <a href="#" onclick="changeQ('+');return false;" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>     
                         </span>
                         <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>                     
                             <div class="certificate_popup" style="display:none">
@@ -763,7 +751,26 @@
             }?>                            
         </div>
         <?$frame->end();?>
+		
+		<?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+			<form style="margin-top:27px;text-align:center;" class="no-mobile">
 
+				<?if($USER->IsAuthorized()){
+					$rsCurUser = CUser::GetByID($USER->GetID());
+					$arCurUser = $rsCurUser->Fetch();
+					$mail = $arCurUser["EMAIL"];
+				}?>
+				<div>
+					<p>
+						<span class="subscribeDesc">Впишите свой <b>e-mail</b>, чтобы получить письмо, как только книгу можно будет заказать</span>
+					</p>
+					<input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$mail;?>" name="email" class="subscribeEmail"/> 
+					<input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="Подписаться" style="border: 2px solid #c7a271;color: #c7a271; background-color: #fff; padding: 5px 0;"/>
+					
+				</div>
+			</form> 
+		<?}?>
+		
         <?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <!--noindex-->
             <div class="priceBasketWrap digitalVersionWrap" style="display:none;">

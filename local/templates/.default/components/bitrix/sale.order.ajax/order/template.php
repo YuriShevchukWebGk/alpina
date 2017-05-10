@@ -206,7 +206,7 @@
             }
         }*/
 
-		//minDatePlus = <?//=$setProps['nextDay']?>;
+		minDatePlus = <?=$setProps['nextDay']?>;
         var minDatePlus;
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             minDatePlus++;

@@ -8,17 +8,18 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 <body width="100%">
 <?
 if ($USER->isAdmin()) {
-	CModule::IncludeModule("blog");
-    CModule::IncludeModule("iblock");
-    CModule::IncludeModule("sale");
-    CModule::IncludeModule("catalog");
-    CModule::IncludeModule("main");
-
-	
+	$holidays = array( //Указываем даты праздничных дней
+	'check',
+	'01.05.2017',
+	'08.05.2017',
+	'09.05.2017',
+	'06.11.2017',
+	);
 	$days = array();
 	
-	for ($g = 0; $g < 10; $g++) {
-		$days[] = date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d")+$g, date("Y")));
+	for ($g = 0; $g < 15; $g++) {
+		$days[$g]['n'] = date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d")+$g, date("Y")));
+		$days[$g]['w'] = date("w", mktime(0, 0, 0, date("m")  , date("d")+$g, date("Y")));
 	}
 	$print = '';
 	$count = '';
@@ -28,17 +29,21 @@ if ($USER->isAdmin()) {
 		$i = 0;
 		$arFilter = Array(
 			">=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d")-60, date("Y"))),
-			"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => $day
+			"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => $day['n']
 		);
 		$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
-		$print .= '<b>'.$day.'</b><br />';
+
+		$print .= '<b>'.$day['n'].'</b><br />';
 		while ($arSales = $rsSales->Fetch())
 		{
 			$i++;
 			$print .= $arSales[ID].'<br />';
 		}
 		
-		$count .= $day.' - '.$i.'<br />';
+		if ($day['w'] == 6 || $day['w'] == 0 || array_search($day['n'], $holidays))
+			$count .= '<span style="color:red;font-weight:700">'.$day['n'].' - '.$i.'</span><br />';
+		else
+			$count .= $day['n'].' - '.$i.'<br />';
 
 	}
 	

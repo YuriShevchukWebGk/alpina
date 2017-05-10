@@ -82,9 +82,9 @@
 
 	define("CERTIFICATE_ORDERS_COUPONS_ID_FIELD", 783); // Поле с идентификаторами купонов, на копии 766
 	define("CERTIFICATE_ORDERS_COUPONS_CODE_FIELD", 784); // Поле с кодами купонов, на копии 767
-    
+
     define("SEND_CERTIFICATE_TO_USER_EVENT", 'SEND_CERTIFICATE_TO_USER'); // Шаблон письма с отправкой сертификата пользователям
-                                                                                                                             
+
     define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска
     define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа
     define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
@@ -142,16 +142,8 @@
         //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = $arParams['MAILGUN']['DOMAIN'];
         # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params /*array(
-        'attachments' => array(
-            array(
-                    'type' => 'application/pdf',
-                    'name' => 'file.pdf',
-                    'content' => base64_encode(file_get_contents($attachments))
-                )
-            )  */
-            );
-        }
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+    }
 
 
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
@@ -173,7 +165,7 @@
 
             $params = array(
                 'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
-                'to'      => $arFields["EMAIL"],//trim($arTemplate['EMAIL_TO'], "#"),
+                'to'      => $arFields[trim($arTemplate['EMAIL'], "#")],//$arFields["EMAIL"],
                 'subject' => $arTemplate['SUBJECT'],
                 'html'    => $message_body,
             );
@@ -181,6 +173,11 @@
             if ($arFields['BCC']) {
                 $params['bcc'] = $arFields['BCC'];
             }
+
+            if ($arFields['CC']) {
+                $params['cc'] = $arFields['CC'];
+            }
+
             $attachments = array();
             foreach ($arTemplate['FILE'] as $file) {
                 if ($file_path = CFile::GetPath($file)) {
@@ -191,11 +188,12 @@
                     );*/
                 }
             }
-           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $attachments, $attachments);
+          //  custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $message_body.'<a align="center" href="'.$attachments.'">Ссылка на подарок</a>', $attachments);
+           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], print_r($arFields), $attachments);
 
             $domain = $arParams['MAILGUN']['DOMAIN'];
 
-            # Make the call to the client.
+          //  # Make the call to the client.
             $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
 
             return false;
@@ -2553,7 +2551,7 @@
                 $cert_name = $current_values['NAME'];
                 $cert_price = $current_values['PROPERTY_CERT_PRICE_VALUE'];
                 $user_email = '';
-                $user_name = '';           
+                $user_name = '';
                 if(!empty($current_values['PROPERTY_NATURAL_EMAIL_VALUE']) && !empty($current_values['PROPERTY_NATURAL_NAME_VALUE'])) {
                     $user_name = $current_values['PROPERTY_NATURAL_NAME_VALUE'];
                     $user_email = $current_values['PROPERTY_NATURAL_EMAIL_VALUE'];
@@ -2568,9 +2566,9 @@
 
             if (!$arParams['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParams['ACTIVE'] == "Y") {
                 $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
-            }          
+            }
             $couponListHTML = '';
-            foreach($arCoupons as $couponItem) {    
+            foreach($arCoupons as $couponItem) {
                 if (!empty($couponItem)) {
                      $couponListHTML .=  '<tr><td align="right" style="border-collapse: collapse;color:#393939;font-family: "Open Sans","Segoe UI",Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;" valign="top">';
                      $couponListHTML .=  $couponItem;
@@ -2580,17 +2578,17 @@
             $arMailFields = array(
                 "COUPON_LIST"   => $couponListHTML,
                 "ORDER_ID"      => 'CERT_'.$order_id,
-                "USER_EMAIL"    => $user_email,
+                "EMAIL" => trim($user_email),
                 "NAME"          => $user_name,
                 "CERT_NAME"     => $cert_name,
                 "CERT_QUANTITY" => $quantity,
                 "CERT_PRICE"    => $cert_price,
                 "TOTAL_SUM"     => $quantity * $cert_price
             );
-            //Допилить письмо и шаблон       
-            if (!empty($arCoupons) && !empty($user_email)) {  
+            //Допилить письмо и шаблон
+            if (!empty($arCoupons) && !empty($user_email)) {
                 CEvent::Send(SEND_CERTIFICATE_TO_USER_EVENT, "s1", $arMailFields, "N");
-            }                         
+            }
 		}
 	}
 
@@ -2665,7 +2663,7 @@
         }
     }
 
-    //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа       
+    //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'main',
         'OnProlog',

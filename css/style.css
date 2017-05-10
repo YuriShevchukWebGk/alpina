@@ -466,8 +466,8 @@ header .headBasket{margin-right:0}
 .takePartWrap button{position: relative;left: 217px;top: -36px;border: none;width: 41px;height: 36px;cursor: pointer;background:url(/img/custImpOnElement.png) 0 9px no-repeat transparent;}
 .elementDescriptWrap .characteris{border-bottom:1px solid #ddd;margin-bottom:10px;padding-bottom:14px}
 .characteris:last-child{border:none}
-.characteris .title{color:#7B8C90;font-size:14px;padding-left:4px}
-.characteris .text{color:#424C4F;padding-left:4px;font-size:14px}
+.characteris .title{color:#7B8C90;font-size:15px;padding-left:4px}
+.characteris .text{color:#424C4F;padding-left:4px;font-size:15px}
 .socialServises{margin-left:4px;margin-top:25px}
 .socialServises .twit{background-position:-45px!important}
 .socialServises .faceb{background-position:-90px!important}
@@ -688,7 +688,7 @@ header .headBasket{margin-right:0}
 .historyBodywrap .hiddenOrderInf>div{border-bottom:1px solid #ececec}
 .historyBodywrap .infoQuant{color:#8F9DA0;font-size:13px}
 .historyBodywrap .infoTextTab{color:#7B8C90;font-size:14px}
-.historyBodywrap .infBookName{color:#424C4F}
+.historyBodywrap .infBookName{color:#424C4F;padding:8px 8px 8px 0}
 .historyBodywrap .infoPriceTd{color:#7B8C90;font-size:14px}
 .historyBodywrap .orderCancel a{text-decoration:none;color:#C7A271;font-size:14px}
 .historyBodywrap .infoAddrWrap>div{float:left;padding:18px 30px}
