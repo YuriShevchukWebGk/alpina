@@ -162,10 +162,27 @@
             foreach ($arFields as $field_name => $field_value) {
                 $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
             }
+            // подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
+            if($arFields[trim($arTemplate['EMAIL'], "#")]){
+                $email_to = $arFields[trim($arTemplate['EMAIL'], "#")];
+            } else {
+                $email_to = $arFields[trim($arTemplate['EMAIL_TO'], "#")];
+            }
+
+            $attachments = array();
+            foreach ($arTemplate['FILE'] as $file) {
+                if ($file_path = CFile::GetPath($file)) {
+                    $attachments = "@".$file_path;
+                    /*array_push(
+                        $attach,
+                        $_SERVER["DOCUMENT_ROOT"] . str_replace('http://files.alpinabook.ru', '', $file_path)
+                    );  */
+                }
+            }
 
             $params = array(
                 'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
-                'to'      => $arFields[trim($arTemplate['EMAIL'], "#")],//$arFields["EMAIL"],
+                'to'      => $email_to,//$arFields["EMAIL"],
                 'subject' => $arTemplate['SUBJECT'],
                 'html'    => $message_body,
             );
@@ -178,18 +195,9 @@
                 $params['cc'] = $arFields['CC'];
             }
 
-            $attachments = array();
-            foreach ($arTemplate['FILE'] as $file) {
-                if ($file_path = CFile::GetPath($file)) {
-                    $attachments = $file_path;
-                    /*array_push(
-                        $attachments,
-                        $_SERVER["DOCUMENT_ROOT"] . $file_path
-                    );*/
-                }
-            }
+
           //  custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $message_body.'<a align="center" href="'.$attachments.'">Ссылка на подарок</a>', $attachments);
-           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], print_r($arFields), $attachments);
+           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $attach, $attachments);
 
             $domain = $arParams['MAILGUN']['DOMAIN'];
 

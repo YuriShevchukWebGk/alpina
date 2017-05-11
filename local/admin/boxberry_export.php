@@ -33,7 +33,7 @@
         'order' => array($by => $order),
         'filter' => $filter,
         'select' => array("*", "BOXBERRY"),
-        'limit' => 100,
+        'limit' => 250,
         'runtime' => array(
             new \Bitrix\Main\Entity\ReferenceField(
                 'BOXBERRY',

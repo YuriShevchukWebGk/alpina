@@ -1600,7 +1600,7 @@ ol {
 }
 .header-count-cell__top {
   height: 177px;
-  padding-top: 41px;
+  padding-top: 25px;
   text-align: center;
   background-color: #E0E6E8;
 }
@@ -1609,7 +1609,7 @@ ol {
   line-height: 1;
   font-weight: 900;
   color: #00ABB8;
-  margin-bottom: 9px;
+  margin-bottom: 5px;
 }
 .header-count-cell__title {
   font-size: 16px;
@@ -3153,4 +3153,12 @@ img.rsImg {
 }
 .selectize-dropdown.common-selectize .option:first-child {
   border: none;
+}
+
+
+/**additional styles**/
+.user_points_available_time {
+    font-size: 14px;
+    color: gray;
+    margin: 10px 0 0;
 }
