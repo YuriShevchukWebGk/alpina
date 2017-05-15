@@ -138,29 +138,9 @@
             
         //Закрываем реквест
         $xmlBody .= '</request>';
-        
-        
-                    
-        /*
-        * 
-        *
-        * <request request_type="101" partner_id="300" password="300">
-          <doc doc_type="5" zdoc_id="alpina_test_zdoc_1" doc_txt="Тестовый документ N1">
-            <order order_id="alpina_test_1" dev1mail_type="4" zbarcode="300+alpina_test_1" dev1nal_scheme="0" parcel_nalog="0" parcel_sumvl="10.00" delivery_type="1" zip="454014" clnt_name="Тест" post_addr="Тестовая улица, Тест">
-              <struct_addr city="Тест" street="Тестовая" house="1, 1"/>
-            </order>
-            <order order_id="alpina_test_2" dev1mail_type="4" zbarcode="300+alpina_test_2" dev1nal_scheme="0" parcel_nalog="0" parcel_sumvl="10.00" delivery_type="1" zip="454014" clnt_name="Тест" post_addr="Тестовая улица, Тест">
-              <struct_addr city="Тест" street="Тестовая" house="2, 1"/>
-            </order>
-          </doc>
-        </request> 
-        <request partner_id="300" password="300" request_type="152" order_id="1" active_only="0"/>* 
-        * 
-        * 
-        */
-        
+                          
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'https://api.accordpost.ru/ff/v1/wsrv/');
+        curl_setopt($curl, CURLOPT_URL, CFG_REQUEST_FULLURL);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);      
         curl_setopt($curl, CURLOPT_POSTFIELDS, $xmlBody);                          
@@ -177,17 +157,17 @@
                     if($order_props[$ID]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                         $prop_data = array(
                            "ORDER_ID" => $ID,
-                           "ORDER_PROPS_ID" => 98, 
+                           "ORDER_PROPS_ID" => EXPORTED_TO_ACCORDPOST_PROPERTY_ID_NATURAL, 
                            "CODE" => "EXPORTED_TO_ACCORDPOST",   
-                           "NAME" => GetMessage("ORDER_USER"),
+                           "NAME" => GetMessage("ACCORDPOST_EXPORT_TITLE"),
                            "VALUE" => $export_date
                         );                                                        
                     } else { 
                         $prop_data = array(
                            "ORDER_ID" => $ID,
-                           "ORDER_PROPS_ID" => 99, 
+                           "ORDER_PROPS_ID" => EXPORTED_TO_ACCORDPOST_PROPERTY_ID_LEGAL, 
                            "CODE" => "EXPORTED_TO_ACCORDPOST",   
-                           "NAME" => GetMessage("ORDER_USER"),
+                           "NAME" => GetMessage("ACCORDPOST_EXPORT_TITLE"),
                            "VALUE" => $export_date
                         );      
                     }   
@@ -235,7 +215,7 @@
     $lAdmin->InitFilter($FilterArr);    
                          
     $arFilter = Array(       
-        "DELIVERY_ID" => 11, 
+        "DELIVERY_ID" => DELIVERY_MAIL_2, 
         "PAYED" => "Y"                                                            
     );  
 
@@ -517,7 +497,7 @@
                 //отправляем аяксом запрос на текущий файл. обработка таких запросов написаны выше
                 $obj = $.extend({}, order_id_array);
                 $.post("<?=$APPLICATION->GetCurPage()?>", {ID: $obj, export_order: "yes"}, function(data){    
-                    $(".adm-list-table").load(window.location.href + " .adm-list-table");   
+                    $(".adm-list-table").load(window.location.href + " .adm-list-table  > *");   
                     $("#js-export-status").html(data);                                           
                 });
             }    

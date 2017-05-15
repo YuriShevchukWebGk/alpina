@@ -2150,7 +2150,7 @@
             "items"       => array()
         );
         
-        //страница экспорта заказов в "boxberry"
+        //страница экспорта заказов в "accordpost"
         $moduleMenu[] = array(
             "parent_menu" => "global_menu_store",
             "section"     => "webgk.accordpost_export",
