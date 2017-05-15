@@ -33,7 +33,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 
     <p class="title"><?= GetMessage("AUTH_TITLE") ?></p>
 
-    <form name="form_auth" method="post" target="_top" action="<?= $arResult["AUTH_URL"] ?>">
+    <form name="form_auth" method="post" target="_top" action="<?= $arResult["AUTH_URL"] ?>" id="form_auth">
 
         <input type="hidden" name="AUTH_FORM" value="Y" />
         <input type="hidden" name="TYPE" value="AUTH" />
@@ -145,7 +145,7 @@ function checkAuthFields(){
         if (data != "SUCCESS") {
             $(".auth_note").html(data);
         } else {
-            location.reload();
+            $("#form_auth").submit();
         }    
     })  
 

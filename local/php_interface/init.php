@@ -191,8 +191,8 @@
                 $params['bcc'] = $arFields['BCC'];
             }
 
-            if ($arFields['CC']) {
-                $params['cc'] = $arFields['CC'];
+            if ($arFields['SALE_EMAIL']) {
+                $params['cc'] = $arFields['SALE_EMAIL'];
             }
 
 
