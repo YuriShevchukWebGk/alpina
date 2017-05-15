@@ -959,4 +959,4 @@
             $(this).closest(".infoPunct").hide();
         })
     })
-</script>
+</script> 

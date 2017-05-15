@@ -2436,37 +2436,62 @@
     }
 
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
-    function BoxberryListStatuses() {
+    function BoxberryListStatuses() {  
+        $date = date('Y-m-d, H:i:s');
+        $order_log = 'Date: '.$date.'; Update start;';
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/boxberry_update.log';
+        logger($order_log, $file);  
         $arFilter = Array(
            "!TRACKING_NUMBER" => null,
            "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,
            "!STATUS_ID" => 'F'
-        );
+        );                   
+        $date = date('Y-m-d, H:i:s');
+        $order_log = 'Date: '.$date.'; Before getlist;';                                                    
+        logger($order_log, $file);                                  
         if ($db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter)) {
-            while ($ar_sales = $db_sales->Fetch()) {
+            while ($ar_sales = $db_sales->Fetch()) {  
                 $orders_tracking_number[$ar_sales['ID']] = $ar_sales['TRACKING_NUMBER'];
             }
-        };
-        foreach($orders_tracking_number as $order_id => $order_tracking_number) {
-            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;
+        };       
+        $order_log = 'Date: '.$date.'; Getlist OK;';                                                    
+        logger($order_log, $file);               
+        foreach($orders_tracking_number as $order_id => $order_tracking_number) { 
+            $order_log = 'Date: '.$date.'; ID: '.$order_id.'; Boxberry;';                                        
+            logger($order_log, $file);                              
+            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;   
             // XXXXXX - код отслеживания заказа
             $handle = fopen($url, "rb");
             $contents = stream_get_contents($handle);
-            fclose($handle);
-            $data=json_decode($contents,true);
+            fclose($handle);                 
+            $data=json_decode($contents,true);     
+            $order_log = 'Date: '.$date.'; ID: '.$order_id.'; Json OK;';                                        
+            logger($order_log, $file);                 
             if ($data['err']) {
                 // если произошла ошибка и ответ не был получен:
                 echo $data['err'];
+                $order_log = 'Date: '.$date.'; ID: '.$order_id['ID'].'; Date: '.$data['err'].'; Boxberry error;';                                        
+                logger($order_log, $file);                              
             } else {
                 foreach($data[statuses] as $status) {
                     $last_status = $status;
                 }
                 //ждем данных от боксберри
+                $order_log = 'Date: '.$date.'; ID: '.$order_id.'; Before status update;';                                        
+                logger($order_log, $file);                       
                 if($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {
+                    $order_log = 'Date: '.$date.'; ID: '.$order_id.'; Status: '.$last_status['Name'].'; StatusText: '.BOXBERRY_DELIVERY_SUCCES.'; Before status update detail;';                                        
+                    logger($order_log, $file);    
                     CSaleOrder::StatusOrder($order_id, "F");
-                }
-            }
-        }
+                    $order_log = 'Date: '.$date.'; ID: '.$order_id.'; After status update detail;';                                        
+                    logger($order_log, $file);    
+                }                                                  
+            }                                                                
+        }    
+        //Логирование выполнения агента, удалить если проблема исчезнет      
+        $date = date('Y-m-d, H:i:s');
+        $order_log = 'Date: '.$date.'; Update end;';                                               
+        logger($order_log, $file);  
         return 'BoxberryListStatuses();';
     }
 

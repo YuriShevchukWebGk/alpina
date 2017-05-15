@@ -1,5 +1,5 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-if ($USER->isAdmin()) {
+if ($USER->isAdmin() || $USER->GetID() == 213217) { // Заболотников Евгений
 if ($_GET['orderid'] || $_GET['emailbooks']) {
 
 if ($_GET['orderid']) {
