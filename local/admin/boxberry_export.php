@@ -25,8 +25,8 @@
 
     $filter = array(
         "LOGIC" => "OR",
-        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID, "PAYED" => "Y"),
-        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID, "PAYED" => "Y")
+        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => 11, "PAYED" => "Y"),
+        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => 11, "PAYED" => "Y")
     );    
 
     $getListParams = array(
@@ -99,9 +99,12 @@
         
         $rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $current_order_id), false, false, array());
         while($ar_order_prop = $rs_order_props->Fetch()) {
+            arshow($ar_order_prop);
             $order_props[$ar_order_prop["CODE"]] = $ar_order_prop;  
         }  
 
+        die();
+        
         //массив с информацией о заказе
         $SDATA=array(); 
         //выбираем нужные поля        
