@@ -148,7 +148,7 @@
                             <?foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
                                 ?>
                                 <tr>
-                                    <td class="infoTextTab infBookName"><?= $arBaskItem["NAME"] ?></td>
+                                    <td class="infoTextTab infBookName"><a href="<?=$arBaskItem["DETAIL_PAGE_URL"]?>"><?= $arBaskItem["NAME"] ?></a></td>
                                     <td class="infoQuant"><?= $arBaskItem["QUANTITY"] ?></td>
                                     <td class="infoSoonDate">
                                         <?if ($preOrder == 'Y') {?>

@@ -25,15 +25,15 @@
 
     $filter = array(
         "LOGIC" => "OR",
-        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => 11, "PAYED" => "Y"),
-        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => 11, "PAYED" => "Y")
+        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID, "PAYED" => "Y"),
+        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID, "PAYED" => "Y")
     );    
 
     $getListParams = array(
         'order' => array($by => $order),
         'filter' => $filter,
         'select' => array("*", "BOXBERRY"),
-        'limit' => 100,
+        'limit' => 250,
         'runtime' => array(
             new \Bitrix\Main\Entity\ReferenceField(
                 'BOXBERRY',
@@ -99,12 +99,9 @@
         
         $rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $current_order_id), false, false, array());
         while($ar_order_prop = $rs_order_props->Fetch()) {
-            arshow($ar_order_prop);
             $order_props[$ar_order_prop["CODE"]] = $ar_order_prop;  
         }  
 
-        die();
-        
         //массив с информацией о заказе
         $SDATA=array(); 
         //выбираем нужные поля        
@@ -400,6 +397,5 @@
         </tbody>
     </table>     
 
-    <?}?>
-    
+    <?}?>                    
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_admin.php");?>
