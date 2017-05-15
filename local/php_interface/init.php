@@ -2136,20 +2136,6 @@
             "items"       => array()
         );
 
-        //страница экспорта заказов в "доставка guru"
-        $moduleMenu[] = array(
-            "parent_menu" => "global_menu_store",
-            "section"     => "webgk.guru_export",
-            "sort"        => 150,
-            "url"         => "guru_export.php?lang=".LANG,
-            "text"        => 'Dostavka guru экспорт',
-            "title"       => 'Экспорт заказов Dostavka guru',
-            "icon"        => "form_menu_icon",
-            "page_icon"   => "form_page_icon",
-            "items_id"    => "menu_webgk.guru_export",
-            "items"       => array()
-        );
-
         //страница экспорта заказов в "boxberry"
         $moduleMenu[] = array(
             "parent_menu" => "global_menu_store",
@@ -2161,6 +2147,20 @@
             "icon"        => "form_menu_icon",
             "page_icon"   => "form_page_icon",
             "items_id"    => "menu_webgk.boxberry_export",
+            "items"       => array()
+        );
+        
+        //страница экспорта заказов в "accordpost"
+        $moduleMenu[] = array(
+            "parent_menu" => "global_menu_store",
+            "section"     => "webgk.accordpost_export",
+            "sort"        => 150,
+            "url"         => "accordpost_export.php?lang=".LANG,
+            "text"        => 'Accordpost экспорт',
+            "title"       => 'Экспорт заказов Accordpost',
+            "icon"        => "form_menu_icon",
+            "page_icon"   => "form_page_icon",
+            "items_id"    => "menu_webgk.accordpost_export",
             "items"       => array()
         );
     }
