@@ -2436,7 +2436,8 @@
     }
 
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
-    function BoxberryListStatuses() {  
+    function BoxberryListStatuses() { 
+        Loader::includeModule('sale'); 
         $date = date('Y-m-d, H:i:s');
         $order_log = 'Date: '.$date.'; Update start;';
         $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/boxberry_update.log';
