@@ -31,16 +31,26 @@ $(".hidingBasketRight .title").on("click", function(){
     }            
 });
 </script> 
-<?
+<?                   
+//Проверим находимся ли мы на странице с предзаказанным товаром, и преобразуем ссылку в корзину                                                             
 if (!empty($arResult["GRID"]["ROWS"]))
 {   
     $hasDelayed = '';
-    foreach ($arResult["GRID"]["ROWS"] as $arItem) {
+    $preorderPage = '';
+    foreach ($arResult["GRID"]["ROWS"] as $arItem) {                                       
         if ($arItem["DELAY"] == "Y") {
             $hasDelayed = 'Y'; 
-        }
+            if (stripos($_SERVER['HTTP_REFERER'], trim($arItem['DETAIL_PAGE_URL'], '/'))) {
+                if (strpos($arParams['PATH_TO_ORDER'], '?')) {
+                    $arParams['PATH_TO_ORDER'] .= '&preorder=Y';
+                }
+                else {
+                    $arParams['PATH_TO_ORDER'] .= '?preorder=Y';
+                } 
+            };
+        }                
     }
-}?>                                       
+}?>                                     
 <div class="confirmTopWrap"> 
     <a href="<?=$arParams['PATH_TO_ORDER']?>">
         <div class="confirm">
@@ -48,22 +58,22 @@ if (!empty($arResult["GRID"]["ROWS"]))
         </div>
     </a>
 </div>    
-<p class="title active" id="basket_title"><?=GetMessage("TSB1_CART")?></p>      
-<?if( $hasDelayed == 'Y') {?>
-    <p class="title" id="preorder_title"><?=GetMessage("TSB1_PREORDER")?></p>    
+<p class="title <?if($arParams['DELAY'] != 'Y') { echo 'active'; }?>" id="basket_title"><?=GetMessage("TSB1_CART")?></p>      
+<?if($hasDelayed == 'Y') {?>
+    <p class="title <?if($arParams['DELAY'] == 'Y') { echo 'active'; }?>" id="preorder_title"><?=GetMessage("TSB1_PREORDER")?></p>    
 <?}?>  
 <?                
 if (!empty($arResult["GRID"]["ROWS"]))
 {
 ?>
-    <div data-role="basket-item-list" class="basketBooks" id="basket_list">                                                                         
+    <div data-role="basket-item-list" class="basketBooks" id="basket_list" <?if($arParams['DELAY'] == 'Y') { echo 'style="display:none"'; }?>>                                                                         
         <?foreach ($arResult["GRID"]["ROWS"] as $arItem) {
             if ($arItem["DELAY"] == "N") {   
                 $thisItem = CIBlockElement::GetList(array(), array("ID"=>$arItem["PRODUCT_ID"]), false, false, array("ID", "DETAIL_PICTURE", "DETAIL_PAGE_URL"))->Fetch();
                 $thisItemSect = CIBlockSection::GetByID($thisItem["IBLOCK_SECTION_ID"]) -> Fetch();
                 $thisItemPict = CFile::GetPath($thisItem["DETAIL_PICTURE"]);
                 ?>
-                <div class="basketBook" basket-id="<?=$arItem["ID"]?>" product-id="<?=$arItem["PRODUCT_ID"]?>"> 
+                <div class="basketBook" basket-id="<?=$arItem["ID"]?>" product-id="<?=$arItem["PRODUCT_ID"]?>" basket-delay="<?=$arItem["DELAY"]?>"> 
                     <div class="bookImage">                 
                         <?if($arItem["DETAIL_PAGE_URL"]) {?>
                             <a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><img src="<?=$thisItemPict?>" alt="<?=$arItem["NAME"]?>"></a>
@@ -97,8 +107,8 @@ if (!empty($arResult["GRID"]["ROWS"]))
             ?>    
         <?}?> 
     </div>
-    <?if( $hasDelayed == 'Y') {?>
-    <div data-role="preorder-item-list" class="basketBooks" id="preorder_list" style="display:none">
+    <?if ($hasDelayed == 'Y') {?>
+    <div data-role="preorder-item-list" class="basketBooks" id="preorder_list" <?if($arParams['DELAY'] != 'Y') { echo 'style="display:none"'; }?>>
     <?}?>
         <?foreach ($arResult["GRID"]["ROWS"] as $arItem) {
             if ($arItem["DELAY"] == "Y") {   
@@ -106,7 +116,7 @@ if (!empty($arResult["GRID"]["ROWS"]))
                 $thisItemSect = CIBlockSection::GetByID($thisItem["IBLOCK_SECTION_ID"]) -> Fetch();
                 $thisItemPict = CFile::GetPath($thisItem["DETAIL_PICTURE"]);
                 ?>
-                <div class="basketBook" basket-id="<?=$arItem["ID"]?>" product-id="<?=$arItem["PRODUCT_ID"]?>"> 
+                <div class="basketBook" basket-id="<?=$arItem["ID"]?>" product-id="<?=$arItem["PRODUCT_ID"]?>" basket-delay="<?=$arItem["DELAY"]?>"> 
                     <div class="bookImage">                 
                         <?if($arItem["DETAIL_PAGE_URL"]) {?>
                             <a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><img src="<?=$thisItemPict?>" alt="<?=$arItem["NAME"]?>"></a>
@@ -142,7 +152,7 @@ if (!empty($arResult["GRID"]["ROWS"]))
     </div>  
 <?}?>
 <div class="bottomBlock">
-    <div class="result">
+    <div class="result" <?if($arParams['DELAY'] == 'Y') { echo 'style="display:none"'; }?>>
         <p class="resultText"><?=GetMessage("TSB1_RESULT")?></p>
         <p class="count"><?=GetMessage("TSB1_TOTAL_PRICE")?><?=$arResult["TOTAL_ITEMS"]?></p>
         <p class='price'><?=$arResult["allSum_FORMATED"]?></p>

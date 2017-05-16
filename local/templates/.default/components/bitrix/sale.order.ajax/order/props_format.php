@@ -45,7 +45,7 @@
     }
          
     if (!function_exists("PrintPropsForm")){
-        function PrintPropsForm($arSource = array(), $locationTemplate = ".default") {
+        function PrintPropsForm($arSource = array(), $locationTemplate = ".default", $preorder = '') {
             if (!empty($arSource)){ ?>
             <? foreach ($arSource as $arProperties) {
                     if ($arProperties["TYPE"] != "LOCATION") {
@@ -53,8 +53,8 @@
                     }
                     else {
                         $class = "";
-                } ?>     
-                <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>">
+                } ?>                              
+                <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>" <?if($preorder && ($arProperties["ID"] == DELIVERY_DATE_LEGAL_ORDER_PROP_ID || $arProperties["ID"] == DELIVERY_DATE_NATURAL_ORDER_PROP_ID)) { echo 'style="display:none"'; }?>>
                     <?if ($arProperties["TYPE"] != "LOCATION") {?>
 
                         <p class="inputTitle">

@@ -289,7 +289,7 @@
                         <input type="hidden" id="guru_cost" name="guru_cost" value="">
                         <input type="hidden" id="guru_selected" name="guru_selected" value="">
                     </div>
-                <? } ?>
+                <? } ?>                                                      
                 <? if ($arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID) { ?>
                     <div class="boxberry_delivery_wrapper">
                         <div class="boxberry_error"><?= GetMessage('BOXBERRY_ERROR') ?></div>

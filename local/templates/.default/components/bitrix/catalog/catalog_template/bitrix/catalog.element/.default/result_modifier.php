@@ -608,7 +608,7 @@ if ($arResult['MODULES']['currency'])
                 "PROPERTY_FIRST_NAME", 
                 "PROPERTY_SHOWINAUTHORS", 
                 "PROPERTY_ORIG_NAME",
-				"NAME"
+                "NAME"
             )
         );
         
@@ -617,7 +617,7 @@ if ($arResult['MODULES']['currency'])
             $ar_properties["FIRST_NAME"] = $authors["PROPERTY_FIRST_NAME_VALUE"];
             $ar_properties["SHOWINAUTHORS"] = $authors["PROPERTY_SHOWINAUTHORS_VALUE"];
             $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
-			$ar_properties["NAME"] = $authors["NAME"];
+            $ar_properties["NAME"] = $authors["NAME"];
         
             if (strlen ($ar_properties['FIRST_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
@@ -625,11 +625,11 @@ if ($arResult['MODULES']['currency'])
             if (strlen ($ar_properties['LAST_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
             }
-			/*if (strlen ($ar_properties['NAME']) > 0) {
+            /*if (strlen ($ar_properties['NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['NAME'];
-			}*/
+            }*/
             if (strlen ($ar_properties['ORIG_NAME']) > 0) {
-				$oriname = implode(" ", array_reverse(explode(" ", $ar_properties['ORIG_NAME'])));
+                $oriname = implode(" ", array_reverse(explode(" ", $ar_properties['ORIG_NAME'])));
                 $arResult["AUTHOR_NAME"] .= " / " . (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $oriname;
             }
         }
@@ -913,16 +913,16 @@ if ($arResult['MODULES']['currency'])
     foreach ($arResult["AUTHOR"] as $key => $author) {
         $arResult["AUTHOR"][$key]["IMAGE_FILE"] = CFile::GetFileArray($author["DETAIL_PICTURE"]);
     }
-	if ($USER->isAdmin()) {
-		$recsArray = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/related/50b90f71b994b319dc5fd855/?itemIds='.$arResult["ID"]);
-		$recsArray = array_slice(json_decode($recsArray, true), 0, 6);
-		foreach($recsArray as $val) {
-			$arResult["STRING_RECS"][] = $val[ItemId];
-		}
-	} else {
-		$recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
-		$arResult["STRING_RECS"] = array_slice(json_decode($recsArray), 0, 6);
-	}
-	$APPLICATION->AddHeadString('<meta name="relap-image" content="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
-	$this->__component->arResultCacheKeys = array_merge($this->__component->arResultCacheKeys, array_keys($arResult));
+    if ($USER->isAdmin()) {
+        $recsArray = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/related/50b90f71b994b319dc5fd855/?itemIds='.$arResult["ID"]);
+        $recsArray = array_slice(json_decode($recsArray, true), 0, 6);
+        foreach($recsArray as $val) {
+            $arResult["STRING_RECS"][] = $val[ItemId];
+        }
+    } else {
+        $recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
+        $arResult["STRING_RECS"] = array_slice(json_decode($recsArray), 0, 6);
+    }
+    $APPLICATION->AddHeadString('<meta name="relap-image" content="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
+    $this->__component->arResultCacheKeys = array_merge($this->__component->arResultCacheKeys, array_keys($arResult));
 ?>

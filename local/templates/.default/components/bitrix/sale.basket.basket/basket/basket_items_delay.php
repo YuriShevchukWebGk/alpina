@@ -92,9 +92,9 @@
     .cartWrapper #basket_items_delayed .nextPage {
         background: url(/img/nextPageBack.png) 276px 19px no-repeat #00a9b6;
     }
-    </style>                          
+    </style>              
     <div id="basket_items_delayed">    
-        <div class="yourBooks" id="cardBlock3" style="display:none">
+        <div class="yourBooks" id="cardBlock3" <?if(!$onlyPreorder && !$_REQUEST['preorder']){ echo 'style="display:none"'; }?>>
             <div class="preorder_item_block">
                 <table id="delayed_items">    
                     <tbody> 
@@ -525,17 +525,6 @@
     <?
     } else {
     ?>
-    <div id="basket_items_delayed">
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan="<?=$numCells?>" style="text-align:center">
-                        <div class=""><?=GetMessage("SALE_NO_ITEMS");?></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
     <?
     };
 ?>

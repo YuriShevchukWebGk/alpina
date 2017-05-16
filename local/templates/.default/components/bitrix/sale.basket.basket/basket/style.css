@@ -988,3 +988,8 @@ font.errortext {
 #cardBlock1{
     display: block;
 }
+.gifts_block {
+    margin-top: 20px;
+    height: 350px;
+    display: none;
+}

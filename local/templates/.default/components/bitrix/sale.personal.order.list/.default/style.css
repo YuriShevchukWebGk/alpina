@@ -197,3 +197,18 @@
     color: blue;
     text-decoration: underline;
 }
+.expectedDate {
+    padding: 0 0px 18px 30px;    
+}
+.historyBodywrap .orderBooks .infoQuant {   
+    width: 60px;
+}
+.historyBodywrap .orderBooks .infoSoonDate {
+    width: 290px;
+    font-size: 14px;
+    color: #7b8c90;
+}   
+.historyBodywrap .orderBooks .infoSoonDate div {     
+    font-size: 14px;
+    color: #424C4F;;
+}

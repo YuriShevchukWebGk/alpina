@@ -168,9 +168,9 @@
                 "webgk:rfi.widget",
                 "",
                 Array(
-                    "ORDER_ID"          => $num,
-                    "READRIGHT_PAYMENT" => "Y",
-                    "READRIGHT_PARAMS"  => array(
+                    "ORDER_ID"      => $num,
+                    "OTHER_PAYMENT" => "Y",
+                    "OTHER_PARAMS"  => array(
 						"PAYSUM"   => htmlspecialcharsbx($_POST["paysum"]),
 						"EMAIL"    => htmlspecialcharsbx($_POST["email"]),
 						"PHONE"    => htmlspecialcharsbx($_POST['telephone']),

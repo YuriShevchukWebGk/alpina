@@ -5,9 +5,6 @@
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
 
-    if (!empty($arResult["ERROR_MESSAGE"]))
-        ShowError($arResult["ERROR_MESSAGE"]);
-
     $bDelayColumn  = false;
     $bDeleteColumn = false;
     $bWeightColumn = false;
@@ -37,9 +34,9 @@
 			e.stopPropagation();
 		});
 	});
-</script>
-    <div id="basket_items_list"> 
-        <div class="yourBooks" id="cardBlock1">
+</script>                                                                                              
+    <div id="basket_items_list">                       
+        <div class="yourBooks" id="cardBlock1" <?if($onlyPreorder || $_REQUEST['preorder']){ echo 'style="display:none"'; }?>>
             <table id="basket_items">
                 <thead>
                     <tr>
@@ -460,7 +457,7 @@
         else:
     ?>
     <div id="basket_items_list">
-        <div class="yourBooks" id="cardBlock1">
+        <div class="yourBooks" id="cardBlock1" <?if($onlyPreorder){ echo 'style="display:none"'; }?>>
             <table>
                 <tbody>
                     <tr>

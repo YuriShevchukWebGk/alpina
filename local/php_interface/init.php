@@ -65,14 +65,32 @@
     define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
     define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
     define("TRADING_FINANCE_SECTION_ID", 111);
-    define("WIDGET_PREVIEW_WIDTH", 70);
-    define("WIDGET_PREVIEW_HEIGHT", 90);
-    define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки       
-    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry   
-    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry                  
-    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска                           
-    define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа                                                                                          
-    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами           
+
+	define("WIDGET_PREVIEW_WIDTH", 70);
+	define("WIDGET_PREVIEW_HEIGHT", 90);
+    define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
+    define("BOXBERRY_DELIVERY_SUCCES", 'Выдано'); //Название статуса выдачи посылки в ответе API boxberry
+    define("BOXBERRY_DELIVERED", 'Поступило в пункт выдачи'); //Название статуса поступления в ПВЗ в ответе API boxberry
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
+    define("MAIL_FROM_DEFAULT", 'shop@alpinabook.ru'); //Инфоблок с подарочными сертификатами
+
+    define("CERTIFICATE_IBLOCK_ID", 68); //Инфоблок с заказами сертификатов/ для копии 67
+    define("NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT", "LEGAL_NEW_CERTIFICATE"); // тип почтового события при покупке нового серификата юр лицом
+
+    define("CERTIFICATE_NATURAL_PERSON_PROPERTY_ID", 910); //Тип покупателя физ.лицо для флага "Тип покупателя" в инфоблоке сертификатов, на копии 906
+	define("CERTIFICATE_LEGAL_PERSON_PROPERTY_ID", 911); //Тип покупателя юр.лицо для флага "Тип покупателя" в инфоблоке сертификатов, на копии 907
+
+	define("CERTIFICATE_ORDERS_COUPONS_ID_FIELD", 783); // Поле с идентификаторами купонов, на копии 766
+	define("CERTIFICATE_ORDERS_COUPONS_CODE_FIELD", 784); // Поле с кодами купонов, на копии 767
+
+    define("SEND_CERTIFICATE_TO_USER_EVENT", 'SEND_CERTIFICATE_TO_USER'); // Шаблон письма с отправкой сертификата пользователям
+
+    define("SEARCH_INDEX_HL_ID", 3); //ID HL блока для поиска
+    define("PREORDER_BASKET_HL_ID", 4); //ID HL блока хранения корзины до предзаказа
+    define("CERTIFICATE_SECTION_ID", 143); //Инфоблок с подарочными сертификатами
+
+    define ("DELIVERY_DATE_LEGAL_ORDER_PROP_ID", 45);
+    define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);
 
     /**
     *
@@ -83,51 +101,6 @@
     *
     * */
 
-    AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
-
-    function messagesWithAttachments($arFields, $arTemplate) {
-        GLOBAL $arParams;
-
-        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
-            $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
-            $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
-
-            // заменяем все максросы в письме на значения из $arFields
-            // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
-            $message_body = $arTemplate['MESSAGE'];
-            foreach ($arFields as $field_name => $field_value) {
-                $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
-            }
-
-            $params = array(
-                'from'    => $email_from,
-                'to'      => $arFields[trim($arTemplate['EMAIL_TO'], "#")],
-                'subject' => $arTemplate['SUBJECT'],
-                'html'    => $message_body,
-            );
-
-            if ($arFields['BCC']) {
-                $params['bcc'] = $arFields['BCC'];
-            }
-
-            $attachments = array();
-            foreach ($arTemplate['FILE'] as $file) {
-                if ($file_path = CFile::GetPath($file)) {
-                    array_push(
-                        $attachments,
-                        $_SERVER["DOCUMENT_ROOT"] . $file_path
-                    );
-                }
-            }
-
-            $domain = $arParams['MAILGUN']['DOMAIN'];
-
-            # Make the call to the client.
-            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-
-            return false;
-        }
-    }
 
     /**
     *
@@ -141,10 +114,9 @@
     * @param string $additional_parameters
     *
     **/
-    function custom_mail($to, $subject, $message, $additional_headers = '', $additional_parameters = '') {
-
-        GLOBAL $arParams;
-
+    function custom_mail($to, $subject, $message, $attachments, $additional_headers = '', $additional_parameters = '') {         
+        GLOBAL $arParams;        
+                                                              
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
         $bcc_pattern = "/(?<=BCC:)(.*)(?=)/";
@@ -153,24 +125,88 @@
         preg_match($from_pattern, $additional_headers, $from_matches);
         preg_match($bcc_pattern, $additional_headers, $bcc_matches);
 
-        $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
+        $mailgun = new Mailgun(MAILGUN_KEY);   
+        
         $params = array(
-            'from'    => $from_matches[0],
+            'from'    => ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
             'to'      => $to,
             'subject' => $subject,
             'html'    => $message
-        );
-
-
-
+        );             
+                 
         if (trim($bcc_matches[0])) {
             $params['bcc'] = $bcc_matches[0];
         }
+        //$attachments = 'https://www.alpinabook.ru/img/twi.png';
+        $domain = MAILGUN_DOMAIN;
+        # Make the call to the client.                                                   
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));     
+    }                                                                                                
 
-        $domain = $arParams['MAILGUN']['DOMAIN'];
-        # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params);
+
+    AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
+
+    function messagesWithAttachments($arFields, $arTemplate) {
+        GLOBAL $arParams;
+
+        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+
+            $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
+            $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
+
+            // заменяем все максросы в письме на значения из $arFields
+            // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
+            $message_body = $arTemplate['MESSAGE'];
+            foreach ($arFields as $field_name => $field_value) {
+                $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
+            }
+            // подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
+            if($arFields[trim($arTemplate['EMAIL'], "#")]){
+                $email_to = $arFields[trim($arTemplate['EMAIL'], "#")];
+            } else {
+                $email_to = $arFields[trim($arTemplate['EMAIL_TO'], "#")];
+            }
+
+            $attachments = array();
+            foreach ($arTemplate['FILE'] as $file) {
+                if ($file_path = CFile::GetPath($file)) {
+                    $attachments = "@".$file_path;
+                    /*array_push(
+                        $attach,
+                        $_SERVER["DOCUMENT_ROOT"] . str_replace('http://files.alpinabook.ru', '', $file_path)
+                    );  */
+                }
+            }
+
+            $params = array(
+                'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
+                'to'      => $email_to,//$arFields["EMAIL"],
+                'subject' => $arTemplate['SUBJECT'],
+                'html'    => $message_body,
+            );
+
+            if ($arFields['BCC']) {
+                $params['bcc'] = $arFields['BCC'];
+            }
+
+            if ($arFields['SALE_EMAIL']) {
+                $params['cc'] = $arFields['SALE_EMAIL'];
+            }
+
+
+          //  custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $message_body.'<a align="center" href="'.$attachments.'">Ссылка на подарок</a>', $attachments);
+           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $attach, $attachments);
+
+            $domain = $arParams['MAILGUN']['DOMAIN'];
+
+          //  # Make the call to the client.
+            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+
+            return false;
+        }
     }
+
+
 
     /**
      * Дефолтные значения для флиппост на случай, если что-то пошло не так и цена доставки 0
@@ -219,7 +255,7 @@
         }
     }
 
-    function arshow($array, $adminCheck = false){
+    function arshow($array, $adminCheck = false, $dieAfterArshow = false){
         global $USER;
         $USER = new Cuser;
         if ($adminCheck) {
@@ -230,6 +266,9 @@
         echo "<pre>";
         print_r($array);
         echo "</pre>";
+        if ($dieAfterArshow) {
+            die();
+        }
     }
     function morph($n, $f1, $f2, $f5) {
         $n = abs(intval($n)) % 100;
@@ -320,6 +359,78 @@
             }
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+        }
+    }
+
+    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
+    AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
+
+
+
+    /**
+     * Handler для доставки boxbery. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberyHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+            $delivery_price = 0;
+
+            $boxbery_default_values = getDefaultFlippostValues();
+
+            if ($_REQUEST['boxbery_cost']) {
+                $delivery_price = $_REQUEST['boxbery_cost'];
+            } else {
+                foreach ($boxbery_default_values as $default_variant) {
+                    if (is_array($default_variant['WEIGHT'])) {
+                        if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    } else {
+                        if ($arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT']) {
+                            $delivery_price = $default_variant['PRICE'];
+                            break;
+                        }
+                    }
+                }
+            }
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+        }
+    }
+
+    /**
+     * Handler для доставки boxbery. Изменяем адрес
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberyHandlerAfter($ID, $arFields) {
+        GLOBAL $arParams;
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+
+            $arPropFields = array(
+                "ORDER_ID" => $ID,
+                "NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"],
+                "VALUE" => $_REQUEST['boxbery_address']
+            );
+
+            $arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
+            $arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
+
+            CSaleOrderPropsValue::Add($arPropFields);
+
+            // Добавляем полную стоимость заказа в оплату
+            $order_instance = Bitrix\Sale\Order::load($ID);
+            $payment_collection = $order_instance->getPaymentCollection();
+            foreach ($payment_collection as $payment) {
+                $payment->setField('SUM', $arFields['PRICE']);
+                $payment->save();
+            }
         }
     }
 
@@ -2023,20 +2134,6 @@
             "items"       => array()
         );
 
-        //страница экспорта заказов в "доставка guru"
-        $moduleMenu[] = array(
-            "parent_menu" => "global_menu_store",
-            "section"     => "webgk.guru_export",
-            "sort"        => 150,
-            "url"         => "guru_export.php?lang=".LANG,
-            "text"        => 'Dostavka guru экспорт',
-            "title"       => 'Экспорт заказов Dostavka guru',
-            "icon"        => "form_menu_icon",
-            "page_icon"   => "form_page_icon",
-            "items_id"    => "menu_webgk.guru_export",
-            "items"       => array()
-        );
-
         //страница экспорта заказов в "boxberry"
         $moduleMenu[] = array(
             "parent_menu" => "global_menu_store",
@@ -2048,6 +2145,20 @@
             "icon"        => "form_menu_icon",
             "page_icon"   => "form_page_icon",
             "items_id"    => "menu_webgk.boxberry_export",
+            "items"       => array()
+        );
+        
+        //страница экспорта заказов в "accordpost"
+        $moduleMenu[] = array(
+            "parent_menu" => "global_menu_store",
+            "section"     => "webgk.accordpost_export",
+            "sort"        => 150,
+            "url"         => "accordpost_export.php?lang=".LANG,
+            "text"        => 'Accordpost экспорт',
+            "title"       => 'Экспорт заказов Accordpost',
+            "icon"        => "form_menu_icon",
+            "page_icon"   => "form_page_icon",
+            "items_id"    => "menu_webgk.accordpost_export",
             "items"       => array()
         );
     }
@@ -2323,43 +2434,71 @@
     }
 
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
-    function BoxberryListStatuses() {
+    function BoxberryListStatuses() { 
+        $bTmpUser = False; 
+        if (!isset($GLOBALS["USER"]) || !is_object($GLOBALS["USER"])) { 
+            $bTmpUser = True; 
+            $GLOBALS["USER"] = new CUser; 
+        }
         $arFilter = Array(
            "!TRACKING_NUMBER" => null,
            "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,
-           "!STATUS_ID" => F
-        );
+           "!STATUS_ID" => 'F'
+        );                                                       
         if ($db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter)) {
-            while ($ar_sales = $db_sales->Fetch()) {
+            while ($ar_sales = $db_sales->Fetch()) {  
                 $orders_tracking_number[$ar_sales['ID']] = $ar_sales['TRACKING_NUMBER'];
             }
-        };
-        foreach($orders_tracking_number as $order_id => $order_tracking_number) {
-            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;
+        };                                     
+        foreach($orders_tracking_number as $order_id => $order_tracking_number) {   
+        /*--------Логирование---------*/  
+            $date = date('Y-m-d, H:i:s');          
+            $order_log = 'Date: '.$date.'; Id: '.$order_id.'; Start update;';
+            $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/boxberry_update.log';
+            logger($order_log, $file);
+        /*-----------------*/   
+            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;   
             // XXXXXX - код отслеживания заказа
             $handle = fopen($url, "rb");
             $contents = stream_get_contents($handle);
-            fclose($handle);
-            $data=json_decode($contents,true);
+            fclose($handle);                 
+            $data=json_decode($contents,true);      
             if ($data['err']) {
                 // если произошла ошибка и ответ не был получен:
-                echo $data['err'];
+                echo $data['err'];                                     
             } else {
                 foreach($data[statuses] as $status) {
                     $last_status = $status;
-                }
-                //ждем данных от боксберри
+                }                                                      
                 if($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {
-                    CSaleOrder::StatusOrder($order_id, "F");
-                }
-            }
-        }
-        return 'BoxberryListStatuses();';
+                /*--------Логирование---------*/           
+                    $order_log = 'Date: '.$date.'; Id: '.$order_id.'; Before update;';                       
+                    logger($order_log, $file);
+                /*-----------------*/  
+                    $order = Bitrix\Sale\Order::load($order_id); 
+                    $order->setField('STATUS_ID', 'F');
+                    $order->save();                    
+                /*--------Логирование---------*/            
+                    $order_log = 'Date: '.$date.'; Id: '.$order_id.'; After update;';                          
+                    logger($order_log, $file);   
+                /*-----------------*/                                            
+                }                                                  
+            }                                                                
+        } 
+        /*--------Логирование---------*/  
+            $date = date('Y-m-d, H:i:s');          
+            $order_log = 'Date: '.$date.'; Id: '.$order_id.'; End update;';                             
+            logger($order_log, $file);
+        /*-----------------*/      
+        if ($bTmpUser) { 
+            unset($GLOBALS["USER"]); 
+        }                                         
+        return 'BoxberryListStatuses();';          
     }
 
     //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет
     Main\EventManager::getInstance()->addEventHandler('sale', 'OnSaleOrderBeforeSaved', 'OnBeforeOrderUpdateLogger');
-    function OnBeforeOrderUpdateLogger(Main\Event $event) {
+    function OnBeforeOrderUpdateLogger(Main\Event $event) {   
         $order = $event->getParameter("ENTITY");
         $status_id = $order->GetField("STATUS_ID");
         $order_id = $order->GetField("ID");
@@ -2372,7 +2511,139 @@
         logger($order_log, $file);
     }
 
+	/**
+	 *
+	 * Создаем купоны для заказа сертификатов
+	 *
+	 * @param int $order_id - номер заказа, хотя это просто номер элемента инфоблока
+	 * @param int $quantity
+	 * @param int $basket_rule_id
+	 *
+	 * */
 
+	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) {
+		for ($i = 1; $i <= $quantity; $i++) {
+
+	        //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
+	        $arFields['COUPON'] = CatalogGenerateCoupon();
+	        $arFields['DISCOUNT_ID'] = $basket_rule_id;
+	        $arFields['ACTIVE'] = "Y";
+	        $arFields['TYPE'] = 2;
+	        $arFields['MAX_USE'] = 1;
+
+	        //Фукнкция из ядра, создаем новый купон в правилах корзины
+	        $obCoupon = \Bitrix\Sale\Internals\DiscountCouponTable::add($arFields);
+
+	        //Получаем ID сгенерированного купона
+	        $discountIterator = \Bitrix\Sale\Internals\DiscountCouponTable::getList(array(
+	            'select' => array('ID'),
+	            'filter' => array('COUPON' => $arFields['COUPON'])
+	        ));
+
+	        //Собираем массив с ID купонов
+	        if($arDiscountIterator = $discountIterator -> fetch()) {
+	            $arCertificateID[] = $arDiscountIterator['ID'];
+	        }
+	        //Собираем массив с кодами купонов
+	        $arCouponCode[] = $arFields['COUPON'];
+	    }
+
+	    $props = array(
+	        'COUPON_ID'   => $arCertificateID,
+	        'COUPON_CODE' => $arCouponCode,
+	    );
+
+	    // Установим новое значение для данного свойства данного элемента
+	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
+
+        //Возвращаем новые купоны
+        return $arCouponCode;
+	}
+
+	AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "certificatePayed");
+
+	/**
+	 *
+	 * Проверяем, оплачен ли заказ сертификата
+	 * За свойство оплачен выдается свойство активность
+	 *
+	 * */
+
+	function certificatePayed(&$arParamsCertificate) {
+        GLOBAL $arParams;           
+        /*--------Логирование---------*/           
+        $order_log = 'Key: '.$arParams['MAILGUN']['KEY'].'; To: '.$to.'; Update;';
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
+        logger($order_log, $file);
+        /*-----------------*/ 
+		if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
+			$current_object = CIBlockElement::GetList(
+				Array(),
+				Array("ID" => $arParamsCertificate['ID']),
+				false,
+				Array("nPageSize" => 1),
+				Array("ID", "NAME", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY", "PROPERTY_NATURAL_EMAIL", "PROPERTY_NATURAL_NAME", "PROPERTY_LEGAL_EMAIL", "PROPERTY_LEGAL_NAME", "PROPERTY_CERT_PRICE")
+			);
+			if ($current_values = $current_object->Fetch()) {
+				$order_id = $current_values['ID'];
+				$quantity = $current_values['PROPERTY_CERT_QUANTITY_VALUE'];
+				$basket_rule_id = $current_values['XML_ID'];
+                $cert_name = $current_values['NAME'];
+                $cert_price = $current_values['PROPERTY_CERT_PRICE_VALUE'];
+                $user_email = '';
+                $user_name = '';
+                if(!empty($current_values['PROPERTY_NATURAL_EMAIL_VALUE']) && !empty($current_values['PROPERTY_NATURAL_NAME_VALUE'])) {
+                    $user_name = $current_values['PROPERTY_NATURAL_NAME_VALUE'];
+                    $user_email = $current_values['PROPERTY_NATURAL_EMAIL_VALUE'];
+                } elseif(!empty($current_values['PROPERTY_LEGAL_EMAIL_VALUE']) && !empty($current_values['PROPERTY_LEGAL_NAME_VALUE'])) {
+                    $user_name = $current_values['PROPERTY_LEGAL_NAME_VALUE'];
+                    $user_email = $current_values['PROPERTY_LEGAL_EMAIL_VALUE'];
+                }
+            }
+            $first_coupon_array_key = key($arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
+            //Сохраним все купоны после генерации
+            $arCoupons = array();
+
+            if (!$arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParamsCertificate['ACTIVE'] == "Y") {
+                $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
+            }
+            $couponListHTML = '';
+            foreach($arCoupons as $couponItem) {
+                if (!empty($couponItem)) {
+                     $couponListHTML .=  '<tr><td align="right" style="border-collapse: collapse;color:#393939;font-family: "Open Sans","Segoe UI",Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;" valign="top">';
+                     $couponListHTML .=  $couponItem;
+                     $couponListHTML .=  '</td></tr>';
+                }
+            }
+            $arMailFields = array(
+                "COUPON_LIST"   => $couponListHTML,
+                "ORDER_ID"      => 'CERT_'.$order_id,
+                "EMAIL" => trim($user_email),
+                "NAME"          => $user_name,
+                "CERT_NAME"     => $cert_name,
+                "CERT_QUANTITY" => $quantity,
+                "CERT_PRICE"    => $cert_price,
+                "TOTAL_SUM"     => $quantity * $cert_price
+            );
+            //Допилить письмо и шаблон
+            if (!empty($arCoupons) && !empty($user_email)) {   
+                /*--------Логирование---------*/           
+                $order_log = 'Key: '.$arParams['MAILGUN']['KEY'].'; To: '.$to.'; Before send;';
+                $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
+                logger($order_log, $file);
+                /*-----------------*/ 
+                CEvent::Send(SEND_CERTIFICATE_TO_USER_EVENT, "s1", $arMailFields, "N");
+            }
+		}
+	}
+
+	// класс для отправки сообщений о новых заказах сертификатов
+	class CertificateMail {
+		public static function newLegalPersonOrder($order_id) {
+			$view_link = sprintf("https://www.alpinabook.ru/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=service&ID=%d", CERTIFICATE_IBLOCK_ID, $order_id);
+			CEvent::Send(NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT, "s1", array("VIEW_LINK" => $view_link),"N");
+		}
+	}
 
     //Обновление HL блока с поисковыми индексами
      \Bitrix\Main\EventManager::getInstance()->addEventHandler(
@@ -2431,58 +2702,61 @@
                 if($arElementID = $rsElementID->Fetch()){
                     $result = $entity_data_class::update($arElementID['ID'], $arHLData);
                 } else {
-                    $result = $entity_data_class::add($arHLData);   
-                } 
-            }       
-        }                                                                                    
+                    $result = $entity_data_class::add($arHLData);
+                }
+            }
+        }
     }
-    
-    //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа    
+
+    //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'main',
         'OnProlog',
         'UpdateBasket'
     );
-    function UpdateBasket(){                                                       
-        if (preg_match("/\/personal\/cart\//i", $_SERVER['SCRIPT_URI'])) {                
+    function UpdateBasket(){
+        global $APPLICATION;
+        $url = $APPLICATION->GetCurPage();
+        if (preg_match("/personal\/cart/i", $url)) {
             require_once($_SERVER["DOCUMENT_ROOT"]."/ajax/ajax_add2basket.php");
-        }                                                                               
+        }
     }
-       
-    //Удаляем предзаказанный товар из HL блока, после оформления заказа
+
+    //Удаляем предзаказанный товар из HL блока и меняем статус заказа на предзаказ, перед созданием заказа
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'sale',
-        'OnOrderSave',
+        'OnBeforeOrderAdd',
         'DeleteBasketElementFromHL'
     );
-    function DeleteBasketElementFromHL($orderId, $arFields, $arOrder, $isNew){  
-        if($isNew){
-            $arBasketItems = array();   
-            foreach($arOrder['BASKET_ITEMS'] as $basketItem){
-                $arBasketItems[] = $basketItem;
-                $arBasketID[] = $basketItem['ID'];         
-            }      
-            
-            $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
-            $entity = HL\HighloadBlockTable::compileEntity($hl_block);
-            $entity_data_class = $entity->getDataClass();   
-                           
-            $table_id = 'tbl_' . $entity_table_name;
-             
-            $basket_item_filter = array(                                                                       
-                'UF_BASKET_ID' => $arBasketID
-            );
-                                                        
-            $result = $entity_data_class::getList(array(
-                "select" => array('*'),
-                "filter" => $basket_item_filter, 
-                "order"  => array("ID" => "ASC")
-            ));      
-            
-            $result = new CDBResult($result, $table_id);  
-            while ($basket_item = $result->Fetch()) {   
-                $entity_data_class::Delete($basket_item['ID']); 
+    function DeleteBasketElementFromHL(&$arFields){
+        $arBasketItems = array();
+        foreach($arFields['BASKET_ITEMS'] as $basketItem){
+            $arBasketItems[] = $basketItem;
+            $arBasketID[] = $basketItem['ID'];
+        }
+
+        $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
+        $entity = HL\HighloadBlockTable::compileEntity($hl_block);
+        $entity_data_class = $entity->getDataClass();
+
+        $table_id = 'tbl_' . $entity_table_name;
+
+        $basket_item_filter = array(
+            'UF_BASKET_ID' => $arBasketID
+        );
+
+        $result = $entity_data_class::getList(array(
+            "select" => array('*'),
+            "filter" => $basket_item_filter,
+            "order"  => array("ID" => "ASC")
+        ));
+
+        $result = new CDBResult($result, $table_id);
+        while ($basket_item = $result->Fetch()) {
+            if  ($basket_item['UF_DELAY_BEFORE'] == 'Y') {
+                $arFields['STATUS_ID'] = 'PR';
             }
-        }                    
+            $entity_data_class::Delete($basket_item['ID']);
+        }
     }
 ?>

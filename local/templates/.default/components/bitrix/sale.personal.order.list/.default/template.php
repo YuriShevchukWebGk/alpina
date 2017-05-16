@@ -1,5 +1,4 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-
 <?if(!empty($arResult['ERRORS']['FATAL'])):?>
 
     <?foreach($arResult['ERRORS']['FATAL'] as $error):?>
@@ -38,12 +37,29 @@
         if (!empty($arResult["ORDERS"])) {
             foreach ($arResult["ORDERS"] as $k => $order) {
 
-                $quantity = 0;
+                $quantity = 0;    
+                
+                //Если у нас предзаказ, то разрешим вывод информации о сроках выхода книги          
+                if(count($order["BASKET_ITEMS"]) == 1) {     
+                    $basketItem = $order["BASKET_ITEMS"];   
+                    $basketItem = array_pop($basketItem);    
+                    $itemID = $basketItem["PRODUCT_ID"];                 
+                    
+                    $preOrder = '';
+                    $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
+                    if($arFields = $res->Fetch()) {
+                        if(intval($arFields["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")){
+                            $preOrder = 'Y';        
+                        }  
+                    }                                                                                                                      
+                }; 
+                
                 foreach ($order["BASKET_ITEMS"] as $order_key => $arBaskItem) {
                     $quantity += round($arBaskItem["QUANTITY"]);
                 }
 
-                $key++;
+                $key++;                                                             
+ 
                 ?>
                 <div class="orderNumbLine">
                     <p class="ordTitle" data-id="<?= $key ?>"><span><?= GetMessage("SPOL_ORDER") . " " . GetMessage("SPOL_NUM_SIGN") . $order["ORDER"]["ID"] ?></span></p>
@@ -125,15 +141,20 @@
                                 <p class="dopInfoText"><?= $order["ORDER"]["USER_DESCRIPTION"] ?></p>
                             </div>
                         <?}?>
-                    </div>
+                    </div>  
                     <div>
                         <p class="ordBooksTitle"><?= GetMessage("SPOL_ORDER_DETAIL") ?></p>
                         <table class="orderBooks">
                             <?foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
                                 ?>
                                 <tr>
-                                    <td class="infoTextTab infBookName"><?= $arBaskItem["NAME"] ?></td>
+                                    <td class="infoTextTab infBookName"><a href="<?=$arBaskItem["DETAIL_PAGE_URL"]?>"><?= $arBaskItem["NAME"] ?></a></td>
                                     <td class="infoQuant"><?= $arBaskItem["QUANTITY"] ?></td>
+                                    <td class="infoSoonDate">
+                                        <?if ($preOrder == 'Y') {?>
+                                            <?= GetMessage("SOON_DATE") ?><br><div><?= strtolower(FormatDate("j F", MakeTimeStamp($arFields['PROPERTY_SOON_DATE_TIME_VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></div>
+                                        <?}?>
+                                        </td>
                                     <td class="infoPriceTd"><?= ceil($arBaskItem["PRICE"]) * $arBaskItem["QUANTITY"] ?> <?= GetMessage("ROUBLES") ?></td>
                                 </tr>
                             <?}?>
@@ -141,12 +162,14 @@
                                 <tr>
                                     <td class="infoTextTab infBookName"><?= GetMessage("SPOL_DELIVERY") ?></td>
                                     <td class="infoQuant"></td>
+                                    <td class="infoSoonDate"></td>
                                     <td class="infoPriceTd"><?= ceil($order["ORDER"]["PRICE_DELIVERY"]) ?> <?= GetMessage("ROUBLES") ?></td>
                                 </tr>
                             <?}?>
                             <tr>
                                 <td class="infoTextTab"><?= GetMessage("FINAL_SUMM") ?></td>
                                 <td class="infoQuant"></td>
+                                <td class="infoSoonDate"></td>
                                 <td class="infoPriceTd"><?= ceil($order["ORDER"]["PRICE"]) ?> <?= GetMessage("ROUBLES") ?></td>
                             </tr>
                         </table>
