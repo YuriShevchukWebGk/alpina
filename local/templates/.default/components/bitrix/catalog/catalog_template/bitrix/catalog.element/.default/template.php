@@ -720,7 +720,7 @@
                             <?
                             global $USER;                          
                             ?> 
-                            <a href="#" onclick="<?if ($USER->IsAdmin()) {echo 'buy_certificate_popup();';}?> return false;">
+                            <a href="#" onclick="buy_certificate_popup(); return false;">
                                 <p class="inBasket"><?= GetMessage("CT_BCE_CATALOG_BUY") ?></p>
                             </a>
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>    

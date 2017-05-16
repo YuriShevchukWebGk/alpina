@@ -46,7 +46,7 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
                 var natural_person_email = $("#natural_email").val(),
                 selected_tab = $(".certificate_tab_active").data("popup-block");
                 $("input[name='certificate_quantity']").val($(".transparent_input").val());
-                var certificate_price = parseInt($("input[name='certificate_price']").val()); 
+                var certificate_price = parseInt($("input[name='certificate_price']").val());   
                 var certificate_quantity = parseInt($(".transparent_input").val()); 
                 $.ajax({
                     url: '/ajax/ajax_create_certificate_order.php',
@@ -66,7 +66,7 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
                             $(".submit_rfi").attr("data-email", natural_person_email);  
                             $(".submit_rfi").attr("data-comment", "CERT_" + order_id);  
                             $(".submit_rfi").attr("data-orderid", "CERT_" + order_id);         
-                            $(".submit_rfi").attr("data-cost", certificate_price * certificate_quantity);   
+                            $(".submit_rfi").attr("data-cost", certificate_price * certificate_quantity);  
                             $(".submit_rfi").click();
                             $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
                         } else {
