@@ -22,8 +22,7 @@ foreach ($arResult["GRID"]["ROWS"] as $k => $arItem){
             $realPrice = $arResult["GRID"]["ROWS"][$k]["BASE_PRICE"] * 0.8;
             $arResult["GRID"]["ROWS"][$k]["PRICE_FORMATED"] = round($realPrice, 2).' руб.';  
             $realFullPrice = $realPrice * $arItem["QUANTITY"];
-            $arResult["GRID"]["ROWS"][$k]["SUM"] = round($realFullPrice, 2).' руб.';
-                       
+            $arResult["GRID"]["ROWS"][$k]["SUM"] = round($realFullPrice, 2).' руб.';               
         }    
     }
 }

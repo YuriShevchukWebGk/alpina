@@ -14,7 +14,7 @@
 define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]."/custom-scripts/log.txt");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-	if (AddMessage2Log('Скрипт выполнен cron', 'criteo.php'))
+    if (AddMessage2Log('Скрипт выполнен cron', 'criteo.php'))
 ?>  
 <?
     // -- getting template for our criteo products xml file
@@ -23,7 +23,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
     $arSelect = Array('ID', 'NAME', 'DETAIL_PICTURE', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'IBLOCK_SECTION_ID', 'PROPERTY_PUBLISHER', 'PROPERTY_age_group');
     $arFilter = Array("IBLOCK_ID" => 4, "ACTIVE_DATE" => "Y", "ACTIVE" => "Y",'PROPERTY_STATE'=>Array(false,21));
     $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize" => 99999), $arSelect);
-	
+    
     while ($ob = $res -> GetNextElement()) {
         $arFields = $ob -> GetFields();
         $imagePath = "http://www.alpinabook.ru".CFile::GetPath($arFields['DETAIL_PICTURE']);
@@ -34,11 +34,11 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
         if ($ar_res = $resSection -> GetNext()) {
             $itemCategoryName = $ar_res['NAME'];
         }
-		
-		if ($arFields['PROPERTY_AGE_GROUP_VALUE'] == 0) {
-			$arFields['PROPERTY_AGE_GROUP_VALUE'] = 0;
-		}
-		echo '<pre>';print_r(str_replace($healthy, "", $arFields['NAME']));echo 'раз</pre>';
+        
+        if ($arFields['PROPERTY_AGE_GROUP_VALUE'] == 0) {
+            $arFields['PROPERTY_AGE_GROUP_VALUE'] = 0;
+        }
+        echo '<pre>';print_r(str_replace($healthy, "", $arFields['NAME']));echo 'раз</pre>';
         // -- add new element to products collection
         $product = $xml->addChild('product');
         $product->addAttribute('id', $arFields['ID']);
@@ -49,7 +49,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
         $product->addChild('price', $itemPrice);
         $product->addChild('categoryid1', $itemCategoryName);
         $product->addChild('extra_brand', $arFields['PROPERTY_PUBLISHER_VALUE']);
-		$product->addChild('age', $arFields['PROPERTY_AGE_GROUP_VALUE']);
+        $product->addChild('age', $arFields['PROPERTY_AGE_GROUP_VALUE']);
     }
 
     $xml->asXML($dirPath.'criteo_new_201601.xml');

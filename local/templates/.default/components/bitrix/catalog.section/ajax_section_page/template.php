@@ -345,14 +345,17 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                      <?}?>
                                      <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                                     <?              
+                                     <?                                 
                                      if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) { 
-                                            if ($arPrice["DISCOUNT_VALUE_VAT"]) { ?>
+                                            if ($arPrice["DISCOUNT_VALUE_VAT"] && $arResult['ID'] != CERTIFICATE_SECTION_ID) { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                                 <link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
+                                            <? } elseif ($arResult['ID'] == CERTIFICATE_SECTION_ID) { ?>
+                                                <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? } else { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition">><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
+                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? }
                                          ?>                     
                                          <?if ($arResult[$arItem["ID"]]["ITEM_IN_BASKET"]["QUANTITY"] == 0 && $arResult['ID'] != CERTIFICATE_SECTION_ID) {?>

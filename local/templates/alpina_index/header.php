@@ -242,7 +242,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
 
         <? 
-            $arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
+            //$arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
+			$arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0);
 
             $APPLICATION->IncludeComponent(
 	"bitrix:catalog.section", 
@@ -268,7 +269,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"SHOW_ALL_WO_SECTION" => "Y",
 		"HIDE_NOT_AVAILABLE" => "N",
-		"PAGE_ELEMENT_COUNT" => "12",
+		"PAGE_ELEMENT_COUNT" => "20",
 		"LINE_ELEMENT_COUNT" => "3",
 		"PROPERTY_CODE" => array(
 			0 => "AUTHORS",

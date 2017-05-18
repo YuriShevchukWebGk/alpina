@@ -12,13 +12,11 @@
     $dbBasketItems = CSaleBasket::GetList( array("NAME" => "ASC", "ID" => "ASC"), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"), false, false, array("ID", "QUANTITY", "DELAY"));
     while ($arItems = $dbBasketItems->Fetch()) { 
         $arBasketItems[] = array("UF_BASKET_ID" => $arItems['ID'], "UF_DELAY_BEFORE" => $arItems['DELAY'], "UF_ACTIVE" => "Y");
-        $arBasketID[] = $arItems['ID'];  
-        if ($arItems['DELAY'] == 'Y') {
-            $hasDelayedItems = 'Y';
-        }
-    }    
+        $arBasketID[] = $arItems['ID'];    
+    } 
     
-    if ($hasDelayedItems) {  
+    //Проверяем на каждом хите
+    if (true) {  
         $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
         $entity = HL\HighloadBlockTable::compileEntity($hl_block);
         $entity_data_class = $entity->getDataClass();   

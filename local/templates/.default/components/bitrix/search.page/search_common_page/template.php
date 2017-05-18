@@ -192,8 +192,7 @@
                         *
                         * $arItem["PARAM2"] хранится ID инфоблока, содержащего элемент результатов поиска
                         *
-                        ****************/
-
+                        ****************/                                                            
                         // авторы в результатах поиска
                         if ($arItem["PARAM2"] == AUTHORS_IBLOCK_ID) { ?>                
 
@@ -265,7 +264,12 @@
 								} else {
 									$newPrice = $item_discount_value;
 								}
-                            }?>
+                            }
+                            if($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"] == CERTIFICATE_SECTION_ID) {
+                                $newPrice = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"];  
+                            }
+                            
+                            ?>
                             <??>
                             <div class="searchBook" itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
 								<?$gdeslon .= $arItem["ITEM_ID"].':'.ceil( $newPrice).',';?>
@@ -287,7 +291,7 @@
                                         <p class="wrapperType"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                         <?if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
-                                        ?>
+                                        ?>        
                                                 <p class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 												<link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil( $newPrice) ?></span> руб.</p>
                                         <?} else if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
@@ -298,14 +302,14 @@
                                                         "DD.MM.YYYY HH:MI:SS"
                                                     )
                                                 )); ?>
-                                                </p>
-                                        <?} else {?>
+                                                </p>    
+                                        <?} else {?>                                             
                                                 <p class="price" style="color:red"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_VALUE"] ?></p>
                                         <?}?>
                                         <div class="description" itemprop="description"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PREVIEW_TEXT"]?></div>
-                                        <?                 
+                                        <?                                                                        
                                         if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
-                                                if ($arResult["BASKET_ITEMS"][$arItem["ITEM_ID"]]["QUANTITY"] == 0) {
+                                                if (($arResult["BASKET_ITEMS"][$arItem["ITEM_ID"]]["QUANTITY"] == 0) && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"] != CERTIFICATE_SECTION_ID)) {
                                                     $curr_sect_ID = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"];?>
                                                     <a class="product<?= $arItem["ITEM_ID"]; ?>"
                                                         href="<?= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>"
@@ -315,6 +319,10 @@
                                                         <?} else {?>
                                                             <p class="basket"><?=GetMessage("ADD_TO_PREORDER")?></p>                                                 
                                                         <?}?>                             
+                                                    </a>
+                                                <?} elseif($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"] == CERTIFICATE_SECTION_ID) {?>             
+                                                    <a class="product<?= $arItem["ITEM_ID"]; ?>" href="<?=$arItem['URL'];?>">
+                                                        <p class="basket">Купить</p>
                                                     </a>
                                                 <?} else {?>
                                                     <a class="product<?= $arItem["ITEM_ID"]; ?>" href="/personal/cart/">

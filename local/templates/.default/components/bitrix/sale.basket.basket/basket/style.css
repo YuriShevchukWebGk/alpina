@@ -990,4 +990,6 @@ font.errortext {
 }
 .gifts_block {
     margin-top: 20px;
+    height: 350px;
+    display: none;
 }

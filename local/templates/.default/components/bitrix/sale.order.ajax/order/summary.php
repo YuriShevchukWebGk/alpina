@@ -22,7 +22,7 @@
         array_push($itemsForFloctory,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", quantity: ".$basketItem["QUANTITY"].", title: '".$basketItem["NAME"]."' }");
         array_push($itemsForRetailRocket,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", qnt: ".$basketItem["QUANTITY"]." }");
 
-        // --- for google ecommerce
+         // --- for google ecommerce
 
         $itemRes = CIBlockElement::GetByID($basketItem["PRODUCT_ID"]);
         if($itemData = $itemRes->GetNext()){

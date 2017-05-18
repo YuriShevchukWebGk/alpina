@@ -157,6 +157,7 @@ if (!empty($arResult["GRID"]["ROWS"]))
         <p class="count"><?=GetMessage("TSB1_TOTAL_PRICE")?><?=$arResult["TOTAL_ITEMS"]?></p>
         <p class='price'><?=$arResult["allSum_FORMATED"]?></p>
     </div>
+
     <a href="<?=$arParams['PATH_TO_ORDER']?>" class="bottomBasketConfirm">
         <div class="confirm">
             <p><?=GetMessage("TSB1_2ORDER")?></p>

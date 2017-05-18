@@ -1,18 +1,17 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-    CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
+    CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock"); CModule::IncludeModule('highloadblock');
+    
+    use Bitrix\Highloadblock as HL;
+    use Bitrix\Main\Entity;
 ?>
 <?
     switch ($_REQUEST["action"])
     {
-        case "add":
-
-            if(intval($_REQUEST["productid"]) > 0){//добавление товара в корзину
-
-
+        case "add":                                                   
+            if(intval($_REQUEST["productid"]) > 0){//добавление товара в корзину            
                 //$allproducts = explode("-", $_REQUEST["productid"]);
                 //foreach ($allproducts as $product) {
-                $product = intval($_REQUEST["productid"]);
-
+                $product = intval($_REQUEST["productid"]);                 
                 //$product = intval($_POST["add2basket"]);
                 //проверим     
                 $res = CIBlockElement::GetByID($product);
@@ -43,10 +42,16 @@
                         {
                             $arFields = array("QUANTITY" => $arItem["QUANTITY"]+$quantity);
                             CSaleBasket::Update($basket_id, $arFields);
-                        }
-
-                    }else
-                        $basket_id = Add2BasketByProductID($product,$quantity);
+                        }                
+                    } else {
+                        $basket_id = Add2BasketByProductID($product,$quantity); 
+                        if($_REQUEST['product_status'] == '22') {
+                            $arFields = array(    
+                               "DELAY" => "Y"
+                            );
+                            CSaleBasket::Update($basket_id, $arFields);                                             
+                        } 
+                    }                                                            
 
                 }
 

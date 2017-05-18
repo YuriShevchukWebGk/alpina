@@ -34,8 +34,8 @@
 			e.stopPropagation();
 		});
 	});
-</script>                      
-    <div id="basket_items_list"> 
+</script>                                                                                              
+    <div id="basket_items_list">                       
         <div class="yourBooks" id="cardBlock1" <?if($onlyPreorder || $_REQUEST['preorder']){ echo 'style="display:none"'; }?>>
             <table id="basket_items">
                 <thead>

@@ -286,7 +286,7 @@
                     <span class="ttip"><?=GetMessage("VIEWS_A_DAY");?></span>
                 </div>
                 <?}?>
-            <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') {?>
+            <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal'  && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
                 <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
                     <br />
                     <div class="digitalBookMark">
@@ -457,23 +457,11 @@
         <?##Спонсоры книги?>
     </div>
     <div class="rightColumn">
-        <?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+        <?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])  && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <div id="diffversions">
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
             </div>
-            <script>
-                <?if ($_SERVER['HTTP_REFERER'] == 'https://relap.io/' || strpos($_SERVER['HTTP_REFERER'],"theoryandpractice.ru") !== false) {?>
-                    $(document).ready(function() {
-                        selectversion('passive','digitalversion');
-                        var digitalLink = $(".digitalLink").attr("href");
-                        $(".digitalLink").attr("href", digitalLink+"&utm_content=tnp");
-                        <?if ($USER->isAdmin()) {?>
-                            console.log($(".digitalLink").attr("href"));
-                            <?}?>
-                    });
-                    <?}?>
-            </script>
             <?}?>
         <?$frame = $this->createFrame()->begin();?>
         <div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -517,35 +505,40 @@
                                 if (round(($arPrice["VALUE"]) * (1 - $discount / 100), 2) . " " . GetMessage("ROUBLES") == $arPrice["PRINT_VALUE"]) {
                                     $discount = false;
                                 };
-                                if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
-                                <?// расчитываем накопительную скидку от стоимости
-                                    if ($discount) {
-                                        $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
+                                
+                                if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { 
+                                    if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                    <?// расчитываем накопительную скидку от стоимости
+                                        if ($discount) {
+                                            $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
+                                            if (strlen (stristr($newPrice, ".")) == 2) {
+                                                $newPrice .= "0";
+                                            }
+                                        } else {
+                                            $newPrice = round (($arPrice["DISCOUNT_VALUE"]), 2);
+                                            if (strlen (stristr($newPrice, ".")) == 2) {
+                                                $newPrice .= "0";
+                                            }
+                                    }?> 
+                                    <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                    <?} else if ($discount) {
+                                        $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
                                         if (strlen (stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
-                                        }
-                                    } else {
-                                        $newPrice = round (($arPrice["DISCOUNT_VALUE"]), 2);
-                                        if (strlen (stristr($newPrice, ".")) == 2) {
+                                    }?>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                    <?// расчитываем накопительную скидку от стоимости?>
+                                    <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                    <?} else {
+                                        $newPrice = round($arPrice["VALUE_VAT"], 2);
+                                        if (strlen(stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
-                                        }
-                                }?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
-                                <?} else if ($discount) {
-                                    $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
-                                    if (strlen (stristr($newPrice, ".")) == 2) {
-                                        $newPrice .= "0";
-                                }?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
-                                <?// расчитываем накопительную скидку от стоимости?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
-                                <?} else {
-                                    $newPrice = round($arPrice["VALUE_VAT"], 2);
-                                    if (strlen(stristr($newPrice, ".")) == 2) {
-                                        $newPrice .= "0";
-                                }?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                    }?>
+                                    <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                    <?}?>
+                                <?} else {?>
+                                    <p class="newPrice"><?= $arPrice["VALUE"] ?> <span><?= GetMessage("ROUBLES") ?></span></p> 
                                 <?}?>
 
                             <?if ($printDiscountText != '' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {
@@ -595,19 +588,19 @@
                                 <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                 <?}?>  
                             <button style="width:10px; height:10px; background:rgba(255, 255, 0, 0.75); box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.12); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button><span>&nbsp;<?= GetMessage("ADD_TO_PREORDER") ?></span>
-                            <?}?>    
+                            <?}?>
                         <?} else {?>
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/OutOfStock">
                         <?$StockInfo = "OutOfStock";?>
-                        <?foreach ($arResult["PRICES"] as $code => $arPrice) {
-                                if ($arPrice["DISCOUNT_DIFF"]) {?>
+                        <?foreach ($arResult["PRICES"] as $code => $arPrice) {                    
+                            if ($arPrice["DISCOUNT_DIFF"]) {?>
                                 <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
-                                <?}?>
+                            <?}?>
                             <?if ($arPrice["DISCOUNT_VALUE_VAT"]) {
-                                    $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
-                                    if (strlen(stristr($newPrice, ".")) == 2) {
-                                        $newPrice .= "0";
+                                $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
+                                if (strlen(stristr($newPrice, ".")) == 2) {
+                                    $newPrice .= "0";
                                 }?>
                                 <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                 <?} else {
@@ -617,7 +610,7 @@
                                 }?>
                                 <p class="newPrice"><span><?= $newPrice ?></span> <span><?= GetMessage("ROUBLES") ?></span></p>
                                 <?}?>
-                            <?}?>
+                            <?}?> 
                         <p class="newPrice notAvailable" style="font-size:28px;"><?= GetMessage("NOT_IN_STOCK") ?></p>
                         <?}?>
                     <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
@@ -644,18 +637,18 @@
                         </div>
                     </form>
                     <?}?>
-            </div>                                
+            </div>                   
             <?if (!empty ($arResult["PRICES"]) ) {?>
                 <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                     <div class="wrap_prise_bottom">
                         <span class="item_buttons_counter_block">
 
-                            <a href="javascript:void(0)" class="minus" id="<?= $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
+                            <a href="#" onclick="changeQ('-');return false;" class="minus" id="<?= $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
                             <input id="<?= $arResult['QUANTITY']; ?>" type="text" class="tac transparent_input" value="<?= (isset($arResult['OFFERS']) && !empty($arResult['OFFERS'])
                                     ? 1
                                     : $arResult['CATALOG_MEASURE_RATIO']
                                 ); ?>">
-                            <a href="javascript:void(0)" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>     
+                            <a href="#" onclick="changeQ('+');return false;" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>     
                         </span>
                         <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>                     
                             <div class="certificate_popup" style="display:none">
@@ -724,6 +717,9 @@
                                 ?>
                                 </div>
                             </div>     
+                            <?
+                            global $USER;                          
+                            ?> 
                             <a href="#" onclick="buy_certificate_popup(); return false;">
                                 <p class="inBasket"><?= GetMessage("CT_BCE_CATALOG_BUY") ?></p>
                             </a>
@@ -755,8 +751,27 @@
             }?>                            
         </div>
         <?$frame->end();?>
+		
+		<?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+			<form style="margin-top:27px;text-align:center;" class="no-mobile">
 
-        <?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
+				<?if($USER->IsAuthorized()){
+					$rsCurUser = CUser::GetByID($USER->GetID());
+					$arCurUser = $rsCurUser->Fetch();
+					$mail = $arCurUser["EMAIL"];
+				}?>
+				<div>
+					<p>
+						<span class="subscribeDesc">Впишите свой <b>e-mail</b>, чтобы получить письмо, как только книгу можно будет заказать</span>
+					</p>
+					<input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$mail;?>" name="email" class="subscribeEmail"/> 
+					<input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="Подписаться" style="border: 2px solid #c7a271;color: #c7a271; background-color: #fff; padding: 5px 0;"/>
+					
+				</div>
+			</form> 
+		<?}?>
+		
+        <?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <!--noindex-->
             <div class="priceBasketWrap digitalVersionWrap" style="display:none;">
                 <div class="wrap_prise_top">
