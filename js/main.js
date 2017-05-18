@@ -1011,8 +1011,10 @@ function addtocart(productid, name, product_status) {
     })
 }
 function addtocart_fromwishlist (productid, name, product_status) {
+	$(".loadingInfo_"+productid).show();
+	$(".wishlistBlock").find("a#wishItem_"+productid).hide();
     $.post('/ajax/ajax_add2basketfromwishlist.php', {action: "add", productid: productid, product_status: product_status}, function(data)
-        {  
+        {
             $(".wishlistBlock").find("a#wishItem_"+productid).css("background-color", "#A9A9A9");
             $(".wishlistBlock").find("a#wishItem_"+productid).css("color", "white");
             $(".wishlistBlock").find("a#wishItem_"+productid).html("В корзине");
@@ -1021,6 +1023,8 @@ function addtocart_fromwishlist (productid, name, product_status) {
             $("#basket_container").html(data);
             // $("#cardBlock2").html(data[1]);
             update_wishlist();
+			$(".loadingInfo_"+productid).hide();
+			$(".wishlistBlock").find("a#wishItem_"+productid).show();
     })
 }
 
