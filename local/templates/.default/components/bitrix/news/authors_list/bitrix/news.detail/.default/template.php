@@ -81,12 +81,6 @@ $(document).ready(function() {
     </div>
 </div>
 
-<script>
-$(document).ready(function() {
-
-       
-});
-</script>
 <?
     global $ThisAuthorFilter;
     $ThisAuthorFilter = array("PROPERTY_AUTHORS" => $arResult["ID"]);
