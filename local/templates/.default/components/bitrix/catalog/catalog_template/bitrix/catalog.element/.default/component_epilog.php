@@ -40,7 +40,7 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
                         }       
                     }                                     
                 }
-            });                   
+            });                
             // если все ок, то сабмитим
             if (form_valid) {
                 var natural_person_email = $("#natural_email").val(),
