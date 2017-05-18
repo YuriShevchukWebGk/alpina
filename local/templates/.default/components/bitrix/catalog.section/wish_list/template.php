@@ -66,6 +66,7 @@
                                         <?= GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET") ?>
                                 </a>
                             <?}?>
+							<div id="loadingInfo" class="loadingInfo_<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                         </p>
                 <?}?>
             <p class="wishDeleteContainer">
