@@ -300,17 +300,20 @@ if (isset($_POST[$action_var]) && strlen($_POST[$action_var]) > 0)
 		foreach ($res as $key => $value)
 		{
 			$arRes[$key] = $value;
-		}
+		}                                                          
 
 		$arRes["BASKET_DATA"] = $basket->getBasketItems();
 		$arRes["BASKET_DATA"]["GRID"]["HEADERS"] = $basket->getCustomColumns();
 		$arRes["COLUMNS"] = $strColumns;
 
 		$arRes["CODE"] = "SUCCESS";
-
+        
+        //Получаем размер скидки у купона для предзаказа
+        $arDiscount = CCatalogDiscount::GetById($arRes["BASKET_DATA"]['COUPON_LIST'][0]['DISCOUNT_ID']);
+        $arRes["BASKET_DATA"]['DISCOUNT_PERCENT_SIZE'] = intval($arDiscount['VALUE']);                                   
 
 		if(!empty($_POST["coupon"]) && $arRes['VALID_COUPON'] === true)
-		{
+		{                    
 			if(!empty($arRes['BASKET_DATA']['FULL_DISCOUNT_LIST']))
 			{
 				global $USER;
