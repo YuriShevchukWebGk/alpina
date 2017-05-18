@@ -187,7 +187,7 @@
     </style>
 
     <?$arOrder = CSaleOrder::GetByID($_GET['ORDER_ID']);?>
-    <? if ($arOrder['PAYED'] == "Y") { echo "Ваш заказ уже оплачен"; } else { ?>
+    <? if ($arOrder['PAYED'] == "Y") { echo "Ваш заказ уже оплачен"; } elseif ($arOrder['STATUS_ID'] == PREORDER_STATUS_ID) { echo "Вы сможете воспользоваться ссылкой на оплату после того, как книга появится появится в продаже."; } else { ?>
 
         <?  /*
             // новый виджет РФИ 

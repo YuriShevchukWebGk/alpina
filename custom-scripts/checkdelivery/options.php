@@ -5,14 +5,14 @@
 ######
 ######
 
-$limit = 30; //Максимальное количество заказов
+$limit = 45; //Максимальное количество заказов
 $weekend = false; //Если вдруг доставляем в выходные, то поменять на true
 
 $holidays = array( //Указываем даты праздничных дней
 'check',
-'01.05.2017',
-'08.05.2017',
-'09.05.2017',
+'18.05.2017',
+'19.05.2017',
+'22.05.2017',
 '11.05.2017',
 '06.11.2017',
 );
@@ -86,7 +86,7 @@ while (!$dateIsSet) {
 	}
 }
 
-if ($setProps['nextDay'] > 6) {
+if ($setProps['nextDay'] > 4) {
 	$setProps['deliveryDayName'] = $setProps['deliveryDate'];
 } else {
 	switch ($setProps['deliveryDayNumber']) {

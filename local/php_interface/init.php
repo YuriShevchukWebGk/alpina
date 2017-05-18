@@ -92,6 +92,24 @@
     define ("DELIVERY_DATE_LEGAL_ORDER_PROP_ID", 45);
     define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);
 
+    define ("PREORDER_STATUS_ID", 'PR');
+
+    function arshow($array, $adminCheck = false, $dieAfterArshow = false){
+        global $USER;
+        $USER = new Cuser;
+        if ($adminCheck) {
+            if (!$USER->IsAdmin()) {
+                return false;
+            }
+        }
+        echo "<pre>";
+        print_r($array);
+        echo "</pre>";
+        if ($dieAfterArshow) {
+            die();
+        }
+    }
+
     /**
     *
     * Отдельная функция для писем с вложениями, т.к. разобрать то, что шлет битрикс нереально
@@ -114,9 +132,9 @@
     * @param string $additional_parameters
     *
     **/
-    function custom_mail($to, $subject, $message, $attachments, $additional_headers = '', $additional_parameters = '') {         
-        GLOBAL $arParams;        
-                                                              
+    function custom_mail($to, $subject, $message, $attachments, $additional_headers = '', $additional_parameters = '') {
+        GLOBAL $arParams;
+
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
         $bcc_pattern = "/(?<=BCC:)(.*)(?=)/";
@@ -125,23 +143,23 @@
         preg_match($from_pattern, $additional_headers, $from_matches);
         preg_match($bcc_pattern, $additional_headers, $bcc_matches);
 
-        $mailgun = new Mailgun(MAILGUN_KEY);   
-        
+        $mailgun = new Mailgun(MAILGUN_KEY);
+
         $params = array(
             'from'    => ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
             'to'      => $to,
             'subject' => $subject,
             'html'    => $message
-        );             
-                 
+        );
+
         if (trim($bcc_matches[0])) {
             $params['bcc'] = $bcc_matches[0];
         }
         //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = MAILGUN_DOMAIN;
-        # Make the call to the client.                                                   
-        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));     
-    }                                                                                                
+        # Make the call to the client.
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+    }
 
 
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
@@ -171,10 +189,7 @@
             foreach ($arTemplate['FILE'] as $file) {
                 if ($file_path = CFile::GetPath($file)) {
                     $attachments = "@".$file_path;
-                    /*array_push(
-                        $attach,
-                        $_SERVER["DOCUMENT_ROOT"] . str_replace('http://files.alpinabook.ru', '', $file_path)
-                    );  */
+
                 }
             }
 
@@ -185,17 +200,13 @@
                 'html'    => $message_body,
             );
 
-            if ($arFields['BCC']) {
-                $params['bcc'] = $arFields['BCC'];
+            if ($arTemplate['BCC']) {
+                $params['bcc'] = $arTemplate['BCC'];
             }
 
-            if ($arFields['SALE_EMAIL']) {
-                $params['cc'] = $arFields['SALE_EMAIL'];
+            if ($arTemplate['CC']) {
+                $params['cc'] = $arTemplate['CC'];
             }
-
-
-          //  custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $message_body.'<a align="center" href="'.$attachments.'">Ссылка на подарок</a>', $attachments);
-           // custom_mail('st@webgk.ru',$arTemplate['SUBJECT'], $attach, $attachments);
 
             $domain = $arParams['MAILGUN']['DOMAIN'];
 
@@ -255,21 +266,7 @@
         }
     }
 
-    function arshow($array, $adminCheck = false, $dieAfterArshow = false){
-        global $USER;
-        $USER = new Cuser;
-        if ($adminCheck) {
-            if (!$USER->IsAdmin()) {
-                return false;
-            }
-        }
-        echo "<pre>";
-        print_r($array);
-        echo "</pre>";
-        if ($dieAfterArshow) {
-            die();
-        }
-    }
+
     function morph($n, $f1, $f2, $f5) {
         $n = abs(intval($n)) % 100;
         if ($n>10 && $n<20) return $f5;
@@ -2147,7 +2144,7 @@
             "items_id"    => "menu_webgk.boxberry_export",
             "items"       => array()
         );
-        
+
         //страница экспорта заказов в "accordpost"
         $moduleMenu[] = array(
             "parent_menu" => "global_menu_store",
@@ -2434,71 +2431,71 @@
     }
 
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
-    function BoxberryListStatuses() { 
-        $bTmpUser = False; 
-        if (!isset($GLOBALS["USER"]) || !is_object($GLOBALS["USER"])) { 
-            $bTmpUser = True; 
-            $GLOBALS["USER"] = new CUser; 
+    function BoxberryListStatuses() {
+        $bTmpUser = False;
+        if (!isset($GLOBALS["USER"]) || !is_object($GLOBALS["USER"])) {
+            $bTmpUser = True;
+            $GLOBALS["USER"] = new CUser;
         }
         $arFilter = Array(
            "!TRACKING_NUMBER" => null,
            "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,
            "!STATUS_ID" => 'F'
-        );                                                       
+        );
         if ($db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter)) {
-            while ($ar_sales = $db_sales->Fetch()) {  
+            while ($ar_sales = $db_sales->Fetch()) {
                 $orders_tracking_number[$ar_sales['ID']] = $ar_sales['TRACKING_NUMBER'];
             }
-        };                                     
-        foreach($orders_tracking_number as $order_id => $order_tracking_number) {   
-        /*--------Логирование---------*/  
-            $date = date('Y-m-d, H:i:s');          
+        };
+        foreach($orders_tracking_number as $order_id => $order_tracking_number) {
+        /*--------Логирование---------*/
+            $date = date('Y-m-d, H:i:s');
             $order_log = 'Date: '.$date.'; Id: '.$order_id.'; Start update;';
             $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/boxberry_update.log';
             logger($order_log, $file);
-        /*-----------------*/   
-            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;   
+        /*-----------------*/
+            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;
             // XXXXXX - код отслеживания заказа
             $handle = fopen($url, "rb");
             $contents = stream_get_contents($handle);
-            fclose($handle);                 
-            $data=json_decode($contents,true);      
+            fclose($handle);
+            $data=json_decode($contents,true);
             if ($data['err']) {
                 // если произошла ошибка и ответ не был получен:
-                echo $data['err'];                                     
+                echo $data['err'];
             } else {
                 foreach($data[statuses] as $status) {
                     $last_status = $status;
-                }                                                      
+                }
                 if($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {
-                /*--------Логирование---------*/           
-                    $order_log = 'Date: '.$date.'; Id: '.$order_id.'; Before update;';                       
+                /*--------Логирование---------*/
+                    $order_log = 'Date: '.$date.'; Id: '.$order_id.'; Before update;';
                     logger($order_log, $file);
-                /*-----------------*/  
-                    $order = Bitrix\Sale\Order::load($order_id); 
+                /*-----------------*/
+                    $order = Bitrix\Sale\Order::load($order_id);
                     $order->setField('STATUS_ID', 'F');
-                    $order->save();                    
-                /*--------Логирование---------*/            
-                    $order_log = 'Date: '.$date.'; Id: '.$order_id.'; After update;';                          
-                    logger($order_log, $file);   
-                /*-----------------*/                                            
-                }                                                  
-            }                                                                
-        } 
-        /*--------Логирование---------*/  
-            $date = date('Y-m-d, H:i:s');          
-            $order_log = 'Date: '.$date.'; Id: '.$order_id.'; End update;';                             
+                    $order->save();
+                /*--------Логирование---------*/
+                    $order_log = 'Date: '.$date.'; Id: '.$order_id.'; After update;';
+                    logger($order_log, $file);
+                /*-----------------*/
+                }
+            }
+        }
+        /*--------Логирование---------*/
+            $date = date('Y-m-d, H:i:s');
+            $order_log = 'Date: '.$date.'; Id: '.$order_id.'; End update;';
             logger($order_log, $file);
-        /*-----------------*/      
-        if ($bTmpUser) { 
-            unset($GLOBALS["USER"]); 
-        }                                         
-        return 'BoxberryListStatuses();';          
+        /*-----------------*/
+        if ($bTmpUser) {
+            unset($GLOBALS["USER"]);
+        }
+        return 'BoxberryListStatuses();';
     }
 
     //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет
     Main\EventManager::getInstance()->addEventHandler('sale', 'OnSaleOrderBeforeSaved', 'OnBeforeOrderUpdateLogger');
-    function OnBeforeOrderUpdateLogger(Main\Event $event) {   
+    function OnBeforeOrderUpdateLogger(Main\Event $event) {
         $order = $event->getParameter("ENTITY");
         $status_id = $order->GetField("STATUS_ID");
         $order_id = $order->GetField("ID");
@@ -2570,12 +2567,12 @@
 	 * */
 
 	function certificatePayed(&$arParamsCertificate) {
-        GLOBAL $arParams;           
-        /*--------Логирование---------*/           
+        GLOBAL $arParams;
+        /*--------Логирование---------*/
         $order_log = 'Key: '.$arParams['MAILGUN']['KEY'].'; To: '.$to.'; Update;';
         $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
         logger($order_log, $file);
-        /*-----------------*/ 
+        /*-----------------*/
 		if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
 			$current_object = CIBlockElement::GetList(
 				Array(),
@@ -2626,12 +2623,12 @@
                 "TOTAL_SUM"     => $quantity * $cert_price
             );
             //Допилить письмо и шаблон
-            if (!empty($arCoupons) && !empty($user_email)) {   
-                /*--------Логирование---------*/           
+            if (!empty($arCoupons) && !empty($user_email)) {
+                /*--------Логирование---------*/
                 $order_log = 'Key: '.$arParams['MAILGUN']['KEY'].'; To: '.$to.'; Before send;';
                 $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
                 logger($order_log, $file);
-                /*-----------------*/ 
+                /*-----------------*/
                 CEvent::Send(SEND_CERTIFICATE_TO_USER_EVENT, "s1", $arMailFields, "N");
             }
 		}

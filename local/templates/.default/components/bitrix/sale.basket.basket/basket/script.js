@@ -3,7 +3,7 @@
 * @param {{BASKET_ID : string, BASKET_DATA : { GRID : { ROWS : {} }}, COLUMNS: {}, PARAMS: {}, DELETE_ORIGINAL : string }} res
 */
 function updateBasketTable(basketItemId, res, params)
-{               
+{                 
     params = params || '';                  
     var table = BX("basket_items"),
     rows,
@@ -492,7 +492,7 @@ function updateBasketTable(basketItemId, res, params)
             }
         }
     }
-
+                                  
     // update coupon info         
     if (!!res.BASKET_DATA)
         couponListUpdate(res.BASKET_DATA, params);
@@ -664,7 +664,7 @@ function couponListUpdate(res, params)
                         }
                     }
                     if (couponFound)
-                    {
+                    {                     
                         couponClass = 'disabled';
                         if (res.COUPON_LIST[i].JS_STATUS === 'BAD')
                             couponClass = 'bad';
@@ -792,8 +792,7 @@ function skuPropClickHandler(e)
             'use_prepayment': BX('use_prepayment').value
         };
 
-        postData[action_var] = 'select_item';
-
+        postData[action_var] = 'select_item'; 
         BX.ajax({
             url: '/bitrix/components/bitrix/sale.basket.basket/ajax.php',
             method: 'POST',
@@ -875,7 +874,7 @@ function enterCoupon(preorderID)
         couponID = 'coupon_' + preorderID;         
     } else {              
         couponID = 'coupon';                                          
-    }             
+    }                        
     var newCoupon = BX(couponID);            
     if (!!newCoupon && !!newCoupon.value)
         recalcBasketAjax({'coupon' : newCoupon.value, 'basketID' : preorderID});                                      
@@ -1027,7 +1026,7 @@ function getCorrectRatioQuantity(quantity, ratio, bUseFloatQuantity)
 * @param {} params
 */
 function recalcBasketAjax(params)
-{
+{                         
     BX.showWait();         
     var property_values = {},
     action_var = BX('action_var').value,
@@ -1296,7 +1295,7 @@ BX.ready(function() {
 });
 
 //Custom coupon
-function enterCouponCustom(preorderID) {
+function enterCouponCustom(preorderID) {     
     preorderID = preorderID || '';
     if (preorderID != '') { 
         var couponCode = $("#coupon_" + preorderID).val();
@@ -1305,7 +1304,9 @@ function enterCouponCustom(preorderID) {
             type: "POST",
             url: "/ajax/customCoupon.php",
             data: {coupon: couponCode, price: price,  action: "check"}
-        }).done(function(result) {   
+        }).done(function(result) {  
+        console.log(1);    
+        console.log(result);   
             if (result != ""){              
                 arResult = JSON.parse(result); 
                 if (arResult.DEFAULT_COUPON == "Y") {
@@ -1322,7 +1323,9 @@ function enterCouponCustom(preorderID) {
             type: "POST",
             url: "/ajax/customCoupon.php",
             data: {coupon: couponCode, price: price,  action: "check"}
-        }).done(function(result) {      
+        }).done(function(result) {  
+        console.log(2);    
+        console.log(result);    
             if (result != ""){        
                 arResult = JSON.parse(result);   
                 if (arResult.DEFAULT_COUPON == "Y") {

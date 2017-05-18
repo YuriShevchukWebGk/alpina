@@ -86,9 +86,10 @@
                         <div>
                             <p class="dopInfoTitle"><?= GetMessage("DELIVERY_TYPE") ?></p>
                             <p class="dopInfoText"><?= $arResult["INFO"]["DELIVERY"][$order["ORDER"]["DELIVERY_ID"]]["NAME"] ?></p>
-                            <p class="dopInfoTitle thiCol"><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--класс отступа сверху -->
-                            <p class="dopInfoText">
-                                <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) && $order["ORDER"]["PAYED"] != "Y"){?>
+                            <p class="dopInfoTitle thiCol"<?if($order["ORDER"]['STATUS_ID'] == PREORDER_STATUS_ID) { echo 'style="display:none"'; }?>><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--класс отступа сверху -->
+                            
+                            <p class="dopInfoText" <?if($order["ORDER"]['STATUS_ID'] == PREORDER_STATUS_ID) { echo 'style="display:none"'; }?>>
+                                <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) && $order["ORDER"]["PAYED"] != "Y" ){?>
                                     <a href="/personal/order/payment/?ORDER_ID=<?=$order["ORDER"]["ID"]?>"><?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?></a>
                                 <?} else {?>
                                     <?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?>
