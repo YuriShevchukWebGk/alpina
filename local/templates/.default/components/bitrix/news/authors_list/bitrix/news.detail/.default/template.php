@@ -23,6 +23,18 @@ $sects = $sects_list -> Fetch();
 <script>
 $(document).ready(function() {
 	$('#detailReview a:not([href*="alpinabook.ru"])').attr('target','_blank').attr('rel','nofollow'); //Если ссылка в рецензии не содержит alpinabook, то открывает в новой вкладке и закрываем через nofollow
+	
+	//скрываем описание автора, если очень длинное
+	if ($(".textWrap").height() > 383) {
+		$(".textWrap").css("height", "383px");
+		$(".textWrap").css("overflow", "hidden");
+		$(".readMore").show();
+	}
+	$(".readMore").click(function() {
+		$(".textWrap").css("height", "auto");
+		$(".textWrap").css("min-height", "400px");
+		$(this).hide();
+	});
 });
 </script>
 <div class="authorWrap">
@@ -49,7 +61,7 @@ $(document).ready(function() {
             <h1 style="margin-top:0;" class="mainTitle"><?=$arResult["NAME"]?><?echo !empty($arResult["PROPERTIES"]["ORIG_NAME"]["VALUE"]) ? " / ".$arResult["PROPERTIES"]["ORIG_NAME"]["VALUE"] : ""?></h1>
         </div>
     </div>
-    <div class="content" itemprop="mainEntity" itemscope itemtype="http://schema.org/Person">
+    <div class="content" itemscope itemtype="http://schema.org/Person">
 		<meta itemprop="name" content="<?=$arResult["NAME"]?>" />
         <div class="catalogWrapper">
             <div class="autorInfo">
@@ -59,81 +71,15 @@ $(document).ready(function() {
                     <?} else {?>
                         <img src="/images/no_photo.png" width="200">
                     <?}?>
-                </div>    
-                <?/*<div class='events'>
-                    <?$APPLICATION->IncludeComponent(
-                            "bitrix:news.list", 
-                            "events_small_block", 
-                            array(
-                                "ACTIVE_DATE_FORMAT" => "d.m.Y",
-                                "ADD_SECTIONS_CHAIN" => "Y",
-                                "AJAX_MODE" => "N",
-                                "AJAX_OPTION_ADDITIONAL" => "",
-                                "AJAX_OPTION_HISTORY" => "N",
-                                "AJAX_OPTION_JUMP" => "N",
-                                "AJAX_OPTION_STYLE" => "Y",
-                                "CACHE_FILTER" => "N",
-                                "CACHE_GROUPS" => "N",
-                                "CACHE_TIME" => "36000000",
-                                "CACHE_TYPE" => "A",
-                                "CHECK_DATES" => "N",
-                                "COMPONENT_TEMPLATE" => "events_small_block",
-                                "DETAIL_URL" => "/events/#ID#/",
-                                "DISPLAY_BOTTOM_PAGER" => "Y",
-                                "DISPLAY_DATE" => "Y",
-                                "DISPLAY_NAME" => "Y",
-                                "DISPLAY_PICTURE" => "Y",
-                                "DISPLAY_PREVIEW_TEXT" => "Y",
-                                "DISPLAY_TOP_PAGER" => "N",
-                                "FIELD_CODE" => array(
-                                    0 => "DETAIL_PICTURE",
-                                    1 => "",
-                                ),
-                                "FILTER_NAME" => "",
-                                "HIDE_LINK_WHEN_NO_DETAIL" => "N",
-                                "IBLOCK_ID" => "40",
-                                "IBLOCK_TYPE" => "events",
-                                "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
-                                "INCLUDE_SUBSECTIONS" => "Y",
-                                "MESSAGE_404" => "",
-                                "NEWS_COUNT" => "4",
-                                "PAGER_BASE_LINK_ENABLE" => "N",
-                                "PAGER_DESC_NUMBERING" => "N",
-                                "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-                                "PAGER_SHOW_ALL" => "N",
-                                "PAGER_SHOW_ALWAYS" => "N",
-                                "PAGER_TEMPLATE" => ".default",
-                                "PAGER_TITLE" => "Новости",
-                                "PARENT_SECTION" => "",
-                                "PARENT_SECTION_CODE" => "",
-                                "PREVIEW_TRUNCATE_LEN" => "",
-                                "PROPERTY_CODE" => array(
-                                    0 => "",
-                                    1 => "",
-                                ),
-                                "SET_BROWSER_TITLE" => "Y",
-                                "SET_LAST_MODIFIED" => "N",
-                                "SET_META_DESCRIPTION" => "Y",
-                                "SET_META_KEYWORDS" => "Y",
-                                "SET_STATUS_404" => "N",
-                                "SET_TITLE" => "N",
-                                "SHOW_404" => "N",
-                                "SORT_BY1" => "ACTIVE_FROM",
-                                "SORT_BY2" => "SORT",
-                                "SORT_ORDER1" => "DESC",
-                                "SORT_ORDER2" => "ASC"
-                            ),
-                            false
-                        );?>
-                </div>*/?>
+                </div>
             </div>
             <div class="textWrap">
                 <?=html_entity_decode($arResult["PROPERTIES"]["AUTHOR_DETAIL_INFO"]["VALUE"]["TEXT"]);?>
             </div>
+			<p class="readMore" style="display:none;"><span>Читать далее...</span></p>
         </div>    
     </div>
 </div>
-
 
 <?
     global $ThisAuthorFilter;

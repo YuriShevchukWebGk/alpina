@@ -1276,7 +1276,7 @@
 /* Попап для сертификатов  */
 .certificate_popup {
     background-color: #ffffff;
-    height: 606px;
+    height: 660px;
     position: fixed;
     width: 654px;
     z-index: 1100;  
@@ -1300,14 +1300,14 @@
 	flex: 1 1;
 	align-items: center;
 	justify-content: center;
-	border-bottom: 1px solid #ecedef;
+	background: #e2e2e2;
 }
 
 .certificate_buy_type li:first-child {
 	border-right: 1px solid #ecedef;
 }
 
-.natural_person input[type="text"] {
+.natural_person input[type="text"],.natural_person input[type="email"] {
 	background-color: #fbfbfb;
     border: 2px solid #f0f0f0;
     color: #8d8d8d;
@@ -1319,7 +1319,7 @@
     width: 518px;
 }
 
-.legal_person input[type="text"] {
+.legal_person input[type="text"], .legal_person input[type="email"] {
     background-color: #fbfbfb;
     border: 2px solid #f0f0f0;
     color: #8d8d8d;
@@ -1349,15 +1349,30 @@
 }
 
 .certificate_tab_active {
-	background: #00b9c8;
-	color: #f2f2f2;
+	background: #fff!important;
+	color: #2F3839;
 }
-
+.closeIcon:after {
+    position: absolute;
+    background: url(/img/close.png) left center;
+    width: 21px;
+    height: 21px;
+    right: 40px;
+    top: 30px;
+    margin-left: -15px;
+    margin-top: -8px;
+    cursor: pointer;
+    display: block;
+    content: "";
+}
+.closeIcon:hover:after {
+    background: url(/img/close.png) right center;
+}
 .certificate_popup_close {
 	position: absolute;
 	cursor: pointer;
-	top: -17px;
-	right: -48px;
+	top: -9px;
+    right: -29px;
 }
 
 .active_certificate_block {
@@ -1368,23 +1383,28 @@
 	width: 230px;
 	height: 59px;
 	border-color: #fff;
-	background-color: rgba(227, 27, 66, 0.9);
-	border-radius: 15px;
-	font-size: 28px;
+	background-color: #00abb8;
+	border-radius: 35px;
+	font-size: 24px;
 	color: #fff;
 	font-family: sans-serif;
 	cursor: pointer;
 	outline: none;
 	transition: 0.1s;
 	box-sizing: content-box;
-	-webkit-border-radius: 15px;
-	-o-border-radius: 15px;
-	-moz-border-radius: 15px;
+	-webkit-border-radius: 35px;
+	-o-border-radius: 35px;
+	-moz-border-radius: 35px;
+	margin-top: 20px;
 	text-align: center;
-	padding-top: 13px;
+	padding: 14px 58px;
 	box-sizing: border-box;
 	display: inline-block;
 	text-decoration: none;
+}
+.popup_form_data a:hover {
+    background-color: #00b9c8;
+    color: #f2f2f2;
 }
 
 .certificate_popup > span {

@@ -205,7 +205,7 @@
         'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
     );
 ?>
-<div class="elementDescriptWrap" itemprop="mainEntity" itemscope itemtype="https://schema.org/Book">
+<div class="elementDescriptWrap" itemscope itemtype="https://schema.org/Book">
     <meta itemprop="inLanguage" content="ru-RU"/>
     <div class="leftColumn">
         <div class="elementMainPict">
@@ -663,14 +663,14 @@
                                         <div class="natural_person active_certificate_block">
                                             <input type='text' placeholder="Имя" name="natural_name" id="natural_name">                
                                             <br>                                                                                                
-                                            <input type='text' placeholder="Email" name="natural_email" id="natural_email">    
+                                            <input type='email' placeholder="Email" name="natural_email" id="natural_email">    
                                             <br>                                   
                                             <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                                         </div>
                                         <div class="legal_person">
                                             <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">                
                                             <br>
-                                            <input type='text' placeholder="Email" name="legal_email" id="legal_email">    
+                                            <input type='email' placeholder="Email" name="legal_email" id="legal_email">    
                                             <br>                                                                                        
                                             <input type='text' placeholder="ИНН" name="inn" id="inn">    
                                             <br>
@@ -694,9 +694,7 @@
                                     <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>    
                                     <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
                                 </form>
-                                <div class="certificate_popup_close">
-                                    <img src="/images/rfi_popup_close.png" alt="" />
-                                </div>
+                                <div class="certificate_popup_close closeIcon"></div>
                                 <div class="rfi_block">              
                                 <?
                                     $APPLICATION->IncludeComponent(
