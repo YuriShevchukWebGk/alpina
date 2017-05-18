@@ -308,7 +308,7 @@ if (isset($_POST[$action_var]) && strlen($_POST[$action_var]) > 0)
 
 		$arRes["CODE"] = "SUCCESS";
         
-        //Получаем размер скидки у купона для предзаказа
+        //РџРѕР»СѓС‡Р°РµРј СЂР°Р·РјРµСЂ СЃРєРёРґРєРё Сѓ РєСѓРїРѕРЅР° РґР»СЏ РїСЂРµРґР·Р°РєР°Р·Р°
         $arDiscount = CCatalogDiscount::GetById($arRes["BASKET_DATA"]['COUPON_LIST'][0]['DISCOUNT_ID']);
         $arRes["BASKET_DATA"]['DISCOUNT_PERCENT_SIZE'] = intval($arDiscount['VALUE']);                                   
 
