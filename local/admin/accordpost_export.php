@@ -113,6 +113,10 @@
             }                              
         }      
         
+        $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);
+        $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);
+        $unic_code = $partner_code.$order_code;  
+        
         //выбираем нужные поля  
               
         /*
@@ -130,7 +134,7 @@
             //Создаём позиции с заказами
             foreach($order_props as $order_id => $order_properties) {
             //Создаём документ номер 5, создадим новый элемент в иб и используем его id в качестве номера отгрузки                                  
-                $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.ltrim(ACCORDPOST_PARTNER_ID, "0").'+'.$order_id.'" parcel_nalog="10.00" parcel_sumvl="10.00" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$order_properties['INDEX'].'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
+                $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="10.00" parcel_sumvl="10.00" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$order_properties['INDEX'].'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
             }  
                                              
             //Закрываем документ
@@ -215,7 +219,7 @@
     $lAdmin->InitFilter($FilterArr);    
                          
     $arFilter = Array(       
-        "DELIVERY_ID" => DELIVERY_MAIL_2, 
+        "DELIVERY_ID" => array(DELIVERY_MAIL, DELIVERY_MAIL_2), 
         "PAYED" => "Y"                                                            
     );  
 

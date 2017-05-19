@@ -2531,15 +2531,19 @@
 	        'COUPON_ID'   => $arCertificateID,
 	        'COUPON_CODE' => $arCouponCode      
 	    );
-                
+                                                          
+        $coupon_active_date = new \Bitrix\Main\Type\DateTime();   
+        $coupon_active_from = clone $coupon_active_date;                      
+        $coupon_active_to = $coupon_active_date -> add('+6 months');  
+                 
         $props_update = array (
             'DATE_ACTIVE_FROM' => $coupon_active_from -> toString(),
             'DATE_ACTIVE_TO'   => $coupon_active_to   -> toString()   
-        );            
+        );                                                       
 	    // Установим новое значение для данного свойства данного элемента
         
 	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);            
-        
+                                                                      
         $el = new CIBlockElement;               
         $res = $el->Update($order_id, $props_update);        
 
@@ -2581,36 +2585,37 @@
                     $user_name = $current_values['PROPERTY_LEGAL_NAME_VALUE'];
                     $user_email = $current_values['PROPERTY_LEGAL_EMAIL_VALUE'];
                 }
-            }
+            }      
             $first_coupon_array_key = key($arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
             //Сохраним все купоны после генерации
             $arCoupons = array();
 
-            if (!$arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParamsCertificate['ACTIVE'] == "Y" && !empty($quantity)) {
-                $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id, $coupon_active_from, $coupon_active_to);  
+            if (!$arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParamsCertificate['ACTIVE'] == "Y" && !empty($quantity)) { 
+                $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);  
             }
-            $couponListHTML = '';
-            foreach($arCoupons as $couponItem) {
-                if (!empty($couponItem)) {
-                     $couponListHTML .=  '<tr><td align="right" style="border-collapse: collapse;color:#393939;font-family: "Open Sans","Segoe UI",Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;" valign="top">';
-                     $couponListHTML .=  $couponItem;
-                     $couponListHTML .=  '</td></tr>';
+            if(!empty($arCoupons)){
+                $couponListHTML = '';
+                foreach($arCoupons as $couponItem) {
+                    if (!empty($couponItem)) {
+                         $couponListHTML .=  '<tr><td align="right" style="border-collapse: collapse;color:#393939;font-family: "Open Sans","Segoe UI",Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;" valign="top">';
+                         $couponListHTML .=  $couponItem;
+                         $couponListHTML .=  '</td></tr>';
+                    }
                 }
-            }
-            $arMailFields = array(
-                "COUPON_LIST"   => $couponListHTML,
-                "ORDER_ID"      => 'CERT_'.$order_id,
-                "EMAIL"         => trim($user_email),
-                "NAME"          => $user_name,
-                "CERT_NAME"     => $cert_name,
-                "CERT_QUANTITY" => $quantity,
-                "CERT_PRICE"    => $cert_price,
-                "TOTAL_SUM"     => $quantity * $cert_price
-            );
-            //Допилить письмо и шаблон
-            if (!empty($arCoupons) && !empty($user_email)) {    
-                CEvent::Send(SEND_CERTIFICATE_TO_USER_EVENT, "s1", $arMailFields, "N");
-            }
+                $arMailFields = array(
+                    "COUPON_LIST"   => $couponListHTML,
+                    "ORDER_ID"      => 'CERT_'.$order_id,
+                    "EMAIL"         => trim($user_email),
+                    "NAME"          => $user_name,
+                    "CERT_NAME"     => $cert_name,
+                    "CERT_QUANTITY" => $quantity,
+                    "CERT_PRICE"    => $cert_price,
+                    "TOTAL_SUM"     => $quantity * $cert_price
+                );                           
+                if (!empty($arCoupons) && !empty($user_email)) {    
+                    CEvent::Send(SEND_CERTIFICATE_TO_USER_EVENT, "s1", $arMailFields, "N");
+                }  
+            }               
 		}
 	}
     
@@ -2620,13 +2625,13 @@
     * Перед обновлением элемента проверим не менялась ли дата, если дата менялась обновим сертификаты в базе
     */
     function certificateUpdate(&$arParamsCertificate) {  
-        if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) { 
+        if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {  
             $current_object = CIBlockElement::GetList(Array(), Array("ID" => $arParamsCertificate['ID']), false, Array(), Array("ID", "PROPERTY_COUPON_ID", "ACTIVE_FROM", "ACTIVE_TO"));
             while($current_values = $current_object->Fetch()) { 
                 if($arParamsCertificate['ACTIVE_FROM'] != $current_values['ACTIVE_FROM'] || $arParamsCertificate['ACTIVE_TO'] != $current_values['ACTIVE_TO']) {
                     $ar_coupon_id[] = $current_values['PROPERTY_COUPON_ID_VALUE'];               
                 }                                         
-            }
+            }             
             if(!empty($ar_coupon_id)) {
                 $date_from = new \Bitrix\Main\Type\DateTime($arParamsCertificate['ACTIVE_FROM']);
                 $date_to = new \Bitrix\Main\Type\DateTime($arParamsCertificate['ACTIVE_TO']);     
