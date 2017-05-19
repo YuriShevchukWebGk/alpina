@@ -751,17 +751,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			}
 		}
 		?>
-		<?if ($arrFilter['ID'][0] > 0) {?>
-			<div class="recomendation" style="display:block;">
-			<style>
-				.hintWrapp {height:100%!important};
-			</style>
-		<?} else {?>
-			<div class="recomendation" style="display:none;">
-			<style>
-				.hintWrapp {height:100%!important};
-			</style>
-		<?}?>
+		
+		<div class="recomendation" style="display:<?=($arrFilter['ID'][0] > 0) ? 'block' : 'none';?>">
 		
 		<p class="titleMain"><a href="/catalog/personal-books/">Вам может быть интересно</a></p>
 			<?
