@@ -103,17 +103,18 @@
                                 <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL ||
                                     $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 ||
                                     $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT ||
-                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST ||
+                                    $order["ORDER"]["DELIVERY_ID"] == BOXBERRY_PICKUP_DELIVERY_ID) {?>       
 
-                                   <?
+                                   <?      
                                     $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
 
                                     /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
                                     $shipmentCollection = $origin_identifier->getShipmentCollection();
                                     foreach ($shipmentCollection as $shipment) {
-                                    if($shipment->isSystem())
+                                    if($shipment->isSystem())       
                                         continue;
-                                        $track = $shipment->getField('TRACKING_NUMBER');
+                                        $track = $shipment->getField('TRACKING_NUMBER');     
                                     }?>
                                     <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
@@ -130,6 +131,9 @@
                                     <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST && $arResult["INFO"]["STATUS"][$order["ORDER"]["STATUS_ID"]]["ID"] != "I") {?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
                                         <p class="dopInfoText"><?=GetMessage("TRACK_MESSAGE_PICK_POINT_NULL");?></p>
+                                     <?}elseif($order["ORDER"]["DELIVERY_ID"] == BOXBERRY_PICKUP_DELIVERY_ID  && !empty($track)) {?>           
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_BOXBERRY", Array ("#TRACK#" => $track));?></p>
                                      <?}?>
                                 <?}?>
 

@@ -67,6 +67,9 @@ if ($products['url'] != 'error') {
 	} else {
 		$useremail = Message::getClientEmail($ID);
 	}
+	if (empty($useremail)) 
+		$useremail = 'a.marchenkov@alpinabook.ru';
+	
 } else {
 	$freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
 	$useremail = 'a.marchenkov@alpinabook.ru';
