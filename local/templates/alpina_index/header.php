@@ -492,7 +492,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			false
 		);?> 
         <?  global $arrFilter_soon;
-            $arrFilter_soon = array('PROPERTY_STATE' => 22, '>DETAIL_PICTURE' => 0, '!PROPERTY_reissue' => 218, '!PROPERTY_hide_soon' => 357);
+            $arrFilter_soon = array('PROPERTY_STATE' => STATE_SOON, '>DETAIL_PICTURE' => 0, '!PROPERTY_reissue' => REISSUE_ID, '!PROPERTY_hide_soon' => HIDE_SOON_ID);
 
             $APPLICATION->IncludeComponent(
 			"bitrix:catalog.section", 

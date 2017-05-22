@@ -78,10 +78,10 @@
     define("NEW_LEGAL_PERSON_CERTIFICATE_ORDER_EVENT", "LEGAL_NEW_CERTIFICATE"); // тип почтового события при покупке нового серификата юр лицом
 
     define("CERTIFICATE_NATURAL_PERSON_PROPERTY_ID", 910); //Тип покупателя физ.лицо для флага "Тип покупателя" в инфоблоке сертификатов, на копии 906
-	define("CERTIFICATE_LEGAL_PERSON_PROPERTY_ID", 911); //Тип покупателя юр.лицо для флага "Тип покупателя" в инфоблоке сертификатов, на копии 907
+    define("CERTIFICATE_LEGAL_PERSON_PROPERTY_ID", 911); //Тип покупателя юр.лицо для флага "Тип покупателя" в инфоблоке сертификатов, на копии 907
 
-	define("CERTIFICATE_ORDERS_COUPONS_ID_FIELD", 783); // Поле с идентификаторами купонов, на копии 766
-	define("CERTIFICATE_ORDERS_COUPONS_CODE_FIELD", 784); // Поле с кодами купонов, на копии 767
+    define("CERTIFICATE_ORDERS_COUPONS_ID_FIELD", 783); // Поле с идентификаторами купонов, на копии 766
+    define("CERTIFICATE_ORDERS_COUPONS_CODE_FIELD", 784); // Поле с кодами купонов, на копии 767
 
     define("SEND_CERTIFICATE_TO_USER_EVENT", 'SEND_CERTIFICATE_TO_USER'); // Шаблон письма с отправкой сертификата пользователям
 
@@ -93,6 +93,10 @@
     define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);
 
     define ("PREORDER_STATUS_ID", 'PR');
+	
+	define ("REISSUE_ID", 218); //ID свойства "Переиздание"
+	define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
+	define ("STATE_SOON", 357); //ID состояния книги "Скоро в продаже"
 
     function arshow($array, $adminCheck = false, $dieAfterArshow = false){
         global $USER;
@@ -583,8 +587,7 @@
             while ($arItemsInOrder = $dbItemsInOrder->Fetch()) {
                 $arItems[$arItemsInOrder["PRODUCT_ID"]] = $arItemsInOrder;
                 for ($x=0; $x<$arItemsInOrder["QUANTITY"]; $x++) {
-                    if (in_array($arItemsInOrder["PRODUCT_ID"], array_keys($arDiscounts))) {
-
+                    if (in_array($arItemsInOrder["PRODUCT_ID"], array_keys($arDiscounts))) {    
                         $dID=preg_replace("/[^0-9]/", '', $arDiscounts[$arItemsInOrder["PRODUCT_ID"]]["EXTERNAL_ID"]);
                         //Create coupon
                         Loader::includeModule('sale');
@@ -2447,13 +2450,7 @@
                 $orders_tracking_number[$ar_sales['ID']] = $ar_sales['TRACKING_NUMBER'];
             }
         };
-        foreach($orders_tracking_number as $order_id => $order_tracking_number) {
-        /*--------Логирование---------*/
-            $date = date('Y-m-d, H:i:s');
-            $order_log = 'Date: '.$date.'; Id: '.$order_id.'; Start update;';
-            $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/boxberry_update.log';
-            logger($order_log, $file);
-        /*-----------------*/
+        foreach($orders_tracking_number as $order_id => $order_tracking_number) {              
             $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$order_tracking_number;
             // XXXXXX - код отслеживания заказа
             $handle = fopen($url, "rb");
@@ -2467,26 +2464,13 @@
                 foreach($data[statuses] as $status) {
                     $last_status = $status;
                 }
-                if($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {
-                /*--------Логирование---------*/
-                    $order_log = 'Date: '.$date.'; Id: '.$order_id.'; Before update;';
-                    logger($order_log, $file);
-                /*-----------------*/
+                if($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {        
                     $order = Bitrix\Sale\Order::load($order_id);
                     $order->setField('STATUS_ID', 'F');
-                    $order->save();
-                /*--------Логирование---------*/
-                    $order_log = 'Date: '.$date.'; Id: '.$order_id.'; After update;';
-                    logger($order_log, $file);
-                /*-----------------*/
+                    $order->save();    
                 }
             }
-        }
-        /*--------Логирование---------*/
-            $date = date('Y-m-d, H:i:s');
-            $order_log = 'Date: '.$date.'; Id: '.$order_id.'; End update;';
-            logger($order_log, $file);
-        /*-----------------*/
+        }                         
         if ($bTmpUser) {
             unset($GLOBALS["USER"]);
         }
@@ -2518,15 +2502,17 @@
 	 *
 	 * */
 
-	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) {
+	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id, $coupon_active_from, $coupon_active_to) {       
 		for ($i = 1; $i <= $quantity; $i++) {
-
+            
 	        //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
 	        $arFields['COUPON'] = CatalogGenerateCoupon();
 	        $arFields['DISCOUNT_ID'] = $basket_rule_id;
 	        $arFields['ACTIVE'] = "Y";
 	        $arFields['TYPE'] = 2;
-	        $arFields['MAX_USE'] = 1;
+	        $arFields['MAX_USE'] = 1;      
+            $arFields['ACTIVE_FROM'] = $coupon_active_from;
+            $arFields['ACTIVE_TO'] = $coupon_active_to;     
 
 	        //Фукнкция из ядра, создаем новый купон в правилах корзины
 	        $obCoupon = \Bitrix\Sale\Internals\DiscountCouponTable::add($arFields);
@@ -2544,44 +2530,51 @@
 	        //Собираем массив с кодами купонов
 	        $arCouponCode[] = $arFields['COUPON'];
 	    }
-
+                                          
 	    $props = array(
 	        'COUPON_ID'   => $arCertificateID,
-	        'COUPON_CODE' => $arCouponCode,
+	        'COUPON_CODE' => $arCouponCode      
 	    );
-
+                                                          
+        $coupon_active_date = new \Bitrix\Main\Type\DateTime();   
+        $coupon_active_from = clone $coupon_active_date;                      
+        $coupon_active_to = $coupon_active_date -> add('+6 months');  
+                 
+        $props_update = array (
+            'DATE_ACTIVE_FROM' => $coupon_active_from -> toString(),
+            'DATE_ACTIVE_TO'   => $coupon_active_to   -> toString()   
+        );                                                       
 	    // Установим новое значение для данного свойства данного элемента
-	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
+        
+	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);            
+                                                                      
+        $el = new CIBlockElement;               
+        $res = $el->Update($order_id, $props_update);        
 
         //Возвращаем новые купоны
         return $arCouponCode;
 	}
 
 	AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "certificatePayed");
-
+    AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "certificateUpdate");
+        
 	/**
 	 *
 	 * Проверяем, оплачен ли заказ сертификата
 	 * За свойство оплачен выдается свойство активность
-	 *
-	 * */
-
+	 *                 
+	 * */                                                       
 	function certificatePayed(&$arParamsCertificate) {
-        GLOBAL $arParams;
-        /*--------Логирование---------*/
-        $order_log = 'Key: '.$arParams['MAILGUN']['KEY'].'; To: '.$to.'; Update;';
-        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
-        logger($order_log, $file);
-        /*-----------------*/
-		if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
+        GLOBAL $arParams;                                 
+		if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) { 
 			$current_object = CIBlockElement::GetList(
 				Array(),
 				Array("ID" => $arParamsCertificate['ID']),
 				false,
 				Array("nPageSize" => 1),
-				Array("ID", "NAME", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY", "PROPERTY_NATURAL_EMAIL", "PROPERTY_NATURAL_NAME", "PROPERTY_LEGAL_EMAIL", "PROPERTY_LEGAL_NAME", "PROPERTY_CERT_PRICE")
+				Array("ID", "NAME", "ACTIVE", "XML_ID", "PROPERTY_CERT_QUANTITY", "PROPERTY_NATURAL_EMAIL", "PROPERTY_NATURAL_NAME", "PROPERTY_LEGAL_EMAIL", "PROPERTY_LEGAL_NAME", "PROPERTY_CERT_PRICE", "ACTIVE_FROM", "ACTIVE_TO")
 			);
-			if ($current_values = $current_object->Fetch()) {
+			if ($current_values = $current_object->Fetch()) { 
 				$order_id = $current_values['ID'];
 				$quantity = $current_values['PROPERTY_CERT_QUANTITY_VALUE'];
 				$basket_rule_id = $current_values['XML_ID'];
@@ -2596,43 +2589,67 @@
                     $user_name = $current_values['PROPERTY_LEGAL_NAME_VALUE'];
                     $user_email = $current_values['PROPERTY_LEGAL_EMAIL_VALUE'];
                 }
-            }
+            }      
             $first_coupon_array_key = key($arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
             //Сохраним все купоны после генерации
             $arCoupons = array();
 
-            if (!$arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParamsCertificate['ACTIVE'] == "Y") {
-                $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
+            if (!$arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParamsCertificate['ACTIVE'] == "Y" && !empty($quantity)) { 
+                $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);  
             }
-            $couponListHTML = '';
-            foreach($arCoupons as $couponItem) {
-                if (!empty($couponItem)) {
-                     $couponListHTML .=  '<tr><td align="right" style="border-collapse: collapse;color:#393939;font-family: "Open Sans","Segoe UI",Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;" valign="top">';
-                     $couponListHTML .=  $couponItem;
-                     $couponListHTML .=  '</td></tr>';
+            if(!empty($arCoupons)){
+                $couponListHTML = '';
+                foreach($arCoupons as $couponItem) {
+                    if (!empty($couponItem)) {
+                         $couponListHTML .=  '<tr><td align="right" style="border-collapse: collapse;color:#393939;font-family: "Open Sans","Segoe UI",Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;" valign="top">';
+                         $couponListHTML .=  $couponItem;
+                         $couponListHTML .=  '</td></tr>';
+                    }
                 }
-            }
-            $arMailFields = array(
-                "COUPON_LIST"   => $couponListHTML,
-                "ORDER_ID"      => 'CERT_'.$order_id,
-                "EMAIL" => trim($user_email),
-                "NAME"          => $user_name,
-                "CERT_NAME"     => $cert_name,
-                "CERT_QUANTITY" => $quantity,
-                "CERT_PRICE"    => $cert_price,
-                "TOTAL_SUM"     => $quantity * $cert_price
-            );
-            //Допилить письмо и шаблон
-            if (!empty($arCoupons) && !empty($user_email)) {
-                /*--------Логирование---------*/
-                $order_log = 'Key: '.$arParams['MAILGUN']['KEY'].'; To: '.$to.'; Before send;';
-                $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
-                logger($order_log, $file);
-                /*-----------------*/
-                CEvent::Send(SEND_CERTIFICATE_TO_USER_EVENT, "s1", $arMailFields, "N");
-            }
+                $arMailFields = array(
+                    "COUPON_LIST"   => $couponListHTML,
+                    "ORDER_ID"      => 'CERT_'.$order_id,
+                    "EMAIL"         => trim($user_email),
+                    "NAME"          => $user_name,
+                    "CERT_NAME"     => $cert_name,
+                    "CERT_QUANTITY" => $quantity,
+                    "CERT_PRICE"    => $cert_price,
+                    "TOTAL_SUM"     => $quantity * $cert_price
+                );                           
+                if (!empty($arCoupons) && !empty($user_email)) {    
+                    CEvent::Send(SEND_CERTIFICATE_TO_USER_EVENT, "s1", $arMailFields, "N");
+                }  
+            }               
 		}
 	}
+    
+    
+    /*
+    *
+    * Перед обновлением элемента проверим не менялась ли дата, если дата менялась обновим сертификаты в базе
+    */
+    function certificateUpdate(&$arParamsCertificate) {  
+        if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {  
+            $current_object = CIBlockElement::GetList(Array(), Array("ID" => $arParamsCertificate['ID']), false, Array(), Array("ID", "PROPERTY_COUPON_ID", "ACTIVE_FROM", "ACTIVE_TO"));
+            while($current_values = $current_object->Fetch()) { 
+                if($arParamsCertificate['ACTIVE_FROM'] != $current_values['ACTIVE_FROM'] || $arParamsCertificate['ACTIVE_TO'] != $current_values['ACTIVE_TO']) {
+                    $ar_coupon_id[] = $current_values['PROPERTY_COUPON_ID_VALUE'];               
+                }                                         
+            }             
+            if(!empty($ar_coupon_id)) {
+                $date_from = new \Bitrix\Main\Type\DateTime($arParamsCertificate['ACTIVE_FROM']);
+                $date_to = new \Bitrix\Main\Type\DateTime($arParamsCertificate['ACTIVE_TO']);     
+                $fields = array(
+                    'ACTIVE_FROM' => $date_from,
+                    'ACTIVE_TO'   => $date_to,
+                    'ACTIVE'      => $arParamsCertificate['ACTIVE']
+                );
+                foreach ($ar_coupon_id as $coupon_id) {
+                    \Bitrix\Sale\Internals\DiscountCouponTable::update($coupon_id, $fields);
+                }       
+            }             
+        }    
+    }
 
 	// класс для отправки сообщений о новых заказах сертификатов
 	class CertificateMail {
@@ -2755,5 +2772,72 @@
             }
             $entity_data_class::Delete($basket_item['ID']);
         }
+    }
+    
+
+    function generateAccordPostLabel($order_id) {
+        //Данные для генерации этикетки            
+        $order_id = intval($order_id);
+        if (!empty($order_id)) {    
+            $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);
+            $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);
+            $unic_code = $partner_code.$order_code;
+
+            $visual_code = substr($unic_code, -3);
+
+            $rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_id), false, false, array());
+            while($ar_order_prop = $rs_order_props->Fetch()) { 
+                $order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];  
+            }                                                               
+
+            if(empty($order_properties['EXPORTED_TO_ACCORDPOST'])){
+                return false;
+            }
+            
+            //Собираем поля в зависимости от типа лица                 
+            if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+                //имя получателя    
+                $cont_name = '';    
+                $cont_name = (!empty($order_properties["F_CONTACT_PERSON"]) ? $order_properties["F_CONTACT_PERSON"] : $order_properties["F_NAME"]);
+                $user_name = preg_replace("/[^\w\s]+/u", "", $cont_name);                                                                                                             
+            } else {
+                //имя получателя    
+                $cont_name = '';            
+                $cont_name = (!empty($order_properties["F_CONTACT_PERSON"]) ? $order_properties["F_CONTACT_PERSON"] : $order_properties["F_NAME"]);
+                $user_name = preg_replace("/[^\w\s]+/u", "", $cont_name);                                                                                                   
+            }   
+                                        
+            $shipping_date = $order_properties['EXPORTED_TO_ACCORDPOST'];
+            $partner_name = ACCORDPOST_PARTNER_TITLE;
+
+            //Если нужно будет расширить для других доставок доработать
+            $deliver_code = '01';
+            $deliver_type = '23';  
+            $html = '
+            <table style="width: 250px;border: 2px solid black;">
+                <tbody>
+                    <tr>
+                        <th rowspan="2"><div style="font-size: 15px; font-family: arial; margin: 10px 0; width: 42px;">'.$deliver_code.'-'.$deliver_type.'</div></th>
+                        <th colspan="2"><div style="font-size: 9px; font-family: arial; font-weight: normal; text-transform: uppercase; font-weight: bold; margin: 5px 0;">'.$user_name.'</div></th>
+                        <th rowspan="4" style="width: 40px;"><div style="transform: rotate(-90deg); font-size: 25px; font-family: arial;">'.$visual_code.'</div></th>
+                    </tr>
+                    <tr>
+                        <td style="border: 0px;"><div style="font-size: 9px; font-family: arial;">'.$shipping_date.'</div></td>
+                        <td style="border: 0px;"><div style="font-size: 9px; font-family: arial;">'.$partner_name.'</div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border: 0px;">
+                            <div style="overflow: hidden;text-align: center;height: 77px;margin: 4px 0 6px 0;"><img src="http://barcode.tec-it.com/barcode.ashx?translate-esc=off&data='.$unic_code.'&code=DataMatrix&unit=Px&dpi=80&imagetype=Png&rotation=0&color=000000&bgcolor=FFFFFF&qunit=Mm&quiet=0&modulewidth=4" alt="Barcode Generator TEC-IT"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border: 0px;"><div style="text-align: center; margin: -1px 0 6px 0; font-size: 10px; font-family: arial;">'.$unic_code.'</div></td>
+                    </tr>
+                </tbody>
+            </table>';   
+            return $html;
+        } else {
+            return false;
+        }   
     }
 ?>
