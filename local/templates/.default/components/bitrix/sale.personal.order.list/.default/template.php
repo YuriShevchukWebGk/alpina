@@ -97,9 +97,8 @@
                             <?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
                                 <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_DATE") ?></p> <!--класс отступа сверху -->
                                 <p class="dopInfoText"><?= CustomPickPoint::getDeliveryDate($order["ORDER"]["ID"]) ?></p>
-                                <?}?>
-                            <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID))
-                                && ($order["ORDER"]["PAYED"] != "Y")) {
+                                <?}?> 
+                            <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID))) {
                                 ?>
                                 <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL ||
                                     $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 ||

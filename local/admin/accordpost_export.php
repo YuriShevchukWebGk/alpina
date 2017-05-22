@@ -241,15 +241,8 @@
     }                                                                                 
     if(!empty($find_date_to)) {
         $arFilter["<=DATE_INSERT"] = new \Bitrix\Main\Type\DateTime($find_date_to);         
-    }                                                                                 
-    if(!empty($find_exported)) {   
-        if($find_exported == 'Y') {              
-            $arFilter["!SALE_INTERNALS_ORDER_ACCORDPOST_VALUE"] = false;  
-        } elseif ($find_exported == 'N') {                                              
-            $arFilter["SALE_INTERNALS_ORDER_ACCORDPOST_VALUE"] = false;   
-        }                                                    
-    }                                                                                  
-
+    }        
+    
     //set sorting field and direction
     $by = "ID";
     $order = "DESC";
@@ -291,6 +284,14 @@
             $arExportedToAccordpost[$arDataProps['ID']] = $arDataProps['SALE_INTERNALS_ORDER_ACCORDPOST_VALUE']; 
         }                                                 
     }                                       
+    
+    if(!empty($find_exported)) {   
+        if($find_exported == 'Y') {              
+            $arFilter["!PROPERTY_VAL_BY_CODE_EXPORTED_TO_ACCORDPOST"] = false;  
+        } elseif ($find_exported == 'N') {                                              
+            $arFilter["PROPERTY_VAL_BY_CODE_EXPORTED_TO_ACCORDPOST"] = false;   
+        }                                                    
+    }     
     
     //Собираем список заказов                  
     $cData = new CSaleOrder;                      
