@@ -544,7 +544,7 @@
                             <?if ($printDiscountText != '' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {
                                 echo $printDiscountText; // цена до скидки
                             }?>
-                            <button style="width:10px; height:10px; background:rgba(0, 255, 0, 0.57); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button><span>&nbsp;<?= GetMessage("IN_STOCK") ?></span>
+                            <button class="inStockCirlce"></button><span>&nbsp;<?= GetMessage("IN_STOCK") ?></span>
                             <?}
                         } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />   
@@ -748,6 +748,33 @@
                     }
             }?>                            
         </div>
+		<?$frame->beginStub();?>
+			<div class="priceBasketWrap paperVersionWrap">
+				<div class="wrap_prise_top">
+					<p class="newPrice"><?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?> <span>руб.</span></p>
+					
+					<span class="sale_price">Вам не хватает 3000 руб. до получения скидки в 10%</span><br>
+					
+					<button class="inStockCirlce"></button>
+					
+					<span>&nbsp;В наличии</span>
+				</div>            
+				
+				<div class="wrap_prise_bottom">
+					<span class="item_buttons_counter_block">
+
+						<a href="#" class="minus">−</a>
+						<input type="text" class="tac transparent_input" value="1">
+						<a href="#" class="plus">+</a>     
+						</span>
+					<a href="#">
+						<p class="inBasket">В корзину</p> 
+					</a>
+				</div>
+				<div class="priceLoading">
+					<div id="loadingInfo" style="margin-top:50%;"><div class="spinner"><div class="spinner-icon"></div></div></div>
+				</div>
+			</div>
         <?$frame->end();?>
 		
 		<?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
