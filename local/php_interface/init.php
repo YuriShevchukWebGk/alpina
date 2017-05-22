@@ -93,6 +93,10 @@
     define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);
 
     define ("PREORDER_STATUS_ID", 'PR');
+	
+	define ("REISSUE_ID", 218); //ID свойства "Переиздание"
+	define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
+	define ("STATE_SOON", 357); //ID состояния книги "Скоро в продаже"
 
     function arshow($array, $adminCheck = false, $dieAfterArshow = false){
         global $USER;
@@ -2785,6 +2789,10 @@
             while($ar_order_prop = $rs_order_props->Fetch()) { 
                 $order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];  
             }                                                               
+
+            if(empty($order_properties['EXPORTED_TO_ACCORDPOST'])){
+                return false;
+            }
 
             //Собираем поля в зависимости от типа лица                 
             if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {

@@ -492,7 +492,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			false
 		);?> 
         <?  global $arrFilter_soon;
-            $arrFilter_soon = array('PROPERTY_STATE' => '22', '>DETAIL_PICTURE' => 0);
+            $arrFilter_soon = array('PROPERTY_STATE' => STATE_SOON, '>DETAIL_PICTURE' => 0, '!PROPERTY_reissue' => REISSUE_ID, '!PROPERTY_hide_soon' => HIDE_SOON_ID);
 
             $APPLICATION->IncludeComponent(
 			"bitrix:catalog.section", 
@@ -509,9 +509,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					0 => "",
 					1 => "",
 				),
-				"ELEMENT_SORT_FIELD" => "rand",
-				"ELEMENT_SORT_ORDER" => "desc",
+				"ELEMENT_SORT_FIELD" => "PROPERTY_shows_a_day",
 				"ELEMENT_SORT_FIELD2" => "rand",
+				"ELEMENT_SORT_ORDER" => "desc",
 				"ELEMENT_SORT_ORDER2" => "desc",
 				"FILTER_NAME" => "arrFilter_soon",
 				"INCLUDE_SUBSECTIONS" => "Y",
