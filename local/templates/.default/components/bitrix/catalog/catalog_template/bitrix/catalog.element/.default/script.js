@@ -3016,6 +3016,8 @@ function getInfo(id) {
 }
 
 function getPreview(id,stock) {
+	$(".element_item_img .bookPreviewLink").css('opacity', '0.8');
+	$(".element_item_img").append('<div id="loadingInfo" class="previwLoading" style="margin-top: -75%;"><div class="spinner"><div class="spinner-icon"></div></div></div>');
 	$.ajax({
 		type: "POST",
 		url: "/ajax/book_preview.php",
@@ -3023,6 +3025,8 @@ function getPreview(id,stock) {
 	}).done(function(strResult) {
 		$("#ajaxBlock").append(strResult);
 		$("body").css('overflow','hidden');
+		$(".element_item_img .bookPreviewLink").css('opacity', '1');
+		$(".previwLoading").hide();
 	});
 }
 

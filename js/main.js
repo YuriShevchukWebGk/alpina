@@ -67,6 +67,7 @@ function close_notice(id){
 }
 //отправка главы
 function sendchapter(bookid) {
+	$(".takePartWrap button").after('<div id="loadingInfo"><div class="spinner"><div class="spinner-icon"></div></div></div>').hide();
 	$.ajax({
 		type: "POST",
 		url: "/ajax/send_chapter.php",
