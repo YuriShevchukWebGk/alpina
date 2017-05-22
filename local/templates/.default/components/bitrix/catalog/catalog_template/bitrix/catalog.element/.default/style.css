@@ -1352,7 +1352,7 @@
 	background: #fff!important;
 	color: #2F3839;
 }
-.closeIcon:after {
+.certificate_popup .closeIcon:after {
     position: absolute;
     background: url(/img/close.png) left center;
     width: 21px;
