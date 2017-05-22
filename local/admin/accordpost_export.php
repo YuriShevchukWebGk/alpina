@@ -212,7 +212,8 @@
         "find_id_from",
         "find_id_to", 
         "find_date_from",
-        "find_date_to"       
+        "find_date_to",   
+        "find_exported"     
     );
                     
     // init filter
@@ -240,6 +241,13 @@
     }                                                                                 
     if(!empty($find_date_to)) {
         $arFilter["<=DATE_INSERT"] = new \Bitrix\Main\Type\DateTime($find_date_to);         
+    }                                                                                 
+    if(!empty($find_exported)) {   
+        if($find_exported == 'Y') {              
+            $arFilter["!SALE_INTERNALS_ORDER_ACCORDPOST_VALUE"] = false;  
+        } elseif ($find_exported == 'N') {                                              
+            $arFilter["SALE_INTERNALS_ORDER_ACCORDPOST_VALUE"] = false;   
+        }                                                    
     }                                                                                  
 
     //set sorting field and direction
@@ -263,7 +271,7 @@
     //Собираем свойства заказов связанные с экспортом
     //Желательно учитывать постраничную навгицаию, а не собирать все
     $arFilter["SALE_INTERNALS_ORDER_ACCORDPOST_CODE"] = "EXPORTED_TO_ACCORDPOST";
-    
+                       
     $getListParams = array(
         'order' => array($by => $order),
         'filter' => $arFilter,
@@ -278,8 +286,8 @@
     );    
     
     $rsDataProps = new CAdminResult(\Bitrix\Sale\Internals\OrderTable::getList($getListParams), $sTableID); 
-    while($arDataProps = $rsDataProps->fetch()){      
-        if(!empty($arDataProps['SALE_INTERNALS_ORDER_ACCORDPOST_VALUE'])){  
+    while($arDataProps = $rsDataProps->fetch()){   
+        if(!empty($arDataProps['SALE_INTERNALS_ORDER_ACCORDPOST_VALUE'])){              
             $arExportedToAccordpost[$arDataProps['ID']] = $arDataProps['SALE_INTERNALS_ORDER_ACCORDPOST_VALUE']; 
         }                                                 
     }                                       
@@ -415,7 +423,8 @@
             "ID",                                                      
             GetMessage("FILTER_BUYER_ID"),            
             GetMessage("FILTER_DATE"),
-            GetMessage("FILTER_ID_INTERVAL"),   
+            GetMessage("FILTER_ID_INTERVAL"),  
+            "test",     
         )
     );
 ?>
@@ -446,7 +455,25 @@
             ...
             <input type="text" name="find_id_to" size="10" value="<?echo htmlspecialcharsex($find_id_to)?>">
         </td>
-    </tr>         
+    </tr>   
+    <tr>  
+        <td><?=GetMessage("EXPORTED_TO_ACCORDPOST")?>:</td>
+        <td>
+            <?
+                $arr = array(
+                    "reference" => array(
+                        GetMessage("POST_YES"),
+                        GetMessage("POST_NO"),
+                    ),
+                    "reference_id" => array(
+                        "Y",
+                        "N",
+                    )
+                );
+                echo SelectBoxFromArray("find_exported", $arr, $find_active, GetMessage("POST_ALL"), ""); 
+            ?>
+        </td>
+    </tr>               
     <?    
         $oFilter->Buttons(array("table_id"=>$sTableID,"url"=>$APPLICATION->GetCurPage(),"form"=>"find_form"));
         $oFilter->End();

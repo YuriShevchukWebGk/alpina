@@ -32,3 +32,7 @@ $MESS["ACCORDPOST_EXPORT_SUCCES"] = 'Выгрузка прошла успешн�
 $MESS["ACCORDPOST_EXPORT_BITRIX_FAIL"] = 'Не удалось обновить элемент в системе';
 $MESS["ACCORDPOST_EXPORT_CONNECTION_FAIL"] = 'Не удалось установить соединение с сервисом';
 $MESS["EXPORT_PROGRESS"] = 'Экспорт заказов...';
+$MESS["POST_YES"] = 'Да';                 
+$MESS["POST_NO"] = 'Нет';
+$MESS["POST_ALL"] = 'Все';
+$MESS["EXPORTED_TO_ACCORDPOST"] = 'Экспортировано';
