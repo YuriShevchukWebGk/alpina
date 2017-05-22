@@ -2793,7 +2793,7 @@
             if(empty($order_properties['EXPORTED_TO_ACCORDPOST'])){
                 return false;
             }
-            
+
             //Собираем поля в зависимости от типа лица                 
             if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                 //имя получателя    
