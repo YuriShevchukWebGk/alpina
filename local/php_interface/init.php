@@ -2058,8 +2058,7 @@
             $GLOBALS['APPLICATION'] -> SetAdditionalCSS("/admin_modules/couriers/css/style.css");
         }
     }
-
-
+       
     //Получение этикетки для бланков заказов, сделанных через PickPoint
 
     function MakeLabelPickPoint($orderId){
@@ -2735,7 +2734,7 @@
             require_once($_SERVER["DOCUMENT_ROOT"]."/ajax/ajax_add2basket.php");
         }
     }
-
+    
     //Удаляем предзаказанный товар из HL блока и меняем статус заказа на предзаказ, перед созданием заказа
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'sale',
