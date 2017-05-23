@@ -376,7 +376,6 @@
                 ?>
 
                 <div class="bx_order_make">
-                    <div style="font-size: 2em">Приносим извинения, ведутся технические работы на сайте, возможны некоторые неполадки.</div>
                     <?
                         if(!$USER->IsAuthorized() && $arParams["ALLOW_AUTO_REGISTER"] == "N")
                         {
