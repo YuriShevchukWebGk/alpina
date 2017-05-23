@@ -839,39 +839,12 @@
             </form>
             <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
         </div>
-
+		
+		<?$frame = $this->createFrame()->begin();?>
         <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
             <?
                 $today = date("w");
                 $timenow = date("G");
-
-                //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
-                /*if ($today == 1) {
-                $delivery_day = GetMessage("TOMORROW");
-                //$delivery_day = 'в среду';
-                } elseif ($today == 2) {
-                if ($timenow < 9)
-                $delivery_day = 'сегодня';
-                else
-                $delivery_day = GetMessage("TOMORROW");
-                $delivery_day = 'в пятницу';
-                } elseif ($today == 3) {
-                $delivery_day = GetMessage("TOMORROW");
-                $delivery_day = 'в пятницу';
-                } elseif ($today == 4) {
-                $delivery_day = GetMessage("TOMORROW");
-                } elseif ($today == 5) {
-                if ($timenow < 9)
-                $delivery_day = 'сегодня';
-                else
-                $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                } elseif ($today == 6) {
-                $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                //$delivery_day = 'во вторник';
-                } elseif ($today == 0) {
-                $delivery_day = GetMessage("TOMORROW");
-                //$delivery_day = 'в среду';
-                }*/
 
                 if ($today == 5) {
                     if ($timenow < 17) {
@@ -895,8 +868,9 @@
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
             </ul>
-            <?}?>
-
+		<?}?>
+		<?$frame->end();?>
+		
         <div class="typesOfProduct">
             <?if (!empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) ) {?>
                 <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherEvents', action: 'clickAppStore', label: '<?= $arResult['NAME'] ?>'});">
