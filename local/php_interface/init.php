@@ -2060,7 +2060,42 @@
             $GLOBALS['APPLICATION'] -> SetAdditionalCSS("/admin_modules/couriers/css/style.css");
         }
     }
-       
+    
+    //Смена адреса пунтка самовывоза боксберри в админке
+    /*\Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'main',
+        'OnAdminListDisplay',
+        'BoxberryChangeAdress'
+    );
+    function BoxberryChangeAdress(){
+        global $APPLICATION;
+        $url = $APPLICATION->GetCurPage();
+        if($_SERVER['REMOTE_ADDR'] == '91.201.253.5') {
+            if (preg_match("/bitrix\/admin\/sale_order_view.php/i", $url)) {
+                $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>');
+                $APPLICATION->AddHeadString('<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>');  
+                $APPLICATION->AddHeadString('<script type="text/javascript" src="/js/change-boxberry-address.js"></script>');               
+                
+                $APPLICATION->AddHeadString('                         
+                <script>                                                                     
+                $(document).on("ready", function(){                                                                              
+                    $(".adm-detail-content-table tbody").append("'.$html_for_append.'");                                  
+                    $(".message-map-link").on("click", function(){
+                        boxberry.open("boxberry_callback", "'.BOXBERRY_TOKEN_API.'", "Москва", "68", 1000, 500, 0, 50, 50, 50); 
+                        return false;
+                    }); 
+                });  
+                function boxberry_callback(result){ 
+                    window.boxberry_result = result;
+                    //setAddressDataBoxberry(result);
+                    //fitDeliveryDataBoxberry(result.period, result.price);
+                    console.log(result);
+                }             
+                </script>  
+                ');                                                                
+            }
+        }      
+    }           */
     //Получение этикетки для бланков заказов, сделанных через PickPoint
 
     function MakeLabelPickPoint($orderId){
