@@ -181,5 +181,12 @@ $APPLICATION->AddHeadString('<meta property="og:site_name" content="ООО «А�
 $APPLICATION->AddHeadString('<meta property="og:locale" content="ru_RU" />',false);
 $APPLICATION->AddHeadString('<meta name="relap-title" content="'.$arResult["NAME"].'">',false);
 $APPLICATION->AddHeadString('<link rel="prefetch" href="'.$arResult["MAIN_PICTURE"].'">',false);
+
+$APPLICATION->AddHeadString('<meta name="twitter:card" content="summary">');
+$APPLICATION->AddHeadString('<meta name="twitter:site" content="@alpinabookru" />');
+$APPLICATION->AddHeadString('<meta name="twitter:title" content=\''.$APPLICATION->GetPageProperty('title').'\' />',false);
+$APPLICATION->AddHeadString('<meta name="twitter:description" content=\''.strip_tags($APPLICATION->GetPageProperty('description')).'\' />',false);
+$APPLICATION->AddHeadString('<meta name="twitter:image" content="https://'.SITE_SERVER_NAME.$templateData["OG_IMAGE"].'" />',false);
+$APPLICATION->AddHeadString('<meta name="twitter:url" content="'.'https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage().'" />',false);
 // $APPLICATION->SetPageProperty('FACEBOOK_META', $fb_meta);   
 ?>
