@@ -2062,7 +2062,7 @@
     }
     
     //Смена адреса пунтка самовывоза боксберри в админке
-    /*\Bitrix\Main\EventManager::getInstance()->addEventHandler(
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'main',
         'OnAdminListDisplay',
         'BoxberryChangeAdress'
@@ -2071,13 +2071,23 @@
         global $APPLICATION;
         $url = $APPLICATION->GetCurPage();
         if($_SERVER['REMOTE_ADDR'] == '91.201.253.5') {
-            if (preg_match("/bitrix\/admin\/sale_order_view.php/i", $url)) {
-                $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>');
+            if (preg_match("/bitrix\/admin\/sale_order_view.php/i", $url)) {   
                 $APPLICATION->AddHeadString('<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>');  
-                $APPLICATION->AddHeadString('<script type="text/javascript" src="/js/change-boxberry-address.js?'.date('U').'"></script>');                                                     
+                $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>');                      
+                $APPLICATION->AddHeadString('<script type="text/javascript" src="/js/change-boxberry-address.js?'.date('U').'"></script>'); 
+                $APPLICATION->AddHeadString('                         
+                <script>              
+                function boxberry_callback(result){ 
+                    window.boxberry_result = result;
+                    //setAddressDataBoxberry(result);
+                    //fitDeliveryDataBoxberry(result.period, result.price);
+                    console.log(result);
+                }             
+                </script>  
+                ');                                                
             }
         }      
-    }  */
+    } 
     //Получение этикетки для бланков заказов, сделанных через PickPoint
 
     function MakeLabelPickPoint($orderId){
