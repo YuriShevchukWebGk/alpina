@@ -468,7 +468,8 @@
             <meta itemprop="priceCurrency" content="RUB" />
             <link itemprop="itemCondition" href="http://schema.org/NewCondition">
             <meta itemprop="sku" content="<?=$arResult["ID"]?>" />
-            <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
+            <?if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0) {
+				if ($USER->IsAuthorized()) {// blackfriday черная пятница
                     if ($arResult["ITEM_WITHOUT_DISCOUNT"] == "Y") {
                         $discount = 0;
                     } elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
@@ -490,7 +491,8 @@
                     } else {
                         $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                     }
-            }?>
+				}
+			}?>
             <div class="wrap_prise_top">
                 <?$StockInfo = "";
                     if (!empty($arResult["PRICES"])) { ?>
@@ -753,7 +755,7 @@
 				<div class="wrap_prise_top">
 					<p class="newPrice"><?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?> <span>руб.</span></p>
 					
-					<span class="sale_price">Вам не хватает 3000 руб. до получения скидки в 10%</span><br>
+					<span class="sale_price"></span><br>
 					
 					<button class="inStockCirlce"></button>
 					
