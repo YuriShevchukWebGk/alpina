@@ -468,7 +468,7 @@
             <meta itemprop="priceCurrency" content="RUB" />
             <link itemprop="itemCondition" href="http://schema.org/NewCondition">
             <meta itemprop="sku" content="<?=$arResult["ID"]?>" />
-            <?if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0) {
+            <?if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 && $arResult["CART_SUM"] > 0) {
 				if ($USER->IsAuthorized()) {// blackfriday черная пятница
                     if ($arResult["ITEM_WITHOUT_DISCOUNT"] == "Y") {
                         $discount = 0;
