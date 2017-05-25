@@ -291,6 +291,9 @@
                                         <?
                                             if ($bDeleteColumn):
                                             ?>
+											<?if($USER->IsAuthorized()){?>
+												<a class="bookDelay" href="#" onclick="addToWishList(<?=$arItem["PRODUCT_ID"]?>, <?=$arItem["ID"]?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'addToWishList'});"><?=GetMessage("SALE_DELAY")?></a>
+											<?}?>
                                             <a class="bookDelete" href="<?=str_replace("#ID#", $arItem["ID"], $arUrls["delete"])?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'deleteBook'});"><?=GetMessage("SALE_DELETE")?></a>
                                             <?endif;?>
                                     </td>

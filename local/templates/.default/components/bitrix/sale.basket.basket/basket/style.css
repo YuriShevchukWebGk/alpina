@@ -917,6 +917,7 @@ input.bt2:active{border:1px solid #d2d2d2}
 
 .cartWrapper .cancelBook {
     padding-left: 20px !important;
+	padding-top: 20px!important;
 }
 
 .yourBooks .nameOfBook a{
@@ -993,3 +994,40 @@ font.errortext {
     height: 350px;
     display: none;
 }
+#nprogresss {
+	margin:0 auto;
+}
+#nprogresss .spinner-icon {
+width: 36px;
+height: 36px;
+box-sizing: border-box;
+
+border: solid 4px transparent;
+border-top-color: #00abb8;
+border-left-color: #00abb8;
+border-radius: 50%;
+margin: 0 auto;
+
+-webkit-animation: nprogresss-spinner 400ms linear infinite;
+animation: nprogresss-spinner 400ms linear infinite;
+}
+
+@-webkit-keyframes nprogresss-spinner {
+0%   { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogresss-spinner {
+0%   { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+@keyframes input-animate{
+	from{background-position:40px 0}to{background-position:0 0}
+}
+.input-animate {
+	-webkit-animation: input-animate 2s cubic-bezier(0.77, 0.59, 0.27, 1.55) infinite;
+	animation: input-animate 2s cubic-bezier(0.77, 0.59, 0.27, 1.55) infinite;
+	background-image: linear-gradient(135deg,rgba(1,1,1,.1) 25%,transparent 25%,transparent 50%,rgba(1,1,1,.1) 50%,rgba(1,1,1,.1) 75%,transparent 75%,transparent)!important;
+	background-size:19px 19px!important;
+}
+.bookDelay {color: #00abb8;font-size: 13px;cursor: pointer;}
+.bookDelay:hover{text-decoration:underline!important} 

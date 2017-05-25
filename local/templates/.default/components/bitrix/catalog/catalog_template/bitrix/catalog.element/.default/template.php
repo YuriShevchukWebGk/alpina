@@ -1006,7 +1006,7 @@
     </div>
     <div class="subscr_result"></div>
     <div class="centerColumn">
-        <h1 class="productName" itemprop="name"><?=$arResult["NAME"] ?></h1>
+        <h1 class="productName" itemprop="name"><?=typo($arResult["NAME"])?></h1>
         <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
         <div class="authorReviewWrap">
             <p class="reviews">
@@ -1042,7 +1042,7 @@
 
 
             <p class="productAutor">
-                <?= $arResult["AUTHOR_NAME"]; ?>
+                <span><?= $arResult["AUTHOR_NAME"]; ?></span>
             </p>
 
         </div>
