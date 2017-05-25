@@ -949,11 +949,14 @@ function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
         }                                                         
     })               
     $("#totalQuantity").html(totalQuantity);
+
 }
 
 // used when quantity is changed by clicking on arrows
 function setQuantity(basketId, ratio, sign, bUseFloatQuantity)
 {
+	$("#QUANTITY_INPUT_" + basketId).addClass("input-animate").parent().css({"background-color":"#fff", "width":"39px", "margin-left":"40px"}).find('a').hide();
+
     var curVal = parseFloat(BX("QUANTITY_INPUT_" + basketId).value),
     newVal;
 
@@ -1352,3 +1355,12 @@ $(document).ready(function(){
     })
 })
 
+function addToWishList(bookid, cartid) {
+	$.ajax({
+		type: "POST",
+		url: "/ajax/ajax_add2wishlist.php",
+		data: {id: bookid}
+	}).done(function(strResult) {
+		window.location.href = '/personal/cart/?basketAction=delete&id='+cartid;
+	});
+}
