@@ -42,6 +42,7 @@
     <link rel="icon" type="image/png" href="/favicon-96x96.png?v=WGG39kPBLm" sizes="96x96">
     <link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=WGG39kPBLm" sizes="192x192">
     <link rel="icon" type="image/png" href="/favicon-16x16.png?v=WGG39kPBLm" sizes="16x16">
+	<link rel="search" href="https://www.alpinabook.ru/tools/opensearch.xml" type="application/opensearchdescription+xml" title="Издательство &laquo;Альпина Паблишер&raquo;"/>
     <link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
     <link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
     <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
@@ -201,9 +202,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div class="mainWrapp" itemprop="mainContentOfPage">
     <!--<div class="grayBack"></div>-->
-    <p class="interShop">
+    <h1 class="interShop">
         Интернет-магазин издательства
-    </p>
+    </h1>
     <p class="ibooks">
         я<img src="/img/logoBig.png">книги
     </p>
@@ -1022,9 +1023,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		
 		<div class="hintWrapp EditorChoiceWrapp">
 			<div class="catalogWrapper">
-				<p class="title">
-					Подборки книг
-				</p>
 				<?$APPLICATION->IncludeComponent(
 				"bitrix:catalog.section.list", 
 				"editor_choice", 
