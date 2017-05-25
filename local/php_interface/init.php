@@ -2062,22 +2062,20 @@
     }
     
     //Смена адреса пунтка самовывоза боксберри в админке
-    /*\Bitrix\Main\EventManager::getInstance()->addEventHandler(
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'main',
         'OnAdminListDisplay',
         'BoxberryChangeAdress'
     );
     function BoxberryChangeAdress(){
         global $APPLICATION;
-        $url = $APPLICATION->GetCurPage();
-        if($_SERVER['REMOTE_ADDR'] == '91.201.253.5') {
-            if (preg_match("/bitrix\/admin\/sale_order_view.php/i", $url)) {
-                $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>');
-                $APPLICATION->AddHeadString('<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>');  
-                $APPLICATION->AddHeadString('<script type="text/javascript" src="/js/change-boxberry-address.js?'.date('U').'"></script>');                                                     
-            }
-        }      
-    }  */
+        $url = $APPLICATION->GetCurPage();                            
+        if (preg_match("/bitrix\/admin\/sale_order_view.php/i", $url)) {   
+            $APPLICATION->AddHeadString('<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>');  
+            $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>');                      
+            $APPLICATION->AddHeadString('<script type="text/javascript" src="/js/change-boxberry-address.js?'.date('U').'"></script>');        
+        }    
+    } 
     //Получение этикетки для бланков заказов, сделанных через PickPoint
 
     function MakeLabelPickPoint($orderId){
