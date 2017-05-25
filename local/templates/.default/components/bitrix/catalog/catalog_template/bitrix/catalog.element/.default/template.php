@@ -510,7 +510,7 @@
                                 
                                 if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { 
                                     if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
                                     <?// расчитываем накопительную скидку от стоимости
                                         if ($discount) {
                                             $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
@@ -529,7 +529,7 @@
                                         if (strlen (stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
                                     }?>
-                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
                                     <?// расчитываем накопительную скидку от стоимости?>
                                     <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                     <?} else {
@@ -560,7 +560,7 @@
                                     $discount = false;
                                 };
                                 if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
                                 <?// расчитываем накопительную скидку от стоимости
                                     if ($discount) {
                                         $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
@@ -579,7 +579,7 @@
                                     if (strlen (stristr($newPrice, ".")) == 2) {
                                         $newPrice .= "0";
                                 }?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
                                 <?// расчитываем накопительную скидку от стоимости?>
                                 <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
                                 <?} else {
@@ -597,7 +597,7 @@
                         <?$StockInfo = "OutOfStock";?>
                         <?foreach ($arResult["PRICES"] as $code => $arPrice) {                    
                             if ($arPrice["DISCOUNT_DIFF"]) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
                             <?}?>
                             <?if ($arPrice["DISCOUNT_VALUE_VAT"]) {
                                 $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
@@ -1604,162 +1604,150 @@
             </p>
         </div>
 
-        <p class="sliderName youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></p>
+        <p class="sliderName"><a href="/catalog/lastseen/" class="youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></a></p>
 
-        <? global $arFilter;
-            // LATEST SEEN ###############
-            $latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));   
-            $latestSeen  = (!$latestSeen ? array() : $latestSeen);
-            // Remove 
-            //unset($latestSeen[$arResult['ID']]);
-            $key = array_search($arResult['ID'], $latestSeen, true);
-            if (empty($key)) {
-                $latestSeen[time()] = $arResult['ID'];
-            }
-            if (count($latestSeen) > 6) {
-                array_splice($latestSeen,0,-6);
-            }
+        <?
+		global $arFilter;
+		$lastseen = CSaleViewedProduct::GetList(
+			array("DATE_VISIT" => "DESC"),
+			array("FUSER_ID" => CSaleBasket::GetBasketUserID()),
+			false,
+			array("nTopCount" => 6),
+			array("PRODUCT_ID")
+		);
+		$lastidids = array();
 
+		while ($lastid = $lastseen->GetNext()) {
+			$lastidids[] = $lastid["PRODUCT_ID"];
+		}
 
-            if ($latestSeen) {
-                $arFilter = array('ID' => array());
-                //$latestSeen = array_slice (array_reverse (array_keys ($latestSeen) ), 0, 6);
-                foreach ($latestSeen as $bookID) {
-                    $arFilter['ID'][] = intval($bookID);
-                }
+		$arFilter = array('ID' => $lastidids, ">DETAIL_PICTURE" => 0);
 
-                $APPLICATION->IncludeComponent(
-                    "bitrix:catalog.section",
-                    "viewed_books",
-                    array(
-                        "IBLOCK_TYPE_ID" => "catalog",
-                        "IBLOCK_ID" => "4",
-                        "BASKET_URL" => "/personal/cart/",
-                        "COMPONENT_TEMPLATE" => "viewed_books",
-                        "IBLOCK_TYPE" => "catalog",
-                        "SECTION_ID" => $_REQUEST["SECTION_ID"],
-                        "SECTION_CODE" => "",
-                        "SECTION_USER_FIELDS" => array(
-                            0 => "",
-                            1 => "",
-                        ),
-                        "ELEMENT_SORT_FIELD" => "id",
-                        "ELEMENT_SORT_ORDER" => "desc",
-                        "ELEMENT_SORT_FIELD2" => "id",
-                        "ELEMENT_SORT_ORDER2" => "desc",
-                        "FILTER_NAME" => "arFilter",
-                        "INCLUDE_SUBSECTIONS" => "Y",
-                        "SHOW_ALL_WO_SECTION" => "Y",
-                        "HIDE_NOT_AVAILABLE" => "N",
-                        "PAGE_ELEMENT_COUNT" => "12",
-                        "LINE_ELEMENT_COUNT" => "3",
-                        "PROPERTY_CODE" => array(
-                            0 => "",
-                            1 => "",
-                        ),
-                        "OFFERS_FIELD_CODE" => array(
-                            0 => "",
-                            1 => "",
-                        ),
-                        "OFFERS_PROPERTY_CODE" => array(
-                            0 => "COLOR_REF",
-                            1 => "SIZES_SHOES",
-                            2 => "SIZES_CLOTHES",
-                            3 => "",
-                        ),
-                        "OFFERS_SORT_FIELD" => "sort",
-                        "OFFERS_SORT_ORDER" => "desc",
-                        "OFFERS_SORT_FIELD2" => "id",
-                        "OFFERS_SORT_ORDER2" => "desc",
-                        "OFFERS_LIMIT" => "5",
-                        "TEMPLATE_THEME" => "site",
-                        "PRODUCT_DISPLAY_MODE" => "Y",
-                        "ADD_PICT_PROP" => "BIG_PHOTO",
-                        "LABEL_PROP" => "-",
-                        "OFFER_ADD_PICT_PROP" => "-",
-                        "OFFER_TREE_PROPS" => array(
-                            0 => "COLOR_REF",
-                            1 => "SIZES_SHOES",
-                            2 => "SIZES_CLOTHES",
-                        ),
-                        "PRODUCT_SUBSCRIPTION" => "N",
-                        "SHOW_DISCOUNT_PERCENT" => "N",
-                        "SHOW_OLD_PRICE" => "Y",
-                        "SHOW_CLOSE_POPUP" => "N",
-                        "MESS_BTN_BUY" => "Купить",
-                        "MESS_BTN_ADD_TO_BASKET" => "В корзину",
-                        "MESS_BTN_SUBSCRIBE" => "Подписаться",
-                        "MESS_BTN_DETAIL" => "Подробнее",
-                        "MESS_NOT_AVAILABLE" => "Нет в наличии",
-                        "SECTION_URL" => "",
-                        "DETAIL_URL" => "",
-                        "SECTION_ID_VARIABLE" => "SECTION_ID",
-                        "SEF_MODE" => "N",
-                        "AJAX_MODE" => "N",
-                        "AJAX_OPTION_JUMP" => "N",
-                        "AJAX_OPTION_STYLE" => "Y",
-                        "AJAX_OPTION_HISTORY" => "N",
-                        "AJAX_OPTION_ADDITIONAL" => "",
-                        "CACHE_TYPE" => "Y",
-                        "CACHE_TIME" => "3600",
-                        "CACHE_GROUPS" => "N",
-                        "SET_TITLE" => "N",
-                        "SET_BROWSER_TITLE" => "N",
-                        "BROWSER_TITLE" => "-",
-                        "SET_META_KEYWORDS" => "N",
-                        "META_KEYWORDS" => "-",
-                        "SET_META_DESCRIPTION" => "N",
-                        "META_DESCRIPTION" => "-",
-                        "SET_LAST_MODIFIED" => "N",
-                        "USE_MAIN_ELEMENT_SECTION" => "N",
-                        "ADD_SECTIONS_CHAIN" => "N",
-                        "CACHE_FILTER" => "N",
-                        "ACTION_VARIABLE" => "action",
-                        "PRODUCT_ID_VARIABLE" => "id",
-                        "PRICE_CODE" => array(
-                            0 => "BASE",
-                        ),
-                        "USE_PRICE_COUNT" => "N",
-                        "SHOW_PRICE_COUNT" => "1",
-                        "PRICE_VAT_INCLUDE" => "Y",
-                        "CONVERT_CURRENCY" => "N",
-                        "USE_PRODUCT_QUANTITY" => "N",
-                        "PRODUCT_QUANTITY_VARIABLE" => "",
-                        "ADD_PROPERTIES_TO_BASKET" => "Y",
-                        "PRODUCT_PROPS_VARIABLE" => "prop",
-                        "PARTIAL_PRODUCT_PROPERTIES" => "N",
-                        "PRODUCT_PROPERTIES" => array(
-                        ),
-                        "OFFERS_CART_PROPERTIES" => array(
-                            0 => "COLOR_REF",
-                            1 => "SIZES_SHOES",
-                            2 => "SIZES_CLOTHES",
-                        ),
-                        "ADD_TO_BASKET_ACTION" => "ADD",
-                        "PAGER_TEMPLATE" => "round",
-                        "DISPLAY_TOP_PAGER" => "N",
-                        "DISPLAY_BOTTOM_PAGER" => "Y",
-                        "PAGER_TITLE" => "Товары",
-                        "PAGER_SHOW_ALWAYS" => "N",
-                        "PAGER_DESC_NUMBERING" => "N",
-                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-                        "PAGER_SHOW_ALL" => "N",
-                        "PAGER_BASE_LINK_ENABLE" => "N",
-                        "SET_STATUS_404" => "N",
-                        "SHOW_404" => "N",
-                        "MESSAGE_404" => "",
-                        "BACKGROUND_IMAGE" => "-",
-                        "DISABLE_INIT_JS_IN_COMPONENT" => "N"
-                    ),
-                    false
-                );
-                $APPLICATION->set_cookie("LASTEST_SEEN", serialize($latestSeen));
-                if (isset($_COOKIE['BITRIX_SM_LASTEST_SEEN_NEW'])) {
-                    unset($_COOKIE['BITRIX_SM_LASTEST_SEEN_NEW']);
-                    setcookie('BITRIX_SM_LASTEST_SEEN_NEW', null, -1, '/');
-                    return true;
-                }
-        }?>
+		$APPLICATION->IncludeComponent(
+			"bitrix:catalog.section",
+			"viewed_books",
+			array(
+				"IBLOCK_TYPE_ID" => "catalog",
+				"IBLOCK_ID" => "4",
+				"BASKET_URL" => "/personal/cart/",
+				"COMPONENT_TEMPLATE" => "viewed_books",
+				"IBLOCK_TYPE" => "catalog",
+				"SECTION_ID" => $_REQUEST["SECTION_ID"],
+				"SECTION_CODE" => "",
+				"SECTION_USER_FIELDS" => array(
+					0 => "",
+					1 => "",
+				),
+				"ELEMENT_SORT_FIELD" => "id",
+				"ELEMENT_SORT_ORDER" => "desc",
+				"ELEMENT_SORT_FIELD2" => "id",
+				"ELEMENT_SORT_ORDER2" => "desc",
+				"FILTER_NAME" => "arFilter",
+				"INCLUDE_SUBSECTIONS" => "Y",
+				"SHOW_ALL_WO_SECTION" => "Y",
+				"HIDE_NOT_AVAILABLE" => "N",
+				"PAGE_ELEMENT_COUNT" => "12",
+				"LINE_ELEMENT_COUNT" => "3",
+				"PROPERTY_CODE" => array(
+					0 => "",
+					1 => "",
+				),
+				"OFFERS_FIELD_CODE" => array(
+					0 => "",
+					1 => "",
+				),
+				"OFFERS_PROPERTY_CODE" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+					3 => "",
+				),
+				"OFFERS_SORT_FIELD" => "sort",
+				"OFFERS_SORT_ORDER" => "desc",
+				"OFFERS_SORT_FIELD2" => "id",
+				"OFFERS_SORT_ORDER2" => "desc",
+				"OFFERS_LIMIT" => "5",
+				"TEMPLATE_THEME" => "site",
+				"PRODUCT_DISPLAY_MODE" => "Y",
+				"ADD_PICT_PROP" => "BIG_PHOTO",
+				"LABEL_PROP" => "-",
+				"OFFER_ADD_PICT_PROP" => "-",
+				"OFFER_TREE_PROPS" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+				),
+				"PRODUCT_SUBSCRIPTION" => "N",
+				"SHOW_DISCOUNT_PERCENT" => "N",
+				"SHOW_OLD_PRICE" => "Y",
+				"SHOW_CLOSE_POPUP" => "N",
+				"MESS_BTN_BUY" => "Купить",
+				"MESS_BTN_ADD_TO_BASKET" => "В корзину",
+				"MESS_BTN_SUBSCRIBE" => "Подписаться",
+				"MESS_BTN_DETAIL" => "Подробнее",
+				"MESS_NOT_AVAILABLE" => "Нет в наличии",
+				"SECTION_URL" => "",
+				"DETAIL_URL" => "",
+				"SECTION_ID_VARIABLE" => "SECTION_ID",
+				"SEF_MODE" => "N",
+				"AJAX_MODE" => "N",
+				"AJAX_OPTION_JUMP" => "N",
+				"AJAX_OPTION_STYLE" => "Y",
+				"AJAX_OPTION_HISTORY" => "N",
+				"AJAX_OPTION_ADDITIONAL" => "",
+				"CACHE_TYPE" => "Y",
+				"CACHE_TIME" => "3600",
+				"CACHE_GROUPS" => "N",
+				"SET_TITLE" => "N",
+				"SET_BROWSER_TITLE" => "N",
+				"BROWSER_TITLE" => "-",
+				"SET_META_KEYWORDS" => "N",
+				"META_KEYWORDS" => "-",
+				"SET_META_DESCRIPTION" => "N",
+				"META_DESCRIPTION" => "-",
+				"SET_LAST_MODIFIED" => "N",
+				"USE_MAIN_ELEMENT_SECTION" => "N",
+				"ADD_SECTIONS_CHAIN" => "N",
+				"CACHE_FILTER" => "N",
+				"ACTION_VARIABLE" => "action",
+				"PRODUCT_ID_VARIABLE" => "id",
+				"PRICE_CODE" => array(
+					0 => "BASE",
+				),
+				"USE_PRICE_COUNT" => "N",
+				"SHOW_PRICE_COUNT" => "1",
+				"PRICE_VAT_INCLUDE" => "Y",
+				"CONVERT_CURRENCY" => "N",
+				"USE_PRODUCT_QUANTITY" => "N",
+				"PRODUCT_QUANTITY_VARIABLE" => "",
+				"ADD_PROPERTIES_TO_BASKET" => "Y",
+				"PRODUCT_PROPS_VARIABLE" => "prop",
+				"PARTIAL_PRODUCT_PROPERTIES" => "N",
+				"PRODUCT_PROPERTIES" => array(
+				),
+				"OFFERS_CART_PROPERTIES" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+				),
+				"ADD_TO_BASKET_ACTION" => "ADD",
+				"PAGER_TEMPLATE" => "round",
+				"DISPLAY_TOP_PAGER" => "N",
+				"DISPLAY_BOTTOM_PAGER" => "Y",
+				"PAGER_TITLE" => "Товары",
+				"PAGER_SHOW_ALWAYS" => "N",
+				"PAGER_DESC_NUMBERING" => "N",
+				"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+				"PAGER_SHOW_ALL" => "N",
+				"PAGER_BASE_LINK_ENABLE" => "N",
+				"SET_STATUS_404" => "N",
+				"SHOW_404" => "N",
+				"MESSAGE_404" => "",
+				"BACKGROUND_IMAGE" => "-",
+				"DISABLE_INIT_JS_IN_COMPONENT" => "N"
+			),
+			false
+		);?>
     </div>
 </div>
 <div id="ajaxBlock"></div>

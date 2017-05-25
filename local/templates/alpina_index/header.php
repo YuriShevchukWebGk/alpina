@@ -202,9 +202,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div class="mainWrapp" itemprop="mainContentOfPage">
     <!--<div class="grayBack"></div>-->
-    <p class="interShop">
+    <h1 class="interShop">
         Интернет-магазин издательства
-    </p>
+    </h1>
     <p class="ibooks">
         я<img src="/img/logoBig.png">книги
     </p>
@@ -1023,9 +1023,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		
 		<div class="hintWrapp EditorChoiceWrapp">
 			<div class="catalogWrapper">
-				<p class="title">
-					Подборки книг
-				</p>
 				<?$APPLICATION->IncludeComponent(
 				"bitrix:catalog.section.list", 
 				"editor_choice", 
