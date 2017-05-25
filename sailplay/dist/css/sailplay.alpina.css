@@ -1600,7 +1600,7 @@ ol {
 }
 .header-count-cell__top {
   height: 177px;
-  padding-top: 25px;
+  padding-top: 15px;
   text-align: center;
   background-color: #E0E6E8;
 }
@@ -1609,7 +1609,7 @@ ol {
   line-height: 1;
   font-weight: 900;
   color: #00ABB8;
-  margin-bottom: 5px;
+  margin-bottom: 9px;
 }
 .header-count-cell__title {
   font-size: 16px;
@@ -2571,6 +2571,9 @@ ol {
   font-weight: bold;
   margin-bottom: 2px;
   color: #00ABB8;
+}
+.popup-history-item__expired {
+  font-size: 12px;
 }
 .popup-history-item__discount {
   font-size: 12px;
