@@ -414,7 +414,14 @@ $(document).ready(function(){
         })
     }
 
-
+	//Открываем вкладку об авторах
+	$(".productAutor").click(function() {
+		$('#prodBlock1, #prodBlock2, #prodBlock3, #prodBlock4, #prodBlock5').hide();
+		$('.productsMenu li').removeClass('active');
+		$(".productsMenu li:nth-child(2)").addClass("active");
+		$('#prodBlock4').show();
+	});
+	
     //смена блоков на детальной карточке
     if($('.productElementWrapp').length >0){
         $('.productsMenu li').click(function(){
@@ -1791,7 +1798,7 @@ function docReadyComponent(id) {
 		var link = $(this).attr("href");
 		var target = $(this).attr("target");
 		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
-			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)|\/personal\/profile\//) && target != "_blank") {
+			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|\/personal\/profile\/|info\_popup|ADD2BASKET)|\/personal\/profile\//) && target != "_blank") {
 				NProgress.start();
 			};
 		}
