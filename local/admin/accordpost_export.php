@@ -288,10 +288,15 @@
     if(!empty($find_exported)) {   
         if($find_exported == 'Y') {              
             $arFilter["!PROPERTY_VAL_BY_CODE_EXPORTED_TO_ACCORDPOST"] = false;  
-        } elseif ($find_exported == 'N') {                                              
-            $arFilter["PROPERTY_VAL_BY_CODE_EXPORTED_TO_ACCORDPOST"] = false;   
+        } elseif ($find_exported == 'N') {                          
+            $arFilterExported = $arFilter;                            
+            $arFilterExported["!PROPERTY_VAL_BY_CODE_EXPORTED_TO_ACCORDPOST"] = false;                       
+            $cExportedOrder = CSaleOrder::GetList(array(), $arFilterExported, false, false, array('ID'));                                         
+            while($arExportedOrder = $cExportedOrder->Fetch()) {          
+                $arFilter['!ID'][] = $arExportedOrder['ID'];          
+            };                                     
         }                                                    
-    }     
+    }   
     
     //Собираем список заказов                  
     $cData = new CSaleOrder;                      
