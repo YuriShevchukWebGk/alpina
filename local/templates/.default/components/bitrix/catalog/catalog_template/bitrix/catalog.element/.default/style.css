@@ -1420,3 +1420,6 @@
 .priceLoading{position: absolute;width: 264px;height: 355px;margin-top: -355px;background: #eee;opacity: 0.5}
 .productAutor span{cursor:pointer}
 .productAutor span:hover{border-bottom:1px dashed}
+.reviewsSliderWrapp .giftWrap{margin:40px 0}
+.weRecomWrap .tile{padding-top:25px}
+.dopSaleWrap {margin-top:0;height:175px;width:1140px;margin:0 auto;clear:both}
