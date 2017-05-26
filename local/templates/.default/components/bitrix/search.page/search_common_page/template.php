@@ -293,13 +293,13 @@
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                                         ?>        
                                                 <p class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-												<link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil( $newPrice) ?></span> руб.</p>
+												<link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil( $newPrice) ?></span><span class="rubsign"></span></p>
                                         <?} else if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                                 <p class="price">Ожидаемая дата выхода: <?= strtolower(FormatDate(
                                                     "j F",
                                                     MakeTimeStamp(
                                                         $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_SOON_DATE_TIME_VALUE"],
-                                                        "DD.MM.YYYY HH:MI:SS"
+                                                        "DD.MM.YYYY"
                                                     )
                                                 )); ?>
                                                 </p>    
@@ -408,7 +408,7 @@
                                             <?if (($exp_book_arr["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                                 && ($exp_book_arr["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
                                             ?>
-                                                    <p class="price"><?= ceil( $newPrice) ?> руб.</p>
+                                                    <p class="price"><?= ceil( $newPrice) ?><span class="rubsign"></span></p>
                                             <?} else if ($exp_book_arr["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                                     <p class="price">Ожидаемая дата выхода: <?= strtolower(FormatDate(
                                                         "j F",

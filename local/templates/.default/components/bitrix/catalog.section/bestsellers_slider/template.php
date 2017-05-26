@@ -33,7 +33,7 @@ $this->setFrameMode(true);
                             </div>
                             <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem['NAME']?></p>
                             <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                            <p class="bookPrice"><?=$arPrice['PRINT_DISCOUNT_VALUE']?></p>
+                            <p class="bookPrice"><?=$arPrice['DISCOUNT_VALUE_VAT']?><span></span></p>
                         </a>
                     </div>    
                 </li>    

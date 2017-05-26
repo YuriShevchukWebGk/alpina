@@ -51,7 +51,7 @@ $MESS["HOW_TO_READ_A_BOOK_IN_A_HOUR"] = "Как прочитать эту кни
 $MESS["SIZES"] = "Размеры";
 $MESS["WEIGHT"] = "Вес";
 $MESS["GRAMS"] = " г";
-$MESS["ROUBLES"] = "руб.";
+$MESS["ROUBLES"] = "i";
 $MESS["EXPECTED_DATE"] = "Ожидаемая дата выхода: ";
 $MESS["NOT_IN_STOCK"] = "Нет в наличии";
 $MESS["IN_STOCK"] = "В наличии";
@@ -89,7 +89,7 @@ $MESS["MSK_DELIVERY"] = "Курьером по Москве";
 $MESS["PICKUP_MSK_DELIVERY"] = "Самовывоз м.Полежаевская";
 $MESS["TO_BUY_LATER"] = "В список желаний";
 $MESS["NOT_ENOUGH"] = "Вам не хватает ";
-$MESS["AMOUNT_UNTIL_DISCOUNT"] = " руб. до получения скидки в ";
+$MESS["AMOUNT_UNTIL_DISCOUNT"] = " <span class='rubsign'></span> до получения скидки в ";
 $MESS["KEYWORDS"] = "Ключевые понятия";
 $MESS["TODAY"] = "сегодня";
 $MESS["TOMORROW"] = "завтра";
@@ -116,7 +116,7 @@ $MESS["LEGAL_PERSON"] = "Юр. лицо";
 $MESS["PAY"] = "Оплатить";
 $MESS["LEGAL_SUCCESS_MESSAGE"] = "Ваш заказ принят, менеджер вышлет счет вам на email. Номер Вашего заказа #NUM#";
 $MESS["NATURAL_SUCCESS_MESSAGE"] = "Ваш заказ успешно принят, номер заказа #NUM#";
-$MESS["CERTIFICATE_BUY_COMMENT"] = "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# рублей";           
+$MESS["CERTIFICATE_BUY_COMMENT"] = "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# <span class='rubsign'></span>";           
 $MESS["SHOW_FULL_REVIEW"] = "Читать полностью";
 $MESS["VIEWS_A_DAY"] = "Просмотров за сутки";     
 ?>
