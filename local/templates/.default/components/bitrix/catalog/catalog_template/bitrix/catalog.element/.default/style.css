@@ -1060,8 +1060,7 @@
 }
 .wrap_prise_top{
     background-color: #ecedef;
-    padding-top: 34px;
-    padding-bottom: 15px;
+	padding: 34px 5px 15px;
     min-height: 130px;
     font-family: "Walshein_regular";
     font-size: 16px;

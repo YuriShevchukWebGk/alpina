@@ -435,9 +435,6 @@
                 <p class="text"><?= $weight ?><?= GetMessage("GRAMS") ?></p>
             </div>
             <?}?>
-        <div class="socialServises">
-            <? require('include/socialbuttons.php'); ?>
-        </div>
         <?#Спонсоры книги?>
         <!-- noindex -->
         <div class="sponsors">
@@ -495,6 +492,7 @@
 			}?>
             <div class="wrap_prise_top">
                 <?$StockInfo = "";
+					$printDiscountText = typo($printDiscountText);
                     if (!empty($arResult["PRICES"])) { ?>
                     <?// если свойство товара в состоянии "Новинка" либо не задан - то выводить стандартный блок с ценой,
                         // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении
@@ -1044,7 +1042,6 @@
             <p class="productAutor">
                 <span><?= $arResult["AUTHOR_NAME"]; ?></span>
             </p>
-
         </div>
 
         <ul class="productsMenu">
@@ -1282,6 +1279,12 @@
         </div>
     </div>
 </div>
+</div>
+<div class="socialServises" style="text-align: center;padding:40px 0">
+	<style>
+	.b-share-btn__wrap {margin:0 20px!important}
+	</style>
+	<?require('include/socialbuttons.php'); ?>
 </div>
 </div>
 </div>
