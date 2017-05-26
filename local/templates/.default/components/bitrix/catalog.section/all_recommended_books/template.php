@@ -70,7 +70,7 @@ $arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELET
                 <?
                 } else {
                 ?>
-                    <p class="bookPrice"><?=$arItem["PROPERTIES"]["SOON_DATE_TIME"]["VALUE"]?></p>
+                    <p class="bookPrice">Выйдет <?=FormatDate("X", MakeTimeStamp($arItem["PROPERTIES"]["SOON_DATE_TIME"]["VALUE"]))?></p>
                 <?    
                 }
                 ?>        

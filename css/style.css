@@ -58,7 +58,7 @@ header .headBasket{padding:17px 1px 0}
 .ibooks img{position:relative;top:40px;padding:0 22px}
 .mainWrapp .find{margin:30px auto 0;width:348px;position:relative}
 .mainWrapp input{border-color:-moz-use-text-color -moz-use-text-color #fff;border-style:none none solid;border-width:medium medium 2px;color:#d0d8da;font-size:20px;padding-bottom:13px;width:325px;background:url(/img/find.png) 302px 6px no-repeat}
-.find input[type=submit]{position:absolute;width:38px;background:url(/img/find.png) no-repeat;border:none;right:5px;cursor:pointer;top:6px}
+.find input[type=submit]{position:absolute;width:40px;background:url(/img/find.png) 2px 0 no-repeat #99abb1;border:none;right:5px;cursor:pointer;top:6px;padding-bottom:0}
 .mainWrapp .socServ{bottom:0;height:107px;position:absolute;width:180px}
 .mainWrapp .socServ .text{width:137px}
 .mainWrapp .book{float:right;height:536px;width:980px}
@@ -139,6 +139,7 @@ header .headBasket{padding:17px 1px 0}
 .giftWrap .title{font-family:Walshein_black;font-size:42px;color:#486796;padding-top:0;padding-bottom:0}
 .giftWrap p{color:#768AAC;font-family:Walshein_regular;font-size:16px}
 .giftWrap{position:relative}
+.giftWrap:before{content: url(/img/lov.png);position: absolute;text-align: center;top: 0px;right: 46%}
 .giftWrap img{left:414px;position:absolute;top:-27px}
 .allBooksWrapp{min-height:1194px;padding-bottom:50px}
 .allBooksWrapp .titleMain{color:#3f4a4d;font-size:24px;padding-top:62px;padding-bottom:30px;padding-left:4px}
@@ -165,15 +166,15 @@ header .headBasket{padding:17px 1px 0}
 .thisBook .titleBook{color:#424c4f;font-size:15px;line-height:17px;margin-top:30px}
 .sliderElement .thisBook{border-top:1px solid #e2e2e2;margin-top:28px;padding-top:20px;position:absolute;bottom:36px;width:300px}
 .thisBook img{float:left;margin-right:30px}
-.reviewsWrapp .dopSale{color:#c7a271;font-family:Walshein_black;font-size:26px;line-height:26px;padding-top:10px;margin-right:86px}
-.reviewsWrapp .saleSize{color:#C7A271;font-family:Walshein_light;font-size:62px}
-.reviewsWrapp .persent{color:#C7A271;font-size:24px;line-height:50px}
-.reviewsWrapp .saleText{color:#c7a271;font-size:15px;padding-left:31px;padding-top:18px;width:178px}
+.dopSaleWrap .dopSale{color:#c7a271;font-family:Walshein_black;font-size:26px;line-height:26px;padding-top:10px;margin-right:86px}
+.dopSaleWrap .saleSize{color:#C7A271;font-family:Walshein_light;font-size:62px}
+.dopSaleWrap .persent{color:#C7A271;font-size:24px;line-height:50px}
+.dopSaleWrap .saleText{color:#c7a271;font-size:15px;padding-left:31px;padding-top:18px;width:178px}
 .dopSaleWrap .TwentypercentBlock{margin-right:28px}
 .dopSaleWrap .TwentypercentBlock,.dopSaleWrap .dopSale,.dopSaleWrap .percentBlock{float:left;width:300px}
 .dopSaleWrap .TwentypercentBlock p,.dopSaleWrap .percentBlock p{float:left}
-.reviewsWrapp .dopSaleWrap{border-top:1px solid #e2e2e2;margin-top:46px;padding-top:50px}
-.reviewsWrapp .percentBlock{border-right:2px solid #e2e5e6;margin-right:28px;padding-right:60px}
+.dopSaleWrap{border-top:1px solid #e2e2e2;margin-top:46px;padding-top:50px}
+.dopSaleWrap .percentBlock{border-right:2px solid #e2e5e6;margin-right:28px;padding-right:60px}
 .paymentWrapp{height:348px}
 .paymentWrapp .comfortPayment,.paymentWrapp .shiping{float:left;padding-top:65px;width:496px}
 .paymentWrapp .comfortPayment{margin-right:130px;position:relative}
@@ -360,7 +361,7 @@ header .headBasket{margin-right:0}
 .countryBlock,.courierBlock,.layout,.pickupBlock,.windowClose{display:none}
 .elementDescriptWrap .oldPrice .cross{text-decoration:line-through}
 .elementDescriptWrap .oldPrice .diff{color:#00ABB8}
-.weRecomWrap{padding-bottom:90px;clear:both}
+.weRecomWrap{padding-bottom:0;clear:both}
 .signinWrapper .paswordIncorrectly#existingEmail{margin-top:-12px}
 .recenzion .recenz_author_name:hover{text-decoration:none;border-bottom:1px dashed}
 .recenzion .readFullReview{color:#00ABB8;border-bottom:1px dashed #00ABB8;text-decoration:none}
@@ -436,7 +437,7 @@ header .headBasket{margin-right:0}
 .otherEasySlider .bookName{color:#424C4F;font-size:14px;height:44px;width:142px;overflow:hidden}
 .otherEasySlider .bookPrice{color:#7B8C90;font-size:14px}
 .interestSlider{height:428px}
-.productElementWrapp{position:relative;background-color:#F4F4F4;min-height:1230px}
+.productElementWrapp{position:relative;background-color:#F4F4F4}
 .productElementWrapp a{text-decoration:none}
 .productElementWrapp:after,.productElementWrapp:before{content:'';display:block;left:0;position:absolute;width:100%}
 .centerWrapper,.elementDescriptWrap .elementMainPict{position:relative}
