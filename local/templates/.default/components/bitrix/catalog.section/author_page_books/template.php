@@ -41,13 +41,13 @@ global $authorName;
                             if ($arPrice["DISCOUNT_VALUE_VAT"])
                             {
                             ?>
-                            <p class="bookPrice" itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
+                            <p class="bookPrice" itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span></p>
                             <?
                             }
                             else
                             {
                             ?>
-                            <p class="bookPrice"itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
+                            <p class="bookPrice"itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["ORIG_VALUE_VAT"])?></span></p>
                             <?
                             }
                         }

@@ -37,13 +37,13 @@ $this->setFrameMode(true);
                                 if ($arPrice["DISCOUNT_VALUE_VAT"])
                                 {
                                 ?>
-                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span></span></p>
                                 <?
                                 }
                                 else
                                 {
                                 ?>
-                                    <p class="bookPrice"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <span>руб.</span></p>
+                                    <p class="bookPrice"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <span></span></p>
                                 <?
                                 }
                             ?>

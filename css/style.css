@@ -9,6 +9,7 @@
 @font-face{font-family:Walshein_thin;src:url(/fonts/GT-Walsheim-Pro-Trial-Thin.otf);font-weight:400;font-style:normal}
 @font-face{font-family:Walshein_medium;src:url(/fonts/GT-Walsheim-Pro-Trial-Medium.otf);font-weight:400;font-style:normal}
 @font-face{font-family:gt_walsheim_pro_trialblack;src:url(/fonts/gt-walsheim-pro-trial-black-webfont.eot);src:url(/fonts/gt-walsheim-pro-trial-black-webfont.eot?#iefix) format('embedded-opentype'),url(/fonts/gt-walsheim-pro-trial-black-webfont.woff2) format('woff2'),url(/fonts/gt-walsheim-pro-trial-black-webfont.woff) format('woff'),url(/fonts/gt-walsheim-pro-trial-black-webfont.ttf) format('truetype');font-weight:400;font-style:normal}
+@font-face{font-family:RoubleSign;src: url(/fonts/rouble-webfont.eot);src: url(/fonts/rouble-webfont.eot?#iefix) format('embedded-opentype'),url(/fonts/rouble-webfont.woff) format('woff'),url(/fonts/rouble-webfont.ttf) format('truetype'),url(/fonts/rouble-webfont.svg#RoubleSign) format('svg');font-weight:400;font-style:normal}
 @media screen and (max-width:1180px){header .telephone{display:none}
 .menu li a{font-size:16px!important}
 }
@@ -80,7 +81,8 @@ header .headBasket{padding:17px 1px 0}
 .icons img:nth-child(3){position:relative;top:4px}
 .firstWrapp .coverSmall:nth-child(2){margin-top:20px}
 .catalogWrapper,.hintWrapp .catalogWrapper{width:1140px;margin:0 auto}
-.firstWrapp img,.secondWrapp img,.thirdWrapp img{box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
+.firstWrapp img,.secondWrapp img,.thirdWrapp img{box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition: box-shadow .4s ease, transform .4s ease 0s}
+.firstWrapp img:hover,.secondWrapp img:hover,.thirdWrapp img:hover{box-shadow:0 19px 23px 0 rgba(0,0,0,.18), 0 17px 23px 0 rgba(0,0,0,.14);transform: scale(1.02);}
 .hintWrapp{background-color:#f4f4f4;height:1670px}
 .catalogWrapper{position:relative}
 .firstSection .smallContainer:nth-child(1),.hintWrapp .firstSection,.secondSection .smallContainer:nth-child(2n+1){margin-right:34px}
@@ -476,7 +478,8 @@ header .headBasket{margin-right:0}
 .elementDescriptWrap .priceBasketWrap{background:#fcfcfc;box-shadow:0 2px 5px 0 rgba(0,0,0,.18),0 0 1px 0 rgba(0,0,0,.14);width:264px;text-align:center;padding-top:34px;padding-bottom:34px;clear:both}
 .oldPrice p{background-color:#7b8c90;height:2px;position:absolute;top:14px;width:92%}
 .elementDescriptWrap .newPrice{color:#00ABB8;font-family:Walshein_black;font-size:42px;margin-left:10px;margin-top:8px}
-.elementDescriptWrap .newPrice span{font-size:22px}
+.elementDescriptWrap .newPrice span{font-size:26px;font-weight:700;font-family:RoubleSign}
+.elementDescriptWrap .newPrice span:before{content:'i'}
 .priceBasketWrap .text{color:#7B8C90;font-size:15px;padding:8px;margin-bottom:85px}
 .elementDescriptWrap .inBasket{background-color:#00abb8;border-radius:35px;color:#fff;font-size:19px;margin:0 28px;padding:14px 58px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .elementDescriptWrap .inBasket.toPreorder{font-size:16px;padding:14px 15px;} 
@@ -552,6 +555,8 @@ header .headBasket{margin-right:0}
 .weRecomWrap .bookWrapp:nth-child(6n){margin-right:0}
 .weRecomWrap .bookName{color:#424c4f;font-size:14px;padding-bottom:5px;padding-top:5px;height:39px;width:142px;overflow:hidden}
 .weRecomWrap .bookPrice{color:#7b8c90;font-size:14px}
+.bookPrice span,.rubsign{font-family:RoubleSign}
+.bookPrice span:after,.rubsign:after{content:'i'}
 .weRecomWrap .allBooks{border:2px solid #c7a271;border-radius:46px;color:#c7a271;font-size:19px;margin-left:447px;margin-top:68px;padding:12px 64px;text-decoration:none}
 .weRecomBlock{margin-bottom:28px}
 .basketHeader{background-color:#fff;font-size:14px;color:#7B8C90;height:58px;position:relative}
@@ -868,7 +873,8 @@ header .headBasket{margin-right:0}
 .badge img{width:60px!important}
 .sect_badge{position:absolute;right:5px;z-index:150}
 .sect_badge img{width:40px!important;height:40px!important;box-shadow:none}
-.item_img img,.section_item_img img{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
+.item_img img,.section_item_img img{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition: box-shadow .4s ease, transform .4s ease 0s}
+.item_img img:hover,.section_item_img img:hover{box-shadow:0 15px 18px 0 rgba(0,0,0,.18),0 15px 18px 0 rgba(0,0,0,.14);transform: scale(1.02)}
 .catalogLogo img{left:68px!important;top:12px!important}
 .catalogHeadParagraph{float:left;padding-top:20px;width:544px}
 .headFindCatalog{float:left;height:100%;position:absolute;right:213px;top:-2px;width:265px}
@@ -1028,3 +1034,4 @@ table.form-table tr td:nth-child(2){text-align:left}
 .ga-views {background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0!important;padding-left:0!important;}
 .ga-views .ttip {width:140px!important;}
 .gap {padding:0 5px}.gap:before {content: "\003E"}
+.saleSlider .tapeOfPack {color: #627478;font-size: 14px;font-family: "Walshein_regular";height: 20px}
