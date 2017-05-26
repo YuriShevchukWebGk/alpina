@@ -91,7 +91,8 @@
 
         docReadyComponent(<?= $arResult["ID"] ?>);
     });
-</script>
+</script> 
+<script src="/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js')?>"></script> 
 <?
     include_once($_SERVER["DOCUMENT_ROOT"] . '/local/php_interface/include/colors.inc.php');
 
@@ -204,9 +205,73 @@
         'OFFER_GROUP' => $strMainID.'_set_group_',
         'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
     );
-?>
-<div class="elementDescriptWrap" itemscope itemtype="https://schema.org/Book">
-    <meta itemprop="inLanguage" content="ru-RU"/>
+?>        
+<div class="elementDescriptWrap" itemscope itemtype="https://schema.org/Book">            
+    <meta itemprop="inLanguage" content="ru-RU"/>    
+    <div class="certificate_popup" style="display:none">
+        <form id="certificate_form">
+            <div class="certificate_buy_type">
+                <ul>
+                    <li data-popup-block="natural_person" class="certificate_tab_active"><?= GetMessage("NATURAL_PERSON") ?></li>
+                    <li data-popup-block="legal_person"><?= GetMessage("LEGAL_PERSON") ?></li>
+                </ul>
+            </div>
+            <div class="popup_form_data">
+                <div class="natural_person active_certificate_block">
+                    <input type='text' placeholder="Имя" name="natural_name" id="natural_name">                
+                    <br>                                                                                                
+                    <input type='email' placeholder="Email" name="natural_email" id="natural_email">    
+                    <br>                                   
+                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
+                </div>
+                <div class="legal_person">
+                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">                
+                    <br>
+                    <input type='email' placeholder="Email" name="legal_email" id="legal_email">    
+                    <br>                                                                                        
+                    <input type='text' placeholder="ИНН" name="inn" id="inn">    
+                    <br>
+                    <input type='text' placeholder="КПП" name="kpp" id="kpp">    
+                    <br>
+                    <input type='text' placeholder="БИК" name="bik" id="bik">    
+                    <br>
+                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">    
+                    <br>
+                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">    
+                    <br>
+                    <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">    
+                    <br>
+                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">    
+                    <br>                          
+                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
+                </div>
+            </div>
+            <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>      
+            <input type="hidden" name="certificate_quantity" value="1"/>                      
+            <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>    
+            <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
+        </form>
+        <div class="certificate_popup_close closeIcon"></div>
+        <div class="rfi_block">              
+        <?
+            $APPLICATION->IncludeComponent(
+                "webgk:rfi.widget",
+                "",
+                Array(
+                    "ORDER_ID"      => "CERT_",
+                    "OTHER_PAYMENT" => "Y",
+                    "OTHER_PARAMS"  => array(
+                        "PAYSUM"   => $newPrice,
+                        "EMAIL"    => "",
+                        "PHONE"    => "",
+                        "COMMENT"  => str_replace("#SUM#", $newPrice, "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# рублей")
+                    )
+                ),
+                false
+            );
+        ?>
+        </div>
+    </div>     
     <div class="leftColumn">
         <div class="elementMainPict">
             <div class="badge">
@@ -653,74 +718,10 @@
                             <a href="#" onclick="changeQ('+');return false;" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>     
                         </span>
                         <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>                     
-                            <div class="certificate_popup" style="display:none">
-                                <form id="certificate_form">
-                                    <div class="certificate_buy_type">
-                                        <ul>
-                                            <li data-popup-block="natural_person" class="certificate_tab_active"><?= GetMessage("NATURAL_PERSON") ?></li>
-                                            <li data-popup-block="legal_person"><?= GetMessage("LEGAL_PERSON") ?></li>
-                                        </ul>
-                                    </div>
-                                    <div class="popup_form_data">
-                                        <div class="natural_person active_certificate_block">
-                                            <input type='text' placeholder="Имя" name="natural_name" id="natural_name">                
-                                            <br>                                                                                                
-                                            <input type='email' placeholder="Email" name="natural_email" id="natural_email">    
-                                            <br>                                   
-                                            <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
-                                        </div>
-                                        <div class="legal_person">
-                                            <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">                
-                                            <br>
-                                            <input type='email' placeholder="Email" name="legal_email" id="legal_email">    
-                                            <br>                                                                                        
-                                            <input type='text' placeholder="ИНН" name="inn" id="inn">    
-                                            <br>
-                                            <input type='text' placeholder="КПП" name="kpp" id="kpp">    
-                                            <br>
-                                            <input type='text' placeholder="БИК" name="bik" id="bik">    
-                                            <br>
-                                            <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">    
-                                            <br>
-                                            <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">    
-                                            <br>
-                                            <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">    
-                                            <br>
-                                            <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">    
-                                            <br>                          
-                                            <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>      
-                                    <input type="hidden" name="certificate_quantity" value="1"/>                      
-                                    <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>    
-                                    <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
-                                </form>
-                                <div class="certificate_popup_close closeIcon"></div>
-                                <div class="rfi_block">              
-                                <?
-                                    $APPLICATION->IncludeComponent(
-                                        "webgk:rfi.widget",
-                                        "",
-                                        Array(
-                                            "ORDER_ID"      => "CERT_",
-                                            "OTHER_PAYMENT" => "Y",
-                                            "OTHER_PARAMS"  => array(
-                                                "PAYSUM"   => $newPrice,
-                                                "EMAIL"    => "",
-                                                "PHONE"    => "",
-                                                "COMMENT"  => str_replace("#SUM#", $newPrice, "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# рублей")
-                                            )
-                                        ),
-                                        false
-                                    );
-                                ?>
-                                </div>
-                            </div>     
                             <?
                             global $USER;                          
                             ?> 
-                            <a href="#" onclick="buy_certificate_popup(); return false;">
+                            <a href="javascript:void(0);" onclick="buy_certificate_popup(); return false;">
                                 <p class="inBasket"><?= GetMessage("CT_BCE_CATALOG_BUY") ?></p>
                             </a>
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>    
