@@ -299,7 +299,7 @@
                                                     "j F",
                                                     MakeTimeStamp(
                                                         $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_SOON_DATE_TIME_VALUE"],
-                                                        "DD.MM.YYYY HH:MI:SS"
+                                                        "DD.MM.YYYY"
                                                     )
                                                 )); ?>
                                                 </p>    
