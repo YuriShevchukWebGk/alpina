@@ -15,9 +15,9 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
 	CJSCore::Init($templateData['TEMPLATE_LIBRARY']);
 	if ($loadCurrency)
 	{
-	?>
+	?>   
 	<script type="text/javascript">
-		BX.Currency.setCurrencies(<? echo $templateData['CURRENCIES']; ?>); 
+		BX.Currency.setCurrencies(<? echo $templateData['CURRENCIES']; ?>);  
         function buy_certificate_popup(){
             $('.layout').show();
             $('.certificate_popup').show();                                                
