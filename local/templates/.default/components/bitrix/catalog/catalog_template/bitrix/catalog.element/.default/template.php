@@ -1500,7 +1500,6 @@
 <div class="reviewsSliderWrapp">
     <div class="centerWrapper">
         <div class="giftWrap">
-            <img src="/img/twi.png">
             <form action="/" method="post">
                 <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
                 <input type="button" value="">

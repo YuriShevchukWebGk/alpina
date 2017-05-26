@@ -139,6 +139,7 @@ header .headBasket{padding:17px 1px 0}
 .giftWrap .title{font-family:Walshein_black;font-size:42px;color:#486796;padding-top:0;padding-bottom:0}
 .giftWrap p{color:#768AAC;font-family:Walshein_regular;font-size:16px}
 .giftWrap{position:relative}
+.giftWrap:before{content: url(/img/lov.png);position: absolute;text-align: center;top: 0px;right: 46%}
 .giftWrap img{left:414px;position:absolute;top:-27px}
 .allBooksWrapp{min-height:1194px;padding-bottom:50px}
 .allBooksWrapp .titleMain{color:#3f4a4d;font-size:24px;padding-top:62px;padding-bottom:30px;padding-left:4px}
