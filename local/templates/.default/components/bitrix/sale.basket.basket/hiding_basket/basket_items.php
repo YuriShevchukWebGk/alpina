@@ -91,7 +91,7 @@ if (!empty($arResult["GRID"]["ROWS"]))
                     <?endif?>    
                     <?if ($arItem["PRICE_FORMATED"]) {?>                                          
                         <p class="bookPrice">                                                           
-                            <?=$arItem["PRICE_FORMATED"]?>                            
+                            <?=$arItem["PRICE"]?><span></span>
                         </p>
                     <?}?>              
                     <? if ($arItem['PRODUCT_PROVIDER_CLASS'] != "GiftProductProvider") { // для подарков sailplay не выводим +-?>
@@ -134,7 +134,7 @@ if (!empty($arResult["GRID"]["ROWS"]))
                     <?endif?>    
                     <?if ($arItem["PRICE_FORMATED"]) {?>                                          
                         <p class="bookPrice">                                                           
-                            <?=$arItem["PRICE_FORMATED"]?>                            
+                            <?=$arItem["PRICE"]?><span></span>
                         </p>
                     <?}?>              
                     <? if ($arItem['PRODUCT_PROVIDER_CLASS'] != "GiftProductProvider") { // для подарков sailplay не выводим +-?>
@@ -155,7 +155,7 @@ if (!empty($arResult["GRID"]["ROWS"]))
     <div class="result" <?if($arParams['DELAY'] == 'Y') { echo 'style="display:none"'; }?>>
         <p class="resultText"><?=GetMessage("TSB1_RESULT")?></p>
         <p class="count"><?=GetMessage("TSB1_TOTAL_PRICE")?><?=$arResult["TOTAL_ITEMS"]?></p>
-        <p class='price'><?=$arResult["allSum_FORMATED"]?></p>
+        <p class='price'><?=$arResult["allSum"]?><b class="rubsign"></b></p>
     </div>
 
     <a href="<?=$arParams['PATH_TO_ORDER']?>" class="bottomBasketConfirm">
