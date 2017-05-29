@@ -884,7 +884,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				);?>
 		</div>
 		
-        <div class="">
+        <div class="bestonmain">
             <?
 			global $BestsOnMain;
 			$BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);?>     
@@ -1022,10 +1022,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
 
 
-        <div class="no-mobile">
+        <div class="no-mobile bestbookmain">
             <?
 			global $bestWeekBook;
-			$bestWeekBook = array('>PROPERTY_STATEDATE' => date('Y-m-d', strtotime("-14 days")));?>
+			$bestWeekBook = array('>PROPERTY_STATEDATE' => date('Y-m-d', strtotime("-14 days")));
+			//$bestWeekBook = array('ID' =>90639);?>
 		
             <?
 			$APPLICATION->IncludeComponent(

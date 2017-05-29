@@ -199,3 +199,5 @@ tabsection,
 	color: #0083d1;
 }
 .hintWrapp {height:100%!important}
+.hintWrapp .catalogWrapper{width:100%;max-width:100%}
+.hintWrapp .recomendation,.bestonmain,.EditorChoiceWrapp,.saleWrapp{max-width:1140px;margin-left:auto;margin-right:auto}
