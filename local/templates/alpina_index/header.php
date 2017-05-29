@@ -1020,46 +1020,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			false
 		);?>
         </div>
-		
-		<div class="hintWrapp EditorChoiceWrapp">
-			<div class="catalogWrapper">
-				<?$APPLICATION->IncludeComponent(
-				"bitrix:catalog.section.list", 
-				"editor_choice", 
-				array(
-					"VIEW_MODE" => "LIST",
-					"SHOW_PARENT_NAME" => "Y",
-					"IBLOCK_TYPE" => "catalog",
-					"IBLOCK_ID" => "4",
-					"SECTION_ID" => $_REQUEST["SECTION_ID"],
-					"SECTION_CODE" => "",
-					"SECTION_URL" => "",
-					"COUNT_ELEMENTS" => "Y",
-					"TOP_DEPTH" => "2",
-					"SECTION_FIELDS" => array(
-						0 => "",
-						1 => "",
-					),
-					"SECTION_USER_FIELDS" => array(
-						0 => "",
-						1 => "",
-					),
-					"ADD_SECTIONS_CHAIN" => "Y",
-					"CACHE_TYPE" => "A",
-					"CACHE_TIME" => "60",
-					"CACHE_NOTES" => "",
-					"CACHE_GROUPS" => "N",
-					"COMPONENT_TEMPLATE" => "editor_choice"
-				),
-				false
-				);?>
-			</div>
-		</div>
+
 
         <div class="no-mobile">
             <?
 			global $bestWeekBook;
-			$bestWeekBook = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);?>     
+			$bestWeekBook = array('>PROPERTY_STATEDATE' => date('Y-m-d', strtotime("-14 days")));?>
 		
             <?
 			$APPLICATION->IncludeComponent(
@@ -1190,6 +1156,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			false
 		);?>
         </div>
+
+		<div class="hintWrapp EditorChoiceWrapp">
+			<div class="catalogWrapper">
+				<?$APPLICATION->IncludeComponent(
+				"bitrix:catalog.section.list", 
+				"editor_choice", 
+				array(
+					"VIEW_MODE" => "LIST",
+					"SHOW_PARENT_NAME" => "Y",
+					"IBLOCK_TYPE" => "catalog",
+					"IBLOCK_ID" => "4",
+					"SECTION_ID" => $_REQUEST["SECTION_ID"],
+					"SECTION_CODE" => "",
+					"SECTION_URL" => "",
+					"COUNT_ELEMENTS" => "Y",
+					"TOP_DEPTH" => "2",
+					"SECTION_FIELDS" => array(
+						0 => "",
+						1 => "",
+					),
+					"SECTION_USER_FIELDS" => array(
+						0 => "",
+						1 => "",
+					),
+					"ADD_SECTIONS_CHAIN" => "Y",
+					"CACHE_TYPE" => "A",
+					"CACHE_TIME" => "60",
+					"CACHE_NOTES" => "",
+					"CACHE_GROUPS" => "N",
+					"COMPONENT_TEMPLATE" => "editor_choice"
+				),
+				false
+				);?>
+			</div>
+		</div>
 
         <div class="saleWrapp">
             <div class="catalogWrapper">
