@@ -19,9 +19,6 @@ $colors = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
 		$(".bestbook .after").css("margin-top",setheight+10+'px');
 	});
 </script>
-<pre>
-<?print_r($arResult);?>
-</pre>
 
 <div class="bestbook">
 	<div class="before"></div>
@@ -31,6 +28,9 @@ $colors = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
 		<div class="cover">
 			<a href="<?=$arResult["DETAIL_PAGE_URL"]?>">
 				<img src="<?=$main_pict["src"]?>" title="<?=$main_author["NAME"].' «'.$arResult["NAME"].'»'?>">
+			</a>
+			<a href="<?=$arResult["DETAIL_PAGE_URL"]?>" class="button">
+				Подробнее о книге
 			</a>
 		</div>
 
