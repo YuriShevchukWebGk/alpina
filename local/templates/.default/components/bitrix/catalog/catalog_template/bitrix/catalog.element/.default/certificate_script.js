@@ -49,10 +49,12 @@ function create_certificate_order(){
                     $(".submit_rfi").attr("data-cost", certificate_price * certificate_quantity);  
                     $(".submit_rfi").click();
                     $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
+                    $(".certificate_popup_close").click();
                 } else {
                     // юр. лицо
                     var success_message = "<?= GetMessage('LEGAL_SUCCESS_MESSAGE') ?>";
                     $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
+                    $(".certificate_popup_close").click();
                 }
             } else {
                 console.error(certificate_result.data);

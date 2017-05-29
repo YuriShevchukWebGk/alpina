@@ -755,7 +755,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		
 		<div class="recomendation" style="display:<?=($arrFilter['ID'][0] > 0) ? 'block' : 'none';?>">
 		
-		<p class="titleMain"><a href="/catalog/personal-books/">Вам может быть интересно</a></p>
+		<p class="titleMain"><a href="/catalog/personal-books/">Рекомендуем лично вам</a></p>
 			<?
 				$APPLICATION->IncludeComponent(
 					"bitrix:catalog.section", 
@@ -1343,7 +1343,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             );?>
         <div class="dopSaleWrap">
             <div class="dopSale">
-                Дополнительные скидки
+                Накопительные скидки
             </div>
 
             <div class="percentBlock">
