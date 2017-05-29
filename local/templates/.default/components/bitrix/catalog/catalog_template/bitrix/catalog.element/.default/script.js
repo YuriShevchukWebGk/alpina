@@ -2911,7 +2911,7 @@ $(document).ready(function(){
         
         $(".bigSlider").hide();
         $(".revTitle").hide();
-        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - $(".bigSlider").height() - $(".revTitle").height() - 40 + "px");
+        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - $(".bigSlider").height() - $(".revTitle").height() + "px");
         $(".sliderName").css("padding-top", "40px");    
     }
     
@@ -2923,7 +2923,7 @@ $(document).ready(function(){
 
     if ($(".uLookSlider ul li").size() == 0)
     {
-        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - 350 - $(".youViewedTitle").height() + "px");
+        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - 310 - $(".youViewedTitle").height() + "px");
         $(".uLookSlider").hide();
         $(".youViewedTitle").hide();
     }

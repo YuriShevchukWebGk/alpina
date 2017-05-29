@@ -913,16 +913,13 @@ if ($arResult['MODULES']['currency'])
     foreach ($arResult["AUTHOR"] as $key => $author) {
         $arResult["AUTHOR"][$key]["IMAGE_FILE"] = CFile::GetFileArray($author["DETAIL_PICTURE"]);
     }
-    if ($USER->isAdmin()) {
-        $recsArray = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/related/50b90f71b994b319dc5fd855/?itemIds='.$arResult["ID"]);
-        $recsArray = array_slice(json_decode($recsArray, true), 0, 6);
-        foreach($recsArray as $val) {
-            $arResult["STRING_RECS"][] = $val[ItemId];
-        }
-    } else {
-        $recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
-        $arResult["STRING_RECS"] = array_slice(json_decode($recsArray), 0, 6);
-    }
+
+	$recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
+	$arResult["STRING_RECS"] = array_slice(json_decode($recsArray), 0, 6);
+	
+	//Порог для бесплатной доставки
+	$arResult["FREE_DELIVERY"] = 2000;
+
     $APPLICATION->AddHeadString('<meta name="relap-image" content="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
     $this->__component->arResultCacheKeys = array_merge($this->__component->arResultCacheKeys, array_keys($arResult));
 ?>

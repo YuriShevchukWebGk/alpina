@@ -32,36 +32,7 @@
         if ($(".element_item_img img").height() < 394 && $(".element_item_img img").height() > 100) {
             $(".element_item_img").height($(".element_item_img img").height());
         }
-        <?/*$("a#inline1, a#inline2, a#inline3").fancybox({
-            'hideOnContentClick': true
-            });
-            if ($(".grouped_elements").length > 0) {
 
-            $("a.grouped_elements").fancybox({
-            'transitionIn'    :    'elastic',
-            'transitionOut'    :    'elastic',
-            'speedIn'        :    600,
-            'speedOut'        :    200,
-            'overlayShow'    :    false
-            });
-
-            }
-
-            if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-            $('.elementMainPict .fancybox').attr('target', '_blank');
-            $('.elementMainPict .fancybox').removeClass('fancybox');
-            }else{
-            $('.elementMainPict .fancybox').fancybox({
-            'centerOnScroll' : true,
-            'scrolling'      : true,
-            'showNavArrows'  : true
-            });
-            }
-
-            $('a.fancybox').fancybox({
-            'width'   :   1140,
-            'height'   :   800
-        });*/?>
         $(".leftColumn .signingPopup").fancybox({
             <?if ($arResult["SIGNING_IMAGE_INFO"]["WIDTH"]) {?>
                 'width'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["WIDTH"] ?>+20,
@@ -465,8 +436,11 @@
             <meta itemprop="priceCurrency" content="RUB" />
             <link itemprop="itemCondition" href="http://schema.org/NewCondition">
             <meta itemprop="sku" content="<?=$arResult["ID"]?>" />
-            <?if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0) {
-				if ($USER->IsAuthorized()) {// blackfriday черная пятница
+            <?
+			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < 2000) {//До бесплатной доставки осталось
+				$printDiscountText = "<span class='sale_price'>".GetMessage("GET_FREE_DELIVERY").($arResult["FREE_DELIVERY"] - $arResult["CART_SUM"]).GetMessage("GET_FREE_DELIVERY_ENDING")."</span><br />";
+			} elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0) {
+				if ($USER->IsAuthorized()) {
                     if ($arResult["ITEM_WITHOUT_DISCOUNT"] == "Y") {
                         $discount = 0;
                     } elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
@@ -498,6 +472,7 @@
                         // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении
                         if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) && (intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))) {
                             foreach ($arResult["PRICES"] as $code => $arPrice) {?>
+
                             <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                             <link itemprop="availability" href="https://schema.org/InStock">
 
@@ -508,7 +483,7 @@
                                 
                                 if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { 
                                     if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                     <?// расчитываем накопительную скидку от стоимости
                                         if ($discount) {
                                             $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
@@ -527,7 +502,7 @@
                                         if (strlen (stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
                                     }?>
-                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                     <?// расчитываем накопительную скидку от стоимости?>
                                     <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                     <?} else {
@@ -558,7 +533,7 @@
                                     $discount = false;
                                 };
                                 if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                 <?// расчитываем накопительную скидку от стоимости
                                     if ($discount) {
                                         $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
@@ -577,7 +552,7 @@
                                     if (strlen (stristr($newPrice, ".")) == 2) {
                                         $newPrice .= "0";
                                 }?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                 <?// расчитываем накопительную скидку от стоимости?>
                                 <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                 <?} else {
@@ -595,7 +570,7 @@
                         <?$StockInfo = "OutOfStock";?>
                         <?foreach ($arResult["PRICES"] as $code => $arPrice) {                    
                             if ($arPrice["DISCOUNT_DIFF"]) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                             <?}?>
                             <?if ($arPrice["DISCOUNT_VALUE_VAT"]) {
                                 $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
@@ -888,39 +863,6 @@
                 <?}?>
         </div>
 
-        <?/*<div class="courierBlock">
-            <div id="data1">
-            <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
-            "AREA_FILE_SHOW" => "file",
-            "PATH" => "/include/courierBlock.php",
-            "EDIT_TEMPLATE" => ""
-            ),
-            false
-            );?>
-            </div>
-            </div>
-            <div class="pickupBlock">
-            <div id="data2">
-            <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
-            "AREA_FILE_SHOW" => "file",
-            "PATH" => "/include/pickupBlock.php",
-            "EDIT_TEMPLATE" => ""
-            ),
-            false
-            );?>
-            </div>
-            </div>
-            <div class="countryBlock">
-            <div id="data3">
-            <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
-            "AREA_FILE_SHOW" => "file",
-            "PATH" => "/include/countryBlock.php",
-            "EDIT_TEMPLATE" => ""
-            ),
-            false
-            );?>
-            </div>
-        </div>*/?>
         <?if ($arResult["PROPERTIES"]["author_book"]["VALUE"] == "Y") {?>
             <div class="productAction">
                 <img src="/img/actionPicture.png">
@@ -1290,7 +1232,7 @@
 
 	<div class="dopSaleWrap no-mobile">
 		<div class="dopSale">
-			Дополнительные скидки
+			Накопительные скидки
 		</div>
 
 		<div class="percentBlock">
@@ -1840,7 +1782,7 @@
             if (bookRating > 4.4)
                 $(".crr-cnt").after("<style>.mc-c .mcicon-star-half-o:before {content: '\\f005'!important;}</style>");
 
-            $(".crr-cnt").after('<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"><meta itemprop="ratingValue" content="'+ bookRating +'" /><meta itemprop="reviewCount" content="'+ (parseInt(data.res.split(':')[1]) + parseInt(data.res.split(':')[2])) +'" /><meta itemprop="bestRating" content="5" /><meta itemprop="bestRating" content="5" /></span>');
+            $(".crr-cnt").after('<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"><meta itemprop="ratingValue" content="'+ bookRating +'" /><meta itemprop="reviewCount" content="'+ (parseInt(data.res.split(':')[1]) + parseInt(data.res.split(':')[2])) +'" /><meta itemprop="bestRating" content="5" /></span>');
         })
     }
     cackleReviewsCount();
