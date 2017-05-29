@@ -1055,8 +1055,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				);?>
 			</div>
 		</div>
-		
-		<?if ($USER->isAdmin()) {?>
+
         <div class="no-mobile">
             <?
 			global $bestWeekBook;
@@ -1191,7 +1190,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			false
 		);?>
         </div>
-		<?}?>
 
         <div class="saleWrapp">
             <div class="catalogWrapper">

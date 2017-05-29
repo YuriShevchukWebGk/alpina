@@ -63,7 +63,13 @@
         docReadyComponent(<?= $arResult["ID"] ?>);
     });
 </script>
-<?
+<?if (!empty($arResult["PROPERTIES"]["colors"]["VALUE"]) && $arResult["PROPERTIES"]["colors"]["VALUE"] != ',') {
+	$arResult["PROPERTIES"]["colors"]["VALUE"] = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
+	$bgcolors[0] = $arResult["PROPERTIES"]["colors"]["VALUE"][1];
+	$mincolor['color'] = $arResult["PROPERTIES"]["colors"]["VALUE"][0];
+
+} else {
+
     include_once($_SERVER["DOCUMENT_ROOT"] . '/local/php_interface/include/colors.inc.php');
 
     $image_to_read = $_SERVER["DOCUMENT_ROOT"] . "/" .$arResult["PICTURE"]["src"];
@@ -101,6 +107,7 @@
     if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
         $mincolor['color'] = "#555";
     }
+}
 ?>
 <style>
     .productElementWrapp:before {
@@ -122,6 +129,8 @@
         opacity: 0.8;
     }		
 </style>
+
+<?CIBlockElement::SetPropertyValuesEx($arResult["ID"], 4, array('colors' => $mincolor['color'].','.$bgcolors[0]));?>
 
 <?
     $templateLibrary = array('popup');
