@@ -1425,3 +1425,5 @@
 .reviewsSliderWrapp .giftWrap{margin:40px 0}
 .weRecomWrap .tile{padding-top:25px}
 .dopSaleWrap {margin-top:0;height:175px;width:1140px;margin:0 auto;clear:both}
+.annotation a{color:#3f4a4d;text-decoration:underline}
+.annotation a:hover{text-decoration:none}

@@ -45,7 +45,7 @@ if ($arrFilter['ID'][0] > 0) { // Если рекомендации есть, н
 }?>  
 <script type="text/javascript">
 	$(document).ready(function() {
-		$(".titleMain").html("Эти книги могут вам понравиться");
+		$(".titleMain").html("Рекомендуем лично вам");
 	});
 </script>
 <?$APPLICATION->IncludeComponent("bitrix:catalog.section", "bestsellers", Array(

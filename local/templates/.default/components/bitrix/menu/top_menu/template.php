@@ -7,9 +7,8 @@ foreach($arResult as $arItem) {
 ?>
 	<li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?}?>
-
-<?if (date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) < 10) {?>
-	<li><a class="topMenuLink" href="/actions/maysale/" style="color:red!important">Книги по 99 рублей</a></li>
-<?} else {?>
 	<li><a class="topMenuLink" href="/actions/freedigitalbooks/" target="_blank">Бесплатные электронные книги</a></li>
-<?}?>
+	<?if ($USER->isAdmin()) {?>
+		<li class="timer" style="color:red!important">Книги по 99 рублей <span id="days"></span>:<span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span></li>
+		<script type="text/javascript" src="/js/countdown.js"></script>
+	<?}?>
