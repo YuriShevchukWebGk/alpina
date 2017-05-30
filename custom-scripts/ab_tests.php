@@ -16,6 +16,7 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 }*/
 ?>
 <script src="/custom-scripts/progressbar/nprogress.js"></script>
+<link href="/bitrix/css/main/font-awesome.css?146037394928798" type="text/css" rel="stylesheet" />
 
 
 <!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->

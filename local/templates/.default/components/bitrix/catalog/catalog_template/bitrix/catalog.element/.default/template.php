@@ -115,7 +115,7 @@
 <style>
     .productElementWrapp:before {
         background-color: <?=$bgcolor?>;
-        opacity: 0.3;
+        opacity: 0.28;
     }
     .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
         color: <?=$textcolor?>!important;
@@ -130,7 +130,9 @@
     .basketIcon {
         background: <?=$bgcolor?> url(/img/basketIcoHovers.png) no-repeat center;
         opacity: 0.8;
-    }		
+    }
+
+	.productElementWrapp:after{background-color: <?=$bgcolor?>}
 </style>
 
 <?CIBlockElement::SetPropertyValuesEx($arResult["ID"], 4, array('colors' => $mincolor['color'].','.$bgcolors[0]));?>

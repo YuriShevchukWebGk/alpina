@@ -9,7 +9,7 @@
 @font-face{font-family:Walshein_thin;src:url(/fonts/GT-Walsheim-Pro-Trial-Thin.otf);font-weight:400;font-style:normal}
 @font-face{font-family:Walshein_medium;src:url(/fonts/GT-Walsheim-Pro-Trial-Medium.otf);font-weight:400;font-style:normal}
 @font-face{font-family:gt_walsheim_pro_trialblack;src:url(/fonts/gt-walsheim-pro-trial-black-webfont.eot);src:url(/fonts/gt-walsheim-pro-trial-black-webfont.eot?#iefix) format('embedded-opentype'),url(/fonts/gt-walsheim-pro-trial-black-webfont.woff2) format('woff2'),url(/fonts/gt-walsheim-pro-trial-black-webfont.woff) format('woff'),url(/fonts/gt-walsheim-pro-trial-black-webfont.ttf) format('truetype');font-weight:400;font-style:normal}
-@font-face{font-family:RoubleSign;src: url(/fonts/rouble-webfont.eot);src: url(/fonts/rouble-webfont.eot?#iefix) format('embedded-opentype'),url(/fonts/rouble-webfont.woff) format('woff'),url(/fonts/rouble-webfont.ttf) format('truetype'),url(/fonts/rouble-webfont.svg#RoubleSign) format('svg');font-weight:400;font-style:normal}
+@font-face{font-family:RoubleSign;src:url(/fonts/rouble-webfont.eot);src:url(/fonts/rouble-webfont.eot?#iefix) format('embedded-opentype'),url(/fonts/rouble-webfont.woff) format('woff'),url(/fonts/rouble-webfont.ttf) format('truetype'),url(/fonts/rouble-webfont.svg#RoubleSign) format('svg');font-weight:400;font-style:normal}
 @media screen and (max-width:1180px){header .telephone{display:none}
 .menu li a{font-size:16px!important}
 }
@@ -26,7 +26,7 @@ h6{font-size:22px;font-weight:400;color:#3f4a4d;margin:3px 0}
 header{height:58px;position:relative;color:#7B8C90;font-size:14px}
 .catalog_text,.logo,.logo img,header .lkWrapp{position:absolute}
 header .lkWrapp{right:0;top:0}
-.basketHeader a,header a{color:#7B8C90!important}
+.basketHeader a,header a,.headCatalog{color:#7B8C90!important}
 header .telephone{float:left;padding-right:34px;padding-top:18px}
 .catalog_text{color:#E4E8EA;left:85px;top:25px;font-size:15px}
 .logo{height:60px;width:120px}
@@ -67,7 +67,7 @@ header .headBasket{padding:17px 1px 0}
 .secondWrapp img{position:absolute;top:-2px}
 .book .thirdWrapp{height:100%;width:378px;margin-left:10px;vertical-align:top}
 .afterImg:hover,.basketBook>div>a:hover,.book>div>a:hover,.bookDelete:hover,.breadCrump a:hover,.reviewsWrapp li:hover .autor,.variants>div>a:hover{text-decoration:underline}
-.readMore span:hover{background:#fff;}
+.readMore span:hover{background:#fff}
 .thirdWrapp .text{background-color:#00a0af;height:160px;margin-bottom:35px;padding:44px 38px;width:282px;margin-left:20px}
 .thirdWrapp .container{width:450px}
 .thirdWrapp img{margin-left:20px;margin-bottom:-3px}
@@ -81,8 +81,8 @@ header .headBasket{padding:17px 1px 0}
 .icons img:nth-child(3){position:relative;top:4px}
 .firstWrapp .coverSmall:nth-child(2){margin-top:20px}
 .catalogWrapper,.hintWrapp .catalogWrapper{width:1140px;margin:0 auto}
-.firstWrapp img,.secondWrapp img,.thirdWrapp img{box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition: box-shadow .4s ease, transform .4s ease 0s}
-.firstWrapp img:hover,.secondWrapp img:hover,.thirdWrapp img:hover{box-shadow:0 19px 23px 0 rgba(0,0,0,.18), 0 17px 23px 0 rgba(0,0,0,.14);transform: scale(1.02);}
+.firstWrapp img,.secondWrapp img,.thirdWrapp img{box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition:box-shadow .4s ease, transform .4s ease 0s}
+.firstWrapp img:hover,.secondWrapp img:hover,.thirdWrapp img:hover{box-shadow:0 19px 23px 0 rgba(0,0,0,.18), 0 17px 23px 0 rgba(0,0,0,.14);transform:scale(1.02)}
 .hintWrapp{background-color:#f4f4f4;height:1670px}
 .catalogWrapper{position:relative}
 .firstSection .smallContainer:nth-child(1),.hintWrapp .firstSection,.secondSection .smallContainer:nth-child(2n+1){margin-right:34px}
@@ -139,7 +139,7 @@ header .headBasket{padding:17px 1px 0}
 .giftWrap .title{font-family:Walshein_black;font-size:42px;color:#486796;padding-top:0;padding-bottom:0}
 .giftWrap p{color:#768AAC;font-family:Walshein_regular;font-size:16px}
 .giftWrap{position:relative}
-.giftWrap:before{content: url(/img/lov.png);position: absolute;text-align: center;top: 0px;right: 46%}
+.giftWrap:before{content:url(/img/lov.png);position:absolute;text-align:center;top:0px;right:46%}
 .giftWrap img{left:414px;position:absolute;top:-27px}
 .allBooksWrapp{min-height:1194px;padding-bottom:50px}
 .allBooksWrapp .titleMain{color:#3f4a4d;font-size:32px;padding-top:62px;padding-bottom:30px;padding-left:4px}
@@ -249,8 +249,13 @@ input:focus{outline:0}
 .basketIcon:hover{background:url(/img/basketIco.png) center no-repeat #fff}
 .basketIcon span,.catalogIcon span{margin-left:0;margin-top:68px;text-align:center;display:block;position:relative;font-size:18px;color:#e4e8ea}
 .searchWrap{background-color:#ECEDEF;height:60px}
-.searchWrap input[type=text]{background-color:#ecedef;border:none;font-size:19px;margin-top:16px;padding-left:43px;width:100%}
-.searchWrap input[type=submit]{position:absolute;background:url(/img/searchIcon.png) 0 3px no-repeat #ecedef;width:30px;height:30px;left:0;cursor:pointer;top:16px}
+.searchWrap input[type=text]{background-color:#ECEDEF;border:none;font-size:19px;margin-top:16px;padding-left:43px;width:100%}
+.searchWrap button[type=submit]{background:#ECEDEF;color:#666;width:30px;height:30px;left:0}
+.searchWrap button[type=submit]:after{position:absolute;left:0}
+.find button[type=submit]{font-size:24px;cursor:pointer;top:0;border:none;position: absolute}
+.find button[type=submit]:after{content:"\f002";font-family:"FontAwesome"}
+.mainSearchField::-webkit-input-placeholder{color:#666;font-size:18px;font-family:Walshein_regular}
+.mainSearchField::-moz-placeholder{color:#666;font-size:18px;font-family:Walshein_regular}
 .authorWrap .titleWrap{background-color:#99abb1;height:138px}
 .breadCrump{color:#e4e8ea;font-size:14px;padding-left:6px;padding-bottom:28px}
 .titleWrap .mainTitle{color:#fff;font-family:Walshein_black;font-size:42px;padding-left:4px}
@@ -391,9 +396,9 @@ header .headBasket{margin-right:0}
 .hidingCatalogLeft .webServ{margin-top:146px}
 .hidingCatalogLeft .webServ img{padding-left:0;padding-right:15px}
 .hidingCatalogLeft li{cursor:pointer}
-.hidingBasketRight .title{display:inline-block; color:#c6c9ca;font-size:15px;margin-left:50px;text-transform:uppercase;margin-top:124px;cursor:pointer;} 
-.hidingBasketRight .title.active{color:#424c4f;cursor:default;} 
-.hidingBasketRight #preorder_title{margin-left:90px;}                                                                
+.hidingBasketRight .title{display:inline-block; color:#c6c9ca;font-size:15px;margin-left:50px;text-transform:uppercase;margin-top:124px;cursor:pointer} 
+.hidingBasketRight .title.active{color:#424c4f;cursor:default} 
+.hidingBasketRight #preorder_title{margin-left:90px}                                                                
 .hidingBasketRight .bonus{color:#7b8c90;font-size:15px;padding:18px 50px;margin-bottom:10px}
 .hidingBasketRight .result{border-bottom:1px solid #ececec;border-top:1px solid #ececec;height:53px;margin-bottom:28px;padding-left:48px;padding-top:14px;width:100%}
 .hidingBasketRight .resultText{color:#424C4F;font-size:19px}
@@ -438,13 +443,13 @@ header .headBasket{margin-right:0}
 .otherEasySlider .bookName{color:#424C4F;font-size:14px;height:44px;width:142px;overflow:hidden}
 .otherEasySlider .bookPrice{color:#7B8C90;font-size:14px}
 .interestSlider{height:428px}
-.productElementWrapp{position:relative;background-color:#F4F4F4}
+.productElementWrapp{position:relative;background-color:#fff}
 .productElementWrapp a{text-decoration:none}
 .productElementWrapp:after,.productElementWrapp:before{content:'';display:block;left:0;position:absolute;width:100%}
 .centerWrapper,.elementDescriptWrap .elementMainPict{position:relative}
 .productElementWrapp:before{background-color:#99ABB1;height:260px;top:0}
-.productElementWrapp:after{background-color:#F4F4F4;right:0}
-.centerWrapper{margin:0 auto;width:1140px}
+.productElementWrapp:after{background-color:#F4F4F4;opacity:0.03;content:'';display:block;left:0;position:absolute;width:100%;height:100%;top:0;z-index:0}
+.centerWrapper{margin:0 auto;width:1140px;z-index:100}
 .elementDescriptWrap .leftColumn{float:left;height:100%;width:264px}
 .elementDescriptWrap .rightColumn{float:right;height:100%;width:264px}
 .elementDescriptWrap .centerColumn{height:100%;margin:0 264px;padding:0 28px;width:auto}
@@ -467,7 +472,7 @@ header .headBasket{margin-right:0}
 .takePartWrap .title{color:#2F3839;font-size:19px;padding-bottom:8px}
 .takePartWrap .text{color:#3f4a4d;font-size:16px;padding-bottom:14px}
 .takePartWrap input{background:#fff;border:none;box-shadow:0 2px 5px 0 rgba(0,0,0,.18),0 0 1px 0 rgba(0,0,0,.14);color:#8d8d8d;font-size:15px;height:34px;margin-left:-6px;padding-left:18px;padding-right:32px;width:214px}
-.takePartWrap button{position: relative;left: 217px;top: -36px;border: none;width: 41px;height: 36px;cursor: pointer;background:url(/img/custImpOnElement.png) 0 9px no-repeat transparent;}
+.takePartWrap button{position:relative;left:217px;top:-36px;border:none;width:41px;height:36px;cursor:pointer;background:url(/img/custImpOnElement.png) 0 9px no-repeat transparent}
 .elementDescriptWrap .characteris{border-bottom:1px solid #ddd;margin-bottom:10px;padding-bottom:14px}
 .characteris:last-child{border:none}
 .characteris .title{color:#7B8C90;font-size:15px;padding-left:4px}
@@ -484,7 +489,7 @@ header .headBasket{margin-right:0}
 .elementDescriptWrap .newPrice span:before,.bookPrice span:after,.rubsign:after{content:'i'}
 .priceBasketWrap .text{color:#7B8C90;font-size:15px;padding:8px;margin-bottom:85px}
 .elementDescriptWrap .inBasket{background-color:#00abb8;border-radius:35px;color:#fff;font-size:19px;margin:0 28px;padding:14px 58px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
-.elementDescriptWrap .inBasket.toPreorder{font-size:16px;padding:14px 15px;} 
+.elementDescriptWrap .inBasket.toPreorder{font-size:16px;padding:14px 15px} 
 .authWrapper input[type=submit],.authorisationWrapper input[type=submit],.cartWrapper .nextPageWrap{webkit-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .elementDescriptWrap .inBasket:hover{background-color:#00b9c8;color:#f2f2f2}
 .elementDescriptWrap .buyOneClick{border:2px solid #c7a271;border-radius:40px;color:#c7a271;font-size:19px;margin:20px 28px;padding:12px}
@@ -494,7 +499,7 @@ header .headBasket{margin-right:0}
 .shippings a{color:#00ABB8;border-bottom:1px dashed #00ABB8}
 .noborderlink{color:#00ABB8;border-bottom:0!important;text-decoration:underline!important}
 .noborderlink:hover{text-decoration:none!important}
-.shippings li:before{content:"\2022";left:-15px;position:absolute;}
+.shippings li:before{content:"\2022";left:-15px;position:absolute}
 .productAction{border-bottom:1px solid #DDD;padding-bottom:22px}
 .productAction .title{color:#486796;font-family:Walshein_black;font-size:24px;padding-left:4px;padding-top:8px}
 .centerColumn .productAutor,.elementDescriptWrap .productsMenu{font-family:Walshein_bold;text-transform:uppercase}
@@ -874,8 +879,8 @@ header .headBasket{margin-right:0}
 .badge img{width:60px!important}
 .sect_badge{position:absolute;right:5px;z-index:150}
 .sect_badge img{width:40px!important;height:40px!important;box-shadow:none}
-.item_img img,.section_item_img img{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition: box-shadow .4s ease, transform .4s ease 0s}
-.item_img img:hover,.section_item_img img:hover{box-shadow:0 15px 18px 0 rgba(0,0,0,.18),0 15px 18px 0 rgba(0,0,0,.14);transform: scale(1.02)}
+.item_img img,.section_item_img img{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition:box-shadow .4s ease, transform .4s ease 0s}
+.item_img img:hover,.section_item_img img:hover{box-shadow:0 15px 18px 0 rgba(0,0,0,.18),0 15px 18px 0 rgba(0,0,0,.14);transform:scale(1.02)}
 .catalogLogo img{left:68px!important;top:12px!important}
 .catalogHeadParagraph{float:left;padding-top:20px;width:544px}
 .headFindCatalog{float:left;height:100%;position:absolute;right:213px;top:-2px;width:265px}
@@ -946,7 +951,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .howToBodyWrap{color:#3f4a4d;font-size:17px}
 .saleWrapp .bookPriceLine{color:#7b8c90;font-size:14px;text-decoration:line-through}
 .showAllWrapp{overflow:hidden;padding-bottom:22px;position:relative}
-.readMore{background-color:#f4f4f4;position:absolute;bottom:0;height:27px;right:0;text-align:center;width:100%;padding-top:20px}
+.readMore{background-color:#fff;position:absolute;bottom:0;height:27px;right:0;text-align:center;width:100%;padding-top:20px}
 .readMore span{color:#00ABB8!important;cursor:pointer;border:1px solid;padding:2px 6px 1px!important}
 .giftWrapBlock{padding-top:5px;padding-bottom:60px;min-height:150px;overflow:hidden;border-bottom:1px solid #e2e2e2}
 .EditorChoiceWrapp{height:100%;padding-bottom:30px;margin-top:95px}
@@ -1031,8 +1036,8 @@ table.form-table tr td:nth-child(2){text-align:left}
 }
 .registrationBlock .bx-registration-table .RegisterButton{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer;width:120px;text-align:center}
 .registrationBlock .bx-registration-table .CaptchaRegistration{margin-bottom:12px;margin-left:310px;margin-top:12px}
-.bookViews{display:block;margin-top:-3px;padding-left:5px;float:right; color: #424D4F;font-family: 'Walshein_regular';font-size: 15px;}
-.ga-views {background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0!important;padding-left:0!important;}
-.ga-views .ttip {width:140px!important;}
-.gap {padding:0 5px}.gap:before {content: "\003E"}
-.saleSlider .tapeOfPack {color: #627478;font-size: 14px;font-family: "Walshein_regular";height: 20px}
+.bookViews{display:block;margin-top:-3px;padding-left:5px;float:right; color:#424D4F;font-family:'Walshein_regular';font-size:15px}
+.ga-views {background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0!important;padding-left:0!important}
+.ga-views .ttip {width:140px!important}
+.gap {padding:0 5px}.gap:before {content:"\003E"}
+.saleSlider .tapeOfPack {color:#627478;font-size:14px;font-family:"Walshein_regular";height:20px}
