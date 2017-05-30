@@ -192,13 +192,11 @@
             $attachments = array();
             foreach ($arTemplate['FILE'] as $file) {
                 if ($file_path = CFile::GetPath($file)) {
-                    $attachments = "@".str_replace('https://files.alpinabook.ru/', $_SERVER["DOCUMENT_ROOT"].'/', $file_path);
+                    $attachments = "@".$_SERVER["DOCUMENT_ROOT"].$file_path;
 
                 }
             }
-            /*$onlyconsonants = str_replace('https://files.alpinabook.ru/', $_SERVER["DOCUMENT_ROOT"].'/', $file_path);
-            logger($onlyconsonants, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');
-            logger($attachments, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');  */
+            /*logger($attachments, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');  */
             $params = array(
                 'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
                 'to'      => $email_to,//$arFields["EMAIL"],

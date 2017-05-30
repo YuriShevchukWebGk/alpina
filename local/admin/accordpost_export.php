@@ -72,12 +72,12 @@
             //Остановить выполнение
         } 
             
-        //Собираем информацию о заказах
+        //Собираем информацию о заказах      
         $order_filter = array("ID" => $arIDs); 
         $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $order_filter);
         while ($arSales = $rsSales->Fetch()) {                       
             $order_props[$arSales['ID']] = $arSales;  
-        }          
+        }         
                     
         //Соберем все товары в выбранных заказах
         $arFilter = array("ORDER_ID" => $arIDs);
@@ -113,9 +113,7 @@
             }                              
         }      
         
-        $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);
-        $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);
-        $unic_code = $partner_code.$order_code;  
+        $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);   
         
         //выбираем нужные поля  
               
@@ -133,16 +131,20 @@
             
             //Создаём позиции с заказами
             foreach($order_props as $order_id => $order_properties) {
-            //Создаём документ номер 5, создадим новый элемент в иб и используем его id в качестве номера отгрузки                                  
-                $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="10.00" parcel_sumvl="10.00" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$order_properties['INDEX'].'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
-            }  
-                                             
+                if(!empty($order_id)){          
+                    //Создаём документ номер 5, создадим новый элемент в иб и используем его id в качестве номера отгрузки  
+                    $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);   
+                    $unic_code = $partner_code.$order_code;                                  
+                    $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="10.00" parcel_sumvl="10.00" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$order_properties['INDEX'].'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
+                }
+            }      
+                                                 
             //Закрываем документ
             $xmlBody .= '</doc>';
             
         //Закрываем реквест
         $xmlBody .= '</request>';
-                          
+                  
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, CFG_REQUEST_FULLURL);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -224,9 +226,9 @@
         "PAYED" => "Y"                                                            
     );  
 
-    if(!empty($find_id)){                                          
-        $arFilter["ID"] = $find_id;  
-    }                 
+    if(!empty($find_id)){                                         
+        $arFilter["ID"] = explode(",", $find_id);;  
+    }                  
     if(!empty($find_id_from)){                                                                                                         
         $arFilter[">=ID"] = $find_id_from;  
     }

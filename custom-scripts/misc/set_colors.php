@@ -40,7 +40,7 @@ while($ob = $res->GetNext()) {
 		),
 	);
 
-	CIBlockElement::SetPropertyValuesEx($ob['ID'], 4, array('spec_price' => 221, 'discount_on' => 276));
+	CIBlockElement::SetPropertyValuesEx($ob['ID'], 4, array('spec_price' => 272, 'discount_on' => 276));
 }
 
 $arFields = array(
