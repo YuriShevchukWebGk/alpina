@@ -67,8 +67,8 @@
 
 <?if (!empty($arResult["PROPERTIES"]["colors"]["VALUE"]) && $arResult["PROPERTIES"]["colors"]["VALUE"] != ',') {
 	$arResult["PROPERTIES"]["colors"]["VALUE"] = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
-	$bgcolors[0] = $arResult["PROPERTIES"]["colors"]["VALUE"][1];
-	$mincolor['color'] = $arResult["PROPERTIES"]["colors"]["VALUE"][0];
+	$bgcolor = $arResult["PROPERTIES"]["colors"]["VALUE"][1];
+	$textcolor = $arResult["PROPERTIES"]["colors"]["VALUE"][0];
 
 } else {
 
@@ -109,27 +109,32 @@
     if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
         $mincolor['color'] = "#555";
     }
+
+	$bgcolor = $bgcolors[0];
+	$textcolor = $mincolor['color'];
 }
 ?>
 <style>
     .productElementWrapp:before {
-        background-color: <?=$bgcolors[0]?>;
-        opacity: 0.3;
+        background-color: <?=$bgcolor?>;
+        opacity: 0.28;
     }
     .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
-        color: <?=$mincolor['color']?>!important;
+        color: <?=$textcolor?>!important;
     }
     #diffversions .passive span {
-        border-bottom: 1px dashed <?=$mincolor['color']?>;
+        border-bottom: 1px dashed <?=$textcolor?>;
     }
     .catalogIcon {
-        background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
+        background: <?=$bgcolor?> url(/img/catalogIco.png) no-repeat center;
         opacity: 0.8;
     }
     .basketIcon {
-        background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
+        background: <?=$bgcolor?> url(/img/basketIcoHovers.png) no-repeat center;
         opacity: 0.8;
-    }		
+    }
+
+	.productElementWrapp:after{background-color: <?=$bgcolor?>}
 </style>
 
 <?CIBlockElement::SetPropertyValuesEx($arResult["ID"], 4, array('colors' => $mincolor['color'].','.$bgcolors[0]));?>

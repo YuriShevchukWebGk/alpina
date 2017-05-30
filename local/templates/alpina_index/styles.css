@@ -200,4 +200,7 @@ tabsection,
 }
 .hintWrapp {height:100%!important}
 .hintWrapp .catalogWrapper{width:100%;max-width:100%}
+
 .hintWrapp .recomendation,.bestonmain,.EditorChoiceWrapp,.saleWrapp{max-width:1140px;margin-left:auto;margin-right:auto}
+.find button[type=submit]{right:17px;background:#99abb1}
+.find button[type=submit]:after{background:#99abb1;color:#fff}
