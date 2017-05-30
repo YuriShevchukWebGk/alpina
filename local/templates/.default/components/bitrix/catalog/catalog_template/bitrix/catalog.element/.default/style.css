@@ -1332,7 +1332,7 @@
 
 .popup_form_data > div {
 	display: none;
-	position: absolute;
+	position: absolute;    
 }
 
 .popup_form_data { 
@@ -1375,7 +1375,8 @@
 }
 
 .active_certificate_block {
-	display: block !important;
+	display: block !important;  
+    text-align: center;   
 }
 
 .popup_form_data a {
@@ -1399,7 +1400,8 @@
 	padding: 14px 58px;
 	box-sizing: border-box;
 	display: inline-block;
-	text-decoration: none;
+	text-decoration: none;    
+
 }
 .popup_form_data a:hover {
     background-color: #00b9c8;
