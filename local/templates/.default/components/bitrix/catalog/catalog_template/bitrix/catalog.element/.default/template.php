@@ -558,7 +558,7 @@
                                 
                                 if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { 
                                     if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                     <?// расчитываем накопительную скидку от стоимости
                                         if ($discount) {
                                             $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
@@ -577,7 +577,7 @@
                                         if (strlen (stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
                                     }?>
-                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                     <?// расчитываем накопительную скидку от стоимости?>
                                     <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                     <?} else {
@@ -608,7 +608,7 @@
                                     $discount = false;
                                 };
                                 if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                 <?// расчитываем накопительную скидку от стоимости
                                     if ($discount) {
                                         $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
@@ -627,7 +627,7 @@
                                     if (strlen (stristr($newPrice, ".")) == 2) {
                                         $newPrice .= "0";
                                 }?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                 <?// расчитываем накопительную скидку от стоимости?>
                                 <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                 <?} else {
@@ -645,7 +645,7 @@
                         <?$StockInfo = "OutOfStock";?>
                         <?foreach ($arResult["PRICES"] as $code => $arPrice) {                    
                             if ($arPrice["DISCOUNT_DIFF"]) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.($arPrice["VALUE"]-$arPrice["DISCOUNT_VALUE"]).' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                             <?}?>
                             <?if ($arPrice["DISCOUNT_VALUE_VAT"]) {
                                 $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
