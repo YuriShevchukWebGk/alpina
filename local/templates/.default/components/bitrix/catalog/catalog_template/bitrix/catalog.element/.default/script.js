@@ -3039,18 +3039,14 @@ $(window).scroll(function() {
 	scrollDepth = $(window).scrollTop();
 	if (scrollDepth > 500 && checkReadiness == 0) {
 		$(".centerColumn").css("margin-right", "0");
+		$(".showAllWrapp").css("padding-top", "80px");
+
 		$(".rightColumn").hide();
-		if (checkReadinessDL == 0) {
-			dataLayer.push({
-				event: 'ab-test-gtm',
-				action: testId,
-				label: 'longAnnotation'
-			});
-		}
+
 		checkReadiness = 1;
-		checkReadinessDL = 1;
 	} else if (scrollDepth < 500) {
 		$(".centerColumn").css("margin-right", "264px");
+		$(".showAllWrapp").css("padding-top", "0");
 		$(".rightColumn").show();
 		checkReadiness = 0;
 	}
