@@ -3037,14 +3037,14 @@ function closeInfo() {
 
 $(window).scroll(function() {
 	scrollDepth = $(window).scrollTop();
-	if (scrollDepth > 500 && checkReadiness == 0) {
+	if (scrollDepth > 450 && checkReadiness == 0) {
 		$(".centerColumn").css("margin-right", "0");
-		$(".showAllWrapp").css("padding-top", "80px");
+		$(".showAllWrapp").css("padding-top", "110px");
 
 		$(".rightColumn").hide();
 
 		checkReadiness = 1;
-	} else if (scrollDepth < 500) {
+	} else if (scrollDepth < 450) {
 		$(".centerColumn").css("margin-right", "264px");
 		$(".showAllWrapp").css("padding-top", "0");
 		$(".rightColumn").show();

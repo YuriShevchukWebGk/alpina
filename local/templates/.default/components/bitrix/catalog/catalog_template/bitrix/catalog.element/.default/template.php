@@ -959,7 +959,9 @@
     </div>
     <div class="subscr_result"></div>
     <div class="centerColumn">
-        <h1 class="productName" itemprop="name"><?=typo($arResult["NAME"])?></h1>
+        <h1 class="productName" itemprop="name">
+			<?echo empty($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]) ? typo($arResult["NAME"]) : typo($arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"].'<br /><span>'.$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"].'</span>');?>
+		</h1>
         <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
         <div class="authorReviewWrap">
             <p class="reviews">

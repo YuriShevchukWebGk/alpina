@@ -361,7 +361,7 @@ header .headBasket{margin-right:0}
 .otherBooks img{left:0;position:relative;box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
 .categoryWrapper .titleMain{font-family:Walshein_black;font-size:42px;color:#3f4a4d;padding-top:30px;padding-bottom:26px}
 .hidingCatalogLeft{background-color:#fff;height:100%;left:0;padding:85px 0 0 46px;position:fixed;top:0;width:264px;z-index:1050}
-.elementDescriptWrap .buyLater{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:2px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:20px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
+.elementDescriptWrap .buyLater{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:2px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:20px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;width:179px}
 .allBooks:hover,.elementDescriptWrap .buyLater:hover,.hidingBasketRight .confirm:hover{background-color:#cab796;color:#fff}
 .elementDescriptWrap .oldPrice{color:#7b8c90;font-size:22px;height:15px;display:inline-block;position:relative}
 .countryBlock,.courierBlock,.layout,.pickupBlock,.windowClose{display:none}
@@ -506,9 +506,10 @@ header .headBasket{margin-right:0}
 .productAction .text{color:#8999b5;font-size:16px;padding-left:6px;padding-top:10px}
 .productAction .takePart{color:#486796;font-size:16px;margin-left:4px;margin-top:10px}
 .productAction .takePart:after{content:url(/img/takePart.png);margin-left:10px;position:relative;top:4px}
-.centerColumn .productName{color:#fff;font-size:28px;padding-top:34px}
+.centerColumn .productName{color:#fff;font-size:40px;padding-top:34px;line-height:120%}
+.centerColumn .productName span{font-size:24px}
 .centerColumn .topBlock{min-height:175px}
-.centerColumn .engBookName{color:#e4e8ea;font-size:17px;margin-top:12px;margin-bottom:8px}
+.centerColumn .engBookName{color:#e4e8ea;font-size:17px;margin-top:12px;margin-bottom:8px;font-family: Walshein_light}
 .centerColumn .productAutor{color:#E4E8EA;font-size:13px}
 .centerColumn .reviews{float:right}
 .centerColumn .countOfRev{color:#E4E8EA;font-size:14px;margin-left:8px}
