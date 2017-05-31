@@ -1,5 +1,5 @@
 function buy_certificate_popup(){
-    $('body').find('.layout').show();
+    //$('body').find('.layout').show();
     $('body').find('.certificate_popup').show();                                                
 }                                               
 function create_certificate_order(){

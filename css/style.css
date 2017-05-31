@@ -537,7 +537,8 @@ header .headBasket{margin-right:0}
 .elementDescriptWrap .annotation ul li{margin-top:8px}
 .elementDescriptWrap .videoWrapp{width:552px;margin-bottom:30px}
 .elementDescriptWrap .keyWords{margin-left:4px;margin-top:8px;padding-bottom:56px}
-.elementDescriptWrap .keyWords li{background-color:#fff;border-radius:30px;color:#424c4f;display:inline-block;font-size:14px;margin-right:4px;padding:6px 20px;margin-top:10px}
+.elementDescriptWrap .keyWords a{background-color:#F0F0F0;border-radius:30px;border:#F0F0F0 2px solid;color:#424c4f;display:inline-block;font-size:14px;margin-right:4px;padding:4px 18px;margin-top:10px}
+.elementDescriptWrap .keyWords a:hover{background-color:#fff;border:#eee 2px solid}
 .authorBooksWrapp{background-color:#fff;width:1140px;margin:0 auto;height:440px}
 .authorBooksWrapp:before{position:absolute;left:0;background:#fff;height:100%;content:"";display:block}
 .authorBooksWrapp>p{color:#3f4a4d;font-size:32px;padding-bottom:38px;padding-top:44px}

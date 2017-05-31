@@ -67,8 +67,8 @@
 
 <?if (!empty($arResult["PROPERTIES"]["colors"]["VALUE"]) && $arResult["PROPERTIES"]["colors"]["VALUE"] != ',') {
 	$arResult["PROPERTIES"]["colors"]["VALUE"] = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
-	$bgcolor = $arResult["PROPERTIES"]["colors"]["VALUE"][1];
-	$textcolor = $arResult["PROPERTIES"]["colors"]["VALUE"][0];
+	$bgcolors[0] = $arResult["PROPERTIES"]["colors"]["VALUE"][1];
+	$mincolor['color'] = $arResult["PROPERTIES"]["colors"]["VALUE"][0];
 
 } else {
 
@@ -110,34 +110,29 @@
         $mincolor['color'] = "#555";
     }
 
-	$bgcolor = $bgcolors[0];
-	$textcolor = $mincolor['color'];
+	CIBlockElement::SetPropertyValuesEx($arResult["ID"], 4, array('colors' => $mincolor['color'].','.$bgcolors[0]));
 }
 ?>
 <style>
     .productElementWrapp:before {
-        background-color: <?=$bgcolor?>;
-        opacity: 0.28;
+        background-color: <?=$bgcolors[0]?>;
+        opacity: 0.3;
     }
     .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
-        color: <?=$textcolor?>!important;
+        color: <?=$mincolor['color']?>!important;
     }
     #diffversions .passive span {
-        border-bottom: 1px dashed <?=$textcolor?>;
+        border-bottom: 1px dashed <?=$mincolor['color']?>;
     }
     .catalogIcon {
-        background: <?=$bgcolor?> url(/img/catalogIco.png) no-repeat center;
+        background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
         opacity: 0.8;
     }
     .basketIcon {
-        background: <?=$bgcolor?> url(/img/basketIcoHovers.png) no-repeat center;
+        background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
         opacity: 0.8;
-    }
-
-	.productElementWrapp:after{background-color: <?=$bgcolor?>}
+    }		
 </style>
-
-<?CIBlockElement::SetPropertyValuesEx($arResult["ID"], 4, array('colors' => $mincolor['color'].','.$bgcolors[0]));?>
 
 <?
     $templateLibrary = array('popup');
@@ -517,9 +512,7 @@
             <link itemprop="itemCondition" href="http://schema.org/NewCondition">
             <meta itemprop="sku" content="<?=$arResult["ID"]?>" />
             <?
-			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < 2000) {//До бесплатной доставки осталось
-				$printDiscountText = "<span class='sale_price'>".GetMessage("GET_FREE_DELIVERY").($arResult["FREE_DELIVERY"] - $arResult["CART_SUM"]).GetMessage("GET_FREE_DELIVERY_ENDING")."</span><br />";
-			} elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0) {
+			if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0) {
 				if ($USER->IsAuthorized()) {
                     if ($arResult["ITEM_WITHOUT_DISCOUNT"] == "Y") {
                         $discount = 0;
@@ -543,6 +536,10 @@
                         $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                     }
 				}
+			}
+
+			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < 2000) {//До бесплатной доставки осталось
+				$printDiscountText = "<span class='sale_price'>".GetMessage("GET_FREE_DELIVERY").($arResult["FREE_DELIVERY"] - $arResult["CART_SUM"]).GetMessage("GET_FREE_DELIVERY_ENDING")."</span><br />";
 			}?>
             <div class="wrap_prise_top">
                 <?$StockInfo = "";
@@ -1164,15 +1161,15 @@
 
             <?if (!empty ($arResult['TAGS']) ) {
                 echo "<p class='productSelectTitle'>" . GetMessage("KEYWORDS") . "</p>";
-                echo "<ul class='keyWords' itemprop='keywords'>";
-                $el = array('TAGS' => $arResult['TAGS']);
-                $el['TAGS'] = explode(',', $el['TAGS']);
-                for ($i = 0; $i < ($size = sizeof ($el['TAGS']) ); $i++) {
-                    if (trim ($el['TAGS'][$i]) == '') continue;
-                    print "<li><a href=\"/search/index.php?q={$el['TAGS'][$i]}\" class=\"nowrap\">{$el['TAGS'][$i]}</a></li>";
+                echo "<div class='keyWords' itemprop='keywords'>";
 
-                }
-                echo "</ul>";
+                $tags = explode(',', strtolower($arResult['TAGS']));
+				foreach ($tags as $tag) {
+					$tag = ltrim($tag);
+					echo '<a href="/search/index.php?q='.$tag.'">'.$tag.'</a>';
+				}
+
+                echo "</div>";
             }?>
         </div>                   
         <?if ($arResult["REVIEWS_COUNT"] > 0) {?>

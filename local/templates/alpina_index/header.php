@@ -1025,8 +1025,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="no-mobile bestbookmain">
             <?
 			global $bestWeekBook;
-			$bestWeekBook = array('>PROPERTY_STATEDATE' => date('Y-m-d', strtotime("-14 days")));
-			//$bestWeekBook = array('ID' =>90639);?>
+			//$bestWeekBook = array('>PROPERTY_STATEDATE' => date('Y-m-d', strtotime("-14 days")));
+			//$bestWeekBook = array('ID' =>90639);
+			$bestWeekBook = array('PROPERTY_book_of_the_week' => 917);?>     
 		
             <?
 			$APPLICATION->IncludeComponent(

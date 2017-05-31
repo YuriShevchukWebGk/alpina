@@ -8,9 +8,9 @@ $colors = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
 ?>
 
 <style>
-	.bestbook{background:<?=$colors[0]?>}
-	.bestbook .badge{background-color: <?=$colors[0]?>}
-	.bestbook .name{color:<?=$colors[0]?>}
+	.bestbook{background:<?=$colors[1]?>}
+	.bestbook .badge{background-color: <?=$colors[1]?>}
+	.bestbook .name{color:<?=$colors[1]?>}
 </style>
 <script>
 	$(document).ready(function() {
