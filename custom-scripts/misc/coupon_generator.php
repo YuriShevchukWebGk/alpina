@@ -14,12 +14,15 @@ global $USER;
 if ($USER->IsAdmin()){
 	if (CModule::IncludeModule("catalog"))
 	{
-		foreach ($couponsArray as $oneCoupon) {
+		//foreach ($couponsArray as $oneCoupon) {
+		for ($g = 0; $g < 1; $g++) {
 			$COUPON = CatalogGenerateCoupon();
+			//$COUPON = $oneCoupon;
+			$oneCoupon = 'e'.randString(7);
 			$COUPON = $oneCoupon;
 			
 			$arCouponFields = array(
-				"DISCOUNT_ID" => "150",
+				"DISCOUNT_ID" => "275",
 				"ACTIVE" => "Y",
 				"ONE_TIME" => "O",
 				"COUPON" => $COUPON,

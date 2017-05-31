@@ -17,7 +17,7 @@ if (!empty($_REQUEST['ORDER_ID'])) {
                 CSaleOrder::Update($ID, $arFields); */ 
                                                       
                 //Обновляем адресс и id пункта самовывоза
-                $db_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => 92721, "CODE" => array("ADDRESS", "PVZ_ADDRESS")));
+                $db_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_id, "CODE" => array("ADDRESS", "PVZ_ADDRESS")));
                 while ($arProps = $db_props->Fetch()) {
                     $arProperties[$arProps['CODE']]['ORDER_PROPS_ID'] = $arProps['ORDER_PROPS_ID'];
                     $arProperties[$arProps['CODE']]['ID'] = $arProps['ID'];        
@@ -28,8 +28,7 @@ if (!empty($_REQUEST['ORDER_ID'])) {
                    "ORDER_PROPS_ID" => $arProperties['ADDRESS']['ORDER_PROPS_ID'], 
                    "CODE" => "ADDRESS",                              
                    "VALUE" => $pvz_id
-                );         
-                CSaleOrderPropsValue::Update($arProperties['ADDRESS']['ID'], $prop_data_adress);
+                );                                                                                 
                 //Адрес            
                 $prop_data_pvz_adress = array(
                    "ORDER_ID" => $order_id,
@@ -37,8 +36,11 @@ if (!empty($_REQUEST['ORDER_ID'])) {
                    "CODE" => "PVZ_ADDRESS",                              
                    "VALUE" => $address
                 );      
-                CSaleOrderPropsValue::Update($arProperties['PVZ_ADDRESS']['ID'], $prop_data_pvz_adress);
-                echo 'Успешно обновлено';
+                if(CSaleOrderPropsValue::Update($arProperties['ADDRESS']['ID'], $prop_data_adress) && CSaleOrderPropsValue::Update($arProperties['PVZ_ADDRESS']['ID'], $prop_data_pvz_adress)) {         
+                    echo 'Успешно обновлено';
+                } else {          
+                    echo 'Ошибка обновления';                           
+                };                                                                               
             } else { 
                 if ($arBasket = CSaleBasket::GetList(array(), array("ORDER_ID" => $order_id), false, false, array("PRICE", "WEIGHT"))) {                 
                     while ($arItems = $arBasket->Fetch()) {             

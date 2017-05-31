@@ -35,7 +35,7 @@ function boxberry_callback(result){
             url: "/ajax/ajax_boxberry_address_update.php",
             data: {ORDER_ID: order_id, PVZ_ID: result.id,  ADDRESS: result.address, PRICE: result.price},
             success: function(data){  
-                $(".js-boxberry-change-adress").html(data); 
+                $(".js-boxberry-change-adress").html(data);  
                 location.reload();                                                                                                                         
             }
         });                                                               
