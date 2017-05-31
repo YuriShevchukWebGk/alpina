@@ -67,8 +67,8 @@
 
 <?if (!empty($arResult["PROPERTIES"]["colors"]["VALUE"]) && $arResult["PROPERTIES"]["colors"]["VALUE"] != ',') {
 	$arResult["PROPERTIES"]["colors"]["VALUE"] = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
-	$bgcolor = $arResult["PROPERTIES"]["colors"]["VALUE"][1];
-	$textcolor = $arResult["PROPERTIES"]["colors"]["VALUE"][0];
+	$bgcolors[0] = $arResult["PROPERTIES"]["colors"]["VALUE"][1];
+	$mincolor['color'] = $arResult["PROPERTIES"]["colors"]["VALUE"][0];
 
 } else {
 
@@ -110,34 +110,29 @@
         $mincolor['color'] = "#555";
     }
 
-	$bgcolor = $bgcolors[0];
-	$textcolor = $mincolor['color'];
+	CIBlockElement::SetPropertyValuesEx($arResult["ID"], 4, array('colors' => $mincolor['color'].','.$bgcolors[0]));
 }
 ?>
 <style>
     .productElementWrapp:before {
-        background-color: <?=$bgcolor?>;
-        opacity: 0.28;
+        background-color: <?=$bgcolors[0]?>;
+        opacity: 0.3;
     }
     .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
-        color: <?=$textcolor?>!important;
+        color: <?=$mincolor['color']?>!important;
     }
     #diffversions .passive span {
-        border-bottom: 1px dashed <?=$textcolor?>;
+        border-bottom: 1px dashed <?=$mincolor['color']?>;
     }
     .catalogIcon {
-        background: <?=$bgcolor?> url(/img/catalogIco.png) no-repeat center;
+        background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
         opacity: 0.8;
     }
     .basketIcon {
-        background: <?=$bgcolor?> url(/img/basketIcoHovers.png) no-repeat center;
+        background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
         opacity: 0.8;
-    }
-
-	.productElementWrapp:after{background-color: <?=$bgcolor?>}
+    }		
 </style>
-
-<?CIBlockElement::SetPropertyValuesEx($arResult["ID"], 4, array('colors' => $mincolor['color'].','.$bgcolors[0]));?>
 
 <?
     $templateLibrary = array('popup');

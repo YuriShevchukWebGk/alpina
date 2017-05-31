@@ -167,7 +167,13 @@
                            "CODE" => "EXPORTED_TO_ACCORDPOST",   
                            "NAME" => GetMessage("ACCORDPOST_EXPORT_TITLE"),
                            "VALUE" => $export_date
-                        );                                                        
+                        );                              
+                        $prop_data_zdoc = array(
+                           "ORDER_ID" => $ID,
+                           "ORDER_PROPS_ID" => ZDOC_ID_ACCORDPOST_PROPERTY_ID_NATURAL, 
+                           "CODE" => "ZDOC_ID",                              
+                           "VALUE" => $zdoc_id
+                        );                                                   
                     } else { 
                         $prop_data = array(
                            "ORDER_ID" => $ID,
@@ -175,9 +181,15 @@
                            "CODE" => "EXPORTED_TO_ACCORDPOST",   
                            "NAME" => GetMessage("ACCORDPOST_EXPORT_TITLE"),
                            "VALUE" => $export_date
-                        );      
+                        );                     
+                        $prop_data_zdoc = array(
+                           "ORDER_ID" => $ID,
+                           "ORDER_PROPS_ID" => ZDOC_ID_ACCORDPOST_PROPERTY_ID_LEGAL, 
+                           "CODE" => "ZDOC_ID",                              
+                           "VALUE" => $zdoc_id
+                        );               
                     }   
-                    if(CSaleOrderPropsValue::Add($prop_data)){
+                    if(CSaleOrderPropsValue::Add($prop_data) && CSaleOrderPropsValue::Add($prop_data_zdoc)){
                         echo GetMessage("ACCORDPOST_EXPORT_SUCCES").$zdoc_id.'<br>'; 
                         
                     } else {
