@@ -3035,7 +3035,7 @@ function closeInfo() {
 	$("body").css('overflow','auto');
 }
 
-$(window).scroll(function() {
+$(window).scroll(function() { //Скрываем блок с ценой при скролле вниз, расширяем блок аннотации и опускаем его на уровень глаз
 	scrollDepth = $(window).scrollTop();
 	if (scrollDepth > 450 && checkReadiness == 0) {
 		$(".centerColumn").css("margin-right", "0");
