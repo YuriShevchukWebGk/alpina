@@ -282,7 +282,7 @@
                     <?if (!$checkMobile) {?>
                         <a href="#" class="bookPreviewLink" onclick="getPreview(<?= $arResult["ID"] ?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;">
                         <?} else {?>
-                        <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
+                        <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="bookPreviewLink">
                             <?}?>
                         <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>              
                         <?}?>
@@ -1161,8 +1161,9 @@
 
             <?if (!empty ($arResult['TAGS']) ) {
                 echo "<p class='productSelectTitle'>" . GetMessage("KEYWORDS") . "</p>";
-                echo "<div class='keyWords' itemprop='keywords'>";
+				echo '<meta itemprop="keywords" content="'.$arResult['TAGS'].'" />';
 
+                echo "<div class='keyWords'>";
                 $tags = explode(',', strtolower($arResult['TAGS']));
 				foreach ($tags as $tag) {
 					$tag = ltrim($tag);

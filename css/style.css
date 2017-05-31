@@ -422,7 +422,7 @@ header .headBasket{margin-right:0}
 .bestSlider .bookName{color:#424c4f;font-size:14px;padding-bottom:6px;padding-top:5px;height:50px;width:142px;overflow:hidden}
 .bestSlider .bookPrice{color:#7b8c90;font-size:14px}
 .titleDiv{background-color:#fff;padding:36px 60px;height:340px;box-shadow:0 0 10px rgba(0,0,0,.5);margin-bottom:38px;margin-top:38px}
-.elementDescriptWrap .elementMainPict .element_item_img img,.otherEasySlider .bookImg{box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
+.elementDescriptWrap .elementMainPict .element_item_img img,.otherEasySlider .bookImg{box-shadow:0 8px 8px 0 rgba(0,0,0,.18),0 15px 11px 0 rgba(0,0,0,.14);width:380px;height:auto}
 .titleDiv img{float:right}
 .titleDiv .text{color:#2F3839;font-size:22px;line-height:30px;margin-top:18px}
 .titleDiv .autor{color:#7B8C90;font-size:13px;text-transform:uppercase;margin-top:62px}
@@ -450,9 +450,9 @@ header .headBasket{margin-right:0}
 .productElementWrapp:before{background-color:#99ABB1;height:260px;top:0}
 .productElementWrapp:after{background-color:#F4F4F4;opacity:0.03;content:'';display:block;left:0;position:absolute;width:100%;height:100%;top:0;z-index:0}
 .centerWrapper{margin:0 auto;width:1140px;z-index:100}
-.elementDescriptWrap .leftColumn{float:left;height:100%;width:264px}
+.elementDescriptWrap .leftColumn{float:left;height:100%;width:380px}
 .elementDescriptWrap .rightColumn{float:right;height:100%;width:264px}
-.elementDescriptWrap .centerColumn{height:100%;margin:0 264px;padding:0 28px;width:auto}
+.elementDescriptWrap .centerColumn{height:100%;margin:0 264px 0 380px;padding:0 28px;width:auto}
 .elementDescriptWrap .elementMainPict:hover .overlay{display:block}
 .elementDescriptWrap .overlay{display:none;position:absolute;top:0;z-index:2;left:0;background:url(/img/overlayMainPict.png) no-repeat;width:100%;height:100%}
 .elementDescriptWrap .overlay a{border:2px solid #ad9069;border-radius:40px;color:#ad9069;display:block!important;font-size:14px;margin:0 auto;padding:6px 0;text-align:center;text-decoration:none;width:200px}
@@ -468,12 +468,12 @@ header .headBasket{margin-right:0}
 .footerMenu img:hover,.webServ img:hover,.yaMarket>a:hover>img,.yaMarket>a:hover>p>span>img{filter:brightness(0)}
 .lkWrapp div:hover{background-color:#eee}
 .elementDescriptWrap .AlreadyInWishlist{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:2px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:40px}
-.elementDescriptWrap .takePartWrap{border-top:1px solid #ddd;padding:14px 6px;margin-bottom:20px;margin-bottom:5px;height:auto;margin-top:0px}
+.elementDescriptWrap .takePartWrap{border-top:1px solid #ddd;padding:14px 6px;margin-bottom:20px;margin-bottom:5px;height:auto;margin-top:0px;width:264px}
 .takePartWrap .title{color:#2F3839;font-size:19px;padding-bottom:8px}
 .takePartWrap .text{color:#3f4a4d;font-size:16px;padding-bottom:14px}
 .takePartWrap input{background:#fff;border:none;box-shadow:0 2px 5px 0 rgba(0,0,0,.18),0 0 1px 0 rgba(0,0,0,.14);color:#8d8d8d;font-size:15px;height:34px;margin-left:-6px;padding-left:18px;padding-right:32px;width:214px}
 .takePartWrap button{position:relative;left:217px;top:-36px;border:none;width:41px;height:36px;cursor:pointer;background:url(/img/custImpOnElement.png) 0 9px no-repeat transparent}
-.elementDescriptWrap .characteris{border-bottom:1px solid #ddd;margin-bottom:10px;padding-bottom:14px}
+.elementDescriptWrap .characteris{border-bottom:1px solid #ddd;margin-bottom:10px;padding-bottom:14px;width:264px}
 .characteris:last-child{border:none}
 .characteris .title{color:#7B8C90;font-size:15px;padding-left:4px}
 .characteris .text{color:#424C4F;padding-left:4px;font-size:15px}
@@ -778,7 +778,7 @@ header .headBasket{margin-right:0}
 .filterParams li:nth-child(2).active p:after,.filterParams li:nth-child(3).active p:after{content:url(/img/filtAftPictHov.png)}
 .hidingBasketRight .confirm a{color:#c7a271;font-size:15px;text-decoration:none}
 .footerMenu p>a{color:#8f8f8f;font-size:17px;text-decoration:none}
-.bookPreviewButton{border:2px solid #ad9069;border-radius:40px;color:#ffbf69;font-family:Walshein_regular;font-size:16px;margin:0 auto;padding:6px 0;text-align:center;text-decoration:none;width:200px;position:absolute;top:40%;left:20px;z-index:100;background:rgba(0,0,0,.5)}
+.bookPreviewButton{border:2px solid #ad9069;border-radius:45px;color:#ffbf69;font-family:Walshein_regular;font-size:18px;margin:0 auto;padding:7px 0;text-align:center;text-decoration:none;width:230px;position:absolute;top:40%;left:84px;z-index:100;background:rgba(0,0,0,.5)}
 .breadCrump span a{color:#e4e8ea;font-size:14px}
 .elementDescriptWrap .keyWords a{font-size:14px;color:#424c4f;text-decoration:none}
 #couponInp{border:1px solid #bababa;border-radius:3px;box-shadow:0 1px 2px 0 rgba(0,0,0,.21) inset;color:#000;font-size:16px;font-weight:700;height:34px;line-height:34px;margin-left:35px;margin-top:10px;text-align:left;width:200px}
@@ -926,7 +926,7 @@ table.form-table th{background:0 0!important}
 .image_mastercard,.image_visa{background-image:url(/img/payImg.png)}
 .image_mastercard,.image_visa,.image_yandexmoney{background-repeat:no-repeat}
 .section_item_img{height:215px;width:142px;text-align:center;vertical-align:middle}
-.element_item_img{width:264px;height:394px}
+.element_item_img{width:380px;height:567px}
 table.form-table{background-color:#F4F4F4!important;text-align:right}
 table.form-table tr td:nth-child(2){text-align:left}
 .comingSoonCatIcon{left:-90px!important;top:50px!important}

@@ -821,7 +821,7 @@ if ($arResult['MODULES']['currency'])
         $arResult['TAGS'] = $el["TAGS"];
     }
     
-    $arResult["PICTURE"] = CFile::ResizeImageGet($arResult["DETAIL_PICTURE"]["ID"], array('width'=>264, 'height'=>394), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+    $arResult["PICTURE"] = CFile::ResizeImageGet($arResult["DETAIL_PICTURE"]["ID"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
     $arResult["CURRENT_USER"] = CUser::GetByID($USER -> GetID()) -> Fetch();
     
     $userName = $arResult["CURRENT_USER"]["NAME"]." ".$arResult["CURRENT_USER"]["LAST_NAME"];
