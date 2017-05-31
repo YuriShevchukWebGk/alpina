@@ -3034,3 +3034,24 @@ function closeInfo() {
 	$('#ajaxBlock').empty();
 	$("body").css('overflow','auto');
 }
+
+$(window).scroll(function() {
+	scrollDepth = $(window).scrollTop();
+	if (scrollDepth > 500 && checkReadiness == 0) {
+		$(".centerColumn").css("margin-right", "0");
+		$(".rightColumn").hide();
+		if (checkReadinessDL == 0) {
+			dataLayer.push({
+				event: 'ab-test-gtm',
+				action: testId,
+				label: 'longAnnotation'
+			});
+		}
+		checkReadiness = 1;
+		checkReadinessDL = 1;
+	} else if (scrollDepth < 500) {
+		$(".centerColumn").css("margin-right", "264px");
+		$(".rightColumn").show();
+		checkReadiness = 0;
+	}
+});
