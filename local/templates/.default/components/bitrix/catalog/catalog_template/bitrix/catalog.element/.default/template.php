@@ -282,7 +282,7 @@
                     <?if (!$checkMobile) {?>
                         <a href="#" class="bookPreviewLink" onclick="getPreview(<?= $arResult["ID"] ?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;">
                         <?} else {?>
-                        <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
+                        <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="bookPreviewLink">
                             <?}?>
                         <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>              
                         <?}?>
@@ -512,9 +512,7 @@
             <link itemprop="itemCondition" href="http://schema.org/NewCondition">
             <meta itemprop="sku" content="<?=$arResult["ID"]?>" />
             <?
-			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < 2000) {//До бесплатной доставки осталось
-				$printDiscountText = "<span class='sale_price'>".GetMessage("GET_FREE_DELIVERY").($arResult["FREE_DELIVERY"] - $arResult["CART_SUM"]).GetMessage("GET_FREE_DELIVERY_ENDING")."</span><br />";
-			} elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0) {
+			if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0) {
 				if ($USER->IsAuthorized()) {
                     if ($arResult["ITEM_WITHOUT_DISCOUNT"] == "Y") {
                         $discount = 0;
@@ -538,6 +536,10 @@
                         $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                     }
 				}
+			}
+
+			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < 2000) {//До бесплатной доставки осталось
+				$printDiscountText = "<span class='sale_price'>".GetMessage("GET_FREE_DELIVERY").($arResult["FREE_DELIVERY"] - $arResult["CART_SUM"]).GetMessage("GET_FREE_DELIVERY_ENDING")."</span><br />";
 			}?>
             <div class="wrap_prise_top">
                 <?$StockInfo = "";
@@ -957,7 +959,9 @@
     </div>
     <div class="subscr_result"></div>
     <div class="centerColumn">
-        <h1 class="productName" itemprop="name"><?=typo($arResult["NAME"])?></h1>
+        <h1 class="productName" itemprop="name">
+			<?echo empty($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]) ? typo($arResult["NAME"]) : typo($arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"].'<br /><span>'.$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"].'</span>');?>
+		</h1>
         <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
         <div class="authorReviewWrap">
             <p class="reviews">
@@ -1159,15 +1163,16 @@
 
             <?if (!empty ($arResult['TAGS']) ) {
                 echo "<p class='productSelectTitle'>" . GetMessage("KEYWORDS") . "</p>";
-                echo "<ul class='keyWords' itemprop='keywords'>";
-                $el = array('TAGS' => $arResult['TAGS']);
-                $el['TAGS'] = explode(',', $el['TAGS']);
-                for ($i = 0; $i < ($size = sizeof ($el['TAGS']) ); $i++) {
-                    if (trim ($el['TAGS'][$i]) == '') continue;
-                    print "<li><a href=\"/search/index.php?q={$el['TAGS'][$i]}\" class=\"nowrap\">{$el['TAGS'][$i]}</a></li>";
+				echo '<meta itemprop="keywords" content="'.$arResult['TAGS'].'" />';
 
-                }
-                echo "</ul>";
+                echo "<div class='keyWords'>";
+                $tags = explode(',', strtolower($arResult['TAGS']));
+				foreach ($tags as $tag) {
+					$tag = ltrim($tag);
+					echo '<a href="/search/index.php?q='.$tag.'">'.$tag.'</a>';
+				}
+
+                echo "</div>";
             }?>
         </div>                   
         <?if ($arResult["REVIEWS_COUNT"] > 0) {?>

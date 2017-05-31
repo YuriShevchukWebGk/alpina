@@ -1427,3 +1427,4 @@
 .dopSaleWrap {margin-top:0;height:175px;width:1140px;margin:0 auto;clear:both}
 .annotation a{color:#3f4a4d;text-decoration:underline}
 .annotation a:hover{text-decoration:none}
+.element_item_img img{box-shadow:0 8px 8px 0 rgba(0,0,0,.18),0 15px 11px 0 rgba(0,0,0,.14)}
