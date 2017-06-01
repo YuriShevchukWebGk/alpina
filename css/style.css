@@ -944,6 +944,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .image_russianpost{width:72px;height:34px;right:10px;background-position:-180px 0}
 .slidingDelivMenu{position:fixed;top:40px}
 .wrapperCategor .filterParams li p a{color:#3f4a4d!important}
+.wrapperCategor .filterParams li p a:hover{text-decoration:none}
 .editorsCatalogIcon{left:-105px;top:48px}
 .editorsBasketIcon{right:-105px;top:48px}
 .allBooksWrapp .titleMain a{color:#3f4a4d;font-size:32px}

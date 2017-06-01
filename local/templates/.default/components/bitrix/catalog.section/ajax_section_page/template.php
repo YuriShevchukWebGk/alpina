@@ -604,7 +604,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                             $(this).html(truncate($(this).html(), 40));    
                         }    
                     });
-                    var otherBooksHeight = 1360 * ($(".otherBooks ul li").length / 15);
+                    var otherBooksHeight = 455 * Math.ceil($(".otherBooks ul li").length / 5);
                     console.log($(".otherBooks ul li").length);
                    
                     var categorHeight = WrappHeight+RecHeight+200 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
