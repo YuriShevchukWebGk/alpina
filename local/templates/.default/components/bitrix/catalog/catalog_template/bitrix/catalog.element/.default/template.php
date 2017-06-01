@@ -62,7 +62,26 @@
 
         docReadyComponent(<?= $arResult["ID"] ?>);
     });
-      </script> 
+	<?if (!$checkMobile) {?>
+		$(window).scroll(function() { //Скрываем блок с ценой при скролле вниз, расширяем блок аннотации и опускаем его на уровень глаз
+			scrollDepth = $(window).scrollTop();
+			if (scrollDepth > 450 && checkReadiness == 0) {
+				$(".centerColumn").css("margin-right", "0");
+				$(".showAllWrapp").css("padding-top", "110px");
+
+				$(".rightColumn").hide();
+
+				checkReadiness = 1;
+			} else if (scrollDepth < 450) {
+				$(".centerColumn").css("margin-right", "264px");
+				$(".showAllWrapp").css("padding-top", "0");
+				$(".rightColumn").show();
+				checkReadiness = 0;
+			}
+		});
+	<?}?>
+</script>
+
 <script src="/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js')?>"></script> 
 
 <?if (!empty($arResult["PROPERTIES"]["colors"]["VALUE"]) && $arResult["PROPERTIES"]["colors"]["VALUE"] != ',') {

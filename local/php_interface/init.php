@@ -196,7 +196,7 @@
 
                 }
             }
-            /*logger($attachments, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');  */
+            logger($arTemplate, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');
             $params = array(
                 'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
                 'to'      => $email_to,//$arFields["EMAIL"],
@@ -205,13 +205,13 @@
             );
 
             if ($arTemplate['BCC']) {
-                $params['bcc'] = $arTemplate['BCC'];
+                $params['bcc'] .= $arTemplate['BCC'];
             }
 
             if ($arTemplate['CC']) {
-                $params['cc'] = $arTemplate['CC'];
+                $params['cc'] .= $arTemplate['CC'];
             }
-
+            logger($params, $_SERVER["DOCUMENT_ROOT"].'/logs/log1.php');
             $domain = $arParams['MAILGUN']['DOMAIN'];
 
           //  # Make the call to the client.
