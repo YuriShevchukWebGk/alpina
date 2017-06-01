@@ -29,7 +29,7 @@
 
         $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
         $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
-        if ($(".element_item_img img").height() < 394 && $(".element_item_img img").height() > 100) {
+        if ($(".element_item_img img").height() < 562 && $(".element_item_img img").height() > 100) {
             $(".element_item_img").height($(".element_item_img img").height());
         }
 
@@ -62,7 +62,26 @@
 
         docReadyComponent(<?= $arResult["ID"] ?>);
     });
-      </script> 
+	<?if (!$checkMobile) {?>
+		$(window).scroll(function() { //Скрываем блок с ценой при скролле вниз, расширяем блок аннотации и опускаем его на уровень глаз
+			scrollDepth = $(window).scrollTop();
+			if (scrollDepth > 450 && checkReadiness == 0) {
+				$(".centerColumn").css("margin-right", "0");
+				$(".showAllWrapp").css("padding-top", "110px");
+
+				$(".rightColumn").hide();
+
+				checkReadiness = 1;
+			} else if (scrollDepth < 450) {
+				$(".centerColumn").css("margin-right", "264px");
+				$(".showAllWrapp").css("padding-top", "0");
+				$(".rightColumn").show();
+				checkReadiness = 0;
+			}
+		});
+	<?}?>
+</script>
+
 <script src="/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js')?>"></script> 
 
 <?if (!empty($arResult["PROPERTIES"]["colors"]["VALUE"]) && $arResult["PROPERTIES"]["colors"]["VALUE"] != ',') {
@@ -960,7 +979,7 @@
     <div class="subscr_result"></div>
     <div class="centerColumn">
         <h1 class="productName" itemprop="name">
-			<?echo empty($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]) ? typo($arResult["NAME"]) : typo($arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"].'<br /><span>'.$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"].'</span>');?>
+			<?echo empty($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]) ? typo($arResult["NAME"]) : '<span>'.typo($arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"].'</span><br />'.$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]);?>
 		</h1>
         <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
         <div class="authorReviewWrap">

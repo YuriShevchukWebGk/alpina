@@ -506,8 +506,8 @@ header .headBasket{margin-right:0}
 .productAction .text{color:#8999b5;font-size:16px;padding-left:6px;padding-top:10px}
 .productAction .takePart{color:#486796;font-size:16px;margin-left:4px;margin-top:10px}
 .productAction .takePart:after{content:url(/img/takePart.png);margin-left:10px;position:relative;top:4px}
-.centerColumn .productName{color:#fff;font-size:40px;padding-top:34px;line-height:120%}
-.centerColumn .productName span{font-size:24px}
+.centerColumn .productName{color:#fff;padding-top:34px}
+.centerColumn .productName span{font-size:40px}
 .centerColumn .topBlock{min-height:175px}
 .centerColumn .engBookName{color:#e4e8ea;font-size:17px;margin-top:12px;margin-bottom:8px;font-family: Walshein_light}
 .centerColumn .productAutor{color:#E4E8EA;font-size:13px}
@@ -520,7 +520,7 @@ header .headBasket{margin-right:0}
 .productType .cost{color:#7B8C90;font-size:14px}
 .elementDescriptWrap .otherTypes{background:url(/img/otherTypesBack.png) 3px 34px no-repeat #dfdfdf;height:72px!important;margin-right:0!important;padding:0!important;width:16px!important;cursor:pointer}
 .elementDescriptWrap .productsMenu{color:#00abb8;font-size:13px;margin-top:18px;margin-bottom:30px}
-.productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:30px;width:auto!important}
+.productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:27px;width:auto!important}
 .productsMenu li:hover{border-bottom:none}
 .productsMenu .active{color:#2F3839;font-size:19px;text-transform:none;border-bottom:none}
 .elementDescriptWrap .citate,.elementDescriptWrap i{color:#2F3839;font-family:Walshein_light;font-size:20px;margin-bottom:20px}
@@ -963,7 +963,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .categoryWrapper .sliderElementMin{display:block;float:left}
 .contacsFormMessage{background:#fff;border:1px solid #00f;display:block;left:200px;padding:30px 0;position:absolute;text-align:center;top:100px;width:700px;z-index:1100}
 #development,.reviewsBlockDetail .autor{text-align:right}
-.reviewsBlockDetail .reviewImgContain{border-radius:90px;float:left;height:150px;overflow:hidden;width:150px;margin-right:20px;margin-bottom:20px;list-style-type:none}
+.reviewsBlockDetail .reviewImgContain, .reviewsBlockDetail .reviewImgContain img{border-radius:90px;float:left;height:100px;overflow:hidden;width:100px;margin-right:20px;margin-bottom:20px;list-style-type:none}
 .reviewsBlockDetail ul{padding-left:0!important}
 .popupAbout,.popupDeliveryWrapper{padding:0 20px}
 .reviewsBlockDetail .reviewDatail{clear:both;margin-bottom:32px;list-style-type:none}
