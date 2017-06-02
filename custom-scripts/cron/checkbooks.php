@@ -145,45 +145,24 @@ global $USER;
 		
 		echo '<br />';
 		foreach ($data as $oned) {
-			$bookid = get_object_vars($oned)['external_id'];;
-			$bookdid = get_object_vars($oned)['id'];
-			$bookprice = get_object_vars(get_object_vars($oned)['prices'][0])['reference_price'];
-			print_r($oned);
-			$obEl = new CIBlockElement();
-			CIBlockElement::SetPropertyValuesEx($bookid, 4, array('appstore' => '231', 'android' => '232', 'alpina_digital_ids' => $bookdid, 'alpina_digital_price' => $bookprice));
+			if (get_object_vars($oned)['is_active'] == 1) {
+				$bookid = get_object_vars($oned)['external_id'];
+				$bookdid = get_object_vars($oned)['id'];
+				$bookprice = get_object_vars(get_object_vars($oned)['prices'][0])['reference_price'];
+				print_r($oned);
+				$obEl = new CIBlockElement();
+				CIBlockElement::SetPropertyValuesEx($bookid, 4, array('appstore' => '231', 'android' => '232', 'alpina_digital_ids' => $bookdid, 'alpina_digital_price' => $bookprice));
+			} else {
+				$obEl = new CIBlockElement();
+				CIBlockElement::SetPropertyValuesEx($bookid, 4, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
+			}
 		}
 	}
 
-	/*foreach ($lost as $m => $findrec) {
-
-		//if ($m > 10) continue;
-		
-		CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => $recs[$i], 'appstore' => '', 'android' => ''));
-		$name = CIBlockElement::GetByID($findrec)->Fetch();
-		
-		$recs = json_decode(file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$findrec));
-		
-		$ok = false;
-		$i = 0;
-		
-		while ($ok == false) {
-
-			if (in_array($recs[$i], $okbooks)) {
-				$ok = true;
-				$obEl = new CIBlockElement();
-				CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => $recs[$i], 'appstore' => '', 'android' => ''));
-				$obElement = CIBlockElement::GetByID($recs[$i])->Fetch();
-				echo $findrec."*2*".$recs[$i]."*".$name['NAME']."*".$obElement['NAME']."<br />";
-			}
-			$i++;
-			if ($i > 5 && !$ok) {
-				$ok = true;
-				$obEl = new CIBlockElement();
-				CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
-				echo $findrec."*3*norec*".$name['NAME']."<br />";
-			}
-		}
-	}*/
+	foreach ($lost as $findrec) {
+		$obEl = new CIBlockElement();
+		CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
+	}
 	
 	/*$manual = array(
 		array('id'=>'7099','rec'=>'6990'),

@@ -22,7 +22,7 @@
         array_push($itemsForFloctory,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", quantity: ".$basketItem["QUANTITY"].", title: '".$basketItem["NAME"]."' }");
         array_push($itemsForRetailRocket,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", qnt: ".$basketItem["QUANTITY"]." }");
 
-        // --- for google ecommerce
+         // --- for google ecommerce
 
         $itemRes = CIBlockElement::GetByID($basketItem["PRODUCT_ID"]);
         if($itemData = $itemRes->GetNext()){
@@ -63,7 +63,11 @@
 
         <p class="ordContain">    <!--chekingFields('Y')-->
             <a href="javascript:void(0);" onclick="submitForm('Y'); return false;" id="ORDER_CONFIRM_BUTTON" class="checkout orderConfirm">
-                <?=GetMessage("SOA_TEMPL_BUTTON")?>
+                <?if($arResult['PREORDER'] == 'Y'){
+                    echo GetMessage("SOA_TEMPL_BUTTON_PREORDER");                    
+                } else {
+                    echo GetMessage("SOA_TEMPL_BUTTON");
+                }?>
             </a>
 			<div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
         </p> 

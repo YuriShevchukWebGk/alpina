@@ -41,13 +41,13 @@ global $authorName;
                             if ($arPrice["DISCOUNT_VALUE_VAT"])
                             {
                             ?>
-                            <p class="bookPrice" itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
+                            <p class="bookPrice" itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span></p>
                             <?
                             }
                             else
                             {
                             ?>
-                            <p class="bookPrice"itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
+                            <p class="bookPrice"itemprop="offers" itemscope itemtype="http://schema.org/Offer"><link itemprop="availability" href="http://schema.org/InStock"><span itemprop="price"><?=ceil($arPrice["ORIG_VALUE_VAT"])?></span></p>
                             <?
                             }
                         }
@@ -60,7 +60,7 @@ global $authorName;
                         else
                         {
                         ?>
-                            <p class="bookPrice"><?=strtolower(FormatDate("j F", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
+                            <p class="bookPrice"><?=strtolower(FormatDate("j F", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY")));?></p>
                     
                     <?      }
                         //}

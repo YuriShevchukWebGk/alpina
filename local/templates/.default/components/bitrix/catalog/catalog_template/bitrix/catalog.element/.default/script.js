@@ -2911,7 +2911,7 @@ $(document).ready(function(){
         
         $(".bigSlider").hide();
         $(".revTitle").hide();
-        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - $(".bigSlider").height() - $(".revTitle").height() - 40 + "px");
+        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - $(".bigSlider").height() - $(".revTitle").height() + "px");
         $(".sliderName").css("padding-top", "40px");    
     }
     
@@ -2923,7 +2923,7 @@ $(document).ready(function(){
 
     if ($(".uLookSlider ul li").size() == 0)
     {
-        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - 350 - $(".youViewedTitle").height() + "px");
+        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - 310 - $(".youViewedTitle").height() + "px");
         $(".uLookSlider").hide();
         $(".youViewedTitle").hide();
     }
@@ -3016,6 +3016,8 @@ function getInfo(id) {
 }
 
 function getPreview(id,stock) {
+	$(".element_item_img .bookPreviewLink").css('opacity', '0.8');
+	$(".element_item_img").append('<div id="loadingInfo" class="previwLoading" style="margin-top: -75%;"><div class="spinner"><div class="spinner-icon"></div></div></div>');
 	$.ajax({
 		type: "POST",
 		url: "/ajax/book_preview.php",
@@ -3023,6 +3025,8 @@ function getPreview(id,stock) {
 	}).done(function(strResult) {
 		$("#ajaxBlock").append(strResult);
 		$("body").css('overflow','hidden');
+		$(".element_item_img .bookPreviewLink").css('opacity', '1');
+		$(".previwLoading").hide();
 	});
 }
 

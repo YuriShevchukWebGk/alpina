@@ -1,4 +1,4 @@
-<?
+<?                                                                                         
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
     $APPLICATION->SetTitle("Оплата заказа");
 ?>
@@ -187,7 +187,7 @@
     </style>
 
     <?$arOrder = CSaleOrder::GetByID($_GET['ORDER_ID']);?>
-    <? if ($arOrder['PAYED'] == "Y") { echo "Ваш заказ уже оплачен"; } else { ?>
+    <? if ($arOrder['PAYED'] == "Y") { echo "Ваш заказ уже оплачен"; } elseif ($arOrder['STATUS_ID'] == PREORDER_STATUS_ID) { echo "Вы сможете воспользоваться ссылкой на оплату после того, как книга появится появится в продаже."; } else { ?>
 
         <?  /*
             // новый виджет РФИ 
@@ -398,7 +398,7 @@
                             <td>Бухгалтер</td>
                             <td></td>
                             <td><br><div>подпись</div></td>
-                            <td>Пархоменко Анна<br><div>расшифровка подписи</div></td>
+                            <td>Хорева Е.В.<br><div>расшифровка подписи</div></td>
                         </tr>
                     </table>
                 </div>

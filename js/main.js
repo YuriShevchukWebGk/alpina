@@ -67,6 +67,7 @@ function close_notice(id){
 }
 //отправка главы
 function sendchapter(bookid) {
+	$(".takePartWrap button").after('<div id="loadingInfo"><div class="spinner"><div class="spinner-icon"></div></div></div>').hide();
 	$.ajax({
 		type: "POST",
 		url: "/ajax/send_chapter.php",
@@ -413,7 +414,14 @@ $(document).ready(function(){
         })
     }
 
-
+	//Открываем вкладку об авторах
+	$(".productAutor").click(function() {
+		$('#prodBlock1, #prodBlock2, #prodBlock3, #prodBlock4, #prodBlock5').hide();
+		$('.productsMenu li').removeClass('active');
+		$(".productsMenu li:nth-child(2)").addClass("active");
+		$('#prodBlock4').show();
+	});
+	
     //смена блоков на детальной карточке
     if($('.productElementWrapp').length >0){
         $('.productsMenu li').click(function(){
@@ -1011,8 +1019,10 @@ function addtocart(productid, name, product_status) {
     })
 }
 function addtocart_fromwishlist (productid, name, product_status) {
+	$(".loadingInfo_"+productid).show();
+	$(".wishlistBlock").find("a#wishItem_"+productid).hide();
     $.post('/ajax/ajax_add2basketfromwishlist.php', {action: "add", productid: productid, product_status: product_status}, function(data)
-        {  
+        {
             $(".wishlistBlock").find("a#wishItem_"+productid).css("background-color", "#A9A9A9");
             $(".wishlistBlock").find("a#wishItem_"+productid).css("color", "white");
             $(".wishlistBlock").find("a#wishItem_"+productid).html("В корзине");
@@ -1021,6 +1031,8 @@ function addtocart_fromwishlist (productid, name, product_status) {
             $("#basket_container").html(data);
             // $("#cardBlock2").html(data[1]);
             update_wishlist();
+			$(".loadingInfo_"+productid).hide();
+			$(".wishlistBlock").find("a#wishItem_"+productid).show();
     })
 }
 
@@ -1399,6 +1411,83 @@ function selectversion(cl,id) {
 }
 
 function docReadyComponent(id) {
+    function buy_certificate_popup(){
+        $('body').find('.layout').show();
+        $('body').find('.certificate_popup').show();                                                
+    }                                               
+    function create_certificate_order(){
+        var form_valid = true;
+        var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        // просматриваем все поля на предмет заполненности
+        $(".active_certificate_block input").each(function(){
+            if (!$(this).val()) {   
+                form_valid = false;
+                $(this).css("border-color", "red");    
+            } else {
+                if ($(this).attr("name") == 'natural_email' || $(this).attr("name") == 'legal_email') {                      
+                    if (!(pattern.test($(this).val()))) {    
+                        form_valid = false;
+                        $(this).css("border-color", "red");
+                    } else {
+                        $(this).css("border-color", "#f0f0f0");   
+                    }       
+                }                                     
+            }
+        });                
+        // если все ок, то сабмитим
+        if (form_valid) {
+            var natural_person_email = $("#natural_email").val(),
+            selected_tab = $(".certificate_tab_active").data("popup-block");
+            $("input[name='certificate_quantity']").val($(".transparent_input").val());
+            var certificate_price = parseInt($("input[name='certificate_price']").val());   
+            var certificate_quantity = parseInt($(".transparent_input").val()); 
+            $.ajax({
+                url: '/ajax/ajax_create_certificate_order.php',
+                type: "POST",
+                data: {
+                    data: $("#certificate_form").serialize(),
+                    person_type: selected_tab
+                }
+            }).done(function(result) {
+                var certificate_result = JSON.parse(result);
+                if (certificate_result.status == "success") {
+                    order_id = certificate_result.data;
+                    $("#certificate_form").remove();
+                    if (selected_tab == "natural_person") {
+                        // физ. лицо
+                        var success_message = "<?= GetMessage('NATURAL_SUCCESS_MESSAGE') ?>"; 
+                        $(".submit_rfi").attr("data-email", natural_person_email);  
+                        $(".submit_rfi").attr("data-comment", "CERT_" + order_id);  
+                        $(".submit_rfi").attr("data-orderid", "CERT_" + order_id);         
+                        $(".submit_rfi").attr("data-cost", certificate_price * certificate_quantity);  
+                        $(".submit_rfi").click();
+                        $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
+                    } else {
+                        // юр. лицо
+                        var success_message = "<?= GetMessage('LEGAL_SUCCESS_MESSAGE') ?>";
+                        $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
+                    }
+                } else {
+                    console.error(certificate_result.data);
+                }
+            });
+        }
+    }
+    // переключение табов в попапе
+    $(".certificate_buy_type li").click(function() {
+        if(!$(this).hasClass("certificate_tab_active")) {
+            $(".certificate_buy_type li").removeClass("certificate_tab_active");
+            $(this).addClass("certificate_tab_active");
+            $(".popup_form_data > div").removeClass("active_certificate_block");
+            $("div[class='" + $(this).data("popup-block") + "']").addClass("active_certificate_block");
+        }
+    });
+    // закрытие попапа
+    $(".certificate_popup_close").click(function(){
+        $(".certificate_popup").hide();
+        $('.layout').hide();
+    })
+    
 	$(".element_item_img").hover(
 	  function() {
 		$(this).find('img').css({'filter':'grayscale(0.7)', '-webkit-filter':'grayscale(0.7)', '-moz-filter':'grayscale(0.7)', '-o-filter':'grayscale(0.7)', '-ms-filter':'grayscale(0.7)'});
@@ -1786,12 +1875,12 @@ function docReadyComponent(id) {
 		var link = $(this).attr("href");
 		var target = $(this).attr("target");
 		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
-			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|info\_popup|ADD2BASKET)|\/personal\/profile\//) && target != "_blank") {
+			if (!link.match(/([\#\(\)]|pdf|freedigitalbooks|\/personal\/cart\/|\/personal\/profile\/|info\_popup|ADD2BASKET)|\/personal\/profile\//) && target != "_blank") {
 				NProgress.start();
 			};
 		}
 	});
 	NProgress.set(0.6);
 	setTimeout(function() { NProgress.done();}, 200);
-	//Progress Bar END
+	//Progress Bar END                              
 }

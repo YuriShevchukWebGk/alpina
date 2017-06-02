@@ -86,9 +86,10 @@
                         <div>
                             <p class="dopInfoTitle"><?= GetMessage("DELIVERY_TYPE") ?></p>
                             <p class="dopInfoText"><?= $arResult["INFO"]["DELIVERY"][$order["ORDER"]["DELIVERY_ID"]]["NAME"] ?></p>
-                            <p class="dopInfoTitle thiCol"><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--класс отступа сверху -->
-                            <p class="dopInfoText">
-                                <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) && $order["ORDER"]["PAYED"] != "Y"){?>
+                            <p class="dopInfoTitle thiCol"<?if($order["ORDER"]['STATUS_ID'] == PREORDER_STATUS_ID) { echo 'style="display:none"'; }?>><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--класс отступа сверху -->
+                            
+                            <p class="dopInfoText" <?if($order["ORDER"]['STATUS_ID'] == PREORDER_STATUS_ID) { echo 'style="display:none"'; }?>>
+                                <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) && $order["ORDER"]["PAYED"] != "Y" ){?>
                                     <a href="/personal/order/payment/?ORDER_ID=<?=$order["ORDER"]["ID"]?>"><?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?></a>
                                 <?} else {?>
                                     <?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?>
@@ -96,24 +97,24 @@
                             <?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
                                 <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_DATE") ?></p> <!--класс отступа сверху -->
                                 <p class="dopInfoText"><?= CustomPickPoint::getDeliveryDate($order["ORDER"]["ID"]) ?></p>
-                                <?}?>
-                            <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID))
-                                && ($order["ORDER"]["PAYED"] != "Y")) {
+                                <?}?> 
+                            <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID))) {
                                 ?>
                                 <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL ||
                                     $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 ||
                                     $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT ||
-                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST) {?>
+                                    $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST ||
+                                    $order["ORDER"]["DELIVERY_ID"] == BOXBERRY_PICKUP_DELIVERY_ID) {?>       
 
-                                   <?
+                                   <?      
                                     $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
 
                                     /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
                                     $shipmentCollection = $origin_identifier->getShipmentCollection();
                                     foreach ($shipmentCollection as $shipment) {
-                                    if($shipment->isSystem())
+                                    if($shipment->isSystem())       
                                         continue;
-                                        $track = $shipment->getField('TRACKING_NUMBER');
+                                        $track = $shipment->getField('TRACKING_NUMBER');     
                                     }?>
                                     <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
@@ -130,6 +131,9 @@
                                     <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST && $arResult["INFO"]["STATUS"][$order["ORDER"]["STATUS_ID"]]["ID"] != "I") {?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
                                         <p class="dopInfoText"><?=GetMessage("TRACK_MESSAGE_PICK_POINT_NULL");?></p>
+                                     <?}elseif($order["ORDER"]["DELIVERY_ID"] == BOXBERRY_PICKUP_DELIVERY_ID  && !empty($track)) {?>           
+                                        <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
+                                        <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_BOXBERRY", Array ("#TRACK#" => $track));?></p>
                                      <?}?>
                                 <?}?>
 
@@ -148,7 +152,7 @@
                             <?foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
                                 ?>
                                 <tr>
-                                    <td class="infoTextTab infBookName"><?= $arBaskItem["NAME"] ?></td>
+                                    <td class="infoTextTab infBookName"><a href="<?=$arBaskItem["DETAIL_PAGE_URL"]?>"><?= $arBaskItem["NAME"] ?></a></td>
                                     <td class="infoQuant"><?= $arBaskItem["QUANTITY"] ?></td>
                                     <td class="infoSoonDate">
                                         <?if ($preOrder == 'Y') {?>

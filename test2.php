@@ -1,6 +1,6 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-?>                               
+?>
 <?/*$APPLICATION->IncludeComponent(
     "bitrix:socserv.auth.split",
     "",
@@ -11,7 +11,6 @@
 false
 ); */
 
-echo date('h-i-s, j-m-y, it is w Day');     
  /*
 $users = array();
 $emails_arr = array();
@@ -20,7 +19,7 @@ $original_users_list = array();
 $original_users_emails = array();
 $emails_list = array();
 $users_list = CUser::GetList ($by = "id", $order = "desc", array("LOGIN" => "newuser"), array("ID", "LOGIN", "EMAIL"));
-$users_count = 0;*/                                                        
+$users_count = 0;*/
 /*while ($users_fetch = $users_list -> Fetch()) {
     if (strlen($users_fetch["EMAIL"]) > 0) {
         $users[strtolower($users_fetch["EMAIL"])][] = array("ID" => $users_fetch["ID"], "LOGIN" => $users_fetch["LOGIN"]);
@@ -40,31 +39,31 @@ foreach ($emails_list as $curr_email) {
     $users_list_by_email = CUser::GetList ($by = "id", $order = "desc", array("EMAIL" => $curr_email), array("ID", "LOGIN", "EMAIL"));
     while ($users_by_email = $users_list_by_email -> Fetch()) {
             $users[strtolower($users_by_email["EMAIL"])][] = array("ID" => $users_by_email["ID"], "LOGIN" => $users_by_email["LOGIN"]);
-    }    
+    }
 }
-                       
+
 foreach ($users as $email => $val) {
     //if ($i < 500) {
         foreach ($val as $key => $arr) {
             $temp_users[$email][] = array("ID" => $arr["ID"], "LOGIN" => $arr["LOGIN"]);
     //    }
-    
-     //   $i++; 
-    }   
+
+     //   $i++;
+    }
 }
 $j = 0;
 foreach ($temp_users as $email => $val) {
         foreach ($val as $key => $arr) {
             if ((($arr["LOGIN"] != $email && strstr($arr["LOGIN"], "newuser")) *//*&& $email == "newuser@alpinabook.ru")*/ /*&& isset($arr["ID"]) && $arr["ID"] != $original_users_list[$email])) {
                 //if ($j < 50) {
-                    $emails_arr[$email][] = $arr["ID"];    
+                    $emails_arr[$email][] = $arr["ID"];
                // }
-               // $j++;    
+               // $j++;
             } else if ($arr["LOGIN"] == $email || ($arr["LOGIN"] != $email && !strstr($arr["LOGIN"], "newuser"))){
                 $original_users_list[$email] = $arr["ID"];
                 $original_users_emails[] = $email;
-            }    
-        }   
+            }
+        }
 }
 $original_users_list["newuser@alpinabook.ru"] = 2940;
 $original_users_emails[] = "newuser@alpinabook.ru";
@@ -77,12 +76,12 @@ foreach ($emails_arr as $email => $email_arr) { */
     }*//*
     if (in_array($email, $original_users_emails) && !empty($email_arr)){
          //echo $i . "<br>";
-         foreach ($email_arr as $curr_email) {   
+         foreach ($email_arr as $curr_email) {
              $order_list = CSaleOrder::GetList (array(), array("USER_ID" => $curr_email));
              while ($order_id = $order_list -> Fetch()) {
-                 $orders_arr[$email][] = $order_id["ID"];                           
+                 $orders_arr[$email][] = $order_id["ID"];
              }
-         }   
+         }
          //arshow($emails_arr[$email]);
       }
 }
@@ -90,9 +89,9 @@ foreach ($emails_arr as $email => $email_arr) { */
 /*foreach ($users as $email => $val) {
     foreach ($val as $key => $arr) {
         if ($arr["LOGIN"] != $email && strstr($arr["LOGIN"], "newuser")) {
-            $emails_arr[$email][] = $arr["ID"];    
+            $emails_arr[$email][] = $arr["ID"];
         }
-    }    
+    }
 }
 $orders = array();
 arshow($orders);*/
@@ -104,17 +103,17 @@ arshow($orders);*/
                  $this_order_info = CSaleOrder::GetByID($order_id);
                  $this_delivery_info = CSaleDelivery::GetList(array(), array("LID" => SITE_ID, "ID" => $this_order_info["DELIVERY_ID"]), false, false, array());
                  $delivery_info_rows = $this_delivery_info -> SelectedRowsCount();
-                 
+
                  if (strlen($this_order_info["PAY_SYSTEM_ID"]) <= 0 || $this_order_info["PAY_SYSTEM_ID"] == 0) {
                      $arFields["PAY_SYSTEM_ID"] = 11;
                  }
                  if (strlen($this_order_info["DELIVERY_ID"]) <= 0 || $this_order_info["DELIVERY_ID"] == 0 || $delivery_info_rows <= 0) {
                      $arFields["DELIVERY_ID"] = 2;
                  }
-              // CSaleOrder::Update ($order_id, $arFields);    
-             }    
+              // CSaleOrder::Update ($order_id, $arFields);
+             }
     }
-     
+
 }
 arshow($emails_arr);
 //arshow($original_users_list);
@@ -125,8 +124,8 @@ foreach ($emails_arr as $email => $user_copies_arr) {
                 if($user_info["CURRENT_BUDGET"] > 0) {
                  //  CSaleUserAccount::Update($user_info["ID"], array("CURRENT_BUDGET" => 0));
                 }
-                // CUser::Delete($user_copy_id);    
+                // CUser::Delete($user_copy_id);
              }
-     }    
-}*/?> 
+     }
+}*/?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

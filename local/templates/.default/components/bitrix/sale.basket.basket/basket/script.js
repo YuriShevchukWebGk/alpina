@@ -2,8 +2,9 @@
 * @param basketItemId
 * @param {{BASKET_ID : string, BASKET_DATA : { GRID : { ROWS : {} }}, COLUMNS: {}, PARAMS: {}, DELETE_ORIGINAL : string }} res
 */
-function updateBasketTable(basketItemId, res)
-{                                 
+function updateBasketTable(basketItemId, res, params)
+{                 
+    params = params || '';                  
     var table = BX("basket_items"),
     rows,
     newBasketItemId,
@@ -491,10 +492,10 @@ function updateBasketTable(basketItemId, res)
             }
         }
     }
-
-    // update coupon info
+                                  
+    // update coupon info         
     if (!!res.BASKET_DATA)
-        couponListUpdate(res.BASKET_DATA);
+        couponListUpdate(res.BASKET_DATA, params);
 
     // update warnings if any
     if (res.hasOwnProperty('WARNING_MESSAGE'))
@@ -548,7 +549,7 @@ function couponCreate(couponBlock, oneCoupon)
                 $(".gifts_block").show();
             }    
         });
-    }
+    }                          
     couponBlock.appendChild(BX.create(
         'div',
         {
@@ -609,8 +610,9 @@ function couponCreate(couponBlock, oneCoupon)
 /**
 * @param {COUPON_LIST : []} res
 */
-function couponListUpdate(res)
+function couponListUpdate(res, params)
 {
+    params.basketID = params.basketID || ''; 
     var couponBlock,
     couponClass,
     fieldCoupon,
@@ -623,9 +625,13 @@ function couponListUpdate(res)
     if (!!res && typeof res !== 'object')
     {
         return;
-    }
-
-    couponBlock = BX('coupons_block');
+    }                          
+                          
+    if(params.basketID != '') {
+        couponBlock = BX('coupons_block_' + params.basketID); 
+    } else { 
+        couponBlock = BX('coupons_block');     
+    }                                  
     if (!!couponBlock)
     {
         if (!!res.COUPON_LIST && BX.type.isArray(res.COUPON_LIST))
@@ -658,7 +664,7 @@ function couponListUpdate(res)
                         }
                     }
                     if (couponFound)
-                    {
+                    {                     
                         couponClass = 'disabled';
                         if (res.COUPON_LIST[i].JS_STATUS === 'BAD')
                             couponClass = 'bad';
@@ -675,7 +681,7 @@ function couponListUpdate(res)
                         BX.adjust(couponsCollection[key].nextSibling.nextSibling, {html: res.COUPON_LIST[i].JS_CHECK_CODE});
                     }
                     else
-                    {
+                    {                          
                         couponCreate(couponBlock, res.COUPON_LIST[i]);
                     }
                 }
@@ -786,8 +792,7 @@ function skuPropClickHandler(e)
             'use_prepayment': BX('use_prepayment').value
         };
 
-        postData[action_var] = 'select_item';
-
+        postData[action_var] = 'select_item'; 
         BX.ajax({
             url: '/bitrix/components/bitrix/sale.basket.basket/ajax.php',
             method: 'POST',
@@ -861,11 +866,18 @@ function checkOut(preorderID)
     }           
 }
 
-function enterCoupon()
+function enterCoupon(preorderID)
 {
-    var newCoupon = BX('coupon');
+    preorderID = preorderID || '';
+    var couponID = '';
+    if(preorderID != '') {
+        couponID = 'coupon_' + preorderID;         
+    } else {              
+        couponID = 'coupon';                                          
+    }                        
+    var newCoupon = BX(couponID);            
     if (!!newCoupon && !!newCoupon.value)
-        recalcBasketAjax({'coupon' : newCoupon.value});
+        recalcBasketAjax({'coupon' : newCoupon.value, 'basketID' : preorderID});                                      
 }
 
 // check if quantity is valid
@@ -937,11 +949,14 @@ function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
         }                                                         
     })               
     $("#totalQuantity").html(totalQuantity);
+
 }
 
 // used when quantity is changed by clicking on arrows
 function setQuantity(basketId, ratio, sign, bUseFloatQuantity)
 {
+	$("#QUANTITY_INPUT_" + basketId).addClass("input-animate").parent().css({"background-color":"#fff", "width":"39px", "margin-left":"40px"}).find('a').hide();
+
     var curVal = parseFloat(BX("QUANTITY_INPUT_" + basketId).value),
     newVal;
 
@@ -1014,9 +1029,8 @@ function getCorrectRatioQuantity(quantity, ratio, bUseFloatQuantity)
 * @param {} params
 */
 function recalcBasketAjax(params)
-{
-    BX.showWait();
-
+{                         
+    BX.showWait();         
     var property_values = {},
     action_var = BX('action_var').value,
     items = BX('basket_items'),
@@ -1045,7 +1059,7 @@ function recalcBasketAjax(params)
             if (params.hasOwnProperty(i))
                 postData[i] = params[i];
         }
-    }
+    }      
 
     if (!!items && items.rows.length > 0)
     {
@@ -1062,16 +1076,16 @@ function recalcBasketAjax(params)
                 postData['QUANTITY_' + delayedItems.rows[i].id] = BX('QUANTITY_' + delayedItems.rows[i].id).value;
             }                                                                                                    
         }                                                                                         
-    }                                                   
+    }                                                                  
     BX.ajax({
         url: '/local/components/bitrix/sale.basket.basket/ajax.php',
         method: 'POST',
         data: postData,
         dataType: 'json',
         onsuccess: function(result)
-        {                                                     
+        {                                                                        
             BX.closeWait();                          
-            updateBasketTable(null, result); 
+            updateBasketTable(null, result, params); 
             
             //Через load все супер медленно, делаем по-другому, пример оставлю для наглядности
                                                                                  
@@ -1079,7 +1093,13 @@ function recalcBasketAjax(params)
             $("#" + params.basketID).load(location.href+" #" + params.basketID + " > *",""); 
             $("#basket_bottom_" + params.basketID).load(location.href+" #basket_bottom_" + params.basketID + " > *",""); */ 
             
-            sum = parseInt(result.BASKET_DATA.allSum);
+            sum = parseInt(result.BASKET_DATA.allSum);     
+            //Скидки с купонов, когда будем заниматься скидками нужно будет учесть 
+            if(result.BASKET_DATA.DISCOUNT_PERCENT_SIZE != '') {
+                coupon_discount = parseInt(result.BASKET_DATA.DISCOUNT_PERCENT_SIZE); 
+            } else {
+                coupon_discount = '';    
+            }                                                                     
             discabs = parseInt(result.BASKET_DATA.DISCOUNT_PRICE_ALL);
             discrel = ((100*discabs)/(discabs+sum)).toFixed(0);
             if (sum < 2000) {                    
@@ -1108,19 +1128,25 @@ function recalcBasketAjax(params)
 
                     //Обновляем общую сумму предзаказанных товаров
                     //Приседаем с имитацией накопительной скидки, опять же можно через load, но быстродействие страдает 
-                    if((((item.BASE_PRICE * item.QUANTITY) >= 3000) && ((item.BASE_PRICE * item.QUANTITY) < 10000)) && (item.DISCOUNT_PRICE_PERCENT < 10)) {            
+                    if((((item.BASE_PRICE * item.QUANTITY) >= 3000) && ((item.BASE_PRICE * item.QUANTITY) < 10000)) && (item.DISCOUNT_PRICE_PERCENT < 10) && (coupon_discount == '')) {            
                         var formated_discount = '10.00%'; 
                         var real_price = item.BASE_PRICE * 0.9;
                         var formated_price = real_price.toFixed(2) + ' руб.';     
                         var real_full_price = real_price * item.QUANTITY;
                         var final_sum = real_full_price.toFixed(2) + ' руб.';                          
-                    } else if (((item.BASE_PRICE * item.QUANTITY) >= 10000) && (item.DISCOUNT_PRICE_PERCENT < 20)) {
+                    } else if (((item.BASE_PRICE * item.QUANTITY) >= 10000) && (item.DISCOUNT_PRICE_PERCENT < 20) && (coupon_discount == '')) {
                         var formated_discount = '20.00%'; 
                         var real_price = item.BASE_PRICE * 0.8;   
                         var formated_price = real_price.toFixed(2) + ' руб.';     
                         var real_full_price = real_price * item.QUANTITY;
                         var final_sum = real_full_price.toFixed(2) + ' руб.';                                      
-                    } else { 
+                    } else if (coupon_discount != '') {   
+                        var formated_discount = coupon_discount + '.00%'; 
+                        var real_price = item.BASE_PRICE * ((100 - coupon_discount)/100);   
+                        var formated_price = real_price.toFixed(2) + ' руб.';     
+                        var real_full_price = real_price * item.QUANTITY;
+                        var final_sum = real_full_price.toFixed(2) + ' руб.';                                  
+                    } else {         
                         final_sum = item.SUM;
                         if(item.DISCOUNT_PRICE_PERCENT_FORMATED == '') {
                             formated_discount = '0.00%';   
@@ -1128,7 +1154,7 @@ function recalcBasketAjax(params)
                             formated_discount = item.DISCOUNT_PRICE_PERCENT_FORMATED;
                         }
                                                                                   
-                    }                                                  
+                    }                                                    
                     $("#discount_value_" + params.basketID).html(formated_discount);  
                     $("#allSum_FORMATED_" + params.basketID).html(final_sum);
                     
@@ -1234,16 +1260,21 @@ function showBasketItemsList(val)
 }
 
 function deleteCoupon(e)
-{
+{   
+    //Необходимо передать идентификатор элемента по которому происходит клик, но в случае клика по кнопки удаления нет вомзожности получить идентификатор напрямую, пришлось так выводить            
+    basketID = e.path[3].attributes.id.value.replace(/[^0-9]/g, '');                                                    
     var target = BX.proxy_context,
-    value;
-
+    value;                      
     if (!!target && target.hasAttribute('data-coupon'))
     {
         value = target.getAttribute('data-coupon');
         if (!!value && value.length > 0)
         {
-            recalcBasketAjax({'delete_coupon' : value});
+            if(basketID != '1') {
+                recalcBasketAjax({'delete_coupon' : value, 'basketID' : basketID});
+            } else { 
+                recalcBasketAjax({'delete_coupon' : value}); 
+            };                                                                              
         }
     }
 }
@@ -1260,12 +1291,14 @@ BX.ready(function() {
         }
     }
     couponBlock = BX('coupons_block');
-    if (!!couponBlock)
-        BX.bindDelegate(couponBlock, 'click', { 'attribute': 'data-coupon' }, BX.delegate(function(e){deleteCoupon(e); $(".gifts_block").hide();}, this));
+    if (!!couponBlock) {
+        BX.bindDelegate(document.body, 'click', {className: 'bad', 'attribute': 'data-coupon' }, BX.delegate(function(e){deleteCoupon(e); $(".gifts_block").hide();}, this));
+        BX.bindDelegate(document.body, 'click', {className: 'good', 'attribute': 'data-coupon' }, BX.delegate(function(e){deleteCoupon(e); $(".gifts_block").hide();}, this));  
+    }                                                                                                                                                                         
 });
 
 //Custom coupon
-function enterCouponCustom(preorderID) {
+function enterCouponCustom(preorderID) {     
     preorderID = preorderID || '';
     if (preorderID != '') { 
         var couponCode = $("#coupon_" + preorderID).val();
@@ -1274,11 +1307,13 @@ function enterCouponCustom(preorderID) {
             type: "POST",
             url: "/ajax/customCoupon.php",
             data: {coupon: couponCode, price: price,  action: "check"}
-        }).done(function(result) {
+        }).done(function(result) {  
+        console.log(1);    
+        console.log(result);   
             if (result != ""){              
                 arResult = JSON.parse(result); 
                 if (arResult.DEFAULT_COUPON == "Y") {
-                    enterCoupon();
+                    enterCoupon(preorderID);
                 } else {
                     $('#allSum_FORMATED_' + preorderID).html('0 руб.');
                 }
@@ -1291,7 +1326,9 @@ function enterCouponCustom(preorderID) {
             type: "POST",
             url: "/ajax/customCoupon.php",
             data: {coupon: couponCode, price: price,  action: "check"}
-        }).done(function(result) {
+        }).done(function(result) {  
+        console.log(2);    
+        console.log(result);    
             if (result != ""){        
                 arResult = JSON.parse(result);   
                 if (arResult.DEFAULT_COUPON == "Y") {
@@ -1318,3 +1355,12 @@ $(document).ready(function(){
     })
 })
 
+function addToWishList(bookid, cartid) {
+	$.ajax({
+		type: "POST",
+		url: "/ajax/ajax_add2wishlist.php",
+		data: {id: bookid}
+	}).done(function(strResult) {
+		window.location.href = '/personal/cart/?basketAction=delete&id='+cartid;
+	});
+}

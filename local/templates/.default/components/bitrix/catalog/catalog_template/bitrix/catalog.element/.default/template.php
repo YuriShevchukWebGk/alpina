@@ -29,39 +29,10 @@
 
         $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
         $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
-        if ($(".element_item_img img").height() < 394 && $(".element_item_img img").height() > 100) {
+        if ($(".element_item_img img").height() < 562 && $(".element_item_img img").height() > 100) {
             $(".element_item_img").height($(".element_item_img img").height());
         }
-        <?/*$("a#inline1, a#inline2, a#inline3").fancybox({
-            'hideOnContentClick': true
-            });
-            if ($(".grouped_elements").length > 0) {
 
-            $("a.grouped_elements").fancybox({
-            'transitionIn'    :    'elastic',
-            'transitionOut'    :    'elastic',
-            'speedIn'        :    600,
-            'speedOut'        :    200,
-            'overlayShow'    :    false
-            });
-
-            }
-
-            if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-            $('.elementMainPict .fancybox').attr('target', '_blank');
-            $('.elementMainPict .fancybox').removeClass('fancybox');
-            }else{
-            $('.elementMainPict .fancybox').fancybox({
-            'centerOnScroll' : true,
-            'scrolling'      : true,
-            'showNavArrows'  : true
-            });
-            }
-
-            $('a.fancybox').fancybox({
-            'width'   :   1140,
-            'height'   :   800
-        });*/?>
         $(".leftColumn .signingPopup").fancybox({
             <?if ($arResult["SIGNING_IMAGE_INFO"]["WIDTH"]) {?>
                 'width'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["WIDTH"] ?>+20,
@@ -91,8 +62,35 @@
 
         docReadyComponent(<?= $arResult["ID"] ?>);
     });
+	<?if (!$checkMobile) {?>
+		$(window).scroll(function() { //Скрываем блок с ценой при скролле вниз, расширяем блок аннотации и опускаем его на уровень глаз
+			scrollDepth = $(window).scrollTop();
+			if (scrollDepth > 450 && checkReadiness == 0) {
+				$(".centerColumn").css("margin-right", "0");
+				$(".showAllWrapp").css("padding-top", "110px");
+
+				$(".rightColumn").hide();
+
+				checkReadiness = 1;
+			} else if (scrollDepth < 450) {
+				$(".centerColumn").css("margin-right", "264px");
+				$(".showAllWrapp").css("padding-top", "0");
+				$(".rightColumn").show();
+				checkReadiness = 0;
+			}
+		});
+	<?}?>
 </script>
-<?
+
+<script src="/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js')?>"></script> 
+
+<?if (!empty($arResult["PROPERTIES"]["colors"]["VALUE"]) && $arResult["PROPERTIES"]["colors"]["VALUE"] != ',') {
+	$arResult["PROPERTIES"]["colors"]["VALUE"] = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
+	$bgcolors[0] = $arResult["PROPERTIES"]["colors"]["VALUE"][1];
+	$mincolor['color'] = $arResult["PROPERTIES"]["colors"]["VALUE"][0];
+
+} else {
+
     include_once($_SERVER["DOCUMENT_ROOT"] . '/local/php_interface/include/colors.inc.php');
 
     $image_to_read = $_SERVER["DOCUMENT_ROOT"] . "/" .$arResult["PICTURE"]["src"];
@@ -130,6 +128,9 @@
     if ($mincolor['sum'] > 320 || ($mincolor['sum'] > 280 && $mincolor['color'] == $bgcolors[0]) || $mincolor['color'] == '#') {
         $mincolor['color'] = "#555";
     }
+
+	CIBlockElement::SetPropertyValuesEx($arResult["ID"], 4, array('colors' => $mincolor['color'].','.$bgcolors[0]));
+}
 ?>
 <style>
     .productElementWrapp:before {
@@ -204,9 +205,73 @@
         'OFFER_GROUP' => $strMainID.'_set_group_',
         'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
     );
-?>
-<div class="elementDescriptWrap" itemprop="mainEntity" itemscope itemtype="https://schema.org/Book">
-    <meta itemprop="inLanguage" content="ru-RU"/>
+?>        
+<div class="elementDescriptWrap" itemscope itemtype="https://schema.org/Book">            
+    <meta itemprop="inLanguage" content="ru-RU"/>    
+    <div class="certificate_popup" style="display:none">
+        <form id="certificate_form">
+            <div class="certificate_buy_type">
+                <ul>
+                    <li data-popup-block="natural_person" class="certificate_tab_active"><?= GetMessage("NATURAL_PERSON") ?></li>
+                    <li data-popup-block="legal_person"><?= GetMessage("LEGAL_PERSON") ?></li>
+                </ul>
+            </div>
+            <div class="popup_form_data">
+                <div class="natural_person active_certificate_block">
+                    <input type='text' placeholder="Имя" name="natural_name" id="natural_name">                
+                    <br>                                                                                                
+                    <input type='email' placeholder="Email" name="natural_email" id="natural_email">    
+                    <br>                                   
+                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
+                </div>
+                <div class="legal_person">
+                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">                
+                    <br>
+                    <input type='email' placeholder="Email" name="legal_email" id="legal_email">    
+                    <br>                                                                                        
+                    <input type='text' placeholder="ИНН" name="inn" id="inn">    
+                    <br>
+                    <input type='text' placeholder="КПП" name="kpp" id="kpp">    
+                    <br>
+                    <input type='text' placeholder="БИК" name="bik" id="bik">    
+                    <br>
+                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">    
+                    <br>
+                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">    
+                    <br>
+                    <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">    
+                    <br>
+                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">    
+                    <br>                          
+                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
+                </div>
+            </div>
+            <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>      
+            <input type="hidden" name="certificate_quantity" value="1"/>                      
+            <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>    
+            <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
+        </form>
+        <div class="certificate_popup_close closeIcon"></div>
+        <div class="rfi_block">              
+        <?
+            $APPLICATION->IncludeComponent(
+                "webgk:rfi.widget",
+                "",
+                Array(
+                    "ORDER_ID"      => "CERT_",
+                    "OTHER_PAYMENT" => "Y",
+                    "OTHER_PARAMS"  => array(
+                        "PAYSUM"   => $newPrice,
+                        "EMAIL"    => "",
+                        "PHONE"    => "",
+                        "COMMENT"  => str_replace("#SUM#", $newPrice, "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# рублей")
+                    )
+                ),
+                false
+            );
+        ?>
+        </div>
+    </div>     
     <div class="leftColumn">
         <div class="elementMainPict">
             <div class="badge">
@@ -236,7 +301,7 @@
                     <?if (!$checkMobile) {?>
                         <a href="#" class="bookPreviewLink" onclick="getPreview(<?= $arResult["ID"] ?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;">
                         <?} else {?>
-                        <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="fancybox fancybox.iframe bookPreviewLink">
+                        <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="bookPreviewLink">
                             <?}?>
                         <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>              
                         <?}?>
@@ -435,9 +500,6 @@
                 <p class="text"><?= $weight ?><?= GetMessage("GRAMS") ?></p>
             </div>
             <?}?>
-        <div class="socialServises">
-            <? require('include/socialbuttons.php'); ?>
-        </div>
         <?#Спонсоры книги?>
         <!-- noindex -->
         <div class="sponsors">
@@ -462,25 +524,15 @@
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
             </div>
-            <script>
-                <?if ($_SERVER['HTTP_REFERER'] == 'https://relap.io/' || strpos($_SERVER['HTTP_REFERER'],"theoryandpractice.ru") !== false) {?>
-                    $(document).ready(function() {
-                        selectversion('passive','digitalversion');
-                        var digitalLink = $(".digitalLink").attr("href");
-                        $(".digitalLink").attr("href", digitalLink+"&utm_content=tnp");
-                        <?if ($USER->isAdmin()) {?>
-                            console.log($(".digitalLink").attr("href"));
-                            <?}?>
-                    });
-                    <?}?>
-            </script>
             <?}?>
         <?$frame = $this->createFrame()->begin();?>
         <div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <meta itemprop="priceCurrency" content="RUB" />
             <link itemprop="itemCondition" href="http://schema.org/NewCondition">
             <meta itemprop="sku" content="<?=$arResult["ID"]?>" />
-            <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
+            <?
+			if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0) {
+				if ($USER->IsAuthorized()) {
                     if ($arResult["ITEM_WITHOUT_DISCOUNT"] == "Y") {
                         $discount = 0;
                     } elseif ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"]) {
@@ -502,14 +554,21 @@
                     } else {
                         $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
                     }
-            }?>
+				}
+			}
+
+			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < 2000) {//До бесплатной доставки осталось
+				$printDiscountText = "<span class='sale_price'>".GetMessage("GET_FREE_DELIVERY").($arResult["FREE_DELIVERY"] - $arResult["CART_SUM"]).GetMessage("GET_FREE_DELIVERY_ENDING")."</span><br />";
+			}?>
             <div class="wrap_prise_top">
                 <?$StockInfo = "";
+					$printDiscountText = typo($printDiscountText);
                     if (!empty($arResult["PRICES"])) { ?>
                     <?// если свойство товара в состоянии "Новинка" либо не задан - то выводить стандартный блок с ценой,
                         // иначе выводить дату выхода книги либо поле для ввода e-mail для запроса уведомления о поступлении
                         if ((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) && (intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))) {
                             foreach ($arResult["PRICES"] as $code => $arPrice) {?>
+
                             <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                             <link itemprop="availability" href="https://schema.org/InStock">
 
@@ -517,41 +576,46 @@
                                 if (round(($arPrice["VALUE"]) * (1 - $discount / 100), 2) . " " . GetMessage("ROUBLES") == $arPrice["PRINT_VALUE"]) {
                                     $discount = false;
                                 };
-                                if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
-                                <?// расчитываем накопительную скидку от стоимости
-                                    if ($discount) {
-                                        $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
+                                
+                                if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { 
+                                    if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                    <?// расчитываем накопительную скидку от стоимости
+                                        if ($discount) {
+                                            $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
+                                            if (strlen (stristr($newPrice, ".")) == 2) {
+                                                $newPrice .= "0";
+                                            }
+                                        } else {
+                                            $newPrice = round (($arPrice["DISCOUNT_VALUE"]), 2);
+                                            if (strlen (stristr($newPrice, ".")) == 2) {
+                                                $newPrice .= "0";
+                                            }
+                                    }?> 
+                                    <p class="newPrice"><?= $newPrice ?> <span></span></p>
+                                    <?} else if ($discount) {
+                                        $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
                                         if (strlen (stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
-                                        }
-                                    } else {
-                                        $newPrice = round (($arPrice["DISCOUNT_VALUE"]), 2);
-                                        if (strlen (stristr($newPrice, ".")) == 2) {
+                                    }?>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                    <?// расчитываем накопительную скидку от стоимости?>
+                                    <p class="newPrice"><?= $newPrice ?> <span></span></p>
+                                    <?} else {
+                                        $newPrice = round($arPrice["VALUE_VAT"], 2);
+                                        if (strlen(stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
-                                        }
-                                }?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
-                                <?} else if ($discount) {
-                                    $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
-                                    if (strlen (stristr($newPrice, ".")) == 2) {
-                                        $newPrice .= "0";
-                                }?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
-                                <?// расчитываем накопительную скидку от стоимости?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
-                                <?} else {
-                                    $newPrice = round($arPrice["VALUE_VAT"], 2);
-                                    if (strlen(stristr($newPrice, ".")) == 2) {
-                                        $newPrice .= "0";
-                                }?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                    }?>
+                                    <p class="newPrice"><?= $newPrice ?> <span></span></p>
+                                    <?}?>
+                                <?} else {?>
+                                    <p class="newPrice"><?= $arPrice["VALUE"] ?> <span></span></p> 
                                 <?}?>
 
                             <?if ($printDiscountText != '' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {
                                 echo $printDiscountText; // цена до скидки
                             }?>
-                            <button style="width:10px; height:10px; background:rgba(0, 255, 0, 0.57); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button><span>&nbsp;<?= GetMessage("IN_STOCK") ?></span>
+                            <button class="inStockCirlce"></button><span>&nbsp;<?= GetMessage("IN_STOCK") ?></span>
                             <?}
                         } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />   
@@ -565,7 +629,7 @@
                                     $discount = false;
                                 };
                                 if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                 <?// расчитываем накопительную скидку от стоимости
                                     if ($discount) {
                                         $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
@@ -578,46 +642,46 @@
                                             $newPrice .= "0";
                                         }
                                 }?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                 <?} else if ($discount) {
                                     $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
                                     if (strlen (stristr($newPrice, ".")) == 2) {
                                         $newPrice .= "0";
                                 }?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                 <?// расчитываем накопительную скидку от стоимости?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                 <?} else {
                                     $newPrice = round($arPrice["VALUE_VAT"], 2);
                                     if (strlen(stristr($newPrice, ".")) == 2) {
                                         $newPrice .= "0";
                                 }?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                 <?}?>  
                             <button style="width:10px; height:10px; background:rgba(255, 255, 0, 0.75); box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.12); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button><span>&nbsp;<?= GetMessage("ADD_TO_PREORDER") ?></span>
-                            <?}?>    
+                            <?}?>
                         <?} else {?>
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/OutOfStock">
                         <?$StockInfo = "OutOfStock";?>
-                        <?foreach ($arResult["PRICES"] as $code => $arPrice) {
-                                if ($arPrice["DISCOUNT_DIFF"]) {?>
-                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?if ($USER->isAdmin()) echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' руб.';?></span></div>
-                                <?}?>
+                        <?foreach ($arResult["PRICES"] as $code => $arPrice) {                    
+                            if ($arPrice["DISCOUNT_DIFF"]) {?>
+                                <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                            <?}?>
                             <?if ($arPrice["DISCOUNT_VALUE_VAT"]) {
-                                    $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
-                                    if (strlen(stristr($newPrice, ".")) == 2) {
-                                        $newPrice .= "0";
+                                $newPrice = round(($arPrice["DISCOUNT_VALUE_VAT"]), 2);
+                                if (strlen(stristr($newPrice, ".")) == 2) {
+                                    $newPrice .= "0";
                                 }?>
-                                <p class="newPrice"><?= $newPrice ?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                 <?} else {
                                     $newPrice = round(($arPrice["ORIG_VALUE_VAT"]), 2);
                                     if (strlen(stristr($newPrice, ".")) == 2) {
                                         $newPrice .= "0";
                                 }?>
-                                <p class="newPrice"><span><?= $newPrice ?></span> <span><?= GetMessage("ROUBLES") ?></span></p>
+                                <p class="newPrice"><span><?= $newPrice ?></span> <span></span></p>
                                 <?}?>
-                            <?}?>
+                            <?}?> 
                         <p class="newPrice notAvailable" style="font-size:28px;"><?= GetMessage("NOT_IN_STOCK") ?></p>
                         <?}?>
                     <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
@@ -644,87 +708,24 @@
                         </div>
                     </form>
                     <?}?>
-            </div>                                
+            </div>                   
             <?if (!empty ($arResult["PRICES"]) ) {?>
                 <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                     <div class="wrap_prise_bottom">
                         <span class="item_buttons_counter_block">
 
-                            <a href="javascript:void(0)" class="minus" id="<?= $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
+                            <a href="#" onclick="changeQ('-');return false;" class="minus" id="<?= $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
                             <input id="<?= $arResult['QUANTITY']; ?>" type="text" class="tac transparent_input" value="<?= (isset($arResult['OFFERS']) && !empty($arResult['OFFERS'])
                                     ? 1
                                     : $arResult['CATALOG_MEASURE_RATIO']
                                 ); ?>">
-                            <a href="javascript:void(0)" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>     
+                            <a href="#" onclick="changeQ('+');return false;" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>     
                         </span>
                         <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>                     
-                            <div class="certificate_popup" style="display:none">
-                                <form id="certificate_form">
-                                    <div class="certificate_buy_type">
-                                        <ul>
-                                            <li data-popup-block="natural_person" class="certificate_tab_active"><?= GetMessage("NATURAL_PERSON") ?></li>
-                                            <li data-popup-block="legal_person"><?= GetMessage("LEGAL_PERSON") ?></li>
-                                        </ul>
-                                    </div>
-                                    <div class="popup_form_data">
-                                        <div class="natural_person active_certificate_block">
-                                            <input type='text' placeholder="Имя" name="natural_name" id="natural_name">                
-                                            <br>                                                                                                
-                                            <input type='text' placeholder="Email" name="natural_email" id="natural_email">    
-                                            <br>                                   
-                                            <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
-                                        </div>
-                                        <div class="legal_person">
-                                            <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">                
-                                            <br>
-                                            <input type='text' placeholder="Email" name="legal_email" id="legal_email">    
-                                            <br>                                                                                        
-                                            <input type='text' placeholder="ИНН" name="inn" id="inn">    
-                                            <br>
-                                            <input type='text' placeholder="КПП" name="kpp" id="kpp">    
-                                            <br>
-                                            <input type='text' placeholder="БИК" name="bik" id="bik">    
-                                            <br>
-                                            <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">    
-                                            <br>
-                                            <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">    
-                                            <br>
-                                            <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">    
-                                            <br>
-                                            <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">    
-                                            <br>                          
-                                            <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>      
-                                    <input type="hidden" name="certificate_quantity" value="1"/>                      
-                                    <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>    
-                                    <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
-                                </form>
-                                <div class="certificate_popup_close">
-                                    <img src="/images/rfi_popup_close.png" alt="" />
-                                </div>
-                                <div class="rfi_block">              
-                                <?
-                                    $APPLICATION->IncludeComponent(
-                                        "webgk:rfi.widget",
-                                        "",
-                                        Array(
-                                            "ORDER_ID"      => "CERT_",
-                                            "OTHER_PAYMENT" => "Y",
-                                            "OTHER_PARAMS"  => array(
-                                                "PAYSUM"   => $newPrice,
-                                                "EMAIL"    => "",
-                                                "PHONE"    => "",
-                                                "COMMENT"  => str_replace("#SUM#", $newPrice, "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# рублей")
-                                            )
-                                        ),
-                                        false
-                                    );
-                                ?>
-                                </div>
-                            </div>     
-                            <a href="#" onclick="buy_certificate_popup(); return false;">
+                            <?
+                            global $USER;                          
+                            ?> 
+                            <a href="javascript:void(0);" onclick="buy_certificate_popup(); return false;">
                                 <p class="inBasket"><?= GetMessage("CT_BCE_CATALOG_BUY") ?></p>
                             </a>
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>    
@@ -754,14 +755,60 @@
                     }
             }?>                            
         </div>
-        <?$frame->end();?>
+		<?$frame->beginStub();?>
+			<div class="priceBasketWrap paperVersionWrap">
+				<div class="wrap_prise_top">
+					<p class="newPrice"><?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?> <span></span></p>
+					
+					<span class="sale_price"></span><br>
+					
+					<button class="inStockCirlce"></button>
+					
+					<span>&nbsp;В наличии</span>
+				</div>            
+				
+				<div class="wrap_prise_bottom">
+					<span class="item_buttons_counter_block">
 
+						<a href="#" class="minus">−</a>
+						<input type="text" class="tac transparent_input" value="1">
+						<a href="#" class="plus">+</a>     
+						</span>
+					<a href="#">
+						<p class="inBasket">В корзину</p> 
+					</a>
+				</div>
+				<div class="priceLoading">
+					<div id="loadingInfo" style="margin-top:50%;"><div class="spinner"><div class="spinner-icon"></div></div></div>
+				</div>
+			</div>
+        <?$frame->end();?>
+		
+		<?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+			<form style="margin-top:27px;text-align:center;" class="no-mobile">
+
+				<?if($USER->IsAuthorized()){
+					$rsCurUser = CUser::GetByID($USER->GetID());
+					$arCurUser = $rsCurUser->Fetch();
+					$mail = $arCurUser["EMAIL"];
+				}?>
+				<div>
+					<p>
+						<span class="subscribeDesc">Впишите свой <b>e-mail</b>, чтобы получить письмо, как только книгу можно будет заказать</span>
+					</p>
+					<input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$mail;?>" name="email" class="subscribeEmail"/> 
+					<input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="Подписаться" style="border: 2px solid #c7a271;color: #c7a271; background-color: #fff; padding: 5px 0;"/>
+					
+				</div>
+			</form> 
+		<?}?>
+		
         <?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <!--noindex-->
             <div class="priceBasketWrap digitalVersionWrap" style="display:none;">
                 <div class="wrap_prise_top">
                     <?= GetMessage("EPUB") ?>
-                    <p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span><?= GetMessage("ROUBLES") ?></span></p>
+                    <p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span></span></p>
                 </div>
 
                 <div class="wrap_prise_bottom">
@@ -799,39 +846,12 @@
             </form>
             <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
         </div>
-
+		
+		<?$frame = $this->createFrame()->begin();?>
         <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
             <?
                 $today = date("w");
                 $timenow = date("G");
-
-                //МЕНЯЕТ ДЕНЬ ДОСТАВКИ ТУТ
-                /*if ($today == 1) {
-                $delivery_day = GetMessage("TOMORROW");
-                //$delivery_day = 'в среду';
-                } elseif ($today == 2) {
-                if ($timenow < 9)
-                $delivery_day = 'сегодня';
-                else
-                $delivery_day = GetMessage("TOMORROW");
-                $delivery_day = 'в пятницу';
-                } elseif ($today == 3) {
-                $delivery_day = GetMessage("TOMORROW");
-                $delivery_day = 'в пятницу';
-                } elseif ($today == 4) {
-                $delivery_day = GetMessage("TOMORROW");
-                } elseif ($today == 5) {
-                if ($timenow < 9)
-                $delivery_day = 'сегодня';
-                else
-                $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                } elseif ($today == 6) {
-                $delivery_day = GetMessage("ON_MONDAY_WITH_SPACE_ENTITY");
-                //$delivery_day = 'во вторник';
-                } elseif ($today == 0) {
-                $delivery_day = GetMessage("TOMORROW");
-                //$delivery_day = 'в среду';
-                }*/
 
                 if ($today == 5) {
                     if ($timenow < 17) {
@@ -855,8 +875,9 @@
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
             </ul>
-            <?}?>
-
+		<?}?>
+		<?$frame->end();?>
+		
         <div class="typesOfProduct">
             <?if (!empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) ) {?>
                 <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherEvents', action: 'clickAppStore', label: '<?= $arResult['NAME'] ?>'});">
@@ -874,39 +895,6 @@
                 <?}?>
         </div>
 
-        <?/*<div class="courierBlock">
-            <div id="data1">
-            <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
-            "AREA_FILE_SHOW" => "file",
-            "PATH" => "/include/courierBlock.php",
-            "EDIT_TEMPLATE" => ""
-            ),
-            false
-            );?>
-            </div>
-            </div>
-            <div class="pickupBlock">
-            <div id="data2">
-            <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
-            "AREA_FILE_SHOW" => "file",
-            "PATH" => "/include/pickupBlock.php",
-            "EDIT_TEMPLATE" => ""
-            ),
-            false
-            );?>
-            </div>
-            </div>
-            <div class="countryBlock">
-            <div id="data3">
-            <?$APPLICATION->IncludeComponent("bitrix:main.include", ".default", array(
-            "AREA_FILE_SHOW" => "file",
-            "PATH" => "/include/countryBlock.php",
-            "EDIT_TEMPLATE" => ""
-            ),
-            false
-            );?>
-            </div>
-        </div>*/?>
         <?if ($arResult["PROPERTIES"]["author_book"]["VALUE"] == "Y") {?>
             <div class="productAction">
                 <img src="/img/actionPicture.png">
@@ -990,7 +978,9 @@
     </div>
     <div class="subscr_result"></div>
     <div class="centerColumn">
-        <h1 class="productName" itemprop="name"><?=$arResult["NAME"] ?></h1>
+        <h1 class="productName" itemprop="name">
+			<?echo empty($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]) ? typo($arResult["NAME"]) : '<span>'.typo($arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"].'</span><br />'.$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]);?>
+		</h1>
         <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
         <div class="authorReviewWrap">
             <p class="reviews">
@@ -1026,9 +1016,8 @@
 
 
             <p class="productAutor">
-                <?= $arResult["AUTHOR_NAME"]; ?>
+                <span><?= $arResult["AUTHOR_NAME"]; ?></span>
             </p>
-
         </div>
 
         <ul class="productsMenu">
@@ -1193,15 +1182,16 @@
 
             <?if (!empty ($arResult['TAGS']) ) {
                 echo "<p class='productSelectTitle'>" . GetMessage("KEYWORDS") . "</p>";
-                echo "<ul class='keyWords' itemprop='keywords'>";
-                $el = array('TAGS' => $arResult['TAGS']);
-                $el['TAGS'] = explode(',', $el['TAGS']);
-                for ($i = 0; $i < ($size = sizeof ($el['TAGS']) ); $i++) {
-                    if (trim ($el['TAGS'][$i]) == '') continue;
-                    print "<li><a href=\"/search/index.php?q={$el['TAGS'][$i]}\" class=\"nowrap\">{$el['TAGS'][$i]}</a></li>";
+				echo '<meta itemprop="keywords" content="'.$arResult['TAGS'].'" />';
 
-                }
-                echo "</ul>";
+                echo "<div class='keyWords'>";
+                $tags = explode(',', strtolower($arResult['TAGS']));
+				foreach ($tags as $tag) {
+					$tag = ltrim($tag);
+					echo '<a href="/search/index.php?q='.$tag.'">'.$tag.'</a>';
+				}
+
+                echo "</div>";
             }?>
         </div>                   
         <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
@@ -1264,143 +1254,58 @@
                     <?}?>
                 <?}?>
         </div>
+		<div class="socialServises" style="text-align: center;padding:40px 0">
+			<style>
+			.b-share-btn__wrap {margin:0 20px!important}
+			</style>
+			<?require('include/socialbuttons.php'); ?>
+		</div>
     </div>
 </div>
 </div>
+
+
+	<div class="dopSaleWrap no-mobile">
+		<div class="dopSale">
+			Накопительные скидки
+		</div>
+
+		<div class="percentBlock">
+			<?$APPLICATION->IncludeComponent(
+			"bitrix:main.include", 
+			".default", 
+			array(
+			"AREA_FILE_SHOW" => "file",
+			"AREA_FILE_SUFFIX" => "inc",
+			"AREA_FILE_RECURSIVE" => "Y",
+			"EDIT_TEMPLATE" => "",
+			"COMPONENT_TEMPLATE" => ".default",
+			"PATH" => "/include/main_discount_left.php"
+			),
+			false
+			);?>
+		</div>
+
+		<div class="TwentypercentBlock">
+			<?$APPLICATION->IncludeComponent(
+			"bitrix:main.include", 
+			".default", 
+			array(
+			"AREA_FILE_SHOW" => "file",
+			"AREA_FILE_SUFFIX" => "inc",
+			"AREA_FILE_RECURSIVE" => "Y",
+			"EDIT_TEMPLATE" => "",
+			"COMPONENT_TEMPLATE" => ".default",
+			"PATH" => "/include/main_discount_right.php"
+			),
+			false
+			);?>
+		</div>
+	</div>
+
+
 </div>
 </div>
-
-
-<? global $authBooksFilter;
-    if (!empty ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0]) ) {
-        $authBooksFilter = array('PROPERTY_AUTHORS' => $arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0], "!ID" => $arResult["ID"]);
-
-        $APPLICATION->IncludeComponent(
-            "bitrix:catalog.section",
-            "this_author_books",
-            array(
-                "IBLOCK_TYPE_ID" => "catalog",
-                "IBLOCK_ID" => "4",
-                "BASKET_URL" => "/personal/cart/",
-                "COMPONENT_TEMPLATE" => "this_author_books",
-                "IBLOCK_TYPE" => "catalog",
-                "SECTION_ID" => $_REQUEST["SECTION_ID"],
-                "SECTION_CODE" => "",
-                "SECTION_USER_FIELDS" => array(
-                    0 => "",
-                    1 => "",
-                ),
-                "ELEMENT_SORT_FIELD" => "id",
-                "ELEMENT_SORT_ORDER" => "desc",
-                "ELEMENT_SORT_FIELD2" => "id",
-                "ELEMENT_SORT_ORDER2" => "desc",
-                "FILTER_NAME" => "authBooksFilter",
-                "INCLUDE_SUBSECTIONS" => "Y",
-                "SHOW_ALL_WO_SECTION" => "Y",
-                "HIDE_NOT_AVAILABLE" => "N",
-                "PAGE_ELEMENT_COUNT" => "12",
-                "LINE_ELEMENT_COUNT" => "3",
-                "PROPERTY_CODE" => array(
-                    0 => "",
-                    1 => "",
-                ),
-                "OFFERS_FIELD_CODE" => array(
-                    0 => "",
-                    1 => "",
-                ),
-                "OFFERS_PROPERTY_CODE" => array(
-                    0 => "COLOR_REF",
-                    1 => "SIZES_SHOES",
-                    2 => "SIZES_CLOTHES",
-                    3 => "",
-                ),
-                "OFFERS_SORT_FIELD" => "sort",
-                "OFFERS_SORT_ORDER" => "desc",
-                "OFFERS_SORT_FIELD2" => "id",
-                "OFFERS_SORT_ORDER2" => "desc",
-                "OFFERS_LIMIT" => "5",
-                "TEMPLATE_THEME" => "site",
-                "PRODUCT_DISPLAY_MODE" => "Y",
-                "ADD_PICT_PROP" => "BIG_PHOTO",
-                "LABEL_PROP" => "-",
-                "OFFER_ADD_PICT_PROP" => "-",
-                "OFFER_TREE_PROPS" => array(
-                    0 => "COLOR_REF",
-                    1 => "SIZES_SHOES",
-                    2 => "SIZES_CLOTHES",
-                ),
-                "PRODUCT_SUBSCRIPTION" => "N",
-                "SHOW_DISCOUNT_PERCENT" => "N",
-                "SHOW_OLD_PRICE" => "Y",
-                "SHOW_CLOSE_POPUP" => "N",
-                "MESS_BTN_BUY" => "Купить",
-                "MESS_BTN_ADD_TO_BASKET" => "В корзину",
-                "MESS_BTN_SUBSCRIBE" => "Подписаться",
-                "MESS_BTN_DETAIL" => "Подробнее",
-                "MESS_NOT_AVAILABLE" => "Нет в наличии",
-                "SECTION_URL" => "",
-                "DETAIL_URL" => "",
-                "SECTION_ID_VARIABLE" => "SECTION_ID",
-                "SEF_MODE" => "N",
-                "AJAX_MODE" => "N",
-                "AJAX_OPTION_JUMP" => "N",
-                "AJAX_OPTION_STYLE" => "Y",
-                "AJAX_OPTION_HISTORY" => "N",
-                "AJAX_OPTION_ADDITIONAL" => "",
-                "CACHE_TYPE" => "Y",
-                "CACHE_TIME" => "3600",
-                "CACHE_GROUPS" => "N",
-                "SET_TITLE" => "Y",
-                "SET_BROWSER_TITLE" => "N",
-                "BROWSER_TITLE" => "-",
-                "SET_META_KEYWORDS" => "N",
-                "META_KEYWORDS" => "-",
-                "SET_META_DESCRIPTION" => "N",
-                "META_DESCRIPTION" => "-",
-                "SET_LAST_MODIFIED" => "N",
-                "USE_MAIN_ELEMENT_SECTION" => "N",
-                "ADD_SECTIONS_CHAIN" => "N",
-                "CACHE_FILTER" => "N",
-                "ACTION_VARIABLE" => "action",
-                "PRODUCT_ID_VARIABLE" => "id",
-                "PRICE_CODE" => array(
-                    0 => "BASE",
-                ),
-                "USE_PRICE_COUNT" => "N",
-                "SHOW_PRICE_COUNT" => "1",
-                "PRICE_VAT_INCLUDE" => "Y",
-                "CONVERT_CURRENCY" => "N",
-                "USE_PRODUCT_QUANTITY" => "N",
-                "PRODUCT_QUANTITY_VARIABLE" => "",
-                "ADD_PROPERTIES_TO_BASKET" => "Y",
-                "PRODUCT_PROPS_VARIABLE" => "prop",
-                "PARTIAL_PRODUCT_PROPERTIES" => "N",
-                "PRODUCT_PROPERTIES" => array(
-                ),
-                "OFFERS_CART_PROPERTIES" => array(
-                    0 => "COLOR_REF",
-                    1 => "SIZES_SHOES",
-                    2 => "SIZES_CLOTHES",
-                ),
-                "ADD_TO_BASKET_ACTION" => "ADD",
-                "PAGER_TEMPLATE" => "round",
-                "DISPLAY_TOP_PAGER" => "N",
-                "DISPLAY_BOTTOM_PAGER" => "Y",
-                "PAGER_TITLE" => "Товары",
-                "PAGER_SHOW_ALWAYS" => "N",
-                "PAGER_DESC_NUMBERING" => "N",
-                "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-                "PAGER_SHOW_ALL" => "N",
-                "PAGER_BASE_LINK_ENABLE" => "N",
-                "SET_STATUS_404" => "N",
-                "SHOW_404" => "N",
-                "MESSAGE_404" => "",
-                "BACKGROUND_IMAGE" => "-",
-                "DISABLE_INIT_JS_IN_COMPONENT" => "N"
-            ),
-            false
-        );
-}?>
 
 <? /* Получаем от RetailRocket рекомендации для товара */
     global $recommFilter;
@@ -1572,7 +1477,6 @@
 <div class="reviewsSliderWrapp">
     <div class="centerWrapper">
         <div class="giftWrap">
-            <img src="/img/twi.png">
             <form action="/" method="post">
                 <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
                 <input type="button" value="">
@@ -1588,164 +1492,283 @@
             </p>
         </div>
 
-        <p class="sliderName youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></p>
+        <p class="sliderName"><a href="/catalog/lastseen/" class="youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></a></p>
 
-        <? global $arFilter;
-            // LATEST SEEN ###############
-            $latestSeen = unserialize($APPLICATION->get_cookie("LASTEST_SEEN"));   
-            $latestSeen  = (!$latestSeen ? array() : $latestSeen);
-            // Remove 
-            //unset($latestSeen[$arResult['ID']]);
-            $key = array_search($arResult['ID'], $latestSeen, true);
-            if (empty($key)) {
-                $latestSeen[time()] = $arResult['ID'];
-            }
-            if (count($latestSeen) > 6) {
-                array_splice($latestSeen,0,-6);
-            }
+        <?
+		global $arFilter;
+		$lastseen = CSaleViewedProduct::GetList(
+			array("DATE_VISIT" => "DESC"),
+			array("FUSER_ID" => CSaleBasket::GetBasketUserID()),
+			false,
+			array("nTopCount" => 6),
+			array("PRODUCT_ID")
+		);
+		$lastidids = array();
 
+		while ($lastid = $lastseen->GetNext()) {
+			$lastidids[] = $lastid["PRODUCT_ID"];
+		}
 
-            if ($latestSeen) {
-                $arFilter = array('ID' => array());
-                //$latestSeen = array_slice (array_reverse (array_keys ($latestSeen) ), 0, 6);
-                foreach ($latestSeen as $bookID) {
-                    $arFilter['ID'][] = intval($bookID);
-                }
+		$arFilter = array('ID' => $lastidids, ">DETAIL_PICTURE" => 0);
 
-                $APPLICATION->IncludeComponent(
-                    "bitrix:catalog.section",
-                    "viewed_books",
-                    array(
-                        "IBLOCK_TYPE_ID" => "catalog",
-                        "IBLOCK_ID" => "4",
-                        "BASKET_URL" => "/personal/cart/",
-                        "COMPONENT_TEMPLATE" => "viewed_books",
-                        "IBLOCK_TYPE" => "catalog",
-                        "SECTION_ID" => $_REQUEST["SECTION_ID"],
-                        "SECTION_CODE" => "",
-                        "SECTION_USER_FIELDS" => array(
-                            0 => "",
-                            1 => "",
-                        ),
-                        "ELEMENT_SORT_FIELD" => "id",
-                        "ELEMENT_SORT_ORDER" => "desc",
-                        "ELEMENT_SORT_FIELD2" => "id",
-                        "ELEMENT_SORT_ORDER2" => "desc",
-                        "FILTER_NAME" => "arFilter",
-                        "INCLUDE_SUBSECTIONS" => "Y",
-                        "SHOW_ALL_WO_SECTION" => "Y",
-                        "HIDE_NOT_AVAILABLE" => "N",
-                        "PAGE_ELEMENT_COUNT" => "12",
-                        "LINE_ELEMENT_COUNT" => "3",
-                        "PROPERTY_CODE" => array(
-                            0 => "",
-                            1 => "",
-                        ),
-                        "OFFERS_FIELD_CODE" => array(
-                            0 => "",
-                            1 => "",
-                        ),
-                        "OFFERS_PROPERTY_CODE" => array(
-                            0 => "COLOR_REF",
-                            1 => "SIZES_SHOES",
-                            2 => "SIZES_CLOTHES",
-                            3 => "",
-                        ),
-                        "OFFERS_SORT_FIELD" => "sort",
-                        "OFFERS_SORT_ORDER" => "desc",
-                        "OFFERS_SORT_FIELD2" => "id",
-                        "OFFERS_SORT_ORDER2" => "desc",
-                        "OFFERS_LIMIT" => "5",
-                        "TEMPLATE_THEME" => "site",
-                        "PRODUCT_DISPLAY_MODE" => "Y",
-                        "ADD_PICT_PROP" => "BIG_PHOTO",
-                        "LABEL_PROP" => "-",
-                        "OFFER_ADD_PICT_PROP" => "-",
-                        "OFFER_TREE_PROPS" => array(
-                            0 => "COLOR_REF",
-                            1 => "SIZES_SHOES",
-                            2 => "SIZES_CLOTHES",
-                        ),
-                        "PRODUCT_SUBSCRIPTION" => "N",
-                        "SHOW_DISCOUNT_PERCENT" => "N",
-                        "SHOW_OLD_PRICE" => "Y",
-                        "SHOW_CLOSE_POPUP" => "N",
-                        "MESS_BTN_BUY" => "Купить",
-                        "MESS_BTN_ADD_TO_BASKET" => "В корзину",
-                        "MESS_BTN_SUBSCRIBE" => "Подписаться",
-                        "MESS_BTN_DETAIL" => "Подробнее",
-                        "MESS_NOT_AVAILABLE" => "Нет в наличии",
-                        "SECTION_URL" => "",
-                        "DETAIL_URL" => "",
-                        "SECTION_ID_VARIABLE" => "SECTION_ID",
-                        "SEF_MODE" => "N",
-                        "AJAX_MODE" => "N",
-                        "AJAX_OPTION_JUMP" => "N",
-                        "AJAX_OPTION_STYLE" => "Y",
-                        "AJAX_OPTION_HISTORY" => "N",
-                        "AJAX_OPTION_ADDITIONAL" => "",
-                        "CACHE_TYPE" => "Y",
-                        "CACHE_TIME" => "3600",
-                        "CACHE_GROUPS" => "N",
-                        "SET_TITLE" => "N",
-                        "SET_BROWSER_TITLE" => "N",
-                        "BROWSER_TITLE" => "-",
-                        "SET_META_KEYWORDS" => "N",
-                        "META_KEYWORDS" => "-",
-                        "SET_META_DESCRIPTION" => "N",
-                        "META_DESCRIPTION" => "-",
-                        "SET_LAST_MODIFIED" => "N",
-                        "USE_MAIN_ELEMENT_SECTION" => "N",
-                        "ADD_SECTIONS_CHAIN" => "N",
-                        "CACHE_FILTER" => "N",
-                        "ACTION_VARIABLE" => "action",
-                        "PRODUCT_ID_VARIABLE" => "id",
-                        "PRICE_CODE" => array(
-                            0 => "BASE",
-                        ),
-                        "USE_PRICE_COUNT" => "N",
-                        "SHOW_PRICE_COUNT" => "1",
-                        "PRICE_VAT_INCLUDE" => "Y",
-                        "CONVERT_CURRENCY" => "N",
-                        "USE_PRODUCT_QUANTITY" => "N",
-                        "PRODUCT_QUANTITY_VARIABLE" => "",
-                        "ADD_PROPERTIES_TO_BASKET" => "Y",
-                        "PRODUCT_PROPS_VARIABLE" => "prop",
-                        "PARTIAL_PRODUCT_PROPERTIES" => "N",
-                        "PRODUCT_PROPERTIES" => array(
-                        ),
-                        "OFFERS_CART_PROPERTIES" => array(
-                            0 => "COLOR_REF",
-                            1 => "SIZES_SHOES",
-                            2 => "SIZES_CLOTHES",
-                        ),
-                        "ADD_TO_BASKET_ACTION" => "ADD",
-                        "PAGER_TEMPLATE" => "round",
-                        "DISPLAY_TOP_PAGER" => "N",
-                        "DISPLAY_BOTTOM_PAGER" => "Y",
-                        "PAGER_TITLE" => "Товары",
-                        "PAGER_SHOW_ALWAYS" => "N",
-                        "PAGER_DESC_NUMBERING" => "N",
-                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-                        "PAGER_SHOW_ALL" => "N",
-                        "PAGER_BASE_LINK_ENABLE" => "N",
-                        "SET_STATUS_404" => "N",
-                        "SHOW_404" => "N",
-                        "MESSAGE_404" => "",
-                        "BACKGROUND_IMAGE" => "-",
-                        "DISABLE_INIT_JS_IN_COMPONENT" => "N"
-                    ),
-                    false
-                );
-                $APPLICATION->set_cookie("LASTEST_SEEN", serialize($latestSeen));
-                if (isset($_COOKIE['BITRIX_SM_LASTEST_SEEN_NEW'])) {
-                    unset($_COOKIE['BITRIX_SM_LASTEST_SEEN_NEW']);
-                    setcookie('BITRIX_SM_LASTEST_SEEN_NEW', null, -1, '/');
-                    return true;
-                }
-        }?>
+		$APPLICATION->IncludeComponent(
+			"bitrix:catalog.section",
+			"viewed_books",
+			array(
+				"IBLOCK_TYPE_ID" => "catalog",
+				"IBLOCK_ID" => "4",
+				"BASKET_URL" => "/personal/cart/",
+				"COMPONENT_TEMPLATE" => "viewed_books",
+				"IBLOCK_TYPE" => "catalog",
+				"SECTION_ID" => $_REQUEST["SECTION_ID"],
+				"SECTION_CODE" => "",
+				"SECTION_USER_FIELDS" => array(
+					0 => "",
+					1 => "",
+				),
+				"ELEMENT_SORT_FIELD" => "id",
+				"ELEMENT_SORT_ORDER" => "desc",
+				"ELEMENT_SORT_FIELD2" => "id",
+				"ELEMENT_SORT_ORDER2" => "desc",
+				"FILTER_NAME" => "arFilter",
+				"INCLUDE_SUBSECTIONS" => "Y",
+				"SHOW_ALL_WO_SECTION" => "Y",
+				"HIDE_NOT_AVAILABLE" => "N",
+				"PAGE_ELEMENT_COUNT" => "12",
+				"LINE_ELEMENT_COUNT" => "3",
+				"PROPERTY_CODE" => array(
+					0 => "",
+					1 => "",
+				),
+				"OFFERS_FIELD_CODE" => array(
+					0 => "",
+					1 => "",
+				),
+				"OFFERS_PROPERTY_CODE" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+					3 => "",
+				),
+				"OFFERS_SORT_FIELD" => "sort",
+				"OFFERS_SORT_ORDER" => "desc",
+				"OFFERS_SORT_FIELD2" => "id",
+				"OFFERS_SORT_ORDER2" => "desc",
+				"OFFERS_LIMIT" => "5",
+				"TEMPLATE_THEME" => "site",
+				"PRODUCT_DISPLAY_MODE" => "Y",
+				"ADD_PICT_PROP" => "BIG_PHOTO",
+				"LABEL_PROP" => "-",
+				"OFFER_ADD_PICT_PROP" => "-",
+				"OFFER_TREE_PROPS" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+				),
+				"PRODUCT_SUBSCRIPTION" => "N",
+				"SHOW_DISCOUNT_PERCENT" => "N",
+				"SHOW_OLD_PRICE" => "Y",
+				"SHOW_CLOSE_POPUP" => "N",
+				"MESS_BTN_BUY" => "Купить",
+				"MESS_BTN_ADD_TO_BASKET" => "В корзину",
+				"MESS_BTN_SUBSCRIBE" => "Подписаться",
+				"MESS_BTN_DETAIL" => "Подробнее",
+				"MESS_NOT_AVAILABLE" => "Нет в наличии",
+				"SECTION_URL" => "",
+				"DETAIL_URL" => "",
+				"SECTION_ID_VARIABLE" => "SECTION_ID",
+				"SEF_MODE" => "N",
+				"AJAX_MODE" => "N",
+				"AJAX_OPTION_JUMP" => "N",
+				"AJAX_OPTION_STYLE" => "Y",
+				"AJAX_OPTION_HISTORY" => "N",
+				"AJAX_OPTION_ADDITIONAL" => "",
+				"CACHE_TYPE" => "Y",
+				"CACHE_TIME" => "3600",
+				"CACHE_GROUPS" => "N",
+				"SET_TITLE" => "N",
+				"SET_BROWSER_TITLE" => "N",
+				"BROWSER_TITLE" => "-",
+				"SET_META_KEYWORDS" => "N",
+				"META_KEYWORDS" => "-",
+				"SET_META_DESCRIPTION" => "N",
+				"META_DESCRIPTION" => "-",
+				"SET_LAST_MODIFIED" => "N",
+				"USE_MAIN_ELEMENT_SECTION" => "N",
+				"ADD_SECTIONS_CHAIN" => "N",
+				"CACHE_FILTER" => "N",
+				"ACTION_VARIABLE" => "action",
+				"PRODUCT_ID_VARIABLE" => "id",
+				"PRICE_CODE" => array(
+					0 => "BASE",
+				),
+				"USE_PRICE_COUNT" => "N",
+				"SHOW_PRICE_COUNT" => "1",
+				"PRICE_VAT_INCLUDE" => "Y",
+				"CONVERT_CURRENCY" => "N",
+				"USE_PRODUCT_QUANTITY" => "N",
+				"PRODUCT_QUANTITY_VARIABLE" => "",
+				"ADD_PROPERTIES_TO_BASKET" => "Y",
+				"PRODUCT_PROPS_VARIABLE" => "prop",
+				"PARTIAL_PRODUCT_PROPERTIES" => "N",
+				"PRODUCT_PROPERTIES" => array(
+				),
+				"OFFERS_CART_PROPERTIES" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+				),
+				"ADD_TO_BASKET_ACTION" => "ADD",
+				"PAGER_TEMPLATE" => "round",
+				"DISPLAY_TOP_PAGER" => "N",
+				"DISPLAY_BOTTOM_PAGER" => "Y",
+				"PAGER_TITLE" => "Товары",
+				"PAGER_SHOW_ALWAYS" => "N",
+				"PAGER_DESC_NUMBERING" => "N",
+				"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+				"PAGER_SHOW_ALL" => "N",
+				"PAGER_BASE_LINK_ENABLE" => "N",
+				"SET_STATUS_404" => "N",
+				"SHOW_404" => "N",
+				"MESSAGE_404" => "",
+				"BACKGROUND_IMAGE" => "-",
+				"DISABLE_INIT_JS_IN_COMPONENT" => "N"
+			),
+			false
+		);?>
     </div>
 </div>
+
+<? global $authBooksFilter;
+    if (!empty ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0]) ) {
+        $authBooksFilter = array('PROPERTY_AUTHORS' => $arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0], "!ID" => $arResult["ID"]);
+
+        $APPLICATION->IncludeComponent(
+            "bitrix:catalog.section",
+            "this_author_books",
+            array(
+                "IBLOCK_TYPE_ID" => "catalog",
+                "IBLOCK_ID" => "4",
+                "BASKET_URL" => "/personal/cart/",
+                "COMPONENT_TEMPLATE" => "this_author_books",
+                "IBLOCK_TYPE" => "catalog",
+                "SECTION_ID" => $_REQUEST["SECTION_ID"],
+                "SECTION_CODE" => "",
+                "SECTION_USER_FIELDS" => array(
+                    0 => "",
+                    1 => "",
+                ),
+                "ELEMENT_SORT_FIELD" => "id",
+                "ELEMENT_SORT_ORDER" => "desc",
+                "ELEMENT_SORT_FIELD2" => "id",
+                "ELEMENT_SORT_ORDER2" => "desc",
+                "FILTER_NAME" => "authBooksFilter",
+                "INCLUDE_SUBSECTIONS" => "Y",
+                "SHOW_ALL_WO_SECTION" => "Y",
+                "HIDE_NOT_AVAILABLE" => "N",
+                "PAGE_ELEMENT_COUNT" => "12",
+                "LINE_ELEMENT_COUNT" => "3",
+                "PROPERTY_CODE" => array(
+                    0 => "",
+                    1 => "",
+                ),
+                "OFFERS_FIELD_CODE" => array(
+                    0 => "",
+                    1 => "",
+                ),
+                "OFFERS_PROPERTY_CODE" => array(
+                    0 => "COLOR_REF",
+                    1 => "SIZES_SHOES",
+                    2 => "SIZES_CLOTHES",
+                    3 => "",
+                ),
+                "OFFERS_SORT_FIELD" => "sort",
+                "OFFERS_SORT_ORDER" => "desc",
+                "OFFERS_SORT_FIELD2" => "id",
+                "OFFERS_SORT_ORDER2" => "desc",
+                "OFFERS_LIMIT" => "5",
+                "TEMPLATE_THEME" => "site",
+                "PRODUCT_DISPLAY_MODE" => "Y",
+                "ADD_PICT_PROP" => "BIG_PHOTO",
+                "LABEL_PROP" => "-",
+                "OFFER_ADD_PICT_PROP" => "-",
+                "OFFER_TREE_PROPS" => array(
+                    0 => "COLOR_REF",
+                    1 => "SIZES_SHOES",
+                    2 => "SIZES_CLOTHES",
+                ),
+                "PRODUCT_SUBSCRIPTION" => "N",
+                "SHOW_DISCOUNT_PERCENT" => "N",
+                "SHOW_OLD_PRICE" => "Y",
+                "SHOW_CLOSE_POPUP" => "N",
+                "MESS_BTN_BUY" => "Купить",
+                "MESS_BTN_ADD_TO_BASKET" => "В корзину",
+                "MESS_BTN_SUBSCRIBE" => "Подписаться",
+                "MESS_BTN_DETAIL" => "Подробнее",
+                "MESS_NOT_AVAILABLE" => "Нет в наличии",
+                "SECTION_URL" => "",
+                "DETAIL_URL" => "",
+                "SECTION_ID_VARIABLE" => "SECTION_ID",
+                "SEF_MODE" => "N",
+                "AJAX_MODE" => "N",
+                "AJAX_OPTION_JUMP" => "N",
+                "AJAX_OPTION_STYLE" => "Y",
+                "AJAX_OPTION_HISTORY" => "N",
+                "AJAX_OPTION_ADDITIONAL" => "",
+                "CACHE_TYPE" => "Y",
+                "CACHE_TIME" => "3600",
+                "CACHE_GROUPS" => "N",
+                "SET_TITLE" => "Y",
+                "SET_BROWSER_TITLE" => "N",
+                "BROWSER_TITLE" => "-",
+                "SET_META_KEYWORDS" => "N",
+                "META_KEYWORDS" => "-",
+                "SET_META_DESCRIPTION" => "N",
+                "META_DESCRIPTION" => "-",
+                "SET_LAST_MODIFIED" => "N",
+                "USE_MAIN_ELEMENT_SECTION" => "N",
+                "ADD_SECTIONS_CHAIN" => "N",
+                "CACHE_FILTER" => "N",
+                "ACTION_VARIABLE" => "action",
+                "PRODUCT_ID_VARIABLE" => "id",
+                "PRICE_CODE" => array(
+                    0 => "BASE",
+                ),
+                "USE_PRICE_COUNT" => "N",
+                "SHOW_PRICE_COUNT" => "1",
+                "PRICE_VAT_INCLUDE" => "Y",
+                "CONVERT_CURRENCY" => "N",
+                "USE_PRODUCT_QUANTITY" => "N",
+                "PRODUCT_QUANTITY_VARIABLE" => "",
+                "ADD_PROPERTIES_TO_BASKET" => "Y",
+                "PRODUCT_PROPS_VARIABLE" => "prop",
+                "PARTIAL_PRODUCT_PROPERTIES" => "N",
+                "PRODUCT_PROPERTIES" => array(
+                ),
+                "OFFERS_CART_PROPERTIES" => array(
+                    0 => "COLOR_REF",
+                    1 => "SIZES_SHOES",
+                    2 => "SIZES_CLOTHES",
+                ),
+                "ADD_TO_BASKET_ACTION" => "ADD",
+                "PAGER_TEMPLATE" => "round",
+                "DISPLAY_TOP_PAGER" => "N",
+                "DISPLAY_BOTTOM_PAGER" => "Y",
+                "PAGER_TITLE" => "Товары",
+                "PAGER_SHOW_ALWAYS" => "N",
+                "PAGER_DESC_NUMBERING" => "N",
+                "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                "PAGER_SHOW_ALL" => "N",
+                "PAGER_BASE_LINK_ENABLE" => "N",
+                "SET_STATUS_404" => "N",
+                "SHOW_404" => "N",
+                "MESSAGE_404" => "",
+                "BACKGROUND_IMAGE" => "-",
+                "DISABLE_INIT_JS_IN_COMPONENT" => "N"
+            ),
+            false
+        );
+}?>
 <div id="ajaxBlock"></div>
 <!-- GdeSon -->
 <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276"></script>
@@ -1794,7 +1817,7 @@
             if (bookRating > 4.4)
                 $(".crr-cnt").after("<style>.mc-c .mcicon-star-half-o:before {content: '\\f005'!important;}</style>");
 
-            $(".crr-cnt").after('<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"><meta itemprop="ratingValue" content="'+ bookRating +'" /><meta itemprop="reviewCount" content="'+ (parseInt(data.res.split(':')[1]) + parseInt(data.res.split(':')[2])) +'" /><meta itemprop="bestRating" content="5" /><meta itemprop="bestRating" content="5" /></span>');
+            $(".crr-cnt").after('<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"><meta itemprop="ratingValue" content="'+ bookRating +'" /><meta itemprop="reviewCount" content="'+ (parseInt(data.res.split(':')[1]) + parseInt(data.res.split(':')[2])) +'" /><meta itemprop="bestRating" content="5" /></span>');
         })
     }
     cackleReviewsCount();

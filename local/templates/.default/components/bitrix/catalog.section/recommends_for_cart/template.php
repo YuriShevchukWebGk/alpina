@@ -35,7 +35,7 @@ $this->setFrameMode(true);
                             </div>
                             <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem['NAME']?></p>
                             <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                            <p class="bookPrice"><?=$arPrice['PRINT_DISCOUNT_VALUE']?></p>
+                            <p class="bookPrice"><?=$arPrice['DISCOUNT_VALUE_VAT']?><span></span></p>
                         </a>
 						<a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','', '1');dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'recsAddToCart'});"><p class="basketBook">Добавить к заказу</p></a>
                     </div>    

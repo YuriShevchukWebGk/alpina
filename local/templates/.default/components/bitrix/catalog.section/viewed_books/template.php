@@ -55,18 +55,18 @@ $SavingsDiscount =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->
 global $discount;
 if($USER->IsAuthorized()){// blackfriday черная пятница
     if($SavingsDiscount[0]["SUMM"] < $ar_sale_1[0]["RANGE_FROM"]){ 
-        $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[0]["RANGE_FROM"] - $SavingsDiscount[0]["SUMM"])." руб. до получения скидки в ".$ar_sale_1[0]["VALUE"]."%</span>";
+        $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[0]["RANGE_FROM"] - $SavingsDiscount[0]["SUMM"])."&#105; до получения скидки в ".$ar_sale_1[0]["VALUE"]."%</span>";
     }elseif($SavingsDiscount[0]["SUMM"] < $ar_sale_1[1]["RANGE_FROM"]){ 
-        $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[1]["RANGE_FROM"] - $SavingsDiscount[0]["SUMM"])." руб. до получения скидки в ".$ar_sale_1[1]["VALUE"]."%</span>";
+        $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[1]["RANGE_FROM"] - $SavingsDiscount[0]["SUMM"])."&#105; до получения скидки в ".$ar_sale_1[1]["VALUE"]."%</span>";
         $discount = $ar_sale_1[0]["VALUE"]; // процент накопительной скидки
     }else{
         $discount = $ar_sale_1[1]["VALUE"];  // процент накопительной скидки
     } 
 }else{ 
     if($arBasketItems["sum_pruce"] < $ar_sale_1[0]["RANGE_FROM"]){ 
-        $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[0]["RANGE_FROM"] - $arBasketItems["sum_pruce"])." руб. до получения скидки в ".$ar_sale_1[0]["VALUE"]."%</span>";                            
+        $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[0]["RANGE_FROM"] - $arBasketItems["sum_pruce"])."&#105; до получения скидки в ".$ar_sale_1[0]["VALUE"]."%</span>";                            
     }elseif($arBasketItems["sum_pruce"] < $ar_sale_1[1]["RANGE_FROM"]){ 
-        $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[1]["RANGE_FROM"] - $arBasketItems["sum_pruce"])." руб. до получения скидки в ".$ar_sale_1[1]["VALUE"]."%</span>"; 
+        $printDiscountText = "<span class='sale_price'>Вам не хватает ".($ar_sale_1[1]["RANGE_FROM"] - $arBasketItems["sum_pruce"])."&#105; до получения скидки в ".$ar_sale_1[1]["VALUE"]."%</span>"; 
         $discount = $ar_sale_1[0]["VALUE"];  // процент накопительной скидки
     }else{
         $discount = $ar_sale_1[1]["VALUE"];  // процент накопительной скидки
@@ -92,11 +92,11 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
 									if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 
 										&& intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23) {
 											if ($discount) {?>
-											<p class="bookPrice"><?=($arPrice["DISCOUNT_VALUE_VAT"]*(1 - $discount/100))?> <span>руб.</span></p>
+											<p class="bookPrice"><?=($arPrice["DISCOUNT_VALUE_VAT"]*(1 - $discount/100))?><span></span></p>
 											<?
 											} else {
 											?>    
-											<p class="bookPrice"><?=($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+											<p class="bookPrice"><?=($arPrice["DISCOUNT_VALUE_VAT"])?><span></span></p>
 											<?
 											}
 											?>

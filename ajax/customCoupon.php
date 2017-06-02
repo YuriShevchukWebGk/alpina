@@ -25,7 +25,7 @@
             $currentDateTimestamp = time();
         }
         
-        if ($currentDateTimestamp >= $couponActiveToTimestamp && isset($couponActiveToTimestamp)) {
+        if ($currentDateTimestamp >= $couponActiveToTimestamp && isset($couponActiveToTimestamp)) { 
             $result["DEFAULT_COUPON"] = 'Y';
             $result["TEST_INFO_DateTimestamp"] = 'Y';
         } else {
@@ -37,7 +37,7 @@
                 $arDiscount = $discountIteratorCoup->fetch(); 
                 $discountVal = (int)$arDiscount["ACTIONS_LIST"]["CHILDREN"][0]["DATA"]["Value"];
                 if ($discountVal > $price) {
-                    CCatalogDiscountCoupon::ClearCoupon();
+                    CCatalogDiscountCoupon::ClearCoupon();   
                     $result["DEFAULT_COUPON"] = 'N';
                     $result["TEST_INFO_ClearCoupon"] = 'N';
                     $_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] = 'N';
@@ -45,14 +45,14 @@
                     $_SESSION["CUSTOM_COUPON"]["COUPON_CODE"] = $_POST["coupon"];
                     $_SESSION["CUSTOM_COUPON"]["COUPON_ID"] = $arCoupon["ID"];
                 } else {
-                    CCatalogDiscountCoupon::SetCoupon($arCoupon["COUPON"]);
+                    CCatalogDiscountCoupon::SetCoupon($arCoupon["COUPON"]);          
                     $result["DEFAULT_COUPON"] = 'Y';
                     $result["TEST_INFO_SetCoupon_!empty(arCoupon)"] = 'Y';
                     $_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] = 'Y';
                     $_SESSION["CUSTOM_COUPON"]["COUPON_ID"] = $arCoupon["ID"];
                 }      
             } else {
-                CCatalogDiscountCoupon::SetCoupon($arCoupon["COUPON"]);
+                CCatalogDiscountCoupon::SetCoupon($arCoupon["COUPON"]);               
                 $result["DEFAULT_COUPON"] = 'Y';
                 $result["TEST_INFO_SetCoupon"] = 'Y';
                 $_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] = 'Y';

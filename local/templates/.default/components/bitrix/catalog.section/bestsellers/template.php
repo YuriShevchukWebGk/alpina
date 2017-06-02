@@ -36,11 +36,7 @@
                     <p class="autor"><?= $arResult["QUOTE"]["PROPERTY_AUTHOR_NAME"] ?></p>
                 </div>
             <?}?>
-            <?if ($arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"]) {?>
-                <div class="titleText">
-                    <p class="text"><?= $arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"] ?></p>
-                </div>
-            <?}?>
+
 <?$frame = $this->createFrame()->begin();?>
             <div class="otherBooks" id="block1">
                 <ul>

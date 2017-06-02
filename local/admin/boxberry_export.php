@@ -25,15 +25,15 @@
 
     $filter = array(
         "LOGIC" => "OR",
-        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID, "PAYED" => "Y"),
-        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID, "PAYED" => "Y")
+        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_NATURAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID, "PAYED" => "Y", "!STATUS_ID" => "PR"),
+        array("BOXBERRY.ORDER_PROPS_ID" => EXPORTED_TO_BOXBERRY_PROPERTY_ID_LEGAL, "BOXBERRY.VALUE" => "N", "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID, "PAYED" => "Y", "!STATUS_ID" => "PR")
     );    
 
     $getListParams = array(
         'order' => array($by => $order),
         'filter' => $filter,
         'select' => array("*", "BOXBERRY"),
-        'limit' => 100,
+        'limit' => 250,
         'runtime' => array(
             new \Bitrix\Main\Entity\ReferenceField(
                 'BOXBERRY',
@@ -397,6 +397,5 @@
         </tbody>
     </table>     
 
-    <?}?>
-    
+    <?}?>                    
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_admin.php");?>

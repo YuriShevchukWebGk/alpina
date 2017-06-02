@@ -1,5 +1,5 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
-
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
+<?
 global $USER;
 $arResult['KEY'] = RFI_TEST_KEY;
 
@@ -10,8 +10,7 @@ if ($arParams['OTHER_PAYMENT'] == "Y") {
     $arResult['PHONE'] = $arParams['OTHER_PARAMS']['PHONE'];
     $arResult['ORDER_ID'] = $arParams['ORDER_ID'];
 } else {
-    $order_id = $arParams['ORDER_ID'];
-    
+    $order_id = $arParams['ORDER_ID'];               
     $order = CSaleOrder::GetByID($order_id);
     
     $order_props = CSaleOrderPropsValue::GetList(
@@ -51,5 +50,6 @@ if ($arParams['OTHER_PAYMENT'] == "Y") {
     
     $arResult['COMMENT'] = str_replace("ORDER_ID", $order_id, GetMessage("COMMENT"));
 }
+
 $this->IncludeComponentTemplate();
-?>
+?>        
