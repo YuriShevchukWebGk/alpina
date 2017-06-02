@@ -361,17 +361,10 @@
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
-<<<<<<< HEAD
-    }                                      */
-    AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerAfter"); // меняем цену для boxbery
-    AddEventHandler("sale", "OnOrderSave", "flippostHandlerBefore"); // меняем адрес для boxbery
-=======
     }
 
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
     AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
->>>>>>> upstream/master
-
 
 
     /**

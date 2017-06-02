@@ -56,8 +56,15 @@ Boxbery.prototype.__makeQueryArray = function(method, country, state, zip, weigh
 
 Boxbery.prototype.__getQueryData = function(method, country, state, zip, boxbery_id) {
     $.post("/boxbery/delivery_post.php", self.queryObj, function(data) {
+     //   self.returnedData = JSON.parse(data);
+
         city = JSON.parse(data);
         self.__makeSelectTag(method, country, state, zip, boxbery_id);
+/*        if(method=='CourierListCities' && self.returnedData.length == 0){ // --- some countries don't have states,get cities in this case
+            self.getData('CourierListCities',country);
+        } else {
+            self.__makeSelectTag(method);
+        }      */
     });
 }
 
@@ -88,8 +95,11 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
             return false;
         }
 
+
+
+
         function emptyOption(operator){
-            if(operator){
+              if(operator){
                 select_tag = document.createElement('select');
                 select_tag.setAttribute("class", 'boxberySelect');
 
@@ -104,37 +114,25 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
                 select_tag.appendChild(option_tag);
             } else {
                 select_tag = '';
-                if(country == "Москва"){
-                    window.boxbery.getData("DeliveryCosts", country, state); // рендерим новые
-                } else {
-                    window.boxbery.getData("ListZips", country, state); // рендерим новые
-                }
             }
         }
         var Region = [],
             City = [],
-            ZipCity = [],
-            citiName = [];
+            ZipCity = [];
+        var citiName = [];
 
         if(country == undefined){
             method_city = state+'#';
         } else {
             method_city = state+'#'+country;
         }
+    // if(method != 'ListZips'){
 
         city.forEach(function(elem) {
-            if(elem.Area == "Москва"){
-                Region[elem.Area] = elem.Region;
-            } else if(elem.Area == "Московская"){
-                Region[elem.Area] = elem.Region;
-            }
-        })
-        city.forEach(function(elem) {
-            if(elem.Area != "Москва" && elem.Area != "Московская"){
-                Region[elem.Area] = elem.Region;
-            }
+            Region[elem.Area] = elem.Region;
 
             citiName = elem.City;
+
             if(!City[elem.Area+'#'+elem.Region]){
                 City[elem.Area+'#'+elem.Region] = [];
                 City[elem.Area+'#'+elem.Region].push(citiName);
@@ -144,17 +142,11 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
 
         });
 
-      /*  var key, Region = new Array();
-            for (key in Region_old){
-                console.log(Region_old[key]);
-                Region [Area[Region_old[key]]] = Region_old [key];
-            }
-                */
         city.forEach(function(elem) {
-              ZipCity[elem.City] = elem.Zip
+            ZipCity[elem.City] = elem.Zip
         });
 
-    var empty_region = true;
+
     if(method == 'CourierListCities'){
         emptyOption(true);
         for(elem in Region) {
@@ -162,41 +154,43 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
             option_tag.setAttribute("value", elem);
             option_tag.innerHTML = elem;
             select_tag.appendChild(option_tag);
+
         }
     }else if('CourierListCities&Region' == method){
 
+        console.log(state);
+        console.log(Region[state]);
         if(Region[state]){
             emptyOption(true);
             for(elem in Region) {
                 if(Region[elem] && elem == state){
-                    empty_region = false;
+                    empty_region = 'N';
                     option_tag = document.createElement('option');
                     option_tag.setAttribute("value", Region[elem]);
                     option_tag.innerHTML = Region[elem];
                     select_tag.appendChild(option_tag);
                 } else {
-                    empty_region = true;
+                    empty_region = 'Y';
+
+                    var foo = $('select[data-method="ListZips"]'); // сносим все последующие селекты, т.к. они больше не нужны
+
+                    foo.detach(); //удаляем элемент
                 }
             };
         } else {
-            empty_region = false;
+            method = 'ListZips';
             emptyOption(false);
         }
 
 
-    }
-
-    if('ListZips' == method){
-
+    }else if('ListZips' == method){
         var key = 0;
         var arCity = [];
         emptyOption(true);
-        empty_region = true;
         for(arrElem in City) {
             for(cityName in City[arrElem]) {
                 key++;
                 if(arrElem == method_city && !in_array( City[arrElem][cityName], arCity )){
-
                     option_tag = document.createElement('option');
                     option_tag.setAttribute("value", ZipCity[City[arrElem][cityName]]);
                     option_tag.innerHTML = City[arrElem][cityName];
@@ -208,9 +202,24 @@ Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxber
 
     }
 
-    if(empty_region){
-        document.querySelector('.boxberySelectContainer').appendChild(select_tag);
-    }
+  /*  if('ListZips' == method){
+        var arCity = [];
+        var key = 0
+        for(elem in City) {
+            key++;
+            if(!in_array( City[elem], arCity ) ){
+                option_tag = document.createElement('option');
+                option_tag.setAttribute("value", elem);
+                option_tag.innerHTML = City[elem];
+                select_tag.appendChild(option_tag);
+            }
+            arCity[key] = City[elem];
+        };
+
+    }     */
+
+
+    document.querySelector('.boxberySelectContainer').appendChild(select_tag);
 }
 
 /*******
@@ -226,7 +235,7 @@ Boxbery.prototype.__printPrice = function(boxbery_id) {
     $(".ID_DELIVERY_ID_50").html(city.price + ' руб.');
     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(city.price);
     $('.finalSumTable').html( finalSumWithoutDiscount.toFixed(2) + ' руб.');
-    $("#boxbery_cost").val(city.price);
+    $("#boxbery_cost").val(city.delivery_period);
     var delivery_time = Math.round(city.delivery_period) + 3; //сорк доставки. добавляем к сроку, полученному из запроса 3 дня
     $("#boxbery_delivery_time").show();
     $("#boxbery_delivery_time span").html(delivery_time);

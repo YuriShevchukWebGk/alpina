@@ -14,7 +14,6 @@
             }
         }
     }
-
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
     $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
@@ -31,7 +30,11 @@
     include ('include/functions.php');
 	include ($_SERVER["DOCUMENT_ROOT"].'/custom-scripts/checkdelivery/options.php');
 ?>
-
+<link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
+<!--[if lt IE 10]>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
 <style>
     /* Лучше так, чем городить адовые городушки на js */
     input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
@@ -444,6 +447,7 @@
                                     var flag = true;
 
                                     $(".flippost_error").hide();
+                                    $(".boxbery_error").hide();
                                     if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
                                         $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
                                     }
@@ -504,10 +508,7 @@
                                             flag = false;
                                             $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
                                         }
-<<<<<<< HEAD
 
-=======
->>>>>>> upstream/master
                                         if (flag) {
                                             // склеиваем адрес для flippost
                                             if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
@@ -541,17 +542,6 @@
                                                     if (!$(this).val().length) {flag = false; return false;};
                                                 });
                                                 if (flag) {
-<<<<<<< HEAD
-=======
-                                                    var boxbery_address = [
-                                                        $('select[data-method="CourierListCities&Region"] option:checked').text(), // страна
-                                                        $('select[data-method="ListZips"] option:checked').text(), // область
-                                                        $('select[data-method="DeliveryCosts"] option:checked').text(), // город
-                                                    ],
-                                                    boxbery_string_address = "";
-                                                    boxbery_string_address = boxbery_address.join(", ");
-                                                    $("#ORDER_DESCRIPTION").val(boxbery_string_address + " " + $("#ORDER_DESCRIPTION").val());
->>>>>>> upstream/master
                                                     $(".boxbery_error").hide();
                                                 } else {
                                                     $('html, body').animate({
@@ -587,10 +577,7 @@
                                                 $(".boxberry_error").hide();
                                             }
                                         }
-<<<<<<< HEAD
 
-=======
->>>>>>> upstream/master
                                     }
 
                                     if(flag){
@@ -671,7 +658,6 @@
                                     BX.closeWait();
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
                                     //доп функции/////////////////////////////////
-<<<<<<< HEAD
 
                                     $("#ORDER_PROP_15").suggestions({
                                         token: "<?= DADATA_API_CODE ?>",
@@ -705,8 +691,6 @@
                                         $(this).closest(".infoPunct").hide();
                                     });
 
-=======
->>>>>>> upstream/master
                                     setOptions();
 
                                     // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
@@ -761,8 +745,8 @@
                                                 weight  = parseInt($('.order_weight').text()) / 1000,
                                                 method  = $(this).data("method"); // какой метод вызывать следующим
                                                 $(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
-												if (!weight)
-													weight = 1;
+                                                if (!weight)
+                                                    weight = 1;
                                                 window.flippost.getData(method, country, state, city, weight); // рендерим новые
                                             });
                                         }
@@ -776,14 +760,12 @@
                                                 state   = $('select[data-method="CourierListCities&Region"]').val(),
                                               //  city    = $('select[data-method="DeliveryCosts"]').val(),
                                                 zip    = $('select[data-method="DeliveryCosts"]').val(),
-                                                weight  = parseInt($('.order_weight').text()),
+                                                weight  = parseInt($('.order_weight').text()) / 1000,
                                                 method  = $(this).data("method"); // какой метод вызывать следующим
                                                 $(this).nextAll("select").remove(); // сносим все последующие селекты, т.к. они больше не нужны
-
                                                 if (!weight)
                                                     weight = 1;
                                                 window.boxbery.getData(method, country, state, zip, weight, boxbery_id); // рендерим новые
-
                                             });
                                         }      */
                                         if ($("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").is(':checked')) {
@@ -979,7 +961,6 @@
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
-<<<<<<< HEAD
 
         $(".certInput, .infoPunct .bx_block").each(function(){
             if ($(this).css("display") == "none") {
@@ -990,7 +971,5 @@
         $("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
             $(this).closest(".infoPunct").hide();
         })
-=======
->>>>>>> upstream/master
     })
 </script>
