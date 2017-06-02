@@ -14,7 +14,7 @@
     $checkMobile = checkMobile();
     include_once($_SERVER["DOCUMENT_ROOT"].'/custom-scripts/checkdelivery/options.php');
 ?>
-
+<script type="text/javascript" src="/js/chromatism.js"></script>
 <script>
     $(document).ready(function(){
         <!-- //dataLayer GTM -->
@@ -137,9 +137,9 @@
         background-color: <?=$bgcolors[0]?>;
         opacity: 0.3;
     }
-    .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
+    /*.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
         color: <?=$mincolor['color']?>!important;
-    }
+    }*/
     #diffversions .passive span {
         border-bottom: 1px dashed <?=$mincolor['color']?>;
     }
@@ -152,7 +152,13 @@
         opacity: 0.8;
     }		
 </style>
-
+<script>
+$(document).ready(function(){
+	var newColour = chromatism.invertLightness('<?=$bgcolors[0]?>').hex;
+	//alert(newColour);
+	$('.centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive').css('color',newColour);
+});
+</script>
 <?
     $templateLibrary = array('popup');
     $currencyList = '';
