@@ -30,22 +30,6 @@ function Boxbery(boxbery_id) {
 Boxbery.prototype.__makeQueryArray = function(method, country, state, zip, weight, boxbery_id) {
 
     switch(method) {
-        case 'CourierListCities':
-            self.queryObj = {
-                method : method
-            };
-            break;
-        case 'CourierListCities&Region':
-            self.queryObj = {
-                method : method
-            };
-            break;
-        case 'ListZips':
-            self.queryObj = {
-                method : method,
-                zip : zip,
-            };
-            break;
         case 'DeliveryCosts':
             self.queryObj = {
                 method : method,
@@ -97,7 +81,6 @@ Boxbery.prototype.__getQueryData = function(method, country, state, zip, boxbery
  *******/
 
 Boxbery.prototype.__makeSelectTag = function(method, country, state, zip, boxbery_id) {
-    nextMethodIndex = self.availibleMethods.indexOf(method) + 1;
 
     if(!self.availibleMethods[nextMethodIndex]){ // -- final API method getTarif don't have select tag
         self.__printPrice(boxbery_id);

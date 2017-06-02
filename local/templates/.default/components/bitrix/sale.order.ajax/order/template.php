@@ -17,7 +17,7 @@
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
     $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
-    $APPLICATION->AddHeadString('<script type="text/javascript" src="/boxbery/boxbery.js"></script>');
+    //$APPLICATION->AddHeadString('<script type="text/javascript" src="/boxbery/boxbery.js"></script>');
     $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>');
 	// доставка гуру
 	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/collection-search-provider.js");
@@ -38,10 +38,6 @@
 <style>
     /* Лучше так, чем городить адовые городушки на js */
     input#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>:checked ~ div.flippostSelectContainer {
-        display: block;
-    }
-
-    input#ID_DELIVERY_ID_<?= BOXBERY_ID ?>:checked ~ div.boxberySelectContainer {
         display: block;
     }
 
@@ -431,7 +427,7 @@
                                             )).'</div>'
                                         )
                                     ))?>);
-                  
+
                                     <?endif?>
 
                                 var BXFormPosting = false;
@@ -512,7 +508,7 @@
                                             flag = false;
                                             $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
                                         }
-                  
+
                                         if (flag) {
                                             // склеиваем адрес для flippost
                                             if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
@@ -546,14 +542,6 @@
                                                     if (!$(this).val().length) {flag = false; return false;};
                                                 });
                                                 if (flag) {
-                                                    var boxbery_address = [
-                                                        $('select[data-method="CourierListCities"] option:checked').text(), // страна
-                                                        $('select[data-method="CourierListCities&Region"] option:checked').text(), // область
-                                                        $('select[data-method="CourierListCities&City"] option:checked').text(), // город
-                                                    ],
-                                                    boxbery_string_address = "";
-                                                    boxbery_string_address = boxbery_address.join(", ");
-                                                    $("#ORDER_PROP_5").val(boxbery_string_address + " " + $("#ORDER_PROP_5").val());
                                                     $(".boxbery_error").hide();
                                                 } else {
                                                     $('html, body').animate({
@@ -589,7 +577,7 @@
                                                 $(".boxberry_error").hide();
                                             }
                                         }
-                    
+
                                     }
 
                                     if(flag){
@@ -636,11 +624,7 @@
                                 } */
 
                                 function ajaxResult(res) {
-                                    <?if($USER->IsAdmin()){?>
-                                    window.boxbery = !(window.boxbery instanceof Boxbery) ? new Boxbery(<?= BOXBERY_ID ?>) : window.boxbery;
-                                    <?} else {?>
                                     window.flippost = !(window.flippost instanceof Flippost) ? new Flippost(<?= FLIPPOST_ID ?>) : window.flippost;
-                                    <?}?>
                                     var orderForm = BX('ORDER_FORM');
                                     try
                                     {
@@ -674,7 +658,7 @@
                                     BX.closeWait();
                                     BX.onCustomEvent(orderForm, 'onAjaxSuccess');
                                     //доп функции/////////////////////////////////
-                                    
+
                                     $("#ORDER_PROP_15").suggestions({
                                         token: "<?= DADATA_API_CODE ?>",
                                         type: "PARTY",
@@ -706,7 +690,7 @@
                                     $("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
                                         $(this).closest(".infoPunct").hide();
                                     });
-                                    
+
                                     setOptions();
 
                                     // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
@@ -768,9 +752,9 @@
                                         }
                                     }
                                     if ($(".js_delivery_block").length) {
-                                        if ($("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").is(':checked')) {
+                                        /*if ($("#ID_DELIVERY_ID_<?//= BOXBERY_ID ?>").is(':checked')) {
                                             !$("#boxberyCountrySelect").length ? window.boxbery.getData("CourierListCities") : "";
-                                            var boxbery_id = $("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").val();
+                                            var boxbery_id = $("#ID_DELIVERY_ID_<?//= BOXBERY_ID ?>").val();
                                             $(".js_delivery_block").on('change', '.boxberySelect', function() {
                                                 var country = $('select[data-method="CourierListCities"]').val(),
                                                 state   = $('select[data-method="CourierListCities&Region"]').val(),
@@ -782,6 +766,40 @@
                                                 if (!weight)
                                                     weight = 1;
                                                 window.boxbery.getData(method, country, state, zip, weight, boxbery_id); // рендерим новые
+                                            });
+                                        }      */
+                                        if ($("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").is(':checked')) {
+                                            var boxbery_id = $("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").val();
+                                            $(".clientInfoWrap").on('focus', '#ORDER_PROP_100');
+                                            $("#ORDER_PROP_100").focus();
+                                            $(".clientInfoWrap").on('focusout', '#ORDER_PROP_100', function() {
+                                                var  zip = $(this).val(),
+                                                weight = parseInt($('.order_weight').text()),
+                                                method = $(this).data("method"); // какой метод вызывать следующим
+                                                if (!weight)
+                                                    weight = 1;
+                                                $.ajax({
+                                                  type: "POST",
+                                                  url: "/boxbery/delivery_post.php",
+                                                  data: { weight: weight, zip: zip },
+                                                  success: function(data){
+                                                        city = JSON.parse(data);
+                                                        if(city.price == 0){
+                                                            $(".ID_DELIVERY_ID_50").html('Неверно указан индекс!');
+                                                            $("#boxbery_delivery_time span").html('');
+                                                        } else {
+                                                            document.querySelector('.deliveryPriceTable').innerHTML = city.price + ' руб.';
+                                                            $(".ID_DELIVERY_ID_50").html(city.price + ' руб.');
+                                                            finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(city.price);
+                                                            $('.finalSumTable').html( finalSumWithoutDiscount.toFixed(2) + ' руб.');
+                                                            $("#boxbery_cost").val(city.delivery_period);
+                                                            $("#boxbery_price").val(city.price);
+                                                            var delivery_time = Math.round(city.delivery_period); //сорк доставки. добавляем к сроку, полученному из запроса 3 дня
+                                                            $("#boxbery_delivery_time").show();
+                                                            $("#boxbery_delivery_time span").html(delivery_time);
+                                                        }
+                                                  }
+                                                })
                                             });
                                         }
                                     }
@@ -943,13 +961,13 @@
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
-        
+
         $(".certInput, .infoPunct .bx_block").each(function(){
             if ($(this).css("display") == "none") {
                 $(this).closest(".infoPunct").find(".inputTitle").hide();
             }
         });
-        
+
         $("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
             $(this).closest(".infoPunct").hide();
         })

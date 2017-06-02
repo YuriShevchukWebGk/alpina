@@ -16,7 +16,7 @@
     use Bitrix\Sale\Internals;
     use Bitrix\Highloadblock as HL;
     use Bitrix\Main\Entity;
-    
+
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
@@ -354,8 +354,8 @@
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
     }                                      */
-    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
-    AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
+    AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerAfter"); // меняем цену для boxbery
+    AddEventHandler("sale", "OnOrderSave", "flippostHandlerBefore"); // меняем адрес для boxbery
 
 
 
@@ -472,6 +472,23 @@
             $exported_to_dg_property_instance->setValue("N");
 
             $order_instance->save();
+        }
+    }
+
+    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberryDeliveryHandlerBefore"); // меняем цену для boxbery
+
+    /**
+     * Handler для доставки boxbery. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberryDeliveryHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+            $delivery_price = $_REQUEST['boxbery_price'];
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
     }
 

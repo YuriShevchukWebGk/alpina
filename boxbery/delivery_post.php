@@ -13,12 +13,7 @@
 
     //$postdata = http_build_query($_POST);
 
-    if($_POST["method"] == 'DeliveryCosts'){
-        $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method='.$_POST["method"].'&weight='.$_POST["weight"].'&zip='.$_POST["zip"];
-
-    } else {
-        $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method='.$_POST["method"];
-    }
+    $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=DeliveryCosts&weight='.$_POST["weight"].'&zip='.$_POST["zip"];
 
     $handle = fopen($url, "rb");
     $contents = stream_get_contents($handle);
