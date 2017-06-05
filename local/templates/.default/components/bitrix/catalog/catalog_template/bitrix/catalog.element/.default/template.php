@@ -1001,14 +1001,6 @@
     <div class="subscr_result"></div>
     <div class="centerColumn">
 		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"])) {?>
-			<style>
-				.multipleBooks{margin-left:-5px}
-				.multipleBooks li{display:inline-block;margin-right:5px}
-				.multipleBooks li span{font-size:14px;color:#00ABB8;border-bottom:1px dashed #00ABB8;cursor:pointer}
-				.multipleBooks li:hover span,.multipleBooks .active span{border-bottom:none}
-				.multipleBooks .active span{background:#ecedef;color:#333;padding:2px 5px}
-				.centerColumn .productName{padding-top:14px}
-			</style>
 			<ul class="multipleBooks no-mobile">
 				<li class="active" data-book="1"><span>Первая книга</span></li>
 				<li data-book="2"><span>Вторая книга</span></li>
