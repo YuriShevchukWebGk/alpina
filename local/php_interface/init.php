@@ -142,10 +142,12 @@
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
         $bcc_pattern = "/(?<=BCC:)(.*)(?=)/";
+        $cc_pattern = "/(?<=CC:)(.*)(?=)/";
         $from_matches = array();
         $bcc_matches = array();
         preg_match($from_pattern, $additional_headers, $from_matches);
         preg_match($bcc_pattern, $additional_headers, $bcc_matches);
+        preg_match($cc_pattern, $additional_headers, $cc_matches);
 
         $mailgun = new Mailgun(MAILGUN_KEY);
 
@@ -159,6 +161,9 @@
         if (trim($bcc_matches[0])) {
             $params['bcc'] = $bcc_matches[0];
         }
+        if (trim($bcc_matches[0])) {
+            $params['cc'] = $cc_matches[0];
+        }
         //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
@@ -170,8 +175,8 @@
 
     function messagesWithAttachments($arFields, $arTemplate) {
         GLOBAL $arParams;
-
-        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+         // отправка письма по наличию вложенных файлов
+       // if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
 
             $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
             $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
@@ -179,8 +184,10 @@
             // заменяем все максросы в письме на значения из $arFields
             // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
             $message_body = $arTemplate['MESSAGE'];
+            $message_title = $arTemplate["SUBJECT"];
             foreach ($arFields as $field_name => $field_value) {
                 $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
+                $message_title = str_replace("#" . $field_name . "#", $field_value, $message_title);
             }
             // подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
             if($arFields[trim($arTemplate['EMAIL'], "#")]){
@@ -200,7 +207,7 @@
             $params = array(
                 'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
                 'to'      => $email_to,//$arFields["EMAIL"],
-                'subject' => $arTemplate['SUBJECT'],
+                'subject' => $message_title,
                 'html'    => $message_body,
             );
 
@@ -218,7 +225,7 @@
             $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
 
             return false;
-        }
+      //  }
     }
 
 

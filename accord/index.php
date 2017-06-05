@@ -19,6 +19,7 @@ curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $xmlBody);                          
 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 if($out = curl_exec($curl)){ 
+    arshow($out);
     $ar_idoc_id = array();
     $xmlBody = '';        
     $ar_barcode_list = array();
