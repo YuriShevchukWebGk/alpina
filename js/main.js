@@ -96,17 +96,23 @@ $(document).ready(function(){
     }
     //скрытие текста в карточке товара
     if($('.showAllWrapp').length > 0){
-        if($('.showAllWrapp').css('height').slice(0,-2) > 558){
+		var descHeight = $('.showAllWrapp').css('height').slice(0,-2);
+		var leftBlockHeight = $('.elementDescriptWrap .leftColumn').css('height').slice(0,-2);
+		var checkVideo = $('.productSelectTitle').css('height').slice(0,-2);
+		if (checkVideo > 20)
+			var videoHeight = 321;
+		else
+			var videoHeight = 0;
+
+        if(descHeight > leftBlockHeight) {
             $('.showAllWrapp').append('<p class="readMore"><span>Читать далее...</span></p>');
-            $('.showAllWrapp').css('height','558px');
+            $('.showAllWrapp').css('height',leftBlockHeight - videoHeight - 300 +'px');
         }
 
         $('.readMore').click(function(){
             $('.showAllWrapp').css('height','auto');
             $('.readMore').hide();
         })
-
-
     }
     //Плавающая шапка на странице профиля
     $(window).on('scroll', function(){
@@ -1500,17 +1506,23 @@ function docReadyComponent(id) {
 
 	//скрытие текста в карточке товара
 	if($('.showAllWrapp').length > 0){
-		if($('.showAllWrapp').css('height').slice(0,-2) > 558){
-			$('.showAllWrapp').append('<p class="readMore"><span>Читать далее...</span></p>');
-			$('.showAllWrapp').css('height','558px');
-		}
+		var descHeight = $('.showAllWrapp').css('height').slice(0,-2);
+		var leftBlockHeight = $('.elementDescriptWrap .leftColumn').css('height').slice(0,-2);
+		var checkVideo = $('.productSelectTitle').css('height').slice(0,-2);
+		if (checkVideo > 20)
+			var videoHeight = 321;
+		else
+			var videoHeight = 0;
+		
+        if(descHeight > leftBlockHeight) {
+            $('.showAllWrapp').append('<p class="readMore"><span>Читать далее...</span></p>');
+            $('.showAllWrapp').css('height',leftBlockHeight - videoHeight - 300 +'px');
+        }
 
-		$('.readMore').click(function(){
-			$('.showAllWrapp').css('height','auto');
-			$('.readMore').hide();
-		})
-
-
+        $('.readMore').click(function(){
+            $('.showAllWrapp').css('height','auto');
+            $('.readMore').hide();
+        })
 	}
 
 	$.ajax({

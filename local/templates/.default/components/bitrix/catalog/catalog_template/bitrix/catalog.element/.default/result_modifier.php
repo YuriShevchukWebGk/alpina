@@ -922,4 +922,14 @@ if ($arResult['MODULES']['currency'])
 
     $APPLICATION->AddHeadString('<meta name="relap-image" content="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
     $this->__component->arResultCacheKeys = array_merge($this->__component->arResultCacheKeys, array_keys($arResult));
+	
+	if (!empty($arResult["PROPERTIES"]["second_book_img"]["VALUE"])) {
+		$arResult["SECOND_PICTURE"] = CFile::ResizeImageGet($arResult["PROPERTIES"]["second_book_img"]["VALUE"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+		$arResult["SECOND_PICTURE"] = $arResult["SECOND_PICTURE"]['src'];
+	}
+		
+	if (!empty($arResult["PROPERTIES"]["third_book_img"]["VALUE"])) {
+		$arResult["THIRD_PICTURE"] = CFile::ResizeImageGet($arResult["PROPERTIES"]["third_book_img"]["VALUE"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+		$arResult["THIRD_PICTURE"] = $arResult["THIRD_PICTURE"]['src'];
+	}
 ?>
