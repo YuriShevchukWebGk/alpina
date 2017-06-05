@@ -446,7 +446,6 @@ BX.saleOrderAjax = { // bad solution, actually, a singleton at the page
 }
 function postamat(path){
     var postamat = $('#sPPDelivery').val();
-     console.log(postamat);
     if(postamat != 'не выбрано'){
        path = false;
     }else{
