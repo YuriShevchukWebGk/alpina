@@ -50,7 +50,7 @@ function getLastTwoDays($analytics, $profileId) {
 			'dimensions'=>'ga:pagePath',
 			'sort'=>'-ga:pageviews',
 			'filters'=>'ga:pagePath=~^/catalog/([a-zA-Z0-9]+)/([0-9]+)/index.php$',
-			'max-results'=>'1000'
+			'max-results'=>'20000'
 			
 		)
 	);
