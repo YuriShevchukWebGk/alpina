@@ -522,6 +522,6 @@ foreach ($arResult["ITEMS"] as $key => $arItem) {
     
     // получение изображения для товара в разделе каталога
     
-    $arResult[$arItem["ID"]]["PICTURE"] = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);                  
+    $arResult[$arItem["ID"]]["PICTURE"] = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);                  
 }
 ?>
