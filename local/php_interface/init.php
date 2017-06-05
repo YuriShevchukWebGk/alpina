@@ -374,7 +374,6 @@
     AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
 
 
-
     /**
      * Handler для доставки boxbery. Плюсуем стоимость доставки
      *
@@ -522,6 +521,23 @@
             $exported_to_dg_property_instance->setValue("N");
 
             $order_instance->save();
+        }
+    }
+
+    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberryDeliveryHandlerBefore"); // меняем цену для boxbery
+
+    /**
+     * Handler для доставки boxbery. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberryDeliveryHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+            $delivery_price = $_REQUEST['boxbery_price'];
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
     }
 

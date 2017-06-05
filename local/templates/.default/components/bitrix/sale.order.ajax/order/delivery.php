@@ -218,7 +218,7 @@
                             <span class="ora-store" id="store_desc"><?=htmlspecialcharsbx($arResult["STORE_LIST"][$arResult["BUYER_STORE"]]["TITLE"])?></span>
                         </span>
                         <?
-                            endif;
+                        endif;
                     ?>
                 </p>
 
@@ -236,8 +236,7 @@
                                 <td rowspan="2" class="price">
                                     <?
 
-                                        if ($price = $extraService->getPrice())
-                                        {
+                                        if ($price = $extraService->getPrice()) {
                                             echo GetMessage('SOA_TEMPL_SUM_PRICE').': ';
                                             echo '<strong>'.SaleFormatCurrency($price, $arResult['BASE_LANG_CURRENCY']).'</strong>';
                                         }
@@ -267,7 +266,6 @@
                     <input type="hidden" id="flippost_address" name="flippost_address" value="">
                     <input type="hidden" id="flippost_cost" name="flippost_cost" value="">
                 <? } ?>
-
                 <? if ($arDelivery["ID"] == BOXBERY_ID && $USER->IsAdmin()) { ?>
                     <div class="boxberySelectContainer">
 
@@ -276,6 +274,7 @@
                     <div id="boxbery_delivery_time" class="boxbery_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
                     <input type="hidden" id="boxbery_address" name="boxbery_address" value="">
                     <input type="hidden" id="boxbery_cost" name="boxbery_cost" value="">
+                    <input type="hidden" id="boxbery_price" name="boxbery_price" value="">
                 <? } ?>
 
                 <? if ($arDelivery["ID"] == GURU_DELIVERY_ID && $USER->IsAdmin()) { ?>
