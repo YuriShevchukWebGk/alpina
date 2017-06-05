@@ -2879,4 +2879,10 @@
             return false;
         }
     }
+    
+    AddEventHandler("main", "OnSendUserInfo", "MyOnSendUserInfoHandler"); 
+    function MyOnSendUserInfoHandler(&$arParams) 
+    {
+        $arParams["FIELDS"]["SERVER_NAME"] = "www.alpinabook.ru";
+    }
 ?>
