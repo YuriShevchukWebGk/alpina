@@ -56,12 +56,28 @@ if ($USER->IsAdmin()){
 8798,
 
 	);
-
-	$rsOrder = CSaleOrder::GetList(array('ID' => 'DESC'), array('BASKET_PRODUCT_ID' => $sale_books, 'ID' >= 68036));
-
+	
+	$filter = array(
+		'BASKET_PRODUCT_ID' => $sale_books,
+		">=DATE_INSERT" => "02.05.2017 12:30:00",
+		"<DATE_INSERT" => "09.05.2017 23:59:59",
+	);
+	
+	$rsOrder = CSaleOrder::GetList(array('ID' => 'DESC'), $filter);
+	
+	$orders = array();
 	while ($arOrder = $rsOrder->Fetch())
 	{
-		echo $arOrder[ID].'<br />';
+		$orders[] = $arOrder[ID];
 	}
+	$orders = array_unique($orders);
+	
+	echo '<b>'.count($orders).'</b><br />';
+	
+	foreach($orders as $id) {
+		echo $id.',<br />';
+	}
+	
+	
 } 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

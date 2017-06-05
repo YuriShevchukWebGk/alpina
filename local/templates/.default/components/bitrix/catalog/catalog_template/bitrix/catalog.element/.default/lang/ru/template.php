@@ -82,7 +82,7 @@ $MESS["SHOW_ALL"] = "Смотреть все";
 $MESS["ALSO_RECOMMENDED_BOOKS"] = "Рекомендуем с книгой";
 $MESS["SUBSCRIPTION_REQUEST_ACCEPTED"] = "Заявка на подписку принята, ждите информацию на почту";
 $MESS["GIFT_BOOK_TITLE"] = "Книга в подарок";
-$MESS["GIFT_BOOK_DESCRIPTION"] = "Подпишись на рассылку и получи книгу<br />в формате PDF бесплатно";
+$MESS["GIFT_BOOK_DESCRIPTION"] = "Подпишитесь на рассылку и получите книгу<br />в формате PDF бесплатно";
 $MESS["VIEWED_BOOKS_TITLE"] = "Вы уже смотрели";
 $MESS["TO_BUY_WITH_DELIVERY"] = " купить с доставкой в интернет-магазине Альпина Паблишер";
 $MESS["MSK_DELIVERY"] = "Курьером по Москве";
@@ -120,5 +120,8 @@ $MESS["LEGAL_SUCCESS_MESSAGE"] = "Ваш заказ принят, менедже
 $MESS["NATURAL_SUCCESS_MESSAGE"] = "Ваш заказ успешно принят, номер заказа #NUM#";
 $MESS["CERTIFICATE_BUY_COMMENT"] = "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# <span class='rubsign'></span>";           
 $MESS["SHOW_FULL_REVIEW"] = "Читать полностью";
-$MESS["VIEWS_A_DAY"] = "Просмотров за сутки";     
+$MESS["VIEWS_A_DAY"] = "Просмотров за сутки";
+$MESS["FIRST_BOOK"] = "Первая книга";
+$MESS["SECOND_BOOK"] = "Вторая книга";
+$MESS["THIRD_BOOK"] = "Третья книга";
 ?>

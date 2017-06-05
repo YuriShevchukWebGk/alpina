@@ -1428,3 +1428,9 @@
 .annotation a{color:#3f4a4d;text-decoration:underline}
 .annotation a:hover{text-decoration:none}
 .element_item_img img{box-shadow:0 8px 8px 0 rgba(0,0,0,.18),0 15px 11px 0 rgba(0,0,0,.14)}
+.multipleBooks{margin-left:-5px}
+.multipleBooks li{display:inline-block;margin-right:5px}
+.multipleBooks li span{font-size:14px;color:#00ABB8;border-bottom:1px dashed #00ABB8;cursor:pointer}
+.multipleBooks li:hover span,.multipleBooks .active span{border-bottom:none}
+.multipleBooks .active span{background:#ecedef;color:#333;padding:2px 5px}
+.centerColumn .productName{padding-top:14px}

@@ -3,8 +3,27 @@
     $APPLICATION->SetTitle("Все книги интернет-магазина Альпина Паблишер");
 ?>  
 <?  
-    global $AllBooksFilter;
-    $AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_STATE" => 23);
+global $AllBooksFilter;
+$AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_STATE" => 23);
+
+switch ($_REQUEST["SORT"]) {
+    case "DATE":
+    $sort = "PROPERTY_YEAR";
+    break;
+    
+    case "PRICE":
+    $sort = "CATALOG_PRICE_1";
+    break;
+    
+    case "POPULARITY":
+    $sort = "PROPERTY_page_views_ga";
+    $order = "desc";
+    break;
+    
+    default:
+	$sort = "PROPERTY_page_views_ga";
+    $order = "desc";
+}
 ?>
     <div class="catalogWrapper">
         <div class="catalogIcon editorsCatalogIcon"></div>
@@ -26,9 +45,9 @@
 			0 => "",
 			1 => "",
 		),
-		"ELEMENT_SORT_FIELD" => "RAND",
-		"ELEMENT_SORT_ORDER" => "desc",
-		"ELEMENT_SORT_FIELD2" => "id",
+		"ELEMENT_SORT_FIELD" => $sort,
+		"ELEMENT_SORT_ORDER" => $order,
+		"ELEMENT_SORT_FIELD2" => "rand",
 		"ELEMENT_SORT_ORDER2" => "desc",
 		"FILTER_NAME" => "AllBooksFilter",
 		"INCLUDE_SUBSECTIONS" => "Y",
@@ -51,7 +70,7 @@
 			2 => "SIZES_CLOTHES",
 			3 => "",
 		),
-		"OFFERS_SORT_FIELD" => "sort",
+		"OFFERS_SORT_FIELD" => "PROPERTY_page_views_ga",
 		"OFFERS_SORT_ORDER" => "desc",
 		"OFFERS_SORT_FIELD2" => "id",
 		"OFFERS_SORT_ORDER2" => "desc",
