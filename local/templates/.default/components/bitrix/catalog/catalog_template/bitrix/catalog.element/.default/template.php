@@ -63,6 +63,7 @@
         docReadyComponent(<?= $arResult["ID"] ?>);
 		
 		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"]) && !$checkMobile) {?>
+			var firstBookName = '<?=$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]?>';
 			var secondBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
 			var thirdBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
 			
@@ -72,19 +73,17 @@
 			
 			$('.multipleBooks li').click(function() {
 				if ($(this).is(':not(.active')) {
-					$("h1").hide();
 					$('.multipleBooks .active').removeClass('active');
 					$(this).addClass("active");
 					
 					if ($(this).attr("data-book") == 2) {
-						$("h1").after('<span class="productName h1after" style="display:block;font-size:24px;">'+secondBookName+'</span>');
+						$("h1 .secondPart").text(secondBookName);
 						$(".bookPreviewLink img").attr('src',secondBookImg);
 					} else if ($(this).attr("data-book") == 3) {
-						$("h1").after('<span class="productName h1after" style="display:block;font-size:24px;">'+thirdBookName+'</span>');
+						$("h1 .secondPart").text(thirdBookName);
 						$(".bookPreviewLink img").attr('src',thirdBookImg);
 					} else {
-						$("h1").show();
-						$(".h1after").hide();
+						$("h1 .secondPart").text(firstBookName);
 						$(".bookPreviewLink img").attr('src',mainPicture);
 					}
 				}
@@ -166,10 +165,10 @@
         background-color: <?=$bgcolors[0]?>;
         opacity: 0.3;
     }
-    .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive {
+    .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive, .multipleBooks li span {
         color: <?=$mincolor['color']?>!important;
     }
-    #diffversions .passive span {
+    #diffversions .passive span, .multipleBooks li span {
         border-bottom: 1px dashed <?=$mincolor['color']?>;
     }
     .catalogIcon {
@@ -1002,12 +1001,12 @@
     <div class="centerColumn">
 		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"])) {?>
 			<ul class="multipleBooks no-mobile">
-				<li class="active" data-book="1"><span>Первая книга</span></li>
-				<li data-book="2"><span>Вторая книга</span></li>
+				<li class="active" data-book="1"><span><?=GetMessage("FIRST_BOOK")?></span></li>
+				<li data-book="2"><span><?=GetMessage("SECOND_BOOK")?></span></li>
 			</ul>
 		<?}?>
         <h1 class="productName" itemprop="name">
-			<?echo empty($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]) ? typo($arResult["NAME"]) : '<span>'.typo($arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"].'</span><br />'.$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]);?>
+			<?echo empty($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]) ? '<span class="mainPart">'.typo($arResult["NAME"]).'</span><span class="secondPart"></span>' : '<span class="mainPart">'.typo($arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"].'</span><br /><span class="secondPart">'.$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]).'</span>';?>
 		</h1>
         <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
         <div class="authorReviewWrap">

@@ -120,5 +120,8 @@ $MESS["LEGAL_SUCCESS_MESSAGE"] = "Ваш заказ принят, менедже
 $MESS["NATURAL_SUCCESS_MESSAGE"] = "Ваш заказ успешно принят, номер заказа #NUM#";
 $MESS["CERTIFICATE_BUY_COMMENT"] = "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# <span class='rubsign'></span>";           
 $MESS["SHOW_FULL_REVIEW"] = "Читать полностью";
-$MESS["VIEWS_A_DAY"] = "Просмотров за сутки";     
+$MESS["VIEWS_A_DAY"] = "Просмотров за сутки";
+$MESS["FIRST_BOOK"] = "Первая книга";
+$MESS["SECOND_BOOK"] = "Вторая книга";
+$MESS["THIRD_BOOK"] = "Третья книга";
 ?>

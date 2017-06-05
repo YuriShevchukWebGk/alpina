@@ -509,7 +509,7 @@ header .headBasket{margin-right:0}
 .productAction .takePart{color:#486796;font-size:16px;margin-left:4px;margin-top:10px}
 .productAction .takePart:after{content:url(/img/takePart.png);margin-left:10px;position:relative;top:4px}
 .centerColumn .productName{color:#fff;padding-top:34px}
-.centerColumn .productName span{font-size:40px}
+.centerColumn .productName .mainPart{font-size:40px}
 .centerColumn .topBlock{min-height:175px}
 .centerColumn .engBookName{color:#e4e8ea;font-size:17px;margin-top:12px;margin-bottom:8px;font-family: Walshein_light}
 .centerColumn .productAutor{color:#E4E8EA;font-size:13px}
