@@ -42,7 +42,7 @@
                 <ul>
 
                     <?foreach ($arResult["ITEMS"] as $arItem) { 
-                        $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                        $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                         ?>
                         <li>
                             <div class="categoryBooks">

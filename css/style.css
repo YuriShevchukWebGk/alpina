@@ -83,6 +83,8 @@ header .headBasket{padding:17px 1px 0}
 .catalogWrapper,.hintWrapp .catalogWrapper{width:1140px;margin:0 auto}
 .firstWrapp img,.secondWrapp img,.thirdWrapp img{box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition:box-shadow .4s ease, transform .4s ease 0s}
 .firstWrapp img:hover,.secondWrapp img:hover,.thirdWrapp img:hover{box-shadow:0 19px 23px 0 rgba(0,0,0,.18), 0 17px 23px 0 rgba(0,0,0,.14);transform:scale(1.02)}
+.firstWrapp img,.thirdWrapp img{width:164px;height:auto}
+.secondWrapp img{width:360px;height:auto}
 .hintWrapp{background-color:#f4f4f4;height:1670px}
 .catalogWrapper{position:relative}
 .firstSection .smallContainer:nth-child(1),.hintWrapp .firstSection,.secondSection .smallContainer:nth-child(2n+1){margin-right:34px}
@@ -881,7 +883,7 @@ header .headBasket{margin-right:0}
 .badge img{width:60px!important}
 .sect_badge{position:absolute;right:5px;z-index:150}
 .sect_badge img{width:40px!important;height:40px!important;box-shadow:none}
-.item_img img,.section_item_img img{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition:box-shadow .4s ease, transform .4s ease 0s}
+.item_img img,.section_item_img img{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition:box-shadow .4s ease, transform .4s ease 0s;width:142px;height:auto}
 .item_img img:hover,.section_item_img img:hover{box-shadow:0 15px 18px 0 rgba(0,0,0,.18),0 15px 18px 0 rgba(0,0,0,.14);transform:scale(1.02)}
 .catalogLogo img{left:68px!important;top:12px!important}
 .catalogHeadParagraph{float:left;padding-top:20px;width:544px}

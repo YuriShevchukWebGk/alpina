@@ -61,6 +61,35 @@
         });
 
         docReadyComponent(<?= $arResult["ID"] ?>);
+		
+		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"]) && !$checkMobile) {?>
+			var secondBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
+			var thirdBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
+			
+			var mainPicture = '<?=$arResult["PICTURE"]["src"]?>';
+			var secondBookImg = '<?=$arResult["SECOND_PICTURE"];?>';
+			var thirdBookImg = '<?=$arResult["THIRD_PICTURE"];?>';
+			
+			$('.multipleBooks li').click(function() {
+				if ($(this).is(':not(.active')) {
+					$("h1").hide();
+					$('.multipleBooks .active').removeClass('active');
+					$(this).addClass("active");
+					
+					if ($(this).attr("data-book") == 2) {
+						$("h1").after('<span class="productName h1after" style="display:block;font-size:24px;">'+secondBookName+'</span>');
+						$(".bookPreviewLink img").attr('src',secondBookImg);
+					} else if ($(this).attr("data-book") == 3) {
+						$("h1").after('<span class="productName h1after" style="display:block;font-size:24px;">'+thirdBookName+'</span>');
+						$(".bookPreviewLink img").attr('src',thirdBookImg);
+					} else {
+						$("h1").show();
+						$(".h1after").hide();
+						$(".bookPreviewLink img").attr('src',mainPicture);
+					}
+				}
+			});
+		<?}?>
     });
 	<?if (!$checkMobile) {?>
 		$(window).scroll(function() { //Скрываем блок с ценой при скролле вниз, расширяем блок аннотации и опускаем его на уровень глаз
@@ -289,13 +318,6 @@
                 }
             ?>
 
-            <?/*<div class="bookPages">
-                <?
-                if ($arResult["MAIN_PICTURE"]) {?>
-                <a class="grouped_elements" rel="group1" href="<?= $arResult["MAIN_PICTURE"] ?>"><img src="<?= $arResult["MAIN_PICTURE"] ?>"></a>
-                <?}
-                ?>
-            </div>*/?>
             <div class="element_item_img">
                 <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
                     <?if (!$checkMobile) {?>
@@ -978,13 +1000,18 @@
     </div>
     <div class="subscr_result"></div>
     <div class="centerColumn">
+		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"])) {?>
+			<ul class="multipleBooks no-mobile">
+				<li class="active" data-book="1"><span>Первая книга</span></li>
+				<li data-book="2"><span>Вторая книга</span></li>
+			</ul>
+		<?}?>
         <h1 class="productName" itemprop="name">
 			<?echo empty($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]) ? typo($arResult["NAME"]) : '<span>'.typo($arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"].'</span><br />'.$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]);?>
 		</h1>
         <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
         <div class="authorReviewWrap">
             <p class="reviews">
-
                 <style>
                     .crr {
                         font-family: "Walshein_regular"!important;

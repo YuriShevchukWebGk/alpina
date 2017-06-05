@@ -25,7 +25,7 @@ global $authorName;
                     {
                         //if ($arPrice["PRINT_DISCOUNT_VALUE"])
                         //{
-                            $pict = CFile::ResizeImageGet($arItem["PREVIEW_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_EXACT, true);
+                            $pict = CFile::ResizeImageGet($arItem["PREVIEW_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_EXACT, true);
                         ?>
                     <div class="bookWrapp" itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
                         <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">

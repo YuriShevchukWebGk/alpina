@@ -1416,18 +1416,18 @@
         *
         *************/
         public static $messages = Array(
-            "N" => "Ваш заказ №order принят. Если будут вопросы – звоните +7(495)9808077",
-            "A" => "clientName, Ваш заказ №order в интернет-магазине Альпина Паблишер отменен. Если заказ аннулирован по ошибке, звоните +7(495)9808077",
-            "K" => "clientName, Ваш заказ №order отправлен почтой РФ. Номер отправления будет выслан Вам в течение 5 рабочих дней.Если будут вопросы – звоните +7(495)9808077",
-            "C" => "clientName, Ваш заказ №order собран. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, под. 2, этаж 2 по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077. Стоимость ordsum руб.",
+            "N" => "Заказ №order принят. Если будут вопросы – звоните +7(495)9808077",
+            "A" => "Заказ №order в интернет-магазине Альпина Паблишер отменен. Если заказ аннулирован по ошибке, звоните +7(495)9808077",
+            "K" => "Заказ №order отправлен почтой РФ. Номер отправления будет выслан Вам в течение 5 рабочих дней.Если будут вопросы – звоните +7(495)9808077",
+            "C" => "Заказ №order на сумму ordsum руб собран. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, под. 2, этаж 2 по будням с 8 до 18 часов.",
             "D10" => "Истекает срок хранения Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
-            "D12" => "Осталось 2 дня до аннулирования Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
-            "CA" => "Ваш заказ order уже в пути. Курьер cur_name cur_phone",
-            "PS" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в Ваше почтовое отделение! Мы будем держать Вас в курсе событий!",
-            "PD" => "Здравствуйте, clientName! Ваш заказ №order из интернет-магазина «Альпина Паблишер» доставлен в Ваше почтовое отделение! Пожалуйста, получите Вашу посылку! Для этого придите в Ваше отделение и назовите оператору трекинг-код. С собой необходимо иметь паспорт. Спасибо за выбор нашего магазина!",
-            "P10" => "Здравствуйте, clientName! Пожалуйста, заберите Ваш заказ из магазина «Альпина Паблишер» в Вашем почтовом отделении.",
-            "PA" => "Здравствуйте, clientName! Срок хранения Вашего заказ №order из интернет-магазина «Альпина Паблишер» истекает. Пожалуйста, заберите Ваш заказ в почтовом отделении. Спасибо!"
-            //"I" => "Ваш заказ №order в пути. Если будут вопросы – звоните +7(495)9808077"
+            "D12" => "Осталось 2 дня до отмены Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
+            "CA" => "Заказ order уже в пути. Курьер cur_name cur_phone",
+            "PS" => "Заказ №order принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в почтовое отделение. Мы будем держать Вас в курсе",
+            "PD" => "Заказ №order доставлен почтовое отделение! Пожалуйста, получите посылку. Для этого придите в отделение и назовите оператору трекинг-код. С собой необходимо иметь паспорт. Спасибо за выбор нашего магазина!",
+            "P10" => "Срок хранения заказа №order истекает. Пожалуйста, заберите заказ в почтовом отделении. Спасибо!",
+            "PA" => "Срок хранения заказа №order истекает. Пожалуйста, заберите заказ в почтовом отделении. Спасибо!"
+            //"I" => "Заказ №order в пути. Если будут вопросы – звоните +7(495)9808077"
         );
 
         /***************
@@ -1765,91 +1765,7 @@
             $arFields['YANDEX_MAP'] = "<tr><td style=\"border-collapse: collapse;padding-bottom:20px;\"><table align=\"left\" width=\"100%\"><tbody><tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans','Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" colspan=\"2\" valign=\"top\"><img src=\"https://www.alpinabook.ru/img/ymap.png\" /></td></tr></tbody></table></td></tr>";
         }
 
-        if ($arFields['PRICE'] > 2000) {
-            if ($orderArr['DELIVERY_ID']==9 || $orderArr['DELIVERY_ID']==12 || $orderArr['DELIVERY_ID']==13 || $orderArr['DELIVERY_ID']==14 || $orderArr['DELIVERY_ID']==15 || $orderArr['DELIVERY_ID']==2){
-                $arFields['PROMO_PARTNER'] = '
-                <tr>
-                <td align="center" style="background:#FCFFD4;padding-top:0px; padding-bottom:0;color: #393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 160%;text-align: left;padding:0;" valign="top">
-
-                <table align="center" style="width:100%;">
-                <tbody>
-                <tr>
-                <td style="border-collapse: collapse;padding:10px 40px 20px 40px; border-collapse: collapse;border-style: solid;border-color: #808080;-moz-border-top-colors: none;-moz-border-right-colors: none;-moz-border-bottom-colors: none;-moz-border-left-colors: none;border-image: none;border-width: 1px 0px 1px;">
-                <table align="left" width="100%">
-                <tbody>
-                <!-- Коллектив имага -->
-                <tr>
-                <td align="left" style="border-collapse: collapse;color:#393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;" width="100" valign="top">
-                <a href="http://www.netology.ru/?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank">
-                <img src="/images/subscr/netology.png" align="left" />
-                </a>
-                <b>Скидка на обучение от Альпина Паблишер и Нетологии</b>
-                <br />
-                Также рады предложить вам обучение со скидкой от наших партнеров, университета интернет-профессий «Нетология».<br />
-                Программа обучения <a href="http://netology.ru/marketing-director?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank">«Директор по онлайн-маркетингу»</a> со скидкой 30 000 рублей!
-                <br /><br />
-                Главные особенности программы:
-                <ul>
-                <li>Очная программа обучения по подготовке управленцев в сфере современного маркетинга (занятия проходят в Москве);</li>
-                <li>Более 20 преподавателей-практиков из Google Россия, «Яндекс», «ВКонтакте», Mail.ru Group, Ozon, ABBYY, Wikimart;</li>
-                <li>Программа включает основные темы, которые должен знать современный специалист в сфере управления маркетингом;</li>
-                <li>По итогам обучения выдается диплом о профессиональной переподготовке по специальности «Директор по онлайн-маркетингу»;</li>
-                <li>По завершению программы Нетология будет оказывать помощь в организации персональных консультаций с HR-специалистами, возможна организация собеседований на конкретные вакансии.</li>
-                </ul>
-
-                Промокод на скидку «Альпина» (после оформления заявки на обучение сообщите о вашей скидке менеджеру и назовите промокод). Скидка действует до 11.02.2016.
-                <br />
-                Количество мест на участие в программе ограничено.
-                <br /><br />
-                Подробнее об учебной программе «Директор по онлайн-маркетингу» вы можете узнать на официальной странице <a href="http://netology.ru/marketing-director?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank">«Нетологии»</a>
-                <br /><br />
-
-                </td>
-                </tr>
-                </tbody>
-                </table>
-                </td>
-                </tr>
-                </tbody>
-                </table>
-                </td>
-                </tr>';
-            } else {
-                $arFields['PROMO_PARTNER'] = '
-                <tr>
-                <td align="center" style="background:#FCFFD4;padding-top:0px; padding-bottom:0;color: #393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;line-height: 160%;text-align: left;padding:0;" valign="top">
-
-                <table align="center" style="width:100%;">
-                <tbody>
-                <tr>
-                <td style="border-collapse: collapse;padding:10px 40px 20px 40px; border-collapse: collapse;border-style: solid;border-color: #808080;-moz-border-top-colors: none;-moz-border-right-colors: none;-moz-border-bottom-colors: none;-moz-border-left-colors: none;border-image: none;border-width: 1px 0px 1px;">
-                <table align="left" width="100%">
-                <tbody>
-                <!-- Коллектив имага -->
-                <tr>
-                <td align="left" style="border-collapse: collapse;color:#393939;font-family: \'Open Sans\',\'Segoe UI\',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;" width="100" valign="top">
-                <a href="http://www.netology.ru/?utm_source=infopartners&utm_medium=667&utm_campaign=md-aplina" target="_blank"><img src="/images/subscr/netology.png" align="left" /></a><b>Скидка на обучение от Альпина Паблишер и Нетологии</b>
-                <br />
-                Также рады предложить вам обучение со скидкой от наших партнеров: получите востребованную интернет-профессию или повысьте свои навыки в университете «Нетология» со скидкой 3000 рублей! Введите в форме заказа (на странице
-                интересующей вас профессии) промокод <b>HSMD4-AXL6PM</b>. Промокод действителен до 29.02.2016
-                <br />
-                Скидка распространяется на все онлайн программы обучения.
-                <br />
-                Полный список программ обучения доступ на сайте университета <a href="http://netology.ru/?utm_source=infopartners&utm_medium=667&utm_campaign=onlinecourses" target="_blank">«Нетология»</a>.
-                <br /><br />
-
-                </td>
-                </tr>
-                </tbody>
-                </table>
-                </td>
-                </tr>
-                </tbody>
-                </table>
-                </td>
-                </tr>';
-            }
-        }
+        $arFields['USER_DESCRIPTION'] = $orderArr['USER_DESCRIPTION'];
     }
 
 
