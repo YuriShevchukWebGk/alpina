@@ -9,9 +9,10 @@
     use Bitrix\Sale\Internals\StatusTable;
     use Bitrix\Sale;
     
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_admin_before.php');       
+    require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_admin_before.php');       
     require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/prolog.php");                          
     require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/general/admin_tool.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/accordpost/accordpost_function.php");
                                                                                                      
     Loader::includeModule('sale');
 
@@ -27,51 +28,33 @@
     IncludeModuleLangFile(__FILE__);
                                                                                             
     $APPLICATION->AddHeadScript("//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js");  
-                                              
-    //Константы для curl запроса 
-    define('CFG_NL', "\n");
-    define('CFG_REQUEST_POST', 1);               
-    define('CFG_REQUEST_FULLURL', 'https://api.accordpost.ru/ff/v1/wsrv/');
-    define('CFG_REQUEST_TIMEOUT', 1);
-    define('CFG_CONTENT_TYPE', 'text/xml; charset=utf-8');
+    
+    //ID доставок почтой РФ по России                                          
+    $commonDeliveryIDs = array(
+        DELIVERY_MAIL, 
+        DELIVERY_MAIL_2
+    );
+    //ID международных доставок почтой РФ                                         
+    $internationalDeliveryIDs = array(     
+        INTERNATIONAL_RUSSIAN_POST_ID_1, 
+        INTERNATIONAL_RUSSIAN_POST_ID_2,
+        INTERNATIONAL_RUSSIAN_POST_ID_3,
+        INTERNATIONAL_RUSSIAN_POST_ID_4,
+        INTERNATIONAL_RUSSIAN_POST_ID_5
+    );             
     
     //ajax-экспорт заказов. Запрос отправляется из скрипта, который описан ниже 
-    if (!empty($_REQUEST["ID"]) && $_REQUEST["export_order"] == "yes") {                                  
+    if (!empty($_REQUEST["ID"]) && $_REQUEST["export_order"] == "yes") {     
+    
+        //Переменные для проверки типа заказа
+        $hasCommonOrders = 'N'; //Есть заказы по России
+        $hasInternationalOrders = 'N'; //Есть международные заказы   
+                                  
         //убираем хедер, чтобы в ответе не было лишнего кода
         $APPLICATION->RestartBuffer();  
                                                      
         $arIDs = $_REQUEST["ID"];
          
-        //Создадим новую запись в ИБ, для идентификации отгрузок       
-        $el = new CIBlockElement;     
-        $arProperty = array();         
-        $arLoadProductArray = Array(
-            "MODIFIED_BY"     => $USER->GetID(), // элемент изменен текущим пользователем          
-            "IBLOCK_ID"       => ACCORDPOST_IBLOCK_ID,         
-            "NAME"            => "Отгрузка ".date($DB->DateFormatToPHP(CSite::GetDateFormat("SHORT")), time()),
-            "ACTIVE"          => "Y",            // активен     
-        );
-        
-        
-        if($shipment_id = $el -> Add($arLoadProductArray)) {
-            $zdoc_id = 'ALPINABOOK'.$shipment_id;         
-            
-            $elUpdate = new CIBlockElement;
-                                              
-            //Обновим поле с zdoc_id        
-            $arPropertyUpdate = array();
-            $arPropertyUpdate['SHIPMENT_ZDOC_ID'] = $zdoc_id;
-            $arPropertyUpdate['SHIPMENT_ORDER_ROW'] = $arIDs;
-            
-            $arLoadProductArrayUpdate = Array(                                                 
-                "PROPERTY_VALUES"=> $arPropertyUpdate
-            );
-                                                                     
-            $res = $elUpdate->Update($shipment_id, $arLoadProductArrayUpdate); 
-        } else {
-            //Остановить выполнение
-        } 
-            
         //Собираем информацию о заказах      
         $order_filter = array("ID" => $arIDs); 
         $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $order_filter);
@@ -84,18 +67,32 @@
         $arSelect = array("ID", "PRODUCT_ID", "QUANTITY", "ORDER_ID");  
         
         $dbBasketItems = CSaleBasket::GetList(array(), $arFilter, false, false, $arSelect);
-        while ($arItems = $dbBasketItems->Fetch()) {                  
-            $order_props[$arItems['ORDER_ID']]['PRODUCT_ROWS'][] = $arItems;
-        }                                    
+        while ($arItems = $dbBasketItems->Fetch()) {        
+            $order_props[$arItems['ORDER_ID']]['PRODUCT_ROWS'][] = $arItems;   
+        }                                                 
             
         //Собираем дополнительные данные о заказе
         $rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $arIDs), false, false, array());
-        while($ar_order_prop = $rs_order_props->Fetch()) {      
-            $order_props[$ar_order_prop['ORDER_ID']][$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];  
+        while($ar_order_prop = $rs_order_props->Fetch()) {                                          
+            if(empty($order_props[$ar_order_prop['ORDER_ID']][$ar_order_prop['CODE']])) {
+                $order_props[$ar_order_prop['ORDER_ID']][$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];  
+            }  
         }                                                               
-        
-        //Собираем поля в зависимости от типа лица
-        foreach($order_props as $order_id => $order_properties) { 
+                                                                         
+         //Собираем поля в зависимости от типа лица
+        foreach($order_props as $order_id => $order_properties) {  
+
+            //проверим заказы по России      
+            if (in_array($order_properties['DELIVERY_ID'], $commonDeliveryIDs)) {
+                $arIDsCommonOrders[$order_id] = $order_id;
+                $hasCommonOrders = 'Y';
+            };    
+            
+            //проверим международные заказы    
+            if (in_array($order_properties['DELIVERY_ID'], $internationalDeliveryIDs)) {
+                $arIDsInternationalOrders[$order_id] = $order_id;
+                $hasInternationalOrders = 'Y';
+            }          
             if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                 //имя получателя    
                 $cont_name = '';    
@@ -110,105 +107,115 @@
                 $order_props[$order_id]['FINAL_NAME'] = preg_replace("/[^\w\s]+/u", "", $cont_name);
                 //адрес
                 $order_props[$order_id]['FINAL_ADRESS_FULL'] = (!empty($order_properties["ADDRESS"]) ? $order_properties["ADDRESS"] : $order_properties["F_ADDRESS"]);
-            }                              
-        }      
+            }    
+            
+            //Уберем кавычки, XML не очень дружит с ними            
+            $order   = array("'", '"');
+            $replace = ' ';                       
+            $order_props[$order_id]['FINAL_ADRESS_FULL'] = str_replace($order, $replace, $order_props[$order_id]['FINAL_ADRESS_FULL']);                          
+        }            
+                                                                                                                                                
         
         $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);   
-        
-        //выбираем нужные поля  
               
-        /*
-        $index = $order_props['INDEX']['VALUE'];
-        */
-                             
-        //Тестовая генерация xml       
-        $xmlBody = '';
-        //Шапка с доступами и типом запроса
-        $xmlBody .= '<request request_type="'.ACCORDPOST_SHIPPING_ORDER_REQUEST_ID.'" partner_id="'.ACCORDPOST_PARTNER_ID.'" password="'.ACCORDPOST_PASSWORD.'">';
+        //Генерация и отправка xml для заказов по России 
+        if ($hasCommonOrders == 'Y') {      
         
-            //Создаём документ номер 5, создадим новый элемент в иб и используем его id в качестве номера отгрузки                                  
-            $xmlBody .= '<doc doc_type="'.ACCORDPOST_SHIPPING_ORDER_DOCUMENT_ID.'" zdoc_id="'.$zdoc_id.'">';
-            
-            //Создаём позиции с заказами
-            foreach($order_props as $order_id => $order_properties) {
-                if(!empty($order_id)){          
-                    //Создаём документ номер 5, создадим новый элемент в иб и используем его id в качестве номера отгрузки  
-                    $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);   
-                    $unic_code = $partner_code.$order_code;                                  
-                    $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="10.00" parcel_sumvl="10.00" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$order_properties['INDEX'].'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
-                }
-            }      
-                                                 
-            //Закрываем документ
-            $xmlBody .= '</doc>';
-            
-        //Закрываем реквест
-        $xmlBody .= '</request>';
-                  
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, CFG_REQUEST_FULLURL);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POST, true);      
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $xmlBody);                          
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        
-        //Запрос и обработка ответа
-        if($out = curl_exec($curl)){         
-            $response = new SimpleXMLElement($out);   
-            if($response['state'] == 0) {
-                //Успешный результат 
-                $export_date = date($DB->DateFormatToPHP(CSite::GetDateFormat("SHORT")), time());      
-                $update_result = false;          
-                foreach($arIDs as $ID) { 
-                    if($order_props[$ID]['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
-                        $prop_data = array(
-                           "ORDER_ID" => $ID,
-                           "ORDER_PROPS_ID" => EXPORTED_TO_ACCORDPOST_PROPERTY_ID_NATURAL, 
-                           "CODE" => "EXPORTED_TO_ACCORDPOST",   
-                           "NAME" => GetMessage("ACCORDPOST_EXPORT_TITLE"),
-                           "VALUE" => $export_date
-                        );                              
-                        $prop_data_zdoc = array(
-                           "ORDER_ID" => $ID,
-                           "ORDER_PROPS_ID" => ZDOC_ID_ACCORDPOST_PROPERTY_ID_NATURAL, 
-                           "CODE" => "ZDOC_ID",                              
-                           "VALUE" => $zdoc_id
-                        );                                                   
-                    } else { 
-                        $prop_data = array(
-                           "ORDER_ID" => $ID,
-                           "ORDER_PROPS_ID" => EXPORTED_TO_ACCORDPOST_PROPERTY_ID_LEGAL, 
-                           "CODE" => "EXPORTED_TO_ACCORDPOST",   
-                           "NAME" => GetMessage("ACCORDPOST_EXPORT_TITLE"),
-                           "VALUE" => $export_date
-                        );                     
-                        $prop_data_zdoc = array(
-                           "ORDER_ID" => $ID,
-                           "ORDER_PROPS_ID" => ZDOC_ID_ACCORDPOST_PROPERTY_ID_LEGAL, 
-                           "CODE" => "ZDOC_ID",                              
-                           "VALUE" => $zdoc_id
-                        );               
-                    }   
-                    if(CSaleOrderPropsValue::Add($prop_data) && CSaleOrderPropsValue::Add($prop_data_zdoc)){
-                        echo GetMessage("ACCORDPOST_EXPORT_SUCCES").$zdoc_id.'<br>'; 
-                        
-                    } else {
-                        echo GetMessage("ACCORDPOST_EXPORT_BITRIX_FAIL");      
-                    }
-                }     
+            //Создадим новую запись в ИБ       
+            if ($shipment_id_common = create_delivery_element($arIDsInternationalOrders)) {
+                $zdoc_id_common = 'ALPINABOOK'.$shipment_id_common;         
             } else {
-                foreach($response->error as $error){  
-                    echo $error['msg'].'<br>';       
-                    CIBlockElement::Delete($shipment_id);   
-                }                  
-            }  
-        } else {
-            echo GetMessage("ACCORDPOST_EXPORT_CONNECTION_FAIL");
-            CIBlockElement::Delete($shipment_id);    
-        }
-                  
-        curl_close($curl);          
+                echo GetMessage("ACCORDPOST_EXPORT_COMMON_FAIL");
+                die();
+            }                       
+                     
+            //Начало XML
+            $xmlBody = '';
+            //Шапка с доступами и типом запроса
+            $xmlBody .= '<request request_type="'.ACCORDPOST_SHIPPING_ORDER_REQUEST_ID.'" partner_id="'.ACCORDPOST_PARTNER_ID.'" password="'.ACCORDPOST_PASSWORD.'">';
             
+                //Создаём документ номер 5, используем id созданного ранее элемента иб в качестве номера отгрузки                                  
+                $xmlBody .= '<doc doc_type="'.ACCORDPOST_SHIPPING_ORDER_DOCUMENT_ID.'" zdoc_id="'.$zdoc_id_common.'">';
+                
+                //Создаём позиции с заказами
+                foreach($order_props as $order_id => $order_properties) {
+                    if(!empty($order_id) && in_array($order_id, $arIDsCommonOrders)){          
+                        //Строка заказа
+                        $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);   
+                        $unic_code = $partner_code.$order_code;                                  
+                        $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="10.00" parcel_sumvl="10.00" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$order_properties['INDEX'].'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
+                    }
+                }      
+                                                     
+                //Закрываем документ
+                $xmlBody .= '</doc>';
+                
+            //Закрываем реквест
+            $xmlBody .= '</request>';   
+            
+            //Экспортируем       
+            export_to_accordpost($xmlBody, $zdoc_id_common, $shipment_id_common, $arIDsCommonOrders, $order_props);    
+        }  
+                               
+        //Генерация xml для международных заказов 
+        if ($hasInternationalOrders == 'Y') {
+                                                
+            //Создадим новую запись в ИБ
+            if ($shipment_id_international = create_delivery_element($arIDsInternationalOrders)) {
+                $zdoc_id_international = 'ALPINABOOK'.$shipment_id_international;         
+            } else {
+                echo GetMessage("ACCORDPOST_EXPORT_INTERNATIONAL_FAIL");   
+                die();
+            }                           
+            
+            //Запрос на получение списка стран
+            $arCountry = get_country_list();     
+            
+            $xmlBodyInternational = '';
+            //Шапка с доступами и типом запроса
+            $xmlBodyInternational .= '<request request_type="'.ACCORDPOST_SHIPPING_ORDER_REQUEST_ID.'" partner_id="'.ACCORDPOST_PARTNER_ID.'" password="'.ACCORDPOST_PASSWORD.'">';
+            
+                //Создаём документ номер 5, создадим новый элемент в иб и используем его id в качестве номера отгрузки                                  
+                $xmlBodyInternational .= '<doc doc_type="'.ACCORDPOST_SHIPPING_ORDER_DOCUMENT_ID.'" zdoc_id="'.$zdoc_id_international.'_INT">';
+                
+                //Создаём позиции с заказами
+                foreach($order_props as $order_id => $order_properties) {
+                    if (!empty($order_id) && in_array($order_id, $arIDsInternationalOrders)) {  
+                        //Получаем ID страны                      
+                        if (!($country_id = get_country_id($arCountry, $order_properties['COUNTRY']))) {  
+                            echo 'Проверьте правильность введенной страны, или уточните есть ли "'.$order_properties['COUNTRY'].'" в <a href="/local/php_interface/include/accordpost/accordpost_country_list.php">списке стран</a>';  
+                            CIBlockElement::Delete($zdoc_id_international);  
+                            die();   
+                        }      
+                        
+                        //Создаём документ номер 5, создадим новый элемент в иб и используем его id в качестве номера отгрузки  
+                        $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);   
+                        $unic_code = $partner_code.$order_code;  
+                        
+                        $xmlBodyInternational .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="10.00" parcel_sumvl="10.00" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="0" clnt_name="'.$order_properties['FINAL_NAME'].'" clnt_phone="'.$order_properties['PHONE'].'" dev1mail_type="4" dev1nal_scheme="0" dev1direct_ctg="2">';            
+                            
+                            $xmlBodyInternational .= '<struct_addr region="" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
+                            
+                            $xmlBodyInternational .= '<custom>';
+                            
+                                $xmlBodyInternational .=  '<int_dp fio="'.$order_properties['FINAL_NAME'].'" cntry="'.$country_id.'" zip="'.$order_properties['INDEX'].'" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
+                                
+                            $xmlBodyInternational .= '</custom>'; 
+                            
+                        $xmlBodyInternational .= '</order>';             
+                    }
+                }      
+                                                     
+                //Закрываем документ
+                $xmlBodyInternational .= '</doc>';
+                
+            //Закрываем реквест
+            $xmlBodyInternational .= '</request>';  
+            
+            //Экспортируем      
+            export_to_accordpost($xmlBodyInternational, $zdoc_id_international, $shipment_id_international, $arIDsInternationalOrders, $order_props);   
+        }  
+        
         die(); //прерываем дальнейшее выполнение страницы при аякс-запросе   
     }                                                                                                                                 
     
@@ -232,12 +239,12 @@
                     
     // init filter
     $lAdmin->InitFilter($FilterArr);    
-                         
+                                             
     $arFilter = Array(       
-        "DELIVERY_ID" => array(DELIVERY_MAIL, DELIVERY_MAIL_2), 
+        "DELIVERY_ID" => array_merge($commonDeliveryIDs, $internationalDeliveryIDs), 
         "PAYED" => "Y"                                                            
-    );  
-
+    );        
+                               
     if(!empty($find_id)){                                         
         $arFilter["ID"] = explode(",", $find_id);;  
     }                  
@@ -381,7 +388,7 @@
         //Проверяем, экспортирован ли элемент
         if(!empty($arExportedToAccordpost[$f_ID])){
             $exportedToAccordpost = $arExportedToAccordpost[$f_ID];  
-            $label = '<a href="/local/admin/accordpost_print.php?ACCORD_POST_ID='.$f_ID.'&SHIPPING_DATE='.$exportedToAccordpost.'" target="_blank">[Этикетка]</a>';  
+            $label = '<a href="/local/admin/accordpost_print.php?ACCORDPOST_ID='.$f_ID.'&SHIPPING_DATE='.$exportedToAccordpost.'" target="_blank">[Этикетка]</a>';  
         } else {
             $exportedToAccordpost = 'X';    
             $label = '-';  

@@ -21,7 +21,7 @@ while($ob = $res->GetNext()) {
 
 
 $arSelect = Array("ID", "NAME", "PROPERTY_discount_on", "PROPERTY_spec_price", "SHOW_COUNTER", "PROPERTY_shows_a_day");
-$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "<CATALOG_PRICE_1" => 900, "!PROPERTY_STATE" => array(21,22,23), "><PROPERTY_shows_a_day" => array(5,70));
+$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "<CATALOG_PRICE_1" => 900, "!PROPERTY_STATE" => array(21,22,23), "><PROPERTY_shows_a_day" => array(20,70));
 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>15), $arSelect);
 
 $discounted = array();

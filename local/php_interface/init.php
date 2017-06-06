@@ -142,10 +142,12 @@
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
         $bcc_pattern = "/(?<=BCC:)(.*)(?=)/";
+        $cc_pattern = "/(?<=CC:)(.*)(?=)/";
         $from_matches = array();
         $bcc_matches = array();
         preg_match($from_pattern, $additional_headers, $from_matches);
         preg_match($bcc_pattern, $additional_headers, $bcc_matches);
+        preg_match($cc_pattern, $additional_headers, $cc_matches);
 
         $mailgun = new Mailgun(MAILGUN_KEY);
 
@@ -159,6 +161,9 @@
         if (trim($bcc_matches[0])) {
             $params['bcc'] = $bcc_matches[0];
         }
+        if (trim($bcc_matches[0])) {
+            $params['cc'] = $cc_matches[0];
+        }
         //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
@@ -170,8 +175,8 @@
 
     function messagesWithAttachments($arFields, $arTemplate) {
         GLOBAL $arParams;
-
-        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+         // отправка письма по наличию вложенных файлов
+       // if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
 
             $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
             $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
@@ -179,8 +184,10 @@
             // заменяем все максросы в письме на значения из $arFields
             // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
             $message_body = $arTemplate['MESSAGE'];
+            $message_title = $arTemplate["SUBJECT"];
             foreach ($arFields as $field_name => $field_value) {
                 $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
+                $message_title = str_replace("#" . $field_name . "#", $field_value, $message_title);
             }
             // подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
             if($arFields[trim($arTemplate['EMAIL'], "#")]){
@@ -200,7 +207,7 @@
             $params = array(
                 'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
                 'to'      => $email_to,//$arFields["EMAIL"],
-                'subject' => $arTemplate['SUBJECT'],
+                'subject' => $message_title,
                 'html'    => $message_body,
             );
 
@@ -218,7 +225,7 @@
             $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
 
             return false;
-        }
+      //  }
     }
 
 
@@ -365,7 +372,6 @@
 
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
     AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
-
 
 
     /**
@@ -515,6 +521,23 @@
             $exported_to_dg_property_instance->setValue("N");
 
             $order_instance->save();
+        }
+    }
+
+    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberryDeliveryHandlerBefore"); // меняем цену для boxbery
+
+    /**
+     * Handler для доставки boxbery. Плюсуем стоимость доставки
+     *
+     * @param array $arFields
+     * @return void
+     *
+     * */
+    function boxberryDeliveryHandlerBefore(&$arFields) {
+        if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
+            $delivery_price = $_REQUEST['boxbery_price'];
+            $arFields['PRICE'] += floatval($delivery_price);
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
     }
 
@@ -2709,7 +2732,7 @@
 
     function generateAccordPostLabel($order_id) {
         //Данные для генерации этикетки
-        $order_id = intval($order_id);
+        $order_id = intval($order_id);   
         if (!empty($order_id)) {
             $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);
             $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);
@@ -2719,13 +2742,14 @@
 
             $rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_id), false, false, array());
             while($ar_order_prop = $rs_order_props->Fetch()) {
-                $order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];
-            }
-
+                if(empty($order_properties[$ar_order_prop['CODE']])) {
+                    $order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];
+                }                                       
+            }       
             if(empty($order_properties['EXPORTED_TO_ACCORDPOST'])){
                 return false;
-            }
-
+            }   
+                     
             //Собираем поля в зависимости от типа лица
             if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                 //имя получателя
@@ -2771,5 +2795,11 @@
         } else {
             return false;
         }
+    }
+    
+    AddEventHandler("main", "OnSendUserInfo", "MyOnSendUserInfoHandler"); 
+    function MyOnSendUserInfoHandler(&$arParams) 
+    {
+        $arParams["FIELDS"]["SERVER_NAME"] = "www.alpinabook.ru";
     }
 ?>

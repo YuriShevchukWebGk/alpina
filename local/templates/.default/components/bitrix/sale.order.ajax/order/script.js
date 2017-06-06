@@ -184,8 +184,8 @@ BX.saleOrderAjax = { // bad solution, actually, a singleton at the page
                                     if(typeof controlInApater.vars.cache.nodes['other'] == 'undefined')
                                     {
                                         controlInApater.fillCache([{
-                                            CODE:        'other', 
-                                            DISPLAY:    ctx.options.messages.otherLocation, 
+                                            CODE:        'other',
+                                            DISPLAY:    ctx.options.messages.otherLocation,
                                             IS_PARENT:    false,
                                             VALUE:        'other'
                                         }], {
@@ -446,14 +446,13 @@ BX.saleOrderAjax = { // bad solution, actually, a singleton at the page
 }
 function postamat(path){
     var postamat = $('#sPPDelivery').val();
-     console.log(postamat);
     if(postamat != 'не выбрано'){
-       path = false; 
+       path = false;
     }else{
-       path = true;  
+       path = true;
     }
     return path;
-}                
+}
 
 function focus_imput() {
     $(".clientInfoWrap input").focus(function() {
@@ -469,66 +468,66 @@ function focus_imput() {
 };
 
 /**
- * 
+ *
  * Подстановка данных об адресе в верстку
- * 
+ *
  * @param object delivery_data
  */
- 
+
 //Передаем данные в скрытые поля input для доставки boxberry
 function setAddressDataBoxberry(delivery_data) {
     $(".boxberry_error").hide();
-    // адрес доставки в блоке самой доставки 
+    // адрес доставки в блоке самой доставки
     $(".boxberry_point_addr").html(delivery_data.address);
-    // далее подставляем инфу в скрытые инпуты, для передачи дальше    
-    $("#boxberry_delivery_data").val(delivery_data.id);  
-    $("#ORDER_PROP_94").val(delivery_data.address); // физ-лицо       
-    $("#ORDER_PROP_95").val(delivery_data.address); // юр-лицо  
-    $("#ORDER_PROP_5").val(delivery_data.id); // физ-лицо       
-    $("#ORDER_PROP_14").val(delivery_data.id); // юр-лицо  
+    // далее подставляем инфу в скрытые инпуты, для передачи дальше
+    $("#boxberry_delivery_data").val(delivery_data.id);
+    $("#ORDER_PROP_94").val(delivery_data.address); // физ-лицо
+    $("#ORDER_PROP_95").val(delivery_data.address); // юр-лицо
+    $("#ORDER_PROP_5").val(delivery_data.id); // физ-лицо
+    $("#ORDER_PROP_14").val(delivery_data.id); // юр-лицо
     // устанавливаем флаг, что город выбран, нужно для js валидации
     $("#boxberry_selected").val(1);
-} 
+}
 
 /**
- * 
+ *
  * Подстановка полученных значений в верстку
- * 
- * @param string delivery_time                          
+ *
+ * @param string delivery_time
  */
 function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
     // установка цен внизу страницы
-    if (delivery_price == 0) {                         
-        var delivery_message = 'Бесплатно';                                       
-    } else {                                                
-        var delivery_message = delivery_price + ' руб.';                                                                                       
-    }      
-    document.querySelector('.deliveryPriceTable').innerHTML = delivery_message;    
-    
+    if (delivery_price == 0) {
+        var delivery_message = 'Бесплатно';
+    } else {
+        var delivery_message = delivery_price + ' руб.';
+    }
+    document.querySelector('.deliveryPriceTable').innerHTML = delivery_message;
+
     //Для eskimobi
     $('#eski_tottal div:eq(3) span').html(delivery_message);
-    
+
     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(delivery_price);
-    $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');    
-    
+    $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
+
     //Для eskimobi
-    $('#eski_tottal div:eq(4) span').html(finalSumWithoutDiscount.toFixed(2));  
-      
+    $('#eski_tottal div:eq(4) span').html(finalSumWithoutDiscount.toFixed(2));
+
     // установка значений для блока с самой доставкой
     $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(delivery_message);
     $("#boxberry_cost").val(delivery_price);
     if (parseInt(delivery_time) != 0) {
         // если значения не будет, то значит произошла ошибка и время доставки не показываем
         $("#boxberry_delivery_time").show();
-        $("#boxberry_delivery_time span").html((parseInt(delivery_time)) + " дн.");    
+        $("#boxberry_delivery_time span").html((parseInt(delivery_time)) + " дн.");
     }
 }
 
 
 //Callback функция для boxberry
-function boxberry_callback(result){ 
+function boxberry_callback(result){
     window.boxberry_result = result;
     setAddressDataBoxberry(result);
     fitDeliveryDataBoxberry(result.period, result.price);
 }
-                                                                                                                                                 
+
