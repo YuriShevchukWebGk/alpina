@@ -2493,13 +2493,18 @@
 	 *
 	 * */
 
-	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id, $coupon_active_from, $coupon_active_to) {
+	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) { 
+        
+        $coupon_active_date = new \Bitrix\Main\Type\DateTime();
+        $coupon_active_from = clone $coupon_active_date;
+        $coupon_active_to = $coupon_active_date -> add('+6 months');
+        
 		for ($i = 1; $i <= $quantity; $i++) {
 
 	        //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
 	        $arFields['COUPON'] = CatalogGenerateCoupon();
 	        $arFields['DISCOUNT_ID'] = $basket_rule_id;
-	        $arFields['ACTIVE'] = "Y";
+	        $arFields['ACTIVE'] = 'Y';
 	        $arFields['TYPE'] = 2;
 	        $arFields['MAX_USE'] = 1;
             $arFields['ACTIVE_FROM'] = $coupon_active_from;
@@ -2515,7 +2520,7 @@
 	        ));
 
 	        //Собираем массив с ID купонов
-	        if($arDiscountIterator = $discountIterator -> fetch()) {
+	        if($arDiscountIterator = $discountIterator -> fetch()) {                                                                                  
 	            $arCertificateID[] = $arDiscountIterator['ID'];
 	        }
 	        //Собираем массив с кодами купонов
@@ -2526,10 +2531,7 @@
 	        'COUPON_ID'   => $arCertificateID,
 	        'COUPON_CODE' => $arCouponCode
 	    );
-
-        $coupon_active_date = new \Bitrix\Main\Type\DateTime();
-        $coupon_active_from = clone $coupon_active_date;
-        $coupon_active_to = $coupon_active_date -> add('+6 months');
+                                                                            
 
         $props_update = array (
             'DATE_ACTIVE_FROM' => $coupon_active_from -> toString(),
@@ -2540,8 +2542,7 @@
 	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
 
         $el = new CIBlockElement;
-        $res = $el->Update($order_id, $props_update);
-
+        $res = $el->Update($order_id, $props_update);      
         //Возвращаем новые купоны
         return $arCouponCode;
 	}
@@ -2619,11 +2620,11 @@
     *
     * Перед обновлением элемента проверим не менялась ли дата, если дата менялась обновим сертификаты в базе
     */
-    function certificateUpdate(&$arParamsCertificate) {
-        if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
+    function certificateUpdate(&$arParamsCertificate) {         
+        if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID && (!empty($arParamsCertificate['ACTIVE_FROM']) || !empty($arParamsCertificate['ACTIVE_TO']))) {
             $current_object = CIBlockElement::GetList(Array(), Array("ID" => $arParamsCertificate['ID']), false, Array(), Array("ID", "PROPERTY_COUPON_ID", "ACTIVE_FROM", "ACTIVE_TO"));
             while($current_values = $current_object->Fetch()) {
-                if($arParamsCertificate['ACTIVE_FROM'] != $current_values['ACTIVE_FROM'] || $arParamsCertificate['ACTIVE_TO'] != $current_values['ACTIVE_TO']) {
+                if(($arParamsCertificate['ACTIVE_FROM'] != $current_values['ACTIVE_FROM'] || $arParamsCertificate['ACTIVE_TO'] != $current_values['ACTIVE_TO']) && (!empty($current_values['ACTIVE_FROM']) || !empty($current_values['ACTIVE_TO']))) {
                     $ar_coupon_id[] = $current_values['PROPERTY_COUPON_ID_VALUE'];
                 }
             }
@@ -2632,8 +2633,7 @@
                 $date_to = new \Bitrix\Main\Type\DateTime($arParamsCertificate['ACTIVE_TO']);
                 $fields = array(
                     'ACTIVE_FROM' => $date_from,
-                    'ACTIVE_TO'   => $date_to,
-                    'ACTIVE'      => $arParamsCertificate['ACTIVE']
+                    'ACTIVE_TO'   => $date_to                     
                 );
                 foreach ($ar_coupon_id as $coupon_id) {
                     \Bitrix\Sale\Internals\DiscountCouponTable::update($coupon_id, $fields);
