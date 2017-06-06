@@ -902,5 +902,11 @@
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
+        
+        $(".certInput, .infoPunct .bx_block").each(function(){
+            if ($(this).css("display") == "none") {
+                $(this).closest(".infoPunct").find(".inputTitle").hide();
+            }
+        });
     })
 </script>
