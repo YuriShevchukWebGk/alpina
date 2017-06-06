@@ -441,7 +441,7 @@
 
 									if (!pageLoaded) {
 										dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'submitForm'});
-										pageLoaded = true;
+										pageLoaded = true;                                                               
 									}
 
                                     var flag = true;

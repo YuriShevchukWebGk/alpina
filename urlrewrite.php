@@ -37,6 +37,12 @@ $arUrlRewrite = array(
 		"PATH" => "/desktop_app/router.php",
 	),
 	array(
+		"CONDITION" => "#^/stssync/calendar/#",
+		"RULE" => "",
+		"ID" => "bitrix:stssync.server",
+		"PATH" => "/bitrix/services/stssync/calendar/index.php",
+	),
+	array(
 		"CONDITION" => "#^/testcatalog/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog",
@@ -55,28 +61,28 @@ $arUrlRewrite = array(
 		"PATH" => "/testnews/index.php",
 	),
 	array(
-		"CONDITION" => "#^/catalog/#",
-		"RULE" => "",
-		"ID" => "bitrix:catalog",
-		"PATH" => "/catalog/index.php",
-	),
-	array(
 		"CONDITION" => "#^/authors/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/authors/index.php",
 	),
 	array(
-		"CONDITION" => "#^/series/#",
+		"CONDITION" => "#^/catalog/#",
 		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/series/index.php",
+		"ID" => "bitrix:catalog",
+		"PATH" => "/catalog/index.php",
 	),
 	array(
 		"CONDITION" => "#^/events/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/events/index.php",
+	),
+	array(
+		"CONDITION" => "#^/series/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/series/index.php",
 	),
 	array(
 		"CONDITION" => "#^/store/#",
