@@ -2911,7 +2911,7 @@ $(document).ready(function(){
         
         $(".bigSlider").hide();
         $(".revTitle").hide();
-        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - $(".bigSlider").height() - $(".revTitle").height() - 40 + "px");
+        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - $(".bigSlider").height() - $(".revTitle").height() + "px");
         $(".sliderName").css("padding-top", "40px");    
     }
     
@@ -2923,7 +2923,7 @@ $(document).ready(function(){
 
     if ($(".uLookSlider ul li").size() == 0)
     {
-        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - 350 - $(".youViewedTitle").height() + "px");
+        $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - 310 - $(".youViewedTitle").height() + "px");
         $(".uLookSlider").hide();
         $(".youViewedTitle").hide();
     }
@@ -2944,26 +2944,29 @@ $(document).ready(function(){
         $(".productsMenu").css("margin-top", "70px");   
     } 
 	
-	$('.wrap_prise_bottom .minus').click(function () {
-        var $input = $(this).parent().find('input');
-        var count = parseInt($input.val()) - 1;
-        count = count < 1 ? 1 : count;
-        $input.val(count);
-        $input.change();
-        return false;
-    });
-    $('.wrap_prise_bottom .plus').click(function () {
-        var $input = $(this).parent().find('input');
-        $input.val(parseInt($input.val()) + 1);
-        $input.change();
-        return false;
-    });
 	
 	$('.stopProp').click(function(e) {
 		e.stopPropagation();
 	});
 });
 
+function changeQ(dest) {
+	if (dest == '-') {
+		var $input = $('.wrap_prise_bottom .minus').parent().find('input');
+		var count = parseInt($input.val()) - 1;
+		count = count < 1 ? 1 : count;
+		$input.val(count);
+		$input.change();
+		return false;
+	} else if (dest == '+') {
+		var $input = $('.wrap_prise_bottom .plus').parent().find('input');
+		var count = parseInt($input.val()) + 1;
+		count = count < 1 ? 1 : count;
+		$input.val(count);
+		$input.change();
+		return false;
+	}
+}
 
  //расчет высоты серой подложки
 function setItemBgHeight() {
@@ -3013,6 +3016,8 @@ function getInfo(id) {
 }
 
 function getPreview(id,stock) {
+	$(".element_item_img .bookPreviewLink").css('opacity', '0.8');
+	$(".element_item_img").append('<div id="loadingInfo" class="previwLoading" style="margin-top: -75%;"><div class="spinner"><div class="spinner-icon"></div></div></div>');
 	$.ajax({
 		type: "POST",
 		url: "/ajax/book_preview.php",
@@ -3020,6 +3025,8 @@ function getPreview(id,stock) {
 	}).done(function(strResult) {
 		$("#ajaxBlock").append(strResult);
 		$("body").css('overflow','hidden');
+		$(".element_item_img .bookPreviewLink").css('opacity', '1');
+		$(".previwLoading").hide();
 	});
 }
 

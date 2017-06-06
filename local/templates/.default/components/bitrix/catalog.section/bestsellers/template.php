@@ -36,17 +36,13 @@
                     <p class="autor"><?= $arResult["QUOTE"]["PROPERTY_AUTHOR_NAME"] ?></p>
                 </div>
             <?}?>
-            <?if ($arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"]) {?>
-                <div class="titleText">
-                    <p class="text"><?= $arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"] ?></p>
-                </div>
-            <?}?>
+
 <?$frame = $this->createFrame()->begin();?>
             <div class="otherBooks" id="block1">
                 <ul>
 
                     <?foreach ($arResult["ITEMS"] as $arItem) { 
-                        $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                        $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                         ?>
                         <li>
                             <div class="categoryBooks">

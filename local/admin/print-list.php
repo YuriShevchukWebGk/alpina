@@ -2697,17 +2697,17 @@ if($saleModulePermissions == "W" || ($saleModulePermissions == "U" && !empty($al
     }
 
     $aContext = array(
-        array(
+      /*  array(
             "TEXT" => Loc::getMessage("SALE_A_NEWORDER"),
             "ICON" => "btn_new",
             "LINK" => "sale_order_create.php?lang=".LANGUAGE_ID.$siteLID,
             "TITLE" => Loc::getMessage("SALE_A_NEWORDER_TITLE"),
             "MENU" => $arSiteMenu
-        ),
+        ),    */
     );
 }
 
-//$lAdmin->AddAdminContextMenu($aContext);
+$lAdmin->AddAdminContextMenu($aContext);
 $lAdmin->CheckListMode();
 
 

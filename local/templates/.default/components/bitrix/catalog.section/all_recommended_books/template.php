@@ -48,7 +48,7 @@ $arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELET
             'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
         );
         
-        $pict = CFile::ResizeImageGet($arItem["PREVIEW_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+        $pict = CFile::ResizeImageGet($arItem["PREVIEW_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
         foreach ($arItem["PRICES"] as $code => $arPrice) {?>
         <div class="bookWrapp" id=<?= $strMainID ?>>
 			<link itemprop="relatedLink" href="<?=$arItem["DETAIL_PAGE_URL"]?>" />
@@ -62,15 +62,15 @@ $arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELET
                 if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 
                     && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23) {
                 ?>
-                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?><span></span></p>
                 <?
                 } else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23) {
                 ?>
-                    <p class="bookPrice"><?=$arItem["PROPERTIES"]["STATE"]["VALUE"]?></p>
+                    <p class="bookPrice"><?=$arItem["PROPERTIES"]["STATE"]["VALUE"]?><span></span></p>
                 <?
                 } else {
                 ?>
-                    <p class="bookPrice"><?=$arItem["PROPERTIES"]["SOON_DATE_TIME"]["VALUE"]?></p>
+                    <p class="bookPrice">Выйдет <?=FormatDate("X", MakeTimeStamp($arItem["PROPERTIES"]["SOON_DATE_TIME"]["VALUE"]))?></p>
                 <?    
                 }
                 ?>        

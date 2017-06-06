@@ -45,36 +45,36 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
         <div class="basketIcon">
         </div>
         <div class="contentWrapp">
-			<p class="breadCrump no-mobile" itemprop="breadcrumb" itemscope="" itemtype="https://schema.org/BreadcrumbList">
-				<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
-					<a href="/" title="Главная страница" itemprop="item">
-						<span itemprop="name">Главная страница</span>
-					</a>
-					<meta itemprop="position" content="1">
-				</span>
-				<?
-				$num = 2;
-				$navChain = CIBlockSection::GetNavChain(4, $arResult["ID"]); 
-				$stopNum = $navChain->nSelectedCount + 1;
-				while ($arNav = $navChain->GetNext()) {?>
-				<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
-					<span class="gap"></span>
-					<?if ($num != $stopNum) {?>
-						<a href="/catalog<?=$arNav[SECTION_PAGE_URL]?>" title="<?=$arNav[NAME]?>" itemprop="item">
-					<?}?>
-						<span itemprop="name"><?=$arNav[NAME]?></span>
-					<?if ($num != $stopNum) {?>
-						</a>
-					<?}?>
-					<meta itemprop="position" content="<?=$num?>">
-				</span>
-				<?
-				$num++;
-				}?>
-			</p>
-			<div itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
-			<link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
-			<h1 itemprop="name"><?= $arResult["NAME"]?></h1>
+            <p class="breadCrump no-mobile" itemprop="breadcrumb" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+                <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                    <a href="/" title="Главная страница" itemprop="item">
+                        <span itemprop="name">Главная страница</span>
+                    </a>
+                    <meta itemprop="position" content="1">
+                </span>
+                <?
+                $num = 2;
+                $navChain = CIBlockSection::GetNavChain(4, $arResult["ID"]); 
+                $stopNum = $navChain->nSelectedCount + 1;
+                while ($arNav = $navChain->GetNext()) {?>
+                <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                    <span class="gap"></span>
+                    <?if ($num != $stopNum) {?>
+                        <a href="/catalog<?=$arNav[SECTION_PAGE_URL]?>" title="<?=$arNav[NAME]?>" itemprop="item">
+                    <?}?>
+                        <span itemprop="name"><?=$arNav[NAME]?></span>
+                    <?if ($num != $stopNum) {?>
+                        </a>
+                    <?}?>
+                    <meta itemprop="position" content="<?=$num?>">
+                </span>
+                <?
+                $num++;
+                }?>
+            </p>
+            <div itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
+            <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
+            <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
 
             <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
@@ -142,7 +142,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 ),
                 false
             );?>
-			
+            
             <? /* Получаем от RetailRocket рекомендации для товара */
             $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
             $recsArray = json_decode($stringRecs);  
@@ -345,25 +345,30 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                      <?}?>
                                      <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                                     <?              
+                                     <?                                 
                                      if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) { 
-                                            if ($arPrice["DISCOUNT_VALUE_VAT"]) { ?>
+                                            if ($arPrice["DISCOUNT_VALUE_VAT"] && $arResult['ID'] != CERTIFICATE_SECTION_ID) { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                                 <link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
+                                            <? } elseif ($arResult['ID'] == CERTIFICATE_SECTION_ID) { ?>
+                                                <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? } else { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition">><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
+                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? }
-                                         ?>
-                                 
-                                         <?if ($arResult[$arItem["ID"]]["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
+                                         ?>                     
+                                         <?if ($arResult[$arItem["ID"]]["ITEM_IN_BASKET"]["QUANTITY"] == 0 && $arResult['ID'] != CERTIFICATE_SECTION_ID) {?>
                                             <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=$arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); return false;">
-                                                <?if(intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                                <?if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                                     <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET")?></p> 
                                                 <?} else {?>
                                                     <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_PREORDER")?></p>                                                 
                                                 <?}?>                                                     
                                             </a>
+                                         <?} elseif ($arResult['ID'] == CERTIFICATE_SECTION_ID) {?>
+                                            <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["DETAIL_PAGE_URL"]?>">
+                                                <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_BUY")?></p>      
                                             </a>
                                          <?} else {?>
                                             <a class="product<?= $arItem["ID"];?>" href="/personal/cart/">
@@ -376,7 +381,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                     <p class="priceOfBook"><?= strtolower(FormatDate("j F", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
                                  <?}?>
                              </a>
-                                 <? if ($USER -> IsAuthorized()) { ?>
+                                 <? if ($USER -> IsAuthorized() && $arResult['ID'] != CERTIFICATE_SECTION_ID) { ?>
                                      <p class="basketLater" id="<?= $arItem["ID"]?>">Куплю позже</p>
                                  <? } ?>
                              </div>        
@@ -449,7 +454,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 <p class="showMore">Показать ещё</p>
             <?}?>
             <?=$arResult["NAV_STRING"]?>
-			</div>
+            </div>
         </div>
 
 
@@ -599,7 +604,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                             $(this).html(truncate($(this).html(), 40));    
                         }    
                     });
-                    var otherBooksHeight = 1360 * ($(".otherBooks ul li").length / 15);
+                    var otherBooksHeight = 455 * Math.ceil($(".otherBooks ul li").length / 5);
                     console.log($(".otherBooks ul li").length);
                    
                     var categorHeight = WrappHeight+RecHeight+200 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    

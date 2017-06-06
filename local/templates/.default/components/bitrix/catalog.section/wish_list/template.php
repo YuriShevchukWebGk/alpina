@@ -25,8 +25,7 @@
 <div class="wishlistBlock">
 
     <?$user_id = $USER -> GetID();
-    $unavailable_statuses_array = array (
-        getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon"), 
+    $unavailable_statuses_array = array (                   
         getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "net_v_nal")
     );
     foreach ($arResult["ITEMS"] as $arItem) {    
@@ -44,7 +43,7 @@
                 }?>
             </p>
             <div class="wishBookDescription"><?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PREVIEW_TEXT"] ?></div>
-            <?//if ($_REQUEST["list"]) {
+            <?//if ($_REQUEST["list"]) {                                          
                 if ($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["CATALOG_PRICE_1"] > 0
                     && !in_array($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_STATE_ENUM_ID"], $unavailable_statuses_array)) {?>
                         <p class="inBasketContainer">
@@ -54,13 +53,20 @@
                                     class="wishInBasket">
                                         <?= GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET") ?>
                                 </a>
+                            <?} elseif ($arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                                <a href="/personal/cart/?action=ADD2BASKET&id=<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>"   
+                                    onclick="addtocart_fromwishlist(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]; ?>, '<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"]; ?>', <?=$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_STATE_ENUM_ID"]?>); return false;" 
+                                    class="wishInBasket" id="wishItem_<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>">
+                                        <?= GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_PREORDER") ?>
+                                </a>
                             <?} else {?>
-                                <a href="/personal/cart/?action=ADD2BASKET&id=<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>" 
+                                <a href="/personal/cart/?action=ADD2BASKET&id=<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>"   
                                     onclick="addtocart_fromwishlist(<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"]; ?>, '<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["NAME"]; ?>'); return false;" 
                                     class="wishInBasket" id="wishItem_<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>">
                                         <?= GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET") ?>
                                 </a>
                             <?}?>
+							<div id="loadingInfo" class="loadingInfo_<?= $arResult["PRODUCT_FIELDS"][$arItem["ID"]]["ID"] ?>" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                         </p>
                 <?}?>
             <p class="wishDeleteContainer">
@@ -97,7 +103,7 @@
     </div>
 </div>
 <script>
-    $(document).ready(function(){
+    /*$(document).ready(function(){
         <?if ($_REQUEST["list"]) {?>
             $(".cartMenuWrap .basketItems:first-child").removeClass("active");
             $("#cardBlock1").hide();
@@ -105,5 +111,5 @@
             $("#cardBlock2").show();
         <?}?>
 
-    });
+    })*/;
 </script>

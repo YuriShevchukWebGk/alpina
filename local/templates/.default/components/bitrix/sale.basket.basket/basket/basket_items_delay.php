@@ -92,9 +92,9 @@
     .cartWrapper #basket_items_delayed .nextPage {
         background: url(/img/nextPageBack.png) 276px 19px no-repeat #00a9b6;
     }
-    </style>                          
+    </style>              
     <div id="basket_items_delayed">    
-        <div class="yourBooks" id="cardBlock3" style="display:none">
+        <div class="yourBooks" id="cardBlock3" <?if(!$onlyPreorder && !$_REQUEST['preorder']){ echo 'style="display:none"'; }?>>
             <div class="preorder_item_block">
                 <table id="delayed_items">    
                     <tbody> 
@@ -398,7 +398,7 @@
                                                     <p class="finalDiscount">Вам не хватает 770 руб. и получите скидку 10%</p>
                                                 */?> 
                                                 <p class="promoWrap"><span class="promocode" onclick="$('#coupon_<?=$arItem['ID']?>, #acceptCoupon_<?=$arItem['ID']?>').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промо-код/сертификат?<span></p>
-                                                <div class="bx_ordercart_order_pay_left" id="coupons_block">
+                                                <div class="bx_ordercart_order_pay_left" id="coupons_block_<?=$arItem['ID']?>">
                                                     <div class="bx_ordercart_coupon">
                                                         <input type="text" id="coupon_<?=$arItem['ID']?>" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon_<?=$arItem['ID']?>" class="acceptCoupon" onclick="enterCouponCustom(<?=$arItem['ID']?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
                                                         <?//Форматируем сумму для одной позиции товара?>
@@ -525,17 +525,6 @@
     <?
     } else {
     ?>
-    <div id="basket_items_delayed">
-        <table>
-            <tbody>
-                <tr>
-                    <td colspan="<?=$numCells?>" style="text-align:center">
-                        <div class=""><?=GetMessage("SALE_NO_ITEMS");?></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
     <?
     };
 ?>

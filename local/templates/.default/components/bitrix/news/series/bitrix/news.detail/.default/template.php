@@ -43,7 +43,7 @@ $arrFilter["PROPERTY_SERIES"] = $arResult["ID"];
 ?>
 <?$APPLICATION->IncludeComponent(
     "bitrix:catalog.section", 
-    "bestsellers", 
+    "series", 
     array(
         "ACTION_VARIABLE" => "action",
         "ADD_PICT_PROP" => "-",
@@ -62,7 +62,7 @@ $arrFilter["PROPERTY_SERIES"] = $arResult["ID"];
         "CACHE_GROUPS" => "N",
         "CACHE_TIME" => "36000000",
         "CACHE_TYPE" => "N",
-        "COMPONENT_TEMPLATE" => "bestsellers",
+        "COMPONENT_TEMPLATE" => "series",
         "CONVERT_CURRENCY" => "N",
         "DETAIL_URL" => "",
         "DISABLE_INIT_JS_IN_COMPONENT" => "N",

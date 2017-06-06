@@ -33,7 +33,7 @@ if ($_REQUEST["PAGEN_".$navnum])
                         {
                             if ($arPrice["VALUE"])
                             {
-                                $pict = CFile::ResizeImageGet($arItem["PREVIEW_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                                $pict = CFile::ResizeImageGet($arItem["PREVIEW_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                                 $curr_author = CIBlockElement::GetByID($arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]) -> Fetch();
                             ?>
                             <div class="bookWrapp">
@@ -55,13 +55,13 @@ if ($_REQUEST["PAGEN_".$navnum])
                                         if ($arPrice["DISCOUNT_VALUE_VAT"])
                                         {
                                         ?>
-                                        <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                        <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?><span></span></p>
                                         <?
                                         }
                                         else
                                         {
                                         ?>
-                                        <p class="bookPrice"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <span>руб.</span></p>
+                                        <p class="bookPrice"><?=ceil($arPrice["ORIG_VALUE_VAT"])?><span></span></p>
                                         <?
                                         }
                                     ?>
@@ -72,6 +72,7 @@ if ($_REQUEST["PAGEN_".$navnum])
                         }
                     }?>
                 </div>
+				<?echo $_REQUEST["SORT"]?>
                 <a href="#" class="allBooks">Показать ещё</a>
             </div>
 </div>
@@ -84,70 +85,37 @@ if ($_REQUEST["PAGEN_".$navnum])
 <script>
 // скрипт ajax-подгрузки товаров в блоке "Все книги"
 $(document).ready(function() {
-        
-        <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
-        <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
-            var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
-        <?}else{?>
-            var page = 2;
-        <?}?>
-        var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
-            $('.allBooks').click(function(){
-                $.fancybox.showLoading();
-                $.get('<?=$arResult["SECTION_PAGE_URL"]?>?PAGEN_<?=$navnum?>='+page, function(data) {
-                    var next_page = $('.catalogBooks .bookWrapp', data);
-                    //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
-                    $('.catalogBooks').append(next_page);
-                    page++;          
-                })
-                .done(function() 
-                {
-                    $.fancybox.hideLoading();
-                    $(".bookName").each(function()
-                    {
-                        if($(this).length > 0)
-                        {
-                            $(this).html(truncate($(this).html(), 40));    
-                        }    
-                    });
-    
-                });
-                if (page == maxpage) {
-                    $('.allBooks').hide();
-                    //$('.phpages').hide();
-                }
-                return false;
-            });
-    <?if (isset($_SESSION[$APPLICATION -> GetCurDir()]))
-    {
-    ?>
-        var upd_page = <?=$_SESSION[$APPLICATION -> GetCurDir()]?>;
-        for (i = 2; i <= upd_page; i++)
-        {
-            $.get('<?=$arResult["SECTION_PAGE_URL"]?>?PAGEN_<?=$navnum?>='+i, function(data) {
-                    var next_page = $('.catalogBooks .bookWrapp', data);
-                    //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
-                    $('.catalogBooks').append(next_page);
-                             
-                })
-                .done(function() 
-                {
-                    $(".bookName").each(function()
-                    {
-                        if($(this).length > 0)
-                        {
-                            $(this).html(truncate($(this).html(), 40));    
-                        }    
-                    });
-    
-                });
-                if (upd_page == maxpage) {
-                    $('.allBooks').hide();
-                    //$('.phpages').hide();
-                }    
-        }
-    <?
-    }
-    ?>
+	<?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
+	<?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
+		var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
+	<?}else{?>
+		var page = 2;
+	<?}?>
+	var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
+		$('.allBooks').click(function(){
+			$.fancybox.showLoading();
+			$.get('/catalog/all-books/?SORT=POPULARITY&PAGEN_<?=$navnum?>='+page, function(data) {
+				var next_page = $('.catalogBooks .bookWrapp', data);
+				$('.catalogBooks').append(next_page);
+				page++;          
+			})
+			.done(function() 
+			{
+				$.fancybox.hideLoading();
+				$(".bookName").each(function()
+				{
+					if($(this).length > 0)
+					{
+						$(this).html(truncate($(this).html(), 40));    
+					}    
+				});
+
+			});
+			if (page == maxpage) {
+				$('.allBooks').hide();
+				//$('.phpages').hide();
+			}
+			return false;
+		});
     });
 </script>

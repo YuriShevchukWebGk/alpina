@@ -5,9 +5,6 @@
     use Bitrix\Main\Localization\Loc;
     use Bitrix\Sale\Internals;
 
-    if (!empty($arResult["ERROR_MESSAGE"]))
-        ShowError($arResult["ERROR_MESSAGE"]);
-
     $bDelayColumn  = false;
     $bDeleteColumn = false;
     $bWeightColumn = false;
@@ -37,9 +34,9 @@
 			e.stopPropagation();
 		});
 	});
-</script>
-    <div id="basket_items_list"> 
-        <div class="yourBooks" id="cardBlock1">
+</script>                                                                                              
+    <div id="basket_items_list">                       
+        <div class="yourBooks" id="cardBlock1" <?if($onlyPreorder || $_REQUEST['preorder']){ echo 'style="display:none"'; }?>>
             <table id="basket_items">
                 <thead>
                     <tr>
@@ -260,11 +257,11 @@
                                         ?>
                                         <td class="price priceOfBook">
                                             <p class="current_price costOfBook" id="current_price_<?=$arItem["ID"]?>">
-                                                <?=$arItem["PRICE_FORMATED"]?>
+                                                <?=$arItem["PRICE"]?><span class='rubsign'></span>
                                             </p>
                                             <p class="old_price costOfBook" id="old_price_<?=$arItem["ID"]?>">
                                                 <?if (floatval($arItem["DISCOUNT_PRICE_PERCENT"]) > 0):?>
-                                                    <?=$arItem["FULL_PRICE_FORMATED"]?>
+                                                    <?=$arItem["FULL_PRICE"]?><span class='rubsign'></span>
                                                     <?endif;?>
                                             </p>
                                         </td>
@@ -294,6 +291,9 @@
                                         <?
                                             if ($bDeleteColumn):
                                             ?>
+											<?if($USER->IsAuthorized()){?>
+												<a class="bookDelay" href="#" onclick="addToWishList(<?=$arItem["PRODUCT_ID"]?>, <?=$arItem["ID"]?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'addToWishList'});"><?=GetMessage("SALE_DELAY")?></a>
+											<?}?>
                                             <a class="bookDelete" href="<?=str_replace("#ID#", $arItem["ID"], $arUrls["delete"])?>" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'deleteBook'});"><?=GetMessage("SALE_DELETE")?></a>
                                             <?endif;?>
                                     </td>
@@ -316,17 +316,17 @@
 	        $pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
             $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
 	        if ($psum < 2000) {
-		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ." руб. и получите БЕСПЛАТНУЮ доставку";
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ."<span class='rubsign'></span> и получите БЕСПЛАТНУЮ доставку";
 	        } elseif ($psum < 3000 && $pdiscrel < 10) {
-		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)." руб. и получите скидку 10%";
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)."<span class='rubsign'></span> и получите скидку 10%";
 	        } elseif ($psum < 10000 && $pdiscrel < 20) {
-		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)." руб. и получите скидку 20%";
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)."<span class='rubsign'></span> и получите скидку 20%";
 	        }?>
 			<div id="discountMessageWrap" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
 				<span id="discountMessage" style="background:#fff9b7"><span class='sale_price'><?=$printDiscountText?></span></span>
 			</div>
 
-            <p class="finalCost"><span id="allSum_FORMATED"><?=str_replace(" ", "&nbsp;", $arResult["allSum_FORMATED"])?></span></p>
+            <p class="finalCost"><span id="allSum_FORMATED"><?=str_replace(" ", "&nbsp;", $arResult["allSum"])?><b class="rubsign"></b></span></p>
             <p class="finalQuant">Кол-во: <span id="totalQuantity"><?=$totalQuantity?></span></p>
             <p class="finalText">Итого</p>
             <?
@@ -339,7 +339,7 @@
                 $arDiscount = $discountIteratorCoup->fetch();    
             ?>
             <?/*
-            <p class="finalDiscount">Вам не хватает 770 руб. и получите скидку 10%</p>
+            <p class="finalDiscount">Вам не хватает 770<span class='rubsign'></span> и получите скидку 10%</p>
             */?>
 
             <p class="promoWrap"><span class="promocode" onclick="$('#coupon, #acceptCoupon').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промо-код/сертификат?<span></p>
@@ -460,7 +460,7 @@
         else:
     ?>
     <div id="basket_items_list">
-        <div class="yourBooks" id="cardBlock1">
+        <div class="yourBooks" id="cardBlock1" <?if($onlyPreorder){ echo 'style="display:none"'; }?>>
             <table>
                 <tbody>
                     <tr>

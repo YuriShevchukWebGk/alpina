@@ -1,8 +1,8 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
+CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");   
 ?>
-<?
-if(intval($_REQUEST["productid"]) > 0){//добавление товара в корзину
+<?  
+if(intval($_REQUEST["productid"]) > 0){//добавление товара в корзину        
 
     
     //$allproducts = explode("-", $_REQUEST["productid"]);
@@ -11,7 +11,7 @@ if(intval($_REQUEST["productid"]) > 0){//добавление товара в к
     
     //$product = intval($_POST["add2basket"]);
     //проверим     
-    CSaleBasket::Delete($product);
+    CSaleBasket::Delete($product);  
 
 }
 $APPLICATION->IncludeComponent("bitrix:sale.basket.basket", "hiding_basket", Array(

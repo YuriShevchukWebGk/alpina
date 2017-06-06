@@ -1,6 +1,7 @@
 <?
 $MESS['SOA_TEMPL_PERSON_TYPE'] = "Тип плательщика";
 $MESS['SOA_TEMPL_BUTTON'] = "Оформить заказ";
+$MESS['SOA_TEMPL_BUTTON_PREORDER'] = "Оформить предзаказ";
 $MESS['SOA_TEMPL_PROP_INFO'] = "Информация для оплаты и доставки заказа";
 $MESS['SOA_TEMPL_PROP_CHOOSE'] = "Выберите профиль:";
 $MESS['SOA_TEMPL_EXISTING_PROFILE'] = "Профиль покупателя:";
@@ -149,5 +150,5 @@ $MESS["SEARCH_ON_MAP"] = "Поиск пунктов на карте:";
 $MESS["CHOSE_ON_MAP"] = "Выбрать на карте";
 $MESS["GURU_ERROR"] = "Местоположение не выбрано";
 $MESS["BOXBERRY_ERROR"] = "Местоположение не выбрано";
-$MESS["BOXBERY_SELECT_EMPTY"] = "Выберите адрес доставки !";
+$MESS["BOXBERY_SELECT_EMPTY"] = "Выберите адрес доставки!";           
 ?>

@@ -274,6 +274,7 @@
                     <div id="boxbery_delivery_time" class="boxbery_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
                     <input type="hidden" id="boxbery_address" name="boxbery_address" value="">
                     <input type="hidden" id="boxbery_cost" name="boxbery_cost" value="">
+                    <input type="hidden" id="boxbery_price" name="boxbery_price" value="">
                 <? } ?>
 
                 <? if ($arDelivery["ID"] == GURU_DELIVERY_ID && $USER->IsAdmin()) { ?>

@@ -67,7 +67,14 @@ $APPLICATION->SetTitle("Заказы");
         "USE_YM_GOALS" => "N",
         "SHOW_ORDER_BUTTON" => "final_step",
         "SKIP_USELESS_BLOCK" => "Y",
-        "SERVICES_IMAGES_SCALING" => "standard"
+        "SERVICES_IMAGES_SCALING" => "standard",
+        "SHOW_NOT_CALCULATED_DELIVERIES" => "L",
+        "USE_PRELOAD" => "Y",
+        "ACTION_VARIABLE" => "action",
+        "ADDITIONAL_PICT_PROP_66" => "-",
+        "COMPOSITE_FRAME_MODE" => "A",
+        "COMPOSITE_FRAME_TYPE" => "AUTO",
+        "USE_ENHANCED_ECOMMERCE" => "N"
     ),
     false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

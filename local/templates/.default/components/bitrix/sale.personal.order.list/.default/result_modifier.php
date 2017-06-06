@@ -69,9 +69,9 @@
     }
                             
     $order_info = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_IDs), false, false, array());
-    while ($info = $order_info->Fetch()) {
+    while ($info = $order_info->Fetch()) {             
         $boxberryDelivery = '';
-        foreach ($arResult["ORDERS"] as $orderNum => $order) {
+        foreach ($arResult["ORDERS"] as $orderNum => $order) {           
             if($order['ORDER']['ID'] == $info["ORDER_ID"]) {
                 if($arResult["ORDERS"][$orderNum]['ORDER']['DELIVERY_ID'] == BOXBERRY_PICKUP_DELIVERY_ID) {
                     $boxberryDelivery = 'Y';

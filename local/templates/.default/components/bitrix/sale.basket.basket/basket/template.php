@@ -29,36 +29,7 @@
         'DELAY_URL' => $arUrls["delay"],
         'ADD_URL' => $arUrls["add"]
     );
-?>
-<style>
-#nprogresss {
-	margin:0 auto;
-}
-	#nprogresss .spinner-icon {
-	width: 36px;
-	height: 36px;
-	box-sizing: border-box;
-
-	border: solid 4px transparent;
-	border-top-color: #00abb8;
-	border-left-color: #00abb8;
-	border-radius: 50%;
-	margin: 0 auto;
-
-	-webkit-animation: nprogresss-spinner 400ms linear infinite;
-	animation: nprogresss-spinner 400ms linear infinite;
-	}
-
-	@-webkit-keyframes nprogresss-spinner {
-	0%   { -webkit-transform: rotate(0deg); }
-	100% { -webkit-transform: rotate(360deg); }
-	}
-	@keyframes nprogresss-spinner {
-	0%   { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
-	}
-
-</style>     
+?>   
 <div class="breadCrumpWrap">
     <div class="centerWrapper">
         <p><a href="/personal/cart/" class="afterImg active" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCartClick'});">Корзина</a><a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCheckoutClick'});" class="afterImg">Оформление</a><a href="#" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCompleteClick'});return false;">Завершение</a></p>
@@ -79,10 +50,25 @@
         ?>
 
         <div class="cartMenuWrap">
-            <div class="basketItems active" data-id="1" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForOrderClick'});"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
+            <?//Проверяем только ли предзаказ в корзине?>
+            <?$onlyPreorder = false;?>
+            <?$hasItems = false;?>
+            <?$hasPreorderItems = false;?>
+            <?foreach($arResult["GRID"]["ROWS"] as $k => $arItem) {
+                if($arItem["DELAY"] == "N") {  
+                    $hasItems = true;         
+                } 
+                if($arItem["DELAY"] == "Y") {  
+                    $hasPreorderItems = true;        
+                }     
+            }
+            if (!$hasItems && $hasPreorderItems) {    
+                $onlyPreorder = true;    
+            }?>                                                                            
+            <div class="basketItems <?if(!$onlyPreorder && !$_REQUEST['preorder']){ echo 'active'; }?>" data-id="1" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForOrderClick'});"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
             <div class="basketItems" data-id="2" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'wishlistBookmarkClick'});"><p>Список желаний <span>(0)</span></p></div>
             <?if(count($arResult["ITEMS"]["DelDelCanBuy"]) > 0) {?>
-                <div class="basketItems" data-id="3" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForPreorderClick'});"><p>Предзаказ <span>(<?=count($arResult["ITEMS"]["DelDelCanBuy"])?>)</span></p></div>                 
+                <div class="basketItems <?if($onlyPreorder || $_REQUEST['preorder']){ echo 'active'; }?>" data-id="3" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForPreorderClick'});"><p>Предзаказ <span>(<?=count($arResult["ITEMS"]["DelDelCanBuy"])?>)</span></p></div>                 
             <?}?>
         </div>
 
@@ -287,52 +273,55 @@
                                     ),
                                     false
                                 );?>
-                        </div>
+                        </div>  
                     </div>
                 </div>                       
 
 				<input type="hidden" name="BasketOrder" value="BasketOrder" />
-                <?if($arParams['USE_GIFTS'] == 'Y') {   
-                        $APPLICATION->IncludeComponent(
-                            "bitrix:sale.gift.basket",
-                            "basket_gifts",
-                            array(
-                                "SHOW_PRICE_COUNT" => 1,
-                                "PRODUCT_SUBSCRIPTION" => 'N',
-                                'PRODUCT_ID_VARIABLE' => 'id',
-                                "PARTIAL_PRODUCT_PROPERTIES" => 'N',
-                                "USE_PRODUCT_QUANTITY" => 'N',
-                                "ACTION_VARIABLE" => "actionGift",
-                                "ADD_PROPERTIES_TO_BASKET" => "Y",
+                <div class="gifts_block">
+                    <?
+                        if($arParams['USE_GIFTS'] == 'Y') {   
+                            $APPLICATION->IncludeComponent(
+                                "bitrix:sale.gift.basket",
+                                "basket_gifts",
+                                array(
+                                    "SHOW_PRICE_COUNT" => 1,
+                                    "PRODUCT_SUBSCRIPTION" => 'N',
+                                    'PRODUCT_ID_VARIABLE' => 'id',
+                                    "PARTIAL_PRODUCT_PROPERTIES" => 'N',
+                                    "USE_PRODUCT_QUANTITY" => 'N',
+                                    "ACTION_VARIABLE" => "actionGift",
+                                    "ADD_PROPERTIES_TO_BASKET" => "Y",
 
-                                "BASKET_URL" => $APPLICATION->GetCurPage(),
-                                "APPLIED_DISCOUNT_LIST" => $arResult["APPLIED_DISCOUNT_LIST"],
-                                "FULL_DISCOUNT_LIST" => $arResult["FULL_DISCOUNT_LIST"],
+                                    "BASKET_URL" => $APPLICATION->GetCurPage(),
+                                    "APPLIED_DISCOUNT_LIST" => $arResult["APPLIED_DISCOUNT_LIST"],
+                                    "FULL_DISCOUNT_LIST" => $arResult["FULL_DISCOUNT_LIST"],
 
-                                "TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"],
-                                "PRICE_VAT_INCLUDE" => $arParams["PRICE_VAT_SHOW_VALUE"],
-                                "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
+                                    "TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"],
+                                    "PRICE_VAT_INCLUDE" => $arParams["PRICE_VAT_SHOW_VALUE"],
+                                    "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
 
-                                'BLOCK_TITLE' => $arParams['GIFTS_BLOCK_TITLE'],
-                                'HIDE_BLOCK_TITLE' => $arParams['GIFTS_HIDE_BLOCK_TITLE'],
-                                'TEXT_LABEL_GIFT' => $arParams['GIFTS_TEXT_LABEL_GIFT'],
-                                'PRODUCT_QUANTITY_VARIABLE' => $arParams['GIFTS_PRODUCT_QUANTITY_VARIABLE'],
-                                'PRODUCT_PROPS_VARIABLE' => $arParams['GIFTS_PRODUCT_PROPS_VARIABLE'],
-                                'SHOW_OLD_PRICE' => $arParams['GIFTS_SHOW_OLD_PRICE'],
-                                'SHOW_DISCOUNT_PERCENT' => $arParams['GIFTS_SHOW_DISCOUNT_PERCENT'],
-                                'SHOW_NAME' => $arParams['GIFTS_SHOW_NAME'],
-                                'SHOW_IMAGE' => $arParams['GIFTS_SHOW_IMAGE'],
-                                'MESS_BTN_BUY' => $arParams['GIFTS_MESS_BTN_BUY'],
-                                'MESS_BTN_DETAIL' => $arParams['GIFTS_MESS_BTN_DETAIL'],
-                                'PAGE_ELEMENT_COUNT' => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
-                                'CONVERT_CURRENCY' => $arParams['GIFTS_CONVERT_CURRENCY'],
-                                'HIDE_NOT_AVAILABLE' => $arParams['GIFTS_HIDE_NOT_AVAILABLE'],
-                                "LINE_ELEMENT_COUNT" => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
-                            ),
-                            false
-                        );
-                    }
-                ?>
+                                    'BLOCK_TITLE' => $arParams['GIFTS_BLOCK_TITLE'],
+                                    'HIDE_BLOCK_TITLE' => $arParams['GIFTS_HIDE_BLOCK_TITLE'],
+                                    'TEXT_LABEL_GIFT' => $arParams['GIFTS_TEXT_LABEL_GIFT'],
+                                    'PRODUCT_QUANTITY_VARIABLE' => $arParams['GIFTS_PRODUCT_QUANTITY_VARIABLE'],
+                                    'PRODUCT_PROPS_VARIABLE' => $arParams['GIFTS_PRODUCT_PROPS_VARIABLE'],
+                                    'SHOW_OLD_PRICE' => $arParams['GIFTS_SHOW_OLD_PRICE'],
+                                    'SHOW_DISCOUNT_PERCENT' => $arParams['GIFTS_SHOW_DISCOUNT_PERCENT'],
+                                    'SHOW_NAME' => $arParams['GIFTS_SHOW_NAME'],
+                                    'SHOW_IMAGE' => $arParams['GIFTS_SHOW_IMAGE'],
+                                    'MESS_BTN_BUY' => $arParams['GIFTS_MESS_BTN_BUY'],
+                                    'MESS_BTN_DETAIL' => $arParams['GIFTS_MESS_BTN_DETAIL'],
+                                    'PAGE_ELEMENT_COUNT' => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
+                                    'CONVERT_CURRENCY' => $arParams['GIFTS_CONVERT_CURRENCY'],
+                                    'HIDE_NOT_AVAILABLE' => $arParams['GIFTS_HIDE_NOT_AVAILABLE'],
+                                    "LINE_ELEMENT_COUNT" => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
+                                ),
+                                false
+                            );
+                        }
+                        ?>
+                    </div>
 				<?
 				/* Получаем рекомендации для корзины от RetailRocket */
 				global $arrFilter;
@@ -976,7 +965,7 @@
 
 <script>
     $(document).ready(function(){
-        <?if ($_REQUEST["action"]) {?>  
+        <?/*if ($_REQUEST["action"]) {?>  
             $(".cartMenuWrap .basketItems:first-child").removeClass("active");
             $('.cartMenuWrap .basketItems:nth-child(2)').addClass("active");
             $("#cardBlock2").show();
@@ -984,7 +973,10 @@
             $('.cartMenuWrap .basketItems:nth-child(2)').removeClass("active");
             $('.cartMenuWrap .basketItems:first-child').addClass("active");
             $("#cardBlock1").show();
-		<?}?>   
-		dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'pageLoaded'});	
+		<?}*/?>   
+		dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'pageLoaded'});
+        if ($(".gifts_block").find("div").size() > 0) {
+            $(".gifts_block").show();
+        }	
     });
 </script>

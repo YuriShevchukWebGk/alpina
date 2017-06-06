@@ -19,7 +19,7 @@ $this->setFrameMode(true);
         <?foreach ($arResult["ITEMS"] as $arItem) {
             foreach ($arItem["PRICES"] as $code => $arPrice) {
                 if ($arPrice["PRINT_DISCOUNT_VALUE"]) {
-                    $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                    $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                 ?>
                 <li>
                     <div class="bookWrapp">
@@ -33,7 +33,7 @@ $this->setFrameMode(true);
                             </div>
                             <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem['NAME']?></p>
                             <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                            <p class="bookPrice"><?=$arPrice['PRINT_DISCOUNT_VALUE']?></p>
+                            <p class="bookPrice"><?=$arPrice['DISCOUNT_VALUE_VAT']?><span></span></p>
                         </a>
                     </div>    
                 </li>    

@@ -92,18 +92,11 @@ p{
 
 .landing{
     position: relative;
-  /*  width: 1769px;*/
-    min-width: 1024px;
-    max-width: 1769px;
     margin: 0 auto;
     background: #fff;
 }
 .landing .slide1 {
-    background: url(../files/slide1.jpg) no-repeat 50% 50%;
-    height: 710px;
-    box-sizing: border-box;
-    padding: 48px 0 0;
-    position: relative;
+
 }
 .landing .slide1 .text1 {
     margin: 0 auto 25px;
@@ -112,16 +105,6 @@ p{
 .landing .slide1 .text2 {
     display: block;
     margin: 0 auto;
-}
-.landing .slide2 {
-    background: url(../files/slide2.jpg) no-repeat 50% 50%;
-    height: 436px;
-    margin: 70px 0 14px;
-}
-.landing .slide3 {
-    background: url(../files/slide3.jpg) no-repeat 50% 50%;
-    height: 485px;
-    margin: 70px 0 10px;
 }
 .landing .slide3 .text1, .landing .slide3 .text2 {
     max-width: 1090px;
@@ -176,15 +159,17 @@ p{
 }
 .landing .bg .title {
     font: 42px/1.2 "Walshein_bold", sans-serif;
-    color:#627477;
+    color:#486795;
     text-align: center;
-    max-width: 640px;
+    min-width: 580px;
+	width:100%;
     margin: 0 auto;
 }
 .landing .hintWrapp {
    text-align: center;
     position: relative;
-    width: 1140px;
+    width: 100%;
+	max-width:1400px;
     height: auto;
     margin: 0 auto;
 }
@@ -617,10 +602,10 @@ header .headBasket{
     float: left;
 }
 .hintWrapp .title{
-    color: #627478;
+    color: #486795;
     font-family: "Walshein_regular";
     font-size: 24px;
-    padding-top: 74px;
+    padding-top: 40px;
     padding-bottom: 34px;
 }
 .hintWrapp .titleBlock>div{

@@ -1036,7 +1036,7 @@ class CBitrixBasketComponent extends CBitrixComponent
 
 	public function recalculateBasket($arPost)
 	{
-		global $USER;
+		global $USER;     
 		$arRes = array();
 
 		if ($this->hideCoupon != "Y")
@@ -1068,8 +1068,7 @@ class CBitrixBasketComponent extends CBitrixComponent
 					}
 				}
 			}
-		}
-
+		}                 
 		$arTmpItems = array();
 		$dbItems = CSaleBasket::GetList(
 			array("PRICE" => "DESC"),
@@ -1149,8 +1148,7 @@ class CBitrixBasketComponent extends CBitrixComponent
 						CSaleBasket::Update($arItem["ID"], $arFields);
 				}
 			}
-		}
-
+		}                
 		return $arRes;
 	}
 
