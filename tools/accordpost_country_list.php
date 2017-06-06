@@ -8,7 +8,7 @@ use Bitrix\Sale;
 require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_admin_before.php');       
 require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/prolog.php");                          
 require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/general/admin_tool.php");
-require_once($_SERVER["DOCUMENT_ROOT"]."/local/admin/accordpost_function.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/accordpost/accordpost_function.php");
 
 $arCountry = get_country_list();
 

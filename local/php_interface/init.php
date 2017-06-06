@@ -2732,7 +2732,7 @@
 
     function generateAccordPostLabel($order_id) {
         //Данные для генерации этикетки
-        $order_id = intval($order_id);
+        $order_id = intval($order_id);   
         if (!empty($order_id)) {
             $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);
             $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);
@@ -2742,13 +2742,14 @@
 
             $rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_id), false, false, array());
             while($ar_order_prop = $rs_order_props->Fetch()) {
-                $order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];
-            }
-
+                if(empty($order_properties[$ar_order_prop['CODE']])) {
+                    $order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];
+                }                                       
+            }       
             if(empty($order_properties['EXPORTED_TO_ACCORDPOST'])){
                 return false;
-            }
-
+            }   
+                     
             //Собираем поля в зависимости от типа лица
             if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                 //имя получателя

@@ -73,9 +73,10 @@
             
         //Собираем дополнительные данные о заказе
         $rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $arIDs), false, false, array());
-        while($ar_order_prop = $rs_order_props->Fetch()) {      
-            $order_props[$ar_order_prop['ORDER_ID']][$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];  
-
+        while($ar_order_prop = $rs_order_props->Fetch()) {                                          
+            if(empty($order_props[$ar_order_prop['ORDER_ID']][$ar_order_prop['CODE']])) {
+                $order_props[$ar_order_prop['ORDER_ID']][$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];  
+            }  
         }                                                               
                                                                          
          //Собираем поля в зависимости от типа лица
@@ -387,7 +388,7 @@
         //Проверяем, экспортирован ли элемент
         if(!empty($arExportedToAccordpost[$f_ID])){
             $exportedToAccordpost = $arExportedToAccordpost[$f_ID];  
-            $label = '<a href="/local/php_interface/include/accordpost/accordpost_print.php?ACCORDPOST_ID='.$f_ID.'&SHIPPING_DATE='.$exportedToAccordpost.'" target="_blank">[Этикетка]</a>';  
+            $label = '<a href="/local/admin/accordpost_print.php?ACCORDPOST_ID='.$f_ID.'&SHIPPING_DATE='.$exportedToAccordpost.'" target="_blank">[Этикетка]</a>';  
         } else {
             $exportedToAccordpost = 'X';    
             $label = '-';  

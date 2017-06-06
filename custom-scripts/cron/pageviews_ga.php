@@ -98,29 +98,33 @@ function printResultsTwoDays($results) {
 	$table = array();
 	$already = array();
 	$already[] = 'start';
-	foreach ($rows as $i=>$row) {
+	foreach ($rows as $row) {
 		$subject = $row[0];
 		$pattern = '/([0-9]{3,7})/'; 
 		preg_match($pattern, $subject, $matches); 
 		if (!array_search($matches[0], $already)) {
-			$table[$i]['url'] = $row[0];
-			$table[$i]['views'] = $row[1];
-			$table[$i]['id'] = $matches[0];
-			$already[] = $table[$i]['id'];
+			$table[$matches[0]]['url'] = $row[0];
+			$table[$matches[0]]['views'] = $row[1];
+			$table[$matches[0]]['id'] = $matches[0];
+			$already[] = $matches[0];
+		} else {
+			$table[$matches[0]]['views'] += $row[1];
 		}
 	}
 	
 	foreach ($table as $book) {
-		$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "ID" => $book['id']);
+		if ($book['id'] > 0) {
+			$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "ID" => $book['id']);
 
-		$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID"));
-		while ($oneb = $props->GetNext()) {
-			if(array_search($oneb["ID"], $addViews))
-				$views = round($book['views']*2.1 + 100);
-			else
-				$views = round($book['views']*1.5);
-			//echo $book['url'].' '.$book['views'].'<br />';
-			CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('page_views_ga' => $views));
+			$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID"));
+			while ($oneb = $props->GetNext()) {
+				if(array_search($oneb["ID"], $addViews))
+					$views = round($book['views']*2.1 + 100);
+				else
+					$views = round($book['views']*1.5);
+				echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
+				CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('page_views_ga' => $views));
+			}
 		}
 	}
   } else {
@@ -145,26 +149,30 @@ function printResultsMonth($results) {
 	$table = array();
 	$already = array();
 	$already[] = 'start';
-	foreach ($rows as $i=>$row) {
+	foreach ($rows as $row) {
 		$subject = $row[0];
 		$pattern = '/([0-9]{3,7})/'; 
 		preg_match($pattern, $subject, $matches); 
 		if (!array_search($matches[0], $already)) {
-			$table[$i]['url'] = $row[0];
-			$table[$i]['views'] = $row[1];
-			$table[$i]['id'] = $matches[0];
+			$table[$matches[0]]['url'] = $row[0];
+			$table[$matches[0]]['views'] = $row[1];
+			$table[$matches[0]]['id'] = $matches[0];
 			$already[] = $matches[0];
+		} else {
+			$table[$matches[0]]['views'] += $row[1];
 		}
 	}
 	
 	foreach ($table as $book) {
-		$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "ID" => $book['id']);
+		if ($book['id'] > 0) {
+			$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "ID" => $book['id']);
 
-		$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID"));
-		while ($oneb = $props->GetNext()) {
-			$views = $book['views'];
-			echo $book['url'].' '.$book['views'].'<br />';
-			CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('shows_a_day' => $views));
+			$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID"));
+			while ($oneb = $props->GetNext()) {
+				$views = $book['views'];
+				echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
+				CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('shows_a_day' => $views));
+			}
 		}
 	}
   } else {

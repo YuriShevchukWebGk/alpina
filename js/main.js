@@ -96,10 +96,10 @@ $(document).ready(function(){
     }
     //скрытие текста в карточке товара
     if($('.showAllWrapp').length > 0){
-		var descHeight = $('.showAllWrapp').css('height').slice(0,-2);
-		var leftBlockHeight = $('.elementDescriptWrap .leftColumn').css('height').slice(0,-2);
-		var checkVideo = $('.productSelectTitle').css('height').slice(0,-2);
-		if (checkVideo > 20)
+		var descHeight = parseInt($('.showAllWrapp').css('height').slice(0,-2));
+		var leftBlockHeight = parseInt($('.elementDescriptWrap .leftColumn').css('height').slice(0,-2));
+
+		if ($("div").is('.videoWrapp'))
 			var videoHeight = 321;
 		else
 			var videoHeight = 0;
@@ -1505,15 +1505,15 @@ function docReadyComponent(id) {
 	);
 
 	//скрытие текста в карточке товара
-	if($('.showAllWrapp').length > 0){
-		var descHeight = $('.showAllWrapp').css('height').slice(0,-2);
-		var leftBlockHeight = $('.elementDescriptWrap .leftColumn').css('height').slice(0,-2);
-		var checkVideo = $('.productSelectTitle').css('height').slice(0,-2);
-		if (checkVideo > 20)
+    if($('.showAllWrapp').length > 0){
+		var descHeight = parseInt($('.showAllWrapp').css('height').slice(0,-2));
+		var leftBlockHeight = parseInt($('.elementDescriptWrap .leftColumn').css('height').slice(0,-2));
+
+		if ($("div").is('.videoWrapp'))
 			var videoHeight = 321;
 		else
 			var videoHeight = 0;
-		
+
         if(descHeight > leftBlockHeight) {
             $('.showAllWrapp').append('<p class="readMore"><span>Читать далее...</span></p>');
             $('.showAllWrapp').css('height',leftBlockHeight - videoHeight - 300 +'px');
@@ -1523,7 +1523,7 @@ function docReadyComponent(id) {
             $('.showAllWrapp').css('height','auto');
             $('.readMore').hide();
         })
-	}
+    }
 
 	$.ajax({
 		type: "POST",
