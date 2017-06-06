@@ -882,9 +882,7 @@
                     $order = CSaleOrder::GetById($ID);
                     $result = $message->sendMessage($ID,$val,'',$order['PRICE']);
                 }
-            } elseif ($val=="N") {
-				//Если переводим на статус "Новый" не отправляем смс
-			} else {
+            } else {
                 $message = new Message();
                 $result = $message->sendMessage($ID,$val);
             }
