@@ -227,7 +227,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 		$id = $arSales["ID"];
 		if (
 			(time() - strtotime($arSales[DATE_STATUS]))/86400 > 3 && 	// Если прошло больше 7 дней
-			(time() - strtotime($arSales[DATE_STATUS]))/86400 < 4 && 	// и меньше 12 дней
+			(time() - strtotime($arSales[DATE_STATUS]))/86400 < 5 && 	// и меньше 12 дней
 			$arSales["EMP_STATUS_ID"] != $userID1) 						// еще не отправляли первое уведомление о собранном заказе
 		{
 			
@@ -247,7 +247,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				<td>Прошло три дня</td>
 				</tr>";
 		} elseif (
-			(time() - strtotime($arSales[DATE_STATUS]))/86400 >= 5 && 	// Если прошло больше 11 дней
+			(time() - strtotime($arSales[DATE_STATUS]))/86400 >= 6 && 	// Если прошло больше 11 дней
 			$arSales["EMP_STATUS_ID"] != $userID2)						// и еще не отправляли второе уведомление
 		{
 			$subject = 'Истекает срок хранения заказа №'.$id.'. Альпина Паблишер';
