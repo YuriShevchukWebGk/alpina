@@ -135,10 +135,10 @@
     * @param string $additional_headers
     * @param string $additional_parameters
     *
-    **/
+    **/          
     function custom_mail($to, $subject, $message, $attachments, $additional_headers = '', $additional_parameters = '') {
         GLOBAL $arParams;
-
+                                     
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
         $bcc_pattern = "/(?<=BCC:)(.*)(?=)/";
@@ -167,65 +167,101 @@
         //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));     
     }
-
+    
+    //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа 
+    function cancelMail($arFields, $arTemplate) { 
+        $date = date('Y-m-d, H:i:s');
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_preorder.log';
+        $order_log = 'Date: '.$date.'; $arTemplate["ID"]: '.$arTemplate["ID"].'; $arFields["ORDER_ID"]: '.$arFields["ORDER_ID"].';';  
+        logger($order_log, $file);
+        if ($arTemplate["ID"] == 16) {  
+            $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
+            $rsBasket = CSaleBasket::GetList(array(), array("ORDER_ID" => $order["ID"])); 
+            while ($arBasket = $rsBasket->Fetch()) {
+                $arBasketItems[] = $arBasket;        
+            }                        
+            if(count($arBasketItems) == 1) {     
+                $basketItem = $arBasketItems;   
+                $basketItem = array_pop($basketItem);    
+                $itemID = $basketItem["PRODUCT_ID"];             
+                $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
+                $order_log = 'Date: '.$date.'; $arTemplate["ID"]: '.$arTemplate["ID"].'; PreOrder: Y;';  
+                logger($order_log, $file);
+                if($arItem = $res->Fetch()) { 
+                    if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")){
+                        $order_log = 'Date: '.$date.'; $arTemplate["ID"]: '.$arTemplate["ID"].'; Cancel: Y;';  
+                        logger($order_log, $file);
+                        return true;         
+                    }  
+                }                                                                                                                      
+            };    
+        }
+        return false;
+    }
 
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
 
     function messagesWithAttachments($arFields, $arTemplate) {
         GLOBAL $arParams;
-         // отправка письма по наличию вложенных файлов
-       // if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
-
-            $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
-            $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
-
-            // заменяем все максросы в письме на значения из $arFields
-            // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
-            $message_body = $arTemplate['MESSAGE'];
-            $message_title = $arTemplate["SUBJECT"];
-            foreach ($arFields as $field_name => $field_value) {
-                $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
-                $message_title = str_replace("#" . $field_name . "#", $field_value, $message_title);
-            }
-            // подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
-            if($arFields[trim($arTemplate['EMAIL'], "#")]){
-                $email_to = $arFields[trim($arTemplate['EMAIL'], "#")];
-            } else {
-                $email_to = $arFields[trim($arTemplate['EMAIL_TO'], "#")];
-            }
-
-            $attachments = array();
-            foreach ($arTemplate['FILE'] as $file) {
-                if ($file_path = CFile::GetPath($file)) {
-                    $attachments = "@".$_SERVER["DOCUMENT_ROOT"].$file_path;
-
-                }
-            }
-            logger($arTemplate, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');
-            $params = array(
-                'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
-                'to'      => $email_to,//$arFields["EMAIL"],
-                'subject' => $message_title,
-                'html'    => $message_body,
-            );
-
-            if ($arTemplate['BCC']) {
-                $params['bcc'] .= $arTemplate['BCC'];
-            }
-
-            if ($arTemplate['CC']) {
-                $params['cc'] .= $arTemplate['CC'];
-            }
-            logger($params, $_SERVER["DOCUMENT_ROOT"].'/logs/log1.php');
-            $domain = $arParams['MAILGUN']['DOMAIN'];
-
-          //  # Make the call to the client.
-            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-
+        
+        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа 
+        if(cancelMail($arFields, $arTemplate)) {
             return false;
-      //  }
+        }
+
+        // отправка письма по наличию вложенных файлов
+        // if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+
+        $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
+        $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
+
+        // заменяем все максросы в письме на значения из $arFields
+        // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
+        $message_body = $arTemplate['MESSAGE'];
+        $message_title = $arTemplate["SUBJECT"];
+        foreach ($arFields as $field_name => $field_value) {
+            $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
+            $message_title = str_replace("#" . $field_name . "#", $field_value, $message_title);
+        }
+        // подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
+        if($arFields[trim($arTemplate['EMAIL'], "#")]){
+            $email_to = $arFields[trim($arTemplate['EMAIL'], "#")];
+        } else {
+            $email_to = $arFields[trim($arTemplate['EMAIL_TO'], "#")];
+        }
+
+        $attachments = array();
+        foreach ($arTemplate['FILE'] as $file) {
+            if ($file_path = CFile::GetPath($file)) {
+                $attachments = "@".$_SERVER["DOCUMENT_ROOT"].$file_path;
+
+            }
+        }
+        logger($arTemplate, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');
+        $params = array(
+            'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
+            'to'      => $email_to,//$arFields["EMAIL"],
+            'subject' => $message_title,
+            'html'    => $message_body,
+        );
+
+        if ($arTemplate['BCC']) {
+            $params['bcc'] .= $arTemplate['BCC'];
+        }
+
+        if ($arTemplate['CC']) {
+            $params['cc'] .= $arTemplate['CC'];
+        }
+        logger($params, $_SERVER["DOCUMENT_ROOT"].'/logs/log1.php');
+        $domain = $arParams['MAILGUN']['DOMAIN'];
+
+        //  # Make the call to the client.
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+
+        return false;
+        //  }
     }
 
 
@@ -2455,13 +2491,18 @@
 	 *
 	 * */
 
-	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id, $coupon_active_from, $coupon_active_to) {
+	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) { 
+        
+        $coupon_active_date = new \Bitrix\Main\Type\DateTime();
+        $coupon_active_from = clone $coupon_active_date;
+        $coupon_active_to = $coupon_active_date -> add('+6 months');
+        
 		for ($i = 1; $i <= $quantity; $i++) {
 
 	        //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
 	        $arFields['COUPON'] = CatalogGenerateCoupon();
 	        $arFields['DISCOUNT_ID'] = $basket_rule_id;
-	        $arFields['ACTIVE'] = "Y";
+	        $arFields['ACTIVE'] = 'Y';
 	        $arFields['TYPE'] = 2;
 	        $arFields['MAX_USE'] = 1;
             $arFields['ACTIVE_FROM'] = $coupon_active_from;
@@ -2477,7 +2518,7 @@
 	        ));
 
 	        //Собираем массив с ID купонов
-	        if($arDiscountIterator = $discountIterator -> fetch()) {
+	        if($arDiscountIterator = $discountIterator -> fetch()) {                                                                                  
 	            $arCertificateID[] = $arDiscountIterator['ID'];
 	        }
 	        //Собираем массив с кодами купонов
@@ -2488,10 +2529,7 @@
 	        'COUPON_ID'   => $arCertificateID,
 	        'COUPON_CODE' => $arCouponCode
 	    );
-
-        $coupon_active_date = new \Bitrix\Main\Type\DateTime();
-        $coupon_active_from = clone $coupon_active_date;
-        $coupon_active_to = $coupon_active_date -> add('+6 months');
+                                                                            
 
         $props_update = array (
             'DATE_ACTIVE_FROM' => $coupon_active_from -> toString(),
@@ -2502,8 +2540,7 @@
 	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
 
         $el = new CIBlockElement;
-        $res = $el->Update($order_id, $props_update);
-
+        $res = $el->Update($order_id, $props_update);      
         //Возвращаем новые купоны
         return $arCouponCode;
 	}
@@ -2581,11 +2618,11 @@
     *
     * Перед обновлением элемента проверим не менялась ли дата, если дата менялась обновим сертификаты в базе
     */
-    function certificateUpdate(&$arParamsCertificate) {
-        if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
+    function certificateUpdate(&$arParamsCertificate) {         
+        if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID && (!empty($arParamsCertificate['ACTIVE_FROM']) || !empty($arParamsCertificate['ACTIVE_TO']))) {
             $current_object = CIBlockElement::GetList(Array(), Array("ID" => $arParamsCertificate['ID']), false, Array(), Array("ID", "PROPERTY_COUPON_ID", "ACTIVE_FROM", "ACTIVE_TO"));
             while($current_values = $current_object->Fetch()) {
-                if($arParamsCertificate['ACTIVE_FROM'] != $current_values['ACTIVE_FROM'] || $arParamsCertificate['ACTIVE_TO'] != $current_values['ACTIVE_TO']) {
+                if(($arParamsCertificate['ACTIVE_FROM'] != $current_values['ACTIVE_FROM'] || $arParamsCertificate['ACTIVE_TO'] != $current_values['ACTIVE_TO']) && (!empty($current_values['ACTIVE_FROM']) || !empty($current_values['ACTIVE_TO']))) {
                     $ar_coupon_id[] = $current_values['PROPERTY_COUPON_ID_VALUE'];
                 }
             }
@@ -2594,8 +2631,7 @@
                 $date_to = new \Bitrix\Main\Type\DateTime($arParamsCertificate['ACTIVE_TO']);
                 $fields = array(
                     'ACTIVE_FROM' => $date_from,
-                    'ACTIVE_TO'   => $date_to,
-                    'ACTIVE'      => $arParamsCertificate['ACTIVE']
+                    'ACTIVE_TO'   => $date_to                     
                 );
                 foreach ($ar_coupon_id as $coupon_id) {
                     \Bitrix\Sale\Internals\DiscountCouponTable::update($coupon_id, $fields);

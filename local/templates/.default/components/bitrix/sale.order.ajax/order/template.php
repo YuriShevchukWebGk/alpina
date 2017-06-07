@@ -441,7 +441,7 @@
 
 									if (!pageLoaded) {
 										dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'submitForm'});
-										pageLoaded = true;
+										pageLoaded = true;                                                               
 									}
 
                                     var flag = true;
@@ -686,9 +686,6 @@
                                         if ($(this).css("display") == "none") {
                                             $(this).closest(".infoPunct").find(".inputTitle").hide();
                                         }
-                                    });
-                                    $("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
-                                        $(this).closest(".infoPunct").hide();
                                     });
 
                                     setOptions();
@@ -962,15 +959,10 @@
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
-
         $(".certInput, .infoPunct .bx_block").each(function(){
             if ($(this).css("display") == "none") {
                 $(this).closest(".infoPunct").find(".inputTitle").hide();
             }
         });
-
-        $("#ORDER_PROP_10, #ORDER_PROP_16, #ORDER_PROP_8, #ORDER_PROP_64, #ORDER_PROP_65").each(function(){
-            $(this).closest(".infoPunct").hide();
-        })
     })
 </script>
