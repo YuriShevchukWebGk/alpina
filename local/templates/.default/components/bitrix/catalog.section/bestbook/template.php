@@ -10,7 +10,7 @@ $colors = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
 <style>
 	.bestbook{background:<?=$colors[1]?>}
 	.bestbook .badge{background-color: <?=$colors[1]?>}
-	.bestbook .name{color:<?=$colors[1]?>}
+	.bestbook .name, .bestbook .name a{color:<?=$colors[1]?>}
 </style>
 <script>
 	$(document).ready(function() {
@@ -35,23 +35,24 @@ $colors = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
 		</div>
 
 		<div class="badge">
-			Книга недели
+			<a href="<?=$arResult["DETAIL_PAGE_URL"]?>">Книга недели</a>
 		</div>
 
 		<div class="name">
-			<?=typo($arResult["NAME"])?>
+			<a href="<?=$arResult["DETAIL_PAGE_URL"]?>"><?=typo($arResult["NAME"])?></a>
 			<br />
 			<span><?=$main_author["NAME"]?></span>
 		</div>
 
 		<div class="description">
 			<?=typo(strip_tags($arResult["PREVIEW_TEXT"]))?>
-<?if (!empty($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"])) {?>
-		<div class="author">
-			<img src="<?=$author_pict["src"]?>" style="margin-right:30px;border-radius:100px;width:100px;height:100px" align="left" />
-			<?=typo(substr(strip_tags($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]),0,150).'...')?>
-		</div>
-		<?}?>
+			
+			<?if (!empty($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"])) {?>
+				<div class="author">
+					<img src="<?=$author_pict["src"]?>" style="margin-right:30px;border-radius:100px;width:100px;height:100px" align="left" />
+					<?=typo(substr(strip_tags($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]),0,150).'...')?>
+				</div>
+			<?}?>
 		</div>
 
 	</div>

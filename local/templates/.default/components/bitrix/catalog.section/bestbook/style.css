@@ -2,7 +2,8 @@
 .bestbook{padding:20px 40px 25px;display:inline-block;margin-top:80px;box-shadow: 0 9px 5px 0 rgba(0,0,0,.18), 0 10px 7px 0 rgba(0,0,0,.14);width:100%}
 .bestbook .before{background:#fff;opacity:0.7;height: 150px;width: 100%;margin-top: -20px;content: '';position: absolute;left: 0;}
 .bestbook .after{background:#fff;opacity:0.1;height: 600px;width: 100%;margin-top: 100px;content: '';position: absolute;left: 0;}
-.bestbook .badge{padding:5px 12px 2px;text-transform:uppercase;font-size:20px;color:#fff;text-align:center;border-radius:6px 6px 0 0;width:auto;max-width:240px;font-family: Walshein_light!important;float:left;margin: -55px -11px 0;position:relative}
+.bestbook .badge{padding:5px 12px 2px;text-transform:uppercase;font-size:20px;text-align:center;border-radius:6px 6px 0 0;width:auto;max-width:240px;font-family: Walshein_light!important;float:left;margin: -55px -11px 0;position:relative}
+.bestbook .badge{color:#fff}
 .bestbook .name{font-size:32px;}
 .bestbook .name span{font-size:24px;font-family: Walshein_light}
 .bestbook .cover{float:right;margin-left:40px}
@@ -14,3 +15,4 @@
 .saleWrapp{clear:both}
 .bestbook .wrap{position:relative;max-width:1140px;margin:0 auto}
 .bestbook .author{border-top:1px solid #fff;padding: 20px 0 20px; color:#eee;margin:30px 50px;font-family: Walshein_light;font-style:italic;width:600px}
+.bestbook .name a:hover{text-decoration:underline}
