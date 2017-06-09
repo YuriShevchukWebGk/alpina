@@ -136,9 +136,8 @@
     * @param string $additional_parameters
     *
     **/          
-    function custom_mail($to, $subject, $message, $attachments, $additional_headers = '', $additional_parameters = '') {
-        GLOBAL $arParams;
-                                     
+    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
+        GLOBAL $arParams;                            
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
         $bcc_pattern = "/(?<=BCC:)(.*)(?=)/";
@@ -167,15 +166,11 @@
         //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));     
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));     
     }
     
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа 
-    function cancelMail($arFields, $arTemplate) { 
-        $date = date('Y-m-d, H:i:s');
-        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_preorder.log';
-        $order_log = 'Date: '.$date.'; $arTemplate["ID"]: '.$arTemplate["ID"].'; $arFields["ORDER_ID"]: '.$arFields["ORDER_ID"].';';  
-        logger($order_log, $file);
+    function cancelMail($arFields, $arTemplate) {       
         if ($arTemplate["ID"] == 16) {  
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
             $rsBasket = CSaleBasket::GetList(array(), array("ORDER_ID" => $order["ID"])); 
@@ -186,13 +181,9 @@
                 $basketItem = $arBasketItems;   
                 $basketItem = array_pop($basketItem);    
                 $itemID = $basketItem["PRODUCT_ID"];             
-                $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
-                $order_log = 'Date: '.$date.'; $arTemplate["ID"]: '.$arTemplate["ID"].'; PreOrder: Y;';  
-                logger($order_log, $file);
+                $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));  
                 if($arItem = $res->Fetch()) { 
-                    if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")){
-                        $order_log = 'Date: '.$date.'; $arTemplate["ID"]: '.$arTemplate["ID"].'; Cancel: Y;';  
-                        logger($order_log, $file);
+                    if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")){ 
                         return true;         
                     }  
                 }                                                                                                                      
@@ -200,70 +191,7 @@
         }
         return false;
     }
-
-    AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
-
-    function messagesWithAttachments($arFields, $arTemplate) {
-        GLOBAL $arParams;
-        
-        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа 
-        if(cancelMail($arFields, $arTemplate)) {
-            return false;
-        }
-
-        // отправка письма по наличию вложенных файлов
-        // if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
-
-        $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
-        $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
-
-        // заменяем все максросы в письме на значения из $arFields
-        // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
-        $message_body = $arTemplate['MESSAGE'];
-        $message_title = $arTemplate["SUBJECT"];
-        foreach ($arFields as $field_name => $field_value) {
-            $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
-            $message_title = str_replace("#" . $field_name . "#", $field_value, $message_title);
-        }
-        // подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
-        if($arFields[trim($arTemplate['EMAIL'], "#")]){
-            $email_to = $arFields[trim($arTemplate['EMAIL'], "#")];
-        } else {
-            $email_to = $arFields[trim($arTemplate['EMAIL_TO'], "#")];
-        }
-
-        $attachments = array();
-        foreach ($arTemplate['FILE'] as $file) {
-            if ($file_path = CFile::GetPath($file)) {
-                $attachments = "@".$_SERVER["DOCUMENT_ROOT"].$file_path;
-
-            }
-        }
-        logger($arTemplate, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');
-        $params = array(
-            'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
-            'to'      => $email_to,//$arFields["EMAIL"],
-            'subject' => $message_title,
-            'html'    => $message_body,
-        );
-
-        if ($arTemplate['BCC']) {
-            $params['bcc'] .= $arTemplate['BCC'];
-        }
-
-        if ($arTemplate['CC']) {
-            $params['cc'] .= $arTemplate['CC'];
-        }
-        logger($params, $_SERVER["DOCUMENT_ROOT"].'/logs/log1.php');
-        $domain = $arParams['MAILGUN']['DOMAIN'];
-
-        //  # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
-
-        return false;
-        //  }
-    }
-
+    
 
 
     /**
@@ -918,7 +846,9 @@
                     $order = CSaleOrder::GetById($ID);
                     $result = $message->sendMessage($ID,$val,'',$order['PRICE']);
                 }
-            } else {
+            } elseif ($val=="N") {
+				//Если переводим на статус "Новый" не отправляем смс
+			} else {
                 $message = new Message();
                 $result = $message->sendMessage($ID,$val);
             }
@@ -1450,17 +1380,17 @@
         *
         *************/
         public static $messages = Array(
-            "N" => "Заказ №order принят. Возник вопрос? Звоните +7(495)9808077",
-            "A" => "Заказ №order отменен. Если это ошибка, звоните +7(495)9808077",
-            "K" => "Заказ №order отправлен почтой РФ. Номер отправления будет выслан в течение 5 рабочих дней. Возник вопрос? Звоните +7(495)9808077",
-            "C" => "Заказ №order на сумму ordsum руб собран и ждет вас по адресу 4-ая Магистральная ул., д.5, под. 2, этаж 2 по будням с 8 до 18 часов",
-            "D10" => "Истекает срок хранения заказа №order. Возник вопрос? Звоните +7(495)9808077",
-            "D12" => "Осталось 2 дня до отмены заказа №order. Возник вопрос? Звоните +7(495)9808077",
-            "CA" => "Заказ №order уже в пути. Курьер cur_name cur_phone",
-            "PS" => "Заказ №order принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в почтовое отделение. Будем держать в курсе",
-            "PD" => "Заказ №order доставлен почтовое отделение. Пожалуйста, получите посылку. Для этого придите в отделение и назовите оператору трекинг-код. С собой необходимо иметь паспорт",
-            "P10" => "Срок хранения заказа №order истекает. Пожалуйста, заберите заказ в почтовом отделении",
-            "PA" => "Срок хранения заказа №order истекает. Пожалуйста, заберите заказ в почтовом отделении"
+            "N" => "Заказ №order принят. Если будут вопросы – звоните +7(495)9808077",
+            "A" => "Заказ №order в интернет-магазине Альпина Паблишер отменен. Если заказ аннулирован по ошибке, звоните +7(495)9808077",
+            "K" => "Заказ №order отправлен почтой РФ. Номер отправления будет выслан Вам в течение 5 рабочих дней.Если будут вопросы – звоните +7(495)9808077",
+            "C" => "Заказ №order на сумму ordsum руб собран. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, под. 2, этаж 2 по будням с 8 до 18 часов.",
+            "D10" => "Истекает срок хранения Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
+            "D12" => "Осталось 2 дня до отмены Вашего заказа №order. Вы можете получить его по адресу 4-ая Магистральная ул., д.5, 2 под., 2 этаж по будням с 8 до 18 часов. Если будут вопросы – звоните +7(495)9808077",
+            "CA" => "Заказ order уже в пути. Курьер cur_name cur_phone",
+            "PS" => "Заказ №order принят Почтой России к отправке. В течение 1-2 недель посылка прибудет в почтовое отделение. Мы будем держать Вас в курсе",
+            "PD" => "Заказ №order доставлен почтовое отделение! Пожалуйста, получите посылку. Для этого придите в отделение и назовите оператору трекинг-код. С собой необходимо иметь паспорт. Спасибо за выбор нашего магазина!",
+            "P10" => "Срок хранения заказа №order истекает. Пожалуйста, заберите заказ в почтовом отделении. Спасибо!",
+            "PA" => "Срок хранения заказа №order истекает. Пожалуйста, заберите заказ в почтовом отделении. Спасибо!"
             //"I" => "Заказ №order в пути. Если будут вопросы – звоните +7(495)9808077"
         );
 
@@ -2659,53 +2589,55 @@
         'OnAfterIBlockElementAdd',
         'HLBlockElementUpdate'
     );
-    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){
+    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){ 
         if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
-            $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL");
-            $arFilter = Array("ID"=>$arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
-            $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-            while($arFields = $res->GetNext())
-            {
-                if (!empty($arFields['NAME'])) {
-                    $arHLData['UF_TITLE'] = preg_replace("/([^a-zA-Z\sа-яёА-ЯЁ0-9])/u","",$arFields['NAME']);
-                }
-                if (!empty($arFields['NAME'])) {
-                    $arHLData['UF_TITLE_REAL'] = $arFields['NAME'];
-                }
-                if (!empty($arFields['DETAIL_PAGE_URL'])) {
-                    $arHLData['UF_DETAIL_PAGE_URL'] = $arFields['DETAIL_PAGE_URL'];
-                }
-                if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
-                    $arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
-                }
-                if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
-                    if (empty($arHLData['UF_AUTHOR'])) {
-                        $autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);
-                        if ($autorsAr = $autorsOb -> fetch()) {
-                            $arHLData['UF_AUTHOR'] = $autorsAr['NAME'];
+            if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){      
+                $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL");
+                $arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
+                $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+                while($arFields = $res->GetNext())
+                {
+                    if (!empty($arFields['NAME'])) {
+                        $arHLData['UF_TITLE'] = preg_replace("/([^a-zA-Z\sа-яёА-ЯЁ0-9])/u","",$arFields['NAME']);
+                    }
+                    if (!empty($arFields['NAME'])) {
+                        $arHLData['UF_TITLE_REAL'] = $arFields['NAME'];
+                    }
+                    if (!empty($arFields['DETAIL_PAGE_URL'])) {
+                        $arHLData['UF_DETAIL_PAGE_URL'] = $arFields['DETAIL_PAGE_URL'];
+                    }
+                    if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
+                        $arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
+                    }
+                    if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
+                        if (empty($arHLData['UF_AUTHOR'])) {
+                            $autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);
+                            if ($autorsAr = $autorsOb -> fetch()) {
+                                $arHLData['UF_AUTHOR'] = $autorsAr['NAME'];
+                            }
                         }
                     }
-                }
-                if(!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {
-                    if (empty($arHLData['UF_COVER_TYPE'])) {
-                        $arHLData['UF_COVER_TYPE'] = $arFields['PROPERTY_COVER_TYPE_VALUE'];
+                    if(!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {
+                        if (empty($arHLData['UF_COVER_TYPE'])) {
+                            $arHLData['UF_COVER_TYPE'] = $arFields['PROPERTY_COVER_TYPE_VALUE'];
+                        }
                     }
+                    $arHLData['UF_IBLOCK_ID'] = $arFields['ID'];
                 }
-                $arHLData['UF_IBLOCK_ID'] = $arFields['ID'];
-            }
-            if($arHLData){
-                $hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
-                $entity = HL\HighloadBlockTable::compileEntity($hlblock);
-                $entity_data_class = $entity->getDataClass();
-                $rsElementID = $entity_data_class::getList(array(
-                   "select" => array("ID"),
-                   "order"  => array("ID" => "ASC"),
-                   "filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
-                ));
-                if($arElementID = $rsElementID->Fetch()){
-                    $result = $entity_data_class::update($arElementID['ID'], $arHLData);
-                } else {
-                    $result = $entity_data_class::add($arHLData);
+                if($arHLData){
+                    $hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
+                    $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+                    $entity_data_class = $entity->getDataClass();
+                    $rsElementID = $entity_data_class::getList(array(
+                       "select" => array("ID"),
+                       "order"  => array("ID" => "ASC"),
+                       "filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
+                    ));
+                    if($arElementID = $rsElementID->Fetch()){
+                        $result = $entity_data_class::update($arElementID['ID'], $arHLData);
+                    } else {
+                        $result = $entity_data_class::add($arHLData);
+                    }
                 }
             }
         }
@@ -2835,5 +2767,68 @@
     function MyOnSendUserInfoHandler(&$arParams) 
     {
         $arParams["FIELDS"]["SERVER_NAME"] = "www.alpinabook.ru";
+    }
+    
+    AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
+
+    function messagesWithAttachments($arFields, $arTemplate) {
+        GLOBAL $arParams;
+
+        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа 
+        if(cancelMail($arFields, $arTemplate)) {
+            return false;
+        }
+
+        // отправка письма по наличию вложенных файлов
+        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+
+            $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
+            $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
+
+            // заменяем все максросы в письме на значения из $arFields
+            // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
+            $message_body = $arTemplate['MESSAGE'];
+            $message_title = $arTemplate["SUBJECT"];
+            foreach ($arFields as $field_name => $field_value) {
+                $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
+                $message_title = str_replace("#" . $field_name . "#", $field_value, $message_title);
+            }
+            // подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
+            if($arFields[trim($arTemplate['EMAIL'], "#")]){
+                $email_to = $arFields[trim($arTemplate['EMAIL'], "#")];
+            } else {
+                $email_to = $arFields[trim($arTemplate['EMAIL_TO'], "#")];
+            }
+
+            $attachments = array();
+            foreach ($arTemplate['FILE'] as $file) {
+                if ($file_path = CFile::GetPath($file)) {
+                    $attachments = "@".$_SERVER["DOCUMENT_ROOT"].$file_path;
+
+                }
+            }
+            logger($arTemplate, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');
+            $params = array(
+                'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
+                'to'      => $email_to,//$arFields["EMAIL"],
+                'subject' => $message_title,
+                'html'    => $message_body,
+            );
+
+            if ($arTemplate['BCC']) {
+                $params['bcc'] .= $arTemplate['BCC'];
+            }
+
+            if ($arTemplate['CC']) {
+                $params['cc'] .= $arTemplate['CC'];
+            }
+            logger($params, $_SERVER["DOCUMENT_ROOT"].'/logs/log1.php');
+            $domain = $arParams['MAILGUN']['DOMAIN'];
+
+            //  # Make the call to the client.
+            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+
+            return false;
+        }
     }
 ?>

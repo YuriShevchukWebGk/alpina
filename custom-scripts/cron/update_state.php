@@ -85,7 +85,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 		$arProps = $ob->GetProperties();
 		$arFields = $ob->GetFields();
 	
-		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 60) {
+		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 50) {
 			$obEl = new CIBlockElement();
 			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('STATE' => ''));
 			echo '<b><span style="color:red">old - </b>';
