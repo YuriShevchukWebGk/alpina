@@ -315,7 +315,7 @@
 			
 			$userID = $user[ID];
 
-			return 'https://www.alpinabook.ru'.$page.'?bx_hit_hash='.$USER->AddHitAuthHash($page, $userID);
+			return $_SERVER["SERVER_NAME"].$page.'?bx_hit_hash='.$USER->AddHitAuthHash($page, $userID);
 		}
     }
 	
