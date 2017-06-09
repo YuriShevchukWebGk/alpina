@@ -224,6 +224,29 @@
         );
     }
 
+	
+	/**
+     * Создаем ссылку для авторизации пользователя
+    * */
+    function createAuthLink($login,$page) {
+		global $USER;
+		$filter = Array(
+			"ACTIVE"              => "Y",
+			"LOGIN"               => $login
+		);
+		
+		$rsUsers = CUser::GetList($by = 'ID', $order = 'ASC', $filter);
+		
+		if ($user = $rsUsers->Fetch()) {
+			if (empty($page))
+				$page = '/';
+			
+			$userID = $user[ID];
+
+			return $_SERVER["SERVER_NAME"].$page.'?bx_hit_hash='.$USER->AddHitAuthHash($page, $userID);
+		}
+    }
+	
     /***************
     *
     * получение ID значения свойства "Состояние" из символьного кода этого значения
@@ -1579,8 +1602,8 @@
 
                 $el = new CIBlockElement;
                 $arLoadProductArray = Array("ACTIVE" => "N");
-                // --- status changed from "coming soon" to "new"
-                if($oldElStatus==22 && $newElStatus==21){
+                // --- status changed from "coming soon" to "new" or "available"
+                if($oldElStatus==22 && ($newElStatus==21 || !$newElStatus)){
 
                     $arSelect = Array("ID","PROPERTY_SUB_EMAIL");
                     $arFilter = Array("IBLOCK_ID"=>41,"PROPERTY_SUB_TYPE_ID"=>1,"PROPERTY_BOOK_ID"=>$arParams['ID'],"ACTIVE"=>"Y");
@@ -1599,28 +1622,7 @@
                         $el->Update($arFields['ID'], $arLoadProductArray);
 
                     }
-
-                } else if($oldElStatus==23 && !$newElStatus){ // --- status changed from "not availible" to "in stock"
-                    $arSelect = Array("ID","PROPERTY_SUB_EMAIL");
-                    $arFilter = Array("IBLOCK_ID"=>41,"PROPERTY_SUB_TYPE_ID"=>2,"PROPERTY_BOOK_ID"=>$arParams['ID'],"ACTIVE"=>"Y");
-                    $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>9999), $arSelect);
-                    while($ob = $res->GetNextElement()){
-                        $arFields = $ob->GetFields();
-                        // --- email sending here $arFields['PROPERTY_SUB_EMAIL_VALUE']
-
-                        $arEventFields = array(
-                            "EMAIL"=> $arFields['PROPERTY_SUB_EMAIL_VALUE'],
-                            "BOOK_HREF" => $bookHref,
-                            "BOOK_NAME" => $bookName,
-                            "BOOK_IMG" => $bookImg['src']
-                        );
-                        CEvent::Send("BOOK_SUB_MAILING", "s1", $arEventFields,"N");
-
-                        // --- email sending here
-                        $el->Update($arFields['ID'], $arLoadProductArray);
-                    }
                 }
-
             }
         }
     }
