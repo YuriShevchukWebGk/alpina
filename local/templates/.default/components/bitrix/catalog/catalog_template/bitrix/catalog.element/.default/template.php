@@ -1051,14 +1051,15 @@
             <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
             <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
                 <li data-id="2" class="tabsInElement"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</li>
-                <?}?>
+			<?}?>
             <li data-id="3" class="tabsInElement" id="commentsLink"><?= GetMessage("COMMENTS_TITLE") ?></li>
         </ul>
 
         <div class="annotation" id="prodBlock1">
             <div class="showAllWrapp">
 
-                <?global $reviewsFilter;
+                 <?if ($arResult["REVIEWS_COUNT"] > 0) {
+					global $reviewsFilter;
                     $reviewsFilter = array ("PROPERTY_BOOK" => $arResult["ID"]);
 
                     $APPLICATION->IncludeComponent(
@@ -1187,7 +1188,8 @@
                             "DISABLE_INIT_JS_IN_COMPONENT" => "N"
                         ),
                         false
-                    );?>
+                    );
+				 }?>
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
             </div>  
