@@ -366,7 +366,7 @@
                 </div>
                 <?}?>
 			<?$frame = $this->createFrame()->begin();?>
-            <?if ($arResult["PROPERTIES"]["page_views_ga"]["VALUE"] > 2) {?> 
+            <?if ($arResult["PROPERTIES"]["page_views_ga"]["VALUE"] > 2) {?>
                 <div class="no-mobile ga-views">
                     <img src="/img/eye_big.png?1" align="center" alt="Просмотров за сутки" />
                     <span class="bookViews"><?=$arResult["PROPERTIES"]["page_views_ga"]["VALUE"]?></span>
