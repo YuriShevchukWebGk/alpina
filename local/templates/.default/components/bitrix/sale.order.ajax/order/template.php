@@ -235,6 +235,7 @@
             $(".hideInfo").hide();
         }
 
+        $(".bx_result_price a").html("Выберите пункт выдачи"); // меняем название ссылки выбора pickpoint
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
         }
@@ -441,13 +442,14 @@
 
 									if (!pageLoaded) {
 										dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'submitForm'});
-										pageLoaded = true;                                                               
+										pageLoaded = true;
 									}
 
                                     var flag = true;
 
                                     $(".flippost_error").hide();
                                     $(".boxbery_error").hide();
+                                    $("#ADRESS_PICKPOINT").val($('#sPPDelivery').html());
                                     if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
                                         $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
                                     }
