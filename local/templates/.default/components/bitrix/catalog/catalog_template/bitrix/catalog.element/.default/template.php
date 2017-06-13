@@ -1063,7 +1063,9 @@
         <div class="annotation" id="prodBlock1">
             <div class="showAllWrapp">
 
-                <?global $reviewsFilter;
+
+	<?if ($arResult["REVIEWS_COUNT"] > 0) {
+		global $reviewsFilter;
                     $reviewsFilter = array ("PROPERTY_BOOK" => $arResult["ID"]);
 
                     $APPLICATION->IncludeComponent(
@@ -1199,7 +1201,8 @@
 		"COMPATIBLE_MODE" => "Y"
 	),
 	false
-);?>
+);
+}?>
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
             </div>  
