@@ -43,7 +43,7 @@
             return $res;
         }
     }
-         
+
     if (!function_exists("PrintPropsForm")){
         function PrintPropsForm($arSource = array(), $locationTemplate = ".default", $preorder = '') {
             if (!empty($arSource)){ ?>
@@ -53,7 +53,7 @@
                     }
                     else {
                         $class = "";
-                } ?>                              
+                } ?>
                 <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>" <?if($preorder && ($arProperties["ID"] == DELIVERY_DATE_LEGAL_ORDER_PROP_ID || $arProperties["ID"] == DELIVERY_DATE_NATURAL_ORDER_PROP_ID)) { echo 'style="display:none"'; }?>>
                     <?if ($arProperties["TYPE"] != "LOCATION") {?>
 
@@ -65,7 +65,7 @@
                         </p>
                         <?}?>
 
-                    <?
+                        <?
                         if ($arProperties["TYPE"] == "CHECKBOX"){
                         ?>
 
@@ -84,6 +84,10 @@
                             ?>
                             <?if(($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE") && !$window){?>
                                 <input class="clientInfo" placeholder="(___) ___ __ __" id="<?=$arProperties["FIELD_NAME"]?>" type="tel" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" />
+                            <?} else if($arProperties["CODE"] == "ADRESS_PICKPOINT"){?>
+                                <div class="certInput">
+                                    <input type="hide" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["CODE"]?>">
+                                </div>
                             <?} else {?>
                                 <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
                             <?}?>
@@ -91,7 +95,7 @@
                                 <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
                                 <?endif?>
 
-                            <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
+                            <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0 && $arProperties["CODE"] != "ADRESS_PICKPOINT"):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                                 <?endif?>
                             <? } else if ($arProperties["CODE"]=="CODE_COUPON") {   ?>
@@ -115,6 +119,7 @@
                                 <input type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$_SESSION["CUSTOM_COUPON"]["COUPON_ID"].'-'.$_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>">
                             </div>
                             <?}
+
                         } elseif ($arProperties["TYPE"] == "SELECT"){
                             uasort($arProperties["VARIANTS"], 'metroCmp');?>
 
@@ -150,7 +155,7 @@
                                 <?endif?>
                         </div>
                         <?
-                        } elseif ($arProperties["TYPE"] == "TEXTAREA") {
+                        } elseif ($arProperties["TYPE"] == "TEXъTAREA") {
                             $rows = ($arProperties["SIZE2"] > 10) ? 4 : $arProperties["SIZE2"];
                         ?>
                         <div class="bx_block r3x1">
@@ -316,7 +321,7 @@
                     </script>
                     <?endif?>
                 <?
-                }       
+                }
             ?>
 
             <?

@@ -8,11 +8,11 @@ if ($_GET['login']) {
 	
 	$login = $_GET['login'];
 
-	$filter = Array
-	(
+	$filter = Array(
 		"ACTIVE"              => "Y",
 		"LOGIN"               => $login
 	);
+	
 	$rsUsers = CUser::GetList($by = 'ID', $order = 'ASC', $filter);
 
 	if ($user = $rsUsers->Fetch()) {

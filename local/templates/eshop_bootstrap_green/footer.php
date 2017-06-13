@@ -17,95 +17,103 @@
                         <p>Алфавитный указатель авторов</p>
                         <p>Партнерская программа</p>-->
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_1", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu_1"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_1", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_1",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>
                     </div>
                     <div>
                         <!--<P>Доставка</P>
                         <P>Оплата</P>
                         <P>Как заказать</P>-->
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_1", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom2",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_1", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom2",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_1",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>
                     </div>
                     <div>
                         <!--<p>Где купить</p>
                         <p>В2В</p>
                         <p>E-learning</p>-->
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_1", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom3",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_1", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom3",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_1",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>
                     </div>
                     <div>
                         <!--<p>Мероприятия</p>
                         <p>Контакты</p>-->
                         <?$APPLICATION->IncludeComponent(
-                                "bitrix:menu", 
-                                "bottom_menu_1", 
-                                array(
-                                    "ROOT_MENU_TYPE" => "bottom4",
-                                    "MAX_LEVEL" => "1",
-                                    "CHILD_MENU_TYPE" => "top",
-                                    "USE_EXT" => "Y",
-                                    "DELAY" => "N",
-                                    "ALLOW_MULTI_SELECT" => "Y",
-                                    "MENU_CACHE_TYPE" => "N",
-                                    "MENU_CACHE_TIME" => "3600",
-                                    "MENU_CACHE_USE_GROUPS" => "Y",
-                                    "MENU_CACHE_GET_VARS" => array(
-                                    ),
-                                    "COMPONENT_TEMPLATE" => "bottom_menu"
-                                ),
-                                false
-                            );?>
+	"bitrix:menu", 
+	"bottom_menu_1", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom4",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "bottom_menu_1",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>
                     </div>    
                 </div>
                 <div class="footerContacts">
@@ -230,53 +238,60 @@
         <div class="hidingCatalogLeft">
             <img src="/img/catalogLeftClose.png" class="windowClose">    
             <?$APPLICATION->IncludeComponent(
-                    "bitrix:catalog.section.list", 
-                    "left.tree", 
-                    array(
-                        "IBLOCK_TYPE" => "catalog",
-                        "IBLOCK_ID" => "4",
-                        "SECTION_ID" => "",
-                        "SECTION_CODE" => "",
-                        "COUNT_ELEMENTS" => "N",
-                        "TOP_DEPTH" => "2",
-                        "IBLOCK_HEADER_TITLE" => "Каталог книг",
-                        "IBLOCK_HEADER_LINK" => "",
-                        "SECTION_URL" => "#SITE_DIR#/catalog/#SECTION_CODE#/",
-                        "CACHE_TYPE" => "N",
-                        "CACHE_TIME" => "3600",
-                        "DISPLAY_PANEL" => "N",
-                        "ADD_SECTIONS_CHAIN" => "Y",
-                        "COMPONENT_TEMPLATE" => "left.tree",
-                        "SECTION_FIELDS" => array(
-                            0 => "",
-                            1 => "",
-                        ),
-                        "SECTION_USER_FIELDS" => array(
-                            0 => "",
-                            1 => "",
-                        ),
-                        "CACHE_GROUPS" => "N",
-                        "VIEW_MODE" => "LIST",
-                        "SHOW_PARENT_NAME" => "Y"
-                    ),
-                    false
-                );?>
-            <?$APPLICATION->IncludeComponent("bitrix:menu", "left_menu", 
-                    Array(
-                        "ROOT_MENU_TYPE" => "left_block",    // Тип меню для первого уровня
-                        "MAX_LEVEL" => "1",    // Уровень вложенности меню
-                        "CHILD_MENU_TYPE" => "top",    // Тип меню для остальных уровней
-                        "USE_EXT" => "Y",    // Подключать файлы с именами вида .тип_меню.menu_ext.php
-                        "DELAY" => "N",    // Откладывать выполнение шаблона меню
-                        "ALLOW_MULTI_SELECT" => "Y",    // Разрешить несколько активных пунктов одновременно
-                        "MENU_CACHE_TYPE" => "N",    // Тип кеширования
-                        "MENU_CACHE_TIME" => "3600",    // Время кеширования (сек.)
-                        "MENU_CACHE_USE_GROUPS" => "Y",    // Учитывать права доступа
-                        "MENU_CACHE_GET_VARS" => "",    // Значимые переменные запроса
-                        "COMPONENT_TEMPLATE" => "bottom_menu"
-                    ),
-                    false
-                );?>
+	"bitrix:catalog.section.list", 
+	"left.tree", 
+	array(
+		"IBLOCK_TYPE" => "catalog",
+		"IBLOCK_ID" => "4",
+		"SECTION_ID" => "",
+		"SECTION_CODE" => "",
+		"COUNT_ELEMENTS" => "N",
+		"TOP_DEPTH" => "2",
+		"IBLOCK_HEADER_TITLE" => "Каталог книг",
+		"IBLOCK_HEADER_LINK" => "",
+		"SECTION_URL" => "#SITE_DIR#/catalog/#SECTION_CODE#/",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "36000",
+		"DISPLAY_PANEL" => "N",
+		"ADD_SECTIONS_CHAIN" => "Y",
+		"COMPONENT_TEMPLATE" => "left.tree",
+		"SECTION_FIELDS" => array(
+			0 => "",
+			1 => "",
+		),
+		"SECTION_USER_FIELDS" => array(
+			0 => "",
+			1 => "",
+		),
+		"CACHE_GROUPS" => "N",
+		"VIEW_MODE" => "LIST",
+		"SHOW_PARENT_NAME" => "Y",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>
+            <?$APPLICATION->IncludeComponent(
+	"bitrix:menu", 
+	"left_menu", 
+	array(
+		"ROOT_MENU_TYPE" => "left_block",
+		"MAX_LEVEL" => "1",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "Y",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"COMPONENT_TEMPLATE" => "left_menu",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>
             <div class="webServ">
                 <a href="http://vk.com/ideabooks" target="_blank" rel="nofollow"><img src="/img/vkGrayImg.png"></a>
                 <a href="https://twitter.com/AlpinaBookRu" target="_blank" rel="nofollow"><img src="/img/twitter.png"></a>
