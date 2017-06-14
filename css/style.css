@@ -295,10 +295,10 @@ input:focus{outline:0}
 .pageTitleWrap .title{color:#fff;font-size:42px;padding-left:2px;padding-top:32px}
 .pageTitleWrap span{color:#e4e8ea;font-size:14px;margin-left:8px}
 .searchBooksWrap{background-color:#F4F4F4;padding-top:38px;padding-bottom:50px}
-.searchBooksWrap .searchBook{height:270px;width:540px;margin-bottom:24px;display:inline-block}
+.searchBooksWrap .searchBook{height:310px;width:540px;margin-bottom:24px;display:inline-block}
 .categoryWrapper .secondLevel,.categoryWrapper li>ul,.hidingCatalogLeft,.slidingTopMenu{display:none}
 .searchBook img{float:left;margin-left:-8px}
-.searchBook .bookNames{color:#3f4a4d;font-size:32px;height:70px;overflow:hidden;width:374px}
+.searchBook .bookNames{color:#3f4a4d;font-size:20px;height:80px;overflow:hidden;width:374px}
 .searchBook .autorName{font-family:Walshein_bold;font-size:13px;color:#3f4a4d;text-transform:uppercase;padding-top:2px}
 .searchBook .price{color:#7B8C90;font-size:14px;padding-top:10px}
 .searchBook .description{color:#3f4a4d;font-size:15px;line-height:22px;padding-top:10px}
@@ -437,6 +437,7 @@ header .headBasket{margin-right:0}
 .categoryWrapper .categoryBooks:hover{background-color:#fff;z-index:999;height:450px;position:relative}
 .categoryWrapper .categoryBooks:hover .basketBook{border-color:#00A0AF;background-color:#00A0AF;color:#fff}
 .categoryWrapper .categoryBooks:hover .basketLater{display:block}
+.categoryWrapper .categoryBooks a:hover{text-decoration:none}
 .otherBooks li{display:inline-block;height:450px;width:171px}
 .otherBooks li:hover{z-index:999}
 .wrapperCategor .filterParams{margin-bottom:24px}
