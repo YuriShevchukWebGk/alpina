@@ -365,13 +365,15 @@
                     </span>
                 </div>
                 <?}?>
+			<?$frame = $this->createFrame()->begin();?>
             <?if ($arResult["PROPERTIES"]["page_views_ga"]["VALUE"] > 2) {?>
                 <div class="no-mobile ga-views">
                     <img src="/img/eye_big.png?1" align="center" alt="Просмотров за сутки" />
                     <span class="bookViews"><?=$arResult["PROPERTIES"]["page_views_ga"]["VALUE"]?></span>
                     <span class="ttip"><?=GetMessage("VIEWS_A_DAY");?></span>
                 </div>
-                <?}?>
+			<?}?>
+			<?$frame->end();?>
             <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal'  && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
                 <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
                     <br />
@@ -1061,7 +1063,9 @@
         <div class="annotation" id="prodBlock1">
             <div class="showAllWrapp">
 
-                <?global $reviewsFilter;
+
+	<?if ($arResult["REVIEWS_COUNT"] > 0) {
+		global $reviewsFilter;
                     $reviewsFilter = array ("PROPERTY_BOOK" => $arResult["ID"]);
 
                     $APPLICATION->IncludeComponent(
@@ -1197,7 +1201,8 @@
 		"COMPATIBLE_MODE" => "Y"
 	),
 	false
-);?>
+);
+}?>
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
             </div>  

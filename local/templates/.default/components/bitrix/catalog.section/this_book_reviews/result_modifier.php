@@ -470,10 +470,8 @@ $expert_IDs = array();
 foreach($arResult["ITEMS"] as $arItem) {
     $expert_IDs[] = $arItem["PROPERTIES"]["expert"]["VALUE"];        
 }
-$experts = CIBlockElement::GetList (array(), array("ID" => $expert_IDs), false, false, array("ID", "NAME", "PREVIEW_PICTURE", "PROPERTY_JOB_TITLE"));
+$experts = CIBlockElement::GetList (array(), array("ID" => $expert_IDs), false, false, array("ID", "NAME"));
 while ($experts_list = $experts -> Fetch()) {
     $arResult["EXPERTS"][$experts_list["ID"]]["NAME"] = $experts_list["NAME"];
-    $arResult["EXPERTS"][$experts_list["ID"]]["PICTURE"] = CFile::GetPath($experts_list["PREVIEW_PICTURE"]);
-    $arResult["EXPERTS"][$experts_list["ID"]]["POSITION"] = $experts_list["PROPERTY_JOB_TITLE_VALUE"];
 }
 ?>

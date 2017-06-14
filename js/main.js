@@ -1524,14 +1524,6 @@ function docReadyComponent(id) {
             $('.readMore').hide();
         })
     }
-
-	$.ajax({
-		type: "POST",
-		url: "/ajax/book_views.php",
-		data: {id: id}
-	}).done(function( strResult ) {
-		$(".bookViews").html(strResult);
-	 });
 	 
 	if($('.wishlist_info').length > 0){
 		$('.layout').click(function(){
