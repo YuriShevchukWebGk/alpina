@@ -36,7 +36,7 @@ if (!empty($authors_array)) {
         $arResult["AUTHOR_INFO"][$authors["ID"]] = $authors; 
         $arResult["AUTHOR_INFO"][$authors["ID"]]["PICTURE"] = CFile::ResizeImageGet(
             $arResult["AUTHOR_INFO"][$authors["ID"]]["DETAIL_PICTURE"], 
-            array('width'=>165, "height"=>233), 
+            array('width'=>155, "height"=>233), 
             BX_RESIZE_IMAGE_PROPORTIONAL, 
             true
         );   
@@ -68,7 +68,7 @@ if (!empty($books_array)) {
 		}
         $arResult["BOOK_INFO"][$books["ID"]]["PICTURE"] = CFile::ResizeImageGet(
             $books["DETAIL_PICTURE"], 
-            array('width'=>165, "height"=>233), 
+            array('width'=>155, "height"=>233), 
             BX_RESIZE_IMAGE_PROPORTIONAL, 
             true
         );
@@ -190,7 +190,7 @@ if (!empty($experts_books_arr)) {
         $arResult["EXPERT_BOOK_INFO"][$books["ID"]] = $books;
         $arResult["EXPERT_BOOK_INFO"][$books["ID"]]["PICTURE"] = CFile::ResizeImageGet(
             $books["DETAIL_PICTURE"], 
-            array('width'=>165, "height"=>233), 
+            array('width'=>155, "height"=>233), 
             BX_RESIZE_IMAGE_PROPORTIONAL, 
             true
         );
