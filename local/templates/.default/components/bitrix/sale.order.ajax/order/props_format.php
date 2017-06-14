@@ -63,6 +63,7 @@
                                 <span class="bx_sof_req">*</span>
                                 <?endif?>
                         </p>
+
                         <?}?>
 
                         <?
@@ -78,10 +79,11 @@
                         </div>
                         <?
 
-                        } elseif ($arProperties["TYPE"] == "TEXT"){
+                        } else if ($arProperties["TYPE"] == "TEXT"){
                             $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
                             if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
                             ?>
+
                             <?if(($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE") && !$window){?>
                                 <input class="clientInfo" placeholder="(___) ___ __ __" id="<?=$arProperties["FIELD_NAME"]?>" type="tel" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$arProperties["VALUE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" />
                             <?} else if($arProperties["CODE"] == "ADRESS_PICKPOINT"){?>
@@ -93,31 +95,31 @@
                             <?}?>
                             <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
                                 <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
-                                <?endif?>
+                            <?endif?>
 
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0 && $arProperties["CODE"] != "ADRESS_PICKPOINT"):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
-                                <?endif?>
+                            <?endif?>
                             <? } else if ($arProperties["CODE"]=="CODE_COUPON") {   ?>
-                            <div class="certInput">
-                                <?=$arProperties["NAME"]?>
-                                <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
-                                    <span class="bx_sof_req">*</span>
-                                    <?endif;?>
-                            </div>
-                            <div class="certInput">
-                                <input type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$_SESSION["CUSTOM_COUPON"]["COUPON_CODE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>">
-                            </div>
+                                <div class="certInput">
+                                    <?=$arProperties["NAME"]?>
+                                    <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
+                                        <span class="bx_sof_req">*</span>
+                                        <?endif;?>
+                                </div>
+                                <div class="certInput">
+                                    <input type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$_SESSION["CUSTOM_COUPON"]["COUPON_CODE"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>">
+                                </div>
                             <? } else { ?>
-                            <div class="certInput">
-                                <?=$arProperties["NAME"]?>
-                                <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
-                                    <span class="bx_sof_req">*</span>
-                                    <?endif;?>
-                            </div>
-                            <div class="certInput">
-                                <input type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$_SESSION["CUSTOM_COUPON"]["COUPON_ID"].'-'.$_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>">
-                            </div>
+                                <div class="certInput">
+                                    <?=$arProperties["NAME"]?>
+                                    <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
+                                        <span class="bx_sof_req">*</span>
+                                        <?endif;?>
+                                </div>
+                                <div class="certInput">
+                                    <input type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=$_SESSION["CUSTOM_COUPON"]["COUPON_ID"].'-'.$_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>">
+                                </div>
                             <?}
 
                         } elseif ($arProperties["TYPE"] == "SELECT"){
@@ -155,7 +157,7 @@
                                 <?endif?>
                         </div>
                         <?
-                        } elseif ($arProperties["TYPE"] == "TEXъTAREA") {
+                        } elseif ($arProperties["TYPE"] == "TEXTAREA") {
                             $rows = ($arProperties["SIZE2"] > 10) ? 4 : $arProperties["SIZE2"];
                         ?>
                         <div class="bx_block r3x1">
