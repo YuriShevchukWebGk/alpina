@@ -50,36 +50,38 @@ if (!empty($authors_IDs)) {
         false, 
         array(
             "ID", 
-            "PROPERTY_LAST_NAME", 
+			"PROPERTY_LAST_NAME", 
             "PROPERTY_FIRST_NAME", 
-            "PROPERTY_SHOWINAUTHORS", 
+            "PROPERTY_ALT_NAME", 
             "PROPERTY_ORIG_NAME"
         )
     );
 
     while ($authors = $authors_list -> Fetch()) {
-        $ar_properties["LAST_NAME"] = $authors["PROPERTY_LAST_NAME_VALUE"];
-        $ar_properties["FIRST_NAME"] = $authors["PROPERTY_FIRST_NAME_VALUE"];
-        $ar_properties["SHOWINAUTHORS"] = $authors["PROPERTY_SHOWINAUTHORS_VALUE"];
+        $ar_properties["ALT_NAME"] = $authors["PROPERTY_ALT_NAME_VALUE"];
         $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
 
-        if (strlen ($ar_properties['FIRST_NAME']) > 0) {
-            $author_name .= (strlen ($author_name) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
-        }
-        if (strlen ($ar_properties['LAST_NAME']) > 0) {
-            $author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
-        }
+        if (strlen ($ar_properties['ALT_NAME']) > 0) {
+            $author_name .= (strlen ($author_name) > 0 ? ', ' : '') . $ar_properties['ALT_NAME'];
+        } else {
+			if (strlen ($ar_properties['FIRST_NAME']) > 0) {
+				$author_name .= (strlen ($author_name) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
+			}
+			if (strlen ($ar_properties['LAST_NAME']) > 0) {
+				$author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
+			}
+		}
         if (strlen ($ar_properties['ORIG_NAME']) > 0) {
             $author_name .= " (".$ar_properties['ORIG_NAME'].")";
         }
     }
 } 
 if (strlen ($arResult['PROPERTIES']["ISBN"]["VALUE"]) ) {
-    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name . ' ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY").' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
+    $title = '"' . $arResult["NAME"] . '" '.GetMessage("BOOK") . $author_name . ' ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY").' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
 } else if ($MEDIA_TYPE) {
     $title = $arResult["NAME"] . ' ' . $author_name . ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"] .  GetMessage("TO_BUY_WITH_DELIVERY");
 } else {
-    $title = GetMessage("BOOK") . '«' . $arResult["NAME"] . '» ' . $author_name . ' ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY");
+    $title = '"' . $arResult["NAME"] . '" '.GetMessage("BOOK") . $author_name . ' ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY");
 }
 if (!empty ($title) )  {
     $APPLICATION -> SetPageProperty("title", $title);
