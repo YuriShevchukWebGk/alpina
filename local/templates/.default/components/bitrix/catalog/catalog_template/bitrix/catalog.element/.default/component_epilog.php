@@ -50,6 +50,8 @@ if (!empty($authors_IDs)) {
         false, 
         array(
             "ID", 
+			"PROPERTY_LAST_NAME", 
+            "PROPERTY_FIRST_NAME", 
             "PROPERTY_ALT_NAME", 
             "PROPERTY_ORIG_NAME"
         )
@@ -61,7 +63,14 @@ if (!empty($authors_IDs)) {
 
         if (strlen ($ar_properties['ALT_NAME']) > 0) {
             $author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['ALT_NAME'];
-        }
+        } else {
+			if (strlen ($ar_properties['FIRST_NAME']) > 0) {
+				$author_name .= (strlen ($author_name) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
+			}
+			if (strlen ($ar_properties['LAST_NAME']) > 0) {
+				$author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
+			}
+		}
         if (strlen ($ar_properties['ORIG_NAME']) > 0) {
             $author_name .= " (".$ar_properties['ORIG_NAME'].")";
         }
