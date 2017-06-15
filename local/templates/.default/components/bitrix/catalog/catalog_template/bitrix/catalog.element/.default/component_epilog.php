@@ -62,7 +62,7 @@ if (!empty($authors_IDs)) {
         $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
 
         if (strlen ($ar_properties['ALT_NAME']) > 0) {
-            $author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['ALT_NAME'];
+            $author_name .= (strlen ($author_name) > 0 ? ', ' : '') . $ar_properties['ALT_NAME'];
         } else {
 			if (strlen ($ar_properties['FIRST_NAME']) > 0) {
 				$author_name .= (strlen ($author_name) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
