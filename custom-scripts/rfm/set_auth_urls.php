@@ -17,7 +17,7 @@ $arSelect = array(
 $filter = array(
 	"IBLOCK_ID" => 67,
 	"ACTIVE" => "Y",
-	">PROPERTY_ALLORDERS" => 0
+	"NAME" => "a-marchenkov@yandex.ru"
 );
 
 $res = CIBlockElement::GetList(Array("PROPERTY_LASTORDER" => "DESC"), $filter, false, array(), $arSelect);
@@ -47,10 +47,12 @@ while ($ob = $res -> GetNextElement()) {
 		}
 
 		if (!$admin) {
-			//echo $ob["NAME"];
-			//echo '<br />';
-			//echo $USER->GetHitAuthHash('/', $userID);
-			echo 'https://www.alpinabook.ru'.$url.'?bx_hit_hash='.$USER->AddHitAuthHash($url, $userID);
+			$hash = CUser::GetHitAuthHash($url, $userID);
+			echo $hash;
+			//$url = 'https://www.alpinabook.ru'.$url.'?bx_hit_hash='.$USER->AddHitAuthHash($url, $userID);
+			$url = 'https://www.alpinabook.ru'.$url.'?bx_hit_hash='.$hash;
+			echo $url;
+			//CIBlockElement::SetPropertyValuesEx($ob['ID'], 67, array('AUTH_LINKS' => array($url,1,2,3,4,5)));
 		} else {
 			echo 'admin';
 		}

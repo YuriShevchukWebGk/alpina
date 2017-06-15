@@ -61,28 +61,28 @@ $arUrlRewrite = array(
 		"PATH" => "/testnews/index.php",
 	),
 	array(
-		"CONDITION" => "#^/catalog/#",
-		"RULE" => "",
-		"ID" => "bitrix:catalog",
-		"PATH" => "/catalog/index.php",
-	),
-	array(
 		"CONDITION" => "#^/authors/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/authors/index.php",
 	),
 	array(
-		"CONDITION" => "#^/series/#",
+		"CONDITION" => "#^/catalog/#",
 		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/series/index.php",
+		"ID" => "bitrix:catalog",
+		"PATH" => "/catalog/index.php",
 	),
 	array(
 		"CONDITION" => "#^/events/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/events/index.php",
+	),
+	array(
+		"CONDITION" => "#^/series/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/series/index.php",
 	),
 	array(
 		"CONDITION" => "#^/store/#",
@@ -95,6 +95,12 @@ $arUrlRewrite = array(
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/news/index.php",
+	),
+	array(
+		"CONDITION" => "#^/#",
+		"RULE" => "",
+		"ID" => "bitrix:iblock.element.add.form",
+		"PATH" => "/about/contacts/index.php",
 	),
 );
 

@@ -2,7 +2,7 @@
 
 	<span itemscope itemprop="address" itemtype="http://schema.org/PostalAddress">
 		<span itemprop="addressLocality">Москва</span>, <span itemprop="streetAddress">4-я Магистральная улица, д.5, 2 подъезд, 2 этаж</span><br>
-		<span itemprop="telephone"><a href="tel:74959808077">+7 (495) 980 80 77</a></span> <span itemprop="email"><a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a></span>
+		<span itemprop="telephone"><a href="tel:74951200704">+7 (495) 120 07 04</a></span> <span itemprop="email"><a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a></span>
 	</span>	
 	<br />
 	<link itemprop="url" href="http://<?=$_SERVER['SERVER_NAME']?>"/>

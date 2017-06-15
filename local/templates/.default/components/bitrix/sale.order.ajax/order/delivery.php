@@ -156,7 +156,7 @@
                     $arDelivery["CHECKED"]='Y';
                 }
                 // если это юр лицо и вес больше 10кг, то мимо
-                if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !$USER->IsAdmin())) { continue; }
+               // if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !$USER->IsAdmin())) { continue; }
 
                 // если это юр лицо и вес больше 10кг, то мимо
                 if (($arDelivery["ID"] == GURU_DELIVERY_ID && !$USER->IsAdmin())
@@ -184,7 +184,11 @@
                     />
 
                 <label for="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>" class="faceText">
-                    <?= htmlspecialcharsbx($arDelivery["NAME"])?> -
+                <?if($arDelivery["ID"] == PICKPOINT_DELIVERY_ID){  ?>
+                    <?= htmlspecialcharsbx($arDelivery["OWN_NAME"])?>
+                <?} else {?>
+                    <?= htmlspecialcharsbx($arDelivery["NAME"])?>
+                <?}?>-
                     <?if(isset($arDelivery["PRICE"])):?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
                             <? if ($arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID  || $arDelivery["ID"] == BOXBERY_ID) {

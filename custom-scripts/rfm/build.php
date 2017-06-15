@@ -9,7 +9,9 @@ global $USER;
 if ($USER->IsAdmin()){
 	if ($_POST["request"] == "Y") {
 		//print_r($_POST);
-		$arSelect = Array("ID", "NAME", 
+		$arSelect = Array(
+		"ID",
+		"NAME", 
 		"PROPERTY_RECENCY",
 		"PROPERTY_FREQUENCY",
 		"PROPERTY_MONETARY",
@@ -23,12 +25,14 @@ if ($USER->IsAdmin()){
 		"PROPERTY_LASTORDER",
 		"PROPERTY_PAYEDSUM",
 		"PROPERTY_CATEGORIESBOUGHT",
-		"PROPERTY_PRODUCTSBOUGHT"
+		//"PROPERTY_BOOKSBOUGHT"
 		);
 		
 		$arFilter = array();
 		$arFilter["IBLOCK_ID"] = 67;
 		$arFilter["ACTIVE"] = "Y";
+		
+		//$arFilter["PROPERTY_BOOKSBOUGHT"] = array(8598,8764,8768,8624,60927,8754);
 		
 		if ($_POST["PROPERTY_RECENCY"])
 			$arFilter["PROPERTY_RECENCY"] = $_POST["PROPERTY_RECENCY"];
