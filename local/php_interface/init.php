@@ -1097,7 +1097,7 @@
     {
         if ($arFields["IBLOCK_ID"] == 12)
         {
-            $elem = CIBlockElement::GetList(array(), array("IBLOCK_ID" => $arFields["IBLOCK_ID"], "ID" => $arFields["ID"]), false, false, array("NAME", "PROPERTY_email", "PROPERTY_phone", "PROPERTY_message"));
+            $elem = CIBlockElement::GetList(array(), array("IBLOCK_ID" => $arFields["IBLOCK_ID"], "ID" => $arFields["ID"]), false, false, array("ID", "NAME", "PROPERTY_email", "PROPERTY_phone", "PROPERTY_message"));
             while ($elem_info = $elem -> Fetch())
             {
                 $mailFields = array(
