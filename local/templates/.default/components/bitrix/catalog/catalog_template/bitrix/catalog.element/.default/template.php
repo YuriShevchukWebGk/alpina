@@ -767,6 +767,7 @@
                         <a href="javascript:void(0);"><p class="buyOneClick"><?= GetMessage("TO_BUY_IN_1_CLICK") ?></p></a>
                     </div>
                     <?}?>
+					<!--noindex--><div class="bookid">Код книги: <?=$arResult["ID"]?></div><!--/noindex-->
                 <?}?>
 
             <?
