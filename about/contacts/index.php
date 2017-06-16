@@ -2,8 +2,7 @@
 $APPLICATION->SetPageProperty("keywords", "контакты, альпина, адрес, телефон, почта");
 $APPLICATION->SetPageProperty("description", "Как проехать в интернет-магазин «Альпина Паблишер». Контакты и схема проезда");
 $APPLICATION->SetTitle("Контакты интернет-магазина «Альпина Паблишер», схема проезда, обратная связь");
-?>
-<div class="searchWrap">
+?><div class="searchWrap">
         <div class="catalogWrapper">
             <?$APPLICATION->IncludeComponent("bitrix:search.title", "search_form", 
         Array(
@@ -95,7 +94,7 @@ $APPLICATION->SetTitle("Контакты интернет-магазина «А�
 		"LEVEL_LAST" => "Y",
 		"USE_CAPTCHA" => "N",
 		"USER_MESSAGE_EDIT" => "",
-		"USER_MESSAGE_ADD" => "Ваше сообщение успешно отправлено. Мы ответим в рабочее время на Ваш e-mail",
+		"USER_MESSAGE_ADD" => "Ваше сообщение успешно отправлено. Мы ответим в рабочее время на ваш e-mail",
 		"DEFAULT_INPUT_SIZE" => "30",
 		"RESIZE_IMAGES" => "Y",
 		"MAX_FILE_SIZE" => "0",

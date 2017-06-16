@@ -115,7 +115,7 @@ if ($_POST["request"]) {
 		}
 		
 
-		$NewItems = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "ID" => $bought, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, false, array());
+		$NewItems = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "PROPERTY_STATE" => 22, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, false, array());
 		$bought = "";
 		while ($NewItemsList = $NewItems -> Fetch())
 		{
