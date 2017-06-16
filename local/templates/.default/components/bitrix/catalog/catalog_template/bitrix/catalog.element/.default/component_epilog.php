@@ -80,7 +80,7 @@ if (!empty($authors_IDs)) {
 $title = '"' . $arResult["NAME"] . '" '.GetMessage("BUY_BOOK") . $author_name .  GetMessage("TO_BUY_WITH_DELIVERY");
 
 if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']))
-	$title .= ', электронная версия, читать онлайн';
+	$title .= GetMessage("EBOOK_READ");
 
 
 if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"]))

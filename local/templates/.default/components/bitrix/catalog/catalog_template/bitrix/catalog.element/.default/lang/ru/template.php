@@ -125,4 +125,5 @@ $MESS["VIEWS_A_DAY"] = "Просмотров за сутки";
 $MESS["FIRST_BOOK"] = "Первая книга";
 $MESS["SECOND_BOOK"] = "Вторая книга";
 $MESS["THIRD_BOOK"] = "Третья книга";
+$MESS["EBOOK_READ"] = ", электронная версия, читать онлайн";
 ?>
