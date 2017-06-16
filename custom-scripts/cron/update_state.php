@@ -55,8 +55,6 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => '285'));
 			$key++;
 		}
-		CIBlockElement::SetPropertyValuesEx(124350, 4, array('best_seller' => '285')); //делаем бестом Вскрытие покажет
-		CIBlockElement::SetPropertyValuesEx(186046, 4, array('best_seller' => '285')); //делаем бестом Хочу и буду
 	} else {
 		echo 'Бестселлеры не получены. Проверить retailrocket';
 	}

@@ -9,7 +9,7 @@ $_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
 define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]."/custom-scripts/log.txt");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-	if (AddMessage2Log('Скрипт выполнен', 'update_state.php'))
+	if (AddMessage2Log('Скрипт выполнен cron', 'update_state.php'))
 	
     CModule::IncludeModule("iblock");
     CModule::IncludeModule("catalog");
@@ -54,7 +54,6 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => '285'));
 			$key++;
 		}
-		CIBlockElement::SetPropertyValuesEx(60919, 4, array('best_seller' => '285')); //делаем бестом Города мечты
 	} else {
 		echo 'Бестселлеры не получены. Проверить retailrocket';
 	}
@@ -83,7 +82,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 		$arProps = $ob->GetProperties();
 		$arFields = $ob->GetFields();
 	
-		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 60) {
+		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 50) {
 			$obEl = new CIBlockElement();
 			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('STATE' => ''));
 			echo '<b><span style="color:red">old - </b>';
@@ -98,18 +97,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	$arEventFields = array(
 		"ORDER_USER" => "Александр",
 		"REPORT" => 'Скрипт выполнен автоматом'
-	);
-	
-	$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y");
-
-	$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID","NAME", "SHOW_COUNTER", "SHOW_COUNTER_START"));
-	while ($oneb = $props->GetNext()) {
-		$shows = round($oneb[SHOW_COUNTER]/(((time() - strtotime($oneb[SHOW_COUNTER_START]))/3600/24))*1000);
-		echo $oneb[ID].' - '.$shows.'<br />';
-		//CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('shows_a_day' => $shows));
-		CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('shows_a_day' => 1));
-	}
-	
+	);				
 	//CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");	
 	
 ?>

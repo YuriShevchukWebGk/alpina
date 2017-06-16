@@ -23,9 +23,9 @@ $this->setFrameMode(true);
 
                 <li>
                     <div class="reviewDatail">
-						<?if (!empty($arResult["EXPERTS"][$expert_ID]["PICTURE"])) {?>
+						<?if (!empty($arResult["EXPERTS"][$expert_ID]["PREVIEW_PICTURE"])) {?>
 							<div class="reviewImgContain">
-								<img src="<?=$arResult["EXPERTS"][$expert_ID]["PICTURE"]?>" alt="">
+								<img src="<?=$arResult["EXPERTS"][$expert_ID]["PREVIEW_PICTURE"]?>" alt="">
 							</div>
 						<?}?>
                         <p class="reviewsText"><?=$arItem["PREVIEW_TEXT"]?></p>
@@ -33,7 +33,7 @@ $this->setFrameMode(true);
 							<br />
                             <em><?=$arResult["EXPERTS"][$expert_ID]["NAME"]?>
                             <br>
-                            <?=$arResult["EXPERTS"][$expert_ID]["POSITION"]?></em>
+                            <?=$arResult["EXPERTS"][$expert_ID]["PROPERTY_JOB_TITLE_VALUE"]?></em>
                         </p>
                     </div>
                 </li>
