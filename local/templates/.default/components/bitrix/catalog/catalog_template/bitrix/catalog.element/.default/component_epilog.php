@@ -71,9 +71,6 @@ if (!empty($authors_IDs)) {
 				$author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
 			}
 		}
-        if (strlen ($ar_properties['ORIG_NAME']) > 0) {
-            $author_name .= " (".$ar_properties['ORIG_NAME'].")";
-        }
     }
 } 
 
@@ -84,9 +81,9 @@ if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']))
 
 
 if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"]))
-	$title .= ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
+	$title .= ' / ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
 
-$title .= ', издание ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г.";
+$title .= GetMessage("LAST_EDITION") . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г.";
 
 $APPLICATION -> SetPageProperty("title", $title);
 
@@ -97,13 +94,10 @@ if (!empty($arResult['TAGS']))
 else
 	$APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
 
-if($arResult['IBLOCK_SECTION_ID']=='132' || $arResult['IBLOCK_SECTION_ID']=='133'){
-	$sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
-	$key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
-	$APPLICATION->SetPageProperty("description", 'Издательство Альпина Паблишер предлагает купить книгу '.$arResult["NAME"].', автор '.$author_name.' и другие книги в разделе "'.$sect_name.'" в собственном интернет-магазине. Доступны печатные и цифровые версии.'); 
-	$APPLICATION->SetPageProperty("keywords", 'купить книга '.$key_name);
-	$APPLICATION->SetPageProperty("keywords-new", 'купить книга '.$key_name);
-}
+$sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
+$key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
+$APPLICATION->SetPageProperty("description", 'Издательство Альпина Паблишер предлагает купить книгу '.$arResult["NAME"].' '.$author_name.' и другие книги в разделе "'.$sect_name.'" в собственном интернет-магазине. Доступны печатные и цифровые версии.'); 
+$APPLICATION->SetPageProperty("keywords-new", 'купить книга '.$key_name);
 	
 $APPLICATION->AddHeadString('<meta property="og:title" content=\''.$APPLICATION->GetPageProperty('title').'\' />',false);
 $APPLICATION->AddHeadString('<meta property="og:description" content=\''.strip_tags($APPLICATION->GetPageProperty('description')).'\' />',false);

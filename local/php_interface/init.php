@@ -97,6 +97,7 @@
 	define ("REISSUE_ID", 218); //ID свойства "Переиздание"
 	define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
 	define ("STATE_SOON", 22); //ID состояния книги "Скоро в продаже"
+	define ("EXPERTS_IBLOCK_ID", 23); //ID инфоблока Эксперты
 
     function arshow($array, $adminCheck = false, $dieAfterArshow = false){
         global $USER;
@@ -1027,7 +1028,7 @@
     {
         if ($arFields["IBLOCK_ID"] == 12)
         {
-            $elem = CIBlockElement::GetList(array(), array("IBLOCK_ID" => $arFields["IBLOCK_ID"], "ID" => $arFields["ID"]), false, false, array("NAME", "PROPERTY_email", "PROPERTY_phone", "PROPERTY_message"));
+            $elem = CIBlockElement::GetList(array(), array("IBLOCK_ID" => $arFields["IBLOCK_ID"], "ID" => $arFields["ID"]), false, false, array("ID", "NAME", "PROPERTY_email", "PROPERTY_phone", "PROPERTY_message"));
             while ($elem_info = $elem -> Fetch())
             {
                 $mailFields = array(

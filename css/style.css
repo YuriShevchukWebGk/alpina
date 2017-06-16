@@ -523,7 +523,7 @@ header .headBasket{margin-right:0}
 .productType .cost{color:#7B8C90;font-size:14px}
 .elementDescriptWrap .otherTypes{background:url(/img/otherTypesBack.png) 3px 34px no-repeat #dfdfdf;height:72px!important;margin-right:0!important;padding:0!important;width:16px!important;cursor:pointer}
 .elementDescriptWrap .productsMenu{color:#00abb8;font-size:13px;margin-top:18px;margin-bottom:30px}
-.productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:27px;width:auto!important}
+.productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:25px;width:auto!important}
 .productsMenu li:hover{border-bottom:none}
 .productsMenu .active{color:#2F3839;font-size:19px;text-transform:none;border-bottom:none}
 .elementDescriptWrap .citate,.elementDescriptWrap i{color:#2F3839;font-family:Walshein_light;font-size:20px;margin-bottom:20px}
