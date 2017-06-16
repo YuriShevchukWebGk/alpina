@@ -1,6 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Бестселлеры");
+$APPLICATION->SetTitle("Бестселлеры деловой литературы, нон-фикшн, популярные книги для родителей и детей. Быстрая доставка книг — Интернет-магазин «Альпина Паблишер»");
 
 if ($_REQUEST["DIRECTION"])
 {

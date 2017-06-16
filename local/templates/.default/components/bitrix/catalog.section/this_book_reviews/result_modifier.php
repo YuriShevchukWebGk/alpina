@@ -470,8 +470,11 @@ $expert_IDs = array();
 foreach($arResult["ITEMS"] as $arItem) {
     $expert_IDs[] = $arItem["PROPERTIES"]["expert"]["VALUE"];        
 }
-$experts = CIBlockElement::GetList (array(), array("ID" => $expert_IDs), false, false, array("ID", "NAME"));
+$experts = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 23, "ID" => $expert_IDs), false, false, array("ID", "NAME", "PROPERTY_JOB_TITLE", "PREVIEW_PICTURE"));
 while ($experts_list = $experts -> Fetch()) {
-    $arResult["EXPERTS"][$experts_list["ID"]]["NAME"] = $experts_list["NAME"];
+	$experts_list["PREVIEW_PICTURE"] = CFile::ResizeImageGet($experts_list["PREVIEW_PICTURE"], array('width'=>150, 'height'=>150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+	$experts_list["PREVIEW_PICTURE"] = $experts_list["PREVIEW_PICTURE"]["src"];
+    $arResult["EXPERTS"][$experts_list["ID"]] = $experts_list;
+	
 }
 ?>

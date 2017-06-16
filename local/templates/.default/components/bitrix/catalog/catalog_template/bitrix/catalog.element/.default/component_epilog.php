@@ -71,9 +71,6 @@ if (!empty($authors_IDs)) {
 				$author_name .= (strlen ($author_name) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
 			}
 		}
-        if (strlen ($ar_properties['ORIG_NAME']) > 0) {
-            $author_name .= " (".$ar_properties['ORIG_NAME'].")";
-        }
     }
 } 
 
@@ -84,9 +81,9 @@ if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']))
 
 
 if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"]))
-	$title .= ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
+	$title .= ' / ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
 
-$title .= ', издание ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г.";
+$title .= GetMessage("LAST_EDITION") . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г.";
 
 $APPLICATION -> SetPageProperty("title", $title);
 
