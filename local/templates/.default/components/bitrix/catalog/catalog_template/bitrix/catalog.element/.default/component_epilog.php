@@ -94,13 +94,10 @@ if (!empty($arResult['TAGS']))
 else
 	$APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
 
-if($arResult['IBLOCK_SECTION_ID']=='132' || $arResult['IBLOCK_SECTION_ID']=='133'){
-	$sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
-	$key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
-	$APPLICATION->SetPageProperty("description", 'Издательство Альпина Паблишер предлагает купить книгу '.$arResult["NAME"].', автор '.$author_name.' и другие книги в разделе "'.$sect_name.'" в собственном интернет-магазине. Доступны печатные и цифровые версии.'); 
-	$APPLICATION->SetPageProperty("keywords", 'купить книга '.$key_name);
-	$APPLICATION->SetPageProperty("keywords-new", 'купить книга '.$key_name);
-}
+$sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
+$key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
+$APPLICATION->SetPageProperty("description", 'Издательство Альпина Паблишер предлагает купить книгу '.$arResult["NAME"].' '.$author_name.' и другие книги в разделе "'.$sect_name.'" в собственном интернет-магазине. Доступны печатные и цифровые версии.'); 
+$APPLICATION->SetPageProperty("keywords-new", 'купить книга '.$key_name);
 	
 $APPLICATION->AddHeadString('<meta property="og:title" content=\''.$APPLICATION->GetPageProperty('title').'\' />',false);
 $APPLICATION->AddHeadString('<meta property="og:description" content=\''.strip_tags($APPLICATION->GetPageProperty('description')).'\' />',false);
