@@ -55,8 +55,6 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => '285'));
 			$key++;
 		}
-		CIBlockElement::SetPropertyValuesEx(124350, 4, array('best_seller' => '285')); //делаем бестом Вскрытие покажет
-		CIBlockElement::SetPropertyValuesEx(186046, 4, array('best_seller' => '285')); //делаем бестом Хочу и буду
 	} else {
 		echo 'Бестселлеры не получены. Проверить retailrocket';
 	}
@@ -85,7 +83,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 		$arProps = $ob->GetProperties();
 		$arFields = $ob->GetFields();
 	
-		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 60) {
+		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 50) {
 			$obEl = new CIBlockElement();
 			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('STATE' => ''));
 			echo '<b><span style="color:red">old - </b>';

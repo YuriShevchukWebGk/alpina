@@ -123,7 +123,7 @@
     BX.addCustomEvent('onDeliveryExtraServiceValueChange', function(){ submitForm(); });
 
 </script>
-<?
+<?   global $USER;
     //Check if order have certificate
     $isOnlyCertificate = true;
     foreach ($arResult["BASKET_ITEMS"] as $prodId => $arProd) {
@@ -156,7 +156,7 @@
                     $arDelivery["CHECKED"]='Y';
                 }
                 // если это юр лицо и вес больше 10кг, то мимо
-                if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !$USER->IsAdmin())) { continue; }
+               // if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !$USER->IsAdmin())) { continue; }
 
                 // если это юр лицо и вес больше 10кг, то мимо
                 if (($arDelivery["ID"] == GURU_DELIVERY_ID && !$USER->IsAdmin())
@@ -173,7 +173,7 @@
                     $clickHandler = "onClick = \"BX('ID_DELIVERY_ID_".$arDelivery["ID"]."').checked=true;".$extraParams."submitForm();\"";
 
             ?>
-            <div>
+            <div style="<?=($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin())? 'display: none':''?>">
                 <input type="radio"
                     class="radioInp"
                     id="ID_DELIVERY_ID_<?= $arDelivery["ID"] ?>"
@@ -182,11 +182,16 @@
                     <?if ($arDelivery["CHECKED"]=="Y") echo " checked";?>
                     onclick="submitForm();"
                     />
+
                 <label for="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>" class="faceText">
-                    <?= htmlspecialcharsbx($arDelivery["NAME"])?> -
+                <?if($arDelivery["ID"] == PICKPOINT_DELIVERY_ID){  ?>
+                    <?= htmlspecialcharsbx($arDelivery["OWN_NAME"])?>
+                <?} else {?>
+                    <?= htmlspecialcharsbx($arDelivery["NAME"])?>
+                <?}?>-
                     <?if(isset($arDelivery["PRICE"])):?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
-                            <? if ($arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERY_ID) {
+                            <? if ($arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID  || $arDelivery["ID"] == BOXBERY_ID) {
                                 echo "Выберите местоположение";
                             } else { ?>
                                 <?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?>

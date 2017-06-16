@@ -1063,6 +1063,7 @@
 
         <div class="annotation" id="prodBlock1">
             <div class="showAllWrapp">
+
 				<?global $reviewsFilter;
 				$reviewsFilter = array ("PROPERTY_BOOK" => $arResult["ID"]);
 				$APPLICATION->IncludeComponent(
