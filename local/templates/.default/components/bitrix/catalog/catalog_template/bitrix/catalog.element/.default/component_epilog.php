@@ -83,15 +83,14 @@ if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']))
 	$title .= ', электронная версия, читать онлайн';
 
 
-if (strlen ($arResult['PROPERTIES']["ISBN"]["VALUE"]) ) {
+if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"]))
 	$title .= ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
-}
 
 $title .= ', издание ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г.";
 
 $APPLICATION -> SetPageProperty("title", $title);
 
-$APPLICATION->SetPageProperty("description", $arResult["PREVIEW_TEXT"]); 
+$APPLICATION->SetPageProperty("description", strip_tags($arResult["PREVIEW_TEXT"])); 
 
 if (!empty($arResult['TAGS']))
 	$APPLICATION->SetPageProperty("keywords", $arResult["TAGS"]);
