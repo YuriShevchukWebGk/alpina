@@ -76,19 +76,26 @@ if (!empty($authors_IDs)) {
         }
     }
 } 
-if (strlen ($arResult['PROPERTIES']["ISBN"]["VALUE"]) ) {
-    $title = '"' . $arResult["NAME"] . '" '.GetMessage("BOOK") . $author_name . ' ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY").' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
-} else if ($MEDIA_TYPE) {
-    $title = $arResult["NAME"] . ' ' . $author_name . ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"] .  GetMessage("TO_BUY_WITH_DELIVERY");
-} else {
-    $title = '"' . $arResult["NAME"] . '" '.GetMessage("BOOK") . $author_name . ' ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г. — ".  GetMessage("TO_BUY_WITH_DELIVERY");
-}
-if (!empty ($title) )  {
-    $APPLICATION -> SetPageProperty("title", $title);
-}
-$curr_elem_info = CIBlockElement::GetByID($arResult["ID"]) -> Fetch();
-$APPLICATION->SetPageProperty("description", $curr_elem_info["PREVIEW_TEXT"]); 
-$APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
+
+$title = '"' . $arResult["NAME"] . '" '.GetMessage("BUY_BOOK") . $author_name .  GetMessage("TO_BUY_WITH_DELIVERY");
+
+if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']))
+	$title .= GetMessage("EBOOK_READ");
+
+
+if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"]))
+	$title .= ' / ISBN ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
+
+$title .= ', издание ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г.";
+
+$APPLICATION -> SetPageProperty("title", $title);
+
+$APPLICATION->SetPageProperty("description", strip_tags($arResult["PREVIEW_TEXT"])); 
+
+if (!empty($arResult['TAGS']))
+	$APPLICATION->SetPageProperty("keywords", $arResult["TAGS"]);
+else
+	$APPLICATION->SetPageProperty("keywords", GetMessage("KEYWORDS"));
 
 if($arResult['IBLOCK_SECTION_ID']=='132' || $arResult['IBLOCK_SECTION_ID']=='133'){
 	$sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];

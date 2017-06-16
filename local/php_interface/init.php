@@ -1035,7 +1035,8 @@
                     "AUTHOR" => $elem_info["NAME"],
                     "AUTHOR_EMAIL" => $elem_info["PROPERTY_EMAIL_VALUE"],
                     "AUTHOR_PHONE" => $elem_info["PROPERTY_PHONE_VALUE"],
-                    "TEXT" => $elem_info["PROPERTY_MESSAGE_VALUE"]
+                    "TEXT" => $elem_info["PROPERTY_MESSAGE_VALUE"],
+					"REQUEST_ID" => $elem_info["ID"]
                 );
             }
             CEvent::Send("FEEDBACK_FORM", "s1", $mailFields, "N");
