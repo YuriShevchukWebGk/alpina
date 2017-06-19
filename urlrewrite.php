@@ -91,22 +91,10 @@ $arUrlRewrite = array(
 		"PATH" => "/store/index.php",
 	),
 	array(
-		"CONDITION" => "#^\\??(.*)#",
-		"RULE" => "&\$1",
-		"ID" => "bitrix:catalog.section",
-		"PATH" => "/catalog/bestsellers/index.php",
-	),
-	array(
 		"CONDITION" => "#^/news/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/news/index.php",
-	),
-	array(
-		"CONDITION" => "#^/#",
-		"RULE" => "",
-		"ID" => "bitrix:iblock.element.add.form",
-		"PATH" => "/about/contacts/index.php",
 	),
 );
 
