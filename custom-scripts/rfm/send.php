@@ -32,7 +32,7 @@ if ($_POST["request"]) {
 	"PROPERTY_LASTORDER",
 	"PROPERTY_PAYEDSUM",
 	"PROPERTY_CATEGORIESBOUGHT",
-	"PROPERTY_PRODUCTSBOUGHT"
+	"PROPERTY_BOOKSBOUGHT"
 	);
 
 	$arFilter = array();
@@ -65,23 +65,19 @@ if ($_POST["request"]) {
 		$arFilter[">=PROPERTY_PAYEDSUM"] = $_POST["PROPERTY_PAYEDSUM"];
 	
 	$updateBought = true;
-	$arFilter = Array("IBLOCK_ID" => 67,"ACTIVE" => "Y", "NAME" => array("a.marchenkov@alpinabook.ru"));
+	$arFilter = Array("IBLOCK_ID" => 67,"ACTIVE" => "Y", "NAME" => array("a-marchenkov@yandex.ru"));
 
 	if ($_POST["test_email"])
 		$arFilter = Array("IBLOCK_ID" => 67,"ACTIVE" => "Y", "NAME" => array($_POST["test_email"]));
 	
 	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize" => 99999), $arSelect);
 	
-	while ($ob = $res -> GetNextElement()) {
-		$ob = $ob->GetFields();
-		echo '<pre>';
-		//print_r($ob);
-		$books = array_slice(explode(',', $ob["PROPERTY_PRODUCTSBOUGHT_VALUE"]), 0, 10);
-		print_r($books);
-		$bought = array_slice($books,0,3);
-		print_r($bought);
+	while ($ob = $res -> GetNext()) {
+
+		arshow($ob);
+		$books = array_slice($ob["PROPERTY_BOOKSBOUGHT"], 0, 3);
+		arshow($bought);
 		$books = implode(",", $books);
-		echo '</pre>';
 
 		$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.$books);
 		$recsArray = json_decode($stringRecs);
@@ -89,7 +85,7 @@ if ($_POST["request"]) {
 
 		if ($arrFilter['ID'][0] > 0) {
 			$recs = "";
-			$NewItems = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "ID" => $arrFilter['ID'], "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0, "!PROPERTY_STATE" => 23), false, false, array());
+			$NewItems = CIBlockElement::GetList (array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $arrFilter['ID'], "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0, "!PROPERTY_STATE" => 23), false, Array("nPageSize" => 3), array());
 			while ($NewItemsList = $NewItems -> Fetch())
 			{
 				$pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);
@@ -115,13 +111,13 @@ if ($_POST["request"]) {
 		}
 		
 
-		$NewItems = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "PROPERTY_STATE" => 22, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, false, array());
-		$bought = "";
+		$NewItems = CIBlockElement::GetList (array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "PROPERTY_STATE" => NEW_BOOK_STATE_XML_ID, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, Array("nPageSize" => 3), array());
+		$newBooks = "";
 		while ($NewItemsList = $NewItems -> Fetch())
 		{
 			$pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 100, "height" => 180), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 			$curr_sect = CIBlockSection::GetByID($NewItemsList["IBLOCK_SECTION_ID"]) -> Fetch();
-			$bought .= '
+			$newBooks .= '
 			<table align="left" border="0" cellpadding="8" cellspacing="0" class="tile" width="32%">
 			<tbody>
 			<tr>
@@ -138,8 +134,8 @@ if ($_POST["request"]) {
 		
 		
 		$mailFields = array(
-			"EMAIL" => $ob["NAME"],
-			"BOUGHT" => $bought,
+			"EMAIL" => "a-marchenkov@yandex.ru",
+			"NEWBOOKS" => $newBooks,
 			"RECS" => $recs,
 			"FROM_EMAIL" => $from,
 			"PREVIEW" => $preview,
@@ -148,9 +144,9 @@ if ($_POST["request"]) {
 			"SIGNATURE" => $signature,
 			"FNAME"=> $ob["PROPERTY_FNAME_VALUE"]
 		);
-		print_r($mailFields);
+		//arshow($mailFields);
 		
-		CEvent::Send("RFM_SEND_EMAIL", "s1", $mailFields, "N");
+		//CEvent::Send("RFM_SEND_EMAIL", "s1", $mailFields, "N");
 	}
 
 	echo 'done!';

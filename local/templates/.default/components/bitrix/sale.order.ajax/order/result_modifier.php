@@ -1,5 +1,5 @@
 <?    
-//Ïðîâåðèì ÿâëÿåòñÿ ëè êîðçèíà ïðåäçàêàçîì    
+//ÐŸÑ€Ð¾Ð²ÐµÑ€Ð¸Ð¼ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð»Ð¸ ÐºÐ¾Ñ€Ð·Ð¸Ð½Ð° Ð¿Ñ€ÐµÐ´Ð·Ð°ÐºÐ°Ð·Ð¾Ð¼    
 if(count($arResult["BASKET_ITEMS"]) == 1) {     
     $basketItem = $arResult["BASKET_ITEMS"];   
     $basketItem = array_pop($basketItem);    
@@ -12,7 +12,14 @@ if(count($arResult["BASKET_ITEMS"]) == 1) {
             $arResult['PREORDER'] = 'Y';        
         }  
     }                                                                                                                      
-};                                                                                       
+};                                           
+foreach($arResult["DELIVERY"] as $DeliveryID => $DeliveryResult) { 
+    $arDeliv = CSaleDelivery::GetByID($DeliveryResult['ID']);
+    if(empty($arResult["DELIVERY"][$DeliveryID]['PRICE'])){
+        $arResult["DELIVERY"][$DeliveryID]['PRICE'] = $arDeliv['PRICE'];                                        
+        $arResult["DELIVERY"][$DeliveryID]['PRICE_FORMATED'] = $arDeliv['PRICE'].' Ñ€ÑƒÐ±.';      
+    }   
+};                                                                                   
 /*global $USER;
 if ($USER->GetID() && $USER->IsAuthorized()) {
 	$users = CUser::GetList(
