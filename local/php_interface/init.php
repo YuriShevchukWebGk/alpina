@@ -98,6 +98,7 @@
 	define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
 	define ("STATE_SOON", 22); //ID состояния книги "Скоро в продаже"
 	define ("EXPERTS_IBLOCK_ID", 23); //ID инфоблока Эксперты
+	define ("PAY_SYSTEM_RFI", 11); //ID платежный системы РФИ
 
     function arshow($array, $adminCheck = false, $dieAfterArshow = false){
         global $USER;
@@ -1869,7 +1870,7 @@
         if ($arTemplate["ID"] == 16)
         {
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
-            if ($order["PAY_SYSTEM_ID"] == 13)
+            if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI)
             {
                 $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
                 <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
@@ -1883,14 +1884,38 @@
         }
     }
 
-    AddEventHandler('main', 'OnBeforeEventSend', 'AddCustomerInfo');
+    AddEventHandler('main', 'OnBeforeEventSend', 'AddCustomInfo');
 
-    function AddCustomerInfo (&$arFields, &$arTemplate)
+    function AddCustomInfo (&$arFields, &$arTemplate)
     {
-        if ($arTemplate["ID"] == 177)
-        {
+        if ($arTemplate["ID"] == 177) { //При установке статуса "Выполнен"
+		
             $arFields["ORDER_USER"] = Message::getClientName($arFields["ORDER_ID"]);
-        }
+			
+        } elseif ($arTemplate["ID"] == 178) { //При установке статуса "Принят, ожидается оплата"
+		
+			$order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
+            if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI)
+            {
+                $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
+                <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
+                </div>';
+            }
+            else
+            {
+                $pay_button = "";
+            }
+            $arFields["PAYMENT_BUTTON"] = $pay_button;
+			
+			$orderItems = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => 94101));
+			$orderItemsResult = '<br /><center><h3 style="color:#393939;font-family: Segoe UI,Roboto,Tahoma,sans-serif;font-size: 20px;font-weight: 400;">Книги в заказе</h3></center><br />';
+			while($orderItem = $orderItems->GetNext()) {
+				$orderItemsResult .= '<a href="'.$orderItem['DETAIL_PAGE_URL'].'" target="_blank" style="color:#393939;font-family: Segoe UI,Roboto,Tahoma,sans-serif;font-size: 16px;line-height:150%;font-weight: 400;">'.$orderItem['NAME'].'</a><br />';
+			}
+			$arFields["ORDERED_BOOKS"] = $orderItemsResult;
+			$arFields["ORDER_USER"] = Message::getClientName($arFields["ORDER_ID"]);
+			
+		}
     }
 
     AddEventHandler('main', 'OnBeforeEventSend', "SubConfirmFunc");
