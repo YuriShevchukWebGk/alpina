@@ -1907,7 +1907,7 @@
             }
             $arFields["PAYMENT_BUTTON"] = $pay_button;
 			
-			$orderItems = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => 94101));
+			$orderItems = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arFields["ORDER_ID"]));
 			$orderItemsResult = '<br /><center><h3 style="color:#393939;font-family: Segoe UI,Roboto,Tahoma,sans-serif;font-size: 20px;font-weight: 400;">Книги в заказе</h3></center><br />';
 			while($orderItem = $orderItems->GetNext()) {
 				$orderItemsResult .= '<a href="'.$orderItem['DETAIL_PAGE_URL'].'" target="_blank" style="color:#393939;font-family: Segoe UI,Roboto,Tahoma,sans-serif;font-size: 16px;line-height:150%;font-weight: 400;">'.$orderItem['NAME'].'</a><br />';
