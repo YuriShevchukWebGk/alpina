@@ -977,6 +977,9 @@
 		dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'pageLoaded'});
         if ($(".gifts_block").find("div").size() > 0) {
             $(".gifts_block").show();
-        }	
+        }
+		<?if (checkMobile()) {?>
+			$('#cardBlock1').show();
+		<?}?>
     });
 </script>
