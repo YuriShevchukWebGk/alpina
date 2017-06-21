@@ -188,16 +188,18 @@
                     <?= htmlspecialcharsbx($arDelivery["OWN_NAME"])?>
                 <?} else {?>
                     <?= htmlspecialcharsbx($arDelivery["NAME"])?>
-                <?}?>-  
+                <?}?>-
                     <?if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !isset($arDelivery["PRICE"]))) {?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
-                            <?echo "Выберите местоположение";?>  
-                        </b> 
-                    <?}?>   
-                    <?if(isset($arDelivery["PRICE"])):?> 
-                        <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">        
-                            <? if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && empty($arDelivery['PRICE'])) || $arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID  || $arDelivery["ID"] == BOXBERY_ID) {
+                            <?echo "Выберите местоположение";?>
+                        </b>
+                    <?}?>
+                    <?if(isset($arDelivery["PRICE"])):?>
+                        <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
+                            <? if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && empty($arDelivery['PRICE'])) || $arDelivery["ID"] == FLIPPOST_ID || $arDelivery["ID"] == GURU_DELIVERY_ID ||  $arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID) {
                                 echo "Выберите местоположение";
+                            }  else if($arDelivery["ID"] == BOXBERY_ID){
+                                echo "Введите индекс города";
                             } else { ?>
                                 <?=(strlen($arDelivery["PRICE_FORMATED"]) > 0 ? $arDelivery["PRICE_FORMATED"] : number_format($arDelivery["PRICE"], 2, ',', ' '))?>
                             <? } ?>

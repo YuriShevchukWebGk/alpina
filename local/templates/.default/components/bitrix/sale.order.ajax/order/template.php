@@ -771,7 +771,8 @@
                                         }      */
                                         if ($("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").is(':checked')) {
                                             var boxbery_id = $("#ID_DELIVERY_ID_<?= BOXBERY_ID ?>").val();
-                                            $(".clientInfoWrap").on('focus', '#ORDER_PROP_104');
+                                         //   $(".clientInfoWrap").on('focus', '#ORDER_PROP_104');
+                                            $( "#ORDER_PROP_104" ).focus();
                                             $(".clientInfoWrap").on('focusout', '#ORDER_PROP_104', function() {
                                                 var  zip = $(this).val(),
                                                 weight = parseInt($('.order_weight').text()),
