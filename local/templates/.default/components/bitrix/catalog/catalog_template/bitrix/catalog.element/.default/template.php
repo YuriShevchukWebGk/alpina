@@ -321,23 +321,24 @@
                 <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
                     <?if (!$checkMobile) {?>
                         <a href="#" class="bookPreviewLink" onclick="getPreview(<?= $arResult["ID"] ?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;">
-                        <?} else {?>
+					<?} else {?>
                         <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="bookPreviewLink">
-                            <?}?>
-                        <p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>              
-                        <?}?>
+					<?}?>
+					<p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>              
+				<?} else {?>
+					<a href="#" class="bookPreviewLink" onclick="return false;">
+				<?}?>
 
-                    <?if ($arResult["PICTURE"]["src"]) {?>
-                        <img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" class="bookPreviewLink" alt="<?= $arResult["NAME"] ?>" title="<?= $arResult["NAME"] ?>" />
-                        <?} else {?>
-                        <img src="/images/no_photo.png">
-                        <?}?>
-                    <?if(!empty($arResult["PROPERTIES"]["number_volumes"]["VALUE"])) {?>
-                        <span class="volumes"><?= $arResult["PROPERTIES"]["number_volumes"]["VALUE"] ?></span>
-                        <?}?>
-                    <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
-                    </a>
-                    <?}?>
+				<?if ($arResult["PICTURE"]["src"]) {?>
+					<img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" class="bookPreviewLink" alt="<?= $arResult["NAME"] ?>" title="<?= $arResult["NAME"] ?>" />
+				<?} else {?>
+					<img src="/images/no_photo.png">
+				<?}?>
+				
+				<?if(!empty($arResult["PROPERTIES"]["number_volumes"]["VALUE"])) {?>
+					<span class="volumes"><?= $arResult["PROPERTIES"]["number_volumes"]["VALUE"] ?></span>
+				<?}?>
+				</a>
             </div>
         </div>
         <div class="marks"<?if ($arResult["PROPERTIES"]["page_views_ga"]["VALUE"] > 2) {?> style="min-height:30px;"<?}?>>
@@ -836,7 +837,7 @@
                 </div>
 
                 <div class="wrap_prise_bottom">
-                    <a href="https://ebook.alpinabook.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE']?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({'event' : 'selectVersion', 'action' : 'leaveSite', 'label': '<?= $arResult["NAME"]; ?>'});">
+                    <a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE']?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({'event' : 'selectVersion', 'action' : 'leaveSite', 'label': '<?= $arResult["NAME"]; ?>'});">
                         <p class="inBasket"><?= GetMessage("BUY_EPUB") ?></p>
                     </a>
                 </div>
