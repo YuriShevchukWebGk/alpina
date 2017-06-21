@@ -1870,14 +1870,11 @@
         if ($arTemplate["ID"] == 16)
         {
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
-            if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI)
-            {
+            if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI) {
                 $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
                 <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
                 </div>';
-            }
-            else
-            {
+            } else {
                 $pay_button = "";
             }
             $arFields["PAYMENT_BUTTON"] = $pay_button;
