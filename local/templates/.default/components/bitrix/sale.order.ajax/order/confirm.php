@@ -202,31 +202,48 @@
 
         <?}?>
 
+              
+    <div class="confirmWrapper">  
+        <?if($arResult['ORDER']['STATUS_ID'] == 'PR'){?>        
+            <div class="finishOrdWrap">
+                <div class="centerWrapper">
+                    <div class="rightBlockWrap">
+                        <p class="blockTitle">Уважаемый клиент!</p>
+                        <p class="blokText">В качестве благодарности за покупку вам предоставляется возможность выбрать один из подарков наших партнеров.</p>
+                        <p class="giftCont"><a href="#">Получить подарок</a></p>
+                    </div>
 
-
-    <div class="confirmWrapper">
-        <div class="finishOrdWrap">
-            <div class="centerWrapper">
-                <div class="rightBlockWrap">
-                    <p class="blockTitle">Уважаемый клиент!</p>
-                    <p class="blokText">В качестве благодарности за покупку вам предоставляется возможность выбрать один из подарков наших партнеров.</p>
-                    <p class="giftCont"><a href="#">Получить подарок</a></p>
+                    <div class="mainInfoWrap">
+                        <p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
+                        <p class="OrdAkses">Ваш предзаказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
+                        <p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится появится в продаже.</p>
+                    </div>
                 </div>
+            </div>     
+        <?} else {?>          
+            <div class="finishOrdWrap">
+                <div class="centerWrapper">
+                    <div class="rightBlockWrap">
+                        <p class="blockTitle">Уважаемый клиент!</p>
+                        <p class="blokText">В качестве благодарности за покупку вам предоставляется возможность выбрать один из подарков наших партнеров.</p>
+                        <p class="giftCont"><a href="#">Получить подарок</a></p>
+                    </div>
 
-                <div class="mainInfoWrap">
-                    <p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
-                    <p class="OrdAkses">Ваш заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
-                    <p class="ordHint">Вы можете следить за выполнением заказа в <a href="/personal/order/">Личном кабинете.</a> Обратите внимание, что для входа в этот раздел вам необходимо будет ввести логин и пароль</p>
+                    <div class="mainInfoWrap">
+                        <p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
+                        <p class="OrdAkses">Ваш заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
+                        <p class="ordHint">Вы можете следить за выполнением заказа в <a href="/personal/order/">Личном кабинете.</a> Обратите внимание, что для входа в этот раздел вам необходимо будет ввести логин и пароль</p>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>  
+        <?}?>    
         <?
-            if (!empty($arResult["PAY_SYSTEM"]))
+            if (!empty($arResult["PAY_SYSTEM"]) && $arResult['ORDER']['STATUS_ID'] != 'PR')
             {
-            ?>
+            ?>  
             <br /><br />
             <div id="promocode-element-container"></div>
-            <?
+            <?  
             if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID) { ?>
             	<? $APPLICATION->IncludeComponent(
 					"webgk:rfi.widget",

@@ -449,7 +449,9 @@
 
                                     $(".flippost_error").hide();
                                     $(".boxbery_error").hide();
-                                    $("#ADRESS_PICKPOINT").val($('#sPPDelivery').html());
+                                    if($('#sPPDelivery').html() != 'не выбрано'){
+                                        $("#ADRESS_PICKPOINT").val($('#sPPDelivery').html());
+                                    }
                                     if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
                                         $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
                                     }

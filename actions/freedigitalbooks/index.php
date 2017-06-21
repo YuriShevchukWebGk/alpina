@@ -436,7 +436,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<br />
 		<span class="quest">ВОПРОС 8: Если я&nbsp;покупаю несколько экземпляров одной и&nbsp;той&nbsp;же книги, получу&nbsp;ли я&nbsp;несколько экземпляров электронной?</span><br /><br />
 
-		Нет, одному пользователю, зарегистрированному в&nbsp;приложении, мы&nbsp;подарим только одну электронную книгу на&nbsp;его мобильгное устройство. Кроме того, услуга &laquo;Знание, а&nbsp;не&nbsp;носитель&raquo; действует только для физических лиц и&nbsp;не&nbsp;распространяется на&nbsp;юридических лиц.</div>
+		Нет, одному пользователю, зарегистрированному в приложении, мы подарим только одну электронную книгу на его мобильное устройство. 
+		<br />
+		<br />
+		<span class="quest">ВОПРОС 9: Получит ли бесплатные электронные книги юридическое лицо?</span><br /><br />
+
+		Нет, услуга «Знание, а не носитель» действует только для физических лиц и не распространяется на юридические лица.</div>
 		</div>
 
 <center><div style="margin:20px auto 40px;"><script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script><script src="//yastatic.net/share2/share.js"></script><div class="ya-share2" data-services="vkontakte,facebook" data-counter=""></div></div></center>
