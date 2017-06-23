@@ -41,7 +41,7 @@
         INTERNATIONAL_RUSSIAN_POST_ID_3,
         INTERNATIONAL_RUSSIAN_POST_ID_4,
         INTERNATIONAL_RUSSIAN_POST_ID_5
-    );             
+    );   
     
     //ajax-экспорт заказов. Запрос отправляется из скрипта, который описан ниже 
     if (!empty($_REQUEST["ID"]) && $_REQUEST["export_order"] == "yes") {     
@@ -92,7 +92,8 @@
             if (in_array($order_properties['DELIVERY_ID'], $internationalDeliveryIDs)) {
                 $arIDsInternationalOrders[$order_id] = $order_id;
                 $hasInternationalOrders = 'Y';
-            }          
+            }         
+                    
             if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                 //имя получателя    
                 $cont_name = '';    
@@ -114,20 +115,36 @@
             $replace = ' ';                       
             $order_props[$order_id]['FINAL_ADRESS_FULL'] = str_replace($order, $replace, $order_props[$order_id]['FINAL_ADRESS_FULL']);                          
         }            
-                                                                                                                                                
-        
+                 
         $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);   
+        
+        $logger_date = date('Y-m-d, H:i:s');
+        $logger_file = $_SERVER['DOCUMENT_ROOT'].'/local/admin/accorpdost.log';
               
         //Генерация и отправка xml для заказов по России 
-        if ($hasCommonOrders == 'Y') {      
+        if ($hasCommonOrders == 'Y') {          
+                                                                                          
+            
+            //Логируем начало экспорта
+            $order_log = $logger_date.' - Начало отправки обычного заказа;';  
+            logger($order_log, $logger_file);    
         
-            //Создадим новую запись в ИБ       
-            if ($shipment_id_common = create_delivery_element($arIDsInternationalOrders)) {
-                $zdoc_id_common = 'ALPINABOOK'.$shipment_id_common;         
+            //Создадим новую запись в ИБ    
+                                              
+            if ($shipment_id_common = create_delivery_element($arIDsCommonOrders)) {
+                if(!empty($shipment_id_common)){
+                    $zdoc_id_common = 'ALPINABOOK'.$shipment_id_common;     
+                } else {   
+                    echo GetMessage("ACCORDPOST_EXPORT_COMMON_FAIL");
+                    die();
+                }                                                          
             } else {
                 echo GetMessage("ACCORDPOST_EXPORT_COMMON_FAIL");
                 die();
-            }                       
+            } 
+                
+            $order_log = $logger_date.' - Создан новый элемент IB с выгрузкой - $shipment_id_common: '.$shipment_id_common.';';  
+            logger($order_log, $logger_file);                       
                      
             //Начало XML
             $xmlBody = '';
@@ -151,7 +168,12 @@
                 $xmlBody .= '</doc>';
                 
             //Закрываем реквест
-            $xmlBody .= '</request>';   
+            $xmlBody .= '</request>';                            
+            
+            foreach ($arIDsCommonOrders as $logger_id) {
+                $order_log = $logger_date.' - Перед самим экспортом - номер заказа: '.$logger_id.';';  
+                logger($order_log, $logger_file);   
+            }                                   
             
             //Экспортируем       
             export_to_accordpost($xmlBody, $zdoc_id_common, $shipment_id_common, $arIDsCommonOrders, $order_props);    
@@ -159,6 +181,10 @@
                                
         //Генерация xml для международных заказов 
         if ($hasInternationalOrders == 'Y') {
+            
+            //Логируем начало экспорта
+            $order_log = $logger_date.' - Начало отправки международного заказа;';  
+            logger($order_log, $logger_file);  
                                                 
             //Создадим новую запись в ИБ
             if ($shipment_id_international = create_delivery_element($arIDsInternationalOrders)) {
@@ -168,8 +194,12 @@
                 die();
             }                           
             
+            $order_log = $logger_date.' - Создан новый элемент IB с выгрузкой - $shipment_id_common: '.$shipment_id_international.';';  
+            logger($order_log, $logger_file); 
+            
             //Запрос на получение списка стран
             $arCountry = get_country_list();     
+                                                 
             
             $xmlBodyInternational = '';
             //Шапка с доступами и типом запроса
@@ -211,6 +241,11 @@
                 
             //Закрываем реквест
             $xmlBodyInternational .= '</request>';  
+            
+            foreach ($arIDsInternationalOrders as $logger_id) {
+                $order_log = $logger_date.' - Перед самим экспортом - номер заказа: '.$logger_id.';';  
+                logger($order_log, $logger_file);   
+            }                   
             
             //Экспортируем      
             export_to_accordpost($xmlBodyInternational, $zdoc_id_international, $shipment_id_international, $arIDsInternationalOrders, $order_props);   
