@@ -5,7 +5,11 @@ ignore_user_abort(true);
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 CModule::IncludeModule("sale");
 CModule::IncludeModule("iblock");
-global $USER;
+global $USER;?>
+<style>
+a{text-decoration:none;color:#000}a:hover{text-decoration:underline}
+</style>
+<?
 if ($USER->IsAdmin()){
 	
 	/******************************************************/
@@ -32,13 +36,14 @@ if ($USER->IsAdmin()){
 		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['q']++;
 		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['n'] = $ob["NAME"];
 		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['i'] = $ob["PROPERTY_BOOK_ID_VALUE"];
+		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['d'] = $ob["ID"];
 	}
 	
 	arsort($books);
 	$table = '<h3>Новые книги</h3><table width="800" border="1"><tbody>';
 	foreach($books as $book) {
 		$table .= '<tr>';
-		$table .= '<td>'.$book['n'].'</td>';
+		$table .= '<td><a href="/catalog/temporary/'.$book['i'].'/">'.$book['n'].'</a></td>';
 		$table .= '<td>'.$book['q'].'</td>';
 		$table .= '</tr>';
 	}
@@ -70,12 +75,13 @@ if ($USER->IsAdmin()){
 		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['q']++;
 		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['n'] = $ob["NAME"];
 		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['i'] = $ob["PROPERTY_BOOK_ID_VALUE"];
+		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['d'] = $ob["ID"];
 	}
 	arsort($books);
 	$table = '<br /><br /><h3>Переиздания</h3><table width="800" border="1"><tbody>';
 	foreach($books as $book) {
 		$table .= '<tr>';
-		$table .= '<td>'.$book['n'].'</td>';
+		$table .= '<td><a href="/catalog/temporary/'.$book['i'].'/">'.$book['n'].'</a></td>';
 		$table .= '<td>'.$book['q'].'</td>';
 		$table .= '</tr>';
 	}
@@ -107,12 +113,13 @@ if ($USER->IsAdmin()){
 		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['q']++;
 		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['n'] = $ob["NAME"];
 		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['i'] = $ob["PROPERTY_BOOK_ID_VALUE"];
+		$books[$ob["PROPERTY_BOOK_ID_VALUE"]]['d'] = $ob["ID"];
 	}
 	arsort($books);
 	$table = '<br /><br /><h3>Нет в наличии</h3><table width="800" border="1"><tbody>';
 	foreach($books as $book) {
 		$table .= '<tr>';
-		$table .= '<td>'.$book['n'].'</td>';
+		$table .= '<td><a href="/catalog/temporary/'.$book['i'].'/">'.$book['n'].'</a></td>';
 		$table .= '<td>'.$book['q'].'</td>';
 		$table .= '</tr>';
 	}
