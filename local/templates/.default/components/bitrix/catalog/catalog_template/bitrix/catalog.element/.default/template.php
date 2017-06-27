@@ -601,8 +601,11 @@
                                     $discount = false;
                                 };
                                 
-                                if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { 
-                                    if ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
+                                if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) {
+									if ($arResult['PROPERTIES']['spec_price']['VALUE']) {?>
+										<div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span></div>
+										 <p class="newPrice"><?= $arPrice["DISCOUNT_VALUE"] ?> <span></span></p>
+									<?} elseif ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
                                     <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                     <?// расчитываем накопительную скидку от стоимости
                                         if ($discount) {
