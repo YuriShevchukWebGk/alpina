@@ -73,7 +73,7 @@ array('id'=>60919, 'discount'=>40),
 			$table .=	"<td>".($price*(100-$book[discount])/100)."</td>";
 			$table .=	"<td>".($price*$book[discount]/100)."</td>";
 			$table .=	"<td>".$ar_res['DETAIL_PAGE_URL']."</td>";
-			$table .=	"<td>".CFile::ResizeImageGet($ar_res[DETAIL_PICTURE], array("width" => 160, "height" => 210), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src]."</td>";
+			$table .=	"<td>".CFile::ResizeImageGet($ar_res[DETAIL_PICTURE], array("width" => 360, "height" => 520), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src]."</td>";
 			$table .=	"<td>".$book[id]."</td>";
 		}
 		$table .=	"</tr>";

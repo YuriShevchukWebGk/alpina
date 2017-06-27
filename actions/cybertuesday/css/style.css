@@ -91,7 +91,7 @@ p{
 .landing{
     position: relative;
     min-width: 1024px;
-    max-width: 1769px;
+	width:100%;
     margin: 0 auto;
     background: #fff;
 }
@@ -224,6 +224,7 @@ header .headBasket{
 .mainWrapp{
     background-color: #ffffff;
     position: relative;
+	overflow:hidden;
 }
 .bookWrap {
 	display:inline-block;

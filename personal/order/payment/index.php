@@ -346,36 +346,36 @@
                     <tr>
                         <td>Обратите внимание на процентную ставку НДС!</td>
                         <td>Итого:</td>
-                        <td><?= round($arOrder["PRICE"] - $arOrder["PRICE_DELIVERY"], 2) ?></td>
+                        <td><?= CurrencyFormat(round($arOrder["PRICE"] - $arOrder["PRICE_DELIVERY"], 2), $arOrder["CURRENCY"], true); ?></td>
                     </tr>
                     <? if ($vat_rate_10_summ > 0) {?>
                         <tr>
                             <td></td>
                             <td>В том числе НДС 10%:</td>
-                            <td><?= round($vat_rate_10_summ, 2) ?></td>
+                            <td><?= CurrencyFormat(round($vat_rate_10_summ, 2), $arOrder["CURRENCY"], true); ?></td>
                         </tr>
                         <? } ?>
                     <? if ($vat_rate_18_summ > 0) {?>
                         <tr>
                             <td></td>
                             <td>В том числе НДС 18%:</td>
-                            <td><?= round($vat_rate_18_summ, 2) ?></td>
+                            <td><?= CurrencyFormat(round($vat_rate_18_summ, 2), $arOrder["CURRENCY"], true); ?></td>
                         </tr>
                         <? } ?>
                     <tr>
                         <td></td>
                         <td>Доставка:</td>
-                        <td><?= round($arOrder["PRICE_DELIVERY"], 2) ?></td>
+                        <td><?= CurrencyFormat(round($arOrder["PRICE_DELIVERY"], 2), $arOrder["CURRENCY"], true); ?></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>В том числе НДС 18%:</td>
-                        <td><?= round($arOrder["PRICE_DELIVERY"] * (18 / 118), 2) ?></td>
+                        <td><?= CurrencyFormat(round($arOrder["PRICE_DELIVERY"] * (18 / 118), 2), $arOrder["CURRENCY"], true); ?></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Всего к оплате:</td>
-                        <td><?= round($arOrder["PRICE"], 2) ?></td>
+                        <td><?=  CurrencyFormat($arOrder['PRICE'], $arOrder["CURRENCY"], true); ?></td>
                     </tr>
                 </table>
                 <div class="additional_info">
@@ -384,7 +384,7 @@
                     3. Стороны освобождаются от ответственности за частичное или полное неисполнение обязательств по данному счет-договору, если это неисполнение явилось следствием обстоятельств непреодолимой силы, возникших после заключения договора в результате событий чрезвычайного характера, наступление которых сторона,    не исполнившая обязательство полностью или частично, не могла ни предвидеть, ни предотвратить разумными методами (форс-мажор).<br>
                     4. При наступлении указанных в п.3 обстоятельств сторона по настоящему договору, для которой создалась невозможность исполнения ее обязательств по настоящему договору,должна в кратчайший срок известить о них в письменном виде другую сторону с приложением соответствующих свидетельств.<br>
                 </div><br>
-                <span>Всего наименований <?= $count ?>, на сумму <?= round($arOrder["PRICE"], 2) ?> руб.</span><br>
+                <span>Всего наименований <?= $count ?>, на сумму <?= CurrencyFormat($arOrder["PRICE"], $arOrder["CURRENCY"], true) ?></span><br>
                 <span class="price_string"><?= num2str(round($arOrder["PRICE"], 2)) ?></span>
                 <div class="quotes_block">
                     <table>
