@@ -101,13 +101,21 @@
             $('#pp_sms_phone').val(phoneVal);
         }
         //дублируем телефон для pickpoint
-        $('body').on('change', '#ORDER_PROP_24', function(){
+        /*$('body').on('change', '#ORDER_PROP_24', function(){
             $('#pp_sms_phone').val($('#ORDER_PROP_24').val());
         });
         $('body').on('change', '#ORDER_PROP_11', function(){
             $('#pp_sms_phone').val($('#ORDER_PROP_11').val());
-        });
+        });     */
+        $('#ORDER_PROP_24').focusout(function(){
+            var val_phone = $('#ORDER_PROP_24').val();
+            document.getElementById('pp_sms_phone').value = val_phone.replace(/[^0-9]/g, '');
 
+        });
+        $('#ORDER_PROP_11').focusout(function(){
+            var val_phone = $('#ORDER_PROP_11').val();
+            document.getElementById('pp_sms_phone').value = val_phone.replace(/[^0-9]/g, '');
+        });
         /*-----
         * RFI Bank tab switcher
         * ----*/
@@ -710,7 +718,41 @@
                                         }
                                     }
 
-                                    //2. подсветка варианта оплаты для электронных платежей
+                                    function formatDate(date) {
+
+                                      var dd = date.getDate();
+                                      if (dd < 10) dd = '0' + dd;
+
+                                      var mm = date.getMonth() + 1;
+                                      if (mm < 10) mm = '0' + mm;
+
+                                      var yy = date.getFullYear() % 100;
+                                      if (yy < 10) yy = '0' + yy;
+
+                                      return dd + '.' + mm + '.' + yy;
+                                    }
+                                    // расчет дня недели
+                                    function getDay(day,mon,year){
+                                         var month = [{1:"январь", 2:"февраль", 3:"март", 4:"апрель", 5:"май", 6:"июнь", 7:"июль", 8:"август", 9:"сентябрь", 10:"октябрь", 11:"ноябрь", 12:"декабрь"}];
+                                         var days = ["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
+                                         day = parseInt(day, 10); //если день двухсимвольный и <10
+                                         mon = parseInt(mon, 10); //если месяц двухсимвольный и <10
+                                         var a = parseInt((14-mon)/12, 10);
+                                         var y = year-a;
+                                         var m = mon+12*a-2;
+                                         var d = (7000+parseInt(day+y+parseInt(y/4, 10)-parseInt(y/100, 10)+parseInt(y/400, 10)+(31*m)/12, 10))%7;
+
+                                         return days[d] +','+ day +' '+ month[mon] +','+ year;
+                                    }
+                                    date = new Date();
+                                    d = date.getDate();
+                                    m = date.getMonth();
+                                    y = date.getFullYear();
+                                    console.log(d);
+                                    console.log(m);
+                                    console.log(y);
+                                    console.log(getDay(d,m+1,y));
+                                //2. подсветка варианта оплаты для электронных платежей
                                     if (localStorage.getItem('active_rfi_recurrent') && $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').length) {
                                         $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').click();
                                     } else {
@@ -799,6 +841,8 @@
                                                             $("#boxbery_price").val(city.price);
                                                             var delivery_time = Math.round(city.delivery_period); //сорк доставки. добавляем к сроку, полученному из запроса 3 дня
                                                             $("#boxbery_delivery_time").show();
+
+
                                                             $("#boxbery_delivery_time span").html(delivery_time);
                                                         }
                                                   }

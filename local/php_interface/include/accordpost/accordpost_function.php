@@ -126,12 +126,8 @@ function create_delivery_element($arIDs) {
 function exist_property($ORDER_ID, $ORDER_PROPS_ID) {
     $db_vals = '';  
     $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $ORDER_ID, "ORDER_PROPS_ID" => $ORDER_PROPS_ID));
-    if ($arVals = $db_vals -> Fetch()) {   
-        if (!empty($arVals['VALUE'])) {     
-            return $arVals['ID'];  
-        } else {
-            return false;  
-        }
+    if ($arVals = $db_vals -> Fetch()) {      
+        return $arVals['ID'];
     } else {
         return false;   
     }   

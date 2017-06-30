@@ -173,7 +173,10 @@
                     $clickHandler = "onClick = \"BX('ID_DELIVERY_ID_".$arDelivery["ID"]."').checked=true;".$extraParams."submitForm();\"";
 
             ?>
-            <div style="<?=($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin())? 'display: none':''?>">
+            <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
+
+            } else {?>
+            <div >
                 <input type="radio"
                     class="radioInp"
                     id="ID_DELIVERY_ID_<?= $arDelivery["ID"] ?>"
@@ -320,6 +323,7 @@
 
                 <div class="clear"></div>
             </div>
+            <?}?>
             <?
             }
         }

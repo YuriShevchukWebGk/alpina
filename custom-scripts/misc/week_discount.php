@@ -9,7 +9,8 @@ global $USER;
 if ($USER->IsAdmin()){
 
 $arSelect = Array("ID", "NAME", "PROPERTY_discount_on", "PROPERTY_spec_price");
-$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "PROPERTY_discount_on" => 276);
+//$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "PROPERTY_discount_on" => 276);
+$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "!PROPERTY_spec_price" => false);
 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>9999), $arSelect);
 
 while($ob = $res->GetNext()) {

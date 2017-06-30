@@ -22,7 +22,7 @@ if ($USER->isAdmin()) {
 if ($_GET['ids']) {
 	$array2 = explode(",", $_GET['ids']);
 
-	foreach ($array2 as $id) {
+	foreach ($_GET['ids'] as $id) {
 		if (CSaleOrder::StatusOrder($id, "C")) {
 			echo $id.'* заказ собран *<br />';
 		} else {
@@ -146,7 +146,6 @@ if ($_GET['ids']) {
 		$ordersStringPrint .= $order.', ';
 	}
 	$table .= '</tbody></table>';
-	$table .= '<br /><br />Поставить заказы '.substr($ordersStringPrint,0,-2).' на "Собран"<br />';
 	echo $table;
 	
 	$table .= $USER->GetID();
@@ -158,7 +157,13 @@ if ($_GET['ids']) {
 	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");?>
 	
 	<form action="/custom-scripts/misc/pickups.php" style="width:600px;">
-	<input type="hidden" name="ids" value="<?=substr($ordersString,0,-1)?>" /><br /><br />
+	<br />
+	Поставить заказы на "Собран"<br /><br />
+	<?foreach ($orders as $order) {?>
+		<label><input type="checkbox" name="ids[]" value="<?=$order?>" checked><?=$order?></label><br/>
+	<?}?>
+	<br />
+	
 	<input type="submit" value="Книги собраны">
 	</form>
 <?}

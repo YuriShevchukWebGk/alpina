@@ -14,7 +14,7 @@ function makePackage($page, $perStep) {
 	$filter = [
 		
 		">=DATE_UPDATE" => date('d.m.Y H:i:s', strtotime('-2 hours')),
-		">=DATE_INSERT" => "01.01.2014",
+		">=DATE_INSERT" => "01.01.2010",
 		//"ID" => 89368,
 	];
 
@@ -110,19 +110,18 @@ function makePackage($page, $perStep) {
 				}
 				
 				//Frequency
-				if ($allorders <= 1)
+				if ($payedorders <= 1)
 					$frequency = 5;
-				elseif ($allorders == 2)
+				elseif ($payedorders == 2)
 					$frequency = 4;
-				elseif ($allorders == 3)
+				elseif ($payedorders == 3)
 					$frequency = 3;
-				elseif ($allorders < 6)
+				elseif ($payedorders < 6)
 					$frequency = 2;
-				elseif ($allorders >= 6)
+				elseif ($payedorders >= 6)
 					$frequency = 1;	
 				else {
 					$frequency = 0;	
-					echo "Проблема<br />";
 				}
 					
 				//Monetary

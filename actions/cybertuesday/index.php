@@ -2,8 +2,8 @@
 global $USER;
 
 if (date("w") != 2) {
-	header("Location: https://www.alpinabook.ru/?from=cybertuesday");
-	exit();
+	//header("Location: https://www.alpinabook.ru/?from=cybertuesday");
+	//exit();
 }?>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ if (date("w") != 2) {
     <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Кибервторник! Что почитать в отпуске? Скидки до 40%</title>
+    <title>Кибервторник! Что почитать в отпуске? Скидки до 40% от Альпины Паблишер</title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <link href="css/style.css?0627" rel="stylesheet">
@@ -98,7 +98,97 @@ if (date("w") != 2) {
 	width:100%;
 	margin:0 auto;
 }
-
+@media screen and (max-width: 1480px){
+	.landing .footer img {
+		right:0;
+		width:230px;
+	}
+}
+@media screen and (max-width: 1370px){
+	.landing .footer img {
+		right:0;
+		width:180px;
+	}
+}
+@media screen and (max-width: 1200px){
+	.landing .footer img {
+		display:none;
+	}
+}
+.giftWrap input[type=text]{
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    /*background: white url("http://www.alpinabook.ru/img/giftInpBack.png") no-repeat scroll 355px 12px;*/
+    border-color: -moz-use-text-color -moz-use-text-color white;
+    border-image: none;
+    border-style: none none/* solid*/;
+    border-width: medium medium 2px;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.18), 0 3px 7px 0 rgba(0, 0, 0, 0.14);
+    color: #8d8d8d;
+    float: right;
+    font-family: "walshein_regular";
+    font-size: 20px;
+    height: 32px;
+    /*height: 60px;*/
+    margin-right: 46px;
+    margin-top: 14px;
+    padding-bottom: 13px;
+    padding-left: 20px;
+    padding-top: 13px;
+    position:relative;
+    width: 396px;
+    /*width: 416px;*/
+}
+.giftWrap input[type=button] {
+    position:absolute;
+    right:47px;
+    top:81px;
+    border:none;
+    width:60px;
+    height:44px;
+    background: white url("http://www.alpinabook.ru/img/giftInpBack.png") no-repeat scroll;
+    cursor: pointer;
+}
+.giftWrap .some_info {
+    z-index:1100;
+    position:absolute;
+    display:none;
+    top:100px;
+    left:200px;
+    width:700px;
+    background:white;
+    border:1px solid blue;
+    text-align:center;
+    padding:30px 0;
+}
+.saleWrapp .giftWrap{
+    border-top: 1px solid #e2e2e2;
+    margin-top: 78px;
+    padding-top: 56px;
+}
+.giftWrap .title{
+    font-family: "Walshein_black";
+    font-size: 42px;
+    color: #486796;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.giftWrap p{
+    color: #768AAC;
+    font-family: 'Walshein_regular';
+    font-size: 16px;
+}
+.giftWrap{
+    position: relative;
+	font-family: 'Walshein_regular'
+}
+.giftWrap img{
+    left: 414px;
+    position: absolute;
+    top: -27px;
+}
 </style>
 
 <!-- Google Tag Manager -->
@@ -185,6 +275,20 @@ array('no'=>37, 'img'=>'/upload/resize_cache/iblock/28e/160_210_1/28e35d09a84aac
 			
 
 			<div class="bg">
+				<?if (date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) > 27) {?>
+				<div class="hintWrapp">
+				<div class="title" style="font-family:'Walshein_bold'; font-size:42px;padding:30px 0;color:#486795">27&nbsp;июня 2017 года состоялся Кибервторник со&nbsp;скидками до&nbsp;40%!</div>
+				<span style="font-family:'Walshein_bold'; font-size:18px;">Хотите узнать о начале следующей акции? Оставьте свой e-mail</span>
+				<div class="giftWrap">
+					<form action="/" method="post">
+						<input type="text" placeholder="Ваш e-mail" name="email" id="email" style="float:none;box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.18), 0 3px 14px 0 rgba(0, 0, 0, 0.14);">
+						<br /><br /><br />
+						<a href="#" onclick="subscribe();return false;" style="background-color: #00abb8;border-radius: 35px;color: #fff;font-size: 19px;margin: 0 28px;padding: 14px 58px;">Подписаться на рассылку</a>
+					</form>
+				</div>
+				<br />
+				</div>
+				<?} else {?>
 				<!-- Первые 5 -->
 				<div class="hintWrapp">
 				<?foreach ($booksArray as $book) {
@@ -204,7 +308,6 @@ array('no'=>37, 'img'=>'/upload/resize_cache/iblock/28e/160_210_1/28e35d09a84aac
 					}
 				}?>
 				</div>
-				
 				<div style="display:inline-block;vertical-align:top;width:806px;">
 					<!-- Большая 1 -->
 					<div class="hintWrapp" style="vertical-align:top;float:right;width:400px;height:662px">
@@ -634,7 +737,8 @@ array('no'=>37, 'img'=>'/upload/resize_cache/iblock/28e/160_210_1/28e35d09a84aac
 					}
 					$i++;
 				}?>
-				</div>	
+				</div>
+				<?}?>
 			</div>
 
         </div>
@@ -647,7 +751,18 @@ array('no'=>37, 'img'=>'/upload/resize_cache/iblock/28e/160_210_1/28e35d09a84aac
 			<img src="img/trees.png" style="position:absolute;right:5%;bottom:0;" />
         </div>
     </div>
-
+<script>
+function subscribe() {
+	$.ajax({
+		type: "POST",
+		url: "/ajax/subscribe_actions.php",
+		data: {email: $("#email").val(), action: 1}
+	}).done(function( strResult ) {
+            if (strResult == 'ok')
+				$(".giftWrap").html("<br /><br /><span style='color:#00abb8;font-size:20px; font-family: \'Walshein_regular\';'>Теперь вы подписаны на рассылку и будете сразу узнавать об акциях!</span>");
+        });
+};
+</script>
  </body>
  </html>
  

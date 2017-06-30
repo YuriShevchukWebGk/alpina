@@ -260,7 +260,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
 
 			<div class="bg">
-				<?if (date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) > 9) {?>
 				<div class="hintWrapp">
 				<div class="title">Здесь были книги по 99 рублей</div>
 				<span style="font-family:'Walshein_bold'; font-size:18px;">Если хотите узнать о начале следующей акции, оставьте свой e-mail ниже</span>
@@ -273,7 +272,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				</div>
 				<br />
 				</div>
-				<?} else {?>
+				<?/*
 				<div class="hintWrapp">
 				<div class="title">Я не трус... но я боюсь</div>
 									<div class="bookWrap">
@@ -794,7 +793,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						</a>
 					</div>
 			</div>
-			<?}?>
+			*/?>
 				
 				<center style="margin: 50px 0;padding:50px;background:#f4f4f4;">
 					<div class="title">Когда купил книгу за 99 рублей!</div>
