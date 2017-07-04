@@ -1,10 +1,10 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 global $USER;
 
-if (date("w") != 2) {
+//if (date("w") != 2) {
 	//header("Location: https://www.alpinabook.ru/?from=cybertuesday");
 	//exit();
-}?>
+//}?>
 
 <!DOCTYPE html>
 <html>

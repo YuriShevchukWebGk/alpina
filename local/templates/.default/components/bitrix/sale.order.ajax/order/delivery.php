@@ -289,7 +289,11 @@
 
                     </div>
                     <div class="boxbery_error"><?= GetMessage('BOXBERY_SELECT_EMPTY') ?></div>
-                    <div id="boxbery_delivery_time" class="boxbery_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
+                    <?if($arDelivery["ID"] == BOXBERY_ID){ ?>
+                        <div id="boxbery_delivery_time" class="boxbery_delivery_time"><?= GetMessage("BOXBERY_DELIVERY_TIME")?>: <span></span></div>
+                    <?} else {?>
+                        <div id="boxbery_delivery_time" class="boxbery_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
+                    <?}?>
                     <input type="hidden" id="boxbery_address" name="boxbery_address" value="">
                     <input type="hidden" id="boxbery_cost" name="boxbery_cost" value="">
                     <input type="hidden" id="boxbery_price" name="boxbery_price" value="">

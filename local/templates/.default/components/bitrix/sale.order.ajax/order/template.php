@@ -23,8 +23,8 @@
 	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/collection-search-provider.js");
 	//$APPLICATION->AddHeadString('<script src="http://api.dostavka.guru/client/collection-search-provider.js"></script>');
 	$APPLICATION->AddHeadString('<script src="https://api-maps.yandex.ru/2.1/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>');
-	$APPLICATION->SetAdditionalCSS($templateFolder . "/include/guru/css/guru.css");
-	$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/guru.js");
+	//$APPLICATION->SetAdditionalCSS($templateFolder . "/include/guru/css/guru.css");
+	//$APPLICATION->AddHeadScript($templateFolder . "/include/guru/js/guru.js");
 
     $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
     include ('include/functions.php');
@@ -731,27 +731,27 @@
 
                                       return dd + '.' + mm + '.' + yy;
                                     }
+                                    //<-- вычисляем сегодняшнюю дату и разбиваем по частям --//
                                     // расчет дня недели
                                     function getDay(day,mon,year){
-                                         var month = [{1:"январь", 2:"февраль", 3:"март", 4:"апрель", 5:"май", 6:"июнь", 7:"июль", 8:"август", 9:"сентябрь", 10:"октябрь", 11:"ноябрь", 12:"декабрь"}];
+                                         date_new = new Date(year, mon, day);
+                                         d_new = date_new.getDate();
+                                         var month = ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"];
                                          var days = ["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
                                          day = parseInt(day, 10); //если день двухсимвольный и <10
-                                         mon = parseInt(mon, 10); //если месяц двухсимвольный и <10
+                                         mon = parseInt(mon + 1, 10); //если месяц двухсимвольный и <10
                                          var a = parseInt((14-mon)/12, 10);
                                          var y = year-a;
                                          var m = mon+12*a-2;
                                          var d = (7000+parseInt(day+y+parseInt(y/4, 10)-parseInt(y/100, 10)+parseInt(y/400, 10)+(31*m)/12, 10))%7;
 
-                                         return days[d] +','+ day +' '+ month[mon] +','+ year;
+
+                                     return days[d] +', '+ d_new +' '+ month[mon] +', '+ y;
                                     }
                                     date = new Date();
-                                    d = date.getDate();
-                                    m = date.getMonth();
-                                    y = date.getFullYear();
-                                    console.log(d);
-                                    console.log(m);
-                                    console.log(y);
-                                    console.log(getDay(d,m+1,y));
+
+                                    //<-- вычисляем сегодняшнюю дату и разбиваем по частям --//
+
                                 //2. подсветка варианта оплаты для электронных платежей
                                     if (localStorage.getItem('active_rfi_recurrent') && $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').length) {
                                         $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').click();
@@ -839,11 +839,15 @@
                                                             $('.finalSumTable').html( finalSumWithoutDiscount.toFixed(2) + ' руб.');
                                                             $("#boxbery_cost").val(city.delivery_period);
                                                             $("#boxbery_price").val(city.price);
+
                                                             var delivery_time = Math.round(city.delivery_period); //сорк доставки. добавляем к сроку, полученному из запроса 3 дня
                                                             $("#boxbery_delivery_time").show();
 
+                                                            d = date.getDate() + delivery_time;
+                                                            m = date.getMonth();
+                                                            y = date.getFullYear();
 
-                                                            $("#boxbery_delivery_time span").html(delivery_time);
+                                                            $("#boxbery_delivery_time span").html(getDay(d,m,y));
                                                         }
                                                   }
                                                 })

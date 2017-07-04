@@ -14,7 +14,7 @@ function makePackage($page, $perStep) {
 	$filter = [
 		
 		">=DATE_UPDATE" => date('d.m.Y H:i:s', strtotime('-2 hours')),
-		">=DATE_INSERT" => "01.01.2010",
+		">=DATE_INSERT" => "01.01.2014",
 		//"ID" => 89368,
 	];
 
