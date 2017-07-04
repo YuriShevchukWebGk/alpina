@@ -1004,7 +1004,7 @@
 
             <?endif?>
 		<br />
-		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь с условиями <a href="/info_popup/oferta.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showOferta'});return false;" class="cartMenuPopup">публичной оферты</a></span>
+		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь на обработку персональных данных в соответствии <a href="/info_popup/pii.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showPii'});return false;" class="cartMenuPopup">с условиями</a><br />и с условиями <a href="/info_popup/oferta.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showOferta'});return false;" class="cartMenuPopup">публичной оферты</a></span>
     </div>
 </div>
 <script>
