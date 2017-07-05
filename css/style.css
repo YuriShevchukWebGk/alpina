@@ -765,7 +765,10 @@ header .headBasket{margin-right:0}
 .contactsTextWrap .organisMail{font-family:Walshein_bold;text-transform:uppercase;font-size:13px;color:#3f4a4d}
 .contactsTextWrap .timeTitle{color:#2F3839;font-size:19px;margin-bottom:12px;margin-top:38px}
 .contactsTextWrap .wayTitle{color:#2F3839;font-size:19px;margin-bottom:14px;margin-top:34px;margin-right:97px}
-.contactsFormWrap{background-color:#fff;float:right;height:570px;margin-top:34px;width:362px;box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);margin-bottom:56px;margin-right:100px}
+.contactsFormWrap{background-color:#fff;float:right;height:670px;margin-top:34px;width:362px;box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);margin-bottom:56px;margin-right:100px}
+.contactsFormWrap .pii{padding:0 30px;font-size:14px;color:#666}
+.contactsFormWrap .pii a{color:#666;text-decoration:underline}
+.contactsFormWrap .pii a:hover{text-decoration:none}
 .contactsFormWrap p{color:#3f4a4d;font-size:32px;padding-top:28px;text-align:center}
 .contactsFormWrap input[type=text],.questInput{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;margin-left:30px;padding-left:20px;width:274px}
 .contactsFormWrap input[type=text]{height:54px;margin-bottom:22px}

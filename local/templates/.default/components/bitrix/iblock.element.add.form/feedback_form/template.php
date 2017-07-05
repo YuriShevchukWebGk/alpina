@@ -369,6 +369,8 @@ if (strlen($arResult["MESSAGE"]) > 0):?>
                             onclick="location.href='<? echo CUtil::JSEscape($arParams["LIST_URL"])?>';"
                         >
                     <?endif?>
+					<br /><br />
+					<div class="pii">Нажимая на кнопку «<?=GetMessage("IBLOCK_FORM_SUBMIT")?>», вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/">с условиями</a></div>
                 </td>
             </tr>
         </tfoot>
