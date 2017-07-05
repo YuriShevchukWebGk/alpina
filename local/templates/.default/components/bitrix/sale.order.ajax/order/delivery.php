@@ -226,8 +226,9 @@
 
                 <p class="shipingText" <?=$clickHandler?>>
                     <?
+
                         if (strlen($arDelivery["DESCRIPTION"])>0)
-                            echo $arDelivery["DESCRIPTION"]."<br />";
+                            echo str_replace('#DATE_DELIVERY#',date_day(1).' - '.date_day(2), $arDelivery["DESCRIPTION"])."<br />";
 
                         if (count($arDelivery["STORE"]) > 0):
                         ?>

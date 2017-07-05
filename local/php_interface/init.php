@@ -137,9 +137,9 @@
     * @param string $additional_headers
     * @param string $additional_parameters
     *
-    **/          
+    **/
     function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
-        GLOBAL $arParams;                            
+        GLOBAL $arParams;
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
         $bcc_pattern = "/(?<=BCC:)(.*)(?=)/";
@@ -168,32 +168,32 @@
         //$attachments = 'https://www.alpinabook.ru/img/twi.png';
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));     
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
     }
-    
-    //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа 
-    function cancelMail($arFields, $arTemplate) {       
-        if ($arTemplate["ID"] == 16) {  
+
+    //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
+    function cancelMail($arFields, $arTemplate) {
+        if ($arTemplate["ID"] == 16) {
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
-            $rsBasket = CSaleBasket::GetList(array(), array("ORDER_ID" => $order["ID"])); 
+            $rsBasket = CSaleBasket::GetList(array(), array("ORDER_ID" => $order["ID"]));
             while ($arBasket = $rsBasket->Fetch()) {
-                $arBasketItems[] = $arBasket;        
-            }                        
-            if(count($arBasketItems) == 1) {     
-                $basketItem = $arBasketItems;   
-                $basketItem = array_pop($basketItem);    
-                $itemID = $basketItem["PRODUCT_ID"];             
-                $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));  
-                if($arItem = $res->Fetch()) { 
-                    if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")){ 
-                        return true;         
-                    }  
-                }                                                                                                                      
-            };    
+                $arBasketItems[] = $arBasket;
+            }
+            if(count($arBasketItems) == 1) {
+                $basketItem = $arBasketItems;
+                $basketItem = array_pop($basketItem);
+                $itemID = $basketItem["PRODUCT_ID"];
+                $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
+                if($arItem = $res->Fetch()) {
+                    if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")){
+                        return true;
+                    }
+                }
+            };
         }
         return false;
     }
-    
+
 
 
     /**
@@ -226,7 +226,7 @@
         );
     }
 
-	
+
 	/**
      * Создаем ссылку для авторизации пользователя
     * */
@@ -236,19 +236,19 @@
 			"ACTIVE"              => "Y",
 			"LOGIN"               => $login
 		);
-		
+
 		$rsUsers = CUser::GetList($by = 'ID', $order = 'ASC', $filter);
-		
+
 		if ($user = $rsUsers->Fetch()) {
 			if (empty($page))
 				$page = '/';
-			
+
 			$userID = $user[ID];
 
 			return $_SERVER["SERVER_NAME"].$page.'?bx_hit_hash='.$USER->AddHitAuthHash($page, $userID);
 		}
     }
-	
+
     /***************
     *
     * получение ID значения свойства "Состояние" из символьного кода этого значения
@@ -285,6 +285,21 @@
         else
             return false;
     }
+
+    // -----> создаем свой формат выводимой даты доставки
+    function date_day($day){
+        $date_N = date("N", (time()+3600*24*$day)); // считаем через какое количество дней
+        $date_d = date("j", (time()+3600*24*$day));
+        $date_n = date("n", (time()+3600*24*$day));
+        $date_Y = date("Y", (time()+3600*24*$day));
+        $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
+        $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
+
+         // формат вывода
+        $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
+        return $date;
+    }
+    // <------ создаем свой формат выводимой даты доставки
 
     function searchNum2Str($num) {
         $nul='ноль';
@@ -1886,11 +1901,11 @@
     function AddCustomInfo (&$arFields, &$arTemplate)
     {
         if ($arTemplate["ID"] == 177) { //При установке статуса "Выполнен"
-		
+
             $arFields["ORDER_USER"] = Message::getClientName($arFields["ORDER_ID"]);
-			
+
         } elseif ($arTemplate["ID"] == 178) { //При установке статуса "Принят, ожидается оплата"
-		
+
 			$order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
             if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI)
             {
@@ -1903,7 +1918,7 @@
                 $pay_button = "";
             }
             $arFields["PAYMENT_BUTTON"] = $pay_button;
-			
+
 			$orderItems = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arFields["ORDER_ID"]));
 			$orderItemsResult = '<br /><center><h3 style="color:#393939;font-family: Segoe UI,Roboto,Tahoma,sans-serif;font-size: 20px;font-weight: 400;">Книги в заказе</h3></center><br />';
 			while($orderItem = $orderItems->GetNext()) {
@@ -1911,7 +1926,7 @@
 			}
 			$arFields["ORDERED_BOOKS"] = $orderItemsResult;
 			$arFields["ORDER_USER"] = Message::getClientName($arFields["ORDER_ID"]);
-			
+
 		}
     }
 
@@ -2445,12 +2460,12 @@
 	 *
 	 * */
 
-	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) { 
-        
+	function generateCouponsForOrder($order_id, $quantity, $basket_rule_id) {
+
         $coupon_active_date = new \Bitrix\Main\Type\DateTime();
         $coupon_active_from = clone $coupon_active_date;
         $coupon_active_to = $coupon_active_date -> add('+6 months');
-        
+
 		for ($i = 1; $i <= $quantity; $i++) {
 
 	        //Битриксовая недокументированная функция, генерирует просто ключ в виде строки
@@ -2472,7 +2487,7 @@
 	        ));
 
 	        //Собираем массив с ID купонов
-	        if($arDiscountIterator = $discountIterator -> fetch()) {                                                                                  
+	        if($arDiscountIterator = $discountIterator -> fetch()) {
 	            $arCertificateID[] = $arDiscountIterator['ID'];
 	        }
 	        //Собираем массив с кодами купонов
@@ -2483,7 +2498,7 @@
 	        'COUPON_ID'   => $arCertificateID,
 	        'COUPON_CODE' => $arCouponCode
 	    );
-                                                                            
+
 
         $props_update = array (
             'DATE_ACTIVE_FROM' => $coupon_active_from -> toString(),
@@ -2494,7 +2509,7 @@
 	    CIBlockElement::SetPropertyValuesEx($order_id, false, $props);
 
         $el = new CIBlockElement;
-        $res = $el->Update($order_id, $props_update);      
+        $res = $el->Update($order_id, $props_update);
         //Возвращаем новые купоны
         return $arCouponCode;
 	}
@@ -2572,7 +2587,7 @@
     *
     * Перед обновлением элемента проверим не менялась ли дата, если дата менялась обновим сертификаты в базе
     */
-    function certificateUpdate(&$arParamsCertificate) {         
+    function certificateUpdate(&$arParamsCertificate) {
         if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID && (!empty($arParamsCertificate['ACTIVE_FROM']) || !empty($arParamsCertificate['ACTIVE_TO']))) {
             $current_object = CIBlockElement::GetList(Array(), Array("ID" => $arParamsCertificate['ID']), false, Array(), Array("ID", "PROPERTY_COUPON_ID", "ACTIVE_FROM", "ACTIVE_TO"));
             while($current_values = $current_object->Fetch()) {
@@ -2585,7 +2600,7 @@
                 $date_to = new \Bitrix\Main\Type\DateTime($arParamsCertificate['ACTIVE_TO']);
                 $fields = array(
                     'ACTIVE_FROM' => $date_from,
-                    'ACTIVE_TO'   => $date_to                     
+                    'ACTIVE_TO'   => $date_to
                 );
                 foreach ($ar_coupon_id as $coupon_id) {
                     \Bitrix\Sale\Internals\DiscountCouponTable::update($coupon_id, $fields);
@@ -2613,9 +2628,9 @@
         'OnAfterIBlockElementAdd',
         'HLBlockElementUpdate'
     );
-    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){ 
+    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){
         if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
-            if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){      
+            if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){
                 $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL");
                 $arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
                 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
@@ -2722,7 +2737,7 @@
 
     function generateAccordPostLabel($order_id) {
         //Данные для генерации этикетки
-        $order_id = intval($order_id);   
+        $order_id = intval($order_id);
         if (!empty($order_id)) {
             $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);
             $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);
@@ -2734,12 +2749,12 @@
             while($ar_order_prop = $rs_order_props->Fetch()) {
                 if(empty($order_properties[$ar_order_prop['CODE']])) {
                     $order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];
-                }                                       
-            }       
+                }
+            }
             if(empty($order_properties['EXPORTED_TO_ACCORDPOST'])){
                 return false;
-            }   
-                     
+            }
+
             //Собираем поля в зависимости от типа лица
             if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                 //имя получателя
@@ -2786,19 +2801,19 @@
             return false;
         }
     }
-    
-    AddEventHandler("main", "OnSendUserInfo", "MyOnSendUserInfoHandler"); 
-    function MyOnSendUserInfoHandler(&$arParams) 
+
+    AddEventHandler("main", "OnSendUserInfo", "MyOnSendUserInfoHandler");
+    function MyOnSendUserInfoHandler(&$arParams)
     {
         $arParams["FIELDS"]["SERVER_NAME"] = "www.alpinabook.ru";
     }
-    
+
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
 
     function messagesWithAttachments($arFields, $arTemplate) {
         GLOBAL $arParams;
 
-        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа 
+        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
         if(cancelMail($arFields, $arTemplate)) {
             return false;
         }
@@ -2855,4 +2870,5 @@
             return false;
         }
     }
+
 ?>
