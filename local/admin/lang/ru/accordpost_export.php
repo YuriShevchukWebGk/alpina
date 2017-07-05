@@ -38,3 +38,4 @@ $MESS["POST_YES"] = 'Да';
 $MESS["POST_NO"] = 'Нет';
 $MESS["POST_ALL"] = 'Все';
 $MESS["EXPORTED_TO_ACCORDPOST"] = 'Экспортировано';
+$MESS["DELIVERY_NAME"] = 'Доставка';

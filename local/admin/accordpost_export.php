@@ -352,7 +352,7 @@
                 $arFilter['!ID'][] = $arExportedOrder['ID'];          
             };                                     
         }                                                    
-    }   
+    }                    
     
     //Собираем список заказов                  
     $cData = new CSaleOrder;                      
@@ -377,7 +377,13 @@
             "content"  => GetMessage("ORDER_STATUS"),
             "sort"     => "STATUS",
             "default"  => true,
-        ),      
+        ),            
+        array(  
+            "id"       => "DELIVERY_NAME",
+            "content"  => GetMessage("DELIVERY_NAME"),
+            "sort"     => "DELIVERY_NAME",
+            "default"  => true,
+        ),       
         array(  
             "id"       => "DATE_INSERT",
             "content"  => GetMessage("ORDER_DATE_CREATE"),
@@ -419,7 +425,7 @@
     //init headers
     $lAdmin->AddHeaders($arHeaders);                 
 
-    while($arRes = $rsData->NavNext(true, "f_")) {  
+    while($arRes = $rsData->NavNext(true, "f_")) { 
         //Проверяем, экспортирован ли элемент
         if(!empty($arExportedToAccordpost[$f_ID])){
             $exportedToAccordpost = $arExportedToAccordpost[$f_ID];  
@@ -437,7 +443,8 @@
         $row->AddViewField("PRICE", $f_SUM_PAID);
         $row->AddViewField("STATUS", $status_list[$f_STATUS_ID]);                                                   
         $row->AddViewField("EXPORTED_TO_ACCORDPOST", $exportedToAccordpost);                                  
-        $row->AddViewField("LABEL", $label);
+        $row->AddViewField("LABEL", $label);                                                             
+        $row->AddViewField("DELIVERY_NAME", getOrderDeliverySystemName($f_DELIVERY_ID));
     }   
 
     $lAdmin->AddFooter(
