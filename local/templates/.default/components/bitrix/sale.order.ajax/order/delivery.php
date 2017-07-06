@@ -176,7 +176,11 @@
             <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
 
             } else {?>
-            <div >
+            <div>
+				<?
+				$arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
+				$pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+				?>
                 <input type="radio"
                     class="radioInp"
                     id="ID_DELIVERY_ID_<?= $arDelivery["ID"] ?>"
@@ -220,11 +224,11 @@
                             }
                         ?>
                         <?endif;?>
-
                 </label>
 
 
                 <p class="shipingText" <?=$clickHandler?>>
+				<img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;"/>
                     <?
 
                         if (strlen($arDelivery["DESCRIPTION"])>0)
@@ -333,5 +337,5 @@
             }
         }
     ?>
-    <div class="clear"></div>
+
 </div>

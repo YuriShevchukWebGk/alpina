@@ -74,6 +74,19 @@
 	.shipingText {
 		cursor:pointer;
 	}
+	.bx_section > div {
+		margin: 10px 0 20px;
+		border: 1px solid #ccc;
+		border-radius: 30px;
+		padding: 20px 20px 0;
+	}
+	.bx_section > div:hover {
+		background:#f0f0f0;
+	}
+	.orderBody .blockTitle {
+		font-size:28px;
+		color:#444;
+	}
 </style>
 
 
@@ -85,7 +98,9 @@
     window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
-
+		
+		$(".bx_section div:has(input:checked)").css("background", "rgba(216, 194, 165, 0.18)");
+		
         if ($.browser.msie && $.browser.version <= 9) {
 
         } else {
@@ -177,38 +192,6 @@
 		}
 
         ourday = <?=date("w");?>;
-		/*hourfordeliv = <?=date("H");?>;
-        if (hourfordeliv < 25) {
-            if (ourday == 1) { //понедельник
-                minDatePlus = 1;
-            } else if (ourday == 2) { //вторник
-                if (hourfordeliv < 9)
-                    minDatePlus = '<?=date("d.m.Y");?>';
-                else
-                    minDatePlus = 1;
-				minDatePlus = 3;
-            } else if (ourday == 3) { //среда
-				if (hourfordeliv < 9)
-                    minDatePlus = '<?=date("d.m.Y");?>';
-                else
-                    minDatePlus = 1;
-				minDatePlus = 2;
-            } else if (ourday == 4) { //четверг
-                if (hourfordeliv < 9)
-                    minDatePlus = '<?=date("d.m.Y");?>';
-                else
-                    minDatePlus = 1;
-            } else if (ourday == 5) { //пятница
-                if (hourfordeliv < 9)
-                    minDatePlus = '<?=date("d.m.Y");?>';
-                else
-                    minDatePlus = 3;
-            } else if (ourday == 6) { //суббота
-                minDatePlus = 2;
-            } else if (ourday == 0) { //воскресенье
-                minDatePlus = 1;
-            }
-        }*/
 
 		minDatePlus = <?=$setProps['nextDay']?>;
 
