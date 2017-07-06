@@ -199,8 +199,7 @@
             
             //Запрос на получение списка стран
             $arCountry = get_country_list();     
-                                                 
-            
+                                        
             $xmlBodyInternational = '';
             //Шапка с доступами и типом запроса
             $xmlBodyInternational .= '<request request_type="'.ACCORDPOST_SHIPPING_ORDER_REQUEST_ID.'" partner_id="'.ACCORDPOST_PARTNER_ID.'" password="'.ACCORDPOST_PASSWORD.'">';
@@ -213,7 +212,7 @@
                     if (!empty($order_id) && in_array($order_id, $arIDsInternationalOrders)) {  
                         //Получаем ID страны                      
                         if (!($country_id = get_country_id($arCountry, $order_properties['COUNTRY']))) {  
-                            echo 'Проверьте правильность введенной страны, или уточните есть ли "'.$order_properties['COUNTRY'].'" в <a href="/local/php_interface/include/accordpost/accordpost_country_list.php">списке стран</a>';  
+                            echo 'Проверьте правильность введенной страны, или уточните есть ли "'.$order_properties['COUNTRY'].'" в <a href="/tools/accordpost_country_list.php">списке стран</a>';  
                             CIBlockElement::Delete($zdoc_id_international);  
                             die();   
                         }      
@@ -228,7 +227,7 @@
                             
                             $xmlBodyInternational .= '<custom>';
                             
-                                $xmlBodyInternational .=  '<int_dp fio="'.$order_properties['FINAL_NAME'].'" cntry="'.$country_id.'" zip="'.$order_properties['INDEX'].'" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
+                                $xmlBodyInternational .=  '<int_dp fio="'.$order_properties['FINAL_NAME'].'" cntry="'.$country_id.'" transtype_id="2" zip="'.$order_properties['INDEX'].'" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
                                 
                             $xmlBodyInternational .= '</custom>'; 
                             
@@ -241,7 +240,7 @@
                 
             //Закрываем реквест
             $xmlBodyInternational .= '</request>';  
-            
+                                                                 
             foreach ($arIDsInternationalOrders as $logger_id) {
                 $order_log = $logger_date.' - Перед самим экспортом - номер заказа: '.$logger_id.';';  
                 logger($order_log, $logger_file);   
