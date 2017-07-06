@@ -228,7 +228,9 @@
 
 
                 <p class="shipingText" <?=$clickHandler?>>
-				<img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;"/>
+					<?if (!empty($pict["src"])) {?>
+						<img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;" class="no-mobile" />
+					<?}?>
                     <?
 
                         if (strlen($arDelivery["DESCRIPTION"])>0)

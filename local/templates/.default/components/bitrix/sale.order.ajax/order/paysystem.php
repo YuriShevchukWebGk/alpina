@@ -77,7 +77,7 @@
 
                 <p class="shipingText">
 					<?if (!empty($pict["src"])) {?>
-						<img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;"/>
+						<img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;" class="no-mobile" />
 					<?}?>
                     <?
                         if (intval($arPaySystem["PRICE"]) > 0)
