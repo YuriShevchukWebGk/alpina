@@ -75,13 +75,14 @@ function getLastMonth($analytics, $profileId) {
 }
 
 function printResultsTwoDays($results) {
-	$addViews = array(
-	1,
-	186046,
-	124350,
-	186001,
-	81365,
-	);
+
+	$arFilter = Array('PROPERTY_best_seller' => 285, "IBLOCK_ID"=>4);
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), array("ID"));
+	$addViews[] = 1;
+	
+	while ($ob = $res->GetNext()) {
+		$addViews[] = $ob["ID"];
+	}
   // Синтаксический анализ ответа Core Reporting API с выводом
   // имени профиля и общего количества сессий.
   if (count($results->getRows()) > 0) {
@@ -119,7 +120,7 @@ function printResultsTwoDays($results) {
 			$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID"));
 			while ($oneb = $props->GetNext()) {
 				if(array_search($oneb["ID"], $addViews))
-					$views = round($book['views']*2.1 + 100);
+					$views = round($book['views']*2.1);
 				else
 					$views = round($book['views']*1.5);
 				echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
