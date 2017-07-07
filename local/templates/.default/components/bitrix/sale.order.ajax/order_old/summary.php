@@ -142,7 +142,7 @@
             ?>     
             <?
                 $yourCurrentDiscountSavePerc = "0%";
-                $yourCurrentDiscountSaveText = "До 10% накопительной скидки осталось 3000 руб.";
+                $yourCurrentDiscountSaveText = "До 10% накопительной скидки осталось 5 000 руб.";
                 $discSave = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
                 if($discSave){
                     if($discSave[0]['VALUE']==20){
