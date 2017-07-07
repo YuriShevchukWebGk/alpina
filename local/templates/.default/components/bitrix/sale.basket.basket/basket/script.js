@@ -1104,10 +1104,10 @@ function recalcBasketAjax(params)
             discrel = ((100*discabs)/(discabs+sum)).toFixed(0);
             if (sum < 2000) {                    
                 $('.sale_price').html('Добавьте товаров на '+ (2000 - sum).toFixed() +' руб. и получите БЕСПЛАТНУЮ доставку');
-            } else if (sum < 3000 && discrel < 10) {  
-                $('.sale_price').html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 10%');        
-            } else if (sum < 10000 && discrel < 20) {   
-                $('.sale_price').html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 20%');    
+            } else if (sum < 5000 && discrel < 10) {  
+                $('.sale_price').html('Добавьте товаров на '+ (5000 - sum).toFixed() +' руб. и получите скидку 10%');        
+            } else if (sum < 20000 && discrel < 20) {   
+                $('.sale_price').html('Добавьте товаров на '+ (20000 - sum).toFixed() +' руб. и получите скидку 20%');    
             } else {
                 $('.sale_price').html('');                                     
             }    
@@ -1128,13 +1128,13 @@ function recalcBasketAjax(params)
 
                     //Обновляем общую сумму предзаказанных товаров
                     //Приседаем с имитацией накопительной скидки, опять же можно через load, но быстродействие страдает 
-                    if((((item.BASE_PRICE * item.QUANTITY) >= 3000) && ((item.BASE_PRICE * item.QUANTITY) < 10000)) && (item.DISCOUNT_PRICE_PERCENT < 10) && (coupon_discount == '')) {            
+                    if((((item.BASE_PRICE * item.QUANTITY) >= 5000) && ((item.BASE_PRICE * item.QUANTITY) < 20000)) && (item.DISCOUNT_PRICE_PERCENT < 10) && (coupon_discount == '')) {            
                         var formated_discount = '10.00%'; 
                         var real_price = item.BASE_PRICE * 0.9;
                         var formated_price = real_price.toFixed(2) + ' руб.';     
                         var real_full_price = real_price * item.QUANTITY;
                         var final_sum = real_full_price.toFixed(2) + ' руб.';                          
-                    } else if (((item.BASE_PRICE * item.QUANTITY) >= 10000) && (item.DISCOUNT_PRICE_PERCENT < 20) && (coupon_discount == '')) {
+                    } else if (((item.BASE_PRICE * item.QUANTITY) >= 20000) && (item.DISCOUNT_PRICE_PERCENT < 20) && (coupon_discount == '')) {
                         var formated_discount = '20.00%'; 
                         var real_price = item.BASE_PRICE * 0.8;   
                         var formated_price = real_price.toFixed(2) + ' руб.';     
@@ -1170,12 +1170,12 @@ function recalcBasketAjax(params)
                     if (sum < 2000) {
                         $('#discountMessage_' + params.basketID).show();
                         $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (2000 - sum).toFixed() +' руб. и получите БЕСПЛАТНУЮ доставку');
-                    } else if (sum < 3000 && discrel < 10) {
+                    } else if (sum < 5000 && discrel < 10) {
                         $('#discountMessage_' + params.basketID).show();
-                        $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (3000 - sum).toFixed() +' руб. и получите скидку 10%');        
-                    } else if (sum < 10000 && discrel < 20) {
+                        $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (5000 - sum).toFixed() +' руб. и получите скидку 10%');        
+                    } else if (sum < 20000 && discrel < 20) {
                         $('#discountMessage_' + params.basketID).show();
-                        $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (10000 - sum).toFixed() +' руб. и получите скидку 20%');    
+                        $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (20000 - sum).toFixed() +' руб. и получите скидку 20%');    
                     } else {                                                  
                         $('.sale_price_' + params.basketID).html('');                                 
                     }          
