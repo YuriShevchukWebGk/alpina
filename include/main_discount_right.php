@@ -6,5 +6,5 @@
         %
     </p>
     <p class="saleText">
-        При сумме оплаченных заказов более 10 000 <span class="rubsign"></span>
+        При сумме оплаченных заказов более 20 000 <span class="rubsign"></span>
     </p>

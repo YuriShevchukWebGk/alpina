@@ -317,10 +317,10 @@
             $discount_user = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()));
 	        if ($psum < 2000) {
 		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ."<span class='rubsign'></span> и получите БЕСПЛАТНУЮ доставку";
-	        } elseif ($psum < 3000 && $pdiscrel < 10) {
-		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((3000 - $psum), 2)."<span class='rubsign'></span> и получите скидку 10%";
-	        } elseif ($psum < 10000 && $pdiscrel < 20) {
-		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((10000 - $psum), 2)."<span class='rubsign'></span> и получите скидку 20%";
+	        } elseif ($psum < 5000 && $pdiscrel < 10) {
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((5000 - $psum), 2)."<span class='rubsign'></span> и получите скидку 10%";
+	        } elseif ($psum < 20000 && $pdiscrel < 20) {
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((20000 - $psum), 2)."<span class='rubsign'></span> и получите скидку 20%";
 	        }?>
 			<div id="discountMessageWrap" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
 				<span id="discountMessage" style="background:#fff9b7"><span class='sale_price'><?=$printDiscountText?></span></span>
