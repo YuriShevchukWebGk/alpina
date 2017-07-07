@@ -98,9 +98,9 @@
     window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
-		
+
 		$(".bx_section div:has(input:checked)").css("background", "rgba(216, 194, 165, 0.18)");
-		
+
         if ($.browser.msie && $.browser.version <= 9) {
 
         } else {
@@ -399,6 +399,7 @@
                             <script type="text/javascript">
 								$(document).ready(function(){
 									dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'pageLoaded'});
+
 								});
                                 <?if(CSaleLocation::isLocationProEnabled()):?>
 
@@ -425,6 +426,8 @@
                                 var BXFormPosting = false;
 								var pageLoaded = false;
 								var orderSubmitted = false;
+
+
 
                                 function submitForm(val)
                                 {
@@ -568,10 +571,12 @@
                                                     }, 500);
                                                 $(".boxberry_error").show();
                                                 flag = false; return false;
+
                                             } else {
                                                 $(".boxberry_error").hide();
                                             }
                                         }
+
 
                                     }
 
@@ -701,39 +706,7 @@
                                         }
                                     }
 
-                                    function formatDate(date) {
 
-                                      var dd = date.getDate();
-                                      if (dd < 10) dd = '0' + dd;
-
-                                      var mm = date.getMonth() + 1;
-                                      if (mm < 10) mm = '0' + mm;
-
-                                      var yy = date.getFullYear() % 100;
-                                      if (yy < 10) yy = '0' + yy;
-
-                                      return dd + '.' + mm + '.' + yy;
-                                    }
-                                    //<-- вычисляем сегодняшнюю дату и разбиваем по частям --//
-                                    // расчет дня недели
-                                    function getDay(day,mon,year){
-                                         date_new = new Date(year, mon, day);
-                                         d_new = date_new.getDate();
-                                         var month = ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"];
-                                         var days = ["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
-                                         day = parseInt(day, 10); //если день двухсимвольный и <10
-                                         mon = parseInt(mon + 1, 10); //если месяц двухсимвольный и <10
-                                         var a = parseInt((14-mon)/12, 10);
-                                         var y = year-a;
-                                         var m = mon+12*a-2;
-                                         var d = (7000+parseInt(day+y+parseInt(y/4, 10)-parseInt(y/100, 10)+parseInt(y/400, 10)+(31*m)/12, 10))%7;
-
-
-                                     return days[d] +', '+ d_new +' '+ month[mon] +', '+ y;
-                                    }
-                                    date = new Date();
-
-                                    //<-- вычисляем сегодняшнюю дату и разбиваем по частям --//
 
                                 //2. подсветка варианта оплаты для электронных платежей
                                     if (localStorage.getItem('active_rfi_recurrent') && $('li[data-rfi-recurrent-type="'+localStorage.getItem('active_rfi_recurrent')+'"]').length) {
@@ -743,22 +716,30 @@
                                     }
 
                                     //Заполняем поля при повторном выборе
-                                    if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").is(':checked') && window.boxberry_result) {
-                                            var result = window.boxberry_result;
-                                            $('.deliveryPriceTable').html(result.price + ' руб.');
-                                            finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
-                                            $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
-                                            // установка значений для блока с самой доставкой
-                                            $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(result.price + ' руб.');
-                                            $("#boxberry_cost").val(result.price);
-                                            if (parseInt(result.period) != 0) {
-                                                // если значения не будет, то значит произошла ошибка и время доставки не показываем
-                                                $(".boxberry_delivery_time").show();
-                                                $(".boxberry_delivery_time span").html((parseInt(result.period) + 2) + " дн.");
-                                            }
-                                            setAddressDataBoxberry(result);
-                                            fitDeliveryDataBoxberry(result.period, result.price);
-                                    };
+                                     if ($(".js_delivery_block").length) {
+                                        if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").is(':checked') && window.boxberry_result) {
+
+                                                var result = window.boxberry_result;
+                                                console.log(result);
+                                                $('.deliveryPriceTable').html(result.price + ' руб.');
+                                                finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
+                                                $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
+                                                // установка значений для блока с самой доставкой
+                                                $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(result.price + ' руб.');
+                                                $("#boxberry_cost").val(result.price);
+                                                if (parseInt(result.period) != 0) {
+                                                    // если значения не будет, то значит произошла ошибка и время доставки не показываем
+                                                    $(".boxberry_delivery_time").show();
+                                                    d = date.getDate() + parseInt(result.period);
+                                                    m = date.getMonth();
+                                                    y = date.getFullYear();
+                                                    $(".boxberry_delivery_time ").html('Ожидаемая дата доставки: ' + getDay(d,m,y));
+                                                }
+
+                                                setAddressDataBoxberry(result);
+                                                fitDeliveryDataBoxberry(result.period, result.price);
+                                        };
+                                     }
 
                                     // т.к. битрикс после ajax перезагружает всю страницу, то вешаем хендлер заново после каждого аякса
                                     if ($(".js_delivery_block").length) {

@@ -489,6 +489,26 @@ function setAddressDataBoxberry(delivery_data) {
     $("#boxberry_selected").val(1);
 }
 
+//<-- вычисляем сегодняшнюю дату и разбиваем по частям --//
+// расчет дня недели
+function getDay(day,mon,year){
+     date_new = new Date(year, mon, day);
+     d_new = date_new.getDate();
+     var month = ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"];
+     var days = ["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
+     day = parseInt(day, 10); //если день двухсимвольный и <10
+     mon = parseInt(mon + 1, 10); //если месяц двухсимвольный и <10
+     var a = parseInt((14-mon)/12, 10);
+     var y = year-a;
+     var m = mon+12*a-2;
+     var d = (7000+parseInt(day+y+parseInt(y/4, 10)-parseInt(y/100, 10)+parseInt(y/400, 10)+(31*m)/12, 10))%7;
+
+
+ return days[d] +', '+ d_new +' '+ month[mon] +', '+ y;
+}
+date = new Date();
+
+//<-- вычисляем сегодняшнюю дату и разбиваем по частям --//
 /**
  *
  * Подстановка полученных значений в верстку
@@ -519,7 +539,10 @@ function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
     if (parseInt(delivery_time) != 0) {
         // если значения не будет, то значит произошла ошибка и время доставки не показываем
         $("#boxberry_delivery_time").show();
-        $("#boxberry_delivery_time span").html((parseInt(delivery_time)) + " дн.");
+        d = date.getDate() + parseInt(delivery_time) + 2;
+        m = date.getMonth();
+        y = date.getFullYear();
+        $("#boxberry_delivery_time").html('Ожидаемая дата доставки: ' + getDay(d,m,y));
     }
 }
 
