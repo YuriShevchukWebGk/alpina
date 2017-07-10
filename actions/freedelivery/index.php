@@ -10,7 +10,7 @@ $today = date("w");
 <head>
 	<meta name="robots" content="noindex, nofollow"/>
     <meta charset="utf-8"/>
-    <title>Акция только для клиентов Альфа-Банка</title>
+    <title>Бесплатная доставка Boxberry!</title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <link href="css/style.css" rel="stylesheet">
@@ -79,30 +79,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="mainWrapp">
             <div class="slide1">
 				<div class="toptext">
-					<img src="img/alfabanklogo.png" style="float:left;" />
+					<img src="img/logonew.png" style="float:left;" />
 					<img src="img/aplogo.png" style="float:right;" />
 					<div class="clear">
-					Совместный проект Интернет-магазина издательства
+					Совместная акция Интернет-магазина издательства
 					<br />
-					Альпина Паблишер и Альфа-Банка
+					Альпина Паблишер и Boxberry
 					</div>
 				</div>
 			</div>
             <div class="slide2">
 				<h1>
-					Для клиентов Альфа-Банка
+					Доставка в пункты выдачи Boxberry
 				</h1>
 				<h2>
-					СКИДКА 10%
+					БЕСПЛАТНО
+					<br/>
+					на все заказы!
 				</h2>
-				<h3>
-					Промо-код
-				</h3>
-				<div class="promo">
-					AlfaBank
-				</div>
 				<h4>
-					Срок действия до 31.12.2017
+					Акция действует до 23.07.2017
 				</h4>
 			</div>
 			
@@ -110,7 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="slide3">
 				<div class="wrap3">
 				<h3 style="margin:0; background:#fff;">
-					Чтобы получить скидку 10%
+					Чтобы получить бесплатную доставку
 				</h3>
 				<div class="step">
 					<div class="no">1</div>
@@ -120,18 +116,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				<div class="arrow">→</div>
 				<div class="step">
 					<div class="no">2</div>
-					<div class="title">Перейдите в корзину<br />и введите промо-код</div>
-					<img src="img/step2.png" />
+					<div class="title">Перейдите в корзину<br />и выберите удобный пункт выдачи</div>
+					<img src="img/free.jpg" />
 				</div>
 				<div class="arrow">→</div>
 				<div class="step">
 					<div class="no">3</div>
 					<div class="title">Завершите<br />оформление заказа</div>
-					<img src="img/step3.png" />
+					<img src="img/step3.png?2" />
 				</div>
 				</div>
 				<div class="clear"></div>
-				<a href="/catalog/bestsellers/?from=alfabanklanding">Перейти к покупкам</a>
+				<a href="/catalog/bestsellers/?from=freedeliverylanding">Перейти к покупкам</a>
 			</div>
 			
 			

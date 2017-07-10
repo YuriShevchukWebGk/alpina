@@ -7,7 +7,8 @@ foreach($arResult as $arItem) {
 ?>
 	<li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?}?>
-	<li><a class="topMenuLink" href="/actions/freedigitalbooks/" target="_blank">Бесплатные электронные книги</a></li>
+	<?/*<li><a class="topMenuLink" href="/actions/freedigitalbooks/" target="_blank">Бесплатные электронные книги</a></li>*/?>
+	<li><a class="topMenuLink" href="/actions/freedelivery/" style="color:red!important" target="_blank">Бесплатная доставка</a></li>
 
 		<?/*<li class="timer"><a href="/actions/cybertuesday/" style="color:red!important" target="_blank">Кибервторник <span id="days"></span>:<span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span></a></li>
 		<script type="text/javascript" src="/js/countdown.js?20170627"></script>*/?>

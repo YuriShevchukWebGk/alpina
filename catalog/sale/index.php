@@ -22,13 +22,13 @@ switch ($_REQUEST["SORT"])
     break;
     
     case "POPULARITY":
-    $sort = "PROPERTY_POPULARITY";          //PROPERTY_POPULARITY
+    $sort = "PROPERTY_shows_a_day";          //PROPERTY_shows_a_day
     $order = "asc";
     break;
     
     default:
     //$sort = "PROPERTY_SALES_CNT";
-	$sort = "PROPERTY_POPULARITY";
+	$sort = "PROPERTY_shows_a_day";
     $order = "desc";
 }
 global $arrFilter;
