@@ -409,11 +409,11 @@
             </a>
             <?}
         }?>
-		<?$frame = $this->createFrame()->begin();?>
         <div class="wishlist_info">
             <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
             <span></span>
         </div>
+		<?$frame->beginStub();?>
 		<?$frame->end();?>
         <?if (!empty($arResult["PROPERTIES"]["glavatitle"]["VALUE"])) {?>
             <style>
