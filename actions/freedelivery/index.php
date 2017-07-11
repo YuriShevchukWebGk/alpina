@@ -82,9 +82,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					<img src="img/logonew.png" style="float:left;" />
 					<img src="img/aplogo.png" style="float:right;" />
 					<div class="clear">
-					Совместная акция Интернет-магазина издательства
-					<br />
-					Альпина Паблишер и Boxberry
+					<b>Бесплатная доставка</b><br />в пункты выдачи Boxberry до 23 июля
 					</div>
 				</div>
 			</div>

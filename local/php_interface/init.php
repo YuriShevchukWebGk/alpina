@@ -99,6 +99,8 @@
 	define ("STATE_SOON", 22); //ID состояния книги "Скоро в продаже"
 	define ("EXPERTS_IBLOCK_ID", 23); //ID инфоблока Эксперты
 	define ("PAY_SYSTEM_RFI", 11); //ID платежный системы РФИ
+    
+    define ("ADMIN_GROUP_ID", 1); 
 
     function arshow($array, $adminCheck = false, $dieAfterArshow = false){
         global $USER;
@@ -2869,6 +2871,111 @@
 
             return false;
         }
+    }
+    
+    //Генерация хэша авторизации по ссылке, для пользователя
+    function generate_hash_for_authorization() { 
+        
+        $arSelect = Array("ID", "NAME", "PROPERTY_HASH_FOR_AUTHORIZE", "PROPERTY_HASH_UPDATE_DATE");
+        $arFilter = Array("IBLOCK_ID" => IntVal(RFM_IBLOCK_ID), "ACTIVE" => "Y");
+        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+        while($ob = $res->GetNextElement()) {
+            $arFields = $ob->GetFields();      
+            $arEmails[$arFields['ID']] = array(   
+                'EMAIL' => $arFields['NAME'],
+                'HASH_FOR_AUTHORIZE' => $arFields['PROPERTY_HASH_FOR_AUTHORIZE_VALUE'],
+                'HASH_UPDATE_DATE' => $arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'],
+            );                                      
+        }                     
+                                                   
+        foreach($arEmails as $elementID => $rsEmail) {  
+            //Проверим что прошло 3 дня с последнего обновления   
+            if (true) {  
+            //if ($rsEmail['HASH_UPDATE_DATE'] < (time() - (24 * 60 * 60 * 3))) {    
+                $arFilter = array(                            
+                    "ACTIVE"     => "Y",                  
+                    "EMAIL"      => $rsEmail['EMAIL']       
+                );
+                                    
+                $rsUsers = CUser::GetList(($by="id"), ($order="desc"), $arFilter);         
+                   
+                while($arUser = $rsUsers->Fetch()) {     
+                    if (!empty($arUser)) {  
+                        //Проверим на админов
+                        $arGroups = CUser::GetUserGroup($arUser['ID']); 
+                               
+                        if (!in_array(ADMIN_GROUP_ID, $arGroups)) {         
+                            
+                            $hash = md5(uniqid(rand(), true));
+                                                                                
+                            $arProperty = array (
+                                'HASH_FOR_AUTHORIZE' => $hash,
+                                'HASH_UPDATE_DATE'   => time() 
+                            );                         
+                                                                                                                              
+                            CIBlockElement::SetPropertyValuesEx($elementID, false, $arProperty);   
+                        }                                                        
+                    }
+                }
+            } 
+        }        
+        return false;
+    } 
+    
+    //Увеличение времени жизни хеша
+    function extend_hash_lifetime($user_email) {  
+        $arSelect = Array("ID", "NAME", "PROPERTY_HASH_UPDATE_DATE");
+        $arFilter = Array("NAME" => $user_email, "ACTIVE"=>"Y");
+        
+        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+        if ($ob = $res->GetNextElement()) {
+            $arFields = $ob->GetFields();      
+            
+            if(!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'])) {               
+                $arProperty = array (              
+                    'HASH_UPDATE_DATE'   => time() 
+                );    
+                                                                                                  
+                CIBlockElement::SetPropertyValuesEx($arFields['ID'], false, $arProperty); 
+            }                
+        }                 
+    }
+    
+    //Авторизация пользователя по хешу
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'main',
+        'OnProlog',
+        'hash_autorization'
+    );
+    
+    function hash_autorization() {    
+        if(!empty($_REQUEST['hash'])) {
+            $arSelect = Array("ID", "NAME", "PROPERTY_HASH_FOR_AUTHORIZE", "PROPERTY_HASH_UPDATE_DATE");
+            $arFilter = Array("IBLOCK_ID" => IntVal(RFM_IBLOCK_ID), "PROPERTY_HASH_FOR_AUTHORIZE" => $_REQUEST['hash'], "ACTIVE"=>"Y");
+            
+            $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+            if ($ob = $res->GetNextElement()) {
+                $arFields = $ob->GetFields();  
+                
+                $arUserFilter = array(                            
+                    "ACTIVE"     => "Y",                  
+                    "EMAIL"      => $rsEmail['EMAIL']       
+                );
+                
+                $rsUsers = CUser::GetList(($by="id"), ($order="desc"), $arUserFilter);
+                      
+                if ($arUser = $rsUsers->Fetch()) { 
+                
+                    //Проверим на админов
+                    $arGroups = CUser::GetUserGroup($arUser['ID']); 
+                           
+                    if (!in_array(ADMIN_GROUP_ID, $arGroups)) {  
+                        global $USER;
+                        $USER->Authorize($arUser['ID']);                              
+                    }                                                     
+                }                    
+            }                    
+        }   
     }
 
 ?>
