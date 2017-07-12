@@ -1257,6 +1257,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="saleWrapp">
             <div class="catalogWrapper">
+				<!--noindex-->
                 <div class="giftWrapBlock">
                     <div class="giftWrap">
                         <form action="/" method="post">
@@ -1272,8 +1273,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <p>
                             Подпишитесь на рассылку и получите книгу<br />в формате PDF бесплатно
                         </p>
+						<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
                     </div>
                 </div>
+				<!--/noindex-->
             
                 <div>
 					<?$APPLICATION->IncludeComponent(
