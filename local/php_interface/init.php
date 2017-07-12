@@ -1865,7 +1865,7 @@
             }
 
         }
-    }
+    }        
 
     AddEventHandler('main', 'OnBeforeEventSend', 'RegisterNoneEmail');   // вызывается перед отправкой шаблона письма
 
@@ -2871,7 +2871,7 @@
 
             return false;
         }
-    }
+    }      
     
     //Генерация хэша авторизации по ссылке, для пользователя
     function generate_hash_for_authorization() { 
@@ -2959,7 +2959,7 @@
                 
                 $arUserFilter = array(                            
                     "ACTIVE"     => "Y",                  
-                    "EMAIL"      => $rsEmail['EMAIL']       
+                    "EMAIL"      => $arFields['NAME']       
                 );
                 
                 $rsUsers = CUser::GetList(($by="id"), ($order="desc"), $arUserFilter);
