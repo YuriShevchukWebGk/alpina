@@ -396,7 +396,8 @@
                     <?= GetMessage("SIGNED_BOOK") ?>
                 </div>
             </a>
-            <?}?>
+		<?}?>
+		<?$frame = $this->createFrame()->begin();?>
         <?if ($USER -> IsAuthorized()) {
             if ($arResult["WISHLIST_ITEM"]) {?>
             <a href="/personal/cart/?liked=yes" title="<?= GetMessage("WISHLIST_IN_BASKET") ?>">
@@ -412,6 +413,8 @@
             <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
             <span></span>
         </div>
+		<?$frame->beginStub();?>
+		<?$frame->end();?>
         <?if (!empty($arResult["PROPERTIES"]["glavatitle"]["VALUE"])) {?>
             <style>
                 .productElementWrapp {min-height:1300px;}

@@ -309,11 +309,12 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
     // скрипт ajax-подгрузки товаров в блоке "Все книги"
     $(document).ready(function() {
 		var categor_height;
+		var books_block_length = $(".otherBooks li").length;
 
 		<?if (strstr($APPLICATION -> GetCurDir(), "/series/")) {?>
-			categor_height = 1850 + Math.ceil((books_block_length - 15) / 5) * 455;
+			categor_height = 1850 + Math.ceil((books_block_length - 5) / 5) * 152;
 		<?} else {?>
-			categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
+			categor_height = 1600 + Math.ceil((books_block_length - 5) / 5) * 152;
 		<?}?>		
 		//$(".wrapperCategor").css("height", categor_height + "px");
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
@@ -347,11 +348,11 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
                 });
                 var other_books_height, categor_height, books_block_length;
                 books_block_length = $(".otherBooks li").length;
-                other_books_height = 1350 * Math.ceil((books_block_length / 15));
+                other_books_height = 1350 * Math.ceil((books_block_length / 5));
                 <?if (strstr($APPLICATION -> GetCurDir(), "/series/")) {?>
-                    categor_height = 2050 + Math.ceil((books_block_length - 15) / 5) * 455;
+                    categor_height = 2050 + Math.ceil((books_block_length - 5) / 5) * 152;
                 <?} else {?>
-                    categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
+                    categor_height = 1600 + Math.ceil((books_block_length - 5) / 5) * 152;
                 <?}?>
                 other_books.css("height", other_books_height + "px");
                 $(".wrapperCategor").css("height", categor_height + "px");
