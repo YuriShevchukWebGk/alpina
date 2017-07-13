@@ -1521,6 +1521,7 @@
     <?}?>
 <div class="reviewsSliderWrapp">
     <div class="centerWrapper">
+		<!--noindex-->
         <div class="giftWrap">
             <form action="/" method="post">
                 <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
@@ -1535,7 +1536,9 @@
             <p>
                 <?= GetMessage("GIFT_BOOK_DESCRIPTION") ?>
             </p>
+			<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
         </div>
+		<!--/noindex-->
 
         <p class="sliderName"><a href="/catalog/lastseen/" class="youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></a></p>
 

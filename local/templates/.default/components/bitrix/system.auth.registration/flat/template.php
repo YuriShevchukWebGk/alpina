@@ -132,7 +132,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td><input class="RegisterButton" name="Register" value="<?=GetMessage("AUTH_REGISTER")?>" onclick="return checkRegisterFields();" /></td>
+                            <td><center class="pii">Нажимая на кнопку «<?=GetMessage("AUTH_REGISTER")?>», вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></center><input class="RegisterButton" name="Register" value="<?=GetMessage("AUTH_REGISTER")?>" onclick="return checkRegisterFields();" /></td>
                         </tr>
                     </tfoot>
                 </table>

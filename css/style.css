@@ -138,6 +138,9 @@ header .headBasket{padding:17px 1px 0}
 .giftWrap input[type=button]{position:absolute;right:47px;top:81px;border:none;width:60px;height:44px;background:url(/img/giftInpBack.png) no-repeat #fff;cursor:pointer}
 .giftWrap .some_info{z-index:1100;position:absolute;display:none;top:100px;left:200px;width:700px;background:#fff;border:1px solid #00f;text-align:center;padding:30px 0}
 .saleWrapp .giftWrap{border-top:1px solid #e2e2e2;margin-top:78px;padding-top:56px}
+.giftWrap .pii{float:right;width:462px;color:#768AAC;font-family:Walshein_regular;font-size:16px}
+.giftWrap .pii a{color:#3f4a4d}
+.giftWrap .pii a:hover{text-decoration:underline}
 .giftWrap .title{font-family:Walshein_black;font-size:42px;color:#486796;padding-top:0;padding-bottom:0}
 .giftWrap p{color:#768AAC;font-family:Walshein_regular;font-size:16px}
 .giftWrap{position:relative}
@@ -560,7 +563,7 @@ header .headBasket{margin-right:0}
 .reviewsSliderWrapp .sliderName a{color:#3f4a4d}
 .reviewsSliderWrapp .sliderName a:hover,.footerContacts a:hover{text-decoration:underline}
 .reviewsSliderWrapp .bigSlider{margin-top:32px;overflow:hidden;position:relative;width:100%;height:300px!important}
-.reviewsSliderWrapp .giftWrap{border-top:1px solid #e2e2e2;margin-top:40px;padding-top:56px;height:130px;overflow:hidden}
+.reviewsSliderWrapp .giftWrap{border-top:1px solid #e2e2e2;margin-top:40px;padding-top:56px;overflow:hidden}
 .reviewsSliderWrapp .giftWrap img{left:414px;position:absolute;top:0}
 .weRecomWrap .tile{color:#3f4a4d;font-size:32px;padding-bottom:34px;padding-top:62px}
 .weRecomWrap .bookWrapp{display:inline-block;margin-bottom:46px;margin-right:48px}
