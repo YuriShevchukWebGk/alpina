@@ -1621,7 +1621,7 @@
                 $el = new CIBlockElement;
                 $arLoadProductArray = Array("ACTIVE" => "N");
                 // --- status changed from "coming soon" to "new" or "available"
-                if($oldElStatus==22 && ($newElStatus==21 || !$newElStatus)){
+                if($oldElStatus==22 && $newElStatus!=23){
 
                     $arSelect = Array("ID","PROPERTY_SUB_EMAIL");
                     $arFilter = Array("IBLOCK_ID"=>41,"PROPERTY_SUB_TYPE_ID"=>1,"PROPERTY_BOOK_ID"=>$arParams['ID'],"ACTIVE"=>"Y");
