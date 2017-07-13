@@ -1865,8 +1865,141 @@
             }
 
         }
-    }        
+    }     
+    
+    //Функции для работы с хешем для мгновенной авторизации      
+    //Генерация хэша авторизации по ссылке, для пользователя
+    function generate_hash_for_authorization($user_email) {      
+                                                                                                         
+        $order_log = '<--------------- generate_hash_for_authorization: '.$user_email.' ----------------->';
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
+        logger($order_log, $file);
+        
+        $arSelect = Array("ID", "NAME");
+        $arFilter = Array("IBLOCK_ID" => IntVal(RFM_IBLOCK_ID), "NAME" => $user_email, "ACTIVE" => "Y");
+        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+        
+        if($ob = $res->GetNextElement()) {
+         
+            $arFields = $ob->GetFields();                                  
+            $arFilter = array(                            
+                "ACTIVE"     => "Y",                  
+                "EMAIL"      => $arFields['NAME']       
+            );
+                                
+            $rsUsers = CUser::GetList(($by="id"), ($order="desc"), $arFilter);         
+               
+            if($arUser = $rsUsers->Fetch()) {     
+                if (!empty($arUser)) {       
+                    $arGroups = CUser::GetUserGroup($arUser['ID']);  
+                    if (!in_array(ADMIN_GROUP_ID, $arGroups)) {  
+                        $hash = md5(uniqid(rand(), true));                    
+                        $arProperty = array (
+                            'HASH_FOR_AUTHORIZE' => $hash,
+                            'HASH_UPDATE_DATE'   => time() 
+                        );                                                                                                
+                        CIBlockElement::SetPropertyValuesEx($arFields['ID'], false, $arProperty); 
+                        return $hash;  
+                    }                                                        
+                }
+            }                                    
+        }       
+        return false;
+    } 
 
+    //Увеличение времени жизни хеша
+    function extend_hash_lifetime($user_email) {  
+        $arSelect = Array("ID", "NAME", "PROPERTY_HASH_UPDATE_DATE");
+        $arFilter = Array("IBLOCK_ID" => RFM_IBLOCK_ID, "NAME" => $user_email, "ACTIVE"=>"Y");
+        
+        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+        if ($ob = $res->GetNextElement()) {
+            $arFields = $ob->GetFields();      
+            
+            if(!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'])) {               
+                $arProperty = array (              
+                    'HASH_UPDATE_DATE'   => time() 
+                );    
+                                                                                                  
+                CIBlockElement::SetPropertyValuesEx($arFields['ID'], false, $arProperty); 
+            }                
+        }              
+    } 
+
+    function get_hash_for_authorization($user_email) { 
+                                                                                 
+        $order_log = '<--------------- get_hash_for_authorization: '.$user_email.' ----------------->';
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
+        logger($order_log, $file);
+        
+        $arSelect = Array("ID", "NAME", "PROPERTY_HASH_FOR_AUTHORIZE", "PROPERTY_HASH_UPDATE_DATE");
+        $arFilter = Array("IBLOCK_ID" => RFM_IBLOCK_ID, "NAME" => $user_email, "ACTIVE" => "Y");
+        
+        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+        if ($ob = $res->GetNextElement()) {
+            
+            $order_log = '<--------------- ob exist: '.$user_email.' ----------------->';
+            $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
+            logger($order_log, $file);
+            
+            $arFields = $ob->GetFields();  
+                
+            if(!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE']) && !empty($arFields['PROPERTY_HASH_FOR_AUTHORIZE_VALUE'])) { 
+                
+                $order_log = '<--------------- hash exist: '.$arFields['PROPERTY_HASH_FOR_AUTHORIZE_VALUE'].' ----------------->';
+                $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
+                logger($order_log, $file);
+                
+                if(!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'])) {               
+                    $arProperty = array (              
+                        'HASH_UPDATE_DATE'   => time() 
+                    );    
+                                                                                                      
+                    CIBlockElement::SetPropertyValuesEx($arFields['ID'], false, $arProperty); 
+                }    
+                return $arFields['PROPERTY_HASH_FOR_AUTHORIZE_VALUE'];    
+            } else {         
+                
+                $order_log = '<--------------- hash empty: '.$user_email.' ----------------->';
+                $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
+                logger($order_log, $file);   
+                      
+                if($hash = generate_hash_for_authorization($user_email)) { 
+                    
+                    $order_log = '<--------------- hash: '.$hash.' ----------------->';
+                    $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
+                    logger($order_log, $file);        
+                    
+                    return $hash;
+                };        
+            }                             
+        } else {                
+            $order_log = '<--------------- no RFM: '.$user_email.' ----------------->';
+            $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
+            logger($order_log, $file);   
+            
+            return false;  
+        }   
+    }
+
+    //Добавим хеши в почтовый шаблон   
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'main',
+        'OnBeforeEventSend',
+        'add_hash_to_template'
+    );                                                                     
+
+    function add_hash_to_template(&$arFields, &$arTemplate) {  
+        
+        $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';             
+        $order_log = '<--------------- '.$arFields['EMAIL'].' ----------------->';                 
+        logger($order_log, $file);  
+        
+        if($hash = get_hash_for_authorization($arFields['EMAIL'])) {
+            $arFields['HASH'] = $hash;       
+        }   
+    } 
+         
     AddEventHandler('main', 'OnBeforeEventSend', 'RegisterNoneEmail');   // вызывается перед отправкой шаблона письма
 
     function RegisterNoneEmail (&$arFields, &$arTemplate) {     // при создании пользователя с одинаковым генерируемым email не отправляет письмо
@@ -1876,8 +2009,7 @@
         /*
         $arFields["LOGIN"] = логин нового пользователя
         $arTemplate["EVENT_NAME"] = событие при котором происходит отправка письма
-        */
-
+        */       
     }
 
     AddEventHandler('main', 'OnBeforeEventSend', 'PayButtonForOnlinePayment');
@@ -2872,74 +3004,6 @@
             return false;
         }
     }      
-    
-    //Генерация хэша авторизации по ссылке, для пользователя
-    function generate_hash_for_authorization() { 
-        
-        $arSelect = Array("ID", "NAME", "PROPERTY_HASH_FOR_AUTHORIZE", "PROPERTY_HASH_UPDATE_DATE");
-        $arFilter = Array("IBLOCK_ID" => IntVal(RFM_IBLOCK_ID), "ACTIVE" => "Y");
-        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-        while($ob = $res->GetNextElement()) {
-            $arFields = $ob->GetFields();      
-            $arEmails[$arFields['ID']] = array(   
-                'EMAIL' => $arFields['NAME'],
-                'HASH_FOR_AUTHORIZE' => $arFields['PROPERTY_HASH_FOR_AUTHORIZE_VALUE'],
-                'HASH_UPDATE_DATE' => $arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'],
-            );                                      
-        }                     
-                                                   
-        foreach($arEmails as $elementID => $rsEmail) {  
-            //Проверим что прошло 3 дня с последнего обновления   
-            if (true) {  
-            //if ($rsEmail['HASH_UPDATE_DATE'] < (time() - (24 * 60 * 60 * 3))) {    
-                $arFilter = array(                            
-                    "ACTIVE"     => "Y",                  
-                    "EMAIL"      => $rsEmail['EMAIL']       
-                );
-                                    
-                $rsUsers = CUser::GetList(($by="id"), ($order="desc"), $arFilter);         
-                   
-                while($arUser = $rsUsers->Fetch()) {     
-                    if (!empty($arUser)) {  
-                        //Проверим на админов
-                        $arGroups = CUser::GetUserGroup($arUser['ID']); 
-                               
-                        if (!in_array(ADMIN_GROUP_ID, $arGroups)) {         
-                            
-                            $hash = md5(uniqid(rand(), true));
-                                                                                
-                            $arProperty = array (
-                                'HASH_FOR_AUTHORIZE' => $hash,
-                                'HASH_UPDATE_DATE'   => time() 
-                            );                         
-                                                                                                                              
-                            CIBlockElement::SetPropertyValuesEx($elementID, false, $arProperty);   
-                        }                                                        
-                    }
-                }
-            } 
-        }        
-        return false;
-    } 
-    
-    //Увеличение времени жизни хеша
-    function extend_hash_lifetime($user_email) {  
-        $arSelect = Array("ID", "NAME", "PROPERTY_HASH_UPDATE_DATE");
-        $arFilter = Array("NAME" => $user_email, "ACTIVE"=>"Y");
-        
-        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-        if ($ob = $res->GetNextElement()) {
-            $arFields = $ob->GetFields();      
-            
-            if(!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'])) {               
-                $arProperty = array (              
-                    'HASH_UPDATE_DATE'   => time() 
-                );    
-                                                                                                  
-                CIBlockElement::SetPropertyValuesEx($arFields['ID'], false, $arProperty); 
-            }                
-        }                 
-    }
     
     //Авторизация пользователя по хешу
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(

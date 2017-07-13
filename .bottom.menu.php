@@ -27,6 +27,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Бесплатные электронные книги", 
+		"/actions/freedigitalbooks/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>

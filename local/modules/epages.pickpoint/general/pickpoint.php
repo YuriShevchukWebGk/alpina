@@ -241,7 +241,7 @@
         }
 
         function GetOrdersArray()
-        {
+        {                      
             $obOrdersPostamat = CPickpoint::SelectOrderPostamat();
             $arItems = array();
             while($arOrderPostamat = $obOrdersPostamat->Fetch())
@@ -250,7 +250,7 @@
                     array(),
                     array(
                         "ID" => $arOrderPostamat["ORDER_ID"],
-                        "!STATUS_ID" => "F",
+                        "STATUS_ID" => "D",
                         "CANCELED" => "N"
                     ),
                     false,
