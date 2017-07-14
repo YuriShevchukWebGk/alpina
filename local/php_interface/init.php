@@ -1625,7 +1625,7 @@
                 if($oldElStatus==22 && $newElStatus!=23){
 
                     $arSelect = Array("ID","PROPERTY_SUB_EMAIL");
-                    $arFilter = Array("IBLOCK_ID"=>41,"PROPERTY_SUB_TYPE_ID"=>1,"PROPERTY_BOOK_ID"=>$arParams['ID'],"ACTIVE"=>"Y");
+                    $arFilter = Array("IBLOCK_ID"=>41,"PROPERTY_SUB_TYPE_ID"=>array(1,2),"PROPERTY_BOOK_ID"=>$arParams['ID'],"ACTIVE"=>"Y");
                     $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>9999), $arSelect);
                     while($ob = $res->GetNextElement()){
                         $arFields = $ob->GetFields();
