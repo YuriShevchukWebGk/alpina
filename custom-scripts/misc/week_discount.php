@@ -44,6 +44,24 @@ while($ob = $res->GetNext()) {
 	CIBlockElement::SetPropertyValuesEx($ob['ID'], 4, array('spec_price' => 221, 'discount_on' => 276));
 }
 
+//Скидка добавлена к этим книгам
+$manualSale = array(
+	80496,
+);
+foreach ($manualSale as $manual) {
+	CIBlockElement::SetPropertyValuesEx($manual, 4, array('spec_price' => 221, 'discount_on' => 276));
+
+	$discounted[] = array (
+		'CLASS_ID' => 'CondIBElement',
+		'DATA' =>
+	array (
+		'logic' => 'Equal',
+		'value' => $manual,
+	),
+	);
+}
+
+
 $arFields = array(
 	"ACTIVE" => "Y",
 	"CONDITIONS" =>  array (

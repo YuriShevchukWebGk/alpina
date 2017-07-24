@@ -14,7 +14,7 @@ $this->setFrameMode(true);
 ?>
 
 <?
-$i = range(1, 14);
+$i = range(1, 13);
 shuffle($i);
 ?>
 

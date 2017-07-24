@@ -66,6 +66,11 @@
     define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
     define("TRADING_FINANCE_SECTION_ID", 111);
 
+    define("DELIVERY_COURIER_1", 9);
+    define("DELIVERY_COURIER_2", 15);
+    define("DELIVERY_COURIER_MKAD", 12);
+    define("DELIVERY_PICKUP", 2);
+
 	define("WIDGET_PREVIEW_WIDTH", 70);
 	define("WIDGET_PREVIEW_HEIGHT", 90);
     define("FREE_SHIPING", 2000); //стоимость заказа для бесплатной доставки
@@ -290,13 +295,48 @@
 
     // -----> создаем свой формат выводимой даты доставки
     function date_day($day){
+        $date_prev = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
 
-        $date_N = date("N", (time() * ($day * 24 * 60 * 60))); // считаем через какое количество дней
+        if($date_prev == 5 || $date_prev == 6){
+           $day = $day + 2;
+        } else if($date_prev == 7){
+           $day = $day + 1;
+        } else {
+           $day = $day + 2;
+        }
+        $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
         $date_d = date("j", (time()+(3600*24)*$day));
         $date_n = date("n", (time()+3600*24*$day));
         $date_Y = date("Y", (time()+3600*24*$day));
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
+
+
+         // формат вывода
+        $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
+        return $date;
+    }
+    function date_day_today($day){
+        $date_prev = date("N"); // считаем через какое количество дней
+        $date_H = date("H"); // текущее время
+
+        if($date_prev == 5 || $date_prev == 6){
+           $day = (time()+(3600*24)*$day+2);
+        } else if($date_prev == 7){
+           $day = (time()+(3600*24)*$day+1);
+        } else if($date_H > 8 && $date_H < 18){
+           $day = (time()+(3600*24)*$day+1);
+        } else {
+            $day = (time());
+        }
+
+        $date_N = date("N", $day); // считаем через какое количество дней
+        $date_d = date("j", $day);
+        $date_n = date("n", $day);
+        $date_Y = date("Y", $day);
+        $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
+        $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
+
 
          // формат вывода
         $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
@@ -2528,11 +2568,13 @@
 
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
     function BoxberryListStatuses() {
+        
         $bTmpUser = False;
         if (!isset($GLOBALS["USER"]) || !is_object($GLOBALS["USER"])) {
             $bTmpUser = True;
             $GLOBALS["USER"] = new CUser;
         }
+        
         $arFilter = Array(
            "!TRACKING_NUMBER" => null,
            "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,
@@ -2568,6 +2610,61 @@
             unset($GLOBALS["USER"]);
         }
         return 'BoxberryListStatuses();';
+    }
+
+    //агент для выгрузки статусов заказов из личного кабинета Boxberry
+    function AccordListStatuses() {
+        //Константы для curl запроса
+        define('CFG_NL', "\n");
+        define('CFG_REQUEST_POST', 1);
+        define('CFG_REQUEST_FULLURL', 'https://api.accordpost.ru/ff/v1/wsrv/');
+        define('CFG_REQUEST_TIMEOUT', 1);
+        define('CFG_CONTENT_TYPE', 'text/xml; charset=utf-8');
+        //Шапка с доступами и типом запроса
+        $xmlBody = '<request request_type="104" partner_id="'.ACCORDPOST_PARTNER_ID.'" password="'.ACCORDPOST_PASSWORD.'" doc_type = "6"/>';
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, CFG_REQUEST_FULLURL);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $xmlBody);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        if($out = curl_exec($curl)){
+            $ar_idoc_id = array();
+            $xmlBody = '';
+            $ar_barcode_list = array();
+            $response = new SimpleXMLElement($out);
+            foreach ($response->doc as $doc) {
+                $ar_idoc_id[] = $doc['idoc_id'];
+                $xmlBody_second_request = '<request request_type="105" partner_id="'.ACCORDPOST_PARTNER_ID.'" password="'.ACCORDPOST_PASSWORD.'" idoc_id="'.$doc['idoc_id'].'"/>';
+                $curl_second_request = curl_init();
+                curl_setopt($curl_second_request, CURLOPT_URL, CFG_REQUEST_FULLURL);
+                curl_setopt($curl_second_request, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl_second_request, CURLOPT_POST, true);
+                curl_setopt($curl_second_request, CURLOPT_POSTFIELDS, $xmlBody_second_request);
+                curl_setopt($curl_second_request, CURLOPT_SSL_VERIFYPEER, 0);
+                if($out_second_request = curl_exec($curl_second_request)){
+                    $response_second_request = new SimpleXMLElement($out_second_request);
+                    foreach ($response_second_request->doc->parcel as $parcel) {
+                        //поменять на barcode
+                        $ar_barcode_list[strval($parcel['order_id'])] = strval($parcel['Barcode']);
+                        $arFilter = Array(
+                            "TRACKING_NUMBER" => null,
+                            "ID" => intval($parcel['order_id']),
+                            "!STATUS_ID" => 'F'
+                        );
+                        if ($db_sales = CSaleOrder::GetList(array(), $arFilter)) {
+                            CSaleOrder::Update(intval($parcel['order_id']), array("TRACKING_NUMBER" => strval($parcel['Barcode'])));
+                            $order = Bitrix\Sale\Order::load(intval($parcel['order_id']));
+                            $order->setField('STATUS_ID', 'I');
+                            $order->save();
+                        }
+                    }
+                } ;
+                curl_close($curl_second_request);
+            }
+        }
+        curl_close($curl);
+        return 'AccordListStatuses();';
     }
 
     //Логирование изменение статусов заказа, нужно удалить когда проблема исчезнет
@@ -3005,7 +3102,7 @@
             return false;
         }
     }
-
+                                                                                      
     //Авторизация пользователя по хешу
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'main',
@@ -3041,6 +3138,6 @@
                 }
             }
         }
-    }
+    }     
 
 ?>
