@@ -157,10 +157,10 @@
                 //Создаём позиции с заказами
                 foreach($order_props as $order_id => $order_properties) {
                     if(!empty($order_id) && in_array($order_id, $arIDsCommonOrders)){          
-                        //Строка заказа
+                        //Строка заказа                           
                         $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);   
                         $unic_code = $partner_code.$order_code;                                  
-                        $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="10.00" parcel_sumvl="10.00" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$order_properties['INDEX'].'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
+                        $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="0" parcel_sumvl="'.$order_properties['SUM_PAID'].'" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$order_properties['INDEX'].'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
                     }
                 }      
                                                      
@@ -221,7 +221,7 @@
                         $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);   
                         $unic_code = $partner_code.$order_code;  
                         
-                        $xmlBodyInternational .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="10.00" parcel_sumvl="10.00" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="0" clnt_name="'.$order_properties['FINAL_NAME'].'" clnt_phone="'.$order_properties['PHONE'].'" dev1mail_type="4" dev1nal_scheme="0" dev1direct_ctg="2">';            
+                        $xmlBodyInternational .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="0.00" parcel_sumvl="'.$order_properties['SUM_PAID'].'" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="0" clnt_name="'.$order_properties['FINAL_NAME'].'" clnt_phone="'.$order_properties['PHONE'].'" dev1mail_type="4" dev1nal_scheme="0" dev1direct_ctg="2">';            
                             
                             $xmlBodyInternational .= '<struct_addr region="" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
                             

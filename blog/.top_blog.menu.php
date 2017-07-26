@@ -1,0 +1,25 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Интернет-магазин", 
+		"/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Новинки", 
+		"/catalog/new/?SORT=NEW", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Бестселлеры", 
+		"/catalog/bestsellers/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

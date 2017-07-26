@@ -229,6 +229,8 @@
         $(".bx_result_price a").html("Выберите пункт выдачи"); // меняем название ссылки выбора pickpoint
         if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
             $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
+        } else {
+            $('.bx_result_price span').html('Ожидаемая дата доставки:');
         }
         // скрываем поле "Адрес" для доставки гуру, т.к. мы будем писать туда свои данные
         if ($("#ID_DELIVERY_ID_<?= GURU_DELIVERY_ID ?>").attr("checked") == "checked") {
@@ -577,6 +579,17 @@
                                             }
                                         }
 
+                                        // доставка pickpoint
+                                        if ($("#ID_DELIVERY_ID_<?= PICKPOINT_DELIVERY_ID ?>").is(':checked')) {
+                                            if(!$("#pp_address").val()) {
+                                                $('html, body').animate({
+                                                    scrollTop: $(".js_delivery_block").offset().top
+                                                    }, 500);
+                                                flag = false; return false;
+                                            } else {
+                                            }
+                                        }
+
 
                                     }
 
@@ -720,7 +733,7 @@
                                         if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").is(':checked') && window.boxberry_result) {
 
                                                 var result = window.boxberry_result;
-                                                console.log(result);
+
                                                 $('.deliveryPriceTable').html(result.price + ' руб.');
                                                 finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
                                                 $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
@@ -811,7 +824,7 @@
                                                             m = date.getMonth();
                                                             y = date.getFullYear();
 
-                                                            $("#boxbery_delivery_time span").html(getDay(d,m,y));
+                                                            $("#boxbery_delivery_time span").html('Ожидаемая дата доставки: ' + getDay(d,m,y));
                                                         }
                                                   }
                                                 })

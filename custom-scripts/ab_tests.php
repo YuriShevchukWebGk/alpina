@@ -1,6 +1,5 @@
 <?## A/B-тестирование на сайте ##
 global $USER;
-$USER->LoginHitByHash();
 /*
 $alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
 $alpExps  = (!$alpExps ? array() : $alpExps);
@@ -16,6 +15,7 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 }*/
 ?>
 <script src="/custom-scripts/progressbar/nprogress.js"></script>
+<script type="text/javascript" src="/js/countdown.js?20170721"></script>
 <link href="/bitrix/css/main/font-awesome.css?146037394928798" type="text/css" rel="stylesheet" />
 <script>function getsubbook(){$.post("/ajax/request_add.php",{email:$("#subpop input[type=email]").val()},function(data){$(".errorinfo").html(data);})}$(document).ready(function(){$(".stopProp").click(function(e){e.stopPropagation();});});function closeX(){$('.hideInfo').hide();}</script>
 <!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->

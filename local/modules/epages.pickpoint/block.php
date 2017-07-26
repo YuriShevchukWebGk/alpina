@@ -4,7 +4,12 @@
     $displayValue = 'none';
 } ?>
 <div class="bx_result_price">
-<a onclick="PickPoint.open(PickpointHandler<?if ($str_from_city):?>, {fromcity:'<?=$str_from_city?>'}<?endif;?>);return false" style="cursor:pointer;"><?=GetMessage("PP_CHOOSE")?></a>
+<?if($displayValue == 'none'){?>
+    <span>Ожидаемая дата доставки:</span> <br>
+    <a onclick="PickPoint.open(PickpointHandler<?if ($str_from_city):?>, {fromcity:'<?=$str_from_city?>'}<?endif;?>);return false" style="cursor:pointer;"><?=GetMessage("PP_CHOOSE")?></a>
+<?} else {?>
+    <a onclick="PickPoint.open(PickpointHandler<?if ($str_from_city):?>, {fromcity:'<?=$str_from_city?>'}<?endif;?>);return false" style="cursor:pointer;"><?=GetMessage("PP_CHOOSE")?></a>
+<?}?>
 </div>
 <?
 $adress = explode(',', $_SESSION['PICKPOINT']["PP_ADDRESS"]);
@@ -21,28 +26,30 @@ $str = file("/home/bitrix/www/parse_pickpoint.csv");
     }
   }
 
-
-  foreach($values as $pickpoint){
-
-      if($pickpoint[0] == trim($adress[2])){
-          $start = $pickpoint[3]; // доставка начало;
-          $end = $pickpoint[4]; // доставка конец
-          $delivery_time = date_day($start).' - '.date_day($end);
-      }
-
-  }
-
 ?>
 <table id="tPP" onclick="return false;" style="display:<?=$displayValue?>;">
     <tr>
         <td><?=GetMessage("PP_DELIVERY_IN_PLACE")?>:</td>
         <td>
 
+        <?
+          foreach($values as $pickpoint){
 
+              if($pickpoint[0] == trim($adress[2])){
+                  $start = preg_replace('~\D+~','',$pickpoint[3]); // доставка начало;
+                  $end = preg_replace('~\D+~','',$pickpoint[4]); // доставка конец
+                  if($start == $end){
+                    $delivery_time = date_day(trim($start));
+                  } else {
+                    $delivery_time = date_day(trim($start)).' - '.date_day(trim($end));
+                  }
+              }
+          }
+        ?>
         <span id="sPPDelivery">
             <?=($_SESSION['PICKPOINT']['PP_ADDRESS']?$_SESSION['PICKPOINT']['PP_ADDRESS']."<br/>".$_SESSION['PICKPOINT']['PP_NAME']:GetMessage("PP_sNONE"))?>
             <br>
-           <!-- Ожидаемая дата доставки: <?//=$delivery_time?>     -->
+            Ожидаемая дата доставки: <?=$delivery_time?>
         </span>
         </td>
     </tr>
