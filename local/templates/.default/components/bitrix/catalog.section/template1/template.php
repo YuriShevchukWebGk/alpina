@@ -14,7 +14,7 @@ $this->setFrameMode(true);
 ?>
 
 <?
-$i = range(1, 13);
+$i = range(1, (count($arResult["ITEMS"])-1));
 shuffle($i);
 ?>
 

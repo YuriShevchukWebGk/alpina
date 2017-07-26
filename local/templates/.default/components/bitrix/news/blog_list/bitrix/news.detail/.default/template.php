@@ -16,15 +16,6 @@ $authpic = CFile::ResizeImageGet($author["DETAIL_PICTURE"], array('width'=>150, 
 
 $frame = $this->createFrame()->begin();
 ?>
-<script type="text/javascript">(function() {
-if (window.pluso)if (typeof window.pluso.start == "function") return;
-if (window.ifpluso==undefined) { window.ifpluso = 1;
-var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
-s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
-s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
-var h=d[g]('body')[0];
-h.appendChild(s);
-}})();</script>
 
 <meta property="og:image" content="https://<?=$_SERVER["SERVER_NAME"].$pict["src"]?>"/>
 <meta property="og:title" content='<?=$arResult["NAME"]?>' />
@@ -68,10 +59,10 @@ h.appendChild(s);
 			<?=typonew($arResult["DETAIL_TEXT"])?>
 		</div>
 		<div class="author">
-			<div class="pluso" data-background="none;" data-options="medium,square,line,horizontal,nocounter,sepcounter=1,theme=14" data-services="facebook,vkontakte,odnoklassniki,yandex" style="margin:30px 0"></div>
+			<center><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div></center>
 			<?if (!empty($arResult["TAGS"])) {
 			$tags = explode(', ',$arResult["TAGS"]);
-				echo '<div class="keywords" onclick="try { rrApi.addToBasket('.$arResult["ID"].') } catch(e) {}">';
+				echo '<div class="keywords">';
 				foreach($tags as $tag) {
 					echo '<span>'.$tag.'</span>';
 				}
@@ -401,3 +392,4 @@ cackle_widget.push({
 		try{ rrApi.view(<?=$arResult["ID"]?>); } catch(e) {}
 	})
 </script>
+<input type="hidden" id="postid" name="postid" value="<?=$arResult["ID"]?>" />

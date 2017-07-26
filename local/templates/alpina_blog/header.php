@@ -15,7 +15,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
     <script src="/js/easySlider.js"></script>
     <script src="/js/inputmask.js"></script>
 	<script type="text/javascript" async src="https://relap.io/api/v6/head.js?token=TIz1ipMXWqda7Ons"></script>
-    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script> 
+    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script>
 	<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
 	<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
 	<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">
@@ -37,8 +37,8 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
 	<meta name="theme-color" content="#ffffff">	
     
-     <?$APPLICATION->ShowHead();?>
-    
+    <?$APPLICATION->ShowHead();?>
+    <?$APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH."/script.js");?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?> 
 	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>

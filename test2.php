@@ -127,5 +127,12 @@ foreach ($emails_arr as $email => $user_copies_arr) {
                 // CUser::Delete($user_copy_id);
              }
      }
-}*/?>
+}*/?>      
+<?                            
+if(intval(date('H')) < 12) {
+    echo intval(date('H'));
+} else {
+    echo intval(date('H')); 
+}    
+                            ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -19,6 +19,7 @@
 	font-size:20px;
 	color:#444;
 	background:#fff!important;
+	overflow:hidden
 }
 ul {
 	list-style-type:disc;

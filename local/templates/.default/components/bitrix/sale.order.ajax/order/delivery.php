@@ -177,10 +177,10 @@
 
             } else {?>
             <div>
-				<?
-				$arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
-				$pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
-				?>
+                <?
+                $arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
+                $pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                ?>
                 <input type="radio"
                     class="radioInp"
                     id="ID_DELIVERY_ID_<?= $arDelivery["ID"] ?>"
@@ -228,13 +228,17 @@
 
 
                 <p class="shipingText" <?=$clickHandler?>>
-					<?if (!empty($pict["src"])) {?>
-						<img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;" class="no-mobile" />
-					<?}?>
+                    <?if (!empty($pict["src"])) {?>
+                        <img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;" class="no-mobile" />
+                    <?}?>
                     <?
 
                         if($arDelivery["ID"] == DELIVERY_PICKUP) {
-                            echo str_replace('#DATE_DELIVERY#',date_day_today(0), $arDelivery["DESCRIPTION"])."<br />";
+                            if(intval(date('H')) < 17) {
+                                echo str_replace('#DATE_DELIVERY#',date_day_today(0), $arDelivery["DESCRIPTION"])."<br />";  
+                            } else {
+                                echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />"; 
+                            }                                                                                            
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) {
                             echo str_replace('#DATE_DELIVERY#',date_day(1-2), $arDelivery["DESCRIPTION"])."<br />";
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD) {
