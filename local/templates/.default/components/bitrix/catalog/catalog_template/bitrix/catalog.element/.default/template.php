@@ -163,7 +163,7 @@
 <style>
     .productElementWrapp:before {
         background-color: <?=$bgcolors[0]?>;
-        opacity: 0.3;
+        opacity: 0.15;
     }
     .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive, .multipleBooks li span {
         color: <?=$mincolor['color']?>!important;
