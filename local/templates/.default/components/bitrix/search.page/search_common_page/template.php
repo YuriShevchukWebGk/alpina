@@ -256,13 +256,17 @@
                                // arshow($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"]["VALUE"]);
                                 //$newPrice = $newPrice * (1 - $item_discount_value / 100);
 								
-								if ($discount) {
+								/*if ($discount) {
 									$newPrice = round ($item_discount_value * (1 - $discount / 100), 2);
 									if (strlen (stristr($newPrice, ".")) == 2) {
 										$newPrice .= "0";
 									}
 								} else {
 									$newPrice = $item_discount_value;
+								}*/
+								$newPrice = round ($item_discount_value * (1 - $discount / 100), 2);
+								if (strlen (stristr($newPrice, ".")) == 2) {
+									$newPrice .= "0";
 								}
                             }
                             if($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"] == CERTIFICATE_SECTION_ID) {
