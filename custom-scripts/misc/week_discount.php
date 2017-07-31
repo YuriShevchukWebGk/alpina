@@ -46,7 +46,7 @@ while($ob = $res->GetNext()) {
 
 //Скидка добавлена к этим книгам
 $manualSale = array(
-	80496,
+	//80496,
 );
 foreach ($manualSale as $manual) {
 	CIBlockElement::SetPropertyValuesEx($manual, 4, array('spec_price' => 221, 'discount_on' => 276));

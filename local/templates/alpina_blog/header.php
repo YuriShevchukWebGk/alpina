@@ -102,7 +102,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?> 
 
 <header itemscope="" id="WPHeader" itemtype="https://schema.org/WPHeader">
-	<a href="/blog/">
+	<a href="/blog/" class="logoBlog" <?echo $APPLICATION->GetCurPage() == '/blog/' ? 'style="display:none;"' : '';?>>
 	<div class="logo">
 		<img src="/img/footerBlogLogo.png" alt="Блог издательства «Альпина Паблишер»" />
 	</div>
@@ -238,6 +238,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </header>
 
 <div class="blogWrap">
+<?if ($APPLICATION->GetCurPage() == '/blog/') {?>
+	<p class="iblogalpina no-mobile">
+		БЛОГ О КНИГАХ, ЛЮДЯХ И СМЫСЛАХ
+	</p>
+	<p class="iblog no-mobile">
+		я<img src="/img/logoBig.png">блог
+	</p>
+<?}?>
+	
+	<a href="#" onclick="showCats();return false;" class="showCats">Рубрики</a>
 	<div class="catsLinks no-mobile">
 		<?
 		$arSelect = array("ID", "NAME", "ELEMENT_CNT");

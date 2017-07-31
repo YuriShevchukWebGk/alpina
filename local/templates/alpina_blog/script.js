@@ -29,3 +29,9 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function showCats() {
+	$(".catsLinks").toggle("fast", function() {
+		
+	});
+}

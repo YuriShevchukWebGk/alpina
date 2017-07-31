@@ -3,6 +3,25 @@ $this->setFrameMode(true);
 $pict = CFile::ResizeImageGet($arResult["DETAIL_PICTURE"], array('width'=>300, 'height'=>300), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 
 $frame = $this->createFrame()->begin();
+
+$blocks = array();
+
+$arSelect = Array('ID', 'NAME', 'DETAIL_PICTURE', 'DETAIL_TEXT', 'DETAIL_PAGE_URL');
+$arFilter = Array("IBLOCK_ID" => 71, "ACTIVE" => "Y", "PROPERTY_AUTHOR"=>$arResult["ID"]);
+$posts = CIBlockElement::GetList(Array("ID" => "DESC"), $arFilter, false, Array("nPageSize" => 999), $arSelect);
+$i = 0;
+while ($post = $posts->GetNextElement()) {
+	$postFields = $post->GetFields();
+
+	if (($i + 1) % 3 == 1)
+		$blocks[0][] = $postFields;
+	elseif (($i + 1) % 3 == 2)
+		$blocks[1][] = $postFields;
+	else
+		$blocks[2][] = $postFields;
+	
+	$i++;
+}
 ?>
 
 <meta property="og:image" content="https://<?=$_SERVER["SERVER_NAME"].$pict["src"]?>"/>
@@ -42,24 +61,26 @@ $frame = $this->createFrame()->begin();
 			<center itemprop="image"><img src="<?=$pict["src"]?>" alt="Автор блога <?=$arResult["NAME"]?>" /></center>
 		<?}?>
 		<br /><br />
-		<ul>
-			<?$arSelect = Array('ID', 'NAME', 'DETAIL_PICTURE', 'DETAIL_TEXT', 'DETAIL_PAGE_URL');
-			$arFilter = Array("IBLOCK_ID" => 71, "ACTIVE" => "Y", "PROPERTY_AUTHOR"=>$arResult["ID"]);
-			$posts = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize" => 999), $arSelect);
-
-			while ($post = $posts->GetNextElement()) {
-				$postFields = $post->GetFields();
-				$pict = CFile::ResizeImageGet($postFields["DETAIL_PICTURE"], array('width'=>360, 'height'=>360), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
+	<?foreach ($blocks as $block) {?>
+		<ul class="block">
+			<?foreach($block as $arItem) {
+			$pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"], array('width'=>360, 'height'=>360), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
 				<li class="blogPostPreview">
-					<a href="<?=$postFields["DETAIL_PAGE_URL"]?>"><img title="<?=$postFields['NAME']?>" alt="Фотография <?=$postFields['NAME']?>" src="<?=$pict["src"]?>"></a>
+					<a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><img title="<?=$arItem['NAME']?>" alt="Фотография <?=$arItem['NAME']?>" src="<?=$pict["src"]?>"></a>
+					<?if (!empty($arItem["IBLOCK_SECTION_ID"])) {
+						$section = CIBlockSection::GetByID($arItem["IBLOCK_SECTION_ID"]);
+						$section = $section->GetNext();
+						echo '<div class="cat">'.$section["NAME"].'</div>';
+					}?>
 					<div class="previewContent">
-						<a class="title" href="<?=$postFields["DETAIL_PAGE_URL"]?>"><?=$postFields['NAME']?></a>
-						<div class="previewText"><?=substr(strip_tags($postFields['DETAIL_TEXT']),0,250).'...'?></div>
-						<a href="<?=$postFields["DETAIL_PAGE_URL"]?>" class="fullText">Читать</a>
+						<a class="title" href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?=$arItem['NAME']?></a>
+						<div class="previewText"><?=substr(strip_tags($arItem['DETAIL_TEXT']),0,250).'...'?></div>
+						<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="fullText">Читать</a>
 					</div>
 				</li>
 			<?}?>
 		</ul>
+	<?}?>
 		<div class="clearer"></div>
 		<div id="cackleReviews"></div>
 		<center><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,collections,whatsapp,viber,telegram" data-counter=""></div></center>

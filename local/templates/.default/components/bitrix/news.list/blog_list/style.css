@@ -13,6 +13,46 @@ div.news-list img.preview_picture
 .authorsWrap .showMore {
     cursor: pointer;
 }
-.alphabet a {
-    color: #fff !important;
+.iblog {
+	text-align:center;
+	padding-bottom:30px;
+	text-transform:uppercase;
+	color:#eee;
+    font-family: gt_walsheim_pro_trialblack;
+    font-size: 62px;
+	position:relative;
+}
+.iblog img {
+	top:33px;
+	padding:0 22px;
+	position:relative;
+	width:107px;
+	height:auto;
+}
+.blogWrap:before {
+	background-color: #99abb1!important;
+    height: 570px;
+	content:"";
+	display:block;
+	left:0;
+	position:absolute;
+	width:100%
+}
+.catsLinks a,.showCats,.alphabet a {
+	color:#fff!important;
+}
+.catsLinks a {
+	border-bottom:1px solid #fff!important;
+}
+.catsLinks a:hover {
+	border-bottom:none!important;
+}
+.cataloggWrapper {
+	background:transparent!important;
+}
+.catsLinks {
+	padding:0 0 18px!important;
+}
+.showCats,.iblogalpina,.catsLinks,.iblog {
+	position:relative;
 }
