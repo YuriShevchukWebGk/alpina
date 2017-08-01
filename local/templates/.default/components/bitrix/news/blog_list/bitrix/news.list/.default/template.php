@@ -24,7 +24,7 @@ foreach ($arResult["ITEMS"] as $i => $arItem) {
 ?>
 
 <div class="cataloggWrapper">
-	<h1>Записи в разделе «<?=$arResult["SECTION"]["PATH"][0]["NAME"]?>»</h1>
+	<h1><?=$arResult["SECTION"]["PATH"][0]["NAME"]?></h1>
 	
 	<?foreach ($blocks as $block) {?>
 		<ul class="block">

@@ -40,7 +40,7 @@
 	margin:20px 0;
 	width:360px;
 	background:#fff;
-	border:1px solid #ddd;
+	box-shadow: 0 5px 5px 0 rgba(0,0,0,.18), 0 10px 7px 0 rgba(0,0,0,.14);
 }
 .blogPostPreview .cat {
 	color:#00abb8;
