@@ -1,48 +1,26 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 CModule::IncludeModule("subscribe");
-if ($_REQUEST["email"])
-{
-    $elem_list = CIBlockElement::GetList(array(), array("IBLOCK_ID"=>15, "NAME"=>$_REQUEST["email"]), false, false, array("ID", "NAME"))->Fetch();
-        if (!empty($elem_list))
-        {
-           $str = "Похоже, вы уже подписаны на нашу рассылку. Спасибо, что читаете нас!";
-        }
-        else
-        {
-             $subs_list = CSubscription::GetList(array(), array("EMAIL"=>$_REQUEST["email"]), false)->Fetch();
-             if (!$subs_list)
-             {
-                 $subscr = new CSubscription;
-                 $subFields = array(
-                     "EMAIL" => $_REQUEST["email"],
-                     "USER_ID" => ($USER->IsAuthorized()? $USER->GetID():false),
-                     "ACTIVE" => "Y",
-                     "RUB_ID" => array("1"),
-                     "CONFIRMED" => "Y"
-                 );
-                 $subscr->Add($subFields);
+if ($_REQUEST["email"]) {
+	$subs_list = CSubscription::GetList(array(), array("EMAIL"=>$_REQUEST["email"]), false)->Fetch();
+	if (!$subs_list) {
+		
+		$subscr = new CSubscription;
+		
+		$subFields = array(
+			"EMAIL" => $_REQUEST["email"],
+			"USER_ID" => ($USER->IsAuthorized()? $USER->GetID():false),
+			"ACTIVE" => "Y",
+			"RUB_ID" => array("1"),
+			"CONFIRMED" => "Y"
+		);
+		$subscr->Add($subFields);
 
-                 $el = new CIBlockElement;
-                 $arFields = array(
-                     "IBLOCK_ID" => 15,
-                     "NAME" => $_REQUEST["email"],
-                     "ACTIVE" => "Y"
-                 );
-                 
-				 if ($el->Add($arFields)) {
-					$str = "Спасибо, что решили читать нас! Мы уже отправили вам письмо с подарком";
-					$mailFields = array(
-						"EMAIL"=> $_REQUEST["email"]
-					);					
-					CEvent::Send("SUBSCRIBE_CONFIRM", "s1", $mailFields, "N");
-				 }
-             }
-             else
-             {
-                $str = "Похоже, вы уже подписаны на нашу рассылку. Спасибо, что читаете нас!";    
-             }
-        }
-        
-        
-    echo $str;     
+		if ($subscr->Add($subFields)) {
+			$str = "Спасибо, что решили читать нас! Мы уже отправили вам письмо с подарком";
+		}
+	} else {
+		$str = "Похоже, вы уже подписаны на нашу рассылку. Спасибо, что читаете нас!";    
+	}
+
+	echo $str;     
 }?>
