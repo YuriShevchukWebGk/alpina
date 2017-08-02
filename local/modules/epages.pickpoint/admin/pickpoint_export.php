@@ -151,7 +151,7 @@ if($_REQUEST["mess"] == "save")
 					<td><?=GetMessage("PP_RECEPTION_TYPE")?></td>
 <?/*					<td><?=GetMessage("PP_SIZE")?></td>               */?>
 
-				</tr>   
+				</tr>                
 				<?foreach($arItems as $arItem):?>  
 					<?$arRequestItem = $_REQUEST["EXPORT"][$arItem["ORDER_ID"]];
                         $bActive = $arItem["INVOICE_ID"]?false:true;
