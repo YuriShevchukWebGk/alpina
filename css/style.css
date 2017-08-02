@@ -67,7 +67,7 @@ header .headBasket{padding:17px 1px 0}
 .secondWrapp img{position:absolute;top:-2px}
 .book .thirdWrapp{height:100%;width:378px;margin-left:10px;vertical-align:top}
 .afterImg:hover,.basketBook>div>a:hover,.book>div>a:hover,.bookDelete:hover,.breadCrump a:hover,.reviewsWrapp li:hover .autor,.variants>div>a:hover{text-decoration:underline}
-.readMore span:hover{background:#fff}
+.readMore span:hover{background:#00ABB8;color:#fff!important}
 .thirdWrapp .text{background-color:#00a0af;height:160px;margin-bottom:35px;padding:44px 38px;width:282px;margin-left:20px}
 .thirdWrapp .container{width:450px}
 .thirdWrapp img{margin-left:20px;margin-bottom:-3px}
@@ -257,7 +257,7 @@ input:focus{outline:0}
 .searchWrap input[type=text]{background-color:#ECEDEF;border:none;font-size:19px;margin-top:16px;padding-left:43px;width:100%}
 .searchWrap button[type=submit]{background:#ECEDEF;color:#666;width:30px;height:30px;left:0}
 .searchWrap button[type=submit]:after{position:absolute;left:0}
-.find button[type=submit]{font-size:24px;cursor:pointer;top:0;border:none;position: absolute}
+.find button[type=submit]{font-size:24px;cursor:pointer;top:0;border:none;position:absolute}
 .find button[type=submit]:after{content:"\f002";font-family:"FontAwesome"}
 .mainSearchField::-webkit-input-placeholder{color:#666;font-size:18px;font-family:Walshein_regular}
 .mainSearchField::-moz-placeholder{color:#666;font-size:18px;font-family:Walshein_regular}
@@ -403,7 +403,7 @@ header .headBasket{margin-right:0}
 .hidingCatalogLeft li{cursor:pointer}
 .hidingBasketRight .title{display:inline-block; color:#c6c9ca;font-size:15px;margin-left:50px;text-transform:uppercase;margin-top:124px;cursor:pointer} 
 .hidingBasketRight .title.active{color:#424c4f;cursor:default} 
-.hidingBasketRight #preorder_title{margin-left:90px}                                                                
+.hidingBasketRight #preorder_title{margin-left:90px}
 .hidingBasketRight .bonus{color:#7b8c90;font-size:15px;padding:18px 50px;margin-bottom:10px}
 .hidingBasketRight .result{border-bottom:1px solid #ececec;border-top:1px solid #ececec;height:53px;margin-bottom:28px;padding-left:48px;padding-top:14px;width:100%}
 .hidingBasketRight .resultText{color:#424C4F;font-size:19px}
@@ -503,6 +503,7 @@ header .headBasket{margin-right:0}
 .shippings li{position:relative;padding-bottom:8px}
 .shippings .lastli{margin-top:15px}
 .shippings a{color:#00ABB8;border-bottom:1px dashed #00ABB8}
+.shippings a:hover{border-bottom:none}
 .noborderlink{color:#00ABB8;border-bottom:0!important;text-decoration:underline!important}
 .noborderlink:hover{text-decoration:none!important}
 .shippings li:before{content:"\2022";left:-15px;position:absolute}
@@ -515,7 +516,7 @@ header .headBasket{margin-right:0}
 .centerColumn .productName{color:#fff;padding-top:34px}
 .centerColumn .productName .mainPart{font-size:40px}
 .centerColumn .topBlock{min-height:175px}
-.centerColumn .engBookName{color:#e4e8ea;font-size:17px;margin-top:12px;margin-bottom:8px;font-family: Walshein_light}
+.centerColumn .engBookName{color:#e4e8ea;font-size:17px;margin-top:12px;margin-bottom:8px;font-family:Walshein_light}
 .centerColumn .productAutor{color:#E4E8EA;font-size:13px}
 .centerColumn .reviews{float:right}
 .centerColumn .countOfRev{color:#E4E8EA;font-size:14px;margin-left:8px}
@@ -973,7 +974,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .categoryWrapper .sliderElementMin{display:block;float:left}
 .contacsFormMessage{background:#fff;border:1px solid #00f;display:block;left:200px;padding:30px 0;position:absolute;text-align:center;top:100px;width:700px;z-index:1100}
 #development,.reviewsBlockDetail .autor{text-align:right}
-.reviewsBlockDetail .reviewImgContain, .reviewsBlockDetail .reviewImgContain img{border-radius:90px;float:left;height:100px;overflow:hidden;width:100px;margin-right:20px;margin-bottom:20px;list-style-type:none}
+.reviewsBlockDetail .reviewImgContain, .reviewsBlockDetail .reviewImgContain img{border-radius:90px;float:left;height:100px;overflow:hidden;width:100px;margin-right:20px;margin-bottom:20px;list-style-type:none;-webkit-filter:grayscale(100%);-moz-filter:grayscale(100%);-ms-filter:grayscale(100%);-o-filter:grayscale(100%);filter:grayscale(100%)}
 .reviewsBlockDetail ul{padding-left:0!important}
 .popupAbout,.popupDeliveryWrapper{padding:0 20px}
 .reviewsBlockDetail .reviewDatail{clear:both;margin-bottom:32px;list-style-type:none}
@@ -1053,3 +1054,8 @@ table.form-table tr td:nth-child(2){text-align:left}
 .ga-views .ttip {width:140px!important}
 .gap {padding:0 5px}.gap:before {content:"\003E"}
 .saleSlider .tapeOfPack {color:#627478;font-size:14px;font-family:"Walshein_regular";height:20px}
+.ya-share2__container.ya-share2__container_size_m .ya-share2__icon{width:35px;height:35px;background-repeat:no-repeat;background-position:50%}
+.ya-share2__container.ya-share2__container_size_m .ya-share2__counter{min-width:35px;height:35px;font-size:15px;line-height:35px;box-sizing:border-box;padding:0 12px;text-align:center;border-left:1px solid hsla(0,0%,100%,.25)}
+.ya-share2__counter::before{display:none}
+.ya-share2__badge{background-color:#85959a!important}
+.ya-share2__item {margin:0 10px!important}

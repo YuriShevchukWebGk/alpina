@@ -1300,9 +1300,6 @@
                 <?}?>
         </div>
 		<div class="socialServises" style="text-align: center;padding:40px 0">
-			<style>
-			.b-share-btn__wrap {margin:0 20px!important}
-			</style>
 			<?require('include/socialbuttons.php'); ?>
 		</div>
     </div>
