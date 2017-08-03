@@ -8,9 +8,9 @@ $ticks = tick_time();
 //Начало генерации тела запроса
 $arSelect = Array("ID", "NAME", "PROPERTY_GUID");
 
-$old_i = 6520;
+$old_i = 5479;
 $requestCount = 0;
-for ($i = 6520; $i <= 7000; $i = $i + 10) {      
+for ($i = 5479; $i <= 5700; $i = $i + 10) {      
     $requestCount++;   
     $arFilter = Array("<ID" => $i, ">=ID" => $old_i, "IBLOCK_ID"=> CATALOG_IBLOCK_ID, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");                          
     $old_i = $i; 
@@ -71,7 +71,7 @@ for ($i = 6520; $i <= 7000; $i = $i + 10) {
     //arshow($arBody['ChangedEntities']);                  
     //Выгрузка     
     $http_header = array(
-        'Host: ssdemo.superagent.ru', 
+        'Host: express.grotem.com', 
         'content-type: application/json',       
         'configname: GrotemExpress',           
         'configversion: 1.1.0.0',                      
@@ -100,11 +100,11 @@ for ($i = 6520; $i <= 7000; $i = $i + 10) {
         echo 'Ошибка подключения';            
     }                    
     curl_close($curl); 
-    sleep(1); 
+    sleep(2); 
 } 
 
 //Сохраним данные о выгрузке в ИБ
-/*$el = new CIBlockElement;
+$el = new CIBlockElement;
 
 $PROP = array();
 $PROP[REQUEST_GUID_PROPERTY_ID] = $requestID;  // Идентификатор выгрузки
@@ -120,6 +120,6 @@ $arLoadProductArray = Array(
 if($PRODUCT_ID = $el->Add($arLoadProductArray))
   echo "New ID: ".$PRODUCT_ID;
 else
-  echo "Error: ".$el->LAST_ERROR;  */ 
+  echo "Error: ".$el->LAST_ERROR;
 ?>                               
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

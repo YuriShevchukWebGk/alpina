@@ -13,14 +13,17 @@ if ($_REQUEST["email"]) {
 			"RUB_ID" => array("1"),
 			"CONFIRMED" => "Y"
 		);
-		$subscr->Add($subFields);
 
 		if ($subscr->Add($subFields)) {
 			$str = "Спасибо, что решили читать нас! Мы уже отправили вам письмо с подарком";
 		}
 	} else {
-		$str = "Похоже, вы уже подписаны на нашу рассылку. Спасибо, что читаете нас!";    
+		$str = "Похоже, вы уже подписаны на нашу рассылку. Спасибо, что читаете нас!";
 	}
-
-	echo $str;     
-}?>
+	setcookie("subscribePopup", "ok",time()+31536000,'/');
+	echo $str;
+} elseif ($_REQUEST["close"]) {
+	setcookie("subscribePopup", "close",time()+7776000,'/');
+	echo 'close';
+}
+?>

@@ -18,18 +18,6 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 <script type="text/javascript" src="/js/countdown.js?20170721"></script>
 <link href="/bitrix/css/main/font-awesome.css?146037394928798" type="text/css" rel="stylesheet" />
 <script>function getsubbook(){$.post("/ajax/request_add.php",{email:$("#subpop input[type=email]").val()},function(data){$(".errorinfo").html(data);})}$(document).ready(function(){$(".stopProp").click(function(e){e.stopPropagation();});});function closeX(){$('.hideInfo').hide();}</script>
-<!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
-<?if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {?>
-
-	
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".catalogIcon").html("<span>Каталог</span>");
-            $(".basketIcon").html("<span>Корзина</span>");
-        });
-    </script>
-<?}?>
-<!-- //Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
 
 <!-- Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
 <?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
@@ -40,14 +28,28 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
             }
         </style>
     <?}?>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".catalogIcon").html("<span>Каталог</span>");
-            $(".basketIcon").html("<span>Корзина</span>");
-        });
-    </script>
 <?}?>
 <!-- //Тест Каталога и корзины у иконок ЗАВЕРШЕН -->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".catalogIcon").html("<span>Каталог</span>");
+		$(".basketIcon").html("<span>Корзина</span>");
+	});
+</script>
+
+<?if (!preg_match("/personal/i",$APPLICATION->GetCurPage())) {?>
+	<script type="text/javascript">
+		function subscribePopup() {
+			$.post("/ajax/subscribe_pop.php", {id: 1}, function(data){
+				$(data).appendTo("body").fadeIn();
+			})
+		}
+		$(document).ready(function() {
+			setTimeout(subscribePopup, 2000);
+		});
+	</script>
+<?}?>
 
 <!-- Тест СмартБаннера ЗАВЕРШЕН -->
 <meta name="apple-itunes-app" content="app-id=429622051">
