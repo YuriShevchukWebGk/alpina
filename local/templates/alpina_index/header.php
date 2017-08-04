@@ -66,7 +66,7 @@
     <meta property="fb:app_id" content="138738742872757" /> 
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .index -->
 	
 	<!-- gdeslon -->

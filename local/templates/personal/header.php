@@ -58,7 +58,7 @@
     <meta name="theme-color" content="#ffffff">    
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />   
-    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
     <!-- header .personal -->
 </head>
 <body class="historyBodyWr" itemscope itemtype="https://schema.org/WebPage">
