@@ -31,7 +31,7 @@ if ($_REQUEST["id"] && !isset($_COOKIE["subscribePopup"])) {
 		$return .= '</div><br />';
 
 		$return .= '</div></div></div>';
-		echo $return;
+		//echo $return;
 	}
 } else {
 	echo '';

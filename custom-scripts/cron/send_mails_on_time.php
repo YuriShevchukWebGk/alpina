@@ -288,7 +288,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 		"DELIVERY_ID" => array(10,11,16,24,25,26,28),
 		"!EMP_STATUS_ID" => array($userIDreturn),
 		"@STATUS_ID" => array("I","K"),
-		">=DATE_INSERT" => "01.02.2017",
+		">=DATE_INSERT" => "01.05.2017",
 		//"ID" => 69615
 	);
 
