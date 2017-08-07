@@ -29,7 +29,8 @@ if ($USER->isAdmin()) {
 		$i = 0;
 		$arFilter = Array(
 			">=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d")-60, date("Y"))),
-			"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => $day['n']
+			"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => $day['n'],
+			"!STATUS_ID" => "F"
 		);
 		$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 

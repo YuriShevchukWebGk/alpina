@@ -1,5 +1,6 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-if ($_REQUEST["id"] && !isset($_COOKIE["subscribePopup"])) {
+global $APPLICATION;
+if ($_REQUEST["id"] && empty($_COOKIE["subscribePopup"]) && empty($APPLICATION->get_cookie("subscribePopup"))) {
 	CModule::IncludeModule("subscribe");
 	$already = false;
 	if ($USER->IsAuthorized())
@@ -31,7 +32,7 @@ if ($_REQUEST["id"] && !isset($_COOKIE["subscribePopup"])) {
 		$return .= '</div><br />';
 
 		$return .= '</div></div></div>';
-		//echo $return;
+		echo $return;
 	}
 } else {
 	echo '';

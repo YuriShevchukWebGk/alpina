@@ -1,5 +1,6 @@
 <?## A/B-тестирование на сайте ##
 global $USER;
+global $APPLICATION;
 /*
 $alpExps = unserialize($APPLICATION->get_cookie("alpExps"));
 $alpExps  = (!$alpExps ? array() : $alpExps);
@@ -38,7 +39,7 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 	});
 </script>
 
-<?if (!preg_match("/personal/i",$APPLICATION->GetCurPage())) {?>
+<?if (!preg_match("/personal/i",$APPLICATION->GetCurPage()) && empty($APPLICATION->get_cookie("subscribePopup"))) {?>
 	<script type="text/javascript">
 		function subscribePopup() {
 			$.post("/ajax/subscribe_pop.php", {id: 1}, function(data){
