@@ -14,7 +14,7 @@ if ($_REQUEST["id"] && empty($_COOKIE["subscribePopup"]) && empty($APPLICATION->
 		
 		$return .= '<div style="position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 999999999998; background: rgba(0,0,0,.75);overflow-y:auto;" onclick="setCloseCookie();return false;" class="hideInfo no-mobile">';
 		$return .= '<div style="max-width: 800px; width:100%;min-width:700px;margin-left: -410px; margin-top: 7%;margin-bottom:7%;top: 0; left: 50%; position: absolute; padding: 30px 40px; z-index: 999999999999;display: block;font-family: \'Walshein_regular\';color:#2F3839" class="stopProp">';
-		$return .= '<div class="closeX" style="cursor:pointer;" onclick="closeX();"></div>';
+		$return .= '<div class="closeX" style="cursor:pointer;" onclick="setCloseCookie();"></div>';
 		$return .= '<div style="color:#fff;line-height: 140%;font-size: 18px;" id="subpop">';
 
 
@@ -33,8 +33,8 @@ if ($_REQUEST["id"] && empty($_COOKIE["subscribePopup"]) && empty($APPLICATION->
 
 		$return .= '</div></div></div>';
 		echo $return;
-	}
-} else {
+	} 
+} else { 
 	echo '';
 }
 ?>

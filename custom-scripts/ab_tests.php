@@ -39,18 +39,6 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 	});
 </script>
 
-<?if (!preg_match("/personal/i",$APPLICATION->GetCurPage()) && empty($APPLICATION->get_cookie("subscribePopup"))) {?>
-	<script type="text/javascript">
-		function subscribePopup() {
-			$.post("/ajax/subscribe_pop.php", {id: 1}, function(data){
-				$(data).appendTo("body").fadeIn();
-			})
-		}
-		$(document).ready(function() {
-			setTimeout(subscribePopup, 2000);
-		});
-	</script>
-<?}?>
 
 <!-- Тест СмартБаннера ЗАВЕРШЕН -->
 <meta name="apple-itunes-app" content="app-id=429622051">

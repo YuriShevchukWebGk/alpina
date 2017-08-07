@@ -31,6 +31,13 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 		$bestsellers[] = $bestseller;
 		CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => ''));
 	}
+	
+	$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
+	$res = CIBlockElement::GetList(Array("PROPERTY_page_views_ga" => "DESC"), $arFilter, false, Array("nPageSize"=>50));
+	while ($ob = $res->GetNext()){
+		$recsArray[] = $ob["ID"];
+	}
+	$recsArray = array_unique($recsArray);
 	echo "<br />";	
 
 	echo "<b>Информация о бестселлерах</b><br />";
