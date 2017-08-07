@@ -56,7 +56,7 @@
     <meta property="og:description" content="<?=htmlspecialchars($APPLICATION->ShowProperty("description"))?>" />*/?>
     <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?> 
-	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .eshop_bootstrap_green -->
 </head>
 <body itemscope itemtype="
