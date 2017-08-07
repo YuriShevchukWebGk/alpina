@@ -1,0 +1,59 @@
+.blogWrap .titleWrap  {
+	background:#fff;
+	text-align:center;
+	clear:both;
+}
+.breadCrump, h1, h2,.titleWrap .mainTitle,.date,.breadCrump span a {
+	color:#555;
+}
+.breadCrump {
+	clear:both;
+}
+.date {
+	font-family:Walshein_light;
+	font-size:24px;
+	text-transform:lowercase;
+}
+.blogWrap {
+	font-family:Walshein_light;
+	font-size:20px;
+	color:#444;
+	background:#fff!important;
+}
+ul {
+	list-style-type:disc;
+	margin-left:30px;
+}
+.blogWrap a {
+	color:#00abb8;
+}
+.blogWrap a:hover {
+	color:#111;
+	text-decoration:none;
+}
+.catalogWrapper .textWrap img, .catalogWrapper .textWrap iframe {
+	margin-bottom:30px;
+	display:block;
+	margin: 0 auto;
+}
+.catalogWrapper center img {
+	width:200px;
+	height:200px;
+	border-radius:100px;
+}
+.catalogWrapper .author {
+	text-align:center;
+}
+.catalogWrapper .author img {
+	margin:10px auto;
+}
+.textWrap {
+	max-width: 700px;
+	margin: 30px auto 0;
+}
+.titleWrap, .blogWrap {
+	background: #f6f6f6!important;
+}
+.catalogWrapper, .hintWrapp .catalogWrapper {
+	max-width:1210px!important;
+}

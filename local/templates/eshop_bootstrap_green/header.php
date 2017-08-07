@@ -56,7 +56,7 @@
     <meta property="og:description" content="<?=htmlspecialchars($APPLICATION->ShowProperty("description"))?>" />*/?>
     <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?> 
-	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .eshop_bootstrap_green -->
 </head>
 <body itemscope itemtype="
@@ -149,62 +149,110 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 );?>
         </ul>    
     </div>
-    <div class="lkWrapp">
-        <a href="/personal/cart/" onclick="return false;"><div class="headBasket">
-            <div class="BasketQuant">
-            </div>
-        </div></a>
-        <?
-        if(CUser::IsAuthorized()) {
-        ?>
-            <a href="/personal/cart/?liked=yes">
-                <div class="headLiked">
-                    <?
-                    $user = $arCurUser["NAME"] . " " . $arCurUser["LAST_NAME"];
-                    $wishItemList = CIBlockElement::GetList(
-                        array(), 
-                        array(
-                            "IBLOCK_ID" => WISHLIST_IBLOCK_ID, 
-                            "NAME" => $user
-                        ), 
-                        false, 
-                        false, 
-                        array(
-                            "NAME", 
-                            "ID", 
-                            "PROPERTY_PRODUCTS"
-                        )
-                    );
-                    ?>
-                    <div class="likedQuant"><?= ($wishItemList->SelectedRowsCount()); ?></div>
-                </div></a>
-        <?
-        }?>
-        
+	<?$frame = new \Bitrix\Main\Page\FrameBuffered("header");
+	$frame->begin();?>
+	<script>
+		function basketOpenFlag() {
+			$('.hidingBasketRight, .layout, .windowClose').toggle();
+			if ($('.hidingBasketRight, .layout, .windowClose').css('display') == 'block') {
+				$('html').css('overflow', 'hidden');
+			} else {
+				$('html').css('overflow', 'auto');
+			}
+		}
+		
+		$(document).ready(function(){
+			$("#authorisationPopup").click(function() {
+				$('.layout').show();
 
-        <a href="/personal/profile/" <?if (!$USER->IsAuthorized()){?>id="authorisationPopup"<?}?>>
-            <div>
-                <img src="/img/lkImg.png">
-            </div>
-        </a>
-        <p class="telephone">
-            <?$APPLICATION->IncludeComponent(
-                    "bitrix:main.include", 
-                    ".default", 
-                    array(
-                        "AREA_FILE_SHOW" => "file",
-                        "AREA_FILE_SUFFIX" => "inc",
-                        "AREA_FILE_RECURSIVE" => "Y",
-                        "EDIT_TEMPLATE" => "",
-                        "COMPONENT_TEMPLATE" => ".default",
-                        "PATH" => "/include/telephone.php"
-                    ),
-                    false
-                );?>
+				var winH = $(window).height();
+				var winW = $(window).width();
+				var blokT = winH / 2 - ($('.authorisationWrapper').height() / 2);
+				var blokL = winW / 2 - ($('.authorisationWrapper').width() / 2);
+				$('.authorisationWrapper').css({
+					"top": blokT,
+					"left": blokL
+				});
 
-        </p>
+				$('.authorisationWrapper').show();
+				return false;
+			});
+		});
+	</script>
+	<div class="lkWrapp">
+		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+			<div class="headBasket">
+				<div class="BasketQuant"></div>
+			</div>
+		</a>
 
-    </div>
+		<?if(CUser::IsAuthorized()) {?>
+			<a href="/personal/cart/?liked=yes">
+				<div class="headLiked">
+					<?
+					$curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
+					$user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
+					$wishItemList = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user), false, false, array("NAME", "ID", "PROPERTY_PRODUCTS"));
+					?>
+					<div class="likedQuant"><?echo($wishItemList->SelectedRowsCount());?></div>
+				</div>
+			</a>
+		<?}?>
+
+		<a href="/personal/profile/" <?if (!$USER->IsAuthorized()){?>id="authorisationPopup"<?}?>>
+			<div>
+				<?echo !$USER->IsAuthorized() ? '<img src="/img/lkImg.png">' : '<img src="/img/lkImgBl.png">';?>
+			</div>
+		</a>
+		
+		<p class="telephone">
+			<?$APPLICATION->IncludeComponent(
+				"bitrix:main.include", 
+				".default", 
+				array(
+					"AREA_FILE_SHOW" => "file",
+					"AREA_FILE_SUFFIX" => "inc",
+					"AREA_FILE_RECURSIVE" => "Y",
+					"EDIT_TEMPLATE" => "",
+					"COMPONENT_TEMPLATE" => ".default",
+					"PATH" => "/include/telephone.php"
+				),
+				false
+			);?>
+		</p>
+	</div>
+	<?$frame->beginStub();?>
+	<div class="lkWrapp">
+		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+			<div class="headBasket">
+				<div class="BasketQuant" style="display: none;"></div>
+			</div>
+		</a>
+
+		
+		<a href="/personal/profile/" id="authorisationPopup">
+			<div>
+				<img src="/img/lkImg.png">
+			</div>
+		</a>
+		
+		<p class="telephone">
+			<?$APPLICATION->IncludeComponent(
+				"bitrix:main.include", 
+				".default", 
+				array(
+					"AREA_FILE_SHOW" => "file",
+					"AREA_FILE_SUFFIX" => "inc",
+					"AREA_FILE_RECURSIVE" => "Y",
+					"EDIT_TEMPLATE" => "",
+					"COMPONENT_TEMPLATE" => ".default",
+					"PATH" => "/include/telephone.php"
+				),
+				false
+			);?>
+		</p>
+	</div>
+	<?$frame->end();?>
 </header>
 
 <div class="searchWrap">

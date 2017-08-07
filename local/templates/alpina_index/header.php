@@ -66,7 +66,7 @@
     <meta property="fb:app_id" content="138738742872757" /> 
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .index -->
 	
 	<!-- gdeslon -->
@@ -112,92 +112,151 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
 <header itemscope="" id="WPHeader" itemtype="https://schema.org/WPHeader">
-    <a href="/">
-        <div class="logo">
-            <?$APPLICATION->IncludeComponent(
-                    "bitrix:main.include", 
-                    ".default", 
-                    array(
-                        "AREA_FILE_SHOW" => "file",
-                        "AREA_FILE_SUFFIX" => "inc",
-                        "AREA_FILE_RECURSIVE" => "Y",
-                        "EDIT_TEMPLATE" => "",
-                        "COMPONENT_TEMPLATE" => ".default",
-                        "PATH" => "/include/logo.php"
-                    ),
-                    false
-                );?>
-        </div>
-    </a>
-    <div class="headerWrapper">
-        <ul class="menu">
+	<a href="/">
+	<div class="logo">
+		<?$APPLICATION->IncludeComponent(
+			"bitrix:main.include", 
+			".default", 
+			array(
+				"AREA_FILE_SHOW" => "file",
+				"AREA_FILE_SUFFIX" => "inc",
+				"AREA_FILE_RECURSIVE" => "Y",
+				"EDIT_TEMPLATE" => "",
+				"COMPONENT_TEMPLATE" => ".default",
+				"PATH" => "/include/logo.php"
+			),
+			false
+		);?>
+		</div>
+	</a>
+	
+	<div class="headerWrapper">
+		<ul class="menu">
+			<?$APPLICATION->IncludeComponent(
+				"bitrix:menu", 
+				"top_menu", 
+				array(
+					"ROOT_MENU_TYPE" => "top",
+					"MAX_LEVEL" => "1",
+					"CHILD_MENU_TYPE" => "top",
+					"USE_EXT" => "N",
+					"DELAY" => "N",
+					"ALLOW_MULTI_SELECT" => "N",
+					"MENU_CACHE_TYPE" => "Y",
+					"MENU_CACHE_TIME" => "3600",
+					"MENU_CACHE_USE_GROUPS" => "N",
+					"MENU_CACHE_GET_VARS" => array(),
+					"COMPONENT_TEMPLATE" => "top_menu"
+				),
+				false
+			);?>
+		</ul>    
+	</div>
+	
+	<?$frame = new \Bitrix\Main\Page\FrameBuffered("header");
+	$frame->begin();?>
+	<script>
+		function basketOpenFlag() {
+			$('.hidingBasketRight, .layout, .windowClose').toggle();
+			if ($('.hidingBasketRight, .layout, .windowClose').css('display') == 'block') {
+				$('html').css('overflow', 'hidden');
+			} else {
+				$('html').css('overflow', 'auto');
+			}
+		}
+		
+		$(document).ready(function(){
+			$("#authorisationPopup").click(function() {
+				$('.layout').show();
 
-            <?$APPLICATION->IncludeComponent(
-	"bitrix:menu", 
-	"top_menu", 
-	array(
-		"ROOT_MENU_TYPE" => "top",
-		"MAX_LEVEL" => "1",
-		"CHILD_MENU_TYPE" => "top",
-		"USE_EXT" => "N",
-		"DELAY" => "N",
-		"ALLOW_MULTI_SELECT" => "N",
-		"MENU_CACHE_TYPE" => "Y",
-		"MENU_CACHE_TIME" => "3600",
-		"MENU_CACHE_USE_GROUPS" => "N",
-		"MENU_CACHE_GET_VARS" => array(
-		),
-		"COMPONENT_TEMPLATE" => "top_menu"
-	),
-	false
-);?>
-        </ul>    
-    </div>
-    <div class="lkWrapp">
-        <a href="/personal/cart/" onclick="return false;"><div class="headBasket">
-            <div class="BasketQuant">
-            </div>
-        </div></a>
+				var winH = $(window).height();
+				var winW = $(window).width();
+				var blokT = winH / 2 - ($('.authorisationWrapper').height() / 2);
+				var blokL = winW / 2 - ($('.authorisationWrapper').width() / 2);
+				$('.authorisationWrapper').css({
+					"top": blokT,
+					"left": blokL
+				});
 
-        <?
-            if(CUser::IsAuthorized())
-            {
-            ?>
-            <a href="/personal/cart/?liked=yes">
-                <div class="headLiked">
-                    <?
-                        $curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
-                        $user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
-                        $wishItemList = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user), false, false, array("NAME", "ID", "PROPERTY_PRODUCTS"));
-                    ?>
-                    <div class="likedQuant"><?echo($wishItemList->SelectedRowsCount());?></div>
-                </div></a>
-            <?
-        }?>
+				$('.authorisationWrapper').show();
+				return false;
+			});
+		});
+	</script>
+	<div class="lkWrapp">
+		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+			<div class="headBasket">
+				<div class="BasketQuant"></div>
+			</div>
+		</a>
 
-        <a href="/personal/profile/" <?if (!$USER->IsAuthorized()){?>id="authorisationPopup"<?}?>>
-            <div>
-                <img src="/img/lkImg.png">
-            </div>
-        </a>
-        <p class="telephone"><!--+7 (495) 980 80 77-->
-            <?$APPLICATION->IncludeComponent(
-                    "bitrix:main.include", 
-                    ".default", 
-                    array(
-                        "AREA_FILE_SHOW" => "file",
-                        "AREA_FILE_SUFFIX" => "inc",
-                        "AREA_FILE_RECURSIVE" => "Y",
-                        "EDIT_TEMPLATE" => "",
-                        "COMPONENT_TEMPLATE" => ".default",
-                        "PATH" => "/include/telephone.php"
-                    ),
-                    false
-                );?>
+		<?if(CUser::IsAuthorized()) {?>
+			<a href="/personal/cart/?liked=yes">
+				<div class="headLiked">
+					<?
+					$curr_user = CUser::GetByID($USER -> GetID()) -> Fetch();
+					$user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
+					$wishItemList = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user), false, false, array("NAME", "ID", "PROPERTY_PRODUCTS"));
+					?>
+					<div class="likedQuant"><?echo($wishItemList->SelectedRowsCount());?></div>
+				</div>
+			</a>
+		<?}?>
 
-        </p>
+		<a href="/personal/profile/" <?if (!$USER->IsAuthorized()){?>id="authorisationPopup"<?}?>>
+			<div>
+				<?echo !$USER->IsAuthorized() ? '<img src="/img/lkImg.png">' : '<img src="/img/lkImgBl.png">';?>
+			</div>
+		</a>
+		
+		<p class="telephone">
+			<?$APPLICATION->IncludeComponent(
+				"bitrix:main.include", 
+				".default", 
+				array(
+					"AREA_FILE_SHOW" => "file",
+					"AREA_FILE_SUFFIX" => "inc",
+					"AREA_FILE_RECURSIVE" => "Y",
+					"EDIT_TEMPLATE" => "",
+					"COMPONENT_TEMPLATE" => ".default",
+					"PATH" => "/include/telephone.php"
+				),
+				false
+			);?>
+		</p>
+	</div>
+	<?$frame->beginStub();?>
+	<div class="lkWrapp">
+		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+			<div class="headBasket">
+				<div class="BasketQuant" style="display: none;"></div>
+			</div>
+		</a>
 
-    </div>
+		
+		<a href="/personal/profile/" id="authorisationPopup">
+			<div>
+				<img src="/img/lkImg.png">
+			</div>
+		</a>
+		
+		<p class="telephone">
+			<?$APPLICATION->IncludeComponent(
+				"bitrix:main.include", 
+				".default", 
+				array(
+					"AREA_FILE_SHOW" => "file",
+					"AREA_FILE_SUFFIX" => "inc",
+					"AREA_FILE_RECURSIVE" => "Y",
+					"EDIT_TEMPLATE" => "",
+					"COMPONENT_TEMPLATE" => ".default",
+					"PATH" => "/include/telephone.php"
+				),
+				false
+			);?>
+		</p>
+	</div>
+	<?$frame->end();?>
 </header>
 
 <div class="mainWrapp" itemprop="mainContentOfPage">
@@ -608,7 +667,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			false
 		);?>  
         <?
-            $arrFilter_mustread = array('PROPERTY_SERIES' => '66454', ">DETAIL_PICTURE" => 0);
+            $arrFilter_mustread = array('PROPERTY_discount_on' => '276');
 
             $APPLICATION->IncludeComponent(
 			"bitrix:catalog.section", 
@@ -725,7 +784,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li class="first"><span class="active" data-id="1"><a href="/catalog/new/?SORT=NEW" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'newest'});">Новинки</a></span></li>
             <li><span data-id="2"><a href="/catalog/bestsellers/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'best'});">Бестселлеры</a></span></li>
             <li><span data-id="3"><a href="/catalog/coming-soon/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'soon'});">Скоро <br>в продаже</a></span></li>
-            <li><span data-id="4"><a href="/series/66454/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'hbr'});">Серия <br>HBR</a></span></li>
+            <li><span data-id="4"><a href="/catalog/sale/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'sale'});">Новые скидки<br />ежедневно</span></li>
         </ul>
         <div class="socServ">
             <p class="text">
@@ -1198,6 +1257,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="saleWrapp">
             <div class="catalogWrapper">
+				<!--noindex-->
                 <div class="giftWrapBlock">
                     <div class="giftWrap">
                         <form action="/" method="post">
@@ -1213,8 +1273,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <p>
                             Подпишитесь на рассылку и получите книгу<br />в формате PDF бесплатно
                         </p>
+						<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
                     </div>
                 </div>
+				<!--/noindex-->
             
                 <div>
 					<?$APPLICATION->IncludeComponent(

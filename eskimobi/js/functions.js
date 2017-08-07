@@ -386,7 +386,8 @@ $(document).ready(function(){
   });
 
   $('.headBasket').on('click', function(){
-    $( "html, body" ).scrollTop(0);
+    //$( "html, body" ).scrollTop(0);
+	window.location.href = "/personal/cart/";
   });
 
   //contact

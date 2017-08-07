@@ -73,7 +73,7 @@
             $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.8, width=device-width">');
         }
     </script>
-    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
     <!-- header .alpina_basket -->
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">            

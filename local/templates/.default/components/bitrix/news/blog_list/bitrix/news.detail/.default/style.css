@@ -1,0 +1,147 @@
+.blogWrap .titleWrap  {
+	background:#fff;
+	text-align:center;
+	clear:both;
+}
+.breadCrump, h1, h2,.titleWrap .mainTitle,.date,.breadCrump span a {
+	color:#555;
+}
+.breadCrump {
+	clear:both;
+}
+.date {
+	font-family:Walshein_light;
+	font-size:24px;
+	text-transform:lowercase;
+}
+.blogWrap {
+	font-family:Walshein_light;
+	font-size:20px;
+	color:#444;
+	background:#fff!important;
+	overflow:hidden
+}
+ul {
+	list-style-type:disc;
+	margin-left:30px;
+}
+.blogWrap a {
+	color:#00abb8;
+	text-decoration:underline;
+}
+.blogWrap a:hover {
+	color:#111;
+	text-decoration:none;
+}
+.catalogWrapper .textWrap img, .catalogWrapper .textWrap iframe {
+	margin-bottom:30px;
+	display:block;
+	margin: 0 auto;
+}
+.catalogWrapper center img {
+width:700px;
+height:auto;
+}
+
+.catalogWrapper .author {
+	text-align:center;
+	margin-bottom:80px;
+}
+.catalogWrapper .author img {
+	margin:10px auto;
+	display:block;
+}
+.textWrap {
+	max-width: 700px;
+	margin: 30px auto 0;
+}
+
+.authorLink{
+	text-decoration:none!important;
+	color:#222!important;
+}
+.authorLink:hover {
+	text-decoration:underline!important;
+}
+@media screen and (max-width: 1870px){
+    .catsLinks a{
+        margin: 12px 13px;
+    }
+	.catsLinks {
+		font-size:17px;
+	}
+}
+
+@media screen and (max-width: 1270px){
+    .catsLinks a{
+        margin: 9px 10px;
+    }
+	.catsLinks {
+		font-size:16px;
+		padding: 20px;
+	}
+	.blogPostPreview,.blogPostPreview img {
+		max-width:300px;
+	}
+	.cataloggWrapper {
+		max-width:1000px;
+	}
+	.iblogalpina {
+		padding:5px;
+	}
+}
+
+@media screen and (max-width: 1120px){
+	.blogPostPreview,.blogPostPreview img {
+		max-width:250px;
+	}
+	.blogPostPreview .previewContent .title {
+		font-size:24px;
+	}
+	.blogPostPreview .previewContent .previewText {
+		font-size:16px;
+	}
+	.previewContent {
+	    padding: 7px 20px 15px;
+	}
+	.cataloggWrapper {
+		max-width:880px;
+	}
+}
+
+ul li:nth-child(6n-2),ul li:nth-child(6n-1),ul li:nth-child(6n) {
+	float:right;
+}
+
+@media screen and (max-width: 880px){
+	.blogPostPreview,.blogPostPreview img {
+		max-width:330px;
+	}
+	.blogPostPreview .previewContent .title {
+		font-size:30px;
+	}
+	.blogPostPreview .previewContent .previewText {
+		font-size:19px;
+	}
+	.previewContent {
+	    padding: 7px 20px 15px;
+	}
+	.cataloggWrapper {
+		max-width:880px;
+	}
+	body {
+		min-width:750px;
+	}
+	.iblog, .headText {
+		display:none;
+	}
+	.iblogalpina {
+		padding:5px 0 30px;
+	}
+	ul li:nth-child(4n-1), ul li:nth-child(4n) {
+		float: right;
+	}
+	ul li:nth-child(4n-3), ul li:nth-child(4n-2) {
+		float: left;
+	}
+}

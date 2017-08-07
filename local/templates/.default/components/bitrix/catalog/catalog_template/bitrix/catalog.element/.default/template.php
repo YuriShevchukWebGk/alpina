@@ -163,7 +163,7 @@
 <style>
     .productElementWrapp:before {
         background-color: <?=$bgcolors[0]?>;
-        opacity: 0.3;
+        opacity: 0.15;
     }
     .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive, .multipleBooks li span {
         color: <?=$mincolor['color']?>!important;
@@ -396,7 +396,8 @@
                     <?= GetMessage("SIGNED_BOOK") ?>
                 </div>
             </a>
-            <?}?>
+		<?}?>
+		<?$frame = $this->createFrame()->begin();?>
         <?if ($USER -> IsAuthorized()) {
             if ($arResult["WISHLIST_ITEM"]) {?>
             <a href="/personal/cart/?liked=yes" title="<?= GetMessage("WISHLIST_IN_BASKET") ?>">
@@ -412,6 +413,8 @@
             <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
             <span></span>
         </div>
+		<?$frame->beginStub();?>
+		<?$frame->end();?>
         <?if (!empty($arResult["PROPERTIES"]["glavatitle"]["VALUE"])) {?>
             <style>
                 .productElementWrapp {min-height:1300px;}
@@ -1297,9 +1300,6 @@
                 <?}?>
         </div>
 		<div class="socialServises" style="text-align: center;padding:40px 0">
-			<style>
-			.b-share-btn__wrap {margin:0 20px!important}
-			</style>
 			<?require('include/socialbuttons.php'); ?>
 		</div>
     </div>
@@ -1518,6 +1518,7 @@
     <?}?>
 <div class="reviewsSliderWrapp">
     <div class="centerWrapper">
+		<!--noindex-->
         <div class="giftWrap">
             <form action="/" method="post">
                 <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
@@ -1532,7 +1533,9 @@
             <p>
                 <?= GetMessage("GIFT_BOOK_DESCRIPTION") ?>
             </p>
+			<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
         </div>
+		<!--/noindex-->
 
         <p class="sliderName"><a href="/catalog/lastseen/" class="youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></a></p>
 

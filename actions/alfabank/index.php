@@ -82,7 +82,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					<img src="img/alfabanklogo.png" style="float:left;" />
 					<img src="img/aplogo.png" style="float:right;" />
 					<div class="clear">
-					Совместный проект Интернет-магазин издательства
+					Совместный проект Интернет-магазина издательства
 					<br />
 					Альпина Паблишер и Альфа-Банка
 					</div>

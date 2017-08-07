@@ -96,6 +96,24 @@ $arUrlRewrite = array(
 		"ID" => "bitrix:news",
 		"PATH" => "/news/index.php",
 	),
+	array(
+		"CONDITION" => "#^/blog/authors/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/blog/authors/index.php",
+	),
+	array(
+		"CONDITION" => "#^/blog/authors/([\\.\\-0-9a-zA-Z]+)(\/)?(.*)?#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/blog/authors/index.php",
+	),
+	array(
+		"CONDITION" => "#^/blog/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/blog/index.php",
+	),
 );
 
 ?>

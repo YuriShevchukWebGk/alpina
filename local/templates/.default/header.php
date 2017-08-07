@@ -42,7 +42,7 @@ IncludeTemplateLangFile(__FILE__);
 	<meta name="theme-color" content="#ffffff">	
 	
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
-	<?include_once($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .default -->
 </head>
 

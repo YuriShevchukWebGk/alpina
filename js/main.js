@@ -623,7 +623,7 @@ $(document).ready(function(){
         $('.hidingCatalogLeft, .layout').toggle();
     })
     //Лткрытие всплывающей корзины
-    $('.basketIcon, .headBasket, .ContentbasketIcon, .howToBasketWrapper').click(function(basketOpenFlag){
+    $('.basketIcon, .ContentbasketIcon, .howToBasketWrapper').click(function(basketOpenFlag){
         $('.hidingBasketRight, .layout, .windowClose').toggle();
 
         if($('.hidingBasketRight, .layout, .windowClose').css('display') == 'block'){

@@ -97,6 +97,7 @@ function create_delivery_element($arIDs) {
         $arPropertyUpdate = array();
         $arPropertyUpdate['SHIPMENT_ZDOC_ID'] = $zdoc_id;
         $arPropertyUpdate['SHIPMENT_ORDER_ROW'] = $arIDs;
+        $arPropertyUpdate['HANDOVER_PROTOCOL'] = 'https://www.alpinabook.ru/tools/accordpost_handover_protocol.php?ZDOC_ID='.$shipment_id;
         
         $order_log = $logger_date.' - Номер отгрузки:'.$zdoc_id;  
         logger($order_log, $logger_file);  

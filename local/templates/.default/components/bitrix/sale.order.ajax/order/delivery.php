@@ -177,10 +177,10 @@
 
             } else {?>
             <div>
-				<?
-				$arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
-				$pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
-				?>
+                <?
+                $arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
+                $pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                ?>
                 <input type="radio"
                     class="radioInp"
                     id="ID_DELIVERY_ID_<?= $arDelivery["ID"] ?>"
@@ -228,13 +228,27 @@
 
 
                 <p class="shipingText" <?=$clickHandler?>>
-					<?if (!empty($pict["src"])) {?>
-						<img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;" class="no-mobile" />
-					<?}?>
+                    <?if (!empty($pict["src"])) {?>
+                        <img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;" class="no-mobile" />
+                    <?}?>
                     <?
 
-                        if (strlen($arDelivery["DESCRIPTION"])>0)
-                            echo str_replace('#DATE_DELIVERY#',date_day(1).' - '.date_day(2), $arDelivery["DESCRIPTION"])."<br />";
+                        if($arDelivery["ID"] == DELIVERY_PICKUP) {
+                            if(intval(date('H')) < 17) {
+                                echo str_replace('#DATE_DELIVERY#',date_day_today(0), $arDelivery["DESCRIPTION"])."<br />";  
+                            } else {
+                                echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />"; 
+                            }                                                                                            
+                        } else if($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) {
+                            echo str_replace('#DATE_DELIVERY#',date_day(1-2), $arDelivery["DESCRIPTION"])."<br />";
+                        } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD) {
+                            echo str_replace('#DATE_DELIVERY#',date_day(1), $arDelivery["DESCRIPTION"])."<br />";
+                        } else {
+                            if (strlen($arDelivery["DESCRIPTION"])>0){
+                                echo str_replace('#DATE_DELIVERY#',date_day(1).' - '.date_day(2), $arDelivery["DESCRIPTION"])."<br />";
+                            }
+                        }
+
 
                         if (count($arDelivery["STORE"]) > 0):
                         ?>
@@ -297,7 +311,7 @@
                     </div>
                     <div class="boxbery_error"><?= GetMessage('BOXBERY_SELECT_EMPTY') ?></div>
                     <?if($arDelivery["ID"] == BOXBERY_ID){ ?>
-                        <div id="boxbery_delivery_time" class="boxbery_delivery_time"><?= GetMessage("BOXBERY_DELIVERY_TIME")?>: <span></span></div>
+                        <div id="boxbery_delivery_time" class="boxbery_delivery_time"> <span></span></div>
                     <?} else {?>
                         <div id="boxbery_delivery_time" class="boxbery_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
                     <?}?>

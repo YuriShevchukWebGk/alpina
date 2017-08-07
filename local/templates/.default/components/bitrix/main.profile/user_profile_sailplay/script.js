@@ -26,7 +26,7 @@ function SectionClick(id)
 }
 
 $(function(){
-    $("input[name=PERSONAL_PHONE]").mask("+7(999)999-99-99");
+ //   $("input[name=PERSONAL_PHONE]").mask("+7(999)999-99-99");
     $("input[name=EMAIL]").blur(function(){
         $("input[name=LOGIN]").val($("input[name=EMAIL]").val());
     })
@@ -46,14 +46,23 @@ $(function(){
 
     BX.addCustomEvent('onAjaxSuccess', function(){});
 })
-
+$(function(){
+    $('body').on('click', '.top-section__edit-acc-inner', function(){
+        $('.account-form').show();
+    })
+    $('body').on('click', '.account-form__close', function(){
+        $('.account-form').hide();
+    })
+})
 // Обрабтка формы, для возможности смены пароля при регистрации через Социальные сервисы
 $(document).ready(function(){
-    $(".account-form").on('submit', function(){   
+    $(".account-form").on('submit', function(){
         $.ajax({
             type: "POST",
             url: "/ajax/change_socservices_external_id.php",
-            data: {}
-        })          
+            data: function(data){
+                  console.log(data);
+            }
+        })
     });
 });

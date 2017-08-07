@@ -1,5 +1,6 @@
-<script type="text/javascript" src="//yandex.st/share/share.js"    charset="utf-8"></script>
-<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,gplus,Instagram" data-yashareTheme="counter"></div>
+<script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+<script src="//yastatic.net/share2/share.js"></script>
+<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,pocket,telegram" data-counter=""></div>
     <?
 	// global $APPLICATION;
 

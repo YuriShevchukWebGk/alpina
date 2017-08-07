@@ -1,7 +1,7 @@
 ﻿function updater(d, h, m, s) {
 	var baseTime = new Date();
 	baseTime.setTime(baseTime.getTime() + 1000*60*60*24);
-	var baseTime = new Date(2017, 5, 28);
+	var baseTime = new Date(2017, 6, 24);
 
 	// Период сброса — 3 дня
 	var period = 3*24*60*60*1000;
@@ -35,7 +35,7 @@
 		// следующий раз вызываем себя, когда закончится текущая секунда
 		setTimeout(update, millis);
 	}
-
+ 
 	setTimeout(update, 0);
 }
 

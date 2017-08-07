@@ -757,6 +757,10 @@ select {
     position: relative;
     left: 33px;
 }
+.bx_result_price a{
+    display: block!important;
+    text-align: left;
+}
 .payment_button {
     display: inline-block;
     white-space: normal;
@@ -1060,7 +1064,7 @@ to {
 
 .boxberry_delivery_wrapper {
     margin-left: 34px;
-    display: none;
+
 }
 .bx_section .clear {
 	padding-bottom:15px;

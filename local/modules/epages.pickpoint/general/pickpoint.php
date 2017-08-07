@@ -241,16 +241,16 @@
         }
 
         function GetOrdersArray()
-        {
+        {                      
             $obOrdersPostamat = CPickpoint::SelectOrderPostamat();
-            $arItems = array();
+            $arItems = array();           
             while($arOrderPostamat = $obOrdersPostamat->Fetch())
-            {
+            {                                         
                 $obOrder = CSaleOrder::GetList(
                     array(),
                     array(
                         "ID" => $arOrderPostamat["ORDER_ID"],
-                        "!STATUS_ID" => "F",
+                        "STATUS_ID" => "D",
                         "CANCELED" => "N"
                     ),
                     false,
@@ -265,9 +265,9 @@
                     )
                 );
                 if($arOrder = $obOrder->Fetch())
-                {
+                {                    
                     if(strpos($arOrder['DELIVERY_ID'], 'pickpoint') !== false)
-                    {
+                    {                    
                         $arSettings = unserialize($arOrderPostamat["SETTINGS"]);
                         $arItem = array(
                             "ORDER_ID" => $arOrder["ID"],
@@ -277,12 +277,11 @@
                             "PP_ADDRESS" => $arOrderPostamat["ADDRESS"],
                             "INVOICE_ID" => $arOrderPostamat["PP_INVOICE_ID"],
                             "SETTINGS" => $arSettings
-                        );
-                        $arItems[] = $arItem;
+                        );                
+                        $arItems[] = $arItem;     
                     }
                 }
-            }
-
+            }                
             return $arItems;
         }
 
