@@ -3101,7 +3101,21 @@
 
             return false;
         }
-    }
+    }            
+    
+    //Функция смены названия товаров в корзинах
+    AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "change_product_name_in_basket");
+    
+    function change_product_name_in_basket(&$arParams) {                  
+        if($arParams['IBLOCK_ID'] == CATALOG_IBLOCK_ID) {
+            if(!empty($arParams['NAME']) && !empty($arParams['ID'])) {                        
+                $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => "NULL", "PRODUCT_ID" => $arParams['ID']), false, false, array());
+                while($arItems = $dbBasketItems->Fetch()) {  
+                    CSaleBasket::Update($arItems['ID'], array('NAME' => $arParams['NAME']));                                     
+                }      
+            }   
+        }   
+    };    
                                                                                       
     //Авторизация пользователя по хешу
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
@@ -3138,6 +3152,5 @@
                 }
             }
         }
-    }     
-
+    }                      
 ?>
