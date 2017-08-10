@@ -100,6 +100,8 @@
         var EMAIL = '<?= $user_mail ?>';
         startLoyaltyApp(AUTH_HASH);
     });
-</script>  
+</script>     
+
+
        
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
