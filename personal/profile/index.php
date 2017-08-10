@@ -1,6 +1,6 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-    $APPLICATION->SetTitle("РџРµСЂСЃРѕРЅР°Р»СЊРЅС‹Р№ СЂР°Р·РґРµР»"); 
+    $APPLICATION->SetTitle("Персональный раздел"); 
 ?>   
 <? if ($USER->IsAuthorized()) { ?>
     <section class="l-section-wrap top-section color_1 full">
@@ -18,15 +18,15 @@
     </section>              
     <? if ($user_mail = $USER->GetEmail()) { ?>
         <?
-            if ($token = SailplayHelper::getAuth()) { // РµСЃР»Рё СѓРґР°Р»РѕСЃСЊ СЃРѕРµРґРёРЅРёС‚СЊСЃСЏ СЃ Sailplay Рё РїРѕР»СѓС‡РёС‚СЊ С‚РѕРєРµРЅ
-                if ($hash = SailplayHelper::getUserAuthHash($token, $user_mail)) { // РµСЃР»Рё СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ auth_hash РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, С‚Рѕ РѕС‚РѕР±СЂР°Р¶Р°РµРј Р›Рљ ?>
+            if ($token = SailplayHelper::getAuth()) { // если удалось соединиться с Sailplay и получить токен
+                if ($hash = SailplayHelper::getUserAuthHash($token, $user_mail)) { // если удалось получить auth_hash для пользователя, то отображаем ЛК ?>
                 <app></app>
                 <? }
             }
         ?>
-        <? // РџСЂРµР»РѕР°РґРµСЂ РґР»СЏ sailplay ?>
+        <? // Прелоадер для sailplay ?>
         <style>
-            /* РќРµ СЃР°РјРѕРµ Р»СѓС‡С€РµРµ СЂРµС€РµРЅРёРµ РѕСЃС‚Р°РІР»СЏС‚СЊ СЃС‚РёР»Рё Р·РґРµСЃСЊ, РЅРѕ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІР° СЌС‚Рѕ СЃРѕР·РґР°РЅРёРµ РѕС‚РґРµР»СЊРЅРѕРіРѕ С€Р°Р±Р»РѕРЅР° РґР»СЏ /personal/profile/ */ 
+            /* Не самое лучшее решение оставлять стили здесь, но альтернатива это создание отдельного шаблона для /personal/profile/ */ 
             .historyBodywrap > div > .full, .historyBodywrap > div > .l-section-wrap {
                 display: none;
             }
@@ -101,5 +101,7 @@
         startLoyaltyApp(AUTH_HASH);
     });
 </script>     
+
+
        
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
