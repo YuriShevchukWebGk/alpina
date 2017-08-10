@@ -296,8 +296,9 @@
     // -----> создаем свой формат выводимой даты доставки
     function date_day($day){
         $date_prev = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
+        $date_N_today = date("N"); // определим какой сегодня день недели
 
-        if($date_prev == 5 || $date_prev == 6){
+        if($date_prev == 5 || $date_prev == 6 || $date_N_today == 5){
            $day = $day + 2;
         } else if($date_prev == 7){
            $day = $day + 1;
@@ -2196,12 +2197,13 @@
     //Получение этикетки для бланков заказов, сделанных через PickPoint
 
     function MakeLabelPickPoint($orderId){
+        global $arParams;                                
         //Авторизация на сервере PickPoint для получения ключа сессии (Необходим для дальнейшей работы с API)
         $dataLogin = array('Login' => $arParams["PICKPOINT"]["DATA_ACCESS"]["Login"], 'Password' => $arParams["PICKPOINT"]["DATA_ACCESS"]["Password"]);  //Необходимо указать доступы к API выданные клиенту
-        $ikn = $arParams["PICKPOINT"]["IKN"]; //Номер контракта клиента
+        $ikn = $arParams["PICKPOINT"]["IKN"]; //Номер контракта клиента   
         $urlLogin = "http://e-solution.pickpoint.ru/api/login";
         $content = json_encode($dataLogin);
-        $curl = curl_init($urlLogin);
+        $curl = curl_init($urlLogin); 
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER,
@@ -2212,11 +2214,12 @@
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
-        //Получаем номер отправления в PickPoint по Id заказа
-        $obItem = CPickpoint::SelectOrderPostamat($orderId);
-        $item = $obItem->Fetch();
+        arshow($response);
+        //Получаем номер отправления в PickPoint по Id заказа     
+        $obItem = CPickpoint::SelectOrderPostamat($orderId);       
+        $item = $obItem->Fetch();  
         //        arshow($item);
-        //Отправляем запрос для получения этикетки в формате pdf
+        //Отправляем запрос для получения этикетки в формате pdf        
         $dataSend = array('SessionId' => $response["SessionId"], 'Invoices' => array($item["PP_INVOICE_ID"]));
         $urlLabel = "http://e-solution.pickpoint.ru/api/makelabel";
         $content = json_encode($dataSend);
@@ -2231,13 +2234,13 @@
         $json_response = curl_exec($curl);
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
-        //         arshow($json_response);
-        //Преобразуем массив байтов в и
-        $imagick = new Imagick();
+        $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)          
+        //Преобразуем массив байтов в и        
+        $imagick = new Imagick();         
+        arshow('<------------------------->');    
         $imagick->readImageBlob($json_response);
         $imagick->cropImage(300, 200, 50, 0);
-        $imagick->writeImages(getcwd().'/pickpoint_label/'.$orderId.'.jpg', false);
+        $imagick->writeImages(getcwd().'/pickpoint_label/'.$orderId.'.jpg', false);      
     }
 
 
@@ -2568,13 +2571,13 @@
 
     //агент для выгрузки статусов заказов из личного кабинета Boxberry
     function BoxberryListStatuses() {
-        
+
         $bTmpUser = False;
         if (!isset($GLOBALS["USER"]) || !is_object($GLOBALS["USER"])) {
             $bTmpUser = True;
             $GLOBALS["USER"] = new CUser;
         }
-        
+
         $arFilter = Array(
            "!TRACKING_NUMBER" => null,
            "DELIVERY_ID" => BOXBERRY_PICKUP_DELIVERY_ID,
@@ -3101,22 +3104,22 @@
 
             return false;
         }
-    }            
-    
+    }
+
     //Функция смены названия товаров в корзинах
     AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "change_product_name_in_basket");
-    
-    function change_product_name_in_basket(&$arParams) {                  
+
+    function change_product_name_in_basket(&$arParams) {
         if($arParams['IBLOCK_ID'] == CATALOG_IBLOCK_ID) {
-            if(!empty($arParams['NAME']) && !empty($arParams['ID'])) {                        
+            if(!empty($arParams['NAME']) && !empty($arParams['ID'])) {
                 $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => "NULL", "PRODUCT_ID" => $arParams['ID']), false, false, array());
-                while($arItems = $dbBasketItems->Fetch()) {  
-                    CSaleBasket::Update($arItems['ID'], array('NAME' => $arParams['NAME']));                                     
-                }      
-            }   
-        }   
-    };    
-                                                                                      
+                while($arItems = $dbBasketItems->Fetch()) {
+                    CSaleBasket::Update($arItems['ID'], array('NAME' => $arParams['NAME']));
+                }
+            }
+        }
+    };
+
     //Авторизация пользователя по хешу
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'main',
@@ -3152,5 +3155,5 @@
                 }
             }
         }
-    }                      
+    }
 ?>

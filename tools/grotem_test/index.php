@@ -10,7 +10,7 @@ $arSelect = Array("ID", "NAME", "PROPERTY_GUID");
 
 $old_i = 5479;
 $requestCount = 0;
-for ($i = 5479; $i <= 5700; $i = $i + 10) {      
+for ($i = 5479; $i <= 5485; $i = $i + 1) {      
     $requestCount++;   
     $arFilter = Array("<ID" => $i, ">=ID" => $old_i, "IBLOCK_ID"=> CATALOG_IBLOCK_ID, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");                          
     $old_i = $i; 
@@ -70,15 +70,15 @@ for ($i = 5479; $i <= 5700; $i = $i + 10) {
     );                        
     //arshow($arBody['ChangedEntities']);                  
     //Выгрузка     
-    $http_header = array(
+    $http_header = array(             
+        'POST /bitmobile3/alpina/admin/SyncSolutionDatabase HTTP/1.1', 
         'Host: express.grotem.com', 
         'content-type: application/json',       
         'configname: GrotemExpress',           
         'configversion: 1.1.0.0',                      
         'deviceId: '.GROTEM_DEVICE_ID_GUID.'',  
-        'Authorization: '.GROTEM_AUTHORIZATION.'',
-        'Cache-Control: no-cache',   
-        'Postman-Token: '.POSTMAN_TOKEN.''
+        'Authorization: '.GROTEM_AUTHORIZATION_NEW.'',
+        'Cache-Control: no-cache'
     );         
     $curlBody = json_encode($arBody);   
                          
@@ -100,7 +100,7 @@ for ($i = 5479; $i <= 5700; $i = $i + 10) {
         echo 'Ошибка подключения';            
     }                    
     curl_close($curl); 
-    sleep(2); 
+    sleep(1); 
 } 
 
 //Сохраним данные о выгрузке в ИБ

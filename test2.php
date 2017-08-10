@@ -129,10 +129,6 @@ foreach ($emails_arr as $email => $user_copies_arr) {
      }
 }*/?>      
 <?                            
-if(intval(date('H')) < 12) {
-    echo intval(date('H'));
-} else {
-    echo intval(date('H')); 
-}    
+MakeLabelPickPoint(96723);
                             ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

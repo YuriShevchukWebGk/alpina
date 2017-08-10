@@ -49,6 +49,7 @@
 	text-align:center;
 	font-size:24px;
 }
+.hideInfo {display:none;}
 </style>
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
