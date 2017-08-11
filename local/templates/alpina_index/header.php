@@ -262,7 +262,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="mainWrapp" itemprop="mainContentOfPage">
     <!--<div class="grayBack"></div>-->
     <h1 class="interShop">
-        Интернет-магазин издательства
+        Доставляем интеллектуальное удовольствие
     </h1>
     <p class="ibooks">
         я<img src="/img/logoBig.png">книги
