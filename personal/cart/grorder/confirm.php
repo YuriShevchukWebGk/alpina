@@ -129,7 +129,7 @@
             if($USER->IsAdmin()){
             arshow($_POST);
             }*/
-        ?>
+        ?>                                
 		<?= $APPLICATION->ShowHead();?>
         <?if(CModule::IncludeModule("iblock"))
             {
@@ -178,7 +178,7 @@
 					)
                 ),
                 false
-            ); ?>
+            ); ?>    
 
         <br/><br/><br/>
         <b>Обратите внимание:</b><br /><br />

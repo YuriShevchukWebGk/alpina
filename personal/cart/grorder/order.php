@@ -22,7 +22,7 @@ if ($arPropi["param"]["VALUE"]!=""){
 }else{
 	$param =0;
 }
-?>
+?>                
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -33,10 +33,11 @@ if ($arPropi["param"]["VALUE"]!=""){
 <meta name="keywords" content="Издательство деловой литературы, Альпина Паблишер, книжный интернет магазин, интернет магазин книг, купить книги, деловая литература, бизнес литература, доставка книг, новинки, бестселлеры, накопительные скидки, alpinabook.ru, Альпина Паблишерз, Альпина Паблишерс" />
 <meta name="description" content="«Альпина Паблишер» выпускает бизнес-книги более десяти лет. За книгами издательства Альпины прочно закрепилась репутация максимально полезных и интересных. Альпина гордится своими авторами, идеи которых определяют современный мир. В интернет-магазине Альпины можно купить книги по самой выгодной цене с доставкой. доставка по Москве и почтой по России." />
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.js"></script>   
+<script type="text/javascript" src="https://partner.rficb.ru/gui/rfi_widget/js/v1.js"></script>     
 <link href="fonts/freesetbold.css" rel="stylesheet">
 <link href="fonts/freeset.css" rel="stylesheet">
-</head>
+</head>   
 <style>
 body {max-width:1024px;width:1024px;background:url('img/background.gif') no-repeat 50% 120px transparent;margin:0 auto;}
 input[type="radio"], #addresshide, #paycashinfowrap, #paycashtips {
@@ -117,18 +118,18 @@ input[type="radio"], #addresshide, #paycashinfowrap, #paycashtips {
 <body itemscope itemtype="http://schema.org/WebPage">
 <div id="header" style="width:1024px;height:120px;background: url('img/header.gif')"></div>
 <div id="moneyCircle" style="width:76px; height:76px; background: url('img/money_circle.png'); position:absolute; left:49%;top:84px"></div>
+                  
 
 
-
-
+     
 <script>
 var $j = jQuery.noConflict();
 $j(document).ready(function() {
-	var $ja = $j('input');
+	var $ja = $j('input');    
 	$ja.click(function(){
 		$jinput = $j(this);
 		idinput = $jinput.attr('id');
-		switch(idinput){
+		switch(idinput){     
 			case 'bk':{
 				$j('#payonlineinfowrap').show();
 				$j('#addresshide, #paycashinfowrap, #paycashtips').hide();
@@ -337,7 +338,66 @@ $j(document).ready(function() {
 		<input style="width:220px;height:36px;text-align:center;background:#FF6418;background-size: 105px 32xp;border:1px solid #fafafa;color:white;font-family: 'FreeSet';font-size: 19px;font-weight: 400;padding:5px;margin-top:15px;margin:0 auto;cursor:pointer;margin-top:12px" type="submit" value="Перейти к оплате" />
 	</div>
 	</form>
-	</div>
+    <div style="display: none;">                                                                               
+        <?if(CModule::IncludeModule("iblock"))
+        {
+            $arFilter = Array("IBLOCK_ID" => 48, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_RUBRIC" => $arSection["ID"]);
+            $res = CIBlockElement::GetList(Array(), $arFilter, Array());
+            //  echo $res; 
+
+            $num = 'GR_' . (intval($res) + 500);
+        }
+        ?> 
+        <script>    
+        $j('form[name="confirm_payment"]').on('submit', function(e){                                        
+        //$j('#jq_submit').on('click', function(e){
+            e.preventDefault();                         
+            
+             
+            var paysum_jq = $j("input[name='paysum']" ).val();
+            var email_jq  = $j("input[name='email']" ).val();
+            var phone_jq = $j("input[name='telephone']" ).val();
+                                         
+            if(paysum_jq.trim() && email_jq.trim() && phone_jq.trim()) {
+                console.log('test');
+                $j.ajax({
+                    type: "POST",
+                    url: "/ajax/ajax_readright_rfi.php",
+                    data: {telephone: phone_jq, email: email_jq}
+                }).done(function(strResult) {
+                    console.log(strResult);
+                    if (strResult != 'Error') {
+                        $j('.rfi_button.submit_rfi').attr('data-email', email_jq);
+                        $j('.rfi_button.submit_rfi').attr('data-cost', paysum_jq);
+                        $j('.rfi_button.submit_rfi').attr('data-phone', phone_jq);
+                        
+                        $j('.rfi_button.submit_rfi').attr('data-name', strResult);
+                        $j('.rfi_button.submit_rfi').attr('data-comment', strResult);
+                        $j('.rfi_button.submit_rfi').attr('data-orderid', strResult);
+                        
+                        $j('.rfi_button.submit_rfi').click(); 
+                    }                                                                                                                                   
+                });                                  
+            }
+        }); 
+        </script>     
+        <? $APPLICATION->IncludeComponent(
+            "webgk:rfi.widget",
+            "",
+            Array(
+                "ORDER_ID"      => $num,
+                "OTHER_PAYMENT" => "Y",
+                "OTHER_PARAMS"  => array(
+                    "PAYSUM"   => htmlspecialcharsbx($_POST["paysum"]),
+                    "EMAIL"    => htmlspecialcharsbx($_POST["email"]),
+                    "PHONE"    => htmlspecialcharsbx($_POST['telephone']),
+                    "COMMENT"  => $num
+                )
+            ),
+            false
+        ); ?> 
+        </div>     
+	</div>                                
 	
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

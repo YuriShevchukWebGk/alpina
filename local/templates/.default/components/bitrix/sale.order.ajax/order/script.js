@@ -500,8 +500,8 @@ function getDay(day,mon,year){
 
      day = parseInt(day, 10); //если день двухсимвольный и <10
      mon = parseInt(mon, 10); //если месяц двухсимвольный и <10
-     console.log(d_new);
-     console.log(day);
+   /*  console.log(d_new);
+     console.log(day); */
      var a = parseInt((14-mon)/12, 10);
      var y = year-a;
      var m = mon+12*a-2;

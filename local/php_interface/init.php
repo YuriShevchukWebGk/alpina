@@ -107,7 +107,7 @@
 
     define ("ADMIN_GROUP_ID", 1);
 
-    function arshow($array, $adminCheck = false, $dieAfterArshow = false){
+    function arshow($array, $adminCheck = true, $dieAfterArshow = false){
         global $USER;
         $USER = new Cuser;
         if ($adminCheck) {
@@ -305,6 +305,7 @@
         } else {
            $day = $day + 2;
         }
+
         $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
         $date_d = date("j", (time()+(3600*24)*$day));
         $date_n = date("n", (time()+3600*24*$day));
@@ -321,20 +322,21 @@
         $date_prev = date("N"); // считаем через какое количество дней
         $date_H = date("H"); // текущее время
 
-        if($date_prev == 5 || $date_prev == 6){
-           $day = (time()+(3600*24)*$day+2);
+        if($date_prev == 5 && $date_H > 18){
+           $day = $day + 3;
+        } else if($date_prev == 6){
+           $day = $day + 2;
         } else if($date_prev == 7){
-           $day = (time()+(3600*24)*$day+1);
-        } else if($date_H > 8 && $date_H < 18){
-           $day = (time()+(3600*24)*$day+1);
-        } else {
-            $day = (time());
+           $day = $day + 1;
+        }
+        if($date_H > 18){
+           $day = $day + 1;
         }
 
-        $date_N = date("N", $day); // считаем через какое количество дней
-        $date_d = date("j", $day);
-        $date_n = date("n", $day);
-        $date_Y = date("Y", $day);
+        $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
+        $date_d = date("j", (time()+(3600*24)*$day));
+        $date_n = date("n", (time()+(3600*24)*$day));
+        $date_Y = date("Y", (time()+(3600*24)*$day));
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
@@ -2197,13 +2199,13 @@
     //Получение этикетки для бланков заказов, сделанных через PickPoint
 
     function MakeLabelPickPoint($orderId){
-        global $arParams;                                
+        global $arParams;
         //Авторизация на сервере PickPoint для получения ключа сессии (Необходим для дальнейшей работы с API)
         $dataLogin = array('Login' => $arParams["PICKPOINT"]["DATA_ACCESS"]["Login"], 'Password' => $arParams["PICKPOINT"]["DATA_ACCESS"]["Password"]);  //Необходимо указать доступы к API выданные клиенту
-        $ikn = $arParams["PICKPOINT"]["IKN"]; //Номер контракта клиента   
+        $ikn = $arParams["PICKPOINT"]["IKN"]; //Номер контракта клиента
         $urlLogin = "http://e-solution.pickpoint.ru/api/login";
         $content = json_encode($dataLogin);
-        $curl = curl_init($urlLogin); 
+        $curl = curl_init($urlLogin);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER,
@@ -2214,12 +2216,11 @@
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
-        arshow($response);
-        //Получаем номер отправления в PickPoint по Id заказа     
-        $obItem = CPickpoint::SelectOrderPostamat($orderId);       
-        $item = $obItem->Fetch();  
+        //Получаем номер отправления в PickPoint по Id заказа
+        $obItem = CPickpoint::SelectOrderPostamat($orderId);
+        $item = $obItem->Fetch();
         //        arshow($item);
-        //Отправляем запрос для получения этикетки в формате pdf        
+        //Отправляем запрос для получения этикетки в формате pdf
         $dataSend = array('SessionId' => $response["SessionId"], 'Invoices' => array($item["PP_INVOICE_ID"]));
         $urlLabel = "http://e-solution.pickpoint.ru/api/makelabel";
         $content = json_encode($dataSend);
@@ -2234,13 +2235,13 @@
         $json_response = curl_exec($curl);
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)          
-        //Преобразуем массив байтов в и        
-        $imagick = new Imagick();         
-        arshow('<------------------------->');    
+        $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
+        //Преобразуем массив байтов в и
+        $imagick = new Imagick();
+        arshow('<------------------------->');
         $imagick->readImageBlob($json_response);
         $imagick->cropImage(300, 200, 50, 0);
-        $imagick->writeImages(getcwd().'/pickpoint_label/'.$orderId.'.jpg', false);      
+        $imagick->writeImages(getcwd().'/pickpoint_label/'.$orderId.'.jpg', false);
     }
 
 

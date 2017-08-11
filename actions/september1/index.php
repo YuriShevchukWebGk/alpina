@@ -178,12 +178,12 @@ array('name'=>'Первая мировая война: Катастрофа 1914
 array('name'=>'Вторая мировая война: Ад на земле ','id'=>'8246','link'=>'/catalog/PublicismDocumentaryProse/8246/','img'=>'66','oldprice'=>'899','newprice'=>'','discount'=>'40'),
 
 );?>
-<?if ($USER->isAdmin()) {
+<?/*if ($USER->isAdmin()) {
 	foreach ($booksArray as $m => $single) {
 		echo $single[id];
 		echo '<br />';
 	}
-}?>
+}*/?>
 <?$i = 0;?>
 
     <div class="landing">
