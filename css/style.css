@@ -23,6 +23,7 @@ body{overflow-x:auto!important;font-family:Walshein_regular!important}
 ul{list-style-type:none}
 a{text-decoration:none}
 h6{font-size:22px;font-weight:400;color:#3f4a4d;margin:3px 0}
+*::selection {color:#fff;background:#00abb8}
 header{height:58px;position:relative;color:#7B8C90;font-size:14px}
 .catalog_text,.logo,.logo img,header .lkWrapp{position:absolute}
 header .lkWrapp{right:0;top:0}
@@ -377,7 +378,7 @@ header .headBasket{margin-right:0}
 .recenzion .recenz_author_name:hover{text-decoration:none;border-bottom:1px dashed}
 .recenzion .readFullReview{color:#00ABB8;border-bottom:1px dashed #00ABB8;text-decoration:none}
 .recenzion .readFullReview:hover{border-bottom:none}
-.recenzion .recenz_text{margin-top:10px;margin-bottom:30px;color:#2F3839}
+.recenzion .recenz_text{margin-top:10px;margin-bottom:30px}
 .element_item_img{z-index:1050}
 .hidingCatalogLeft .windowClose{position:absolute;right:-30px;top:40px;cursor:pointer}
 .hidingCatalogLeft .webServ a:nth-child(2) img{opacity:.3}
@@ -475,14 +476,14 @@ header .headBasket{margin-right:0}
 .lkWrapp div:hover{background-color:#eee}
 .elementDescriptWrap .AlreadyInWishlist{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:2px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:40px}
 .elementDescriptWrap .takePartWrap{border-top:1px solid #ddd;padding:14px 6px;margin-bottom:20px;margin-bottom:5px;height:auto;margin-top:0px;width:264px}
-.takePartWrap .title{color:#2F3839;font-size:19px;padding-bottom:8px}
-.takePartWrap .text{color:#3f4a4d;font-size:16px;padding-bottom:14px}
+.takePartWrap .title{color:#232b2d;font-size:19px;padding-bottom:8px;font-family:Walshein_bold}
+.takePartWrap .text{font-family:Walshein_light;color:#232b2d;font-size:16px;padding-bottom:14px}
 .takePartWrap input{background:#fff;border:none;box-shadow:0 2px 5px 0 rgba(0,0,0,.18),0 0 1px 0 rgba(0,0,0,.14);color:#8d8d8d;font-size:15px;height:34px;margin-left:-6px;padding-left:18px;padding-right:32px;width:214px}
 .takePartWrap button{position:relative;left:217px;top:-36px;border:none;width:41px;height:36px;cursor:pointer;background:url(/img/custImpOnElement.png) 0 9px no-repeat transparent}
 .elementDescriptWrap .characteris{border-bottom:1px solid #ddd;margin-bottom:10px;padding-bottom:14px;width:264px}
 .characteris:last-child{border:none}
-.characteris .title{color:#7B8C90;font-size:15px;padding-left:4px}
-.characteris .text{color:#424C4F;padding-left:4px;font-size:15px}
+.characteris .title{color:#7B8C90;font-size:15px;padding-left:4px;font-family:Walshein_bold}
+.characteris .text{color:#232b2d;padding-left:4px;font-size:15px;font-family:Walshein_light}
 .socialServises{margin-left:4px;margin-top:25px}
 .socialServises .twit{background-position:-45px!important}
 .socialServises .faceb{background-position:-90px!important}
@@ -499,7 +500,7 @@ header .headBasket{margin-right:0}
 .authWrapper input[type=submit],.authorisationWrapper input[type=submit],.cartWrapper .nextPageWrap{webkit-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .elementDescriptWrap .inBasket:hover{background-color:#00b9c8;color:#f2f2f2}
 .elementDescriptWrap .buyOneClick{border:2px solid #c7a271;border-radius:40px;color:#c7a271;font-size:19px;margin:20px 28px;padding:12px}
-.elementDescriptWrap .shippings{color:#3f4a4d;font-size:15px;margin-left:30px;margin-top:32px;margin-bottom:32px}
+.elementDescriptWrap .shippings{font-size:16px;margin-left:30px;margin-top:32px;margin-bottom:32px;font-family:Walshein_light;color:#232b2d}
 .shippings li{position:relative;padding-bottom:8px}
 .shippings .lastli{margin-top:15px}
 .shippings a{color:#00ABB8;border-bottom:1px dashed #00ABB8}
@@ -540,12 +541,13 @@ header .headBasket{margin-right:0}
 .productSelectTitle span{margin-left:16px}
 .elementDescriptWrap .annotation,.elementDescriptWrap .prodSelText{color:#3f4a4d;font-size:17px;line-height:24px}
 .elementDescriptWrap .prodSelText{margin-bottom:40px}
-.elementDescriptWrap .annotation span,.elementDescriptWrap .annotation ul{color:#3f4a4d;font-size:17px;line-height:24px;padding-bottom:18px}
+.elementDescriptWrap .annotation span,.elementDescriptWrap .annotation ul{color:#232b2d;font-size:18px;line-height:24px;padding-bottom:18px}
 .elementDescriptWrap .annotation ul{list-style-type:circle;padding-left:40px}
 .elementDescriptWrap .annotation ul li{margin-top:8px}
+.elementDescriptWrap .annotation *,.recenzion .recenz_text{font-family:Walshein_light;font-size:18px;color:#232b2d}
+.elementDescriptWrap .annotation h3,.elementDescriptWrap .productSelectTitle{font-family:Walshein_bold;font-size:25px}
 .elementDescriptWrap .videoWrapp{width:552px;margin-bottom:30px}
 .elementDescriptWrap .keyWords{margin-left:4px;margin-top:8px;padding-bottom:56px}
-.elementDescriptWrap .keyWords a{background-color:#F0F0F0;border-radius:30px;border:#F0F0F0 2px solid;color:#424c4f;display:inline-block;font-size:14px;margin-right:4px;padding:4px 18px;margin-top:10px}
 .elementDescriptWrap .keyWords a:hover{background-color:#fff;border:#eee 2px solid}
 .authorBooksWrapp{background-color:#fff;width:1140px;margin:0 auto;height:440px}
 .authorBooksWrapp:before{position:absolute;left:0;background:#fff;height:100%;content:"";display:block}
@@ -791,7 +793,7 @@ header .headBasket{margin-right:0}
 .footerMenu p>a{color:#8f8f8f;font-size:17px;text-decoration:none}
 .bookPreviewButton{border:2px solid #ad9069;border-radius:45px;color:#ffbf69;font-family:Walshein_regular;font-size:18px;margin:0 auto;padding:7px 0;text-align:center;text-decoration:none;width:230px;position:absolute;top:40%;left:84px;z-index:100;background:rgba(0,0,0,.5)}
 .breadCrump span a{color:#e4e8ea;font-size:14px}
-.elementDescriptWrap .keyWords a{font-size:14px;color:#424c4f;text-decoration:none}
+.elementDescriptWrap .keyWords a{font-size:16px;text-decoration:none;background-color:#F0F0F0;border-radius:30px;border:#F0F0F0 2px solid;display:inline-block;font-size:16px;margin-right:4px;padding:4px 18px;margin-top:10px}
 #couponInp{border:1px solid #bababa;border-radius:3px;box-shadow:0 1px 2px 0 rgba(0,0,0,.21) inset;color:#000;font-size:16px;font-weight:700;height:34px;line-height:34px;margin-left:35px;margin-top:10px;text-align:left;width:200px}
 .baskHeadMenu a,.menu li a{color:#7b8c90;font-size:15px}
 .menu li a{text-decoration:none}
