@@ -322,14 +322,13 @@
         $date_prev = date("N"); // считаем через какое количество дней
         $date_H = date("H"); // текущее время
 
-        if($date_prev == 5 && $date_H > 18){
-           $day = $day + 3;
-        } else if($date_prev == 6){
+        if($date_prev == 5 && $date_H > 17){
            $day = $day + 2;
-        } else if($date_prev == 7){
+        } else if($date_prev == 6){
            $day = $day + 1;
-        }
-        if($date_H > 18){
+        } else if($date_prev == 7){
+           $day = $day;
+        } else if($date_H > 17){
            $day = $day + 1;
         }
 
