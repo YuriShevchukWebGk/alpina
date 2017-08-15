@@ -298,12 +298,36 @@
         $date_prev = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
         $date_N_today = date("N"); // определим какой сегодня день недели
 
-        if($date_prev == 5 || $date_prev == 6 || $date_N_today == 5){
+        if($date_N_today == 5 || $date_N_today == 6){
            $day = $day + 2;
         } else if($date_prev == 7){
            $day = $day + 1;
         } else {
            $day = $day + 2;
+        }
+
+        $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
+        $date_d = date("j", (time()+(3600*24)*$day));
+        $date_n = date("n", (time()+3600*24*$day));
+        $date_Y = date("Y", (time()+3600*24*$day));
+        $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
+        $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
+
+
+         // формат вывода
+        $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
+        return $date;
+    } // -----> создаем свой формат выводимой даты доставки
+    function date_day_courier($day){
+        $date_prev = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
+        $date_N_today = date("N"); // определим какой сегодня день недели
+
+        if($date_prev == 5 || $date_prev == 6 || $date_N_today == 5){
+           $day = $day + 2;
+        } else if($date_prev == 7){
+           $day = $day + 1;
+        } else {
+           $day = $day;
         }
 
         $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней

@@ -495,16 +495,16 @@ function getDay(day,mon,year){
      date_new = new Date(year, mon, day);
      d_new = date_new.getDate();
      var month = ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"];
-     var days = ["понедельник","вторник","среда","четверг","пятница","суббота","воскресенье"];
+     var days = ["","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье"];
 
 
      day = parseInt(day, 10); //если день двухсимвольный и <10
-     mon = parseInt(mon, 10); //если месяц двухсимвольный и <10
-   /*  console.log(d_new);
-     console.log(day); */
+     mon = parseInt(mon + 1, 10); //если месяц двухсимвольный и <10
+
      var a = parseInt((14-mon)/12, 10);
      var y = year-a;
      var m = mon+12*a-2;
+
      var d = (7000+parseInt(d_new+y+parseInt(y/4, 10)-parseInt(y/100, 10)+parseInt(y/400, 10)+(31*m)/12, 10))%7;
 
      if(d == 5 || d == 6){
@@ -517,7 +517,7 @@ function getDay(day,mon,year){
      d = (7000+parseInt(d_new+y+parseInt(y/4, 10)-parseInt(y/100, 10)+parseInt(y/400, 10)+(31*m)/12, 10))%7;
 
 
- return days[d+1] +', '+ d_new +' '+ month[mon] +', '+ y;
+ return days[d] +', '+ d_new +' '+ month[mon] +', '+ y;
 }
 date = new Date();
 
