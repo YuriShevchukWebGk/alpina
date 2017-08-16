@@ -93,7 +93,7 @@ class Flippost{
                     $secondParam = 'country';
                 break;
             case 'getStates':
-                    $firstParam = 'state';
+                    $firstParam = 'statecode';
                     $secondParam = 'state';
                 break;
             case 'getCities':
@@ -123,9 +123,44 @@ class Flippost{
      *   
      ********/
      
-     public static function getData($method,$country,$state,$city,$weight){
-         $qa = self::makeQueryArray($method, $country, $state, $city, $weight);
-         self::getActualData(self::performAPIQuery($qa),$method);
+     public static function getData($method,$country,$state,$city,$weight){ 
+         //Для получения списка штатов получаем так же города, которые не привязаны к штатам и имитурем что они сами являются "штатами"
+         if($method == 'getStates') {
+             $qa = self::makeQueryArray($method, $country, $state, $city, $weight);    
+             $states = self::performAPIQuery($qa);   
+             
+             $qa_cities_without_state = self::makeQueryArray('getCities', $country, $state, $city, $weight);
+             $cities_without_state = self::performAPIQuery($qa_cities_without_state);   
+             
+             foreach($cities_without_state as $city_id => $city) {   
+                if(!empty($city['state'])) {
+                    unset($cities_without_state[$city_id]);        
+                } else {
+                    $cities_without_state[$city_id]['state'] = $city['city'];
+                    $cities_without_state[$city_id]['statecode'] = $city['citycode'];
+                }    
+             }  
+             
+             foreach($states as $state_id => $state) {                     
+                $states[$state_id]['statecode'] = $state['state'];
+             }
+             
+             function sortByOrder($a, $b) {
+                 if ($a['state'] == $b['state']) {  
+                     return 0;
+                 }            
+                 return ($a['state'] < $b['state']) ? -1 : 1;
+             }  
+                                              
+             $ar_states_and_cities = array_merge($states, $cities_without_state);
+                                                             
+             usort($ar_states_and_cities, 'sortByOrder');
+                                                                                                       
+             self::getActualData($ar_states_and_cities, $method);  
+         } else {
+             $qa = self::makeQueryArray($method, $country, $state, $city, $weight);                                                            
+             self::getActualData(self::performAPIQuery($qa),$method); 
+         }                                                       
          
          if($method=='getTarif' && $country!='RUS'){ // --- for foreign countries different algorythm
              $recalculateFlippostCostForeign = (self::$actualQueryData[0]['first'] + 485 + 485*$weight)*1.18;
