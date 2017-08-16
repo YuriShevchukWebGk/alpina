@@ -400,7 +400,7 @@
                                                 <p class="promoWrap"><span class="promocode" onclick="$('#coupon_<?=$arItem['ID']?>, #acceptCoupon_<?=$arItem['ID']?>').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промо-код/сертификат?<span></p>
                                                 <div class="bx_ordercart_order_pay_left" id="coupons_block_<?=$arItem['ID']?>">
                                                     <div class="bx_ordercart_coupon">
-                                                        <input type="text" id="coupon_<?=$arItem['ID']?>" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon_<?=$arItem['ID']?>" class="acceptCoupon" onclick="enterCouponCustom(<?=$arItem['ID']?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
+                                                        <input type="text" id="coupon_<?=$arItem['ID']?>" class="couponInput" name="COUPON_<?=$arItem['ID']?>" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon_<?=$arItem['ID']?>" class="acceptCoupon" onclick="enterCouponCustom(<?=$arItem['ID']?>);dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
                                                         <?//Форматируем сумму для одной позиции товара?>
                                                         <?$ItemSum = 0;?>
                                                         <?$ItemSum = preg_replace("/[^0-9]/", '', $arItem["SUM"]);?> 

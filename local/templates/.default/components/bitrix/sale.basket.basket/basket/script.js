@@ -858,7 +858,7 @@ function checkOut(preorderID)
                 window.location.href = "/personal/order/make/";  
             }
         });   
-    } else {
+    } else {     
         if (!!BX('coupon'))
             BX('coupon').disabled = true;
         BX("basket_form").submit();
@@ -955,7 +955,7 @@ function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
 // used when quantity is changed by clicking on arrows
 function setQuantity(basketId, ratio, sign, bUseFloatQuantity)
 {
-	$("#QUANTITY_INPUT_" + basketId).addClass("input-animate").parent().css({"background-color":"#fff", "width":"39px", "margin-left":"40px"}).find('a').hide();
+    $("#QUANTITY_INPUT_" + basketId).addClass("input-animate").parent().css({"background-color":"#fff", "width":"39px", "margin-left":"40px"}).find('a').hide();
 
     var curVal = parseFloat(BX("QUANTITY_INPUT_" + basketId).value),
     newVal;
@@ -1308,8 +1308,6 @@ function enterCouponCustom(preorderID) {
             url: "/ajax/customCoupon.php",
             data: {coupon: couponCode, price: price,  action: "check"}
         }).done(function(result) {  
-        console.log(1);    
-        console.log(result);   
             if (result != ""){              
                 arResult = JSON.parse(result); 
                 if (arResult.DEFAULT_COUPON == "Y") {
@@ -1327,8 +1325,6 @@ function enterCouponCustom(preorderID) {
             url: "/ajax/customCoupon.php",
             data: {coupon: couponCode, price: price,  action: "check"}
         }).done(function(result) {  
-        console.log(2);    
-        console.log(result);    
             if (result != ""){        
                 arResult = JSON.parse(result);   
                 if (arResult.DEFAULT_COUPON == "Y") {
@@ -1356,11 +1352,11 @@ $(document).ready(function(){
 })
 
 function addToWishList(bookid, cartid) {
-	$.ajax({
-		type: "POST",
-		url: "/ajax/ajax_add2wishlist.php",
-		data: {id: bookid}
-	}).done(function(strResult) {
-		window.location.href = '/personal/cart/?basketAction=delete&id='+cartid;
-	});
+    $.ajax({
+        type: "POST",
+        url: "/ajax/ajax_add2wishlist.php",
+        data: {id: bookid}
+    }).done(function(strResult) {
+        window.location.href = '/personal/cart/?basketAction=delete&id='+cartid;
+    });
 }
