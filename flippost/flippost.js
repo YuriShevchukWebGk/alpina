@@ -1,4 +1,4 @@
-function Flippost(flippost_id) {
+function Flippost(flippost_id) { 
     self = this;
     self.flippost_id = flippost_id;
     self.queryObj = {};
@@ -6,7 +6,7 @@ function Flippost(flippost_id) {
     self.availibleMethods = ['getCountries', 'getStates', 'getCities','getTarif'];
     self.selectFirstString = {
         'getCountries':'Выберите страну',
-        'getStates':'Выберите область (штат)',
+        'getStates':'Выберите область (штат) или город',
         'getCities':'Выберите город'
     };
 }
@@ -27,7 +27,7 @@ function Flippost(flippost_id) {
  *
  *******/
 
-Flippost.prototype.__makeQueryArray = function(method, country, state, city, weight) {
+Flippost.prototype.__makeQueryArray = function(method, country, state, city, weight) {  
     switch(method) {
         case 'getCountries':
             self.queryObj = {
@@ -36,14 +36,15 @@ Flippost.prototype.__makeQueryArray = function(method, country, state, city, wei
             break;
         case 'getStates':
             self.queryObj = {
-                method : method,
+                method : method, 
                 country : country
             };
             break;
-        case 'getCities':
+        case 'getCities':   
             self.queryObj = {
                 method : method,
                 country : country,
+                weight : weight,
                 state : state
             };
             break;
@@ -72,12 +73,14 @@ Flippost.prototype.__makeQueryArray = function(method, country, state, city, wei
  *******/
 
 
-Flippost.prototype.__getQueryData = function(method,country) {
+Flippost.prototype.__getQueryData = function(method, country) {         
     $.post("/flippost/delivery_post.php", self.queryObj, function(data) {
-        self.returnedData = JSON.parse(data);
+        self.returnedData = JSON.parse(data);    
         if(method=='getStates' && self.returnedData.length == 0){ // --- some countries don't have states,get cities in this case
-            self.getData('getCities',country);
-        } else {
+            self.getData('getCities', country);
+        } else if(method=='getCities' && self.returnedData.length == 0) { // Если мы выбрали штат (город) у которого больше нет наследников       
+            self.getData('getTarif', country, self.queryObj.state, self.queryObj.state, self.queryObj.weight); 
+        } else {                                              
             self.__makeSelectTag(method);
         }
 
@@ -96,7 +99,7 @@ Flippost.prototype.__getQueryData = function(method,country) {
  *
  *******/
 
-Flippost.prototype.__makeSelectTag = function(method) {
+Flippost.prototype.__makeSelectTag = function(method) {  
     nextMethodIndex = self.availibleMethods.indexOf(method) + 1;
 
     if(!self.availibleMethods[nextMethodIndex]){ // -- final API method getTarif don't have select tag
@@ -115,8 +118,8 @@ Flippost.prototype.__makeSelectTag = function(method) {
     option_tag = document.createElement('option');
     option_tag.innerHTML = self.selectFirstString[method];
     option_tag.value = "";
-    select_tag.appendChild(option_tag);
-
+    select_tag.appendChild(option_tag);   
+    
     self.returnedData.forEach(function(elem) {
         option_tag = document.createElement('option');
         option_tag.setAttribute("value", elem.first);
@@ -135,7 +138,7 @@ Flippost.prototype.__makeSelectTag = function(method) {
  *
  *******/
 
-Flippost.prototype.__printPrice = function() {
+Flippost.prototype.__printPrice = function() { 
     document.querySelector('.deliveryPriceTable').innerHTML = self.returnedData[0].first + ' руб.';
     $(".ID_DELIVERY_ID_" + self.flippost_id).html(self.returnedData[0].first + ' руб.');
     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(self.returnedData[0].first);
@@ -158,7 +161,7 @@ Flippost.prototype.__printPrice = function() {
  *
  *******/
 
-Flippost.prototype.getData = function(method, country, state, city, weight) {
+Flippost.prototype.getData = function(method, country, state, city, weight) {            
     self.__makeQueryArray(method, country, state, city, weight);
     self.__getQueryData(method,country);
 }
