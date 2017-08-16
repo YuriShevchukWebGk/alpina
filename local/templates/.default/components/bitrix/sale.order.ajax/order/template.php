@@ -16,7 +16,7 @@
     }
     $APPLICATION->SetAdditionalCSS($templateFolder."/style_cart.css");
     $APPLICATION->SetAdditionalCSS($templateFolder."/style.css");
-    $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js"></script>');
+    $APPLICATION->AddHeadString('<script type="text/javascript" src="/flippost/flippost.js?salt='.date('U').'"></script>');
     //$APPLICATION->AddHeadString('<script type="text/javascript" src="/boxbery/boxbery.js"></script>');
     $APPLICATION->AddHeadString('<script type="text/javascript" src="https://points.boxberry.de/js/boxberry.js"></script>');
 	// доставка гуру
