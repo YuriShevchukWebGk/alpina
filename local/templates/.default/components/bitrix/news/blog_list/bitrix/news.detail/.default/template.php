@@ -209,7 +209,6 @@ $frame = $this->createFrame()->begin();
 				</div>
 			</div>
 		<?}?>
-		<script id="inWKTo5OiNMplXFx">if (window.relap) window.relap.ar('inWKTo5OiNMplXFx');</script>
 		<h2>Интересное по теме</h2>
 		<?$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/59703efb5a658825342f445a/'.$arResult["ID"]);
 		$recsArray = json_decode($stringRecs);

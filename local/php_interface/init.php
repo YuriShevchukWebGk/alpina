@@ -298,12 +298,13 @@
         $date_prev = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
         $date_N_today = date("N"); // определим какой сегодня день недели
 
-        if($date_N_today == 5 || $date_N_today == 6){
-           $day = $day + 2;
-        } else if($date_prev == 7){
+        $day = $day + 2;
+        if($date_N_today == 7){
            $day = $day + 1;
-        } else {
-           $day = $day + 2;
+        } else if($date_N_today == 4){
+           $day = $day + 3;
+        } else if($date_N_today == 3){
+           $day = $day + 4;
         }
 
         $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
@@ -322,9 +323,9 @@
         $date_prev = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
         $date_N_today = date("N"); // определим какой сегодня день недели
 
-        if($date_prev == 5 || $date_prev == 6 || $date_N_today == 5){
+        if($date_N_today == 5 || $date_N_today == 6){
            $day = $day + 2;
-        } else if($date_prev == 7){
+        } else if($date_N_today == 7){
            $day = $day + 1;
         } else {
            $day = $day;
