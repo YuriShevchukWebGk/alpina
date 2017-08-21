@@ -1021,6 +1021,9 @@
         <h1 class="productName" itemprop="name">
 			<?echo empty($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]) ? '<span class="mainPart">'.typo($arResult["NAME"]).'</span><span class="secondPart"></span>' : '<span class="mainPart">'.typo($arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"].'</span><br /><span class="secondPart">'.$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]).'</span>';?>
 		</h1>
+		<p class="productAutor">
+			<span><?= $arResult["AUTHOR_NAME"]; ?></span>
+		</p>
         <h2 class="engBookName" itemprop="alternateName"><?= $arResult["PROPERTIES"]["ENG_NAME"]["VALUE"] ?></h2>
         <div class="authorReviewWrap">
             <p class="reviews">
@@ -1051,11 +1054,6 @@
                     }
                 </style>
                 <span class="crr-cnt" data-crr-url="<?=$arResult["ID"]?>" data-crr-chan="<?=$arResult["ID"]?>"></span>
-            </p>
-
-
-            <p class="productAutor">
-                <span><?= $arResult["AUTHOR_NAME"]; ?></span>
             </p>
         </div>
 
