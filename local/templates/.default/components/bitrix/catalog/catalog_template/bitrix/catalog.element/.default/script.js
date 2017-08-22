@@ -2932,7 +2932,7 @@ $(document).ready(function(){
     {
         $(".typesOfProduct").hide();
        /* $(".productsMenu").css("margin-top", "153px"); */
-       $(".productsMenu").css("margin-top", "90px");
+       $(".productsMenu").css("margin-top", "75px");
     }
     
     if ($(".typesOfProduct").css("display") != "none")
@@ -2941,7 +2941,7 @@ $(document).ready(function(){
     }
     if ($(".productName").height() + $(".engBookName").height() > 100)
     {  
-        $(".productsMenu").css("margin-top", "70px");   
+        $(".productsMenu").css("margin-top", "80px");   
     } 
 	
 	
@@ -2972,7 +2972,7 @@ function changeQ(dest) {
 function setItemBgHeight() {
                         
     var priceHeight = parseInt($(".wrap_prise_top").css("height"));                                                                                                                                                                  
-    var bgHeight = parseInt(105 + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + parseInt($(".productAutor").css("height")) + 35/* + parseInt($(".sponsors").css("height"))*/);
+    var bgHeight = parseInt(105 + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + parseInt($(".productAutor").css("height")) + 55/* + parseInt($(".sponsors").css("height"))*/);
     priceHeight = bgHeight - 125;   
     //console.log(priceHeight);
     //$(".wrap_prise_top").css("height", priceHeight);        

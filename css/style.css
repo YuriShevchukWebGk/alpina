@@ -519,7 +519,7 @@ header .headBasket{margin-right:0}
 .centerColumn .topBlock{min-height:175px}
 .centerColumn .engBookName{color:#e4e8ea;font-size:17px;margin-top:12px;margin-bottom:8px;font-family:Walshein_light}
 .centerColumn .productAutor{color:#E4E8EA;font-size:15px;padding-top:13px;font-family:Walshein_bold}
-.centerColumn .reviews{float:right}
+.centerColumn .reviews{float:left}
 .centerColumn .countOfRev{color:#E4E8EA;font-size:14px;margin-left:8px}
 .elementDescriptWrap .typesOfProduct{overflow:hidden}
 .elementDescriptWrap .typesOfProduct>div{border:2px solid #e2e2e2;float:left;padding-top:14px;padding-bottom:14px;width:260px;margin-bottom:12px;text-align:center}

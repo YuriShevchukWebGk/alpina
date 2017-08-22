@@ -165,10 +165,10 @@
         background-color: <?=$bgcolors[0]?>;
         opacity: 0.15;
     }
-    .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive, .multipleBooks li span {
+    .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive, .multipleBooks li span,.previewLink {
         color: <?=$mincolor['color']?>!important;
     }
-    #diffversions .passive span, .multipleBooks li span {
+    #diffversions .passive span, .multipleBooks li span,.previewLink {
         border-bottom: 1px dashed <?=$mincolor['color']?>;
     }
     .catalogIcon {
@@ -1029,12 +1029,15 @@
             <p class="reviews">
                 <style>
                     .crr {
-                        font-family: "Walshein_regular"!important;
-                        font-size:15px!important;
+                        font-family: "Walshein_light"!important;
+                        font-size:16px!important;
                     }
                     .crr .mc-star span {
                         font-size: 18px!important;
                     }
+					.crr .mc-star {
+						margin-left:0!important;
+					}
                     .mc-c .mc-star {
                         vertical-align: bottom !important;
                         color:#f0c15b !important;
@@ -1055,6 +1058,7 @@
                 </style>
                 <span class="crr-cnt" data-crr-url="<?=$arResult["ID"]?>" data-crr-chan="<?=$arResult["ID"]?>"></span>
             </p>
+			<?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?><p class="bookPreviewLink previewLink no-mobile" onclick="getPreview(<?=$arResult["ID"]?>)"><?= GetMessage("BROWSE_THE_BOOK") ?></p><?}?>
         </div>
 
         <ul class="productsMenu">
