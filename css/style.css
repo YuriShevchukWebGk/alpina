@@ -328,7 +328,7 @@ header .headBasket{margin-right:0}
 .headLogin{background:url(/img/loginLogoMini.png) 18px 16px no-repeat rgba(0,0,0,0);height:100%;width:60px}
 .headFind{float:left;height:100%;left:0;margin-left:272px;position:absolute;right:182px;width:auto;top:0}
 .headFind input,.headFindCatalog input{margin-left:1px;border:none;background-color:#F8F8F8;color:#BBC0C2;font-size:19px;padding-left:30px}
-.headFind input{height:90%;width:90%}
+.headFind input{height:90%;width:300px}
 .headFindCatalog input{height:100%;width:100%}
 .catalogHead,.insideHeader .logoHead{border-right:1px solid #e2e2e2;float:left}
 .insideHeader{background:#fff;color:#7b8c90;font-size:14px;height:58px;position:relative}
@@ -528,10 +528,10 @@ header .headBasket{margin-right:0}
 .productType .cost{color:#7B8C90;font-size:14px}
 .elementDescriptWrap .otherTypes{background:url(/img/otherTypesBack.png) 3px 34px no-repeat #dfdfdf;height:72px!important;margin-right:0!important;padding:0!important;width:16px!important;cursor:pointer}
 .elementDescriptWrap .productsMenu{color:#00abb8;font-size:17px;margin-top:18px;margin-bottom:30px}
-.productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:22px;width:auto!important}
+.productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:19px;width:auto!important}
 .productsMenu li:hover{border-bottom:none}
 .productsMenu li:last-child{margin-right:0}
-.productsMenu .active{color:#2F3839;font-size:20px;text-transform:none;border-bottom:none;font-family:Walshein_black}
+.productsMenu .active{color:#2F3839;font-size:19px;text-transform:none;border-bottom:none;font-family:Walshein_black}
 .elementDescriptWrap .citate,.elementDescriptWrap i{color:#2F3839;font-family:Walshein_light;font-size:20px;margin-bottom:20px}
 .elementDescriptWrap .citateAutor{color:#7B8C90;font-family:Walshein_bold;font-size:13px;text-transform:uppercase;margin-bottom:36px}
 .breadCrumpWrap a,.helpBlock .telephone{font-family:Walshein_black}
