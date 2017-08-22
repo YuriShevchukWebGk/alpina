@@ -1543,7 +1543,7 @@
 			array("DATE_VISIT" => "DESC"),
 			array("FUSER_ID" => CSaleBasket::GetBasketUserID()),
 			false,
-			array("nTopCount" => 9),
+			array("nTopCount" => 8),
 			array("PRODUCT_ID")
 		);
 		$lastidids = array();
