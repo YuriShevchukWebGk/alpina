@@ -18,7 +18,6 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
    
 
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
-    <link rel="stylesheet" href="/css/easySlider.css" type="text/css">
 
     <script src="/js/circle-progress.js"></script>
     <script src="/js/jquery.appear.js"></script>

@@ -78,7 +78,7 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
 		<div class="sliderContainer">
 			<ul class="sliderUl">
 				<?foreach ($arResult["ITEMS"] as $arItem) {
-					$pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+					$pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>110, 'height'=>165), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 					foreach ($arItem["PRICES"] as $arPrice) {?>
 						<li class="sliderElement">
 							<div class="">
@@ -86,8 +86,7 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
 									<div class="section_item_img">
 										<img src="<?=$pict["src"]?>" class="bookImg" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>">
 									</div>
-									<p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem["NAME"]?></p>
-									<p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
+									<p class="bookName" title="<?=$arItem["NAME"]?>"><?=substr($arItem["NAME"],0,20).'...'?></p>
 									<?
 									if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 
 										&& intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23) {
