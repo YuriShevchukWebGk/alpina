@@ -78,7 +78,7 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
 		<div class="sliderContainer">
 			<ul class="sliderUl">
 				<?foreach ($arResult["ITEMS"] as $arItem) {
-					$pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>110, 'height'=>165), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+					$pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>120, 'height'=>175), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 					foreach ($arItem["PRICES"] as $arPrice) {?>
 						<li class="sliderElement">
 							<div class="">
