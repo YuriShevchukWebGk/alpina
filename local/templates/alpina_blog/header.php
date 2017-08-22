@@ -12,7 +12,6 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
     <script src="/js/circle-progress.js"></script>
     <script src="/js/jquery.appear.js"></script>
-    <script src="/js/easySlider.js"></script>
     <script src="/js/inputmask.js"></script>
 	<script type="text/javascript" async src="https://relap.io/api/v6/head.js?token=TIz1ipMXWqda7Ons"></script>
     <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script>

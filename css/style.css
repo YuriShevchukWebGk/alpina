@@ -1062,3 +1062,12 @@ table.form-table tr td:nth-child(2){text-align:left}
 .ya-share2__counter::before{display:none}
 .ya-share2__badge{background-color:#85959a!important}
 .ya-share2__item {margin:0 10px!important}
+.sliderElement{display:inline-block;width:146px;vertical-align:top}
+.sliderElementMin{display:inline-block;width:234px}
+.sliderUl{left:0;position:relative;width:9999px}
+.sliderContainer{overflow:hidden}
+.sliderContainer .left{cursor:pointer;left:-38px;position:absolute;top:95px}
+.sliderContainer .rigth{cursor:pointer;position:absolute;right:-40px;top:95px}
+.uLookSlider .sliderContainer{height:310px}
+.sliderElement .bookName,.sliderElement .section_item_img, .sliderElement .section_item_img img {width:110px}
+.sliderElement .section_item_img{min-height:180px}

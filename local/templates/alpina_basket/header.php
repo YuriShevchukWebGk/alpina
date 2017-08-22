@@ -14,7 +14,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
-    <link rel="stylesheet" href="/css/easySlider.css" type="text/css">
     <link rel="stylesheet" href="/css/selectric.css" type="text/css">
 
     <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
