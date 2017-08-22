@@ -1052,7 +1052,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 }
 .registrationBlock .bx-registration-table .RegisterButton{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer;width:120px;text-align:center}
 .registrationBlock .bx-registration-table .CaptchaRegistration{margin-bottom:12px;margin-left:310px;margin-top:12px}
-.bookViews{display:block;margin-top:-3px;padding-left:5px;float:right; color:#424D4F;font-family:'Walshein_regular';font-size:15px}
+.bookViews{display:block;margin-top:1px;padding-left:5px;float:right; color:#424D4F;font-family:'Walshein_regular';font-size:15px}
 .ga-views {background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0!important;padding-left:0!important}
 .ga-views .ttip {width:140px!important}
 .gap {padding:0 5px}.gap:before {content:"\003E"}
