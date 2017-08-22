@@ -2972,11 +2972,7 @@ function changeQ(dest) {
 function setItemBgHeight() {
                         
     var priceHeight = parseInt($(".wrap_prise_top").css("height"));                                                                                                                                                                  
-    var bgHeight = parseInt(105 + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + parseInt($(".authorReviewWrap").css("height")) + 20/* + parseInt($(".sponsors").css("height"))*/);
-    if (parseInt($(".engBookName").css("height")) > 0)
-    {
-        bgHeight += 30;
-    }
+    var bgHeight = parseInt(105 + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + parseInt($(".productAutor").css("height")) + 35/* + parseInt($(".sponsors").css("height"))*/);
     priceHeight = bgHeight - 125;   
     //console.log(priceHeight);
     //$(".wrap_prise_top").css("height", priceHeight);        

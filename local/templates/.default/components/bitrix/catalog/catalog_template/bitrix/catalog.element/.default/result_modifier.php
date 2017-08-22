@@ -630,7 +630,7 @@ if ($arResult['MODULES']['currency'])
             }*/
             if (strlen ($ar_properties['ORIG_NAME']) > 0) {
                 $oriname = implode(" ", array_reverse(explode(" ", $ar_properties['ORIG_NAME'])));
-                $arResult["AUTHOR_NAME"] .= " / " . (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $oriname;
+                $arResult["AUTHOR_NAME"] .= " (" . $oriname.")";
             }
         }
     }

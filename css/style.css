@@ -515,7 +515,7 @@ header .headBasket{margin-right:0}
 .productAction .takePart{color:#486796;font-size:16px;margin-left:4px;margin-top:10px}
 .productAction .takePart:after{content:url(/img/takePart.png);margin-left:10px;position:relative;top:4px}
 .centerColumn .productName{color:#fff;padding-top:34px}
-.centerColumn .productName .mainPart{font-size:40px;font-family:Walshein_bold}
+.centerColumn .productName .mainPart{font-size:38px;font-family:Walshein_bold}
 .centerColumn .topBlock{min-height:175px}
 .centerColumn .engBookName{color:#e4e8ea;font-size:17px;margin-top:12px;margin-bottom:8px;font-family:Walshein_light}
 .centerColumn .productAutor{color:#E4E8EA;font-size:15px;padding-top:13px;font-family:Walshein_bold}
@@ -530,6 +530,7 @@ header .headBasket{margin-right:0}
 .elementDescriptWrap .productsMenu{color:#00abb8;font-size:17px;margin-top:18px;margin-bottom:30px}
 .productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:22px;width:auto!important}
 .productsMenu li:hover{border-bottom:none}
+.productsMenu li:last-child{margin-right:0}
 .productsMenu .active{color:#2F3839;font-size:20px;text-transform:none;border-bottom:none;font-family:Walshein_black}
 .elementDescriptWrap .citate,.elementDescriptWrap i{color:#2F3839;font-family:Walshein_light;font-size:20px;margin-bottom:20px}
 .elementDescriptWrap .citateAutor{color:#7B8C90;font-family:Walshein_bold;font-size:13px;text-transform:uppercase;margin-bottom:36px}
@@ -1011,7 +1012,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .basket_zero_cost{color:#AD3b20;font-size:18px}
 #digitalversion,#paperversion{font-family:Walshein_regular;font-size:16px;padding:10px 20px 0;color:#00abb8;display:block;float:left;width:92px;height:52px}
 #digitalversion{line-height:45px}
-#diffversions .active{background:#ecedef}
+#diffversions .active{background:#ecedef;box-shadow:0 -1px 1px 0 rgba(0,0,0,.18)}
 #diffversions .passive:hover span{border-bottom:none}
 .digitalVersionWrap .inBasket{padding:14px 10px;margin:0 20px}
 .typesOfProduct{visibility:hidden}
