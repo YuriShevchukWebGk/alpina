@@ -25,4 +25,5 @@ $MESS["CT_BCS_CATALOG_BTN_MESSAGE_COMPARE_REDIRECT"] = "Перейти в спи
 $MESS["DELETE"] = "Удалить";
 $MESS["ROUBLES"] = " руб.";
 $MESS["SHARE_A_LIST"] = "Поделиться списком:";
+$MESS["PLEASE_AUTHORIZE"] = "<a href='/personal/profile/' id='authorisationPopup'>Авторизуйтесь</a>, чтобы увидить свой список желаний"
 ?>
