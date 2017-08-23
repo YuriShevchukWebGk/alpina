@@ -421,7 +421,7 @@ $(document).ready(function(){
     }
 
 	//Открываем вкладку об авторах
-	$(".productAutor").click(function() {
+	$(".productAutor span").click(function() {
 		$('#prodBlock1, #prodBlock2, #prodBlock3, #prodBlock4, #prodBlock5').hide();
 		$('.productsMenu li').removeClass('active');
 		$(".productsMenu li:nth-child(2)").addClass("active");

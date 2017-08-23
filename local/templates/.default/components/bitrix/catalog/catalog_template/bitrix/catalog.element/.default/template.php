@@ -901,7 +901,7 @@
             ?>
             <ul class="shippings">
                 <li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
-                <li>1239 <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a></li>
+                <li>1251 <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a></li>
                 <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
@@ -1058,7 +1058,7 @@
                 </style>
                 <span class="crr-cnt" data-crr-url="<?=$arResult["ID"]?>" data-crr-chan="<?=$arResult["ID"]?>"></span>
             </p>
-			<?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?><p class="bookPreviewLink previewLink no-mobile" onclick="getPreview(<?=$arResult["ID"]?>)"><?= GetMessage("BROWSE_THE_BOOK") ?></p><?}?>
+			<?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?><p class="bookPreviewLink previewLink no-mobile" onclick="getPreview(<?=$arResult["ID"]?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;"><?= GetMessage("BROWSE_THE_BOOK") ?></p><?}?>
         </div>
 
         <ul class="productsMenu">
@@ -1279,20 +1279,21 @@
                 <?//$APPLICATION-> IncludeComponent("cackle.reviews", ".default", array( "CHANNEL_ID" => $arResult["ID"] ), false);?>
             </div>
         </div>
+		<!-- noindex -->
         <div class="aboutAutor" id="prodBlock4">
             <?if (!empty($arResult["AUTHORS"])) {?>
                 <?foreach ($arResult["AUTHOR"] as $author) {
                         $currAuth = CIBlockElement::GetList(array(), array("ID" => $author["ID"]), false, false, array("PROPERTY_AUTHOR_DESCRIPTION")) -> Fetch();
                         $currAuthFull = CIBlockElement::GetByID($author["ID"])->GetNext();
                         if (!empty ($author["PROPERTY_ORIG_NAME_VALUE"])) {
-                            $authorFullName = $author["NAME"] . " / " . $author["PROPERTY_ORIG_NAME_VALUE"];
+                            $authorFullName = $author["NAME"] . "<br /><span class='origAuthorName'>" . $author["PROPERTY_ORIG_NAME_VALUE"]."</span>";
                         } else {
                             $authorFullName = $author["NAME"];
                     }?>
 
                     <div class="author_info">
 						<?= !empty($author["IMAGE_FILE"]["SRC"]) ? "<img src='".$author["IMAGE_FILE"]["SRC"]."' align='left' style='padding-right:30px;' />" : ""?>
-                        <span class="author_name"><a href="<?=$currAuthFull[DETAIL_PAGE_URL]?>"><?=$authorFullName?></a></span>
+                        <div class="author_name"><a href="<?=$currAuthFull[DETAIL_PAGE_URL]?>"><?=$authorFullName?></a></div>
                         <?=$currAuth["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]?>
 
                     </div>
@@ -1301,6 +1302,7 @@
                     <?}?>
                 <?}?>
         </div>
+		<!-- /noindex -->
 		<div class="socialServises" style="text-align: center;padding:40px 0">
 			<?require('include/socialbuttons.php'); ?>
 		</div>
@@ -1871,6 +1873,8 @@
             var countReviews = data.res.split(':')[1];
             if (countReviews > 0)
                 $("#commentsLink").append(' ('+countReviews+')');
+			else
+				$("#commentsLink").html("<?=GetMessage("WRITE_COMMENT_TITLE")?>");
 
             var bookRating = (data.res.split(':')[3] / (parseInt(data.res.split(':')[1]) + parseInt(data.res.split(':')[2]))).toFixed(1);
             if (bookRating > 4.4)

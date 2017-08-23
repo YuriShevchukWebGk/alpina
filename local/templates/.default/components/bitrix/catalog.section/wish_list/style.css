@@ -778,3 +778,5 @@
     height: 30px !important;
     display: inline-block;
 }
+.authorize{text-align:center;font-size:18px;color:#232b2d;padding:20px 0}
+.authorize a{text-decoration:none;border-bottom:1px dashed #00abb8;color:#00abb8}

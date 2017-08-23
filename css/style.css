@@ -153,7 +153,7 @@ header .headBasket{padding:17px 1px 0}
 .allBooksWrapp .bookWrapp:nth-child(6n){width:160px}
 .allBooksWrapp .bookName{color:#424c4f;font-size:14px;padding-bottom:5px;padding-top:16px;height:39px;width:142px;overflow:hidden}
 .allBooksWrapp .bookPrice{color:#7B8C90;font-size:14px}
-.allBooksWrapp .allBooks{border:2px solid #c7a271;border-radius:46px;color:#c7a271;font-size:19px;margin-left:447px;margin-top:68px;padding:12px 64px;text-decoration:none}
+.allBooksWrapp .allBooks{border:1px solid #c7a271;border-radius:46px;color:#c7a271;font-size:19px;margin-left:447px;margin-top:68px;padding:12px 64px;text-decoration:none}
 .books>ul span:hover,.categoryWrapper .leftMenu a:hover,.roundSlider>li>a:hover>div>p{text-decoration:underline}
 .allBooksWrapp .catalogBooks{min-height:1140px;margin-bottom:59px}
 .reviewsWrapp{background-color:#f4f4f4;height:804px}
@@ -263,7 +263,7 @@ input:focus{outline:0}
 .mainSearchField::-webkit-input-placeholder{color:#444;font-size:18px;font-family:Walshein_light}
 .mainSearchField::-moz-placeholder{color:#444;font-size:18px;font-family:Walshein_light}
 .authorWrap .titleWrap{background-color:#99abb1;height:138px}
-.breadCrump{color:#e4e8ea;font-size:14px;padding-left:6px;padding-bottom:28px}
+.breadCrump{color:#e4e8ea;font-size:14px;padding-bottom:28px}
 .titleWrap .mainTitle{color:#fff;font-family:Walshein_black;font-size:42px;padding-left:4px}
 .authorWrap .content{background-color:#F4F4F4}
 .authorWrap .autorInfo{float:left;padding-right:30px;padding-top:50px}
@@ -294,7 +294,7 @@ input:focus{outline:0}
 .authorsWrap .authorWrap p{color:#3f4a4d;font-family:Walshein_bold;font-size:13px;padding-left:6px;padding-top:10px;text-transform:uppercase}
 .pageTitleWrap .title,.searchBook .bookNames{font-family:Walshein_black}
 .cataloggWrapper{margin:0 auto;position:relative;width:1186px}
-.authorsWrap .showMore{border:2px solid #c8a474;border-radius:34px;color:#c8a474;font-size:19px;margin:40px auto 70px;padding:12px 44px;text-align:center;width:153px}
+.authorsWrap .showMore{border:1px solid #c8a474;border-radius:34px;color:#c8a474;font-size:19px;margin:40px auto 70px;padding:12px 44px;text-align:center;width:153px}
 .pageTitleWrap{background-color:#99ABB1;height:126px}
 .pageTitleWrap .title{color:#fff;font-size:42px;padding-left:2px;padding-top:32px}
 .pageTitleWrap span{color:#e4e8ea;font-size:14px;margin-left:8px}
@@ -311,7 +311,7 @@ input:focus{outline:0}
 .searchBook .descrWrap{padding-left:9px;width:374px}
 .searchWidthWrapper{margin:0 auto;position:relative;width:1142px}
 .searchBooksWrap .searchBook:nth-child(2n+1){margin-right:42px}
-.searchBooksWrap .showMore{border:2px solid #c8a474;border-radius:34px;color:#c8a474;font-size:19px;margin:16px auto 0;padding:12px 46px;text-align:center;width:153px}
+.searchBooksWrap .showMore{border:1px solid #c8a474;border-radius:34px;color:#c8a474;font-size:19px;margin:16px auto 0;padding:12px 46px;text-align:center;width:153px}
 .interestingWrap{background-color:#fff;height:426px}
 .interestingWrap .title{color:#3f4a4d;font-size:32px;padding-top:42px;padding-bottom:32px}
 .bookEasySlider .bookName{color:#424c4f;font-size:14px;padding-bottom:6px;padding-top:16px}
@@ -353,7 +353,7 @@ header .headBasket{margin-right:0}
 .hidingBasketRight .bookImage,.hidingBasketRight .result>p{float:left}
 .wrapperCategor{background-color:#F4F4F4;height:2500px}
 .categoryWrapper .categoryBooks{float:left;padding:6px;margin-bottom:40px;position:relative}
-.categoryWrapper .showMore{border:2px solid #c8a474;-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;transition:color .3s ease,background-color .3s ease,border-color .3s ease;border-radius:34px;color:#c8a474;font-size:19px;margin:32px auto 70px;padding:12px 44px;text-align:center;width:245px;cursor:pointer}
+.categoryWrapper .showMore{border:1px solid #c8a474;-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;transition:color .3s ease,background-color .3s ease,border-color .3s ease;border-radius:34px;color:#c8a474;font-size:19px;margin:32px auto 70px;padding:12px 44px;text-align:center;width:245px;cursor:pointer}
 .elementDescriptWrap .buyLater,.elementDescriptWrap .inBasket{-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .categoryWrapper .showMore:hover{background:#e6e6e6}
 .categoryWrapper .otherBooks{height:1302px}
@@ -361,13 +361,13 @@ header .headBasket{margin-right:0}
 .otherBooks .bookAutor{color:#7B8C90;font-size:13px;text-transform:uppercase;padding-left:6px;padding-top:5px;height:20px;overflow:hidden}
 .otherBooks .tapeOfPack{color:#3f4a4d;font-size:14px;padding-left:4px;padding-top:8px;height:20px}
 .otherBooks .priceOfBook{color:#7B8C90;font-size:14px;padding-left:6px;padding-top:12px}
-.otherBooks .basketBook,.otherBooks .basketLater{border:2px solid #c7a271;color:#c7a271;font-size:14px;margin:16px auto 0;padding:6px 5px;width:122px;cursor:pointer;text-align:center}
+.otherBooks .basketBook,.otherBooks .basketLater{border:1px solid #c7a271;color:#c7a271;font-size:14px;margin:16px auto 0;padding:6px 5px;width:122px;cursor:pointer;text-align:center}
 .otherBooks .basketBook{border-radius:40px}
 .otherBooks .basketLater{display:none;border-radius:40px}
 .otherBooks img{left:0;position:relative;box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
 .categoryWrapper .titleMain{font-family:Walshein_black;font-size:42px;color:#3f4a4d;padding-top:30px;padding-bottom:26px}
 .hidingCatalogLeft{background-color:#fff;height:100%;left:0;padding:85px 0 0 46px;position:fixed;top:0;width:264px;z-index:1050}
-.elementDescriptWrap .buyLater{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:2px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:20px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;width:179px}
+.elementDescriptWrap .buyLater{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:1px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:20px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;width:179px}
 .allBooks:hover,.elementDescriptWrap .buyLater:hover,.hidingBasketRight .confirm:hover{background-color:#cab796;color:#fff}
 .elementDescriptWrap .oldPrice{color:#7b8c90;font-size:22px;height:15px;display:inline-block;position:relative}
 .countryBlock,.courierBlock,.layout,.pickupBlock,.windowClose{display:none}
@@ -411,7 +411,7 @@ header .headBasket{margin-right:0}
 .hidingBasketRight .count{color:#7b8c90;font-size:13px;padding-left:22px;padding-top:5px}
 .hidingBasketRight .price{color:#424c4f;font-size:17px;padding-left:54px}
 .hidingBasketRight .price span{color:#7B8C90;font-size:15px}
-.hidingBasketRight .confirm{border:2px solid;border-radius:48px;color:#c7a271;font-size:15px;height:32px;margin-bottom:32px;padding-left:60px;padding-top:10px;position:relative;width:182px;margin-top:32px;box-sizing:content-box}
+.hidingBasketRight .confirm{border:1px solid;border-radius:48px;color:#c7a271;font-size:15px;height:32px;margin-bottom:32px;padding-left:60px;padding-top:10px;position:relative;width:182px;margin-top:32px;box-sizing:content-box}
 .confirmTopWrap{background-color:#fff;position:fixed;width:100%;z-index:1050;top:0;border-bottom:1px solid #ececec}
 .hidingBasketRight .confirm p:after{content:url(/img/leftBasketAfter.png);margin-left:36px;position:relative;top:2px}
 .hidingBasketRight .bottomBlock{bottom:0;position:fixed;width:100%;z-index:1050;background-color:#fff}
@@ -462,7 +462,7 @@ header .headBasket{margin-right:0}
 .elementDescriptWrap .centerColumn{height:100%;margin:0 264px 0 380px;padding:0 28px;width:auto}
 .elementDescriptWrap .elementMainPict:hover .overlay{display:block}
 .elementDescriptWrap .overlay{display:none;position:absolute;top:0;z-index:2;left:0;background:url(/img/overlayMainPict.png) no-repeat;width:100%;height:100%}
-.elementDescriptWrap .overlay a{border:2px solid #ad9069;border-radius:40px;color:#ad9069;display:block!important;font-size:14px;margin:0 auto;padding:6px 0;text-align:center;text-decoration:none;width:200px}
+.elementDescriptWrap .overlay a{border:1px solid #ad9069;border-radius:40px;color:#ad9069;display:block!important;font-size:14px;margin:0 auto;padding:6px 0;text-align:center;text-decoration:none;width:200px}
 .elementDescriptWrap .marks{padding-top:12px;margin-bottom:20px;display:inline-block}
 .elementDescriptWrap .marks>div{border-radius:3px;color:#fff;float:left;font-family:Walshein_regular;font-size:14px;margin:10px 10px 0 0;padding:4px 9px;width:auto;cursor:help;position:relative;display:inline}
 .elementDescriptWrap .newBookMark{background-color:#00A0AF}
@@ -474,7 +474,7 @@ header .headBasket{margin-right:0}
 .elementDescriptWrap .marks>div:hover .ttip{visibility:visible;opacity:1;top:99%;left:0;z-index:999}
 .footerMenu img:hover,.webServ img:hover,.yaMarket>a:hover>img,.yaMarket>a:hover>p>span>img{filter:brightness(0)}
 .lkWrapp div:hover{background-color:#eee}
-.elementDescriptWrap .AlreadyInWishlist{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:2px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:40px}
+.elementDescriptWrap .AlreadyInWishlist{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:1px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:40px}
 .elementDescriptWrap .takePartWrap{border-top:1px solid #ddd;padding:14px 6px;margin-bottom:20px;margin-bottom:5px;height:auto;margin-top:0px;width:264px}
 .takePartWrap .title{color:#232b2d;font-size:19px;padding-bottom:8px;font-family:Walshein_bold}
 .takePartWrap .text{font-family:Walshein_light;color:#232b2d;font-size:16px;padding-bottom:14px}
@@ -499,7 +499,7 @@ header .headBasket{margin-right:0}
 .elementDescriptWrap .inBasket.toPreorder{font-size:16px;padding:14px 15px} 
 .authWrapper input[type=submit],.authorisationWrapper input[type=submit],.cartWrapper .nextPageWrap{webkit-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .elementDescriptWrap .inBasket:hover{background-color:#00b9c8;color:#f2f2f2}
-.elementDescriptWrap .buyOneClick{border:2px solid #c7a271;border-radius:40px;color:#c7a271;font-size:19px;margin:20px 28px;padding:12px}
+.elementDescriptWrap .buyOneClick{border:1px solid #c7a271;border-radius:40px;color:#c7a271;font-size:19px;margin:20px 28px;padding:12px}
 .elementDescriptWrap .shippings{font-size:16px;margin-left:30px;margin-top:32px;margin-bottom:32px;font-family:Walshein_light;color:#232b2d}
 .shippings li{position:relative;padding-bottom:8px}
 .shippings .lastli{margin-top:15px}
@@ -522,7 +522,7 @@ header .headBasket{margin-right:0}
 .centerColumn .reviews{float:left}
 .centerColumn .countOfRev{color:#E4E8EA;font-size:14px;margin-left:8px}
 .elementDescriptWrap .typesOfProduct{overflow:hidden}
-.elementDescriptWrap .typesOfProduct>div{border:2px solid #e2e2e2;float:left;padding-top:14px;padding-bottom:14px;width:260px;margin-bottom:12px;text-align:center}
+.elementDescriptWrap .typesOfProduct>div{border:1px solid #e2e2e2;float:left;padding-top:14px;padding-bottom:14px;width:260px;margin-bottom:12px;text-align:center}
 .productType .title{color:#424C4F;font-size:15px;margin-bottom:4px}
 .productType .title a{color:#424C4F!important}
 .productType .cost{color:#7B8C90;font-size:14px}
@@ -575,7 +575,7 @@ header .headBasket{margin-right:0}
 .weRecomWrap .bookName{color:#424c4f;font-size:14px;padding-bottom:5px;padding-top:5px;height:39px;width:142px;overflow:hidden}
 .weRecomWrap .bookPrice{color:#7b8c90;font-size:14px}
 .bookPrice span,.rubsign{font-family:'RoubleSign'!important}
-.weRecomWrap .allBooks{border:2px solid #c7a271;border-radius:46px;color:#c7a271;font-size:19px;margin-left:447px;margin-top:68px;padding:12px 64px;text-decoration:none}
+.weRecomWrap .allBooks{border:1px solid #c7a271;border-radius:46px;color:#c7a271;font-size:19px;margin-left:447px;margin-top:68px;padding:12px 64px;text-decoration:none}
 .weRecomBlock{margin-bottom:28px}
 .basketHeader{background-color:#fff;font-size:14px;color:#7B8C90;height:58px;position:relative}
 .basketHeader .alpiLogo{background:url(/img/alpinaLogoMini.png) 8px 14px no-repeat rgba(0,0,0,0);height:100%;left:60px;position:absolute;width:50px}
@@ -588,7 +588,7 @@ header .headBasket{margin-right:0}
 .breadCrumpWrap a{font-size:24px;color:#E4E8EA;text-decoration:none}
 .orderBodyWrapp{background-color:#F4F4F4;width:100%;padding-bottom:100px;padding-top:38px}
 .orderBody{background-color:#fff;padding:24px 46px 0 22px;width:782px;border-bottom:1px solid #ebebeb}
-.helpBlock{border:2px solid #c7a271;float:right;padding:28px 32px 19px;text-align:center;width:192px}
+.helpBlock{border:1px solid #c7a271;float:right;padding:28px 32px 19px;text-align:center;width:192px}
 .helpBlock .text{color:#3f4a4d;font-size:14px}
 .helpBlock .telephone{color:#3f4a4d;font-size:20px;padding-top:16px}
 .cartMenuWrap .basketItems,.helpBlock .mailAdr,.orderBody .allCost,.totalPriceWrap .allCost{font-family:Walshein_bold}
@@ -673,7 +673,7 @@ header .headBasket{margin-right:0}
 .moreInterestParty{height:600px}
 .moreInterestParty .autorSlideName{color:#7B8C90;font-size:13px;text-transform:uppercase}
 .moreInterestParty .coverSlideType{color:#3f4a4d;font-size:14px;margin-top:8px;margin-bottom:12px}
-.moreInterestParty .slideInBasket{border:2px solid #c7a271;border-radius:30px;margin-top:16px;padding:6px 32px;width:66px}
+.moreInterestParty .slideInBasket{border:1px solid #c7a271;border-radius:30px;margin-top:16px;padding:6px 32px;width:66px}
 .moreInterestParty .slideInBasket a{text-decoration:none;color:#C7A271;font-size:14px}
 .moreInterestParty .bookNameSlide{color:#424c4f;font-size:14px;margin-top:20px;margin-bottom:4px}
 .moreInterestParty .bookPriceSlide{color:#7b8c90;font-size:14px}
@@ -732,10 +732,10 @@ header .headBasket{margin-right:0}
 .hiddenOrderInf{display:none}
 .hidOrdInfo1{display:block}
 #cardBlock1,#cardBlock2,#couponInp,#prodBlock2,#prodBlock3,#prodBlock4,#prodBlock5,.bookPreviewButton,.categoryWrapper #block2,.categoryWrapper #block3,.gmnoprint{display:none}
-.finishOrdWrap .rightBlockWrap{border:2px solid #e4e4e4;float:right;height:220px;margin-right:10px;margin-top:38px;padding:0 28px;text-align:center;width:200px;display:none}
+.finishOrdWrap .rightBlockWrap{border:1px solid #e4e4e4;float:right;height:220px;margin-right:10px;margin-top:38px;padding:0 28px;text-align:center;width:200px;display:none}
 .finishOrdWrap .blockTitle{color:#353535;font-size:15px;margin-bottom:4px;margin-top:26px}
 .finishOrdWrap .blokText{font-size:14px;color:#3f4a4d}
-.finishOrdWrap .giftCont{border:2px solid #c7a271;border-radius:30px;margin-top:30px;padding:6px 25px;text-align:center;width:130px}
+.finishOrdWrap .giftCont{border:1px solid #c7a271;border-radius:30px;margin-top:30px;padding:6px 25px;text-align:center;width:130px}
 .finishOrdWrap .giftCont a{text-decoration:none;color:#C7A271;font-size:14px}
 .finishOrdWrap .ordTitle{color:#3f4a4d;font-family:Walshein_black;font-size:42px;padding-bottom:20px;padding-top:42px}
 .finishOrdWrap .OrdAkses,.finishOrdWrap .ordHint{color:#2F3839;font-family:Walshein_light;font-size:20px}
@@ -781,7 +781,7 @@ header .headBasket{margin-right:0}
 .contactsFormWrap input[type=text]{height:54px;margin-bottom:22px}
 .ReviewsFormWrap{float:right;min-height:548px;margin-top:34px;margin-bottom:56px}
 .questInput{height:104px;margin-bottom:22px;padding-top:12px;resize:none}
-.contactsFormWrap input[type=submit]{background-color:#fff;border:2px solid #c7a271;border-radius:40px;color:#c7a271;cursor:pointer;font-size:19px;margin-left:72px;padding:10px 0;width:216px}
+.contactsFormWrap input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:40px;color:#c7a271;cursor:pointer;font-size:19px;margin-left:72px;padding:10px 0;width:216px}
 .mapContainerContact{height:522px}
 .noResultBodyWrap{background-color:#F4F4F4;height:600px}
 .noResultBodyWrap .noResultTitle{color:#3f4a4d;font-family:Walshein_black;font-size:42px;line-height:44px;padding-top:190px;width:462px}
@@ -792,7 +792,7 @@ header .headBasket{margin-right:0}
 .filterParams li:nth-child(2).active p:after,.filterParams li:nth-child(3).active p:after{content:url(/img/filtAftPictHov.png)}
 .hidingBasketRight .confirm a{color:#c7a271;font-size:15px;text-decoration:none}
 .footerMenu p>a{color:#8f8f8f;font-size:17px;text-decoration:none}
-.bookPreviewButton{border:2px solid #ad9069;border-radius:45px;color:#ffbf69;font-family:Walshein_regular;font-size:18px;margin:0 auto;padding:7px 0;text-align:center;text-decoration:none;width:230px;position:absolute;top:40%;left:84px;z-index:100;background:rgba(0,0,0,.5)}
+.bookPreviewButton{border:1px solid #ad9069;border-radius:45px;color:#ffbf69;font-family:Walshein_regular;font-size:18px;margin:0 auto;padding:7px 0;text-align:center;text-decoration:none;width:230px;position:absolute;top:40%;left:84px;z-index:100;background:rgba(0,0,0,.5)}
 .breadCrump span a{color:#e4e8ea;font-size:14px}
 .elementDescriptWrap .keyWords a{font-size:16px;text-decoration:none;background-color:#F0F0F0;border-radius:30px;border:#F0F0F0 2px solid;display:inline-block;font-size:16px;margin-right:4px;padding:4px 18px;margin-top:10px}
 #couponInp{border:1px solid #bababa;border-radius:3px;box-shadow:0 1px 2px 0 rgba(0,0,0,.21) inset;color:#000;font-size:16px;font-weight:700;height:34px;line-height:34px;margin-left:35px;margin-top:10px;text-align:left;width:200px}
@@ -809,7 +809,7 @@ header .headBasket{margin-right:0}
 .centredWrapper{width:1140px;margin:0 auto}
 .signinWrapper .signinBlock{background-color:#fff;padding-top:78px;display:none;margin-bottom:80px}
 .signinWrapper .registrationBlock{background-color:#fff;margin-bottom:78px;padding-bottom:72px;padding-top:78px}
-.signinWrapper input[type=password],.signinWrapper input[type=text]{background-color:#fbfbfb;border:2px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;width:518px;padding:0 20px}
+.signinWrapper input[type=password],.signinWrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;width:518px;padding:0 20px}
 .signinWrapper input[type=text]{margin:0 288px 20px}
 .signinWrapper input[type=password]{margin:0 288px}
 .signinWrapper input[type=checkbox]+label::before,.signinWrapper input[type=checkbox]:checked+label::before{display:inline-block;height:26px;position:relative;width:26px;background-repeat:no-repeat;content:""}
@@ -820,7 +820,7 @@ header .headBasket{margin-right:0}
 .signinWrapper .remembMeText{color:#434c4f;font-family:Walshein_regular;font-size:15px;padding-left:8px;cursor:pointer}
 .signinWrapper .forgotPass a{text-decoration:none;font-family:Walshein_light;font-size:16px;color:#CEAD81}
 .signinWrapper .remembMeContainer{margin-left:285px;margin-top:7px}
-.signinWrapper input[type=submit]{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer}
+.signinWrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer}
 .signinWrapper .socServisesText{border-top:1px solid #ebebeb;color:#3f4a4d;font-size:32px;margin-top:2px;padding:32px 427px 0}
 .signinWrapper .socServisesPict{margin:24px 0 80px 385px;padding-bottom:76px}
 .signinWrapper .socServisesPict img{margin-right:22px}
@@ -828,15 +828,15 @@ header .headBasket{margin-right:0}
 .authorisationWrapper{position:fixed;z-index:1100;display:none}
 .authWrapper{margin:0 auto}
 .authWrapper .title,.authorisationWrapper .title{color:#3f4a4d;font-size:24px;margin-bottom:20px;padding-top:50px;text-align:center}
-.authWrapper input[type=text],.authorisationWrapper input[type=text]{background-color:#fbfbfb;border:2px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:58px;margin:0 45px 20px;padding:0 20px;width:518px}
-.authWrapper input[type=password],.authorisationWrapper input[type=password]{background-color:#fbfbfb;border:2px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:58px;margin:0 45px;padding:0 20px;width:518px}
+.authWrapper input[type=text],.authorisationWrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:58px;margin:0 45px 20px;padding:0 20px;width:518px}
+.authWrapper input[type=password],.authorisationWrapper input[type=password]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:58px;margin:0 45px;padding:0 20px;width:518px}
 .authWrapper input[type=checkbox]+label::before,.authorisationWrapper input[type=checkbox]+label::before{background-image:url(/img/emptyChechBox.png);background-repeat:no-repeat;content:"";display:inline-block;height:26px;left:-8px;position:relative;top:8px;width:26px}
 .authWrapper input[type=checkbox]:checked+label::before,.authorisationWrapper input[type=checkbox]:checked+label::before{background-image:url(/img/checkedCheckbox.png);background-repeat:no-repeat;content:"";display:inline-block;height:26px;left:-5px;position:relative;top:11px;width:26px}
 .authWrapper .remembMeText,.authorisationWrapper .remembMeText{color:#434c4f;font-family:Walshein_regular;font-size:15px;padding-left:8px;cursor:pointer}
 .authWrapper .forgotPass,.authorisationWrapper .forgotPass{float:right;margin-right:50px;margin-top:11px}
 .authWrapper .forgotPass a,.authorisationWrapper .forgotPass a{color:#cead81;font-family:Walshein_light;font-size:16px;text-decoration:none}
 .authWrapper .remembMeContainer,.authorisationWrapper .remembMeContainer{margin-left:42px;margin-top:1px}
-.authWrapper input[type=submit],.authorisationWrapper input[type=submit]{background-color:#c7a271;border:2px solid #fff;border-radius:50px;color:#fff;font-size:19px;margin:28px 220px;padding:10px 78px;cursor:pointer;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
+.authWrapper input[type=submit],.authorisationWrapper input[type=submit]{background-color:#c7a271;border:1px solid #fff;border-radius:50px;color:#fff;font-size:19px;margin:28px 220px;padding:10px 78px;cursor:pointer;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .authWrapper input[type=submit]:hover,.authorisationWrapper input[type=submit]:hover{background-color:#d0b28c}
 .authWrapper .socServisesText,.authorisationWrapper .socServisesText{border-top:1px solid #ebebeb;color:#3f4a4d;font-size:24px;margin-top:5px;padding-top:32px;text-align:center}
 .authWrapper .socServisesPict,.authorisationWrapper .socServisesPict{margin-bottom:34px;margin-top:18px;text-align:center}
@@ -847,27 +847,27 @@ header .headBasket{margin-right:0}
 #authorisationClose{position:absolute;right:46px;top:-30px;cursor:pointer}
 .CloseQuickOffer,.CloseWishlist{right:-13px;cursor:pointer;position:absolute}
 .changePasWrapper{background-color:#fbfbfb;padding-left:98px;padding-top:58px}
-.changePasWrapper .changePasInp{background-color:#fbfbfb;border:2px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;margin-top:22px;padding-left:20px;width:526px}
-.changePasWrapper input[type=submit]{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin-bottom:80px;margin-top:40px;padding:10px 48px;cursor:pointer}
+.changePasWrapper .changePasInp{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;margin-top:22px;padding-left:20px;width:526px}
+.changePasWrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin-bottom:80px;margin-top:40px;padding:10px 48px;cursor:pointer}
 .changePasWrapper .infoText{color:#3f4a4d;font-size:14px;margin:10px 22px -10px}
-.personal_info_wrapper input[type=submit]{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin-bottom:80px;margin-top:40px;padding:10px 48px;cursor:pointer}
-.personal_info_wrapper input[type=text]{background-color:#fbfbfb;border:2px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;margin-top:22px;padding-left:20px;width:526px}
+.personal_info_wrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin-bottom:80px;margin-top:40px;padding:10px 48px;cursor:pointer}
+.personal_info_wrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;margin-top:22px;padding-left:20px;width:526px}
 .changePassWrapper,.lostPassWrapper{background-color:#F4F4F4}
 .lostPassWrapper .lostPassBlock{background-color:#fff;height:350px;margin:40px auto;padding-top:74px;width:1140px}
 .changePassWrapper p,.lostPassWrapper p{color:#444f51;font-family:Walshein_light;font-size:20px;text-align:center;width:616px;margin:0 auto}
-.changePassWrapper input[type=text],.lostPassWrapper input[type=text]{background-color:#fbfbfb;border:2px solid #f0f0f0;color:#979797;font-family:Walshein_light;font-size:20px;height:56px;margin:22px 286px;padding:0 22px;width:506px}
-.lostPassWrapper input[type=submit]{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:19px 436px;padding:10px 26px;cursor:pointer}
+.changePassWrapper input[type=text],.lostPassWrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#979797;font-family:Walshein_light;font-size:20px;height:56px;margin:22px 286px;padding:0 22px;width:506px}
+.lostPassWrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:19px 436px;padding:10px 26px;cursor:pointer}
 .changePassWrapper{width:1140px;margin:0 auto;background:#fff}
 .changePassWrapper .bx-authform{min-height:306px;margin:30px auto;padding-top:74px;width:1140px;text-align:center}
 .changePassWrapper .bx-authform-description-container,.changePassWrapper .bx-authform-link-container{font-size:15px}
 .changePassWrapper .bx-authform input[type=password]{margin:0 auto;font-family:Walshein_light}
-.changePassWrapper input[type=submit]{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:0 auto;padding:10px 26px;cursor:pointer}
+.changePassWrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:0 auto;padding:10px 26px;cursor:pointer}
 .delItem img{width:25px;height:25px}
 .delItem{position:absolute;top:8px;left:60px;cursor:pointer;display:none}
 .hidingBasketRight .basketBook:hover .delItem{display:block}
 .quickOrderDiv{position:absolute;z-index:2000;margin:0 auto;left:35%;top:200px;padding:25px;background:#fff}
-.quickOrderDiv input[type=text]{background-color:#fbfbfb;border:2px solid #f0f0f0;color:#979797;font-family:Walshein_light;font-size:18px;padding-right:22px;width:223px}
-.quickOrderDiv input[type=button]{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:16px;padding:10px 26px;cursor:pointer;margin:12px 29px}
+.quickOrderDiv input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#979797;font-family:Walshein_light;font-size:18px;padding-right:22px;width:223px}
+.quickOrderDiv input[type=button]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:16px;padding:10px 26px;cursor:pointer;margin:12px 29px}
 .notify{font-size:15px}
 .CloseQuickOffer{top:-10px}
 .CloseQuickOffer img{width:30px}
@@ -883,7 +883,7 @@ header .headBasket{margin-right:0}
 .wishlistBlock .wishBookAutor a{color:#7b8c90;text-decoration:none}
 .wishlistBlock .wishBookPrice{color:#434c4f;font-size:14px;margin-bottom:10px}
 .wishlistBlock .wishBookDescription{color:#909ea3;font-family:Walshein_light;font-size:15px;line-height:23px;overflow:hidden;height:90px}
-.wishlistBlock .wishInBasket{border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-family:Walshein_regular;font-size:14px;padding:10px 48px;text-decoration:none}
+.wishlistBlock .wishInBasket{border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-family:Walshein_regular;font-size:14px;padding:10px 48px;text-decoration:none}
 .wishlistBlock .wishDelete{text-decoration:none;font-size:13px;color:#DB747D}
 .wishlistBlock .inBasketContainer{float:left;margin-right:16px;margin-top:34px}
 .wishlistBlock .wishDeleteContainer{margin-top:32px}
@@ -908,12 +908,12 @@ header .headBasket{margin-right:0}
 .ContentbasketIcon:hover{background:url(/img/basketIco.png) center no-repeat #fff}
 .error_message,.info-order{display:none}
 .where-order{background-color:#fff;height:390px;position:relative;width:560px;margin:50px auto 0}
-.where-order input[type=text]{background-color:#fbfbfb;border:2px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;margin-top:22px;padding-left:20px;width:526px}
-#check-order{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin-bottom:60px;margin-top:40px;padding:10px 48px;cursor:pointer;margin-left:177px}
+.where-order input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;margin-top:22px;padding-left:20px;width:526px}
+#check-order{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin-bottom:60px;margin-top:40px;padding:10px 48px;cursor:pointer;margin-left:177px}
 .where-order-title{font-size:18px;margin-left:156px}
 #change-value,#status-value{float:right}
 .deliveriWarming,.warningMessage{color:#9C1521;font-size:14px;padding-left:20px;display:none}
-.aboutAutor .author_name,.recenzion .recenz_author_name{font-family:Walshein_bold;font-size:13px;text-transform:uppercase;color:#3f4a4d}
+.aboutAutor .author_name,.recenzion .recenz_author_name{font-family:Walshein_bold;font-size:16px;color:#2F3839}
 .bottomBasketConfirm,.confirmTopWrap a{display:block;margin-left:52px;width:246px}
 .bestSlider .left,.bestSlider .rigth,.bookPages,.courierBlock,.pickupBlock,.saleWrapp .saleSlider .left,.saleWrapp .saleSlider .right,.videoWrapp iframe{display:none}
 .headFindCatalog input[type=submit]{position:absolute;background:url(/img/findLogoMini.png) no-repeat;border:none;width:38px;height:28px;right:-2px;top:19px;cursor:pointer}
@@ -972,13 +972,13 @@ table.form-table tr td:nth-child(2){text-align:left}
 .giftWrapBlock{padding-top:5px;padding-bottom:60px;min-height:150px;overflow:hidden;border-bottom:1px solid #e2e2e2}
 .EditorChoiceWrapp{height:100%;padding-bottom:30px;margin-top:95px}
 .auth_note{width:400px;margin:0 auto 20px;text-align:center;font-size:15px;color:red}
-.bookWrapp .basketBook{border:2px solid #c7a271;border-radius:40px;color:#c7a271;cursor:pointer;font-size:14px;margin:16px 10px 0;padding:6px 5px;text-align:center;width:122px}
+.bookWrapp .basketBook{border:1px solid #c7a271;border-radius:40px;color:#c7a271;cursor:pointer;font-size:14px;margin:16px 10px 0;padding:6px 5px;text-align:center;width:122px}
 .wrapperType{color:#7b8c90;font-size:14px;padding-top:10px}
 .categoryWrapper .sliderElementMin{display:block;float:left}
 .contacsFormMessage{background:#fff;border:1px solid #00f;display:block;left:200px;padding:30px 0;position:absolute;text-align:center;top:100px;width:700px;z-index:1100}
 #development,.reviewsBlockDetail .autor{text-align:right}
 .reviewsBlockDetail .reviewImgContain, .reviewsBlockDetail .reviewImgContain img{border-radius:90px;float:left;height:100px;overflow:hidden;width:100px;margin-right:20px;margin-bottom:20px;list-style-type:none;-webkit-filter:grayscale(100%);-moz-filter:grayscale(100%);-ms-filter:grayscale(100%);-o-filter:grayscale(100%);filter:grayscale(100%)}
-.reviewsBlockDetail ul{padding-left:0!important}
+.reviewsBlockDetail ul{padding-left:0!important;padding-bottom:0!important}
 .popupAbout,.popupDeliveryWrapper{padding:0 20px}
 .reviewsBlockDetail .reviewDatail{clear:both;margin-bottom:32px;list-style-type:none}
 .contacsPopupTitle{color:#4e585a;font-family:Walshein_black;font-size:42px;margin-bottom:0;margin-top:10px}
@@ -1020,14 +1020,14 @@ table.form-table tr td:nth-child(2){text-align:left}
 #nprogress .bar{background:#00abb8;position:fixed;z-index:1501;top:0;left:0;width:100%;height:4px}
 #nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px #00abb8,0 0 5px #00abb8;opacity:1;-webkit-transform:rotate(3deg) translate(0,-4px);-ms-transform:rotate(3deg) translate(0,-4px);transform:rotate(3deg) translate(0,-4px)}
 #nprogress .spinner{display:block;position:fixed;z-index:1501;top:15px;right:15px}
-#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:2px solid transparent;border-top-color:#00abb8;border-left-color:#00abb8;border-radius:50%;-webkit-animation:nprogress-spinner .4s linear infinite;animation:nprogress-spinner .4s linear infinite}
+#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:1px solid transparent;border-top-color:#00abb8;border-left-color:#00abb8;border-radius:50%;-webkit-animation:nprogress-spinner .4s linear infinite;animation:nprogress-spinner .4s linear infinite}
 .nprogress-custom-parent{overflow:hidden;position:relative}
 .nprogress-custom-parent #nprogress .bar,.nprogress-custom-parent #nprogress .spinner{position:absolute}
 @-webkit-keyframes nprogress-spinner{#nprogress{pointer-events:none}
 #nprogress .bar{background:#00abb8;position:fixed;z-index:1501;top:0;left:0;width:100%;height:4px}
 #nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px #00abb8,0 0 5px #00abb8;opacity:1;-webkit-transform:rotate(3deg) translate(0,-4px);-ms-transform:rotate(3deg) translate(0,-4px);transform:rotate(3deg) translate(0,-4px)}
 #nprogress .spinner{display:block;position:fixed;z-index:1031;top:15px;right:15px}
-#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:2px solid transparent;border-top-color:#00abb8;border-left-color:#00abb8;border-radius:50%;-webkit-animation:nprogress-spinner .4s linear infinite;animation:nprogress-spinner .4s linear infinite}
+#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:1px solid transparent;border-top-color:#00abb8;border-left-color:#00abb8;border-radius:50%;-webkit-animation:nprogress-spinner .4s linear infinite;animation:nprogress-spinner .4s linear infinite}
 .nprogress-custom-parent{overflow:hidden;position:relative}
 .nprogress-custom-parent #nprogress .bar,.nprogress-custom-parent #nprogress .spinner{position:absolute}
 @-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0)}
@@ -1050,7 +1050,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 @keyframes loadingInfo-spinner{0%{transform:rotate(0)}
 100%{transform:rotate(360deg)}
 }
-.registrationBlock .bx-registration-table .RegisterButton{background-color:#fff;border:2px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer;width:120px;text-align:center}
+.registrationBlock .bx-registration-table .RegisterButton{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer;width:120px;text-align:center}
 .registrationBlock .bx-registration-table .CaptchaRegistration{margin-bottom:12px;margin-left:310px;margin-top:12px}
 .bookViews{display:block;margin-top:1px;padding-left:5px;float:right; color:#424D4F;font-family:'Walshein_regular';font-size:15px}
 .ga-views {background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0!important;padding-left:0!important}
