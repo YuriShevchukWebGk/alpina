@@ -1439,4 +1439,4 @@
 .previewLink{float:right;cursor:pointer;font-family: Walshein_light;font-size:17px}
 .previewLink:before{content:"\f02d";font-family:"FontAwesome";padding-right:7px}
 .previewLink:hover{border:0!important}
-.authorReviewWrap{margin-top:20px}
+.authorReviewWrap{margin-top:20px;height:20px}

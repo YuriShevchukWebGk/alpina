@@ -263,7 +263,7 @@ input:focus{outline:0}
 .mainSearchField::-webkit-input-placeholder{color:#444;font-size:18px;font-family:Walshein_light}
 .mainSearchField::-moz-placeholder{color:#444;font-size:18px;font-family:Walshein_light}
 .authorWrap .titleWrap{background-color:#99abb1;height:138px}
-.breadCrump{color:#e4e8ea;font-size:14px;padding-left:6px;padding-bottom:28px}
+.breadCrump{color:#e4e8ea;font-size:14px;padding-bottom:28px}
 .titleWrap .mainTitle{color:#fff;font-family:Walshein_black;font-size:42px;padding-left:4px}
 .authorWrap .content{background-color:#F4F4F4}
 .authorWrap .autorInfo{float:left;padding-right:30px;padding-top:50px}
@@ -978,7 +978,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .contacsFormMessage{background:#fff;border:1px solid #00f;display:block;left:200px;padding:30px 0;position:absolute;text-align:center;top:100px;width:700px;z-index:1100}
 #development,.reviewsBlockDetail .autor{text-align:right}
 .reviewsBlockDetail .reviewImgContain, .reviewsBlockDetail .reviewImgContain img{border-radius:90px;float:left;height:100px;overflow:hidden;width:100px;margin-right:20px;margin-bottom:20px;list-style-type:none;-webkit-filter:grayscale(100%);-moz-filter:grayscale(100%);-ms-filter:grayscale(100%);-o-filter:grayscale(100%);filter:grayscale(100%)}
-.reviewsBlockDetail ul{padding-left:0!important}
+.reviewsBlockDetail ul{padding-left:0!important;padding-bottom:0!important}
 .popupAbout,.popupDeliveryWrapper{padding:0 20px}
 .reviewsBlockDetail .reviewDatail{clear:both;margin-bottom:32px;list-style-type:none}
 .contacsPopupTitle{color:#4e585a;font-family:Walshein_black;font-size:42px;margin-bottom:0;margin-top:10px}

@@ -1058,7 +1058,7 @@
                 </style>
                 <span class="crr-cnt" data-crr-url="<?=$arResult["ID"]?>" data-crr-chan="<?=$arResult["ID"]?>"></span>
             </p>
-			<?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?><p class="bookPreviewLink previewLink no-mobile" onclick="getPreview(<?=$arResult["ID"]?>)"><?= GetMessage("BROWSE_THE_BOOK") ?></p><?}?>
+			<?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?><p class="bookPreviewLink previewLink no-mobile" onclick="getPreview(<?=$arResult["ID"]?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;"><?= GetMessage("BROWSE_THE_BOOK") ?></p><?}?>
         </div>
 
         <ul class="productsMenu">
@@ -1871,6 +1871,8 @@
             var countReviews = data.res.split(':')[1];
             if (countReviews > 0)
                 $("#commentsLink").append(' ('+countReviews+')');
+			else
+				$("#commentsLink").html("<?=GetMessage("WRITE_COMMENT_TITLE")?>");
 
             var bookRating = (data.res.split(':')[3] / (parseInt(data.res.split(':')[1]) + parseInt(data.res.split(':')[2]))).toFixed(1);
             if (bookRating > 4.4)
