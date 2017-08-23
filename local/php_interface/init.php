@@ -2245,7 +2245,7 @@
         //Получаем номер отправления в PickPoint по Id заказа
         $obItem = CPickpoint::SelectOrderPostamat($orderId);
         $item = $obItem->Fetch();
-        //        arshow($item);
+        arshow($item);
         //Отправляем запрос для получения этикетки в формате pdf
         $dataSend = array('SessionId' => $response["SessionId"], 'Invoices' => array($item["PP_INVOICE_ID"]));
         $urlLabel = "http://e-solution.pickpoint.ru/api/makelabel";
@@ -2262,12 +2262,12 @@
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
-        //Преобразуем массив байтов в и
-        $imagick = new Imagick();
-        arshow('<------------------------->');
-        $imagick->readImageBlob($json_response);
-        $imagick->cropImage(300, 200, 50, 0);
-        $imagick->writeImages(getcwd().'/pickpoint_label/'.$orderId.'.jpg', false);
+        //Преобразуем массив байтов в изображение
+        $imagick = new Imagick();                 
+        $imagick->setResolution(200, 200);         
+        $imagick->readImageBlob($json_response);        
+        $imagick->cropImage(500, 450, 250, 80);                         
+        $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].' /local/php_interface/include/pickpoint/label/'.$orderId.'.jpg', false);       
     }
 
 

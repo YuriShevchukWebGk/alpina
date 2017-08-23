@@ -129,6 +129,6 @@ foreach ($emails_arr as $email => $user_copies_arr) {
      }
 }*/?>      
 <?                            
-MakeLabelPickPoint(96723);
-                            ?>
+MakeLabelPickPoint(97506);
+?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

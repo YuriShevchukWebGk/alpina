@@ -287,7 +287,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 <div class="lkWrapp">
 <p class="telephone" style="font-size: 14px;font-family: 'Walshein_regular'">
-+7 (495) 980 80 77
++7 (495) 120 07 04
 </p>
 </div>
 </header>
@@ -329,7 +329,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	</div>
 	<div id="middle3">
-		Купите книгу на&nbsp;сайте <a href="http://www.alpina.ru">alpina.ru</a> и&nbsp;сразу после оплаты
+		Купите книгу на&nbsp;сайте <a href="/">alpina.ru</a> и&nbsp;сразу после оплаты
 		вы&nbsp;получите уникальную одноразовую ссылку. Используйте ссылки,
 		чтобы загружать электронные версии книг в&nbsp;приложении <a href="https://adretaill.onelink.me/3956041590?pid=ialpinabook" target="_blank">&laquo;Бизнес.Книги&raquo;</a>
 		на&nbsp;вашем телефоне или планшете.
@@ -347,7 +347,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		на&nbsp;всех платформах Android и&nbsp;на&nbsp;платформах iOS, начиная с&nbsp;версии iOS8 и&nbsp;выше.
 		
 		Если у&nbsp;вас возникают сложности с&nbsp;получением бесплатных электронных книг,
-		напишите нам на&nbsp;адрес <a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a> или позвоните: +7 (495) 980 80 77.
+		напишите нам на&nbsp;адрес <a href="mailto:shop@alpinabook.ru">shop@alpinabook.ru</a> или позвоните: +7 (495) 120 07 04.
 	</div>
 </div>
 
@@ -502,7 +502,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <span itemscope="" itemtype="http://schema.org/PostalAddress">
 	<span itemprop="addressLocality">Москва</span>, <span itemprop="streetAddress">4-я Магистральная улица, д.5, 2&nbsp;подъезд, 2&nbsp;этаж</span> <br>
-	<span itemprop="telephone">+7 (495) 980 80 77</span>&nbsp;<span itemprop="email">shop@alpinabook.ru</span>
+	<span itemprop="telephone">+7 (495) 120 07 04</span>&nbsp;<span itemprop="email">shop@alpinabook.ru</span>
 </span> <div class="years">
 <span itemscope="" itemtype="http://schema.org/Organization">
 	<meta itemprop="url" content="http://www.alpinabook.ru">

@@ -210,11 +210,13 @@ $frame = $this->createFrame()->begin();
 			</div>
 		<?}?>
 		<h2>Интересное по теме</h2>
+		<span style="color:#fff;"><?=$arResult["ID"]?></span>
 		<?$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/59703efb5a658825342f445a/'.$arResult["ID"]);
 		$recsArray = json_decode($stringRecs);
 		array_splice($recsArray,5);
 		global $arFilter;
-		$arFilter = array("ID" => $recsArray);
+		//$arFilter = array("ID" => $recsArray);
+		$arFilter = array("!ID" => $arResult["ID"], "SECTION_ID" => $section["ID"]);
 		$APPLICATION->IncludeComponent(
 			"bitrix:catalog.section",
 			"blog_main_recs",
