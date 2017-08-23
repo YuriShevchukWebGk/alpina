@@ -92,7 +92,7 @@ $MESS["TO_BUY_LATER"] = "В список желаний";
 $MESS["NOT_ENOUGH"] = "Добавьте книг на ";
 $MESS["AMOUNT_UNTIL_DISCOUNT"] = " <span class='rubsign'></span> и получите скидку ";
 $MESS["GET_FREE_DELIVERY"] = "Добавьте книг на ";
-$MESS["GET_FREE_DELIVERY_ENDING"] = "<span class='rubsign'></span> — доставим бесплатно";
+$MESS["GET_FREE_DELIVERY_ENDING"] = "<span class='rubsign'></span> — доставим бесплатно<br />";
 $MESS["KEYWORDS"] = "Ключевые понятия";
 $MESS["TODAY"] = "сегодня";
 $MESS["TOMORROW"] = "завтра";
