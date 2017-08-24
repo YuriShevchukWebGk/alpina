@@ -28,7 +28,7 @@
     $unavailable_statuses_array = array (                   
         getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "net_v_nal")
     );
-	if ($USER->isAuthorized) {
+	if ($USER->isAuthorized()) {
 		foreach ($arResult["ITEMS"] as $arItem) {
 			$prodSection = $arResult["SECTIONS_LIST"][$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["IBLOCK_SECTION_ID"]];
 			$author = $arResult["AUTHORS"][$arResult["PRODUCT_FIELDS"][$arItem["ID"]]["PROPERTY_AUTHORS_VALUE"]];?>

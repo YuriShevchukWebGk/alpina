@@ -251,7 +251,8 @@
                     array(
                         "ID" => $arOrderPostamat["ORDER_ID"],
                         "STATUS_ID" => "D",
-                        "CANCELED" => "N"
+                        "CANCELED" => "N", 
+                        "EXPORTED_TO_PICKPOINT" => "NULL"
                     ),
                     false,
                     false,

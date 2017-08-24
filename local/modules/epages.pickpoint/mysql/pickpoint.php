@@ -95,7 +95,37 @@
 		{
 			global $DB;
             if(intval($iOrderID)>0 && intval($invoiceId)>0)
-			{
+			{    
+                if ($arOrder = CSaleOrder::GetByID($iOrderID)) {   
+                    if($arOrder['PERSON_TYPE_ID'] == NATURAL_ENTITY_PERSON_TYPE_ID) {
+                        $ORDER_PROPS_ID = EXPORTED_TO_PICKPOINT_PROPERTY_ID_NATURAL;
+                    } else {
+                        $ORDER_PROPS_ID = EXPORTED_TO_PICKPOINT_PROPERTY_ID_LEGAL;
+                    }                                                  
+                }                
+                                                        
+                $db_vals = '';  
+                $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $iOrderID, "ORDER_PROPS_ID" => $ORDER_PROPS_ID));
+                if ($arVals = $db_vals -> Fetch()) {      
+                    $prop_id = $arVals['ID'];
+                } else {                           
+                    $prop_id = false;    
+                }    
+    
+                $prop_data = array(
+                   "ORDER_ID" => $iOrderID,
+                   "ORDER_PROPS_ID" => $ORDER_PROPS_ID, 
+                   "CODE" => "EXPORTED_TO_PICKPOINT",
+                   "NAME" => EXPORTED_TO_PICKPOINT_PROPERTY_NAME,                 
+                   "VALUE" => $invoiceId
+                );                                                                            
+                  
+                if($prop_id) {                                        
+                    CSaleOrderPropsValue::Update($prop_id, $prop_data);
+                } else {
+                    CSaleOrderPropsValue::Add($prop_data);
+                }  
+                
                 $sQuery = "UPDATE `b_pp_order_postamat` SET PP_INVOICE_ID = {$invoiceId} WHERE ORDER_ID={$iOrderID}";
                 $DB->Query($sQuery);
             }
@@ -105,7 +135,8 @@
 		{
 			global $DB;
             if(intval($iOrderID)>0 && strlen($options)>0)
-			{
+			{                                                          
+
                 $sQuery = "UPDATE `b_pp_order_postamat` SET SETTINGS = '{$options}' WHERE ORDER_ID={$iOrderID}";
                 $DB->Query($sQuery);
             }

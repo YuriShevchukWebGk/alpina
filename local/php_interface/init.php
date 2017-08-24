@@ -60,6 +60,7 @@
     define ("DELIVERY_MAIL_2", 11);
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
+    define ("NATURAL_ENTITY_PERSON_TYPE_ID", 1);
     define ("LEGAL_ENTITY_PERSON_TYPE_ID", 2);
     define ("BIK_FOR_EXPENSE_OFFER", "044525716");
     define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
@@ -300,11 +301,11 @@
 
         $day = $day + 2;
         if($date_N_today == 7){
-           $day = $day + 1;
+           $day = $day;
         } else if($date_N_today == 4){
-           $day = $day + 3;
+           $day = $day + 1;
         } else if($date_N_today == 3){
-           $day = $day + 4;
+           $day = $day + 2;
         }
 
         $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
@@ -2263,11 +2264,11 @@
         curl_close($curl);
         $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
         //Преобразуем массив байтов в изображение
-        $imagick = new Imagick();                 
-        $imagick->setResolution(200, 200);         
-        $imagick->readImageBlob($json_response);        
-        $imagick->cropImage(500, 450, 250, 80);                         
-        $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].' /local/php_interface/include/pickpoint/label/'.$orderId.'.jpg', false);       
+        $imagick = new Imagick();
+        $imagick->setResolution(200, 200);
+        $imagick->readImageBlob($json_response);
+        $imagick->cropImage(500, 450, 250, 80);
+        $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].' /local/php_interface/include/pickpoint/label/'.$orderId.'.jpg', false);
     }
 
 
