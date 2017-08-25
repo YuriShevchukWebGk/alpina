@@ -522,3 +522,6 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 
 </style>
 <?}?>
+<?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false || $APPLICATION->GetCurDir() == "/") {?>
+	<!--amp.eski.mobi--><link href="https://amp.alpinabook.ru/mobile/alpinabook-ru/amp/?p=<?php echo "https://www.alpinabook.ru".$APPLICATION->GetCurPage();?>" rel="amphtml" /><!--/amp.eski.mobi-->
+<?}?>

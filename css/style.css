@@ -209,9 +209,9 @@ footer{background-color:#353535;height:564px;clear:both}
 .footerContacts>div{float:left;margin-left:8px}
 .footerMenu{padding-top:78px;padding-bottom:220px;border-bottom:1px solid #4B4B4B;margin-bottom:46px}
 .footerMenu>div{float:left}
-.footerMenu>div:nth-child(1){margin-right:90px}
+.footerMenu>div:nth-child(1){margin-right:78px}
 .footerMenu>div:nth-child(2){margin-right:78px}
-.footerMenu>div:nth-child(3){margin-right:96px}
+.footerMenu>div:nth-child(3){margin-right:85px}
 .footerMenu>div:nth-child(4){margin-right:110px}
 .footerMenu p{padding-bottom:20px}
 footer .adress{text-align:center}
