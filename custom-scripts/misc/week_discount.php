@@ -75,7 +75,7 @@ $arFields = array(
 	)
 );
 
-$res = CCatalogDiscount::Update(129, $arFields);  
+$res = CCatalogDiscount::Update(129, $arFields);
 
 if (!$res) { 
     $ex = $APPLICATION->GetException();  
