@@ -1071,6 +1071,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .uLookSlider .sliderContainer{height:310px}
 .sliderElement .bookName,.sliderElement .section_item_img, .sliderElement .section_item_img img {width:110px}
 .sliderElement .section_item_img{min-height:180px}
+
 @media screen and (max-width:1200px){
 .mainWrapp .ibooks{font-size:40px}
 .ibooks img{width:90px;height:auto;top:28px;padding:0 16px}

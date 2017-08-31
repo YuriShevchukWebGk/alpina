@@ -58,7 +58,7 @@ body {
 	background:url(../img/a.jpg) no-repeat 100% 26%, url(../img/b.jpg) no-repeat 0% 39%,url(../img/c.jpg) no-repeat 0% 68%,url(../img/d.jpg) no-repeat 100% 100% #f7ebe0;
 }
 .landing .slide1 {
-	background: url(../img/board_big.jpg) no-repeat 50% 50% #323232;
+	background: url(../img/header.jpg) no-repeat 50% 50% #323232;
 	height:674px;
 }
 .landing .slide2 {
@@ -67,7 +67,7 @@ body {
     margin: 20px 0 14px;
 }
 .landing .slide3 {
-	background: #323232;
+	background: #fff;
 	height:285px;
 	margin:0;
 }
@@ -78,9 +78,8 @@ body {
 	padding-bottom:40px;
 }
 .landing .slide5 {
-	background: #fff;
+	background: #323232;
 	height:415px;
-	color:#3e3e3e;
 }
 .landing .slide6 {
 	background: #323232;
@@ -101,22 +100,23 @@ body {
 .slide1 #slide1text {
 	position: relative;
 	margin: 0 auto;
-	top: 95px;
+	top: 150px;
 	color: rgb(255, 255, 255);
-	font-size: 75px;
+	font-size: 85px;
 	text-align: center;
 	width: auto;	
 	line-height:120%;
 	font-family: "PRO45";
 }
 .slide1 #slide1text span {
-	color:red;
+	color:yellow;
+	font-weight:700
 }
 .slide3 #slide1text {
 	position: relative;
 	margin: 0 auto;
 	top: 30px;
-	color: #fdc94e;
+	color: #3e3e3e;
 	font-size: 54px;
 	text-align: center;
 	width: auto;	
@@ -137,7 +137,7 @@ body {
 	position: relative;
 	margin: 0 auto;
 	top: 95px;
-	color: #3e3e3e;
+	color: #fdc94e;
 	font-size: 70px;
 	text-align: center;
 	width: auto;	

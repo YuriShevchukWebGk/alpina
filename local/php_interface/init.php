@@ -304,6 +304,8 @@
            $day = $day;
         } else if($date_N_today == 4){
            $day = $day + 1;
+        } else if($date_N_today == 5){
+           $day = $day + 1;
         } else if($date_N_today == 3){
            $day = $day + 2;
         }
@@ -2246,7 +2248,6 @@
         //Получаем номер отправления в PickPoint по Id заказа
         $obItem = CPickpoint::SelectOrderPostamat($orderId);
         $item = $obItem->Fetch();
-        arshow($item);
         //Отправляем запрос для получения этикетки в формате pdf
         $dataSend = array('SessionId' => $response["SessionId"], 'Invoices' => array($item["PP_INVOICE_ID"]));
         $urlLabel = "http://e-solution.pickpoint.ru/api/makelabel";
@@ -2264,11 +2265,13 @@
         curl_close($curl);
         $response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
         //Преобразуем массив байтов в изображение
-        $imagick = new Imagick();
-        $imagick->setResolution(200, 200);
-        $imagick->readImageBlob($json_response);
-        $imagick->cropImage(500, 450, 250, 80);
-        $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].' /local/php_interface/include/pickpoint/label/'.$orderId.'.jpg', false);
+        if(!empty($json_response)) {
+            $imagick = new Imagick();
+            $imagick->setResolution(200, 200);
+            $imagick->readImageBlob($json_response);
+            $imagick->cropImage(500, 450, 250, 80);
+            $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/pickpoint/label/'.$orderId.'.jpg', false);
+        }
     }
 
 
