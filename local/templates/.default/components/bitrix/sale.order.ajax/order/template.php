@@ -746,7 +746,7 @@
                                                     d = date.getDate() + parseInt(result.period);
                                                     m = date.getMonth();
                                                     y = date.getFullYear();
-                                                    $(".boxberry_delivery_time ").html('Ожидаемая дата доставки: ' + getDay(d,m,y));
+                                                    $(".boxberry_delivery_time ").html('Ожидаемая дата доставки: ' + getDay(d,m,y, parseInt(result.period)));
                                                 }
 
                                                 setAddressDataBoxberry(result);
@@ -824,7 +824,7 @@
                                                             m = date.getMonth();
                                                             y = date.getFullYear();
 
-                                                            $("#boxbery_delivery_time span").html('Ожидаемая дата доставки: ' + getDay(d,m,y));
+                                                            $("#boxbery_delivery_time span").html('Ожидаемая дата доставки: ' + getDay(d,m,y, delivery_time));
                                                         }
                                                   }
                                                 })

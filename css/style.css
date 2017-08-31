@@ -1071,3 +1071,4 @@ table.form-table tr td:nth-child(2){text-align:left}
 .uLookSlider .sliderContainer{height:310px}
 .sliderElement .bookName,.sliderElement .section_item_img, .sliderElement .section_item_img img {width:110px}
 .sliderElement .section_item_img{min-height:180px}
+.notice_message{margin-top:0px;margin-right:auto;margin-bottom:0px;margin-left:auto;padding:15px 0;color:#85959a;font-family:'Walshein_regular';font-size: 21px}
