@@ -35,12 +35,14 @@
         DELIVERY_MAIL_2
     );
     //ID международных доставок почтой РФ                                         
-    $internationalDeliveryIDs = array(     
+    $internationalDeliveryIDs = array(
+    /*     
         INTERNATIONAL_RUSSIAN_POST_ID_1, 
         INTERNATIONAL_RUSSIAN_POST_ID_2,
         INTERNATIONAL_RUSSIAN_POST_ID_3,
         INTERNATIONAL_RUSSIAN_POST_ID_4,
         INTERNATIONAL_RUSSIAN_POST_ID_5
+        */
     );   
     
     //ajax-экспорт заказов. Запрос отправляется из скрипта, который описан ниже 
