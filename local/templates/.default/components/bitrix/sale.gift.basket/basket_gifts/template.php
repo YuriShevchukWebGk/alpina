@@ -132,7 +132,7 @@
             CVP_BTN_MESSAGE_CLOSE: '<?= GetMessageJS('CVP_CATALOG_BTN_MESSAGE_CLOSE') ?>'
         });
     </script>
-    <div class="bx_item_list_you_looked_horizontal col<?= $arParams['LINE_ELEMENT_COUNT']; ?> <?= $templateData['TEMPLATE_CLASS']; ?>">
+    <div class="bx_item_list_you_looked_horizontal no-mobile col<?= $arParams['LINE_ELEMENT_COUNT']; ?> <?= $templateData['TEMPLATE_CLASS']; ?>">
         <? if(empty($arParams['HIDE_BLOCK_TITLE']) || $arParams['HIDE_BLOCK_TITLE'] !== 'Y'){ ?><div class="bx_item_list_title"><?= ($arParams['BLOCK_TITLE']? htmlspecialcharsbx($arParams['BLOCK_TITLE']) : GetMessage('SGB_TPL_BLOCK_TITLE_DEFAULT')) ?></div><? } ?>
         <div class="bx_item_list_section">
             <div class="bx_item_list_slide active"><?
@@ -141,6 +141,7 @@
                     $elementDeleteParams = array('CONFIRM' => GetMessage('CVP_TPL_ELEMENT_DELETE_CONFIRM'));
                     foreach ($arResult['ITEMS'] as $key => $arItem)
                     {
+						$bookImg = CFile::ResizeImageGet($arItem['DETAIL_PICTURE'], array("width" => 160, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                         $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], $elementEdit);
                         $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], $elementDelete, $elementDeleteParams);
                         $strMainID = $this->GetEditAreaId($arItem['ID'] . $key);
@@ -182,21 +183,8 @@
                         <div class="bx_catalog_item_container <?= $showImgClass; ?>">
                             <a id="<?= $arItemIDs['PICT']; ?>" href="<?= $arItem['DETAIL_PAGE_URL']; ?>" class="bx_catalog_item_images"<? if ($arParams['SHOW_IMAGE'] == "Y")
                                     {
-                                    ?> style="background-image: url('<?=($arParams['SHOW_IMAGE'] == "Y" ? $arItem['PREVIEW_PICTURE']['SRC'] : ""); ?>')"<?
-                                } ?> title="<?= $strTitle; ?>"><?
-                                    if ('Y' == $arParams['SHOW_DISCOUNT_PERCENT'])
-                                    {
-                                    ?>
-                                    <div id="<?= $arItemIDs['DSC_PERC']; ?>" class="bx_stick_disc right bottom" style="display:<?=(0 < $arItem['MIN_PRICE']['DISCOUNT_DIFF_PERCENT'] ? '' : 'none'); ?>;">
-                                        -<?= $arItem['MIN_PRICE']['DISCOUNT_DIFF_PERCENT']; ?>%
-                                    </div>
-                                    <?
-                                    }
-                                    if ($arItem['LABEL'])
-                                    {
-                                    ?><div class="bx_stick average left top" title="<?= $arItem['LABEL_VALUE']; ?>"><?= $arItem['LABEL_VALUE']; ?></div><?
-                                    }
-                                ?>
+                                    ?> style="background-image: url('<?=($arParams['SHOW_IMAGE'] == "Y" ? $bookImg["src"] : ""); ?>')"<?
+                                } ?> title="<?= $strTitle; ?>">
                             </a><?
                                 if ($arItem['SECOND_PICT'])
                                 {
@@ -205,7 +193,7 @@
                                         ?> style="background-image: url('<?=(
                                                 !empty($arItem['PREVIEW_PICTURE_SECOND'])
                                                 ? $arItem['PREVIEW_PICTURE_SECOND']['SRC']
-                                                : $arItem['PREVIEW_PICTURE']['SRC']
+                                                : $bookImg["src"]
                                             ); ?>')"<?
                                     } ?> title="<?= $strTitle; ?>"><?
                                         if ('Y' == $arParams['SHOW_DISCOUNT_PERCENT'])
@@ -215,10 +203,6 @@
                                             -<?= $arItem['MIN_PRICE']['DISCOUNT_DIFF_PERCENT']; ?>%
                                         </div>
                                         <?
-                                        }
-                                        if ($arItem['LABEL'])
-                                        {
-                                        ?><div class="bx_stick average left top" title="<?= $arItem['LABEL_VALUE']; ?>"><?= $arItem['LABEL_VALUE']; ?></div><?
                                         }
                                     ?>
                                 </a><?
@@ -251,9 +235,12 @@
                                             }
                                         ?>
                                         <div class="bx_catalog_item_controls_blocktwo">
-                                            <a id="<?= $arItemIDs['BUY_LINK']; ?>" class="bx_bt_button bx_medium" href="javascript:void(0)" rel="nofollow"><?
+                                            <?/*<a id="<?= $arItemIDs['BUY_LINK']; ?>" class="bx_bt_button bx_medium" href="javascript:void(0)" rel="nofollow"><?
                                                 echo('' != $arParams['MESS_BTN_BUY'] ? $arParams['MESS_BTN_BUY'] : GetMessage('CVP_TPL_MESS_BTN_BUY_GIFT'));
-                                            ?></a>
+                                            ?></a>*/?>
+											<a id="<?= $arItemIDs['BUY_LINK']; ?>" class="bx_bt_button bx_medium" href="?action=ADD2BASKET&id=<?=$arItem["ID"]?>" rel="nofollow"><?
+												echo('' != $arParams['MESS_BTN_BUY'] ? $arParams['MESS_BTN_BUY'] : GetMessage('CVP_TPL_MESS_BTN_BUY_GIFT'));
+											?></a>
                                         </div>
                                         <?
                                         }
@@ -425,7 +412,10 @@
                                         }
                                     ?>
                                     <div class="bx_catalog_item_controls_blocktwo">
-                                        <a id="<?= $arItemIDs['BUY_LINK']; ?>" class="bx_bt_button bx_medium" href="javascript:void(0)" rel="nofollow"><?
+                                        <?/*<a id="<?= $arItemIDs['BUY_LINK']; ?>" class="bx_bt_button bx_medium" href="javascript:void(0)" rel="nofollow"><?
+                                            echo('' != $arParams['MESS_BTN_BUY'] ? $arParams['MESS_BTN_BUY'] : GetMessage('CVP_TPL_MESS_BTN_BUY_GIFT'));
+                                        ?></a>*/?>
+										<a id="<?= $arItemIDs['BUY_LINK']; ?>" class="bx_bt_button bx_medium" href="?action=ADD2BASKET&id=<?=$arItem["ID"]?>" rel="nofollow"><?
                                             echo('' != $arParams['MESS_BTN_BUY'] ? $arParams['MESS_BTN_BUY'] : GetMessage('CVP_TPL_MESS_BTN_BUY_GIFT'));
                                         ?></a>
                                     </div>
