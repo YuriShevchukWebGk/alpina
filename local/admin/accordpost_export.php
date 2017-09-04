@@ -161,8 +161,9 @@
                     if(!empty($order_id) && in_array($order_id, $arIDsCommonOrders)){          
                         //Строка заказа                           
                         $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);   
-                        $unic_code = $partner_code.$order_code;                                  
-                        $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="0" parcel_sumvl="'.$order_properties['SUM_PAID'].'" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$order_properties['INDEX'].'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
+                        $unic_code = $partner_code.$order_code;      
+                        $zip = ($order_properties['INDEX']) ? $order_properties['INDEX'] : $order_properties['F_INDEX'];                            
+                        $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="0" parcel_sumvl="'.$order_properties['SUM_PAID'].'" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$zip.'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
                     }
                 }      
                                                      
@@ -228,8 +229,8 @@
                             $xmlBodyInternational .= '<struct_addr region="" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
                             
                             $xmlBodyInternational .= '<custom>';
-                            
-                                $xmlBodyInternational .=  '<int_dp fio="'.$order_properties['FINAL_NAME'].'" cntry="'.$country_id.'" transtype_id="2" zip="'.$order_properties['INDEX'].'" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
+                                $zip = ($order_properties['INDEX']) ? $order_properties['INDEX'] : $order_properties['F_INDEX'];
+                                $xmlBodyInternational .=  '<int_dp fio="'.$order_properties['FINAL_NAME'].'" cntry="'.$country_id.'" transtype_id="2" zip="'.$zip.'" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
                                 
                             $xmlBodyInternational .= '</custom>'; 
                             
