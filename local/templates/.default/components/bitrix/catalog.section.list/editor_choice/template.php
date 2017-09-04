@@ -50,21 +50,29 @@ foreach ($editor_choice_list as $key => $val)
 		<div class="titleBlock">
 			<div class="titleText">
 				<?
-				$tops = array(0 => '<a href="/catalog/editors-choice/" title="Выбор редактора">
+				$tops = array(
+				'<a href="/catalog/editors-choice/" title="Выбор редактора">
 					<img src="/img/redPhoto.png">
 					<p class="nameOfGroup">Editor\'s Choice</p>
 					<p class="subNameOfGroup">Сергей турко</p>
 					<p class="description">Главный редактор</p>
-					<p class="description">"альпина паблишер"</p>
+					<p class="description">"Альпина паблишер"</p>
 				</a>',
-				1 =>
 				'<a href="/catalog/ceo-choice/" title="Выбор генерального директора">
 					<img src="/img/ai.jpg">
 					<p class="nameOfGroup">Важные книги<br />о бизнесе</p>
 					<p class="subNameOfGroup">Алексей Ильин</p>
 					<p class="description">Генеральный директор</p>
-					<p class="description">"альпина паблишер"</p>
-				</a>');
+					<p class="description">"Альпина паблишер"</p>
+				</a>'/*,
+				'<a href="/catalog/mibf/" title="Сумка с выставки">
+					<img src="/img/mibfsmall.jpg">
+					<p class="nameOfGroup"></p>
+					<p class="subNameOfGroup"></p>
+					<p class="description"></p>
+					<p class="description"></p>
+				</a>'*/
+				);
 				
 				shuffle($tops);
 				print $tops[0];
