@@ -122,7 +122,7 @@ $APPLICATION->SetTitle("Контакты интернет-магазина «А�
                 <p class="organisName">ООО «Альпина Паблишер»</p>
 				<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 					<p><span itemprop="postalCode">123007</span>, <meta itemprop="addressCountry" content="RU" />Россия, <span itemprop="addressLocality">Москва</span>, м.Полежаевская</p>    
-					<p itemprop="streetAddress">4-я Магистральная улица, дом 5,</p>
+					<p itemprop="streetAddress">4-я Магистральная улица, дом 5, строение 1,</p>
 				</div>					
 				<p>подъезд 2, этаж 2</p>
 				<p class="organisTelep" itemprop="telephone">+7 (495) 120-07-04</p>

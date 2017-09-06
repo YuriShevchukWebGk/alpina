@@ -376,10 +376,12 @@
 							'SHOW_IMAGE' => $arParams['GIFTS_SHOW_IMAGE'],
 							'MESS_BTN_BUY' => $arParams['GIFTS_MESS_BTN_BUY'],
 							'MESS_BTN_DETAIL' => $arParams['GIFTS_MESS_BTN_DETAIL'],
-							'PAGE_ELEMENT_COUNT' => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
+							//'PAGE_ELEMENT_COUNT' => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
+							'PAGE_ELEMENT_COUNT' => 6,
 							'CONVERT_CURRENCY' => $arParams['GIFTS_CONVERT_CURRENCY'],
 							'HIDE_NOT_AVAILABLE' => $arParams['GIFTS_HIDE_NOT_AVAILABLE'],
-							"LINE_ELEMENT_COUNT" => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
+							//"LINE_ELEMENT_COUNT" => $arParams['GIFTS_PAGE_ELEMENT_COUNT'],
+							"LINE_ELEMENT_COUNT" => 6,
 						),
 						false
 					);

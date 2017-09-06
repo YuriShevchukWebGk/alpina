@@ -24,7 +24,7 @@
                     ob_start();
                     if ('TEXT' == $arProp['SHOW_MODE'])
                     {
-                        if (5 < $arProp['VALUES_COUNT'])
+                        if (7 < $arProp['VALUES_COUNT'])
                         {
                             $strClass = 'bx_item_detail_size full';
                             $strWidth = ($arProp['VALUES_COUNT'] * 20) . '%';
@@ -64,7 +64,7 @@
                     }
                     elseif ('PICT' == $arProp['SHOW_MODE'])
                     {
-                        if (5 < $arProp['VALUES_COUNT'])
+                        if (7 < $arProp['VALUES_COUNT'])
                         {
                             $strClass = 'bx_item_detail_scu full';
                             $strWidth = ($arProp['VALUES_COUNT'] * 20) . '%';
@@ -132,7 +132,7 @@
             CVP_BTN_MESSAGE_CLOSE: '<?= GetMessageJS('CVP_CATALOG_BTN_MESSAGE_CLOSE') ?>'
         });
     </script>
-    <div class="bx_item_list_you_looked_horizontal no-mobile col<?= $arParams['LINE_ELEMENT_COUNT']; ?> <?= $templateData['TEMPLATE_CLASS']; ?>">
+    <div class="bx_item_list_you_looked_horizontal col<?= $arParams['LINE_ELEMENT_COUNT']; ?> <?= $templateData['TEMPLATE_CLASS']; ?>">
         <? if(empty($arParams['HIDE_BLOCK_TITLE']) || $arParams['HIDE_BLOCK_TITLE'] !== 'Y'){ ?><div class="bx_item_list_title"><?= ($arParams['BLOCK_TITLE']? htmlspecialcharsbx($arParams['BLOCK_TITLE']) : GetMessage('SGB_TPL_BLOCK_TITLE_DEFAULT')) ?></div><? } ?>
         <div class="bx_item_list_section">
             <div class="bx_item_list_slide active"><?

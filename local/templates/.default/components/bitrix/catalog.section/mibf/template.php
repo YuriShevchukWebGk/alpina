@@ -26,19 +26,50 @@ $gdeSlon = '';
 .description {
 	font-family:Walshein_light!important;
 	font-size:20px;
-	text-align:center;
+	text-align:left;
 	margin-bottom:40px;
 }
+ul {
+	list-style-type:circle;
+	padding:20px 40px
+}
+.bagsTop,.bagsBottom {
+	width:100%;
+	clear:both;
+}
+.bagsTop img,.bagsBottom img {
+	width:100%;
+	max-width:500px;
+	margin:10px 30px;
+	display:inline-block;
+	height:auto!important
+}
+.bagsTop {
+	margin-bottom:80px
+}
 </style>
-<div class="allBooksWrapp">
+<div class="mibf allBooksWrapp">
             <div class="catalogWrapper">
 
                 <p class="titleMain"><?$APPLICATION->ShowTitle()?></p>
-				<img src="img/landing2.jpg" class="banner" />
+				<img src="img/landing2.jpg" class="banner no-mobile" />
 				<div class="description">
-					С 6 по 10 сентября в Москве проходит Международная книжная выставка-ярмарка. Мы понимаем, что не все наши читатели смогут туда попасть. Но это не мешает получить свою сумку книг с выставки!<br /><br />Здесь вы найдёте все лучшие новинки этого сезона. Закажите пять из них и выберите в подарок любую из наших фирменных сумок. А мы доставим вам сумку с выставки в любую точку мира!
+					С 6 по 10 сентября в Москве проходит Международная книжная выставка-ярмарка. Мы в деле! И у нас целых три стенда:<ul>
+						<li>D11 (взрослый),</li>
+						<li>F38 (детский),</li>
+						<li>D29 (AnimalBooks и Московский зоопарк).</li>
+					</ul>
+					Мы понимаем, что не все наши читатели смогут туда попасть. Но это не мешает получить свою сумку книг с выставки!<br /><br />Здесь вы найдёте все лучшие новинки этого сезона. Закажите пять из них, получите скидку 10% и выберите в подарок любую из наших фирменных сумок. А мы доставим её и книги в любую точку мира!
+					<br /><br />
+					Акция распространяется на заказы, сделанные в интернет-магазине «Альпина Паблишер», и действует с 6 по 10 сентября включительно.
 				</div>
                 <div class="catalogBooks">
+					<div class="bagsTop">
+						<?for($i = 1;$i <= 4; $i++) {?>
+							<img src="img/<?=$i?>.jpg" style="height:auto!important" />
+						<?}?>
+					</div>
+
                     <?foreach($arResult["ITEMS"] as $arItem)
                     {
                         foreach ($arItem["PRICES"] as $code => $arPrice)
@@ -77,13 +108,13 @@ $gdeSlon = '';
                                 if ($arPrice["DISCOUNT_VALUE_VAT"])
                                 {
                                 ?>
-                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span></span></p>
                                 <?
                                 }
                                 else
                                 {
                                 ?>
-                                    <p class="bookPrice"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <span>руб.</span></p>
+                                    <p class="bookPrice"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <span></span></p>
                                 <?
                                 }
                                 ?>
@@ -126,6 +157,11 @@ $gdeSlon = '';
                     <?      }
                         }
                     }?>
+					<div class="bagsBottom">
+						<?for($i = 1;$i <= 6; $i++) {?>
+							<img src="img/bag_<?=$i?>.jpg" style="width:100%;max-width:500px;margin:10px 30px;float:left">
+						<?}?>
+					</div>
                 </div>
                 <div class="wishlist_info">
                     <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>

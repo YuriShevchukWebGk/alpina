@@ -43,7 +43,7 @@
 	      if( el.height < 170 ){
 	      	el.classList.add('img-mini');
 	      }else{
-	      	el.style.height = '170px';
+	      	el.style.height = 'auto';
 	      }
 	      el.style.visibility = 'visible';
 	      fn? fn() : null;
