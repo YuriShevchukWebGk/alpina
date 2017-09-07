@@ -99,16 +99,16 @@ switch ($_REQUEST["SORT"])
     case "DATE":
     $sort = "PROPERTY_SOON_DATE_TIME";
     break;
-    
+
     case "PRICE":
     $sort = "CATALOG_PRICE_1";
     break;
-    
+
     case "POPULARITY":
     $sort = "PROPERTY_shows_a_day";          //PROPERTY_shows_a_day
     $order = "desc";
     break;
-    
+
     default:
     $sort = "PROPERTY_shows_a_day";
     $order = "desc";
@@ -116,6 +116,9 @@ switch ($_REQUEST["SORT"])
 }
 global $SectFilter;
 $SectFilter = array (">CATALOG_PRICE_1" => 0);
+if(!$USER->IsAdmin()){
+    $SectFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+}
 echo "<div class='cat_block'>";
 $APPLICATION->IncludeComponent(
             "bitrix:catalog.section",

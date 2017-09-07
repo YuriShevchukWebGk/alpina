@@ -39,10 +39,10 @@
         </div>
 
         <div class="contentWrapp">
-       
+
             <p class="titleMain"><?=($arResult["NAME"])?$arResult["NAME"]:GetMessage("NEW")?></p>
 
-            
+
             <?  //блок с цитатой
                 $arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_*"))->Fetch();
                 if ($arSection["UF_QUOTE"] > 0) {
@@ -54,14 +54,14 @@
                 <?if ($arQuote["DETAIL_PICTURE"]){?>
                     <div class="photo">
                     <?$quoteImg = CFile::ResizeImageGet($arQuote["DETAIL_PICTURE"],array("width"=>288,"height"=>294), BX_RESIZE_IMAGE_PROPORTIONAL); ?>
-                        <img src="<?=$quoteImg["src"]?>">    
+                        <img src="<?=$quoteImg["src"]?>">
                     </div>
                     <?}?>
                     <p class="text">"<?=$arQuote["DETAIL_TEXT"]?>"</p>
                     <p class="autor"><?=$arQuote["PROPERTY_AUTHOR_NAME"]?></p>
                 </div>
                 <?}?>
-             <?// блок с цитатой END?>  
+             <?// блок с цитатой END?>
             <ul class="filterParams">
                 <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])){?>class="active"<?}?>><p data-id="1">
                         <?if ($_REQUEST['SORT'] == 'POPULARITY' && $_REQUEST["DIRECTION"] == 'ASC')
@@ -81,9 +81,9 @@
                             <?}
                             else
                             {?>
-                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=DATE&DIRECTION=ASC">По дате выхода</a>        
+                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=DATE&DIRECTION=ASC">По дате выхода</a>
                             <?}?>
-                    </p>                                                                                     
+                    </p>
                 </li>
                 <li <?if ($_REQUEST['SORT'] == 'PRICE'){?>class="active"<?}?>><p data-id="3">
                         <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC')
@@ -106,7 +106,7 @@
                             //arshow($arItem["PROPERTIES"]["spec_price"]);
                             $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                             foreach ($arItem["PRICES"] as $code => $arPrice)
-                            {  
+                            {
                             ?>
                             <li>
                                 <div class="categoryBooks">
@@ -129,7 +129,7 @@
                                                         echo '<img class="discount_badge" src="/img/40percent_black.png">';
                                                         break;
 
-                                                } 
+                                                }
                                         }?>
                                     </div>
                                     <?
@@ -142,14 +142,14 @@
                                             <?
                                             if ($pict["src"])
                                             {
-                                            ?>               
+                                            ?>
                                                 <img src="<?=$pict["src"]?>" alt="<?=$arItem["NAME"];?>">
                                             <?
                                             }
                                             else
                                             {
                                             ?>
-                                                <img src="/images/no_photo.png" width="142" height="142">    
+                                                <img src="/images/no_photo.png" width="142" height="142">
                                             <?
                                             }
                                             ?>
@@ -170,7 +170,7 @@
                                             <?   }
                                             else
                                             {?>
-                                            <a class="product<?=$arItem["ID"];?>" href="/personal/cart/"><p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p></a> 
+                                            <a class="product<?=$arItem["ID"];?>" href="/personal/cart/"><p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p></a>
                                             <?}
                                     }
                                     else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23)
@@ -183,9 +183,9 @@
                                     {
                                     ?>
                                         <p class="priceOfBook"><?=$arItem["PROPERTIES"]["SOON_DATE_TIME"]["VALUE"]?></p>
-                                    <?    
+                                    <?
                                     }
-                                    
+
                                         if ($USER -> IsAuthorized())
                                         {
                                         ?>
@@ -193,7 +193,7 @@
                                         <?
                                         }
                                     ?>
-                                </div>        
+                                </div>
                             </li>
                             <?      //}
                             }
@@ -204,7 +204,7 @@
             <div class="wishlist_info">
                 <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
                 <span></span>
-            </div>   
+            </div>
 
 
 
@@ -219,10 +219,10 @@
 
 
 
-   
+
             <?$APPLICATION->IncludeComponent(
-                    "bitrix:menu", 
-                    "catalog_left_menu", 
+                    "bitrix:menu",
+                    "catalog_left_menu",
                     array(
                         "ROOT_MENU_TYPE" => "top_books_left_menu",
                         "MAX_LEVEL" => "1",
@@ -239,10 +239,10 @@
                     ),
                     false
                 );?>
-                
+
             <?$APPLICATION->IncludeComponent(
-                "bitrix:catalog.section.list", 
-                "section.left.tree", 
+                "bitrix:catalog.section.list",
+                "section.left.tree",
                 array(
                     "IBLOCK_TYPE" => "catalog",
                     "IBLOCK_ID" => "4",
@@ -271,7 +271,7 @@
                     "SHOW_PARENT_NAME" => "Y"
                 ),
                 false
-            );?>        
+            );?>
 
 
 
@@ -285,11 +285,14 @@ if (isset($_COOKIE["rrpusid"])){
     $recsArray = json_decode($stringRecs);
     $arrFilter = Array('ID' => (array_slice($recsArray,0,6)));
 }
+if(!$USER->IsAdmin()){
+    $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+}
 if ($arrFilter['ID'][0] > 0) {
 ?>
     <?$APPLICATION->IncludeComponent(
-        "bitrix:catalog.section", 
-        "interesting_items", 
+        "bitrix:catalog.section",
+        "interesting_items",
         array(
             "IBLOCK_TYPE" => "catalog",
             "IBLOCK_ID" => "4",
@@ -410,26 +413,26 @@ if ($arrFilter['ID'][0] > 0) {
             var otherBooks = $(this).siblings(".otherBooks");
             $.fancybox.showLoading();
             <?if (isset($_REQUEST["SORT"])) {?>
-                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';    
+                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';
             <?} else {?>
-                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?PAGEN_" . $navnum . "=" ?>';    
+                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?PAGEN_" . $navnum . "=" ?>';
             <?}?>
-                
+
             $.get(section_url + page, function(data) {
                 var next_page = $('.otherBooks ul li', data);
                 //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
                 $('.otherBooks ul').append(next_page);
-                page++;            
+                page++;
             })
-            .done(function() 
+            .done(function()
                 {
                     $.fancybox.hideLoading();
                     $(".nameBook").each(function()
                         {
                             if($(this).length > 0)
                             {
-                                $(this).html(truncate($(this).html(), 40));    
-                            }    
+                                $(this).html(truncate($(this).html(), 40));
+                            }
                     });
                     var otherBooksHeight = 1190 * Math.ceil(($(".otherBooks ul li").length / 15));
                     //var categorHeight = 2750 + 1190 * (($(".otherBooks ul li").length - 15) / 15);
@@ -455,6 +458,6 @@ if ($arrFilter['ID'][0] > 0) {
             });
             <?
             }
-        ?>    
+        ?>
     });
 </script>

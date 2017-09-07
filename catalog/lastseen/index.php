@@ -20,11 +20,16 @@ while ($id = $db_res->GetNext()) {
 	$ids[] = $id["PRODUCT_ID"];
 }
 
-$arrFilter = array('ID' => $ids, ">DETAIL_PICTURE" => 0);
-?>  
+if(!$USER->IsAdmin()){
+    $arrFilter = array('ID' => $ids, ">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+} else {
+    $arrFilter = array('ID' => $ids, ">DETAIL_PICTURE" => 0);
+}
+
+?>
 <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"lastseen", 
+	"bitrix:catalog.section",
+	"lastseen",
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_PICT_PROP" => "-",

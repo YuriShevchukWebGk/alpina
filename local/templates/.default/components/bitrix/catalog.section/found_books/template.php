@@ -26,7 +26,7 @@ $this->setFrameMode(true);
                 <?if(is_object($arResult["NAV_RESULT"])):?>
                     <span><?echo $arResult["NAV_RESULT"]->SelectedRowsCount()." результатов"?></span>
                 <?endif;?>
-                </p>    
+                </p>
             </div>
 </div>
         <?/* Получаем рекомендации для поиска от RetailRocket */
@@ -34,8 +34,11 @@ $this->setFrameMode(true);
         $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/SearchToItems/50b90f71b994b319dc5fd855/?keyword='.$_REQUEST["q"]);
         $recsArray = json_decode($stringRecs);
         $arrFilter = Array('ID' => (array_slice($recsArray,0,5)));
-        if ($arrFilter['ID'][0] > 0) {?>
-        
+        if ($arrFilter['ID'][0] > 0) {
+        if(!$USER->IsAdmin()){
+            $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+        }
+        ?>
         <div class="interestingWrap">
             <div class="catalogWrapper">
                 <p class="title">Те, кто искали «<?=$_REQUEST["q"]?>» купили</p>
@@ -43,8 +46,8 @@ $this->setFrameMode(true);
                 <div class="bookEasySlider">
                     <?
                     $APPLICATION->IncludeComponent(
-                        "bitrix:catalog.section", 
-                        "recommended_books", 
+                        "bitrix:catalog.section",
+                        "recommended_books",
                         array(
                             "IBLOCK_TYPE_ID" => "catalog",
                             "IBLOCK_ID" => "4",
@@ -173,14 +176,14 @@ $this->setFrameMode(true);
 
 
 
-            </div>    
+            </div>
         </div>
         <?}?>
 <div class="searchBooksWrap">
             <div class="searchWidthWrapper">
             <?
                 foreach ($arResult["ITEMS"] as $arItem)
-                {   
+                {
                     $dbBasketItems = CSaleBasket::GetList(array(), array("FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL", "PRODUCT_ID" => $arItem["ID"]), false, false, array("ID", "CALLBACK_FUNC", "MODULE", "PRODUCT_ID", "QUANTITY", "PRODUCT_PROVIDER_CLASS"))->Fetch();
                     $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>165, "height"=>233), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 
@@ -201,7 +204,7 @@ $this->setFrameMode(true);
                                 else
                                 {
                                 ?>
-                                    <img src="/images/no_photo.png" width="155">    
+                                    <img src="/images/no_photo.png" width="155">
                                 <?
                                 }
                                 ?>
@@ -222,13 +225,13 @@ $this->setFrameMode(true);
                             }
                             else if ($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == 22)
                             {?>
-                                <p class="price">Ожидаемая дата выхода: <?=strtolower(FormatDate("j F", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>    
+                                <p class="price">Ожидаемая дата выхода: <?=strtolower(FormatDate("j F", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
                             <?
                             }
                             else
                             {
                             ?>
-                                <p class="price"><?=$arItem["PROPERTIES"]["STATE"]["VALUE"]?></p>    
+                                <p class="price"><?=$arItem["PROPERTIES"]["STATE"]["VALUE"]?></p>
                             <?
                             }
                             ?>
@@ -238,7 +241,7 @@ $this->setFrameMode(true);
                             {
                                 if ($dbBasketItems["QUANTITY"] == 0)
                                 {?>
-                                    <a class="product<?=$arItem["ID"];?>" href="<?='/search/index.php?action=ADD2BASKET&id='.$arItem['ID']?>" 
+                                    <a class="product<?=$arItem["ID"];?>" href="<?='/search/index.php?action=ADD2BASKET&id='.$arItem['ID']?>"
                                     onclick="addtocart(<?=$arItem['ID'];?>, '<?=$arItem["NAME"];?>');return false;">
                                     <p class="basket">В корзину</p>
                                     </a>
@@ -250,17 +253,17 @@ $this->setFrameMode(true);
                                     </a>
                                 <?}
                             }?>
-                            
+
                         </div>
                     </div>
                 <?//}
-                }?>  
+                }?>
             </div>
             <a href="#"><p class="showMore">Показать ещё</p></a>
         </div>
 
 
-        
+
 <?/*?>
 <div class="allBooksWrapp">
             <div class="catalogWrapper">
@@ -316,16 +319,16 @@ var ellipsisFill = function(e) {
 
 
 $(document).ready(function(){
-    
+
     var elii = document.querySelectorAll('.bookNames');
     Array.prototype.forEach.call(elii, function(el, i){
-           ellipsisFill(el); 
+           ellipsisFill(el);
     })
 
-    
-    
+
+
     updateSearchPage();
-    
+
     <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
             var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
@@ -338,33 +341,33 @@ $(document).ready(function(){
                 $.get(window.location.href+'&PAGEN_<?=$navnum?>='+page, function(data) {
                     var next_page = $('.searchWidthWrapper .searchBook', data);
                     $('.searchWidthWrapper').append(next_page);
-                    page++;            
+                    page++;
                 })
-                .done(function() 
+                .done(function()
                 {
                     $.fancybox.hideLoading();
                     $(".descrWrap .bookNames").each(function()
                     {
                         if($(this).length > 0)
                         {
-                            $(this).html(truncate($(this).html(), 25));    
-                        }    
+                            $(this).html(truncate($(this).html(), 25));
+                        }
                     });
-                    
+
                     $(".description").each(function()
                         {
                         if($(this).length > 0)
                         {
-                        $(this).html(truncate($(this).html(), 81));    
-                        }    
+                        $(this).html(truncate($(this).html(), 81));
+                        }
                     });
-    
+
                 });
                 if (page == maxpage) {
                     $('.showMore').hide();
                     //$('.phpages').hide();
                 }
                 return false;
-            });   
+            });
 });
 </script>

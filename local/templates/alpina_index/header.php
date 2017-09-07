@@ -2,7 +2,7 @@
     IncludeTemplateLangFile($_SERVER["DOCUMENT_ROOT"]."/bitrix/templates/".SITE_TEMPLATE_ID."/header.php");
     CJSCore::Init(array("fx"));
     $curPage = $APPLICATION->GetCurPage(true);
-    $theme = COption::GetOptionString("main", "wizard_eshop_bootstrap_theme_id", "blue", SITE_ID);  
+    $theme = COption::GetOptionString("main", "wizard_eshop_bootstrap_theme_id", "blue", SITE_ID);
 ?>
 
 <!doctype html>
@@ -16,17 +16,17 @@
 
 
     <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
-    <script type="text/javascript" src="/js/fancybox-2/helpers/jquery.fancybox-thumbs.js"></script>         
+    <script type="text/javascript" src="/js/fancybox-2/helpers/jquery.fancybox-thumbs.js"></script>
 
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
     <script src="/js/fxSlider.js"></script>
 
     <script src="/js/circle-progress.js"></script>
     <script src="/js/jquery.appear.js"></script>
-    <script src="/js/easySlider.js"></script>     
+    <script src="/js/easySlider.js"></script>
     <script src="/js/inputmask.js"></script>
 
-    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script> 
+    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script>
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">
@@ -47,27 +47,27 @@
     <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
-    <meta name="theme-color" content="#ffffff">    
+    <meta name="theme-color" content="#ffffff">
     <meta name="google-site-verification" content="cUkEF3427PrBhej9QWdjG-Hd6IHnkt7tS_rr88-4B30" />
     <meta name="yandex-verification" content="7129a3dd68cb6589" />
     <meta name="google-site-verification" content="2anNV5c5mKCRA-xCKLOJU2A0UWEJxJ7CiSkjPBd1Ypw" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />  
+    <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />
     <?$APPLICATION->ShowHead();?>
-    
-        
+
+
     <meta property="og:title" content="«Альпина Паблишер» — деловая литература" />
     <meta property="og:type" content="book" />
     <meta property="og:url" content="https://www.alpinabook.ru" />
     <meta property="og:image" content="https://www.alpinabook.ru/img/logo.png" />
     <meta property="og:site_name" content="www.alpinabook.ru" />
     <meta property="fb:admins" content="1425804193" />
-    <meta property="fb:app_id" content="138738742872757" /> 
+    <meta property="fb:app_id" content="138738742872757" />
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
     <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .index -->
-	
+
 	<!-- gdeslon -->
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276"></script>
 
@@ -96,7 +96,7 @@ if ($USER->IsAuthorized()) {
             'userRegCategory' : 'UserUnregistered'
         }];
     </script>
-    <?}?> 
+    <?}?>
 
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
@@ -107,15 +107,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
-    
+
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
 <header itemscope="" id="WPHeader" itemtype="https://schema.org/WPHeader">
 	<a href="/">
 	<div class="logo">
 		<?$APPLICATION->IncludeComponent(
-			"bitrix:main.include", 
-			".default", 
+			"bitrix:main.include",
+			".default",
 			array(
 				"AREA_FILE_SHOW" => "file",
 				"AREA_FILE_SUFFIX" => "inc",
@@ -128,12 +128,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		);?>
 		</div>
 	</a>
-	
+
 	<div class="headerWrapper">
 		<ul class="menu">
 			<?$APPLICATION->IncludeComponent(
-				"bitrix:menu", 
-				"top_menu", 
+				"bitrix:menu",
+				"top_menu",
 				array(
 					"ROOT_MENU_TYPE" => "top",
 					"MAX_LEVEL" => "1",
@@ -149,9 +149,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				),
 				false
 			);?>
-		</ul>    
+		</ul>
 	</div>
-	
+
 	<?$frame = new \Bitrix\Main\Page\FrameBuffered("header");
 	$frame->begin();?>
 	<script>
@@ -163,7 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				$('html').css('overflow', 'auto');
 			}
 		}
-		
+
 		$(document).ready(function(){
 			$("#authorisationPopup").click(function() {
 				$('.layout').show();
@@ -207,11 +207,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				<?echo !$USER->IsAuthorized() ? '<img src="/img/lkImg.png">' : '<img src="/img/lkImgBl.png">';?>
 			</div>
 		</a>
-		
+
 		<p class="telephone">
 			<?$APPLICATION->IncludeComponent(
-				"bitrix:main.include", 
-				".default", 
+				"bitrix:main.include",
+				".default",
 				array(
 					"AREA_FILE_SHOW" => "file",
 					"AREA_FILE_SUFFIX" => "inc",
@@ -232,17 +232,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			</div>
 		</a>
 
-		
+
 		<a href="/personal/profile/" id="authorisationPopup">
 			<div>
 				<img src="/img/lkImg.png">
 			</div>
 		</a>
-		
+
 		<p class="telephone">
 			<?$APPLICATION->IncludeComponent(
-				"bitrix:main.include", 
-				".default", 
+				"bitrix:main.include",
+				".default",
 				array(
 					"AREA_FILE_SHOW" => "file",
 					"AREA_FILE_SUFFIX" => "inc",
@@ -268,8 +268,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </p>
 
     <?$APPLICATION->IncludeComponent(
-            "bitrix:search.title", 
-            "search_form", 
+            "bitrix:search.title",
+            "search_form",
             array(
                 "CATEGORY_0" => array(
                     0 => "iblock_catalog",
@@ -292,23 +292,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 )
             ),
             false
-        );?>     
+        );?>
     <div class="books">
-	
+
         <div class="catalogIcon">
             <span class="catalog_text"></span>
         </div>
-		
+
         <div class="basketIcon">
         </div>
 
-        <? 
+        <?
             //$arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
-			$arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0);
+            if(!$USER->IsAdmin()){
+                $arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+            } else {
+                $arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0);
+            }
 
             $APPLICATION->IncludeComponent(
-			"bitrix:catalog.section", 
-			"template1", 
+			"bitrix:catalog.section",
+			"template1",
 			array(
 				"IBLOCK_TYPE_ID" => "catalog",
 				"IBLOCK_ID" => "4",
@@ -435,13 +439,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"COMPATIBLE_MODE" => "Y"
 			),
 			false
-		);?> 
+		);?>
 			<?
             global $SellBlockFilter;
-			$SellBlockFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
+            if(!$USER->IsAdmin()){
+                $SellBlockFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+            } else {
+                $SellBlockFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
+            }
             $APPLICATION->IncludeComponent(
-			"bitrix:catalog.section", 
-			"template_bestsellers", 
+			"bitrix:catalog.section",
+			"template_bestsellers",
 			array(
 				"ACTION_VARIABLE" => "action",
 				"ADD_PICT_PROP" => "BIG_PHOTO",
@@ -549,13 +557,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"COMPATIBLE_MODE" => "Y"
 			),
 			false
-		);?> 
+		);?>
         <?  global $arrFilter_soon;
             $arrFilter_soon = array('PROPERTY_STATE' => STATE_SOON, '>DETAIL_PICTURE' => 0, '!PROPERTY_reissue' => REISSUE_ID, '!PROPERTY_hide_soon' => HIDE_SOON_ID);
 
             $APPLICATION->IncludeComponent(
-			"bitrix:catalog.section", 
-			"template_soon", 
+			"bitrix:catalog.section",
+			"template_soon",
 			array(
 				"IBLOCK_TYPE_ID" => "catalog",
 				"IBLOCK_ID" => "4",
@@ -664,13 +672,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"COMPATIBLE_MODE" => "Y"
 			),
 			false
-		);?>  
+		);?>
         <?
             $arrFilter_mustread = array('PROPERTY_discount_on' => '276');
 
             $APPLICATION->IncludeComponent(
-			"bitrix:catalog.section", 
-			"template_mustread", 
+			"bitrix:catalog.section",
+			"template_mustread",
 			array(
 				"IBLOCK_TYPE_ID" => "catalog",
 				"IBLOCK_ID" => "4",
@@ -810,14 +818,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			}
 		}
 		?>
-		
+
 		<div class="recomendation" style="display:<?=($arrFilter['ID'][0] > 0) ? 'block' : 'none';?>">
-		
+
 		<p class="titleMain"><a href="/catalog/personal-books/">Рекомендуем лично вам</a></p>
 			<?
+                if(!$USER->IsAdmin()){
+                    $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+                } else {
+
+                }
 				$APPLICATION->IncludeComponent(
-					"bitrix:catalog.section", 
-					"recommended_books", 
+					"bitrix:catalog.section",
+					"recommended_books",
 					array(
 						"IBLOCK_TYPE_ID" => "catalog",
 						"IBLOCK_ID" => "4",
@@ -941,17 +954,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					false
 				);?>
 		</div>
-		
+
         <div class="bestonmain">
             <?
 			global $BestsOnMain;
-			$BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);?>     
+            if(!$USER->IsAdmin()){
+                $BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+            } else {
+                $BestsOnMain = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
+            }
+            ?>
             <p class="titleMain"><a href="/catalog/bestsellers/">Бестселлеры</a></p>
-			
+
             <?
 			$APPLICATION->IncludeComponent(
-			"bitrix:catalog.section", 
-			"bestsellers_slider", 
+			"bitrix:catalog.section",
+			"bestsellers_slider",
 			array(
 				"IBLOCK_TYPE_ID" => "catalog",
 				"IBLOCK_ID" => "4",
@@ -1085,14 +1103,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			global $bestWeekBook;
 			//$bestWeekBook = array('>PROPERTY_STATEDATE' => date('Y-m-d', strtotime("-14 days")));
 			//$bestWeekBook = array('ID' =>90639);
-
-			$bestWeekBook = array('PROPERTY_book_of_the_week' => 917);?>     
-
-		
+            if(!$USER->IsAdmin()){
+                $bestWeekBook = array('PROPERTY_book_of_the_week' => 917, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+            } else {
+                $bestWeekBook = array('PROPERTY_book_of_the_week' => 917);
+            }
+            ?>
             <?
 			$APPLICATION->IncludeComponent(
-			"bitrix:catalog.section", 
-			"bestbook", 
+			"bitrix:catalog.section",
+			"bestbook",
 			array(
 				"IBLOCK_TYPE_ID" => "catalog",
 				"IBLOCK_ID" => "4",
@@ -1222,8 +1242,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<div class="hintWrapp EditorChoiceWrapp">
 			<div class="catalogWrapper">
 				<?$APPLICATION->IncludeComponent(
-				"bitrix:catalog.section.list", 
-				"editor_choice", 
+				"bitrix:catalog.section.list",
+				"editor_choice",
 				array(
 					"VIEW_MODE" => "LIST",
 					"SHOW_PARENT_NAME" => "Y",
@@ -1276,11 +1296,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     </div>
                 </div>
 				<!--/noindex-->
-            
+
                 <div>
 					<?$APPLICATION->IncludeComponent(
-						"bitrix:main.include", 
-						".default", 
+						"bitrix:main.include",
+						".default",
 						array(
 							"AREA_FILE_SHOW" => "file",
 							"AREA_FILE_SUFFIX" => "inc",
@@ -1291,12 +1311,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 							),
 						false
 					);?>
-					
-					<?$disc_items = array ('PROPERTY_discount_on' => '276');
-					
+
+					<?
+                    if(!$USER->IsAdmin()){
+                        $disc_items = array ('PROPERTY_discount_on' => '276', "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+                    } else {
+                        $disc_items = array ('PROPERTY_discount_on' => '276');
+                    }
 					$APPLICATION->IncludeComponent(
-						"bitrix:catalog.section", 
-						"discount_books", 
+						"bitrix:catalog.section",
+						"discount_books",
 						array(
 							"ACTION_VARIABLE" => "action",
 							"ADD_PICT_PROP" => "-",
@@ -1409,12 +1433,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
         <p class="revTitle">
             Отзывы
-        </p>     
+        </p>
         <?
-            $RevFilter = array("!SECTION_ID" => true);
+            if(!$USER->IsAdmin()){
+                $RevFilter = array("!SECTION_ID" => true, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+            } else {
+                $RevFilter = array("!SECTION_ID" => true);
+            }
             $APPLICATION->IncludeComponent(
-                "bitrix:catalog.section", 
-                "latest_reviews", 
+                "bitrix:catalog.section",
+                "latest_reviews",
                 array(
                     "IBLOCK_TYPE_ID" => "catalog",
                     "IBLOCK_ID" => "31",
@@ -1549,8 +1577,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
             <div class="percentBlock">
                 <?$APPLICATION->IncludeComponent(
-                        "bitrix:main.include", 
-                        ".default", 
+                        "bitrix:main.include",
+                        ".default",
                         array(
                             "AREA_FILE_SHOW" => "file",
                             "AREA_FILE_SUFFIX" => "inc",
@@ -1565,8 +1593,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
             <div class="TwentypercentBlock">
                 <?$APPLICATION->IncludeComponent(
-                        "bitrix:main.include", 
-                        ".default", 
+                        "bitrix:main.include",
+                        ".default",
                         array(
                             "AREA_FILE_SHOW" => "file",
                             "AREA_FILE_SUFFIX" => "inc",
@@ -1582,12 +1610,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 </div>
 
-<? 
-    $AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_STATE" => 23);
+<?
+    if(!$USER->IsAdmin()){
+        $AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+    } else {
+        $AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_STATE" => 23);
+    }
 
     $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"all_books", 
+	"bitrix:catalog.section",
+	"all_books",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",
@@ -1746,7 +1778,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     </a>
                     <a href="/content/payment/#epayments">
                         <p>
-                            Электронные платежи            
+                            Электронные платежи
                         </p>
                     </a>
                 </div>
@@ -1820,7 +1852,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
         $(".saleSlider .left").hide();
         $(".saleSlider .right").hide();
-    } 
+    }
 </script>
 
 <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
@@ -1828,7 +1860,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     window.criteo_q = window.criteo_q || [];
     window.criteo_q.push(
         { event: "setAccount", account: 18519 },
-        <?if($USER->IsAuthorized()){?>   
+        <?if($USER->IsAuthorized()){?>
             { event: "setEmail", email: "<?=$USER->GetEmail()?>" },
             <?}?>
         { event: "setSiteType", type: "d" },

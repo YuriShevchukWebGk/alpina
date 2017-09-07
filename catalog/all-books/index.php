@@ -1,25 +1,30 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetTitle("Все книги интернет-магазина Альпина Паблишер");
-?>  
-<?  
+?>
+<?
 global $AllBooksFilter;
-$AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_STATE" => 23);
+if(!$USER->IsAdmin()){
+    $AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_STATE" => 23, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+} else {
+    $AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_STATE" => 23);
+}
+
 
 switch ($_REQUEST["SORT"]) {
     case "DATE":
     $sort = "PROPERTY_YEAR";
     break;
-    
+
     case "PRICE":
     $sort = "CATALOG_PRICE_1";
     break;
-    
+
     case "POPULARITY":
     $sort = "PROPERTY_page_views_ga";
     $order = "desc";
     break;
-    
+
     default:
 	$sort = "PROPERTY_page_views_ga";
     $order = "desc";
@@ -28,11 +33,11 @@ switch ($_REQUEST["SORT"]) {
     <div class="catalogWrapper">
         <div class="catalogIcon editorsCatalogIcon"></div>
         <div class="basketIcon editorsBasketIcon"></div>
-    </div>   
+    </div>
 <?
     $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"all_books", 
+	"bitrix:catalog.section",
+	"all_books",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",

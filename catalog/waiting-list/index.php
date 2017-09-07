@@ -43,10 +43,13 @@ if (empty($ids)) {
 } else {
 	$arrFilter = array('ID' => $ids);
 }
-?>  
+if(!$USER->IsAdmin()){
+    $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+}
+?>
 <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"waiting-list", 
+	"bitrix:catalog.section",
+	"waiting-list",
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_PICT_PROP" => "-",

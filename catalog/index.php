@@ -3,9 +3,15 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetPageProperty("keywords", "книжный интернет магазин, деловая литература, бизнес книга, доставка книг, интернет магазин книг");
 $APPLICATION->SetPageProperty("description", "Электронная онлайн-библиотека Альпина Паблишер");
 $APPLICATION->SetTitle("Книги для саморазвития | Лучшие книги по саморазвитию | Книги для самосовершенствования | Популярные книги для саморазвития мужчин и женщин | Издательство «Альпина Паблишер»");
-?><?$APPLICATION->IncludeComponent(
-	"bitrix:catalog", 
-	"catalog_template", 
+?>
+<?
+if(!$USER->IsAdmin()){
+    $arrFilter_new["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+}
+?>
+<?$APPLICATION->IncludeComponent(
+	"bitrix:catalog",
+	"catalog_template",
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_ELEMENT_CHAIN" => "Y",
@@ -102,7 +108,7 @@ $APPLICATION->SetTitle("Книги для саморазвития | Лучши�
 			0 => "",
 			1 => "",
 		),
-		"FILTER_NAME" => "",
+		"FILTER_NAME" => "arrFilter_new",
 		"FILTER_OFFERS_FIELD_CODE" => array(
 			0 => "PREVIEW_PICTURE",
 			1 => "DETAIL_PICTURE",

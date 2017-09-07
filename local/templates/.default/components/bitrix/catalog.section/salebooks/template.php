@@ -47,8 +47,8 @@
             $SeriesRoundBanner = array("PROPERTY_BIND_TO_SERIE" => $arResult["SERIES"]["ID"]);
 			/* УБИРАЕМ БАННЕРЫ ПОКА
             $APPLICATION->IncludeComponent(
-                "bitrix:news.list", 
-                "series_banners", 
+                "bitrix:news.list",
+                "series_banners",
                 array(
                     "ACTIVE_DATE_FORMAT" => "d.m.Y",
                     "ADD_SECTIONS_CHAIN" => "Y",
@@ -147,16 +147,16 @@
             <div class="otherBooks" id="block1">
                 <ul>
 
-                    <?foreach ($arResult["ITEMS"] as $arItem) {   
+                    <?foreach ($arResult["ITEMS"] as $arItem) {
                         $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                         ?>
                         <li>
                             <div class="categoryBooks">
                                  <div class="sect_badge">
-                                     <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
+                                     <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y")
                                          && $arItem['PROPERTIES']['spec_price']['VALUE']
                                          && $arItem['PROPERTIES']['show_discount_icon']['VALUE'] == "Y") {
-                                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arItem['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
+                                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arItem['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) {
                                                     echo '<img class="discount_badge" src="/img/' . $arItem['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
                                                 }
                                      }?>
@@ -175,7 +175,7 @@
                                 <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
                                 <?
                                     foreach ($arItem["PRICES"] as $code => $arPrice) {
-                                        if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") 
+                                        if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")
                                             && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
                                         ?>
                                         <p class="priceOfBook"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"]) ?> <span>руб.</span></p>
@@ -213,7 +213,7 @@
                 <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
                 <span></span>
             </div>
-            
+
             <?if (($arResult["NAV_RESULT"]->NavPageCount) > 1) {?>
                 <p class="showMore">Показать ещё</p>
             <?}?>
@@ -239,10 +239,10 @@
             ),
             false
         );?>
-            
+
         <?$APPLICATION->IncludeComponent(
-            "bitrix:catalog.section.list", 
-            "section.left.tree", 
+            "bitrix:catalog.section.list",
+            "section.left.tree",
             array(
                 "IBLOCK_TYPE" => "catalog",
                 "IBLOCK_ID" => CATALOG_IBLOCK_ID,
@@ -285,6 +285,9 @@ if (isset($_COOKIE["rrpusid"])){
     $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId=' . $_COOKIE["rrpusid"]);
     $recsArray = json_decode($stringRecs);
     $arrFilterPersonal = Array('ID' => (array_slice($recsArray, 0, 6)));
+}
+if(!$USER->IsAdmin()){
+    $arrFilterPersonal["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
 }
 if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
     <?$APPLICATION->IncludeComponent(
@@ -404,7 +407,7 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
 			categor_height = 1850 + Math.ceil((books_block_length - 15) / 5) * 455;
 		<?} else {?>
 			categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
-		<?}?>		
+		<?}?>
 		//$(".wrapperCategor").css("height", categor_height + "px");
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_" . $navnum])) {?>
@@ -423,7 +426,7 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
             })
             .done(function() {
                 $.fancybox.hideLoading();
-                // обрезка длинных названий, изменение высоты блоков, 
+                // обрезка длинных названий, изменение высоты блоков,
                 // содержащих карточки товаров, в зависимости от количества карточек
                 $(".nameBook").each(function() {
                     if($(this).length > 0) {

@@ -54,7 +54,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 </span>
                 <?
                 $num = 2;
-                $navChain = CIBlockSection::GetNavChain(4, $arResult["ID"]); 
+                $navChain = CIBlockSection::GetNavChain(4, $arResult["ID"]);
                 $stopNum = $navChain->nSelectedCount + 1;
                 while ($arNav = $navChain->GetNext()) {?>
                 <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
@@ -79,8 +79,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
             $APPLICATION->IncludeComponent(
-                "bitrix:news.list", 
-                "section_banners", 
+                "bitrix:news.list",
+                "section_banners",
                 array(
                     "ACTIVE_DATE_FORMAT" => "d.m.Y",
                     "ADD_SECTIONS_CHAIN" => "Y",
@@ -142,10 +142,10 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 ),
                 false
             );?>
-            
+
             <? /* Получаем от RetailRocket рекомендации для товара */
             $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
-            $recsArray = json_decode($stringRecs);  
+            $recsArray = json_decode($stringRecs);
             global $BestsellFilter;
             if ($recsArray[0] > 0) {
                 $printid2 = array_slice($recsArray, 0, 4);
@@ -158,9 +158,12 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             if ($BestsellFilter['ID'][0] > 0) {?>
                 <p class="grayTitle"><?= GetMessage("POPULAR_ITEMS_TITLE")?></p>
                 <?
+                if(!$USER->IsAdmin()){
+                    $BestsellFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+                }
                 $APPLICATION->IncludeComponent(
-                    "bitrix:catalog.section", 
-                    "category.recs", 
+                    "bitrix:catalog.section",
+                    "category.recs",
                     array(
                         "IBLOCK_TYPE" => "catalog",
                         "IBLOCK_ID" => "4",
@@ -266,20 +269,20 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 //}?>
          <?} else {  //проверка на вывод подборок на главной?>
             <p class="grayTitle"></p>
-         <?}?>  
+         <?}?>
          <?  //блок с цитатой ?>
          <?if (is_array($arResult["QUOTE_ARRAY"])) {?>
              <div class="titleDiv">
                  <?if ($arResult["QUOTE_ARRAY"]["DETAIL_PICTURE"]){?>
                      <div class="photo">
-                         <img src="<?= $arResult["QUOTE_IMAGE"]["src"]?>" alt="Автор <?=$arResult["QUOTE_ARRAY"]["PROPERTY_AUTHOR_NAME"]?>"> 
+                         <img src="<?= $arResult["QUOTE_IMAGE"]["src"]?>" alt="Автор <?=$arResult["QUOTE_ARRAY"]["PROPERTY_AUTHOR_NAME"]?>">
                      </div>
                  <?}?>
                  <p class="text">"<?= $arResult["QUOTE_ARRAY"]["DETAIL_TEXT"]?>"</p>
                  <p class="autor"><?= $arResult["QUOTE_ARRAY"]["PROPERTY_AUTHOR_NAME"]?></p>
              </div>
          <?}?>
-         <?// блок с цитатой END ?>   
+         <?// блок с цитатой END ?>
          <ul class="filterParams">
              <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])) { ?> class="active" <?}?>>
                  <p data-id="1">
@@ -291,9 +294,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                      <?if ($_REQUEST['SORT'] == 'DATE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
                          <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=DATE&DIRECTION=DESC" onclick="update_sect_page('date', 'asc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По дате выхода</a>
                      <?} else {?>
-                         <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=DATE&DIRECTION=ASC" onclick="update_sect_page('date', 'desc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По дате выхода</a>        
+                         <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=DATE&DIRECTION=ASC" onclick="update_sect_page('date', 'desc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По дате выхода</a>
                      <?}?>
-                 </p>                                                                                     
+                 </p>
              </li>
              <li <?if ($_REQUEST['SORT'] == 'PRICE'){?>class="active"<?}?>>
                  <p data-id="3">
@@ -308,45 +311,45 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
          <div class="otherBooks" id="block1">
              <ul>
 
-                 <?$criteoCounter = 0; 
-                 $criteoItems = Array(); 
+                 <?$criteoCounter = 0;
+                 $criteoItems = Array();
                  $gtmEcommerceImpressions = '';
                  $gdeslon = '';
-                     foreach ($arResult["ITEMS"] as $cell => $arItem) {  
-                         foreach ($arItem["PRICES"] as $code => $arPrice) { 
+                     foreach ($arResult["ITEMS"] as $cell => $arItem) {
+                         foreach ($arItem["PRICES"] as $code => $arPrice) {
                          ?>
                          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
                             <meta itemprop="description" content="<?=htmlspecialchars(strip_tags($arItem["PREVIEW_TEXT"]))?>" />
                              <div class="categoryBooks">
                                  <div class="sect_badge">
-                                     <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") 
+                                     <?if (($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y")
                                          && $arItem['PROPERTIES']['spec_price']['VALUE']
                                          && $arItem['PROPERTIES']['show_discount_icon']['VALUE'] == "Y") {
-                                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arItem['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) { 
+                                                if (file_exists($_SERVER["DOCUMENT_ROOT"] . "/img/" . $arItem['PROPERTIES']['spec_price']['VALUE'] . "percent.png")) {
                                                     echo '<img class="discount_badge" src="/img/' . $arItem['PROPERTIES']['spec_price']['VALUE'] . 'percent.png">';
                                                 }
                                      }?>
                                  </div>
-                                 
+
                                  <a href="<?= $arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', <?= ($cell+1)?>, 'Catalog Section');" itemprop="url">
                                      <div class="section_item_img">
-                                         <?if ($arResult[$arItem["ID"]]["PICTURE"]["src"]) {?>               
+                                         <?if ($arResult[$arItem["ID"]]["PICTURE"]["src"]) {?>
                                              <img src="<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>" alt="<?= $arItem["NAME"];?>" itemprop="image">
                                          <?} else {?>
-                                             <img src="/images/no_photo.png" width="142" height="142">    
+                                             <img src="/images/no_photo.png" width="142" height="142">
                                          <?}?>
                                          <?if(!empty($arItem["PROPERTIES"]["number_volumes"]["VALUE"])) {?>
                                              <span class="volumes"><?= $arItem["PROPERTIES"]["number_volumes"]["VALUE"]?></span>
                                          <?}?>
-                                     </div> 
+                                     </div>
                                      <p class="nameBook" title="<?= $arItem["NAME"]?>" itemprop="name"><?= $arItem["NAME"]?></p>
                                      <?if ($USER->isAdmin()){?>
                                         <span class="crr-cnt" data-crr-url="<?=$arItem["ID"]?>" data-crr-chan="<?=$arItem["ID"]?>"></span>
                                      <?}?>
                                      <p class="bookAutor" itemprop="author"><?= $arResult[$arItem["ID"]]["CURRENT_AUTHOR"]["NAME"]?></p>
                                      <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                                     <?                                 
-                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) { 
+                                     <?
+                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
                                             if ($arPrice["DISCOUNT_VALUE_VAT"] && $arResult['ID'] != CERTIFICATE_SECTION_ID) { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                                 <link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
@@ -357,23 +360,23 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                                 <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? }
-                                         ?>                     
+                                         ?>
                                          <?if ($arResult[$arItem["ID"]]["ITEM_IN_BASKET"]["QUANTITY"] == 0 && $arResult['ID'] != CERTIFICATE_SECTION_ID) {?>
                                             <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=$arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); return false;">
                                                 <?if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
-                                                    <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET")?></p> 
+                                                    <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET")?></p>
                                                 <?} else {?>
-                                                    <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_PREORDER")?></p>                                                 
-                                                <?}?>                                                     
+                                                    <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_PREORDER")?></p>
+                                                <?}?>
                                             </a>
                                          <?} elseif ($arResult['ID'] == CERTIFICATE_SECTION_ID) {?>
                                             <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["DETAIL_PAGE_URL"]?>">
-                                                <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_BUY")?></p>      
+                                                <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_BUY")?></p>
                                             </a>
                                          <?} else {?>
                                             <a class="product<?= $arItem["ID"];?>" href="/personal/cart/">
                                                 <p class="basketBook" style="background-color: #A9A9A9; color: white;">Оформить</p>
-                                            </a> 
+                                            </a>
                                          <?}?>
                                  <?} elseif (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {?>
                                     <p class="priceOfBook"><?= $arItem["PROPERTIES"]["STATE"]["VALUE"]?></p>
@@ -384,17 +387,17 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                  <? if ($USER -> IsAuthorized() && $arResult['ID'] != CERTIFICATE_SECTION_ID) { ?>
                                      <p class="basketLater" id="<?= $arItem["ID"]?>">Куплю позже</p>
                                  <? } ?>
-                             </div>        
+                             </div>
                          </li>
                          <?      //}
                          }
                         if($criteoCounter<3){
-                            array_push($criteoItems, $arItem['ID']);  
+                            array_push($criteoItems, $arItem['ID']);
                         }
                          $criteoCounter++;
-                         
+
                         $gdeslon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
-                        
+
                          $gtmEcommerceImpressions .= "{";
                          $gtmEcommerceImpressions .= "'name': '" . $arItem["NAME"] . "',";
                          $gtmEcommerceImpressions .= "'id': '" . $arItem['ID'] . "',";
@@ -406,8 +409,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
                          }
                          ?>
-                         
-                
+
+
                 <script type="text/javascript">
                      <!-- //dataLayer GTM -->
                      dataLayer.push({
@@ -431,20 +434,20 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                      window.criteo_q = window.criteo_q || [];
                      window.criteo_q.push(
                          { event: "setAccount", account: 18519 },
-                         <?if ($USER->IsAuthorized()) {?>  
+                         <?if ($USER->IsAuthorized()) {?>
                              { event: "setEmail", email: "<?= $USER->GetEmail()?>" },
                          <?}?>
                          { event: "setSiteType", type: "d" },
                          { event: "viewList", item: [<?foreach ($criteoItems as $criteoItem) {echo $criteoItem.', ';};?>]}
                      );
-                 </script>                    
+                 </script>
              </ul>
 
          </div>
             <div class="wishlist_info">
                 <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
                 <span></span>
-            </div>   
+            </div>
 
 
 
@@ -460,8 +463,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
 
         <?$APPLICATION->IncludeComponent(
-                "bitrix:menu", 
-                "catalog_left_menu", 
+                "bitrix:menu",
+                "catalog_left_menu",
                 array(
                     "ROOT_MENU_TYPE" => "top_books_left_menu",
                     "MAX_LEVEL" => "1",
@@ -477,11 +480,11 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     "COMPONENT_TEMPLATE" => "catalog_left_menu"
                 ),
                 false
-            );?> 
+            );?>
 
         <?$APPLICATION->IncludeComponent(
-                "bitrix:catalog.section.list", 
-                "section.left.tree", 
+                "bitrix:catalog.section.list",
+                "section.left.tree",
                 array(
                     "IBLOCK_TYPE" => "catalog",
                     "IBLOCK_ID" => "4",
@@ -510,7 +513,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     "SHOW_PARENT_NAME" => "Y"
                 ),
                 false
-            );?>        
+            );?>
 
 
 
@@ -531,14 +534,14 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
     $(document).ready(function() {
         $(".leftMenu ul li").each(function(){
             if ($(this).children("a").attr("href") == "<?= $APPLICATION -> GetCurDir()?>") {
-                $(this).children("a").find("p").css("font-weight", "bold"); 
+                $(this).children("a").find("p").css("font-weight", "bold");
                 if ($(this).closest("ul").hasClass("secondLevel")) {
-                    $(this).closest("ul").parent("li").find("a p").addClass("activeListName"); 
-                    $(this).closest("ul").parent("li").find(".secondLevel").show();       
+                    $(this).closest("ul").parent("li").find("a p").addClass("activeListName");
+                    $(this).closest("ul").parent("li").find(".secondLevel").show();
                 } else {
-                    $(this).find("ul.secondLevel a p").addClass("activeListName"); 
-                    $(this).find("ul.secondLevel").show();  
-                }   
+                    $(this).find("ul.secondLevel a p").addClass("activeListName");
+                    $(this).find("ul.secondLevel").show();
+                }
             }
         })
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;
@@ -546,11 +549,11 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             case "CATALOG_PRICE_1":
             $sort = "PRICE";
             break;
-            
+
             case "PROPERTY_shows_a_day":
             $sort = "POPULARITY";
             break;
-            
+
             case "PROPERTY_SOON_DATE_TIME":
             $sort = "DATE";
             break;
@@ -570,11 +573,11 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 RecHeight = 550;
             }
             var BooksLiLength = $(".otherBooks ul li").length;
-            
+
             var startHeight = WrappHeight+RecHeight+100 + DescriptionHeight + Math.ceil((BooksLiLength - 15) / 5) * 455;
             //$(".wrapperCategor").css("height", startHeight+"px");
         }
-        
+
         $('.showMore').click(function(){
            // var otherBooks = $(this).siblings(".otherBooks");
             $.fancybox.showLoading();
@@ -584,16 +587,16 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 $.get(window.location.href + '&PAGEN_<?= $navnum?>=' + page, function(data) {
                     var next_page = $('.otherBooks ul li', data);
                     $('.otherBooks ul').append(next_page);
-                    page++;            
+                    page++;
                 })
             <?
             } else {?>
-                $.get('<?= $arResult["SECTION_PAGE_URL"]?>?SORT=<?= $sort?>&DIRECTION=<?= $arParams["ELEMENT_SORT_ORDER2"]?>&PAGEN_<?= $navnum?>='+page, 
+                $.get('<?= $arResult["SECTION_PAGE_URL"]?>?SORT=<?= $sort?>&DIRECTION=<?= $arParams["ELEMENT_SORT_ORDER2"]?>&PAGEN_<?= $navnum?>='+page,
                     function(data) {
                     var next_page = $('.otherBooks ul li', data);
                     $('.otherBooks ul').append(next_page);
-                    page++;            
-                })    
+                    page++;
+                })
             <?
             }
             ?>
@@ -601,14 +604,14 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     $.fancybox.hideLoading();
                     $(".nameBook").each(function() {
                         if($(this).length > 0) {
-                            $(this).html(truncate($(this).html(), 40));    
-                        }    
+                            $(this).html(truncate($(this).html(), 40));
+                        }
                     });
                     var otherBooksHeight = 455 * Math.ceil($(".otherBooks ul li").length / 5);
                     console.log($(".otherBooks ul li").length);
-                   
-                    var categorHeight = WrappHeight+RecHeight+200 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;    
-                    
+
+                    var categorHeight = WrappHeight+RecHeight+200 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
+
                     $(".otherBooks").css("height", otherBooksHeight+"px");
                     //$(".wrapperCategor").css("height", categorHeight+"px");
                     //$(".contentWrapp").css("height", categorHeight-10+"px");
@@ -627,27 +630,27 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                     $.get(window.location.href + '&PAGEN_<?= $navnum?>=' + page, function(data) {
                         var next_page = $('.otherBooks ul li', data);
                         $('.otherBooks ul').append(next_page);
-                        page++;            
+                        page++;
                     })
                  <?} else {?>
-                     $.get('<?= $arResult["SECTION_PAGE_URL"]?>?SORT=<?= $sort?>&DIRECTION=<?= $arParams["ELEMENT_SORT_ORDER2"]?>&PAGEN_<?= $navnum?>='+page, 
+                     $.get('<?= $arResult["SECTION_PAGE_URL"]?>?SORT=<?= $sort?>&DIRECTION=<?= $arParams["ELEMENT_SORT_ORDER2"]?>&PAGEN_<?= $navnum?>='+page,
                         function(data) {
                             var next_page = $('.otherBooks ul li', data);
                             $('.otherBooks ul').append(next_page);
-                            page++;            
+                            page++;
                         }
                      )
                  <?}?>
                 .done(function() {
                         $(".nameBook").each(function() {
                                 if($(this).length > 0) {
-                                    $(this).html(truncate($(this).html(), 40));    
-                                }    
+                                    $(this).html(truncate($(this).html(), 40));
+                                }
                         });
                         var otherBooksHeight = 1350 * ($(".otherBooks ul li").length / 15);
-                           
-                        var categorHeight = WrappHeight+RecHeight+200+ Math.ceil(($(".otherBooks ul li").length - BooksLiLength) / 5) * 455;    
-                            
+
+                        var categorHeight = WrappHeight+RecHeight+200+ Math.ceil(($(".otherBooks ul li").length - BooksLiLength) / 5) * 455;
+
                         $(".otherBooks").css("height", otherBooksHeight+"px");
                         //$(".wrapperCategor").css("height", categorHeight+"px");
                         //$(".contentWrapp").css("height", categorHeight-10+"px");
@@ -656,7 +659,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 });
                 if (upd_page == maxpage) {
                     $('.showMore').hide();
-                }    
+                }
             }
         <?}?>
         <?if (!$USER -> IsAuthorized()) {?>
@@ -664,7 +667,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 $(this).css("height", "420px");
             });
 
-        <?}?>    
+        <?}?>
 cackle_widget = window.cackle_widget || [];
             cackle_widget.push({widget: 'ReviewRating', id: 36574, html: '{{=it.stars}}{{?it.numr > 0}} {{=it.numr+it.numv}} {{=it.reviews}}{{?}}'});
             (function() {
@@ -673,6 +676,6 @@ cackle_widget = window.cackle_widget || [];
                 mc.async = true;
                 mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
-            })();        
+            })();
     });
 </script>

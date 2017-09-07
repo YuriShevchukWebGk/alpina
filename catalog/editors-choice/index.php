@@ -1,13 +1,18 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     $APPLICATION->SetTitle("Editor's choice");
-?>  
-<?  
+?>
+<?
     global $arrFilter_choice;
-    $arrFilter_choice = array('PROPERTY_editors_choice' => 235);?>
+    if(!$USER->IsAdmin()){
+        $arrFilter_choice = array('PROPERTY_editors_choice' => 235, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+    } else {
+        $arrFilter_choice = array('PROPERTY_editors_choice' => 235);
+    }
+    ?>
 <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"editor_choice", 
+	"bitrix:catalog.section",
+	"editor_choice",
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_PICT_PROP" => "-",

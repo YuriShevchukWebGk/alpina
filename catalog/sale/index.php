@@ -16,25 +16,29 @@ switch ($_REQUEST["SORT"])
     case "DATE":
     $sort = "PROPERTY_YEAR";
     break;
-    
+
     case "PRICE":
     $sort = "CATALOG_PRICE_1";
     break;
-    
+
     case "POPULARITY":
     $sort = "PROPERTY_shows_a_day";          //PROPERTY_shows_a_day
     $order = "asc";
     break;
-    
+
     default:
     //$sort = "PROPERTY_SALES_CNT";
 	$sort = "PROPERTY_shows_a_day";
     $order = "desc";
 }
 global $arrFilter;
+if(!$USER->IsAdmin()){
+    $arrFilter = array ('PROPERTY_discount_on' => '276', "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+} else {
+    $arrFilter = array ('PROPERTY_discount_on' => '276');
+}
 
-$arrFilter = array ('PROPERTY_discount_on' => '276');
-?> 
+?>
 <?$APPLICATION->IncludeComponent("bitrix:catalog.section", "salebooks", Array(
 	"ACTION_VARIABLE" => "action",	// Название переменной, в которой передается действие
 		"ADD_PICT_PROP" => "-",	// Дополнительная картинка основного товара

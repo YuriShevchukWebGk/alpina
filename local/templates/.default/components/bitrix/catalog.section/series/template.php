@@ -45,7 +45,7 @@
             <div class="otherBooks" id="block1">
                 <ul>
 
-                    <?foreach ($arResult["ITEMS"] as $arItem) { 
+                    <?foreach ($arResult["ITEMS"] as $arItem) {
                         $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                         ?>
                         <li>
@@ -83,7 +83,7 @@
                                 <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
                                 <?
                                     foreach ($arItem["PRICES"] as $code => $arPrice) {
-                                        if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") 
+                                        if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")
                                             && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
                                         ?>
                                         <p class="priceOfBook"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"]) ?> <span>руб.</span></p>
@@ -124,7 +124,7 @@
                 <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
                 <span></span>
             </div>
-            
+
             <?if (($arResult["NAV_RESULT"]->NavPageCount) > 1) {?>
                 <p class="showMore">Показать ещё</p>
             <?}?>
@@ -149,10 +149,10 @@
             ),
             false
         );?>
-            
+
         <?$APPLICATION->IncludeComponent(
-            "bitrix:catalog.section.list", 
-            "section.left.tree", 
+            "bitrix:catalog.section.list",
+            "section.left.tree",
             array(
                 "IBLOCK_TYPE" => "catalog",
                 "IBLOCK_ID" => CATALOG_IBLOCK_ID,
@@ -195,6 +195,9 @@ if (isset($_COOKIE["rrpusid"])){
     $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId=' . $_COOKIE["rrpusid"]);
     $recsArray = json_decode($stringRecs);
     $arrFilterPersonal = Array('ID' => (array_slice($recsArray, 0, 6)));
+}
+if(!$USER->IsAdmin()){
+    $arrFilterPersonal["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
 }
 if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
     <?$APPLICATION->IncludeComponent(
@@ -315,7 +318,7 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
 			categor_height = 1850 + Math.ceil((books_block_length - 5) / 5) * 152;
 		<?} else {?>
 			categor_height = 1600 + Math.ceil((books_block_length - 5) / 5) * 152;
-		<?}?>		
+		<?}?>
 		//$(".wrapperCategor").css("height", categor_height + "px");
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_" . $navnum])) {?>
@@ -328,9 +331,9 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
             var other_books = $(this).siblings(".otherBooks");
             $.fancybox.showLoading();
             <?if (isset($_REQUEST["SORT"])) {?>
-                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';    
+                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';
             <?} else {?>
-                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?PAGEN_" . $navnum . "=" ?>';    
+                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?PAGEN_" . $navnum . "=" ?>';
             <?}?>
             $.get(section_url + page, function(data) {
                 var next_page = $('.otherBooks li', data);
@@ -339,7 +342,7 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
             })
             .done(function() {
                 $.fancybox.hideLoading();
-                // обрезка длинных названий, изменение высоты блоков, 
+                // обрезка длинных названий, изменение высоты блоков,
                 // содержащих карточки товаров, в зависимости от количества карточек
                 $(".nameBook").each(function() {
                     if($(this).length > 0) {
