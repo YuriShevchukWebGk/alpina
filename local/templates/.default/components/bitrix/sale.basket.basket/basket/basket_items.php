@@ -34,8 +34,8 @@
 			e.stopPropagation();
 		});
 	});
-</script>                                                                                              
-    <div id="basket_items_list">                       
+</script>
+    <div id="basket_items_list">
         <div class="yourBooks" id="cardBlock1" <?if($onlyPreorder || $_REQUEST['preorder']){ echo 'style="display:none"'; }?>>
             <table id="basket_items">
                 <thead>
@@ -111,6 +111,12 @@
 
                 <tbody>
                     <?
+                        $count = 0;
+                        foreach ($arResult["GRID"]["ROWS"] as $k => $arItem){
+                           if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y" && $arItem["PRICE"]){
+                                $count += 1;   // считаем количество товара в корзине без подарков
+                           }
+                        }
                         $totalQuantity = 0; //общее количество товаров в корзине
 
 						/* для инструментов аналитики */
@@ -123,8 +129,12 @@
 						$gdeslon = '';
 						/* конец */
 
-                        foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):     
-                            if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y"): 
+                        foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):
+                            if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y"):
+
+                            if($count < 5 && $arItem["PROPERTY_COVER_TYPE_VALUE"] == 'Подарок'){
+                                CSaleBasket::Delete($arItem["ID"]);
+                            }
                             $totalQuantity += $arItem["QUANTITY"];
 							array_push($gtmEnchECommerceCheckout,"'name': '".$arItem['NAME']."','id': '".$arItem["PRODUCT_ID"]."','category': '".$parentSectionName."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Google Analytics Items
 							array_push($itemsForCriteo,"'id': '".$arItem["PRODUCT_ID"]."','price': '".$arItem["PRICE"]."','quantity': '".$arItem["QUANTITY"]."'"); // Criteo Items
@@ -138,12 +148,15 @@
 							} else {
 								$gdeslon .= $arItem["PRODUCT_ID"].':'.$arItem["PRICE"].',';
 							}
-
+                             // arshow($count);
                             ?>
                             <tr id="<?=$arItem["ID"]?>">
                                 <?
                                     foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader):
 
+                                    if($count < 6){
+
+                                    }
                                         if (in_array($arHeader["id"], array("PROPS", "DELAY", "DELETE", "TYPE"))) // some values are not shown in the columns in this template
                                             continue;
 
@@ -336,15 +349,16 @@
                 $discountIteratorCoup = Internals\DiscountTable::getList(array(
                     'filter' => $filterCoup
                 ));
-                $arDiscount = $discountIteratorCoup->fetch();    
+                $arDiscount = $discountIteratorCoup->fetch();
             ?>
             <?/*
             <p class="finalDiscount">Вам не хватает 770<span class='rubsign'></span> и получите скидку 10%</p>
             */?>
             <p class="promoWrap"><span class="promocode" onclick="$('#coupon, #acceptCoupon').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промо-код/сертификат?<span></p>
-			
+
 			<div class="gifts_block">
-				<?if($arParams['USE_GIFTS'] == 'Y') {   
+
+				<?if($arParams['USE_GIFTS'] == 'Y' ) {
 					$APPLICATION->IncludeComponent(
 						"bitrix:sale.gift.basket",
 						"basket_gifts",
@@ -387,11 +401,11 @@
 					);
 				}?>
 			</div>
-			
+
             <div class="bx_ordercart_order_pay_left" id="coupons_block">
                 <div class="bx_ordercart_coupon">
                     <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
-                    <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">       
+                    <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
                 </div><?
                     if (!empty($arResult['COUPON_LIST']))
                     {
@@ -425,7 +439,7 @@
                         	<? } else { ?>
                         		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
                         	<? } ?>
-                        </p> 
+                        </p>
         </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />
@@ -436,14 +450,14 @@
         <input type="hidden" id="price_vat_show_value" value="<?=($arParams["PRICE_VAT_SHOW_VALUE"] == "Y") ? "Y" : "N"?>" />
         <input type="hidden" id="hide_coupon" value="<?=($arParams["HIDE_COUPON"] == "Y") ? "Y" : "N"?>" />
         <input type="hidden" id="use_prepayment" value="<?=($arParams["USE_PREPAYMENT"] == "Y") ? "Y" : "N"?>" />
-		
+
 		<!-- gdeslon -->
 		<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276"></script>
 		<?$_SESSION['gtmEnchECommerceCheckout'] = $gtmEnchECommerceCheckout;?>
 		<?$_SESSION['itemsForCriteo']			= $itemsForCriteo;?>
 		<?$_SESSION['retailRocketRecs']			= $retailRocketRecs;?>
 		<?$_SESSION['gdeslon']					= substr($gdeslon,0,-1);?>
-		
+
 
 
         <div class="bx_ordercart_order_pay">

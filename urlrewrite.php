@@ -7,9 +7,21 @@ $arUrlRewrite = array(
 		"PATH" => "/content/reviews/index.php",
 	),
 	array(
+		"CONDITION" => "#^/blog/authors/([\\.\\-0-9a-zA-Z]+)(\\/)?(.*)?#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/blog/authors/index.php",
+	),
+	array(
 		"CONDITION" => "#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#",
 		"RULE" => "alias=\$1",
 		"ID" => "bitrix:im.router",
+		"PATH" => "/desktop_app/router.php",
+	),
+	array(
+		"CONDITION" => "#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#",
+		"RULE" => "alias=\$1",
+		"ID" => "",
 		"PATH" => "/desktop_app/router.php",
 	),
 	array(
@@ -37,10 +49,22 @@ $arUrlRewrite = array(
 		"PATH" => "/desktop_app/router.php",
 	),
 	array(
+		"CONDITION" => "#^/online/(/?)([^/]*)#",
+		"RULE" => "",
+		"ID" => "",
+		"PATH" => "/desktop_app/router.php",
+	),
+	array(
 		"CONDITION" => "#^/stssync/calendar/#",
 		"RULE" => "",
 		"ID" => "bitrix:stssync.server",
 		"PATH" => "/bitrix/services/stssync/calendar/index.php",
+	),
+	array(
+		"CONDITION" => "#^/blog/authors/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/blog/authors/index.php",
 	),
 	array(
 		"CONDITION" => "#^/testcatalog/#",
@@ -61,28 +85,28 @@ $arUrlRewrite = array(
 		"PATH" => "/testnews/index.php",
 	),
 	array(
-		"CONDITION" => "#^/catalog/#",
-		"RULE" => "",
-		"ID" => "bitrix:catalog",
-		"PATH" => "/catalog/index.php",
-	),
-	array(
 		"CONDITION" => "#^/authors/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/authors/index.php",
 	),
 	array(
-		"CONDITION" => "#^/series/#",
+		"CONDITION" => "#^/catalog/#",
 		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/series/index.php",
+		"ID" => "bitrix:catalog",
+		"PATH" => "/catalog/index.php",
 	),
 	array(
 		"CONDITION" => "#^/events/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/events/index.php",
+	),
+	array(
+		"CONDITION" => "#^/series/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/series/index.php",
 	),
 	array(
 		"CONDITION" => "#^/store/#",
@@ -95,18 +119,6 @@ $arUrlRewrite = array(
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/news/index.php",
-	),
-	array(
-		"CONDITION" => "#^/blog/authors/#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/blog/authors/index.php",
-	),
-	array(
-		"CONDITION" => "#^/blog/authors/([\\.\\-0-9a-zA-Z]+)(\/)?(.*)?#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/blog/authors/index.php",
 	),
 	array(
 		"CONDITION" => "#^/blog/#",
