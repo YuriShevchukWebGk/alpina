@@ -16,7 +16,7 @@
         <div class="search-language-guess">
             <?= GetMessage("CT_BSP_KEYBOARD_WARNING", array("#query#"=>'<a href="'.$arResult["ORIGINAL_QUERY_URL"].'">'.$arResult["REQUEST"]["ORIGINAL_QUERY"].'</a>')) ?>
             </div>
-    <?}?>                                                     
+    <?}?>
     <?if (count($arResult["SEARCH"]) > 0) {?>
 		<?$gdeslon = '';?>
         <div class="pageTitleWrap">
@@ -54,6 +54,9 @@
 
                     <div class="bookEasySlider">
                         <?
+                        if(!$USER->IsAdmin()){
+                            $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+                        }
                         $APPLICATION->IncludeComponent(
                             "bitrix:catalog.section",
                             "recommended_books",
@@ -192,9 +195,9 @@
                         *
                         * $arItem["PARAM2"] хранится ID инфоблока, содержащего элемент результатов поиска
                         *
-                        ****************/                                                            
+                        ****************/
                         // авторы в результатах поиска
-                        if ($arItem["PARAM2"] == AUTHORS_IBLOCK_ID) { ?>                
+                        if ($arItem["PARAM2"] == AUTHORS_IBLOCK_ID) { ?>
 
                             <div class="searchBook">
                                 <div>
@@ -230,7 +233,7 @@
 
                         <?}?>
                         <?// книги в результатах поиска
-                        if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) {?>     
+                        if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) {?>
                             <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
                                 if (($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"])
                                     || ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"])) {
@@ -255,7 +258,7 @@
                             if ($item_discount_value > 0) {
                                // arshow($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"]["VALUE"]);
                                 //$newPrice = $newPrice * (1 - $item_discount_value / 100);
-								
+
 								/*if ($discount) {
 									$newPrice = round ($item_discount_value * (1 - $discount / 100), 2);
 									if (strlen (stristr($newPrice, ".")) == 2) {
@@ -270,9 +273,9 @@
 								}
                             }
                             if($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"] == CERTIFICATE_SECTION_ID) {
-                                $newPrice = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"];  
+                                $newPrice = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"];
                             }
-                            
+
                             ?>
                             <??>
                             <div class="searchBook" itemprop="itemListElement" itemscope itemtype="http://schema.org/Book">
@@ -287,15 +290,15 @@
                                             <?}?>
                                         </div>
                                     </a>
-                                </div>  
+                                </div>
                                 <div class="descrWrap">
                                     <a href="<?= $arItem["URL"] ?>" itemprop="url">
-                                        <p class="bookNames" title="<?= $arItem["TITLE"] ?>" itemprop="name"><?= $arItem["TITLE"] ?></p>   
+                                        <p class="bookNames" title="<?= $arItem["TITLE"] ?>" itemprop="name"><?= $arItem["TITLE"] ?></p>
                                         <p class="autorName" itemprop="author"><?= $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]]?></p>
                                         <p class="wrapperType"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                         <?if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
-                                        ?>        
+                                        ?>
                                                 <p class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 												<link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil( $newPrice) ?></span><span class="rubsign"></span></p>
                                         <?} else if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
@@ -306,12 +309,12 @@
                                                         "DD.MM.YYYY"
                                                     )
                                                 )); ?>
-                                                </p>    
-                                        <?} else {?>                                             
+                                                </p>
+                                        <?} else {?>
                                                 <p class="price" style="color:red"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_VALUE"] ?></p>
                                         <?}?>
                                         <div class="description" itemprop="description"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PREVIEW_TEXT"]?></div>
-                                        <?                                                                        
+                                        <?
                                         if ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
                                                 if (($arResult["BASKET_ITEMS"][$arItem["ITEM_ID"]]["QUANTITY"] == 0) && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"] != CERTIFICATE_SECTION_ID)) {
                                                     $curr_sect_ID = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"];?>
@@ -319,12 +322,12 @@
                                                         href="<?= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>"
                                                         onclick="addtocart(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"];?>', '<?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"];?>'); addToCartTracking(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"]; ?>', '<?= ceil( $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"]) ?>', '<?echo $arResult["BOOK_INFO"]["SECTIONS"][$curr_sect_ID]["SECTION_INFO"]['NAME'];?>', '1');return false;">
                                                         <?if(intval($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
-                                                            <p class="basket"><?=GetMessage("ADD_IN_BASKET")?></p> 
+                                                            <p class="basket"><?=GetMessage("ADD_IN_BASKET")?></p>
                                                         <?} else {?>
-                                                            <p class="basket"><?=GetMessage("ADD_TO_PREORDER")?></p>                                                 
-                                                        <?}?>                             
+                                                            <p class="basket"><?=GetMessage("ADD_TO_PREORDER")?></p>
+                                                        <?}?>
                                                     </a>
-                                                <?} elseif($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"] == CERTIFICATE_SECTION_ID) {?>             
+                                                <?} elseif($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"] == CERTIFICATE_SECTION_ID) {?>
                                                     <a class="product<?= $arItem["ITEM_ID"]; ?>" href="<?=$arItem['URL'];?>">
                                                         <p class="basket">Купить</p>
                                                     </a>
@@ -362,7 +365,7 @@
 
 
                         <?}?>
-                        
+
                         <?// серии в результатах поиска
                         if ($arItem["PARAM2"] == EXPERTS_IBLOCK_ID) {?>
                             <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
@@ -447,7 +450,7 @@
                                     </div>
                                 </div>
                             <?}?>
-                            
+
 
 
                         <?}?>
@@ -460,7 +463,7 @@
         </p>
 		<!-- gdeslon -->
 		<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
-		
+
     <?} else {?>
         <div class="catalogIcon">
         </div>
@@ -479,6 +482,9 @@
 
                     <div class="bookEasySlider">
                         <?
+                        if(!$USER->IsAdmin()){
+                            $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+                        }
                         $APPLICATION->IncludeComponent(
                             "bitrix:catalog.section",
                             "recommended_books",
@@ -607,7 +613,7 @@
                     </div>
                 </div>
             </div>
-        <?}?>		
+        <?}?>
         <div class="noResultBodyWrap">
             <div class="centerWrapper noResWrapp">
                 <p class="noResultTitle">По вашему запросу ничего не найдено</p>
@@ -632,6 +638,9 @@
                     $recsArray = json_decode($stringRecs);
                     $arrFilter = Array('ID' => (array_slice($recsArray, 0, 6)));
                 }
+                    if(!$USER->IsAdmin()){
+                        $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+                    }
                 if ($arrFilter['ID'][0] > 0) {
                     $APPLICATION->IncludeComponent("bitrix:catalog.section", "interesting_items", Array(
                         "IBLOCK_TYPE_ID" => "catalog",

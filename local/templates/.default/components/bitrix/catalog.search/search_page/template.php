@@ -12,7 +12,7 @@
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
 ?>
-<? 
+<?
     $arElements = $APPLICATION->IncludeComponent(
         "bitrix:search.page",
         "",
@@ -39,16 +39,18 @@
         $component,
         array('HIDE_ICONS' => 'Y')
     );
-    
+
     if (!empty($arElements) && is_array($arElements))
     {
         global $searchFilter;
-        
+
         $searchFilter = array(
             "=ID" => $arElements,
             ">CATALOG_PRICE_1" => 0
         );
-        
+        if(!$USER->IsAdmin()){
+            $searchFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+        }
        // arshow($searchFilter);
         $APPLICATION->IncludeComponent(
             "bitrix:catalog.section",
@@ -120,7 +122,7 @@
     }
     elseif ((!is_array($arElements)) || empty($arElements))
     {?>
-    
+
     <div class="catalogIcon tempclass1">
     </div>
     <div class="basketIcon">
@@ -271,13 +273,13 @@
         }
         else
         {
-            $(".catalogIcon, .basketIcon").css("top", "279px"); 
+            $(".catalogIcon, .basketIcon").css("top", "279px");
         }
 
         if ($(".interestSlideWrap .sliderElement").size() < 7)
         {
             $('.interestSlideWrap .left').hide();
-            $('.interestSlideWrap .rigth').hide();    
+            $('.interestSlideWrap .rigth').hide();
         }
     });
 </script>
