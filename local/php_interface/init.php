@@ -2274,6 +2274,27 @@
         }
     }
 
+    // Получение этикетки для boxbery
+    function SetLabellCheckBoxbery($track){
+        $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ParselCheck&ImId='.$track;
+
+             // $arOrder["TRACKING_NUMBER"] - Код для отслеживания.
+             $handle = fopen($url, "rb");
+             $contents = stream_get_contents($handle);
+             fclose($handle);
+             $data=json_decode($contents,true);
+             if($data["label"]){
+                 // если произошла ошибка и ответ не был получен.
+                //        arshow($content);
+                //Преобразуем массив байтов в изображение
+                    $imagick = new Imagick();
+                  //  $imagick->setResolution(200, 200);
+                    $imagick->readImage($data["label"]);
+                 //   $imagick->cropImage(500, 450, 250, 80);
+                    $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/boxbery/'.$track.'.jpg', false);
+             }
+    }
+
 
 
 
