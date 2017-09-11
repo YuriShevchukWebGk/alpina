@@ -51,7 +51,7 @@ foreach ($editor_choice_list as $key => $val)
 			<div class="titleText">
 				<?
 				$tops = array(
-				/*'<a href="/catalog/editors-choice/" title="Выбор редактора">
+				'<a href="/catalog/editors-choice/" title="Выбор редактора">
 					<img src="/img/redPhoto.png">
 					<p class="nameOfGroup">Editor\'s Choice</p>
 					<p class="subNameOfGroup">Сергей турко</p>
@@ -64,13 +64,6 @@ foreach ($editor_choice_list as $key => $val)
 					<p class="subNameOfGroup">Алексей Ильин</p>
 					<p class="description">Генеральный директор</p>
 					<p class="description">"Альпина паблишер"</p>
-				</a>',*/
-				'<a href="/catalog/mibf/" title="Сумка с выставки">
-					<img src="/img/mibfsmall.jpg">
-					<p class="nameOfGroup"></p>
-					<p class="subNameOfGroup"></p>
-					<p class="description"></p>
-					<p class="description"></p>
 				</a>'
 				);
 				
