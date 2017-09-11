@@ -290,4 +290,5 @@ $APPLICATION->SetTitle("Книги для саморазвития | Лучши�
 		)
 	),
 	false
-);?><br><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+);?>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
