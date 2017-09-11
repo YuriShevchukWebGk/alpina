@@ -358,7 +358,7 @@ header .headBasket{margin-right:0}
 .categoryWrapper .showMore:hover{background:#e6e6e6}
 .categoryWrapper .otherBooks{height:1302px}
 .otherBooks .nameBook{color:#424C4F;font-size:14px;padding-left:4px;padding-top:5px;height:45px;width:142px;overflow:hidden}
-.otherBooks .bookAutor{color:#7B8C90;font-size:13px;text-transform:uppercase;padding-left:6px;padding-top:5px;height:20px;overflow:hidden}
+.otherBooks .bookAutor{color:#7B8C90;font-size:14px;padding-left:4px;padding-top:5px;height:20px;overflow:hidden}
 .otherBooks .tapeOfPack{color:#3f4a4d;font-size:14px;padding-left:4px;padding-top:8px;height:20px}
 .otherBooks .priceOfBook{color:#7B8C90;font-size:14px;padding-left:6px;padding-top:12px}
 .otherBooks .basketBook,.otherBooks .basketLater{border:1px solid #c7a271;color:#c7a271;font-size:14px;margin:16px auto 0;padding:6px 5px;width:122px;cursor:pointer;text-align:center}
@@ -993,7 +993,8 @@ table.form-table tr td:nth-child(2){text-align:left}
 .authorsContent .inputtextarea{border:1px solid #c1c5c8!important;width:264px!important;resize:none}
 .authorsContent .hide{display:none}
 .authorsContent .submit{margin-top:20px;background-color:#00a0af;border:none;border-radius:40px;color:#fff;font-size:19px;padding:13px 48px;text-decoration:none}
-#development a,.bookWrapp a:hover>.bookName,.categoryBooks a:hover>.nameBook{text-decoration:underline}
+#development a,.bookWrapp a:hover>.bookName,.categoryBooks a:hover>.nameBook{opacity:0.8}
+#development a,.bookWrapp a:hover,.categoryBooks a:hover{text-decoration:none}
 .exitA a{color:#fff!important;padding-left:30px}
 .flippostSelectContainer{margin-left:34px;display:none}
 .flippostSelectContainer>select:not(:first-child){margin-top:10px}
@@ -1214,18 +1215,10 @@ table.form-table tr td:nth-child(2){text-align:left}
 .catalogWrapper,.hintWrapp .catalogWrapper,.reviewsWrapp .bigSlider,.authorBooksWrapp{max-width:780px}
 .hintWrapp .recomendation,.bestonmain,.EditorChoiceWrapp,.saleWrapp,.reviewsWrapp .bigSlider{max-width:610px}
 }
-
-body div a.google_auth {
-    background: url(/img/google_auth.jpg) no-repeat 30% 50%;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-    width: 130px;
-    background-color: #5290f5;
-    background-size: 20%;
-    padding: 10px;
-    border-radius: 30px;
-    color: #fff;
-    padding-left: 30px;
-    margin-top: 20px;
-}
+body div a.google_auth{background:url(/img/google_auth.jpg) no-repeat 30% 50%;display:block;margin:0 auto;text-align:center;width:130px;background-color:#5290f5;background-size:20%;padding:10px;border-radius:30px;color:#fff;padding-left:30px;margin-top:20px}
+#prefsWrap{background:#99abb1;color:#fff;width:100%;padding:40px 0 30px;text-align:center;margin:0 auto}
+#prefs{max-width:1170px;width:100%;margin:0 auto;display:inline-block}
+#prefs .pref{width:16%;float:left;padding:0 2%;font-family:Walshein_light;font-size:17px}
+#prefs .pref img{padding-bottom:15px}
+#prefs .pref:hover{opacity:.95}
+#prefs .pref .title{display:block;padding-bottom:6px;font-family:Walshein_black}
