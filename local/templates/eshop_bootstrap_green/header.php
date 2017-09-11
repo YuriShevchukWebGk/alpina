@@ -258,31 +258,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="catalogWrapper">
         <!-- форма поиска -->
         <?$APPLICATION->IncludeComponent(
-                "bitrix:search.title", 
-                "search_form", 
-                array(
-                    "CATEGORY_0" => array(
-                        0 => "iblock_catalog",
-                    ),
-                    "CATEGORY_0_TITLE" => "Результат",
-                    "CHECK_DATES" => "N",
-                    "COMPONENT_TEMPLATE" => "search_form",
-                    "CONTAINER_ID" => "title-search",
-                    "INPUT_ID" => "title-search-input",
-                    "NUM_CATEGORIES" => "1",
-                    "ORDER" => "rank",
-                    "PAGE" => "#SITE_DIR#search/index.php",
-                    "SHOW_INPUT" => "Y",
-                    "SHOW_OTHERS" => "N",
-                    "TOP_COUNT" => "5",
-                    "USE_LANGUAGE_GUESS" => "Y",
-                    "CATEGORY_0_iblock_catalog" => array(
-                        0 => "4",
-                        1 => "29",
-                        2 => "45",
-                    )
-                ),
-                false
-            );?>    
+	"bitrix:search.title", 
+	"search_form", 
+	array(
+		"CATEGORY_0" => array(
+			0 => "iblock_catalog",
+		),
+		"CATEGORY_0_TITLE" => "Результат",
+		"CHECK_DATES" => "N",
+		"COMPONENT_TEMPLATE" => "search_form",
+		"CONTAINER_ID" => "title-search",
+		"INPUT_ID" => "title-search-input",
+		"NUM_CATEGORIES" => "1",
+		"ORDER" => "rank",
+		"PAGE" => "#SITE_DIR#search/index.php",
+		"SHOW_INPUT" => "Y",
+		"SHOW_OTHERS" => "N",
+		"TOP_COUNT" => "5",
+		"USE_LANGUAGE_GUESS" => "Y",
+		"CATEGORY_0_iblock_catalog" => array(
+			0 => "4",
+			1 => "29",
+			2 => "45",
+		),
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>    
     </div>
 </div>
