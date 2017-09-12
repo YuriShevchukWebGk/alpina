@@ -187,13 +187,13 @@
 			while ($arBasket = $rsBasket->Fetch()) {
 				$arBasketItems[] = $arBasket;
 			}
-			if(count($arBasketItems) == 1) {
+			if (count($arBasketItems) == 1) {
 				$basketItem = $arBasketItems;
 				$basketItem = array_pop($basketItem);
 				$itemID = $basketItem["PRODUCT_ID"];
 				$res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
-				if($arItem = $res->Fetch()) {
-					if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
+				if ($arItem = $res->Fetch()) {
+					if (intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
 						return true;
 					}
 				}
@@ -300,13 +300,13 @@
 		$date_N_today = date("N"); // определим какой сегодня день недели
 
 		$day = $day + 2;
-		if($date_N_today == 7) {
+		if ($date_N_today == 7) {
 			$day = $day;
-		} else if($date_N_today == 4) {
+		} else if ($date_N_today == 4) {
 			$day = $day + 1;
-		} else if($date_N_today == 5) {
+		} else if ($date_N_today == 5) {
 			$day = $day + 1;
-		} else if($date_N_today == 3) {
+		} else if ($date_N_today == 3) {
 			$day = $day + 2;
 		}
 
@@ -326,9 +326,9 @@
 		$date_prev = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
 		$date_N_today = date("N"); // определим какой сегодня день недели
 
-		if($date_N_today == 5 || $date_N_today == 6) {
+		if ($date_N_today == 5 || $date_N_today == 6) {
 			$day = $day + 2;
-		} else if($date_N_today == 7) {
+		} else if ($date_N_today == 7) {
 			$day = $day + 1;
 		} else {
 			$day = $day;
@@ -350,13 +350,13 @@
 		$date_prev = date("N"); // считаем через какое количество дней
 		$date_H = date("H"); // текущее время
 
-		if($date_prev == 5 && $date_H > 17) {
+		if ($date_prev == 5 && $date_H > 17) {
 			$day = $day + 2;
-		} else if($date_prev == 6) {
+		} else if ($date_prev == 6) {
 			$day = $day + 1;
-		} else if($date_prev == 7) {
+		} else if ($date_prev == 7) {
 			$day = $day;
-		} else if($date_H > 17) {
+		} else if ($date_H > 17) {
 			$day = $day + 1;
 		}
 
@@ -813,13 +813,13 @@
 					$dbDis = CIBlockElement::GetList(Array("ID" => "ASC"),  Array("IBLOCK_ID" => $IBLOCK_ID, "ORDER" => $ID), false);
 					while ($arDis = $dbDis->Fetch()) {
 						$db_props = CIBlockElement::GetProperty($IBLOCK_ID, $arDis["ID"], array("sort" => "asc"), Array("CODE"=>"ORDER"));
-						if($ar_props = $db_props->Fetch()) {
-							if($ar_props["VALUE"]==$ID) {
+						if ($ar_props = $db_props->Fetch()) {
+							if ($ar_props["VALUE"]==$ID) {
 								$db_prop = CIBlockElement::GetProperty($IBLOCK_ID, $arDis["ID"], array("sort" => "asc"), Array("CODE"=>"SEND"));
-								if($ar_prop = $db_prop->Fetch()) {
-									if($ar_prop["VALUE"]=='N') {
+								if ($ar_prop = $db_prop->Fetch()) {
+									if ($ar_prop["VALUE"]=='N') {
 										$dbprop = CIBlockElement::GetProperty($IBLOCK_ID, $arDis["ID"], array("sort" => "asc"), Array("CODE"=>"COUPON"));
-										if($arprop = $dbprop->Fetch()) {
+										if ($arprop = $dbprop->Fetch()) {
 
 											$filter=array('=ID' => $arprop["VALUE"]);
 
@@ -832,7 +832,7 @@
 
 											$EMAIL = "";
 											while ($arProps = $dbpr->Fetch()) {
-												if($arProps["CODE"] == "EMAIL" || $arProps["CODE"] == "F_EMAIL")   {
+												if ($arProps["CODE"] == "EMAIL" || $arProps["CODE"] == "F_EMAIL")   {
 													$EMAIL = $arProps["VALUE"];
 												}
 											}
@@ -1147,7 +1147,7 @@
 		//Check is current location switched-on for  IML delivery
 		$obImlCity = CIBlockElement::GetList(Array("ID" => "ASC"),  Array("IBLOCK_ID" => "37", "ACTIVE" => 'Y', "PROPERTY_ID_CITY"=>$order["LOCATION_TO"]), false, false, array("ID", "IBLOCK_ID", "NAME",  "PROPERTY_ID_CITY", "PROPERTY_SWITCH_PICKUP", "PROPERTY_SWITCH_COURIER"));
 		$arImlCity = $obImlCity->Fetch();
-		if(!empty($arImlCity["ID"])) {
+		if (!empty($arImlCity["ID"])) {
 			//Forming switched-on delivery type's
 			if (!empty($arImlCity["PROPERTY_SWITCH_COURIER_VALUE"])) {
 				$profilesName[]="courier";
@@ -1157,7 +1157,7 @@
 			}
 			//Check is delivery type is enable
 			foreach ($profilesName as $profile) {
-				if(in_array($profile,$keys)) {
+				if (in_array($profile,$keys)) {
 					$profileResult[]=$profile;
 				}
 			}
@@ -1459,7 +1459,7 @@
 		$filter = Array("GROUPS_ID" => Array(9),"ID"=>$cID,"ACTIVE" => "Y");
 		$rsUsers = CUser::GetList(($by=""), ($order=""), $filter,array("FIELDS"=>array("ID","NAME","LAST_NAME","PERSONAL_MOBILE"))); // выбираем пользователей
 		while($test_cur = $rsUsers->NavNext(true, "f_")) {
-			if(!preg_match('/[0-9]/',$test_cur['LAST_NAME'])) {
+			if (!preg_match('/[0-9]/',$test_cur['LAST_NAME'])) {
 				$return["CUR"] = Array("NAME"=>$test_cur['NAME']." ".$test_cur['LAST_NAME'],"PHONE"=>$test_cur['PERSONAL_MOBILE']);
 			} else {
 				$return["CUR"] = Array("NAME"=>$test_cur['NAME'],"PHONE"=>$test_cur['LAST_NAME']);
@@ -1534,7 +1534,7 @@
 		function getPhone($id) {
 			$db_props = CSaleOrderPropsValue::GetOrderProps($id);
 			while ($arProps = $db_props->Fetch()) {
-				if($arProps['CODE']=='PHONE') {
+				if ($arProps['CODE']=='PHONE') {
 					$clearedPhone = preg_replace('/[^0-9+]/','',$arProps['VALUE']);
 					return $clearedPhone;
 				}
@@ -1553,7 +1553,7 @@
 		function getClientName($id) {
 			$db_props = CSaleOrderPropsValue::GetOrderProps($id);
 			while ($arProps = $db_props->Fetch()) {
-				if($arProps['CODE']=='F_CONTACT_PERSON') {
+				if ($arProps['CODE']=='F_CONTACT_PERSON') {
 					return $arProps['VALUE'];
 				}
 			}
@@ -1571,7 +1571,7 @@
 		function getClientEmail($id) {
 			$db_props = CSaleOrderPropsValue::GetOrderProps($id);
 			while ($arProps = $db_props->Fetch()) {
-				if($arProps['CODE']=='EMAIL') {
+				if ($arProps['CODE']=='EMAIL') {
 					return $arProps["VALUE"];
 				}
 			}
@@ -1596,7 +1596,7 @@
 			$message = preg_replace('/ordsum/',$ordsum,$message); // ---- вставляем сумму заказа
 			$message = preg_replace('/tracking/',$tracking,$message); // ---- вставляем трек-номер
 			$message = preg_replace('/clientName/',$name,$message); // ---- вставляем имя клиента
-			if($curArr != '') {
+			if ($curArr != '') {
 				$message = preg_replace('/cur_name/',$curArr['CUR']['NAME'],$message); // ---- вставляем имя курьера
 				$message = preg_replace('/cur_phone/',$curArr['CUR']['PHONE'],$message); // ---- вставляем телефон курьера
 			}
@@ -1663,7 +1663,7 @@
 	AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "sendMailToBookSubs");
 
 	function sendMailToBookSubs(&$arParams) {
-		if($arParams['IBLOCK_ID']==4) {
+		if ($arParams['IBLOCK_ID']==4) {
 			$arSelect = Array("NAME","DETAIL_PAGE_URL","DETAIL_PICTURE","PROPERTY_STATE");
 			$arFilter = Array("IBLOCK_ID"=>4,"ID"=>$arParams['ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
 			$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>1), $arSelect);
@@ -1677,12 +1677,12 @@
 
 			$newElStatus = $arParams['PROPERTY_VALUES'][56][0]["VALUE"];
 
-			if($newElStatus!=$oldElStatus && ($oldElStatus==22 || $oldElStatus==23)) {
+			if ($newElStatus!=$oldElStatus && ($oldElStatus==22 || $oldElStatus==23)) {
 
 				$el = new CIBlockElement;
 				$arLoadProductArray = Array("ACTIVE" => "N");
 				// --- status changed from "coming soon" to "new" or "available"
-				if($oldElStatus==22 && $newElStatus!=23) {
+				if ($oldElStatus==22 && $newElStatus!=23) {
 
 					$arSelect = Array("ID","PROPERTY_SUB_EMAIL");
 					$arFilter = Array("IBLOCK_ID"=>41,"PROPERTY_SUB_TYPE_ID"=>array(1,2),"PROPERTY_BOOK_ID"=>$arParams['ID'],"ACTIVE"=>"Y");
@@ -1788,10 +1788,10 @@
 
 		$arFields['DELIVERY_NAME'] = getOrderDeliverySystemName($orderArr['DELIVERY_ID']);
 
-		if(in_array(trim($orderArr['DELIVERY_ID']), array(18,17,20,21, "pickpoint:postamat"))) {
+		if (in_array(trim($orderArr['DELIVERY_ID']), array(18,17,20,21, "pickpoint:postamat"))) {
 			$arFields['EMAIL_DELIVERY_TERM'] = "<br />Сроки доставки (дней): <b>".$_SESSION['EMAIL_DELIVERY_TERM']."</b><br>";
 			$arFields['EMAIL_DELIVERY_ADDR'] = "Адрес доставки: <b>".getDeliveryAddress(trim($orderArr['DELIVERY_ID']),$orderID)."</b><br>";
-		} else if($orderArr['DELIVERY_ID']==9 || $orderArr['DELIVERY_ID']==12 || $orderArr['DELIVERY_ID']==13 || $orderArr['DELIVERY_ID']==14 || $orderArr['DELIVERY_ID']==15) {
+		} else if ($orderArr['DELIVERY_ID']==9 || $orderArr['DELIVERY_ID']==12 || $orderArr['DELIVERY_ID']==13 || $orderArr['DELIVERY_ID']==14 || $orderArr['DELIVERY_ID']==15) {
 			$db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("DELIVERY_DATE","ADDRESS")));
 			while ($arVals = $db_vals -> Fetch()) {
 				$arVals['CODE'] == "ADDRESS" ? $arFields['EMAIL_DELIVERY_ADDR'] = "Адрес доставки: <b>".$arVals['VALUE']."</b><br>" : $arFields['EMAIL_DELIVERY_TERM'] = "<br />".$arVals['NAME']." : <b>".$arVals['VALUE']."</b><br>";
@@ -1899,7 +1899,7 @@
 
 		// ---- сколько осталось до следующей скидки
 		$res = CCatalogDiscountSave::GetRangeByDiscount(array(),array("VALUE"=>$np),false);
-		if($ob = $res->fetch()) {
+		if ($ob = $res->fetch()) {
 			$diff = (float)$ob['RANGE_FROM'] - $totalPayedSum;
 		}
 
@@ -1937,7 +1937,7 @@
 		$arFilter = Array("IBLOCK_ID" => IntVal(RFM_IBLOCK_ID), "NAME" => $user_email, "ACTIVE" => "Y");
 		$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
 
-		if($ob = $res->GetNextElement()) {
+		if ($ob = $res->GetNextElement()) {
 
 			$arFields = $ob->GetFields();
 			$arFilter = array(
@@ -1947,7 +1947,7 @@
 
 			$rsUsers = CUser::GetList(($by="id"), ($order="desc"), $arFilter);
 
-			if($arUser = $rsUsers->Fetch()) {
+			if ($arUser = $rsUsers->Fetch()) {
 				if (!empty($arUser)) {
 					$arGroups = CUser::GetUserGroup($arUser['ID']);
 					if (!in_array(ADMIN_GROUP_ID, $arGroups)) {
@@ -1974,7 +1974,7 @@
 		if ($ob = $res->GetNextElement()) {
 			$arFields = $ob->GetFields();
 
-			if(!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'])) {
+			if (!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'])) {
 				$arProperty = array (
 					'HASH_UPDATE_DATE'   => time()
 				);
@@ -2002,13 +2002,13 @@
 
 			$arFields = $ob->GetFields();
 
-			if(!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE']) && !empty($arFields['PROPERTY_HASH_FOR_AUTHORIZE_VALUE'])) {
+			if (!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE']) && !empty($arFields['PROPERTY_HASH_FOR_AUTHORIZE_VALUE'])) {
 
 				$order_log = '<--------------- hash exist: '.$arFields['PROPERTY_HASH_FOR_AUTHORIZE_VALUE'].' ----------------->';
 				$file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
 				logger($order_log, $file);
 
-				if(!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'])) {
+				if (!empty($arFields['PROPERTY_HASH_UPDATE_DATE_VALUE'])) {
 					$arProperty = array (
 						'HASH_UPDATE_DATE'   => time()
 					);
@@ -2022,7 +2022,7 @@
 				$file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
 				logger($order_log, $file);
 
-				if($hash = generate_hash_for_authorization($user_email)) {
+				if ($hash = generate_hash_for_authorization($user_email)) {
 
 					$order_log = '<--------------- hash: '.$hash.' ----------------->';
 					$file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/mail_certificate.log';
@@ -2053,7 +2053,7 @@
 		$order_log = '<--------------- '.$arFields['EMAIL'].' ----------------->';
 		logger($order_log, $file);
 
-		if($hash = get_hash_for_authorization($arFields['EMAIL'])) {
+		if ($hash = get_hash_for_authorization($arFields['EMAIL'])) {
 			$arFields['HASH'] = $hash;
 		}
 	}
@@ -2061,7 +2061,7 @@
 	AddEventHandler('main', 'OnBeforeEventSend', 'RegisterNoneEmail');   // вызывается перед отправкой шаблона письма
 
 	function RegisterNoneEmail (&$arFields, &$arTemplate) {		// при создании пользователя с одинаковым генерируемым email не отправляет письмо
-		if(stristr($arFields["LOGIN"], 'newuser_') == true && in_array($arTemplate["EVENT_NAME"], array('NEW_USER', 'USER_INFO'))) {
+		if (stristr($arFields["LOGIN"], 'newuser_') == true && in_array($arTemplate["EVENT_NAME"], array('NEW_USER', 'USER_INFO'))) {
 			return false;
 		}
 		/*
@@ -2176,7 +2176,7 @@
 	AddEventHandler("main", "OnAdminListDisplay", "curInit");
 
 	function curInit() {
-		if($GLOBALS["APPLICATION"] -> GetCurPage() == "/bitrix/admin/sale_order_detail.php" || $GLOBALS["APPLICATION"] -> GetCurPage() == "/bitrix/admin/sale_order.php") {
+		if ($GLOBALS["APPLICATION"] -> GetCurPage() == "/bitrix/admin/sale_order_detail.php" || $GLOBALS["APPLICATION"] -> GetCurPage() == "/bitrix/admin/sale_order.php") {
 			$GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/couriersListeners.js");
 			$GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/orderAdmin.class.js");
 			$GLOBALS['APPLICATION'] -> AddHeadScript("/admin_modules/couriers/js/popup.class.js");
@@ -2240,7 +2240,7 @@
 		curl_close($curl);
 		$response = json_decode($json_response, true);  //Получили ключ сессии(Далее работа будет производится на основе его)
 		//Преобразуем массив байтов в изображение
-		if(!empty($json_response)) {
+		if (!empty($json_response)) {
 			$imagick = new Imagick();
 			$imagick->setResolution(200, 200);
 			$imagick->readImageBlob($json_response);
@@ -2258,7 +2258,7 @@
 				$contents = stream_get_contents($handle);
 				fclose($handle);
 				$data=json_decode($contents,true);
-				if($data["label"]) {
+				if ($data["label"]) {
 					// если произошла ошибка и ответ не был получен.
 				//		arshow($content);
 				//Преобразуем массив байтов в изображение
@@ -2276,7 +2276,7 @@
 	AddEventHandler("main", "OnBeforeProlog", "checkUser");
 	function checkUser() {
 		global $USER, $APPLICATION;
-		if(!$USER->IsAdmin())
+		if (!$USER->IsAdmin())
 			$APPLICATION->SetAdditionalCSS("/css/temp.css");
 	}
 
@@ -2342,13 +2342,13 @@
 		//Rewriting user description in ordres with PickPoint delivery
 		function RewriteOrderDescription($id, $arFields) {
 			GLOBAL $arParams;
-			if($arFields["DELIVERY_ID"] == $arParams["PICKPOINT"]["DELIVERY_ID"]) {
-				if(COption::GetOptionString($arParams["PICKPOINT"]["MODULE_ID"], $arParams["PICKPOINT"]["ADD_INFO_NAME"], "")) {
+			if ($arFields["DELIVERY_ID"] == $arParams["PICKPOINT"]["DELIVERY_ID"]) {
+				if (COption::GetOptionString($arParams["PICKPOINT"]["MODULE_ID"], $arParams["PICKPOINT"]["ADD_INFO_NAME"], "")) {
 					$arPropFields = array("ORDER_ID" => $id, "NAME" => $arParams["PICKPOINT"]["ADDRESS_TITLE_PROP"], "VALUE" => $_SESSION["PICKPOINT_ADDRESS"]);
-					if($arFields["PERSON_TYPE_ID"] == $arParams["PICKPOINT"]["LEGAL_PERSON_ID"]) {
+					if ($arFields["PERSON_TYPE_ID"] == $arParams["PICKPOINT"]["LEGAL_PERSON_ID"]) {
 						$arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["LEGAL_ADDRESS_ID"];
 						$arPropFields["CODE"] = $arParams["PICKPOINT"]["LEGAL_ADDRESS_CODE"];
-					} else if($arFields["PERSON_TYPE_ID"] == $arParams["PICKPOINT"]["NATURAL_PERSON_ID"]) {
+					} else if ($arFields["PERSON_TYPE_ID"] == $arParams["PICKPOINT"]["NATURAL_PERSON_ID"]) {
 						$arPropFields["ORDER_PROPS_ID"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_ID"];
 						$arPropFields["CODE"] = $arParams["PICKPOINT"]["NATURAL_ADDRESS_CODE"];
 					}
@@ -2411,7 +2411,7 @@
 
 	/*AddEventHandler('main', 'OnEpilog', '_Check404Error', 1);
 	function _Check404Error() {
-	if(defined('ERROR_404') && ERROR_404=='Y' || CHTTP::GetLastStatus() == "404 Not Found") {
+	if (defined('ERROR_404') && ERROR_404=='Y' || CHTTP::GetLastStatus() == "404 Not Found") {
 	GLOBAL $APPLICATION;
 	$APPLICATION->RestartBuffer();
 	require $_SERVER['DOCUMENT_ROOT'].SITE_TEMPLATE_PATH.'/header.php';
@@ -2629,7 +2629,7 @@
 				foreach($data[statuses] as $status) {
 					$last_status = $status;
 				}
-				if($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {
+				if ($last_status['Name'] == BOXBERRY_DELIVERY_SUCCES) {
 					$order = Bitrix\Sale\Order::load($order_id);
 					$order->setField('STATUS_ID', 'F');
 					$order->save();
@@ -2658,7 +2658,7 @@
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $xmlBody);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-		if($out = curl_exec($curl)) {
+		if ($out = curl_exec($curl)) {
 			$ar_idoc_id = array();
 			$xmlBody = '';
 			$ar_barcode_list = array();
@@ -2672,7 +2672,7 @@
 				curl_setopt($curl_second_request, CURLOPT_POST, true);
 				curl_setopt($curl_second_request, CURLOPT_POSTFIELDS, $xmlBody_second_request);
 				curl_setopt($curl_second_request, CURLOPT_SSL_VERIFYPEER, 0);
-				if($out_second_request = curl_exec($curl_second_request)) {
+				if ($out_second_request = curl_exec($curl_second_request)) {
 					$response_second_request = new SimpleXMLElement($out_second_request);
 					foreach ($response_second_request->doc->parcel as $parcel) {
 						//поменять на barcode
@@ -2749,7 +2749,7 @@
 			));
 
 			//Собираем массив с ID купонов
-			if($arDiscountIterator = $discountIterator -> fetch()) {
+			if ($arDiscountIterator = $discountIterator -> fetch()) {
 				$arCertificateID[] = $arDiscountIterator['ID'];
 			}
 			//Собираем массив с кодами купонов
@@ -2803,10 +2803,10 @@
 				$cert_price = $current_values['PROPERTY_CERT_PRICE_VALUE'];
 				$user_email = '';
 				$user_name = '';
-				if(!empty($current_values['PROPERTY_NATURAL_EMAIL_VALUE']) && !empty($current_values['PROPERTY_NATURAL_NAME_VALUE'])) {
+				if (!empty($current_values['PROPERTY_NATURAL_EMAIL_VALUE']) && !empty($current_values['PROPERTY_NATURAL_NAME_VALUE'])) {
 					$user_name = $current_values['PROPERTY_NATURAL_NAME_VALUE'];
 					$user_email = $current_values['PROPERTY_NATURAL_EMAIL_VALUE'];
-				} elseif(!empty($current_values['PROPERTY_LEGAL_EMAIL_VALUE']) && !empty($current_values['PROPERTY_LEGAL_NAME_VALUE'])) {
+				} elseif (!empty($current_values['PROPERTY_LEGAL_EMAIL_VALUE']) && !empty($current_values['PROPERTY_LEGAL_NAME_VALUE'])) {
 					$user_name = $current_values['PROPERTY_LEGAL_NAME_VALUE'];
 					$user_email = $current_values['PROPERTY_LEGAL_EMAIL_VALUE'];
 				}
@@ -2818,7 +2818,7 @@
 			if (!$arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParamsCertificate['ACTIVE'] == "Y" && !empty($quantity)) {
 				$arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
 			}
-			if(!empty($arCoupons)) {
+			if (!empty($arCoupons)) {
 				$couponListHTML = '';
 				foreach($arCoupons as $couponItem) {
 					if (!empty($couponItem)) {
@@ -2853,11 +2853,11 @@
 		if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID && (!empty($arParamsCertificate['ACTIVE_FROM']) || !empty($arParamsCertificate['ACTIVE_TO']))) {
 			$current_object = CIBlockElement::GetList(Array(), Array("ID" => $arParamsCertificate['ID']), false, Array(), Array("ID", "PROPERTY_COUPON_ID", "ACTIVE_FROM", "ACTIVE_TO"));
 			while($current_values = $current_object->Fetch()) {
-				if(($arParamsCertificate['ACTIVE_FROM'] != $current_values['ACTIVE_FROM'] || $arParamsCertificate['ACTIVE_TO'] != $current_values['ACTIVE_TO']) && (!empty($current_values['ACTIVE_FROM']) || !empty($current_values['ACTIVE_TO']))) {
+				if (($arParamsCertificate['ACTIVE_FROM'] != $current_values['ACTIVE_FROM'] || $arParamsCertificate['ACTIVE_TO'] != $current_values['ACTIVE_TO']) && (!empty($current_values['ACTIVE_FROM']) || !empty($current_values['ACTIVE_TO']))) {
 					$ar_coupon_id[] = $current_values['PROPERTY_COUPON_ID_VALUE'];
 				}
 			}
-			if(!empty($ar_coupon_id)) {
+			if (!empty($ar_coupon_id)) {
 				$date_from = new \Bitrix\Main\Type\DateTime($arParamsCertificate['ACTIVE_FROM']);
 				$date_to = new \Bitrix\Main\Type\DateTime($arParamsCertificate['ACTIVE_TO']);
 				$fields = array(
@@ -2891,8 +2891,8 @@
 		'HLBlockElementUpdate'
 	);
 	function HLBlockElementUpdate(Bitrix\Main\Event $arElement) {
-		if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
-			if(!empty($arElement['WF_PARENT_ELEMENT_ID'])) {
+		if ($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
+			if (!empty($arElement['WF_PARENT_ELEMENT_ID'])) {
 				$arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL");
 				$arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
 				$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
@@ -2909,7 +2909,7 @@
 					if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
 						$arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
 					}
-					if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
+					if (!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
 						if (empty($arHLData['UF_AUTHOR'])) {
 							$autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);
 							if ($autorsAr = $autorsOb -> fetch()) {
@@ -2917,14 +2917,14 @@
 							}
 						}
 					}
-					if(!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {
+					if (!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {
 						if (empty($arHLData['UF_COVER_TYPE'])) {
 							$arHLData['UF_COVER_TYPE'] = $arFields['PROPERTY_COVER_TYPE_VALUE'];
 						}
 					}
 					$arHLData['UF_IBLOCK_ID'] = $arFields['ID'];
 				}
-				if($arHLData) {
+				if ($arHLData) {
 					$hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
 					$entity = HL\HighloadBlockTable::compileEntity($hlblock);
 					$entity_data_class = $entity->getDataClass();
@@ -2933,7 +2933,7 @@
 						"order"  => array("ID" => "ASC"),
 						"filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
 					));
-					if($arElementID = $rsElementID->Fetch()) {
+					if ($arElementID = $rsElementID->Fetch()) {
 						$result = $entity_data_class::update($arElementID['ID'], $arHLData);
 					} else {
 						$result = $entity_data_class::add($arHLData);
@@ -3008,16 +3008,16 @@
 
 			$rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_id), false, false, array());
 			while($ar_order_prop = $rs_order_props->Fetch()) {
-				if(empty($order_properties[$ar_order_prop['CODE']])) {
+				if (empty($order_properties[$ar_order_prop['CODE']])) {
 					$order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];
 				}
 			}
-			if(empty($order_properties['EXPORTED_TO_ACCORDPOST'])) {
+			if (empty($order_properties['EXPORTED_TO_ACCORDPOST'])) {
 				return false;
 			}
 
 			//Собираем поля в зависимости от типа лица
-			if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+			if ($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
 				//имя получателя
 				$cont_name = '';
 				$cont_name = (!empty($order_properties["F_CONTACT_PERSON"]) ? $order_properties["F_CONTACT_PERSON"] : $order_properties["F_NAME"]);
@@ -3074,7 +3074,7 @@
 		GLOBAL $arParams;
 
 		//Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
-		if(cancelMail($arFields, $arTemplate)) {
+		if (cancelMail($arFields, $arTemplate)) {
 			return false;
 		}
 
@@ -3093,7 +3093,7 @@
 				$message_title = str_replace("#" . $field_name . "#", $field_value, $message_title);
 			}
 			// подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
-			if($arFields[trim($arTemplate['EMAIL'], "#")]) {
+			if ($arFields[trim($arTemplate['EMAIL'], "#")]) {
 				$email_to = $arFields[trim($arTemplate['EMAIL'], "#")];
 			} else {
 				$email_to = $arFields[trim($arTemplate['EMAIL_TO'], "#")];
@@ -3135,8 +3135,8 @@
 	AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "change_product_name_in_basket");
 
 	function change_product_name_in_basket(&$arParams) {
-		if($arParams['IBLOCK_ID'] == CATALOG_IBLOCK_ID) {
-			if(!empty($arParams['NAME']) && !empty($arParams['ID'])) {
+		if ($arParams['IBLOCK_ID'] == CATALOG_IBLOCK_ID) {
+			if (!empty($arParams['NAME']) && !empty($arParams['ID'])) {
 				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => "NULL", "PRODUCT_ID" => $arParams['ID']), false, false, array());
 				while($arItems = $dbBasketItems->Fetch()) {
 					CSaleBasket::Update($arItems['ID'], array('NAME' => $arParams['NAME']));
@@ -3153,7 +3153,7 @@
 	);
 
 	function hash_autorization() {
-		if(!empty($_REQUEST['hash'])) {
+		if (!empty($_REQUEST['hash'])) {
 			$arSelect = Array("ID", "NAME", "PROPERTY_HASH_FOR_AUTHORIZE", "PROPERTY_HASH_UPDATE_DATE");
 			$arFilter = Array("IBLOCK_ID" => IntVal(RFM_IBLOCK_ID), "PROPERTY_HASH_FOR_AUTHORIZE" => $_REQUEST['hash'], "ACTIVE"=>"Y");
 
