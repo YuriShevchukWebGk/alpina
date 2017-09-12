@@ -70,7 +70,7 @@ if(
         "select" => array('*'),
         "filter" => $search_tips_filter,
         "limit"  => 5,
-        "order"  => array("PAGE_VIEWS_GA" => "ASC")
+        "order"  => array("sort" => "ASC")
     ));
     $result = new CDBResult($result, $table_id);
     while ($search_tip = $result->Fetch()) {
