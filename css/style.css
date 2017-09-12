@@ -1219,11 +1219,11 @@ body div a.google_auth{background:url(/img/google_auth.jpg) no-repeat 30% 50%;di
 #prefsWrap{background:#99abb1;color:#fff;width:100%;padding:40px 0 30px;text-align:center;margin:0 auto;clear:both}
 #prefs{max-width:1170px;width:100%;margin:0 auto;display:inline-block}
 #prefs .pref{width:16%;float:left;margin:0 2%;font-family:Walshein_light;font-size:16px}
-#prefs .pref .pic{height:65px;width:134px;margin:0 auto}
-#prefs .pref:nth-child(1) .pic{background:transparent url(/img/prefs.png) 5px 0}
-#prefs .pref:nth-child(2) .pic{background:transparent url(/img/prefs.png) 0 270px}
-#prefs .pref:nth-child(3) .pic{background:transparent url(/img/prefs.png) 0 205px}
-#prefs .pref:nth-child(4) .pic{background:transparent url(/img/prefs.png) 0 132px}
-#prefs .pref:nth-child(5) .pic{background:transparent url(/img/prefs.png) 0 65px}
+#prefs .pref .pic{height:65px;width:134px;margin:0 auto;background:transparent url(/img/prefs.png)}
+#prefs .pref:nth-child(1) .pic{background-position:5px 0}
+#prefs .pref:nth-child(2) .pic{background-position:0 270px}
+#prefs .pref:nth-child(3) .pic{background-position:0 205px}
+#prefs .pref:nth-child(4) .pic{background-position:0 132px}
+#prefs .pref:nth-child(5) .pic{background-position:0 65px}
 #prefs .pref:hover{opacity:.95}
 #prefs .pref .title{display:block;padding-bottom:6px;font-family:Walshein_bold;font-size:22px;padding-top:20px}

@@ -11,8 +11,8 @@
 		<?foreach($prefs as $pref) {?>
 			<div class="pref">
 				<div class="pic"></div>
-				<div class="title"><?=$pref[1]?></div>
-				<div class="descr"><?=$pref[2]?></div>
+				<div class="title"><?=$pref[0]?></div>
+				<div class="descr"><?=$pref[1]?></div>
 			</div>
 		<?}?>
 	</div>
