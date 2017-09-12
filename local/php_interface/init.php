@@ -2120,7 +2120,7 @@
     function AddLatestBooks (&$arFields, &$arTemplate) {
         if (in_array($arTemplate["ID"],array(16,160,168))) {
             $latestBooks = "";
-            $NewItems = CIBlockElement::GetList(array("timestamp_x" => "DESC"), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "PROPERTY_STATE" => NEW_BOOK_STATE_XML_ID, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, Array("nPageSize"=>3), array());
+            $NewItems = CIBlockElement::GetList(array("PROPERTY_shows_a_day" => "DESC"), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "PROPERTY_STATE" => NEW_BOOK_STATE_XML_ID, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, Array("nPageSize"=>3), array());
             while ($NewItemsList = $NewItems -> Fetch()){
                 $pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                 $curr_sect = CIBlockSection::GetByID($NewItemsList["IBLOCK_SECTION_ID"]) -> Fetch();
