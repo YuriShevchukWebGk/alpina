@@ -2914,6 +2914,12 @@
                     if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
                         $arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
                     }
+                    if (!empty($arFields['PROPERTY_PAGE_VIEWS_GA_VALUE'])) {
+                        $arHLData['UF_PAGE_VIEWS_GA'] = $arFields['PROPERTY_PAGE_VIEWS_GA_VALUE'];
+                    }
+                    if (!empty($arFields['PROPERTY_FOR_ADMIN_VALUE'])) {
+                        $arHLData['UF_FOR_ADMIN'] = $arFields['PROPERTY_FOR_ADMIN_VALUE'];
+                    }
                     if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
                         if (empty($arHLData['UF_AUTHOR'])) {
                             $autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);

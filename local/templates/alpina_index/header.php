@@ -268,31 +268,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </p>
 
     <?$APPLICATION->IncludeComponent(
-            "bitrix:search.title",
-            "search_form",
-            array(
-                "CATEGORY_0" => array(
-                    0 => "iblock_catalog",
-                ),
-                "CATEGORY_0_TITLE" => "Результаты",
-                "CHECK_DATES" => "N",
-                "COMPONENT_TEMPLATE" => "search_form",
-                "CONTAINER_ID" => "title-search-top",
-                "INPUT_ID" => "title-search-input-top",
-                "NUM_CATEGORIES" => "1",
-                "ORDER" => "date",
-                "PAGE" => "#SITE_DIR#search/index.php",
-                "SHOW_INPUT" => "Y",
-                "SHOW_OTHERS" => "N",
-                "TOP_COUNT" => "5",
-                "USE_LANGUAGE_GUESS" => "N",
-                "CATEGORY_0_iblock_catalog" => array(
-                    0 => "4",
-                    1 => "29",
-                )
-            ),
-            false
-        );?>
+	"bitrix:search.title", 
+	"search_form", 
+	array(
+		"CATEGORY_0" => array(
+			0 => "iblock_catalog",
+		),
+		"CATEGORY_0_TITLE" => "Результаты",
+		"CHECK_DATES" => "N",
+		"COMPONENT_TEMPLATE" => "search_form",
+		"CONTAINER_ID" => "title-search-top",
+		"INPUT_ID" => "title-search-input-top",
+		"NUM_CATEGORIES" => "1",
+		"ORDER" => "rank",
+		"PAGE" => "#SITE_DIR#search/index.php",
+		"SHOW_INPUT" => "Y",
+		"SHOW_OTHERS" => "N",
+		"TOP_COUNT" => "5",
+		"USE_LANGUAGE_GUESS" => "N",
+		"CATEGORY_0_iblock_catalog" => array(
+			0 => "4",
+			1 => "29",
+		),
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>
     <div class="books">
 
         <div class="catalogIcon">

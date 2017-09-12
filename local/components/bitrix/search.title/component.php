@@ -44,9 +44,9 @@ if(
     }
 
     $arResult["query"] = $query;
-    
+
     $i = 1;
-        
+
     $j = 0;
     $iblock_filter = array();
     foreach ($arParams["CATEGORY_".$i] as $iblock_types) {
@@ -54,17 +54,17 @@ if(
             $iblock_filter[] = $iblock_id;
         }
     }
-    
+
     $search_tips_filter = array(
         'LOGIC' => 'OR',
-        array(                                                                                   
-            '=%UF_SEARCH_WORDS' => "%" . $arResult["query"] . "%"     
+        array(
+            '=%UF_SEARCH_WORDS' => "%" . $arResult["query"] . "%",
         ),
         array(
-            '=%UF_TITLE' => "%" . $arResult["query"] . "%"   
-        )  
+            '=%UF_TITLE' => "%" . $arResult["query"] . "%"
+        )
     );
-    
+
     $table_id = 'tbl_' . $entity_table_name;
     $result = $entity_data_class::getList(array(
         "select" => array('*'),
@@ -72,15 +72,17 @@ if(
         "limit"  => 5,
         "order"  => array("ID" => "ASC")
     ));
-    $result = new CDBResult($result, $table_id);  
-    while ($search_tip = $result->Fetch()) {         
+    $result = new CDBResult($result, $table_id);
+    while ($search_tip = $result->Fetch())
+    {
         $arResult["CATEGORIES"][$i]["ITEMS"][] = array(
             "NAME"          => $search_tip['UF_TITLE_REAL'],
             "URL"           => $search_tip['UF_DETAIL_PAGE_URL'],
             "AUTHOR"        => $search_tip['UF_AUTHOR'],
-            "COVER_TYPE"    => $search_tip['UF_COVER_TYPE']       
+            "COVER_TYPE"    => $search_tip['UF_COVER_TYPE'],
+        //    "PAGE_VIEWS_GA"    => $search_tip['UF_PAGE_VIEWS_GA']
         );
-    }                
+    }
     if(!empty($arResult["CATEGORIES"]))
     {
         $arResult["CATEGORIES"]["all"] = array(
@@ -99,7 +101,7 @@ if(
         $arResult["CATEGORIES"]["all"]["ITEMS"][] = array(
             "NAME" => GetMessage("CC_BST_ALL_RESULTS"),
             "URL" => $url,
-        ); 
+        );
         /*
         if($arResult["alt_query"] != "")
         {
@@ -120,9 +122,9 @@ if(
             );
         }
         */
-    }       
-}                    
-$arResult["phrase"][$query] = 0;                                 
+    }
+}
+$arResult["phrase"][$query] = 0;
 $arResult["FORM_ACTION"] = htmlspecialcharsbx(str_replace("#SITE_DIR#", SITE_DIR, $arParams["PAGE"]));
 
 if (
@@ -141,11 +143,11 @@ if (
     die();
 }
 else
-{   
+{
     if (isset($arResult["CATEGORIES"])) {
         $APPLICATION->AddHeadScript($this->GetPath().'/script.js');
         CUtil::InitJSCore(array('ajax'));
     }
     $this->IncludeComponentTemplate();
-}      
+}
 ?>
