@@ -127,8 +127,11 @@ foreach ($emails_arr as $email => $user_copies_arr) {
                 // CUser::Delete($user_copy_id);
              }
      }
-}*/?>      
-<?                            
-MakeLabelPickPoint(97506);
+}*/?>
+<?
+
+
+
+
 ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

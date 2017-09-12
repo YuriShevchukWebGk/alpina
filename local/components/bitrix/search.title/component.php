@@ -58,7 +58,7 @@ if(
     $search_tips_filter = array(
         'LOGIC' => 'OR',
         array(
-            '=%UF_SEARCH_WORDS' => "%" . $arResult["query"] . "%",
+            '=%UF_SEARCH_WORDS' => "%" . $arResult["query"] . "%"
         ),
         array(
             '=%UF_TITLE' => "%" . $arResult["query"] . "%"
@@ -70,17 +70,19 @@ if(
         "select" => array('*'),
         "filter" => $search_tips_filter,
         "limit"  => 5,
-        "order"  => array("ID" => "ASC")
+        "order"  => array("UF_PAGE_VIEWS_GA" => "ASC")
     ));
     $result = new CDBResult($result, $table_id);
-    while ($search_tip = $result->Fetch())
-    {
+
+    while ($search_tip = $result->Fetch()) {
         $arResult["CATEGORIES"][$i]["ITEMS"][] = array(
             "NAME"          => $search_tip['UF_TITLE_REAL'],
             "URL"           => $search_tip['UF_DETAIL_PAGE_URL'],
             "AUTHOR"        => $search_tip['UF_AUTHOR'],
             "COVER_TYPE"    => $search_tip['UF_COVER_TYPE'],
-        //    "PAGE_VIEWS_GA"    => $search_tip['UF_PAGE_VIEWS_GA']
+            "PAGE_VIEWS_GA"    => $search_tip['UF_PAGE_VIEWS_GA'],
+            "FOR_ADMIN"    => $search_tip['UF_FOR_ADMIN']
+
         );
     }
     if(!empty($arResult["CATEGORIES"]))

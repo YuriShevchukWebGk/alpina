@@ -3,6 +3,7 @@
     CJSCore::Init(array("fx"));
     $curPage = $APPLICATION->GetCurPage(true);
     $theme = COption::GetOptionString("main", "wizard_eshop_bootstrap_theme_id", "blue", SITE_ID);
+
 ?>
 
 <!doctype html>
@@ -47,7 +48,9 @@
     <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
+
     <meta name="theme-color" content="#ffffff">
+
     <meta name="google-site-verification" content="cUkEF3427PrBhej9QWdjG-Hd6IHnkt7tS_rr88-4B30" />
     <meta name="yandex-verification" content="7129a3dd68cb6589" />
     <meta name="google-site-verification" content="2anNV5c5mKCRA-xCKLOJU2A0UWEJxJ7CiSkjPBd1Ypw" />
@@ -62,12 +65,12 @@
     <meta property="og:image" content="https://www.alpinabook.ru/img/logo.png" />
     <meta property="og:site_name" content="www.alpinabook.ru" />
     <meta property="fb:admins" content="1425804193" />
+
     <meta property="fb:app_id" content="138738742872757" />
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
     <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .index -->
-
 	<!-- gdeslon -->
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276"></script>
 
@@ -129,6 +132,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		</div>
 	</a>
 
+
 	<div class="headerWrapper">
 		<ul class="menu">
 			<?$APPLICATION->IncludeComponent(
@@ -149,6 +153,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				),
 				false
 			);?>
+
 		</ul>
 	</div>
 
@@ -232,7 +237,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			</div>
 		</a>
 
-
 		<a href="/personal/profile/" id="authorisationPopup">
 			<div>
 				<img src="/img/lkImg.png">
@@ -268,8 +272,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </p>
 
     <?$APPLICATION->IncludeComponent(
-	"bitrix:search.title", 
-	"search_form", 
+	"bitrix:search.title",
+	"search_form",
 	array(
 		"CATEGORY_0" => array(
 			0 => "iblock_catalog",
@@ -294,6 +298,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		"COMPOSITE_FRAME_TYPE" => "AUTO"
 	),
 	false
+
 );?>
     <div class="books">
 
@@ -306,11 +311,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <?
             //$arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0, "PROPERTY_show_on_index" => 340);
-            if(!$USER->IsAdmin()){
-                $arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
-            } else {
-                $arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0);
-            }
+			$arrFilter = array('PROPERTY_STATE' => '21', ">DETAIL_PICTURE" => 0);
 
             $APPLICATION->IncludeComponent(
 			"bitrix:catalog.section",
@@ -559,6 +560,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"COMPATIBLE_MODE" => "Y"
 			),
 			false
+
 		);?>
         <?  global $arrFilter_soon;
             $arrFilter_soon = array('PROPERTY_STATE' => STATE_SOON, '>DETAIL_PICTURE' => 0, '!PROPERTY_reissue' => REISSUE_ID, '!PROPERTY_hide_soon' => HIDE_SOON_ID);
@@ -825,11 +827,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 		<p class="titleMain"><a href="/catalog/personal-books/">Рекомендуем лично вам</a></p>
 			<?
-                if(!$USER->IsAdmin()){
-                    $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
-                } else {
-
-                }
 				$APPLICATION->IncludeComponent(
 					"bitrix:catalog.section",
 					"recommended_books",

@@ -1,7 +1,17 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <?if(!empty($arResult["CATEGORIES"])){?>
+<?
+function mySort($a, $b)
+{
+   if ($a['PAGE_VIEWS_GA'] == $b['PAGE_VIEWS_GA']) return 0;
+   return $a['PAGE_VIEWS_GA'] > $b['PAGE_VIEWS_GA'] ? 1 : -1;
+}
+//arshow($arResult["CATEGORIES"]);
+
+?>
     <table class="title-search-result">
         <?foreach($arResult["CATEGORIES"] as $category_id => $arCategory){?>
+            <?usort($arCategory["ITEMS"], 'mySort')?>
             <tr>
                 <th class="title-search-separator">&nbsp;</th>
                 <td class="title-search-separator">&nbsp;</td>

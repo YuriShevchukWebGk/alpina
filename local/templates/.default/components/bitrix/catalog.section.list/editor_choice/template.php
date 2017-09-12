@@ -64,14 +64,7 @@ foreach ($editor_choice_list as $key => $val)
 					<p class="subNameOfGroup">Алексей Ильин</p>
 					<p class="description">Генеральный директор</p>
 					<p class="description">"Альпина паблишер"</p>
-				</a>'/*,
-				'<a href="/catalog/mibf/" title="Сумка с выставки">
-					<img src="/img/mibfsmall.jpg">
-					<p class="nameOfGroup"></p>
-					<p class="subNameOfGroup"></p>
-					<p class="description"></p>
-					<p class="description"></p>
-				</a>'*/
+				</a>'
 				);
 				
 				shuffle($tops);
