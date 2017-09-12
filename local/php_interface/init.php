@@ -2876,306 +2876,312 @@
 		}
 	}
 
-	//Обновление HL блока с поисковыми индексами
-		\Bitrix\Main\EventManager::getInstance()->addEventHandler(
-		'iblock',
-		'OnAfterIBlockElementUpdate',
-		'HLBlockElementUpdate'
-	);
-	\Bitrix\Main\EventManager::getInstance()->addEventHandler(
-		'iblock',
-		'OnAfterIBlockElementAdd',
-		'HLBlockElementUpdate'
-	);
-	function HLBlockElementUpdate(Bitrix\Main\Event $arElement) {
-		if ($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
-			if (!empty($arElement['WF_PARENT_ELEMENT_ID'])) {
-				$arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL");
-				$arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE" => "Y", "ACTIVE" => "Y");
-				$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-				while($arFields = $res->GetNext()) {
-					if (!empty($arFields['NAME'])) {
-						$arHLData['UF_TITLE'] = preg_replace("/([^a-zA-Z\sа-яёА-ЯЁ0-9])/u","",$arFields['NAME']);
-					}
-					if (!empty($arFields['NAME'])) {
-						$arHLData['UF_TITLE_REAL'] = $arFields['NAME'];
-					}
-					if (!empty($arFields['DETAIL_PAGE_URL'])) {
-						$arHLData['UF_DETAIL_PAGE_URL'] = $arFields['DETAIL_PAGE_URL'];
-					}
-					if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
-						$arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
-					}
-					if (!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
-						if (empty($arHLData['UF_AUTHOR'])) {
-							$autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);
-							if ($autorsAr = $autorsOb -> fetch()) {
-								$arHLData['UF_AUTHOR'] = $autorsAr['NAME'];
-							}
-						}
-					}
-					if (!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {
-						if (empty($arHLData['UF_COVER_TYPE'])) {
-							$arHLData['UF_COVER_TYPE'] = $arFields['PROPERTY_COVER_TYPE_VALUE'];
-						}
-					}
-					$arHLData['UF_IBLOCK_ID'] = $arFields['ID'];
-				}
-				if ($arHLData) {
-					$hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
-					$entity = HL\HighloadBlockTable::compileEntity($hlblock);
-					$entity_data_class = $entity->getDataClass();
-					$rsElementID = $entity_data_class::getList(array(
-						"select" => array("ID"),
-						"order" => array("ID" => "ASC"),
-						"filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
-					));
-					if ($arElementID = $rsElementID->Fetch()) {
-						$result = $entity_data_class::update($arElementID['ID'], $arHLData);
-					} else {
-						$result = $entity_data_class::add($arHLData);
-					}
-				}
-			}
-		}
-	}
 
-	//Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа
-	\Bitrix\Main\EventManager::getInstance()->addEventHandler(
-		'main',
-		'OnProlog',
-		'UpdateBasket'
-	);
-	function UpdateBasket() {
-		global $APPLICATION;
-		$url = $APPLICATION->GetCurPage();
-		if (preg_match("/personal\/cart/i", $url)) {
-			require_once($_SERVER["DOCUMENT_ROOT"]."/ajax/ajax_add2basket.php");
-		}
-	}
+    //Обновление HL блока с поисковыми индексами
+     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'iblock',
+        'OnAfterIBlockElementUpdate',
+        'HLBlockElementUpdate'
+    );
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'iblock',
+        'OnAfterIBlockElementAdd',
+        'HLBlockElementUpdate'
+    );
+    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){
+        if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
+            if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){
+                $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga");
+                $arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
+                $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+                while($arFields = $res->GetNext())
+                {
+                    if (!empty($arFields['NAME'])) {
+                        $arHLData['UF_TITLE'] = preg_replace("/([^a-zA-Z\sа-яёА-ЯЁ0-9])/u","",$arFields['NAME']);
+                    }
+                    if (!empty($arFields['NAME'])) {
+                        $arHLData['UF_TITLE_REAL'] = $arFields['NAME'];
+                    }
+                    if (!empty($arFields['DETAIL_PAGE_URL'])) {
+                        $arHLData['UF_DETAIL_PAGE_URL'] = $arFields['DETAIL_PAGE_URL'];
+                    }
+                    if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
+                        $arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
+                    }
+                    if (!empty($arFields['PROPERTY_page_views_ga_VALUE'])) {
+                        $arHLData['UF_PAGE_VIEWS_GA'] = $arFields['PROPERTY_page_views_ga_VALUE'];
+                    }
+                    if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
+                        if (empty($arHLData['UF_AUTHOR'])) {
+                            $autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);
+                            if ($autorsAr = $autorsOb -> fetch()) {
+                                $arHLData['UF_AUTHOR'] = $autorsAr['NAME'];
+                            }
+                        }
+                    }
+                    if(!empty($arFields['PROPERTY_COVER_TYPE_VALUE'])) {
+                        if (empty($arHLData['UF_COVER_TYPE'])) {
+                            $arHLData['UF_COVER_TYPE'] = $arFields['PROPERTY_COVER_TYPE_VALUE'];
+                        }
+                    }
+                    $arHLData['UF_IBLOCK_ID'] = $arFields['ID'];
+                }
+                if($arHLData){
+                    $hlblock = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
+                    $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+                    $entity_data_class = $entity->getDataClass();
+                    $rsElementID = $entity_data_class::getList(array(
+                       "select" => array("ID"),
+                       "order"  => array("ID" => "ASC"),
+                       "filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
+                    ));
+                    if($arElementID = $rsElementID->Fetch()){
+                        $result = $entity_data_class::update($arElementID['ID'], $arHLData);
+                    } else {
+                        $result = $entity_data_class::add($arHLData);
+                    }
+                }
+            }
+        }
+    }
 
-	//Удаляем предзаказанный товар из HL блока и меняем статус заказа на предзаказ, перед созданием заказа
-	\Bitrix\Main\EventManager::getInstance()->addEventHandler(
-		'sale',
-		'OnBeforeOrderAdd',
-		'DeleteBasketElementFromHL'
-	);
-	function DeleteBasketElementFromHL(&$arFields) {
-		$arBasketItems = array();
-		foreach($arFields['BASKET_ITEMS'] as $basketItem) {
-			$arBasketItems[] = $basketItem;
-			$arBasketID[] = $basketItem['ID'];
-		}
+    //Обновляем корзину, требуется для корректного отображения страницы с заказами, при переходе со страницы офорлмения заказа
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'main',
+        'OnProlog',
+        'UpdateBasket'
+    );
+    function UpdateBasket(){
+        global $APPLICATION;
+        $url = $APPLICATION->GetCurPage();
+        if (preg_match("/personal\/cart/i", $url)) {
+            require_once($_SERVER["DOCUMENT_ROOT"]."/ajax/ajax_add2basket.php");
+        }
+    }
 
-		$hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
-		$entity = HL\HighloadBlockTable::compileEntity($hl_block);
-		$entity_data_class = $entity->getDataClass();
+    //Удаляем предзаказанный товар из HL блока и меняем статус заказа на предзаказ, перед созданием заказа
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'sale',
+        'OnBeforeOrderAdd',
+        'DeleteBasketElementFromHL'
+    );
+    function DeleteBasketElementFromHL(&$arFields){
+        $arBasketItems = array();
+        foreach($arFields['BASKET_ITEMS'] as $basketItem){
+            $arBasketItems[] = $basketItem;
+            $arBasketID[] = $basketItem['ID'];
+        }
 
-		$table_id = 'tbl_' . $entity_table_name;
+        $hl_block = HL\HighloadBlockTable::getById(PREORDER_BASKET_HL_ID)->fetch();
+        $entity = HL\HighloadBlockTable::compileEntity($hl_block);
+        $entity_data_class = $entity->getDataClass();
 
-		$basket_item_filter = array(
-			'UF_BASKET_ID' => $arBasketID
-		);
+        $table_id = 'tbl_' . $entity_table_name;
 
-		$result = $entity_data_class::getList(array(
-			"select" => array('*'),
-			"filter" => $basket_item_filter,
-			"order" => array("ID" => "ASC")
-		));
+        $basket_item_filter = array(
+            'UF_BASKET_ID' => $arBasketID
+        );
 
-		$result = new CDBResult($result, $table_id);
-		while ($basket_item = $result->Fetch()) {
-			if ($basket_item['UF_DELAY_BEFORE'] == 'Y') {
-				$arFields['STATUS_ID'] = 'PR';
-			}
-			$entity_data_class::Delete($basket_item['ID']);
-		}
-	}
+        $result = $entity_data_class::getList(array(
+            "select" => array('*'),
+            "filter" => $basket_item_filter,
+            "order"  => array("ID" => "ASC")
+        ));
+
+        $result = new CDBResult($result, $table_id);
+        while ($basket_item = $result->Fetch()) {
+            if  ($basket_item['UF_DELAY_BEFORE'] == 'Y') {
+                $arFields['STATUS_ID'] = 'PR';
+            }
+            $entity_data_class::Delete($basket_item['ID']);
+        }
+    }
 
 
-	function generateAccordPostLabel($order_id) {
-		//Данные для генерации этикетки
-		$order_id = intval($order_id);
-		if (!empty($order_id)) {
-			$partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);
-			$order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);
-			$unic_code = $partner_code.$order_code;
+    function generateAccordPostLabel($order_id) {
+        //Данные для генерации этикетки
+        $order_id = intval($order_id);
+        if (!empty($order_id)) {
+            $partner_code = str_pad(ACCORDPOST_PARTNER_ID, 4, "0", STR_PAD_LEFT);
+            $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);
+            $unic_code = $partner_code.$order_code;
 
-			$visual_code = substr($unic_code, -3);
+            $visual_code = substr($unic_code, -3);
 
-			$rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_id), false, false, array());
-			while($ar_order_prop = $rs_order_props->Fetch()) {
-				if (empty($order_properties[$ar_order_prop['CODE']])) {
-					$order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];
-				}
-			}
-			if (empty($order_properties['EXPORTED_TO_ACCORDPOST'])) {
-				return false;
-			}
+            $rs_order_props = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $order_id), false, false, array());
+            while($ar_order_prop = $rs_order_props->Fetch()) {
+                if(empty($order_properties[$ar_order_prop['CODE']])) {
+                    $order_properties[$ar_order_prop['CODE']] = $ar_order_prop['VALUE'];
+                }
+            }
+            if(empty($order_properties['EXPORTED_TO_ACCORDPOST'])){
+                return false;
+            }
 
-			//Собираем поля в зависимости от типа лица
-			if ($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
-				//имя получателя
-				$cont_name = '';
-				$cont_name = (!empty($order_properties["F_CONTACT_PERSON"]) ? $order_properties["F_CONTACT_PERSON"] : $order_properties["F_NAME"]);
-				$user_name = preg_replace("/[^\w\s]+/u", "", $cont_name);
-			} else {
-				//имя получателя
-				$cont_name = '';
-				$cont_name = (!empty($order_properties["F_CONTACT_PERSON"]) ? $order_properties["F_CONTACT_PERSON"] : $order_properties["F_NAME"]);
-				$user_name = preg_replace("/[^\w\s]+/u", "", $cont_name);
-			}
+            //Собираем поля в зависимости от типа лица
+            if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
+                //имя получателя
+                $cont_name = '';
+                $cont_name = (!empty($order_properties["F_CONTACT_PERSON"]) ? $order_properties["F_CONTACT_PERSON"] : $order_properties["F_NAME"]);
+                $user_name = preg_replace("/[^\w\s]+/u", "", $cont_name);
+            } else {
+                //имя получателя
+                $cont_name = '';
+                $cont_name = (!empty($order_properties["F_CONTACT_PERSON"]) ? $order_properties["F_CONTACT_PERSON"] : $order_properties["F_NAME"]);
+                $user_name = preg_replace("/[^\w\s]+/u", "", $cont_name);
+            }
 
-			$shipping_date = $order_properties['EXPORTED_TO_ACCORDPOST'];
-			$partner_name = ACCORDPOST_PARTNER_TITLE;
+            $shipping_date = $order_properties['EXPORTED_TO_ACCORDPOST'];
+            $partner_name = ACCORDPOST_PARTNER_TITLE;
 
-			//Если нужно будет расширить для других доставок доработать
-			$deliver_code = '01';
-			$deliver_type = '23';
-			$html = '
-			<table style="width: 250px;border: 2px solid black;">
-				<tbody>
-					<tr>
-						<th rowspan="2"><div style="font-size: 15px; font-family: arial; margin: 10px 0; width: 42px;">'.$deliver_code.'-'.$deliver_type.'</div></th>
-						<th colspan="2"><div style="font-size: 9px; font-family: arial; font-weight: normal; text-transform: uppercase; font-weight: bold; margin: 5px 0;">'.$user_name.'</div></th>
-						<th rowspan="4" style="width: 40px;"><div style="transform: rotate(-90deg); font-size: 25px; font-family: arial;">'.$visual_code.'</div></th>
-					</tr>
-					<tr>
-						<td style="border: 0px;"><div style="font-size: 9px; font-family: arial;">'.$shipping_date.'</div></td>
-						<td style="border: 0px;"><div style="font-size: 9px; font-family: arial;">'.$partner_name.'</div></td>
-					</tr>
-					<tr>
-						<td colspan="3" style="border: 0px;">
-							<div style="overflow: hidden;text-align: center;height: 77px;margin: 4px 0 6px 0;"><img src="http://barcode.tec-it.com/barcode.ashx?translate-esc=off&data='.$unic_code.'&code=DataMatrix&unit=Px&dpi=80&imagetype=Png&rotation=0&color=000000&bgcolor=FFFFFF&qunit=Mm&quiet=0&modulewidth=4" alt="Barcode Generator TEC-IT"></div>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="3" style="border: 0px;"><div style="text-align: center; margin: -1px 0 6px 0; font-size: 10px; font-family: arial;">'.$unic_code.'</div></td>
-					</tr>
-				</tbody>
-			</table>';
-			return $html;
-		} else {
-			return false;
-		}
-	}
+            //Если нужно будет расширить для других доставок доработать
+            $deliver_code = '01';
+            $deliver_type = '23';
+            $html = '
+            <table style="width: 250px;border: 2px solid black;">
+                <tbody>
+                    <tr>
+                        <th rowspan="2"><div style="font-size: 15px; font-family: arial; margin: 10px 0; width: 42px;">'.$deliver_code.'-'.$deliver_type.'</div></th>
+                        <th colspan="2"><div style="font-size: 9px; font-family: arial; font-weight: normal; text-transform: uppercase; font-weight: bold; margin: 5px 0;">'.$user_name.'</div></th>
+                        <th rowspan="4" style="width: 40px;"><div style="transform: rotate(-90deg); font-size: 25px; font-family: arial;">'.$visual_code.'</div></th>
+                    </tr>
+                    <tr>
+                        <td style="border: 0px;"><div style="font-size: 9px; font-family: arial;">'.$shipping_date.'</div></td>
+                        <td style="border: 0px;"><div style="font-size: 9px; font-family: arial;">'.$partner_name.'</div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border: 0px;">
+                            <div style="overflow: hidden;text-align: center;height: 77px;margin: 4px 0 6px 0;"><img src="http://barcode.tec-it.com/barcode.ashx?translate-esc=off&data='.$unic_code.'&code=DataMatrix&unit=Px&dpi=80&imagetype=Png&rotation=0&color=000000&bgcolor=FFFFFF&qunit=Mm&quiet=0&modulewidth=4" alt="Barcode Generator TEC-IT"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border: 0px;"><div style="text-align: center; margin: -1px 0 6px 0; font-size: 10px; font-family: arial;">'.$unic_code.'</div></td>
+                    </tr>
+                </tbody>
+            </table>';
+            return $html;
+        } else {
+            return false;
+        }
+    }
 
-	AddEventHandler("main", "OnSendUserInfo", "MyOnSendUserInfoHandler");
-	function MyOnSendUserInfoHandler(&$arParams) {
-		$arParams["FIELDS"]["SERVER_NAME"] = "www.alpinabook.ru";
-	}
+    AddEventHandler("main", "OnSendUserInfo", "MyOnSendUserInfoHandler");
+    function MyOnSendUserInfoHandler(&$arParams)
+    {
+        $arParams["FIELDS"]["SERVER_NAME"] = "www.alpinabook.ru";
+    }
 
-	AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
+    AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
 
-	function messagesWithAttachments($arFields, $arTemplate) {
-		GLOBAL $arParams;
+    function messagesWithAttachments($arFields, $arTemplate) {
+        GLOBAL $arParams;
 
-		//Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
-		if (cancelMail($arFields, $arTemplate)) {
-			return false;
-		}
+        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
+        if(cancelMail($arFields, $arTemplate)) {
+            return false;
+        }
 
-		// отправка письма по наличию вложенных файлов
-		if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
+        // отправка письма по наличию вложенных файлов
+        if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
 
-			$mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
-			$email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
+            $mailgun = new Mailgun($arParams['MAILGUN']['KEY']);
+            $email_from = trim($arTemplate['EMAIL_FROM'], "#") == "DEFAULT_EMAIL_FROM" ? COption::GetOptionString('main', 'email_from') : $arFields[trim($arTemplate['EMAIL_FROM'], "#")];
 
-			// заменяем все максросы в письме на значения из $arFields
-			// Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
-			$message_body = $arTemplate['MESSAGE'];
-			$message_title = $arTemplate["SUBJECT"];
-			foreach ($arFields as $field_name => $field_value) {
-				$message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
-				$message_title = str_replace("#" . $field_name . "#", $field_value, $message_title);
-			}
-			// подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
-			if ($arFields[trim($arTemplate['EMAIL'], "#")]) {
-				$email_to = $arFields[trim($arTemplate['EMAIL'], "#")];
-			} else {
-				$email_to = $arFields[trim($arTemplate['EMAIL_TO'], "#")];
-			}
+            // заменяем все максросы в письме на значения из $arFields
+            // Все поля обязательно должны присутсвовать, иначе в письме придет макрос !!
+            $message_body = $arTemplate['MESSAGE'];
+            $message_title = $arTemplate["SUBJECT"];
+            foreach ($arFields as $field_name => $field_value) {
+                $message_body = str_replace("#" . $field_name . "#", $field_value, $message_body);
+                $message_title = str_replace("#" . $field_name . "#", $field_value, $message_title);
+            }
+            // подставляем email шаблона который передается от определенного события в переменных либо email либо email_to
+            if($arFields[trim($arTemplate['EMAIL'], "#")]){
+                $email_to = $arFields[trim($arTemplate['EMAIL'], "#")];
+            } else {
+                $email_to = $arFields[trim($arTemplate['EMAIL_TO'], "#")];
+            }
 
-			$attachments = array();
-			foreach ($arTemplate['FILE'] as $file) {
-				if ($file_path = CFile::GetPath($file)) {
-					$attachments = "@".$_SERVER["DOCUMENT_ROOT"].$file_path;
+            $attachments = array();
+            foreach ($arTemplate['FILE'] as $file) {
+                if ($file_path = CFile::GetPath($file)) {
+                    $attachments = "@".$_SERVER["DOCUMENT_ROOT"].$file_path;
 
-				}
-			}
-			logger($arTemplate, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');
-			$params = array(
-				'from'	=> ($email_from)?$email_from:MAIL_FROM_DEFAULT,
-				'to'		=> $email_to,//$arFields["EMAIL"],
-				'subject' => $message_title,
-				'html'	=> $message_body,
-			);
+                }
+            }
+            logger($arTemplate, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');
+            $params = array(
+                'from'    => ($email_from)?$email_from:MAIL_FROM_DEFAULT,
+                'to'      => $email_to,//$arFields["EMAIL"],
+                'subject' => $message_title,
+                'html'    => $message_body,
+            );
 
-			if ($arTemplate['BCC']) {
-				$params['bcc'] .= $arTemplate['BCC'];
-			}
+            if ($arTemplate['BCC']) {
+                $params['bcc'] .= $arTemplate['BCC'];
+            }
 
-			if ($arTemplate['CC']) {
-				$params['cc'] .= $arTemplate['CC'];
-			}
-			logger($params, $_SERVER["DOCUMENT_ROOT"].'/logs/log1.php');
-			$domain = $arParams['MAILGUN']['DOMAIN'];
+            if ($arTemplate['CC']) {
+                $params['cc'] .= $arTemplate['CC'];
+            }
+            logger($params, $_SERVER["DOCUMENT_ROOT"].'/logs/log1.php');
+            $domain = $arParams['MAILGUN']['DOMAIN'];
 
-			// # Make the call to the client.
-			$result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
+            //  # Make the call to the client.
+            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $attachments));
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 
-	//Функция смены названия товаров в корзинах
-	AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "change_product_name_in_basket");
+    //Функция смены названия товаров в корзинах
+    AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "change_product_name_in_basket");
 
-	function change_product_name_in_basket(&$arParams) {
-		if ($arParams['IBLOCK_ID'] == CATALOG_IBLOCK_ID) {
-			if (!empty($arParams['NAME']) && !empty($arParams['ID'])) {
-				$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => "NULL", "PRODUCT_ID" => $arParams['ID']), false, false, array());
-				while($arItems = $dbBasketItems->Fetch()) {
-					CSaleBasket::Update($arItems['ID'], array('NAME' => $arParams['NAME']));
-				}
-			}
-		}
-	};
+    function change_product_name_in_basket(&$arParams) {
+        if($arParams['IBLOCK_ID'] == CATALOG_IBLOCK_ID) {
+            if(!empty($arParams['NAME']) && !empty($arParams['ID'])) {
+                $dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => "NULL", "PRODUCT_ID" => $arParams['ID']), false, false, array());
+                while($arItems = $dbBasketItems->Fetch()) {
+                    CSaleBasket::Update($arItems['ID'], array('NAME' => $arParams['NAME']));
+                }
+            }
+        }
+    };
 
-	//Авторизация пользователя по хешу
-	\Bitrix\Main\EventManager::getInstance()->addEventHandler(
-		'main',
-		'OnProlog',
-		'hash_autorization'
-	);
+    //Авторизация пользователя по хешу
+    \Bitrix\Main\EventManager::getInstance()->addEventHandler(
+        'main',
+        'OnProlog',
+        'hash_autorization'
+    );
 
-	function hash_autorization() {
-		if (!empty($_REQUEST['hash'])) {
-			$arSelect = Array("ID", "NAME", "PROPERTY_HASH_FOR_AUTHORIZE", "PROPERTY_HASH_UPDATE_DATE");
-			$arFilter = Array("IBLOCK_ID" => IntVal(RFM_IBLOCK_ID), "PROPERTY_HASH_FOR_AUTHORIZE" => $_REQUEST['hash'], "ACTIVE" => "Y");
+    function hash_autorization() {
+        if(!empty($_REQUEST['hash'])) {
+            $arSelect = Array("ID", "NAME", "PROPERTY_HASH_FOR_AUTHORIZE", "PROPERTY_HASH_UPDATE_DATE");
+            $arFilter = Array("IBLOCK_ID" => IntVal(RFM_IBLOCK_ID), "PROPERTY_HASH_FOR_AUTHORIZE" => $_REQUEST['hash'], "ACTIVE"=>"Y");
 
-			$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-			if ($ob = $res->GetNextElement()) {
-				$arFields = $ob->GetFields();
+            $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+            if ($ob = $res->GetNextElement()) {
+                $arFields = $ob->GetFields();
 
-				$arUserFilter = array(
-					"ACTIVE"		=> "Y",
-					"EMAIL"		=> $arFields['NAME']
-				);
+                $arUserFilter = array(
+                    "ACTIVE"     => "Y",
+                    "EMAIL"      => $arFields['NAME']
+                );
 
-				$rsUsers = CUser::GetList(($by="id"), ($order="desc"), $arUserFilter);
+                $rsUsers = CUser::GetList(($by="id"), ($order="desc"), $arUserFilter);
 
-				if ($arUser = $rsUsers->Fetch()) {
+                if ($arUser = $rsUsers->Fetch()) {
 
-					//Проверим на админов
-					$arGroups = CUser::GetUserGroup($arUser['ID']);
+                    //Проверим на админов
+                    $arGroups = CUser::GetUserGroup($arUser['ID']);
 
-					if (!in_array(ADMIN_GROUP_ID, $arGroups)) {
-						global $USER;
-						$USER->Authorize($arUser['ID']);
-					}
-				}
-			}
-		}
-	}
+                    if (!in_array(ADMIN_GROUP_ID, $arGroups)) {
+                        global $USER;
+                        $USER->Authorize($arUser['ID']);
+                    }
+                }
+            }
+        }
+    }
 ?>
