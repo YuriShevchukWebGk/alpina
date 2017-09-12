@@ -1687,7 +1687,7 @@
 
             $newElStatus = $arParams['PROPERTY_VALUES'][56][0]["VALUE"];
 
-            if ($newElStatus!=$oldElStatus && $arParams['PROPERTY_VALUES'][56][0] && ($oldElStatus==22 || $oldElStatus==23)) {
+            if ($newElStatus!=$oldElStatus && !empty($arParams['PROPERTY_VALUES'][56][0]) && ($oldElStatus==22 || $oldElStatus==23)) {
 
                 $el = new CIBlockElement;
                 $arLoadProductArray = Array("ACTIVE" => "N");
