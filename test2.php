@@ -130,7 +130,18 @@ foreach ($emails_arr as $email => $user_copies_arr) {
 }*/?>
 <?
 
+$arSelect = Array("ID");
+$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "!TIMESTAMP_X" => "13.09.2017");
+$res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
 
+while($ob = $res->GetNext()) {
+     $el = new CIBlockElement;
+
+    $arLoadProductArray = Array(
+      "ACTIVE"         => "Y",            // активен
+      );
+     $el->Update($ob["ID"], $arLoadProductArray);
+}
 
 
 ?>

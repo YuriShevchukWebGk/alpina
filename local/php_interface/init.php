@@ -117,7 +117,7 @@
     /**
     * конец
     **/
-    
+
     function arshow($array, $adminCheck = true, $dieAfterArshow = false) {
         global $USER;
         $USER = new Cuser;
@@ -2108,7 +2108,7 @@
             $arFields["ORDERED_BOOKS"] = $orderItemsResult;
         }
     }
-    
+
     //Добавляем данные о пользователе в шаблон
     AddEventHandler('main', 'OnBeforeEventSend', 'AddCustomInfo');
     function AddCustomInfo (&$arFields, &$arTemplate) {
@@ -2908,8 +2908,11 @@
                     if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
                         $arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
                     }
-                    if (!empty($arFields['PROPERTY_page_views_ga_VALUE'])) {
-                        $arHLData['UF_PAGE_VIEWS_GA'] = $arFields['PROPERTY_page_views_ga_VALUE'];
+                    if (!empty($arFields['PROPERTY_PAGE_VIEWS_GA_VALUE'])) {
+                        $arHLData['UF_PAGE_VIEWS_GA'] = $arFields['PROPERTY_PAGE_VIEWS_GA_VALUE'];
+                    }
+                    if (!empty($arFields['PROPERTY_FOR_ADMIN_VALUE'])) {
+                        $arHLData['UF_FOR_ADMIN'] = $arFields['PROPERTY_FOR_ADMIN_VALUE'];
                     }
                     if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
                         if (empty($arHLData['UF_AUTHOR'])) {
