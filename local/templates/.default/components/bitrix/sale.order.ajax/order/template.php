@@ -59,12 +59,7 @@
 		position: relative;
 		top: 7px;
 	}
-	.bx-slst .quick-location-tag {
-		background:#fff!important;
-		border:0;
-		font-size:18px;
-		padding: 0 48px 0 0 !important;
-	}
+
 	.addCircle:before {
 		content: url(/img/chekedInpRadio.png)!important;
 	}
@@ -74,13 +69,16 @@
 	.shipingText {
 		cursor:pointer;
 	}
+	.addCircle{
+		background:rgba(216, 194, 165, 0.35)!important
+	}
 	.bx_section > div {
 		margin: 10px 0 20px;
 		border: 1px solid #ccc;
-		border-radius: 30px;
+		border-radius: 30px!important;
 		padding: 20px 20px 0;
 	}
-	.bx_section > div:hover {
+	.bx_section > div:hover,.bx-slst .quick-location-tag:hover {
 		background:#f0f0f0;
 	}
 </style>
@@ -98,7 +96,8 @@
             $(".delivery_date").remove();    
         <?}?> 
         
-		$(".bx_section div:has(input:checked)").css("background", "rgba(216, 194, 165, 0.35)");
+		$(".bx_section div:has(input:checked), input:checked>label").css("background", "rgba(216, 194, 165, 0.35)");
+		$("input[name='PERSON_TYPE']:checked").next().css("background", "rgba(216, 194, 165, 0.35)");
 
         if ($.browser.msie && $.browser.version <= 9) {
 
