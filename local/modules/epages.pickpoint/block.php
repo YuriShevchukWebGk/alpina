@@ -5,7 +5,7 @@
 } ?>
 <div class="bx_result_price">
 <?if($displayValue == 'none'){?>
-    <span>Ожидаемая дата доставки:</span> <br>
+    <span class="delivery_date">Ожидаемая дата доставки:</span> <br>
     <a onclick="PickPoint.open(PickpointHandler<?if ($str_from_city):?>, {fromcity:'<?=$str_from_city?>'}<?endif;?>);return false" style="cursor:pointer;"><?=GetMessage("PP_CHOOSE")?></a>
 <?} else {?>
     <a onclick="PickPoint.open(PickpointHandler<?if ($str_from_city):?>, {fromcity:'<?=$str_from_city?>'}<?endif;?>);return false" style="cursor:pointer;"><?=GetMessage("PP_CHOOSE")?></a>
@@ -49,7 +49,7 @@ $str = file("/home/bitrix/www/parse_pickpoint.csv");
         <span id="sPPDelivery">
             <?=($_SESSION['PICKPOINT']['PP_ADDRESS']?$_SESSION['PICKPOINT']['PP_ADDRESS']."<br/>".$_SESSION['PICKPOINT']['PP_NAME']:GetMessage("PP_sNONE"))?>
             <br>
-            Ожидаемая дата доставки: <?=$delivery_time?>
+            <span class="delivery_date">Ожидаемая дата доставки: <?=$delivery_time?></span>
         </span>
         </td>
     </tr>

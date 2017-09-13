@@ -98,7 +98,10 @@
     window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
-
+        <?if($arResult['PREORDER'] == 'Y') {?>      
+            $(".delivery_date").remove();    
+        <?}?> 
+        
 		$(".bx_section div:has(input:checked)").css("background", "rgba(216, 194, 165, 0.18)");
 
         if ($.browser.msie && $.browser.version <= 9) {
@@ -993,6 +996,6 @@
             if ($(this).css("display") == "none") {
                 $(this).closest(".infoPunct").find(".inputTitle").hide();
             }
-        });
+        });          
     })
 </script>

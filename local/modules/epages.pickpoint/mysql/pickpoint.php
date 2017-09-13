@@ -128,6 +128,9 @@
                 
                 $sQuery = "UPDATE `b_pp_order_postamat` SET PP_INVOICE_ID = {$invoiceId} WHERE ORDER_ID={$iOrderID}";
                 $DB->Query($sQuery);
+                
+                if (!CSaleOrder::StatusOrder($iOrderID, "I"))
+                   echo "Ошибка установки нового статуса заказа";
             }
 
 		}

@@ -129,9 +129,41 @@ foreach ($emails_arr as $email => $user_copies_arr) {
      }
 }*/?>
 <?
+/*  // обновление данных highload инфоблока
+    use Bitrix\Highloadblock as HL;
+    CModule::IncludeModule("iblock");
+    $arSelect = Array("ID", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN");
+    $arFilter = Array("IBLOCK_ID" => 4, "ACTIVE"=>"Y");
+    $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+
+    $hlblock = HL\HighloadBlockTable::getById(3)->fetch();
+
+    $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+    $entity_data_class = $entity->getDataClass();
+
+    while($arFields = $res->GetNext())
+    {
+
+        $arHLData['UF_PAGE_VIEWS_GA'] = $arFields['PROPERTY_PAGE_VIEWS_GA_VALUE'];
+        $arHLData['UF_FOR_ADMIN'] = $arFields['PROPERTY_FOR_ADMIN_VALUE'];
+        $arHLData['UF_IBLOCK_ID'] = $arFields['ID'];
+
+        if($arHLData){
 
 
+            $rsElementID = $entity_data_class::getList(array(
+               "select" => array("ID"),
+               "order"  => array("ID" => "ASC"),
+               "filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
+            ));
+            if($arElementID = $rsElementID->Fetch()){
 
+                $result = $entity_data_class::update($arElementID['ID'], $arHLData);
 
+            }
+        }
+    }
+
+ */
 ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

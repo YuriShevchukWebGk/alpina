@@ -4,7 +4,8 @@
 function mySort($a, $b)
 {
    if ($a['PAGE_VIEWS_GA'] == $b['PAGE_VIEWS_GA']) return 0;
-   return $a['PAGE_VIEWS_GA'] > $b['PAGE_VIEWS_GA'] ? 1 : -1;
+
+   return $a['PAGE_VIEWS_GA'] < $b['PAGE_VIEWS_GA'] ? 1 : -1;
 }
 //arshow($arResult["CATEGORIES"]);
 

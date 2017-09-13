@@ -2083,7 +2083,7 @@
     //Добавляем кнопку "Оплатить" в шаблон
     AddEventHandler('main', 'OnBeforeEventSend', 'PayButtonForOnlinePayment');
     function PayButtonForOnlinePayment (&$arFields, &$arTemplate) {
-        if (in_array($arTemplate["ID"],$paymentButtonTemplates)) {
+        if (in_array($arTemplate["ID"],array(16,178))) {
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
             if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI) {
                 $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
@@ -2099,7 +2099,7 @@
     //Добавляем состав заказа в шаблон
     AddEventHandler('main', 'OnBeforeEventSend', 'GetOrderList');
     function GetOrderList(&$arFields, &$arTemplate) {
-        if (in_array($arTemplate["ID"],$orderListTemplates)) {
+        if (in_array($arTemplate["ID"],array(16,178,344,380))) {
             $orderItems = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arFields["ORDER_ID"]));
             $orderItemsResult = '<br /><center><h3 style="color:#393939;font-family: Segoe UI,Roboto,Tahoma,sans-serif;font-size: 20px;font-weight: 400;">Книги в заказе</h3></center><br />';
             while($orderItem = $orderItems->GetNext()) {
@@ -2118,9 +2118,9 @@
     AddEventHandler('main', 'OnBeforeEventSend', "AddLatestBooks");
 
     function AddLatestBooks (&$arFields, &$arTemplate) {
-        if (in_array($arTemplate["ID"],$latestBooksTemplates)) {
+        if (in_array($arTemplate["ID"],array(16,160,168))) {
             $latestBooks = "";
-            $NewItems = CIBlockElement::GetList(array("timestamp_x" => "DESC"), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "PROPERTY_STATE" => NEW_BOOK_STATE_XML_ID, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, Array("nPageSize"=>3), array());
+            $NewItems = CIBlockElement::GetList(array("PROPERTY_shows_a_day" => "DESC"), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "PROPERTY_STATE" => NEW_BOOK_STATE_XML_ID, "ACTIVE" => "Y", ">DETAIL_PICTURE" => 0), false, Array("nPageSize"=>3), array());
             while ($NewItemsList = $NewItems -> Fetch()){
                 $pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                 $curr_sect = CIBlockSection::GetByID($NewItemsList["IBLOCK_SECTION_ID"]) -> Fetch();
@@ -2891,7 +2891,7 @@
     function HLBlockElementUpdate(Bitrix\Main\Event $arElement){
         if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
             if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){
-                $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga");
+                $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN");
                 $arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
                 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
                 while($arFields = $res->GetNext())
@@ -2908,12 +2908,9 @@
                     if (!empty($arFields['PROPERTY_SEARCH_WORDS_VALUE'])) {
                         $arHLData['UF_SEARCH_WORDS'] = implode(' ', array($arFields['PROPERTY_SEARCH_WORDS_VALUE'], $arHLData['UF_SEARCH_WORDS']));
                     }
-                    if (!empty($arFields['PROPERTY_PAGE_VIEWS_GA_VALUE'])) {
-                        $arHLData['UF_PAGE_VIEWS_GA'] = $arFields['PROPERTY_PAGE_VIEWS_GA_VALUE'];
-                    }
-                    if (!empty($arFields['PROPERTY_FOR_ADMIN_VALUE'])) {
-                        $arHLData['UF_FOR_ADMIN'] = $arFields['PROPERTY_FOR_ADMIN_VALUE'];
-                    }
+                    $arHLData['UF_PAGE_VIEWS_GA'] = $arFields['PROPERTY_PAGE_VIEWS_GA_VALUE'];
+                    $arHLData['UF_FOR_ADMIN'] = $arFields['PROPERTY_FOR_ADMIN_VALUE'];
+
                     if(!empty($arFields['PROPERTY_AUTHORS_VALUE'])) {
                         if (empty($arHLData['UF_AUTHOR'])) {
                             $autorsOb = CIBlockElement::GetByID($arFields['PROPERTY_AUTHORS_VALUE']);
