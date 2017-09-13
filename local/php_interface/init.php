@@ -107,6 +107,7 @@
     define ("PAY_SYSTEM_RFI", 11); //ID платежный системы РФИ
 
     define ("ADMIN_GROUP_ID", 1);
+    define ("GIFT_BAG_EXHIBITION", 331); // правило корзины Подарок: сумка с выставки ММКВЯ 2017
 
     /**
     * Изменить на define() при апе до 7 версии PHP

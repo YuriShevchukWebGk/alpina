@@ -236,42 +236,74 @@
 );?>
 		</div>
 
-		<div class="hidingCatalogLeft">
-			<img src="/img/catalogLeftClose.png" class="windowClose">
-
-            <a href="/personal/profile/">
-                <div class="headLogin">
-                </div>
-            </a>
-
+    <div class="hidingCatalogLeft">
+        <img src="/img/catalogLeftClose.png" class="windowClose">    
+        
+        <?$APPLICATION->IncludeComponent(
+                "bitrix:catalog.section.list", 
+                "left.tree", 
+                array(
+                    "IBLOCK_TYPE" => "catalog",
+                    "IBLOCK_ID" => "4",
+                    "SECTION_ID" => "",
+                    "SECTION_CODE" => "",
+                    "COUNT_ELEMENTS" => "N",
+                    "TOP_DEPTH" => "2",
+                    "IBLOCK_HEADER_TITLE" => "Каталог книг",
+                    "IBLOCK_HEADER_LINK" => "",
+                    "SECTION_URL" => "#SITE_DIR#/catalog/#SECTION_CODE#/",
+                    "CACHE_TYPE" => "N",
+                    "CACHE_TIME" => "3600",
+                    "DISPLAY_PANEL" => "N",
+                    "ADD_SECTIONS_CHAIN" => "Y",
+                    "COMPONENT_TEMPLATE" => "left.tree",
+                    "SECTION_FIELDS" => array(
+                        0 => "",
+                        1 => "",
+                    ),
+                    "SECTION_USER_FIELDS" => array(
+                        0 => "",
+                        1 => "",
+                    ),
+                    "CACHE_GROUPS" => "N",
+                    "VIEW_MODE" => "LIST",
+                    "SHOW_PARENT_NAME" => "Y"
+                ),
+                false
+            );?>
+        
+        <?$APPLICATION->IncludeComponent("bitrix:menu", "left_menu", 
+                Array(
+                    "ROOT_MENU_TYPE" => "left_block",    // Тип меню для первого уровня
+                    "MAX_LEVEL" => "1",    // Уровень вложенности меню
+                    "CHILD_MENU_TYPE" => "top",    // Тип меню для остальных уровней
+                    "USE_EXT" => "Y",    // Подключать файлы с именами вида .тип_меню.menu_ext.php
+                    "DELAY" => "N",    // Откладывать выполнение шаблона меню
+                    "ALLOW_MULTI_SELECT" => "Y",    // Разрешить несколько активных пунктов одновременно
+                    "MENU_CACHE_TYPE" => "N",    // Тип кеширования
+                    "MENU_CACHE_TIME" => "3600",    // Время кеширования (сек.)
+                    "MENU_CACHE_USE_GROUPS" => "Y",    // Учитывать права доступа
+                    "MENU_CACHE_GET_VARS" => "",    // Значимые переменные запроса
+                    "COMPONENT_TEMPLATE" => "bottom_menu"
+                ),
+                false
+            );?>
+        <div class="webServ">
             <?$APPLICATION->IncludeComponent(
-	"bitrix:search.title",
-	"top_search_form",
-	array(
-		"CATEGORY_0" => array(
-			0 => "iblock_catalog",
-		),
-		"CATEGORY_0_TITLE" => "Результат",
-		"CHECK_DATES" => "N",
-		"COMPONENT_TEMPLATE" => "top_search_form",
-		"CONTAINER_ID" => "title-search",
-		"INPUT_ID" => "title-search-input",
-		"NUM_CATEGORIES" => "1",
-		"ORDER" => "rank",
-		"PAGE" => "#SITE_DIR#search/index.php",
-		"SHOW_INPUT" => "Y",
-		"SHOW_OTHERS" => "N",
-		"TOP_COUNT" => "5",
-		"USE_LANGUAGE_GUESS" => "Y",
-		"CATEGORY_0_iblock_catalog" => array(
-			0 => "4",
-		),
-		"COMPOSITE_FRAME_MODE" => "A",
-		"COMPOSITE_FRAME_TYPE" => "AUTO"
-	),
-	false
-);?>
+				"bitrix:main.include", 
+				".default", 
+				array(
+					"AREA_FILE_SHOW" => "file",
+					"AREA_FILE_SUFFIX" => "inc",
+					"AREA_FILE_RECURSIVE" => "Y",
+					"EDIT_TEMPLATE" => "",
+					"COMPONENT_TEMPLATE" => ".default",
+					"PATH" => "/include/socnets.php"
+				),
+				false
+			);?>
         </div>
+    </div>
 
 
 			<?$APPLICATION->IncludeComponent("bitrix:menu", "left_menu",
