@@ -40,11 +40,16 @@ if ($USER->IsAdmin()){
 	}
 	
 	arsort($books);
-	$table = '<h3>Новые книги</h3><table width="800" border="1"><tbody>';
+	$table = '<h3>Новые книги</h3><table width="800" border="1"><tbody><tr><td>Название</td><td>Имэйлов</td><td>Предзаказов</td></tr>';
 	foreach($books as $book) {
+		$rsOrder = CSaleOrder::GetList(array('ID' => 'DESC'), array('STATUS_ID' => 'PR', 'BASKET_PRODUCT_ID' => $book['i']));
+		while ($order = $rsOrder->Fetch()) {
+			$book['o']++;
+		}
 		$table .= '<tr>';
 		$table .= '<td><a href="/catalog/temporary/'.$book['i'].'/">'.$book['n'].'</a></td>';
 		$table .= '<td>'.$book['q'].'</td>';
+		$table .= '<td>'.$book['o'].'</td>';
 		$table .= '</tr>';
 	}
 	$table .= '</tbody></table>';
