@@ -83,10 +83,6 @@
 	.bx_section > div:hover {
 		background:#f0f0f0;
 	}
-	.orderBody .blockTitle {
-		font-size:28px;
-		color:#444;
-	}
 </style>
 
 
@@ -102,7 +98,7 @@
             $(".delivery_date").remove();    
         <?}?> 
         
-		$(".bx_section div:has(input:checked)").css("background", "rgba(216, 194, 165, 0.18)");
+		$(".bx_section div:has(input:checked)").css("background", "rgba(216, 194, 165, 0.35)");
 
         if ($.browser.msie && $.browser.version <= 9) {
 
