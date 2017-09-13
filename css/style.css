@@ -593,7 +593,7 @@ header .headBasket{margin-right:0}
 .helpBlock .telephone{color:#3f4a4d;font-size:20px;padding-top:16px}
 .cartMenuWrap .basketItems,.helpBlock .mailAdr,.orderBody .allCost,.totalPriceWrap .allCost{font-family:Walshein_bold}
 .helpBlock .mailAdr{color:#3f4a4d;font-size:13px;text-transform:uppercase;padding-bottom:16px}
-.orderBody .blockTitle{color:#7B8C90;font-size:24px;margin-bottom:2px;width:350px}
+.orderBody .blockTitle{font-size:28px;margin-bottom:2px;color:#444;font-family:Walshein_bold}
 .orderBody .faceText{color:#424C4F;font-size:15px;cursor:pointer;padding-left:4px;margin-right:44px}
 .orderBody .faceText:before{content:url(/img/beforeInputRadio.png);left:-8px;position:relative;top:7px}
 .radioInp{display:none}
