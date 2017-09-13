@@ -256,7 +256,6 @@
                                 $item_discount_value = ceil($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"]["VALUE"]);
                             }
                             if ($item_discount_value > 0) {
-                               // arshow($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"]["VALUE"]);
                                 //$newPrice = $newPrice * (1 - $item_discount_value / 100);
 
 								/*if ($discount) {
@@ -392,7 +391,6 @@
                                     $item_discount_value = ceil($exp_book_arr["DISCOUNT_INFO"]["VALUE"]);
                                 }
                                 if ($item_discount_value > 0) {
-                                    // arshow($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["DISCOUNT_INFO"]["VALUE"]);
                                     $newPrice = $newPrice * (1 - $item_discount_value / 100);
                                 }?>
                                 <div class="searchBook">

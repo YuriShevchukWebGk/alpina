@@ -51,7 +51,6 @@
         if(!$USER->IsAdmin()){
             $searchFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
         }
-       // arshow($searchFilter);
         $APPLICATION->IncludeComponent(
             "bitrix:catalog.section",
             "found_books",

@@ -30,7 +30,6 @@
 
     <?}?>
 <?
-    //arShow();
 ?>
 
 <div class="wrapperCategor ComingSoonCategor">
@@ -43,7 +42,6 @@
 
         <div class="contentWrapp">
             <p class="titleMain"><?=($arResult["NAME"])?$arResult["NAME"]:GetMessage("COMING_SON")?></p>
-             <?//arshow($arResult)?>
 
 
 
@@ -74,14 +72,12 @@
                     <?foreach ($arResult["ITEMS"] as $arItem)
 
                         {   //if ($arItem["ID"] == "5933")
-                            //arshow($arItem["PROPERTIES"]["spec_price"]);
                             $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                             foreach ($arItem["PRICES"] as $code => $arPrice)
                             {
                             ?>
                             <li>
                                 <div class="categoryBooks">
-                                    <?//arshow($arItem["DETAIL_PICTURE"]);?>
                                     <div class="sect_badge">
                                         <? if (/*($SavingsDiscount > 0) && */($arItem["PROPERTIES"]["discount_ban"]["VALUE"] != "Y") && $arItem['PROPERTIES']['spec_price']['VALUE'] )
                                             {
@@ -248,7 +244,6 @@
 </div>
 <!-- GdeSlon -->
 <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
-<?//arshow($arResult, true);?>
 <?/* Получаем бестселлеры от RetailRocket */
 global $arrFilterPersonal;
 if (isset($_COOKIE["rrpusid"])){
