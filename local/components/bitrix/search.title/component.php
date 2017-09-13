@@ -73,6 +73,7 @@ if(
         "order"  => array("UF_PAGE_VIEWS_GA" => "ASC")
     ));
     $result = new CDBResult($result, $table_id);
+
     while ($search_tip = $result->Fetch()) {
         $arResult["CATEGORIES"][$i]["ITEMS"][] = array(
             "NAME"          => $search_tip['UF_TITLE_REAL'],

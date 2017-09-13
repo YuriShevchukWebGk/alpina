@@ -358,7 +358,7 @@ endif;?>
 
 	</div>
 <?*/
-//arshow(count($arResult["SEARCH"]));?>
+?>
 <div class="searchWrap">
     <div class="catalogWrapper">
                 <?$APPLICATION->IncludeComponent("bitrix:search.title", "search_form", Array(
@@ -377,7 +377,7 @@ endif;?>
         "USE_LANGUAGE_GUESS" => "Y",    // Включить автоопределение раскладки клавиатуры
         ),
         false
-        );?>    
+        );?>
     </div>
 </div>
 
@@ -391,7 +391,7 @@ endif;?>
                 <?if(is_object($arResult["NAV_RESULT"])):?>
                     <span><?echo $arResult["NAV_RESULT"]->SelectedRowsCount()." результатов"?></span>
                 <?endif;?>
-                </p>    
+                </p>
             </div>
         </div>
 
@@ -400,12 +400,10 @@ endif;?>
             <div class="searchWidthWrapper">
                 <?foreach ($arResult["SEARCH"] as $arSearch)
                 {
-                    //arshow($arSearch);
                     $item = CIBlockElement::GetList (array(), array("ID"=>$arSearch["ITEM_ID"]), false, false, array("ID", "PROPERTY_AUTHORS", "DETAIL_PICTURE"))->Fetch();
-                    //arshow($item);
                     $price = CPrice::GetBasePrice($arSearch["ITEM_ID"]);
                     $pict = CFile::ResizeImageGet($item["DETAIL_PICTURE"], array('width'=>165, 'height'=>233), BX_RESIZE_IMAGE_EXACT, true);
-                    
+
                 //if ($price["PRICE"] > 0)
                 //{?>
                 <div class="searchBook">
@@ -422,14 +420,14 @@ endif;?>
                         <p class="price"><?=$price["PRICE"]?> руб.</p>
                         <?}?>
                         <p class="description"><?=$arSearch["BODY"]?></p>
-                        <a href="<?=$arSearch["URL_WO_PARAMS"].'?action=ADD2BASKET&id='.$arSearch['ITEM_ID']?>" 
+                        <a href="<?=$arSearch["URL_WO_PARAMS"].'?action=ADD2BASKET&id='.$arSearch['ITEM_ID']?>"
                         onclick="addtocart(<?=$arSearch["ITEM_ID"];?>, '<?=$arSearch["TITLE"];?>');return false;">
                         <p class="basket">В корзину</p>
                         </a>
                     </div>
                 </div>
                 <?//}
-                }?>   
+                }?>
             </div>
             <a href="#"><p class="showMore">Показать ещё</p></a>
         </div>
@@ -447,72 +445,72 @@ endif;?>
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
                             <li>
                                 <div class="">
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
                             <li>
                                 <div class="">
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
                             <li>
                                 <div class="">
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
                             <li>
                                 <div class="">
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
                             <li>
                                 <div class="">
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
                             <li>
                                 <div class="">
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
                             <li>
                                 <div class="">
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
                             <li>
                                 <div class="">
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
                             <li>
                                 <div class="">
                                     <img src="/img/catalogBook.png" class="bookImg">
                                     <p class="bookName">Развитие памяти по методу котиков</p>
                                     <p class="bookPrice">333 руб.</p>
-                                </div>    
+                                </div>
                             </li>
-                            
+
                         </ul>
                         <img src="/img/arrowLeft.png" class="left">
                         <img src="/img/arrowRight.png" class="rigth">
@@ -523,7 +521,7 @@ endif;?>
 
 
 
-            </div>    
+            </div>
         </div>
 <?}
 else
@@ -548,72 +546,72 @@ else
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li>
                                     <div class="">
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li>
                                     <div class="">
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li>
                                     <div class="">
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li>
                                     <div class="">
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li>
                                     <div class="">
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li>
                                     <div class="">
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li>
                                     <div class="">
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li>
                                     <div class="">
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
                                 <li>
                                     <div class="">
                                         <img src="/img/catalogBook.png" class="bookImg">
                                         <p class="bookName">Развитие памяти по методу котиков</p>
                                         <p class="bookPrice">333 руб.</p>
-                                    </div>    
+                                    </div>
                                 </li>
-                                
+
                             </ul>
                             <img src="/img/arrowLeft.png" class="left">
                             <img src="/img/arrowRight.png" class="rigth">
@@ -622,7 +620,9 @@ else
                 </div>
                 <?*/
                 $arrFilter = array('PROPERTY_recommended_book' => '243');
-                
+                if(!$USER->IsAdmin()){
+                    $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+                }
                 $APPLICATION->IncludeComponent("bitrix:catalog.section", "interesting_items", Array(
         "IBLOCK_TYPE_ID" => "catalog",
         "IBLOCK_ID" => "4",    // Инфоблок
@@ -753,16 +753,16 @@ $(document).ready(function(){
         {
             if($(this).length > 0)
             {
-                $(this).html(truncate($(this).html(), 25));    
-            }    
+                $(this).html(truncate($(this).html(), 25));
+            }
         });
-    
+
     $(".descrWrap .description").each(function()
         {
             if($(this).length > 0)
             {
-                $(this).html(truncate($(this).html(), 130));    
-            }    
+                $(this).html(truncate($(this).html(), 130));
+            }
         });
     <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
@@ -776,32 +776,32 @@ $(document).ready(function(){
                 $.get(window.location.href+'&PAGEN_<?=$navnum?>='+page, function(data) {
                     var next_page = $('.searchWidthWrapper .searchBook', data);
                     $('.searchWidthWrapper').append(next_page);
-                    page++;            
+                    page++;
                 })
-                .done(function() 
+                .done(function()
                 {
                     $.fancybox.hideLoading();
                     $(".descrWrap .bookNames").each(function()
                     {
                         if($(this).length > 0)
                         {
-                            $(this).html(truncate($(this).html(), 25));    
-                        }    
+                            $(this).html(truncate($(this).html(), 25));
+                        }
                     });
                     $(".descrWrap .description").each(function()
                     {
                         if($(this).length > 0)
                         {
-                            $(this).html(truncate($(this).html(), 130));    
-                        }    
+                            $(this).html(truncate($(this).html(), 130));
+                        }
                     });
-    
+
                 });
                 if (page == maxpage) {
                     $('.showMore').hide();
                     //$('.phpages').hide();
                 }
                 return false;
-            });<??>    
+            });<??>
 });
 </script>

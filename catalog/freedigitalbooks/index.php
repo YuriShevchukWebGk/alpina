@@ -15,24 +15,29 @@ switch ($_REQUEST["SORT"])
     case "DATE":
     $sort = "PROPERTY_YEAR";
     break;
-    
+
     case "PRICE":
     $sort = "CATALOG_PRICE_1";
     break;
-    
+
     case "POPULARITY":
     $sort = "PROPERTY_POPULARITY";          //PROPERTY_POPULARITY
     $order = "asc";
     break;
-    
+
     default:
     //$sort = "PROPERTY_SALES_CNT";
 	$sort = "PROPERTY_POPULARITY";
     $order = "desc";
 }
 global $arrFilter;
-$arrFilter = array('PROPERTY_appstore' => 231, ">DETAIL_PICTURE" => 0, '!PROPERTY_STATE' => 23);
-?>  
+if(!$USER->IsAdmin()){
+    $arrFilter = array('PROPERTY_appstore' => 231, ">DETAIL_PICTURE" => 0, '!PROPERTY_STATE' => 23, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+} else {
+    $arrFilter = array('PROPERTY_appstore' => 231, ">DETAIL_PICTURE" => 0, '!PROPERTY_STATE' => 23);
+}
+
+?>
 <?$APPLICATION->IncludeComponent("bitrix:catalog.section", "freedigitalbooks", Array(
 	"ACTION_VARIABLE" => "action",	// Название переменной, в которой передается действие
 		"ADD_PICT_PROP" => "-",	// Дополнительная картинка основного товара

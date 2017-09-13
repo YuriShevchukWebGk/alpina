@@ -15,16 +15,16 @@ switch ($_REQUEST["SORT"])
     case "DATE":
     $sort = "PROPERTY_YEAR";
     break;
-    
+
     case "PRICE":
     $sort = "CATALOG_PRICE_1";
     break;
-    
+
     case "POPULARITY":
     $sort = "PROPERTY_POPULARITY";          //PROPERTY_POPULARITY
     $order = "asc";
     break;
-    
+
     default:
     //$sort = "PROPERTY_SALES_CNT";
 	$sort = "PROPERTY_POPULARITY";
@@ -36,11 +36,16 @@ if (isset($_SESSION['retailRocketRecs'])){
 	$recsArray = json_decode($stringRecs);
 	$arrFilter = Array('ID' => $recsArray);
 }
-if ($arrFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем 
+if ($arrFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем
 	array_splice($arrFilter['ID'], 15);
 } else { // Если рекомендаций нет, подставляем вручную созданные*/
 	$arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
-}?>  
+}?>
+<?
+if(!$USER->IsAdmin()){
+    $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+}
+?>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".titleMain").html("С заказанными книгами читают");

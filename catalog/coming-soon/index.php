@@ -16,24 +16,29 @@ switch ($_REQUEST["SORT"])
     case "DATE":
     $sort = "PROPERTY_YEAR";
     break;
-    
+
     case "PRICE":
     $sort = "CATALOG_PRICE_1";
     break;
-    
+
     case "POPULARITY":
     $sort = "PROPERTY_POPULARITY";          //PROPERTY_POPULARITY
     $order = "asc";
     break;
-    
+
     default:
     $sort = "PROPERTY_SOON_DATE_TIME";
     $order = "asc";
-}?>  
+}?>
 
 <?
 global $arrFilter_soon;
-$arrFilter_soon = array('PROPERTY_STATE' => '22', '!PROPERTY_hide_soon_VALUE' => 'Y', '!PROPERTY_reissue_VALUE' => 'Y');?>
+if(!$USER->IsAdmin()){
+    $arrFilter_soon = array('PROPERTY_STATE' => '22', '!PROPERTY_hide_soon_VALUE' => 'Y', '!PROPERTY_reissue_VALUE' => 'Y', "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+} else {
+    $arrFilter_soon = array('PROPERTY_STATE' => '22', '!PROPERTY_hide_soon_VALUE' => 'Y', '!PROPERTY_reissue_VALUE' => 'Y');
+}
+?>
 <?$APPLICATION->IncludeComponent("bitrix:catalog.section", "coming-soon", Array(
 	"ACTION_VARIABLE" => "action",	// Название переменной, в которой передается действие
 		"ADD_PICT_PROP" => "-",	// Дополнительная картинка основного товара

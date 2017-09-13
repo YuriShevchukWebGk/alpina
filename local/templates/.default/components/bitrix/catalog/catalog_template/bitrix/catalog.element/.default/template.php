@@ -61,21 +61,21 @@
         });
 
         docReadyComponent(<?= $arResult["ID"] ?>);
-		
+
 		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"]) && !$checkMobile) {?>
 			var firstBookName = '<?=$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]?>';
 			var secondBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
 			var thirdBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
-			
+
 			var mainPicture = '<?=$arResult["PICTURE"]["src"]?>';
 			var secondBookImg = '<?=$arResult["SECOND_PICTURE"];?>';
 			var thirdBookImg = '<?=$arResult["THIRD_PICTURE"];?>';
-			
+
 			$('.multipleBooks li').click(function() {
 				if ($(this).is(':not(.active')) {
 					$('.multipleBooks .active').removeClass('active');
 					$(this).addClass("active");
-					
+
 					if ($(this).attr("data-book") == 2) {
 						$("h1 .secondPart").text(secondBookName);
 						$(".bookPreviewLink img").attr('src',secondBookImg);
@@ -110,7 +110,7 @@
 	<?}?>
 </script>
 
-<script src="/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js')?>"></script> 
+<script src="/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/local/templates/.default/components/bitrix/catalog/catalog_template/bitrix/catalog.element/.default/certificate_script.js')?>"></script>
 
 <?if (!empty($arResult["PROPERTIES"]["colors"]["VALUE"]) && $arResult["PROPERTIES"]["colors"]["VALUE"] != ',') {
 	$arResult["PROPERTIES"]["colors"]["VALUE"] = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
@@ -133,21 +133,21 @@
 
     $bgcolors = array();
     for ($i = 0; $i < $colors_to_show; $i++) {
-        $bgcolors[] = "#".$colors_key[$i];   
-        $hexToRgbMess = hexToRgb($bgcolors[$i]); 
+        $bgcolors[] = "#".$colors_key[$i];
+        $hexToRgbMess = hexToRgb($bgcolors[$i]);
         $mincolor[$i]['sum'] = $hexToRgbMess['red'] + $hexToRgbMess['green'] + $hexToRgbMess['blue'];
         $mincolor[$i]['color'] = "#".$colors_key[$i];
-    }     
+    }
     $mincolor = min($mincolor);
 
     $m = 0;
-    $hexToRgbMess = hexToRgb($bgcolors[$m]); 
+    $hexToRgbMess = hexToRgb($bgcolors[$m]);
     while ($hexToRgbMess['red'] > 190 && $hexToRgbMess['green'] > 190 && $hexToRgbMess['blue'] > 190 || ($hexToRgbMess['red'] > 200 && $hexToRgbMess['green'] > 200 && $hexToRgbMess['blue'] < 100) || ($hexToRgbMess['red'] > 190 && $hexToRgbMess['green'] < 90 && $hexToRgbMess['blue'] < 90)) {
-        $m++;                                    
+        $m++;
         $bgcolors[0] = $bgcolors[$m];
         $hexToRgbMess = hexToRgb($bgcolors[$m]);
     }
-    $hexToRgbMess = hexToRgb($bgcolors[$m]);     
+    $hexToRgbMess = hexToRgb($bgcolors[$m]);
     $bgsum = $hexToRgbMess['red'] + $hexToRgbMess['green'] + $hexToRgbMess['blue'];
 
     if ($bgsum < 20)
@@ -178,7 +178,7 @@
     .basketIcon {
         background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
         opacity: 0.8;
-    }		
+    }
 </style>
 
 <?
@@ -192,7 +192,7 @@
         'TEMPLATE_THEME' => $this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].'/style.css',
         'TEMPLATE_CLASS' => 'bx_'.$arParams['TEMPLATE_THEME'],
         'TEMPLATE_LIBRARY' => $templateLibrary,
-        'CURRENCIES' => $currencyList,    
+        'CURRENCIES' => $currencyList,
         'OG_IMAGE' => $arResult["PICTURE"]["src"]
     );
     unset($currencyList, $templateLibrary);
@@ -233,9 +233,9 @@
         'OFFER_GROUP' => $strMainID.'_set_group_',
         'BASKET_PROP_DIV' => $strMainID.'_basket_prop',
     );
-?>        
-<div class="elementDescriptWrap" itemscope itemtype="https://schema.org/Book">            
-    <meta itemprop="inLanguage" content="ru-RU"/>    
+?>
+<div class="elementDescriptWrap" itemscope itemtype="https://schema.org/Book">
+    <meta itemprop="inLanguage" content="ru-RU"/>
     <div class="certificate_popup" style="display:none">
         <form id="certificate_form">
             <div class="certificate_buy_type">
@@ -246,41 +246,41 @@
             </div>
             <div class="popup_form_data">
                 <div class="natural_person active_certificate_block">
-                    <input type='text' placeholder="Имя" name="natural_name" id="natural_name">                
-                    <br>                                                                                                
-                    <input type='email' placeholder="Email" name="natural_email" id="natural_email">    
-                    <br>                                   
+                    <input type='text' placeholder="Имя" name="natural_name" id="natural_name">
+                    <br>
+                    <input type='email' placeholder="Email" name="natural_email" id="natural_email">
+                    <br>
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
                 <div class="legal_person">
-                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">                
+                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">
                     <br>
-                    <input type='email' placeholder="Email" name="legal_email" id="legal_email">    
-                    <br>                                                                                        
-                    <input type='text' placeholder="ИНН" name="inn" id="inn">    
+                    <input type='email' placeholder="Email" name="legal_email" id="legal_email">
                     <br>
-                    <input type='text' placeholder="КПП" name="kpp" id="kpp">    
+                    <input type='text' placeholder="ИНН" name="inn" id="inn">
                     <br>
-                    <input type='text' placeholder="БИК" name="bik" id="bik">    
+                    <input type='text' placeholder="КПП" name="kpp" id="kpp">
                     <br>
-                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">    
+                    <input type='text' placeholder="БИК" name="bik" id="bik">
                     <br>
-                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">    
+                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
                     <br>
-                    <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">    
+                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">
                     <br>
-                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">    
-                    <br>                          
+                    <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">
+                    <br>
+                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">
+                    <br>
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
             </div>
-            <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>      
-            <input type="hidden" name="certificate_quantity" value="1"/>                      
-            <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>    
+            <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
+            <input type="hidden" name="certificate_quantity" value="1"/>
+            <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>
             <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
         </form>
         <div class="certificate_popup_close closeIcon"></div>
-        <div class="rfi_block">              
+        <div class="rfi_block">
         <?
             $APPLICATION->IncludeComponent(
                 "webgk:rfi.widget",
@@ -299,7 +299,7 @@
             );
         ?>
         </div>
-    </div>     
+    </div>
     <div class="leftColumn">
         <div class="elementMainPict">
             <div class="badge">
@@ -324,7 +324,7 @@
 					<?} else {?>
                         <a href="<?= $arResult["MAIN_PICTURE"] ?>" class="bookPreviewLink">
 					<?}?>
-					<p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>              
+					<p class="bookPreviewButton bookPreviewLink"><?= GetMessage("BROWSE_THE_BOOK") ?></p>
 				<?} else {?>
 					<a href="#" class="bookPreviewLink" onclick="return false;">
 				<?}?>
@@ -334,7 +334,7 @@
 				<?} else {?>
 					<img src="/images/no_photo.png">
 				<?}?>
-				
+
 				<?if(!empty($arResult["PROPERTIES"]["number_volumes"]["VALUE"])) {?>
 					<span class="volumes"><?= $arResult["PROPERTIES"]["number_volumes"]["VALUE"] ?></span>
 				<?}?>
@@ -366,7 +366,7 @@
                     </span>
                 </div>
 			<?}?>
-				
+
 			<?$frame = $this->createFrame()->begin();?>
                 <div class="no-mobile ga-views">
                     <img src="/img/eye_big.png?1" align="center" alt="Просмотров за сутки" />
@@ -374,7 +374,7 @@
                     <span class="ttip"><?=GetMessage("VIEWS_A_DAY");?></span>
                 </div>
 			<?$frame->end();?>
-			
+
             <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal'  && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
                 <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE'])) {?>
                     <br />
@@ -542,7 +542,7 @@
                 <? $authors .= $author_fetched_list["NAME"] . ", ";?>
                 <?}?>
         </div>
-        <!-- /noindex -->      
+        <!-- /noindex -->
         <?##Спонсоры книги?>
     </div>
     <div class="rightColumn">
@@ -603,7 +603,7 @@
                                 if (round(($arPrice["VALUE"]) * (1 - $discount / 100), 2) . " " . GetMessage("ROUBLES") == $arPrice["PRINT_VALUE"]) {
                                     $discount = false;
                                 };
-                                
+
                                 if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) {
 									if ($arResult['PROPERTIES']['spec_price']['VALUE']) {?>
 										<div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span></div>
@@ -621,7 +621,7 @@
                                             if (strlen (stristr($newPrice, ".")) == 2) {
                                                 $newPrice .= "0";
                                             }
-                                    }?> 
+                                    }?>
                                     <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                     <?} else if ($discount) {
                                         $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
@@ -639,7 +639,7 @@
                                     <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                     <?}?>
                                 <?} else {?>
-                                    <p class="newPrice"><?= $arPrice["VALUE"] ?> <span></span></p> 
+                                    <p class="newPrice"><?= $arPrice["VALUE"] ?> <span></span></p>
                                 <?}?>
 
                             <?if ($printDiscountText != '' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {
@@ -648,7 +648,7 @@
                             <button class="inStockCirlce"></button><span>&nbsp;<?= GetMessage("IN_STOCK") ?></span>
                             <?}
                         } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
-                        <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />   
+                        <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/PreOrder">
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
                         <p class="newPriceText"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
@@ -687,14 +687,14 @@
                                         $newPrice .= "0";
                                 }?>
                                 <p class="newPrice"><?= $newPrice ?> <span></span></p>
-                                <?}?>  
+                                <?}?>
                             <button style="width:10px; height:10px; background:rgba(255, 255, 0, 0.75); box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.12); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button><span>&nbsp;<?= GetMessage("ADD_TO_PREORDER") ?></span>
                             <?}?>
                         <?} else {?>
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/OutOfStock">
                         <?$StockInfo = "OutOfStock";?>
-                        <?foreach ($arResult["PRICES"] as $code => $arPrice) {                    
+                        <?foreach ($arResult["PRICES"] as $code => $arPrice) {
                             if ($arPrice["DISCOUNT_DIFF"]) {?>
                                 <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                             <?}?>
@@ -711,7 +711,7 @@
                                 }?>
                                 <p class="newPrice"><span><?= $newPrice ?></span> <span></span></p>
                                 <?}?>
-                            <?}?> 
+                            <?}?>
                         <p class="newPrice notAvailable" style="font-size:28px;"><?= GetMessage("NOT_IN_STOCK") ?></p>
                         <?}?>
                     <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
@@ -738,7 +738,7 @@
                         </div>
                     </form>
                     <?}?>
-            </div>                   
+            </div>
             <?if (!empty ($arResult["PRICES"]) ) {?>
                 <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                     <div class="wrap_prise_bottom">
@@ -749,23 +749,23 @@
                                     ? 1
                                     : $arResult['CATALOG_MEASURE_RATIO']
                                 ); ?>">
-                            <a href="#" onclick="changeQ('+');return false;" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>     
+                            <a href="#" onclick="changeQ('+');return false;" class="plus" id="<?= $arResult['QUANTITY_UP']; ?>">+</a>
                         </span>
-                        <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>                     
+                        <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>
                             <?
-                            global $USER;                          
-                            ?> 
+                            global $USER;
+                            ?>
                             <a href="javascript:void(0);" onclick="buy_certificate_popup(); return false;">
                                 <p class="inBasket"><?= GetMessage("CT_BCE_CATALOG_BUY") ?></p>
                             </a>
-                            <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>    
+                            <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                             <?} elseif ($arResult["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
                             <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
                                 <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
-                                    <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p> 
-                                    <?} else {?>  
-                                    <p class="inBasket toPreorder"><?= GetMessage("ADD_TO_PREORDER_FULL") ?></p>    
-                                    <?}?>    
+                                    <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p>
+                                    <?} else {?>
+                                    <p class="inBasket toPreorder"><?= GetMessage("ADD_TO_PREORDER_FULL") ?></p>
+                                    <?}?>
                             </a>
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                             <?} else {?>
@@ -784,29 +784,29 @@
                     if ($arResult[ID] == $bought[$arResult[ID]][ID]) {
                         echo '<center><span style="color: #424c4f;display: inline-block;font-family: \'Walshein_regular\';font-size: 14px;margin-bottom: 5px;line-height: 24px;padding: 4px 22px;background: #fcfcfc none repeat scroll 0 0;width: 220px;"><img src="/images/info.png" align="left" style="margin-left:-10px;margin-top:12px;" />Вы уже купили эту книгу '.$bought[$arResult[ID]]["DATE"].'</span></center>';
                     }
-            }?>                            
+            }?>
         </div>
 		<?$frame->beginStub();?>
 			<div class="priceBasketWrap paperVersionWrap">
 				<div class="wrap_prise_top">
 					<p class="newPrice"><?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?> <span></span></p>
-					
+
 					<span class="sale_price"></span><br>
-					
+
 					<button class="inStockCirlce"></button>
-					
+
 					<span>&nbsp;В наличии</span>
-				</div>            
-				
+				</div>
+
 				<div class="wrap_prise_bottom">
 					<span class="item_buttons_counter_block">
 
 						<a href="#" class="minus">−</a>
 						<input type="text" class="tac transparent_input" value="1">
-						<a href="#" class="plus">+</a>     
+						<a href="#" class="plus">+</a>
 						</span>
 					<a href="#">
-						<p class="inBasket">В корзину</p> 
+						<p class="inBasket">В корзину</p>
 					</a>
 				</div>
 				<div class="priceLoading">
@@ -814,7 +814,7 @@
 				</div>
 			</div>
         <?$frame->end();?>
-		
+
 		<?if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
 			<form style="margin-top:27px;text-align:center;" class="no-mobile">
 
@@ -827,13 +827,13 @@
 					<p>
 						<span class="subscribeDesc">Впишите свой <b>e-mail</b>, чтобы получить письмо, как только книгу можно будет заказать</span>
 					</p>
-					<input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$mail;?>" name="email" class="subscribeEmail"/> 
+					<input data-book_id="<?=$arResult['ID']?>" type="text" value="<?=$mail;?>" name="email" class="subscribeEmail"/>
 					<input type="button" onclick="newSubFunction(this);" class="getSubscribe" id="outOfStockClick" value="Подписаться" style="border: 2px solid #c7a271;color: #c7a271; background-color: #fff; padding: 5px 0;"/>
-					
+
 				</div>
-			</form> 
+			</form>
 		<?}?>
-		
+
         <?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <!--noindex-->
             <div class="priceBasketWrap digitalVersionWrap" style="display:none;">
@@ -877,7 +877,7 @@
             </form>
             <div class="CloseQuickOffer"><img src="/img/catalogLeftClose.png"></div>
         </div>
-		
+
 		<?$frame = $this->createFrame()->begin();?>
         <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
             <?
@@ -908,7 +908,7 @@
             </ul>
 		<?}?>
 		<?$frame->end();?>
-		
+
         <div class="typesOfProduct">
             <?if (!empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) ) {?>
                 <!--noindex--><div class="productType" onclick="dataLayer.push({event: 'otherEvents', action: 'clickAppStore', label: '<?= $arResult['NAME'] ?>'});">
@@ -937,9 +937,12 @@
         <?if(!empty($arResult['PROPERTIES']['AUTHORS']['VALUE'][0])){?>
             <? global $author_filter;
                 $author_filter = array("PROPERTY_AUTHOR_LINK" => $arResult['PROPERTIES']['AUTHORS']['VALUE'][0]);
+                if(!$USER->IsAdmin()){
+                    $author_filter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+                }
                 $APPLICATION->IncludeComponent(
-	"bitrix:news.list", 
-	"lections_announces", 
+	"bitrix:news.list",
+	"lections_announces",
 	array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"ADD_SECTIONS_CHAIN" => "Y",
@@ -1076,8 +1079,8 @@
 				<?global $reviewsFilter;
 				$reviewsFilter = array ("PROPERTY_BOOK" => $arResult["ID"]);
 				$APPLICATION->IncludeComponent(
-				"bitrix:catalog.section", 
-				"this_book_reviews", 
+				"bitrix:catalog.section",
+				"this_book_reviews",
 				array(
 					"IBLOCK_TYPE_ID" => "catalog",
 					"IBLOCK_ID" => "31",
@@ -1211,7 +1214,7 @@
 				);?>
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
-            </div>  
+            </div>
             <?$videosCount  = 0;
                 foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
                     $videosCount++;
@@ -1240,7 +1243,7 @@
 
                 echo "</div>";
             }?>
-        </div>                   
+        </div>
         <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
             <div class="recenzion" id="prodBlock2">
                 <?foreach ($arResult["REVIEWS"] as $reviewList) {?>
@@ -1318,8 +1321,8 @@
 
 		<div class="percentBlock">
 			<?$APPLICATION->IncludeComponent(
-			"bitrix:main.include", 
-			".default", 
+			"bitrix:main.include",
+			".default",
 			array(
 			"AREA_FILE_SHOW" => "file",
 			"AREA_FILE_SUFFIX" => "inc",
@@ -1334,8 +1337,8 @@
 
 		<div class="TwentypercentBlock">
 			<?$APPLICATION->IncludeComponent(
-			"bitrix:main.include", 
-			".default", 
+			"bitrix:main.include",
+			".default",
 			array(
 			"AREA_FILE_SHOW" => "file",
 			"AREA_FILE_SUFFIX" => "inc",
@@ -1561,8 +1564,8 @@
 		$arFilter = array('ID' => $lastidids, ">DETAIL_PICTURE" => 0);
 
 		$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"viewed_books", 
+	"bitrix:catalog.section",
+	"viewed_books",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",
@@ -1699,8 +1702,8 @@
         $authBooksFilter = array('PROPERTY_AUTHORS' => $arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0], "!ID" => $arResult["ID"]);
 
         $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"this_author_books", 
+	"bitrix:catalog.section",
+	"this_author_books",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",

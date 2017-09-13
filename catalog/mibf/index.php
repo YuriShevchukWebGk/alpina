@@ -21,7 +21,7 @@ $ids = array(
 //348247, //аутентичность
 337884,
 340833,
-188813, 
+188813,
 80478,
 341960,
 188808,
@@ -31,10 +31,15 @@ $ids = array(
 );
 
 global $arrFilter_choice;
-$arrFilter_choice = array('ID' => $ids);?>
+if(!$USER->IsAdmin()){
+    $arrFilter_choice = array('ID' => $ids, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+} else {
+    $arrFilter_choice = array('ID' => $ids);
+}
+?>
 <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"mibf", 
+	"bitrix:catalog.section",
+	"mibf",
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_PICT_PROP" => "-",

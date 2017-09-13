@@ -15,27 +15,32 @@ switch ($_REQUEST["SORT"])
     case "DATE":
     $sort = "PROPERTY_YEAR";
     break;
-    
+
     case "PRICE":
     $sort = "CATALOG_PRICE_1";
     break;
-    
+
     case "POPULARITY":
     $sort = "PROPERTY_POPULARITY";          //PROPERTY_POPULARITY
     $order = "asc";
     break;
-    
+
     default:
     $sort = "PROPERTY_STATEDATE";
     $order = "desc";
-}?>  
+}?>
 <?
 global $arrFilter_mustread;
-$arrFilter_mustread = array('PROPERTY_must_read' => '242');
+if(!$USER->IsAdmin()){
+    $arrFilter_mustread = array('PROPERTY_must_read' => '242', "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+} else {
+    $arrFilter_mustread = array('PROPERTY_must_read' => '242');
+}
+
 ?>
 <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"mustread", 
+	"bitrix:catalog.section",
+	"mustread",
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_PICT_PROP" => "-",

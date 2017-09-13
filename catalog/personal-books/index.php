@@ -15,16 +15,16 @@ switch ($_REQUEST["SORT"])
     case "DATE":
     $sort = "PROPERTY_YEAR";
     break;
-    
+
     case "PRICE":
     $sort = "CATALOG_PRICE_1";
     break;
-    
+
     case "POPULARITY":
     $sort = "PROPERTY_shows_a_day";
     $order = "desc";
     break;
-    
+
     default:
 	$sort = "PROPERTY_shows_a_day";
     $order = "desc";
@@ -38,11 +38,14 @@ if (isset($_COOKIE["rcuid"])){
 		$arrFilter[ID][] = $val[ItemId];
 	}
 }
-if ($arrFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем 
+if ($arrFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем
 	array_splice($arrFilter['ID'], 15);
 } else { // Если рекомендаций нет, подставляем вручную созданные*/
 	$arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
-}?>  
+}
+if(!$USER->IsAdmin()){
+    $arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+}?>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".titleMain").html("Рекомендуем лично вам");

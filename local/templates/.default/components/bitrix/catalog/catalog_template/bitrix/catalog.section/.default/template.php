@@ -44,8 +44,8 @@
 
 
             <?$APPLICATION->IncludeComponent(
-    "bitrix:news.list", 
-    "section_banners", 
+    "bitrix:news.list",
+    "section_banners",
     array(
         "ACTIVE_DATE_FORMAT" => "d.m.Y",
         "ADD_SECTIONS_CHAIN" => "Y",
@@ -112,26 +112,29 @@
             <p class="grayTitle">Самые популярные товары в категории</p>
 
             <?
-                /*if (strpos($APPLICATION->GetCurPage(),"/books/") === false) 
+                /*if (strpos($APPLICATION->GetCurPage(),"/books/") === false)
                 {
                 global $arrFilter;
                 $strQueryText = QueryGetData("api.retailrocket.ru",80,"/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/".$arResult['ID'],"",$error_number,$error_text);
-                if ($strQueryText != '[]' && strpos($strQueryText,"error") === false) 
+                if ($strQueryText != '[]' && strpos($strQueryText,"error") === false)
                 {
                 $pattern_replace = array('/\[/', '/\]/', '/,/');
                 $replace = array('', '', ', ');
                 $printid = preg_replace($pattern_replace, $replace, $strQueryText);
                 $printid2 = array_slice(explode(", ", $printid),0,5);
-                foreach ($printid2 as $rec_book) 
+                foreach ($printid2 as $rec_book)
                 {
                 $arrFilter['ID'][] = $rec_book;
                 }
                 }*/
                 global $BestsellFilter;
                 $BestsellFilter = array(">CATALOG_PRICE_1" => 0);
+                if(!$USER->IsAdmin()){
+                    $BestsellFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+                }
                 $APPLICATION->IncludeComponent(
-                    "bitrix:catalog.section", 
-                    "category.recs", 
+                    "bitrix:catalog.section",
+                    "category.recs",
                     array(
                         "IBLOCK_TYPE" => "catalog",
                         "IBLOCK_ID" => "4",
@@ -246,14 +249,14 @@
                 <?if ($arQuote["DETAIL_PICTURE"]){?>
                     <div class="photo">
                     <?$quoteImg = CFile::ResizeImageGet($arQuote["DETAIL_PICTURE"],array("width"=>288,"height"=>294), BX_RESIZE_IMAGE_PROPORTIONAL); ?>
-                        <img src="<?=$quoteImg["src"]?>">    
+                        <img src="<?=$quoteImg["src"]?>">
                     </div>
                     <?}?>
                     <p class="text">"<?=$arQuote["DETAIL_TEXT"]?>"</p>
                     <p class="autor"><?=$arQuote["PROPERTY_AUTHOR_NAME"]?></p>
                 </div>
                 <?}?>
-             <?// блок с цитатой END?>   
+             <?// блок с цитатой END?>
             <ul class="filterParams">
                 <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])){?>class="active"<?}?>><p data-id="1">
                         <?if ($_REQUEST['SORT'] == 'POPULARITY' && $_REQUEST["DIRECTION"] == 'ASC')
@@ -273,9 +276,9 @@
                             <?}
                             else
                             {?>
-                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=DATE&DIRECTION=ASC" onclick="update_sect_page('date', 'asc', '<?=$arParams["SECTION_CODE"]?>'); return false;">По дате выхода</a>        
+                            <a href="<?=$APPLICATION->GetCurPage();?>?SORT=DATE&DIRECTION=ASC" onclick="update_sect_page('date', 'asc', '<?=$arParams["SECTION_CODE"]?>'); return false;">По дате выхода</a>
                             <?}?>
-                    </p>                                                                                     
+                    </p>
                 </li>
                 <li <?if ($_REQUEST['SORT'] == 'PRICE'){?>class="active"<?}?>><p data-id="3">
                         <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC')
@@ -298,7 +301,7 @@
                             //arshow($arItem["PROPERTIES"]["spec_price"]);
                             $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>142, 'height'=>210), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                             foreach ($arItem["PRICES"] as $code => $arPrice)
-                            { 
+                            {
                             ?>
                             <li>
                                 <div class="categoryBooks">
@@ -321,7 +324,7 @@
                                                         echo '<img class="discount_badge" src="/img/40percent_black.png">';
                                                         break;
 
-                                                } 
+                                                }
                                         }?>
                                     </div>
                                     <?
@@ -334,25 +337,25 @@
                                             <?
                                             if ($pict["src"])
                                             {
-                                            ?>               
+                                            ?>
                                                 <img src=<?=$pict["src"]?>>
                                             <?
                                             }
                                             else
                                             {
                                             ?>
-                                                <img src="/images/no_photo.png" width="142" height="142">    
+                                                <img src="/images/no_photo.png" width="142" height="142">
                                             <?
                                             }
                                             ?>
-                                        </div> 
+                                        </div>
                                         <p class="nameBook" title="<?=$arItem["NAME"]?>"><?=$arItem["NAME"]?></p>
                                         <p class="bookAutor"><?=$curr_author["NAME"]?></p>
                                         <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                                         <?
                                         if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)
                                         {
-                                        
+
                                             if ($arPrice["DISCOUNT_VALUE_VAT"])
                                             {
                                             ?>
@@ -370,24 +373,24 @@
                                             <?if ($dbBasketItems["QUANTITY"] == 0) {?>
                                                 <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); return false;">
                                                     <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
-                                                        <p class="basketBook"><?=GetMessage("ADD_IN_BASKET")?></p> 
+                                                        <p class="basketBook"><?=GetMessage("ADD_IN_BASKET")?></p>
                                                     <?} else {?>
-                                                        <p class="basketBook"><?=GetMessage("ADD_TO_PREORDER")?></p>                                                 
-                                                    <?}?>                                                     
+                                                        <p class="basketBook"><?=GetMessage("ADD_TO_PREORDER")?></p>
+                                                    <?}?>
                                                 </a>
                                             <?} else {?>
-                                                <a class="product<?=$arItem["ID"];?>" href="/personal/cart/"><p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p></a> 
+                                                <a class="product<?=$arItem["ID"];?>" href="/personal/cart/"><p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p></a>
                                             <?}
                                         }
                                         else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23)
                                         {?>
                                             <p class="priceOfBook"><?=$arItem["PROPERTIES"]["STATE"]["VALUE"]?></p>
-                                            </a>        
+                                            </a>
                                         <?}
                                         else
                                         {?>
                                             <p class="priceOfBook"><?=$arItem["PROPERTIES"]["SOON_DATE_TIME"]["VALUE"]?></p>
-                                            </a>    
+                                            </a>
                                         <?}
                                     ?>
                                     <?
@@ -398,7 +401,7 @@
                                         <?
                                         }
                                     ?>
-                                </div>        
+                                </div>
                             </li>
                             <?      //}
                             }
@@ -409,7 +412,7 @@
             <div class="wishlist_info">
                 <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
                 <span></span>
-            </div>   
+            </div>
 
 
 
@@ -426,8 +429,8 @@
 
 
         <?$APPLICATION->IncludeComponent(
-                "bitrix:catalog.section.list", 
-                "section.left.tree", 
+                "bitrix:catalog.section.list",
+                "section.left.tree",
                 array(
                     "IBLOCK_TYPE" => "catalog",
                     "IBLOCK_ID" => "4",
@@ -456,7 +459,7 @@
                     "SHOW_PARENT_NAME" => "Y"
                 ),
                 false
-            );?>        
+            );?>
 
 
 
@@ -489,7 +492,7 @@
                     var next_page = $('.otherBooks ul li', data);
                     //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
                     $('.otherBooks ul').append(next_page);
-                    page++;            
+                    page++;
                 })
             <?
             }
@@ -499,20 +502,20 @@
                     var next_page = $('.otherBooks ul li', data);
                     //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
                     $('.otherBooks ul').append(next_page);
-                    page++;            
-                })    
+                    page++;
+                })
             <?
             }
             ?>
-            .done(function() 
+            .done(function()
                 {
                     $.fancybox.hideLoading();
                     $(".nameBook").each(function()
                         {
                             if($(this).length > 0)
                             {
-                                $(this).html(truncate($(this).html(), 40));    
-                            }    
+                                $(this).html(truncate($(this).html(), 40));
+                            }
                     });
                     var otherBooksHeight = 1190 * ($(".otherBooks ul li").length / 15);
                     //var categorHeight = 2750 + 1190 * (($(".otherBooks ul li").length - 15) / 15);
@@ -538,6 +541,6 @@
             });
             <?
             }
-        ?>    
+        ?>
     });
 </script>

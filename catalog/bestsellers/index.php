@@ -15,27 +15,32 @@ switch ($_REQUEST["SORT"])
     case "DATE":
     $sort = "PROPERTY_YEAR";
     break;
-    
+
     case "PRICE":
     $sort = "CATALOG_PRICE_1";
     break;
-    
+
     case "POPULARITY":
     $sort = "PROPERTY_page_views_ga";          //PROPERTY_page_views_ga
     $order = "asc";
     break;
-    
+
     default:
     //$sort = "PROPERTY_SALES_CNT";
 	$sort = "PROPERTY_page_views_ga";
     $order = "desc";
 }
 global $arrFilter;
-$arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
-?>  
+if(!$USER->IsAdmin()){
+    $arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+} else {
+    $arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
+}
+
+?>
 <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"bestsellers", 
+	"bitrix:catalog.section",
+	"bestsellers",
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_PICT_PROP" => "-",
