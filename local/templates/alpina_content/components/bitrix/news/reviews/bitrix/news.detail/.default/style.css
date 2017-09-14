@@ -1,0 +1,9 @@
+.howToBodyWrap{background:#fff;color:#222}
+h1{font-size:38px!important;font-family:Walshein_bold;text-align:center}
+h2{font-size:28px!important;font-family:Walshein_light;text-align:center;padding-bottom:20px}
+.view-book{padding:30px 0 0}
+.view-book a{font-size:21px}
+#detailReview a{color:#00ABB8;font-family:Walshein_light;border-bottom:1px solid;}
+#detailReview a:hover{border:none}
+#detailReview{display:inline-block}
+#detailReview img{padding-right:40px}
