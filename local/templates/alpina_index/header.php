@@ -15,17 +15,8 @@
     <title><?$APPLICATION->ShowTitle()?></title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-
-    <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
-    <script type="text/javascript" src="/js/fancybox-2/helpers/jquery.fancybox-thumbs.js"></script>
-
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
     <script src="/js/fxSlider.js"></script>
-
-    <script src="/js/circle-progress.js"></script>
-    <script src="/js/jquery.appear.js"></script>
-    <script src="/js/easySlider.js"></script>
-    <script src="/js/inputmask.js"></script>
 
     <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script>
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">

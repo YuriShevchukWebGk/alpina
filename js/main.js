@@ -1888,3 +1888,1072 @@ function docReadyComponent(id) {
 	setTimeout(function() { NProgress.done();}, 200);
 	//Progress Bar END                              
 }
+
+/*
+jquery-circle-progress - jQuery Plugin to draw animated circular progress bars
+
+URL: http://kottenator.github.io/jquery-circle-progress/
+Author: Rostyslav Bryzgunov <kottenator@gmail.com>
+Version: 1.1.3
+License: MIT
+*/
+(function($) {
+    function CircleProgress(config) {
+        this.init(config);
+    }
+
+    CircleProgress.prototype = {
+        //----------------------------------------------- public options -----------------------------------------------
+        /**
+         * This is the only required option. It should be from 0.0 to 1.0
+         * @type {number}
+         */
+        value: 0.0,
+
+        /**
+         * Size of the circle / canvas in pixels
+         * @type {number}
+         */
+        size: 100.0,
+
+        /**
+         * Initial angle for 0.0 value in radians
+         * @type {number}
+         */
+        startAngle: -Math.PI,
+
+        /**
+         * Width of the arc. By default it's auto-calculated as 1/14 of size, but you may set it explicitly in pixels
+         * @type {number|string}
+         */
+        thickness: 'auto',
+
+        /**
+         * Fill of the arc. You may set it to:
+         *   - solid color:
+         *     - { color: '#3aeabb' }
+         *     - { color: 'rgba(255, 255, 255, .3)' }
+         *   - linear gradient (left to right):
+         *     - { gradient: ['#3aeabb', '#fdd250'], gradientAngle: Math.PI / 4 }
+         *     - { gradient: ['red', 'green', 'blue'], gradientDirection: [x0, y0, x1, y1] }
+         *   - image:
+         *     - { image: 'http://i.imgur.com/pT0i89v.png' }
+         *     - { image: imageObject }
+         *     - { color: 'lime', image: 'http://i.imgur.com/pT0i89v.png' } - color displayed until the image is loaded
+         */
+        fill: {
+            gradient: ['#3aeabb', '#fdd250']
+        },
+
+        /**
+         * Color of the "empty" arc. Only a color fill supported by now
+         * @type {string}
+         */
+        emptyFill: 'rgba(0, 0, 0, .1)',
+
+        /**
+         * Animation config (see jQuery animations: http://api.jquery.com/animate/)
+         */
+        animation: {
+            duration: 1200,
+            easing: 'circleProgressEasing'
+        },
+
+        /**
+         * Default animation starts at 0.0 and ends at specified `value`. Let's call this direct animation.
+         * If you want to make reversed animation then you should set `animationStartValue` to 1.0.
+         * Also you may specify any other value from 0.0 to 1.0
+         * @type {number}
+         */
+        animationStartValue: 0.0,
+
+        /**
+         * Reverse animation and arc draw
+         * @type {boolean}
+         */
+        reverse: false,
+
+        /**
+         * Arc line cap ('butt', 'round' or 'square')
+         * Read more: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D.lineCap
+         * @type {string}
+         */
+        lineCap: 'butt',
+
+        //-------------------------------------- protected properties and methods --------------------------------------
+        /**
+         * @protected
+         */
+        constructor: CircleProgress,
+
+        /**
+         * Container element. Should be passed into constructor config
+         * @protected
+         * @type {jQuery}
+         */
+        el: null,
+
+        /**
+         * Canvas element. Automatically generated and prepended to the {@link CircleProgress.el container}
+         * @protected
+         * @type {HTMLCanvasElement}
+         */
+        canvas: null,
+
+        /**
+         * 2D-context of the {@link CircleProgress.canvas canvas}
+         * @protected
+         * @type {CanvasRenderingContext2D}
+         */
+        ctx: null,
+
+        /**
+         * Radius of the outer circle. Automatically calculated as {@link CircleProgress.size} / 2
+         * @protected
+         * @type {number}
+         */
+        radius: 0.0,
+
+        /**
+         * Fill of the main arc. Automatically calculated, depending on {@link CircleProgress.fill} option
+         * @protected
+         * @type {string|CanvasGradient|CanvasPattern}
+         */
+        arcFill: null,
+
+        /**
+         * Last rendered frame value
+         * @protected
+         * @type {number}
+         */
+        lastFrameValue: 0.0,
+
+        /**
+         * Init/re-init the widget
+         * @param {object} config - Config
+         */
+        init: function(config) {
+            $.extend(this, config);
+            this.radius = this.size / 2;
+            this.initWidget();
+            this.initFill();
+            this.draw();
+        },
+
+        /**
+         * @protected
+         */
+        initWidget: function() {
+            var canvas = this.canvas = this.canvas || $('<canvas>').prependTo(this.el)[0];
+            canvas.width = this.size;
+            canvas.height = this.size;
+            this.ctx = canvas.getContext('2d');
+        },
+
+        /**
+         * This method sets {@link CircleProgress.arcFill}
+         * It could do this async (on image load)
+         * @protected
+         */
+        initFill: function() {
+            var self = this,
+                fill = this.fill,
+                ctx = this.ctx,
+                size = this.size;
+
+            if (!fill)
+                throw Error("The fill is not specified!");
+
+            if (fill.color)
+                this.arcFill = fill.color;
+
+            if (fill.gradient) {
+                var gr = fill.gradient;
+
+                if (gr.length == 1) {
+                    this.arcFill = gr[0];
+                } else if (gr.length > 1) {
+                    var ga = fill.gradientAngle || 0, // gradient direction angle; 0 by default
+                        gd = fill.gradientDirection || [
+                            size / 2 * (1 - Math.cos(ga)), // x0
+                            size / 2 * (1 + Math.sin(ga)), // y0
+                            size / 2 * (1 + Math.cos(ga)), // x1
+                            size / 2 * (1 - Math.sin(ga))  // y1
+                        ];
+
+                    var lg = ctx.createLinearGradient.apply(ctx, gd);
+
+                    for (var i = 0; i < gr.length; i++) {
+                        var color = gr[i],
+                            pos = i / (gr.length - 1);
+
+                        if ($.isArray(color)) {
+                            pos = color[1];
+                            color = color[0];
+                        }
+
+                        lg.addColorStop(pos, color);
+                    }
+
+                    this.arcFill = lg;
+                }
+            }
+
+            if (fill.image) {
+                var img;
+
+                if (fill.image instanceof Image) {
+                    img = fill.image;
+                } else {
+                    img = new Image();
+                    img.src = fill.image;
+                }
+
+                if (img.complete)
+                    setImageFill();
+                else
+                    img.onload = setImageFill;
+            }
+
+            function setImageFill() {
+                var bg = $('<canvas>')[0];
+                bg.width = self.size;
+                bg.height = self.size;
+                bg.getContext('2d').drawImage(img, 0, 0, size, size);
+                self.arcFill = self.ctx.createPattern(bg, 'no-repeat');
+                self.drawFrame(self.lastFrameValue);
+            }
+        },
+
+        draw: function() {
+            if (this.animation)
+                this.drawAnimated(this.value);
+            else
+                this.drawFrame(this.value);
+        },
+
+        /**
+         * @protected
+         * @param {number} v - Frame value
+         */
+        drawFrame: function(v) {
+            this.lastFrameValue = v;
+            this.ctx.clearRect(0, 0, this.size, this.size);
+            this.drawEmptyArc(v);
+            this.drawArc(v);
+        },
+
+        /**
+         * @protected
+         * @param {number} v - Frame value
+         */
+        drawArc: function(v) {
+            var ctx = this.ctx,
+                r = this.radius,
+                t = this.getThickness(),
+                a = this.startAngle;
+
+            ctx.save();
+            ctx.beginPath();
+
+            if (!this.reverse) {
+                ctx.arc(r, r, r - t / 2, a, a + Math.PI * 2 * v);
+            } else {
+                ctx.arc(r, r, r - t / 2, a - Math.PI * 2 * v, a);
+            }
+
+            ctx.lineWidth = t;
+            ctx.lineCap = this.lineCap;
+            ctx.strokeStyle = this.arcFill;
+            ctx.stroke();
+            ctx.restore();
+        },
+
+        /**
+         * @protected
+         * @param {number} v - Frame value
+         */
+        drawEmptyArc: function(v) {
+            var ctx = this.ctx,
+                r = this.radius,
+                t = this.getThickness(),
+                a = this.startAngle;
+
+            if (v < 1) {
+                ctx.save();
+                ctx.beginPath();
+
+                if (v <= 0) {
+                    ctx.arc(r, r, r - t / 2, 0, Math.PI * 2);
+                } else {
+                    if (!this.reverse) {
+                        ctx.arc(r, r, r - t / 2, a + Math.PI * 2 * v, a);
+                    } else {
+                        ctx.arc(r, r, r - t / 2, a, a - Math.PI * 2 * v);
+                    }
+                }
+
+                ctx.lineWidth = t;
+                ctx.strokeStyle = this.emptyFill;
+                ctx.stroke();
+                ctx.restore();
+            }
+        },
+
+        /**
+         * @protected
+         * @param {number} v - Value
+         */
+        drawAnimated: function(v) {
+            var self = this,
+                el = this.el,
+                canvas = $(this.canvas);
+
+            // stop previous animation before new "start" event is triggered
+            canvas.stop(true, false);
+            el.trigger('circle-animation-start');
+
+            canvas
+                .css({ animationProgress: 0 })
+                .animate({ animationProgress: 1 }, $.extend({}, this.animation, {
+                    step: function (animationProgress) {
+                        var stepValue = self.animationStartValue * (1 - animationProgress) + v * animationProgress;
+                        self.drawFrame(stepValue);
+                        el.trigger('circle-animation-progress', [animationProgress, stepValue]);
+                    }
+                }))
+                .promise()
+                .always(function() {
+                    // trigger on both successful & failure animation end
+                    el.trigger('circle-animation-end');
+                });
+        },
+
+        /**
+         * @protected
+         * @returns {number}
+         */
+        getThickness: function() {
+            return $.isNumeric(this.thickness) ? this.thickness : this.size / 14;
+        },
+
+        getValue: function() {
+            return this.value;
+        },
+
+        setValue: function(newValue) {
+            if (this.animation)
+                this.animationStartValue = this.lastFrameValue;
+            this.value = newValue;
+            this.draw();
+        }
+    };
+
+    //-------------------------------------------- Initiating jQuery plugin --------------------------------------------
+    $.circleProgress = {
+        // Default options (you may override them)
+        defaults: CircleProgress.prototype
+    };
+
+    // ease-in-out-cubic
+    $.easing.circleProgressEasing = function(x, t, b, c, d) {
+        if ((t /= d / 2) < 1)
+            return c / 2 * t * t * t + b;
+        return c / 2 * ((t -= 2) * t * t + 2) + b;
+    };
+
+    /**
+     * Draw animated circular progress bar.
+     *
+     * Appends <canvas> to the element or updates already appended one.
+     *
+     * If animated, throws 3 events:
+     *
+     *   - circle-animation-start(jqEvent)
+     *   - circle-animation-progress(jqEvent, animationProgress, stepValue) - multiple event;
+     *                                                                        animationProgress: from 0.0 to 1.0;
+     *                                                                        stepValue: from 0.0 to value
+     *   - circle-animation-end(jqEvent)
+     *
+     * @param configOrCommand - Config object or command name
+     *     Example: { value: 0.75, size: 50, animation: false };
+     *     you may set any public property (see above);
+     *     `animation` may be set to false;
+     *     you may use .circleProgress('widget') to get the canvas
+     *     you may use .circleProgress('value', newValue) to dynamically update the value
+     *
+     * @param commandArgument - Some commands (like 'value') may require an argument
+     */
+    $.fn.circleProgress = function(configOrCommand, commandArgument) {
+        var dataName = 'circle-progress',
+            firstInstance = this.data(dataName);
+
+        if (configOrCommand == 'widget') {
+            if (!firstInstance)
+                throw Error('Calling "widget" method on not initialized instance is forbidden');
+            return firstInstance.canvas;
+        }
+
+        if (configOrCommand == 'value') {
+            if (!firstInstance)
+                throw Error('Calling "value" method on not initialized instance is forbidden');
+            if (typeof commandArgument == 'undefined') {
+                return firstInstance.getValue();
+            } else {
+                var newValue = arguments[1];
+                return this.each(function() {
+                    $(this).data(dataName).setValue(newValue);
+                });
+            }
+        }
+
+        return this.each(function() {
+            var el = $(this),
+                instance = el.data(dataName),
+                config = $.isPlainObject(configOrCommand) ? configOrCommand : {};
+
+            if (instance) {
+                instance.init(config);
+            } else {
+                var initialConfig = $.extend({}, el.data());
+                if (typeof initialConfig.fill == 'string')
+                    initialConfig.fill = JSON.parse(initialConfig.fill);
+                if (typeof initialConfig.animation == 'string')
+                    initialConfig.animation = JSON.parse(initialConfig.animation);
+                config = $.extend(initialConfig, config);
+                config.el = el;
+                instance = new CircleProgress(config);
+                el.data(dataName, instance);
+            }
+        });
+    };
+})(jQuery);
+
+//Обратный отсчет для акций
+function updater(d, h, m, s) {
+	var baseTime = new Date();
+	baseTime.setTime(baseTime.getTime() + 1000*60*60*24);
+	var baseTime = new Date(2017, 8, 4);
+
+	// Период сброса — 3 дня
+	var period = 3*24*60*60*1000;
+
+	function update() {
+		var cur = new Date();
+		// сколько осталось миллисекунд
+		//var diff = period - (cur - baseTime) % period;
+		var diff = baseTime - cur;
+		// сколько миллисекунд до конца секунды
+		var millis = diff % 1000;
+		diff = Math.floor(diff/1000);
+		// сколько секунд до конца минуты
+		var sec = diff % 60;
+		if(sec < 10) sec = "0"+sec;
+		diff = Math.floor(diff/60);
+		// сколько минут до конца часа
+		var min = diff % 60;
+		if(min < 10) min = "0"+min;
+		diff = Math.floor(diff/60);
+		// сколько часов до конца дня
+		var hours = diff % 24;
+		if(hours < 10) hours = "0"+hours;
+		var days = Math.floor(diff / 24);
+
+		d.innerHTML = days;
+		h.innerHTML = hours;
+		m.innerHTML = min;
+		s.innerHTML = sec;
+
+		// следующий раз вызываем себя, когда закончится текущая секунда
+		setTimeout(update, millis);
+	}
+ 
+	setTimeout(update, 0);
+}
+//updater(document.getElementById("days"),document.getElementById("hours"), document.getElementById("minutes"),document.getElementById("seconds"));
+
+/**
+ * jquery.mask.js
+ * @version: v1.7.7
+ * @author: Igor Escobar
+ *
+ * Created by Igor Escobar on 2012-03-10. Please report any bug at http://blog.igorescobar.com
+ *
+ * Copyright (c) 2012 Igor Escobar http://blog.igorescobar.com
+ *
+ * The MIT License (http://www.opensource.org/licenses/mit-license.php)
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+/*jshint laxbreak: true */
+/* global define */
+
+// UMD (Universal Module Definition) patterns for JavaScript modules that work everywhere.
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(["jquery"], factory);
+    } else {
+        // Browser globals
+        factory(window.jQuery || window.Zepto);
+    }
+}(function ($) {
+    "use strict";
+    var Mask = function (el, mask, options) {
+        var jMask = this, old_value, regexMask;
+        el = $(el);
+
+        mask = typeof mask === "function" ? mask(el.val(), undefined, el,  options) : mask;
+
+        var p = {
+            getCaret: function () {
+                try {
+                    var sel,
+                        pos = 0,
+                        ctrl = el.get(0),
+                        dSel = document.selection,
+                        cSelStart = ctrl.selectionStart;
+
+                    // IE Support
+                    if (dSel && !~navigator.appVersion.indexOf("MSIE 10")) {
+                        sel = dSel.createRange();
+                        sel.moveStart('character', el.is("input") ? -el.val().length : -el.text().length);
+                        pos = sel.text.length;
+                    }
+                    // Firefox support
+                    else if (cSelStart || cSelStart === '0') {
+                        pos = cSelStart;
+                    }
+
+                    return pos;
+                } catch (e) {}
+            },
+            setCaret: function(pos) {
+                try {
+                    if (el.is(":focus")) {
+                        var range, ctrl = el.get(0);
+
+                        if (ctrl.setSelectionRange) {
+                            ctrl.setSelectionRange(pos,pos);
+                        } else if (ctrl.createTextRange) {
+                            range = ctrl.createTextRange();
+                            range.collapse(true);
+                            range.moveEnd('character', pos);
+                            range.moveStart('character', pos);
+                            range.select();
+                        }
+                    }
+                } catch (e) {}
+            },
+            events: function() {
+                el
+                .on('keydown.mask', function() {
+                    old_value = p.val();
+                })
+                .on('keyup.mask', p.behaviour)
+                .on("paste.mask drop.mask", function() {
+                    setTimeout(function() {
+                        el.keydown().keyup();
+                    }, 100);
+                })
+                .on("change.mask", function() {
+                    el.data("changed", true);
+                })
+                .on("blur.mask", function(){
+                    if (old_value !== el.val() && !el.data("changed")) {
+                        el.trigger("change");
+                    }
+                    el.data("changed", false);
+                })
+                // clear the value if it not complete the mask
+                .on("focusout.mask", function() {
+                    if (options.clearIfNotMatch && !regexMask.test(p.val())) {
+                       p.val('');
+                   }
+                });
+            },
+            getRegexMask: function() {
+                var maskChunks = [], translation, pattern, optional, recursive, oRecursive, r;
+
+                for (var i = 0; i < mask.length; i++) {
+                    translation = jMask.translation[mask[i]];
+
+                    if (translation) {
+
+                        pattern = translation.pattern.toString().replace(/.{1}$|^.{1}/g, "");
+                        optional = translation.optional;
+                        recursive = translation.recursive;
+
+                        if (recursive) {
+                            maskChunks.push(mask[i]);
+                            oRecursive = {digit: mask[i], pattern: pattern};
+                        } else {
+                            maskChunks.push(!optional && !recursive ? pattern : (pattern + "?"));
+                        }
+
+                    } else {
+                        maskChunks.push(mask[i].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+                    }
+                }
+
+                r = maskChunks.join("");
+
+                if (oRecursive) {
+                    r = r.replace(new RegExp("(" + oRecursive.digit + "(.*" + oRecursive.digit + ")?)"), "($1)?")
+                         .replace(new RegExp(oRecursive.digit, "g"), oRecursive.pattern);
+                }
+
+                return new RegExp(r);
+            },
+            destroyEvents: function() {
+                el.off(['keydown', 'keyup', 'paste', 'drop', 'change', 'blur', 'focusout', 'DOMNodeInserted', ''].join('.mask '))
+                .removeData("changeCalled");
+            },
+            val: function(v) {
+                var isInput = el.is('input');
+                return arguments.length > 0
+                    ? (isInput ? el.val(v) : el.text(v))
+                    : (isInput ? el.val() : el.text());
+            },
+            getMCharsBeforeCount: function(index, onCleanVal) {
+                for (var count = 0, i = 0, maskL = mask.length; i < maskL && i < index; i++) {
+                    if (!jMask.translation[mask.charAt(i)]) {
+                        index = onCleanVal ? index + 1 : index;
+                        count++;
+                    }
+                }
+                return count;
+            },
+            caretPos: function (originalCaretPos, oldLength, newLength, maskDif) {
+                var translation = jMask.translation[mask.charAt(Math.min(originalCaretPos - 1, mask.length - 1))];
+
+                return !translation ? p.caretPos(originalCaretPos + 1, oldLength, newLength, maskDif)
+                                    : Math.min(originalCaretPos + newLength - oldLength - maskDif, newLength);
+            },
+            behaviour: function(e) {
+                e = e || window.event;
+                var keyCode = e.keyCode || e.which;
+                if ($.inArray(keyCode, jMask.byPassKeys) === -1) {
+
+                    var caretPos = p.getCaret(),
+                        currVal = p.val(),
+                        currValL = currVal.length,
+                        changeCaret = caretPos < currValL,
+                        newVal = p.getMasked(),
+                        newValL = newVal.length,
+                        maskDif = p.getMCharsBeforeCount(newValL - 1) - p.getMCharsBeforeCount(currValL - 1);
+
+                    if (newVal !== currVal) {
+                        p.val(newVal);
+                    }
+
+                    // change caret but avoid CTRL+A
+                    if (changeCaret && !(keyCode === 65 && e.ctrlKey)) {
+                        // Avoid adjusting caret on backspace or delete
+                        if (!(keyCode === 8 || keyCode === 46)) {
+                            caretPos = p.caretPos(caretPos, currValL, newValL, maskDif);
+                        }
+                        p.setCaret(caretPos);
+                    }
+
+                    return p.callbacks(e);
+                }
+            },
+            getMasked: function (skipMaskChars) {
+                var buf = [],
+                    value = p.val(),
+                    m = 0, maskLen = mask.length,
+                    v = 0, valLen = value.length,
+                    offset = 1, addMethod = "push",
+                    resetPos = -1,
+                    lastMaskChar,
+                    check;
+
+                if (options.reverse) {
+                    addMethod = "unshift";
+                    offset = -1;
+                    lastMaskChar = 0;
+                    m = maskLen - 1;
+                    v = valLen - 1;
+                    check = function () {
+                        return m > -1 && v > -1;
+                    };
+                } else {
+                    lastMaskChar = maskLen - 1;
+                    check = function () {
+                        return m < maskLen && v < valLen;
+                    };
+                }
+
+                while (check()) {
+                    var maskDigit = mask.charAt(m),
+                        valDigit = value.charAt(v),
+                        translation = jMask.translation[maskDigit];
+
+                    if (translation) {
+                        if (valDigit.match(translation.pattern)) {
+                            buf[addMethod](valDigit);
+                             if (translation.recursive) {
+                                if (resetPos === -1) {
+                                    resetPos = m;
+                                } else if (m === lastMaskChar) {
+                                    m = resetPos - offset;
+                                }
+
+                                if (lastMaskChar === resetPos) {
+                                    m -= offset;
+                                }
+                            }
+                            m += offset;
+                        } else if (translation.optional) {
+                            m += offset;
+                            v -= offset;
+                        }
+                        v += offset;
+                    } else {
+                        if (!skipMaskChars) {
+                            buf[addMethod](maskDigit);
+                        }
+
+                        if (valDigit === maskDigit) {
+                            v += offset;
+                        }
+
+                        m += offset;
+                    }
+                }
+
+                var lastMaskCharDigit = mask.charAt(lastMaskChar);
+                if (maskLen === valLen + 1 && !jMask.translation[lastMaskCharDigit]) {
+                    buf.push(lastMaskCharDigit);
+                }
+
+                return buf.join("");
+            },
+            callbacks: function (e) {
+                var val = p.val(),
+                    changed = val !== old_value;
+                if (changed === true) {
+                    if (typeof options.onChange === "function") {
+                        options.onChange(val, e, el, options);
+                    }
+                }
+
+                if (changed === true && typeof options.onKeyPress === "function") {
+                    options.onKeyPress(val, e, el, options);
+                }
+
+                if (typeof options.onComplete === "function" && val.length === mask.length) {
+                    options.onComplete(val, e, el, options);
+                }
+            }
+        };
+
+
+        // public methods
+        jMask.mask = mask;
+        jMask.options = options;
+        jMask.remove = function() {
+            var caret;
+            p.destroyEvents();
+            p.val(jMask.getCleanVal()).removeAttr('maxlength');
+
+            caret = p.getCaret();
+            p.setCaret(caret - p.getMCharsBeforeCount(caret));
+            return el;
+        };
+
+        // get value without mask
+        jMask.getCleanVal = function() {
+           return p.getMasked(true);
+        };
+
+       jMask.init = function() {
+            options = options || {};
+
+            jMask.byPassKeys = [9, 16, 17, 18, 36, 37, 38, 39, 40, 91];
+            jMask.translation = {
+                '0': {pattern: /\d/},
+                '9': {pattern: /\d/, optional: true},
+				'T': {pattern: /[0-9-+()]/, optional: true},
+                '#': {pattern: /\d/, recursive: true},
+                'A': {pattern: /[a-zA-Z0-9]/},
+                'S': {pattern: /[a-zA-Z]/}
+            };
+
+            jMask.translation = $.extend({}, jMask.translation, options.translation);
+            jMask = $.extend(true, {}, jMask, options);
+
+            regexMask = p.getRegexMask();
+
+            if (options.maxlength !== false) {
+                el.attr('maxlength', mask.length);
+            }
+
+            if (options.placeholder) {
+                el.attr('placeholder' , options.placeholder);
+            }
+
+            el.attr('autocomplete', 'off');
+            p.destroyEvents();
+            p.events();
+
+            var caret = p.getCaret();
+
+            p.val(p.getMasked());
+            p.setCaret(caret + p.getMCharsBeforeCount(caret, true));
+
+        }();
+
+    };
+
+    var watchers = {},
+        live = 'DOMNodeInserted.mask',
+        HTMLAttributes = function () {
+            var input = $(this),
+                options = {},
+                prefix = "data-mask-";
+
+            if (input.attr(prefix + 'reverse')) {
+                options.reverse = true;
+            }
+
+            if (input.attr(prefix + 'maxlength') === 'false') {
+                options.maxlength = false;
+            }
+
+            if (input.attr(prefix + 'clearifnotmatch')) {
+                options.clearIfNotMatch = true;
+            }
+
+            input.mask(input.attr('data-mask'), options);
+        };
+
+    $.fn.mask = function(mask, options) {
+        var selector = this.selector,
+            maskFunction = function() {
+                var maskObject = $(this).data('mask'),
+                    stringify = JSON.stringify;
+
+                if (typeof maskObject !== "object" || stringify(maskObject.options) !== stringify(options) || maskObject.mask !== mask) {
+                    return $(this).data('mask', new Mask(this, mask, options));
+                }
+            };
+
+        this.each(maskFunction);
+
+        if (selector && !watchers[selector]) {
+            // dynamically added elements.
+            watchers[selector] = true;
+            setTimeout(function(){
+                $(document).on(live, selector, maskFunction);
+            }, 500);
+        }
+    };
+
+    $.fn.unmask = function() {
+        try {
+            return this.each(function() {
+                $(this).data('mask').remove().removeData('mask');
+            });
+        } catch(e) {};
+    };
+
+    $.fn.cleanVal = function() {
+        return this.data('mask').getCleanVal();
+    };
+
+    // looking for inputs with data-mask attribute
+    $('*[data-mask]').each(HTMLAttributes);
+
+    // dynamically added elements with data-mask html notation.
+    $(document).on(live, '*[data-mask]', HTMLAttributes);
+
+}));
+
+
+
+//функция получает имя класа слайдера и количество слайдов в карусели на странице
+function easySlider(className, PageQuantitySlides){
+    
+    var slidesQuant = $(className+' li').length;
+    var nowSlideNum = 1;
+    $(className).css('position', 'relative');
+    $(className+">div").addClass('sliderContainer')
+    if (PageQuantitySlides == '5'){
+        $(className+" li").addClass('sliderElementMin');
+        var sliderElClass = '.sliderElementMin';
+    }else{
+        $(className+" li").addClass('sliderElement');
+        var sliderElClass = '.sliderElement';    
+    }
+    
+    $(className+" ul").addClass('sliderUl');
+    var widthOfSlide = $(sliderElClass).width()*4;
+    var quantityOfElements = $(className +' '+sliderElClass).size();
+    var VisibleUlWidth = PageQuantitySlides * widthOfSlide;
+
+    //
+    $(className+" .left").click(function(){
+        nowSlideNum--;
+        if(nowSlideNum == 1){
+            $(className+" .left").hide();
+            $(className+' .sliderUl').animate({left:'+='+ widthOfSlide},500);    
+        } else {
+            $(className+' .sliderUl').animate({left:'+='+ widthOfSlide},500);
+            $(className+" .rigth").show();   
+        }
+    });
+
+    $(className+" .rigth").click(function(){
+        nowSlideNum++;
+        if(nowSlideNum == slidesQuant-(PageQuantitySlides-1)){
+            $(className+" .rigth").hide(); 
+            $(className+' .sliderUl').animate({left:'-='+ widthOfSlide},500);   
+        } else {
+            $(className+' .sliderUl').animate({left:'-='+ widthOfSlide},500);
+            $(className+" .left").show();   
+        }
+    });
+
+    if ($(className+' .sliderUl').position().left == 0) {
+        $(className+" .left").hide();
+    };
+}
+
+//PROGRESSBAR
+(function(a,b){if(typeof define==="function"&&define.amd){define(b)}else{if(typeof exports==="object"){module.exports=b()}else{a.NProgress=b()}}})(this,function(){var e={};e.version="0.2.0";var b=e.settings={minimum:0.08,easing:"linear",positionUsing:"",speed:200,trickle:true,trickleSpeed:200,showSpinner:true,barSelector:'[role="bar"]',spinnerSelector:'[role="spinner"]',parent:"body",template:'<div class="bar" role="bar"><div class="peg"></div></div><div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'};e.configure=function(m){var n,o;for(n in m){o=m[n];if(o!==undefined&&m.hasOwnProperty(n)){b[n]=o}}return this};e.status=null;e.set=function(s){var m=e.isStarted();s=g(s,b.minimum,1);e.status=(s===1?null:s);var o=e.render(!m),p=o.querySelector(b.barSelector),q=b.speed,r=b.easing;o.offsetWidth;i(function(n){if(b.positionUsing===""){b.positionUsing=e.getPositioningCSS()}h(p,a(s,q,r));if(s===1){h(o,{transition:"none",opacity:1});o.offsetWidth;setTimeout(function(){h(o,{transition:"all "+q+"ms linear",opacity:0});setTimeout(function(){e.remove();n()},q)},q)}else{setTimeout(n,q)}});return this};e.isStarted=function(){return typeof e.status==="number"};e.start=function(){if(!e.status){e.set(0)}var m=function(){setTimeout(function(){if(!e.status){return}e.trickle();m()},b.trickleSpeed)};if(b.trickle){m()}return this};e.done=function(m){if(!m&&!e.status){return this}return e.inc(0.3+0.5*Math.random()).set(1)};e.inc=function(m){var o=e.status;if(!o){return e.start()}else{if(o>1){return}else{if(typeof m!=="number"){if(o>=0&&o<0.2){m=0.1}else{if(o>=0.2&&o<0.5){m=0.04}else{if(o>=0.5&&o<0.8){m=0.02}else{if(o>=0.8&&o<0.99){m=0.005}else{m=0}}}}}o=g(o+m,0,0.994);return e.set(o)}}};e.trickle=function(){return e.inc()};(function(){var m=0,n=0;e.promise=function(o){if(!o||o.state()==="resolved"){return this}if(n===0){e.start()}m++;n++;o.always(function(){n--;if(n===0){m=0;e.done()}else{e.set((m-n)/m)}});return this}})();e.render=function(m){if(e.isRendered()){return document.getElementById("nprogress")}j(document.documentElement,"nprogress-busy");var n=document.createElement("div");n.id="nprogress";n.innerHTML=b.template;var q=n.querySelector(b.barSelector),o=m?"-100":c(e.status||0),p=document.querySelector(b.parent),r;h(q,{transition:"all 0 linear",transform:"translate3d("+o+"%,0,0)"});if(!b.showSpinner){r=n.querySelector(b.spinnerSelector);r&&k(r)}if(p!=document.body){j(p,"nprogress-custom-parent")}p.appendChild(n);return n};e.remove=function(){l(document.documentElement,"nprogress-busy");l(document.querySelector(b.parent),"nprogress-custom-parent");var m=document.getElementById("nprogress");m&&k(m)};e.isRendered=function(){return !!document.getElementById("nprogress")};e.getPositioningCSS=function(){var m=document.body.style;var n=("WebkitTransform" in m)?"Webkit":("MozTransform" in m)?"Moz":("msTransform" in m)?"ms":("OTransform" in m)?"O":"";if(n+"Perspective" in m){return"translate3d"}else{if(n+"Transform" in m){return"translate"}else{return"margin"}}};function g(p,o,m){if(p<o){return o}if(p>m){return m}return p}function c(m){return(-1+m)*100}function a(q,o,p){var m;if(b.positionUsing==="translate3d"){m={transform:"translate3d("+c(q)+"%,0,0)"}}else{if(b.positionUsing==="translate"){m={transform:"translate("+c(q)+"%,0)"}}else{m={"margin-left":c(q)+"%"}}}m.transition="all "+o+"ms "+p;return m}var i=(function(){var n=[];function m(){var o=n.shift();if(o){o(m)}}return function(o){n.push(o);if(n.length==1){m()}}})();var h=(function(){var m=["Webkit","O","Moz","ms"],r={};function o(s){return s.replace(/^-ms-/,"ms-").replace(/-([\da-z])/gi,function(t,u){return u.toUpperCase()})}function q(s){var u=document.body.style;if(s in u){return s}var t=m.length,w=s.charAt(0).toUpperCase()+s.slice(1),v;while(t--){v=m[t]+w;if(v in u){return v}}return s}function p(s){s=o(s);return r[s]||(r[s]=q(s))}function n(s,u,t){u=p(u);s.style[u]=t}return function(u,t){var s=arguments,w,v;if(s.length==2){for(w in t){v=t[w];if(v!==undefined&&t.hasOwnProperty(w)){n(u,w,v)}}}else{n(u,s[1],s[2])}}})();function f(n,m){var o=typeof n=="string"?n:d(n);return o.indexOf(" "+m+" ")>=0}function j(n,m){var p=d(n),o=p+m;if(f(p,m)){return}n.className=o.substring(1)}function l(n,m){var p=d(n),o;if(!f(n,m)){return}o=p.replace(" "+m+" "," ");n.className=o.substring(1,o.length-1)}function d(m){return(" "+(m&&m.className||"")+" ").replace(/\s+/gi," ")}function k(m){m&&m.parentNode&&m.parentNode.removeChild(m)}return e});
+
+/*
+ * jQuery appear plugin
+ *
+ * Copyright (c) 2012 Andrey Sidorov
+ * licensed under MIT license.
+ *
+ * https://github.com/morr/jquery.appear/
+ *
+ * Version: 0.3.6
+ */
+(function($) {
+  var selectors = [];
+
+  var check_binded = false;
+  var check_lock = false;
+  var defaults = {
+    interval: 250,
+    force_process: false
+  };
+  var $window = $(window);
+
+  var $prior_appeared = [];
+
+  function process() {
+    check_lock = false;
+    for (var index = 0, selectorsLength = selectors.length; index < selectorsLength; index++) {
+      var $appeared = $(selectors[index]).filter(function() {
+        return $(this).is(':appeared');
+      });
+
+      $appeared.trigger('appear', [$appeared]);
+
+      if ($prior_appeared[index]) {
+        var $disappeared = $prior_appeared[index].not($appeared);
+        $disappeared.trigger('disappear', [$disappeared]);
+      }
+      $prior_appeared[index] = $appeared;
+    }
+  };
+
+  function add_selector(selector) {
+    selectors.push(selector);
+    $prior_appeared.push();
+  }
+
+  // "appeared" custom filter
+  $.expr[':']['appeared'] = function(element) {
+    var $element = $(element);
+    if (!$element.is(':visible')) {
+      return false;
+    }
+
+    var window_left = $window.scrollLeft();
+    var window_top = $window.scrollTop();
+    var offset = $element.offset();
+    var left = offset.left;
+    var top = offset.top;
+
+    if (top + $element.height() >= window_top &&
+        top - ($element.data('appear-top-offset') || 0) <= window_top + $window.height() &&
+        left + $element.width() >= window_left &&
+        left - ($element.data('appear-left-offset') || 0) <= window_left + $window.width()) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  $.fn.extend({
+    // watching for element's appearance in browser viewport
+    appear: function(options) {
+      var opts = $.extend({}, defaults, options || {});
+      var selector = this.selector || this;
+      if (!check_binded) {
+        var on_check = function() {
+          if (check_lock) {
+            return;
+          }
+          check_lock = true;
+
+          setTimeout(process, opts.interval);
+        };
+
+        $(window).scroll(on_check).resize(on_check);
+        check_binded = true;
+      }
+
+      if (opts.force_process) {
+        setTimeout(process, opts.interval);
+      }
+      add_selector(selector);
+      return $(selector);
+    }
+  });
+
+  $.extend({
+    // force elements's appearance check
+    force_appear: function() {
+      if (check_binded) {
+        process();
+        return true;
+      }
+      return false;
+    }
+  });
+})(function() {
+  if (typeof module !== 'undefined') {
+    // Node
+    return require('jquery');
+  } else {
+    return jQuery;
+  }
+}());

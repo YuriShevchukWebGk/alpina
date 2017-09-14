@@ -33,18 +33,6 @@
             $(".element_item_img").height($(".element_item_img img").height());
         }
 
-        $(".leftColumn .signingPopup").fancybox({
-            <?if ($arResult["SIGNING_IMAGE_INFO"]["WIDTH"]) {?>
-                'width'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["WIDTH"] ?>+20,
-                'height'   :   <?= $arResult["SIGNING_IMAGE_INFO"]["HEIGHT"] ?>+20,
-                'scrolling'      : false
-                <?} else {?>
-                'width'   :   1140,
-                'height'   :   800,
-                'scrolling'      : false
-                <?}?>
-        });
-
         if (window.innerWidth <= 1500) {
             $(".catalogIcon").hide();
             $(".basketIcon").hide();
@@ -388,7 +376,7 @@
 
 
         <?if ($arResult["PROPERTIES"]["AUTHOR_SIGNING"]["VALUE"]) {?>
-            <a href="<?= $arResult["SIGN_PICTURE"] ?>" class="fancybox fancybox.iframe signingPopup">
+            <a href="<?= $arResult["SIGN_PICTURE"] ?>" class="signingPopup">
                 <div class="authorSigning">
                 </div>
 
