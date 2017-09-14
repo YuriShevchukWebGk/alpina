@@ -33,7 +33,6 @@
     <link rel="icon" type="image/png" href="/favicon-96x96.png?v=WGG39kPBLm" sizes="96x96">
     <link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=WGG39kPBLm" sizes="192x192">
     <link rel="icon" type="image/png" href="/favicon-16x16.png?v=WGG39kPBLm" sizes="16x16">
-	<link rel="search" href="https://www.alpinabook.ru/tools/opensearch.xml" type="application/opensearchdescription+xml" title="Издательство &laquo;Альпина Паблишер&raquo;"/>
     <link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
     <link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
     <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
