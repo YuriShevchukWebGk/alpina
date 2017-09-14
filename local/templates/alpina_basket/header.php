@@ -40,10 +40,6 @@
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
     <meta name="theme-color" content="#ffffff">
 
-    <script src="/js/circle-progress.js"></script>
-    <script src="/js/jquery.appear.js"></script>
-    <script src="/js/easySlider.js"></script>
-    <script src="/js/inputmask.js?2"></script>
     <script src="/js/inputmask.date.extension.js"></script>
     <script src="/js/jquery.selectric.min.js"></script>
 
