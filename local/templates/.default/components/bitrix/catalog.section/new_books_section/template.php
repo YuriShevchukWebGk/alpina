@@ -411,7 +411,6 @@ if ($arrFilter['ID'][0] > 0) {
         var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
         $('.showMore').click(function(){
             var otherBooks = $(this).siblings(".otherBooks");
-            $.fancybox.showLoading();
             <?if (isset($_REQUEST["SORT"])) {?>
                 var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';
             <?} else {?>
@@ -424,9 +423,7 @@ if ($arrFilter['ID'][0] > 0) {
                 $('.otherBooks ul').append(next_page);
                 page++;
             })
-            .done(function()
-                {
-                    $.fancybox.hideLoading();
+            .done(function(){
                     $(".nameBook").each(function()
                         {
                             if($(this).length > 0)

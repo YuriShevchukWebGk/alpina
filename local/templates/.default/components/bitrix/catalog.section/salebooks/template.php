@@ -401,14 +401,6 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
 <script>
     // скрипт ajax-подгрузки товаров в блоке "Все книги"
     $(document).ready(function() {
-		var categor_height;
-
-		<?if (strstr($APPLICATION -> GetCurDir(), "/series/")) {?>
-			categor_height = 1850 + Math.ceil((books_block_length - 15) / 5) * 455;
-		<?} else {?>
-			categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
-		<?}?>
-		//$(".wrapperCategor").css("height", categor_height + "px");
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_" . $navnum])) {?>
             var page = <?= $_REQUEST["PAGEN_" . $navnum] ?> + 1;
@@ -418,14 +410,12 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
         var maxpage = <?= ($arResult["NAV_RESULT"]->NavPageCount) ?>;
         $('.showMore').click(function(){
             var other_books = $(this).siblings(".otherBooks");
-            $.fancybox.showLoading();
             $.get('<?= $arResult["SECTION_PAGE_URL"] ?>?PAGEN_<?= $navnum ?>='+page, function(data) {
                 var next_page = $('.otherBooks li', data);
                 $('.otherBooks ul').append(next_page);
                 page++;
             })
             .done(function() {
-                $.fancybox.hideLoading();
                 // обрезка длинных названий, изменение высоты блоков,
                 // содержащих карточки товаров, в зависимости от количества карточек
                 $(".nameBook").each(function() {

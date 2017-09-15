@@ -914,7 +914,7 @@ if ($arResult['MODULES']['currency'])
         $arResult["AUTHOR"][$key]["IMAGE_FILE"] = CFile::GetFileArray($author["DETAIL_PICTURE"]);
     }
 
-	$recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
+	$recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
 	$arResult["STRING_RECS"] = array_slice(json_decode($recsArray), 0, 6);
 	
 	//Порог для бесплатной доставки

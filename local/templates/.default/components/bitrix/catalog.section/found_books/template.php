@@ -337,15 +337,12 @@ $(document).ready(function(){
         <?}?>
         var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
             $('.showMore').on('click', function(){
-                $.fancybox.showLoading();
                 $.get(window.location.href+'&PAGEN_<?=$navnum?>='+page, function(data) {
                     var next_page = $('.searchWidthWrapper .searchBook', data);
                     $('.searchWidthWrapper').append(next_page);
                     page++;
                 })
-                .done(function()
-                {
-                    $.fancybox.hideLoading();
+                .done(function(){
                     $(".descrWrap .bookNames").each(function()
                     {
                         if($(this).length > 0)

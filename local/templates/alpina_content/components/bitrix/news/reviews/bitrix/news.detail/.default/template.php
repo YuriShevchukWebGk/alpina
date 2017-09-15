@@ -54,6 +54,7 @@
 			 else
 				echo strip_tags($arResult["PREVIEW_TEXT"], '<br>, <p>, <img>, <ul>, <li>, <ol>');
 			?>
+
 			<?if (is_array($arResult['PROPERTIES']['BOOK']) && $arResult['PROPERTIES']['BOOK']['ACTIVE']) {?>
 				<center>
 					<div class="right view-book">

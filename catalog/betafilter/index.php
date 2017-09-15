@@ -1,46 +1,27 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Бестселлеры интересных книг, нон-фикшн, популярные книги для родителей и детей. Быстрая доставка книг — Интернет-магазин «Альпина Паблишер»");
-
-if ($_REQUEST["DIRECTION"])
-{
-    $order = $_REQUEST["DIRECTION"];
-}
-else
-{
-    $order = "desc";
-}
-switch ($_REQUEST["SORT"])
-{
-    case "DATE":
-    $sort = "PROPERTY_YEAR";
-    break;
-
-    case "PRICE":
-    $sort = "CATALOG_PRICE_1";
-    break;
-
-    case "POPULARITY":
-    $sort = "PROPERTY_page_views_ga";          //PROPERTY_page_views_ga
-    $order = "asc";
-    break;
-
-    default:
-    //$sort = "PROPERTY_SALES_CNT";
-	$sort = "PROPERTY_page_views_ga";
-    $order = "desc";
-}
+$APPLICATION->SetTitle("Поиск книг по параметрам — Интернет-магазин «Альпина Паблишер»");
 global $arrFilter;
-if(!$USER->IsAdmin()){
-    $arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
-} else {
-    $arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
+
+foreach($_REQUEST as $i => $addToFilter) {
+	if (strpos($i, "fil_") !== false) {
+		arshow($i);
+		$arrFilter[substr($i,4)] = explode(",",$addToFilter);
+	}
 }
+
+if (empty($arrFilter)) {
+	$arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+}
+if (!$USER->isAdmin()) {
+	$arrFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+}
+arshow($arrFilter);
 
 ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog.section",
-	"bestsellers",
+	"smartfilter",
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_PICT_PROP" => "-",
@@ -65,9 +46,9 @@ if(!$USER->IsAdmin()){
 		"DISABLE_INIT_JS_IN_COMPONENT" => "N",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
-		"ELEMENT_SORT_FIELD" => $sort,
+		"ELEMENT_SORT_FIELD" => "PROPERTY_page_views_ga",
 		"ELEMENT_SORT_FIELD2" => "name",
-		"ELEMENT_SORT_ORDER" => $order,
+		"ELEMENT_SORT_ORDER" => "desc",
 		"ELEMENT_SORT_ORDER2" => "asc",
 		"FILTER_NAME" => "arrFilter",
 		"HIDE_NOT_AVAILABLE" => "N",
