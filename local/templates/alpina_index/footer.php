@@ -305,31 +305,6 @@
         </div>
     </div>
 
-
-			<?$APPLICATION->IncludeComponent("bitrix:menu", "left_menu",
-				Array(
-					"ROOT_MENU_TYPE" => "left_block",    // Тип меню для первого уровня
-					"MAX_LEVEL" => "1",    // Уровень вложенности меню
-					"CHILD_MENU_TYPE" => "top",    // Тип меню для остальных уровней
-					"USE_EXT" => "Y",    // Подключать файлы с именами вида .тип_меню.menu_ext.php
-					"DELAY" => "N",    // Откладывать выполнение шаблона меню
-					"ALLOW_MULTI_SELECT" => "Y",    // Разрешить несколько активных пунктов одновременно
-					"MENU_CACHE_TYPE" => "N",    // Тип кеширования
-					"MENU_CACHE_TIME" => "3600",    // Время кеширования (сек.)
-					"MENU_CACHE_USE_GROUPS" => "Y",    // Учитывать права доступа
-					"MENU_CACHE_GET_VARS" => "",    // Значимые переменные запроса
-					"COMPONENT_TEMPLATE" => "bottom_menu"
-				),
-				false
-			);?>
-			<div class="webServ">
-				<a href="https://vk.com/ideabooks" target="_blank" rel="nofollow"><img src="/img/vkGrayImg.png"></a>
-				<a href="https://twitter.com/AlpinaBookRu" target="_blank" rel="nofollow"><img src="/img/twitter.png"></a>
-				<a href="https://www.facebook.com/alpinabook/" target="_blank" rel="nofollow"><img src="/img/fbGrayImg.png"></a>
-				<a href="https://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/yoGrayImg.png"></a>
-				<a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/goGrayImg.png"></a>
-				<a href="https://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/inGrayImg.png"></a>
-			</div>
 		</div>
 
 

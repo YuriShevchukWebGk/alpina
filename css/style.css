@@ -1216,14 +1216,14 @@ table.form-table tr td:nth-child(2){text-align:left}
 .hintWrapp .recomendation,.bestonmain,.EditorChoiceWrapp,.saleWrapp,.reviewsWrapp .bigSlider{max-width:610px}
 }
 body div a.google_auth{background:url(/img/google_auth.jpg) no-repeat 30% 50%;display:block;margin:0 auto;text-align:center;width:130px;background-color:#5290f5;background-size:20%;padding:10px;border-radius:30px;color:#fff;padding-left:30px;margin-top:20px}
-#prefsWrap{background:#99abb1;color:#fff;width:100%;padding:40px 0 30px;text-align:center;margin:0 auto;clear:both}
+#prefsWrap{background:#99abb1;width:100%;padding:40px 0 30px;text-align:center;margin:0 auto;clear:both}
 #prefs{max-width:1170px;width:100%;margin:0 auto;display:inline-block}
-#prefs .pref{width:16%;float:left;margin:0 2%;font-family:Walshein_light;font-size:16px}
-#prefs .pref .pic{height:65px;width:134px;margin:0 auto;background:transparent url(/img/prefs.png)}
+#prefs .pref{width:16%;float:left;margin:0 2%;font-family:Walshein_light;font-size:16px;display:block;color:#fff}
+#prefs .pref .pic{height:65px;width:134px;margin:0 auto;background:transparent url(/img/prefs.png);display:block}
 #prefs .pref:nth-child(1) .pic{background-position:5px 0}
 #prefs .pref:nth-child(2) .pic{background-position:0 270px}
 #prefs .pref:nth-child(3) .pic{background-position:0 205px}
 #prefs .pref:nth-child(4) .pic{background-position:0 132px}
 #prefs .pref:nth-child(5) .pic{background-position:0 65px}
-#prefs .pref:hover{opacity:.95}
+#prefs .pref:hover .title {color:#677377}
 #prefs .pref .title{display:block;padding-bottom:6px;font-family:Walshein_bold;font-size:22px;padding-top:20px;width:auto;color:#fff}
