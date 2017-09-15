@@ -15,7 +15,7 @@ function mySort($a, $b) {
                 <td class="title-search-separator">&nbsp;</td>
             </tr>
             <?foreach($arCategory["ITEMS"] as $i => $arItem){?>
-                <?if($arItem["UF_FOR_ADMIN"] != "Y"){?>
+                <?if(!$arItem["FOR_ADMIN"]){?>
                 <tr>
                     <?if($i == 0 && $category_id !== "all"):?>
                         <th>&nbsp;<?echo 'Результат'?></th>

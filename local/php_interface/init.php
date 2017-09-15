@@ -755,7 +755,7 @@
 
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
-                    $ids .= $arItems["PRODUCT_ID"].', ';
+                    $ids .= $arItems["PRODUCT_ID"].',';
                 }
 
                 $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
@@ -904,7 +904,7 @@
 
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
-                    $ids .= $arItems["PRODUCT_ID"].', ';
+                    $ids .= $arItems["PRODUCT_ID"].',';
                 }
 
                 $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
@@ -1012,7 +1012,7 @@
 
     //Получаем ссылку на бесплатную книгу в приложении Бизнес книги
     function getUrlForFreeDigitalBook($productID) {
-        $ids = explode(', ', $productID);
+        $ids = explode(',', $productID);
         $forurl = array();
         $products = array();
 

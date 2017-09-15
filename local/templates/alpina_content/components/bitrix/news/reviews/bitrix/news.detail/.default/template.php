@@ -48,11 +48,11 @@
 
 
 		<div id="detailReview">
-			<a href="<?=$arResult['PROPERTIES']['BOOK']['DETAIL_PAGE_URL']?>" title="Купить книгу «<?=$arResult['PROPERTIES']['BOOK']['NAME']?>»"><img src="<?=$arResult['PROPERTIES']['BOOK']['DETAIL_PICTURE']?>" align="left" /></a>
+			<a href="<?=$arResult['PROPERTIES']['BOOK']['DETAIL_PAGE_URL']?>" title="Купить книгу «<?=$arResult['PROPERTIES']['BOOK']['NAME']?>»"><img alt="Обложка книги <?=$arResult['PROPERTIES']['BOOK']["NAME"]?>" src="<?=$arResult['PROPERTIES']['BOOK']['DETAIL_PICTURE']?>" class="mainImg" /></a>
 			<?if($arResult["DETAIL_TEXT"] > 0)
-				echo $arResult["DETAIL_TEXT"];
+				echo strip_tags($arResult["DETAIL_TEXT"], '<br>, <p>, <img>, <ul>, <li>, <ol>');
 			 else
-				echo $arResult["PREVIEW_TEXT"];
+				echo strip_tags($arResult["PREVIEW_TEXT"], '<br>, <p>, <img>, <ul>, <li>, <ol>');
 			?>
 			<?if (is_array($arResult['PROPERTIES']['BOOK']) && $arResult['PROPERTIES']['BOOK']['ACTIVE']) {?>
 				<center>
