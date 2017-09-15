@@ -13,7 +13,9 @@
     $this->setFrameMode(true);
     $gdeSlon = '';
 ?>
-
+<?global $arrFilter;
+arshow($arrFilter);
+?>
 <div class="wrapperCategor">
     <div class="categoryWrapper">
 
@@ -25,7 +27,7 @@
         <div class="contentWrapp">
             <h1 class="titleMain"><?=GetMessage("TITLE") ?></h1>
 
-<?$frame = $this->createFrame()->begin();?>
+			<?$frame = $this->createFrame()->begin();?>
             <div class="otherBooks" id="block1">
                 <ul>
 
@@ -128,11 +130,8 @@
         var maxpage = <?= ($arResult["NAV_RESULT"]->NavPageCount) ?>;
         $('.showMore').click(function(){
             var other_books = $(this).siblings(".otherBooks");
-            <?if (isset($_REQUEST["SORT"])) {?>
-                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';
-            <?} else {?>
-                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?PAGEN_" . $navnum . "=" ?>';
-            <?}?>
+			var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';
+            
             $.get(section_url + page, function(data) {
                 var next_page = $('.otherBooks li', data);
                 $('.otherBooks ul').append(next_page);

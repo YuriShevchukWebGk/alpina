@@ -29,7 +29,9 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
         </style>
     <?}?>
 <?}?>
-
+<style>
+.productElementWrapp .dopSaleWrap{display:none}
+</style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".catalogIcon").html("<span>Каталог</span>");
