@@ -129,7 +129,7 @@ foreach ($emails_arr as $email => $user_copies_arr) {
      }
 }*/?>
 <?
-/*  // обновление данных highload инфоблока
+  // обновление данных highload инфоблока
     use Bitrix\Highloadblock as HL;
     CModule::IncludeModule("iblock");
     $arSelect = Array("ID", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN");
@@ -164,6 +164,6 @@ foreach ($emails_arr as $email => $user_copies_arr) {
         }
     }
 
- */
+
 ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

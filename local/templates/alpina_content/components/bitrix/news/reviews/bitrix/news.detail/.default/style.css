@@ -7,4 +7,4 @@ h2{font-size:28px!important;font-family:Walshein_light;text-align:center;padding
 #detailReview a:hover{border:none}
 #detailReview{display:inline-block}
 #detailReview .mainImg{float:left;padding-right:40px}
-#detailReview img{display:block;margin:0 auto}
+#detailReview img{display:block;margin:10px auto;}

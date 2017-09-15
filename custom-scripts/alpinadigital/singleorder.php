@@ -91,6 +91,8 @@ if (CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N")) {?>
 	<input type="submit" value="Отправить бесплатные книги" style="font-size:40px;">
 	</form></center>
 	</div>
+	<?arshow($products);
+	arshow($mailFields)?>
 <?} else {
 	echo 'error';
 }
