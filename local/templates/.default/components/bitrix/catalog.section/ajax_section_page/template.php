@@ -580,7 +580,6 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
         $('.showMore').click(function(){
            // var otherBooks = $(this).siblings(".otherBooks");
-            $.fancybox.showLoading();
             <?
             if ($_REQUEST["SORT"]) {
             ?>
@@ -601,7 +600,6 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             }
             ?>
             .done(function() {
-                    $.fancybox.hideLoading();
                     $(".nameBook").each(function() {
                         if($(this).length > 0) {
                             $(this).html(truncate($(this).html(), 40));

@@ -89,16 +89,13 @@ $(document).ready(function() {
             $(".allBooks").hide();
         }
             $('.allBooks').click(function(){
-                $.fancybox.showLoading();
                 $.get('<?=$_SERVER["SCRIPT_URI"]?>'+'?PAGEN_<?=$navnum?>='+page, function(data) {
                     var next_page = $('.catalogBooks .bookWrapp', data);
                     //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
                     $('.catalogBooks').append(next_page);
                     page++;            
                 })
-                .done(function() 
-                {
-                    $.fancybox.hideLoading();
+                .done(function() {
                     $(".bookName").each(function()
                     {
                         if($(this).length > 0)

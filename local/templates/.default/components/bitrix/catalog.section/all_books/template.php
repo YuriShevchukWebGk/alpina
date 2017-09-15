@@ -93,15 +93,12 @@ $(document).ready(function() {
 	<?}?>
 	var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
 		$('.allBooks').click(function(){
-			$.fancybox.showLoading();
 			$.get('/catalog/all-books/?SORT=POPULARITY&PAGEN_<?=$navnum?>='+page, function(data) {
 				var next_page = $('.catalogBooks .bookWrapp', data);
 				$('.catalogBooks').append(next_page);
 				page++;          
 			})
-			.done(function() 
-			{
-				$.fancybox.hideLoading();
+			.done(function() {
 				$(".bookName").each(function()
 				{
 					if($(this).length > 0)
@@ -113,7 +110,6 @@ $(document).ready(function() {
 			});
 			if (page == maxpage) {
 				$('.allBooks').hide();
-				//$('.phpages').hide();
 			}
 			return false;
 		});
