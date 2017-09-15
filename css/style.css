@@ -67,7 +67,7 @@ header .headBasket{padding:17px 1px 0}
 .book .secondWrapp{height:100%;width:360px}
 .secondWrapp img{position:absolute;top:-2px}
 .book .thirdWrapp{height:100%;width:378px;margin-left:10px;vertical-align:top}
-.afterImg:hover,.basketBook>div>a:hover,.book>div>a:hover,.bookDelete:hover,.breadCrump a:hover,.reviewsWrapp li:hover .autor,.variants>div>a:hover{text-decoration:underline}
+.afterImg:hover,.basketBook>div>a:hover,.book>div>a:hover,.bookDelete:hover,.breadCrump a:hover,.reviewsWrapp li:hover .autor,.variants>div>a:hover{border-bottom:1px solid}
 .readMore span:hover{background:#00ABB8;color:#fff!important}
 .thirdWrapp .text{background-color:#00a0af;height:160px;margin-bottom:35px;padding:44px 38px;width:282px;margin-left:20px}
 .thirdWrapp .container{width:450px}
@@ -127,7 +127,7 @@ header .headBasket{padding:17px 1px 0}
 .saleWrapp .titleMain{color:#3f4a4d;font-size:32px;padding-bottom:38px;padding-top:45px}
 .saleWrapp .titleMain a{color:#3f4a4d}
 .titleMain a {text-decoration:none}
-.titleMain a:hover {text-decoration:underline}
+.titleMain a:hover {border-bottom:1px solid}
 .saleWrapp ul{width:9999px;position:relative;left:0}
 .saleWrapp .left,.saleWrapp .right{position:absolute;top:229px;cursor:pointer}
 .saleWrapp li{width:192px}
@@ -141,7 +141,7 @@ header .headBasket{padding:17px 1px 0}
 .saleWrapp .giftWrap{border-top:1px solid #e2e2e2;margin-top:78px;padding-top:56px}
 .giftWrap .pii{float:right;width:462px;color:#768AAC;font-family:Walshein_regular;font-size:16px}
 .giftWrap .pii a{color:#3f4a4d}
-.giftWrap .pii a:hover{text-decoration:underline}
+.giftWrap .pii a:hover{border-bottom:1px solid}
 .giftWrap .title{font-family:Walshein_black;font-size:42px;color:#486796;padding-top:0;padding-bottom:0}
 .giftWrap p{color:#768AAC;font-family:Walshein_regular;font-size:16px}
 .giftWrap{position:relative}
@@ -154,7 +154,7 @@ header .headBasket{padding:17px 1px 0}
 .allBooksWrapp .bookName{color:#424c4f;font-size:14px;padding-bottom:5px;padding-top:16px;height:39px;width:142px;overflow:hidden}
 .allBooksWrapp .bookPrice{color:#7B8C90;font-size:14px}
 .allBooksWrapp .allBooks{border:1px solid #c7a271;border-radius:46px;color:#c7a271;font-size:19px;margin-left:447px;margin-top:68px;padding:12px 64px;text-decoration:none}
-.books>ul span:hover,.categoryWrapper .leftMenu a:hover,.roundSlider>li>a:hover>div>p{text-decoration:underline}
+.books>ul span:hover,.categoryWrapper .leftMenu a:hover,.roundSlider>li>a:hover>div>p{border-bottom:1px solid}
 .allBooksWrapp .catalogBooks{min-height:1140px;margin-bottom:59px}
 .reviewsWrapp{background-color:#f4f4f4;height:804px}
 .reviewsWrapp .arrows{float:right;padding-top:50px}
@@ -221,7 +221,7 @@ footer .webServ{margin-left:140px}
 .headerWrapper{margin:0 auto;position:relative;width:700px;text-align:center}
 header .menu{padding-top:18px}
 .colorCorrect{z-index:1;bottom:0;position:absolute;width:260px;height:202px;background:url(/img/blueColor.png)}
-.hintWrapp .smallContainer:hover p{color:#C7A271;text-decoration:underline;cursor:pointer}
+.hintWrapp .smallContainer:hover p{color:#C7A271;border-bottom:1px solid;cursor:pointer}
 .hintWrapp .smallContainer:hover .colorCorrect{background:url(/img/redColor.png)}
 .slideWrapp .titleSlide{color:#fff;font-size:62px;height:124px}
 .slideWrapp .textSlide{color:#CAD1CE;font-size:20px;margin-top:16px;margin-bottom:36px;height:56px}
@@ -343,7 +343,7 @@ header .headBasket{margin-right:0}
 .insideHeader .telephHead p{padding-top:19px}
 .categoryWrapper{margin:0 auto;width:1140px;background-color:#F4F4F4;position:relative}
 .categoryWrapperWhite{margin:0 auto;width:1140px;background-color:#FFF}
-.categoryWrapper .leftMenu{color:#555e60;font-size:15px;padding-left:2px;padding-top:40px;width:230px}
+.categoryWrapper .leftMenu{color:#555e60;font-size:16px;padding-left:2px;padding-top:40px;width:230px}
 .categoryWrapper .leftMenu a{color:#555e60!important}
 .categoryWrapper .leftMenu>ul>li{padding-bottom:18px;cursor:pointer}
 .categoryWrapper .leftMenu>ul>li>p:after{content:url(/img/leftMenuAft1.png);margin-left:10px}
@@ -387,12 +387,13 @@ header .headBasket{margin-right:0}
 .windowClose{position:fixed;right:319px;top:40px;z-index:1600;cursor:pointer}
 .layout,.layout2{z-index:1000;position:fixed;left:0;height:100%;background-color:#000;opacity:.35;width:100%;top:0}
 .layout2{display:block}
-.hidingCatalogLeft .categories{color:#2F3839;font-weight:700;font-size:15px;margin-right:21px}
+.hidingCatalogLeft .categories{color:#2F3839;font-weight:400;font-size:16px;margin-right:21px}
 .hidingCatalogLeft .categories .secondLevel{display:none}
 .hidingCatalogLeft .categories .secondLevel li{margin-left:24px;margin-bottom:0;padding:5px 0;position:relative}
 .hidingCatalogLeft .categories a{color:#2F3839!important}
 .hidingCatalogLeft .categories li{margin-bottom:18px}
 .hidingCatalogLeft .categories li p{position:relative}
+.hidingCatalogLeft .categories a:hover>p{color:#00abb8}
 .hidingCatalogLeft .categories li p:after{content:url(/img/leftMenuAft1.png);margin-left:5px}
 .hidingCatalogLeft .categories .secondLevel li:before{content:url(/img/secLvlBefore.png);left:-20px;position:absolute;top:0}
 .hidingCatalogLeft .menuCopy{color:#7B8C90;font-family:Walshein_regular;font-size:15px;margin-top:44px}
@@ -505,7 +506,7 @@ header .headBasket{margin-right:0}
 .shippings .lastli{margin-top:15px}
 .shippings a{color:#00ABB8;border-bottom:1px dashed #00ABB8}
 .shippings a:hover{border-bottom:none}
-.noborderlink{color:#00ABB8;border-bottom:0!important;text-decoration:underline!important}
+.noborderlink{color:#00ABB8;border-bottom:0!important;border-bottom:1px solid!important}
 .noborderlink:hover{text-decoration:none!important}
 .shippings li:before{content:"\2022";left:-15px;position:absolute}
 .productAction{border-bottom:1px solid #DDD;padding-bottom:22px}
@@ -565,7 +566,7 @@ header .headBasket{margin-right:0}
 .reviewsSliderWrapp .sliderElement{height:200px!important;float:left}
 .reviewsSliderWrapp .sliderName{color:#3f4a4d;font-size:32px;padding-bottom:40px;padding-top:18px}
 .reviewsSliderWrapp .sliderName a{color:#3f4a4d}
-.reviewsSliderWrapp .sliderName a:hover,.footerContacts a:hover{text-decoration:underline}
+.reviewsSliderWrapp .sliderName a:hover,.footerContacts a:hover{border-bottom:1px solid}
 .reviewsSliderWrapp .bigSlider{margin-top:32px;overflow:hidden;position:relative;width:100%;height:300px!important}
 .reviewsSliderWrapp .giftWrap{border-top:1px solid #e2e2e2;margin-top:40px;padding-top:56px;overflow:hidden}
 .reviewsSliderWrapp .giftWrap img{left:414px;position:absolute;top:0}
@@ -643,7 +644,7 @@ header .headBasket{margin-right:0}
 .cartWrapper .deferredBooks{background-color:#fff}
 .yourBooks thead{color:#7B8C90;font-size:13px}
 .yourBooks .nameOfBook{color:#353535;font-size:16px;padding-top:34px}
-.nameOfBook:hover{text-decoration:underline}
+.nameOfBook:hover{border-bottom:1px solid}
 .yourBooks .nameOfAutor{color:#7B8C90;font-size:13px;text-transform:uppercase;padding-top:16px}
 .yourBooks .costOfBook{color:#7B8C90;font-size:13px}
 .yourBooks .bookDelete{color:#DB747D;font-size:13px;cursor:pointer}
@@ -774,7 +775,7 @@ header .headBasket{margin-right:0}
 .contactsTextWrap .wayTitle{color:#2F3839;font-size:19px;margin-bottom:14px;margin-top:34px;margin-right:97px}
 .contactsFormWrap{background-color:#fff;float:right;height:670px;margin-top:34px;width:362px;box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);margin-bottom:56px;margin-right:100px}
 .contactsFormWrap .pii{padding:0 30px;font-size:14px;color:#666}
-.contactsFormWrap .pii a{color:#666;text-decoration:underline}
+.contactsFormWrap .pii a{color:#666;border-bottom:1px solid}
 .contactsFormWrap .pii a:hover{text-decoration:none}
 .contactsFormWrap p{color:#3f4a4d;font-size:32px;padding-top:28px;text-align:center}
 .contactsFormWrap input[type=text],.questInput{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;margin-left:30px;padding-left:20px;width:274px}
@@ -798,7 +799,7 @@ header .headBasket{margin-right:0}
 #couponInp{border:1px solid #bababa;border-radius:3px;box-shadow:0 1px 2px 0 rgba(0,0,0,.21) inset;color:#000;font-size:16px;font-weight:700;height:34px;line-height:34px;margin-left:35px;margin-top:10px;text-align:left;width:200px}
 .baskHeadMenu a,.menu li a{color:#7b8c90;font-size:15px}
 .menu li a{text-decoration:none}
-.menu li a:hover{text-decoration:underline}
+.menu li a:hover{border-bottom:1px solid}
 .mainLogoImg{left:60px;position:absolute;top:10px}
 .headLogoAnchor{left:68px;position:absolute;top:12px}
 .headLogin a,.headLogin p{height:100%;width:100%}
@@ -894,7 +895,7 @@ header .headBasket{margin-right:0}
 .badge img{width:60px!important}
 .sect_badge{position:absolute;right:5px;z-index:150}
 .sect_badge img{width:40px!important;height:40px!important;box-shadow:none}
-.item_img img,.section_item_img img{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition:box-shadow .4s ease, transform .4s ease 0s;width:142px;height:auto}
+.item_img img,.section_item_img img{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition:box-shadow .4s ease, transform .4s ease 0s;width:142px;height:auto;margin-bottom:10px}
 .item_img img:hover,.section_item_img img:hover{box-shadow:0 15px 18px 0 rgba(0,0,0,.18),0 15px 18px 0 rgba(0,0,0,.14);transform:scale(1.02)}
 .catalogLogo img{left:68px!important;top:12px!important}
 .catalogHeadParagraph{float:left;padding-top:20px;width:544px}
