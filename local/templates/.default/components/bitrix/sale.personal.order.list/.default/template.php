@@ -76,9 +76,21 @@
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["PERSONAL_PHONE"] ?></p>
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["EMAIL"] ?></p>
                             <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p> 
-                            <?if($arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]) {?>
-                                <p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
-                            <?}?>                                                                                                                                     
+							<?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {
+								$db_props = CSaleOrderPropsValue::GetOrderProps($order["ORDER"]["ID"]);
+								while ($arProps = $db_props->Fetch()) {
+									if ($arProps['CODE']=='ADRESS_PICKPOINT') {
+										$PickPointAddress = explode("<br>", $arProps['VALUE']);
+										$PickPointAddress = $PickPointAddress[0].'<br />'.$PickPointAddress[1];?>
+										<p class="dopInfoText"><?=$PickPointAddress?></p>
+									<?}
+								}
+							} else {?>
+								<?if($arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]) {?>
+									<p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
+								<?}?>
+								<p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
+							<?}?>
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
                             <p class="dopInfoTitle thiCol"><?= GetMessage("PHONE") ?></p>
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["ORDER_PHONE"] ?></p>

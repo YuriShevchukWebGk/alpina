@@ -778,7 +778,12 @@
             }?>
         </div>
 		<?$frame->beginStub();?>
-			<div class="priceBasketWrap paperVersionWrap">
+			<div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+				<meta itemprop="priceCurrency" content="RUB" />
+				<link itemprop="itemCondition" href="http://schema.org/NewCondition">
+				<meta itemprop="sku" content="<?=$arResult["ID"]?>" />
+				<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
+				<link itemprop="availability" href="https://schema.org/InStock">
 				<div class="wrap_prise_top">
 					<p class="newPrice"><?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?> <span></span></p>
 
@@ -892,7 +897,7 @@
             ?>
             <ul class="shippings">
                 <li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
-                <li>1251 <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a></li>
+                <li><?= GetMessage("POSTOMATS_COUNT") ?> <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a> <?= GetMessage("POSTOMATS_COUNTRY") ?></li>
                 <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
