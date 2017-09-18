@@ -780,6 +780,7 @@
 				<link itemprop="itemCondition" href="http://schema.org/NewCondition">
 				<meta itemprop="sku" content="<?=$arResult["ID"]?>" />
 				<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
+				<link itemprop="availability" href="https://schema.org/InStock">
 				<div class="wrap_prise_top">
 					<p class="newPrice"><?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?> <span></span></p>
 
