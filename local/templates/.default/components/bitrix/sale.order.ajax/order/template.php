@@ -92,10 +92,10 @@
     window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
-        <?if($arResult['PREORDER'] == 'Y') {?>      
-            $(".delivery_date").remove();    
-        <?}?> 
-        
+        <?if($arResult['PREORDER'] == 'Y') {?>
+            $(".delivery_date").remove();
+        <?}?>
+
 		$(".bx_section div:has(input:checked), input:checked>label").css("background", "rgba(216, 194, 165, 0.35)");
 		$("input[name='PERSON_TYPE']:checked").next().css("background", "rgba(216, 194, 165, 0.35)");
 
@@ -253,7 +253,11 @@
 				this.value = this.value.replace(/[^\(\)\-\+0-9]/g, '');
 			}
 		});
-		$('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
+
+        if( $('#ORDER_PROP_24,#ORDER_PROP_11').val() == ''){
+             $('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
+        }
+
     }
 
     $(function(){
@@ -991,6 +995,6 @@
             if ($(this).css("display") == "none") {
                 $(this).closest(".infoPunct").find(".inputTitle").hide();
             }
-        });          
+        });
     })
 </script>

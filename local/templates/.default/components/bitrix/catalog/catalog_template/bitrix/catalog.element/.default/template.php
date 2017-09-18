@@ -14,7 +14,8 @@
     $checkMobile = checkMobile();
     include_once($_SERVER["DOCUMENT_ROOT"].'/custom-scripts/checkdelivery/options.php');
 ?>
-<?if($arResult["PROPERTIES"]["FOR_ADMIN"]["VALUE"] == "Y"){
+<?global $USER;?>
+<?if($arResult["PROPERTIES"]["FOR_ADMIN"]["VALUE"] == "Y" && !$USER->IsAdmin()){
     LocalRedirect('/404.php', '301 Moved permanently');
 }?>
 <script>
