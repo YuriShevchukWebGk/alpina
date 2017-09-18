@@ -197,10 +197,11 @@
             <div class="headCatalog">
                 <p>Каталог</p>    
             </div>    
-            <div class="headBasket">
-                <div class="BasketQuant">
-                </div>
-            </div>
+            <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+				<div class="headBasket">
+					<div class="BasketQuant"></div>
+				</div>
+			</a>
 
             <a href="/personal/cart/?liked=yes">
                 <div class="headLiked">

@@ -166,10 +166,11 @@
             </a>
         </div>
   
-        <div class="headBasket">
-            <div class="BasketQuant">
-            </div>
-        </div>
+        <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+				<div class="headBasket">
+					<div class="BasketQuant"></div>
+				</div>
+			</a>
         <a href="/personal/profile/">
             <div class="headLogin">
             </div>
