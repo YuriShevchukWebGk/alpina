@@ -1,6 +1,6 @@
 <?                                                                                         
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-    $APPLICATION->SetTitle("Оплата заказа");
+    $APPLICATION->SetTitle("Авторизуйтесь для доступа к странице оплаты");
 	require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
     global $USER;
 	
