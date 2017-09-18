@@ -775,7 +775,11 @@
             }?>
         </div>
 		<?$frame->beginStub();?>
-			<div class="priceBasketWrap paperVersionWrap">
+			<div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+				<meta itemprop="priceCurrency" content="RUB" />
+				<link itemprop="itemCondition" href="http://schema.org/NewCondition">
+				<meta itemprop="sku" content="<?=$arResult["ID"]?>" />
+				<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
 				<div class="wrap_prise_top">
 					<p class="newPrice"><?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?> <span></span></p>
 
