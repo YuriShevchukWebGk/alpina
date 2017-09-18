@@ -1,0 +1,18 @@
+cd ..
+exit
+cd ..
+exit
+ls
+cd .git
+ls
+touch test
+:>test
+rm -f test
+del test
+rm test
+cd ..
+exit
+git checkout master
+exit
+git checkout master
+exit
