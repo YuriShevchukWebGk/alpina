@@ -490,6 +490,14 @@
                                             var scrollTop = $('#ORDER_PROP_5').offset().top;
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_5").focus();
+                                            dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorDeliveryAddress'});
+                                        }
+                                        if($("#ORDER_PROP_116").size() > 0 && $('#ORDER_PROP_116').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_116').parent("div").children(".warningMessage").show();
+                                            var scrollTop = $('#ORDER_PROP_116').offset().top;
+                                            $(document).scrollTop(scrollTop);
+                                            document.getElementById("ORDER_PROP_116").focus();
 											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorDeliveryAddress'});
                                         }
                                         var deliveryFlag= false;
@@ -509,6 +517,36 @@
                                         if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == false){
                                             flag = false;
                                             $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
+                                        }
+
+                                        if($("#ORDER_PROP_4").size() > 0 && $('#ORDER_PROP_4').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_4').parent("div").children(".warningMessage").show();
+                                        }
+
+                                        if($("#ORDER_PROP_104").size() > 0 && $('#ORDER_PROP_104').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_104').parent("div").children(".warningMessage").show();
+                                        }
+
+                                        if($("#ORDER_PROP_105").size() > 0 && $('#ORDER_PROP_105').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_105').parent("div").children(".warningMessage").show();
+                                        }
+
+                                        if($("#ORDER_PROP_107").size() > 0 && $('#ORDER_PROP_107').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_107').parent("div").children(".warningMessage").show();
+                                        }
+
+                                        if($("#ORDER_PROP_109").size() > 0 && $('#ORDER_PROP_109').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_109').parent("div").children(".warningMessage").show();
+                                        }
+
+                                        if($("#ORDER_PROP_111").size() > 0 && $('#ORDER_PROP_111').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_111').parent("div").children(".warningMessage").show();
                                         }
 
                                         if (flag) {
