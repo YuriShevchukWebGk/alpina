@@ -775,20 +775,27 @@
                                         if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").is(':checked') && window.boxberry_result) {
 
                                                 var result = window.boxberry_result;
-
-                                                $('.deliveryPriceTable').html(result.price + ' руб.');
-                                                finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
-                                                $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
-                                                // установка значений для блока с самой доставкой
-                                                $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(result.price + ' руб.');
-                                                $("#boxberry_cost").val(result.price);
-                                                if (parseInt(result.period) != 0) {
-                                                    // если значения не будет, то значит произошла ошибка и время доставки не показываем
-                                                    $(".boxberry_delivery_time").show();
-                                                    d = date.getDate() + parseInt(result.period);
-                                                    m = date.getMonth();
-                                                    y = date.getFullYear();
-                                                    $(".boxberry_delivery_time ").html('Ожидаемая дата доставки: ' + getDay(d,m,y, parseInt(result.period)));
+                                            /*    if(result.price == 0){
+                                                    $(".deliveryPriceTable").html('Неверно указан индекс!');
+                                                    $(".boxberry_delivery_time span").html('');
+                                                } else if(result.price == 'undefined'){
+                                                    $(".deliveryPriceTable").html('235 руб.!');
+                                                    $(".boxberry_delivery_time span").html('');
+                                                } else {  */
+                                                    $('.deliveryPriceTable').html(result.price + ' руб.');
+                                                    finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
+                                                    $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
+                                                    // установка значений для блока с самой доставкой
+                                                    $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(result.price + ' руб.');
+                                                    $("#boxberry_cost").val(result.price);
+                                                    if (parseInt(result.period) != 0) {
+                                                        // если значения не будет, то значит произошла ошибка и время доставки не показываем
+                                                        $(".boxberry_delivery_time").show();
+                                                        d = date.getDate() + parseInt(result.period);
+                                                        m = date.getMonth();
+                                                        y = date.getFullYear();
+                                                        $(".boxberry_delivery_time ").html('Ожидаемая дата доставки: ' + getDay(d,m,y, parseInt(result.period)));
+                                                    }
                                                 }
 
                                                 setAddressDataBoxberry(result);
@@ -850,6 +857,9 @@
                                                         city = JSON.parse(data);
                                                         if(city.price == 0){
                                                             $(".ID_DELIVERY_ID_50").html('Неверно указан индекс!');
+                                                            $("#boxbery_delivery_time span").html('');
+                                                        } else if(city.price == 'undefined'){
+                                                            $(".ID_DELIVERY_ID_50").html('235 руб.!');
                                                             $("#boxbery_delivery_time span").html('');
                                                         } else {
                                                             document.querySelector('.deliveryPriceTable').innerHTML = city.price + ' руб.';
