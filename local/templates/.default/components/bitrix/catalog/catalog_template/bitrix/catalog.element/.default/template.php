@@ -433,7 +433,8 @@
                         </span>
                     </p>
                 </div>
-                <?}?>
+                <?}?> 
+            <?if($arResult['IBLOCK_SECTION_ID'] != HANDBAG_SECTION_ID) {?>
             <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "" && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                 <div class="characteris">
                     <p class="title"><?= $arResult["PROPERTIES"]["YEAR"]["NAME"] ?></p>
@@ -464,7 +465,7 @@
                         <link itemprop="bookFormat" href="https://schema.org/Hardcover">
                         <?}?>
                 </div>
-                <?}?>
+                <?}?> 
             <div class="characteris epub" style="display:none;">
                 <p class="title">Форматы</p>
                 <p class="text">epub</p>
@@ -506,7 +507,7 @@
                 </div>
                 <?}?>
             <?}?>
-
+        <?}?>
         <?if ($arResult["CATALOG_WEIGHT"]) {
                 $weight = $arResult["CATALOG_WEIGHT"];
             } else if ($arResult["PROPERTIES"]["LATEST_WEIGHT"]["VALUE"]) {
@@ -1060,13 +1061,21 @@
 			<?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?><p class="bookPreviewLink previewLink no-mobile" onclick="getPreview(<?=$arResult["ID"]?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;"><?= GetMessage("BROWSE_THE_BOOK") ?></p><?}?>
         </div>
 
-        <ul class="productsMenu">
-            <li class="active tabsInElement" data-id="1"><?= GetMessage("ANNOTATION_TITLE") ?></li>
+        <ul class="productsMenu">  
+            <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>
+            <li class="active tabsInElement" data-id="1"><?= GetMessage("CERTIFICATE_TITLE") ?></li>
+            <?} elseif($arResult['IBLOCK_SECTION_ID'] == HANDBAG_SECTION_ID) {?> 
+            <li class="active tabsInElement" data-id="1"><?= GetMessage("HANDBAG_TITLE") ?></li>    
+            <?} else {?>
+            <li class="active tabsInElement" data-id="1"><?= GetMessage("ANNOTATION_TITLE") ?></li>                  
+            <?}?>
             <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
             <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
                 <li data-id="2" class="tabsInElement"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</li>
                 <?}?>
+            <? if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { ?>
             <li data-id="3" class="tabsInElement" id="commentsLink"><?= GetMessage("COMMENTS_TITLE") ?></li>
+            <?}?>
         </ul>
 
         <div class="annotation" id="prodBlock1">

@@ -1,10 +1,11 @@
 <?                                                                                         
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-    $APPLICATION->SetTitle("Авторизуйтесь для доступа к странице оплаты");
-	require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+    $APPLICATION->SetTitle("Страница оплаты");
     global $USER;
 	
-    if (!$USER->GetID()) {?>
+    if (!$USER->GetID()) {
+		$APPLICATION->SetTitle("Авторизуйтесь для доступа к странице оплаты");
+		require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");?>
 		<style>
 			.orderHistorWrap{width:auto;padding-bottom:0}
 		</style>
@@ -21,7 +22,8 @@
 				</div>
 			</div>
 		</div>
-	<?} else {?>
+		<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
+	} else {?>
 	<style type="text/css">
 		*{
 			font-family: Tahoma;
@@ -383,5 +385,5 @@
 
 		<?}?>
     <?}?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");	
+<?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

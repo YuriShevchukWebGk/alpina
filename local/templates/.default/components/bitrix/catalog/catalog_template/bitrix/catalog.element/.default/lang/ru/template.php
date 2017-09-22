@@ -72,6 +72,8 @@ $MESS["PICKUP_DELIVERY"] = "Самовывоз <a id='inline2' href='#data2'>м.
 $MESS["BUY_IN_APPSTORE"] = "Купить электронную книгу<br />в <span>iPhone/iPad</span>";
 $MESS["BUY_IN_GOOGLEPLAY"] = "Купить электронную книгу<br />в <span>Android</span>";
 $MESS["ANNOTATION_TITLE"] = "О книге";
+$MESS["CERTIFICATE_TITLE"] = "О сертификате";
+$MESS["HANDBAG_TITLE"] = "О сумке";
 $MESS["ABOUT_AUTHOR_TITLE"] = "Об авторе";
 $MESS["ABOUT_AUTHORS_TITLE"] = "Об авторах";
 $MESS["REVIEWS_TITLE"] = "Рецензии";
