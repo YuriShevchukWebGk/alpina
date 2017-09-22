@@ -775,13 +775,13 @@
                                         if ($("#ID_DELIVERY_ID_<?= BOXBERRY_PICKUP_DELIVERY_ID ?>").is(':checked') && window.boxberry_result) {
 
                                                 var result = window.boxberry_result;
-                                            /*    if(result.price == 0){
-                                                    $(".deliveryPriceTable").html('Неверно указан индекс!');
+                                                if(result.price == 0){
+                                                    $(".deliveryPriceTable").html('235 руб.');
                                                     $(".boxberry_delivery_time span").html('');
                                                 } else if(result.price == 'undefined'){
-                                                    $(".deliveryPriceTable").html('235 руб.!');
+                                                    $(".deliveryPriceTable").html('235 руб.');
                                                     $(".boxberry_delivery_time span").html('');
-                                                } else {  */
+                                                } else {
                                                     $('.deliveryPriceTable').html(result.price + ' руб.');
                                                     finalSumWithoutDiscount = parseFloat($('.SumTable').html().replace(" ", "")) + parseFloat(result.price);
                                                     $('.finalSumTable').html(finalSumWithoutDiscount.toFixed(2) + ' руб.');
