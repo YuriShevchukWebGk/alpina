@@ -1549,8 +1549,6 @@
         </div>
 		<!--/noindex-->
 
-        <p class="sliderName"><a href="/catalog/lastseen/" class="youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></a></p>
-
         <?
 		global $arFilter;
 		$lastseen = CSaleViewedProduct::GetList(
