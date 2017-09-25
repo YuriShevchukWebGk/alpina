@@ -598,7 +598,7 @@ if ($arResult['MODULES']['currency'])
     $authors_IDs = $arResult['PROPERTIES']['AUTHORS']['VALUE'];
     if (!empty($authors_IDs)) {
         $authors_list = CIBlockElement::GetList (
-            array(),
+            array("SORT"=>"ASC"),
             array("IBLOCK_ID" => AUTHORS_IBLOCK_ID, "ID" => $authors_IDs),
             false,
             false,
@@ -808,7 +808,7 @@ if ($arResult['MODULES']['currency'])
 
     $arResult["AUTHORS"] = "";
     foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
-        $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
+        $authorList = CIBlockElement::GetList (array("SORT"=>"ASC"), array("IBLOCK_ID" => AUTHORS_IBLOCK_ID, "ID" => $val), false, false, array("ID", "NAME"));
         while ($authorFetchedList = $authorList -> Fetch()) {
             $arResult["AUTHORS"] .= $authorFetchedList["NAME"].", ";
 
@@ -890,7 +890,7 @@ if ($arResult['MODULES']['currency'])
     }
     $currAuthor = CIBlockElement::GetList (
         array(
-            "ID" => "DESC"
+            "SORT" => "ASC"
         ),
         array(
             "IBLOCK_ID" => AUTHORS_IBLOCK_ID,
