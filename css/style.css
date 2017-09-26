@@ -221,7 +221,7 @@ footer .webServ{margin-left:140px}
 .headerWrapper{margin:0 auto;position:relative;width:700px;text-align:center}
 header .menu{padding-top:18px}
 .colorCorrect{z-index:1;bottom:0;position:absolute;width:260px;height:202px;background:url(/img/blueColor.png)}
-.hintWrapp .smallContainer:hover p{color:#C7A271;border-bottom:1px solid;cursor:pointer}
+.hintWrapp .smallContainer:hover p{color:#C7A271;cursor:pointer}
 .hintWrapp .smallContainer:hover .colorCorrect{background:url(/img/redColor.png)}
 .slideWrapp .titleSlide{color:#fff;font-size:62px;height:124px}
 .slideWrapp .textSlide{color:#CAD1CE;font-size:20px;margin-top:16px;margin-bottom:36px;height:56px}
