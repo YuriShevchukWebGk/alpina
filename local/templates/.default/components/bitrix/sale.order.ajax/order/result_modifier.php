@@ -2,11 +2,14 @@
            
 //Отсеем подарки из корзины, нужно для проверки ниже       
 $basket_without_present = array();
+                     
+
 foreach($arResult["BASKET_ITEMS"] as $basket_item) {
     if ($basket_item['PRICE'] != 0) {
         $basket_without_present[] = $basket_item;    
     }    
 }         
+
  
 //Проверим является ли корзина предзаказом  
 if(count($basket_without_present) == 1) {      
@@ -14,11 +17,12 @@ if(count($basket_without_present) == 1) {
     $itemID = $basketItem["PRODUCT_ID"];   
         
 
+
     $preOrder = '';
     $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
-    if($arFields = $res->Fetch()) {    
+    if($arFields = $res->Fetch()) {                         
         if(intval($arFields["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")){ 
-            $arResult['PREORDER'] = 'Y';        
+            $arResult['PREORDER'] = 'Y';       
         }  
     }                                                                                                                      
 };   

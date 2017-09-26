@@ -492,12 +492,14 @@
                     }
                 }
             }
-            if(floatval($delivery_price) <= 0){
-                $arFields['PRICE'] = 235;
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+            if(floatval($delivery_price) <= 0 && $arFields["PRICE"] < 2000){
+                $arFields['PRICE_DELIVERY'] = 235;
+                $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
             } else {
                 $arFields['PRICE'] += floatval($delivery_price);
             }
-            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+
         }
     }
 
@@ -627,7 +629,7 @@
         * */
     function boxberryDeliveryHandlerBefore(&$arFields) {
         if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
-            if($_REQUEST['boxbery_price'] <= 0){
+            if($_REQUEST['boxbery_price'] <= 0 && $arFields["PRICE"] < 2000){
                 $delivery_price = 235;
             } else {
                 $delivery_price = $_REQUEST['boxbery_price'];
@@ -651,12 +653,14 @@
     function boxberryHandlerBefore(&$arFields) {
         if ($arFields['DELIVERY_ID'] == BOXBERRY_PICKUP_DELIVERY_ID) {
             $delivery_price = $_REQUEST['boxberry_cost'];
-            if(floatval($delivery_price) <= 0){
-                $arFields['PRICE'] = 235;
+            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+            if(floatval($delivery_price) <= 0 && $arFields['PRICE'] < 2000){
+                $arFields['PRICE_DELIVERY'] = 235;
+                $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
             } else {
                 $arFields['PRICE'] += floatval($delivery_price);
             }
-            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+
         }
     }
 
