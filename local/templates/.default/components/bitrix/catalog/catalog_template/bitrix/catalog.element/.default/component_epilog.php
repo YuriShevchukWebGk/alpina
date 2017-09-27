@@ -88,8 +88,7 @@ else
 
 $sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
 $key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
-
-$description = 'Купить книгу: ' . $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"] . '; ' .$arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"]. '; дата издания: ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . '; 💳 цена ' . round(($arPrice["DISCOUNT_VALUE_VAT"]), 2) . ' &#8381;. Подробности заказа и доставки по 📲 +7 (495) 120 07 04.';
+$description = 'Купить книгу: ' . $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"] . '; ' .$arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"]. '; дата издания: ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . '; 💳 цена ' . round(($arResult["CATALOG_PRICE_1"]), 2) . ' &#8381;. Подробности заказа и доставки по 📲 +7 (495) 120 07 04.';
 
 $APPLICATION->SetPageProperty("description", $description); 
 
