@@ -86,9 +86,12 @@ else
 ?>
 </div><?*/
 //$arrFilter = array("ELEMENT_SORT_FIELD"=>"PROPERTY_".$_REQUEST["SORT"], "ELEMENT_SORT_ORDER"=>$_REQUEST["DIRECTION"]);
+
+
 if ($_REQUEST["DIRECTION"])
 {
     $order = $_REQUEST["DIRECTION"];
+	echo 1;
 }
 else
 {
@@ -110,10 +113,11 @@ switch ($_REQUEST["SORT"])
     break;
 
     default:
-    $sort = "PROPERTY_shows_a_day";
-    $order = "desc";
+    $sort = "PROPERTY_STATE";
+    $order = "asc";
     break;
 }
+
 global $SectFilter;
 $SectFilter = array (">CATALOG_PRICE_1" => 0);
 if(!$USER->IsAdmin()){
@@ -219,4 +223,5 @@ $APPLICATION->IncludeComponent(
             ),
             $component
         );
-echo "</div>";?>
+echo "</div>";
+?>
