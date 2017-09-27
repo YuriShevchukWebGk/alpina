@@ -74,20 +74,12 @@ if (!empty($authors_IDs)) {
     }
 } 
 
-$title = '"' . $arResult["NAME"] . '" '.GetMessage("BUY_BOOK") . $author_name .  GetMessage("TO_BUY_WITH_DELIVERY");
-
-if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']))
-	$title .= GetMessage("EBOOK_READ");
-
+$title = $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"] ." - ". $arResult["AUTHOR_NAME"] ." - ".  GetMessage("ADD_TITLE");
 
 if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"]))
-	$title .= ' / ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
-
-$title .= GetMessage("LAST_EDITION") . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . " г.";
+	$title .= ' | ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
 
 $APPLICATION -> SetPageProperty("title", $title);
-
-$APPLICATION->SetPageProperty("description", strip_tags($arResult["PREVIEW_TEXT"])); 
 
 if (!empty($arResult['TAGS']))
 	$APPLICATION->SetPageProperty("keywords", $arResult["TAGS"]);
@@ -96,7 +88,11 @@ else
 
 $sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
 $key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
-$APPLICATION->SetPageProperty("description", 'Издательство Альпина Паблишер предлагает купить книгу '.$arResult["NAME"].' '.$author_name.' и другие книги в разделе "'.$sect_name.'" в собственном интернет-магазине. Доступны печатные и цифровые версии.'); 
+
+$description = 'Купить книгу: ' . $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"] . '; ' .$arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"]. '; дата издания: ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . '; 💳 цена ' . round(($arPrice["DISCOUNT_VALUE_VAT"]), 2) . ' &#8381;. Подробности заказа и доставки по 📲 +7 (495) 120 07 04.';
+
+$APPLICATION->SetPageProperty("description", $description); 
+
 $APPLICATION->SetPageProperty("keywords-new", 'купить книга '.$key_name);
 	
 $APPLICATION->AddHeadString('<meta property="og:title" content=\''.$APPLICATION->GetPageProperty('title').'\' />',false);

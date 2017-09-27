@@ -321,7 +321,7 @@
 				<?}?>
 
 				<?if ($arResult["PICTURE"]["src"]) {?>
-					<img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" class="bookPreviewLink" alt="<?= $arResult["NAME"] ?>" title="<?= $arResult["NAME"] ?>" />
+					<img src="<?= $arResult["PICTURE"]["src"] ?>" itemprop="image" class="bookPreviewLink" alt="<?= $arResult["NAME"] ?>" title="Обложка книги: <?= $arResult["NAME"] ?>" />
 				<?} else {?>
 					<img src="/images/no_photo.png">
 				<?}?>

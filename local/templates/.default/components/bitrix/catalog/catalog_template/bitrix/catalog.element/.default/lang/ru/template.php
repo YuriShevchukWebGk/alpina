@@ -1,5 +1,6 @@
 <?
 $MESS["CATALOG_QUANTITY"] = "Количество";
+$MESS["ADD_TITLE"] = "купить в интернет-магазине Альпина";
 $MESS["CATALOG_QUANTITY_FROM_TO"] = "От #FROM# до #TO#";
 $MESS["CATALOG_QUANTITY_FROM"] = "От #FROM#";
 $MESS["CATALOG_QUANTITY_TO"] = "До #TO#";
