@@ -598,7 +598,7 @@
                                 if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) {
 									if ($arResult['PROPERTIES']['spec_price']['VALUE']) {?>
 										<div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span></div>
-										 <p class="newPrice"><?= $arPrice["DISCOUNT_VALUE"] ?> <span>руб.</span></p>
+										 <p class="newPrice"><?= $arPrice["DISCOUNT_VALUE"] ?> <span></span></p>
 									<?} elseif ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
                                     <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                     <?// расчитываем накопительную скидку от стоимости
@@ -613,7 +613,7 @@
                                                 $newPrice .= "0";
                                             }
                                     }?>
-                                    <p class="newPrice"><?= $newPrice ?> <span>руб.</span></p>
+                                    <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                     <?} else if ($discount) {
                                         $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
                                         if (strlen (stristr($newPrice, ".")) == 2) {
@@ -627,10 +627,10 @@
                                         if (strlen(stristr($newPrice, ".")) == 2) {
                                             $newPrice .= "0";
                                     }?>
-                                    <p class="newPrice"><?= $newPrice ?> <span>руб.</span></p>
+                                    <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                     <?}?>
                                 <?} else {?>
-                                    <p class="newPrice"><?= $arPrice["VALUE"] ?> <span>руб.</span></p>
+                                    <p class="newPrice"><?= $arPrice["VALUE"] ?> <span></span></p>
                                 <?}?>
 
                             <?if ($printDiscountText != '' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {
@@ -663,7 +663,7 @@
                                             $newPrice .= "0";
                                         }
                                 }?>
-                                <p class="newPrice"><?= $newPrice ?> <span>руб.</span></p>
+                                <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                 <?} else if ($discount) {
                                     $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
                                     if (strlen (stristr($newPrice, ".")) == 2) {
@@ -671,13 +671,13 @@
                                 }?>
                                 <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                 <?// расчитываем накопительную скидку от стоимости?>
-                                <p class="newPrice"><?= $newPrice ?> <span>руб.</span></p>
+                                <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                 <?} else {
                                     $newPrice = round($arPrice["VALUE_VAT"], 2);
                                     if (strlen(stristr($newPrice, ".")) == 2) {
                                         $newPrice .= "0";
                                 }?>
-                                <p class="newPrice"><?= $newPrice ?> <span>руб.</span></p>
+                                <p class="newPrice"><?= $newPrice ?> <span></span></p>
                                 <?}?>
                             <button style="width:10px; height:10px; background:rgba(255, 255, 0, 0.75); box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.12); border-radius:10px;padding: 0;border: 0;margin-left:-20px;vertical-align: middle;"></button><span>&nbsp;<?= GetMessage("ADD_TO_PREORDER") ?></span>
                             <?}?>
@@ -700,7 +700,7 @@
                                     if (strlen(stristr($newPrice, ".")) == 2) {
                                         $newPrice .= "0";
                                 }?>
-                                <p class="newPrice"><span><?= $newPrice ?></span> <span>руб.</span></p>
+                                <p class="newPrice"><span><?= $newPrice ?></span> <span></span></p>
                                 <?}?>
                             <?}?>
                         <p class="newPrice notAvailable" style="font-size:28px;"><?= GetMessage("NOT_IN_STOCK") ?></p>
@@ -785,7 +785,7 @@
 				<meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
 				<link itemprop="availability" href="https://schema.org/InStock">
 				<div class="wrap_prise_top">
-					<p class="newPrice"><?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?> <span>руб.</span></p>
+					<p class="newPrice"><?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?> <span></span></p>
 
 					<span class="sale_price"></span><br>
 
@@ -835,7 +835,7 @@
             <div class="priceBasketWrap digitalVersionWrap" style="display:none;">
                 <div class="wrap_prise_top">
                     <?= GetMessage("EPUB") ?>
-                    <p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span>руб.</span></p>
+                    <p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span></span></p>
                 </div>
 
                 <div class="wrap_prise_bottom">
