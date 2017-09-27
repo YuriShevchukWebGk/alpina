@@ -525,3 +525,27 @@ foreach ($arResult["ITEMS"] as $key => $arItem) {
     $arResult[$arItem["ID"]]["PICTURE"] = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);                  
 }
 ?>
+<?
+$request = $APPLICATION->GetCurPage(false);
+$page = $arResult["NAV_RESULT"]->NavPageNomer;
+$page_full_url = 'https://'. $_SERVER['HTTP_HOST'] . $request . '?PAGEN_2=';
+$page_count = $arResult["NAV_RESULT"]->NavPageCount;
+if($page_count > 1){
+	
+	if($page == 1){
+		
+		$APPLICATION->AddHeadString('<link rel="next" href="'.$page_full_url . ($page + 1) .'">',true);	
+		
+	}else if($page == $page_count){
+		
+		$APPLICATION->AddHeadString('<link rel="prev" href="'.$page_full_url . ($page - 1) .'">',true);
+		
+	}else{
+		
+		$APPLICATION->AddHeadString('<link rel="prev" href="'.$page_full_url . ($page - 1) .'">',true);
+		$APPLICATION->AddHeadString('<link rel="next" href="'.$page_full_url . ($page + 1) .'">',true);	
+		
+	}
+	
+}
+?>

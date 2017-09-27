@@ -456,42 +456,41 @@
                                     // дополнительная проверка полей и вывод ошибки
                                     if (val == "Y")
                                     {
-                                        if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == ''){
+
+
+
+
+
+
+                                        if($("#ORDER_PROP_111").size() > 0 && $('#ORDER_PROP_111').val() == false){
                                             flag = false;
-                                            $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
-                                            // сперва получаем позицию элемента относительно документа
-                                            var scrollTop = $('#ORDER_PROP_7').offset().top;
-                                            $(document).scrollTop(scrollTop);
-                                            document.getElementById("ORDER_PROP_7").focus();
-											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorName'});
+                                            $('#ORDER_PROP_111').parent("div").children(".warningMessage").show();
                                         }
 
-                                        if($("#ORDER_PROP_6").size() > 0 && isEmail($('#ORDER_PROP_6').val()) == false){
+                                        if($("#ORDER_PROP_109").size() > 0 && $('#ORDER_PROP_109').val() == false){
                                             flag = false;
-                                            $('#ORDER_PROP_6').parent("div").children(".warningMessage").html('Некорректно введен e-mail');
-                                            $('#ORDER_PROP_6').parent("div").children(".warningMessage").show();
-                                            var scrollTop = $('#ORDER_PROP_6').offset().top;
-                                            $(document).scrollTop(scrollTop);
-                                            document.getElementById("ORDER_PROP_6").focus();
-											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorEmail'});
+                                            $('#ORDER_PROP_109').parent("div").children(".warningMessage").show();
                                         }
 
-                                        if($("#ORDER_PROP_24").size() > 0 && isTelephone($('#ORDER_PROP_24').val()) == false){
+                                        if($("#ORDER_PROP_107").size() > 0 && $('#ORDER_PROP_107').val() == false){
                                             flag = false;
-                                            $('#ORDER_PROP_24').parent("div").children(".warningMessage").show();
-                                            var scrollTop = $('#ORDER_PROP_24').offset().top;
-                                            $(document).scrollTop(scrollTop);
-                                            document.getElementById("ORDER_PROP_24").focus();
-											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorPhone'});
+                                            $('#ORDER_PROP_107').parent("div").children(".warningMessage").show();
                                         }
-                                        if($("#ORDER_PROP_5").size() > 0 && $('#ORDER_PROP_5').val() == false){
+
+                                        if($("#ORDER_PROP_105").size() > 0 && $('#ORDER_PROP_105').val() == false){
                                             flag = false;
-                                            $('#ORDER_PROP_5').parent("div").children(".warningMessage").show();
-                                            var scrollTop = $('#ORDER_PROP_5').offset().top;
-                                            $(document).scrollTop(scrollTop);
-                                            document.getElementById("ORDER_PROP_5").focus();
-											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorDeliveryAddress'});
+                                            $('#ORDER_PROP_105').parent("div").children(".warningMessage").show();
                                         }
+
+                                        if($("#ORDER_PROP_104").size() > 0 && $('#ORDER_PROP_104').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_104').parent("div").children(".warningMessage").show();
+                                        }
+                                        if($("#ORDER_PROP_4").size() > 0 && $('#ORDER_PROP_4').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_4').parent("div").children(".warningMessage").show();
+                                        }
+
                                         var deliveryFlag= false;
                                         if ($(".js_delivery_block").css("display") == "none") {
                                             deliveryFlag = true;
@@ -506,11 +505,52 @@
                                             $('.deliveriWarming').show();
                                         }
 
-                                        if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == false){
+                                        if($("#ORDER_PROP_116").size() > 0 && $('#ORDER_PROP_116').val() == false){
                                             flag = false;
-                                            $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
+                                            $('#ORDER_PROP_116').parent("div").children(".warningMessage").show();
+                                            var scrollTop = $('#ORDER_PROP_116').offset().top;
+                                            $(document).scrollTop(scrollTop);
+                                            document.getElementById("ORDER_PROP_116").focus();
+                                            dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorDeliveryAddress'});
                                         }
 
+                                        if($("#ORDER_PROP_5").size() > 0 && $('#ORDER_PROP_5').val() == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_5').parent("div").children(".warningMessage").show();
+                                            var scrollTop = $('#ORDER_PROP_5').offset().top;
+                                            $(document).scrollTop(scrollTop);
+                                            document.getElementById("ORDER_PROP_5").focus();
+                                            dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorDeliveryAddress'});
+                                        }
+
+                                        if($("#ORDER_PROP_24").size() > 0 && isTelephone($('#ORDER_PROP_24').val()) == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_24').parent("div").children(".warningMessage").show();
+                                            var scrollTop = $('#ORDER_PROP_24').offset().top;
+                                            $(document).scrollTop(scrollTop);
+                                            document.getElementById("ORDER_PROP_24").focus();
+                                            dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorPhone'});
+                                        }
+
+                                        if($("#ORDER_PROP_6").size() > 0 && isEmail($('#ORDER_PROP_6').val()) == false){
+                                            flag = false;
+                                            $('#ORDER_PROP_6').parent("div").children(".warningMessage").html('Некорректно введен e-mail');
+                                            $('#ORDER_PROP_6').parent("div").children(".warningMessage").show();
+                                            var scrollTop = $('#ORDER_PROP_6').offset().top;
+                                            $(document).scrollTop(scrollTop);
+                                            document.getElementById("ORDER_PROP_6").focus();
+                                            dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorEmail'});
+                                        }
+
+                                        if($("#ORDER_PROP_7").size() > 0 && $('#ORDER_PROP_7').val() == ''){
+                                            flag = false;
+                                            $('#ORDER_PROP_7').parent("div").children(".warningMessage").show();
+                                            // сперва получаем позицию элемента относительно документа
+                                            var scrollTop = $('#ORDER_PROP_7').offset().top;
+                                            $(document).scrollTop(scrollTop);
+                                            document.getElementById("ORDER_PROP_7").focus();
+                                            dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorName'});
+                                        }
                                         if (flag) {
                                             // склеиваем адрес для flippost
                                             if ($("#ID_DELIVERY_ID_<?= FLIPPOST_ID ?>").is(':checked')) {
