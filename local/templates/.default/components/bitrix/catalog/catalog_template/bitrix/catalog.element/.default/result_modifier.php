@@ -586,7 +586,7 @@ if ($arResult['MODULES']['currency'])
         }
         unset($currencyFormat, $currency, $currencyIterator);
     }
-}   
+}
 
     // получение имён авторов книги
     $arResult["AUTHOR_NAME"] = '';
@@ -598,27 +598,27 @@ if ($arResult['MODULES']['currency'])
     $authors_IDs = $arResult['PROPERTIES']['AUTHORS']['VALUE'];
     if (!empty($authors_IDs)) {
         $authors_list = CIBlockElement::GetList (
-            array(), 
-            array("IBLOCK_ID" => AUTHORS_IBLOCK_ID, "ID" => $authors_IDs), 
-            false, 
-            false, 
+            array("SORT"=>"ASC"),
+            array("IBLOCK_ID" => AUTHORS_IBLOCK_ID, "ID" => $authors_IDs),
+            false,
+            false,
             array(
-                "ID", 
-                "PROPERTY_LAST_NAME", 
-                "PROPERTY_FIRST_NAME", 
-                "PROPERTY_SHOWINAUTHORS", 
+                "ID",
+                "PROPERTY_LAST_NAME",
+                "PROPERTY_FIRST_NAME",
+                "PROPERTY_SHOWINAUTHORS",
                 "PROPERTY_ORIG_NAME",
                 "NAME"
             )
         );
-        
+
         while ($authors = $authors_list -> Fetch()) {
             $ar_properties["LAST_NAME"] = $authors["PROPERTY_LAST_NAME_VALUE"];
             $ar_properties["FIRST_NAME"] = $authors["PROPERTY_FIRST_NAME_VALUE"];
             $ar_properties["SHOWINAUTHORS"] = $authors["PROPERTY_SHOWINAUTHORS_VALUE"];
             $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
             $ar_properties["NAME"] = $authors["NAME"];
-        
+
             if (strlen ($ar_properties['FIRST_NAME']) > 0) {
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
             }
@@ -636,15 +636,15 @@ if ($arResult['MODULES']['currency'])
     }
 
     $img = GetIBlockElement($arResult["PROPERTIES"]["additional_image"]["VALUE"]);
-    $arResult["additional_image"]['DETAIL_PICTURE'] = CFile::ResizeImageGet($img['DETAIL_PICTURE'], 
-        Array("width"=>80, "height"=>80), 
-        BX_RESIZE_IMAGE_PROPORTIONAL, 
-        false, 
-        false, 
-        false, 
-        false                     
+    $arResult["additional_image"]['DETAIL_PICTURE'] = CFile::ResizeImageGet($img['DETAIL_PICTURE'],
+        Array("width"=>80, "height"=>80),
+        BX_RESIZE_IMAGE_PROPORTIONAL,
+        false,
+        false,
+        false,
+        false
     );
-    
+
     $arProps = CIBlockElement::GetProperty($arResult['IBLOCK_ID'], $arResult['ID'], array('sort' => 'asc'), array("CODE" => "pdf_newlist"));
     $arResult["PHOTO_COUNT"] = $arProps->SelectedRowsCount();
     while($ob = $arProps->GetNext()) {
@@ -662,22 +662,22 @@ if ($arResult['MODULES']['currency'])
         }
         $arResult["SIGNING_IMAGE_INFO"] = CFile::GetByID($ob["VALUE"]) -> Fetch();
     }
-    
+
     if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {
-        
+
         $arResult["CURR_SERIES"] = CIBlockElement::GetByID($arResult["PROPERTIES"]["SERIES"]["VALUE"]) -> Fetch();
-        
+
     }
-    
+
     foreach ($arResult["PROPERTIES"]["SPONSORS"]["VALUE"] as $val) {
         $authorList = CIBlockElement::GetList (
-            array(), 
+            array(),
             array(
-                "IBLOCK_ID" => SPONSORS_IBLOCK_ID, 
+                "IBLOCK_ID" => SPONSORS_IBLOCK_ID,
                 "ID" => $val
-            ), 
-            false, 
-            false, 
+            ),
+            false,
+            false,
             array(
                 '*',
                 'PROPERTY_LOGO_VOLUME_COVER',
@@ -686,25 +686,25 @@ if ($arResult['MODULES']['currency'])
                 'PROPERTY_SPONSOR_WEBSITE'
             )
         );
-        while ($authorFetchedList = $authorList -> Fetch()) { 
+        while ($authorFetchedList = $authorList -> Fetch()) {
             if($authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"]) {
                 $arResult["IMAGE"] = $authorFetchedList["PROPERTY_LOGO_VOLUME_COVER_VALUE"];
             } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]) {
-                $arResult["IMAGE"] = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"]; 
+                $arResult["IMAGE"] = $authorFetchedList["PROPERTY_LOGO_FLAT_COVER_VALUE"];
             } elseif($authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"]) {
                 $arResult["IMAGE"] = $authorFetchedList["PROPERTY_LOGO_FLAT_BIG_COVER_VALUE"];
             };
-            
+
             $arResult["SPONSOR_PREVIEW_TEXT"] = $authorFetchedList["PREVIEW_TEXT"];
             $arResult["SPONSOR_WEBSITE_VALUE"] = $authorFetchedList["PROPERTY_SPONSOR_WEBSITE_VALUE"];
             $arResult["SPONSOR_NAME"] = $authorFetchedList["NAME"];
         }
-        
+
         $arResult["SPONSOR_PICT"] = CFile::GetPath($arResult["IMAGE"]);
     }
-    
+
     CModule::IncludeModule("sale");
-     
+
     $dbBasketItems = CSaleBasket::GetList(
         array(
             "NAME" => "ASC",
@@ -723,9 +723,9 @@ if ($arResult['MODULES']['currency'])
             "NAME",
             "QUANTITY",
             "DISCOUNT_PRICE",
-            "ORDER_PAYED", 
+            "ORDER_PAYED",
             "MODULE",
-            "PRODUCT_ID", 
+            "PRODUCT_ID",
             "CAN_BUY"
         )
     );
@@ -735,22 +735,22 @@ if ($arResult['MODULES']['currency'])
         $arResult["CART_NUM"] += $arItems['QUANTITY'];
         $arResult["CART_SUM"] += $arItems['PRICE'] * $arItems['QUANTITY'];
         if (strlen($arItems["CALLBACK_FUNC"]) > 0) {
-            CSaleBasket::UpdatePrice($arItems["ID"], 
-                $arItems["CALLBACK_FUNC"], 
-                $arItems["MODULE"], 
-                $arItems["PRODUCT_ID"], 
+            CSaleBasket::UpdatePrice($arItems["ID"],
+                $arItems["CALLBACK_FUNC"],
+                $arItems["MODULE"],
+                $arItems["PRODUCT_ID"],
                 $arItems["QUANTITY"]
             );
             $arBasketItems = CSaleBasket::GetByID($arItems["ID"]);
         }
         if($arBasketItems["QUANTITY"] > 1) {
             $arBasketItems["PRICE"]*=$arBasketItems["QUANTITY"];
-        } 
+        }
         $arResult["BASKET_ITEMS"]["sum_pruce"] += $arBasketItems["PRICE"];
 
     }
     $basket_items = CSaleBasket::GetList(
-        array("ID" => "ASC"), 
+        array("ID" => "ASC"),
         array(
             'FUSER_ID' => CSaleBasket::GetBasketUserID(),
             'LID' => SITE_ID,
@@ -766,12 +766,12 @@ if ($arResult['MODULES']['currency'])
    $allSum = 0;
    $allWeight = 0;
    $arItems = array();
-   
-   while ($basket_items_array = $basket_items->Fetch()) {   
+
+   while ($basket_items_array = $basket_items->Fetch()) {
       $allSum += ($arItem["PRICE"] * $arItem["QUANTITY"]);
       $allWeight += ($arItem["WEIGHT"] * $arItem["QUANTITY"]);
       $arItems[] = $basket_items_array;
-   }  
+   }
    $arOrder = array(
        'SITE_ID' => SITE_ID,
        'USER_ID' => CSaleBasket::GetBasketUserID(),
@@ -779,23 +779,23 @@ if ($arResult['MODULES']['currency'])
        'ORDER_WEIGHT' => $allWeight,
        'BASKET_ITEMS' => $arItems
    );
-   
+
    $arOptions = array(
       'COUNT_DISCOUNT_4_ALL_QUANTITY' => 'Y',
    );
-   
+
    $arErrors = array();
-   
+
    CSaleDiscount::DoProcessOrder($arOrder, $arOptions, $arErrors);
    foreach ($arOrder["BASKET_ITEMS"] as $arOneItem) {
        if ($arOneItem["PRODUCT_ID"] == $arResult["ID"] && $arOneItem["DISCOUNT_PRICE"] < 1) {
            $arResult["ITEM_WITHOUT_DISCOUNT"] = "Y";
        }
-   } 
- 
+   }
+
     $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
     $ar_sale = array();
-    while($ar_sale=$rr->Fetch()) {   
+    while($ar_sale=$rr->Fetch()) {
         $arResult["SALE_NOTE"][] = $ar_sale;
     }
     $arResult["SAVINGS_DISCOUNT"] =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
@@ -805,84 +805,84 @@ if ($arResult['MODULES']['currency'])
         $arCurUser = $rsCurUser->Fetch();
         $arResult["MAIL"] = $arCurUser["EMAIL"];
     }
-    
+
     $arResult["AUTHORS"] = "";
     foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
-        $authorList = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 29, "ID" => $val), false, false, array("ID", "NAME"));
+        $authorList = CIBlockElement::GetList (array("SORT"=>"ASC"), array("IBLOCK_ID" => AUTHORS_IBLOCK_ID, "ID" => $val), false, false, array("ID", "NAME"));
         while ($authorFetchedList = $authorList -> Fetch()) {
             $arResult["AUTHORS"] .= $authorFetchedList["NAME"].", ";
 
         }
 
     }
-    
+
     $res = CIBlockElement::GetList(Array(), Array("ACTIVE"=>"Y","ID"=>$arResult['ID']), false, false, Array("TAGS"));
     if ($el = $res->Fetch()) {
         $arResult['TAGS'] = $el["TAGS"];
     }
-    
+
     $arResult["PICTURE"] = CFile::ResizeImageGet($arResult["DETAIL_PICTURE"]["ID"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
     $arResult["CURRENT_USER"] = CUser::GetByID($USER -> GetID()) -> Fetch();
-    
+
     $userName = $arResult["CURRENT_USER"]["NAME"]." ".$arResult["CURRENT_USER"]["LAST_NAME"];
     $arResult["WISHLIST_ITEM"] = CIBlockElement::GetList(
-        array(), 
+        array(),
         array(
-            "IBLOCK_ID" => WISHLIST_IBLOCK_ID, 
-            "NAME" => $userName, 
+            "IBLOCK_ID" => WISHLIST_IBLOCK_ID,
+            "NAME" => $userName,
             "PROPERTY_PRODUCTS" => $arResult["ID"]
-        ), 
-        false, 
-        false, 
+        ),
+        false,
+        false,
         array(
-            "ID", 
+            "ID",
             "PROPERTY_PRODUCTS"
         )
     ) -> Fetch();
-    
+
     $arResult["ITEM_IN_BASKET"] = CSaleBasket::GetList(
-        array(), 
+        array(),
         array(
-            "FUSER_ID" => CSaleBasket::GetBasketUserID(), 
-            "LID" => SITE_ID, 
-            "ORDER_ID" => "NULL", 
+            "FUSER_ID" => CSaleBasket::GetBasketUserID(),
+            "LID" => SITE_ID,
+            "ORDER_ID" => "NULL",
             "PRODUCT_ID" => $arResult["ID"]
-        ), 
-        false, 
-        false, 
+        ),
+        false,
+        false,
         array(
-            "ID", 
-            "CALLBACK_FUNC", 
-            "MODULE", 
-            "PRODUCT_ID", 
-            "QUANTITY", 
+            "ID",
+            "CALLBACK_FUNC",
+            "MODULE",
+            "PRODUCT_ID",
+            "QUANTITY",
             "PRODUCT_PROVIDER_CLASS"
         )
-    )->Fetch(); 
-    
+    )->Fetch();
+
     $review = CIBlockElement::GetList (
-        array(), 
+        array(),
         array(
-            "IBLOCK_ID" => REVIEWS_IBLOCK_ID, 
+            "IBLOCK_ID" => REVIEWS_IBLOCK_ID,
             "PROPERTY_BOOK" => $arResult["ID"]
-        ), 
-        false, 
-        false, 
-        array(  
-            "ID", 
-            "PROPERTY_AUTHOR", 
-            "NAME", 
-            "PROPERTY_BOOK", 
-            "PREVIEW_TEXT", 
-            "DETAIL_TEXT", 
+        ),
+        false,
+        false,
+        array(
+            "ID",
+            "PROPERTY_AUTHOR",
+            "NAME",
+            "PROPERTY_BOOK",
+            "PREVIEW_TEXT",
+            "DETAIL_TEXT",
             "PROPERTY_SOURCE_LINK"
         )
     );
     $arResult["REVIEWS_COUNT"] = $review -> SelectedRowsCount();
     while ($reviewList = $review -> Fetch()) {
-        $arResult["REVIEWS"][] = $reviewList;    
+        $arResult["REVIEWS"][] = $reviewList;
     }
-    
+
     foreach ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"] as $val) {
         if ($val) {
             $authorsArray[] = $val;
@@ -890,44 +890,44 @@ if ($arResult['MODULES']['currency'])
     }
     $currAuthor = CIBlockElement::GetList (
         array(
-            "ID" => "DESC"
-        ), 
+            "SORT" => "ASC"
+        ),
         array(
-            "IBLOCK_ID" => AUTHORS_IBLOCK_ID, 
+            "IBLOCK_ID" => AUTHORS_IBLOCK_ID,
             "ID" => $authorsArray
-        ), 
-        false, 
-        false, 
+        ),
+        false,
+        false,
         array(
-            "ID", 
-            "NAME", 
-            "PREVIEW_TEXT", 
-            "DETAIL_PICTURE", 
+            "ID",
+            "NAME",
+            "PREVIEW_TEXT",
+            "DETAIL_PICTURE",
             "PROPERTY_ORIG_NAME"
         )
     );
     while ($author = $currAuthor -> Fetch()) {
-        $arResult["AUTHOR"][] = $author;    
+        $arResult["AUTHOR"][] = $author;
     }
-    
+
     foreach ($arResult["AUTHOR"] as $key => $author) {
         $arResult["AUTHOR"][$key]["IMAGE_FILE"] = CFile::GetFileArray($author["DETAIL_PICTURE"]);
     }
 
 	$recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
 	$arResult["STRING_RECS"] = array_slice(json_decode($recsArray), 0, 6);
-	
+
 	//Порог для бесплатной доставки
 	$arResult["FREE_DELIVERY"] = 2000;
 
     $APPLICATION->AddHeadString('<meta name="relap-image" content="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PICTURE"]["SRC"].'"/>',true);
     $this->__component->arResultCacheKeys = array_merge($this->__component->arResultCacheKeys, array_keys($arResult));
-	
+
 	if (!empty($arResult["PROPERTIES"]["second_book_img"]["VALUE"])) {
 		$arResult["SECOND_PICTURE"] = CFile::ResizeImageGet($arResult["PROPERTIES"]["second_book_img"]["VALUE"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 		$arResult["SECOND_PICTURE"] = $arResult["SECOND_PICTURE"]['src'];
 	}
-		
+
 	if (!empty($arResult["PROPERTIES"]["third_book_img"]["VALUE"])) {
 		$arResult["THIRD_PICTURE"] = CFile::ResizeImageGet($arResult["PROPERTIES"]["third_book_img"]["VALUE"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 		$arResult["THIRD_PICTURE"] = $arResult["THIRD_PICTURE"]['src'];
