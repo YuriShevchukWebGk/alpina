@@ -88,17 +88,13 @@ else
 //$arrFilter = array("ELEMENT_SORT_FIELD"=>"PROPERTY_".$_REQUEST["SORT"], "ELEMENT_SORT_ORDER"=>$_REQUEST["DIRECTION"]);
 
 
-if ($_REQUEST["DIRECTION"])
-{
+if ($_REQUEST["DIRECTION"]) {
     $order = $_REQUEST["DIRECTION"];
-	echo 1;
-}
-else
-{
+} else {
     $order = "desc";
 }
-switch ($_REQUEST["SORT"])
-{
+
+switch ($_REQUEST["SORT"]) {
     case "DATE":
     $sort = "PROPERTY_SOON_DATE_TIME";
     break;
