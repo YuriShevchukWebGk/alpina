@@ -110,5 +110,9 @@ $APPLICATION->AddHeadString('<meta name="twitter:title" content=\''.$APPLICATION
 $APPLICATION->AddHeadString('<meta name="twitter:description" content=\''.strip_tags($APPLICATION->GetPageProperty('description')).'\' />',false);
 $APPLICATION->AddHeadString('<meta name="twitter:image" content="https://'.SITE_SERVER_NAME.$templateData["OG_IMAGE"].'" />',false);
 $APPLICATION->AddHeadString('<meta name="twitter:url" content="'.'https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage().'" />',false);
-// $APPLICATION->SetPageProperty('FACEBOOK_META', $fb_meta);   
+// $APPLICATION->SetPageProperty('FACEBOOK_META', $fb_meta);
+
+if ($arResult["DETAIL_PAGE_URL"] != $APPLICATION->GetCurPageParam()) {
+	$APPLICATION->AddHeadString('<link rel="canonical" href="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PAGE_URL"].'" />',false);
+}
 ?>
