@@ -21,7 +21,7 @@ header .telephone{display:inline}
 body,p,ul{padding:0;margin:0}
 body{overflow-x:auto!important;font-family:Walshein_regular!important}
 ul{list-style-type:none}
-a{text-decoration:none}
+a{text-decoration:none;color:#00abb8}
 h6{font-size:22px;font-weight:400;color:#3f4a4d;margin:3px 0}
 *::selection {color:#fff;background:#00abb8}
 header{height:58px;position:relative;color:#232b2d;font-size:14px}

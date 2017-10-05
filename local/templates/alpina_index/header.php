@@ -1094,7 +1094,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 $BestsOnMain = array('SECTION_ID' => 469, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID));
             }
             ?>
-            <p class="titleMain"><a href="/catalog/sumki/">Тематически сумки</a></p>
+            <p class="titleMain"><a href="/catalog/sumki/">Книжные сумки</a></p>
             <?
 			$APPLICATION->IncludeComponent(
 			"bitrix:catalog.section",
