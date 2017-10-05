@@ -2696,7 +2696,9 @@
                             "ID" => intval($parcel['order_id']),
                             "!STATUS_ID" => 'F'
                         );
-                        if ($db_sales = CSaleOrder::GetList(array(), $arFilter)) {
+                        
+                        $db_sales = CSaleOrder::GetList(array(), $arFilter) -> Fetch();
+                        if($db_sales['ID']) {             
                             CSaleOrder::Update(intval($parcel['order_id']), array("TRACKING_NUMBER" => strval($parcel['Barcode'])));
                             $order = Bitrix\Sale\Order::load(intval($parcel['order_id']));
                             $order->setField('STATUS_ID', 'I');

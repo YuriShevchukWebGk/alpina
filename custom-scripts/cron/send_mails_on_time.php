@@ -235,7 +235,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 			$notification = "Ваши книги скучают и ждут Вас. Скорее приезжайте за ними, срок хранения вашего заказа истекает уже через 4 дня.<br />
 			Вы можете забрать заказ ".$id." по адресу: метро «Полежаевская», 4-я Магистральная улица, дом 5, подъезд 2, второй этаж.<br /><br />
 			Да, кстати, у нас есть несколько хороших новинок, которые должны вам понравиться.";
-			$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock, '');
+			//$result = sendNotificationEmail($id, $subject, $notification, $userID1, $newItemsBlock, '');
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Самовывоз</td>
@@ -254,7 +254,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 			$notification = "Ваши книги скучают и ждут вас. Скорее приезжайте за ними, срок хранения вашего заказа истекает уже через 2 дня.<br />
 			Вы можете забрать заказ ".$id." по адресу: метро «Полежаевская», 4-я Магистральная улица, дом 5, подъезд 2, второй этаж.<br /><br />
 			Да, кстати, у нас есть несколько хороших новинок, которые должны вам понравиться.";
-			$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock, '');
+			//$result = sendNotificationEmail($id, $subject, $notification, $userID2, $newItemsBlock, '');
 			$finalReport .= "<tr>
 				<td>".$id."</td>
 				<td>Самовывоз</td>

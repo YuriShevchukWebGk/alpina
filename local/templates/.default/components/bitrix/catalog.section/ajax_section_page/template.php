@@ -74,6 +74,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             </p>
             <div itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
             <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
+
             <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
 
             <? global $SectionRoundBanner;

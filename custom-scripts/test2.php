@@ -11,6 +11,20 @@ foreach ($array3 as $for2) {
 }
     
     foreach ($array2 as $id) {
+		
+		$arOrder = CSaleOrder::GetByID($id[0]);
+		
+		if ($arOrder['STATUS_ID'] == "F") {
+			echo $id[0].' - skip<br />';
+			continue;
+		}
+		
+		if ($id[0] == '' || $id[1] == '') {
+			echo $id[0].$id[1].' - empty<br />';
+			continue;
+		}
+		
+		
         $trackingNumber = '';
         $list = \Bitrix\Sale\Internals\OrderTable::getList(array(
             "select" => array(
@@ -31,7 +45,7 @@ foreach ($array3 as $for2) {
             
             $arFields = array(
                 "TRACKING_NUMBER" => $id[1]
-            );        
+            );
             if ($update = CSaleOrder::Update($id[0], $arFields)) {
                 if (CSaleOrder::StatusOrder($id[0], "I")) {
                     echo $id[0]."*ok*".$id[1]."<br />";
