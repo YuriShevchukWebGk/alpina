@@ -88,9 +88,11 @@ else
 
 $sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']:$arResult['SECTION']['NAME'];
 $key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
-$description = 'Купить книгу: ' . $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"] . '; ' .$arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"]. '; дата издания: ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . '; 💳 цена ' . round(($arResult["CATALOG_PRICE_1"]), 2) . ' &#8381;. Подробности заказа и доставки по &#9990; +7 (495) 120 07 04.';
+$description = 'Купить книгу: ' . $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"] . '; ' .$arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"]. '; дата издания: ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . '; &#128073; цена ' . round(($arResult["CATALOG_PRICE_1"]), 2) . ' &#8381;. Подробности заказа и доставки по &#9990; +7(495)120 07 04';
 if (!empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']))
-	$description .= ' Электронная &#128214; в подарок';
+	$description .= '; Эл. &#128214; в подарок.';
+else
+	$description .= '.';
 
 $APPLICATION->SetPageProperty("description", $description); 
 
@@ -100,7 +102,7 @@ $APPLICATION->AddHeadString('<meta property="og:title" content=\''.$APPLICATION-
 $APPLICATION->AddHeadString('<meta property="og:description" content=\''.strip_tags($APPLICATION->GetPageProperty('description')).'\' />',false);
 $APPLICATION->AddHeadString('<meta property="og:image" content="https://'.SITE_SERVER_NAME.$templateData["OG_IMAGE"].'" />',false);
 $APPLICATION->AddHeadString('<meta property="og:type" content="website" />',false);
-$APPLICATION->AddHeadString('<meta property="og:url" content="'.'https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage().'" />',false);
+$APPLICATION->AddHeadString('<meta property="og:url" content="'.'https://'.$arResult["CANONICAL_PAGE_URL"].'" />',false);
 $APPLICATION->AddHeadString('<meta property="og:site_name" content="ООО «Альпина Паблишер»" />',false);
 $APPLICATION->AddHeadString('<meta property="og:locale" content="ru_RU" />',false);
 $APPLICATION->AddHeadString('<meta name="relap-title" content="'.$arResult["NAME"].'">',false);
@@ -111,10 +113,9 @@ $APPLICATION->AddHeadString('<meta name="twitter:site" content="@alpinabookru" /
 $APPLICATION->AddHeadString('<meta name="twitter:title" content=\''.$APPLICATION->GetPageProperty('title').'\' />',false);
 $APPLICATION->AddHeadString('<meta name="twitter:description" content=\''.strip_tags($APPLICATION->GetPageProperty('description')).'\' />',false);
 $APPLICATION->AddHeadString('<meta name="twitter:image" content="https://'.SITE_SERVER_NAME.$templateData["OG_IMAGE"].'" />',false);
-$APPLICATION->AddHeadString('<meta name="twitter:url" content="'.'https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage().'" />',false);
-// $APPLICATION->SetPageProperty('FACEBOOK_META', $fb_meta);
+$APPLICATION->AddHeadString('<meta name="twitter:url" content="'.'https://'.$arResult["CANONICAL_PAGE_URL"].'" />',false);
 
-if ($arResult["DETAIL_PAGE_URL"] != $APPLICATION->GetCurPageParam()) {
-	$APPLICATION->AddHeadString('<link rel="canonical" href="https://'.SITE_SERVER_NAME.$arResult["DETAIL_PAGE_URL"].'" />',false);
+if ('https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPageParam() != $arResult["CANONICAL_PAGE_URL"]) {
+	$APPLICATION->AddHeadString('<link rel="canonical" href="'.$arResult["CANONICAL_PAGE_URL"].'" />',false);
 }
 ?>
