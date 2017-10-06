@@ -12,8 +12,9 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-<?$frame = $this->createFrame()->begin();?>
-<?if (isset($_COOKIE["rcuid"])){?>
+<?$frame = $this->createFrame()->begin();
+if (file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"]) != '[]') {?>
+
 	<style>
 		.recomendation {display:block!important};
 	</style>
