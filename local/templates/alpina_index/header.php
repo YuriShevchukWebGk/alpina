@@ -813,7 +813,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		}
 		?>
 
-		<div class="recomendation" style="display:<?=($arrFilter['ID'][0] > 0) ? 'block' : 'none';?>">
+		<div class="recomendation">
 
 		<p class="titleMain"><a href="/catalog/personal-books/">Рекомендуем лично вам</a></p>
 			<?
@@ -840,7 +840,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						"INCLUDE_SUBSECTIONS" => "Y",
 						"SHOW_ALL_WO_SECTION" => "Y",
 						"HIDE_NOT_AVAILABLE" => "N",
-						"PAGE_ELEMENT_COUNT" => "12",
+						"PAGE_ELEMENT_COUNT" => "6",
 						"LINE_ELEMENT_COUNT" => "3",
 						"PROPERTY_CODE" => array(
 							0 => "",
