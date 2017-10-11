@@ -1,5 +1,7 @@
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-if ($USER->isAdmin()) {
+<?
+	set_time_limit(0);
+	$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+	require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
     CModule::IncludeModule("blog");
     CModule::IncludeModule("iblock");
@@ -7,7 +9,27 @@ if ($USER->isAdmin()) {
     CModule::IncludeModule("catalog");
     CModule::IncludeModule("main");
 	
-			
+	/***************
+	* Обновляем дату
+	*************/
+	function updateDateValue($orderId, $emailPropId) {
+		$rsVals = CSaleOrderPropsValue::GetList(array(), array("ORDER_ID" => $orderId, "ORDER_PROPS_ID" => $emailPropId));
+		if ($arVals = $rsVals->Fetch()) {
+			$value = date("d.m.Y H:i:s");
+			CSaleOrderPropsValue::Update($arVals['ID'], array("VALUE" => $value));
+		} else {
+			if ($arProp = CSaleOrderProps::GetList(array(), array('ID' => $emailPropId))->Fetch()) {
+				CSaleOrderPropsValue::Add(array(
+				   'NAME' => $arProp['NAME'],
+				   'CODE' => $arProp['CODE'],
+				   'ORDER_PROPS_ID' => $arProp['ID'],
+				   'ORDER_ID' => $orderId,
+				   'VALUE' => date("d.m.Y H:i:s"),
+				));
+			}
+		}
+	}
+	
 	/***************
 	* Получаем телефон из заказа
 	*************/
@@ -81,7 +103,7 @@ if ($USER->isAdmin()) {
 	*************/
 	####
 	#SENT IDs
-	$sentIds = array(
+	/*$sentIds = array(
 79613,
 79616,
 79620,
@@ -23383,15 +23405,131 @@ if ($USER->isAdmin()) {
 99751,
 99767,
 99789,
+90465,
+96459,
+97390,
+97440,
+97485,
+97796,
+97805,
+98314,
+98921,
+98936,
+98949,
+99019,
+99121,
+99138,
+99197,
+99200,
+99223,
+99263,
+99284,
+99294,
+99307,
+99320,
+99344,
+99350,
+99359,
+99364,
+99385,
+99401,
+99425,
+99433,
+99455,
+99462,
+99495,
+99562,
+99571,
+99573,
+99592,
+99602,
+99610,
+99631,
+99638,
+99642,
+99650,
+99652,
+99674,
+99676,
+99679,
+99683,
+99690,
+99697,
+99700,
+99708,
+99712,
+99713,
+99730,
+99733,
+99734,
+99736,
+99737,
+99738,
+99739,
+99741,
+99748,
+99749,
+99752,
+99756,
+99765,
+99766,
+99768,
+99772,
+99777,
+99779,
+99782,
+99784,
+99786,
+99788,
+99797,
+99798,
+99801,
+99803,
+99806,
+99808,
+99811,
+99812,
+99813,
+99821,
+99828,
+99829,
+99836,
+99837,
+99838,
+99841,
+99854,
+99865,
+99870,
+99883,
+99885,
+99888,
+99889,
+99892,
+99901,
+99905,
+99907,
+99910,
+99915,
+99917,
+99921,
+99932,
+99944,
+99955,
+99995,
+100026,
+100029,
+100041,
 
-	);
+);*/
 	$arFilter = Array(
 		"@STATUS_ID" => array("F"),
-		">=DATE_INSERT" => "06.12.2016 10:30:00",
+		">=DATE_INSERT" => date('d.m.Y', strtotime("-7 months")),
 		"<=DATE_UPDATE" => date('d.m.Y', strtotime("-12 days")),
-		"!ID" => $sentIds
+		"PROPERTY_VAL_BY_CODE_TRIGGER_REVIEW" => ''
 	);
+
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+	
 	while ($arSales = $rsSales->Fetch()) {
 		$dbBasketItems = CSaleBasket::GetList(array(), array("ORDER_ID" => $arSales["ID"]), false, false, array());
 		echo $arSales["ID"].',<br />';
@@ -23473,12 +23611,11 @@ if ($USER->isAdmin()) {
 		);
 		
 		CEvent::Send("ASK_FOR_REVIEW", "s1", $arEventFields,"N");
+		updateDateValue($arSales["ID"], 125);
 	}
 	
-	echo "ok";
-} else {
-	echo "Not authorized";
-}
-?>
+	
 
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>
+
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

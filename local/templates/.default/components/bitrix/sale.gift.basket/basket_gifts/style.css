@@ -52,7 +52,6 @@
 
 
 .bx-no-touch .bx_item_list_you_looked_horizontal .bx_catalog_item:hover .bx_catalog_item_container {
-    position:absolute;
     z-index:990;
     top:0;
     left:0;

@@ -1955,6 +1955,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             Самовывоз м.Полежаевская
                         </p>
                     </a>
+					<a href="/content/delivery/#postamat">
+                        <p>
+                            Пункты выдачи по России
+                        </p>
+                    </a>
                 </div>
             </div>
         </div>
