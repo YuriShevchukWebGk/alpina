@@ -12,7 +12,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(false);
-$arResult["PROPERTY_LIST_FULL"]["NAME"]["NAME"] = "Ваше имя";
+$arResult["PROPERTY_LIST_FULL"]["NAME"]["NAME"] = "Ваше имя *";
 ?>
 <?
 if (!empty($arResult["ERRORS"])):?>
@@ -209,7 +209,7 @@ if (strlen($arResult["MESSAGE"]) > 0):?>
                                         $value = "";
                                     }
                                 ?>
-                                <input type="text" name="PROPERTY[<?=$propertyID?>][<?=$i?>]" size="25" value="<?=$value?>" placeholder="<?=$arResult["PROPERTY_LIST_FULL"][$propertyID]["NAME"]?>"/><?
+                                <input type="<?if($propertyID == 183){echo "email";}elseif($propertyID == 184){echo "tel";}else{echo "text";}?>" name="PROPERTY[<?=$propertyID?>][<?=$i?>]" size="125" value="<?=$value?>" placeholder="<?=$arResult["PROPERTY_LIST_FULL"][$propertyID]["NAME"]?>"/><?
                                 if($arResult["PROPERTY_LIST_FULL"][$propertyID]["USER_TYPE"] == "DateTime"):?><?
                                     $APPLICATION->IncludeComponent(
                                         'bitrix:main.calendar',
