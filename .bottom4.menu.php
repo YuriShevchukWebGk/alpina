@@ -27,6 +27,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Политика конфиденциальности", 
+		"/content/pii/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>
