@@ -13,7 +13,7 @@ if ($_REQUEST["id"])
     }
         if (in_array($_REQUEST["id"], $prod_values))
         {
-            echo "Данный товар уже находится в вашем <a href='/personal/cart/?liked=yes'>списке желаний</a>";    
+            echo "Данный товар уже находится в вашем <a href='/personal/cart/?liked=yes'>списке желаний</a>";
         }
         else
         {
@@ -31,6 +31,6 @@ if ($_REQUEST["id"])
             $new_wish_item = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "ID" => $_REQUEST["id"]), false, false, array("ID", "NAME")) -> Fetch();
             echo "Товар '".$new_wish_item["NAME"]."' успешно добавлен в <a href='/personal/cart/?liked=yes'>список желаний</a>";
         }
-    
+
 }
 ?>

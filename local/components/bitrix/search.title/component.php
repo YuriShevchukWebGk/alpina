@@ -69,7 +69,7 @@ if(
     $result = $entity_data_class::getList(array(
         "select" => array('*'),
         "filter" => $search_tips_filter,
-        "limit"  => 5,
+        "limit"  => 7,
         "order"  => array("UF_PAGE_VIEWS_GA" => "ASC")
     ));
     $result = new CDBResult($result, $table_id);

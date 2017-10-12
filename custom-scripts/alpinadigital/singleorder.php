@@ -66,6 +66,17 @@ if ($products['url'] != 'error') {
 		$useremail = $_GET['emailbooks'];
 	} else {
 		$useremail = Message::getClientEmail($ID);
+		if (empty($useremail)) {
+			function getClientEmail($id) {
+				$db_props = CSaleOrderPropsValue::GetOrderProps($id);
+				while ($arProps = $db_props->Fetch()) {
+					if ($arProps['CODE']=='F_EMAIL') {
+						return $arProps["VALUE"];
+					}
+				}
+			}
+			$useremail = getClientEmail($ID);
+		}
 	}
 	if (empty($useremail)) 
 		$useremail = 'a.marchenkov@alpinabook.ru';

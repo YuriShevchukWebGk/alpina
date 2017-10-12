@@ -233,11 +233,21 @@
                     <?}?>
                     <?
                         if($arDelivery["ID"] == DELIVERY_PICKUP) {
-                            if(intval(date('H')) < 17) {
-                                echo str_replace('#DATE_DELIVERY#',date_day_today(0), $arDelivery["DESCRIPTION"])."<br />";
-                            } else {
-                                echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
-                            }
+							if(intval(date('w') == 6)) {
+								echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+							} elseif (intval(date('w') == 0)) {
+								echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+							} else {
+								if(intval(date('H')) < 17) {
+									echo str_replace('#DATE_DELIVERY#',date_day_today(0), $arDelivery["DESCRIPTION"])."<br />";
+								} else {
+									if(intval(date('w') == 5)) {
+										echo str_replace('#DATE_DELIVERY#',date_day_today(3), $arDelivery["DESCRIPTION"])."<br />";
+									} else {
+										echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+									}
+								}
+							}
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) {
                             echo str_replace('#DATE_DELIVERY#',date_day_courier(1), $arDelivery["DESCRIPTION"])."<br />";
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD) {

@@ -492,8 +492,14 @@
                     }
                 }
             }
-            $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+            if(floatval($delivery_price) <= 0 && $arFields["PRICE"] < 2000){
+                $arFields['PRICE_DELIVERY'] = 235;
+                $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
+            } else {
+                $arFields['PRICE'] += floatval($delivery_price);
+            }
+
         }
     }
 
@@ -623,7 +629,11 @@
         * */
     function boxberryDeliveryHandlerBefore(&$arFields) {
         if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
-            $delivery_price = $_REQUEST['boxbery_price'];
+            if($_REQUEST['boxbery_price'] <= 0 && $arFields["PRICE"] < 2000){
+                $delivery_price = 235;
+            } else {
+                $delivery_price = $_REQUEST['boxbery_price'];
+            }
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
@@ -643,8 +653,14 @@
     function boxberryHandlerBefore(&$arFields) {
         if ($arFields['DELIVERY_ID'] == BOXBERRY_PICKUP_DELIVERY_ID) {
             $delivery_price = $_REQUEST['boxberry_cost'];
-            $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+            if(floatval($delivery_price) <= 0 && $arFields['PRICE'] < 2000){
+                $arFields['PRICE_DELIVERY'] = 235;
+                $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
+            } else {
+                $arFields['PRICE'] += floatval($delivery_price);
+            }
+
         }
     }
 
@@ -2680,7 +2696,9 @@
                             "ID" => intval($parcel['order_id']),
                             "!STATUS_ID" => 'F'
                         );
-                        if ($db_sales = CSaleOrder::GetList(array(), $arFilter)) {
+                        
+                        $db_sales = CSaleOrder::GetList(array(), $arFilter) -> Fetch();
+                        if($db_sales['ID']) {             
                             CSaleOrder::Update(intval($parcel['order_id']), array("TRACKING_NUMBER" => strval($parcel['Barcode'])));
                             $order = Bitrix\Sale\Order::load(intval($parcel['order_id']));
                             $order->setField('STATUS_ID', 'I');
@@ -3185,4 +3203,19 @@
             }
         }
     }
+
+    AddEventHandler("sale", "OnBeforeBasketAdd", "ProductAddPreOrder");  // событие перед добавлением товара в корзину
+    function ProductAddPreOrder(&$arFields) {
+        $res = CIBlockElement::GetList(Array(), Array("ID" => $_GET["id"]), false, false, Array("PROPERTY_STATE"));
+        if($item = $res->Fetch()){
+            if($_GET["action"] == "ADD2BASKET" && $_GET["id"] && $item["PROPERTY_STATE_ENUM_ID"]){ // проверяем доступен товар для покупки или является предзаказом
+                $arFields["DELAY"] = "Y";      // перемещаем товар в предзаказ
+
+                return $arFields;   // возвращаем знаячение
+            }
+        }
+
+
+    }
+
 ?>

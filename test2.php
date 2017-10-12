@@ -1,6 +1,24 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 ?>
+<script src="https://paybox-global.platbox.com/widget/v1/index.js"></script>
+После того, как скрипт загрузится, на странице появится глобальный объект PBWidget. Создайте экземпляр объекта, передав в качестве аргументов merchantId, projectName, account, container.
+<br>
+<a href='#' class='js-buy'>Купить</a> 
+<script>
+var payWidget = new PBWidget(
+    'merchantId',
+    'projectName',
+    'account',
+    document.getElementById('payment-form')
+);  
+
+$('.js-buy').on('click', function () {
+    alert(1);
+    payWidget.renderPayForm('order', 1000);
+});  
+</script>
+     
 <?/*$APPLICATION->IncludeComponent(
     "bitrix:socserv.auth.split",
     "",
@@ -130,7 +148,7 @@ foreach ($emails_arr as $email => $user_copies_arr) {
 }*/?>
 <?
   // обновление данных highload инфоблока
-    use Bitrix\Highloadblock as HL;
+/*    use Bitrix\Highloadblock as HL;
     CModule::IncludeModule("iblock");
     $arSelect = Array("ID", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN");
     $arFilter = Array("IBLOCK_ID" => 4, "ACTIVE"=>"Y");
@@ -163,7 +181,7 @@ foreach ($emails_arr as $email => $user_copies_arr) {
             }
         }
     }
-
+                */
 
 ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

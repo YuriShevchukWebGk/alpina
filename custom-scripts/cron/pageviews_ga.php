@@ -120,9 +120,9 @@ function printResultsTwoDays($results) {
 			$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID"));
 			while ($oneb = $props->GetNext()) {
 				if(array_search($oneb["ID"], $addViews))
-					$views = round($book['views']*2.1);
+					$views = round($book['views']*2.4);
 				else
-					$views = round($book['views']*1.5);
+					$views = round($book['views']*1.8);
 				echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
 				CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('page_views_ga' => $views));
 			}

@@ -88,17 +88,13 @@ else
 //$arrFilter = array("ELEMENT_SORT_FIELD"=>"PROPERTY_".$_REQUEST["SORT"], "ELEMENT_SORT_ORDER"=>$_REQUEST["DIRECTION"]);
 
 
-if ($_REQUEST["DIRECTION"])
-{
+if ($_REQUEST["DIRECTION"]) {
     $order = $_REQUEST["DIRECTION"];
-	echo 1;
-}
-else
-{
+} else {
     $order = "desc";
 }
-switch ($_REQUEST["SORT"])
-{
+
+switch ($_REQUEST["SORT"]) {
     case "DATE":
     $sort = "PROPERTY_SOON_DATE_TIME";
     break;
@@ -113,8 +109,8 @@ switch ($_REQUEST["SORT"])
     break;
 
     default:
-    $sort = "PROPERTY_STATE";
-    $order = "asc";
+    $sort = "PROPERTY_shows_a_day";
+    $order = "desc";
     break;
 }
 
@@ -132,8 +128,8 @@ $APPLICATION->IncludeComponent(
                 "IBLOCK_ID" => $arParams["IBLOCK_ID"],
                 "ELEMENT_SORT_FIELD" => $sort,
                 "ELEMENT_SORT_ORDER" => $order,
-                "ELEMENT_SORT_FIELD2" => "PROPERTY_shows_a_day",
-                "ELEMENT_SORT_ORDER2" => "desc",
+                "ELEMENT_SORT_FIELD2" => "PROPERTY_STATE",
+                "ELEMENT_SORT_ORDER2" => "asc",
                 "PROPERTY_CODE" => $arParams["LIST_PROPERTY_CODE"],
                 "META_KEYWORDS" => $arParams["LIST_META_KEYWORDS"],
                 "META_DESCRIPTION" => $arParams["LIST_META_DESCRIPTION"],
