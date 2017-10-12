@@ -110,3 +110,4 @@ $this->setFrameMode(true);
         <img src="/img/arrowRight.png" class="rigth">
     </div>        
 </div>
+<div class="busket_senk">Товар успешно добавлен</div>
