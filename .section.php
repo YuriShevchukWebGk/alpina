@@ -1,8 +1,8 @@
 <?
-$sSectionName = "Главная страница";
-$arDirProperties = array(
+$sSectionName = "Книги Альпина";
+$arDirProperties = Array(
    "description" => "Которые нельзя пропустить",
    "keywords" => "1С-Битрикс, CMS, PHP, bitrix, система управления контентом",
-   "robots" => "index, follow"
+   "ROBOTS" => "index, follow"
 );
 ?>
