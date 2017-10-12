@@ -12,6 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
+<!--noindex-->
 <div class="leftMenu">
     <ul class="firstLevel">
     <?foreach ($arResult["SECTIONS"] as $arSection)
@@ -26,7 +27,7 @@ $this->setFrameMode(true);
         <?foreach ($arResult["SECTIONS"] as $arChildSection) {?>
             <?if ($arChildSection["IBLOCK_SECTION_ID"]==$arSection["ID"]) {?>
 				<ul class="secondLevel">
-					<li><a href="<?=$arChildSection["SECTION_PAGE_URL"]?>"><p><?=$arChildSection["NAME"]?></p></a></li>
+						<li><a href="<?=$arChildSection["SECTION_PAGE_URL"]?>"><p><?=$arChildSection["NAME"]?></p></a></li>
 				</ul>
             <?}?>
        <?}?>
@@ -46,6 +47,7 @@ $this->setFrameMode(true);
 
     </ul>
 </div>
+<!--/noindex-->
 <?/*
 $mark = 0;
                 foreach($arResult["SECTIONS"] as $arSection)

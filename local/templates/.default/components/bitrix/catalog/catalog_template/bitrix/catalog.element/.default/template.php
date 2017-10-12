@@ -435,6 +435,7 @@
                 </div>
                 <?}?> 
             <?if($arResult['IBLOCK_SECTION_ID'] != HANDBAG_SECTION_ID) {?>
+
             <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "" && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                 <div class="characteris">
                     <p class="title"><?= $arResult["PROPERTIES"]["YEAR"]["NAME"] ?></p>
@@ -466,6 +467,7 @@
                         <?}?>
                 </div>
                 <?}?> 
+
             <div class="characteris epub" style="display:none;">
                 <p class="title">Форматы</p>
                 <p class="text">epub</p>
@@ -508,6 +510,7 @@
                 <?}?>
             <?}?>
         <?}?>
+
         <?if ($arResult["CATALOG_WEIGHT"]) {
                 $weight = $arResult["CATALOG_WEIGHT"];
             } else if ($arResult["PROPERTIES"]["LATEST_WEIGHT"]["VALUE"]) {
@@ -1565,8 +1568,10 @@
 		}
 		if (!empty($lastidids)) {?>
 			<p class="sliderName"><a href="/catalog/lastseen/" class="youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></a></p>
+
+
 			<?$arFilter = array('ID' => $lastidids, ">DETAIL_PICTURE" => 0);
-			
+
 			$APPLICATION->IncludeComponent(
 				"bitrix:catalog.section",
 				"viewed_books",
@@ -1582,6 +1587,7 @@
 					0 => "",
 					1 => "",
 					),
+
 					"ELEMENT_SORT_FIELD" => "id",
 					"ELEMENT_SORT_ORDER" => "desc",
 					"ELEMENT_SORT_FIELD2" => "id",
@@ -1696,9 +1702,12 @@
 					"DISPLAY_COMPARE" => "N",
 					"COMPATIBLE_MODE" => "Y"
 				),
+
+
 				false
 			);
 		}?>
+
     </div>
 </div>
 
@@ -1838,6 +1847,7 @@
 	false
 );
 }?>
+
 <div id="ajaxBlock"></div>
 <!-- GdeSon -->
 <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276"></script>
