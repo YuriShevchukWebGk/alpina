@@ -1,3 +1,7 @@
+.sitemap{columns:2;-moz-column-count:2;-webkit-column-count:2;column-count:2;}
+.sitemap a{text-decoration: none;color: #7b8c90;font-family: "Walshein_regular";font-size: 15px;} 
+.sitemap .level_0, .sitemap .level_1, .sitemap .level_2{margin-left: 20px;}
+.busket_senk{display:none;box-sizing: border-box;position: fixed;width: 200px;height: 50px;font-size: 15px;padding: 10px;top: 100px;right: 50px;background: #00abb8;line-height: 30px;color: #fff;z-index:999;}
 .headCatalog,.lkWrapp div{border-left:1px solid #e2e2e2}
 .mainWrapp,.mainWrapp:after,header{background-color:#fff}
 .giftWrap input[type=text],.mainWrapp input,.mainWrapp input[type=text]{-moz-border-bottom-colors:none;-moz-border-left-colors:none;-moz-border-right-colors:none;-moz-border-top-colors:none;border-image:none}
@@ -21,7 +25,7 @@ header .telephone{display:inline}
 body,p,ul{padding:0;margin:0}
 body{overflow-x:auto!important;font-family:Walshein_regular!important}
 ul{list-style-type:none}
-a{text-decoration:none}
+a{text-decoration:none;color:#00abb8}
 h6{font-size:22px;font-weight:400;color:#3f4a4d;margin:3px 0}
 *::selection {color:#fff;background:#00abb8}
 header{height:58px;position:relative;color:#232b2d;font-size:14px}
@@ -221,7 +225,7 @@ footer .webServ{margin-left:140px}
 .headerWrapper{margin:0 auto;position:relative;width:700px;text-align:center}
 header .menu{padding-top:18px}
 .colorCorrect{z-index:1;bottom:0;position:absolute;width:260px;height:202px;background:url(/img/blueColor.png)}
-.hintWrapp .smallContainer:hover p{color:#C7A271;border-bottom:1px solid;cursor:pointer}
+.hintWrapp .smallContainer:hover p{color:#C7A271;cursor:pointer}
 .hintWrapp .smallContainer:hover .colorCorrect{background:url(/img/redColor.png)}
 .slideWrapp .titleSlide{color:#fff;font-size:62px;height:124px}
 .slideWrapp .textSlide{color:#CAD1CE;font-size:20px;margin-top:16px;margin-bottom:36px;height:56px}
@@ -493,7 +497,7 @@ header .headBasket{margin-right:0}
 .elementDescriptWrap .priceBasketWrap{background:#fcfcfc;box-shadow:0 2px 5px 0 rgba(0,0,0,.18),0 0 1px 0 rgba(0,0,0,.14);width:264px;text-align:center;padding-top:34px;padding-bottom:34px;clear:both}
 .oldPrice p{background-color:#7b8c90;height:2px;position:absolute;top:14px;width:92%}
 .elementDescriptWrap .newPrice{color:#00ABB8;font-family:Walshein_black;font-size:42px;margin-left:10px;margin-top:8px}
-.elementDescriptWrap .newPrice span{font-size:26px;font-weight:700;}
+.elementDescriptWrap .newPrice span{font-size:26px;font-weight:700;font-family:RoubleSign;}
 .rubsign:after{content:'i'}
 .priceBasketWrap .text{color:#7B8C90;font-size:15px;padding:8px;margin-bottom:85px}
 .elementDescriptWrap .inBasket{background-color:#00abb8;border-radius:35px;color:#fff;font-size:19px;margin:0 28px;padding:14px 58px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
@@ -778,8 +782,8 @@ header .headBasket{margin-right:0}
 .contactsFormWrap .pii a{color:#666;border-bottom:1px solid}
 .contactsFormWrap .pii a:hover{text-decoration:none}
 .contactsFormWrap p{color:#3f4a4d;font-size:32px;padding-top:28px;text-align:center}
-.contactsFormWrap input[type=text],.questInput{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;margin-left:30px;padding-left:20px;width:274px}
-.contactsFormWrap input[type=text]{height:54px;margin-bottom:22px}
+.contactsFormWrap input[type=text],.contactsFormWrap input[type=tel],.contactsFormWrap input[type=email],.contactsFormWrap input[type=number], .questInput{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;margin-left:30px;padding-left:20px;width:274px}
+.contactsFormWrap input[type=text],.contactsFormWrap input[type=tel],.contactsFormWrap input[type=email],.contactsFormWrap input[type=number]{height:54px;margin-bottom:22px}
 .ReviewsFormWrap{float:right;min-height:548px;margin-top:34px;margin-bottom:56px}
 .questInput{height:104px;margin-bottom:22px;padding-top:12px;resize:none}
 .contactsFormWrap input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:40px;color:#c7a271;cursor:pointer;font-size:19px;margin-left:72px;padding:10px 0;width:216px}
@@ -810,8 +814,8 @@ header .headBasket{margin-right:0}
 .centredWrapper{width:1140px;margin:0 auto}
 .signinWrapper .signinBlock{background-color:#fff;padding-top:78px;display:none;margin-bottom:80px}
 .signinWrapper .registrationBlock{background-color:#fff;margin-bottom:78px;padding-bottom:72px;padding-top:78px}
-.signinWrapper input[type=password],.signinWrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;width:518px;padding:0 20px}
-.signinWrapper input[type=text]{margin:0 288px 20px}
+.signinWrapper input[type=password],.signinWrapper input[type=email],.signinWrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;width:518px;padding:0 20px}
+.signinWrapper input[type=email],.signinWrapper input[type=text]{margin:0 288px 20px}
 .signinWrapper input[type=password]{margin:0 288px}
 .signinWrapper input[type=checkbox]+label::before,.signinWrapper input[type=checkbox]:checked+label::before{display:inline-block;height:26px;position:relative;width:26px;background-repeat:no-repeat;content:""}
 .signinWrapper input[type=checkbox]+label::before{background-image:url(/img/emptyChechBox.png);left:-8px;top:8px}
