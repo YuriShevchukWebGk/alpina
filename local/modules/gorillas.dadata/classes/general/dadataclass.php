@@ -267,12 +267,11 @@ class CDadataSuggestions
 					    var url = '/local/components/gorillas/locations/search.php';
 					    var city = (suggestion.data.city ? suggestion.data.city : suggestion.data.settlement);
 					    var region = suggestion.data.region;
-					    var country = suggestion.data.country;
-                        console.log(city);
-                        console.log(city);
+                        var country = suggestion.data.country;
+					    var area = suggestion.data.area;
 					    BX.showWait();
 
-					    $.getJSON(url,{'city':city,'region':region,'country':country},function (result){
+					    $.getJSON(url,{'city':city,'region':region,'country':country, 'area':area},function (result){
 						    BX.closeWait();
 						    if(result.ID>0)
 						    {
@@ -295,6 +294,7 @@ class CDadataSuggestions
 					    $(dadataSuggestions.fieldSelector(<?=$id?>)).suggestions(dadataSuggestions.getConf('<?=$type?>',
 						    function (suggestion) {
 
+                                suggestion.value = suggestion.unrestricted_value;
 							    <? if($type=="PARTY"): ?>
 							    if(suggestion.data.state.registration_date!=null) {
 								    var t = new Date(suggestion.data.state.registration_date);
@@ -313,7 +313,6 @@ class CDadataSuggestions
 							    }
 							    <? endif ?>
 
-
 							    <? if(!empty($arFieldsTypes[$type])): ?>
 							    <? foreach($arFieldsTypes[$type] as $prop=>$code): ?>
 							    if (typeof suggestion.<?=$code?> != "undefined")
@@ -322,7 +321,7 @@ class CDadataSuggestions
 							    <? endif ?>
 
 							    <? if($type=="ADDRESS"): ?>
-										dadataSuggestions.setLocation(suggestion);
+								    dadataSuggestions.setLocation(suggestion);
 							    <? endif ?>
 
 						    }));
