@@ -10,8 +10,8 @@ if(!$USER->IsAdmin()){
 }
 ?>
 <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog",
-	"catalog_template",
+	"bitrix:catalog", 
+	"catalog_template", 
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_ELEMENT_CHAIN" => "Y",
@@ -239,7 +239,7 @@ if(!$USER->IsAdmin()){
 		"SEF_MODE" => "Y",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_STATUS_404" => "Y",
-		"SET_TITLE" => "N",
+		"SET_TITLE" => "Y",
 		"SHOW_404" => "Y",
 		"SHOW_DEACTIVATED" => "N",
 		"SHOW_DISCOUNT_PERCENT" => "Y",
@@ -287,6 +287,10 @@ if(!$USER->IsAdmin()){
 		"COMPATIBLE_MODE" => "Y",
 		"COMPOSITE_FRAME_MODE" => "A",
 		"COMPOSITE_FRAME_TYPE" => "AUTO",
+		"USER_CONSENT" => "N",
+		"USER_CONSENT_ID" => "0",
+		"USER_CONSENT_IS_CHECKED" => "Y",
+		"USER_CONSENT_IS_LOADED" => "N",
 		"SEF_URL_TEMPLATES" => array(
 			"sections" => "",
 			"section" => "#SECTION_CODE#/",
@@ -296,5 +300,6 @@ if(!$USER->IsAdmin()){
 		)
 	),
 	false
-);?>
+);
+?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
