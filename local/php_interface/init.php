@@ -107,6 +107,7 @@
     define ("PAY_SYSTEM_RFI", 11); //ID платежный системы РФИ
 
     define ("ADMIN_GROUP_ID", 1);
+	define ("ECOM_ADMIN_GROUP_ID", 6);
     define ("GIFT_BAG_EXHIBITION", 331); // правило корзины Подарок: сумка с выставки ММКВЯ 2017
 
     /**
@@ -268,6 +269,17 @@
         }
     }
 
+	/**
+        * Аналог функции isAdmin() для группы Администраторы интернет-магазина
+    * */
+	function isEcomAdmin() {
+		global $USER;
+		$userGroup = CUser::GetUserGroup($USER->GetID());
+		if (in_array(ADMIN_GROUP_ID, $userGroup, true) || in_array(ECOM_ADMIN_GROUP_ID, $userGroup, true))
+			return true;
+	}
+		
+	
     /***************
     *
     * получение ID значения свойства "Состояние" из символьного кода этого значения
