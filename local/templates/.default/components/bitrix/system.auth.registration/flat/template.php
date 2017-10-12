@@ -63,7 +63,7 @@
                             <td>
                             
                             <p class="paswordIncorrectly" id="existingEmail" style="display:none"><?=GetMessage("EXISTING_EMAIL");?></p>
-                            <input type="text" name="USER_EMAIL" maxlength="255" value="<?=$arResult["USER_EMAIL"]?>" class="bx-auth-input" placeholder="<?=GetMessage("AUTH_EMAIL")?>"/></td>
+                            <input type="email" name="USER_EMAIL" maxlength="255" value="<?=$arResult["USER_EMAIL"]?>" class="bx-auth-input" placeholder="<?=GetMessage("AUTH_EMAIL")?>"/></td>
                         </tr>
                         <tr>
                             <td><input type="password" class="reg_password" name="USER_PASSWORD" maxlength="50" value="<?=$arResult["USER_PASSWORD"]?>" class="bx-auth-input" autocomplete="off" placeholder="<?=GetMessage("AUTH_PASSWORD_REQ")?>"/>
