@@ -12,7 +12,8 @@ if (AddMessage2Log('Скрипт выполнен', 'pickups.php'))?>
 <html>
 <body width="100%">
 <?
-if ($USER->isAdmin()) {
+$userGroup = CUser::GetUserGroup($USER->GetID());
+if ($USER->isAdmin() || in_array(6,$userGroup)) {
 	CModule::IncludeModule("blog");
     CModule::IncludeModule("iblock");
     CModule::IncludeModule("sale");

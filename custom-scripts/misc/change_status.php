@@ -1,5 +1,6 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-if ($USER->isAdmin()) {
+$userGroup = CUser::GetUserGroup($USER->GetID());
+if ($USER->isAdmin() || in_array(6,$userGroup)) {
 CModule::IncludeModule("iblock");
 if ($_GET['orders']) {
 

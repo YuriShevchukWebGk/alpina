@@ -10,7 +10,8 @@ global $USER;?>
 a{text-decoration:none;color:#000}a:hover{text-decoration:underline}
 </style>
 <?
-if ($USER->IsAdmin()){
+$userGroup = CUser::GetUserGroup($USER->GetID());
+if ($USER->isAdmin() || in_array(6,$userGroup)) {
 	
 	/******************************************************/
 	/******************************************************/

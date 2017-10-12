@@ -12,7 +12,6 @@
     require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_admin_before.php');       
     require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/prolog.php");                          
     require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/sale/general/admin_tool.php");
-    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/accordpost/accordpost_function.php");
                                                                                                      
     Loader::includeModule('sale');
 
@@ -20,12 +19,8 @@
 
     global $USER;
     global $APPLICATION;       
-	
-	
-	
-	$userGroup = CUser::GetUserGroup($USER->GetID());
 
-    if (!$USER->IsAdmin() && !in_array(6,$userGroup)) {
+    if (!$USER->IsAdmin()) {
         $APPLICATION-> Form("");
     }
               
@@ -33,28 +28,19 @@
                                                                                             
     $APPLICATION->AddHeadScript("//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js");  
     
-    //ID доставок почтой РФ по России                                          
+    //ID доставок курьером
     $commonDeliveryIDs = array(
-        DELIVERY_MAIL, 
-        DELIVERY_MAIL_2
+		9,
+        12,
+		15
     );
-    //ID международных доставок почтой РФ                                         
-    $internationalDeliveryIDs = array(
-    /*     
-        INTERNATIONAL_RUSSIAN_POST_ID_1, 
-        INTERNATIONAL_RUSSIAN_POST_ID_2,
-        INTERNATIONAL_RUSSIAN_POST_ID_3,
-        INTERNATIONAL_RUSSIAN_POST_ID_4,
-        INTERNATIONAL_RUSSIAN_POST_ID_5
-        */
-    );   
+
     
     //ajax-экспорт заказов. Запрос отправляется из скрипта, который описан ниже 
-    if (!empty($_REQUEST["ID"]) && $_REQUEST["export_order"] == "yes") {     
+    if (!empty($_REQUEST["ID"]) && $_REQUEST["export_order"] == "yes") {
     
         //Переменные для проверки типа заказа
-        $hasCommonOrders = 'N'; //Есть заказы по России
-        $hasInternationalOrders = 'N'; //Есть международные заказы   
+        $hasCommonOrders = 'N'; //Есть заказы по Москве
                                   
         //убираем хедер, чтобы в ответе не было лишнего кода
         $APPLICATION->RestartBuffer();  
@@ -64,9 +50,10 @@
         //Собираем информацию о заказах      
         $order_filter = array("ID" => $arIDs); 
         $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $order_filter);
+		
         while ($arSales = $rsSales->Fetch()) {                       
             $order_props[$arSales['ID']] = $arSales;  
-        }         
+        }
                     
         //Соберем все товары в выбранных заказах
         $arFilter = array("ORDER_ID" => $arIDs);
@@ -93,12 +80,6 @@
                 $arIDsCommonOrders[$order_id] = $order_id;
                 $hasCommonOrders = 'Y';
             };    
-            
-            //проверим международные заказы    
-            if (in_array($order_properties['DELIVERY_ID'], $internationalDeliveryIDs)) {
-                $arIDsInternationalOrders[$order_id] = $order_id;
-                $hasInternationalOrders = 'Y';
-            }         
                     
             if($order_properties['PERSON_TYPE_ID'] == LEGAL_ENTITY_PERSON_TYPE_ID) {
                 //имя получателя    
@@ -128,7 +109,7 @@
         $logger_file = $_SERVER['DOCUMENT_ROOT'].'/local/admin/accorpdost.log';
               
         //Генерация и отправка xml для заказов по России 
-        if ($hasCommonOrders == 'Y') {          
+        if ($hasCommonOrders == 'Y') {
                                                                                           
             
             //Логируем начало экспорта
@@ -141,11 +122,11 @@
                 if(!empty($shipment_id_common)){
                     $zdoc_id_common = 'ALPINABOOK'.$shipment_id_common;     
                 } else {   
-                    echo GetMessage("ACCORDPOST_EXPORT_COMMON_FAIL");
+                    echo GetMessage("SHOPLOGISTIC_EXPORT_COMMON_FAIL");
                     die();
                 }                                                          
             } else {
-                echo GetMessage("ACCORDPOST_EXPORT_COMMON_FAIL");
+                echo GetMessage("SHOPLOGISTIC_EXPORT_COMMON_FAIL");
                 die();
             } 
                 
@@ -185,80 +166,9 @@
             //Экспортируем       
             export_to_accordpost($xmlBody, $zdoc_id_common, $shipment_id_common, $arIDsCommonOrders, $order_props);    
         }  
-                               
-        //Генерация xml для международных заказов 
-        if ($hasInternationalOrders == 'Y') {
-            
-            //Логируем начало экспорта
-            $order_log = $logger_date.' - Начало отправки международного заказа;';  
-            logger($order_log, $logger_file);  
-                                                
-            //Создадим новую запись в ИБ
-            if ($shipment_id_international = create_delivery_element($arIDsInternationalOrders)) {
-                $zdoc_id_international = 'ALPINABOOK'.$shipment_id_international;         
-            } else {
-                echo GetMessage("ACCORDPOST_EXPORT_INTERNATIONAL_FAIL");   
-                die();
-            }                           
-            
-            $order_log = $logger_date.' - Создан новый элемент IB с выгрузкой - $shipment_id_common: '.$shipment_id_international.';';  
-            logger($order_log, $logger_file); 
-            
-            //Запрос на получение списка стран
-            $arCountry = get_country_list();     
-                                        
-            $xmlBodyInternational = '';
-            //Шапка с доступами и типом запроса
-            $xmlBodyInternational .= '<request request_type="'.ACCORDPOST_SHIPPING_ORDER_REQUEST_ID.'" partner_id="'.ACCORDPOST_PARTNER_ID.'" password="'.ACCORDPOST_PASSWORD.'">';
-            
-                //Создаём документ номер 5, создадим новый элемент в иб и используем его id в качестве номера отгрузки                                  
-                $xmlBodyInternational .= '<doc doc_type="'.ACCORDPOST_SHIPPING_ORDER_DOCUMENT_ID.'" zdoc_id="'.$zdoc_id_international.'_INT">';
-                
-                //Создаём позиции с заказами
-                foreach($order_props as $order_id => $order_properties) {
-                    if (!empty($order_id) && in_array($order_id, $arIDsInternationalOrders)) {  
-                        //Получаем ID страны                      
-                        if (!($country_id = get_country_id($arCountry, $order_properties['COUNTRY']))) {  
-                            echo 'Проверьте правильность введенной страны, или уточните есть ли "'.$order_properties['COUNTRY'].'" в <a href="/tools/accordpost_country_list.php">списке стран</a>';  
-                            CIBlockElement::Delete($zdoc_id_international);  
-                            die();   
-                        }      
-                        
-                        //Создаём документ номер 5, создадим новый элемент в иб и используем его id в качестве номера отгрузки  
-                        $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);   
-                        $unic_code = $partner_code.$order_code;  
-                        
-                        $xmlBodyInternational .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="0.00" parcel_sumvl="'.$order_properties['SUM_PAID'].'" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="0" clnt_name="'.$order_properties['FINAL_NAME'].'" clnt_phone="'.$order_properties['PHONE'].'" dev1mail_type="4" dev1nal_scheme="0" dev1direct_ctg="2">';            
-                            
-                            $xmlBodyInternational .= '<struct_addr region="" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
-                            
-                            $xmlBodyInternational .= '<custom>';
-                                $zip = ($order_properties['INDEX']) ? $order_properties['INDEX'] : $order_properties['F_INDEX'];
-                                $xmlBodyInternational .=  '<int_dp fio="'.$order_properties['FINAL_NAME'].'" cntry="'.$country_id.'" transtype_id="2" zip="'.$zip.'" city="'.$order_properties['CITY'].'" street="'.$order_properties['STREET'].'" house="'.$order_properties['HOUSE'].'"/>';
-                                
-                            $xmlBodyInternational .= '</custom>'; 
-                            
-                        $xmlBodyInternational .= '</order>';             
-                    }
-                }      
-                                                     
-                //Закрываем документ
-                $xmlBodyInternational .= '</doc>';
-                
-            //Закрываем реквест
-            $xmlBodyInternational .= '</request>';  
-                                                                 
-            foreach ($arIDsInternationalOrders as $logger_id) {
-                $order_log = $logger_date.' - Перед самим экспортом - номер заказа: '.$logger_id.';';  
-                logger($order_log, $logger_file);   
-            }                   
-            
-            //Экспортируем      
-            export_to_accordpost($xmlBodyInternational, $zdoc_id_international, $shipment_id_international, $arIDsInternationalOrders, $order_props);   
-        }  
         
         die(); //прерываем дальнейшее выполнение страницы при аякс-запросе   
-    }                                                                                                                                 
+    }
     
     $sTableID = "tbl_accordpost_export_orders"; // table ID         
     //Не работает соритровка             
@@ -282,9 +192,8 @@
     $lAdmin->InitFilter($FilterArr);    
                                              
     $arFilter = Array(       
-        "DELIVERY_ID" => array_merge($commonDeliveryIDs, $internationalDeliveryIDs), 
-        "STATUS_ID" => "D", 
-        "PAYED" => "Y"                                                            
+        "DELIVERY_ID" => array_merge($commonDeliveryIDs), 
+        "STATUS_ID" => array("D", "N", "C")                                      
     );        
                                
     if(!empty($find_id)){                                         
@@ -375,7 +284,7 @@
     $arHeaders = array(  
         array(  
             "id"       => "ID",
-            "content"  => "ID",
+            "content"  => "Номер заказа",
             "sort"     => "ID",
             "default"  => true,
         ),               
@@ -414,19 +323,7 @@
             "content"  => GetMessage("ORDER_SUMM"),
             "sort"     => "PRICE",
             "default"  => true,
-        ),         
-        array(  
-            "id"       => "EXPORTED_TO_ACCORDPOST",
-            "content"  => GetMessage("EXPORTED_TO_ACCORDPOST"),
-            "sort"     => "EXPORTED_TO_ACCORDPOST",
-            "default"  => true,
-        ),              
-        array(  
-            "id"       => "LABEL",
-            "content"  => GetMessage("LABEL"),
-            "sort"     => "LABEL",
-            "default"  => true,
-        ),                          
+        ),                                   
     );
                                        
     //init headers
@@ -471,10 +368,10 @@
     //context menu
     $aContext = array(
         array(
-            "TEXT"  => GetMessage("ACCORDPOST_EXPORT"),
+            "TEXT"  => GetMessage("SHOPLOGISTIC_EXPORT"),
             "LINK"  => 'javascript:void(0)',
             "LINK_PARAM"  => 'onclick = "export_orders_data()"',
-            "TITLE" => GetMessage("ACCORDPOST_EXPORT"),
+            "TITLE" => GetMessage("SHOPLOGISTIC_EXPORT"),
             "ICON"  => "btn_new",
         ),
     );                                         
@@ -487,7 +384,7 @@
 ?>
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_after.php"); // 
-    $APPLICATION->SetTitle(GetMessage("ACCORDPOST_EXPORT_TITLE"));  
+    $APPLICATION->SetTitle(GetMessage("SHOPLOGISTIC_EXPORT_TITLE"));  
 ?>
 <?
 
@@ -533,7 +430,7 @@
         </td>
     </tr>   
     <tr>  
-        <td><?=GetMessage("EXPORTED_TO_ACCORDPOST")?>:</td>
+        <td><?=GetMessage("EXPORTED_TO_SHOPLOGISTIC")?>:</td>
         <td>
             <?
                 $arr = array(

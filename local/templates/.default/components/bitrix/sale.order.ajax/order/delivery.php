@@ -249,12 +249,12 @@
 								}
 							}
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) {
-                            echo str_replace('#DATE_DELIVERY#',date_day_courier(1), $arDelivery["DESCRIPTION"])."<br />";
+                            echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD) {
                             echo str_replace('#DATE_DELIVERY#',date_day(1), $arDelivery["DESCRIPTION"])."<br />";
                         } else {
                             if (strlen($arDelivery["DESCRIPTION"])>0){
-                                echo str_replace('#DATE_DELIVERY#',date_day_courier(1).' - '.date_day_courier(2), $arDelivery["DESCRIPTION"])."<br />";
+                                echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']).' - '.date_day_courier($setProps['nextDay']+1), $arDelivery["DESCRIPTION"])."<br />";
                             }
                         }   
 
