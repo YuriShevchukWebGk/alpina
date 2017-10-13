@@ -555,7 +555,6 @@ function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
     $(".ID_DELIVERY_ID_" + window.BOXBERRY_PICKUP_DELIVERY_ID).html(delivery_message);
     $("#boxberry_cost").val(delivery_price);
     if (parseInt(delivery_time) != 0) {
-        console.log($("#ID_DELIVERY_ID_"+ window.BOXBERRY_PICKUP_DELIVERY_ID).is(':checked'));
         if($("#ID_DELIVERY_ID_"+ window.BOXBERRY_PICKUP_DELIVERY_ID).is(':checked') == false){
              $("#ID_DELIVERY_ID_"+ window.BOXBERRY_PICKUP_DELIVERY_ID).trigger('click');
         }

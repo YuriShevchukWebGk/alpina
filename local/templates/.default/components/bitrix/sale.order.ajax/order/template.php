@@ -457,11 +457,6 @@
                                     if (val == "Y")
                                     {
 
-
-
-
-
-
                                         if($("#ORDER_PROP_111").size() > 0 && $('#ORDER_PROP_111').val() == false){
                                             flag = false;
                                             $('#ORDER_PROP_111').parent("div").children(".warningMessage").show();
@@ -901,6 +896,15 @@
 								            }
 								            maps_init_GURU(points, center_1, center_2);
 								    });
+
+                                    if($(".js_delivery_block .radioInp").is(':checked') == true){
+                                        var city = $('.js_delivery_block .radioInp').attr('data-city');
+                                        var id = $('.js_delivery_block .radioInp').attr('id');
+                                        if(city.indexOf(0000) >= 0){
+                                          // $('#' + id).trigger('click');
+                                        }
+                                        //
+                                    }
                                 }
 
                                 function SetContact(profileId)
