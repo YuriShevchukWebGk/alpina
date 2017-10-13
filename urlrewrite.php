@@ -73,6 +73,12 @@ $arUrlRewrite = array(
 		"PATH" => "/testcatalog/index.php",
 	),
 	array(
+		"CONDITION" => "#^/sitemap/([0-9a-zA-Z_]+)/#",
+		"RULE" => "",
+		"ID" => "",
+		"PATH" => "/sitemap/add.php",
+	),
+	array(
 		"CONDITION" => "#^/teststore/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog.store",
