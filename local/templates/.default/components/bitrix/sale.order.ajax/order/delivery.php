@@ -145,6 +145,7 @@
         ?>
         <p class="blockTitle">Способ доставки<span class="deliveriWarming">Укажите способ доставки</span></p>
         <?
+
             foreach ($arResult["DELIVERY"] as $delivery_id => $arDelivery) {
                 if($arDelivery["ID"]!=22 && $isOnlyCertificate==true) {
                     continue;
@@ -155,6 +156,9 @@
                 if($arDelivery["ID"]==22 && $isOnlyCertificate==true) {
                     $arDelivery["CHECKED"]='Y';
                 }
+               /* if(stristr($_POST["ORDER_PROP_2"], 0000)) {
+                    continue;
+                }    */
                 // если это юр лицо и вес больше 10кг, то мимо
                // if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !$USER->IsAdmin())) { continue; }
 
@@ -184,6 +188,7 @@
                 <input type="radio"
                     class="radioInp"
                     id="ID_DELIVERY_ID_<?= $arDelivery["ID"] ?>"
+                    data-city="<?=$_POST["ORDER_PROP_2"]?>"
                     name="<?=htmlspecialcharsbx($arDelivery["FIELD_NAME"])?>"
                     value="<?= $arDelivery["ID"] ?>"
                     <?if ($arDelivery["CHECKED"]=="Y") echo " checked";?>
@@ -256,7 +261,7 @@
                             if (strlen($arDelivery["DESCRIPTION"])>0){
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']).' - '.date_day_courier($setProps['nextDay']+1), $arDelivery["DESCRIPTION"])."<br />";
                             }
-                        }   
+                        }
 
 
                         if (count($arDelivery["STORE"]) > 0):

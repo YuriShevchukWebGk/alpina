@@ -35,7 +35,7 @@
     outline: none;
     vertical-align: middle;
     font-size: 14px;
-    padding: 6px 8px;
+    padding: 6px 8px!important;
     margin-bottom: 3px;
 }
 #order_form_div .section {
