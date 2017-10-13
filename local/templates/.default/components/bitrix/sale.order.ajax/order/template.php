@@ -897,7 +897,6 @@
                                     if($(".js_delivery_block .radioInp").is(':checked') == true){
                                         var city = $('.js_delivery_block .radioInp').attr('data-city');
                                         var id = $('.js_delivery_block .radioInp').attr('id');
-                                        console.log(id);
                                         if(city.indexOf(0000) >= 0){
                                           // $('#' + id).trigger('click');
                                         }
