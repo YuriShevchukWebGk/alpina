@@ -294,7 +294,7 @@ class CDadataSuggestions
 					    $(dadataSuggestions.fieldSelector(<?=$id?>)).suggestions(dadataSuggestions.getConf('<?=$type?>',
 						    function (suggestion) {
 
-                                suggestion.value = suggestion.unrestricted_value;
+                                suggestion.value = suggestion.unrestricted_value;   // попыка записи р-на в поле доставки
 							    <? if($type=="PARTY"): ?>
 							    if(suggestion.data.state.registration_date!=null) {
 								    var t = new Date(suggestion.data.state.registration_date);
