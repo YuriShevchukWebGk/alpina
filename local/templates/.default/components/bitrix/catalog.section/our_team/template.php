@@ -13,16 +13,19 @@
 $this->setFrameMode(true);
 ?>
 
-<div class="deliveryTypeWrap">
-                <?foreach ($arResult["ITEMS"] as $arItem)
-                {?>
-                    <p class="position"><?=$arItem["PROPERTIES"]["job"]["VALUE"]?></p>
-                    <span class="title"><?=$arItem["NAME"]?></span>
-                    <? if ($arItem["PREVIEW_PICTURE"]["ID"])
-                    {?>
-                        <img src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>">
-                    <?}?>
-                    <?=$arItem["PROPERTIES"]["email"]["VALUE"]?>
-                    <br><br>
-                <?}?>
+<div class="teamMembers">
+	<?foreach ($arResult["ITEMS"] as $arItem) {?>
+		<div class="teamMember">
+			<h3><span class="main"><?=$arItem["NAME"]?></span>, <span class="position"><?=$arItem["PROPERTIES"]["job"]["VALUE"]?>, <a href="mailto:<?=$arItem["PROPERTIES"]["email"]["VALUE"]?>"><?=$arItem["PROPERTIES"]["email"]["VALUE"]?></a></span></h3>
+			<?if ($arItem["PREVIEW_PICTURE"]["ID"]) {
+				$arItem["PREVIEW_PICTURE"] = CFile::ResizeImageGet($arItem['PREVIEW_PICTURE']["ID"], array("width" => 300, "height" => 500), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
+				<img src="<?=$arItem["PREVIEW_PICTURE"]["src"]?>" align="left">
+			<?}?>
+			<div class="description">
+				<?=$arItem["PREVIEW_TEXT"]?>
+			</div>
+
+
+		</div>
+	<?}?>
 </div>

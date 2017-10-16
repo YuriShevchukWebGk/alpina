@@ -832,7 +832,7 @@
 
 				</div>
 			</form>
-		<?}?>
+		<?}?>       
 
         <?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <!--noindex-->
@@ -840,8 +840,8 @@
                 <div class="wrap_prise_top">
                     <?= GetMessage("EPUB") ?>
                     <p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span>руб.</span></p>
-                </div>
-
+                </div>        
+                          
                 <div class="wrap_prise_bottom">
                     <a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE']?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({'event' : 'selectVersion', 'action' : 'leaveSite', 'label': '<?= $arResult["NAME"]; ?>'});">
                         <p class="inBasket"><?= GetMessage("BUY_EPUB") ?></p>

@@ -22,17 +22,17 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	
 	$bestsellers = array();
 
-	$arFilter = Array("IBLOCK_ID"=>4, "PROPERTY_best_seller"=>285);
+	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "PROPERTY_best_seller"=>BESTSELLER_BOOK_XML_ID);
 	$res = CIBlockElement::GetList(Array(), $arFilter);
 	while ($ob = $res->GetNextElement()){
 		$arProps = $ob->GetProperties();
 		$arFields = $ob->GetFields();
 		$bestseller = array('name' => $arFields[NAME], 'id' => $arFields[ID], 'old' => 1, 'new' => 0);
 		$bestsellers[] = $bestseller;
-		CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => ''));
+		CIBlockElement::SetPropertyValuesEx($arFields[ID], CATALOG_IBLOCK_ID, array('best_seller' => ''));
 	}
 	
-	$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
+	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
 	$res = CIBlockElement::GetList(Array("PROPERTY_page_views_ga" => "DESC"), $arFilter, false, Array("nPageSize"=>50));
 	while ($ob = $res->GetNext()){
 		$recsArray[] = $ob["ID"];
@@ -42,7 +42,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 
 	echo "<b>Информация о бестселлерах</b><br />";
 	if (!empty($recsArray)) {
-		$arFilter = Array("IBLOCK_ID"=>4, "ID"=>$recsArray);
+		$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ID"=>$recsArray);
 		$res = CIBlockElement::GetList(Array(), $arFilter);
 		$key = 0;
 		while ($ob = $res->GetNextElement()){
@@ -59,7 +59,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 			if ($return) {
 				$bestsellers[] = array('name' => $arFields[NAME], 'id' => $arFields[ID], 'new' => 1, 'old' => 0);
 			}
-			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('best_seller' => '285'));
+			CIBlockElement::SetPropertyValuesEx($arFields[ID], CATALOG_IBLOCK_ID, array('best_seller' => BESTSELLER_BOOK_XML_ID));
 			$key++;
 		}
 	} else {
@@ -84,7 +84,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	/* II Удаляем старые книги из новинок */
 	
 	echo "<b>Информация о новинках</b><br /><br />";
-	$arFilter = Array("IBLOCK_ID"=>4, "PROPERTY_STATE"=>'21');
+	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "PROPERTY_STATE"=>NEW_BOOK_STATE_XML_ID);
 	$res = CIBlockElement::GetList(Array(), $arFilter);
 	while ($ob = $res->GetNextElement()){
 		$arProps = $ob->GetProperties();
@@ -92,7 +92,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	
 		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 40) {
 			$obEl = new CIBlockElement();
-			CIBlockElement::SetPropertyValuesEx($arFields[ID], 4, array('STATE' => ''));
+			CIBlockElement::SetPropertyValuesEx($arFields[ID], CATALOG_IBLOCK_ID, array('STATE' => ''));
 			echo '<b><span style="color:red">old - </b>';
 		}
 		else
@@ -101,13 +101,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 		echo "</span><br />";
 	}
 	echo "<br />";	
-	
-	$arEventFields = array(
-		"ORDER_USER" => "Александр",
-		"REPORT" => 'Скрипт выполнен автоматом'
-	);				
-	//CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");	
-	
+
 ?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

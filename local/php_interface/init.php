@@ -278,8 +278,8 @@
 		if (in_array(ADMIN_GROUP_ID, $userGroup, true) || in_array(ECOM_ADMIN_GROUP_ID, $userGroup, true))
 			return true;
 	}
-		
-	
+
+
     /***************
     *
     * получение ID значения свойства "Состояние" из символьного кода этого значения
@@ -2708,9 +2708,9 @@
                             "ID" => intval($parcel['order_id']),
                             "!STATUS_ID" => 'F'
                         );
-                        
+
                         $db_sales = CSaleOrder::GetList(array(), $arFilter) -> Fetch();
-                        if($db_sales['ID']) {             
+                        if($db_sales['ID']) {
                             CSaleOrder::Update(intval($parcel['order_id']), array("TRACKING_NUMBER" => strval($parcel['Barcode'])));
                             $order = Bitrix\Sale\Order::load(intval($parcel['order_id']));
                             $order->setField('STATUS_ID', 'I');
