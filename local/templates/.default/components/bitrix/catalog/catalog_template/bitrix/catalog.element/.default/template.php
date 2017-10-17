@@ -734,11 +734,22 @@
                     </form>
                     <?}?>
             </div>
-            <?if (!empty ($arResult["PRICES"]) ) {?>
-                <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
+            <?if (!empty ($arResult["PRICES"])) {?>
+                <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>                              
+                    <style>
+                    .not_available {
+                        color: #ff4f00;
+                        font-family: "Walshein_regular";
+                        font-size: 16px;    
+                        text-align: center;
+                        margin: -12px 0 8px;
+                        display: none;
+                    }
+                    </style>
                     <div class="wrap_prise_bottom">
-                        <span class="item_buttons_counter_block">
-
+                        <div class="not_available"></div>
+                        <span class="item_buttons_counter_block">   
+                            <input type="hidden" name="quantity" value="<?=$arResult['CATALOG_QUANTITY']?>">
                             <a href="#" onclick="changeQ('-');return false;" class="minus" id="<?= $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
                             <input id="<?= $arResult['QUANTITY']; ?>" type="text" class="tac transparent_input" value="<?= (isset($arResult['OFFERS']) && !empty($arResult['OFFERS'])
                                     ? 1
@@ -758,9 +769,9 @@
                             <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
                                 <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                     <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p>
-                                    <?} else {?>
+                                <?} else {?>
                                     <p class="inBasket toPreorder"><?= GetMessage("ADD_TO_PREORDER_FULL") ?></p>
-                                    <?}?>
+                                <?}?>
                             </a>
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                             <?} else {?>
@@ -879,7 +890,7 @@
         </div>
 
 		<?$frame = $this->createFrame()->begin();?>
-        <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+        <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233 && $arResult['CATALOG_QUANTITY']) {?>
             <?
                 $today = date("w");
                 $timenow = date("G");

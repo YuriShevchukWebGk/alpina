@@ -2948,20 +2948,57 @@ $(document).ready(function(){
 	$('.stopProp').click(function(e) {
 		e.stopPropagation();
 	});
+    
+    //Проверка поля для ввода количества товаров                                                          
+    $('input.tac').bind("change input keyup click", function() {                
+        var quantity = $('.item_buttons_counter_block').find('input[name="quantity"]').val();       
+                                          
+        if (this.value.match(/[^0-9]/g)) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        }   
+                      
+        if (this.value == '') {
+            this.value = '';
+        } else {          
+            count = parseInt(this.value);  
+                                  
+            if(count < 1) {           
+                this.value = 1;              
+            } else if(count > quantity) {
+                this.value = quantity;  
+                
+                $('.not_available').html('Максимальное кол-во: ' + quantity);  
+                
+                if($('.not_available').css('display') == 'none') {
+                    $('.not_available').slideDown(500).delay(2500).slideUp();                       
+                }                                      
+                                      
+            } else {
+                this.value = count; 
+            };  
+        }                              
+    });                                             
+                                                         
+    $('input.tac').bind("change click", function() {                              
+        if (this.value == '') {
+            this.value = 1;
+        }
+    }); 
+       
 });
 
 function changeQ(dest) {
 	if (dest == '-') {
-		var $input = $('.wrap_prise_bottom .minus').parent().find('input');
-		var count = parseInt($input.val()) - 1;
-		count = count < 1 ? 1 : count;
+		var $input = $('.wrap_prise_bottom .minus').parent().find('input.tac');
+		var count = parseInt($input.val()) - 1;       
 		$input.val(count);
 		$input.change();
 		return false;
-	} else if (dest == '+') {
-		var $input = $('.wrap_prise_bottom .plus').parent().find('input');
+	} else if (dest == '+') {       
+        var quantity = $('.item_buttons_counter_block').find('input[name="quantity"]').val();             
+		var $input = $('.wrap_prise_bottom .plus').parent().find('input.tac');
 		var count = parseInt($input.val()) + 1;
-		count = count < 1 ? 1 : count;
+		count = count < 1 ? 1 : count;                   
 		$input.val(count);
 		$input.change();
 		return false;

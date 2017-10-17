@@ -883,7 +883,7 @@ function enterCoupon(preorderID)
 // check if quantity is valid
 // and update values of both controls (text input field for PC and mobile quantity select) simultaneously
 function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
-{
+{                           
     var oldVal = BX(controlId).defaultValue,
     newVal = parseFloat(BX(controlId).value) || 0,
     bIsCorrectQuantityForRatio = false;
@@ -948,7 +948,7 @@ function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
             totalQuantity = totalQuantity*1 + parseInt($(this).val()); 
         }                                                         
     })               
-    $("#totalQuantity").html(totalQuantity);
+    $("#totalQuantity").html(totalQuantity);  
 
 }
 

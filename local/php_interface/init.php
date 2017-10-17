@@ -1,6 +1,10 @@
-<?
-    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
+<?                                                                                     
+    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php"); 
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
+    
+    //Подключим хендлеры для работы с остатками    
+    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
+    
     file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
     use Mailgun\Mailgun;
 
