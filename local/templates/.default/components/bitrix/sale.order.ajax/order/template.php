@@ -83,7 +83,7 @@
 	}
 </style>
 
-<div id="map"></div>
+<div id="map" style="width:0; height:0;"></div>
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
