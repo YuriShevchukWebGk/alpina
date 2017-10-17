@@ -323,6 +323,7 @@ class CDadataSuggestions
 							    <? if($type=="ADDRESS"): ?>
 								    dadataSuggestions.setLocation(suggestion);
 							    <? endif ?>
+                                init(suggestion.value);
 
 						    }));
 					    <? endforeach ?>

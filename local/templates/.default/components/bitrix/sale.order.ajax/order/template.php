@@ -83,7 +83,7 @@
 	}
 </style>
 
-
+<div id="map" style="width:0; height:0;"></div>
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
@@ -92,6 +92,7 @@
     window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
     //дополнительные функции, необходимые для работы
     function setOptions() {
+
         <?if($arResult['PREORDER'] == 'Y') {?>
             $(".delivery_date").remove();
         <?}?>
@@ -475,7 +476,6 @@
                                         if($("#ORDER_PROP_105").size() > 0 && $('#ORDER_PROP_105').val() == false){
                                             flag = false;
                                             $('#ORDER_PROP_105').parent("div").children(".warningMessage").show();
-
                                         }
 
                                         if($("#ORDER_PROP_104").size() > 0 && $('#ORDER_PROP_104').val() == false){
@@ -508,7 +508,6 @@
                                             $(document).scrollTop(scrollTop);
                                             document.getElementById("ORDER_PROP_116").focus();
                                             dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorDeliveryAddress'});
-
                                         }
 
                                         if($("#ORDER_PROP_5").size() > 0 && $('#ORDER_PROP_5').val() == false){
@@ -528,7 +527,6 @@
                                             document.getElementById("ORDER_PROP_24").focus();
                                             dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'errorPhone'});
                                         }
-
 
                                         if($("#ORDER_PROP_6").size() > 0 && isEmail($('#ORDER_PROP_6').val()) == false){
                                             flag = false;

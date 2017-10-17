@@ -4,7 +4,7 @@
     $curPage = $APPLICATION->GetCurPage(true);
     $theme = COption::GetOptionString("main", "wizard_eshop_bootstrap_theme_id", "blue", SITE_ID);
 ?>
-<!doctype html>  
+<!doctype html>
 <html class="finishOrder" lang="ru">
 <head>
 <!--eski.mobi--><script class="eskimobi" data-type="mobile">!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];e.src?a.src=e.src:e.innerHTML&&(a.innerHTML=e.innerHTML),a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<div id="eski-overlay" style="font-family:Helvetica-Light,Helvetica,Arial,sans-serif;font-weight:light;font-size:300%;line-height:100%;position:absolute;top:42%;left:0;right:0;text-align:center;color: #999;">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...</div><plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h=function(){var c=new Date;c.setTime(c.getTime()+18e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e){var a=b.createElement("script");if(a.onerror=h,"string"==typeof e)g(a,"main-executable","mobify",{src:e});else{var c="var main = "+e.toString()+"; main();";g(a,"main-executable","mobify",{innerHTML:c})}}},f.onerror=h,g(f,"mobify-js","mobify",{src:d})})}(window,document,function(){var ua=navigator.userAgent||navigator.vendor||window.opera,m=false;if(/mobi|phone|ipod|nokia|android/i.test(ua))m=true;if(/msie|windows|media\scenter|opera\smini|ipad|android\s3|android\s2|iphone\sos\s(4|5|6)|ipad\sos\s(4|5|6)/i.test(ua)||screen.width>1024)m=false;return m;},"/eskimobi/eski.mobi.min.js?20170906","/eskimobi/mobi.js?20170906");</script><!--/eski.mobi-->
@@ -68,10 +68,71 @@
             $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.8, width=device-width">');
         }
     </script>
-    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //РҐР°СЂРґРѕРІС‹Рµ AB-С‚РµСЃС‚С‹?>
     <!-- header .alpina_basket -->
+    <script src="https://api-maps.yandex.ru/1.1/index.xml?modules=metro" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript">
+        //ymaps.ready(init);
+        function init(adress_input) {
+
+            var myMap = new ymaps.Map('map', {
+                center: [55.753994, 37.622093],
+                zoom: 9
+            });
+            var latitude = '';
+            var longitude = '';
+            // Поиск координат центра Нижнего Новгорода.
+            ymaps.geocode(adress_input, {
+                /**
+                 * Опции запроса
+                 * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/geocode.xml
+                 */
+                results: 1
+            }).then(function (res) {
+                    // Выбираем первый результат геокодирования.
+                    var firstGeoObject = res.geoObjects.get(0),
+                        // Координаты геообъекта.
+                        coords = firstGeoObject.geometry.getCoordinates(),
+                        // Область видимости геообъекта.
+                        bounds = firstGeoObject.properties.get('boundedBy');
+
+                    firstGeoObject.options.set('preset', 'islands#darkBlueDotIconWithCaption');
+                    // Получаем строку с адресом и выводим в иконке геообъекта.
+                    firstGeoObject.properties.set('iconCaption', firstGeoObject.getAddressLine());
+
+                    // Добавляем первый найденный геообъект на карту.
+                    myMap.geoObjects.add(firstGeoObject);
+                    // Масштабируем карту на область видимости геообъекта.
+                    myMap.setBounds(bounds, {
+                        // Проверяем наличие тайлов на данном масштабе.
+                        checkZoomRange: true
+                    });
+
+                    var latitude = firstGeoObject.properties.get('boundedBy')[0][0]; // получаем долготу
+                    var longitude = firstGeoObject.properties.get('boundedBy')[0][1];  // получаем широту
+
+                    if(latitude > 0 && longitude > 0){
+                        geoMetro(latitude,longitude);
+                    }
+            });
+                    // Найдем ближайшую к точке (37.588162, 55.733797) станцию метро
+
+        }
+        function geoMetro(latitude, longitude){
+            var metro = new YMaps.Metro.Closest(new YMaps.GeoPoint(longitude,latitude), { results : 1 } )// по геоданным получаем 1 станцию метро
+            YMaps.Events.observe(metro, metro.Events.Load, function (metro) {
+
+              if (metro.length()) {
+                  var firstStation = metro.get(0);
+                  var tubest = (firstStation.text).split("метро ");
+                    $("#<?=METRO_2?> option[data-value='"+tubest[1]+"']").attr('selected', 'selected'); // выбираем станцию из списка станций
+              }
+            });
+        }
+    </script>
 </head>
-<body itemscope itemtype="https://schema.org/WebPage">            
+<body itemscope itemtype="https://schema.org/WebPage">
 <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter1611177 = new Ya.Metrika({ id:1611177, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/1611177" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 <?if ($USER->IsAuthorized()) {
     $rsCurUser = CUser::GetByID($USER->GetID());
@@ -130,16 +191,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="baskHeadMenu">
         <ul>
             <?$APPLICATION->IncludeComponent("bitrix:menu", "top_menu_cart", Array(
-                    "ROOT_MENU_TYPE" => "top_cart",    // Тип меню для первого уровня
-                    "MAX_LEVEL" => "1",    // Уровень вложенности меню
-                    "CHILD_MENU_TYPE" => "top",    // Тип меню для остальных уровней
-                    "USE_EXT" => "Y",    // Подключать файлы с именами вида .тип_меню.menu_ext.php
-                    "DELAY" => "N",    // Откладывать выполнение шаблона меню
-                    "ALLOW_MULTI_SELECT" => "Y",    // Разрешить несколько активных пунктов одновременно
-                    "MENU_CACHE_TYPE" => "N",    // Тип кеширования
-                    "MENU_CACHE_TIME" => "3600",    // Время кеширования (сек.)
-                    "MENU_CACHE_USE_GROUPS" => "Y",    // Учитывать права доступа
-                    "MENU_CACHE_GET_VARS" => "",    // Значимые переменные запроса
+                    "ROOT_MENU_TYPE" => "top_cart",    // РўРёРї РјРµРЅСЋ РґР»СЏ РїРµСЂРІРѕРіРѕ СѓСЂРѕРІРЅСЏ
+                    "MAX_LEVEL" => "1",    // РЈСЂРѕРІРµРЅСЊ РІР»РѕР¶РµРЅРЅРѕСЃС‚Рё РјРµРЅСЋ
+                    "CHILD_MENU_TYPE" => "top",    // РўРёРї РјРµРЅСЋ РґР»СЏ РѕСЃС‚Р°Р»СЊРЅС‹С… СѓСЂРѕРІРЅРµР№
+                    "USE_EXT" => "Y",    // РџРѕРґРєР»СЋС‡Р°С‚СЊ С„Р°Р№Р»С‹ СЃ РёРјРµРЅР°РјРё РІРёРґР° .С‚РёРї_РјРµРЅСЋ.menu_ext.php
+                    "DELAY" => "N",    // РћС‚РєР»Р°РґС‹РІР°С‚СЊ РІС‹РїРѕР»РЅРµРЅРёРµ С€Р°Р±Р»РѕРЅР° РјРµРЅСЋ
+                    "ALLOW_MULTI_SELECT" => "Y",    // Р Р°Р·СЂРµС€РёС‚СЊ РЅРµСЃРєРѕР»СЊРєРѕ Р°РєС‚РёРІРЅС‹С… РїСѓРЅРєС‚РѕРІ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ
+                    "MENU_CACHE_TYPE" => "N",    // РўРёРї РєРµС€РёСЂРѕРІР°РЅРёСЏ
+                    "MENU_CACHE_TIME" => "3600",    // Р’СЂРµРјСЏ РєРµС€РёСЂРѕРІР°РЅРёСЏ (СЃРµРє.)
+                    "MENU_CACHE_USE_GROUPS" => "Y",    // РЈС‡РёС‚С‹РІР°С‚СЊ РїСЂР°РІР° РґРѕСЃС‚СѓРїР°
+                    "MENU_CACHE_GET_VARS" => "",    // Р—РЅР°С‡РёРјС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ Р·Р°РїСЂРѕСЃР°
                     ),
                     false
                 );?>
