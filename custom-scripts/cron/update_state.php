@@ -24,7 +24,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 
 	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "PROPERTY_best_seller"=>BESTSELLER_BOOK_XML_ID);
 	$res = CIBlockElement::GetList(Array(), $arFilter);
-	while ($ob = $res->GetNextElement()){
+	while ($ob = $res->GetNextElement()) {
 		$arProps = $ob->GetProperties();
 		$arFields = $ob->GetFields();
 		$bestseller = array('name' => $arFields[NAME], 'id' => $arFields[ID], 'old' => 1, 'new' => 0);
@@ -33,7 +33,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	}
 	
 	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
-	$res = CIBlockElement::GetList(Array("PROPERTY_page_views_ga" => "DESC"), $arFilter, false, Array("nPageSize"=>50));
+	$res = CIBlockElement::GetList(Array("PROPERTY_DESIRABILITY" => "DESC"), $arFilter, false, Array("nPageSize"=>40));
 	while ($ob = $res->GetNext()){
 		$recsArray[] = $ob["ID"];
 	}

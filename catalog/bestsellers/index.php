@@ -33,7 +33,7 @@ switch ($_REQUEST["SORT"])
 }
 global $arrFilter;
 if(!$USER->IsAdmin()){
-    $arrFilter = array(">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+    $arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
 } else {
     $arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
 }

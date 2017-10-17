@@ -53,7 +53,9 @@
 	<!-- header .eshop_bootstrap_green -->
 </head>
 <body itemscope itemtype="
-	<?if (preg_match("/(.*)\/search\/index.php\?q=(.*)/i", $_SERVER['REQUEST_URI'])) {
+	<?if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
+		echo 'https://schema.org/ItemPage';
+	} elseif (preg_match("/(.*)\/search\/index.php\?q=(.*)/i", $_SERVER['REQUEST_URI'])) {
 		echo 'https://schema.org/SearchResultsPage';
 	} elseif (preg_match("/(.*)\/catalog\/([a-z]+)\/(.*)/i", $_SERVER['REQUEST_URI'])) {
 		echo 'https://schema.org/CollectionPage';
