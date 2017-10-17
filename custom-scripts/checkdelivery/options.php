@@ -5,7 +5,7 @@
 ######
 ######
 
-$limit = 50; //Максимальное количество заказов
+$limit = 40; //Максимальное количество заказов
 $weekend = false; //Если вдруг доставляем в выходные, то поменять на true
 
 $holidays = array( //Указываем даты праздничных дней
@@ -28,7 +28,7 @@ foreach ($days as $no => $day) {
 	$arFilter = Array(
 		">=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d")-60, date("Y"))),
 		"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => $day,
-		"!STATUS_ID" => array("PR","F","A")
+		"!STATUS_ID" => array("PR","F","A","I")
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch()) {
@@ -70,7 +70,7 @@ while (!$dateIsSet) {
 	$arFilter = Array(
 		">=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d")-60, date("Y"))),
 		"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => $setProps['deliveryDate'],
-		"!STATUS_ID" => array("PR","F","A")
+		"!STATUS_ID" => array("PR","F","A","I")
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch()) {
