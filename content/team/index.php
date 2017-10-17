@@ -1,6 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Команда");
+$APPLICATION->SetTitle("Команда интернет-магазина «Альпина Паблишер»");
 ?>
 <div class="searchWrap">
         <div class="catalogWrapper">
@@ -24,11 +24,6 @@ $APPLICATION->SetTitle("Команда");
         );?>    
         </div>
 </div>
-
-<div class="ContentcatalogIcon">
-</div>
-<div class="ContentbasketIcon">
-</div>
     
     
 <div class="deliveryPageTitleWrap">
@@ -37,9 +32,9 @@ $APPLICATION->SetTitle("Команда");
             <h1>Команда</h1>
         </div>
 </div>
-<div class="historyBodywrap" style="padding: 50px 0;">
+<div class="historyBodywrap">
     <div class="centerWrapper">
-        <div class="orderHistorWrap">         
+        <div id="teamMembersWrap">         
             <?$APPLICATION->IncludeComponent(
                     "bitrix:catalog.section", 
                     "our_team", 
@@ -55,7 +50,7 @@ $APPLICATION->SetTitle("Команда");
                             0 => "",
                             1 => "",
                         ),
-                        "ELEMENT_SORT_FIELD" => "id",
+                        "ELEMENT_SORT_FIELD" => "sort",
                         "ELEMENT_SORT_ORDER" => "asc",
                         "ELEMENT_SORT_FIELD2" => "id",
                         "ELEMENT_SORT_ORDER2" => "asc",
@@ -194,11 +189,6 @@ $APPLICATION->SetTitle("Команда");
     </div>
 </div>
 
-<script>
-$(document).ready(function(){
-    $(".historyBodywrap > div").addClass("centerWrapper");
-    $("body").addClass("historyBodyWr");
-});
-</script>
+
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

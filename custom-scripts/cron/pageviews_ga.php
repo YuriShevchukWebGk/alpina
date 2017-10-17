@@ -123,13 +123,11 @@ function printResultsTwoDays($results) {
 					$views = round($book['views']*2.4);
 				else
 					$views = round($book['views']*1.8);
-				echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
+				//echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
 				CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('page_views_ga' => $views));
 			}
 		}
 	}
-  } else {
-    print "<p>No results found.</p>";
   }
 }
 
@@ -171,13 +169,29 @@ function printResultsMonth($results) {
 			$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID"));
 			while ($oneb = $props->GetNext()) {
 				$views = $book['views'];
-				echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
+				//echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
 				CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('shows_a_day' => $views));
 			}
 		}
 	}
-  } else {
-    print "<p>No results found.</p>";
   }
 }
+
+//Обновляем свойство "Desirability"
+	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
+	$res = CIBlockElement::GetList(Array("PROPERTY_page_views_ga" => "DESC"), $arFilter, false, Array("nPageSize"=>500));
+	
+	while ($ob = $res->GetNext()){
+		CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('DESIRABILITY' => 0));
+		$desirability = 0;
+		$countMax = CSaleOrder::GetList(['ID' => 'ASC'], array("BASKET_PRODUCT_ID" => $ob["ID"],">=DATE_INSERT" => date('d.m.Y', strtotime("-7 days"))), [], false, ['ID']) + 1;
+		
+		if ($countMax < 3)
+			continue;
+		
+		$countMax = $countMax*$countMax*$countMax*$countMax;
+		$desirability = round($countMax/($ob['PROPERTY_PAGE_VIEWS_GA_VALUE']*2)*1000);
+		echo $countMax.' - '.$ob['PROPERTY_PAGE_VIEWS_GA_VALUE'].' - '.$ob["ID"].' - '.$desirability.'<br />';
+		CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('DESIRABILITY' => $desirability));
+	}
 ?>

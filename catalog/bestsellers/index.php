@@ -22,13 +22,13 @@ switch ($_REQUEST["SORT"])
     break;
 
     case "POPULARITY":
-    $sort = "PROPERTY_page_views_ga";          //PROPERTY_page_views_ga
+    $sort = "PROPERTY_DESIRABILITY";          //PROPERTY_page_views_ga
     $order = "asc";
     break;
 
     default:
     //$sort = "PROPERTY_SALES_CNT";
-	$sort = "PROPERTY_page_views_ga";
+	$sort = "PROPERTY_DESIRABILITY";
     $order = "desc";
 }
 global $arrFilter;

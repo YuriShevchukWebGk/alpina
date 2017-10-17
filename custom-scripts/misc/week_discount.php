@@ -20,9 +20,15 @@ while($ob = $res->GetNext()) {
 	CIBlockElement::SetPropertyValuesEx($ob['ID'], 4, array('spec_price' => '', 'discount_on' => ''));
 }
 
+$exclude = array(
+111244,
+8706,
+6031,
+65394,
+);
 
 $arSelect = Array("ID", "NAME", "PROPERTY_discount_on", "PROPERTY_spec_price", "SHOW_COUNTER", "PROPERTY_shows_a_day");
-$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "<CATALOG_PRICE_1" => 900, "PROPERTY_STATE" => false, "><PROPERTY_shows_a_day" => array(50,130), "PROPERTY_PUBLISHER" => 24, "!ID" => array(111244,8706,6031,65394));
+$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "<CATALOG_PRICE_1" => 900, "PROPERTY_STATE" => false, "><PROPERTY_shows_a_day" => array(50,130), "PROPERTY_PUBLISHER" => 24, "!ID" => $exclude, "!SECTION_ID" => 132);
 $res = CIBlockElement::GetList(Array("RAND"=>"ASC"), $arFilter, false, Array("nPageSize"=>15), $arSelect);
 
 $discounted = array();
