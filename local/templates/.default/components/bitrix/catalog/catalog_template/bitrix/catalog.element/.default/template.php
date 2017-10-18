@@ -52,7 +52,7 @@
         });
 
         docReadyComponent(<?= $arResult["ID"] ?>);
-		$(".bookPrice span, .newPrice span").html('i');
+		
 		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"]) && !$checkMobile) {?>
 			var firstBookName = '<?=$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]?>';
 			var secondBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
@@ -82,6 +82,9 @@
 		<?}?>
     });
 	<?if (!$checkMobile) {?>
+		$(document).ready(function(){
+			$(".bookPrice span, .newPrice span").html('i');
+		});
 		$(window).scroll(function() { //Скрываем блок с ценой при скролле вниз, расширяем блок аннотации и опускаем его на уровень глаз
 			scrollDepth = $(window).scrollTop();
 			if (scrollDepth > 450 && checkReadiness == 0) {
