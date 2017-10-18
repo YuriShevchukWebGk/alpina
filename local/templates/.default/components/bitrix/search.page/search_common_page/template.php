@@ -266,7 +266,7 @@
 								} else {
 									$newPrice = $item_discount_value;
 								}*/
-								$newPrice = round ($item_discount_value * (1 - $discount / 100), 2);
+								$newPrice = round ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"] * (1 - $item_discount_value/100), 2);
 								if (strlen (stristr($newPrice, ".")) == 2) {
 									$newPrice .= "0";
 								}
