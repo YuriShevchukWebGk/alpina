@@ -179,7 +179,7 @@ function printResultsMonth($results) {
 
 //Обновляем свойство "Desirability"
 	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
-	$res = CIBlockElement::GetList(Array("PROPERTY_page_views_ga" => "DESC"), $arFilter, false, Array("nPageSize"=>500));
+	$res = CIBlockElement::GetList(Array("PROPERTY_page_views_ga" => "DESC"), $arFilter, false, Array("nPageSize"=>700));
 	
 	while ($ob = $res->GetNext()){
 		CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('DESIRABILITY' => 0));

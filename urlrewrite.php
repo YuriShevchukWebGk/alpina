@@ -15,14 +15,20 @@ $arUrlRewrite = array(
 	array(
 		"CONDITION" => "#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#",
 		"RULE" => "alias=\$1",
-		"ID" => "",
+		"ID" => "bitrix:im.router",
 		"PATH" => "/desktop_app/router.php",
 	),
 	array(
 		"CONDITION" => "#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#",
 		"RULE" => "alias=\$1",
-		"ID" => "bitrix:im.router",
+		"ID" => "",
 		"PATH" => "/desktop_app/router.php",
+	),
+	array(
+		"CONDITION" => "#^/sitemap/([0-9a-zA-Z_]+)/#",
+		"RULE" => "",
+		"ID" => "",
+		"PATH" => "/sitemap/add.php",
 	),
 	array(
 		"CONDITION" => "#^/bitrix/services/ymarket/#",
@@ -73,12 +79,6 @@ $arUrlRewrite = array(
 		"PATH" => "/testcatalog/index.php",
 	),
 	array(
-		"CONDITION" => "#^/sitemap/([0-9a-zA-Z_]+)/#",
-		"RULE" => "",
-		"ID" => "",
-		"PATH" => "/sitemap/add.php",
-	),
-	array(
 		"CONDITION" => "#^/teststore/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog.store",
@@ -91,22 +91,16 @@ $arUrlRewrite = array(
 		"PATH" => "/testnews/index.php",
 	),
 	array(
-		"CONDITION" => "#^/catalog/#",
-		"RULE" => "",
-		"ID" => "bitrix:catalog",
-		"PATH" => "/catalog/index.php",
-	),
-	array(
 		"CONDITION" => "#^/authors/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/authors/index.php",
 	),
 	array(
-		"CONDITION" => "#^/series/#",
+		"CONDITION" => "#^/catalog/#",
 		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/series/index.php",
+		"ID" => "bitrix:catalog",
+		"PATH" => "/catalog/index.php",
 	),
 	array(
 		"CONDITION" => "#^/events/#",
@@ -115,10 +109,22 @@ $arUrlRewrite = array(
 		"PATH" => "/events/index.php",
 	),
 	array(
+		"CONDITION" => "#^/series/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/series/index.php",
+	),
+	array(
 		"CONDITION" => "#^/store/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog.store",
 		"PATH" => "/store/index.php",
+	),
+	array(
+		"CONDITION" => "#^/news/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/news/index.php",
 	),
 	array(
 		"CONDITION" => "#^/blog/#",
@@ -127,10 +133,10 @@ $arUrlRewrite = array(
 		"PATH" => "/blog/index.php",
 	),
 	array(
-		"CONDITION" => "#^/news/#",
+		"CONDITION" => "#^/#",
 		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/news/index.php",
+		"ID" => "bitrix:iblock.element.add.form",
+		"PATH" => "/about/contacts/index.php",
 	),
 );
 
