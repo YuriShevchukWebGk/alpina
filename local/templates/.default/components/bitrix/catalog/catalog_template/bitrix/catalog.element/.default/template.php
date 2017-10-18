@@ -551,9 +551,11 @@
             </div>
             <?}?>
         <?$frame = $this->createFrame()->begin();?>
-		<script>
-			$(".bookPrice span, .newPrice span").html('i');
-		</script>
+		<?if (!$checkMobile) {?>
+			<script>
+				$(".bookPrice span, .newPrice span").html('i');
+			</script>
+		<?}?>
         <div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <meta itemprop="priceCurrency" content="RUB" />
             <link itemprop="itemCondition" href="http://schema.org/NewCondition">
