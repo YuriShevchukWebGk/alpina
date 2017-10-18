@@ -2,7 +2,7 @@
 $MESS["CATALOG_QUANTITY"] = "Количество";
 $MESS["ADD_TITLE"] = "купить в интернет-магазине Альпина";
 $MESS["CATALOG_QUANTITY_FROM_TO"] = "От #FROM# до #TO#";
-$MESS["CATALOG_QUANTITY_FROM"] = "От #FROM#";
+$MESS["CATALOG_QUANTITY_FROM"] = "от #FROM#";
 $MESS["CATALOG_QUANTITY_TO"] = "До #TO#";
 $MESS["CATALOG_PRICE_VAT"] = "с НДС";
 $MESS["CATALOG_PRICE_NOVAT"] = "без НДС";
@@ -125,7 +125,7 @@ $MESS["LEGAL_PERSON"] = "Юр. лицо";
 $MESS["PAY"] = "Оплатить";
 $MESS["LEGAL_SUCCESS_MESSAGE"] = "Ваш заказ принят, менеджер вышлет счет вам на email. Номер Вашего заказа #NUM#";
 $MESS["NATURAL_SUCCESS_MESSAGE"] = "Ваш заказ успешно принят, номер заказа #NUM#";
-$MESS["CERTIFICATE_BUY_COMMENT"] = "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# <span class='rubsign'></span>"; 
+$MESS["CERTIFICATE_BUY_COMMENT"] = "Покупка сертификата на сайте alpinabook.ru на сумму #SUM# <span class='rubsign'></span>";
 $MESS["SHOW_FULL_REVIEW"] = "Читать полностью";
 $MESS["VIEWS_A_DAY"] = "Просмотров за сутки";
 $MESS["FIRST_BOOK"] = "Первая книга";
@@ -133,4 +133,7 @@ $MESS["SECOND_BOOK"] = "Вторая книга";
 $MESS["THIRD_BOOK"] = "Третья книга";
 $MESS["EBOOK_READ"] = ", электронная версия, читать онлайн";
 $MESS["LAST_EDITION"] = ", последнее издание ";
+
+$MESS["DELIVERY_POST_SITY"] = "Доставка в пункт выдачи в ";
+
 ?>
