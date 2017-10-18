@@ -131,13 +131,7 @@ $arUrlRewrite = array(
 		"RULE" => "",
 		"ID" => "bitrix:news",
 		"PATH" => "/blog/index.php",
-	),
-	array(
-		"CONDITION" => "#^/#",
-		"RULE" => "",
-		"ID" => "bitrix:iblock.element.add.form",
-		"PATH" => "/about/contacts/index.php",
-	),
+	)
 );
 
 ?>
