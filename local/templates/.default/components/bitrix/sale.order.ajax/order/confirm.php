@@ -216,7 +216,7 @@
                     <div class="mainInfoWrap">
                         <p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
                         <p class="OrdAkses">Ваш предзаказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
-                        <p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится появится в продаже.</p>
+                        <p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
                     </div>
                 </div>
             </div>     
