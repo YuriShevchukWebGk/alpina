@@ -52,7 +52,7 @@
         });
 
         docReadyComponent(<?= $arResult["ID"] ?>);
-
+		$(".bookPrice span, .newPrice span").html('i');
 		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"]) && !$checkMobile) {?>
 			var firstBookName = '<?=$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]?>';
 			var secondBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
@@ -548,6 +548,9 @@
             </div>
             <?}?>
         <?$frame = $this->createFrame()->begin();?>
+		<script>
+			$(".bookPrice span, .newPrice span").html('i');
+		</script>
         <div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <meta itemprop="priceCurrency" content="RUB" />
             <link itemprop="itemCondition" href="http://schema.org/NewCondition">
