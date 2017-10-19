@@ -81,6 +81,7 @@
 	.bx_section > div:hover,.bx-slst .quick-location-tag:hover {
 		background:#f0f0f0;
 	}
+
 </style>
 
 <div id="map" style="width:0; height:0;"></div>

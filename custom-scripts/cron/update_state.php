@@ -18,7 +18,8 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	
 	/* I Обновляем бестселлеры */
 	$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
-	$recsArray = json_decode($stringRecs);	
+	//$recsArray = json_decode($stringRecs);
+	$recsArray = array();
 	
 	$bestsellers = array();
 
@@ -32,8 +33,8 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 		CIBlockElement::SetPropertyValuesEx($arFields[ID], CATALOG_IBLOCK_ID, array('best_seller' => ''));
 	}
 	
-	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
-	$res = CIBlockElement::GetList(Array("PROPERTY_DESIRABILITY" => "DESC"), $arFilter, false, Array("nPageSize"=>40));
+	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23, ">PROPERTY_page_views_ga" => 45);
+	$res = CIBlockElement::GetList(Array("PROPERTY_DESIRABILITY" => "DESC"), $arFilter, false, Array("nPageSize"=>50));
 	while ($ob = $res->GetNext()){
 		$recsArray[] = $ob["ID"];
 	}
