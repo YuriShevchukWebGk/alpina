@@ -3229,5 +3229,15 @@
 
 
     }
+   /* AddEventHandler('ipol.apiship', 'onCompabilityBefore', 'onCompabilityBeforeapiship'); //подписываемся на событие
 
+    function onCompabilityBeforeapiship($order, $conf, $keys) {
+
+    //функция, где $order - данные о заказе, $conf - настройки доставки, $keys - коды профилей доставки, которые будут выбраны
+        $profile = 'pickup'; //профиль, который оставим: pickup - самовывоз, courier - курьер
+        $order['LOCATION_TO'] = 18747;
+
+        return $order; //оставляем без изменений
+    }
+           */
 ?>
