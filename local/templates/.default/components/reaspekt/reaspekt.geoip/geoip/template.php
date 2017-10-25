@@ -2,7 +2,7 @@
 <?$frame = $this->createFrame()->begin();?>
 <?if($arResult["GEO_CITY"]):
 
-    //Ïóòü äî ôàéëîâ îáðàáîò÷èêîâ
+    //ÐŸÑƒÑ‚ÑŒ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð² Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ñ‡Ð¸ÐºÐ¾Ð²
     $arJSParams = array(
         "AJAX_URL" => array(
             "SELECT" => $templateFolder . "/ajax_select_city.php",
@@ -15,15 +15,15 @@
     );
 
     if ($arResult["SET_LOCAL_DB"] == "local_db") :?>
-            <li><?= GetMessage("DELIVERY_POST_SITY") ?>
-                <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
+            <li class="boxbery"><?= GetMessage("DELIVERY_POST_SITY") ?>
+                <a href='#' class="city_pull" data-city="<?=$arResult["GEO_CITY"]["CITY"]?>" onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
                     <?=$arResult["GEO_CITY"]["CITY"]?>
-
                 </a>
-                <?= GetMessage("CATALOG_QUANTITY_FROM", Array ("#FROM#" => "")) ?>
+                <?= GetMessage("CATALOG_QUANTITY_FROM", Array ("#FROM#" => "")) ?> <b><?=$_SESSION['price_delivery'].' Ñ€ÑƒÐ±.'?></b>
             </li>
             <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
-            <li><a href='#' data-reaspektmodalbox-href="<?=$templateFolder?>/ajax_popup_city.php" class="cityLinkPopupReaspekt linkReaspekt"><?=GetMessage('REASPEKT_GEOIP_TITLE_YOU_CITY')?></a></li>
+            <li class="flippost"><?= GetMessage("MAIL_DELIVERY_PP") ?><br /> <b><?=$_SESSION["price_delivery_flippost"].' Ñ€ÑƒÐ±.'?></b></li>
+            <li ><a href='#' data-reaspektmodalbox-href="<?=$templateFolder?>/ajax_popup_city.php" class="cityLinkPopupReaspekt linkReaspekt"><?=GetMessage('REASPEKT_GEOIP_TITLE_YOU_CITY')?></a></li>
 
             <?if (
 				$arParams["CHANGE_CITY_MANUAL"] == "Y"

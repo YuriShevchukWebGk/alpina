@@ -2828,7 +2828,7 @@ window.JCCatalogElement.prototype.allowViewedCount = function(update)
 })(window);
 
 $(document).ready(function(){
-    
+
     //$(".countOfRev").html($(".ReviewsFormWrap").find(".mc-count").html());
     $(".productsMenu li:not(:first-child)").each(function(){
         if (!$(this).hasClass("active"))
@@ -2838,37 +2838,37 @@ $(document).ready(function(){
     });
     if ($(".productName").css("height") < "60px")
     {
-        /*$(".elementDescriptWrap .typesOfProduct").css("margin-top", "150px");*/  
+        /*$(".elementDescriptWrap .typesOfProduct").css("margin-top", "150px");*/
     }
     else if (($(".engBookName").css("height") == "0px"))
     {
          $(".elementDescriptWrap .typesOfProduct").css("margin-top", "120px");
     }
-    
+
     if ($(".productName").height() + $(".engBookName").height() > 100)
-    {  
+    {
         $(".productName").css("padding-top", "15px");
-        $(".typesOfProduct").css("margin-top", "100px");   
+        $(".typesOfProduct").css("margin-top", "100px");
     }
-    
+
     if ($(".oldPrice").size() > 0)
     {
-         $(".priceBasketWrap .text").css("margin-bottom", "60px");    
+         $(".priceBasketWrap .text").css("margin-bottom", "60px");
     }
-    
+
         $(".reviesText").each(function()
         {
         if($(this).length > 0)
         {
-        $(this).html(truncate($(this).html(), 250));    
-        }    
+        $(this).html(truncate($(this).html(), 250));
+        }
     });
     /*$(".giftWrap input[type=button]").click(function(){
         $.post("/ajax/request_add.php", {email: $(".giftWrap input[type=text]").val()}, function(data){
             $(".layout").show();
             $(".some_info").show();
             $(".some_info").html(data);
-        })        
+        })
     });*/
     $(".some_info").click(function(){
             $(".some_info").hide();
@@ -2880,12 +2880,12 @@ $(document).ready(function(){
     });
     $(".buyOneClick").click(function(){
         $(".layout").show();
-        $(".quickOrderDiv").show();        
+        $(".quickOrderDiv").show();
     });
     $("#qoSend").click(function(){
         $.post('/ajax/quickorder.php', {id: $("#id").attr("value"), name: $(".quickorder-name").attr("value"), phone: $(".quickorder-phone").attr("value"), email: $(".quickorder-email").attr("value")}, function(data)
          {
-            
+
              $(".notify").html(data);
          })
     })
@@ -2893,32 +2893,32 @@ $(document).ready(function(){
         $(".quickOrderDiv").hide();
         $(".layout").hide();
     })
-    
+
     $(".CloseWishlist").click(function(){
     $(".layout").hide();
     $(".wishlist_info").hide();
-    
+
     })
-    
+
     if ($(".bigSlider ul li").size() < 4)
     {
         $(".reviewsSliderWrapp #left").hide();
-        $(".reviewsSliderWrapp #right").hide();    
+        $(".reviewsSliderWrapp #right").hide();
     }
-    
+
     if ($(".bigSlider ul li").size() == 0)
     {
-        
+
         $(".bigSlider").hide();
         $(".revTitle").hide();
         $(".reviewsSliderWrapp").css("height", $(".reviewsSliderWrapp").height() - $(".bigSlider").height() - $(".revTitle").height() + "px");
-        $(".sliderName").css("padding-top", "40px");    
+        $(".sliderName").css("padding-top", "40px");
     }
-    
+
     if ($(".uLookSlider ul li").size() < 7)
     {
         $(".uLookSlider .left").hide();
-        $(".uLookSlider .rigth").hide();    
+        $(".uLookSlider .rigth").hide();
     }
 
     if ($(".uLookSlider ul li").size() == 0)
@@ -2927,24 +2927,24 @@ $(document).ready(function(){
         $(".uLookSlider").hide();
         $(".youViewedTitle").hide();
     }
-    
+
     if ($(".typesOfProduct .productType").size() < 2)
     {
         $(".typesOfProduct").hide();
        /* $(".productsMenu").css("margin-top", "153px"); */
        $(".productsMenu").css("margin-top", "55px");
     }
-    
+
     if ($(".typesOfProduct").css("display") != "none")
     {
         $(".productsMenu").css("margin-top", "50px");
     }
     if ($(".productName").height() + $(".engBookName").height() > 100)
-    {  
-        $(".productsMenu").css("margin-top", "60px");   
-    } 
-	
-	
+    {
+        $(".productsMenu").css("margin-top", "60px");
+    }
+
+
 	$('.stopProp').click(function(e) {
 		e.stopPropagation();
 	});
@@ -2968,25 +2968,25 @@ function changeQ(dest) {
 	}
 }
 
- //расчет высоты серой подложки
+ //СЂР°СЃС‡РµС‚ РІС‹СЃРѕС‚С‹ СЃРµСЂРѕР№ РїРѕРґР»РѕР¶РєРё
 function setItemBgHeight() {
-                        
+
     var priceHeight = parseInt($(".wrap_prise_top").css("height"));
-	
+
     var bgHeight = parseInt(90 + parseInt($(".breadCrump").css("height")) + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + 20 + parseInt($(".productAutor").css("height")) + 13 + parseInt($(".authorReviewWrap").css("height")));
-    priceHeight = bgHeight - 125;   
+    priceHeight = bgHeight - 125;
     //console.log(priceHeight);
-    //$(".wrap_prise_top").css("height", priceHeight);        
+    //$(".wrap_prise_top").css("height", priceHeight);
     $("head").append("<style>.productElementWrapp::before{height:"+ bgHeight + "px}</style>");
     if(bgHeight > 292){
-       // $(".shippings").css('margin-top','86px');    
+       // $(".shippings").css('margin-top','86px');
     }
 }
 
 
 $(function(){
-   setItemBgHeight();   
-    
+   setItemBgHeight();
+
 })
 
 function getReview(id) {
@@ -3031,3 +3031,32 @@ function closeInfo() {
 	$('#ajaxBlock').empty();
 	$("body").css('overflow','auto');
 }
+
+
+setTimeout(function(){
+    var city = $('.shippings .city_pull').attr('data-city');
+    $.ajax({
+        type: "POST",
+        url: "/boxbery/delivery_price_catalog.php",
+        data: {city: city},
+        success:function(data){
+            if(data > 0){
+                $('.shippings .boxbery > b').html(data + ' руб.');
+            }
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "/flippost/price_delivery_caalog.php",
+        data: {city: city},
+        success:function(data){
+            console.log(data);
+            if(data > 0){
+                $('.shippings .flippost > b').html(data + ' руб.');
+            }
+        }
+    });
+
+}, 2000);
+
