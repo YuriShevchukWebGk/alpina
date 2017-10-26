@@ -1092,3 +1092,13 @@ to {
     margin-left: 35px;
     clear: both;
 }
+
+/*мобильная версия*/
+/*@media (max-width:420px){
+    .section textarea{
+        padding: 0!important;
+    }
+    .suggestions-wrapper{
+        display: none;
+    }
+}*/

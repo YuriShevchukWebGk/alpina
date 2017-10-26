@@ -110,7 +110,6 @@
                 $("#pp_sms_phone").mask("+79999999999");
         }
 
-
         if($('#pp_sms_phone')){
             var phoneVal = $('#ORDER_PROP_24').val() || $('#ORDER_PROP_11').val();
             $('#pp_sms_phone').val(phoneVal);
