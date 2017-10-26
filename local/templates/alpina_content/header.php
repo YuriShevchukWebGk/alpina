@@ -8,16 +8,16 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 <!doctype html>
 <html lang="ru">
 <head>
-<!--eski.mobi--><script class="eskimobi" data-type="mobile">!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];e.src?a.src=e.src:e.innerHTML&&(a.innerHTML=e.innerHTML),a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<div id="eski-overlay" style="font-family:Helvetica-Light,Helvetica,Arial,sans-serif;font-weight:light;font-size:300%;line-height:100%;position:absolute;top:42%;left:0;right:0;text-align:center;color: #999;">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...</div><plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h=function(){var c=new Date;c.setTime(c.getTime()+18e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e){var a=b.createElement("script");if(a.onerror=h,"string"==typeof e)g(a,"main-executable","mobify",{src:e});else{var c="var main = "+e.toString()+"; main();";g(a,"main-executable","mobify",{innerHTML:c})}}},f.onerror=h,g(f,"mobify-js","mobify",{src:d})})}(window,document,function(){var ua=navigator.userAgent||navigator.vendor||window.opera,m=false;if(/mobi|phone|ipod|nokia|android/i.test(ua))m=true;if(/msie|windows|media\scenter|opera\smini|ipad|android\s3|android\s2|iphone\sos\s(4|5|6)|ipad\sos\s(4|5|6)/i.test(ua)||screen.width>1024)m=false;return m;},"/eskimobi/eski.mobi.min.js?20170906","/eskimobi/mobi.js?20170906");</script><!--/eski.mobi-->
+<!--eski.mobi--><script class="eskimobi" data-type="mobile">!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];e.src?a.src=e.src:e.innerHTML&&(a.innerHTML=e.innerHTML),a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<div id="eski-overlay" style="font-family:Helvetica-Light,Helvetica,Arial,sans-serif;font-weight:light;font-size:300%;line-height:100%;position:absolute;top:42%;left:0;right:0;text-align:center;color: #999;">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...</div><plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h=function(){var c=new Date;c.setTime(c.getTime()+18e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e){var a=b.createElement("script");if(a.onerror=h,"string"==typeof e)g(a,"main-executable","mobify",{src:e});else{var c="var main = "+e.toString()+"; main();";g(a,"main-executable","mobify",{innerHTML:c})}}},f.onerror=h,g(f,"mobify-js","mobify",{src:d})})}(window,document,function(){var ua=navigator.userAgent||navigator.vendor||window.opera,m=false;if(/mobi|phone|ipod|nokia|android/i.test(ua))m=true;if(/msie|windows|media\scenter|opera\smini|ipad|android\s3|android\s2|iphone\sos\s(4|5|6)|ipad\sos\s(4|5|6)/i.test(ua)||screen.width>1024)m=false;return m;},"/eskimobi/eski.mobi.min.js?20170906","/eskimobi/mobi.js?201710182");</script><!--/eski.mobi-->
     <title><?$APPLICATION->ShowTitle()?></title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-   
+
 
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
 
     <script src="/js/jquery.appear.js"></script>
 
-    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script> 
+    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script>
 	<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
 	<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
 	<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">
@@ -37,14 +37,14 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	<link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
-	<meta name="theme-color" content="#ffffff">	
+	<meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />         
-   
-    
+    <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />
+
+
      <?$APPLICATION->ShowHead();?>
-    
-    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?> 
+
+    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
 	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	<!-- header .content -->
@@ -58,9 +58,9 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	$userGTMData = (!empty($arCurUser["NAME"]) ? "'user_name' : '" . $arCurUser["NAME"] . "'," : "");
 	$userGTMData .= (!empty($arCurUser["EMAIL"]) ? "'user_email' : '" . $arCurUser["EMAIL"] . "'," : "");
 	$userGTMData .= (!empty($arCurUser["UF_GENDER"]) ? "'user_gender' : '" . $arCurUser["UF_GENDER"] . "'" : "");
-	
+
 	?>
-	
+
 	<script type="text/javascript">
 	dataLayer = [{
 		'userId' : <?= $USER->GetID() ?>,
@@ -87,13 +87,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
-<?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?> 
+<?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
 <header>
     <a href="/">
         <div class="logo">
             <?$APPLICATION->IncludeComponent(
-                    "bitrix:main.include", 
-                    ".default", 
+                    "bitrix:main.include",
+                    ".default",
                     array(
                         "AREA_FILE_SHOW" => "file",
                         "AREA_FILE_SUFFIX" => "inc",
@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 ),
                 false
             );?>
-        </ul>    
+        </ul>
     </div>
 	<?$frame = new \Bitrix\Main\Page\FrameBuffered("header");
 	$frame->begin();?>
@@ -141,7 +141,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				$('html').css('overflow', 'auto');
 			}
 		}
-		
+
 		$(document).ready(function(){
 			$("#authorisationPopup").click(function() {
 				$('.layout').show();
@@ -185,11 +185,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				<?echo !$USER->IsAuthorized() ? '<img src="/img/lkImg.png">' : '<img src="/img/lkImgBl.png">';?>
 			</div>
 		</a>
-		
+
 		<p class="telephone">
 			<?$APPLICATION->IncludeComponent(
-				"bitrix:main.include", 
-				".default", 
+				"bitrix:main.include",
+				".default",
 				array(
 					"AREA_FILE_SHOW" => "file",
 					"AREA_FILE_SUFFIX" => "inc",
@@ -210,17 +210,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			</div>
 		</a>
 
-		
+
 		<a href="/personal/profile/" id="authorisationPopup">
 			<div>
 				<img src="/img/lkImg.png">
 			</div>
 		</a>
-		
+
 		<p class="telephone">
 			<?$APPLICATION->IncludeComponent(
-				"bitrix:main.include", 
-				".default", 
+				"bitrix:main.include",
+				".default",
 				array(
 					"AREA_FILE_SHOW" => "file",
 					"AREA_FILE_SUFFIX" => "inc",

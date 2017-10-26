@@ -18,7 +18,8 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	
 	/* I Обновляем бестселлеры */
 	$stringRecs = file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/ItemsToMain/50b90f71b994b319dc5fd855/');
-	$recsArray = json_decode($stringRecs);	
+	//$recsArray = json_decode($stringRecs);
+	$recsArray = array();
 	
 	$bestsellers = array();
 
@@ -32,8 +33,8 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 		CIBlockElement::SetPropertyValuesEx($arFields[ID], CATALOG_IBLOCK_ID, array('best_seller' => ''));
 	}
 	
-	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
-	$res = CIBlockElement::GetList(Array("PROPERTY_DESIRABILITY" => "DESC"), $arFilter, false, Array("nPageSize"=>40));
+	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23, ">PROPERTY_page_views_ga" => 45);
+	$res = CIBlockElement::GetList(Array("PROPERTY_DESIRABILITY" => "DESC"), $arFilter, false, Array("nPageSize"=>50));
 	while ($ob = $res->GetNext()){
 		$recsArray[] = $ob["ID"];
 	}
@@ -81,27 +82,22 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 		echo "<span style='font-weight:".$weight."; color:".$color."'>".($nom+1)." - ".$book[name]."</span><br />";
 	}
 	echo "<br />";
-	/* II Удаляем старые книги из новинок */
 	
+	/* II Обновляем новинки */
 	echo "<b>Информация о новинках</b><br /><br />";
 	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "PROPERTY_STATE"=>NEW_BOOK_STATE_XML_ID);
 	$res = CIBlockElement::GetList(Array(), $arFilter);
-	while ($ob = $res->GetNextElement()){
-		$arProps = $ob->GetProperties();
-		$arFields = $ob->GetFields();
-	
-		if ((time() - strtotime($arProps['STATEDATE']['VALUE']))/86400 > 40) {
-			$obEl = new CIBlockElement();
-			CIBlockElement::SetPropertyValuesEx($arFields[ID], CATALOG_IBLOCK_ID, array('STATE' => ''));
-			echo '<b><span style="color:red">old - </b>';
-		}
-		else
-			echo '<b><span style="color:green">new - </b>';
-		echo $arFields[NAME];
-		echo "</span><br />";
-	}
-	echo "<br />";	
+	while ($ob = $res->GetNext()){
+		CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('STATE' => ''));
 
+	}
+	
+	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, ">PROPERTY_STATEDATE" => date('Y-m-d', strtotime("-60 days")), "!PROPERTY_reissue" => 218, "PROPERTY_STATE" => false);
+	$res = CIBlockElement::GetList(Array(), $arFilter);
+	while ($ob = $res->GetNext()){
+		CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('STATE' => NEW_BOOK_STATE_XML_ID));
+	}
+	echo "Finished";
 ?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

@@ -22,9 +22,11 @@
         }
         if ($arResult["ORDER_PROPS"]["F_CONTACT_PERSON"]["VALUE"]) {
             $userName = $arResult["ORDER_PROPS"]["F_CONTACT_PERSON"]["VALUE"]; //для физлица
+            $phone_val = $arResult["ORDER_PROPS"]["PHONE"]["VALUE"];
         }
         else {
-            $userName = $arResult["ORDER_PROPS"]["F_COMPANY_NAME"]["VALUE"]; //для юрлица
+            $userName = $arResult["ORDER_PROPS"]["F_COMPANY_NAME"]["VALUE"];
+            $phone_val = $arResult["ORDER_PROPS"]["F_PHONE"]["VALUE"]; //для юрлица
         }
     ?>
     <?
@@ -216,7 +218,7 @@
                     <div class="mainInfoWrap">
                         <p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
                         <p class="OrdAkses">Ваш предзаказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
-                        <p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится появится в продаже.</p>
+                        <p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
                     </div>
                 </div>
             </div>     
@@ -253,7 +255,41 @@
 					),
 					false
 				); ?>
-            <? } else if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
+            <? } else if ($arResult["PAY_SYSTEM"]["ID"] == 24){
+                $merchant_id = "0879c750d38aae9c073b94c8c470461f";
+                $secret_key = "ff084641f88df727b029a4816b428082";
+                $order_id = $_REQUEST["ORDER_ID"];
+                $order_info = CSaleOrder::GetByID($order_id);
+                if (!empty($order_info)) {
+                    //$account = ({"id" : $order_info["USER_ID"]});
+                    $account = ["id" => $order_info["USER_ID"]];
+                    $amount = $order_info["PRICE"] * 100;
+                    $currency = $order_info["CURRENCY"];
+                    $payer = ["phone_number" => str_replace(")", "", substr($phone_val, 2))];
+                    //$order = ({"type" : "order_id", "order_id" : $order_id});
+                    $order = ["type" => "order_id", "order_id" => $order_id];
+                    $project = "alpinabook";
+                    $merchant_info = [
+                        "merchant_id" => rawurldecode($merchant_id),
+                        "account" => json_encode($account),
+                        "payer" => json_encode($payer),
+                        "amount" => rawurldecode($amount),
+                        "val" => "second",
+                        "currency" => "RUB",
+                        "order" => json_encode($order),
+                        "project" => rawurldecode($project)
+                    ];
+                    ksort($merchant_info);
+                    $str = json_encode($merchant_info);
+                    $sign = hash_hmac("SHA256", $str, $secret_key);
+                    $merchant_info["sign"] = $sign;
+                }                    
+            ?>
+            <iframe src='https://playground.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=6000000&currency=RUB&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&payer=<?= json_encode($payer) ?>&amount=<?= rawurldecode($amount) ?>' style="width: 800px; height: 300px">
+            </iframe>
+            <??>
+            <?}    
+            else if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
                 <table class="sale_order_full_table" >
                     <tr <? /*if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg" && $arResult["UF_RECURRENT_ID"]) { ?> style="display: none" <? }*/ ?>>
                         <? if ($arResult["PAY_SYSTEM"]["ID"] != RFI_PAYSYSTEM_ID) { ?>

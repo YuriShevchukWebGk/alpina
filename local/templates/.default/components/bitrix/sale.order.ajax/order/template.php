@@ -81,6 +81,7 @@
 	.bx_section > div:hover,.bx-slst .quick-location-tag:hover {
 		background:#f0f0f0;
 	}
+
 </style>
 
 <div id="map" style="width:0; height:0;"></div>
@@ -108,7 +109,6 @@
                 $("#ORDER_PROP_11").mask("+7(999)999-99-99");  //для юрлица
                 $("#pp_sms_phone").mask("+79999999999");
         }
-
 
         if($('#pp_sms_phone')){
             var phoneVal = $('#ORDER_PROP_24').val() || $('#ORDER_PROP_11').val();

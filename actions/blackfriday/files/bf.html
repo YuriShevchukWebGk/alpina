@@ -2,16 +2,15 @@
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>BlackFridaySale countdown</title>
     <link rel="stylesheet" type="text/css" media="screen" href="BlackFridaySale%20countdown_files/flipclock.css">
     <script type="text/javascript" src="BlackFridaySale%20countdown_files/jquery.js"></script>
-    <script type="text/javascript" src="BlackFridaySale%20countdown_files/flipclock.js?2017"></script>
+    <script type="text/javascript" src="BlackFridaySale%20countdown_files/flipclock.js?23102017"></script>
     <style type="text/css">
 
-        #bfs_countdown{border-radius:5px;color:#fff;font-family:"Helvetica", sans-serif;text-align:center;padding:5px 0;width:640px;margin-top:150px;}#bfs_countdown .title{color:#f1c322;font-size:17px;font-weight:bold;}#bfs_countdown .flip-clock-label{color:#ffffff;font-weight:bold;left:48px;font-size:18px;line-height:20px;text-transform:uppercase;}#bfs_countdown #bfs_clock{padding-top:40px;width:705px;}#bfs_countdown ul.flip{margin-bottom:35px;}#bfs_countdown #bfs_footer{font-size:10px;} @media(max-width:680px){#bfs_countdown{width:480px}#bfs_clock{transform:scale(.75);margin-bottom:-10px;margin-left:-70px;padding:0 !important;}} @media(max-width:490px){#bfs_countdown{width:320px}#bfs_clock{transform:scale(.5);margin-bottom:-10px;margin-left:-150px;padding:0 !important;}}</style>
+        #bfs_countdown{border-radius:5px;color:#fff;font-family:"Helvetica", sans-serif;text-align:center;padding:5px 0;width:640px;margin-top:150px;}#bfs_countdown .title{font-size:21px;font-weight:400;}#bfs_countdown .flip-clock-label{color:#ffffff;font-weight:bold;left:48px;font-size:18px;line-height:20px;text-transform:uppercase;}#bfs_countdown #bfs_clock{padding-top:40px;width:705px;}#bfs_countdown ul.flip{margin-bottom:35px;}#bfs_countdown #bfs_footer{font-size:10px;} @media(max-width:680px){#bfs_countdown{width:480px}#bfs_clock{transform:scale(.75);margin-bottom:-10px;margin-left:-70px;padding:0 !important;}} @media(max-width:490px){#bfs_countdown{width:320px}#bfs_clock{transform:scale(.5);margin-bottom:-10px;margin-left:-150px;padding:0 !important;}}</style>
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            var params={"datetimeRfc2822":"Thu, 23 Nov 2017 23:59:59 +0300"};
+            var params={"datetimeRfc2822":"Thu, 23 Nov 2017 18:59:59 +0300"};
             var today=new Date();
             var date=new Date(params.datetimeRfc2822);
             var timestamp=Math.round((date.getTime()-today.getTime())/1000);var clock,options={"clockFace":"DailyCounter","countdown":true,"autoStart":false,"language":"ru"};
@@ -21,14 +20,11 @@
             clock.start();
         });
     </script>
-    <!--[if IE]>
-    <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 </head>
 <body>
 <center>
 <div id="bfs_countdown">
-<p class="title">До старта распродажи Черная Пятница 2017 остается</p>
+<p class="title">До старта распродажи <span style="color:#f1c322">Черная Пятница 2017</span> остается</p>
 
 <div class="flip-clock-wrapper" id="bfs_clock"><span class="flip-clock-divider days"><span class="flip-clock-label">дней</span></span>
 

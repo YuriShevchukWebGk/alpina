@@ -5,12 +5,15 @@
 ######
 ######
 
+
 $limit = 50; //Максимальное количество заказов
 $weekend = false; //Если вдруг доставляем в выходные, то поменять на true
 
 $holidays = array( //Указываем даты праздничных дней
 'check',
 '17.10.2017',
+'18.10.2017',
+'20.10.2017',
 '06.11.2017',
 );
 
@@ -28,13 +31,13 @@ foreach ($days as $no => $day) {
 	$arFilter = Array(
 		">=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d")-60, date("Y"))),
 		"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => $day,
-		"!STATUS_ID" => array("PR","F","A")
+		"!STATUS_ID" => array("PR","F","A","I")
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch()) {
 		$i++;
 	}
-	
+
 	if ($i >= $limit && $no > 0) {
 		$setProps['nextDay']++;
 	}
@@ -54,29 +57,29 @@ while (!$dateIsSet) {
 	}
 
 	$setProps['deliveryDate'] = date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d") + $setProps['nextDay'], date("Y")));
-	
+
 	$dateIsSet = true;
-	
+
 	if (array_search($setProps['deliveryDate'], $holidays)) {
 		$setProps['nextDay']++;
 		$dateIsSet = false;
 	}
-	
-	
+
+
 	$setProps['deliveryDate'] = date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d") + $setProps['nextDay'], date("Y")));
-	
+
 	$o = 0;
-	
+
 	$arFilter = Array(
 		">=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d")-60, date("Y"))),
 		"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => $setProps['deliveryDate'],
-		"!STATUS_ID" => array("PR","F","A")
+		"!STATUS_ID" => array("PR","F","A","I")
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 	while ($arSales = $rsSales->Fetch()) {
 		$o++;
 	}
-	
+
 	if ($o >= $limit) {
 		$setProps['nextDay']++;
 		$dateIsSet = false;

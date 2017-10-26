@@ -52,7 +52,7 @@
         });
 
         docReadyComponent(<?= $arResult["ID"] ?>);
-
+		
 		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"]) && !$checkMobile) {?>
 			var firstBookName = '<?=$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]?>';
 			var secondBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
@@ -82,6 +82,9 @@
 		<?}?>
     });
 	<?if (!$checkMobile) {?>
+		$(document).ready(function(){
+			$(".bookPrice span, .newPrice span").html('i');
+		});
 		$(window).scroll(function() { //Скрываем блок с ценой при скролле вниз, расширяем блок аннотации и опускаем его на уровень глаз
 			scrollDepth = $(window).scrollTop();
 			if (scrollDepth > 450 && checkReadiness == 0) {
@@ -433,7 +436,7 @@
                         </span>
                     </p>
                 </div>
-                <?}?> 
+                <?}?>
             <?if($arResult['IBLOCK_SECTION_ID'] != HANDBAG_SECTION_ID) {?>
 
             <?if($arResult["PROPERTIES"]["YEAR"]["VALUE"] != "" && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
@@ -466,7 +469,7 @@
                         <link itemprop="bookFormat" href="https://schema.org/Hardcover">
                         <?}?>
                 </div>
-                <?}?> 
+                <?}?>
 
             <div class="characteris epub" style="display:none;">
                 <p class="title">Форматы</p>
@@ -548,6 +551,11 @@
             </div>
             <?}?>
         <?$frame = $this->createFrame()->begin();?>
+		<?if (!$checkMobile) {?>
+			<script>
+				$(".bookPrice span, .newPrice span").html('i');
+			</script>
+		<?}?>
         <div class="priceBasketWrap paperVersionWrap" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <meta itemprop="priceCurrency" content="RUB" />
             <link itemprop="itemCondition" href="http://schema.org/NewCondition">
@@ -847,7 +855,7 @@
 
 				</div>
 			</form>
-		<?}?>       
+		<?}?>
 
         <?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <!--noindex-->
@@ -855,8 +863,8 @@
                 <div class="wrap_prise_top">
                     <?= GetMessage("EPUB") ?>
                     <p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span>руб.</span></p>
-                </div>        
-                          
+                </div>
+
                 <div class="wrap_prise_bottom">
                     <a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]['VALUE']?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({'event' : 'selectVersion', 'action' : 'leaveSite', 'label': '<?= $arResult["NAME"]; ?>'});">
                         <p class="inBasket"><?= GetMessage("BUY_EPUB") ?></p>
@@ -914,14 +922,21 @@
                 }
                 $delivery_day = $setProps['deliveryDayName'];
             ?>
-            <ul class="shippings">
+            <!--<ul class="shippings">
                 <li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
                 <li><?= GetMessage("POSTOMATS_COUNT") ?> <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a> <?= GetMessage("POSTOMATS_COUNTRY") ?></li>
                 <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+            </ul>    -->
+            <ul class="shippings">
+                <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
+                    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
+                    ),
+                    false
+                );?>
             </ul>
-		<?}?>
+            <?}?>
 		<?$frame->end();?>
 
         <div class="typesOfProduct">
@@ -1079,13 +1094,13 @@
 			<?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?><p class="bookPreviewLink previewLink no-mobile" onclick="getPreview(<?=$arResult["ID"]?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;"><?= GetMessage("BROWSE_THE_BOOK") ?></p><?}?>
         </div>
 
-        <ul class="productsMenu">  
+        <ul class="productsMenu">
             <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>
             <li class="active tabsInElement" data-id="1"><?= GetMessage("CERTIFICATE_TITLE") ?></li>
-            <?} elseif($arResult['IBLOCK_SECTION_ID'] == HANDBAG_SECTION_ID) {?> 
-            <li class="active tabsInElement" data-id="1"><?= GetMessage("HANDBAG_TITLE") ?></li>    
+            <?} elseif($arResult['IBLOCK_SECTION_ID'] == HANDBAG_SECTION_ID) {?>
+            <li class="active tabsInElement" data-id="1"><?= GetMessage("HANDBAG_TITLE") ?></li>
             <?} else {?>
-            <li class="active tabsInElement" data-id="1"><?= GetMessage("ANNOTATION_TITLE") ?></li>                  
+            <li class="active tabsInElement" data-id="1"><?= GetMessage("ANNOTATION_TITLE") ?></li>
             <?}?>
             <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
             <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
