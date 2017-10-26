@@ -3051,7 +3051,6 @@ setTimeout(function(){
         url: "/flippost/price_delivery_caalog.php",
         data: {city: city},
         success:function(data){
-            console.log(data);
             if(data > 0){
                 $('.shippings .flippost > b').html(data + ' руб.');
             }
