@@ -29,11 +29,8 @@
                 var dataJSON = JSON.parse(data);
 
 				if (dataJSON.STATUS == "Y") {
-					console.log('close');
 					obClass.onClickReaspektSaveCity("Y");
 
-                } else {
-                    console.log('Error, change city!');
                 }
 
             }
@@ -53,14 +50,11 @@
             success: function (data) {
                 var dataJSON = JSON.parse(data);
                 if (dataJSON.STATUS == "Y") {
-                    console.log('save');
 					$('.' + obClass.params.CLASS.WRAP_QUESTION_REASAPEKT).remove();
 
 					if (reload == "Y") {
 						document.location.reload();
 					}
-                } else {
-                    console.log('Error, no save change!');
                 }
 
             }

@@ -86,7 +86,6 @@
                 $.ajax($.extend({}, settings.ajax, {
                     url: settings.href,
                     error: function (jqXHR, textStatus) {
-                        console.log(jqXHR);
                         console.log(textStatus);
                     },
                     success: function (data, textStatus) {
@@ -97,8 +96,6 @@
                         }
                     }
                 }));
-           } else {
-               console.log('Error, not atribute href or data-reaspektmodalbox-href');
            }
 		},
 
