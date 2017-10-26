@@ -2943,11 +2943,11 @@ $(document).ready(function(){
     {  
         $(".productsMenu").css("margin-top", "60px");   
     } 
-	
-	
-	$('.stopProp').click(function(e) {
-		e.stopPropagation();
-	});
+    
+    
+    $('.stopProp').click(function(e) {
+        e.stopPropagation();
+    });
     
     //Проверка поля для ввода количества товаров                                                          
     $('input.tac').bind("change input keyup click", function() {                
@@ -2977,7 +2977,12 @@ $(document).ready(function(){
                 this.value = count; 
             };  
         }                              
-    });                                             
+    });
+    
+    if ($(".item_quantity").size() > 0) {
+        var quantity = $('.item_buttons_counter_block').find('input[name="quantity"]').val();
+        $(".item_quantity").html("Кол-во товара: " + quantity);    
+    }                                             
                                                          
     $('input.tac').bind("change click", function() {                              
         if (this.value == '') {
@@ -2988,28 +2993,28 @@ $(document).ready(function(){
 });
 
 function changeQ(dest) {
-	if (dest == '-') {
-		var $input = $('.wrap_prise_bottom .minus').parent().find('input.tac');
-		var count = parseInt($input.val()) - 1;       
-		$input.val(count);
-		$input.change();
-		return false;
-	} else if (dest == '+') {       
+    if (dest == '-') {
+        var $input = $('.wrap_prise_bottom .minus').parent().find('input.tac');
+        var count = parseInt($input.val()) - 1;       
+        $input.val(count);
+        $input.change();
+        return false;
+    } else if (dest == '+') {       
         var quantity = $('.item_buttons_counter_block').find('input[name="quantity"]').val();             
-		var $input = $('.wrap_prise_bottom .plus').parent().find('input.tac');
-		var count = parseInt($input.val()) + 1;
-		count = count < 1 ? 1 : count;                   
-		$input.val(count);
-		$input.change();
-		return false;
-	}
+        var $input = $('.wrap_prise_bottom .plus').parent().find('input.tac');
+        var count = parseInt($input.val()) + 1;
+        count = count < 1 ? 1 : count;                   
+        $input.val(count);
+        $input.change();
+        return false;
+    }
 }
 
  //расчет высоты серой подложки
 function setItemBgHeight() {
                         
     var priceHeight = parseInt($(".wrap_prise_top").css("height"));
-	
+    
     var bgHeight = parseInt(90 + parseInt($(".breadCrump").css("height")) + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + 20 + parseInt($(".productAutor").css("height")) + 13 + parseInt($(".authorReviewWrap").css("height")));
     priceHeight = bgHeight - 125;   
     //console.log(priceHeight);
@@ -3027,44 +3032,44 @@ $(function(){
 })
 
 function getReview(id) {
-	$.ajax({
-		type: "POST",
-		url: "/ajax/book_review.php",
-		data: {id: id}
-	}).done(function(strResult) {
-		$("#ajaxBlock").append(strResult);
-		$("body").css('overflow','hidden');
-		NProgress.done();
-	});
+    $.ajax({
+        type: "POST",
+        url: "/ajax/book_review.php",
+        data: {id: id}
+    }).done(function(strResult) {
+        $("#ajaxBlock").append(strResult);
+        $("body").css('overflow','hidden');
+        NProgress.done();
+    });
 }
 
 function getInfo(id) {
-	$.ajax({
-		type: "POST",
-		url: "/ajax/info_popup.php",
-		data: {info: id}
-	}).done(function(strResult) {
-		$("#ajaxBlock").append(strResult);
-		$("body").css('overflow','hidden');
-	});
+    $.ajax({
+        type: "POST",
+        url: "/ajax/info_popup.php",
+        data: {info: id}
+    }).done(function(strResult) {
+        $("#ajaxBlock").append(strResult);
+        $("body").css('overflow','hidden');
+    });
 }
 
 function getPreview(id,stock) {
-	$(".element_item_img .bookPreviewLink").css('opacity', '0.8');
-	$(".element_item_img").append('<div id="loadingInfo" class="previwLoading" style="margin-top: -75%;"><div class="spinner"><div class="spinner-icon"></div></div></div>');
-	$.ajax({
-		type: "POST",
-		url: "/ajax/book_preview.php",
-		data: {id: id, stock: stock}
-	}).done(function(strResult) {
-		$("#ajaxBlock").append(strResult);
-		$("body").css('overflow','hidden');
-		$(".element_item_img .bookPreviewLink").css('opacity', '1');
-		$(".previwLoading").hide();
-	});
+    $(".element_item_img .bookPreviewLink").css('opacity', '0.8');
+    $(".element_item_img").append('<div id="loadingInfo" class="previwLoading" style="margin-top: -75%;"><div class="spinner"><div class="spinner-icon"></div></div></div>');
+    $.ajax({
+        type: "POST",
+        url: "/ajax/book_preview.php",
+        data: {id: id, stock: stock}
+    }).done(function(strResult) {
+        $("#ajaxBlock").append(strResult);
+        $("body").css('overflow','hidden');
+        $(".element_item_img .bookPreviewLink").css('opacity', '1');
+        $(".previwLoading").hide();
+    });
 }
 
 function closeInfo() {
-	$('#ajaxBlock').empty();
-	$("body").css('overflow','auto');
+    $('#ajaxBlock').empty();
+    $("body").css('overflow','auto');
 }

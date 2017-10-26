@@ -183,6 +183,7 @@
                                     {
                                     ?>
                                         <p class="priceOfBook"><?=$arItem["PROPERTIES"]["SOON_DATE_TIME"]["VALUE"]?></p>
+                                        <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>');return false;"><p class="basketBook">Предзаказ</p></a>
                                     <?
                                     }
 

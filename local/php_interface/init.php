@@ -4,6 +4,7 @@
     
     //Подключим хендлеры для работы с остатками    
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
+    //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
     
     file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
     use Mailgun\Mailgun;
@@ -3232,6 +3233,22 @@
         }
 
 
+    }
+    
+    AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'updatingQuantityforPreorderItems');
+    
+    function updatingQuantityforPreorderItems (&$arFields) {
+        if ($arFields["IBLOCK_ID"] == CATALOG_IBLOCK_ID) {
+            $updated_item_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $arFields["ID"]), false, false, array("IBLOCK_ID", "ID", "PROPERTY_STATE"));
+            while ($updated_item = $updated_item_info -> Fetch()) {
+                if ($updated_item["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && $arFields["QUANTITY"] != 0) {
+                    $upd_product = new CCatalogProduct();
+                    $prodFields = array("QUANTITY" => 99999);      
+                    $upd_product -> Update($arFields["ID"], $prodFields);
+                }
+            }
+            
+        }
     }
 
 ?>

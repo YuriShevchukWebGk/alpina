@@ -69,7 +69,13 @@ class Exchange1C {
             
             //Запросе на обновление остатков у товара        
             $arFields = array('QUANTITY' => $total_quantity);// зарезервированное количество
-            CCatalogProduct::Update($bitrix_id, $arFields);      
+            $bitrix_id_elem_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $bitrix_id), false, false, array("IBLOCK_ID", "ID", "PROPERTY_STATE"));
+            while ($bitrix_id_elem = $bitrix_id_elem_info -> Fetch()) {
+                $state_prop_enum_id = $bitrix_id_elem["PROPERTY_STATE_ENUM_ID"];
+            }
+            if ($state_prop_enum_id != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {
+                CCatalogProduct::Update($bitrix_id, $arFields);    
+            }      
         }                  
     }   
     

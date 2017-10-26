@@ -51,7 +51,7 @@ $arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELET
         $pict = CFile::ResizeImageGet($arItem["PREVIEW_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
         foreach ($arItem["PRICES"] as $code => $arPrice) {?>
         <div class="bookWrapp" id=<?= $strMainID ?>>
-			<link itemprop="relatedLink" href="<?=$arItem["DETAIL_PAGE_URL"]?>" />
+            <link itemprop="relatedLink" href="<?=$arItem["DETAIL_PAGE_URL"]?>" />
             <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onmousedown="try { rrApi.recomMouseDown(<?=$arItem["ID"]?>, {methodName: 'UpSellItemToItems'}) } catch(e) {}">
                 <div class="section_item_img">
                     <img src="<?=$pict["src"]?>" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>" />
