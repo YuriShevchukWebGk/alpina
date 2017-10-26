@@ -13,16 +13,60 @@
 			"WRAP_QUESTION_REASAPEKT" => "wrapQuestionReaspekt"
 		)
     );
+// Выведем актуальную корзину для текущего пользователя
+
+$arBasketPrice = 0;
+
+// Печатаем массив, содержащий актуальную на текущий момент корзину
+$dbBasketItems = CSaleBasket::GetList(
+        array(
+                "NAME" => "ASC",
+                "ID" => "ASC"
+            ),
+        array(
+                "FUSER_ID" => CSaleBasket::GetBasketUserID(),
+                "LID" => SITE_ID,
+                "ORDER_ID" => "NULL",
+                "DELAY" => "N"
+            ),
+        false,
+        false,
+        array("ID", "PRICE","QUANTITY")
+    );
+while ($arItems = $dbBasketItems->Fetch()){
+    $all_summ = $arItems["PRICE"] * $arItems["QUANTITY"];
+    $arBasketPrice += $all_summ;
+}
+
 
     if ($arResult["SET_LOCAL_DB"] == "local_db") :?>
             <li class="boxbery"><?= GetMessage("DELIVERY_POST_SITY") ?>
                 <a href='#' class="city_pull" data-city="<?=$arResult["GEO_CITY"]["CITY"]?>" onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
                     <?=$arResult["GEO_CITY"]["CITY"]?>
                 </a>
-                <?= GetMessage("CATALOG_QUANTITY_FROM", Array ("#FROM#" => "")) ?> <b><?=$_SESSION['price_delivery'].' руб.'?></b>
+                <?if($arBasketPrice > 2000){ ?>
+                    <b><?=GetMessage("DELIVRY_SALE")?></b>
+                <? } else {?>
+                    <?= GetMessage("CATALOG_QUANTITY_FROM", Array ("#FROM#" => "")) ?> <b><?=$_SESSION['price_delivery'].' руб.'?></b>
+                <?}?>
             </li>
-            <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
-            <li class="flippost"><?= GetMessage("MAIL_DELIVERY_PP") ?><br /> <b><?=$_SESSION["price_delivery_flippost"].' руб.'?></b></li>
+            <li><?= GetMessage("MAIL_DELIVERY") ?><br />
+                <?if($arBasketPrice > 2000){ ?>
+                    <a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("DELIVRY_SALE")?></a>
+
+                <? } else {?>
+                    <a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a>
+                <?}?>
+
+            </li>
+            <li class="flippost"><?= GetMessage("MAIL_DELIVERY_PP") ?><br />
+                <?if($arBasketPrice > 2000){ ?>
+                    <b><?=GetMessage("DELIVRY_SALE")?></b>
+                <? } else {?>
+                    <b><?=$_SESSION["price_delivery_flippost"].' руб.'?></b>
+                <?}?>
+
+            </li>
             <li ><a href='#' data-reaspektmodalbox-href="<?=$templateFolder?>/ajax_popup_city.php" class="cityLinkPopupReaspekt linkReaspekt"><?=GetMessage('REASPEKT_GEOIP_TITLE_YOU_CITY')?></a></li>
 
             <?if (
