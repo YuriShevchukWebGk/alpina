@@ -30,20 +30,20 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	<link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
-	<meta name="theme-color" content="#ffffff">	
-    
+	<meta name="theme-color" content="#ffffff">
+
     <?$APPLICATION->ShowHead();?>
     <?$APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH."/script.js");?>
-    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?> 
+    <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
 	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	<!-- header .content -->
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
 	<script type="text/javascript">
-       var rrPartnerId = "59703efb5a658825342f445a";       
-       var rrApi = {}; 
+       var rrPartnerId = "59703efb5a658825342f445a";
+       var rrApi = {};
        var rrApiOnReady = rrApiOnReady || [];
-       rrApi.addToBasket = rrApi.order = rrApi.categoryView = rrApi.view = 
+       rrApi.addToBasket = rrApi.order = rrApi.categoryView = rrApi.view =
            rrApi.recomMouseDown = rrApi.recomAddToCart = function() {};
        (function(d) {
            var ref = d.getElementsByTagName('script')[0];
@@ -65,9 +65,9 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	$userGTMData = (!empty($arCurUser["NAME"]) ? "'user_name' : '" . $arCurUser["NAME"] . "'," : "");
 	$userGTMData .= (!empty($arCurUser["EMAIL"]) ? "'user_email' : '" . $arCurUser["EMAIL"] . "'," : "");
 	$userGTMData .= (!empty($arCurUser["UF_GENDER"]) ? "'user_gender' : '" . $arCurUser["UF_GENDER"] . "'" : "");
-	
+
 	?>
-	
+
 	<script type="text/javascript">
 	dataLayer = [{
 		'userId' : <?= $USER->GetID() ?>,
@@ -94,7 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
-<?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?> 
+<?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
 
 <header itemscope="" id="WPHeader" itemtype="https://schema.org/WPHeader">
 	<a href="/blog/" class="logoBlog" <?echo $APPLICATION->GetCurPage() == '/blog/' ? 'style="display:none;"' : '';?>>
@@ -102,12 +102,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<img src="/img/footerBlogLogo.png" alt="Блог издательства «Альпина Паблишер»" />
 	</div>
 	</a>
-	
+
 	<div class="headerWrapper">
 		<ul class="menu">
 			<?$APPLICATION->IncludeComponent(
-				"bitrix:menu", 
-				"top_menu_blog", 
+				"bitrix:menu",
+				"top_menu_blog",
 				array(
 					"ROOT_MENU_TYPE" => "top_blog",
 					"MAX_LEVEL" => "1",
@@ -123,9 +123,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				),
 				false
 			);?>
-		</ul>    
+		</ul>
 	</div>
-	
+
 	<?$frame = new \Bitrix\Main\Page\FrameBuffered("header");
 	$frame->begin();?>
 	<script>
@@ -137,7 +137,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				$('html').css('overflow', 'auto');
 			}
 		}
-		
+
 		$(document).ready(function(){
 			$("#authorisationPopup").click(function() {
 				$('.layout').show();
@@ -181,11 +181,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				<?echo !$USER->IsAuthorized() ? '<img src="/img/lkImg.png">' : '<img src="/img/lkImgBl.png">';?>
 			</div>
 		</a>
-		
+
 		<p class="telephone">
 			<?$APPLICATION->IncludeComponent(
-				"bitrix:main.include", 
-				".default", 
+				"bitrix:main.include",
+				".default",
 				array(
 					"AREA_FILE_SHOW" => "file",
 					"AREA_FILE_SUFFIX" => "inc",
@@ -206,17 +206,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			</div>
 		</a>
 
-		
+
 		<a href="/personal/profile/" id="authorisationPopup">
 			<div>
 				<img src="/img/lkImg.png">
 			</div>
 		</a>
-		
+
 		<p class="telephone">
 			<?$APPLICATION->IncludeComponent(
-				"bitrix:main.include", 
-				".default", 
+				"bitrix:main.include",
+				".default",
 				array(
 					"AREA_FILE_SHOW" => "file",
 					"AREA_FILE_SUFFIX" => "inc",
@@ -241,7 +241,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		я<img src="/img/logoBig.png">блог
 	</p>
 <?}?>
-	
+
 	<a href="#" onclick="showCats();return false;" class="showCats">Рубрики</a>
 	<div class="catsLinks no-mobile">
 		<?
@@ -250,7 +250,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		$rsSections = CIBlockSection::GetList(array('ID' => 'DESC'), $arFilter, true);
 		$dir = $APPLICATION->GetCurDir();
 		while ($arSection = $rsSections->Fetch()) {
-			$count = $arSection["ELEMENT_CNT"]; 
+			$count = $arSection["ELEMENT_CNT"];
 			if($count == 0) continue; ?>
 			<a <?echo substr($dir,-4,-1) == $arSection["ID"] ? 'class="active"' : '';?> href="/blog/category/<?=$arSection["ID"]?>/"><?=$arSection["NAME"]?></a>
 		<?}?>

@@ -18,8 +18,8 @@ IncludeTemplateLangFile(__FILE__);
         } else if (screen.width<1024) {
             $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.8, width=device-width">');
         }
-    </script> 
-	
+    </script>
+
 	<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
 	<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
 	<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">
@@ -39,8 +39,8 @@ IncludeTemplateLangFile(__FILE__);
 	<link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
-	<meta name="theme-color" content="#ffffff">	
-	
+	<meta name="theme-color" content="#ffffff">
+
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .default -->
@@ -55,9 +55,9 @@ IncludeTemplateLangFile(__FILE__);
 	$userGTMData = (!empty($arCurUser["NAME"]) ? "'user_name' : '".$arCurUser["NAME"]."'," : "");
 	$userGTMData .= (!empty($arCurUser["EMAIL"]) ? "'user_email' : '".$arCurUser["EMAIL"]."'," : "");
 	$userGTMData .= (!empty($arCurUser["UF_GENDER"]) ? "'user_gender' : '".$arCurUser["UF_GENDER"]."'" : "");
-	
+
 	?>
-	
+
 	<script type="text/javascript">
 	dataLayer = [{
 		'userId' : <?=$USER->GetID()?>,

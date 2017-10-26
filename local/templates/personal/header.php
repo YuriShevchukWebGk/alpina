@@ -5,12 +5,13 @@
     $theme = COption::GetOptionString("main", "wizard_eshop_bootstrap_theme_id", "blue", SITE_ID);
 ?>
 <!doctype html>
-<html lang="ru">    
+<html lang="ru">
 <head>
+
     <!--eski.mobi--><script class="eskimobi" data-type="mobile">!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];e.src?a.src=e.src:e.innerHTML&&(a.innerHTML=e.innerHTML),a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<div id="eski-overlay" style="font-family:Helvetica-Light,Helvetica,Arial,sans-serif;font-weight:light;font-size:300%;line-height:100%;position:absolute;top:42%;left:0;right:0;text-align:center;color: #999;">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...</div><plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h=function(){var c=new Date;c.setTime(c.getTime()+18e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e){var a=b.createElement("script");if(a.onerror=h,"string"==typeof e)g(a,"main-executable","mobify",{src:e});else{var c="var main = "+e.toString()+"; main();";g(a,"main-executable","mobify",{innerHTML:c})}}},f.onerror=h,g(f,"mobify-js","mobify",{src:d})})}(window,document,function(){var ua=navigator.userAgent||navigator.vendor||window.opera,m=false;if(/mobi|phone|ipod|nokia|android/i.test(ua))m=true;if(/msie|windows|media\scenter|opera\smini|ipad|android\s3|android\s2|iphone\sos\s(4|5|6)|ipad\sos\s(4|5|6)/i.test(ua)||screen.width>1024)m=false;return m;},"/eskimobi/eski.mobi.min.js?20170906","/eskimobi/mobi.js?201710182");</script><!--/eski.mobi-->
     <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8"> -->
     <title><?$APPLICATION->ShowTitle()?></title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <?$APPLICATION->ShowHead();?>
     <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 
@@ -25,7 +26,7 @@
     <link rel="stylesheet" href="/sailplay/dist/css/sailplay.alpina.css">
     <!--/sailplay-->
 
-    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script> 
+    <script src="/js/main.js?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/js/main.js')?>"></script>
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=WGG39kPBLm">
@@ -45,9 +46,9 @@
     <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
-    <meta name="theme-color" content="#ffffff">    
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
-    <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />   
+    <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />
     <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
     <!-- header .personal -->
 </head>
@@ -93,8 +94,8 @@
     <a href="/">
         <div class="logo catalogLogo">
             <?$APPLICATION->IncludeComponent(
-                    "bitrix:main.include", 
-                    ".default", 
+                    "bitrix:main.include",
+                    ".default",
                     array(
                         "AREA_FILE_SHOW" => "file",
                         "AREA_FILE_SUFFIX" => "inc",
@@ -132,7 +133,7 @@
                     ),
                     false
                 );?>
-        </ul>    
+        </ul>
     </div>
     <div class="lkWrapp">
         <div class="headBasket">
@@ -146,8 +147,8 @@
         </a>
         <p class="telephone"><!--+7 (495) 980 80 77-->
             <?$APPLICATION->IncludeComponent(
-                    "bitrix:main.include", 
-                    ".default", 
+                    "bitrix:main.include",
+                    ".default",
                     array(
                         "AREA_FILE_SHOW" => "file",
                         "AREA_FILE_SUFFIX" => "inc",
@@ -167,7 +168,7 @@
 <div class="searchWrap">
     <div class="catalogWrapper">
         <!-- форма поиска -->
-        <?$APPLICATION->IncludeComponent("bitrix:search.title", "search_form", 
+        <?$APPLICATION->IncludeComponent("bitrix:search.title", "search_form",
                 Array(
                     "CATEGORY_0" => "",    // Ограничение области поиска
                     "CATEGORY_0_TITLE" => "",    // Название категории
@@ -184,28 +185,28 @@
                     "USE_LANGUAGE_GUESS" => "Y",    // Включить автоопределение раскладки клавиатуры
                 ),
                 false
-            );?>    
+            );?>
     </div>
 </div>
 
 <div class="historyCoverWrap">
     <div class="centerWrapper">
-        <p><a href="/personal/">Личный кабинет</a></p>    
+        <p><a href="/personal/">Личный кабинет</a></p>
         <h1><?=$APPLICATION -> ShowTitle()?></h1>
     </div>
 </div>
 
 <div class="historyBodywrap">
-<div class="">                       
+<div class="">
 
-<?if (($APPLICATION->GetCurDir() != "/personal/profile/") && ($APPLICATION->GetCurDir() != "/personal/")) {?>  
+<?if (($APPLICATION->GetCurDir() != "/personal/profile/") && ($APPLICATION->GetCurDir() != "/personal/")) {?>
 
     <div class="orderHistorWrap">
 
     <?}?>
 <?if ($USER->IsAuthorized()) {?>
     <div class="top-section__edit-acc">
-        <div class="centerWrapper">           
+        <div class="centerWrapper">
             <span class="top-section__edit-acc-inner js-open-acc-edit">Редактировать профиль</span>
             <span class="ordersListA"><a href="/personal/">Список заказов</a></span>
             <span class="wishListA"><a href="/personal/cart/?liked=yes">Список желаний</a></span>
