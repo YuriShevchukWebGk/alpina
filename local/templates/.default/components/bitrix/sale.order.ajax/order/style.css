@@ -601,16 +601,17 @@ div#order_form_content .errortext {
     margin-right: 0 !important;
 }
 
-.bx-slst .quick-location-tag {
+body .bx-slst a.quick-location-tag {
     font-family: "Walshein_regular" !important;
-	padding:2px 30px 15px 24px;
-	color: #424c4f;
-	background:transparent;
-	border-radius: 30px;
-	margin: 10px 0 20px;
-	border: 1px solid #ccc;
-	font-size:18px
+    padding:2px 30px 15px 24px;
+    color: #424c4f;
+    background:transparent;
+    border-radius: 30px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    font-size:18px
 }
+
 #order_form_content .section:nth-child(1) label {
 	padding:10px 30px 10px 24px;
 	border: 1px solid #ccc;
