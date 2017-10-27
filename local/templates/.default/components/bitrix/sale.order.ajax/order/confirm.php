@@ -629,11 +629,17 @@
     	dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'pageLoaded'});
         $(".submit_platbox").on("click", function(){
             $(".layout").show();
-            $(".platbox_iframe").show();
+            $(".platbox_iframe_block").show();
         });
         $(".layout").on("click", function(){
-            if ($(".platbox_iframe").css("display") == "block") {
-                $(".platbox_iframe").hide();
+            if ($(".platbox_iframe_block").css("display") == "block") {
+                $(".platbox_iframe_block").hide();
+            }
+        });
+        $(".platbox_iframe_closing").on("click", function(){
+            if ($(".platbox_iframe_block").css("display") == "block") {
+                $(".platbox_iframe_block").hide();
+                $(".layout").hide();
             }
         })
     });
