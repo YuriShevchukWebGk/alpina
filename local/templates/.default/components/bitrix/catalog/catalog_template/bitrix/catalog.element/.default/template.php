@@ -52,7 +52,7 @@
         });
 
         docReadyComponent(<?= $arResult["ID"] ?>);
-		
+
 		<?if (!empty($arResult["PROPERTIES"]["second_book_name"]["VALUE"]) && !$checkMobile) {?>
 			var firstBookName = '<?=$arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"]?>';
 			var secondBookName = '<?=$arResult["PROPERTIES"]["second_book_name"]["VALUE"]?>';
@@ -587,7 +587,7 @@
 				}
 			}
 
-			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < 2000) {//До бесплатной доставки осталось
+			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < FREE_SHIPING) {//До бесплатной доставки осталось
 				$printDiscountText = "<span class='sale_price'>".GetMessage("GET_FREE_DELIVERY").($arResult["FREE_DELIVERY"] - $arResult["CART_SUM"]).GetMessage("GET_FREE_DELIVERY_ENDING")."</span><br />";
 			}?>
             <div class="wrap_prise_top">
@@ -743,12 +743,12 @@
                     <?}?>
             </div>
             <?if (!empty ($arResult["PRICES"])) {?>
-                <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>                              
+                <?if ((intval($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {?>
                     <style>
                     .not_available {
                         color: #ff4f00;
                         font-family: "Walshein_regular";
-                        font-size: 16px;    
+                        font-size: 16px;
                         text-align: center;
                         margin: -12px 0 8px;
                         display: none;
@@ -757,10 +757,10 @@
                     <div class="wrap_prise_bottom">
                         <?if ($USER -> IsAdmin()) {?>
                             <div class="item_quantity"></div>
-                            <br>    
+                            <br>
                         <?}?>
                         <div class="not_available"></div>
-                        <span class="item_buttons_counter_block">   
+                        <span class="item_buttons_counter_block">
                             <input type="hidden" name="quantity" value="<?=$arResult['CATALOG_QUANTITY']?>">
                             <a href="#" onclick="changeQ('-');return false;" class="minus" id="<?= $arResult['QUANTITY_DOWN']; ?>">&minus;</a>
                             <input id="<?= $arResult['QUANTITY']; ?>" type="text" class="tac transparent_input" value="<?= (isset($arResult['OFFERS']) && !empty($arResult['OFFERS'])
@@ -930,6 +930,10 @@
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
             </ul>    -->
             <ul class="shippings">
+                <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва"){ ?>
+                    <li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
+                    <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
+                <?}?>
                 <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
                     "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
                     ),
