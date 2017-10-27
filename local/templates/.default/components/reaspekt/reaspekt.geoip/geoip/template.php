@@ -43,7 +43,7 @@ while ($arItems = $dbBasketItems->Fetch()){
 
             <?if($arResult["GEO_CITY"]["CITY"] != "Москва"){ ?>
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br />
-                    <?if($arBasketPrice > 2000){ ?>
+                    <?if($arBasketPrice > FREE_SHIPING){ ?>
                         <a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("DELIVRY_SALE")?></a>
 
                     <? } else {?>
@@ -52,7 +52,7 @@ while ($arItems = $dbBasketItems->Fetch()){
 
                 </li>
                 <li class="flippost"><?= GetMessage("MAIL_DELIVERY_PP") ?><br />
-                    <?if($arBasketPrice > 2000){ ?>
+                    <?if($arBasketPrice > FREE_SHIPING){ ?>
                         <b><?=GetMessage("DELIVRY_SALE")?></b>
                     <? } else {?>
                         <b><?=$_SESSION["price_delivery_flippost"].' руб.'?></b>
@@ -64,7 +64,7 @@ while ($arItems = $dbBasketItems->Fetch()){
                 <a href='#' class="city_pull" data-city="<?=$arResult["GEO_CITY"]["CITY"]?>" onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
                     <?=$arResult["GEO_CITY"]["CITY"]?>
                 </a>
-                <?if($arBasketPrice > 2000){ ?>
+                <?if($arBasketPrice > FREE_SHIPING){ ?>
                     <b><?=GetMessage("DELIVRY_SALE")?></b>
                 <? } else {?>
                     <?= GetMessage("CATALOG_QUANTITY_FROM", Array ("#FROM#" => "")) ?> <b><?=$_SESSION['price_delivery'].' руб.'?></b>

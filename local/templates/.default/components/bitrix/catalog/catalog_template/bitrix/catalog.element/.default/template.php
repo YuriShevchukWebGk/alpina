@@ -587,7 +587,7 @@
 				}
 			}
 
-			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < 2000) {//До бесплатной доставки осталось
+			if ($arResult["CART_SUM"] > 0 && $arResult["CART_SUM"] < FREE_SHIPING) {//До бесплатной доставки осталось
 				$printDiscountText = "<span class='sale_price'>".GetMessage("GET_FREE_DELIVERY").($arResult["FREE_DELIVERY"] - $arResult["CART_SUM"]).GetMessage("GET_FREE_DELIVERY_ENDING")."</span><br />";
 			}?>
             <div class="wrap_prise_top">
