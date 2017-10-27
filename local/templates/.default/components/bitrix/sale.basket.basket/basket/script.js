@@ -497,13 +497,19 @@ function updateBasketTable(basketItemId, res, params)
     if (!!res.BASKET_DATA)
         couponListUpdate(res.BASKET_DATA, params);
 
-    // update warnings if any
+    // update warnings if any     
     if (res.hasOwnProperty('WARNING_MESSAGE'))
     {
         var warningText = '';
 
-        for (i = res['WARNING_MESSAGE'].length - 1; i >= 0; i--)
-            warningText += res['WARNING_MESSAGE'][i] + '<br/>';
+        for (i = res['WARNING_MESSAGE'].length - 1; i >= 0; i--) {
+            if (res["WARNING_MESSAGE"][i].indexOf("Для") != -1) {
+                res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i].replace("Для оформления заказа недостаточно товара", "Доступное количество ");
+                res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i].replace(" в количество", ":");
+                res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i] + " шт.";    
+            }
+            warningText += res['WARNING_MESSAGE'][i] + '<br/>';    
+        }
 
         BX('warning_message').innerHTML = warningText;
     }                                            
@@ -883,7 +889,7 @@ function enterCoupon(preorderID)
 // check if quantity is valid
 // and update values of both controls (text input field for PC and mobile quantity select) simultaneously
 function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
-{
+{                           
     var oldVal = BX(controlId).defaultValue,
     newVal = parseFloat(BX(controlId).value) || 0,
     bIsCorrectQuantityForRatio = false;
@@ -948,7 +954,7 @@ function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
             totalQuantity = totalQuantity*1 + parseInt($(this).val()); 
         }                                                         
     })               
-    $("#totalQuantity").html(totalQuantity);
+    $("#totalQuantity").html(totalQuantity);  
 
 }
 
@@ -1085,7 +1091,7 @@ function recalcBasketAjax(params)
         onsuccess: function(result)
         {                                                                        
             BX.closeWait();                          
-            updateBasketTable(null, result, params); 
+            updateBasketTable(null, result, params);   
             
             //Через load все супер медленно, делаем по-другому, пример оставлю для наглядности
                                                                                  

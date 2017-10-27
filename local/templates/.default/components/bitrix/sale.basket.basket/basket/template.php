@@ -79,7 +79,7 @@
 
 
             <div id="warning_message">
-                <?
+                <?    
                     if (!empty($arResult["WARNING_MESSAGE"]) && is_array($arResult["WARNING_MESSAGE"]))
                     {
                         foreach ($arResult["WARNING_MESSAGE"] as $v)
