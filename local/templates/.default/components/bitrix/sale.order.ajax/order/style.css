@@ -1102,3 +1102,32 @@ to {
         display: none;
     }
 }*/
+.platbox_button {
+    width: 230px;
+    height: 59px;
+    border: 2px solid;
+    border-color: #fff;
+    background-color: rgba(227, 27, 66, 0.9);
+    border-radius: 15px;
+    font-size: 28px;
+    color: #fff;
+    font-family: sans-serif;
+    cursor: pointer;
+    outline: none;
+    transition: 0.1s;
+    box-sizing: content-box;
+    -webkit-border-radius: 15px;
+    -o-border-radius: 15px;
+    -moz-border-radius: 15px;
+    text-align: center;
+    padding-top: 13px;
+    box-sizing: border-box;
+    display: inline-block;
+    text-decoration: none;
+}
+.closing_platbox_iframe {
+    position: absolute;
+    cursor: pointer;
+    top: -10px;
+    right: -13px;
+}
