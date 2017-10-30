@@ -935,8 +935,17 @@
             </ul>    -->
             <ul class="shippings">
                 <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва"){ ?>
-                    <li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
-                    <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
+                    <li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                        <?=$delivery_day.' '?>
+                    </a>
+                    <b><?if($arBasketPrice > FREE_SHIPING){
+                        echo GetMessage("FREE_DELIVERY_ENDING");
+                    } else {
+                        echo GetMessage("DELIVERY_POST");
+                    }?></b></li>
+                    <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                        <?=$samovivoz_day.' '?>
+                    </a><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b></li>
                 <?}?>
                 <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
                     "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города

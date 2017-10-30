@@ -9,9 +9,9 @@
             "GET" => $templateFolder . "/ajax_geobase_get.php",
             "SAVE" => $templateFolder . "/ajax_geobase_save.php",
         ),
-		"CLASS" => array(
-			"WRAP_QUESTION_REASAPEKT" => "wrapQuestionReaspekt"
-		)
+        "CLASS" => array(
+            "WRAP_QUESTION_REASAPEKT" => "wrapQuestionReaspekt"
+        )
     );
 // Выведем актуальную корзину для текущего пользователя
 
@@ -76,10 +76,10 @@ while ($arItems = $dbBasketItems->Fetch()){
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
             <?}?>
             <?if (
-				$arParams["CHANGE_CITY_MANUAL"] == "Y"
-				&& $arResult["CHANGE_CITY"] == "N"
-			) :?>
-			<div class="<?=$arJSParams["CLASS"]["WRAP_QUESTION_REASAPEKT"]?>">
+                $arParams["CHANGE_CITY_MANUAL"] == "Y"
+                && $arResult["CHANGE_CITY"] == "N"
+            ) :?>
+            <div class="<?=$arJSParams["CLASS"]["WRAP_QUESTION_REASAPEKT"]?>">
                 <div class="questionYourCityReaspekt"><?=GetMessage("REASPEKT_GEOIP_TITLE_YOU_CITY");?>:</div>
                 <div class="questionCityReaspekt"><strong><?=$arResult["GEO_CITY"]["CITY"]?></strong> (<?=$arResult["GEO_CITY"]["REGION"]?>)</div>
                 <div class="questionButtonReaspekt reaspekt_clearfix">
@@ -87,16 +87,16 @@ while ($arItems = $dbBasketItems->Fetch()){
                     <div class="questionYesReaspekt" onClick="objJCReaspektGeobase.onClickReaspektSaveCity('N');"><?=GetMessage("REASPEKT_GEOIP_BUTTON_Y");?></div>
                 </div>
             </div>
-			<?endif;?>
+            <?endif;?>
 
         <script type="text/javascript">
         $('.cityLinkPopupReaspekt').ReaspektModalBox();
         var objJCReaspektGeobase = new JCReaspektGeobase(<? echo CUtil::PhpToJSObject($arJSParams, false, true); ?>);
         </script>
     <?else:?>
-		<div class="wrapGeoIpReaspekt">
-			<strong><?=$arResult["GEO_CITY"]["CITY"]?></strong>
-		</div>
+        <div class="wrapGeoIpReaspekt">
+            <strong><?=$arResult["GEO_CITY"]["CITY"]?></strong>
+        </div>
     <?endif;
 endif;?>
 <?$frame->beginStub();?>
