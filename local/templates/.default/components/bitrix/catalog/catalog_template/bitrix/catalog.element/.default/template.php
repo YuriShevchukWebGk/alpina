@@ -778,9 +778,13 @@
                             </a>
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                             <?} elseif ($arResult["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
-                            <a href="#" onclick="addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1'); return false;">
-                                <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
+                            <a href="#" onclick="<?if ($arResult["CATALOG_QUANTITY"] > 0) {?>addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1');<?}?> return false;">
+                                <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {
+                                    if ($arResult["CATALOG_QUANTITY"] > 0) {?>
                                     <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p>
+                                    <?} else {?>
+                                    <p class="not_available_for_adding" style="background-color: #A9A9A9;"><?= GetMessage("NOT_IN_STOCK") ?></p>
+                                    <?}?>
                                 <?} else {?>
                                     <p class="inBasket toPreorder"><?= GetMessage("ADD_TO_PREORDER_FULL") ?></p>
                                 <?}?>
