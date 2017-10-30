@@ -153,7 +153,7 @@
 							}
                              // arshow($count);
                             ?>
-                            <tr id="<?=$arItem["ID"]?>">
+                            <tr id="<?=$arItem["ID"]?>" data-available-quantity="<?= $arItem["AVAILABLE_QUANTITY"] ?>">
                                 <?
                                     foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader):
 

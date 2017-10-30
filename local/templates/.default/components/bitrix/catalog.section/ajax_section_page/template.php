@@ -363,9 +363,13 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                                             <? }
                                          ?>
                                          <?if ($arResult[$arItem["ID"]]["ITEM_IN_BASKET"]["QUANTITY"] == 0 && $arResult['ID'] != CERTIFICATE_SECTION_ID) {?>
-                                            <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=$arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); return false;">
-                                                <?if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
-                                                    <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET")?></p>
+                                            <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="<? if ($arItem["CATALOG_QUANTITY"] >= 0) {?>addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=$arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); <?}?> return false;">
+                                                <?if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {
+                                                    if ($arItem["CATALOG_QUANTITY"] <= 0) {?>
+                                                        <p class="basketBook basketBook_unavailable"><?=GetMessage("CT_BCS_TPL_MESS_PRODUCT_NOT_AVAILABLE")?></p>
+                                                    <?} else {?>
+                                                        <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET")?></p>
+                                                    <?}?>
                                                 <?} else {?>
                                                     <p class="basketBook"><?=GetMessage("CT_BCS_TPL_MESS_BTN_ADD_TO_PREORDER")?></p>
                                                 <?}?>
