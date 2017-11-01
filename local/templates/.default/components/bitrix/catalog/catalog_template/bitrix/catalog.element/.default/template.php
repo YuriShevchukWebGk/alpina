@@ -931,18 +931,22 @@
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
             </ul>    -->
             <ul class="shippings">
-                <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва"){ ?>
-                    <li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
+                    <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                        <?= GetMessage("MSK_DELIVERY") ?><br />
                         <?=$delivery_day.' '?>
                     </a>
                     <b><?if($arBasketPrice > FREE_SHIPING){
                         echo GetMessage("FREE_DELIVERY_ENDING");
                     } else {
                         echo GetMessage("DELIVERY_POST");
-                    }?></b></li>
-                    <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                    }?></b>
+                    </li>
+                    <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                        <?= GetMessage("PICKUP_MSK_DELIVERY") ?><br />
                         <?=$samovivoz_day.' '?>
-                    </a><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b></li>
+                    </a><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
+                    </li>
                 <?}?>
                 <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
                     "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
@@ -1958,4 +1962,4 @@
         mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
     })();
-</script>         
+</script>
