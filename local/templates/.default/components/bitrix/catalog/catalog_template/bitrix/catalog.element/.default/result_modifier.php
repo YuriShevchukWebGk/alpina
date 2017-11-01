@@ -931,5 +931,5 @@ if ($arResult['MODULES']['currency'])
 	if (!empty($arResult["PROPERTIES"]["third_book_img"]["VALUE"])) {
 		$arResult["THIRD_PICTURE"] = CFile::ResizeImageGet($arResult["PROPERTIES"]["third_book_img"]["VALUE"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 		$arResult["THIRD_PICTURE"] = $arResult["THIRD_PICTURE"]['src'];
-	}
+	} 
 ?>

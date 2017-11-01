@@ -42,12 +42,11 @@ while ($arItems = $dbBasketItems->Fetch()){
     if ($arResult["SET_LOCAL_DB"] == "local_db") :?>
 
             <?if($arResult["GEO_CITY"]["CITY"] != "Москва"){ ?>
-                <li><?= GetMessage("MAIL_DELIVERY") ?><br />
+                <li><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?= GetMessage("MAIL_DELIVERY") ?></a><br />
                     <?if($arBasketPrice > FREE_SHIPING){ ?>
-                        <a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("DELIVRY_SALE")?></a>
-
+                        <b><?=GetMessage("DELIVRY_SALE")?></b>
                     <? } else {?>
-                        <a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a>
+                        <b><?=GetMessage("COUNTRY_DELIVERY")?> </b>
                     <?}?>
 
                 </li>
@@ -60,8 +59,9 @@ while ($arItems = $dbBasketItems->Fetch()){
 
                 </li>
             <?}?>
-            <li class="boxbery"><?= GetMessage("DELIVERY_POST_SITY") ?>
+            <li class="boxbery">
                 <a href='#' class="city_pull" data-city="<?=$arResult["GEO_CITY"]["CITY"]?>" onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
+                    <?= GetMessage("DELIVERY_POST_SITY") ?>
                     <?=$arResult["GEO_CITY"]["CITY"]?>
                 </a>
                 <?if($arBasketPrice > FREE_SHIPING){ ?>
