@@ -41,7 +41,7 @@ while ($arItems = $dbBasketItems->Fetch()){
 
     if ($arResult["SET_LOCAL_DB"] == "local_db") :?>
 
-            <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] != "Москва"){ ?>
+            <?if($arResult["GEO_CITY"]["CITY"] != "Москва"){ ?>
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br />
                     <?if($arBasketPrice > FREE_SHIPING){ ?>
                         <a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("DELIVRY_SALE")?></a>
