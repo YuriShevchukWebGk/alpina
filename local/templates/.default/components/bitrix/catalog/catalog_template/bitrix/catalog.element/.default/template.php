@@ -44,7 +44,8 @@
         $(".buyLater").click(function(){
             $.post("/ajax/ajax_add2wishlist.php", {id: <?= $arResult["ID"] ?>}, function(data){
                 $(".layout").show();
-                $(".wishlist_info").css("top", window.pageYOffset+"px")
+                $(".wishlist_info").css("top", 1.5 * window.pageYOffset+"px");
+                $(".wishlist_info").css("left", (($("body").width() - 700) / 2) +"px");
                 $(".wishlist_info").show();
                 $(".wishlist_info span").html(data);
 
@@ -403,10 +404,6 @@
             </a>
             <?}
         }?>
-        <div class="wishlist_info">
-            <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
-            <span></span>
-        </div>
 		<?$frame->beginStub();?>
 		<?$frame->end();?>
         <?if (!empty($arResult["PROPERTIES"]["glavatitle"]["VALUE"])) {?>
@@ -1857,6 +1854,10 @@
 }?>
 
 <div id="ajaxBlock"></div>
+<div class="wishlist_info">
+    <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
+    <span></span>
+</div>
 <!-- GdeSon -->
 <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276"></script>
 
