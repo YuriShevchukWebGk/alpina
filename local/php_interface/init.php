@@ -3235,7 +3235,7 @@
 
     }
     
-    AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'updatingQuantityforPreorderItems');
+    //AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'updatingQuantityforPreorderItems');
     
     function updatingQuantityforPreorderItems (&$arFields) {
         if ($arFields["IBLOCK_ID"] == CATALOG_IBLOCK_ID) {

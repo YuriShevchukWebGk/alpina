@@ -2951,7 +2951,7 @@ $(document).ready(function(){
     });
 
     //Проверка поля для ввода количества товаров
-    $('input.tac').bind("change input keyup click", function() {
+    /*$('input.tac').bind("change input keyup click", function() {
         var quantity = $('.item_buttons_counter_block').find('input[name="quantity"]').val();
 
         if (this.value.match(/[^0-9]/g)) {
@@ -2978,7 +2978,7 @@ $(document).ready(function(){
                 this.value = count;
             };
         }
-    });
+    });*/
 
     if ($(".item_quantity").size() > 0) {
         var quantity = $('.item_buttons_counter_block').find('input[name="quantity"]').val();

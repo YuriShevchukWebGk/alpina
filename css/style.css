@@ -1,5 +1,5 @@
 .sitemap{columns:2;-moz-column-count:2;-webkit-column-count:2;column-count:2;}
-.sitemap a{text-decoration: none;color: #7b8c90;font-family: "Walshein_regular";font-size: 15px;} 
+.sitemap a{text-decoration: none;color: #7b8c90;font-family: "Walshein_regular";font-size: 15px;}
 .sitemap .level_0, .sitemap .level_1, .sitemap .level_2{margin-left: 20px;}
 .busket_senk{display:none;box-sizing: border-box;position: fixed;width: 200px;height: 50px;font-size: 15px;padding: 10px;top: 100px;right: 50px;background: #00abb8;line-height: 30px;color: #fff;z-index:999;}
 .headCatalog,.lkWrapp div{border-left:1px solid #e2e2e2}
@@ -498,7 +498,7 @@ header .headBasket{margin-right:0}
 .oldPrice p{background-color:#7b8c90;height:2px;position:absolute;top:14px;width:92%}
 .elementDescriptWrap .newPrice{color:#00ABB8;font-family:Walshein_black;font-size:42px;margin-left:10px;margin-top:8px}
 .elementDescriptWrap .newPrice span{font-size:26px;font-weight:700;font-family:RoubleSign;}
-.rubsign:after{content:'i'}
+.bookPrice span:after, .rubsign:after{content:'i'}
 .priceBasketWrap .text{color:#7B8C90;font-size:15px;padding:8px;margin-bottom:85px}
 .elementDescriptWrap .inBasket{background-color:#00abb8;border-radius:35px;color:#fff;font-size:19px;margin:0 28px;padding:14px 58px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .elementDescriptWrap .inBasket.toPreorder{font-size:16px;padding:14px 15px}

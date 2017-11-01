@@ -1040,6 +1040,15 @@
 		<br />
 		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь на обработку персональных данных в соответствии <a href="/info_popup/pii.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showPii'});return false;" class="cartMenuPopup">с условиями</a><br />и с условиями <a href="/info_popup/oferta.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showOferta'});return false;" class="cartMenuPopup">публичной оферты</a></span>
     </div>
+    <?if ($arResult["PAY_SYSTEM"]["ID"] == 24) {?>
+    <div class="platbox_iframe_block" style="width: 50%; height: 613px; display: none; position: absolute; z-index: 2000; left: 27%; top: 30%; background-color: white;">
+        <iframe class="platbox_iframe" src='https://playground.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=6000000&currency=RUB&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&payer=<?= json_encode($payer) ?>&amount=<?= rawurldecode($amount) ?>' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
+        </iframe>
+        <div class="platbox_iframe_closing" style="position: absolute; cursor: pointer; top: -10px; right: -13px;">
+            <img src="/img/catalogLeftClose.png">        
+        </div>
+    </div> 
+    <?}?>
 </div>
 <script>
     $(document).ready(function(){

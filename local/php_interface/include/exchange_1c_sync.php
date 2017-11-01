@@ -4,7 +4,7 @@ AddEventHandler("catalog", "OnProductUpdate", Array("Exchange1C", "SyncProductQu
 AddEventHandler("catalog", "OnProductAdd", Array("Exchange1C", "SyncProductQuantity"));  
  
 //Уведомление и смена статуса с 0 остатках на сайте
-AddEventHandler("catalog", "OnBeforeProductUpdate", Array("QuantityChanges", "QuantityOnZero"));  
+//AddEventHandler("catalog", "OnBeforeProductUpdate", Array("QuantityChanges", "QuantityOnZero"));  
               
 //Логирование изменений элементов
 AddEventHandler("iblock", "OnAfterIBlockElementAdd", Array("Exchange1C", "SyncProductQuantityIblock"));

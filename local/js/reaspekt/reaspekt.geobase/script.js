@@ -17,7 +17,7 @@
         objPopupIdOverlay : '.ReaspektPopupOverlay',
         objPopupIdCloseBtn : '#ReaspektCloseBtn',
         objPopupIdContainer : '#ReaspektPopupContainer',
-		activeClassBodyReaspekt : 'activeClassBodyReaspekt'
+        activeClassBodyReaspekt : 'activeClassBodyReaspekt'
     };
     var methods = {
         init : function( options ) {
@@ -25,9 +25,9 @@
 
             return this.click(function(element){
                 var obClass = $(this);
-				paramsDefault['href'] = obClass.data('reaspektmodalbox-href') || obClass.attr('href');
+                paramsDefault['href'] = obClass.data('reaspektmodalbox-href') || obClass.attr('href');
 
-				var settings = $.extend($.ReaspektModalBox, paramsDefault, options);
+                var settings = $.extend($.ReaspektModalBox, paramsDefault, options);
 
                 methods.addHtmlTemplate(settings);
 
@@ -42,7 +42,7 @@
         //Добавляем Div`s
         addHtmlTemplate : function(settings) {
             methods.closeReaspektPopup();
-			$('body').append(params.htmlPopup);
+            $('body').append(params.htmlPopup);
             $('body').addClass(params.activeClassBodyReaspekt);
             methods.addContainerData(settings);
         },
@@ -86,6 +86,7 @@
                 $.ajax($.extend({}, settings.ajax, {
                     url: settings.href,
                     error: function (jqXHR, textStatus) {
+
                         console.log(textStatus);
                     },
                     success: function (data, textStatus) {
@@ -97,7 +98,7 @@
                     }
                 }));
            }
-		},
+        },
 
         _afterLoad: function (settings) {
             $(params.objPopupIdContainer).html(settings.content);
