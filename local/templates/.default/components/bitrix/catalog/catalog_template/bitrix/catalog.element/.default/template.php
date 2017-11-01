@@ -933,9 +933,9 @@
             <ul class="shippings">
                 <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
                     <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
-                        <?= GetMessage("MSK_DELIVERY") ?><br />
-                        <?=$delivery_day.' '?>
-                    </a>
+                        <?= GetMessage("MSK_DELIVERY") ?>
+
+                    </a> по Москве <br /><?=$delivery_day.' '?>
                     <b><?if($arBasketPrice > FREE_SHIPING){
                         echo GetMessage("FREE_DELIVERY_ENDING");
                     } else {
@@ -943,9 +943,9 @@
                     }?></b>
                     </li>
                     <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
-                        <?= GetMessage("PICKUP_MSK_DELIVERY") ?><br />
-                        <?=$samovivoz_day.' '?>
-                    </a><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
+                        <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
+
+                    </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
                     </li>
                 <?}?>
                 <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
