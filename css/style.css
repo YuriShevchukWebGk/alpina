@@ -329,7 +329,7 @@ input:focus{outline:0}
 .headLiked{background:url(/img/alp_icon.png) 22px 20px no-repeat rgba(0,0,0,0);height:99%;padding:1px 0 0!important}
 header .headBasket{margin-right:0}
 .BasketQuant,.likedQuant{width:19px;height:19px!important;background:#4B4B4B;position:absolute;right:12px;top:15px;border-radius:10px;color:#fff;font-size:13px;text-align:center;padding:0!important}
-.headLogin{background:url(/img/loginLogoMini.png) 18px 16px no-repeat rgba(0,0,0,0);height:100%;width:60px}
+.headLogin{background:url(/img/lkImgBl.png) 18px 16px no-repeat rgba(0,0,0,0);height:100%;width:60px}
 .headFind{float:left;height:100%;left:0;margin-left:272px;position:absolute;right:182px;width:auto;top:0}
 .headFind input,.headFindCatalog input{margin-left:1px;border:none;background-color:#F8F8F8;color:#BBC0C2;font-size:19px;padding-left:30px}
 .headFind input{height:90%;width:300px}
