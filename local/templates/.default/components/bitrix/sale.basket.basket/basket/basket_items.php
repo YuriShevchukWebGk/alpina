@@ -9,8 +9,7 @@
     $bDeleteColumn = false;
     $bWeightColumn = false;
     $bPropsColumn  = false;
-    $bPriceType    = false;
-
+    $bPriceType    = false; 
     if ($normalCount > 0):
     ?>
 <script>
@@ -135,7 +134,7 @@
                             $arItems = CSaleDiscount::GetByID(GIFT_BAG_EXHIBITION);
                             $count_number = preg_replace("/[^0-9]/", '', $arItems["UNPACK"]);  // вытаскиваем количество позиций из условия
 
-                            if($count < $count_number && ($arItem["PROPERTY_COVER_TYPE_VALUE"] == 'Подарок' || empty($arItem["PROPERTY_COVER_TYPE_VALUE"]))){
+                            if($count < $count_number && !stristr($arItem["DETAIL_PAGE_URL"], "/sumki/") && ($arItem["PROPERTY_COVER_TYPE_VALUE"] == 'Подарок' || empty($arItem["PROPERTY_COVER_TYPE_VALUE"]))){
                                 CSaleBasket::Delete($arItem["ID"]);
                             }
                             $totalQuantity += $arItem["QUANTITY"];
