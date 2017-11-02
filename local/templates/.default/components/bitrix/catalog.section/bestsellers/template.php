@@ -100,6 +100,7 @@
                                         } else {
                                         ?>
                                         <p class="priceOfBook"><?= strtolower(FormatDate("j F Y", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
+                                        <p class="basketBook">Предзаказ</p>
                                         <?
                                         }
                                     }

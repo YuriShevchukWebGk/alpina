@@ -264,6 +264,8 @@ footer {
 	background:#f3f3f3;
 	color:#b9b9b9;
 }
+.hideInfo {display:none!important;}
+
 </style>
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"

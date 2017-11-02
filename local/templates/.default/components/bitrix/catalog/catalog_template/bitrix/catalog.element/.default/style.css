@@ -1444,3 +1444,12 @@
 .previewLink:hover{border:0!important}
 .authorReviewWrap{margin-top:20px;height:20px}
 .origAuthorName{font-family:Walshein_regular;font-size:17px}
+.elementDescriptWrap .not_available_for_adding {
+    background-color: #A9A9A9;
+    border-radius: 35px;
+    color: #fff;
+    font-size: 19px;
+    margin: 0 28px;
+    padding: 14px 42px;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+}
