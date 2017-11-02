@@ -544,7 +544,7 @@
         <?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])  && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <div id="diffversions">
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?=GetMessage("PAPER_V")?></span></a>
-                <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
+                <a href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-ebook/'?>" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
             </div>
             <?}?>
         <?$frame = $this->createFrame()->begin();?>
@@ -861,6 +861,7 @@
         <?if (!$checkMobile && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE']) && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <!--noindex-->
             <div class="priceBasketWrap digitalVersionWrap" style="display:none;">
+
                 <div class="wrap_prise_top">
                     <?= GetMessage("EPUB") ?>
                     <p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']?> <span>руб.</span></p>
@@ -1124,10 +1125,10 @@
             <?}?>
             <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
             <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
-                <li data-id="2" class="tabsInElement"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</li>
+                <li data-id="2" class="tabIsRecenzion"><a  class="ajax_link" href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-reviews/'?>"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</a></li>
                 <?}?>
             <? if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { ?>
-            <li data-id="3" class="tabsInElement" id="commentsLink"><?= GetMessage("COMMENTS_TITLE") ?></li>
+            <li data-id="3" class="tabsInElement" id="commentsLink"><a class="ajax_link" href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-comments/'?>"><?= GetMessage("COMMENTS_TITLE") ?></a></li>
             <?}?>
         </ul>
 
@@ -1304,34 +1305,11 @@
         </div>
         <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
             <div class="recenzion" id="prodBlock2">
-                <?foreach ($arResult["REVIEWS"] as $reviewList) {?>
-                    <?if (!empty($reviewList["PREVIEW_TEXT"])) {?>
-                        <?if (!$checkMobile) {?>
-                            <a href="/content/reviews/<?=$reviewList['ID']?>/" onclick="getReview(<?=$reviewList['ID']?>);return false;">
-                                <span class="recenz_author_name"><?= $reviewList["NAME"] ?></span>
-                            </a>
-                            <div class="recenz_text">
-                                <?echo substr(strip_tags($reviewList["PREVIEW_TEXT"]),0,400).'... ';?>
-                                <a href="/content/reviews/<?=$reviewList['ID']?>/" onclick="getReview(<?=$reviewList['ID']?>);return false;" class="readFullReview"><?=GetMessage("SHOW_FULL_REVIEW")?></a>
-                            </div>
-                            <?} else {?>
-                            <a href="/content/reviews/<?=$reviewList['ID']?>/" target="_blank">
-                                <span class="recenz_author_name"><?= $reviewList["NAME"] ?></span>
-                            </a>
-
-                            <div class="recenz_text">
-                                <?= $reviewList["PREVIEW_TEXT"] ?>
-                                <? if ($reviewList["PREVIEW_TEXT"] == "") {
-                                        echo $reviewList["DETAIL_TEXT"];
-                                    }
-
-                                    /*if (!empty($reviewList["PROPERTY_SOURCE_LINK_VALUE"])) {?><!-- noindex -->
-                                    <a href="<?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?>" rel="nofollow" target="_blank"><?= $reviewList["PROPERTY_SOURCE_LINK_VALUE"] ?></a><!-- /noindex -->
-                                <?}*/?>
-                            </div>
-                            <?}?>
-                        <?}?>
-                    <?}?>
+				<div id="loadingInfo">
+					<div class="spinner">
+						<div class="spinner-icon"></div>
+					</div>
+				</div>
             </div>
             <?}?>
         <div class="review" id="prodBlock3">
@@ -1964,4 +1942,43 @@
         mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
     })();
+	
+	$(function(){
+		
+		var count_recenzion = 1;
+		$('.tabIsRecenzion').click(function(){
+			if(count_recenzion){
+				$('.recenzion #loadingInfo').show();
+				count_recenzion = 0;
+				$.ajax({
+					type: 'POST',
+					url: '/local/templates/.default/ajax/recenzion.php',
+					data: 'id=<?= $arResult["ID"] ?>',
+					success: function(data){
+						$('.recenzion').html(data);
+					}
+				});						
+			}
+		});
+		
+		$('.tabIsRecenzion a').click(function(e){
+			e.preventDefault();
+		});
+		$('#commentsLink a').click(function(e){
+			e.preventDefault();
+		});
+		
+		$('#digitalversion').click(function(e){			
+			$('.digitalVersionWrap').html('<div class="wrap_prise_top"><?=GetMessage("EPUB")?><p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]["VALUE"]?> <span>руб.</span></p></div><div class="wrap_prise_bottom"><a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]["VALUE"]?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({"event" : "selectVersion", "action" : "leaveSite", "label": "<?=$arResult["NAME"];?>"});"><p class="inBasket"><?=GetMessage("BUY_EPUB")?></p></a></div>');			
+			e.preventDefault();
+		});
+		
+		
+		
+		
+	});
+	
+
+
+	
 </script>
