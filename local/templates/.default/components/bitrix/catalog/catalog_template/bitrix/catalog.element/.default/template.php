@@ -903,6 +903,7 @@
         </div>
 
         <?$frame = $this->createFrame()->begin();?>
+        <?//arshow($arResult['CATALOG_QUANTITY'])?>
         <?if ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon'  && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233 && $arResult['CATALOG_QUANTITY']) {?>
             <?
                 $today = date("w");
@@ -931,6 +932,7 @@
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
             </ul>    -->
             <ul class="shippings">
+
                 <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
                     <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
                         <?= GetMessage("MSK_DELIVERY") ?>
