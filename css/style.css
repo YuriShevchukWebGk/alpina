@@ -536,7 +536,7 @@ header .headBasket{margin-right:0}
 .productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:19px;width:auto!important}
 .productsMenu li:hover{border-bottom:none}
 .productsMenu li:last-child{margin-right:0}
-.productsMenu .active{color:#2F3839;font-size:19px;text-transform:none;border-bottom:none;font-family:Walshein_black}
+.productsMenu .active a, .productsMenu .active{color:#2F3839;font-size:19px;text-transform:none;border-bottom:none;font-family:Walshein_black}
 .elementDescriptWrap .citate,.elementDescriptWrap i{color:#2F3839;font-family:Walshein_light;font-size:20px;margin-bottom:20px}
 .elementDescriptWrap .citateAutor{color:#7B8C90;font-family:Walshein_bold;font-size:13px;text-transform:uppercase;margin-bottom:36px}
 .breadCrumpWrap a,.helpBlock .telephone{font-family:Walshein_black}
@@ -1017,9 +1017,8 @@ table.form-table tr td:nth-child(2){text-align:left}
 .sailplay_basket_quantity{display:block;margin:36px auto;text-align:center;color:#7b8c90;font-size:14px}
 .basket_zero_cost{color:#AD3b20;font-size:18px}
 #digitalversion,#paperversion{font-family:Walshein_regular;font-size:16px;padding:10px 20px 0;color:#00abb8;display:block;float:left;width:92px;height:52px}
-#digitalversion{line-height:45px}
 #diffversions .active{background:#ecedef;box-shadow:0 -1px 1px 0 rgba(0,0,0,.18)}
-#diffversions .passive:hover span{border-bottom:none}
+#diffversions .passive:hover span{border-bottom:none} 
 .digitalVersionWrap .inBasket{padding:14px 10px;margin:0 20px}
 .typesOfProduct{visibility:hidden}
 #nprogress{pointer-events:none}

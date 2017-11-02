@@ -916,7 +916,7 @@ $(document).ready(function(){
     })
 	
 	//Progress Bar START
-	$('a').click(function() {
+	$('a:not(.ajax_link, #digitalversion)').click(function() {
 		var link = $(this).attr("href");
 		var target = $(this).attr("target");
 		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
@@ -1879,7 +1879,7 @@ function docReadyComponent(id) {
 	})
 	
 	//Progress Bar START
-	$('a').click(function() {
+	$('a:not(.ajax_link, #digitalversion)').click(function() {
 		var link = $(this).attr("href");
 		var target = $(this).attr("target");
 		if (!$(this).parents().hasClass('leftMenu') && !$(this).parents().hasClass('hidingCatalogLeft')) {
