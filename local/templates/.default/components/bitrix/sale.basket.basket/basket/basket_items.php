@@ -9,7 +9,7 @@
     $bDeleteColumn = false;
     $bWeightColumn = false;
     $bPropsColumn  = false;
-    $bPriceType    = false; 
+    $bPriceType    = false;
     if ($normalCount > 0):
     ?>
 <script>
@@ -190,6 +190,20 @@
                                             {?>
                                                 <p class="nameOfAutor"><?=$curr_author["NAME"]?></p>
                                             <?}?>
+                                            <?// $arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]
+                                            $val_order = '';
+                                            $state = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "STATE"));
+                                            if ($prop = $state->GetNext()) {
+                                                $val_order = $prop['VALUE_ENUM'];
+                                            }
+                                            $status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));
+                                            if ($prop = $status->GetNext()) {
+                                                if($val_order){
+                                                    $date_state[] = $prop['VALUE'];
+                                                    ?><p class="newPriceText">Ожидаемая дата выхода: <?= strtolower(FormatDate("j F Y", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?> г.</p><?
+                                                }
+                                            }?>
+                                            <??>
                                             <p class="nameOfType"><?=$arItem["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                             <div class="bx_ordercart_itemart">
                                                 <?
@@ -435,13 +449,25 @@
                     }
                 ?>
             </div>
-                        <p class="nextPageWrap">
-                        	<? if ($arResult['allSum']) { ?>
-                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
-                        	<? } else { ?>
-                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
-                        	<? } ?>
-                        </p>
+            <p class="nextPageWrap">
+                <? if ($arResult['allSum']) { ?>
+                    <a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                <? } else { ?>
+                    <span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
+                <? } ?>
+            </p>
+            <?usort($date_state, "sort_state_order");
+
+
+                foreach($date_state as $key=>$arr){
+                    $dateArray[$key]=$arr;
+                }
+
+                array_multisort($dateArray, SORT_STRING, $date_state);
+
+                ?>
+            <?//arshow($date_state)?>
+        <span class="order_state">В заказе есть товары с ожидаемой датой доставки </span>
         </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />
