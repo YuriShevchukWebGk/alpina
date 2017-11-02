@@ -171,6 +171,16 @@
             }
         })
 
+           function deleteDateId(){
+              var text = document.getElementById("ORDER_PROP_44"),
+                  testText;
+                  text.onkeyup          =  function testKey(){
+                     var testText       =  text.value;
+                     text.value      = testText.substring(0, testText.length - 1)
+                  }
+           }
+           deleteDateId("ORDER_PROP_44");
+           deleteDateId("ORDER_PROP_45");
         //календарь
 		var disabledDates = ['02/23/2017','02/24/2017','03/08/2017','01/04/2017','01/05/2017','01/06/2017']; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
@@ -208,7 +218,7 @@
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker({
             minDate: minDatePlus,
             defaultDate: minDatePlus,
-            maxDate: "+3w +1d",
+            maxDate: "+2w +1d",
             beforeShowDay: disableSpecificDaysAndWeekends, //blackfriday черная пятница
             dateFormat: "dd.mm.yy",
             setDate:minDatePlus
@@ -1045,9 +1055,9 @@
         <iframe class="platbox_iframe" src='https://playground.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=6000000&currency=RUB&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&payer=<?= json_encode($payer) ?>&amount=<?= rawurldecode($amount) ?>' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
         </iframe>
         <div class="platbox_iframe_closing" style="position: absolute; cursor: pointer; top: -10px; right: -13px;">
-            <img src="/img/catalogLeftClose.png">        
+            <img src="/img/catalogLeftClose.png">
         </div>
-    </div> 
+    </div>
     <?}?>
 </div>
 <script>
