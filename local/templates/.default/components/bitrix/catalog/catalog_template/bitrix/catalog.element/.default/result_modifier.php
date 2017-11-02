@@ -793,12 +793,14 @@ if ($arResult['MODULES']['currency'])
        }
    }
 
-    $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
-    $ar_sale = array();
-    while($ar_sale=$rr->Fetch()) {
-        $arResult["SALE_NOTE"][] = $ar_sale;
-    }
     $arResult["SAVINGS_DISCOUNT"] =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
+    if (!empty($arResult["SAVINGS_DISCOUNT"][0])) {
+        $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array("DISCOUNT_ID" => $arResult["SAVINGS_DISCOUNT"][0]["ID"]), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
+        $ar_sale = array();
+        while($ar_sale=$rr->Fetch()) {
+            $arResult["SALE_NOTE"][] = $ar_sale;
+        }    
+    }
 
     if($USER->IsAuthorized()){
         $rsCurUser = CUser::GetByID($USER->GetID());
@@ -931,5 +933,5 @@ if ($arResult['MODULES']['currency'])
 	if (!empty($arResult["PROPERTIES"]["third_book_img"]["VALUE"])) {
 		$arResult["THIRD_PICTURE"] = CFile::ResizeImageGet($arResult["PROPERTIES"]["third_book_img"]["VALUE"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 		$arResult["THIRD_PICTURE"] = $arResult["THIRD_PICTURE"]['src'];
-	}
+	} 
 ?>

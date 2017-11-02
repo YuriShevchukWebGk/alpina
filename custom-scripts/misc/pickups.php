@@ -24,6 +24,11 @@ if ($_GET['ids']) {
 	$array2 = explode(",", $_GET['ids']);
 
 	foreach ($_GET['ids'] as $id) {
+		$arOrder = CSaleOrder::GetByID($id);
+		if ($arOrder["STATUS_ID"] == "F") {
+			echo $id.'* заказ уже выполнен *<br />';
+			continue;
+		}
 		if (CSaleOrder::StatusOrder($id, "C")) {
 			echo $id.'* заказ собран *<br />';
 		} else {
