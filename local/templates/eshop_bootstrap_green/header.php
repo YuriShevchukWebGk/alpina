@@ -10,7 +10,7 @@
 <head>
 
 <!--eski.mobi--><script class="eskimobi" data-type="mobile">!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];e.src?a.src=e.src:e.innerHTML&&(a.innerHTML=e.innerHTML),a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<div id="eski-overlay" style="font-family:Helvetica-Light,Helvetica,Arial,sans-serif;font-weight:light;font-size:300%;line-height:100%;position:absolute;top:42%;left:0;right:0;text-align:center;color: #999;">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...</div><plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h=function(){var c=new Date;c.setTime(c.getTime()+18e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e){var a=b.createElement("script");if(a.onerror=h,"string"==typeof e)g(a,"main-executable","mobify",{src:e});else{var c="var main = "+e.toString()+"; main();";g(a,"main-executable","mobify",{innerHTML:c})}}},f.onerror=h,g(f,"mobify-js","mobify",{src:d})})}(window,document,function(){var ua=navigator.userAgent||navigator.vendor||window.opera,m=false;if(/mobi|phone|ipod|nokia|android/i.test(ua))m=true;if(/msie|windows|media\scenter|opera\smini|ipad|android\s3|android\s2|iphone\sos\s(4|5|6)|ipad\sos\s(4|5|6)/i.test(ua)||screen.width>1024)m=false;return m;},"/eskimobi/eski.mobi.min.js?20170906","/eskimobi/mobi.js?201710182");</script><!--/eski.mobi-->
-    <title><?if(isset($_GET['PAGEN_2'])): $APPLICATION->ShowTitle(); echo ' - страница № ' . $_GET['PAGEN_2'] . ' – Альпина'; else: $APPLICATION->ShowTitle(); endif;?></title>
+    <title><?if(isset($_GET['PAGEN_2'])): $APPLICATION->ShowTitle(); echo ' - СЃС‚СЂР°РЅРёС†Р° в„– ' . $_GET['PAGEN_2'] . ' вЂ“ РђР»СЊРїРёРЅР°'; else: $APPLICATION->ShowTitle(); endif;?></title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 
@@ -50,7 +50,7 @@
     <meta property="og:description" content="<?=htmlspecialchars($APPLICATION->ShowProperty("description"))?>" />*/?>
     <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //РҐР°СЂРґРѕРІС‹Рµ AB-С‚РµСЃС‚С‹?>
 	<!-- header .eshop_bootstrap_green -->
 </head>
 <body itemscope itemtype="
@@ -71,6 +71,14 @@
     $userGTMData .= (!empty($arCurUser["EMAIL"]) ? "'user_email' : '" . $arCurUser["EMAIL"] . "'," : "");
     $userGTMData .= (!empty($arCurUser["UF_GENDER"]) ? "'user_gender' : '" . $arCurUser["UF_GENDER"] . "'" : "");
 ?>
+
+<?
+
+
+?>
+  <!--  <script src="https://api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+    <script src="/js/geolocation_ip.js" type="text/javascript"></script> -->
+
 	<script type="text/javascript">
 	dataLayer = [{
 		'userId' : <?= $USER->GetID() ?>,
@@ -116,7 +124,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </a>
     <div class="catalogHead headCatalog">
-        <p>Каталог</p>
+        <p>РљР°С‚Р°Р»РѕРі</p>
     </div>
     <div class="headerWrapper">
         <ul class="menu">
@@ -251,7 +259,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div class="searchWrap">
     <div class="catalogWrapper">
-        <!-- форма поиска -->
+        <!-- С„РѕСЂРјР° РїРѕРёСЃРєР° -->
         <?$APPLICATION->IncludeComponent(
 	"bitrix:search.title",
 	"search_form",
@@ -259,7 +267,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		"CATEGORY_0" => array(
 			0 => "iblock_catalog",
 		),
-		"CATEGORY_0_TITLE" => "Результат",
+		"CATEGORY_0_TITLE" => "Р РµР·СѓР»СЊС‚Р°С‚",
 		"CHECK_DATES" => "N",
 		"COMPONENT_TEMPLATE" => "search_form",
 		"CONTAINER_ID" => "title-search",

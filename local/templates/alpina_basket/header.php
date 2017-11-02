@@ -119,6 +119,29 @@
                     // Найдем ближайшую к точке (37.588162, 55.733797) станцию метро
 
         }
+
+        function city_ip() {
+            // Данные о местоположении, определённом по IP
+            var geolocation = ymaps.geolocation,
+            // координаты
+                coords = [geolocation.latitude, geolocation.longitude],
+                myMap = new ymaps.Map('map', {
+                    center: coords,
+                    zoom: 10
+                });
+             console.log(coords);
+            myMap.geoObjects.add(
+                new ymaps.Placemark(
+                    coords,
+                    {
+                        // В балуне: страна, город, регион.
+                        balloonContentHeader: geolocation.country,
+                        balloonContent: geolocation.city,
+                        balloonContentFooter: geolocation.region
+                    }
+                )
+            );
+        }
         function geoMetro(latitude, longitude){
             var metro = new YMaps.Metro.Closest(new YMaps.GeoPoint(longitude,latitude), { results : 1 } )// по геоданным получаем 1 станцию метро
             YMaps.Events.observe(metro, metro.Events.Load, function (metro) {
