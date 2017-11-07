@@ -65,6 +65,10 @@ function close_notice(id){
 	$("#notice_warn").slideUp();
 	$.cookie('notice_warn', id, {path: '/', expires: 3 });
 }
+// скрытие блока подписки на рассылку
+function closeX(){
+    $('.hideInfo').hide();
+}
 //отправка главы
 function sendchapter(bookid) {
 	$(".takePartWrap button").after('<div id="loadingInfo"><div class="spinner"><div class="spinner-icon"></div></div></div>').hide();
