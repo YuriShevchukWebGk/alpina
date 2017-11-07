@@ -456,18 +456,15 @@
                     <span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
                 <? } ?>
             </p>
-            <?usort($date_state, "sort_state_order");
+            <?
+            if($date_state){
+                usort($date_state, 'object_to_array'); // сортируем по дате предзаказа
+                session_start();
+                $_SESSION["DATE_DELIVERY_STATE"] = $date_state[0];
+            }
+            ?>
 
-
-                foreach($date_state as $key=>$arr){
-                    $dateArray[$key]=$arr;
-                }
-
-                array_multisort($dateArray, SORT_STRING, $date_state);
-
-                ?>
-            <?//arshow($date_state)?>
-        <span class="order_state">В заказе есть товары с ожидаемой датой доставки </span>
+        <span class="order_state">В заказе есть товары с ожидаемой датой доставки <?=strtolower(FormatDate("j F Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
         </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />

@@ -85,6 +85,15 @@
 </style>
 
 <div id="map" style="width:0; height:0;"></div>
+
+
+<?
+// получение количества дней с которого возможна доставка
+$datetime1 = new DateTime(date("d.m.Y"));
+$datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));
+$interval = date_diff($datetime1, $datetime2)->format('%a');
+
+?>
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
@@ -190,9 +199,17 @@
 			return [true];
 		}
 
+
         ourday = <?=date("w");?>;
 
-		minDatePlus = <?=$setProps['nextDay']?>;
+        <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
+		    minDatePlus = <?=$interval + $setProps['nextDay']?>;
+            new_day = minDatePlus + 14;
+            minDate = "+" + new_day + "d";
+        <?} else { ?>
+            minDatePlus = <?=$setProps['nextDay']?>;
+            minDate = "+2w +1d";
+        <?}?>
 
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             minDatePlus++;
@@ -208,7 +225,7 @@
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker({
             minDate: minDatePlus,
             defaultDate: minDatePlus,
-            maxDate: "+3w +1d",
+            maxDate: minDate,
             beforeShowDay: disableSpecificDaysAndWeekends, //blackfriday черная пятница
             dateFormat: "dd.mm.yy",
             setDate:minDatePlus
@@ -370,7 +387,7 @@
                         }
                     }
                 ?>
-
+                <??>
                 <div class="bx_order_make">
                     <?
                         if(!$USER->IsAuthorized() && $arParams["ALLOW_AUTO_REGISTER"] == "N")
@@ -1045,9 +1062,9 @@
         <iframe class="platbox_iframe" src='https://playground.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=6000000&currency=RUB&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&payer=<?= json_encode($payer) ?>&amount=<?= rawurldecode($amount) ?>' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
         </iframe>
         <div class="platbox_iframe_closing" style="position: absolute; cursor: pointer; top: -10px; right: -13px;">
-            <img src="/img/catalogLeftClose.png">        
+            <img src="/img/catalogLeftClose.png">
         </div>
-    </div> 
+    </div>
     <?}?>
 </div>
 <script>
