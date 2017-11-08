@@ -74,12 +74,22 @@ if (!empty($authors_IDs)) {
     }
 } 
 
-$title = $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"] ." - ". $arResult["AUTHOR_NAME"] ." - ".  GetMessage("ADD_TITLE");
+//print_r($arResult["PROPERTIES"]);
 
-if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"]))
+
+$title = $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"];
+
+if(strlen($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"])){
+	$title .= '. ' . $arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"];
+}
+
+$title .= " - ". $arResult["AUTHOR_NAME"] ." - ".  GetMessage("ADD_TITLE");
+
+if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"])){
 	$title .= ' | ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
+}
 
-$APPLICATION -> SetPageProperty("title", $title);
+$APPLICATION->SetPageProperty("title", $title);
 
 if (!empty($arResult['TAGS']))
 	$APPLICATION->SetPageProperty("keywords", $arResult["TAGS"]);

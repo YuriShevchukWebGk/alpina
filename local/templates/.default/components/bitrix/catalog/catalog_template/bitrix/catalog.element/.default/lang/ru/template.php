@@ -89,8 +89,8 @@ $MESS["GIFT_BOOK_TITLE"] = "Книга в подарок";
 $MESS["GIFT_BOOK_DESCRIPTION"] = "Подпишитесь на рассылку и получите книгу<br />в формате PDF бесплатно";
 $MESS["VIEWED_BOOKS_TITLE"] = "Вы уже смотрели";
 $MESS["TO_BUY_WITH_DELIVERY"] = " с быстрой доставкой в интернет-магазине";
-$MESS["MSK_DELIVERY"] = "Курьером по Москве";
-$MESS["PICKUP_MSK_DELIVERY"] = "Самовывоз м.Полежаевская";
+$MESS["MSK_DELIVERY"] = "Курьером ";
+$MESS["PICKUP_MSK_DELIVERY"] = "Самовывоз ";
 $MESS["TO_BUY_LATER"] = "В список желаний";
 $MESS["NOT_ENOUGH"] = "Добавьте книг на ";
 $MESS["AMOUNT_UNTIL_DISCOUNT"] = " <span class='rubsign'></span> и получите скидку ";
@@ -114,7 +114,7 @@ $MESS["BUY_BOOK"] = "купить книгу ";
 $MESS["EDITORS_CHOICE"] = "Editor's choice";
 $MESS["EDITORS_CHOICE_TIP"] = "Выбор главного редактора. Смотреть все выбранные книги <a href='/catalog/editors-choice/'>по ссылке</a>";
 $MESS["PAPER_V"] = "Бумажная + электронная";
-$MESS["DIGITAL_V"] = "Электронная";
+$MESS["DIGITAL_V"] = "Электронная книга";
 $MESS["EPUB"] = "ePub";
 $MESS["BUY_EPUB"] = "Купить в Бизнес.Книги";
 $MESS["COUNTRY_DELIVERY"] = "149 <span class='rubsign'></span>";
@@ -136,6 +136,6 @@ $MESS["THIRD_BOOK"] = "Третья книга";
 $MESS["EBOOK_READ"] = ", электронная версия, читать онлайн";
 $MESS["LAST_EDITION"] = ", последнее издание ";
 
-$MESS["DELIVERY_POST_SITY"] = "Доставка в пункт выдачи в ";
+$MESS["DELIVERY_POST_SITY"] = " пункт выдачи ";
 
 ?>
