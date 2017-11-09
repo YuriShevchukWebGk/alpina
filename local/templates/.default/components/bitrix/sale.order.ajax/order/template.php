@@ -85,17 +85,22 @@
 </style>
 
 <div id="map" style="width:0; height:0;"></div>
- <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip_click_sity", Array(
-    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
-    ),
-    false
-);?>
+
+
+<?
+// получение количества дней с которого возможна доставка
+$datetime1 = new DateTime(date("d.m.Y"));
+$datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));
+$interval = date_diff($datetime1, $datetime2)->format('%a');
+
+?>
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
     window.BOXBERRY_PICKUP_DELIVERY_ID = '<?= BOXBERRY_PICKUP_DELIVERY_ID ?>';
     window.ORDER_PRICE = '<?= $arResult['ORDER_DATA']['ORDER_PRICE'] ?>';
     window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
+
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
@@ -105,6 +110,7 @@
 
 		$(".bx_section div:has(input:checked), input:checked>label").css("background", "rgba(216, 194, 165, 0.35)");
 		$("input[name='PERSON_TYPE']:checked").next().css("background", "rgba(216, 194, 165, 0.35)");
+
 
         if ($.browser.msie && $.browser.version <= 9) {
 
@@ -205,9 +211,17 @@
 			return [true];
 		}
 
+
         ourday = <?=date("w");?>;
 
-		minDatePlus = <?=$setProps['nextDay']?>;
+        <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
+		    minDatePlus = <?=$interval + $setProps['nextDay']?>;
+            new_day = minDatePlus + 14;
+            minDate = "+" + new_day + "d";
+        <?} else { ?>
+            minDatePlus = <?=$setProps['nextDay']?>;
+            minDate = "+2w +1d";
+        <?}?>
 
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             minDatePlus++;
@@ -223,7 +237,7 @@
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker({
             minDate: minDatePlus,
             defaultDate: minDatePlus,
-            maxDate: "+2w +1d",
+            maxDate: minDate,
             beforeShowDay: disableSpecificDaysAndWeekends, //blackfriday черная пятница
             dateFormat: "dd.mm.yy",
             setDate:minDatePlus
@@ -273,6 +287,7 @@
         if( $('#ORDER_PROP_24,#ORDER_PROP_11').val() == ''){
              $('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
         }
+
 
     }
 
@@ -385,7 +400,7 @@
                         }
                     }
                 ?>
-
+                <??>
                 <div class="bx_order_make">
                     <?
                         if(!$USER->IsAuthorized() && $arParams["ALLOW_AUTO_REGISTER"] == "N")
@@ -642,7 +657,11 @@
                                             } else {
                                             }
                                         }
+                                       console.log('ugbb');
+                                    <?if(empty($_POST)){ ?>
+                                         $('.bx_section.js_delivery_block #ID_DELIVERY_ID_15').click();
 
+                                     <?}?>
 
                                     }
 

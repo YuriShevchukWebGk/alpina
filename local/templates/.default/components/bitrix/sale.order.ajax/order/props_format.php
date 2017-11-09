@@ -83,7 +83,6 @@
                             $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
                             if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
                             ?>
-                            <?//arshow($_POST)?>
 
                             <?if(($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE") && !$window){?>
 
@@ -175,16 +174,18 @@
                         } elseif ($arProperties["TYPE"] == "LOCATION") {
                           if($arProperties["CODE"] != 'LOCATION_CITY'){
                             $value = 0;
+                            arshow($_SESSION["REASPEKT_GEOBASE"]["CITY"]);
                             if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
                                 foreach ($arProperties["VARIANTS"] as $arVariant){
 
                                     if ($arVariant["CITY_NAME"] == $_SESSION["REASPEKT_GEOBASE"]["CITY"]){
                                         $value = $arVariant["ID"];
-                                        break;
+                                      //  break;
                                     }
 
-                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва"){
+                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || $arVariant["ID"] == $_POST["ORDER_PROP_2"] && $_POST["ORDER_PROP_2"] != 21278){
                                        $value = $arVariant["ID"];
+                                       break;
                                     }
                                 }
                                 if ($value == ""){
@@ -247,24 +248,7 @@
                             <?endif?>
                         <?
                         } else {
-                            $value = 0;
-                            if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
-                                foreach ($arProperties["VARIANTS"] as $arVariant){
-
-                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва"){
-                                       $arVariant["CITY_NAME"] = "Москва";
-
-                                    }
-                                    if ($arVariant["CITY_NAME"] == $_SESSION["REASPEKT_GEOBASE"]["CITY"]){
-                                        $value = $arVariant["ID"];
-                                        break;
-                                    }
-
-                                }
-                                if ($value == ""){
-                                    $value = $arProperties["VALUE"];
-                                }
-                            }?>
+                            ?>
 
                             <div class="bx_block r3x1">
                                 <?
