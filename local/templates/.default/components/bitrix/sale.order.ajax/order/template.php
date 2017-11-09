@@ -85,7 +85,11 @@
 </style>
 
 <div id="map" style="width:0; height:0;"></div>
-
+ <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip_click_sity", Array(
+    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
+    ),
+    false
+);?>
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';

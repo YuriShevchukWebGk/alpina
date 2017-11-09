@@ -177,11 +177,15 @@
                             $value = 0;
                             if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
                                 foreach ($arProperties["VARIANTS"] as $arVariant){
-                                    if ($arVariant["SELECTED"] == "Y"){
+
+                                    if ($arVariant["CITY_NAME"] == $_SESSION["REASPEKT_GEOBASE"]["CITY"]){
                                         $value = $arVariant["ID"];
                                         break;
                                     }
 
+                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва"){
+                                       $value = $arVariant["ID"];
+                                    }
                                 }
                                 if ($value == ""){
                                     $value = $arProperties["VALUE"];
@@ -199,6 +203,7 @@
                         <?if($locationTemplateP == 'steps'):?>
                             <input type="hidden" id="LOCATION_ALT_PROP_DISPLAY_MANUAL[<?=intval($arProperties["ID"])?>]" name="LOCATION_ALT_PROP_DISPLAY_MANUAL[<?=intval($arProperties["ID"])?>]" value="<?=($_REQUEST['LOCATION_ALT_PROP_DISPLAY_MANUAL'][intval($arProperties["ID"])] ? '1' : '0')?>" />
                             <?endif?>
+
                         <?CSaleLocation::proxySaleAjaxLocationsComponent(array(
                             "AJAX_CALL" => "N",
                             "COUNTRY_INPUT_NAME" => "COUNTRY",
@@ -241,7 +246,25 @@
                             <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                             <?endif?>
                         <?
-                        } else { ?>
+                        } else {
+                            $value = 0;
+                            if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
+                                foreach ($arProperties["VARIANTS"] as $arVariant){
+
+                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва"){
+                                       $arVariant["CITY_NAME"] = "Москва";
+
+                                    }
+                                    if ($arVariant["CITY_NAME"] == $_SESSION["REASPEKT_GEOBASE"]["CITY"]){
+                                        $value = $arVariant["ID"];
+                                        break;
+                                    }
+
+                                }
+                                if ($value == ""){
+                                    $value = $arProperties["VALUE"];
+                                }
+                            }?>
 
                             <div class="bx_block r3x1">
                                 <?
