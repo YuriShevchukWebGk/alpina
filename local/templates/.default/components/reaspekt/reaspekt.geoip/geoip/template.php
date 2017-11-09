@@ -59,11 +59,11 @@ while ($arItems = $dbBasketItems->Fetch()){
 
                 </li>
             <?}?>
-            <li class="boxbery">
+            <li class="boxbery"> Доставка в
                 <a href='#' class="city_pull" data-city="<?=$arResult["GEO_CITY"]["CITY"]?>" onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
                     <?= GetMessage("DELIVERY_POST_SITY") ?>
-                    <?=$arResult["GEO_CITY"]["CITY"]?>
-                </a>
+
+                </a> в <?=$arResult["GEO_CITY"]["CITY"]?>
                 <?if($arBasketPrice > FREE_SHIPING){ ?>
                     <b><?=GetMessage("DELIVRY_SALE")?></b>
                 <? } else {?>

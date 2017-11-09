@@ -180,8 +180,18 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             }
         })
 
+           function deleteDateId(){
+              var text = document.getElementById("ORDER_PROP_44"),
+                  testText;
+                  text.onkeyup          =  function testKey(){
+                     var testText       =  text.value;
+                     text.value      = testText.substring(0, testText.length - 1)
+                  }
+           }
+           deleteDateId("ORDER_PROP_44");
+           deleteDateId("ORDER_PROP_45");
         //календарь
-		var disabledDates = ['02/23/2017','02/24/2017','03/08/2017','01/04/2017','01/05/2017','01/06/2017']; //даты для отключения mm/dd/yyyy
+		var disabledDates = <?=$holidays?>; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
 			if (noWeekend[0]) {
