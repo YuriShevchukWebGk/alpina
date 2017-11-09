@@ -72,7 +72,9 @@ if (!empty($arResult["GRID"]["ROWS"]))
                 $thisItem = CIBlockElement::GetList(array(), array("ID"=>$arItem["PRODUCT_ID"]), false, false, array("ID", "DETAIL_PICTURE", "DETAIL_PAGE_URL"))->Fetch();
                 $thisItemSect = CIBlockSection::GetByID($thisItem["IBLOCK_SECTION_ID"]) -> Fetch();
                 $thisItemPict = CFile::GetPath($thisItem["DETAIL_PICTURE"]);
-                ?>
+                if (strlen (stristr($arItem["PRICE"], ".")) == 2) {
+                    $arItem["PRICE"] .= "0";
+                }?>
                 <div class="basketBook" basket-id="<?=$arItem["ID"]?>" product-id="<?=$arItem["PRODUCT_ID"]?>" basket-delay="<?=$arItem["DELAY"]?>"> 
                     <div class="bookImage">                 
                         <?if($arItem["DETAIL_PAGE_URL"]) {?>
@@ -150,7 +152,10 @@ if (!empty($arResult["GRID"]["ROWS"]))
             ?>    
         <?}?> 
     </div>  
-<?}?>
+<?}
+if (strlen (stristr($arResult["allSum"], ".")) == 2) {
+    $arResult["allSum"] .= "0";
+}?>
 <div class="bottomBlock">
     <div class="result" <?if($arParams['DELAY'] == 'Y') { echo 'style="display:none"'; }?>>
         <p class="resultText"><?=GetMessage("TSB1_RESULT")?></p>

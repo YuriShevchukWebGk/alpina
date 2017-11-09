@@ -283,7 +283,13 @@
                                         </td>
                                         <?
                                             elseif ($arHeader["id"] == "PRICE"):
-                                        ?>
+                                            
+                                        if (strlen (stristr($arItem["PRICE"], ".")) == 2) {
+                                            $arItem["PRICE"] .= "0";
+                                        }
+                                        if (strlen (stristr($arItem["FULL_PRICE"], ".")) == 2) {
+                                            $arItem["FULL_PRICE"] .= "0";
+                                        }?>
                                         <td class="price priceOfBook">
                                             <p class="current_price costOfBook" id="current_price_<?=$arItem["ID"]?>">
                                                 <?=$arItem["PRICE"]?><span class='rubsign'></span>
@@ -340,6 +346,9 @@
 
             <div class="grayDownLine"></div>
             <?
+            if (strlen (stristr($arResult['allSum'], ".")) == 2) {
+                $arResult['allSum'] .= "0";
+            }
 	        $psum = $arResult['allSum'];
 	        $pdiscabs = $arResult['DISCOUNT_PRICE_ALL'];
 	        $pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
