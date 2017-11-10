@@ -34,7 +34,7 @@ Loc::loadMessages(__FILE__);
                         $class = 'addCircle';
                      }
                      ?>
-					<a href="javascript:void(0)" data-id="<?=$loc['ID']?>" class="quick-location-tag <?=$class?>"><?=htmlspecialcharsbx($loc['NAME'])?></a>
+					<a href="javascript:void(0)" data-id="<?=$loc['ID']?>" class="quick-location-tag <?=$class?> <?=($loc["ID"] == 21278)? 'region_click': ''?>"><?=htmlspecialcharsbx($loc['NAME'])?></a>
 				<?endforeach?>
 
 			</div>

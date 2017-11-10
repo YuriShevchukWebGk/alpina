@@ -100,7 +100,11 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
     window.BOXBERRY_PICKUP_DELIVERY_ID = '<?= BOXBERRY_PICKUP_DELIVERY_ID ?>';
     window.ORDER_PRICE = '<?= $arResult['ORDER_DATA']['ORDER_PRICE'] ?>';
     window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
-
+        $('body').on('click', '.region_click', function(){
+            setTimeout(function() {
+               //  submitForm();
+            }, 5000);
+        })
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
@@ -182,7 +186,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             }
         })
 
-           function deleteDateId(){
+     /*      function deleteDateId(){
               var text = document.getElementById("ORDER_PROP_44"),
                   testText;
                   text.onkeyup          =  function testKey(){
@@ -191,7 +195,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                   }
            }
            deleteDateId("ORDER_PROP_44");
-           deleteDateId("ORDER_PROP_45");
+           deleteDateId("ORDER_PROP_45");   */
         //календарь
 		var disabledDates = <?=$holidays?>; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
@@ -435,7 +439,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 								$(document).ready(function(){
 									dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'pageLoaded'});
 
-								});
+                                });
                                 <?if(CSaleLocation::isLocationProEnabled()):?>
 
                                     <?
@@ -484,6 +488,8 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                     if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
                                         $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
                                     }
+
+
                                     // дополнительная проверка полей и вывод ошибки
                                     if (val == "Y")
                                     {
