@@ -439,6 +439,29 @@
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
 
+    // изменяем статус для заказов с предзаказом
+    AddEventHandler("sale", "OnBeforeOrderAdd", "statusUpdate");
+
+    function statusUpdate(&$arFields){
+        CModule::IncludeModule('iblock');
+        CModule::IncludeModule('sale');
+        $VALUES = 0;
+        foreach($arFields["BASKET_ITEMS"] as $basket_item){
+
+            $res = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $basket_item["PRODUCT_ID"], array(), array("CODE" => "STATE"));
+            if ($ob = $res->GetNext()) {
+                if($ob["VALUE"] == STATE_SOON){
+                    $VALUES += 1;
+                }
+            }
+        }
+        if($VALUES > 0){
+            $arFields["STATUS_ID"] == "PR";
+        }
+        return $arFields;
+    }
+
+
     AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
     AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 
@@ -473,6 +496,8 @@
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
+
+
     }
 
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
@@ -789,7 +814,7 @@
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
                     if ($arItems["PRODUCT_ID"] != '186046') {
-                        $ids .= $arItems["PRODUCT_ID"].',';    
+                        $ids .= $arItems["PRODUCT_ID"].',';
                     }
                 }
 
