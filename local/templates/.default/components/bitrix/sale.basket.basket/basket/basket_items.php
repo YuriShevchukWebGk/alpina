@@ -190,8 +190,8 @@
                                             {?>
                                                 <p class="nameOfAutor"><?=$curr_author["NAME"]?></p>
                                             <?}?>
-                                            <?/*
-                                            $val_order = '';
+                                            <?
+                                           /* $val_order = '';
                                             $state = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "STATE"));
                                             if ($prop = $state->GetNext()) {
                                                 $val_order = $prop['VALUE_ENUM'];
@@ -466,15 +466,15 @@
                 <? } ?>
             </p>
             <?
-         /*   if($date_state){
+           /* if($date_state){
                 usort($date_state, 'object_to_array'); // сортируем по дате предзаказа
                 session_start();
                 $_SESSION["DATE_DELIVERY_STATE"] = $date_state[0];
-            }    */
+            }
             ?>
-       <?/*
+
         <span class="order_state">В заказе есть товары с ожидаемой датой доставки <?=strtolower(FormatDate("j F Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
-        */?>
+          */?>
         </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />
