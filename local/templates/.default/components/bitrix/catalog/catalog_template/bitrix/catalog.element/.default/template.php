@@ -752,10 +752,10 @@
                     }
                     </style>
                     <div class="wrap_prise_bottom">
-                        <?/*if ($USER -> IsAdmin()) {?>
+                        <?if ($USER -> IsAdmin()) {?>
                             <div class="item_quantity"></div>
                             <br>
-                        <?}*/?>
+                        <?}?>
                         <div class="not_available"></div>
                         <span class="item_buttons_counter_block">
                             <input type="hidden" name="quantity" value="<?=$arResult['CATALOG_QUANTITY']?>">
