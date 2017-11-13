@@ -157,9 +157,9 @@ if ($arResult["isFormTitle"])
         if ($("input[name='form_text_117']").val() == "") {
             $("input[name='form_text_117']").css("border", "2px solid red");
         }
-        //if ($("input[name='form_text_111']").val() == "" || $("input[name='form_email_114']").val() == "" || $("input[name='form_text_117']").val() == "") {
-            //e.preventDefault();
-        //}
+        if ($("input[name='form_text_111']").val() == "" || $("input[name='form_email_114']").val() == "" || $("input[name='form_text_117']").val() == "") {
+            e.preventDefault();
+        }
         if (!allowSubmit) {
             $.ajax({
                 type: 'POST',
@@ -169,7 +169,6 @@ if ($arResult["isFormTitle"])
                 beforeSend: function(data){
                 },
                 success: function(data){
-                    console.log(data.result);
                     if (data.result == "ERROR") {
                         form.find('input[type="submit"]').prop('disabled', true);          
                         $(".g-recaptcha iframe").css("border", "2px solid red");  
