@@ -4,7 +4,8 @@ AddEventHandler("catalog", "OnProductUpdate", Array("Exchange1C", "SyncProductQu
 AddEventHandler("catalog", "OnProductAdd", Array("Exchange1C", "SyncProductQuantity"));  
  
 //Уведомление и смена статуса с 0 остатках на сайте
-//AddEventHandler("catalog", "OnBeforeProductUpdate", Array("QuantityChanges", "QuantityOnZero"));  
+AddEventHandler("catalog", "OnBeforeProductUpdate", Array("QuantityChanges", "QuantityOnZero"));
+AddEventHandler("catalog", "OnBeforeProductUpdate", Array("QuantityChanges", "QuantityOnMoreThanZero"));  
               
 //Логирование изменений элементов
 AddEventHandler("iblock", "OnAfterIBlockElementAdd", Array("Exchange1C", "SyncProductQuantityIblock"));
@@ -28,6 +29,22 @@ class QuantityChanges {
                         "URL"  => $view_link
                     );                         
                     CEvent::Send("CATALOG_PRODUCT_NOT_AVAILABLE", array("ru"), $ar_template);                                                                
+                }                                                                                                                                
+            }                                         
+        }             
+    }
+    
+    function QuantityOnMoreThanZero($ID, $arFields) {                      
+        if($arFields['QUANTITY'] > 0 && CModule::IncludeModule('iblock')) {     
+            $arSelect = Array("CATALOG_QUANTITY", "PROPERTY_STATE", "NAME");
+            $arFilter = Array("ID" => $ID, "IBLOCK_ID" => CATALOG_IBLOCK_ID, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
+            $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>50), $arSelect);
+            if ($ob = $res->GetNextElement()) {          
+                $ar_product = $ob->GetFields();                       
+                //Проверим не является ли предзаказом и не был ли ранее отстаток меньше 0, после чего отправим сообщение и поменяем статус
+                if(($ar_product['PROPERTY_STATE_ENUM_ID'] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {  
+                    //Установим новое значение для данного свойства данного элемента          
+                    CIBlockElement::SetPropertyValuesEx($ID, false, array('STATE' => getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "")));                                                                  
                 }                                                                                                                                
             }                                         
         }             
