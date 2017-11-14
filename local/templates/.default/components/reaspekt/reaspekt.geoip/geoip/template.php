@@ -40,7 +40,6 @@ while ($arItems = $dbBasketItems->Fetch()){
 
 
     if ($arResult["SET_LOCAL_DB"] == "local_db") :?>
-
             <?if($arResult["GEO_CITY"]["CITY"] != "Москва"){ ?>
                 <li><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?= GetMessage("MAIL_DELIVERY") ?></a><br />
                     <?if($arBasketPrice > FREE_SHIPING){ ?>
@@ -50,15 +49,18 @@ while ($arItems = $dbBasketItems->Fetch()){
                     <?}?>
 
                 </li>
-                <li class="flippost"><?= GetMessage("MAIL_DELIVERY_PP") ?><br />
-                    <?if($arBasketPrice > FREE_SHIPING){ ?>
-                        <b><?=GetMessage("DELIVRY_SALE")?></b>
-                    <? } else {?>
-                        <b><?=$_SESSION["price_delivery_flippost"].' руб.'?></b>
-                    <?}?>
+                <?if(strpos($arResult["GEO_CITY"]["OKRUG"], 'Украина') <= 0){?>
+                    <li class="flippost"><?= GetMessage("MAIL_DELIVERY_PP") ?><br />
+                        <?if($arBasketPrice > FREE_SHIPING){ ?>
+                            <b><?=GetMessage("DELIVRY_SALE")?></b>
+                        <? } else {?>
+                            <b><?=$_SESSION["price_delivery_flippost"].' руб.'?></b>
+                        <?}?>
 
-                </li>
+                    </li>
+                <?}?>
             <?}?>
+            <?if(strpos($arResult["GEO_CITY"]["OKRUG"], 'Украина') <= 0){?>
             <li class="boxbery"> Доставка в
                 <a href='#' class="city_pull" data-city="<?=$arResult["GEO_CITY"]["CITY"]?>" onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
                     <?= GetMessage("DELIVERY_POST_SITY") ?>
@@ -70,15 +72,16 @@ while ($arItems = $dbBasketItems->Fetch()){
                     <?= GetMessage("CATALOG_QUANTITY_FROM", Array ("#FROM#" => "")) ?> <b><?=$_SESSION['price_delivery'].' руб.'?></b>
                 <?}?>
             </li>
+            <?}?>
 
             <li ><a href='#' data-reaspektmodalbox-href="<?=$templateFolder?>/ajax_popup_city.php" class="cityLinkPopupReaspekt linkReaspekt"><?=GetMessage('REASPEKT_GEOIP_TITLE_YOU_CITY')?></a></li>
+
             <?if($arResult["GEO_CITY"]["CITY"] == ""){ ?>
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
             <?}?>
-            <?if (
-                $arParams["CHANGE_CITY_MANUAL"] == "Y"
-                && $arResult["CHANGE_CITY"] == "N"
-            ) :?>
+
+            <?if ( $arParams["CHANGE_CITY_MANUAL"] == "Y" && $arResult["CHANGE_CITY"] == "N" ) :?>
+
             <div class="<?=$arJSParams["CLASS"]["WRAP_QUESTION_REASAPEKT"]?>">
                 <div class="questionYourCityReaspekt"><?=GetMessage("REASPEKT_GEOIP_TITLE_YOU_CITY");?>:</div>
                 <div class="questionCityReaspekt"><strong><?=$arResult["GEO_CITY"]["CITY"]?></strong> (<?=$arResult["GEO_CITY"]["REGION"]?>)</div>
@@ -87,8 +90,8 @@ while ($arItems = $dbBasketItems->Fetch()){
                     <div class="questionYesReaspekt" onClick="objJCReaspektGeobase.onClickReaspektSaveCity('N');"><?=GetMessage("REASPEKT_GEOIP_BUTTON_Y");?></div>
                 </div>
             </div>
-            <?endif;?>
 
+            <?endif;?>
         <script type="text/javascript">
         $('.cityLinkPopupReaspekt').ReaspektModalBox();
         var objJCReaspektGeobase = new JCReaspektGeobase(<? echo CUtil::PhpToJSObject($arJSParams, false, true); ?>);
