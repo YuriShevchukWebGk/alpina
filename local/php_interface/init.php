@@ -3282,7 +3282,7 @@
 
 
 function object_to_array($a, $b) {
-    return strtotime($a) - strtotime($b);
+    return strtotime($b) - strtotime($a);
 }
 
 ?>

@@ -11,15 +11,16 @@ $arFilter = Array("STATUS_ID" => array("PR"), "PAYED" => "N");
 $db_sales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 while ($ar_sales = $db_sales->Fetch())
 {
-   $dbItemsInOrder = CSaleBasket::GetList(array(), array("ORDER_ID" => $ar_sales["ID"], "PRODUCT_ID" => $_REQUEST["product_id"]), false, false, array("PRODUCT_ID", "PRICE", "ID"));
+   $dbItemsInOrder = CSaleBasket::GetList(array(), array("ORDER_ID" => $ar_sales["ID"], "PRODUCT_ID" => $_REQUEST["product_id"]), false, false, array("PRODUCT_ID", "PRICE", "ID","BASE_PRICE"));
    if($item_order = $dbItemsInOrder->Fetch()){
         $Fields_item = array(
-           "PRICE" => $_REQUEST["price"],
+           "BASE_PRICE" => $_REQUEST["price"],
         );
-       if($item_order["PRICE"] > $_REQUEST["price"]) {
-            $new_price = $ar_sales["PRICE"] - str_replace ('-','', round($item_order["PRICE"] - $_REQUEST["price"], 1));
+
+       if($item_order["BASE_PRICE"] > $_REQUEST["price"]) {
+            $new_price = $ar_sales["BASE_PRICE"] - str_replace ('-','', round($item_order["BASE_PRICE"] - $_REQUEST["price"], 1));
        } else {
-            $new_price = $ar_sales["PRICE"] + str_replace ('-','', round($item_order["PRICE"] - $_REQUEST["price"], 1));
+            $new_price = $ar_sales["BASE_PRICE"] + str_replace ('-','', round($item_order["BASE_PRICE"] - $_REQUEST["price"], 1));
        }
 
        $Fields_order = array(

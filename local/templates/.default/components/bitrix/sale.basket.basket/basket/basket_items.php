@@ -470,10 +470,12 @@
                 usort($date_state, 'object_to_array'); // сортируем по дате предзаказа
                 session_start();
                 $_SESSION["DATE_DELIVERY_STATE"] = $date_state[0];
+               /* $str = strtotime($date_state[0]);
+                $new_day_delivery = date('d m Y',($str+86400*2));*/
             }
             ?>
 
-        <span class="order_state">В заказе есть товары с ожидаемой датой доставки <?=strtolower(FormatDate("j F Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
+        <span class="order_state">В заказе есть товары с ожидаемой датой выхода <?=strtolower(FormatDate("j F Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
 
         </div>
 
