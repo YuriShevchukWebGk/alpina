@@ -1274,16 +1274,21 @@
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
             </div>
             <?$videosCount  = 0;
+
                 foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
                     $videosCount++;
                 }
+
                 if ($arResult['PROPERTIES']['video_about']['~VALUE'] != "") {?>
-                <p class="productSelectTitle"><?= GetMessage("VIDEO_PRESENTATIONS") ?> <? if($videosCount > 1) { ?><span><a href="#"><?= GetMessage("SHOW_ALL") ?></a></span><span class="count">(<?= $videosCount ?>)</span><? } ?></p>
+                    <p class="productSelectTitle"><?= GetMessage("VIDEO_PRESENTATIONS") ?> <? if($videosCount > 1) { ?><span><a href="#"><?= GetMessage("SHOW_ALL") ?></a></span><span class="count">(<?= $videosCount ?>)</span><? } ?></p>
                 <?}?>
 
             <div class="videoWrapp">
+            <?//arshow($arResult['PROPERTIES']['video_about'])?>
                 <?foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
-                    echo ($videoYoutube);
+                    $video_convert = str_replace("ifr ame", "iframe", $videoYoutube);
+                    $video_convert_2 = str_replace("sc ript", "script", $video_convert);
+                    echo ($video_convert_2);
                 }?>
             </div>
 
