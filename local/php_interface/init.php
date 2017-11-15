@@ -791,7 +791,7 @@
 
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
-                    if ($arItems["PRODUCT_ID"] != '186046') {
+                    if ($arItems["PRODUCT_ID"] != '186046' && $arItems["PRODUCT_ID"] != '372526') {
                         $ids .= $arItems["PRODUCT_ID"].',';
                     }
                 }
@@ -836,7 +836,7 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-                if ($order_list[PERSON_TYPE_ID] == 1 && !strstr($ids, "186046")) {
+                if ($order_list[PERSON_TYPE_ID] == 1 && !strstr($ids, "186046") && !strstr($ids, "372526")) {
                     CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
                 }
 
