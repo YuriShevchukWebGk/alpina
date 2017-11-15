@@ -795,7 +795,13 @@ if ($arResult['MODULES']['currency'])
 
     $arResult["SAVINGS_DISCOUNT"] =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
     if (!empty($arResult["SAVINGS_DISCOUNT"][0])) {
-        $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array("DISCOUNT_ID" => $arResult["SAVINGS_DISCOUNT"][0]["ID"]), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
+        $arFilter = array("DISCOUNT_ID" => $arResult["SAVINGS_DISCOUNT"][0]["ID"]);
+    }
+    if ($arResult["SAVINGS_DISCOUNT"][1]["VALUE"] >= $arResult["SAVINGS_DISCOUNT"][0]["VALUE"]) {
+        $arFilter = array("DISCOUNT_ID" => $arResult["SAVINGS_DISCOUNT"][1]["ID"]);
+    }
+    if (!empty($arFilter)) {
+        $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter, $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
         $ar_sale = array();
         while($ar_sale=$rr->Fetch()) {
             $arResult["SALE_NOTE"][] = $ar_sale;

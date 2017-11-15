@@ -81,7 +81,7 @@ if ($arResult["isFormTitle"])
 	} //endwhile
 	?>
 <?
-if($arResult["isUseCaptcha"] == "Y")
+/*if($arResult["isUseCaptcha"] == "Y")
 {
 ?>
 		<tr>
@@ -96,8 +96,35 @@ if($arResult["isUseCaptcha"] == "Y")
 			<td><input type="text" name="captcha_word" size="30" maxlength="50" value="" class="inputtext" /></td>
 		</tr>
 <?
-} // isUseCaptcha
+}*/ // isUseCaptcha
 ?>
+<tr>
+    <td colspan="2">
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LfaDjgUAAAAAKHkN3Rrg15GAURviF4x1gtpPxGt"></div>
+        <noscript>
+            <div>
+                <div style="width: 302px; height: 422px; position: relative;">
+                    <div style="width: 302px; height: 422px; position: absolute;">
+                        <iframe src="https://www.google.com/recaptcha/api/fallback?k=6LfaDjgUAAAAAKHkN3Rrg15GAURviF4x1gtpPxGt"
+                            frameborder="0" scrolling="no"
+                            style="width: 302px; height:422px; border-style: none;">
+                        </iframe>
+                    </div>
+                </div>
+                <div style="width: 300px; height: 60px; border-style: none;
+                    bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;
+                    background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
+                    <textarea id="g-recaptcha-response" name="g-recaptcha-response"
+                        class="g-recaptcha-response"
+                        style="width: 250px; height: 40px; border: 1px solid #c1c1c1;
+                        margin: 10px 25px; padding: 0px; resize: none;" >
+                    </textarea>
+                </div>
+            </div>
+        </noscript>
+    </td>
+</tr>
 	</tbody>
 	<tfoot>
 		<tr>
@@ -111,7 +138,53 @@ if($arResult["isUseCaptcha"] == "Y")
 <p>
 <?=$arResult["REQUIRED_SIGN"];?> - <?=GetMessage("FORM_REQUIRED_FIELDS")?>
 </p>
+<br>
 <?=$arResult["FORM_FOOTER"]?>
 <?
 } //endif (isFormNote)
 ?>
+<script>
+    var allowSubmit = false;
+    $(".howToBodyWrap form").submit(function(e){
+        var form = $(this);
+        var data = form.serialize();
+        if ($("input[name='form_text_111']").val() == "") {
+            $("input[name='form_text_111']").css("border", "2px solid red");
+        }
+        if ($("input[name='form_email_114']").val() == "") {
+            $("input[name='form_email_114']").css("border", "2px solid red");
+        }
+        if ($("input[name='form_text_117']").val() == "") {
+            $("input[name='form_text_117']").css("border", "2px solid red");
+        }
+        if ($("input[name='form_text_111']").val() == "" || $("input[name='form_email_114']").val() == "" || $("input[name='form_text_117']").val() == "") {
+            e.preventDefault();
+        }
+        if (!allowSubmit) {
+            $.ajax({
+                type: 'POST',
+                url: '/ajax/recaptcha_sending.php',
+                dataType: 'json',
+                data: data,
+                beforeSend: function(data){
+                },
+                success: function(data){
+                    if (data.result == "ERROR") {
+                        form.find('input[type="submit"]').prop('disabled', true);          
+                        $(".g-recaptcha iframe").css("border", "2px solid red");  
+                    } else {
+                        form.find('input[type="submit"]').prop('disabled', false);
+                        allowSubmit = true;
+                        form.find('input[type="submit"]').trigger("click");
+                    } 
+                },
+                complete :function(data){
+                    form.find('input[type="submit"]').prop('disabled', false);
+
+
+                }
+            });    
+        }
+        return allowSubmit;
+    })
+</script>

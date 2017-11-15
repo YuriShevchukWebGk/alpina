@@ -189,9 +189,11 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
      /*      function deleteDateId(){
               var text = document.getElementById("ORDER_PROP_44"),
                   testText;
-                  text.onkeyup          =  function testKey(){
-                     var testText       =  text.value;
-                     text.value      = testText.substring(0, testText.length - 1)
+                  if (text !== null) {
+                      text.onkeyup          =  function testKey(){
+                          var testText       =  text.value;
+                          text.value      = testText.substring(0, testText.length - 1)
+                      }    
                   }
            }
            deleteDateId("ORDER_PROP_44");

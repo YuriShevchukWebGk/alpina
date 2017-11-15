@@ -357,10 +357,28 @@ header .headBasket{margin-right:0}
 .hidingBasketRight .bookImage,.hidingBasketRight .result>p{float:left}
 .wrapperCategor{background-color:#F4F4F4;height:2500px}
 .categoryWrapper .categoryBooks{float:left;padding:6px;margin-bottom:40px;position:relative}
-.categoryWrapper .showMore{border:1px solid #c8a474;-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;transition:color .3s ease,background-color .3s ease,border-color .3s ease;border-radius:34px;color:#c8a474;font-size:19px;margin:32px auto 70px;padding:12px 44px;text-align:center;width:245px;cursor:pointer}
+.categoryWrapper .showMore{
+    border: 1px solid #c8a474;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    border-radius: 34px;
+    color: #c8a474;
+    font-size: 19px;
+    margin: 47px auto 70px;
+    padding: 12px 44px;
+    text-align: center;
+    width: 245px;
+    cursor: pointer;
+    clear: both;}
 .elementDescriptWrap .buyLater,.elementDescriptWrap .inBasket{-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .categoryWrapper .showMore:hover{background:#e6e6e6}
-.categoryWrapper .otherBooks{height:1302px}
+.categoryWrapper .otherBooks{
+    height:1302px;
+    float: left;
+    margin-bottom: 90px;
+}
 .otherBooks .nameBook{color:#424C4F;font-size:14px;padding-left:4px;padding-top:5px;height:45px;width:142px;overflow:hidden}
 .otherBooks .bookAutor{color:#7B8C90;font-size:14px;padding-left:4px;padding-top:5px;height:20px;overflow:hidden}
 .otherBooks .tapeOfPack{color:#3f4a4d;font-size:14px;padding-left:4px;padding-top:8px;height:20px}
@@ -1018,7 +1036,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .basket_zero_cost{color:#AD3b20;font-size:18px}
 #digitalversion,#paperversion{font-family:Walshein_regular;font-size:16px;padding:10px 20px 0;color:#00abb8;display:block;float:left;width:92px;height:52px}
 #diffversions .active{background:#ecedef;box-shadow:0 -1px 1px 0 rgba(0,0,0,.18)}
-#diffversions .passive:hover span{border-bottom:none} 
+#diffversions .passive:hover span{border-bottom:none}
 .digitalVersionWrap .inBasket{padding:14px 10px;margin:0 20px}
 .typesOfProduct{visibility:hidden}
 #nprogress{pointer-events:none}

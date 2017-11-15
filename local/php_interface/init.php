@@ -3,7 +3,7 @@
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 
     //Подключим хендлеры для работы с остатками
-    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
+    //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
     //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
 
     file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
@@ -439,6 +439,7 @@
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
 
+
     AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
     AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 
@@ -473,6 +474,8 @@
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
+
+
     }
 
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
@@ -788,7 +791,9 @@
 
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
-                    $ids .= $arItems["PRODUCT_ID"].',';
+                    if ($arItems["PRODUCT_ID"] != '186046' && $arItems["PRODUCT_ID"] != '372526') {
+                        $ids .= $arItems["PRODUCT_ID"].',';
+                    }
                 }
 
                 $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
@@ -831,7 +836,7 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-                if ($order_list[PERSON_TYPE_ID] == 1) {
+                if ($order_list[PERSON_TYPE_ID] == 1 && !strstr($ids, "186046") && !strstr($ids, "372526")) {
                     CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
                 }
 
@@ -3252,15 +3257,9 @@
         }
     }
 
-    function object_to_array($data) {
-    if (is_array($data) || is_object($data)) {
-        $result = array();
-        foreach ($data as $key => $value) {
-            $result[$key] = object_to_array($value);
-        }
-        return $result;
-    }
-    return $data;
+
+function object_to_array($a, $b) {
+    return strtotime($a) - strtotime($b);
 }
 
 ?>

@@ -23,7 +23,7 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"Online библиотека", 
-		"http://www.alpinab2b.ru/Alpina-Digital/", 
+		"http://www.alpinab2b.ru/product/obuchit-sotrudnikov/podpiska-na-elektronnye-knigi-alpiny/", 
 		Array(), 
 		Array(), 
 		"" 
