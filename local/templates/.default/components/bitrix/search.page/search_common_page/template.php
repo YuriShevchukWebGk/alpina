@@ -348,7 +348,11 @@
                                 <div>
                                     <a href="<?= $arItem["URL"] ?>">
                                         <div class="search_item_img">
-
+                                             <?
+                                                $res = CIBlockElement::GetByID($arItem["ITEM_ID"])->Fetch();
+                                                $picture = CFile::GetPath($res["PREVIEW_PICTURE"]);
+                                                ?>
+                                                <img src="<?=$picture?>" width="155">
                                         </div>
                                     </a>
                                 </div>

@@ -371,7 +371,7 @@
             <?$frame->end();?>
 
             <?if ((!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) || !empty($arResult["PROPERTIES"]["rec_for_ad"]['VALUE'])) && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["ID"] != 81365 && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal'  && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
-                <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) && $arResult["ID"] != 186046) {?>
+                <?if (!empty($arResult["PROPERTIES"]["appstore"]['VALUE']) && $arResult["ID"] != 186046 && $arResult["ID"] != 372526) {?>
                     <br />
                     <div class="digitalBookMark">
                         <p><span class="test"><?=GetMessage("FREE_DIGITAL_BOOK") ?></span></p>
@@ -543,7 +543,7 @@
     <div class="rightColumn">
         <?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])  && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <div id="diffversions">
-                <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?if ($arResult["ID"] != 186046) {?><?=GetMessage("PAPER_V")?><?} else {?><?= GetMessage("PAPER_WITHOUT_DIGITAL") ?><?}?></span></a>
+                <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?if ($arResult["ID"] != 186046 && $arResult["ID"] != 372526) {?><?=GetMessage("PAPER_V")?><?} else {?><?= GetMessage("PAPER_WITHOUT_DIGITAL") ?><?}?></span></a>
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
             </div>
             <?}?>
@@ -1274,16 +1274,21 @@
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
             </div>
             <?$videosCount  = 0;
+
                 foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
                     $videosCount++;
                 }
+
                 if ($arResult['PROPERTIES']['video_about']['~VALUE'] != "") {?>
-                <p class="productSelectTitle"><?= GetMessage("VIDEO_PRESENTATIONS") ?> <? if($videosCount > 1) { ?><span><a href="#"><?= GetMessage("SHOW_ALL") ?></a></span><span class="count">(<?= $videosCount ?>)</span><? } ?></p>
+                    <p class="productSelectTitle"><?= GetMessage("VIDEO_PRESENTATIONS") ?> <? if($videosCount > 1) { ?><span><a href="#"><?= GetMessage("SHOW_ALL") ?></a></span><span class="count">(<?= $videosCount ?>)</span><? } ?></p>
                 <?}?>
 
             <div class="videoWrapp">
+            <?//arshow($arResult['PROPERTIES']['video_about'])?>
                 <?foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
-                    echo ($videoYoutube);
+                    $video_convert = str_replace("ifr ame", "iframe", $videoYoutube);
+                    $video_convert_2 = str_replace("sc ript", "script", $video_convert);
+                    echo ($video_convert_2);
                 }?>
             </div>
 

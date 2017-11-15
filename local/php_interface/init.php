@@ -3,7 +3,7 @@
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 
     //Подключим хендлеры для работы с остатками
-    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
+    //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
     //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
 
     file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
@@ -440,8 +440,6 @@
     }
 
 
-
-
     AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
     AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 
@@ -815,7 +813,7 @@
 
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
-                    if ($arItems["PRODUCT_ID"] != '186046') {
+                    if ($arItems["PRODUCT_ID"] != '186046' && $arItems["PRODUCT_ID"] != '372526') {
                         $ids .= $arItems["PRODUCT_ID"].',';
                     }
                 }
@@ -860,7 +858,7 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-                if ($order_list[PERSON_TYPE_ID] == 1 && !strstr($ids, "186046")) {
+                if ($order_list[PERSON_TYPE_ID] == 1 && !strstr($ids, "186046") && !strstr($ids, "372526")) {
                     CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
                 }
 
