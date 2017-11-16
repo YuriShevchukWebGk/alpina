@@ -189,7 +189,6 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         })
 
         if($('.js_delivery_block > div').size() == 3 && $('.region_click.addCircle').size() > 0){
-           // console.log($('.js_delivery_block > div').size());
             setTimeout(function() {
                 $('.check_delivery .faceText').click();
             }, 500);
