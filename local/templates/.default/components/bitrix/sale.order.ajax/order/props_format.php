@@ -174,7 +174,6 @@
                         } elseif ($arProperties["TYPE"] == "LOCATION") {
                           if($arProperties["CODE"] != 'LOCATION_CITY'){
                             $value = 0;
-                            arshow($_SESSION["REASPEKT_GEOBASE"]["CITY"]);
                             if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
                                 foreach ($arProperties["VARIANTS"] as $arVariant){
 

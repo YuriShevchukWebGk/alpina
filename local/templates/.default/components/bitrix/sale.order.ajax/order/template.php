@@ -85,8 +85,14 @@
 </style>
 
 <div id="map" style="width:0; height:0;"></div>
+<?
 
-
+?>
+<?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "", Array(
+    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
+    ),
+    false
+);?>
 <?
 // получение количества дней с которого возможна доставка
 $datetime1 = new DateTime(date("d.m.Y"));
@@ -100,11 +106,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
     window.BOXBERRY_PICKUP_DELIVERY_ID = '<?= BOXBERRY_PICKUP_DELIVERY_ID ?>';
     window.ORDER_PRICE = '<?= $arResult['ORDER_DATA']['ORDER_PRICE'] ?>';
     window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
-        $('body').on('click', '.region_click', function(){
-            setTimeout(function() {
-               //  submitForm();
-            }, 5000);
-        })
+
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
@@ -186,6 +188,12 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             }
         })
 
+        if($('.js_delivery_block > div').size() == 3 && $('.region_click.addCircle').size() > 0){
+           // console.log($('.js_delivery_block > div').size());
+            setTimeout(function() {
+                $('.check_delivery .faceText').click();
+            }, 500);
+        }
      /*      function deleteDateId(){
               var text = document.getElementById("ORDER_PROP_44"),
                   testText;
@@ -193,7 +201,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                       text.onkeyup          =  function testKey(){
                           var testText       =  text.value;
                           text.value      = testText.substring(0, testText.length - 1)
-                      }    
+                      }
                   }
            }
            deleteDateId("ORDER_PROP_44");
@@ -305,6 +313,10 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         catch(err) {
         }*/
         setOptions();
+
+        $('body').on('click', '.region_click', function(){
+
+        })
     })
     //далее костыль
     var stopupdate = false;
@@ -934,7 +946,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 								                alert('Нет соединения с сервером пунктов выдачи!');
 								                return false;
 								            }
-								            maps_init_GURU(points, center_1, center_2);
+								          //  maps_init_GURU(points, center_1, center_2);
 								    });
 
                                     if($(".js_delivery_block .radioInp").is(':checked') == true){

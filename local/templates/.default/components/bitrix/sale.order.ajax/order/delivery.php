@@ -133,6 +133,7 @@
             $isOnlyCertificate = false;
         }
     }
+
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
@@ -181,7 +182,7 @@
             <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
 
             } else {?>
-            <div>
+            <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?>">
                 <?
                 $arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
                 $pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
