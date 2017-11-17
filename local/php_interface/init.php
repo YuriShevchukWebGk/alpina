@@ -338,10 +338,16 @@
             $day = $day + 2;
         }
 
-        $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
-        $date_d = date("j", (time()+(3600*24)*$day));
-        $date_n = date("n", (time()+3600*24*$day));
-        $date_Y = date("Y", (time()+3600*24*$day));
+        if(strtotime($_SESSION["DATE_DELIVERY_STATE"])){
+            $delivery_pre_order = strtotime($_SESSION["DATE_DELIVERY_STATE"]) + (3600*24)*2;
+        } else {
+            $delivery_pre_order = (time()+(3600*24)*$day);
+        }
+
+        $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
+        $date_d = date("j", $delivery_pre_order);
+        $date_n = date("n", $delivery_pre_order);
+        $date_Y = date("Y", $delivery_pre_order);
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
@@ -362,10 +368,16 @@
             $day = $day;
         }
 
-        $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
-        $date_d = date("j", (time()+(3600*24)*$day));
-        $date_n = date("n", (time()+3600*24*$day));
-        $date_Y = date("Y", (time()+3600*24*$day));
+        if(strtotime($_SESSION["DATE_DELIVERY_STATE"])){
+            $delivery_pre_order = strtotime($_SESSION["DATE_DELIVERY_STATE"]) + (3600*24)*2;
+        } else {
+            $delivery_pre_order = (time()+(3600*24)*$day);
+        }
+
+        $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
+        $date_d = date("j", $delivery_pre_order);
+        $date_n = date("n", $delivery_pre_order);
+        $date_Y = date("Y", $delivery_pre_order);
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
@@ -388,10 +400,16 @@
             $day = $day + 1;
         }
 
-        $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
-        $date_d = date("j", (time()+(3600*24)*$day));
-        $date_n = date("n", (time()+(3600*24)*$day));
-        $date_Y = date("Y", (time()+(3600*24)*$day));
+        if(strtotime($_SESSION["DATE_DELIVERY_STATE"])){
+            $delivery_pre_order = strtotime($_SESSION["DATE_DELIVERY_STATE"]) + (3600*24)*2;
+        } else {
+            $delivery_pre_order = (time()+(3600*24)*$day);
+        }
+
+        $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
+        $date_d = date("j", $delivery_pre_order);
+        $date_n = date("n", $delivery_pre_order);
+        $date_Y = date("Y", $delivery_pre_order);
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 

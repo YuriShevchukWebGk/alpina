@@ -472,6 +472,8 @@
                 $_SESSION["DATE_DELIVERY_STATE"] = $date_state[0];
                /* $str = strtotime($date_state[0]);
                 $new_day_delivery = date('d m Y',($str+86400*2));*/
+            } else {
+                $_SESSION["DATE_DELIVERY_STATE"] = '';
             }
             ?>
         <?if($date_state){?>
