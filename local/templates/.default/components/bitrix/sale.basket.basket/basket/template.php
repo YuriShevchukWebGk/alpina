@@ -1,5 +1,5 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-                                      
+
     /** @var array $arParams */
     /** @var array $arResult */
     /** @global CMain $APPLICATION */
@@ -29,7 +29,7 @@
         'DELAY_URL' => $arUrls["delay"],
         'ADD_URL' => $arUrls["add"]
     );
-?>   
+?>
 <div class="breadCrumpWrap">
     <div class="centerWrapper">
         <p><a href="/personal/cart/" class="afterImg active" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCartClick'});">Корзина</a><a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCheckoutClick'});" class="afterImg">Оформление</a><a href="#" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'bigLinksCompleteClick'});return false;">Завершение</a></p>
@@ -38,7 +38,7 @@
 
 
 <div class="cartWrapper">
-    <div class="centerWrapper">         
+    <div class="centerWrapper">
 
         <script type="text/javascript">
             var basketJSParams = <?=CUtil::PhpToJSObject($arBasketJSParams);?>
@@ -55,21 +55,21 @@
             <?$hasItems = false;?>
             <?$hasPreorderItems = false;?>
             <?foreach($arResult["GRID"]["ROWS"] as $k => $arItem) {
-                if($arItem["DELAY"] == "N") {  
-                    $hasItems = true;         
-                } 
-                if($arItem["DELAY"] == "Y") {  
-                    $hasPreorderItems = true;        
-                }     
+                if($arItem["DELAY"] == "N") {
+                    $hasItems = true;
+                }
+                if($arItem["DELAY"] == "Y") {
+                    $hasPreorderItems = true;
+                }
             }
-            if (!$hasItems && $hasPreorderItems) {    
-                $onlyPreorder = true;    
-            }?>                                                                            
+            if (!$hasItems && $hasPreorderItems) {
+                $onlyPreorder = true;
+            }?>
             <div class="basketItems <?if(!$onlyPreorder && !$_REQUEST['preorder']){ echo 'active'; }?>" data-id="1" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForOrderClick'});"><p>Готовые к заказу <span>(<?=count($arResult["ITEMS"]["AnDelCanBuy"])?>)</span></p></div>
             <div class="basketItems" data-id="2" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'wishlistBookmarkClick'});"><p>Список желаний <span>(0)</span></p></div>
-            <?if(count($arResult["ITEMS"]["DelDelCanBuy"]) > 0) {?>
-                <div class="basketItems <?if($onlyPreorder || $_REQUEST['preorder']){ echo 'active'; }?>" data-id="3" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForPreorderClick'});"><p>Предзаказ <span>(<?=count($arResult["ITEMS"]["DelDelCanBuy"])?>)</span></p></div>                 
-            <?}?>
+            <?/*if(count($arResult["ITEMS"]["DelDelCanBuy"]) > 0) {?>
+                <div class="basketItems <?if($onlyPreorder || $_REQUEST['preorder']){ echo 'active'; }?>" data-id="3" onclick="dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'readyForPreorderClick'});"><p>Предзаказ <span>(<?=count($arResult["ITEMS"]["DelDelCanBuy"])?>)</span></p></div>
+            <?}*/?>
         </div>
 
         <?
@@ -79,7 +79,7 @@
 
 
             <div id="warning_message">
-                <?    
+                <?
                     if (!empty($arResult["WARNING_MESSAGE"]) && is_array($arResult["WARNING_MESSAGE"]))
                     {
                         foreach ($arResult["WARNING_MESSAGE"] as $v)
@@ -103,16 +103,16 @@
                 $naHidden = ($naCount == 0) ? 'style="display:none;"' : '';
 
             ?>
-            <form method="post" action="<?=POST_FORM_ACTION_URI?>" name="basket_form" id="basket_form">     
+            <form method="post" action="<?=POST_FORM_ACTION_URI?>" name="basket_form" id="basket_form">
 
                 <div id="basket_form_container">
-                    <div class="bx_ordercart">     
+                    <div class="bx_ordercart">
 
                         <?
-                            include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items.php");            
+                            include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items.php");
                             include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items_delay.php");
-                            //include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items_delayed.php");  
-                        ?>     
+                            //include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/basket_items_delayed.php");
+                        ?>
 
                         <div class="yourBooks" id="cardBlock2">
                             <?//здесь wishlist?>
@@ -127,7 +127,7 @@
                                 }
                                 }
                                 else
-                                { 
+                                {
                                 $el_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 17, "NAME" => $USER -> GetID()), false, false, array("ID"));
                                 while ($el_fetch = $el_list -> Fetch())
                                 {
@@ -143,14 +143,14 @@
                                 }
                                 else {
                                     $list_user = CUser::GetByID($uID) -> Fetch();
-                                    $list_user_name = $list_user["NAME"]." ".$list_user["LAST_NAME"];   
+                                    $list_user_name = $list_user["NAME"]." ".$list_user["LAST_NAME"];
                                 }
 
                                 global $WishFilter;
                                 $WishFilter["NAME"] = $list_user_name;
                                 $APPLICATION->IncludeComponent(
-                                    "bitrix:catalog.section", 
-                                    "wish_list", 
+                                    "bitrix:catalog.section",
+                                    "wish_list",
                                     array(
                                         "IBLOCK_TYPE_ID" => "catalog",
                                         "IBLOCK_ID" => "17",
@@ -273,9 +273,9 @@
                                     ),
                                     false
                                 );?>
-                        </div>  
+                        </div>
                     </div>
-                </div>                       
+                </div>
 
 				<input type="hidden" name="BasketOrder" value="BasketOrder" />
 				<?
@@ -292,8 +292,8 @@
 					<p class="grayTitle">С заказанными книгами читают</p>
 					<?
 						$APPLICATION->IncludeComponent(
-							"bitrix:catalog.section", 
-							"recommends_for_cart", 
+							"bitrix:catalog.section",
+							"recommends_for_cart",
 							array(
 								"IBLOCK_TYPE_ID" => "catalog",
 								"IBLOCK_ID" => "4",
@@ -417,7 +417,7 @@
 							false
 						);?>
 				</div>
-				<?}?>					
+				<?}?>
                 <!-- <input type="hidden" name="ajax_post" id="ajax_post" value="Y"> -->
             </form>
             <script type="text/javascript">
@@ -446,9 +446,9 @@
                     { event: "setAccount", account: 18519 },
 
                     { event: "setSiteType", type: "d" },
-                    <?if($USER->IsAuthorized()){?>   
+                    <?if($USER->IsAuthorized()){?>
                         { event: "setEmail", email: "<?=$USER->GetEmail()?>" },
-                        <?} else {?>                
+                        <?} else {?>
                         { event: "setEmail", email: "" },
                         <?}?>
                     { event: "viewBasket", item: [
@@ -456,7 +456,7 @@
                             {
                                 <?=$criteoItem?>
                             },
-                            <?}?>                    
+                            <?}?>
                 ]});
             </script>
 
@@ -466,16 +466,16 @@
             else
             {
             ?>
-            <form method="post" action="<?=POST_FORM_ACTION_URI?>" name="basket_form" id="basket_form">     
+            <form method="post" action="<?=POST_FORM_ACTION_URI?>" name="basket_form" id="basket_form">
 
                 <div id="basket_form_container">
                 <div class="bx_ordercart">
-                    <div id="basket_items_list">              
+                    <div id="basket_items_list">
                         <div class="yourBooks" id="cardBlock1">
                             <?
                                 ShowError($arResult["ERROR_MESSAGE"]);
                             ?>
-							
+
                         </div>
 
                         <div class="yourBooks" id="cardBlock2">
@@ -491,7 +491,7 @@
                                 }
                                 }
                                 else
-                                { 
+                                {
                                 $el_list = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 17, "NAME" => $USER -> GetID()), false, false, array("ID"));
                                 while ($el_fetch = $el_list -> Fetch())
                                 {
@@ -507,15 +507,15 @@
                                 }
                                 else {
                                     $list_user = CUser::GetByID($uID) -> Fetch();
-                                    $list_user_name = $list_user["NAME"]." ".$list_user["LAST_NAME"];   
+                                    $list_user_name = $list_user["NAME"]." ".$list_user["LAST_NAME"];
                                 }
 
                                 global $WishFilter;
                                 $WishFilter["NAME"] = $list_user_name;
 
                                 $APPLICATION->IncludeComponent(
-                                    "bitrix:catalog.section", 
-                                    "wish_list", 
+                                    "bitrix:catalog.section",
+                                    "wish_list",
                                     array(
                                         "IBLOCK_TYPE_ID" => "catalog",
                                         "IBLOCK_ID" => "17",
@@ -783,8 +783,8 @@
 					<?
 
 					$APPLICATION->IncludeComponent(
-						"bitrix:catalog.section", 
-						"recommended_books", 
+						"bitrix:catalog.section",
+						"recommended_books",
 						array(
 							"IBLOCK_TYPE_ID" => "catalog",
 							"IBLOCK_ID" => "4",
@@ -908,9 +908,9 @@
 						),
 						false
 					);?>
-		
+
 				<?}?>
-            </div>			
+            </div>
             <?
             }
         ?>
@@ -921,15 +921,15 @@
 
 <script>
     $(document).ready(function(){
-        <?/*if ($_REQUEST["action"]) {?>  
+        <?/*if ($_REQUEST["action"]) {?>
             $(".cartMenuWrap .basketItems:first-child").removeClass("active");
             $('.cartMenuWrap .basketItems:nth-child(2)').addClass("active");
             $("#cardBlock2").show();
-		<?} else if (!$_REQUEST["liked"]) {?> 
+		<?} else if (!$_REQUEST["liked"]) {?>
             $('.cartMenuWrap .basketItems:nth-child(2)').removeClass("active");
             $('.cartMenuWrap .basketItems:first-child').addClass("active");
             $("#cardBlock1").show();
-		<?}*/?>   
+		<?}*/?>
 		dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'pageLoaded'});
         if ($(".gifts_block").find("div").size() > 0) {
             $(".gifts_block").show();
