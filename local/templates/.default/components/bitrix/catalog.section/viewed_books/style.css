@@ -729,3 +729,6 @@
     font-family: "Walshein_regular";
     height: 20px;
 }
+.uLookSlider .bookPrice span:after, .authorBoolSlider .bookPrice span:after {
+    content: '';
+}

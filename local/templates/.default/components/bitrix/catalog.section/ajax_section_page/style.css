@@ -785,3 +785,15 @@
 .breadCrump span a {
 	color:#555e60;
 }
+.basketBook_unavailable {
+    background-color: #e9e8e8;
+    border: 1px solid #c7a271;
+}
+.categoryWrapper .categoryBooks:hover .basketBook_unavailable {
+    border: 1px solid #c7a271;
+    color: #c7a271;
+    background-color: #e9e8e8;
+}
+.bookPrice span, .rubsign, .priceOfBook .rub_symbol {
+    font-family: 'RoubleSign'!important;
+}

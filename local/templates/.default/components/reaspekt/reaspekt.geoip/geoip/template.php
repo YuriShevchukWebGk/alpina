@@ -10,9 +10,9 @@
             "GET" => $templateFolder . "/ajax_geobase_get.php",
             "SAVE" => $templateFolder . "/ajax_geobase_save.php",
         ),
-		"CLASS" => array(
-			"WRAP_QUESTION_REASAPEKT" => "wrapQuestionReaspekt"
-		)
+        "CLASS" => array(
+            "WRAP_QUESTION_REASAPEKT" => "wrapQuestionReaspekt"
+        )
     );
 // Выведем актуальную корзину для текущего пользователя
 
@@ -41,46 +41,49 @@ while ($arItems = $dbBasketItems->Fetch()){
 
 
     if ($arResult["SET_LOCAL_DB"] == "local_db") :?>
-
             <?if($arResult["GEO_CITY"]["CITY"] != "Москва"){ ?>
-                <li><?= GetMessage("MAIL_DELIVERY") ?><br />
-                    <?if($arBasketPrice > FREE_SHIPING){ ?>
-                        <a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("DELIVRY_SALE")?></a>
-
-                    <? } else {?>
-                        <a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a>
-                    <?}?>
-
-                </li>
-                <li class="flippost"><?= GetMessage("MAIL_DELIVERY_PP") ?><br />
+                <li><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?= GetMessage("MAIL_DELIVERY") ?></a><br />
                     <?if($arBasketPrice > FREE_SHIPING){ ?>
                         <b><?=GetMessage("DELIVRY_SALE")?></b>
                     <? } else {?>
-                        <b><?=$_SESSION["price_delivery_flippost"].' руб.'?></b>
+                        <b><?=GetMessage("COUNTRY_DELIVERY")?> </b>
                     <?}?>
 
                 </li>
+                <?if(strpos($arResult["GEO_CITY"]["OKRUG"], 'Украина') <= 0){?>
+                    <li class="flippost"><?= GetMessage("MAIL_DELIVERY_PP") ?><br />
+                        <?if($arBasketPrice > FREE_SHIPING){ ?>
+                            <b><?=GetMessage("DELIVRY_SALE")?></b>
+                        <? } else {?>
+                            <b><?=$_SESSION["price_delivery_flippost"].' руб.'?></b>
+                        <?}?>
+
+                    </li>
+                <?}?>
             <?}?>
-            <li class="boxbery"><?= GetMessage("DELIVERY_POST_SITY") ?>
+            <?if(strpos($arResult["GEO_CITY"]["OKRUG"], 'Украина') <= 0){?>
+            <li class="boxbery"> Доставка в
                 <a href='#' class="city_pull" data-city="<?=$arResult["GEO_CITY"]["CITY"]?>" onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
-                    <?=$arResult["GEO_CITY"]["CITY"]?>
-                </a>
+                    <?= GetMessage("DELIVERY_POST_SITY") ?>
+
+                </a> в <?=$arResult["GEO_CITY"]["CITY"]?>
                 <?if($arBasketPrice > FREE_SHIPING){ ?>
                     <b><?=GetMessage("DELIVRY_SALE")?></b>
                 <? } else {?>
                     <?= GetMessage("CATALOG_QUANTITY_FROM", Array ("#FROM#" => "")) ?> <b><?=$_SESSION['price_delivery'].' руб.'?></b>
                 <?}?>
             </li>
+            <?}?>
 
             <li ><a href='#' data-reaspektmodalbox-href="<?=$templateFolder?>/ajax_popup_city.php" class="cityLinkPopupReaspekt linkReaspekt"><?=GetMessage('REASPEKT_GEOIP_TITLE_YOU_CITY')?></a></li>
+
             <?if($arResult["GEO_CITY"]["CITY"] == ""){ ?>
                 <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
             <?}?>
-            <?if (
-				$arParams["CHANGE_CITY_MANUAL"] == "Y"
-				&& $arResult["CHANGE_CITY"] == "N"
-			) :?>
-			<div class="<?=$arJSParams["CLASS"]["WRAP_QUESTION_REASAPEKT"]?>">
+
+            <?if ( $arParams["CHANGE_CITY_MANUAL"] == "Y" && $arResult["CHANGE_CITY"] == "N" ) :?>
+
+            <div class="<?=$arJSParams["CLASS"]["WRAP_QUESTION_REASAPEKT"]?>">
                 <div class="questionYourCityReaspekt"><?=GetMessage("REASPEKT_GEOIP_TITLE_YOU_CITY");?>:</div>
                 <div class="questionCityReaspekt"><strong><?=$arResult["GEO_CITY"]["CITY"]?></strong> (<?=$arResult["GEO_CITY"]["REGION"]?>)</div>
                 <div class="questionButtonReaspekt reaspekt_clearfix">
@@ -88,16 +91,16 @@ while ($arItems = $dbBasketItems->Fetch()){
                     <div class="questionYesReaspekt" onClick="objJCReaspektGeobase.onClickReaspektSaveCity('N');"><?=GetMessage("REASPEKT_GEOIP_BUTTON_Y");?></div>
                 </div>
             </div>
-			<?endif;?>
 
+            <?endif;?>
         <script type="text/javascript">
         $('.cityLinkPopupReaspekt').ReaspektModalBox();
         var objJCReaspektGeobase = new JCReaspektGeobase(<? echo CUtil::PhpToJSObject($arJSParams, false, true); ?>);
         </script>
     <?else:?>
-		<div class="wrapGeoIpReaspekt">
-			<strong><?=$arResult["GEO_CITY"]["CITY"]?></strong>
-		</div>
+        <div class="wrapGeoIpReaspekt">
+            <strong><?=$arResult["GEO_CITY"]["CITY"]?></strong>
+        </div>
     <?endif;
 endif;?>
 <?$frame->beginStub();?>

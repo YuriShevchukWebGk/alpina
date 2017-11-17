@@ -949,7 +949,7 @@ input.bt2:active{border:1px solid #d2d2d2}
     color: #00A9B6;
     font-family: "Walshein_regular";
     font-size: 15px;
-    cursor: pointer;	
+    cursor: pointer;
 }
 .promocode:hover, #acceptCoupon:hover {
 	border:none;
@@ -1029,4 +1029,9 @@ animation: nprogresss-spinner 400ms linear infinite;
 	background-size:19px 19px!important;
 }
 .bookDelay {color: #00abb8;font-size: 13px;cursor: pointer;}
-.bookDelay:hover{text-decoration:underline!important} 
+.bookDelay:hover{text-decoration:underline!important}
+
+.order_state{
+    margin-left: 30px;
+    color: red;
+}

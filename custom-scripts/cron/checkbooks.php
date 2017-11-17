@@ -88,7 +88,8 @@ global $USER;
 	echo '<pre>';
 	//print_r($lost);
 	echo '</pre>';
-	
+	$lost[] = 186046;
+    $lost[] = 372526;
 	$arSelect = Array('ID',"NAME","PROPERTY_PUBLISHER");
 	$arFilter = Array(	"IBLOCK_ID"=>4,
 						"PROPERTY_PUBLISHER"=>array(24,25,82,26),

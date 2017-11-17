@@ -10,7 +10,6 @@
     $bWeightColumn = false;
     $bPropsColumn  = false;
     $bPriceType    = false;
-
     if ($normalCount > 0):
     ?>
 <script>
@@ -135,7 +134,7 @@
                             $arItems = CSaleDiscount::GetByID(GIFT_BAG_EXHIBITION);
                             $count_number = preg_replace("/[^0-9]/", '', $arItems["UNPACK"]);  // вытаскиваем количество позиций из условия
 
-                            if($count < $count_number && ($arItem["PROPERTY_COVER_TYPE_VALUE"] == 'Подарок' || empty($arItem["PROPERTY_COVER_TYPE_VALUE"]))){
+                            if($count < $count_number && !stristr($arItem["DETAIL_PAGE_URL"], "/sumki/") && ($arItem["PROPERTY_COVER_TYPE_VALUE"] == 'Подарок' || empty($arItem["PROPERTY_COVER_TYPE_VALUE"]))){
                                 CSaleBasket::Delete($arItem["ID"]);
                             }
                             $totalQuantity += $arItem["QUANTITY"];
@@ -153,7 +152,7 @@
 							}
                              // arshow($count);
                             ?>
-                            <tr id="<?=$arItem["ID"]?>">
+                            <tr id="<?=$arItem["ID"]?>" data-available-quantity="<?= $arItem["AVAILABLE_QUANTITY"] ?>">
                                 <?
                                     foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader):
 
@@ -191,6 +190,20 @@
                                             {?>
                                                 <p class="nameOfAutor"><?=$curr_author["NAME"]?></p>
                                             <?}?>
+                                            <?
+                                            $val_order = '';
+                                            $state = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "STATE"));
+                                            if ($prop = $state->GetNext()) {
+                                                $val_order = $prop['VALUE_ENUM'];
+                                            }
+                                            $status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));
+                                            if ($prop = $status->GetNext()) {
+                                                if($val_order == "Скоро в продаже"){
+                                                    $date_state[] = $prop['VALUE'];
+                                                    ?><p class="newPriceText">Ожидаемая дата выхода: <?= strtolower(FormatDate("j F Y", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?> г.</p><?
+                                                }
+                                            }?>
+                                            <??>
                                             <p class="nameOfType"><?=$arItem["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                             <div class="bx_ordercart_itemart">
                                                 <?
@@ -270,7 +283,13 @@
                                         </td>
                                         <?
                                             elseif ($arHeader["id"] == "PRICE"):
-                                        ?>
+
+                                        if (strlen (stristr($arItem["PRICE"], ".")) == 2) {
+                                            $arItem["PRICE"] .= "0";
+                                        }
+                                        if (strlen (stristr($arItem["FULL_PRICE"], ".")) == 2) {
+                                            $arItem["FULL_PRICE"] .= "0";
+                                        }?>
                                         <td class="price priceOfBook">
                                             <p class="current_price costOfBook" id="current_price_<?=$arItem["ID"]?>">
                                                 <?=$arItem["PRICE"]?><span class='rubsign'></span>
@@ -327,6 +346,9 @@
 
             <div class="grayDownLine"></div>
             <?
+            if (strlen (stristr($arResult['allSum'], ".")) == 2) {
+                $arResult['allSum'] .= "0";
+            }
 	        $psum = $arResult['allSum'];
 	        $pdiscabs = $arResult['DISCOUNT_PRICE_ALL'];
 	        $pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
@@ -436,13 +458,25 @@
                     }
                 ?>
             </div>
-                        <p class="nextPageWrap">
-                        	<? if ($arResult['allSum']) { ?>
-                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
-                        	<? } else { ?>
-                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
-                        	<? } ?>
-                        </p>
+            <p class="nextPageWrap">
+                <? if ($arResult['allSum']) { ?>
+                    <a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                <? } else { ?>
+                    <span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
+                <? } ?>
+            </p>
+            <?
+            if($date_state){
+                usort($date_state, 'object_to_array'); // сортируем по дате предзаказа
+                session_start();
+                $_SESSION["DATE_DELIVERY_STATE"] = $date_state[0];
+               /* $str = strtotime($date_state[0]);
+                $new_day_delivery = date('d m Y',($str+86400*2));*/
+            }
+            ?>
+        <?if($date_state){?>
+            <span class="order_state">В заказе есть товары с ожидаемой датой выхода <?=strtolower(FormatDate("j F Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
+        <?}?>
         </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />

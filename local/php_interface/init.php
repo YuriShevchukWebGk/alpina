@@ -1,11 +1,11 @@
-<?                                                                                     
-    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php"); 
+<?
+    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
-    
-    //Подключим хендлеры для работы с остатками    
-    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
+
+    //Подключим хендлеры для работы с остатками
+    //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
     //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
-    
+
     file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
     use Mailgun\Mailgun;
 
@@ -439,6 +439,7 @@
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
 
+
     AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
     AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 
@@ -473,6 +474,30 @@
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
+
+
+    }
+       // изменяем статус для заказов с предзаказом
+    AddEventHandler("sale", "OnBeforeOrderAdd", "statusUpdate");
+
+    function statusUpdate(&$arFields){
+        CModule::IncludeModule('iblock');
+        CModule::IncludeModule('sale');
+        $VALUES = 0;
+        foreach($arFields["BASKET_ITEMS"] as $basket_item){
+
+            $res = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $basket_item["PRODUCT_ID"], array(), array("CODE" => "STATE"));
+            if ($ob = $res->GetNext()) {
+                if($ob["VALUE"] == STATE_SOON){
+                    $VALUES += 1;
+                }
+            }
+        }
+
+        if($VALUES > 0){
+            $arFields["STATUS_ID"] = "PR";
+        }
+
     }
 
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
@@ -766,6 +791,7 @@
     //обработка статусов заказа при получении оплаты
     AddEventHandler('sale', 'OnSalePayOrder', "UpdOrderStatus");
     function UpdOrderStatus ($ID, $val) {
+
         $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
         //при получении оплаты
         if ($val == "Y") {
@@ -788,7 +814,9 @@
 
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
-                    $ids .= $arItems["PRODUCT_ID"].',';
+                    if ($arItems["PRODUCT_ID"] != '186046' && $arItems["PRODUCT_ID"] != '372526') {
+                        $ids .= $arItems["PRODUCT_ID"].',';
+                    }
                 }
 
                 $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
@@ -831,13 +859,14 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-                if ($order_list[PERSON_TYPE_ID] == 1) {
+                if ($order_list[PERSON_TYPE_ID] == 1 && !strstr($ids, "186046") && !strstr($ids, "372526")) {
                     CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
                 }
 
                 CSaleOrder::StatusOrder($ID, "D");
             }
         }
+
 
         //Create gift coupon after buy certificate
         $IBLOCK_ID = GIFT_COUNPON_IBLOCK_ID;
@@ -3234,31 +3263,26 @@
 
 
     }
-    
-    AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'updatingQuantityforPreorderItems');
-    
+
+    //AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'updatingQuantityforPreorderItems');
+
     function updatingQuantityforPreorderItems (&$arFields) {
         if ($arFields["IBLOCK_ID"] == CATALOG_IBLOCK_ID) {
             $updated_item_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $arFields["ID"]), false, false, array("IBLOCK_ID", "ID", "PROPERTY_STATE"));
             while ($updated_item = $updated_item_info -> Fetch()) {
                 if ($updated_item["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && $arFields["QUANTITY"] != 0) {
                     $upd_product = new CCatalogProduct();
-                    $prodFields = array("QUANTITY" => 99999);      
+                    $prodFields = array("QUANTITY" => 99999);
                     $upd_product -> Update($arFields["ID"], $prodFields);
                 }
             }
-            
+
         }
     }
 
-    function object_to_array($data) {
-    if (is_array($data) || is_object($data)) {
-        $result = array();
-        foreach ($data as $key => $value) {
-            $result[$key] = object_to_array($value);
-        }
-        return $result;
-    }
-    return $data;
+
+function object_to_array($a, $b) {
+    return strtotime($b) - strtotime($a);
 }
+
 ?>

@@ -36,9 +36,16 @@
     <link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
     <link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
     <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
+    <?if ($_SERVER["HTTP_HTTPS"]) {
+        $protocol_name = "https://";
+    } else {
+        $protocol_name = "http://";
+    }?>
+    <link rel="amphtml" href="http://amp.alpinabook.ru/mobile/alpinabook-ru/amp/?p=<?= $protocol_name . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
     <meta name="theme-color" content="#ffffff">
+    <meta name="yandex-verification" content="9b63e2cc68c18dd9" />
 
     <script src="/js/inputmask.date.extension.js"></script>
     <script src="/js/jquery.selectric.min.js"></script>
@@ -118,29 +125,6 @@
             });
                     // Найдем ближайшую к точке (37.588162, 55.733797) станцию метро
 
-        }
-
-        function city_ip() {
-            // Данные о местоположении, определённом по IP
-            var geolocation = ymaps.geolocation,
-            // координаты
-                coords = [geolocation.latitude, geolocation.longitude],
-                myMap = new ymaps.Map('map', {
-                    center: coords,
-                    zoom: 10
-                });
-             console.log(coords);
-            myMap.geoObjects.add(
-                new ymaps.Placemark(
-                    coords,
-                    {
-                        // В балуне: страна, город, регион.
-                        balloonContentHeader: geolocation.country,
-                        balloonContent: geolocation.city,
-                        balloonContentFooter: geolocation.region
-                    }
-                )
-            );
         }
         function geoMetro(latitude, longitude){
             var metro = new YMaps.Metro.Closest(new YMaps.GeoPoint(longitude,latitude), { results : 1 } )// по геоданным получаем 1 станцию метро
@@ -245,5 +229,4 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             );?>
     </div>
 </div>
-
 

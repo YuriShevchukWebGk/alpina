@@ -26,7 +26,7 @@ table.form-table th
 
 table.form-table td
 {
-	padding: 15px 5px;
+	padding: 15px 10px;
 }
 
 .form-required 
@@ -69,4 +69,20 @@ table.form-table td
 }
 .howToBodyWrap p{
     text-align: center; 
+}
+.form-table input[type="text"], .form-table textarea {
+    background: #fff;
+    border: 1px solid #c1c5c8;
+    border-radius: 2px;
+    color: #000;
+    box-shadow: inset 2px 2px 2px -1px rgba(180,188,191,0.5)!important;
+    display: inline-block;
+    outline: none;
+    vertical-align: middle;
+    font-size: 14px;
+    padding: 6px 8px!important;
+    margin-bottom: 3px;
+}
+.g-recaptcha > div {
+    margin: 0 auto;
 }

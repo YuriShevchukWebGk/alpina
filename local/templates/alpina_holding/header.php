@@ -13,6 +13,12 @@
     <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
     <script type="text/javascript" src="/js/fancybox-2/helpers/jquery.fancybox-thumbs.js"></script>
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
+    <?if ($_SERVER["HTTP_HTTPS"]) {
+        $protocol_name = "https://";
+    } else {
+        $protocol_name = "http://";
+    }?>
+    <link rel="amphtml" href="http://amp.alpinabook.ru/mobile/alpinabook-ru/amp/?p=<?= $protocol_name . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>">
     <?$APPLICATION->ShowHead();?>
 	<meta name="yandex-verification" content="7771afb530c4322e" />
 	<!-- header .alpina_holding -->

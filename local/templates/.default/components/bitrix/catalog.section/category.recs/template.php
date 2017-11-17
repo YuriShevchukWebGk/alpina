@@ -55,13 +55,13 @@ $this->setFrameMode(true);
                         if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23 && $arItem["IBLOCK_SECTION_ID"] != CERTIFICATE_SECTION_ID)
                         {
                         ?>
-                            <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                            <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span></span></p>
                         <?
                         }
                         else if ($arItem["IBLOCK_SECTION_ID"] == CERTIFICATE_SECTION_ID)
                         {
                         ?>               
-                            <p class="bookPrice"><?=ceil($arPrice["VALUE_VAT"])?> <span>руб.</span></p>
+                            <p class="bookPrice"><?=ceil($arPrice["VALUE_VAT"])?> <span></span></p>
                         <?
                         }
                         else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == 23)

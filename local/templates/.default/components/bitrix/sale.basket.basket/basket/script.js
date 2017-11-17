@@ -506,7 +506,9 @@ function updateBasketTable(basketItemId, res, params)
             if (res["WARNING_MESSAGE"][i].indexOf("Для") != -1) {
                 res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i].replace("Для оформления заказа недостаточно товара", "Доступное количество ");
                 res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i].replace(" в количество", ":");
-                res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i] + " шт.";    
+                var quote_position = res["WARNING_MESSAGE"][i].indexOf('"', 23);
+                var item_avail_quantity = $("tr#" + params.basketID).attr("data-available-quantity");
+                res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i].replace(res["WARNING_MESSAGE"][i].substring(quote_position+1), ": " + item_avail_quantity + " шт.");    
             }
             warningText += res['WARNING_MESSAGE'][i] + '<br/>';    
         }

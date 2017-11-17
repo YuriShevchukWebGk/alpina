@@ -1,5 +1,4 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-
 <?
     if ($_REQUEST["ORDER_ID"])
     {?>
@@ -9,7 +8,6 @@
         }
     </style>
     <?}?>
-
 <?
     if (!empty($arResult["ORDER"]))
     {
@@ -265,7 +263,7 @@
                     $account = ["id" => $order_info["USER_ID"]];
                     $amount = $order_info["PRICE"] * 100;
                     $currency = $order_info["CURRENCY"];
-                    $payer = ["phone_number" => str_replace(")", "", substr($phone_val, 2))];
+                    $payer = ["phone_number" => str_replace(array(")", "(", "-"), "", substr($phone_val, 2))];
                     //$order = ({"type" : "order_id", "order_id" : $order_id});
                     $order = ["type" => "order_id", "order_id" => $order_id];
                     $project = "alpinabook";
@@ -285,8 +283,8 @@
                     $merchant_info["sign"] = $sign;
                 }                    
             ?>
-            <iframe src='https://playground.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=6000000&currency=RUB&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&payer=<?= json_encode($payer) ?>&amount=<?= rawurldecode($amount) ?>' style="width: 800px; height: 300px">
-            </iframe>
+            <a class="platbox_button submit_platbox">Оплатить</a>                     
+            <br>
             <??>
             <?}    
             else if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
@@ -629,5 +627,20 @@
     });
 	$(document).ready(function(){
     	dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'pageLoaded'});
+        $(".submit_platbox").on("click", function(){
+            $(".layout").show();
+            $(".platbox_iframe_block").show();
+        });
+        $(".layout").on("click", function(){
+            if ($(".platbox_iframe_block").css("display") == "block") {
+                $(".platbox_iframe_block").hide();
+            }
+        });
+        $(".platbox_iframe_closing").on("click", function(){
+            if ($(".platbox_iframe_block").css("display") == "block") {
+                $(".platbox_iframe_block").hide();
+                $(".layout").hide();
+            }
+        })
     });
 </script>

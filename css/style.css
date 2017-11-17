@@ -1,5 +1,5 @@
 .sitemap{columns:2;-moz-column-count:2;-webkit-column-count:2;column-count:2;}
-.sitemap a{text-decoration: none;color: #7b8c90;font-family: "Walshein_regular";font-size: 15px;} 
+.sitemap a{text-decoration: none;color: #7b8c90;font-family: "Walshein_regular";font-size: 15px;}
 .sitemap .level_0, .sitemap .level_1, .sitemap .level_2{margin-left: 20px;}
 .busket_senk{display:none;box-sizing: border-box;position: fixed;width: 200px;height: 50px;font-size: 15px;padding: 10px;top: 100px;right: 50px;background: #00abb8;line-height: 30px;color: #fff;z-index:999;}
 .headCatalog,.lkWrapp div{border-left:1px solid #e2e2e2}
@@ -329,7 +329,7 @@ input:focus{outline:0}
 .headLiked{background:url(/img/alp_icon.png) 22px 20px no-repeat rgba(0,0,0,0);height:99%;padding:1px 0 0!important}
 header .headBasket{margin-right:0}
 .BasketQuant,.likedQuant{width:19px;height:19px!important;background:#4B4B4B;position:absolute;right:12px;top:15px;border-radius:10px;color:#fff;font-size:13px;text-align:center;padding:0!important}
-.headLogin{background:url(/img/loginLogoMini.png) 18px 16px no-repeat rgba(0,0,0,0);height:100%;width:60px}
+.headLogin{background:url(/img/lkImgBl.png) 18px 16px no-repeat rgba(0,0,0,0);height:100%;width:60px}
 .headFind{float:left;height:100%;left:0;margin-left:272px;position:absolute;right:182px;width:auto;top:0}
 .headFind input,.headFindCatalog input{margin-left:1px;border:none;background-color:#F8F8F8;color:#BBC0C2;font-size:19px;padding-left:30px}
 .headFind input{height:90%;width:300px}
@@ -357,10 +357,28 @@ header .headBasket{margin-right:0}
 .hidingBasketRight .bookImage,.hidingBasketRight .result>p{float:left}
 .wrapperCategor{background-color:#F4F4F4;height:2500px}
 .categoryWrapper .categoryBooks{float:left;padding:6px;margin-bottom:40px;position:relative}
-.categoryWrapper .showMore{border:1px solid #c8a474;-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;transition:color .3s ease,background-color .3s ease,border-color .3s ease;border-radius:34px;color:#c8a474;font-size:19px;margin:32px auto 70px;padding:12px 44px;text-align:center;width:245px;cursor:pointer}
+.categoryWrapper .showMore{
+    border: 1px solid #c8a474;
+    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    transition: color .3s ease,background-color .3s ease,border-color .3s ease;
+    border-radius: 34px;
+    color: #c8a474;
+    font-size: 19px;
+    margin: 47px auto 70px;
+    padding: 12px 44px;
+    text-align: center;
+    width: 245px;
+    cursor: pointer;
+    clear: both;}
 .elementDescriptWrap .buyLater,.elementDescriptWrap .inBasket{-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .categoryWrapper .showMore:hover{background:#e6e6e6}
-.categoryWrapper .otherBooks{height:1302px}
+.categoryWrapper .otherBooks{
+    height:1302px;
+    float: left;
+    margin-bottom: 90px;
+}
 .otherBooks .nameBook{color:#424C4F;font-size:14px;padding-left:4px;padding-top:5px;height:45px;width:142px;overflow:hidden}
 .otherBooks .bookAutor{color:#7B8C90;font-size:14px;padding-left:4px;padding-top:5px;height:20px;overflow:hidden}
 .otherBooks .tapeOfPack{color:#3f4a4d;font-size:14px;padding-left:4px;padding-top:8px;height:20px}
@@ -498,7 +516,7 @@ header .headBasket{margin-right:0}
 .oldPrice p{background-color:#7b8c90;height:2px;position:absolute;top:14px;width:92%}
 .elementDescriptWrap .newPrice{color:#00ABB8;font-family:Walshein_black;font-size:42px;margin-left:10px;margin-top:8px}
 .elementDescriptWrap .newPrice span{font-size:26px;font-weight:700;font-family:RoubleSign;}
-.rubsign:after{content:'i'}
+.bookPrice span:after, .rubsign:after{content:'i'}
 .priceBasketWrap .text{color:#7B8C90;font-size:15px;padding:8px;margin-bottom:85px}
 .elementDescriptWrap .inBasket{background-color:#00abb8;border-radius:35px;color:#fff;font-size:19px;margin:0 28px;padding:14px 58px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .elementDescriptWrap .inBasket.toPreorder{font-size:16px;padding:14px 15px}
@@ -536,7 +554,7 @@ header .headBasket{margin-right:0}
 .productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:19px;width:auto!important}
 .productsMenu li:hover{border-bottom:none}
 .productsMenu li:last-child{margin-right:0}
-.productsMenu .active{color:#2F3839;font-size:19px;text-transform:none;border-bottom:none;font-family:Walshein_black}
+.productsMenu .active a, .productsMenu .active{color:#2F3839;font-size:19px;text-transform:none;border-bottom:none;font-family:Walshein_black}
 .elementDescriptWrap .citate,.elementDescriptWrap i{color:#2F3839;font-family:Walshein_light;font-size:20px;margin-bottom:20px}
 .elementDescriptWrap .citateAutor{color:#7B8C90;font-family:Walshein_bold;font-size:13px;text-transform:uppercase;margin-bottom:36px}
 .breadCrumpWrap a,.helpBlock .telephone{font-family:Walshein_black}
@@ -1017,7 +1035,6 @@ table.form-table tr td:nth-child(2){text-align:left}
 .sailplay_basket_quantity{display:block;margin:36px auto;text-align:center;color:#7b8c90;font-size:14px}
 .basket_zero_cost{color:#AD3b20;font-size:18px}
 #digitalversion,#paperversion{font-family:Walshein_regular;font-size:16px;padding:10px 20px 0;color:#00abb8;display:block;float:left;width:92px;height:52px}
-#digitalversion{line-height:45px}
 #diffversions .active{background:#ecedef;box-shadow:0 -1px 1px 0 rgba(0,0,0,.18)}
 #diffversions .passive:hover span{border-bottom:none}
 .digitalVersionWrap .inBasket{padding:14px 10px;margin:0 20px}

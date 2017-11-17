@@ -7,7 +7,6 @@
     window.JCReaspektGeobase = function (arParams) {
         this.letters = '';
         this.timer = '0';
-
         if (typeof arParams === 'object') {
             this.params = arParams;
         }
@@ -29,9 +28,11 @@
                 var dataJSON = JSON.parse(data);
 
 				if (dataJSON.STATUS == "Y") {
-
+					console.log('close');
 					obClass.onClickReaspektSaveCity("Y");
 
+                } else {
+                    console.log('Error, change city!');
                 }
 
             }
@@ -112,7 +113,6 @@
                 }
                 list.append('<div class="reaspektResultCityAjax">' + data + '</div>');
                 $.fn.ReaspektModalBox('rePosition');
-
                 obClass.hidePreloaderReaspektGeobase();
             }
         });

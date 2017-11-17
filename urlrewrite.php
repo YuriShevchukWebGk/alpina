@@ -15,26 +15,44 @@ $arUrlRewrite = array(
 	array(
 		"CONDITION" => "#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#",
 		"RULE" => "alias=\$1",
-		"ID" => "bitrix:im.router",
+		"ID" => "",
 		"PATH" => "/desktop_app/router.php",
 	),
 	array(
 		"CONDITION" => "#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#",
 		"RULE" => "alias=\$1",
-		"ID" => "",
+		"ID" => "bitrix:im.router",
 		"PATH" => "/desktop_app/router.php",
 	),
 	array(
-		"CONDITION" => "#^/sitemap/([0-9a-zA-Z_]+)/#",
-		"RULE" => "",
-		"ID" => "",
-		"PATH" => "/sitemap/add.php",
+		"CONDITION" => "#^/catalog/(.+)/(.+)(-comments)/#",
+		"RULE" => "SECTION_ID=\$1&ELEMENT_ID=\$2",
+		"ID" => "bitrix:catalog.element",
+		"PATH" => "/catalog/comments.php",
+	),
+	array(
+		"CONDITION" => "#^/catalog/(.+)/(.+)(-reviews)/#",
+		"RULE" => "SECTION_ID=\$1&ELEMENT_ID=\$2",
+		"ID" => "bitrix:catalog.element",
+		"PATH" => "/catalog/reviews.php",
+	),
+	array(
+		"CONDITION" => "#^/catalog/(.+)/(.+)(-ebook)/#",
+		"RULE" => "SECTION_ID=\$1&ELEMENT_ID=\$2",
+		"ID" => "bitrix:catalog.element",
+		"PATH" => "/catalog/ebook.php",
 	),
 	array(
 		"CONDITION" => "#^/bitrix/services/ymarket/#",
 		"RULE" => "",
 		"ID" => "",
 		"PATH" => "/bitrix/services/ymarket/index.php",
+	),
+	array(
+		"CONDITION" => "#^/sitemap/([0-9a-zA-Z_]+)/#",
+		"RULE" => "",
+		"ID" => "",
+		"PATH" => "/sitemap/add.php",
 	),
 	array(
 		"CONDITION" => "#^/good-arithmetics-news/#",
@@ -91,22 +109,16 @@ $arUrlRewrite = array(
 		"PATH" => "/testnews/index.php",
 	),
 	array(
-		"CONDITION" => "#^/authors/#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/authors/index.php",
-	),
-	array(
 		"CONDITION" => "#^/catalog/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog",
 		"PATH" => "/catalog/index.php",
 	),
 	array(
-		"CONDITION" => "#^/events/#",
+		"CONDITION" => "#^/authors/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",
-		"PATH" => "/events/index.php",
+		"PATH" => "/authors/index.php",
 	),
 	array(
 		"CONDITION" => "#^/series/#",
@@ -115,10 +127,22 @@ $arUrlRewrite = array(
 		"PATH" => "/series/index.php",
 	),
 	array(
+		"CONDITION" => "#^/events/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/events/index.php",
+	),
+	array(
 		"CONDITION" => "#^/store/#",
 		"RULE" => "",
 		"ID" => "bitrix:catalog.store",
 		"PATH" => "/store/index.php",
+	),
+	array(
+		"CONDITION" => "#^/blog/#",
+		"RULE" => "",
+		"ID" => "bitrix:news",
+		"PATH" => "/blog/index.php",
 	),
 	array(
 		"CONDITION" => "#^/news/#",
@@ -126,12 +150,6 @@ $arUrlRewrite = array(
 		"ID" => "bitrix:news",
 		"PATH" => "/news/index.php",
 	),
-	array(
-		"CONDITION" => "#^/blog/#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/blog/index.php",
-	)
 );
 
 ?>
