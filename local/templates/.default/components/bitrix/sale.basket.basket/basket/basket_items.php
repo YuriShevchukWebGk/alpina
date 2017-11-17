@@ -474,9 +474,9 @@
                 $new_day_delivery = date('d m Y',($str+86400*2));*/
             }
             ?>
-
-        <span class="order_state">В заказе есть товары с ожидаемой датой выхода <?=strtolower(FormatDate("j F Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
-
+        <?if($date_state){?>
+            <span class="order_state">В заказе есть товары с ожидаемой датой выхода <?=strtolower(FormatDate("j F Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
+        <?}?>
         </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />

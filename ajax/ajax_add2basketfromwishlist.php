@@ -1,57 +1,59 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
     CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock"); CModule::IncludeModule('highloadblock');
-    
+
     use Bitrix\Highloadblock as HL;
     use Bitrix\Main\Entity;
 ?>
 <?
     switch ($_REQUEST["action"])
     {
-        case "add":                                                   
-            if(intval($_REQUEST["productid"]) > 0){//добавление товара в корзину            
+        case "add":
+            if(intval($_REQUEST["productid"]) > 0){//добавление товара в корзину
                 //$allproducts = explode("-", $_REQUEST["productid"]);
                 //foreach ($allproducts as $product) {
-                $product = intval($_REQUEST["productid"]);                 
+                $product = intval($_REQUEST["productid"]);
                 //$product = intval($_POST["add2basket"]);
-                //проверим     
+                //проверим
                 $res = CIBlockElement::GetByID($product);
-                if($ar_res = $res->GetNext()) 
+                if($ar_res = $res->GetNext())
                 {
                     $arProps = array();
                     $PRODUCT = $ar_res;
 
-
-                    $ar_res = CPrice::GetBasePrice($PRODUCT["ID"]); 
+                    $quantity = 1;
+                    $ar_res = CPrice::GetBasePrice($PRODUCT["ID"]);
                     $price=$ar_res["PRICE"];
-                    if(intval($price)==0){ 
+                    if(intval($price)==0){
                         $price = 0;
                         $arFields = array(
                             "PRODUCT_ID" => $PRODUCT["ID"],
                             "QUANTITY" =>  $quantity,
                             "PRODUCT_XML_ID" => $PRODUCT["ID"],
                             "PRICE" => $price,
-                            "CURRENCY" => "RUB", 
+                            "CURRENCY" => "RUB",
                             "LID" => "s1",
                             "NAME" => $PRODUCT["NAME"],
+                            "FUSER_ID" => CSaleBasket::GetBasketUserID(),
                             "PRODUCT_PROVIDER_CLASS" => "CCatalogProductProvider",
                             "MODULE" => "catalog"
                         );
                         $basket_id = CSaleBasket::Add($arFields);
                         $arItem = CSaleBasket::GetByID($basket_id );
-                        if($arItem["QUANTITY"]!= $quantity) 
+                        if($arItem["QUANTITY"]!= $quantity)
                         {
-                            $arFields = array("QUANTITY" => $arItem["QUANTITY"]+$quantity);
+                            $arFields = array("QUANTITY" => $arItem["QUANTITY"]+$quantity, "FUSER_ID" => CSaleBasket::GetBasketUserID());
                             CSaleBasket::Update($basket_id, $arFields);
-                        }                
+                        }
                     } else {
-                        $basket_id = Add2BasketByProductID($product,$quantity); 
+                        $basket_id = Add2BasketByProductID($product,$quantity);
                         if($_REQUEST['product_status'] == '22') {
-                            $arFields = array(    
-                               "DELAY" => "Y"
+                            $arFields = array(
+                               "DELAY" => "Y",
+                               "FUSER_ID" => CSaleBasket::GetBasketUserID()
                             );
-                            CSaleBasket::Update($basket_id, $arFields);                                             
-                        } 
-                    }                                                            
+                            CSaleBasket::Update($basket_id, $arFields);
+                        }
+                    }
 
                 }
 
@@ -62,16 +64,16 @@
             $arFields = array(
                 "QUANTITY"=>$_REQUEST["quantity"]
             );
-            CSaleBasket::Update($_REQUEST["id"], $arFields); 
+            CSaleBasket::Update($_REQUEST["id"], $arFields);
             break;
     }
-    
+
     $uID = $USER -> GetID();
     $curr_user = CUser::GetByID($uID) -> Fetch();
     $user = $curr_user["NAME"]." ".$curr_user["LAST_NAME"];
-    $wish_item_list = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user, "PROPERTY_PRODUCTS" => $_REQUEST["productid"]), false, false, array("NAME", "ID", "PROPERTY_PRODUCTS")) -> Fetch();  
+    $wish_item_list = CIBlockElement::GetList(array(), array("IBLOCK_ID" => 17, "NAME" => $user, "PROPERTY_PRODUCTS" => $_REQUEST["productid"]), false, false, array("NAME", "ID", "PROPERTY_PRODUCTS")) -> Fetch();
     CIBlockElement::Delete($wish_item_list["ID"]);
-    
+
 
     if ($_REQUEST["list"]) {
         $list_user = CUser::GetByID($_REQUEST["list"]) -> Fetch();
@@ -79,14 +81,14 @@
     }
     else {
         $list_user = CUser::GetByID($uID) -> Fetch();
-        $list_user_name = $list_user["NAME"]." ".$list_user["LAST_NAME"];   
+        $list_user_name = $list_user["NAME"]." ".$list_user["LAST_NAME"];
     }
 
     global $WishFilter;
     $WishFilter["NAME"] = $list_user_name;
    $APPLICATION->IncludeComponent(
-        "bitrix:sale.basket.basket", 
-        "basket", 
+        "bitrix:sale.basket.basket",
+        "basket",
         array(
             "COUNT_DISCOUNT_4_ALL_QUANTITY" => "N",
             "COLUMNS_LIST" => array(
@@ -137,5 +139,5 @@
         ),
         false
     );
-    
+
 ?>
