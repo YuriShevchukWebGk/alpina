@@ -228,7 +228,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         ourday = <?=date("w");?>;
 
         <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
-		    minDatePlus = <?=$interval + $setProps['nextDay']?>;
+		    minDatePlus = <?=$interval + $setProps['nextDay']?> + 1;
             new_day = minDatePlus + 14;
             minDate = "+" + new_day + "d";
         <?} else { ?>

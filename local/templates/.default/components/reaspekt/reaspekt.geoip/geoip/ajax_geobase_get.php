@@ -23,25 +23,27 @@ $strCityName = htmlspecialchars(trim($request->getPost("city_name")));
 
 if(strlen($strCityName) >= 2):
     $arCity = ReaspGeoIP::SelectQueryCity($strCityName);
-    
-    //ïğåäåëèëñ¤ ãîğîä ïî óìîë÷àíèş
+
+    //ÑœĞ¿Ñ€ĞµĞ´ĞµĞ»Ğ¸Ğ»ÑÂ¤ Ğ³Ğ¾Ñ€Ğ¾Ğ´ Ğ¿Ğ¾ ÑƒĞ¼Ğ¾Ğ»Ñ‡Ğ°Ğ½Ğ¸Ñ
     $arData = ReaspGeoIP::GetAddr();
 ?>
 
 	<?if(!empty($arCity)):?>
 		<?
         $cell = 1;
-		
+
 		foreach($arCity as $valCity):?>
+        <?if(strpos($valCity["OKRUG"], 'Ğ£ĞºÑ€Ğ°Ğ¸Ğ½Ğ°') <= 0){?>
         <div class="reaspektSearchCity">
             <?if($arData["CITY"] == $valCity["CITY"]):?>
             <strong><?=$valCity["CITY"]?></strong>
             <?else:?>
-            <a onclick="objJCReaspektGeobase.onClickReaspektGeobase('<?=$valCity["CITY"]?>'); return false;" id="reaspekt_geobase_list_<?=$cell?>" title="<?=$valCity["CITY"]?>" href="javascript:void(0);">
+            <a onclick="objJCReaspektGeobase.onClickReaspektGeobase('<?=$valCity["CITY"]?>'); return false;" id="reaspekt_geobase_list_<?=$cell?>" title="<?=($valCity["CITY"])?>" href="javascript:void(0);">
             <?=ReaspGeoIP::StrReplaceStrongSearchCity($strCityName, $strCityName, $valCity["CITY"]);?>, <?=$valCity["REGION"]?></a>
             <?endif;?>
         </div>
 		<?
+        }
             $cell++;
         endforeach;?>
 	<?else:?>

@@ -477,6 +477,28 @@
 
 
     }
+       // изменяем статус для заказов с предзаказом
+    AddEventHandler("sale", "OnBeforeOrderAdd", "statusUpdate");
+
+    function statusUpdate(&$arFields){
+        CModule::IncludeModule('iblock');
+        CModule::IncludeModule('sale');
+        $VALUES = 0;
+        foreach($arFields["BASKET_ITEMS"] as $basket_item){
+
+            $res = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $basket_item["PRODUCT_ID"], array(), array("CODE" => "STATE"));
+            if ($ob = $res->GetNext()) {
+                if($ob["VALUE"] == STATE_SOON){
+                    $VALUES += 1;
+                }
+            }
+        }
+
+        if($VALUES > 0){
+            $arFields["STATUS_ID"] = "PR";
+        }
+
+    }
 
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
     AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
@@ -3259,7 +3281,7 @@
 
 
 function object_to_array($a, $b) {
-    return strtotime($a) - strtotime($b);
+    return strtotime($b) - strtotime($a);
 }
 
 ?>

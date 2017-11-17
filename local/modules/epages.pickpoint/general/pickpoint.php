@@ -431,6 +431,7 @@
 
         function ExportOrders($arIDs)
         {
+            $arIDs = array_reverse($arIDs);
             global $APPLICATION;
             $MODULE_ID = "epages.pickpoint";
             $api_login = COption::GetOptionString($MODULE_ID, "pp_api_login", "");
