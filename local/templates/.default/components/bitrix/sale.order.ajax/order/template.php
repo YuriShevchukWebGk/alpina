@@ -84,7 +84,7 @@
 
 </style>
 
-<div id="map" style="width:0; height:0;"></div>
+<div id="map" style="width:10px; height:10px;"></div>
 
 
 <?
@@ -187,7 +187,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                       text.onkeyup          =  function testKey(){
                           var testText       =  text.value;
                           text.value      = testText.substring(0, testText.length - 1)
-                      }    
+                      }
                   }
            }
            deleteDateId("ORDER_PROP_44");

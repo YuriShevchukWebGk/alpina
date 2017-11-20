@@ -809,7 +809,7 @@
     //обработка статусов заказа при получении оплаты
     AddEventHandler('sale', 'OnSalePayOrder', "UpdOrderStatus");
     function UpdOrderStatus ($ID, $val) {
-        $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
+        $arStatus = array( "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
         //при получении оплаты
         if ($val == "Y") {
             $order = CSaleOrder::GetById($ID);
@@ -883,6 +883,7 @@
                 CSaleOrder::StatusOrder($ID, "D");
             }
         }
+
 
         //Create gift coupon after buy certificate
         $IBLOCK_ID = GIFT_COUNPON_IBLOCK_ID;
@@ -1036,6 +1037,7 @@
                     UpdOrderStatus($ID, "Y");
                 }
             }
+
         }
 
 
@@ -2304,6 +2306,10 @@
         $urlLabel = "http://e-solution.pickpoint.ru/api/makelabel";
         $content = json_encode($dataSend);
         //        arshow($content);
+        $order_info = CSaleOrder::GetByID($orderId);
+        $arFIO = CPickpoint::GetParam($orderId, $order_info["PERSON_TYPE_ID"], "FIO");
+                            $sFIO = current($arFIO);
+                            arshow($sFIO);
         $curl = curl_init($urlLabel);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
