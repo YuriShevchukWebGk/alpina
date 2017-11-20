@@ -938,6 +938,12 @@
             } else {
                 $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
             }
+            if($_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"]){
+                $country = $_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"];
+            } else {
+                $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
+            }
+          //  arshow($_SESSION["ALTASIB_GEOBASE"], false);
             ?>
             <ul class="shippings">
                 <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"] != "RU" && $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"]){?>
@@ -951,11 +957,11 @@
                             "LOADING_AJAX" => "N",
                             "RIGHT_ENABLE" => "Y",
                             "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "Мой город:",
+                            "SPAN_LEFT" => "",
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>
-                 <?} else if($_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"] != "RU" || $_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"] != "RU"){?>
+                 <?} else if($country != "RU"){?>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     <?$APPLICATION->IncludeComponent(
                         "altasib:geobase.select.city",
@@ -966,7 +972,7 @@
                             "LOADING_AJAX" => "N",
                             "RIGHT_ENABLE" => "Y",
                             "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "Мой город:",
+                            "SPAN_LEFT" => "",
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>
@@ -997,7 +1003,7 @@
                             "LOADING_AJAX" => "N",
                             "RIGHT_ENABLE" => "Y",
                             "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "Мой город:",
+                            "SPAN_LEFT" => "",
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>

@@ -42,22 +42,23 @@ while($arTemplRes = $rsData->Fetch())
 $strCompYC = 'altasib:geobase.your.city';
 $arCTempls = CComponentUtil::GetTemplatesList($strCompYC);
 $arCTemplates = array();
-$arDefCTempls = ".default,";
+$arDefCTempls = "altasib_geobase,";
 foreach($arCTempls as $Templ)
 {
+    arshow($Templ);
 	$arCTemplates[implode(",", $Templ)] = $Templ['NAME'].(!empty($Templ['TEMPLATE']) ? ' ('.$Templ['TEMPLATE'].')' : '');
-	if($Templ["NAME"] == ".default")
+	if($Templ["NAME"] == "altasib_geobase")
 		$arDefCTempls = $Templ["NAME"].','.$Templ["TEMPLATE"];
 }
 
 $strCompSC = 'altasib:geobase.select.city';
 $arCSC_Templs = CComponentUtil::GetTemplatesList($strCompSC);
 $arCTemplateSel = array();
-$arDefCSC_Templs = ".default,";
+$arDefCSC_Templs = "altasib_geobase,";
 foreach($arCSC_Templs as $Templ)
 {
 	$arCTemplateSel[implode(",", $Templ)] = $Templ['NAME'].(!empty($Templ['TEMPLATE']) ? ' ('.$Templ['TEMPLATE'].')' : '');
-	if($Templ["NAME"] == ".default")
+	if($Templ["NAME"] == "altasib_geobase")
 		$arDefCSC_Templs = $Templ["NAME"].','.$Templ["TEMPLATE"];
 }
 
@@ -118,9 +119,9 @@ $arTimeRdr = array(
 
 $arAllOptions = array(
 	"main" => Array(
-		Array("set_cookie", GetMessage("ALTASIB_GEOBASE_SET_COOKIE"), "N", Array("checkbox")),
+		Array("set_cookie", GetMessage("ALTASIB_GEOBASE_SET_COOKIE"), "Y", Array("checkbox")),
 		Array("set_sql", GetMessage("ALTASIB_GEOBASE_SET_SQL"), "Y", Array("checkbox")),
-		Array("enable_jquery", GetMessage("ALTASIB_GEOBASE_JQUERY"), "ON", array("selectbox", $arJQ)),
+		Array("enable_jquery", GetMessage("ALTASIB_GEOBASE_JQUERY"), "OFF", array("selectbox", $arJQ)),
 		Array("autodetect_onhit_enable", GetMessage("ALTASIB_GEOBASE_AUTODT_HIT_EN"), "Y", Array("checkbox")),
 	),
 	"data" => Array(

@@ -592,7 +592,7 @@ Class CAltasibGeoBase
 			if($res && COption::GetOptionString(self::MID, 'redirect_enable', 'Y') == "Y")
 			{
 				$res .= ";".CAltasibGeoBase::GetRedirectUri(htmlspecialcharsEx($_REQUEST["url"]), (htmlspecialcharsEx($_REQUEST["reload"])!=="NO"));
-				
+
 				if(COption::GetOptionString(self::MID, "SPREAD_COOKIE", "Y") == "Y")
 				{
 					$resSpr = '';
@@ -784,7 +784,7 @@ Class CAltasibGeoBase
 			if($res && COption::GetOptionString(self::MID, 'redirect_enable', 'Y') == "Y")
 			{
 				$res .= ";".CAltasibGeoBase::GetRedirectUri(htmlspecialcharsEx($_REQUEST["url"]), (htmlspecialcharsEx($_REQUEST["reload"])!=="NO"));
-				
+
 				if(COption::GetOptionString(self::MID, "SPREAD_COOKIE", "Y") == "Y")
 				{
 					$rsSpr = '';

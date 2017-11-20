@@ -1,18 +1,18 @@
 <?
 // Templates of components
 $arCTpl = CComponentUtil::GetTemplatesList('altasib:geobase.your.city');
-$sTplYC = ".default,";
+$sTplYC = "altasib_geobase,";
 foreach($arCTpl as $tpl)
 {
-	if($tpl["NAME"] == ".default")
+	if($tpl["NAME"] == "altasib_geobase")
 		$sTplYC = $tpl["NAME"].','.$tpl["TEMPLATE"];
 }
 
 $arCTpl = CComponentUtil::GetTemplatesList('altasib:geobase.your.city');
-$sTplSC = ".default,";
+$sTplSC = "altasib_geobase,";
 foreach($arCTpl as $tpl)
 {
-	if($tpl["NAME"] == ".default")
+	if($tpl["NAME"] == "altasib_geobase")
 		$sTplSC = $tpl["NAME"].','.$tpl["TEMPLATE"];
 }
 // array site templates

@@ -79,7 +79,7 @@ while ($arItems = $dbBasketItems->Fetch()){
             } else {
                 $usrSelCity = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
             }
-    ?>
+            //arshow($_SESSION,false)?>
             <?if($usrSelCity != "Москва"){ ?>
                 <li><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?= GetMessage("MAIL_DELIVERY") ?></a><br />
                     <?if($arBasketPrice > FREE_SHIPING){ ?>
@@ -101,37 +101,37 @@ while ($arItems = $dbBasketItems->Fetch()){
                 <?}?>
             <?}?>
             <?if(strpos($usrSelCity, 'Украина') <= 0){?>
-            <li class="boxbery"> Доставка в
-                <a href='#' class="city_pull" data-city="<?=$usrSelCity?>" onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
-                    <?= GetMessage("DELIVERY_POST_SITY") ?>
+                <li class="boxbery"> Доставка в
+                    <a href='#' class="city_pull" data-city="<?=$usrSelCity?>" onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;">
+                        <?= GetMessage("DELIVERY_POST_SITY") ?>
 
-                </a> в <?
-                    if(!empty($usrSelCity))
-                        echo $usrSelCity;
-                    elseif($arParams["RIGHT_ENABLE"] == "Y" && ((is_array($arAutoDt) && !empty($arAutoDt["CITY"]["NAME"])) || (is_array($arAuto) && !empty($arAuto["CITY_NAME"]))))
-                    {
-                        if(is_array($arAutoDt) && isset($arAutoDt["CITY"]["NAME"]))
-                            echo $arAutoDt["CITY"]["NAME"];
-                        elseif(is_array($arAuto) && isset($arAuto["CITY_NAME"]))
-                            echo $arAuto["CITY_NAME"];
-                    }
-                    elseif(isset($arParams["SPAN_RIGHT"]))
-                    {
-                        echo $arParams["SPAN_RIGHT"];
-                        $notAutoShowPopup = true;
-                    }
-                    else
-                    {
-                        echo GetMessage("ALTASIB_GEOBASE_SELECT_".$sMode);
-                        $notAutoShowPopup = true;
-                    }
-                   ?>
-                <?if($arBasketPrice > FREE_SHIPING){ ?>
-                    <b><?=GetMessage("DELIVRY_SALE")?></b>
-                <? } else {?>
-                    <?= GetMessage("CATALOG_QUANTITY_FROM", Array ("#FROM#" => "")) ?> <b><?=$_SESSION['price_delivery'].' руб.'?></b>
-                <?}?>
-            </li>
+                    </a> в <?
+                        if(!empty($usrSelCity))
+                            echo $usrSelCity;
+                        elseif($arParams["RIGHT_ENABLE"] == "Y" && ((is_array($arAutoDt) && !empty($arAutoDt["CITY"]["NAME"])) || (is_array($arAuto) && !empty($arAuto["CITY_NAME"]))))
+                        {
+                            if(is_array($arAutoDt) && isset($arAutoDt["CITY"]["NAME"]))
+                                echo $arAutoDt["CITY"]["NAME"];
+                            elseif(is_array($arAuto) && isset($arAuto["CITY_NAME"]))
+                                echo $arAuto["CITY_NAME"];
+                        }
+                        elseif(isset($arParams["SPAN_RIGHT"]))
+                        {
+                            echo $arParams["SPAN_RIGHT"];
+                            $notAutoShowPopup = true;
+                        }
+                        else
+                        {
+                            echo GetMessage("ALTASIB_GEOBASE_SELECT_".$sMode);
+                            $notAutoShowPopup = true;
+                        }
+                       ?>
+                    <?if($arBasketPrice > FREE_SHIPING){ ?>
+                        <b><?=GetMessage("DELIVRY_SALE")?></b>
+                    <? } else {?>
+                        <?= GetMessage("CATALOG_QUANTITY_FROM", Array ("#FROM#" => "")) ?> <b><?=$_SESSION['price_delivery'].' руб.'?></b>
+                    <?}?>
+                </li>
             <?}?>
             <li ><a href='javascript:void(0);' class="altasib_geobase_link_city" ><?=GetMessage('REASPEKT_GEOIP_TITLE_YOU_CITY')?></a></li>
 
