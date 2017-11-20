@@ -120,8 +120,8 @@ $arAllOptions = array(
 	"main" => Array(
 		Array("set_cookie", GetMessage("ALTASIB_GEOBASE_SET_COOKIE"), "N", Array("checkbox")),
 		Array("set_sql", GetMessage("ALTASIB_GEOBASE_SET_SQL"), "Y", Array("checkbox")),
-		Array("enable_jquery", GetMessage("ALTASIB_GEOBASE_JQUERY"), "OFF", array("selectbox", $arJQ)),
-		Array("autodetect_onhit_enable", GetMessage("ALTASIB_GEOBASE_AUTODT_HIT_EN"), "N", Array("checkbox")),
+		Array("enable_jquery", GetMessage("ALTASIB_GEOBASE_JQUERY"), "ON", array("selectbox", $arJQ)),
+		Array("autodetect_onhit_enable", GetMessage("ALTASIB_GEOBASE_AUTODT_HIT_EN"), "Y", Array("checkbox")),
 	),
 	"data" => Array(
 		Array("source", GetMessage("ALTASIB_GEOBASE_SOURCE"), "maxmind", array("selectbox", $useSource)),

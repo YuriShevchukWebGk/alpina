@@ -3099,3 +3099,9 @@ setTimeout(function(){
     });
 
 }, 2000);
+
+$(function(){
+    $('body').on('click', '.altasib_geobase_fst li a',function(){
+        setTimeout(function(){ location.reload(); }, 500);
+    })
+})

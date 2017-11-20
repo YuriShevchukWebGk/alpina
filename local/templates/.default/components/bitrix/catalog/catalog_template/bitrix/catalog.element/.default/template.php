@@ -937,7 +937,8 @@
                 $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
             } else {
                 $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
-            }?>
+            }
+            ?>
             <ul class="shippings">
                 <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"] != "RU" && $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"]){?>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
@@ -954,7 +955,7 @@
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>
-                 <?} else if($_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"] != "RU"){?>
+                 <?} else if($_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"] != "RU" || $_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"] != "RU"){?>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     <?$APPLICATION->IncludeComponent(
                         "altasib:geobase.select.city",

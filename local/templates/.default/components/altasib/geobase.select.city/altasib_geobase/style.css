@@ -626,3 +626,9 @@ a#altasib_geobase_mb_btn.altasib_geobase_mb_disabled,a#altasib_geobase_mb_btn.al
 	padding:0 8px;
 	position:relative;
 }
+#altasib_geobase_close a{
+    border-bottom: none;
+}
+.altasib_geobase_fst li:before{
+    content: '';
+}
