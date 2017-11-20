@@ -809,6 +809,7 @@
     //обработка статусов заказа при получении оплаты
     AddEventHandler('sale', 'OnSalePayOrder', "UpdOrderStatus");
     function UpdOrderStatus ($ID, $val) {
+
         $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
         //при получении оплаты
         if ($val == "Y") {
@@ -883,6 +884,7 @@
                 CSaleOrder::StatusOrder($ID, "D");
             }
         }
+
 
         //Create gift coupon after buy certificate
         $IBLOCK_ID = GIFT_COUNPON_IBLOCK_ID;

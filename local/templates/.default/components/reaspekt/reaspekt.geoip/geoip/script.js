@@ -1,5 +1,6 @@
 (function (window) {
 
+
     if (!!window.JCReaspektGeobase) {
         return;
     }
@@ -80,7 +81,7 @@
         }
 
         if(this.letters.length < 2){
-            //list.html("ничего не найдено");
+            //list.html("РЅРёС‡РµРіРѕ РЅРµ РЅР°Р№РґРµРЅРѕ");
             //list.animate({ height: 'hide' }, "fast");
             return;
         }
