@@ -88,10 +88,18 @@
 <?
 
 ?>
-<?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "", Array(
-    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
-    ),
-    false
+<?$APPLICATION->IncludeComponent(
+    "altasib:geobase.select.city",
+    "",
+    Array(
+        "COMPOSITE_FRAME_MODE" => "A",
+        "COMPOSITE_FRAME_TYPE" => "AUTO",
+        "LOADING_AJAX" => "N",
+        "RIGHT_ENABLE" => "Y",
+        "SMALL_ENABLE" => "Y",
+        "SPAN_LEFT" => "Мой город:",
+        "SPAN_RIGHT" => "Выберите город"
+    )
 );?>
 <?
 // получение количества дней с которого возможна доставка

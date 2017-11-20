@@ -172,17 +172,22 @@
                         </div>
                         <?
                         } elseif ($arProperties["TYPE"] == "LOCATION") {
+                            if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
+                                $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
+                            } else {
+                                $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
+                            }
                           if($arProperties["CODE"] != 'LOCATION_CITY'){
                             $value = 0;
                             if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
                                 foreach ($arProperties["VARIANTS"] as $arVariant){
 
-                                    if ($arVariant["CITY_NAME"] == $_SESSION["REASPEKT_GEOBASE"]["CITY"]){
+                                    if ($arVariant["CITY_NAME"] == $city){
                                         $value = $arVariant["ID"];
                                       //  break;
                                     }
 
-                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || $arVariant["ID"] == $_POST["ORDER_PROP_2"] && $_POST["ORDER_PROP_2"] != 21278){
+                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $city == "Москва" || $arVariant["ID"] == $_POST["ORDER_PROP_2"] && $_POST["ORDER_PROP_2"] != 21278){
                                        $value = $arVariant["ID"];
                                        break;
                                     }
