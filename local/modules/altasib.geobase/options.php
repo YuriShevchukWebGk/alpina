@@ -42,12 +42,12 @@ while($arTemplRes = $rsData->Fetch())
 $strCompYC = 'altasib:geobase.your.city';
 $arCTempls = CComponentUtil::GetTemplatesList($strCompYC);
 $arCTemplates = array();
-$arDefCTempls = "altasib_geobase,";
+$arDefCTempls = ".default,";
 foreach($arCTempls as $Templ)
 {
     arshow($Templ);
 	$arCTemplates[implode(",", $Templ)] = $Templ['NAME'].(!empty($Templ['TEMPLATE']) ? ' ('.$Templ['TEMPLATE'].')' : '');
-	if($Templ["NAME"] == "altasib_geobase")
+	if($Templ["NAME"] == ".default")
 		$arDefCTempls = $Templ["NAME"].','.$Templ["TEMPLATE"];
 }
 
@@ -119,10 +119,10 @@ $arTimeRdr = array(
 
 $arAllOptions = array(
 	"main" => Array(
-		Array("set_cookie", GetMessage("ALTASIB_GEOBASE_SET_COOKIE"), "Y", Array("checkbox")),
+		Array("set_cookie", GetMessage("ALTASIB_GEOBASE_SET_COOKIE"), "N", Array("checkbox")),
 		Array("set_sql", GetMessage("ALTASIB_GEOBASE_SET_SQL"), "Y", Array("checkbox")),
-		Array("enable_jquery", GetMessage("ALTASIB_GEOBASE_JQUERY"), "OFF", array("selectbox", $arJQ)),
-		Array("autodetect_onhit_enable", GetMessage("ALTASIB_GEOBASE_AUTODT_HIT_EN"), "Y", Array("checkbox")),
+		Array("enable_jquery", GetMessage("ALTASIB_GEOBASE_JQUERY"), "ON", array("selectbox", $arJQ)),
+		Array("autodetect_onhit_enable", GetMessage("ALTASIB_GEOBASE_AUTODT_HIT_EN"), "N", Array("checkbox")),
 	),
 	"data" => Array(
 		Array("source", GetMessage("ALTASIB_GEOBASE_SOURCE"), "maxmind", array("selectbox", $useSource)),
@@ -155,7 +155,7 @@ $arAllOptions = array(
 		Array("popup_back", GetMessage("ALTASIB_GEOBASE_POPUP_BACK"), "Y", Array("checkbox")),
 		Array("region_disable", GetMessage("ALTASIB_GEOBASE_REGION_DISABLE"), "N", Array("checkbox")),
 		Array("only_select_cities", GetMessage("ALTASIB_GEOBASE_ONLY_SELECT_CITIES"), "N", Array("checkbox")),
-		Array("cities_only_large", GetMessage("ALTASIB_GEOBASE_CITIES_ONLY_LARGE"), "N", Array("checkbox")),
+		Array("cities_only_large", GetMessage("ALTASIB_GEOBASE_CITIES_ONLY_LARGE"), "Y", Array("checkbox")),
 		Array("autodetect_enable", GetMessage("ALTASIB_GEOBASE_AUTODETECT_EN"), "Y", Array("checkbox")),
 		Array("cities_world_enable", GetMessage("ALTASIB_GEOBASE_CITIES_WORLD_ENABLE"), "Y", Array("checkbox")),
 		Array("mode_location", GetMessage("ALTASIB_GEOBASE_MODE_LOC"), "cities", Array("selectbox", $arModeLoc)),

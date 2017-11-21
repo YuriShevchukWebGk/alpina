@@ -945,7 +945,7 @@
             }
           //  arshow($_SESSION["ALTASIB_GEOBASE"], false);
             ?>
-            <ul class="shippings">
+            <ul class="shippings" data-weight="<?=$weight?>">
                 <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"] != "RU" && $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"]){?>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     <?$APPLICATION->IncludeComponent(
