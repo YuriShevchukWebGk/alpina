@@ -1456,7 +1456,9 @@
 .preload{
     float: right;
     margin-right: 60px;
+    display:none;
 }
+
 #nprogresss {
     margin: 0 auto;
 }
@@ -1471,4 +1473,6 @@
     margin: 0 auto;
     -webkit-animation: nprogresss-spinner 400ms linear infinite;
     animation: nprogresss-spinner 400ms linear infinite;
+    animation-delay: 1s;
+    transform: rotate(15deg);
 }

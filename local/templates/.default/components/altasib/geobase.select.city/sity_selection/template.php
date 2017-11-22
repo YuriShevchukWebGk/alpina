@@ -254,7 +254,7 @@ altasib_geobase.bitrix_sessid='<?=bitrix_sessid();?>';
 
 				<div class="altasib_geobase_title2"><?=GetMessage("ALTASIB_GEOBASE_ENTER_FIELD");?></div>
 				<a id="altasib_geobase_btn" class="altasib_geobase_disabled" href="#"><?=GetMessage("ALTASIB_GEOBASE_THIS_IS_MY_".$sMode);?></a>
-                <div class="preload"></div>
+                <div class="preload"><img src="/img/preload.gif"></div>
 				<div class="altasib_geobase_find">
 					<input id="altasib_geobase_search" name="altasib_geobase_search" type="text" placeholder="<?=GetMessage('ALTASIB_GEOBASE_ENTER_'.$sMode);?>" autocomplete="off"><br/>
 					<div id="altasib_geobase_info"></div>

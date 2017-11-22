@@ -248,23 +248,23 @@
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
                 <div class="legal_person">
-                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">
-                    <br>
                     <input type='email' placeholder="Email" name="legal_email" id="legal_email">
                     <br>
                     <input type='text' placeholder="ИНН" name="inn" id="inn">
                     <br>
                     <input type='text' placeholder="КПП" name="kpp" id="kpp">
                     <br>
+                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">
+                    <br>
+                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">
+                    <br>
                     <input type='text' placeholder="БИК" name="bik" id="bik">
-                    <br>
-                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
-                    <br>
-                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">
                     <br>
                     <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">
                     <br>
-                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">
+                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">
+                    <br>
+                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
                     <br>
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
@@ -2059,4 +2059,19 @@
         mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
     })();
+    
+    $(document).ready(function(){
+        $("#inn").suggestions({
+            token: "<?= DADATA_API_CODE ?>",
+            type: "PARTY",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(suggestion) {
+                $("#legal_name").val(suggestion['value']);
+                $("#inn").val(suggestion['data']['inn']);
+                $("#kpp").val(suggestion['data']['kpp']);
+                $("#legal_address").html(suggestion['data']['address']['unrestricted_value']);
+            }
+        });
+    })
 </script>

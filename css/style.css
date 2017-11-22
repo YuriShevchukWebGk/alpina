@@ -479,7 +479,8 @@ header .headBasket{margin-right:0}
 .centerWrapper,.elementDescriptWrap .elementMainPict{position:relative}
 .productElementWrapp:before{background-color:#99ABB1;height:260px;top:0}
 .productElementWrapp:after{background-color:#F4F4F4;opacity:0.03;content:'';display:block;left:0;position:absolute;width:100%;height:100%;top:0;z-index:0}
-.centerWrapper{margin:0 auto;width:100%;max-width:1170px;min-width:1140px;z-index:100}
+.centerWrapper{margin:0 auto;width:100%;max-width:1170px;min-width:1140px;}
+.productElementWrapp .centerWrapper {z-index:100;}
 .elementDescriptWrap .leftColumn{float:left;height:100%;width:380px}
 .elementDescriptWrap .rightColumn{float:right;height:100%;width:264px}
 .elementDescriptWrap .centerColumn{height:100%;margin:0 264px 0 380px;padding:0 28px;width:auto}
