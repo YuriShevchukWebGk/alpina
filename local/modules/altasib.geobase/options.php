@@ -45,7 +45,6 @@ $arCTemplates = array();
 $arDefCTempls = ".default,";
 foreach($arCTempls as $Templ)
 {
-    arshow($Templ);
 	$arCTemplates[implode(",", $Templ)] = $Templ['NAME'].(!empty($Templ['TEMPLATE']) ? ' ('.$Templ['TEMPLATE'].')' : '');
 	if($Templ["NAME"] == ".default")
 		$arDefCTempls = $Templ["NAME"].','.$Templ["TEMPLATE"];

@@ -465,6 +465,7 @@
                     <span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
                 <? } ?>
             </p>
+            <div id='nprogresss'><div class='spinner'><div class='spinner-icon'></div></div></div>
             <?
             if($date_state){
                 usort($date_state, 'object_to_array'); // сортируем по дате предзаказа
