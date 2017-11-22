@@ -67,21 +67,11 @@ if($_REQUEST["AUTOLOAD"] != 'Y'):
 
 ?>
     <li><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?= GetMessage("MAIL_DELIVERY_CITY") . ' ' . $city ?> </a><br />
-        <?if($arBasketPrice > FREE_SHIPING){ ?>
-            <b><?=GetMessage("DELIVRY_SALE")?></b>
-        <? } else {?>
             <b><?=GetMessage("DELIVRY_INTERNATIONAL")?> </b>
-        <?}?>
-
     </li>
     <?if(strpos($city, 'Украина') <= 0){?>
         <li class="flippost" data-country="<?=$country?>" data-city="<?=$city?>"><?= GetMessage("MAIL_DELIVERY_PP") ?><br />
-            <?if($arBasketPrice > FREE_SHIPING){ ?>
-                <b><?=GetMessage("DELIVRY_SALE")?></b>
-            <? } else {?>
                 <b><?=$_SESSION["price_delivery_flippost"].' руб.'?></b>
-            <?}?>
-
         </li>
     <?}?>
     <li>

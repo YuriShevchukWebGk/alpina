@@ -943,9 +943,43 @@
             } else {
                 $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
             }
-          //  arshow($_SESSION["ALTASIB_GEOBASE"], false);
             ?>
-            <ul class="shippings" data-weight="<?=$weight?>">
+
+             <ul class="shippings" data-weight="<?=$weight?>">
+             <?
+                if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
+                    if($city == "Москва"){ ?>
+                        <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                            <?= GetMessage("MSK_DELIVERY") ?>
+
+                        </a> по Москве <br /><?=$delivery_day.' '?>
+                        <b><?if($arBasketPrice > FREE_SHIPING){
+                            echo GetMessage("FREE_DELIVERY_ENDING");
+                        } else {
+                            echo GetMessage("DELIVERY_POST");
+                        }?></b>
+                        </li>
+                        <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                            <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
+
+                        </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
+                        </li>
+                    <?}?>
+                    <?$APPLICATION->IncludeComponent(
+                        "altasib:geobase.select.city",
+                        "altasib_geobase",
+                        Array(
+                            "COMPOSITE_FRAME_MODE" => "A",
+                            "COMPOSITE_FRAME_TYPE" => "AUTO",
+                            "LOADING_AJAX" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
+                            "SPAN_LEFT" => "",
+                            "SPAN_RIGHT" => "Выберите город"
+                        )
+                    );
+                } else { ?>
+
                 <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"] != "RU" && $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"]){?>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     <?$APPLICATION->IncludeComponent(
@@ -1009,11 +1043,7 @@
                     );?>
 
                  <?}?>
-                <?/*$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
-                    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
-                    ),
-                    false
-                );*/?>
+                <?}?>
             </ul>
 
             <?}?>
