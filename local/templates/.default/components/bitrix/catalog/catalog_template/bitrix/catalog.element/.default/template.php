@@ -948,8 +948,8 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
+                            "RIGHT_ENABLE" => "N",
+                            "SMALL_ENABLE" => "N",
                             "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
@@ -963,8 +963,8 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
+                            "RIGHT_ENABLE" => "N",
+                            "SMALL_ENABLE" => "N",
                             "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
@@ -994,8 +994,8 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
+                            "RIGHT_ENABLE" => "N",
+                            "SMALL_ENABLE" => "N",
                             "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
