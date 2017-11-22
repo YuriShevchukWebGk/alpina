@@ -229,5 +229,3 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             );?>
     </div>
 </div>
-
->>>>>>> a718168256dc55807224a9958d54b86910387175
