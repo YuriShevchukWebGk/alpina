@@ -55,7 +55,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	<!-- header .content -->
-	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
+	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=other&amp;mid=79276" async></script>
 </head>
 <body itemscope itemtype="<?=preg_match("/(.*)\/about\/contacts\/(.*)/i", $_SERVER['REQUEST_URI']) ? 'https://schema.org/ContactPage' : 'https://schema.org/WebPage'?>">
 <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter1611177 = new Ya.Metrika({ id:1611177, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/1611177" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->

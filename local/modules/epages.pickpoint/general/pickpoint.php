@@ -473,7 +473,7 @@
 
                             $arFIO = CPickpoint::GetParam($arOrder["ID"], $arOrder["PERSON_TYPE_ID"], "FIO");
                             $sFIO = current($arFIO);
-
+                            print_r($sFIO);
                             $arSending["EDTN"] = $arOrder["ID"];
                             $arInvoice["SenderCode"] = $arOrder["ID"];
                             $arInvoice["Description"] = $sEmbed;

@@ -70,7 +70,7 @@
         var iPromoCpnObj = new _iPromoBannerObj();
     </script>*/?>
 
-	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276"></script>
+	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276" async></script>
     <?if (!empty($_SESSION['gtmEnchECommerceCheckout'])) {?>
         <!--Criteo-->
         <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>

@@ -83,6 +83,7 @@ function printResultsTwoDays($results) {
 	while ($ob = $res->GetNext()) {
 		$addViews[] = $ob["ID"];
 	}
+	
   // Синтаксический анализ ответа Core Reporting API с выводом
   // имени профиля и общего количества сессий.
   if (count($results->getRows()) > 0) {
@@ -123,6 +124,10 @@ function printResultsTwoDays($results) {
 					$views = round($book['views']*2.4);
 				else
 					$views = round($book['views']*1.8);
+				
+				if ($oneb["ID"] == 384889) //Книге Overview поднимаем рейтинг
+					$views += 302;
+				
 				//echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
 				CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('page_views_ga' => $views));
 			}

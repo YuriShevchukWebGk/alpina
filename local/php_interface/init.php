@@ -1038,6 +1038,7 @@
                     UpdOrderStatus($ID, "Y");
                 }
             }
+
         }
 
 
@@ -2306,6 +2307,7 @@
         $urlLabel = "http://e-solution.pickpoint.ru/api/makelabel";
         $content = json_encode($dataSend);
         //        arshow($content);
+        $order_info = CSaleOrder::GetByID($orderId);
         $curl = curl_init($urlLabel);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

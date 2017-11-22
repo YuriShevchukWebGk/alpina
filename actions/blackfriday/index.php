@@ -12,7 +12,7 @@ $today = date("w");
     <meta name="keywords" content=""/>
     <meta name="description" content="Черная пятница в интернет-магазине пройдет с 23 по 26 ноября. Скидки до 70%!"/>
     <link href="css/style.css?123" rel="stylesheet">
-    <link href="css/template_57363f3dd71b4bfd17109917de7b3143.css?123" rel="stylesheet">
+    
 	<link href="css/newstyle.css?123" rel="stylesheet">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -32,11 +32,12 @@ $today = date("w");
 	
 	<meta property="og:title" content="Черная пятница 2017 — Интернет-магазин «Альпина Паблишер»" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="/actions/blackfriday2016/" />
-	<meta property="og:image" content="/images/blackfriday2016.png" />
+	<meta property="og:url" content="https://www.alpinabook.ru/actions/blackfriday/" />
+	<meta property="og:image" content="https://www.alpinabook.ru/actions/blackfriday/img/banner.jpg" />
 	<meta property="og:site_name" content="www.alpinabook.ru" />
 	<meta property="fb:admins" content="1425804193" />
 	<meta property="fb:app_id" content="138738742872757" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
 
 </head>
 <body>
@@ -47,6 +48,114 @@ function subscribe() {var emailAddres = $(".subscribeForm input[type=email]").va
 .email::-moz-placeholder{color:#f0f0f0;font-size:21px;font-family:Walshein_light}
 .email::-webkit-input-placeholder{color:#f0f0f0;font-size:21px;font-family:Walshein_light}
 .hideInfo{display:none!important}
+
+@media screen and (max-width:1200px) {
+	body,html{max-width:1200px}
+}
+/* ----------- iPhone 4 and 4S ----------- */
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+	  html,body,.landing,header{width:320px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+	  html,body,.landing,header{width:480px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+
+}
+
+/* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+	  html,body,.landing,header{width:320px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+html,body,.landing,header{width:568px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+}
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+  html,body,.landing,header{width:375px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+  html,body,.landing,header{width:667px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+
+}
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+html,body,.landing,header{width:414px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+html,body,.landing,header{width:736px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+}
+
+/* ----------- iPhone X ----------- */
+
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+html,body,.landing,header{width:375px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+html,body,.landing,header{width:812px}html{font-size: 62.5%;-webkit-text-size-adjust: none}.headerWrapper{display:none}
+}
+
 </style>
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
@@ -72,7 +181,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <div class="lkWrapp">
         <p class="telephone" style="font-size: 14px;font-family: 'Walshein_regular'">
-            +7 (495) 980 80 77
+            +7 (495) 120 07 04
         </p>
     </div>
 </header>
@@ -655,32 +764,21 @@ foreach ($booksArray as $m => $single) {
     <div class="landing">
         <div class="mainWrapp">
             <div class="slide1">
+			<?if ($USER->isAdmin()){?>
 				<div class="slide1text1">
 					ВСЕМ СТОЯТЬ! ЭТО ОГРАБЛЕНИЕ!
 					<br />
-					<span style="font-size:24px">Начинаем <span style="color:#f1c322">23 ноября</span> в <span style="color:#f1c322">19:00</span></span>
+					<span style="font-size:24px">Только до <span style="color:#f1c322">26 ноября</span> <span style="color:#f1c322">23:59</span></span>
 					<br />
 					Скидки до 70%
 				</div>
-				<center><iframe src="files/bf.html" height="420" width="100%" scrolling="no" style="border:none;margin:0 auto;"></iframe></center>
-				<center>
-					<form action="/" method="post" class="subscribeForm">
-						<span class="errorinfo" style="font-size:21px;color:#fff">Узнайте о <span style="color:#f1c322">самых выгодных</span> предложениях <span style="color:#f1c322">первым</span>!</span>
-						<br /><br />
-						<input type="email" class="email" style="height: 60px;background: transparent;padding:0 60px 0 20px;font-size: 18px;font-weight: 400;color: #fff;border: 1px solid #fff;width:310px;" placeholder="Ваш e-mail" name="email">
-						<input type="button" onclick="subscribe();return false;" value="→" style="height: 60px;width: 40px;cursor: pointer;border: none;font-size:36px">
-					</form>
-				</center>
-				<div class="slide1text3" style="margin-top:20px;">
+				<div class="slide1text3" style="margin-top:20px; clear:both">
 					позвать друзей в банду
 					<script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
 					<script src="//yastatic.net/share2/share.js"></script>
 					<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
 				</div>
-				
-				<div id="slide1img">
-				</div>
-				<?if ($USER->isAdmin()){?>
+
 				<div id="shp1"></div>
 				<div id="slide2">
 					<div id="slide2img1"></div>
@@ -794,7 +892,40 @@ foreach ($booksArray as $m => $single) {
 					
 					
 				</div>
+				<?} else {?>
+					<div class="slide1text1">
+						ВСЕМ СТОЯТЬ! ЭТО ОГРАБЛЕНИЕ!
+						<br />
+						<span style="font-size:24px">Начинаем <span style="color:#f1c322">23 ноября</span> в <span style="color:#f1c322">19:00</span></span>
+						<br />
+						Скидки до 70%
+					</div>
+					<center><iframe src="files/bf.html" height="420" width="100%" scrolling="no" style="border:none;margin:0 auto;"></iframe></center>
+					<center>
+						<form action="/" method="post" class="subscribeForm">
+							<span class="errorinfo" style="font-size:21px;color:#fff">Узнайте о <span style="color:#f1c322">самых выгодных</span> предложениях <span style="color:#f1c322">первым</span>!</span>
+							<br /><br />
+							<input type="email" class="email" style="height: 60px;background: transparent;padding:0 60px 0 20px;font-size: 18px;font-weight: 400;color: #fff;border: 1px solid #fff;width:310px;" placeholder="Ваш e-mail" name="email">
+							<input type="button" onclick="subscribe();return false;" value="→" style="height: 60px;width: 40px;cursor: pointer;border: none;font-size:36px">
+						</form>
+					</center>
+					<div class="slide1text3" style="margin-top:20px;">
+						позвать друзей в банду
+						<script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+						<script src="//yastatic.net/share2/share.js"></script>
+						<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+					</div>
+					
+					<div id="slide1img">
+					</div>
 				<?}?>
+				<div style="width:100%;text-align:center">
+					<img src="img/badge.png" align="center" />
+				</div>
+				<div class="slide1text3" style="margin-top:20px; clear:both;padding-bottom:100px">
+					позвать друзей в банду
+					<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div>
+				</div>
             </div>
 
 			

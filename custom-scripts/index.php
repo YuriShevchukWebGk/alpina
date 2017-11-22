@@ -7,5 +7,4 @@ if ($USER->isAdmin()) {?>
 	<a target="_blank" href="/custom-scripts/misc/update_state.php">Обновить статусы книг</a><br /><br />
 <?} else {
 	echo 'error';
-}
-print_r(CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID())));?>
+}?>
