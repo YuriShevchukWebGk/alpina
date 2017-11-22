@@ -63,7 +63,7 @@ body {
 .slide1 .slide1text1 {
 	position: relative;
 	margin: 0 auto;
-	top: 135px;
+	padding-top: 105px;
 	color: #fff; 
 	text-align: center;
 	width: auto;

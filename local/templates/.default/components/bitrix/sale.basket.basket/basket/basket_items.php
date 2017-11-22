@@ -491,7 +491,7 @@
         <input type="hidden" id="use_prepayment" value="<?=($arParams["USE_PREPAYMENT"] == "Y") ? "Y" : "N"?>" />
 
 		<!-- gdeslon -->
-		<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276"></script>
+		<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276" async></script>
 		<?$_SESSION['gtmEnchECommerceCheckout'] = $gtmEnchECommerceCheckout;?>
 		<?$_SESSION['itemsForCriteo']			= $itemsForCriteo;?>
 		<?$_SESSION['retailRocketRecs']			= $retailRocketRecs;?>

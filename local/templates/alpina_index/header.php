@@ -68,7 +68,7 @@
     <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .index -->
 	<!-- gdeslon -->
-	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276"></script>
+	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276" async></script>
 
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">

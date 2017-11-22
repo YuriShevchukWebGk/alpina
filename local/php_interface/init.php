@@ -2307,9 +2307,6 @@
         $content = json_encode($dataSend);
         //        arshow($content);
         $order_info = CSaleOrder::GetByID($orderId);
-        $arFIO = CPickpoint::GetParam($orderId, $order_info["PERSON_TYPE_ID"], "FIO");
-                            $sFIO = current($arFIO);
-                            arshow($sFIO);
         $curl = curl_init($urlLabel);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

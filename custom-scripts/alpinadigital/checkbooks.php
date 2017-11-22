@@ -88,8 +88,8 @@ if ($USER->isAdmin()) {
     echo '</pre>';
 
     
-    $lost[] = 186046;
-    $lost[] = 372526;
+    //$lost[] = 186046;
+    //$lost[] = 372526;
     $arSelect = Array('ID',"NAME","PROPERTY_PUBLISHER");
     $arFilter = Array(    "IBLOCK_ID"=>4,
                         "PROPERTY_PUBLISHER"=>array(24,25,82,26),
@@ -114,31 +114,32 @@ if ($USER->isAdmin()) {
     foreach ($lost as $m => $findrec) {
 
         //if ($m > 10) continue;
-        
-        CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => $recs[$i], 'appstore' => '', 'android' => ''));
-        $name = CIBlockElement::GetByID($findrec)->Fetch();
-        
-        $recs = json_decode(file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$findrec));
-        
-        $ok = false;
-        $i = 0;
-        
-        while ($ok == false) {
+        if ($findrec != 186046 && $findrec != 372526) {
+            CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => $recs[$i], 'appstore' => '', 'android' => ''));
+            $name = CIBlockElement::GetByID($findrec)->Fetch();
 
-            if (in_array($recs[$i], $okbooks)) {
-                $ok = true;
-                $obEl = new CIBlockElement();
-                CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => $recs[$i], 'appstore' => '', 'android' => ''));
-                $obElement = CIBlockElement::GetByID($recs[$i])->Fetch();
-                echo $findrec."*2*".$recs[$i]."*".$name['NAME']."*".$obElement['NAME']."<br />";
-            }
-            $i++;
-            if ($i > 5 && !$ok) {
-                $ok = true;
-                $obEl = new CIBlockElement();
-                CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
-                echo $findrec."*3*norec*".$name['NAME']."<br />";
-            }
+            $recs = json_decode(file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$findrec));
+
+            $ok = false;
+            $i = 0;
+
+            while ($ok == false) {
+
+                if (in_array($recs[$i], $okbooks)) {
+                    $ok = true;
+                    $obEl = new CIBlockElement();
+                    CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => $recs[$i], 'appstore' => '', 'android' => ''));
+                    $obElement = CIBlockElement::GetByID($recs[$i])->Fetch();
+                    echo $findrec."*2*".$recs[$i]."*".$name['NAME']."*".$obElement['NAME']."<br />";
+                }
+                $i++;
+                if ($i > 5 && !$ok) {
+                    $ok = true;
+                    $obEl = new CIBlockElement();
+                    CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
+                    echo $findrec."*3*norec*".$name['NAME']."<br />";
+                }
+            }    
         }
     }
     

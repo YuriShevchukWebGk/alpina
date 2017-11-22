@@ -1909,7 +1909,7 @@
     <span></span>
 </div>
 <!-- GdeSon -->
-<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276"></script>
+<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276" async></script>
 
 <script type="text/javascript">
     cackle_widget = window.cackle_widget || [];
