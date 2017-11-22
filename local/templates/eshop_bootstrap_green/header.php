@@ -47,7 +47,9 @@
 
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />
-
+    <link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
+    
     <?if(!isset($_GET['PAGEN_2'])): $APPLICATION->ShowMeta("description"); endif;?>
     <?$APPLICATION->ShowCSS();?>
     <?$APPLICATION->ShowHeadStrings()?>

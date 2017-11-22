@@ -140,7 +140,7 @@ $arAllOptions = array(
 		Array("mm_get_update", GetMessage("ALTASIB_GEOBASE_MM_GET_UPDATE"), ($updModeMM ? "Y" : "N"), Array("checkbox")),
 	),
 	"auto_display" => Array(
-		Array("your_city_enable", GetMessage("ALTASIB_GEOBASE_WIN_YOUR_CITY_ENABLE"), "Y", Array("checkbox")),
+		Array("your_city_enable", GetMessage("ALTASIB_GEOBASE_WIN_YOUR_CITY_ENABLE"), "N", Array("checkbox")),
 		Array("note" => GetMessage("ALTASIB_GEOBASE_YOUR_CITY_DESCR")),
 		Array("your_city_templates", GetMessage("ALTASIB_GEOBASE_YOUR_CITY_TEMPLATES"), $arDefCTempls, array("selectbox", $arCTemplates)),
 		Array("your_city_mode", GetMessage("ALTASIB_GEOBASE_YOUR_MODE"), "large", array("selectbox", $arYCMode)),

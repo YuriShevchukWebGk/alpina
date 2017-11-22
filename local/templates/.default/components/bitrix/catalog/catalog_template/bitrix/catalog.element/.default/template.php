@@ -250,7 +250,7 @@
                 <div class="legal_person">
                     <input type='email' placeholder="Email" name="legal_email" id="legal_email">
                     <br>
-                    <input type='text' placeholder="ИНН" name="inn" id="inn">
+                    <input type='text' placeholder="ИНН" name="inn" id="inn" style="margin-left: 10px;">
                     <br>
                     <input type='text' placeholder="КПП" name="kpp" id="kpp">
                     <br>
@@ -2071,6 +2071,17 @@
                 $("#inn").val(suggestion['data']['inn']);
                 $("#kpp").val(suggestion['data']['kpp']);
                 $("#legal_address").html(suggestion['data']['address']['unrestricted_value']);
+            }
+        });
+        $("#bik").suggestions({
+            token: "<?= DADATA_API_CODE ?>",
+            type: "BANK",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(bank_suggestion) {
+                $("#ORDER_PROP_32").val(bank_suggestion['data']['bic']);
+                $("#corresponded_account").val(bank_suggestion['data']['correspondent_account']);
+                $("#bank_title").val(bank_suggestion['value']);
             }
         });
     })
