@@ -809,7 +809,8 @@
     //обработка статусов заказа при получении оплаты
     AddEventHandler('sale', 'OnSalePayOrder', "UpdOrderStatus");
     function UpdOrderStatus ($ID, $val) {
-        $arStatus = array( "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
+
+        $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
         //при получении оплаты
         if ($val == "Y") {
             $order = CSaleOrder::GetById($ID);

@@ -3087,7 +3087,6 @@ setTimeout(function(){
             }
         }
     });
-
     $.ajax({
         type: "POST",
         url: "/flippost/price_delivery_caalog.php",

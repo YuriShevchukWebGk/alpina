@@ -924,38 +924,91 @@
                 }
                 $delivery_day = $setProps['deliveryDayName'];
             ?>
+
             <!--<ul class="shippings">
                 <li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
                 <li><?= GetMessage("POSTOMATS_COUNT") ?> <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a> <?= GetMessage("POSTOMATS_COUNTRY") ?></li>
                 <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
-                <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+
             </ul>    -->
+
+            <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
+                $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
+            } else {
+                $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
+            }?>
             <ul class="shippings">
+                <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"] != "RU" && $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"]){?>
+                    <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+                    <?$APPLICATION->IncludeComponent(
+                        "altasib:geobase.select.city",
+                        "sity_selection",
+                        Array(
+                            "COMPOSITE_FRAME_MODE" => "A",
+                            "COMPOSITE_FRAME_TYPE" => "AUTO",
+                            "LOADING_AJAX" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
+                            "SPAN_LEFT" => "Мой город:",
+                            "SPAN_RIGHT" => "Выберите город"
+                        )
+                    );?>
+                 <?} else if($_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"] != "RU"){?>
+                    <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+                    <?$APPLICATION->IncludeComponent(
+                        "altasib:geobase.select.city",
+                        "sity_selection",
+                        Array(
+                            "COMPOSITE_FRAME_MODE" => "A",
+                            "COMPOSITE_FRAME_TYPE" => "AUTO",
+                            "LOADING_AJAX" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
+                            "SPAN_LEFT" => "Мой город:",
+                            "SPAN_RIGHT" => "Выберите город"
+                        )
+                    );?>
+                 <?} else {?>
+                    <?if($city == "Москва" || empty($city)){ ?>
+                        <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                            <?= GetMessage("MSK_DELIVERY") ?>
 
-                <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
-                    <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
-                        <?= GetMessage("MSK_DELIVERY") ?>
+                        </a> по Москве <br /><?=$delivery_day.' '?>
+                        <b><?if($arBasketPrice > FREE_SHIPING){
+                            echo GetMessage("FREE_DELIVERY_ENDING");
+                        } else {
+                            echo GetMessage("DELIVERY_POST");
+                        }?></b>
+                        </li>
+                        <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                            <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
 
-                    </a> по Москве <br /><?=$delivery_day.' '?>
-                    <b><?if($arBasketPrice > FREE_SHIPING){
-                        echo GetMessage("FREE_DELIVERY_ENDING");
-                    } else {
-                        echo GetMessage("DELIVERY_POST");
-                    }?></b>
-                    </li>
-                    <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
-                        <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
+                        </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
+                        </li>
+                    <?}?>
+                    <?$APPLICATION->IncludeComponent(
+                        "altasib:geobase.select.city",
+                        "altasib_geobase",
+                        Array(
+                            "COMPOSITE_FRAME_MODE" => "A",
+                            "COMPOSITE_FRAME_TYPE" => "AUTO",
+                            "LOADING_AJAX" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
+                            "SPAN_LEFT" => "Мой город:",
+                            "SPAN_RIGHT" => "Выберите город"
+                        )
+                    );?>
 
-                    </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
-                    </li>
-                <?}?>
-                <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
+                 <?}?>
+                <?/*$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
                     "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
                     ),
                     false
-                );?>
+                );*/?>
             </ul>
+
             <?}?>
         <?$frame->end();?>
 

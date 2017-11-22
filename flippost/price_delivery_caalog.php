@@ -1,6 +1,7 @@
 <?require_once($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/main/include/prolog_before.php");?>
 <?
     if(empty($_SESSION['price_delivery_flippost']) || $_SESSION['cyty'] != $_REQUEST["city"]){
+
         $queryArray = array(
             'dbAct' => 'getCities',
             'city' => $_REQUEST["city"],
@@ -40,7 +41,7 @@
         $ar_price = json_decode($result_2,true);
 
         if($ar_price["data"][0]["tarif"] > 0){
-            session_start();
+
             $_SESSION['price_delivery_flippost'] = round($ar_price["data"][0]["tarif"]);
             $_SESSION['cyty'] = $_REQUEST["city"];
         }

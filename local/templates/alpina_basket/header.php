@@ -81,7 +81,7 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript">
         //ymaps.ready(init);
-        function map_metro(adress_input) {
+        function init(adress_input) {
 
             var myMap = new ymaps.Map('map', {
                 center: [55.753994, 37.622093],
@@ -89,7 +89,6 @@
             });
             var latitude = '';
             var longitude = '';
-
             // Поиск координат центра Нижнего Новгорода.
             ymaps.geocode(adress_input, {
                 /**
@@ -132,7 +131,6 @@
             YMaps.Events.observe(metro, metro.Events.Load, function (metro) {
 
               if (metro.length()) {
-
                   var firstStation = metro.get(0);
                   var tubest = (firstStation.text).split("метро ");
                     $("#<?=METRO_2?> option[data-value='"+tubest[1]+"']").attr('selected', 'selected'); // выбираем станцию из списка станций
@@ -232,4 +230,4 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 </div>
 
-
+>>>>>>> a718168256dc55807224a9958d54b86910387175
