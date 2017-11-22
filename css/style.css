@@ -380,7 +380,7 @@ header .headBasket{margin-right:0}
     margin-bottom: 90px;
 }
 .otherBooks .nameBook{color:#424C4F;font-size:14px;padding-left:4px;padding-top:5px;height:45px;width:142px;overflow:hidden}
-.otherBooks .bookAutor{color:#7B8C90;font-size:14px;padding-left:4px;padding-top:5px;height:20px;overflow:hidden}
+.otherBooks .bookAutor{color:#7B8C90;font-size:14px;padding-left:4px;padding-top:5px;height:24px;overflow:hidden}
 .otherBooks .tapeOfPack{color:#3f4a4d;font-size:14px;padding-left:4px;padding-top:8px;height:20px}
 .otherBooks .priceOfBook{color:#7B8C90;font-size:14px;padding-left:6px;padding-top:12px}
 .otherBooks .basketBook,.otherBooks .basketLater{border:1px solid #c7a271;color:#c7a271;font-size:14px;margin:16px auto 0;padding:6px 5px;width:122px;cursor:pointer;text-align:center}
@@ -805,7 +805,7 @@ header .headBasket{margin-right:0}
 .ReviewsFormWrap{float:right;min-height:548px;margin-top:34px;margin-bottom:56px}
 .questInput{height:104px;margin-bottom:22px;padding-top:12px;resize:none}
 .contactsFormWrap input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:40px;color:#c7a271;cursor:pointer;font-size:19px;margin-left:72px;padding:10px 0;width:216px}
-.mapContainerContact{height:522px}
+.mapContainerContact{height:522px;clear:both}
 .noResultBodyWrap{background-color:#F4F4F4;height:600px}
 .noResultBodyWrap .noResultTitle{color:#3f4a4d;font-family:Walshein_black;font-size:42px;line-height:44px;padding-top:190px;width:462px}
 .noResultBodyWrap .noResText{color:#485254;font-family:Walshein_light;font-size:20px;padding-top:38px;width:520px}
