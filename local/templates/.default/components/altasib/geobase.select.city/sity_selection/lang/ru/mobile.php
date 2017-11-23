@@ -1,26 +1,37 @@
 <?
 $MESS['ALTASIB_GEOBASE_MY_CITIES'] = "Мой город:";
 $MESS['ALTASIB_GEOBASE_SELECT_CITIES'] = "Выберите город";
+$MESS['ALTASIB_GEOBASE_YOUR_CITIES'] = "Ваш город";
 $MESS['ALTASIB_GEOBASE_THIS_IS_MY_CITIES'] = "Это мой город!";
-$MESS['ALTASIB_GEOBASE_ENTER_CITIES'] = "Или укажите другой город";
-$MESS['ALTASIB_GEOBASE_ALL_CITIES'] = "Все города";
+$MESS['ALTASIB_GEOBASE_ENTER_CITIES'] = "Введите название города";
 
 $MESS['ALTASIB_GEOBASE_MY_REGIONS'] = "Мой регион:";
 $MESS['ALTASIB_GEOBASE_SELECT_REGIONS'] = "Выберите регион";
+$MESS['ALTASIB_GEOBASE_YOUR_REGIONS'] = "Ваш регион";
 $MESS['ALTASIB_GEOBASE_THIS_IS_MY_REGIONS'] = "Это мой регион!";
-$MESS['ALTASIB_GEOBASE_ENTER_REGIONS'] = "Или укажите другой регион";
-$MESS['ALTASIB_GEOBASE_ALL_REGIONS'] = "Все регионы";
+$MESS['ALTASIB_GEOBASE_ENTER_REGIONS'] = "Введите название региона";
 
 $MESS['ALTASIB_GEOBASE_MY_ALL'] = "Мой город:";
 $MESS['ALTASIB_GEOBASE_SELECT_ALL'] = "Выберите город или регион";
+$MESS['ALTASIB_GEOBASE_YOUR_ALL'] = "Ваше местоположение";
 $MESS['ALTASIB_GEOBASE_THIS_IS_MY_ALL'] = "Это мой город!";
-$MESS['ALTASIB_GEOBASE_ENTER_ALL'] = "Или укажите другой город или регион";
-$MESS['ALTASIB_GEOBASE_ALL_ALL'] = "Все города";
+$MESS['ALTASIB_GEOBASE_ENTER_ALL'] = "Введите название города или региона";
 
+$MESS['ALTASIB_GEOBASE_ENTER_FIELD'] = "Или укажите в поле:";
 $MESS['ALTASIB_GEOBASE_CLOSE'] = "Закрыть";
-$MESS['ALTASIB_GEOBASE_G'] = "г";
+$MESS['ALTASIB_GEOBASE_SOCR_G'] = "г";
 
 $MESS['ALTASIB_GEOBASE_THIS'] = "Это ваш город? ";
 $MESS['ALTASIB_GEOBASE_Y'] = "Да";
 $MESS['ALTASIB_GEOBASE_N'] = "Нет";
+$MESS['REASPEKT_GEOIP_TITLE_YOU_CITY'] = "Выбрать другой город";
+$MESS['REASPEKT_GEOIP_BUTTON_N'] = "Нет";
+$MESS['REASPEKT_GEOIP_BUTTON_Y'] = "Да";
+$MESS["DELIVERY_POST_SITY"] = "пункт выдачи ";
+$MESS["CATALOG_QUANTITY_FROM"] = "от #FROM#";
+$MESS["MAIL_DELIVERY_CITY"] = "Доставка почтой в";
+$MESS["MAIL_DELIVERY_PP"] = "Экспресс-доставка от";
+$MESS['REASPEKT_GEOIP_BUTTON_Y'] = "Да";
+$MESS['DELIVRY_SALE'] = " Бесплатно";
+$MESS['DELIVRY_INTERNATIONAL'] = "от 850 <span class='rubsign'></span>";
 ?>

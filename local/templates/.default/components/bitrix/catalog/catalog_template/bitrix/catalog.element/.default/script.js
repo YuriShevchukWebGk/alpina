@@ -3077,6 +3077,11 @@ function closeInfo() {
 
 setTimeout(function(){
     var city = $('.shippings .city_pull').attr('data-city');
+    if(city == undefined){
+        city = $('.shippings .flippost').attr('data-city');
+    }
+    var country = $('.shippings .flippost').attr('data-country');
+    var weight = $('.shippings').attr('data-weight');
     $.ajax({
         type: "POST",
         url: "/boxbery/delivery_price_catalog.php",
@@ -3090,7 +3095,7 @@ setTimeout(function(){
     $.ajax({
         type: "POST",
         url: "/flippost/price_delivery_caalog.php",
-        data: {city: city},
+        data: {city: city, country: country, weight:weight},
         success:function(data){
             if(data > 0){
                 $('.shippings .flippost > b').html(data + ' руб.');
@@ -3099,3 +3104,9 @@ setTimeout(function(){
     });
 
 }, 2000);
+
+$(function(){
+    $('body').on('click', '.altasib_geobase_fst li a',function(){
+        setTimeout(function(){ location.reload(); }, 500);
+    })
+})

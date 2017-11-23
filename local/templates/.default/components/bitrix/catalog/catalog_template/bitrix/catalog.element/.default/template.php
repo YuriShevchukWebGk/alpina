@@ -248,23 +248,23 @@
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
                 <div class="legal_person">
-                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">
-                    <br>
                     <input type='email' placeholder="Email" name="legal_email" id="legal_email">
                     <br>
-                    <input type='text' placeholder="ИНН" name="inn" id="inn">
+                    <input type='text' placeholder="ИНН" name="inn" id="inn" style="margin-left: 10px;">
                     <br>
                     <input type='text' placeholder="КПП" name="kpp" id="kpp">
                     <br>
-                    <input type='text' placeholder="БИК" name="bik" id="bik">
+                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">
                     <br>
-                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
+                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">
                     <br>
-                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">
+                    <input type='text' placeholder="БИК" name="bik" id="bik" style="margin-left: 10px;">
                     <br>
                     <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">
                     <br>
-                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">
+                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">
+                    <br>
+                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
                     <br>
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
@@ -937,8 +937,49 @@
                 $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
             } else {
                 $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
-            }?>
-            <ul class="shippings">
+            }
+            if($_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"]){
+                $country = $_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"];
+            } else {
+                $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
+            }
+            ?>
+
+             <ul class="shippings" data-weight="<?=$weight?>">
+             <?
+                if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
+                    if($city == "Москва"){ ?>
+                        <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                            <?= GetMessage("MSK_DELIVERY") ?>
+
+                        </a> по Москве <br /><?=$delivery_day.' '?>
+                        <b><?if($arBasketPrice > FREE_SHIPING){
+                            echo GetMessage("FREE_DELIVERY_ENDING");
+                        } else {
+                            echo GetMessage("DELIVERY_POST");
+                        }?></b>
+                        </li>
+                        <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                            <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
+
+                        </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
+                        </li>
+                    <?}?>
+                    <?$APPLICATION->IncludeComponent(
+                        "altasib:geobase.select.city",
+                        "altasib_geobase",
+                        Array(
+                            "COMPOSITE_FRAME_MODE" => "A",
+                            "COMPOSITE_FRAME_TYPE" => "AUTO",
+                            "LOADING_AJAX" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
+                            "SPAN_LEFT" => "",
+                            "SPAN_RIGHT" => "Выберите город"
+                        )
+                    );
+                } else { ?>
+
                 <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"] != "RU" && $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"]){?>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     <?$APPLICATION->IncludeComponent(
@@ -954,7 +995,7 @@
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>
-                 <?} else if($_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"] != "RU"){?>
+                 <?} else if($country != "RU"){?>
                     <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
                     <?$APPLICATION->IncludeComponent(
                         "altasib:geobase.select.city",
@@ -1002,11 +1043,7 @@
                     );?>
 
                  <?}?>
-                <?/*$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
-                    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
-                    ),
-                    false
-                );*/?>
+                <?}?>
             </ul>
 
             <?}?>
@@ -2022,4 +2059,30 @@
         mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
     })();
+
+    $(document).ready(function(){
+        $("#inn").suggestions({
+            token: "<?= DADATA_API_CODE ?>",
+            type: "PARTY",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(suggestion) { console.log(suggestion);
+                $("#legal_name").val(suggestion['value']);
+                $("#inn").val(suggestion['data']['inn']);
+                $("#kpp").val(suggestion['data']['kpp']);
+                $("#legal_address").val(suggestion['data']['address']['unrestricted_value']);
+            }
+        });
+        $("#bik").suggestions({
+            token: "<?= DADATA_API_CODE ?>",
+            type: "BANK",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(bank_suggestion) {
+                $("#bik").val(bank_suggestion['data']['bic']);
+                $("#corresponded_account").val(bank_suggestion['data']['correspondent_account']);
+                $("#bank_title").val(bank_suggestion['value']);
+            }
+        });
+    })
 </script>

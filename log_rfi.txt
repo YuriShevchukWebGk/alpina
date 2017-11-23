@@ -2238,3 +2238,203 @@ Array
 
 ---------------
 
+2017.11.22 18:26:00:
+Array
+(
+    [comment] => 103701
+    [phone_number] => 79092606200
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => a44fe832e4433e837e63e6a19bb5f59a
+    [name] => Оплата заказа №103701
+    [system_income] => 2124.0
+    [partner_income] => 2066.65
+    [tid] => 80145730
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => p.a.batalin@rielt-everest.ru
+)
+
+---------------
+
+2017.11.22 21:41:56:
+Array
+(
+    [comment] => 103706
+    [phone_number] => 79278264955
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => bc14201e1e59df38bb88ca3462027cb0
+    [name] => Оплата заказа №103706
+    [system_income] => 1267.0
+    [partner_income] => 1232.79
+    [tid] => 80191635
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => qetzal@gmail.com
+)
+
+---------------
+
+2017.11.22 21:46:29:
+Array
+(
+    [comment] => 103704
+    [phone_number] => 79125148087
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3edeb79985ab5801500f0c121c3d7837
+    [name] => Оплата заказа №103704
+    [system_income] => 1635.0
+    [partner_income] => 1590.85
+    [tid] => 80190457
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => kirill.shurinoff@yandex.ru
+)
+
+---------------
+
+2017.11.22 22:14:01:
+Array
+(
+    [comment] => 103707
+    [phone_number] => 79153781632
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => a19bf5059df64149ab1f9544b707f614
+    [name] => Оплата заказа №103707
+    [system_income] => 1065.0
+    [partner_income] => 1036.24
+    [tid] => 80195412
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Andreymaska@mail.ru
+)
+
+---------------
+
+2017.11.23 06:31:21:
+Array
+(
+    [comment] => 103666
+    [phone_number] => 79210919103
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => bccf3592fb6b8d603199f1ccfbed348e
+    [name] => Оплата заказа №103666
+    [system_income] => 1078.0
+    [partner_income] => 1048.89
+    [tid] => 80263505
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => svetlana.jit@gmail.com
+)
+
+---------------
+
+2017.11.23 08:57:02:
+Array
+(
+    [comment] => 103720
+    [phone_number] => 79603879212
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f579b4a2bcd1a55818c44ace1c7ece29
+    [name] => Оплата заказа №103720
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 80289187
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => irekis@mail.ru
+)
+
+---------------
+
+2017.11.23 09:57:23:
+Array
+(
+    [comment] => 103723
+    [phone_number] => 79640501816
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => d8ae5544ed25c68291a534b62fd56036
+    [name] => Оплата заказа №103723
+    [system_income] => 597.0
+    [partner_income] => 456.11
+    [tid] => 80304144
+    [service_id] => 66366
+    [type] => beeline_rfi_mc
+    [email] => arshaev055@mail.ru
+)
+
+---------------
+
+2017.11.23 10:47:58:
+Array
+(
+    [comment] => 103727
+    [phone_number] => 79265677947
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 9bfec6b0cddd77537750d5be7500d682
+    [name] => Оплата заказа №103727
+    [system_income] => 966.0
+    [partner_income] => 939.92
+    [tid] => 80313355
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => chikina83@yandex.ru
+)
+
+---------------
+
+2017.11.23 11:06:54:
+Array
+(
+    [comment] => 103728
+    [phone_number] => 79788611588
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 0563a63c44e9d3a75decff89dc38c83d
+    [name] => Оплата заказа №103728
+    [system_income] => 825.0
+    [partner_income] => 802.72
+    [tid] => 80316026
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => natzakup2014@yandex.ru
+)
+
+---------------
+
+2017.11.23 11:08:27:
+Array
+(
+    [comment] => 103730
+    [phone_number] => 79276821730
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => fb5743c2c0be83d5a56a4c0e69121f37
+    [name] => Оплата заказа №103730
+    [system_income] => 690.0
+    [partner_income] => 671.37
+    [tid] => 80316508
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => kiselev_alexsey@mail.ru
+)
+
+---------------
+

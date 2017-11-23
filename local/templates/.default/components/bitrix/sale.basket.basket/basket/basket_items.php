@@ -465,6 +465,7 @@
                     <span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
                 <? } ?>
             </p>
+
             <?
             if($date_state){
                 usort($date_state, 'object_to_array'); // сортируем по дате предзаказа

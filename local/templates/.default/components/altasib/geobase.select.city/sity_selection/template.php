@@ -54,14 +54,31 @@ if(!empty($arUsrCh) && is_array($arUsrCh))
 
 $notAutoShowPopup = false;
 
-if($_REQUEST["AUTOLOAD"] != 'Y'):
-?>
-<li>
-    <a href='javascript:void(0);' class="altasib_geobase_link_city" >
-        <?=GetMessage("REASPEKT_GEOIP_TITLE_YOU_CITY")?>
-    </a>
+if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
+    $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY_RU"];
+    $country = $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"];
+} else {
+    $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
+    $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
+}
 
- </li>
+if($_REQUEST["AUTOLOAD"] != 'Y'):
+?>  <?
+
+?>
+    <li><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?= GetMessage("MAIL_DELIVERY_CITY") . ' ' . $city ?> </a><br />
+            <b><?=GetMessage("DELIVRY_INTERNATIONAL")?> </b>
+    </li>
+    <?if(strpos($city, 'Украина') <= 0){?>
+        <li class="flippost" data-country="<?=$country?>" data-city="<?=$city?>"><?= GetMessage("MAIL_DELIVERY_PP") ?><br />
+            <b><?=$_SESSION["price_delivery_flippost"].' руб.'?></b>
+        </li>
+    <?}?>
+    <li>
+        <a href='javascript:void(0);' class="altasib_geobase_link_city" >
+            <?=GetMessage("REASPEKT_GEOIP_TITLE_YOU_CITY")?>
+        </a>
+    </li>
 <?endif;?>
 <?if($_REQUEST["get_select"] != 'Y'):?>
 <script language="JavaScript">
@@ -80,7 +97,6 @@ altasib_geobase.SITE_ID='<?=SITE_ID?>';
 if(typeof altasib_geobase=="undefined")var altasib_geobase={};
 altasib_geobase.bitrix_sessid='<?=bitrix_sessid();?>';
 </script>
-
 <div id="altasib_geobase_win">
 	<div class="altasib_geobase_city">
 		<div id="altasib_geobase_popup">
@@ -238,7 +254,7 @@ altasib_geobase.bitrix_sessid='<?=bitrix_sessid();?>';
 
 				<div class="altasib_geobase_title2"><?=GetMessage("ALTASIB_GEOBASE_ENTER_FIELD");?></div>
 				<a id="altasib_geobase_btn" class="altasib_geobase_disabled" href="#"><?=GetMessage("ALTASIB_GEOBASE_THIS_IS_MY_".$sMode);?></a>
-
+                <div class="preload"><img src="/img/preload.gif"></div>
 				<div class="altasib_geobase_find">
 					<input id="altasib_geobase_search" name="altasib_geobase_search" type="text" placeholder="<?=GetMessage('ALTASIB_GEOBASE_ENTER_'.$sMode);?>" autocomplete="off"><br/>
 					<div id="altasib_geobase_info"></div>
@@ -253,25 +269,5 @@ altasib_geobase.bitrix_sessid='<?=bitrix_sessid();?>';
 	?><div id="altasib_geobase_popup_back"></div>
 <?}?>
 
-<?
-	if($arResult["SHOW_SMALL"] == "Y"):?>
-<script type="text/javascript">
-var a='<div class="altasib_geobase_sml_win"><div class="altasib_geobase_sml_win_block"><div class="altasib_geobase_sml_ctr"><div class="altasib_geobase_sml_block">'+
-	'<span class="altasib_geobase_sml_your"><?echo (!empty($arParams["SMALL_TEXT"]) ? $arParams["SMALL_TEXT"] : GetMessage('ALTASIB_GEOBASE_THIS'));?></span>'+
-	'</div>'+
-	'<a class="altasib_geobase_sml_yes altasib_geobase_sml_btn" onclick="altasib_geobase.sc_onclk(\'<?echo(!empty($arAutoDt["CODE"])? $arAutoDt["CODE"] : $arAutoDt["REGION"]["CODE"]);?>\'<?echo(!empty($arAutoDt["REGION"]["CODE"]) ? ",\'".$arAutoDt["REGION"]["CODE"]."\'" : "");?>); return false;" href="#"><?=GetMessage('ALTASIB_GEOBASE_Y')?></a>'+
-	'<a class="altasib_geobase_sml_no altasib_geobase_sml_btn" href="#" onclick="altasib_geobase.sml_no();return false;"><?=GetMessage('ALTASIB_GEOBASE_N')?></a>'+
-	'</div></div></div>';
-<?		if(!$notAutoShowPopup):?>
-$(document).ready(function(){
-	if(!$(".altasib_geobase_link_city").children('.altasib_geobase_sml_win').length>0){
-		$(".altasib_geobase_link_city").append(a);
-		window.setTimeout(function(){$('.altasib_geobase_sml_win').animate({opacity:1},1200)},2000);
-	}
-	// $(".altasib_geobase_link").has('.altasib_geobase_sml_win').append(a);
-});
-<?		endif;?>
-</script>
-<?	endif;?>
 <?endif?>
 <?$frame->end(); ?>
