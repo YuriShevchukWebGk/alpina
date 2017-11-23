@@ -272,23 +272,7 @@ altasib_geobase.bitrix_sessid='<?=bitrix_sessid();?>';
 
 <?
     if($arResult["SHOW_SMALL"] == "Y"):?>
-<script type="text/javascript">
-var a='<div class="altasib_geobase_sml_win"><div class="altasib_geobase_sml_win_block"><div class="altasib_geobase_sml_ctr"><div class="altasib_geobase_sml_block">'+
-    '<span class="altasib_geobase_sml_your"><?echo (!empty($arParams["SMALL_TEXT"]) ? $arParams["SMALL_TEXT"] : GetMessage('ALTASIB_GEOBASE_THIS'));?></span>'+
-    '</div>'+
-    '<a class="altasib_geobase_sml_yes altasib_geobase_sml_btn" onclick="altasib_geobase.sc_onclk(\'<?echo(!empty($arAutoDt["CODE"])? $arAutoDt["CODE"] : $arAutoDt["REGION"]["CODE"]);?>\'<?echo(!empty($arAutoDt["REGION"]["CODE"]) ? ",\'".$arAutoDt["REGION"]["CODE"]."\'" : "");?>); return false;" href="#"><?=GetMessage('ALTASIB_GEOBASE_Y')?></a>'+
-    '<a class="altasib_geobase_sml_no altasib_geobase_sml_btn" href="#" onclick="altasib_geobase.sml_no();return false;"><?=GetMessage('ALTASIB_GEOBASE_N')?></a>'+
-    '</div></div></div>';
-<?        if(!$notAutoShowPopup):?>
-$(document).ready(function(){
-    if(!$(".altasib_geobase_link_city").children('.altasib_geobase_sml_win').length>0){
-        $(".altasib_geobase_link_city").append(a);
-        window.setTimeout(function(){$('.altasib_geobase_sml_win').animate({opacity:1},1200)},2000);
-    }
-    // $(".altasib_geobase_link").has('.altasib_geobase_sml_win').append(a);
-});
-<?        endif;?>
-</script>
+
 <?    endif;?>
 <?endif?>
 <?$frame->end(); ?>
