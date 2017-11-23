@@ -258,7 +258,7 @@
                     <br>
                     <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">
                     <br>
-                    <input type='text' placeholder="БИК" name="bik" id="bik">
+                    <input type='text' placeholder="БИК" name="bik" id="bik" style="margin-left: 10px;">
                     <br>
                     <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">
                     <br>
@@ -989,9 +989,9 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "",
+                            "RIGHT_ENABLE" => "N",
+                            "SMALL_ENABLE" => "N",
+                            "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>
@@ -1004,9 +1004,9 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "",
+                            "RIGHT_ENABLE" => "N",
+                            "SMALL_ENABLE" => "N",
+                            "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>
@@ -1035,9 +1035,9 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "",
+                            "RIGHT_ENABLE" => "N",
+                            "SMALL_ENABLE" => "N",
+                            "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>
@@ -2066,11 +2066,11 @@
             type: "PARTY",
             count: 5,
             /* Вызывается, когда пользователь выбирает одну из подсказок */
-            onSelect: function(suggestion) {
+            onSelect: function(suggestion) { console.log(suggestion);
                 $("#legal_name").val(suggestion['value']);
                 $("#inn").val(suggestion['data']['inn']);
                 $("#kpp").val(suggestion['data']['kpp']);
-                $("#legal_address").html(suggestion['data']['address']['unrestricted_value']);
+                $("#legal_address").val(suggestion['data']['address']['unrestricted_value']);
             }
         });
         $("#bik").suggestions({
@@ -2079,7 +2079,7 @@
             count: 5,
             /* Вызывается, когда пользователь выбирает одну из подсказок */
             onSelect: function(bank_suggestion) {
-                $("#ORDER_PROP_32").val(bank_suggestion['data']['bic']);
+                $("#bik").val(bank_suggestion['data']['bic']);
                 $("#corresponded_account").val(bank_suggestion['data']['correspondent_account']);
                 $("#bank_title").val(bank_suggestion['value']);
             }

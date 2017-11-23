@@ -196,6 +196,10 @@ function printResultsMonth($results) {
 		
 		$countMax = $countMax*$countMax*$countMax*$countMax;
 		$desirability = round($countMax/($ob['PROPERTY_PAGE_VIEWS_GA_VALUE']*2)*1000);
+		
+		if ($oneb["ID"] == 384889) //Книге Overview поднимаем рейтинг
+			$desirability += 10000;
+		
 		echo $countMax.' - '.$ob['PROPERTY_PAGE_VIEWS_GA_VALUE'].' - '.$ob["ID"].' - '.$desirability.'<br />';
 		CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('DESIRABILITY' => $desirability));
 	}

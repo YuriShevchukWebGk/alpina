@@ -269,9 +269,5 @@ altasib_geobase.bitrix_sessid='<?=bitrix_sessid();?>';
 	?><div id="altasib_geobase_popup_back"></div>
 <?}?>
 
-<?
-	if($arResult["SHOW_SMALL"] == "Y"):?>
-
-<?	endif;?>
 <?endif?>
 <?$frame->end(); ?>

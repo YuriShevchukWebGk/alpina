@@ -762,3 +762,6 @@
     transform: scaleX(-1);
     position: absolute;
 }
+.bookPrice span, .rubsign, .priceOfBook .rub_symbol {
+    font-family: 'RoubleSign'!important;
+}

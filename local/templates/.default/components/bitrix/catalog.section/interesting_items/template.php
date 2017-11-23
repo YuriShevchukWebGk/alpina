@@ -11,7 +11,10 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
-?>
+$is_bot_detected = false;
+if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) {
+    $is_bot_detected = true;
+}?>
 
 <div class="categoryWrapperWhite">
         <div class="interestSlideWrap">
@@ -39,13 +42,13 @@ $this->setFrameMode(true);
                                                 if ($arPrice["DISCOUNT_VALUE_VAT"])
                                                 {
                                                 ?>
-                                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                                    <p class="bookPrice"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <? if (!$is_bot_detected){?><span class="rub_symbol"></span><?} else {?><span>руб.</span><?}?></p>
                                                 <?
                                                 }
                                                 else
                                                 {
                                                 ?>
-                                                    <p class="bookPrice"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <span>руб.</span></p>
+                                                    <p class="bookPrice"><?=ceil($arPrice["ORIG_VALUE_VAT"])?> <? if (!$is_bot_detected){?><span class="rub_symbol"></span><?} else {?><span>руб.</span><?}?></p>
                                                 <?
                                                 }
                                             }
