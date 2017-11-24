@@ -10,7 +10,7 @@ foreach($arResult as $arItem) {
 
 	<?/*<li><a class="topMenuLink" href="/actions/freedigitalbooks/" target="_blank">Бесплатные электронные книги</a></li>*/?>
 	<?if (!$USER->isAdmin()) {?>
-		<li class="timer"><a href="/actions/blackfriday/" style="color:red!important" target="_blank">До Черной Пятницы <span id="days"></span>:<span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span></a></li>
+		<li class="timer"><a href="/actions/blackfriday/" style="color:red!important" target="_blank">Черная Пятница <span id="days"></span>:<span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span></a></li>
 	<?} else {?>
 		<a href="/actions/blackfriday/" style="color:red!important" target="_blank"><li class="timer" style="width:400px"><div style="float:left">До Черной Пятницы</div>
 		<div style="display:inline-block">
@@ -34,4 +34,4 @@ foreach($arResult as $arItem) {
 		</li></a>
 	<?}?>
 	
-	<script type="text/javascript" src="/js/countdown.js?20171123"></script>
+	<script type="text/javascript" src="/js/countdown.js?201711231"></script>

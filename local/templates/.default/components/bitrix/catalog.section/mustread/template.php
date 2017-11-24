@@ -11,8 +11,11 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
-	$gdeSlon = '';
-?>
+    $gdeSlon = '';
+$is_bot_detected = false;
+if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) {
+    $is_bot_detected = true;
+}?>
 <?if ($_REQUEST["DIRECTION"] == "DESC")
     {?>
     <style>
@@ -169,7 +172,7 @@
                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)
                                     {
                                     ?>
-                                        <p class="priceOfBook"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                        <p class="priceOfBook"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <? if (!$is_bot_detected){?><span class="rub_symbol">i</span><?} else {?><span>руб.</span><?}?></p>
                                         <?
                                             if ($dbBasketItems["QUANTITY"] == 0)
                                             {?>
@@ -192,7 +195,7 @@
                                         <p class="priceOfBook"><?=strtolower(FormatDate("j F Y", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
                                     <?    
                                     }
-										$gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
+                                        $gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
                                         if ($USER -> IsAuthorized())
                                         {
                                         ?>
@@ -226,8 +229,8 @@
 
 
 
-			<!-- GdeSlon -->
-			<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
+            <!-- GdeSlon -->
+            <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
         
          <?$APPLICATION->IncludeComponent(
                 "bitrix:menu", 
