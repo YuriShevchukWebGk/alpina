@@ -32,7 +32,7 @@ header{height:58px;position:relative;color:#232b2d;font-size:14px}
 .catalog_text,.logo,.logo img,header .lkWrapp{position:absolute}
 header .lkWrapp{right:0;top:0}
 .basketHeader a,header a,.headCatalog{color:#232b2d!important}
-header .telephone{float:left;padding-right:34px;padding-top:18px}
+header .telephone{float:left;padding-right:34px;padding-top:11px}
 .catalog_text{color:#E4E8EA;left:85px;top:25px;font-size:15px}
 .logo{height:60px;width:120px}
 .logo img{left:60px;top:10px}
