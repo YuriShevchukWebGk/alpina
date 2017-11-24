@@ -360,13 +360,13 @@
         $date_prev = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
         $date_N_today = date("N"); // определим какой сегодня день недели
 
-        if ($date_N_today == 5 || $date_N_today == 6) {
+       /* if ($date_N_today == 5 || $date_N_today == 6) {
             $day = $day + 2;
         } else if ($date_N_today == 7) {
             $day = $day + 1;
         } else {
             $day = $day;
-        }
+        }   */
 
         if(strtotime($_SESSION["DATE_DELIVERY_STATE"])){
             $delivery_pre_order = strtotime($_SESSION["DATE_DELIVERY_STATE"]) + (3600*24)*2;
