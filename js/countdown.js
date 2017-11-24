@@ -3,7 +3,7 @@
 	baseTime.setTime(baseTime.getTime() + 1000*60*60*24);
 	
 	// Тут дата устанавливается
-	var baseTime = new Date(2017, 10, 23, 19, 0, 0);
+	var baseTime = new Date(2017, 10, 26, 23, 59, 59);
 
 	// Период сброса — 3 дня
 	var period = 3*24*60*60*1000;
