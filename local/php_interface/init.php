@@ -29,6 +29,7 @@
     define ("REVIEWS_IBLOCK_ID", 24);
     define ("SERIES_IBLOCK_ID", 45);
     define ("SPONSORS_IBLOCK_ID", 47);
+    define ("PROPERTY_STATE_ID", 56); // свойство состояния статуса товара
     define ("WISHLIST_IBLOCK_ID", 17);
     define ("EXPERTS_IBLOCK_ID", 23);
     define ("LECTIONS_ANNOUNCES_IBLOCK_ID", 60);
@@ -41,6 +42,7 @@
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("CASH_PAY_SISTEM_ID", 1);
     define ("PAYPAL_PAYSYSTEM_ID", 16);
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("CASHLESS_PAYSYSTEM_ID", 12);
@@ -3300,6 +3302,44 @@
         }
     }
 
+
+// Проверяем изменение статуса товара для изменения статуса заказа
+AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "UpdateStatusOrderOnProduct");
+
+// создаем обработчик события "UpdateStatusOrderOnProduct"
+function UpdateStatusOrderOnProduct(&$arFields) {
+    $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("sort" => "asc"), Array("CODE"=>"STATE"));
+    if($ar_props = $db_props->Fetch()){
+        $status_product = $ar_props["VALUE"];
+    }
+    if($status_product == STATE_SOON && $status_product != $arFields["PROPERTY_VALUES"][PROPERTY_STATE_ID][0]["VALUE"]){
+       $arFilter = Array(
+          "STATUS_ID" => "PR"
+       );
+       $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+       $order_new_statys = array();
+       while ($arSales = $rsSales->Fetch()) {
+
+          $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
+
+          while($arproduct = $dbItemsInOrder->Fetch()){
+            $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
+            if($arFields["ID"] == $arproduct["PRODUCT_ID"] ){
+                $order_new_statys[] = $arSales;
+            }
+          }
+       }
+
+       foreach($order_new_statys as $order_update){
+            if($order_update["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID){
+               CSaleOrder::StatusOrder($order_update["ID"], "N");  // меняем статус на новый
+            } else {
+               CSaleOrder::StatusOrder($order_update["ID"], "O");  // меняем статус на "принят, ожидается оплата "
+            }
+       }
+    }
+
+}
 
 function object_to_array($a, $b) {
     return strtotime($b) - strtotime($a);
