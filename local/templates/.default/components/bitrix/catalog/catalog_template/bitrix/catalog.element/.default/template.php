@@ -248,23 +248,23 @@
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
                 <div class="legal_person">
-                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">
-                    <br>
                     <input type='email' placeholder="Email" name="legal_email" id="legal_email">
                     <br>
-                    <input type='text' placeholder="ИНН" name="inn" id="inn">
+                    <input type='text' placeholder="ИНН" name="inn" id="inn" style="margin-left: 10px;">
                     <br>
                     <input type='text' placeholder="КПП" name="kpp" id="kpp">
                     <br>
-                    <input type='text' placeholder="БИК" name="bik" id="bik">
+                    <input type='text' placeholder="Наименование" name="legal_name" id="legal_name">
                     <br>
-                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
+                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">
                     <br>
-                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">
+                    <input type='text' placeholder="БИК" name="bik" id="bik" style="margin-left: 10px;">
                     <br>
                     <input type='text' placeholder="Наименование банка" name="bank_title" id="bank_title">
                     <br>
-                    <input type='text' placeholder="Юридический адрес" name="legal_address" id="legal_address">
+                    <input type='text' placeholder="Корр. счет" name="corresponded_account" id="corresponded_account">
+                    <br>
+                    <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
                     <br>
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
@@ -924,38 +924,128 @@
                 }
                 $delivery_day = $setProps['deliveryDayName'];
             ?>
+
             <!--<ul class="shippings">
                 <li><?= GetMessage("MSK_DELIVERY") ?><br /><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;"><?=$delivery_day?></a></li>
                 <li><?= GetMessage("POSTOMATS_COUNT") ?> <a href='#' onclick="getInfo('boxberry');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'boxberry'});return false;"><?= GetMessage("POSTOMATS") ?></a> <?= GetMessage("POSTOMATS_COUNTRY") ?></li>
                 <li><?= GetMessage("PICKUP_MSK_DELIVERY") ?><br /><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;"><?=$samovivoz_day?></a></li>
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
-                <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+
             </ul>    -->
-            <ul class="shippings">
 
-                <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
-                    <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
-                        <?= GetMessage("MSK_DELIVERY") ?>
+            <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
+                $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
+            } else {
+                $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
+            }
+            if($_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"]){
+                $country = $_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"];
+            } else {
+                $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
+            }
+            ?>
 
-                    </a> по Москве <br /><?=$delivery_day.' '?>
-                    <b><?if($arBasketPrice > FREE_SHIPING){
-                        echo GetMessage("FREE_DELIVERY_ENDING");
-                    } else {
-                        echo GetMessage("DELIVERY_POST");
-                    }?></b>
-                    </li>
-                    <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
-                        <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
+             <ul class="shippings" data-weight="<?=$weight?>">
+             <?
+                if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
+                    if($city == "Москва" || empty($city)){ ?>
+                        <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                            <?= GetMessage("MSK_DELIVERY") ?>
 
-                    </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
-                    </li>
+                        </a> по Москве <br /><?=$delivery_day.' '?>
+                        <b><?if($arBasketPrice > FREE_SHIPING){
+                            echo GetMessage("FREE_DELIVERY_ENDING");
+                        } else {
+                            echo GetMessage("DELIVERY_POST");
+                        }?></b>
+                        </li>
+                        <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                            <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
+
+                        </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
+                        </li>
+                    <?}?>
+                    <?$APPLICATION->IncludeComponent(
+                        "altasib:geobase.select.city",
+                        "altasib_geobase",
+                        Array(
+                            "COMPOSITE_FRAME_MODE" => "A",
+                            "COMPOSITE_FRAME_TYPE" => "AUTO",
+                            "LOADING_AJAX" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
+                            "SPAN_LEFT" => "",
+                            "SPAN_RIGHT" => "Выберите город"
+                        )
+                    );
+                } else { ?>
+
+                <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"] != "RU" && $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"]){?>
+                    <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+                    <?$APPLICATION->IncludeComponent(
+                        "altasib:geobase.select.city",
+                        "sity_selection",
+                        Array(
+                            "COMPOSITE_FRAME_MODE" => "A",
+                            "COMPOSITE_FRAME_TYPE" => "AUTO",
+                            "LOADING_AJAX" => "N",
+                            "RIGHT_ENABLE" => "N",
+                            "SMALL_ENABLE" => "N",
+                            "SPAN_LEFT" => "Мой город:",
+                            "SPAN_RIGHT" => "Выберите город"
+                        )
+                    );?>
+                 <?} else if($country != "RU"){?>
+                    <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+                    <?$APPLICATION->IncludeComponent(
+                        "altasib:geobase.select.city",
+                        "sity_selection",
+                        Array(
+                            "COMPOSITE_FRAME_MODE" => "A",
+                            "COMPOSITE_FRAME_TYPE" => "AUTO",
+                            "LOADING_AJAX" => "N",
+                            "RIGHT_ENABLE" => "N",
+                            "SMALL_ENABLE" => "N",
+                            "SPAN_LEFT" => "Мой город:",
+                            "SPAN_RIGHT" => "Выберите город"
+                        )
+                    );?>
+                 <?} else {?>
+                    <?if($city == "Москва" || empty($city)){ ?>
+                        <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                            <?= GetMessage("MSK_DELIVERY") ?>
+
+                        </a> по Москве <br /><?=$delivery_day.' '?>
+                        <b><?if($arBasketPrice > FREE_SHIPING){
+                            echo GetMessage("FREE_DELIVERY_ENDING");
+                        } else {
+                            echo GetMessage("DELIVERY_POST");
+                        }?></b>
+                        </li>
+                        <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                            <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
+
+                        </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
+                        </li>
+                    <?}?>
+                    <?$APPLICATION->IncludeComponent(
+                        "altasib:geobase.select.city",
+                        "altasib_geobase",
+                        Array(
+                            "COMPOSITE_FRAME_MODE" => "A",
+                            "COMPOSITE_FRAME_TYPE" => "AUTO",
+                            "LOADING_AJAX" => "N",
+                            "RIGHT_ENABLE" => "N",
+                            "SMALL_ENABLE" => "N",
+                            "SPAN_LEFT" => "Мой город:",
+                            "SPAN_RIGHT" => "Выберите город"
+                        )
+                    );?>
+
+                 <?}?>
                 <?}?>
-                <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
-                    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
-                    ),
-                    false
-                );?>
             </ul>
+
             <?}?>
         <?$frame->end();?>
 
@@ -1909,7 +1999,7 @@
     <span></span>
 </div>
 <!-- GdeSon -->
-<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276"></script>
+<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=card&amp;codes=<?= $arResult["ID"] ?>:<?= round (($arPrice["DISCOUNT_VALUE_VAT"]), 2) ?>&amp;mid=79276" async></script>
 
 <script type="text/javascript">
     cackle_widget = window.cackle_widget || [];
@@ -1969,4 +2059,30 @@
         mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
     })();
+
+    $(document).ready(function(){
+        $("#inn").suggestions({
+            token: "<?= DADATA_API_CODE ?>",
+            type: "PARTY",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(suggestion) { console.log(suggestion);
+                $("#legal_name").val(suggestion['value']);
+                $("#inn").val(suggestion['data']['inn']);
+                $("#kpp").val(suggestion['data']['kpp']);
+                $("#legal_address").val(suggestion['data']['address']['unrestricted_value']);
+            }
+        });
+        $("#bik").suggestions({
+            token: "<?= DADATA_API_CODE ?>",
+            type: "BANK",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(bank_suggestion) {
+                $("#bik").val(bank_suggestion['data']['bic']);
+                $("#corresponded_account").val(bank_suggestion['data']['correspondent_account']);
+                $("#bank_title").val(bank_suggestion['value']);
+            }
+        });
+    })
 </script>

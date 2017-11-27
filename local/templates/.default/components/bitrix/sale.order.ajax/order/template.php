@@ -84,10 +84,9 @@
 
 </style>
 
-<div id="map" style="width:0; height:0;"></div>
-<?
 
-?>
+<div id="map" style="width:10px; height:10px;"></div>
+
 <?$APPLICATION->IncludeComponent(
     "altasib:geobase.select.city",
     "",

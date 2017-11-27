@@ -1135,3 +1135,9 @@ to {
 body .altasib_geobase_link{
     display: none;
 }
+@media (max-width: 1300px) {
+    .platbox_iframe_block {
+        width: 75% !important;
+        left: 17% !important;
+    }
+}

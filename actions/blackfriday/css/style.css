@@ -123,28 +123,6 @@
     font-style: normal;
 }
 
-@media screen and (max-width: 1240px){
-    header .telephone{
-        display: none;
-    }
-}
-@media screen and (max-width: 1140px){
-    .catalogIcon, .basketIcon{
-        display: none;
-    }
-}
-@media screen and (max-device-width: 414px){
-    body{
-        width:1500px;
-    }
-    .slideWrapp .catalogWrapper {
-        width: 100%;
-        margin-left:175px;
-    }
-    .slideWrapp .firstSlide {
-        width:1500px !important;
-    }
-}
 body{
     padding: 0;
     margin: 0;
@@ -166,8 +144,6 @@ p{
 
 .landing{
     position: relative;
-  /*  width: 1769px;*/
-    min-width: 1024px;
     max-width: 1769px;
     margin: 0 auto;
     background: #fff;
@@ -547,7 +523,6 @@ header .headBasket{
 .mainWrapp .book{
     float: right;
     height: 536px;
-    width: 980px;
 }
 .book>div{
     display: inline-block;
@@ -1349,8 +1324,6 @@ footer .webServ{
 .headerWrapper{
     margin: 0 auto;
     position: relative;
-    /*width: 1140px;*/
-    width: 700px;
     text-align: center;
 }
 header .menu{
