@@ -1189,7 +1189,7 @@ function recalcBasketAjax(params)
                     }
                 }
             }
-        }
+       console.log(result); }
     });
 }
 
@@ -1338,6 +1338,53 @@ function enterCouponCustom(preorderID) {
                 if (arResult.DEFAULT_COUPON == "Y") {
                     enterCoupon();
                 } else {
+                    couponClass = 'good';
+                    couponBlock = BX("coupons_block");
+                    couponBlock.appendChild(BX.create(
+                        'div',
+                        {
+                            props: {
+                                className: 'bx_ordercart_coupon'
+                            },
+                            children: [
+                                BX.create(
+                                    'input',
+                                    {
+                                        props: {
+                                            className: couponClass,
+                                            type: 'text',
+                                            value: couponCode,
+                                            name: 'OLD_COUPON[]'
+                                        },
+                                        attrs: {
+                                            disabled: true,
+                                            readonly: true
+                                        }
+                                    }
+                                ),
+                                BX.create(
+                                    'span',
+                                    {
+                                        props: {
+                                            className: couponClass
+                                        },
+                                        attrs: {
+                                            'data-coupon': couponCode
+                                        }
+                                    }
+                                ),
+                                BX.create(
+                                    'div',
+                                    {
+                                        props: {
+                                            className: 'bx_ordercart_coupon_notes'
+                                        },
+                                        html: 'Код применен'
+                                    }
+                                )
+                            ]
+                        }
+                    ));
                     $('#allSum_FORMATED').html('0 руб.');
                 }
             }

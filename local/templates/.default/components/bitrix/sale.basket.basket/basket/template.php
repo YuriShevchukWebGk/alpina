@@ -937,5 +937,10 @@
 		<?if (checkMobile()) {?>
 			$('#cardBlock1').show();
 		<?}?>
+        $(".bx_ordercart_coupon span").on("click", function(){
+            <?if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N" && $_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"] > 0) {
+                $_SESSION["CUSTOM_COUPON"] = array();
+            }?>
+        });
     });
 </script>
