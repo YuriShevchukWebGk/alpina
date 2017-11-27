@@ -1,14 +1,14 @@
-<?  
+<?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-    $APPLICATION->SetTitle("История заказов");  
+    $APPLICATION->SetTitle("История заказов");
     $orders_count = UserOrdersCount($USER -> GetID());
     ?>
-<?if (!$USER->IsAuthorized() || ($USER -> IsAuthorized() && intval($orders_count) <= 0)) {  
-    header("location: profile/"); 
+<?if (!$USER->IsAuthorized() || ($USER -> IsAuthorized() && intval($orders_count) <= 0)) {
+   // header("location: profile/");
 } else {?>
     <?$APPLICATION->IncludeComponent(
-	"bitrix:sale.personal.order", 
-	"orders", 
+	"bitrix:sale.personal.order",
+	"orders",
 	array(
 		"SEF_MODE" => "N",
 		"ORDERS_PER_PAGE" => "100",
@@ -49,6 +49,6 @@
 		"STATUS_COLOR_K" => "gray"
 	),
 	false
-);?><?}?>      
-       
+);?><?}?>
+
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

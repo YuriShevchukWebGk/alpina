@@ -210,6 +210,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		</p>
 	</div>
 	<?$frame->beginStub();?>
+    <?if(!CUser::IsAuthorized()) {?>
 	<div class="lkWrapp">
 		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
 			<div class="headBasket">
@@ -240,6 +241,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			);?>
 		</p>
 	</div>
+    <?}?>
 	<?$frame->end();?>
 </header>
 
