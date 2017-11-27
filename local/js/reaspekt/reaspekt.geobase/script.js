@@ -1,6 +1,5 @@
 (function(window, document, $, undefined){
     "use strict";
-
     var paramsDefault = {
         height : "250",
         width : "500",
@@ -12,7 +11,8 @@
         fixedPosition : false
     };
     var params = {
-        htmlPopup : '<div class="ReaspektPopupOverlay"></div><div id="ReaspektPopupBody"><div class="ReaspektClosePosition"><div id="ReaspektCloseBtn"></div></div><div id="ReaspektPopupContainer">...</div></div>',
+
+        htmlPopup : '<div class="ReaspektPopupOverlay"></div><div id="ReaspektPopupBody"><div class="ReaspektClosePosition"><div id="ReaspektCloseBtn"></div></div><div id="ReaspektPopupContainer">Загрузка...</div></div>',
         objPopupIdBody : '#ReaspektPopupBody',
         objPopupIdOverlay : '.ReaspektPopupOverlay',
         objPopupIdCloseBtn : '#ReaspektCloseBtn',
@@ -39,7 +39,7 @@
             });
         },
 
-        //Р”РѕР±Р°РІР»СЏРµРј Div`s
+        //Добавляем Div`s
         addHtmlTemplate : function(settings) {
             methods.closeReaspektPopup();
 			$('body').append(params.htmlPopup);
@@ -111,13 +111,13 @@
 
     $.fn.ReaspektModalBox = function( method ) {
 
-        // Р»РѕРіРёРєР° РІС‹Р·РѕРІР° РјРµС‚РѕРґР°
+        // логика вызова метода
         if ( methods[method] ) {
           return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
           return methods.init.apply( this, arguments );
         } else {
-          $.error( 'РњРµС‚РѕРґ СЃ РёРјРµРЅРµРј ' +  method + ' РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РґР»СЏ jQuery.ReaspektModalBox' );
+          $.error( 'Метод с именем ' +  method + ' не существует для jQuery.ReaspektModalBox' );
         }
     };
 

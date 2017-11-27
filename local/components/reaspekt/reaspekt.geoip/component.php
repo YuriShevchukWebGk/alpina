@@ -8,8 +8,8 @@ $module_id = "reaspekt.geobase";
 $incMod = CModule::IncludeModuleEx($module_id);
 
 if ($incMod == '0' || $incMod == '3') {
-    ShowError(GetMessage("REASPEKT_GEOIP_MODULE_NOT_INSTALLED"));
-    return;
+	ShowError(GetMessage("REASPEKT_GEOIP_MODULE_NOT_INSTALLED"));
+	return;
 }
 
 $arParams["CHANGE_CITY_MANUAL"] = (!isset($arParams["CHANGE_CITY_MANUAL"]) ? 'Y' : $arParams["CHANGE_CITY_MANUAL"]);

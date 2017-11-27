@@ -19,13 +19,13 @@ if ($statusMod == '0' || $statusMod == '3')
 
 $arComponentParameters = array(
     "GROUPS" => array(
-    ),
-    "PARAMETERS" => Array(
+	),
+	"PARAMETERS" => Array(
         "CHANGE_CITY_MANUAL" => array(
-            "PARENT" => "BASE",
-            "NAME" => GetMessage("REASPEKT_GEOBASE_CHANGE_CITY_MANUAL"),
-            "TYPE" => "CHECKBOX",
-            "DEFAULT" => "Y",
-        ),
-    ),
+			"PARENT" => "BASE",
+			"NAME" => GetMessage("REASPEKT_GEOBASE_CHANGE_CITY_MANUAL"),
+			"TYPE" => "CHECKBOX",
+			"DEFAULT" => "Y",
+		),
+	),
 );
