@@ -511,8 +511,10 @@
 
                             $arInvoice["UnclaimedReturnAddress"] = $ClientReturnAddress;
 
-                            $arSending["Invoice"] = $arInvoice;
-                            $arQuery["Sendings"][] = $arSending;
+                            if (strlen($arInovice["MobilePhone"]) > 3) {
+                                $arSending["Invoice"] = $arInvoice;
+                                $arQuery["Sendings"][] = $arSending;    
+                            }
                         }
                     }
                     if(count($arQuery["Sendings"]) > 0)
@@ -528,7 +530,9 @@
                             }
                             elseif(intval($createdSendings->InvoiceNumber) > 0)
                             {
-
+                                $sending_edtn = intval($createdSendings->EDTN);
+                                mail('raulschokino@yandex.ru', 'edtn', $sending_edtn);
+                                mail('raulschokino@yandex.ru', 'sendercode', $arQuery["Sendings"][$sending_edtn]["Invoice"]["SenderCode"]);
                                 CPickpoint::SetOrderInvoice($arQuery["Sendings"][$key]["Invoice"]["SenderCode"], $createdSendings->InvoiceNumber);
                             }
                         }
