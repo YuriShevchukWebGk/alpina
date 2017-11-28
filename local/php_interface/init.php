@@ -3308,6 +3308,7 @@ AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "UpdateStatusOrderOnPro
 
 // создаем обработчик события "UpdateStatusOrderOnProduct"
 function UpdateStatusOrderOnProduct(&$arFields) {
+    arshow($arFields["ID"]);
     $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("sort" => "asc"), Array("CODE"=>"STATE"));
     if($ar_props = $db_props->Fetch()){
         $status_product = $ar_props["VALUE"];
@@ -3318,25 +3319,34 @@ function UpdateStatusOrderOnProduct(&$arFields) {
        );
        $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
        $order_new_statys = array();
+       $state = '';
        while ($arSales = $rsSales->Fetch()) {
 
           $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
 
           while($arproduct = $dbItemsInOrder->Fetch()){
             $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
-            if($arFields["ID"] == $arproduct["PRODUCT_ID"] ){
-                $order_new_statys[] = $arSales;
+
+            if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
+                $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
             }
+            if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
+                $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
+            }
+
           }
        }
 
        foreach($order_new_statys as $order_update){
-            if($order_update["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID){
-               CSaleOrder::StatusOrder($order_update["ID"], "N");  // меняем статус на новый
-            } else {
-               CSaleOrder::StatusOrder($order_update["ID"], "O");  // меняем статус на "принят, ожидается оплата "
-            }
+           if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
+                if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID){
+                   CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+                } else {
+                   CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата "
+                }
+           }
        }
+
     }
 
 }
