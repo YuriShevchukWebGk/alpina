@@ -155,6 +155,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	<?$frame = new \Bitrix\Main\Page\FrameBuffered("header");
 	$frame->begin();?>
+
 	<script>
 		function basketOpenFlag() {
 			$('.hidingBasketRight, .layout, .windowClose').toggle();
@@ -181,9 +182,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				$('.authorisationWrapper').show();
 				return false;
 			});
+            setTimeout(function() { $('.lkWrapp').show() }, 800);
 		});
 	</script>
-	<div class="lkWrapp">
+
+	<div class="lkWrapp" style="display: none;">
 		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
 			<div class="headBasket">
 				<div class="BasketQuant"></div>
@@ -225,9 +228,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			);?>
 		</p>
 	</div>
+
 	<?$frame->beginStub();?>
      <?if(!CUser::IsAuthorized()) {?>
-	    <div class="lkWrapp">
+	    <div class="lkWrapp" style="display: none;">
 		    <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
 			    <div class="headBasket">
 				    <div class="BasketQuant" style="display: none;"></div>
