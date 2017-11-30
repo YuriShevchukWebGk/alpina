@@ -6,6 +6,19 @@
 <?if (!$USER->IsAuthorized() || ($USER -> IsAuthorized() && intval($orders_count) <= 0)) {
    // header("location: profile/");
 } else {?>
+    <section class="l-section-wrap top-section color_1 full">
+        <div class="container">
+            <? $APPLICATION->IncludeComponent("bitrix:main.profile", "user_profile_sailplay", array(
+                    "SET_TITLE" => "Y",
+                    "AJAX_MODE" => "Y"
+                    ),
+                    false,
+                    array(
+                        "ACTIVE_COMPONENT" => "Y"
+                    )
+                ); ?>
+        </div>
+    </section>
     <?$APPLICATION->IncludeComponent(
 	"bitrix:sale.personal.order",
 	"orders",
@@ -49,6 +62,8 @@
 		"STATUS_COLOR_K" => "gray"
 	),
 	false
-);?><?}?>
+);?>
+
+<?}?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

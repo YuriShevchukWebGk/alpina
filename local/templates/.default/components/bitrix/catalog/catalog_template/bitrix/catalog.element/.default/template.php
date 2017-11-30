@@ -19,7 +19,7 @@
     LocalRedirect('/404.php', '301 Moved permanently');
 }?>
 <script>
-    $(document).ready(function(){
+    $(function(){
         <!-- //dataLayer GTM -->
         dataLayer.push({
             'stockInfo' : '<?= $StockInfo ?>',
@@ -41,7 +41,7 @@
             $(".basketIcon").hide();
         }
 
-        $(".buyLater").click(function(){
+        $("body").on('click', '.buyLater', function(){
             $.post("/ajax/ajax_add2wishlist.php", {id: <?= $arResult["ID"] ?>}, function(data){
                 $(".layout").show();
                 $(".wishlist_info").css("top", 1.5 * window.pageYOffset+"px");
@@ -399,7 +399,7 @@
                 <p class="AlreadyInWishlist"><?= GetMessage("ALREADY_IN_WISHLIST") ?></p>
             </a>
             <?} else {?>
-            <a href="javascript:void(0); return true;" onclick="dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');">
+            <a href="javascript:void(0);" onclick="//dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');">
                 <p class="buyLater"><?= GetMessage("TO_BUY_LATER") ?></p>
             </a>
             <?}
