@@ -137,7 +137,7 @@
         <?  //получаем email из заказа. у физлиц будет EMAIL, у юрлиц F_EMAIL
             $orderProps = CSaleOrderPropsValue::GetList(array(),array("ORDER_ID"=>$arResult["ORDER_ID"],"CODE"=>array("EMAIL","F_EMAIL")),false,false,array());
             while($arProp = $orderProps->Fetch()) {
-                $userEmal = $arProp["VALUE"];
+                $userEmail = $arProp["VALUE"];
             }
         ?>
         <script type="text/javascript">
@@ -149,7 +149,7 @@
                     });
                 } catch(e) {}
             });
-            rrApiOnReady.push(function () { rrApi.setEmail("<?=$userEmal?>"); });
+            rrApiOnReady.push(function () { rrApi.setEmail("<?=$userEmail?>"); });
         </script>
 
         <!-- Facebook Conversion Code for Оформление заказов - Альпина 1 -->
@@ -175,7 +175,7 @@
             window.flocktory.push(['postcheckout', {
                 user: {
                     name: '<?=$userName?>',
-                    email: '<?=$USER->GetEmail()?>',
+                    email: '<?=$userEmail?>',
                 },
                 order: {
                     id: '<?=$arResult["ORDER"]["ID"]?>',
@@ -599,7 +599,7 @@
                   </div>     
                 <?}*/
         }?>
-<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$USER->GetEmail()?>"></div>				
+<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$userEmail?>"></div>				
     </div>
 
     <? }
