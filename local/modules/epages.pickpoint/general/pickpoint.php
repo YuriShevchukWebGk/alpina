@@ -473,7 +473,6 @@
 
                             $arFIO = CPickpoint::GetParam($arOrder["ID"], $arOrder["PERSON_TYPE_ID"], "FIO");
                             $sFIO = current($arFIO);
-                            print_r($sFIO);
                             $arSending["EDTN"] = $arOrder["ID"];
                             $arInvoice["SenderCode"] = $arOrder["ID"];
                             $arInvoice["Description"] = $sEmbed;
@@ -511,7 +510,7 @@
 
                             $arInvoice["UnclaimedReturnAddress"] = $ClientReturnAddress;
 
-                            if (strlen($arInovice["MobilePhone"]) > 3) {
+                            if (strlen($arInvoice["MobilePhone"]) > 3) {
                                 $arSending["Invoice"] = $arInvoice;
                                 $arQuery["Sendings"][] = $arSending;    
                             }
