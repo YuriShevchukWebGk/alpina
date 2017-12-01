@@ -1,7 +1,6 @@
 ﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 global $USER;
 CModule::IncludeModule("iblock");
-$today = date("w");
 ?>
 <!DOCTYPE html>
 <html>
@@ -555,7 +554,7 @@ foreach ($booksArray as $m => $single) {
     <div class="landing">
         <div class="mainWrapp">
             <div class="slide1">
-			<?if (1 == 1){?>
+			<?if (date("w") == 0) {?>
 				<div class="slide1text1">
 					ВСЕМ СТОЯТЬ! ЭТО ОГРАБЛЕНИЕ!
 					<br />
@@ -687,11 +686,10 @@ foreach ($booksArray as $m => $single) {
 					<div class="slide1text1">
 						ВСЕМ СТОЯТЬ! ЭТО ОГРАБЛЕНИЕ!
 						<br />
-						<span style="font-size:24px">Начинаем <span style="color:#f1c322">23 ноября</span> в <span style="color:#f1c322">19:00</span></span>
+						<span style="font-size:24px">До встречи в 2018 году!</span>
 						<br />
 						Скидки до 70%
 					</div>
-					<center><iframe src="files/bf.html" height="420" width="100%" scrolling="no" style="border:none;margin:0 auto;"></iframe></center>
 					<center>
 						<form action="/" method="post" class="subscribeForm">
 							<span class="errorinfo" style="font-size:21px;color:#fff">Узнайте о <span style="color:#f1c322">самых выгодных</span> предложениях <span style="color:#f1c322">первым</span>!</span>

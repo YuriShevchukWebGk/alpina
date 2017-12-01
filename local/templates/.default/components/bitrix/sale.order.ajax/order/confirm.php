@@ -86,7 +86,7 @@
             );
         </script>
 
-		
+
         <!--google eCommerce-->
         <?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
         <script>
@@ -184,7 +184,7 @@
                 },
             }]);
         </script>
-		
+
 		<script>
 			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'paymentID <?=$arResult["ORDER"]["PAY_SYSTEM_ID"]?>'});
 			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'deliveryID <?=$arResult["ORDER"]["DELIVERY_ID"]?>'});
@@ -202,9 +202,9 @@
 
         <?}?>
 
-              
-    <div class="confirmWrapper">  
-        <?if($arResult['ORDER']['STATUS_ID'] == 'PR'){?>        
+
+    <div class="confirmWrapper">
+        <?if($arResult['ORDER']['STATUS_ID'] == 'PR'){?>
             <div class="finishOrdWrap">
                 <div class="centerWrapper">
                     <div class="rightBlockWrap">
@@ -219,8 +219,8 @@
                         <p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
                     </div>
                 </div>
-            </div>     
-        <?} else {?>          
+            </div>
+        <?} else {?>
             <div class="finishOrdWrap">
                 <div class="centerWrapper">
                     <div class="rightBlockWrap">
@@ -232,18 +232,18 @@
                     <div class="mainInfoWrap">
                         <p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
                         <p class="OrdAkses">Ваш заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
-                        <p class="ordHint">Вы можете следить за выполнением заказа в <a href="/personal/order/">Личном кабинете.</a> Обратите внимание, что для входа в этот раздел вам необходимо будет ввести логин и пароль</p>
+                        <p class="ordHint">Вы можете следить за выполнением заказа в <a href="/personal/">Личном кабинете.</a> Обратите внимание, что для входа в этот раздел вам необходимо будет ввести логин и пароль</p>
                     </div>
                 </div>
-            </div>  
-        <?}?>    
+            </div>
+        <?}?>
         <?
             if (!empty($arResult["PAY_SYSTEM"]) && $arResult['ORDER']['STATUS_ID'] != 'PR')
             {
-            ?>  
+            ?>
             <br /><br />
             <div id="promocode-element-container"></div>
-            <?  
+            <?
             if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID) { ?>
             	<? $APPLICATION->IncludeComponent(
 					"webgk:rfi.widget",
@@ -281,12 +281,12 @@
                     $str = json_encode($merchant_info);
                     $sign = hash_hmac("SHA256", $str, $secret_key);
                     $merchant_info["sign"] = $sign;
-                }                    
+                }
             ?>
-            <a class="platbox_button submit_platbox">Оплатить</a>                     
+            <a class="platbox_button submit_platbox">Оплатить</a>
             <br>
             <??>
-            <?}    
+            <?}
             else if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
                 <table class="sale_order_full_table" >
                     <tr <? /*if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg" && $arResult["UF_RECURRENT_ID"]) { ?> style="display: none" <? }*/ ?>>
@@ -343,8 +343,8 @@
                                     </div>
                                     <?} else {?>
                                     <?=CFile::ShowImage($arResult["PAY_SYSTEM"]["LOGOTIP"], 100, 100, "border=0", "", false);?>
-                                    <div class="paysystem_name"><?= $arResult["PAY_SYSTEM"]["NAME"] ?></div><br>    
-                                    <?}?>                                
+                                    <div class="paysystem_name"><?= $arResult["PAY_SYSTEM"]["NAME"] ?></div><br>
+                                    <?}?>
                             </td>
                             <td>
                                 <? if ($arResult["PAY_SYSTEM"]["ID"] == "13")
@@ -486,14 +486,14 @@
                                 <td>Общество с ограниченной ответственностью "Альпина Паблишер", ИНН 7705396957, КПП 770501001, 115035, Москва г, Космодамианская наб, дом № 4/22, корпус Б, оф.ПОМ. IX,  КОМН.1, тел.: (495) 980-53-54</td>
                             </tr>
                         </table>
-                        <br> 
+                        <br>
                         <table class="order_company_info">
                             <tr>
                                 <td><?= GetMessage("BUYER_TITLE") ?></td>
                                 <td><?= $company_name ?>, ИНН <?= $company_inn ?>, КПП <?= $company_kpp ?>, <?= $address ?></td>
                             </tr>
                         </table>
-                        <br> 
+                        <br>
                         <table class="order_company_info">
                             <tr>
                                 <td><?= GetMessage("CONSIGNEE_TITLE") ?></td>
@@ -596,10 +596,12 @@
                                 </tr>
                             </table>
                         </div>
-                  </div>     
+                  </div>
                 <?}*/
         }?>
+
 <div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$userEmail?>"></div>				
+
     </div>
 
     <? }

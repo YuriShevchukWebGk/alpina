@@ -364,7 +364,7 @@
 				<span id="discountMessage" style="background:#fff9b7"><span class='sale_price'><?=$printDiscountText?></span></span>
 			</div>
 
-            <p class="finalCost"><span id="allSum_FORMATED"><?if (isset($_SESSION["CUSTOM_COUPON"]) && strlen($_SESSION["CUSTOM_COUPON"]["COUPON_ID"]) > 0 && $_SESSION["CUSTOM_COUPON"] > intval($arResult["allSum"])) {echo str_replace(" ", "&nbsp;", 0);} else {echo str_replace(" ", "&nbsp;", $arResult["allSum"]);}?><b class="rubsign"></b></span></p>
+            <p class="finalCost"><span id="allSum_FORMATED"><?if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N" && strlen($_SESSION["CUSTOM_COUPON"]["COUPON_ID"]) > 0 && intval($_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"]) > intval($arResult["allSum"])) {echo str_replace(" ", "&nbsp;", 0);} else {echo str_replace(" ", "&nbsp;", $arResult["allSum"]);}?><b class="rubsign"></b></span></p>
             <p class="finalQuant">Кол-во: <span id="totalQuantity"><?=$totalQuantity?></span></p>
             <p class="finalText">Итого</p>
             <?
@@ -432,7 +432,7 @@
                     <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
                     <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
                 </div><?
-                    if (!empty($arResult['COUPON_LIST']) || strlen($_SESSION["CUSTOM_COUPON"]["COUPON_ID"]) > 0)
+                    if (!empty($arResult['COUPON_LIST']) || ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N" && strlen($_SESSION["CUSTOM_COUPON"]["COUPON_ID"])) > 0)
                     {
                         foreach ($arResult['COUPON_LIST'] as $oneCoupon)
                         {

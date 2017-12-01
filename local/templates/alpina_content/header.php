@@ -165,9 +165,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				$('.authorisationWrapper').show();
 				return false;
 			});
+            setTimeout(function() { $('.lkWrapp').show() }, 800);
+
 		});
 	</script>
-	<div class="lkWrapp">
+	<div class="lkWrapp" style="display: none;">
 		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
 			<div class="headBasket">
 				<div class="BasketQuant"></div>
@@ -210,7 +212,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		</p>
 	</div>
 	<?$frame->beginStub();?>
-	<div class="lkWrapp">
+    <?if(!CUser::IsAuthorized()) {?>
+	<div class="lkWrapp" style="display: none;">
 		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
 			<div class="headBasket">
 				<div class="BasketQuant" style="display: none;"></div>
@@ -240,6 +243,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			);?>
 		</p>
 	</div>
+    <?}?>
 	<?$frame->end();?>
 </header>
 

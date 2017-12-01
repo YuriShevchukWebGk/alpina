@@ -155,6 +155,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	<?$frame = new \Bitrix\Main\Page\FrameBuffered("header");
 	$frame->begin();?>
+
 	<script>
 		function basketOpenFlag() {
 			$('.hidingBasketRight, .layout, .windowClose').toggle();
@@ -181,9 +182,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				$('.authorisationWrapper').show();
 				return false;
 			});
+            setTimeout(function() { $('.lkWrapp').show() }, 800);
 		});
 	</script>
-	<div class="lkWrapp">
+
+	<div class="lkWrapp" style="display: none;">
 		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
 			<div class="headBasket">
 				<div class="BasketQuant"></div>
@@ -225,37 +228,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			);?>
 		</p>
 	</div>
+
 	<?$frame->beginStub();?>
-	<div class="lkWrapp">
-		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
-			<div class="headBasket">
-				<div class="BasketQuant" style="display: none;"></div>
-			</div>
-		</a>
+     <?if(!CUser::IsAuthorized()) {?>
+	    <div class="lkWrapp" style="display: none;">
+		    <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+			    <div class="headBasket">
+				    <div class="BasketQuant" style="display: none;"></div>
+			    </div>
+		    </a>
 
-		<a href="/personal/profile/" id="authorisationPopup">
-			<div>
-				<img src="/img/lkImg.png">
-			</div>
-		</a>
+		    <a href="/personal/profile/" id="authorisationPopup">
+			    <div>
+				    <img src="/img/lkImg.png">
+			    </div>
+		    </a>
 
-		<p class="telephone">
-			<?$APPLICATION->IncludeComponent(
-				"bitrix:main.include",
-				".default",
-				array(
-					"AREA_FILE_SHOW" => "file",
-					"AREA_FILE_SUFFIX" => "inc",
-					"AREA_FILE_RECURSIVE" => "Y",
-					"EDIT_TEMPLATE" => "",
-					"COMPONENT_TEMPLATE" => ".default",
-					"PATH" => "/include/telephone.php"
-				),
-				false
-			);?>
-		</p>
-	</div>
+		    <p class="telephone">
+			    <?$APPLICATION->IncludeComponent(
+				    "bitrix:main.include",
+				    ".default",
+				    array(
+					    "AREA_FILE_SHOW" => "file",
+					    "AREA_FILE_SUFFIX" => "inc",
+					    "AREA_FILE_RECURSIVE" => "Y",
+					    "EDIT_TEMPLATE" => "",
+					    "COMPONENT_TEMPLATE" => ".default",
+					    "PATH" => "/include/telephone.php"
+				    ),
+				    false
+			    );?>
+		    </p>
+	    </div>
+      <?}?>
 	<?$frame->end();?>
+
 </header>
 
 <div class="mainWrapp" itemprop="mainContentOfPage">

@@ -11,7 +11,7 @@
 
 <!--eski.mobi--><script class="eskimobi" data-type="mobile">!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];e.src?a.src=e.src:e.innerHTML&&(a.innerHTML=e.innerHTML),a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<div id="eski-overlay" style="font-family:Helvetica-Light,Helvetica,Arial,sans-serif;font-weight:light;font-size:300%;line-height:100%;position:absolute;top:42%;left:0;right:0;text-align:center;color: #999;">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...</div><plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h=function(){var c=new Date;c.setTime(c.getTime()+18e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e){var a=b.createElement("script");if(a.onerror=h,"string"==typeof e)g(a,"main-executable","mobify",{src:e});else{var c="var main = "+e.toString()+"; main();";g(a,"main-executable","mobify",{innerHTML:c})}}},f.onerror=h,g(f,"mobify-js","mobify",{src:d})})}(window,document,function(){var ua=navigator.userAgent||navigator.vendor||window.opera,m=false;if(/mobi|phone|ipod|nokia|android/i.test(ua))m=true;if(/msie|windows|media\scenter|opera\smini|ipad|android\s3|android\s2|iphone\sos\s(4|5|6)|ipad\sos\s(4|5|6)/i.test(ua)||screen.width>1024)m=false;return m;},"/eskimobi/eski.mobi.min.js?20170906","/eskimobi/mobi.js?201710182");</script><!--/eski.mobi-->
     <title><?if(isset($_GET['PAGEN_2'])): $APPLICATION->ShowTitle(); echo ' - страница № ' . $_GET['PAGEN_2'] . ' – Альпина'; else: $APPLICATION->ShowTitle(); endif;?></title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />
     <link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
-    
+
     <?if(!isset($_GET['PAGEN_2'])): $APPLICATION->ShowMeta("description"); endif;?>
     <?$APPLICATION->ShowCSS();?>
     <?$APPLICATION->ShowHeadStrings()?>
@@ -188,9 +188,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 $('.authorisationWrapper').show();
                 return false;
             });
+            setTimeout(function() { $('.lkWrapp').show() }, 800);
         });
     </script>
-    <div class="lkWrapp">
+    <div class="lkWrapp" style="display: none;">
         <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
             <div class="headBasket">
                 <div class="BasketQuant"></div>
@@ -233,36 +234,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </p>
     </div>
     <?$frame->beginStub();?>
-    <div class="lkWrapp">
-        <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
-            <div class="headBasket">
-                <div class="BasketQuant" style="display: none;"></div>
-            </div>
-        </a>
+    <?if(!CUser::IsAuthorized()) {?>
+        <div class="lkWrapp" style="display: none;">
+            <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+                <div class="headBasket">
+                    <div class="BasketQuant" style="display: none;"></div>
+                </div>
+            </a>
 
 
-        <a href="/personal/profile/" id="authorisationPopup">
-            <div>
-                <img src="/img/lkImg.png">
-            </div>
-        </a>
+            <a href="/personal/profile/" id="authorisationPopup">
+                <div>
+                    <img src="/img/lkImg.png">
+                </div>
+            </a>
 
-        <p class="telephone">
-            <?$APPLICATION->IncludeComponent(
-                "bitrix:main.include",
-                ".default",
-                array(
-                    "AREA_FILE_SHOW" => "file",
-                    "AREA_FILE_SUFFIX" => "inc",
-                    "AREA_FILE_RECURSIVE" => "Y",
-                    "EDIT_TEMPLATE" => "",
-                    "COMPONENT_TEMPLATE" => ".default",
-                    "PATH" => "/include/telephone.php"
-                ),
-                false
-            );?>
-        </p>
-    </div>
+            <p class="telephone">
+                <?$APPLICATION->IncludeComponent(
+                    "bitrix:main.include",
+                    ".default",
+                    array(
+                        "AREA_FILE_SHOW" => "file",
+                        "AREA_FILE_SUFFIX" => "inc",
+                        "AREA_FILE_RECURSIVE" => "Y",
+                        "EDIT_TEMPLATE" => "",
+                        "COMPONENT_TEMPLATE" => ".default",
+                        "PATH" => "/include/telephone.php"
+                    ),
+                    false
+                );?>
+            </p>
+        </div>
+    <?}?>
     <?$frame->end();?>
 </header>
 

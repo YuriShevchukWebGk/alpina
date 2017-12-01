@@ -86,9 +86,14 @@ if ($USER->isAdmin() || in_array(6,$userGroup)) {
 	arsort($books);
 	$table = '<br /><br /><h3>Переиздания</h3><table width="800" border="1"><tbody>';
 	foreach($books as $book) {
+		$rsOrder = CSaleOrder::GetList(array('ID' => 'DESC'), array('STATUS_ID' => 'PR', 'BASKET_PRODUCT_ID' => $book['i']));
+		while ($order = $rsOrder->Fetch()) {
+			$book['o']++;
+		}
 		$table .= '<tr>';
 		$table .= '<td><a href="/catalog/temporary/'.$book['i'].'/">'.$book['n'].'</a></td>';
 		$table .= '<td>'.$book['q'].'</td>';
+		$table .= '<td>'.$book['o'].'</td>';
 		$table .= '</tr>';
 	}
 	$table .= '</tbody></table>';
