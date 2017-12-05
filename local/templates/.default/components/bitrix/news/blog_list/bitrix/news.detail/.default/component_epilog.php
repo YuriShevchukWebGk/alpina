@@ -9,6 +9,6 @@ $title .= ' — блог издательства «Альпина Паблиш�
 $description = substr(strip_tags($arResult["DETAIL_TEXT"]),0,160);
 $APPLICATION -> SetPageProperty("title", $title);
 $APPLICATION -> SetPageProperty("description", $description); 
-$APPLICATION->ShowMeta("description");
+//$APPLICATION->ShowMeta("description");
 
 ?>

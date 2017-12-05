@@ -83,11 +83,13 @@ if(strlen($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"])){
 	$title .= '. ' . $arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"];
 }
 
-$title .= " - ". $arResult["AUTHOR_NAME"] ." - ".  GetMessage("ADD_TITLE");
+//$title .= " - ". $arResult["AUTHOR_NAME"] ." - ".  GetMessage("ADD_TITLE");
 
-if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"])){
-	$title .= ' | ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
-}
+/*if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"])){
+	$title .= '. ' . $arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"];
+}*/
+
+$title .= " - ". 'купить книгу ' . $author_name ." - с доставкой, издание ". $arResult["PROPERTIES"]["YEAR"]["VALUE"];
 
 $APPLICATION->SetPageProperty("title", $title);
 

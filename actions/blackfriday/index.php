@@ -1,4 +1,4 @@
-﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 global $USER;
 CModule::IncludeModule("iblock");
 ?>
@@ -554,7 +554,7 @@ foreach ($booksArray as $m => $single) {
     <div class="landing">
         <div class="mainWrapp">
             <div class="slide1">
-			<?if (date("w") == 0) {?>
+			<?if (1 != 1) {?>
 				<div class="slide1text1">
 					ВСЕМ СТОЯТЬ! ЭТО ОГРАБЛЕНИЕ!
 					<br />

@@ -62,11 +62,8 @@ array('id'=>72, 'name'=>'GERMANY STRIP MINING', 'place'=>'КАРЬЕР TAGEBAU H
 ?>
 <!DOCTYPE html>
 <html> 
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>OVERVIEW \ PRINTSHOP</title>
 
@@ -77,35 +74,23 @@ array('id'=>72, 'name'=>'GERMANY STRIP MINING', 'place'=>'КАРЬЕР TAGEBAU H
 <meta property="fb:app_id" content="257953674358265" />
 <meta name="format-detection" content="telephone=no" />
 <meta http-equiv="x-dns-prefetch-control" content="on">
-
-
-<link rel="canonical" href="printshop_overview.html">
-
 <!-- Assets -->
 <link rel="stylesheet" href="img/css/tilda-grid-3.0.min.css" type="text/css" media="all" />
-<link rel="stylesheet" href="/css/style.css?1511524770" type="text/css">
+
 <link rel="stylesheet" href="source/tilda-blocks-2.12e80b.css?t=1511512933" type="text/css" media="all" />
 <link rel="stylesheet" href="img/css/tilda-animation-1.0.min.css" type="text/css" media="all" />
 <link rel="stylesheet" href="img/css/tilda-slds-1.4.min.css" type="text/css" media="all" />
 <link rel="stylesheet" href="img/css/tilda-zoom-2.0.min.css" type="text/css" media="all" />
-<script src="img/js/jquery-1.10.2.min.js">
-</script>
-<script src="img/js/tilda-scripts-2.8.min.js">
-</script>
-<script src="source/tilda-blocks-2.7e80b.js?t=1511512933">
-</script>
-<script src="img/js/tilda-animation-1.0.min.js">
-</script>
-<script src="img/js/tilda-slds-1.4.min.js">
-</script>
-<script src="img/js/hammer.min.js">
-</script>
-<script src="img/js/tilda-zoom-2.0.min.js">
-</script>
-<script src="img/js/tilda-products-1.0.min.js">
-</script>
-<script src="img/js/lazyload-1.3.min.js">
-</script>
+<script type="text/javascript" src="https://partner.rficb.ru/gui/rfi_widget/js/v1.js"></script>
+<script src="img/js/jquery-1.10.2.min.js"></script>
+<script src="img/js/tilda-scripts-2.8.min.js"></script>
+<script src="source/tilda-blocks-2.7e80b.js?t=1511512933"></script>
+<script src="img/js/tilda-animation-1.0.min.js"></script>
+<script src="img/js/tilda-slds-1.4.min.js"></script>
+<script src="img/js/hammer.min.js"></script>
+<script src="img/js/tilda-zoom-2.0.min.js"></script>
+<script src="img/js/tilda-products-1.0.min.js"></script>
+<script src="img/js/lazyload-1.3.min.js"></script>
 </head>
 <body class="t-body" style="margin:0;">
 
@@ -132,7 +117,7 @@ array('id'=>72, 'name'=>'GERMANY STRIP MINING', 'place'=>'КАРЬЕР TAGEBAU H
                 "webgk:rfi.widget",
                 "",
                 Array(
-                    "ORDER_ID"      => "CERT_",
+                    "ORDER_ID"      => "PRINT_",
                     "OTHER_PAYMENT" => "Y",
                     "OTHER_PARAMS"  => array(
                         "PAYSUM"   => $newPrice,
@@ -147,11 +132,18 @@ array('id'=>72, 'name'=>'GERMANY STRIP MINING', 'place'=>'КАРЬЕР TAGEBAU H
         </div>
     </div>
 <!--allrecords-->
+<img src="img/book.png" class="topbook" />
 <div id="allrecords" class="t-records">
 <div id="rec38620142" class="r t-rec" style=" " data-animationappear="off" data-record-type="18" >
 <!-- cover -->
 <div class="t-cover" id="recorddiv38620142" bgimgfield="img" style="height:60vh; background-image:url('img/tild3631-3137-4235-b363-333134626166/-/resize/20x/05.png');" >
-<div class="t-cover__carrier" id="coverCarry38620142" data-content-cover-id="38620142" data-content-cover-bg="img/tild3631-3137-4235-b363-333134626166/05.png" data-content-cover-height="60vh" data-content-cover-parallax="fixed" style="background-image:url('');height:60vh; background-position:center bottom;">
+<div class="t-cover__carrier" id="coverCarry38620142" data-content-cover-id="38620142" data-content-cover-bg="img/fon.jpg" data-content-cover-height="60vh" data-content-cover-parallax="fixed" style="background-image:url('');height:60vh; background-position:center bottom;">
+	<div class="toptitle">ВИД СВЕРХУ</div>
+	<div class="topauthor">
+		<img src="img/avtor.png" style="padding-right:20px;" align="left" />
+		<span style="font-size:24px;">ОБ АВТОРЕ</span><br /><br />
+		Бенжамин Грант изучал мировую историю и историю искусств в Йельском университете. Уникальные фотографии автора выставлялись в галереях Нью-Йорка, Сан-Франциско и Мюнхена. 200 лучших кадров вошли в книгу «ВИД СВЕРХУ».
+	</div>
 </div>
 <div class="t-cover__filter" style="height:60vh;background-image: -moz-linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));background-image: -o-linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));background-image: -ms-linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));background-image: linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fe000000', endColorstr='#fe000000');">
 </div>
@@ -237,15 +229,15 @@ array('id'=>72, 'name'=>'GERMANY STRIP MINING', 'place'=>'КАРЬЕР TAGEBAU H
 </div>
 </div>
 </div>
-<div class="t-slds__item " data-slide-index="3">
-<div class="t-slds__wrapper" itemscope itemtype="http://schema.org/ImageObject">
-<meta itemprop="image" content="img/tild3462-3936-4337-b965-613963356333/_10_2.png">
-<div class="t-slds__imgwrapper" bgimgfield="gi_img__2" >
-<div class="t-slds__bgimg t-slds__bgimg-contain t-bgimg " data-original="img/tild3462-3936-4337-b965-613963356333/_10_2.png" style="padding-bottom:75%; background-image: url('img/tild3462-3936-4337-b965-613963356333/-/resize/20x/_10_2.png');">
-</div>
-</div>
-</div>
-</div>
+	<?/*<div class="t-slds__item " data-slide-index="3">
+	<div class="t-slds__wrapper" itemscope itemtype="http://schema.org/ImageObject">
+	<meta itemprop="image" content="img/tild3462-3936-4337-b965-613963356333/_10_2.png">
+	<div class="t-slds__imgwrapper" bgimgfield="gi_img__2" >
+	<div class="t-slds__bgimg t-slds__bgimg-contain t-bgimg " data-original="img/tild3462-3936-4337-b965-613963356333/_10_2.png" style="padding-bottom:75%; background-image: url('img/tild3462-3936-4337-b965-613963356333/-/resize/20x/_10_2.png');">
+	</div>
+	</div>
+	</div>
+	</div>*/?>
 </div>
 <div class="t-slds__arrow_container ">
 <div class="t-slds__arrow_wrapper t-slds__arrow_wrapper-left" data-slide-direction="left">
@@ -284,7 +276,7 @@ array('id'=>72, 'name'=>'GERMANY STRIP MINING', 'place'=>'КАРЬЕР TAGEBAU H
 </div>
 <div class="t744__price-wrapper">
 <div class="t744__price t744__price-item t-name t-name_md" style="margin-right:5px;">
-<div class="t744__price-value js-product-price" field="price" data-redactor-toolbar="no">150.00 ₽ </div>
+<div class="t744__price-value js-product-price" field="price" data-redactor-toolbar="no">-</div>
 <div class="t744__price-currency">₽ </div>
 </div>
 </div>
@@ -292,18 +284,18 @@ array('id'=>72, 'name'=>'GERMANY STRIP MINING', 'place'=>'КАРЬЕР TAGEBAU H
 <div class="t-product__option-title t-descr t-descr_xxs js-product-option-name format" >Формат 2:3</div>
 <div class="t-product__option-variants">
 <select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants format-options">
-<option value="30×45 cm" data-product-variant-price="150.00 ₽
+<option value="30×45 cm" data-product-variant-price="1125.00 ₽
 ">30×45 cm</option>
-<option value="60×90 cm" data-product-variant-price="250.00 ₽
+<option value="60×90 cm" data-product-variant-price="3500.00 ₽
 ">60×90 cm</option>
-<option value="90×135 cm" data-product-variant-price="400.00 ₽">90×135 cm</option>
+<option value="90×135 cm" data-product-variant-price="6250.00 ₽">90×135 cm</option>
 </select>
 </div>
 </div>
 <div class="t-product__option js-product-option">
-<div class="t-product__option-title t-descr t-descr_xxs js-product-option-name" >Тип печати</div>
+<div class="t-product__option-title t-descr t-descr_xxs js-product-option-name">Тип печати</div>
 <div class="t-product__option-variants">
-<select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants">
+<select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants print-type">
 <option value="Постер
 " data-product-variant-price="">Постер</option>
 <option value="Холст
@@ -339,6 +331,170 @@ array('id'=>72, 'name'=>'GERMANY STRIP MINING', 'place'=>'КАРЬЕР TAGEBAU H
 </div>
 </div>
 <style type="text/css"> #rec38167909 .t-slds__bullet_active .t-slds__bullet_body { background-color: #222 !important; } #rec38167909 .t-slds__bullet:hover .t-slds__bullet_body { background-color: #222 !important; }</style>
+</div>
+<div id="rec38570864" class="r t-rec t-rec_pt_30 t-rec_pb_0" style="padding-top:30px;padding-bottom:0px; " data-record-type="219" >
+<!-- T191 -->
+<div class="t191">
+<div class="t-align_center">
+<hr class="t191__line t-width t-width_2" style="background-color:#000000;opacity:0.2;">
+</div>
+</div>
+</div>
+<div id="rec38570726" class="r t-rec t-rec_pt_30" style="padding-top:30px; " data-record-type="147" >
+<!-- t214-->
+<div class="t214">
+<div class="t-container">
+<div class="t-row">
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild6531-3738-4463-a565-373166616661/1.jpg" style="background: url('img/tild6531-3738-4463-a565-373166616661/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild6531-3738-4463-a565-373166616661/1.jpg">
+</div>
+<div class="t214__textwrapper t-align_left">
+<div class="t214__descr t-text" data-redactor-toolbar="no" field="gi_descr__0" itemprop="description">Бумажный постер</div>
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-original="img/tild3766-3537-4137-b164-653762626363/2.jpg" style="background: url('img/tild3766-3537-4137-b164-653762626363/-/resize/20x/2.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3766-3537-4137-b164-653762626363/2.jpg">
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__2" data-zoom-target="2" data-original="img/tild3965-6631-4334-a335-373538356237/3.jpg" style="background: url('img/tild3965-6631-4334-a335-373538356237/-/resize/20x/3.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3965-6631-4334-a335-373538356237/3.jpg">
+</div>
+</div>
+</div>
+<div class="t-row">
+</div>
+</div>
+</div>
+</div>
+<div id="rec38570875" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="padding-top:0px;padding-bottom:0px; " data-record-type="219" >
+<!-- T191 -->
+<div class="t191">
+<div class="t-align_center">
+<hr class="t191__line t-width t-width_2" style="background-color:#000000;opacity:0.2;">
+</div>
+</div>
+</div>
+<div id="rec38570888" class="r t-rec t-rec_pt_30" style="padding-top:30px; " data-record-type="147" >
+<!-- t214-->
+<div class="t214">
+<div class="t-container">
+<div class="t-row">
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild3739-6431-4134-b537-376339333635/1.jpg" style="background: url('img/tild3739-6431-4134-b537-376339333635/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3739-6431-4134-b537-376339333635/1.jpg">
+</div>
+<div class="t214__textwrapper t-align_left">
+<div class="t214__descr t-text" data-redactor-toolbar="no" field="gi_descr__0" itemprop="description">Постер на холсте</div>
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-original="img/tild3037-3233-4837-a330-383431666535/2.jpg" style="background: url('img/tild3037-3233-4837-a330-383431666535/-/resize/20x/2.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3037-3233-4837-a330-383431666535/2.jpg">
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__2" data-zoom-target="2" data-original="img/tild6566-3430-4264-b466-383932656662/3.jpg" style="background: url('img/tild6566-3430-4264-b466-383932656662/-/resize/20x/3.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild6566-3430-4264-b466-383932656662/3.jpg">
+</div>
+</div>
+</div>
+<div class="t-row">
+</div>
+</div>
+</div>
+</div>
+<div id="rec38571077" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="padding-top:0px;padding-bottom:0px; " data-record-type="219" >
+<!-- T191 -->
+<div class="t191">
+<div class="t-align_center">
+<hr class="t191__line t-width t-width_2" style="background-color:#000000;opacity:0.2;">
+</div>
+</div>
+</div>
+<div id="rec38571103" class="r t-rec t-rec_pt_30" style="padding-top:30px; " data-record-type="147" >
+<!-- t214-->
+<div class="t214">
+<div class="t-container">
+<div class="t-row">
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild3539-6265-4264-b162-353461373633/1.jpg" style="background: url('img/tild3539-6265-4264-b162-353461373633/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3539-6265-4264-b162-353461373633/1.jpg">
+</div>
+<div class="t214__textwrapper t-align_left">
+<div class="t214__descr t-text" data-redactor-toolbar="no" field="gi_descr__0" itemprop="description">Пластификация постера</div>
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-original="img/tild3834-6637-4663-b136-333637383739/2.jpg" style="background: url('img/tild3834-6637-4663-b136-333637383739/-/resize/20x/2.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3834-6637-4663-b136-333637383739/2.jpg">
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__2" data-zoom-target="2" data-original="img/tild3534-6333-4364-b233-373464323031/3.jpg" style="background: url('img/tild3534-6333-4364-b233-373464323031/-/resize/20x/3.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3534-6333-4364-b233-373464323031/3.jpg">
+</div>
+</div>
+</div>
+<div class="t-row">
+</div>
+</div>
+</div>
+</div>
+<div id="rec38180097" class="r t-rec t-rec_pt_180 t-rec_pb_120" style="padding-top:180px;padding-bottom:120px; " data-record-type="528" >
+<!-- t528 -->
+<div class="t528">
+<div class="t-section__container t-container">
+<div class="t-col t-col_12">
+<div class="t-section__topwrapper t-align_center">
+<div class="t-section__title t-title t-title_xs" field="btitle">
+<div style="font-size:82px;" data-customstyle="yes">ОТЗЫВЫ В СМИ</div>
+</div>
+</div>
+</div>
+</div>
+<div class="t528__container t-container">
+<div class="t528__col t-col t-col_4 t-align_center">
+<div class="t528__bgimg t-margin_auto t-bgimg" data-original="img/tild3534-6666-4036-a430-613461313232/TheGuardianlogo1_cop.png" bgimgfield="li_img__1478014691630" style=" background-image: url('img/tild3534-6666-4036-a430-613461313232/-/resize/20x/TheGuardianlogo1_cop.png');" >
+</div>
+<div class="t528__text t-text t-text_xs t-margin_auto" field="li_text__1478014691630" style=" ">Потрясающие, удивительные, <br />интригующие фотографии Земли, <br />сделанные на небесах<br />
+</div>
+</div>
+<div class="t528__col t-col t-col_4 t-align_center">
+<div class="t528__bgimg t-margin_auto t-bgimg" data-original="img/tild6637-3332-4261-b461-333536643238/bbc_logo1600.png" bgimgfield="li_img__1478014727987" style=" background-image: url('img/tild6637-3332-4261-b461-333536643238/-/resize/20x/bbc_logo1600.png');" >
+</div>
+<div class="t528__text t-text t-text_xs t-margin_auto" field="li_text__1478014727987" style=" ">Невероятные образы — <br />такой Землю вы ещё не видели<br />
+</div>
+</div>
+<div class="t528__col t-col t-col_4 t-align_center">
+<div class="t528__bgimg t-margin_auto t-bgimg" data-original="img/tild3931-6266-4035-b036-313734326164/The_Atlantic_magazin.png" bgimgfield="li_img__1478014761774" style=" background-image: url('img/tild3931-6266-4035-b036-313734326164/-/resize/20x/The_Atlantic_magazin.png');" >
+</div>
+<div class="t528__text t-text t-text_xs t-margin_auto" field="li_text__1478014761774" style=" ">Великолепие Земли, вид сверху<br />
+</div>
+</div>
+<div class="t-clear t528__separator" style="">
+</div>
+<div class="t528__col t-col t-col_4 t-align_center">
+<div class="t528__bgimg t-margin_auto t-bgimg" data-original="img/tild3231-3332-4131-b636-326162326339/fast_company.gif" bgimgfield="li_img__1478014798002" style=" background-image: url('img/tild3231-3332-4131-b636-326162326339/-/resize/20x/fast_company.gif');" >
+</div>
+<div class="t528__text t-text t-text_xs t-margin_auto" field="li_text__1478014798002" style=" ">Эти фотографии изменят <br />ваш взгляд на нашу планету <br />
+</div>
+</div>
+<div class="t528__col t-col t-col_4 t-align_center">
+<div class="t528__bgimg t-margin_auto t-bgimg" data-original="img/tild3432-6631-4734-b131-303935643562/__20170926__151809_c.png" bgimgfield="li_img__1511358023811" style=" background-image: url('img/tild3432-6631-4734-b131-303935643562/-/resize/20x/__20170926__151809_c.png');" >
+</div>
+<div class="t528__text t-text t-text_xs t-margin_auto" field="li_text__1511358023811" style=" ">Мастерство и изобретательность <br />в поиске и представлении изображений <br />
+</div>
+</div>
+<div class="t528__col t-col t-col_4 t-align_center">
+<div class="t528__bgimg t-margin_auto t-bgimg" data-original="img/tild3266-3436-4037-a361-316236373166/huffpo_logo_copy.png" bgimgfield="li_img__1511358089810" style=" background-image: url('img/tild3266-3436-4037-a361-316236373166/-/resize/20x/huffpo_logo_copy.png');" >
+</div>
+<div class="t528__text t-text t-text_xs t-margin_auto" field="li_text__1511358089810" style=" ">Оглушительно</div>
+</div>
+</div>
+</div>
 </div>
 <div id="rec37917125" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="padding-top:0px;padding-bottom:0px;background-color:#ffffff; " data-record-type="212" data-bg-color="#ffffff">
 <!-- T188 -->
@@ -406,7 +562,7 @@ $(document).ready(function(){
                 form_valid = false;
                 $(this).css("border-color", "red");
             } else {
-                if ($(this).attr("name") == 'natural_email' || $(this).attr("name") == 'legal_email') {
+                if ($(this).attr("name") == 'legal_email') {
                     if (!(pattern.test($(this).val()))) {
                         form_valid = false;
                         $(this).css("border-color", "red");
@@ -414,41 +570,42 @@ $(document).ready(function(){
                         $(this).css("border-color", "#f0f0f0");
                     }
                 }
+				$(this).css("border-color", "#ddd");
             }
         });
         // если все ок, то сабмитим
         if (form_valid) {
-            var natural_person_email = $("#natural_email").val(),
-            selected_tab = $(".certificate_tab_active").data("popup-block");
-            $("input[name='certificate_quantity']").val($(".transparent_input").val());
-            var certificate_price = parseInt($("input[name='certificate_price']").val());
-            var certificate_quantity = parseInt($(".transparent_input").val());
+            var natural_person_email = $("#natural_email").val();
+			var natural_person_name = $("#natural_name").val();
+			var natural_person_phone = $("#natural_phone").val();
+            var price = parseInt($(".js-product-price").text());
+			alert(price);
             $.ajax({
-                url: '/ajax/ajax_create_overview_print_order.php.php',
+                url: '/ajax/ajax_create_overview_print_order.php',
                 type: "POST",
                 data: {
                     data: $("#certificate_form").serialize(),
-                    person_type: selected_tab
+					print_price: price,
+					print_name: $(".js-product-name").text(),
+					print_format: $(".format").text(),
+					print_type: $(".print-type option:selected").text(),
+					print_size: $(".format-options option:selected").text(),
+					buyer_phone: natural_person_phone
                 }
             }).done(function(result) {
                 var certificate_result = JSON.parse(result);
                 if (certificate_result.status == "success") {
                     order_id = certificate_result.data;
                     $("#certificate_form").remove();
-                    if (selected_tab == "natural_person") {
-                        // физ. лицо
-                        var success_message = "<?= GetMessage('NATURAL_SUCCESS_MESSAGE') ?>";
-                        $(".submit_rfi").attr("data-email", natural_person_email);
-                        $(".submit_rfi").attr("data-comment", "CERT_" + order_id);
-                        $(".submit_rfi").attr("data-orderid", "CERT_" + order_id);
-                        $(".submit_rfi").attr("data-cost", certificate_price * certificate_quantity);
-                        $(".submit_rfi").click();
-                        $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
-                    } else {
-                        // юр. лицо
-                        var success_message = "<?= GetMessage('LEGAL_SUCCESS_MESSAGE') ?>";
-                        $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
-                    }
+					var success_message = "Заказ успешно оформлен.";
+					$(".submit_rfi").attr("data-email", natural_person_email);
+					$(".submit_rfi").attr("data-comment", "PRINT_" + order_id);
+					$(".submit_rfi").attr("data-orderid", "PRINT_" + order_id);
+					$(".submit_rfi").attr("data-cost", price);
+					$(".submit_rfi").click();
+					$("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
+					$(".certificate_popup_close").click();
+					$('html, body').animate({ scrollTop: $("body").offset().top }, 1000);
                 } else {
                     console.error(certificate_result.data);
                 }
@@ -462,25 +619,22 @@ $(document).ready(function(){
 		$(".t744__descr").text(description);
 		$(".format").text("Формат "+ratio);
 		$(".js-product-price").text("");
-		$("div[data-slide-index='1'] .t-bgimg").data("original","img/_"+id+".jpg").css("background-image","url(img/_"+id+".jpg)");
-		$("div[data-slide-index='2'] .t-bgimg").data("original","img/_"+id+"_1.jpg").css("background-image","url(img/_"+id+"_1.jpg)");
-		$("div[data-slide-index='3'] .t-bgimg").data("original","img/_"+id+"_2.jpg").css("background-image","url(img/_"+id+"_2.jpg)");
-		
+	
 		switch (ratio) {
 			case "1:1":
-				format = "<option value='30х30см' data-product-variant-price='675 ₽'>30х30см</option><option value='60х60см'  data-product-variant-price='2600 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='4750 ₽'>90х90см</option>";
+				format = "<option value='30x30см' data-product-variant-price='675 ₽'>30x30см</option><option value='60x60см'  data-product-variant-price='2600 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='4750 ₽'>90x90см</option>";
 				break;
 			case "1:2":
-				format = "<option value='30х60см' data-product-variant-price='1450 ₽'>30х60см</option><option value='45х90см'  data-product-variant-price='3000 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='4500 ₽'>60х120см</option>";
+				format = "<option value='30x60см' data-product-variant-price='1450 ₽'>30x60см</option><option value='45x90см'  data-product-variant-price='3000 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='4500 ₽'>60x120см</option>";
 				break;
 			case "2:3":
-				format = "<option value='30х45см' data-product-variant-price='1125 ₽'>30х45см</option><option value='60х90см'  data-product-variant-price='3500 ₽'>60х90см</option><option value='90х135см' data-product-variant-price='6250 ₽'>90х135см</option>";
+				format = "<option value='30x45см' data-product-variant-price='1125 ₽'>30x45см</option><option value='60x90см'  data-product-variant-price='3500 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='6250 ₽'>90x135см</option>";
 				break;
 			case "4:5":
-				format = "<option value='40х50см' data-product-variant-price='2000 ₽'>40х50см</option><option value='60х75см'  data-product-variant-price='3250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='4625 ₽'>80х100см</option>";
+				format = "<option value='40x50см' data-product-variant-price='2000 ₽'>40x50см</option><option value='60x75см'  data-product-variant-price='3250 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='4625 ₽'>80x100см</option>";
 				break;
 			case "3:5":
-				format = "<option value='30х50см' data-product-variant-price='1187 ₽'>30х50см</option><option value='60х100см'  data-product-variant-price='4000 ₽'>60х100см</option>";
+				format = "<option value='30x50см' data-product-variant-price='1187 ₽'>30x50см</option><option value='60x100см'  data-product-variant-price='4000 ₽'>60x100см</option>";
 				break;
 			default:
 				format = "Saturday";
@@ -490,7 +644,93 @@ $(document).ready(function(){
 		$(".format-options").html("<option value=''>Выберите размер</option>"+format);
 		$(".t744").slideDown();
 		$('html, body').animate({ scrollTop: $("#rec38167909").offset().top }, 1000);
+		
+		function switchIt() {
+			$("div[data-slide-index='1'] .t-bgimg").data("original","img/_"+id+".jpg").css("background-image","url(img/_"+id+".jpg)");
+			$("div[data-slide-index='2'] .t-bgimg").data("original","img/_"+id+"_1.jpg").css("background-image","url(img/_"+id+"_1.jpg)");
+			$("div[data-slide-index='3'] .t-bgimg").data("original","img/_"+id+"_2.jpg").css("background-image","url(img/_"+id+"_2.jpg)");
+		}
+		setTimeout(switchIt, 1000);
 	}
+	
+	$(".print-type").change(function() {
+		var printtype = $(".print-type option:selected").text();
+		var ratio = $(".format").text().slice(-3);
+
+		switch(printtype) {
+			case "Постер":
+				switch (ratio) {
+					case "1:1":
+						format = "<option value='30x30см' data-product-variant-price='675 ₽'>30x30см</option><option value='60x60см'  data-product-variant-price='2600 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='4750 ₽'>90x90см</option>";
+						break;
+					case "1:2":
+						format = "<option value='30x60см' data-product-variant-price='1450 ₽'>30x60см</option><option value='45x90см'  data-product-variant-price='3000 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='4500 ₽'>60x120см</option>";
+						break;
+					case "2:3":
+						format = "<option value='30x45см' data-product-variant-price='1125 ₽'>30x45см</option><option value='60x90см'  data-product-variant-price='3500 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='6250 ₽'>90x135см</option>";
+						break;
+					case "4:5":
+						format = "<option value='40x50см' data-product-variant-price='2000 ₽'>40x50см</option><option value='60x75см'  data-product-variant-price='3250 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='4625 ₽'>80x100см</option>";
+						break;
+					case "3:5":
+						format = "<option value='30x50см' data-product-variant-price='1187 ₽'>30x50см</option><option value='60x100см'  data-product-variant-price='4000 ₽'>60x100см</option>";
+						break;
+					default:
+						format = "Saturday";
+						break;
+				}
+				break;
+			case "Холст":
+				switch (ratio) {
+					case "1:1":
+						format = "<option value='30х30см' data-product-variant-price='1252 ₽'>30х30см</option><option value='60х60см'  data-product-variant-price='8375 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='14250 ₽'>90х90см</option>";
+						break;
+					case "1:2":
+						format = "<option value='30х60см' data-product-variant-price='6000 ₽'>30х60см</option><option value='45х90см'  data-product-variant-price='9250 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='16250 ₽'>60х120см</option>";
+						break;
+					case "2:3":
+						format = "<option value='30х45см' data-product-variant-price='3500 ₽'>30х45см</option><option value='60х90см'  data-product-variant-price='11400 ₽'>60х90см</option><option value='90х135см' data-product-variant-price='15500 ₽'>90х135см</option>";
+						break;
+					case "4:5":
+						format = "<option value='40х50см' data-product-variant-price='4750 ₽'>40х50см</option><option value='60х75см'  data-product-variant-price='12250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='19500 ₽'>80х100см</option>";
+						break;
+					case "3:5":
+						format = "<option value='30х50см' data-product-variant-price='3625 ₽'>30х50см</option><option value='60х100см'  data-product-variant-price='8750 ₽'>60х100см</option>";
+						break;
+					default:
+						format = "Saturday";
+						break;
+				}
+				break;
+			case "Пластификация":
+				switch (ratio) {
+					case "1:1":
+						format = "<option value='30х30см' data-product-variant-price='5500 ₽'>30х30см</option><option value='60х60см'  data-product-variant-price='16500 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='38500 ₽'>90х90см</option>";
+						break;
+					case "1:2":
+						format = "<option value='30х60см' data-product-variant-price='10750 ₽'>30х60см</option><option value='45х90см'  data-product-variant-price='17500 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='31250 ₽'>60х120см</option>";
+						break;
+					case "2:3":
+						format = "<option value='30х45см' data-product-variant-price='4500 ₽'>30х45см</option><option value='60х90см'  data-product-variant-price='22800 ₽'>60х90см</option><option value='90х135см' data-product-variant-price='48500 ₽'>90х135см</option>";
+						break;
+					case "4:5":
+						format = "<option value='40х50см' data-product-variant-price='2000 ₽'>40х50см</option><option value='60х75см'  data-product-variant-price='3250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='4625 ₽'>80х100см</option>";
+						break;
+					case "3:5":
+						format = "<option value='30х50см' data-product-variant-price='9500 ₽'>30х50см</option><option value='60х100см'  data-product-variant-price='26250 ₽'>60х100см</option>";
+						break;
+					default:
+						format = "Saturday";
+						break;
+				}
+				break;
+			default:
+				format = "Saturday";
+				break;
+		}
+		
+		$(".format-options").html("<option value=''>Выберите размер</option>"+format);
+	});
 	
 	function order() {
 		$(".certificate_popup").fadeIn();

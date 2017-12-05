@@ -944,7 +944,7 @@
                 $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
             }
             ?>
-
+            <?/*?>
              <ul class="shippings" data-weight="<?=$weight?>">
                 <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
                     <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
@@ -968,8 +968,9 @@
                     ),
                     false
                 );?>
-             <? /*
-                if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
+             <? */ ?>
+             <ul class="shippings" data-weight="<?=$weight?>">
+                <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
                     if($city == "Москва" || empty($city)){ ?>
                         <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
                             <?= GetMessage("MSK_DELIVERY") ?>
@@ -1065,7 +1066,7 @@
                     );?>
 
                  <?}?>
-                <?}*/?>
+                <?}?>
             </ul>
 
             <?}?>

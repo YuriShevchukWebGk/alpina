@@ -12,13 +12,13 @@
 //define("LANG", "ru"); 
 define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]."/custom-scripts/log.txt");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-?>  
+?>
 <?
     // -- getting template for our criteo products xml file
     $dirPath = $_SERVER['DOCUMENT_ROOT']."/criteo/";
     $xml = simplexml_load_file($dirPath."criteo_template_g.xml");
 
-    $arSelect = Array('ID', 'NAME', 'DETAIL_PICTURE', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'IBLOCK_SECTION_ID', 'PROPERTY_PUBLISHER', 'PROPERTY_age_group', 'PROPERTY_ISBN');
+    $arSelect = Array('ID', 'NAME', 'DETAIL_PICTURE', 'DETAIL_PAGE_URL', 'PREVIEW_TEXT', 'IBLOCK_SECTION_ID', 'PROPERTY_PUBLISHER', 'PROPERTY_age_group', 'PROPERTY_ISBN', 'PROPERTY_STATE');
     $arFilter = Array("IBLOCK_ID" => 4, "ACTIVE_DATE" => "Y", "ACTIVE" => "Y",'PROPERTY_STATE'=>Array(false,21));
     $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize" => 99999), $arSelect);
 	
@@ -58,6 +58,11 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
         $product->addChild('brand', $arFields['PROPERTY_PUBLISHER_VALUE'], 'http://base.google.com/ns/1.0');
 		$product->addChild('product_type', $itemCategoryName, 'http://base.google.com/ns/1.0');
 		$product->addChild('condition', 'new', 'http://base.google.com/ns/1.0');
+
+		if ($arFields['PROPERTY_STATE_ENUM_ID'] == 21)
+			$product->addChild('state', 'new');
+		else
+			$product->addChild('state', 'old');
 		
 		if (!empty($isbn))
 			$product->addChild('gtin', $isbn, 'http://base.google.com/ns/1.0');
