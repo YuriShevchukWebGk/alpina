@@ -81,7 +81,7 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript">
         //ymaps.ready(init);
-        function init(adress_input) {
+        function map_metro(adress_input) {
 
             var myMap = new ymaps.Map('map', {
                 center: [55.753994, 37.622093],

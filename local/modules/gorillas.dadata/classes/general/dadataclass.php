@@ -323,7 +323,7 @@ class CDadataSuggestions
 							    <? if($type=="ADDRESS"): ?>
 								    dadataSuggestions.setLocation(suggestion);
 							    <? endif ?>
-                                //map_metro(suggestion.value);
+                                map_metro(suggestion.value);
 
 						    }));
 					    <? endforeach ?>

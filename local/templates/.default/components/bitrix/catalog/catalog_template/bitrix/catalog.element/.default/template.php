@@ -19,7 +19,7 @@
     LocalRedirect('/404.php', '301 Moved permanently');
 }?>
 <script>
-    $(document).ready(function(){
+    $(function(){
         <!-- //dataLayer GTM -->
         dataLayer.push({
             'stockInfo' : '<?= $StockInfo ?>',
@@ -41,7 +41,7 @@
             $(".basketIcon").hide();
         }
 
-        $(".buyLater").click(function(){
+        $("body").on('click', '.buyLater', function(){
             $.post("/ajax/ajax_add2wishlist.php", {id: <?= $arResult["ID"] ?>}, function(data){
                 $(".layout").show();
                 $(".wishlist_info").css("top", 1.5 * window.pageYOffset+"px");
@@ -399,7 +399,7 @@
                 <p class="AlreadyInWishlist"><?= GetMessage("ALREADY_IN_WISHLIST") ?></p>
             </a>
             <?} else {?>
-            <a href="javascript:void(0); return true;" onclick="dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');">
+            <a href="javascript:void(0);" onclick="//dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');">
                 <p class="buyLater"><?= GetMessage("TO_BUY_LATER") ?></p>
             </a>
             <?}
@@ -944,7 +944,7 @@
                 $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
             }
             ?>
-
+            <?/*?>
              <ul class="shippings" data-weight="<?=$weight?>">
                 <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
                     <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
@@ -968,8 +968,9 @@
                     ),
                     false
                 );?>
-             <? /*
-                if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
+             <? */ ?>
+             <ul class="shippings" data-weight="<?=$weight?>">
+                <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
                     if($city == "Москва" || empty($city)){ ?>
                         <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
                             <?= GetMessage("MSK_DELIVERY") ?>
@@ -1011,8 +1012,8 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "N",
-                            "SMALL_ENABLE" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
                             "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
@@ -1026,8 +1027,8 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "N",
-                            "SMALL_ENABLE" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
                             "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
@@ -1057,15 +1058,15 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "N",
-                            "SMALL_ENABLE" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
                             "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>
 
                  <?}?>
-                <?}*/?>
+                <?}?>
             </ul>
 
             <?}?>
