@@ -87,18 +87,18 @@ altasib_geobase.sc_init_handlers=function(){
             event.preventDefault();altasib_geobase.sc_cls();
         });
 
-        $('.altasib_geobase_link_city').click(function(event){
+        $('body').on('click', '.altasib_geobase_link_city', function(event){
             if($('div#altasib_geobase_win').length>0)
                 altasib_geobase.sc_open();
             else
                 altasib_geobase.sc_load_open();
         });
 
-        $('.altasib_geobase_disabled#altasib_geobase_btn').click(function(event){
+        $('body').on('click', '.altasib_geobase_disabled#altasib_geobase_btny', function(event){
             event.preventDefault();altasib_geobase.sc_onclk();
         });
 
-        $('.altasib_geobase_find #altasib_geobase_info').click(function(event){
+        $('body').on('click', '.altasib_geobase_find #altasib_geobase_info', function(event){
             event.preventDefault();altasib_geobase.sc_add_city(event);
         })
         .keyup(function(event){altasib_geobase.sc_selKey(event);})
