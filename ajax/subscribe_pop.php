@@ -9,7 +9,7 @@ if ($_REQUEST["id"] && empty($_COOKIE["subscribePopup"]) && empty($APPLICATION->
 	if ($USER->IsAuthorized())
 		$already = CSubscription::GetList(array(), array("USER_ID"=>$USER->GetID()), false)->Fetch();
 	
-	if (!$already && $_SERVER['REMOTE_ADDR'] != $alpinaip) {
+	if (!$already && $_SERVER['REMOTE_ADDR'] != $alpinaip && strpos($APPLICATION->GetCurDir(),"/personal/") === false) {
 		$return = '<style>.outLink {text-decoration:underline} .outLink:hover {text-decoration:none;}.stopProp img {max-width:650px;height:auto;display:block;margin:0 auto;padding:0 50px 0 0;}.awayLink:hover {background-color: #cab796!important;color: #fff!important;} .addLink:hover {background-color: #c7a271!important;color: #fff!important;} .closeX:after{font-size:48px;position: absolute;content:"\00d7";color:#fff;width: 21px;height: 21px;right: 40px;cursor: pointer;display: block} .closeX:hover:after {content:"\00d7";color:#888}#subpop input[type=button]{background:transparent;color:#0dce00;margin-left:-50px;font-size:28px;}input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {background-color:transparent!important;color:#fff!important}</style>';
 		
 		$return .= '<script>$(document).ready(function() { $(".stopProp").click(function(e) { e.stopPropagation(); }); });';

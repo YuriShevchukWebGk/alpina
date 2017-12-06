@@ -9,12 +9,15 @@
 body{overflow-x:auto!important;font-family:Walshein_regular!important}
 
 .topbook {
-	position:absolute;top:25%;left:17%;width:100%;max-width:400px;z-index:10000
+	position:absolute;top:9%;left:17%;width:100%;max-width:400px;z-index:10000
 }
 .toptitle {
 	font-size:210px;color:#eee;opacity:0.6;font-family:Roboto
 }
 .topauthor {
+	color:#fff;font-size:16px;position:absolute;right:20%;margin-top:60px;width:auto;max-width:500px;text-align:left
+}
+.aboutproject {
 	color:#fff;font-size:16px;position:absolute;right:20%;margin-top:30px;width:auto;max-width:500px;text-align:left
 }
 
