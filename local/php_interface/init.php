@@ -3308,7 +3308,7 @@ AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "UpdateStatusOrderOnPro
 
 // создаем обработчик события "UpdateStatusOrderOnProduct"
 function UpdateStatusOrderOnProduct(&$arFields) {
-    arshow($arFields["ID"]);
+
     $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("sort" => "asc"), Array("CODE"=>"STATE"));
     if($ar_props = $db_props->Fetch()){
         $status_product = $ar_props["VALUE"];
@@ -3322,18 +3322,21 @@ function UpdateStatusOrderOnProduct(&$arFields) {
        $state = '';
        while ($arSales = $rsSales->Fetch()) {
 
-          $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
+          if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
+          } else {
+              $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
 
-          while($arproduct = $dbItemsInOrder->Fetch()){
-            $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
+              while($arproduct = $dbItemsInOrder->Fetch()){
+                $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
 
-            if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
-                $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
-            }
-            if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
-                $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
-            }
+                if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
+                    $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
+                }
+                if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
+                    $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
+                }
 
+              }
           }
        }
 
