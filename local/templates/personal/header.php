@@ -142,14 +142,26 @@
                 );?>
         </ul>
     </div>
+    <script>
+    function basketOpenFlag() {
+            $('.hidingBasketRight, .layout, .windowClose').toggle();
+            if ($('.hidingBasketRight, .layout, .windowClose').css('display') == 'block') {
+                $('html').css('overflow', 'hidden');
+            } else {
+                $('html').css('overflow', 'auto');
+            }
+        }
+    </script>
     <div class="lkWrapp">
-        <div class="headBasket">
-            <div class="BasketQuant">
+        <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+            <div class="headBasket">
+                <div class="BasketQuant">
+                </div>
             </div>
-        </div>
+        </a>
         <a href="/personal/profile/" <?if (!$USER->IsAuthorized()){?>id="authorisationPopup"<?}?>>
             <div>
-                <img src="/img/lkImg.png">
+                <img src="/img/lkImgBl.png">
             </div>
         </a>
         <p class="telephone"><!--+7 (495) 980 80 77-->
