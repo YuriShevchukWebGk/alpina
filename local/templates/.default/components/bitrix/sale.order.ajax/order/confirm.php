@@ -70,7 +70,7 @@
         var iPromoCpnObj = new _iPromoBannerObj();
     </script>*/?>
 
-	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276" async></script>
+    <script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276" async></script>
     <?if (!empty($_SESSION['gtmEnchECommerceCheckout'])) {?>
         <!--Criteo-->
         <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
@@ -185,20 +185,20 @@
             }]);
         </script>
 
-		<script>
-			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'paymentID <?=$arResult["ORDER"]["PAY_SYSTEM_ID"]?>'});
-			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'deliveryID <?=$arResult["ORDER"]["DELIVERY_ID"]?>'});
-			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'personType <?=$arResult["ORDER"]["PERSON_TYPE_ID"]?>'});
-		</script>
-		<!-- gdeslon -->
-		<?/*<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=<?=$_SESSION['gdeslon']?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>*/?>
-		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276&amp;codes=<?=$_SESSION['gdeslon']?>"></script>
-		<script type="text/javascript" src="//www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
+        <script>
+            dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'paymentID <?=$arResult["ORDER"]["PAY_SYSTEM_ID"]?>'});
+            dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'deliveryID <?=$arResult["ORDER"]["DELIVERY_ID"]?>'});
+            dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'personType <?=$arResult["ORDER"]["PERSON_TYPE_ID"]?>'});
+        </script>
+        <!-- gdeslon -->
+        <?/*<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=<?=$_SESSION['gdeslon']?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>*/?>
+        <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276&amp;codes=<?=$_SESSION['gdeslon']?>"></script>
+        <script type="text/javascript" src="//www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
         <?unset($_SESSION['criteo'])?>
         <?unset($_SESSION['gtmEnchECommerceCheckout'])?>
         <?unset($_SESSION['floctory'])?>
         <?unset($_SESSION['retailRocket'])?>
-		<?unset($_SESSION['gdeslon'])?>
+        <?unset($_SESSION['gdeslon'])?>
 
         <?}?>
 
@@ -245,14 +245,14 @@
             <div id="promocode-element-container"></div>
             <?
             if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID) { ?>
-            	<? $APPLICATION->IncludeComponent(
-					"webgk:rfi.widget",
-					"",
-					Array(
-						"ORDER_ID" => $_REQUEST["ORDER_ID"]
-					),
-					false
-				); ?>
+                <? $APPLICATION->IncludeComponent(
+                    "webgk:rfi.widget",
+                    "",
+                    Array(
+                        "ORDER_ID" => $_REQUEST["ORDER_ID"]
+                    ),
+                    false
+                ); ?>
             <? } else if ($arResult["PAY_SYSTEM"]["ID"] == 24){
                 $merchant_id = "0879c750d38aae9c073b94c8c470461f";
                 $secret_key = "ff084641f88df727b029a4816b428082";
@@ -606,7 +606,7 @@
                 <?}*/
         }?>
 
-<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$userEmail?>"></div>				
+<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$userEmail?>"></div>                
 
     </div>
 
@@ -633,8 +633,8 @@
         var result = $(".confirmWrapper").html();
         $(".orderBody").parent().html(result);
     });
-	$(document).ready(function(){
-    	dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'pageLoaded'});
+    $(document).ready(function(){
+        dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'pageLoaded'});
         $(".submit_platbox").on("click", function(){
             $(".layout").show();
             $(".platbox_iframe_block").show();
