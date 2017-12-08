@@ -9,13 +9,13 @@
 body{overflow-x:auto!important;font-family:Walshein_regular!important}
 
 .topbook {
-	position:absolute;top:9%;left:17%;width:100%;max-width:400px;z-index:10000
+	position:absolute;top:9%;left:14%;width:25%;max-width:400px;z-index:10000
 }
 .toptitle {
 	font-size:210px;color:#eee;opacity:0.6;font-family:Roboto
 }
 .topauthor {
-	color:#fff;font-size:16px;position:absolute;right:20%;margin-top:60px;width:auto;max-width:500px;text-align:left
+	color:#fff;font-size:16px;position:absolute;right:10%;margin-top:60px;width:60%;max-width:500px;text-align:left
 }
 .aboutproject {
 	color:#fff;font-size:16px;position:absolute;right:20%;margin-top:30px;width:auto;max-width:500px;text-align:left
@@ -27,13 +27,16 @@ body{overflow-x:auto!important;font-family:Walshein_regular!important}
 
 
 .topbook {
-	position:absolute;top:35%;left:7%;width:100%;max-width:200px;z-index:10000
+	position:absolute;top:5%;left:4%;width:25%;max-width:500px;z-index:10000
 }
 .toptitle {
 	font-size:52px;color:#eee;opacity:0.6;font-family:Roboto
 }
 .topauthor {
-	color:#fff;font-size:14px;position:absolute;right:0;margin-top:15px;width:auto;max-width:350px;text-align:left
+	color:#fff;font-size:14px;position:absolute;right:0;margin-top:15px;width:70%;max-width:350px;text-align:left
+}
+.aboutproject {
+	color:#fff;font-size:14px;position:absolute;right:20%;margin-top:10px;width:auto;max-width:500px;text-align:left
 }
 .topauthor img {
 	max-width:50px;

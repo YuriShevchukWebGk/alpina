@@ -133,7 +133,7 @@ while ($arItems = $dbBasketItems->Fetch()){
                     <?}?>
                 </li>
             <?}?>
-            <li ><a href='javascript:void(0);' class="altasib_geobase_link_city" ><?=GetMessage('REASPEKT_GEOIP_TITLE_YOU_CITY')?></a></li>
+            <li class="no-mobile"><a href='javascript:void(0);' class="altasib_geobase_link_city" ><?=GetMessage('REASPEKT_GEOIP_TITLE_YOU_CITY')?></a></li>
 
 
 <?if($_REQUEST["get_select"] != 'Y'):?>
@@ -154,10 +154,10 @@ if(typeof altasib_geobase=="undefined")var altasib_geobase={};
 altasib_geobase.bitrix_sessid='<?=bitrix_sessid();?>';
 </script>
 
-<div id="altasib_geobase_win">
+<div id="altasib_geobase_win no-mobile" class="altasib_geobase_win">
     <div class="altasib_geobase_city">
         <div id="altasib_geobase_popup">
-            <div id="altasib_geobase_close"><a href="#" title="<?=GetMessage("ALTASIB_GEOBASE_CLOSE");?>"></a></div>
+            <div id="altasib_geobase_close" class="altasib_geobase_close"><a href="javascript:void(0)" title="<?=GetMessage("ALTASIB_GEOBASE_CLOSE");?>"></a></div>
 
             <div class="altasib_geobase_pu_i altasib_geobase_cutting">
                 <div class="altasib_geobase_ttl"><?echo ($arResult['RU_ENABLE'] == "Y" ? GetMessage("ALTASIB_GEOBASE_SELECT_".$sMode) : GetMessage("ALTASIB_GEOBASE_YOUR_".$sMode)).":";?></div>

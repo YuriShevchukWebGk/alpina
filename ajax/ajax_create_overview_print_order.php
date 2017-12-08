@@ -21,6 +21,9 @@ if ($print_data['natural_email']) {
 	$properties["buyer_name"] = $print_data['natural_name'];
 	$properties["buyer_email"] = $print_data['natural_email'];
 	$properties["buyer_phone"] = $print_data['natural_phone'];
+	
+	if ($_POST['print_card'] == "Y")
+		$properties["card"] = 948;
     
     // общие поля
     $fields = array(
@@ -29,6 +32,7 @@ if ($print_data['natural_email']) {
         "IBLOCK_ID"         => 74,
         "PROPERTY_VALUES"   => $properties                          
     );
+
     
 
     if ($product_id = $element_object->Add($fields)) {

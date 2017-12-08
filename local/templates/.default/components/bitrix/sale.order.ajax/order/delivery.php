@@ -135,7 +135,7 @@
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
-
+ <?//arshow($_POST,false)?>
 <input type="hidden" name="BUYER_STORE" id="BUYER_STORE" value="<?=$arResult["BUYER_STORE"]?>" />
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="bx_section js_delivery_block">
     <?
