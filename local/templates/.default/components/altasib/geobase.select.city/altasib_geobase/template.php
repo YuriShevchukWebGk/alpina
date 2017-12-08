@@ -154,7 +154,7 @@ if(typeof altasib_geobase=="undefined")var altasib_geobase={};
 altasib_geobase.bitrix_sessid='<?=bitrix_sessid();?>';
 </script>
 
-<div id="altasib_geobase_win no-mobile" class="altasib_geobase_win">
+<div id="altasib_geobase_win" class="altasib_geobase_win no-mobile">
     <div class="altasib_geobase_city">
         <div id="altasib_geobase_popup">
             <div id="altasib_geobase_close" class="altasib_geobase_close"><a href="javascript:void(0)" title="<?=GetMessage("ALTASIB_GEOBASE_CLOSE");?>"></a></div>
