@@ -258,9 +258,15 @@
                 $secret_key = "ff084641f88df727b029a4816b428082";
                 $order_id = $_REQUEST["ORDER_ID"];
                 $order_info = CSaleOrder::GetByID($order_id);
+                $order_props = CSaleOrderProps::GetOrderProps($order_id);
+                while ($arProps = $order_props -> Fetch()) {
+                    if ($arProps["ORDER_PROPS_ID"] == "EMAIL") {
+                        $user_email = $arProps["VALUE"];
+                    }
+                }
                 if (!empty($order_info)) {
                     //$account = ({"id" : $order_info["USER_ID"]});
-                    $account = ["id" => $order_info["USER_ID"]];
+                    $account = ["id" => $user_email];
                     $amount = $order_info["PRICE"] * 100;
                     $currency = $order_info["CURRENCY"];
                     $payer = ["phone_number" => str_replace(array(")", "(", "-"), "", substr($phone_val, 2))];

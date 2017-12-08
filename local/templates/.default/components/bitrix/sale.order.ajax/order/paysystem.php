@@ -51,19 +51,19 @@
             submitForm();
         }
     </script>
-    <div class="grayLine"></div>                                                        
+    <div class="grayLine"></div>
     <?if($arResult['ORDER_DATA']['DELIVERY_LOCATION'] == MOSCOW_LOCATION_ID);?>
     <div class="bx_section">
         <p class="blockTitle">Способ оплаты</p>
-        <?    
+        <?
             uasort($arResult["PAY_SYSTEM"], "cmpBySort"); // resort arrays according to SORT value
             foreach($arResult["PAY_SYSTEM"] as $arPaySystem)
-            {                                                           
-                //Убираем PayPal для Москвы и МО                      
+            {
+                //Убираем PayPal для Москвы и МО
                 if ((strlen(trim(str_replace("<br />", "", $arPaySystem["DESCRIPTION"]))) > 0 || intval($arPaySystem["PRICE"]) > 0) && !($arResult['ORDER_DATA']['DELIVERY_LOCATION'] == MOSCOW_LOCATION_ID && $arPaySystem['ID'] == PAYPAL_PAYSYSTEM_ID)) {
-					$arPay = CSaleDelivery::GetByID($arPaySystem["ID"]);
-					$pict = CFile::ResizeImageGet($arPaySystem["PSA_LOGOTIP"]["ID"], array("width" => 100, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
-				<div>
+                    $arPay = CSaleDelivery::GetByID($arPaySystem["ID"]);
+                    $pict = CFile::ResizeImageGet($arPaySystem["PSA_LOGOTIP"]["ID"], array("width" => 100, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
+                <div>
                 <input type="radio"
                     class="radioInp"
                     id="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>"
@@ -76,9 +76,9 @@
                 </label>
 
                 <p class="shipingText">
-					<?if (!empty($pict["src"])) {?>
-						<img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;" class="no-mobile" />
-					<?}?>
+                    <?if (!empty($pict["src"])) {?>
+                        <img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;" class="no-mobile" />
+                    <?}?>
                     <?
                         if (intval($arPaySystem["PRICE"]) > 0)
                             echo str_replace("#PAYSYSTEM_PRICE#", SaleFormatCurrency(roundEx($arPaySystem["PRICE"], SALE_VALUE_PRECISION), $arResult["BASE_LANG_CURRENCY"]), GetMessage("SOA_TEMPL_PAYSYSTEM_PRICE"));
@@ -86,10 +86,10 @@
                             echo $arPaySystem["DESCRIPTION"];
                     ?>
                 </p>
-				<div class="clear"></div>
-				</div>
-                                    
-                <?  
+                <div class="clear"></div>
+                </div>
+
+                <?
                     //варианты оплаты для электронных платежей
                     if($arPaySystem['ID'] == RFI_PAYSYSTEM_ID && $arResult["USER_VALS"]['PAY_SYSTEM_ID'] == RFI_PAYSYSTEM_ID){?>
                     <ul class="rfi_bank_vars">
@@ -106,12 +106,12 @@
                             <li><?= GetMessage("RFI_RECURRENT_DESCRIPTION") ?></li>
                         </ul>
                         <? }*/ ?>
-                    <?}?>          
-                <?} 
+                    <?}?>
+                <?}
 
                 if (strlen(trim(str_replace("<br />", "", $arPaySystem["DESCRIPTION"]))) == 0 && intval($arPaySystem["PRICE"]) == 0)
                 {?>
-					<div>
+                    <div>
                     <?if (count($arResult["PAY_SYSTEM"]) == 1)
                     {
                     ?>
@@ -126,13 +126,13 @@
                         />
                     <label for="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>" onclick="BX('ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>').checked=true;changePaySystem();" class="faceText">
                         <?=$arPaySystem["PSA_NAME"];?>
-                    </label>  
+                    </label>
                     <div class="clear"></div>
                     <?
                     }
                     else // more than one
                     {
-                    ?>       
+                    ?>
                     <input type="radio"
                         class="radioInp"
                         id="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>"
@@ -143,11 +143,11 @@
 
                     <label for="ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>" onclick="BX('ID_PAY_SYSTEM_ID_<?=$arPaySystem["ID"]?>').checked=true;changePaySystem();" class="faceText">
                         <?=$arPaySystem["PSA_NAME"];?>
-                    </label>    
-					
+                    </label>
+
                     <?
                     }?>
-					</div>
+                    </div>
                 <?}
             }
         ?>
