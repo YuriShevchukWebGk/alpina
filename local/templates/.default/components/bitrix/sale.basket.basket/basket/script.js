@@ -1189,7 +1189,14 @@ function recalcBasketAjax(params)
                     }
                 }
             }
-       console.log(result); }
+       
+            $(".gifts_block").load(document.location.href + " .gifts_block > *", function(response, status, xhr){
+                if ($(".gifts_block").find("div").size() > 0) {
+                    $(".gifts_block").show();
+                }
+            });
+         
+        }
     });
 }
 
