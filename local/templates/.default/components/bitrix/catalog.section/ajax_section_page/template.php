@@ -39,7 +39,6 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
 
 <div class="wrapperCategor">
     <div class="categoryWrapper">
-
         <div class="catalogIcon">
         </div>
         <div class="basketIcon">
@@ -76,7 +75,27 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
 
             <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
-
+			
+			<?
+			$arData = array();
+			$arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL");
+			$arFilter = Array("IBLOCK_ID" => 75, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_BIND_SECTION" => $arResult["ID"]);
+			$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+			while($ob = $res->GetNextElement())
+			{
+				$arData[] = $ob->GetFields();
+			}
+			
+			if(count($arData) > 0):
+			?> 
+			<div class="doner_tags">
+				<span>Популярные категории</span>
+				<?foreach($arData as $data):?>
+				<a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
+				<?endforeach;?>
+			</div>
+			
+			<?endif;?>
             <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
             $APPLICATION->IncludeComponent(
@@ -143,7 +162,6 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
                 ),
                 false
             );?>
-
             <? /* Получаем от RetailRocket рекомендации для товара */
             $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
             $recsArray = json_decode($stringRecs);
