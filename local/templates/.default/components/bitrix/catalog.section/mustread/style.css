@@ -743,3 +743,6 @@
 .categoryWrapper .contentWrapp {
     height: 1590px;
 }
+.bookPrice span, .rubsign, .priceOfBook .rub_symbol {
+    font-family: 'RoubleSign'!important;
+}

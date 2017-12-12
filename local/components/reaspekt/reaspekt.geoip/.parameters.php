@@ -4,7 +4,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 $statusMod = CModule::IncludeModuleEx("reaspekt.geobase");
 
 if ($statusMod == '0' || $statusMod == '3')
-	return false;
+    return false;
 ?>
 <?if ($_REQUEST['bxsender'] != 'fileman_html_editor') {
     if ($statusMod == '0') {
@@ -27,5 +27,5 @@ $arComponentParameters = array(
 			"TYPE" => "CHECKBOX",
 			"DEFAULT" => "Y",
 		),
-	), 
+	),
 );

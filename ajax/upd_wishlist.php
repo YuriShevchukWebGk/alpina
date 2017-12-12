@@ -10,14 +10,14 @@
     }
     else {
         $list_user = CUser::GetByID($uID) -> Fetch();
-        $list_user_name = $list_user["NAME"]." ".$list_user["LAST_NAME"];   
+        $list_user_name = $list_user["NAME"]." ".$list_user["LAST_NAME"];
     }
     global $WishFilter;
     $WishFilter["NAME"] = $list_user_name;
-                                
+
     $APPLICATION->IncludeComponent(
-        "bitrix:catalog.section", 
-        "wish_list", 
+        "bitrix:catalog.section",
+        "wish_list",
         array(
             "IBLOCK_TYPE_ID" => "catalog",
             "IBLOCK_ID" => "17",
@@ -38,7 +38,7 @@
             "INCLUDE_SUBSECTIONS" => "Y",
             "SHOW_ALL_WO_SECTION" => "N",
             "HIDE_NOT_AVAILABLE" => "N",
-            "PAGE_ELEMENT_COUNT" => "18",
+            "PAGE_ELEMENT_COUNT" => "30",
             "LINE_ELEMENT_COUNT" => "6",
             "PROPERTY_CODE" => array(
                 0 => "PRODUCTS",
@@ -139,5 +139,5 @@
             "DISABLE_INIT_JS_IN_COMPONENT" => "N"
         ),
         false
-    ); 
+    );
 ?>

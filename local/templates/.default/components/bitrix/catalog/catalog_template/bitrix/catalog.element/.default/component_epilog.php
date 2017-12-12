@@ -73,9 +73,6 @@ if (!empty($authors_IDs)) {
 		}
     }
 } 
-/*echo '12345<!--<pre>';
-print_r($arResult);
-echo '</pre>-->';*/
 
 $title = $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"];
 

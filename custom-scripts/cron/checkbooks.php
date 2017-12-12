@@ -88,7 +88,8 @@ global $USER;
 	echo '<pre>';
 	//print_r($lost);
 	echo '</pre>';
-	
+	//$lost[] = 186046;
+    //$lost[] = 372526;
 	$arSelect = Array('ID',"NAME","PROPERTY_PUBLISHER");
 	$arFilter = Array(	"IBLOCK_ID"=>4,
 						"PROPERTY_PUBLISHER"=>array(24,25,82,26),
@@ -153,15 +154,19 @@ global $USER;
 				$obEl = new CIBlockElement();
 				CIBlockElement::SetPropertyValuesEx($bookid, 4, array('appstore' => '231', 'android' => '232', 'alpina_digital_ids' => $bookdid, 'alpina_digital_price' => $bookprice));
 			} else {
-				$obEl = new CIBlockElement();
-				CIBlockElement::SetPropertyValuesEx($bookid, 4, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
+                if ($bookid != 186046 && $bookid != 372526) {
+                    $obEl = new CIBlockElement();
+                    CIBlockElement::SetPropertyValuesEx($bookid, 4, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));    
+                }
 			}
 		}
 	}
 
 	foreach ($lost as $findrec) {
-		$obEl = new CIBlockElement();
-		CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
+        if ($findrec != 186046 && $findrec != 372526) {
+		    $obEl = new CIBlockElement();
+		    CIBlockElement::SetPropertyValuesEx($findrec, 4, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
+        }
 	}
 	
 	/*$manual = array(

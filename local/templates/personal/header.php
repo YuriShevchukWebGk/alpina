@@ -44,9 +44,16 @@
     <link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
     <link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
     <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
+    <?if ($_SERVER["HTTP_HTTPS"]) {
+        $protocol_name = "https://";
+    } else {
+        $protocol_name = "http://";
+    }?>
+    <link rel="amphtml" href="http://amp.alpinabook.ru/mobile/alpinabook-ru/amp/?p=<?= $protocol_name . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
     <meta name="theme-color" content="#ffffff">
+    <meta name="yandex-verification" content="9b63e2cc68c18dd9" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />
     <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
@@ -135,14 +142,26 @@
                 );?>
         </ul>
     </div>
+    <script>
+    function basketOpenFlag() {
+            $('.hidingBasketRight, .layout, .windowClose').toggle();
+            if ($('.hidingBasketRight, .layout, .windowClose').css('display') == 'block') {
+                $('html').css('overflow', 'hidden');
+            } else {
+                $('html').css('overflow', 'auto');
+            }
+        }
+    </script>
     <div class="lkWrapp">
-        <div class="headBasket">
-            <div class="BasketQuant">
+        <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+            <div class="headBasket">
+                <div class="BasketQuant">
+                </div>
             </div>
-        </div>
+        </a>
         <a href="/personal/profile/" <?if (!$USER->IsAuthorized()){?>id="authorisationPopup"<?}?>>
             <div>
-                <img src="/img/lkImg.png">
+                <img src="/img/lkImgBl.png">
             </div>
         </a>
         <p class="telephone"><!--+7 (495) 980 80 77-->

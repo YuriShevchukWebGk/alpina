@@ -27,7 +27,11 @@
         }
     </style>
 
-    <?}?>
+    <?}
+$is_bot_detected = false;
+if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) {
+    $is_bot_detected = true;
+}?>
 
 
 <div class="wrapperCategor">
@@ -162,7 +166,7 @@
                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)
                                     {
                                     ?>
-                                        <p class="priceOfBook"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                        <p class="priceOfBook"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <? if (!$is_bot_detected){?><span class="rub_symbol">i</span><?} else {?><span>руб.</span><?}?></p>
                                         <?
                                             if ($dbBasketItems["QUANTITY"] == 0)
                                             {?>

@@ -1,6 +1,5 @@
 (function(window, document, $, undefined){
     "use strict";
-
     var paramsDefault = {
         height : "250",
         width : "500",
@@ -12,12 +11,13 @@
         fixedPosition : false
     };
     var params = {
-        htmlPopup : '<div class="ReaspektPopupOverlay"></div><div id="ReaspektPopupBody"><div class="ReaspektClosePosition"><div id="ReaspektCloseBtn"></div></div><div id="ReaspektPopupContainer">...</div></div>',
+
+        htmlPopup : '<div class="ReaspektPopupOverlay"></div><div id="ReaspektPopupBody"><div class="ReaspektClosePosition"><div id="ReaspektCloseBtn"></div></div><div id="ReaspektPopupContainer">Загрузка...</div></div>',
         objPopupIdBody : '#ReaspektPopupBody',
         objPopupIdOverlay : '.ReaspektPopupOverlay',
         objPopupIdCloseBtn : '#ReaspektCloseBtn',
         objPopupIdContainer : '#ReaspektPopupContainer',
-        activeClassBodyReaspekt : 'activeClassBodyReaspekt'
+		activeClassBodyReaspekt : 'activeClassBodyReaspekt'
     };
     var methods = {
         init : function( options ) {
@@ -25,9 +25,9 @@
 
             return this.click(function(element){
                 var obClass = $(this);
-                paramsDefault['href'] = obClass.data('reaspektmodalbox-href') || obClass.attr('href');
+				paramsDefault['href'] = obClass.data('reaspektmodalbox-href') || obClass.attr('href');
 
-                var settings = $.extend($.ReaspektModalBox, paramsDefault, options);
+				var settings = $.extend($.ReaspektModalBox, paramsDefault, options);
 
                 methods.addHtmlTemplate(settings);
 
@@ -39,10 +39,10 @@
             });
         },
 
-        //Р”РѕР±Р°РІР»СЏРµРј Div`s
+        //Добавляем Div`s
         addHtmlTemplate : function(settings) {
             methods.closeReaspektPopup();
-            $('body').append(params.htmlPopup);
+			$('body').append(params.htmlPopup);
             $('body').addClass(params.activeClassBodyReaspekt);
             methods.addContainerData(settings);
         },
@@ -86,7 +86,7 @@
                 $.ajax($.extend({}, settings.ajax, {
                     url: settings.href,
                     error: function (jqXHR, textStatus) {
-
+                        console.log(jqXHR);
                         console.log(textStatus);
                     },
                     success: function (data, textStatus) {
@@ -97,8 +97,10 @@
                         }
                     }
                 }));
+           } else {
+               console.log('Error, not atribute href or data-reaspektmodalbox-href');
            }
-        },
+		},
 
         _afterLoad: function (settings) {
             $(params.objPopupIdContainer).html(settings.content);
@@ -109,13 +111,13 @@
 
     $.fn.ReaspektModalBox = function( method ) {
 
-        // Р»РѕРіРёРєР° РІС‹Р·РѕРІР° РјРµС‚РѕРґР°
+        // логика вызова метода
         if ( methods[method] ) {
           return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
           return methods.init.apply( this, arguments );
         } else {
-          $.error( 'РњРµС‚РѕРґ СЃ РёРјРµРЅРµРј ' +  method + ' РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РґР»СЏ jQuery.ReaspektModalBox' );
+          $.error( 'Метод с именем ' +  method + ' не существует для jQuery.ReaspektModalBox' );
         }
     };
 

@@ -3,8 +3,8 @@
 * @param {{BASKET_ID : string, BASKET_DATA : { GRID : { ROWS : {} }}, COLUMNS: {}, PARAMS: {}, DELETE_ORIGINAL : string }} res
 */
 function updateBasketTable(basketItemId, res, params)
-{                 
-    params = params || '';                  
+{
+    params = params || '';
     var table = BX("basket_items"),
     rows,
     newBasketItemId,
@@ -52,7 +52,7 @@ function updateBasketTable(basketItemId, res, params)
     oCellWeight,
     oCellCustom,
     customColumnVal;
-                             
+
     if (!table || typeof res !== 'object')
     {
         return;
@@ -60,7 +60,7 @@ function updateBasketTable(basketItemId, res, params)
 
     rows = table.rows;
     lastRow = rows[rows.length - 1];
-    bUseFloatQuantity = (res.PARAMS.QUANTITY_FLOAT === 'Y');      
+    bUseFloatQuantity = (res.PARAMS.QUANTITY_FLOAT === 'Y');
     // insert new row instead of original basket item row
     if (basketItemId !== null && !!res.BASKET_DATA)
     {
@@ -398,7 +398,7 @@ function updateBasketTable(basketItemId, res, params)
                         oCellPrice.innerHTML += '<div class="type_price_value">' + arItem['NOTES'] + '</div>';
                     }
                     break;
-                case 'DISCOUNT':               
+                case 'DISCOUNT':
                     oCellDiscount = newRow.insertCell(-1);
                     oCellDiscount.setAttribute('class', 'custom');
                     oCellDiscount.innerHTML = '<span>' + getColumnName(res, arColumns[i]) + ':</span>';
@@ -466,7 +466,7 @@ function updateBasketTable(basketItemId, res, params)
         {
             //Добавлена дополнительная проверка чтобы не пересчитывать товары для предзаказа
             if (res.BASKET_DATA.GRID.ROWS.hasOwnProperty(id) && res.BASKET_DATA.GRID.ROWS[id].DELAY != 'Y')
-            {                     
+            {
                 var item = res.BASKET_DATA.GRID.ROWS[id];
 
                 if (BX('discount_value_' + id))
@@ -492,12 +492,12 @@ function updateBasketTable(basketItemId, res, params)
             }
         }
     }
-                                  
-    // update coupon info         
+
+    // update coupon info
     if (!!res.BASKET_DATA)
         couponListUpdate(res.BASKET_DATA, params);
 
-    // update warnings if any     
+    // update warnings if any
     if (res.hasOwnProperty('WARNING_MESSAGE'))
     {
         var warningText = '';
@@ -508,13 +508,13 @@ function updateBasketTable(basketItemId, res, params)
                 res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i].replace(" в количество", ":");
                 var quote_position = res["WARNING_MESSAGE"][i].indexOf('"', 23);
                 var item_avail_quantity = $("tr#" + params.basketID).attr("data-available-quantity");
-                res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i].replace(res["WARNING_MESSAGE"][i].substring(quote_position+1), ": " + item_avail_quantity + " шт.");    
+                res["WARNING_MESSAGE"][i] = res["WARNING_MESSAGE"][i].replace(res["WARNING_MESSAGE"][i].substring(quote_position+1), ": " + item_avail_quantity + " шт.");
             }
-            warningText += res['WARNING_MESSAGE'][i] + '<br/>';    
+            warningText += res['WARNING_MESSAGE'][i] + '<br/>';
         }
 
         BX('warning_message').innerHTML = warningText;
-    }                                            
+    }
     // update total basket values
     if (!!res.BASKET_DATA)
     {
@@ -555,9 +555,9 @@ function couponCreate(couponBlock, oneCoupon)
         $(".gifts_block").load(document.location.href + " .gifts_block > *", function(response, status, xhr){
             if ($(".gifts_block").find("div").size() > 0) {
                 $(".gifts_block").show();
-            }    
+            }
         });
-    }                          
+    }
     couponBlock.appendChild(BX.create(
         'div',
         {
@@ -620,7 +620,7 @@ function couponCreate(couponBlock, oneCoupon)
 */
 function couponListUpdate(res, params)
 {
-    params.basketID = params.basketID || ''; 
+    params.basketID = params.basketID || '';
     var couponBlock,
     couponClass,
     fieldCoupon,
@@ -633,13 +633,13 @@ function couponListUpdate(res, params)
     if (!!res && typeof res !== 'object')
     {
         return;
-    }                          
-                          
+    }
+
     if(params.basketID != '') {
-        couponBlock = BX('coupons_block_' + params.basketID); 
-    } else { 
-        couponBlock = BX('coupons_block');     
-    }                                  
+        couponBlock = BX('coupons_block_' + params.basketID);
+    } else {
+        couponBlock = BX('coupons_block');
+    }
     if (!!couponBlock)
     {
         if (!!res.COUPON_LIST && BX.type.isArray(res.COUPON_LIST))
@@ -672,7 +672,7 @@ function couponListUpdate(res, params)
                         }
                     }
                     if (couponFound)
-                    {                     
+                    {
                         couponClass = 'disabled';
                         if (res.COUPON_LIST[i].JS_STATUS === 'BAD')
                             couponClass = 'bad';
@@ -689,7 +689,7 @@ function couponListUpdate(res, params)
                         BX.adjust(couponsCollection[key].nextSibling.nextSibling, {html: res.COUPON_LIST[i].JS_CHECK_CODE});
                     }
                     else
-                    {                          
+                    {
                         couponCreate(couponBlock, res.COUPON_LIST[i]);
                     }
                 }
@@ -800,7 +800,7 @@ function skuPropClickHandler(e)
             'use_prepayment': BX('use_prepayment').value
         };
 
-        postData[action_var] = 'select_item'; 
+        postData[action_var] = 'select_item';
         BX.ajax({
             url: '/bitrix/components/bitrix/sale.basket.basket/ajax.php',
             method: 'POST',
@@ -854,24 +854,24 @@ function rightScroll(prop, id, count)
 }
 
 function checkOut(preorderID)
-{                      
+{
     preorderID = preorderID || '';
-    if (preorderID != '') {            
+    if (preorderID != '') {
         $.ajax({
             type: "POST",
             url: "/ajax/ajax_preorder.php",
             data: {preorderID: preorderID}
-        }).done(function(result) {  
-            if (result != ""){ 
-                window.location.href = "/personal/order/make/";  
+        }).done(function(result) {
+            if (result != ""){
+                window.location.href = "/personal/order/make/";
             }
-        });   
-    } else {     
+        });
+    } else {
         if (!!BX('coupon'))
             BX('coupon').disabled = true;
         BX("basket_form").submit();
-        return true; 
-    }           
+        return true;
+    }
 }
 
 function enterCoupon(preorderID)
@@ -879,19 +879,19 @@ function enterCoupon(preorderID)
     preorderID = preorderID || '';
     var couponID = '';
     if(preorderID != '') {
-        couponID = 'coupon_' + preorderID;         
-    } else {              
-        couponID = 'coupon';                                          
-    }                        
-    var newCoupon = BX(couponID);            
+        couponID = 'coupon_' + preorderID;
+    } else {
+        couponID = 'coupon';
+    }
+    var newCoupon = BX(couponID);
     if (!!newCoupon && !!newCoupon.value)
-        recalcBasketAjax({'coupon' : newCoupon.value, 'basketID' : preorderID});                                      
+        recalcBasketAjax({'coupon' : newCoupon.value, 'basketID' : preorderID});
 }
 
 // check if quantity is valid
 // and update values of both controls (text input field for PC and mobile quantity select) simultaneously
 function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
-{                           
+{
     var oldVal = BX(controlId).defaultValue,
     newVal = parseFloat(BX(controlId).value) || 0,
     bIsCorrectQuantityForRatio = false;
@@ -952,11 +952,11 @@ function updateQuantity(controlId, basketId, ratio, bUseFloatQuantity)
     //update total quantity
     var totalQuantity = 0;
     $(".quantityField").each(function(){
-        if(!($(this).hasClass('preOrderInput'))){   
-            totalQuantity = totalQuantity*1 + parseInt($(this).val()); 
-        }                                                         
-    })               
-    $("#totalQuantity").html(totalQuantity);  
+        if(!($(this).hasClass('preOrderInput'))){
+            totalQuantity = totalQuantity*1 + parseInt($(this).val());
+        }
+    })
+    $("#totalQuantity").html(totalQuantity);
 
 }
 
@@ -1037,8 +1037,8 @@ function getCorrectRatioQuantity(quantity, ratio, bUseFloatQuantity)
 * @param {} params
 */
 function recalcBasketAjax(params)
-{                         
-    BX.showWait();         
+{
+    BX.showWait();
     var property_values = {},
     action_var = BX('action_var').value,
     items = BX('basket_items'),
@@ -1067,13 +1067,13 @@ function recalcBasketAjax(params)
             if (params.hasOwnProperty(i))
                 postData[i] = params[i];
         }
-    }      
+    }
 
     if (!!items && items.rows.length > 0)
     {
         for (i = 1; items.rows.length > i; i++)
             postData['QUANTITY_' + items.rows[i].id] = BX('QUANTITY_' + items.rows[i].id).value;
-    }                                                                                
+    }
     if (!!delayedItems && delayedItems.rows.length > 0)
     {
         for (i = 1; delayedItems.rows.length > i; i++) {
@@ -1082,97 +1082,97 @@ function recalcBasketAjax(params)
             if(isNum) {
                 postData['DELAY_' + delayedItems.rows[i].id] = 'Y';
                 postData['QUANTITY_' + delayedItems.rows[i].id] = BX('QUANTITY_' + delayedItems.rows[i].id).value;
-            }                                                                                                    
-        }                                                                                         
-    }                                                                  
+            }
+        }
+    }
     BX.ajax({
         url: '/local/components/bitrix/sale.basket.basket/ajax.php',
         method: 'POST',
         data: postData,
         dataType: 'json',
         onsuccess: function(result)
-        {                                                                        
-            BX.closeWait();                          
-            updateBasketTable(null, result, params);   
-            
+        {
+            BX.closeWait();
+            updateBasketTable(null, result, params);
+
             //Через load все супер медленно, делаем по-другому, пример оставлю для наглядности
-                                                                                 
+
             /*$("#discountMessage").load(location.href+" #discountMessage > *","");
-            $("#" + params.basketID).load(location.href+" #" + params.basketID + " > *",""); 
-            $("#basket_bottom_" + params.basketID).load(location.href+" #basket_bottom_" + params.basketID + " > *",""); */ 
-            
-            sum = parseInt(result.BASKET_DATA.allSum);     
-            //Скидки с купонов, когда будем заниматься скидками нужно будет учесть 
+            $("#" + params.basketID).load(location.href+" #" + params.basketID + " > *","");
+            $("#basket_bottom_" + params.basketID).load(location.href+" #basket_bottom_" + params.basketID + " > *",""); */
+
+            sum = parseInt(result.BASKET_DATA.allSum);
+            //Скидки с купонов, когда будем заниматься скидками нужно будет учесть
             if(result.BASKET_DATA.DISCOUNT_PERCENT_SIZE != '') {
-                coupon_discount = parseInt(result.BASKET_DATA.DISCOUNT_PERCENT_SIZE); 
+                coupon_discount = parseInt(result.BASKET_DATA.DISCOUNT_PERCENT_SIZE);
             } else {
-                coupon_discount = '';    
-            }                                                                     
+                coupon_discount = '';
+            }
             discabs = parseInt(result.BASKET_DATA.DISCOUNT_PRICE_ALL);
             discrel = ((100*discabs)/(discabs+sum)).toFixed(0);
-            if (sum < 2000) {                    
+            if (sum < 2000) {
                 $('.sale_price').html('Добавьте товаров на '+ (2000 - sum).toFixed() +' руб. и получите БЕСПЛАТНУЮ доставку');
-            } else if (sum < 5000 && discrel < 10) {  
-                $('.sale_price').html('Добавьте товаров на '+ (5000 - sum).toFixed() +' руб. и получите скидку 10%');        
-            } else if (sum < 20000 && discrel < 20) {   
-                $('.sale_price').html('Добавьте товаров на '+ (20000 - sum).toFixed() +' руб. и получите скидку 20%');    
+            } else if (sum < 5000 && discrel < 10) {
+                $('.sale_price').html('Добавьте товаров на '+ (5000 - sum).toFixed() +' руб. и получите скидку 10%');
+            } else if (sum < 20000 && discrel < 20) {
+                $('.sale_price').html('Добавьте товаров на '+ (20000 - sum).toFixed() +' руб. и получите скидку 20%');
             } else {
-                $('.sale_price').html('');                                     
-            }    
-                
+                $('.sale_price').html('');
+            }
+
             //Обновляем информацию о цене и о скидке у предзаказанного товара
             if (params.basketID > 0) {
-                var item = result.BASKET_DATA.GRID.ROWS[params.basketID];  
-                if (item.DELAY == 'Y') {   
+                var item = result.BASKET_DATA.GRID.ROWS[params.basketID];
+                if (item.DELAY == 'Y') {
                     //Один load все таки оставил, потом мб переделаю
-                    $("#current_discount_td_" + params.basketID).load(location.href+" #current_discount_td_" + params.basketID + " > *",""); 
-                    
+                    $("#current_discount_td_" + params.basketID).load(location.href+" #current_discount_td_" + params.basketID + " > *","");
+
                     //Преобразуем сумму в число, записываем в поле которое потребуется для применения сертификата/купона
-                    var intSUM = parseInt(item.SUM.replace(/\D+/g,""));                     
+                    var intSUM = parseInt(item.SUM.replace(/\D+/g,""));
                     $("#priceBasketToCoupon_" + params.basketID).val(intSUM);
-                    
-                    //Обновляем кол-во 
-                    $("#totalQuantity_" + params.basketID).html(item.QUANTITY);   
+
+                    //Обновляем кол-во
+                    $("#totalQuantity_" + params.basketID).html(item.QUANTITY);
 
                     //Обновляем общую сумму предзаказанных товаров
-                    //Приседаем с имитацией накопительной скидки, опять же можно через load, но быстродействие страдает 
-                    if((((item.BASE_PRICE * item.QUANTITY) >= 5000) && ((item.BASE_PRICE * item.QUANTITY) < 20000)) && (item.DISCOUNT_PRICE_PERCENT < 10) && (coupon_discount == '')) {            
-                        var formated_discount = '10.00%'; 
+                    //Приседаем с имитацией накопительной скидки, опять же можно через load, но быстродействие страдает
+                    if((((item.BASE_PRICE * item.QUANTITY) >= 5000) && ((item.BASE_PRICE * item.QUANTITY) < 20000)) && (item.DISCOUNT_PRICE_PERCENT < 10) && (coupon_discount == '')) {
+                        var formated_discount = '10.00%';
                         var real_price = item.BASE_PRICE * 0.9;
-                        var formated_price = real_price.toFixed(2) + ' руб.';     
+                        var formated_price = real_price.toFixed(2) + ' руб.';
                         var real_full_price = real_price * item.QUANTITY;
-                        var final_sum = real_full_price.toFixed(2) + ' руб.';                          
+                        var final_sum = real_full_price.toFixed(2) + ' руб.';
                     } else if (((item.BASE_PRICE * item.QUANTITY) >= 20000) && (item.DISCOUNT_PRICE_PERCENT < 20) && (coupon_discount == '')) {
-                        var formated_discount = '20.00%'; 
-                        var real_price = item.BASE_PRICE * 0.8;   
-                        var formated_price = real_price.toFixed(2) + ' руб.';     
+                        var formated_discount = '20.00%';
+                        var real_price = item.BASE_PRICE * 0.8;
+                        var formated_price = real_price.toFixed(2) + ' руб.';
                         var real_full_price = real_price * item.QUANTITY;
-                        var final_sum = real_full_price.toFixed(2) + ' руб.';                                      
-                    } else if (coupon_discount != '') {   
-                        var formated_discount = coupon_discount + '.00%'; 
-                        var real_price = item.BASE_PRICE * ((100 - coupon_discount)/100);   
-                        var formated_price = real_price.toFixed(2) + ' руб.';     
+                        var final_sum = real_full_price.toFixed(2) + ' руб.';
+                    } else if (coupon_discount != '') {
+                        var formated_discount = coupon_discount + '.00%';
+                        var real_price = item.BASE_PRICE * ((100 - coupon_discount)/100);
+                        var formated_price = real_price.toFixed(2) + ' руб.';
                         var real_full_price = real_price * item.QUANTITY;
-                        var final_sum = real_full_price.toFixed(2) + ' руб.';                                  
-                    } else {         
+                        var final_sum = real_full_price.toFixed(2) + ' руб.';
+                    } else {
                         final_sum = item.SUM;
                         if(item.DISCOUNT_PRICE_PERCENT_FORMATED == '') {
-                            formated_discount = '0.00%';   
+                            formated_discount = '0.00%';
                         } else {
                             formated_discount = item.DISCOUNT_PRICE_PERCENT_FORMATED;
                         }
-                                                                                  
-                    }                                                    
-                    $("#discount_value_" + params.basketID).html(formated_discount);  
+
+                    }
+                    $("#discount_value_" + params.basketID).html(formated_discount);
                     $("#allSum_FORMATED_" + params.basketID).html(final_sum);
-                    
-                    
+
+
                     //Обновляем плашку с информацией о дополнительной скидке и бесплатной доставке
                     if(item.DISCOUNT_PRICE > 0) {
-                        sum = item.DISCOUNT_PRICE * item.QUANTITY;  
-                    } else {                                                 
-                        sum = item.BASE_PRICE * item.QUANTITY;                                                    
-                    }                         
+                        sum = item.DISCOUNT_PRICE * item.QUANTITY;
+                    } else {
+                        sum = item.BASE_PRICE * item.QUANTITY;
+                    }
                     discabs = parseInt(item.DISCOUNT_PRICE);
                     discrel = parseInt(item.DISCOUNT_PRICE_PERCENT);
                     if (sum < 2000) {
@@ -1180,15 +1180,22 @@ function recalcBasketAjax(params)
                         $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (2000 - sum).toFixed() +' руб. и получите БЕСПЛАТНУЮ доставку');
                     } else if (sum < 5000 && discrel < 10) {
                         $('#discountMessage_' + params.basketID).show();
-                        $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (5000 - sum).toFixed() +' руб. и получите скидку 10%');        
+                        $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (5000 - sum).toFixed() +' руб. и получите скидку 10%');
                     } else if (sum < 20000 && discrel < 20) {
                         $('#discountMessage_' + params.basketID).show();
-                        $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (20000 - sum).toFixed() +' руб. и получите скидку 20%');    
-                    } else {                                                  
-                        $('.sale_price_' + params.basketID).html('');                                 
-                    }          
-                }   
-            }                                                                                                                        
+                        $('.sale_price_' + params.basketID).html('Добавьте товаров на '+ (20000 - sum).toFixed() +' руб. и получите скидку 20%');
+                    } else {
+                        $('.sale_price_' + params.basketID).html('');
+                    }
+                }
+            }
+       
+            $(".gifts_block").load(document.location.href + " .gifts_block > *", function(response, status, xhr){
+                if ($(".gifts_block").find("div").size() > 0) {
+                    $(".gifts_block").show();
+                }
+            });
+         
         }
     });
 }
@@ -1268,11 +1275,11 @@ function showBasketItemsList(val)
 }
 
 function deleteCoupon(e)
-{   
-    //Необходимо передать идентификатор элемента по которому происходит клик, но в случае клика по кнопки удаления нет вомзожности получить идентификатор напрямую, пришлось так выводить            
-    basketID = e.path[3].attributes.id.value.replace(/[^0-9]/g, '');                                                    
+{
+    //Необходимо передать идентификатор элемента по которому происходит клик, но в случае клика по кнопки удаления нет вомзожности получить идентификатор напрямую, пришлось так выводить
+    basketID = e.path[3].attributes.id.value.replace(/[^0-9]/g, '');
     var target = BX.proxy_context,
-    value;                      
+    value;
     if (!!target && target.hasAttribute('data-coupon'))
     {
         value = target.getAttribute('data-coupon');
@@ -1280,9 +1287,9 @@ function deleteCoupon(e)
         {
             if(basketID != '1') {
                 recalcBasketAjax({'delete_coupon' : value, 'basketID' : basketID});
-            } else { 
-                recalcBasketAjax({'delete_coupon' : value}); 
-            };                                                                              
+            } else {
+                recalcBasketAjax({'delete_coupon' : value});
+            };
         }
     }
 }
@@ -1301,29 +1308,29 @@ BX.ready(function() {
     couponBlock = BX('coupons_block');
     if (!!couponBlock) {
         BX.bindDelegate(document.body, 'click', {className: 'bad', 'attribute': 'data-coupon' }, BX.delegate(function(e){deleteCoupon(e); $(".gifts_block").hide();}, this));
-        BX.bindDelegate(document.body, 'click', {className: 'good', 'attribute': 'data-coupon' }, BX.delegate(function(e){deleteCoupon(e); $(".gifts_block").hide();}, this));  
-    }                                                                                                                                                                         
+        BX.bindDelegate(document.body, 'click', {className: 'good', 'attribute': 'data-coupon' }, BX.delegate(function(e){deleteCoupon(e); $(".gifts_block").hide();}, this));
+    }
 });
 
 //Custom coupon
-function enterCouponCustom(preorderID) {     
+function enterCouponCustom(preorderID) {
     preorderID = preorderID || '';
-    if (preorderID != '') { 
+    if (preorderID != '') {
         var couponCode = $("#coupon_" + preorderID).val();
-        var price = $("#priceBasketToCoupon_" + preorderID).val();   
+        var price = $("#priceBasketToCoupon_" + preorderID).val();
         $.ajax({
             type: "POST",
             url: "/ajax/customCoupon.php",
             data: {coupon: couponCode, price: price,  action: "check"}
-        }).done(function(result) {  
-            if (result != ""){              
-                arResult = JSON.parse(result); 
+        }).done(function(result) {
+            if (result != ""){
+                arResult = JSON.parse(result);
                 if (arResult.DEFAULT_COUPON == "Y") {
                     enterCoupon(preorderID);
                 } else {
                     $('#allSum_FORMATED_' + preorderID).html('0 руб.');
                 }
-            } 
+            }
         });
     } else {
         var couponCode = $("#coupon").val();
@@ -1332,16 +1339,63 @@ function enterCouponCustom(preorderID) {
             type: "POST",
             url: "/ajax/customCoupon.php",
             data: {coupon: couponCode, price: price,  action: "check"}
-        }).done(function(result) {  
-            if (result != ""){        
-                arResult = JSON.parse(result);   
+        }).done(function(result) {
+            if (result != ""){
+                arResult = JSON.parse(result);
                 if (arResult.DEFAULT_COUPON == "Y") {
                     enterCoupon();
                 } else {
+                    couponClass = 'good';
+                    couponBlock = BX("coupons_block");
+                    couponBlock.appendChild(BX.create(
+                        'div',
+                        {
+                            props: {
+                                className: 'bx_ordercart_coupon'
+                            },
+                            children: [
+                                BX.create(
+                                    'input',
+                                    {
+                                        props: {
+                                            className: couponClass,
+                                            type: 'text',
+                                            value: couponCode,
+                                            name: 'OLD_COUPON[]'
+                                        },
+                                        attrs: {
+                                            disabled: true,
+                                            readonly: true
+                                        }
+                                    }
+                                ),
+                                BX.create(
+                                    'span',
+                                    {
+                                        props: {
+                                            className: couponClass
+                                        },
+                                        attrs: {
+                                            'data-coupon': couponCode
+                                        }
+                                    }
+                                ),
+                                BX.create(
+                                    'div',
+                                    {
+                                        props: {
+                                            className: 'bx_ordercart_coupon_notes'
+                                        },
+                                        html: 'Код применен'
+                                    }
+                                )
+                            ]
+                        }
+                    ));
                     $('#allSum_FORMATED').html('0 руб.');
                 }
-            } 
-        });    
+            }
+        });
     }
 }
 $(document).ready(function(){

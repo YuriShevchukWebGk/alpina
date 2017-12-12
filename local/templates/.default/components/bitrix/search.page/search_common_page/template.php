@@ -233,16 +233,18 @@
 
                         <?}?>
                         <?// книги в результатах поиска
-                        if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) {?>
-                            <?if ($USER->IsAuthorized()) {// blackfriday черная пятница
-                                if (($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"])
-                                    || ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"])) {
+                        if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) {
+                            ?>
+                            <?if ($USER->IsAuthorized() && ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > 0 || $arResult["CART_SUM"] > 0)) {// blackfriday черная пятница
+                                    if ($arResult[$arItem["ITEM_ID"]]["ITEM_WITHOUT_DISCOUNT"] == 'Y' || ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][0]["RANGE_FROM"])) {
+                                        $discount = 0;
+                                    } else if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] < $arResult["SALE_NOTE"][1]["RANGE_FROM"]) {
 
                                         $discount = $arResult["SALE_NOTE"][0]["VALUE"]; // процент накопительной скидки
-                                } else {
-                                    $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
+                                    } else if ($arResult["SAVINGS_DISCOUNT"][0]["SUMM"] > $arResult["SALE_NOTE"][0]["RANGE_FROM"]){
+                                        $discount = $arResult["SALE_NOTE"][1]["VALUE"];  // процент накопительной скидки
+                                    }
                                 }
-                            }
                             $item_discount_value = 0;
                             if ($discount) {
                                 $newPrice = round (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"]) * (1 - $discount / 100), 2);
@@ -348,7 +350,11 @@
                                 <div>
                                     <a href="<?= $arItem["URL"] ?>">
                                         <div class="search_item_img">
-
+                                             <?
+                                                $res = CIBlockElement::GetByID($arItem["ITEM_ID"])->Fetch();
+                                                $picture = CFile::GetPath($res["PREVIEW_PICTURE"]);
+                                                ?>
+                                                <img src="<?=$picture?>" width="155">
                                         </div>
                                     </a>
                                 </div>

@@ -1,11 +1,11 @@
-<?                                                                                     
-    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php"); 
+<?
+    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
-    
-    //Подключим хендлеры для работы с остатками    
+
+    //Подключим хендлеры для работы с остатками
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
     //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
-    
+
     file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
     use Mailgun\Mailgun;
 
@@ -29,6 +29,7 @@
     define ("REVIEWS_IBLOCK_ID", 24);
     define ("SERIES_IBLOCK_ID", 45);
     define ("SPONSORS_IBLOCK_ID", 47);
+    define ("PROPERTY_STATE_ID", 56); // свойство состояния статуса товара
     define ("WISHLIST_IBLOCK_ID", 17);
     define ("EXPERTS_IBLOCK_ID", 23);
     define ("LECTIONS_ANNOUNCES_IBLOCK_ID", 60);
@@ -41,6 +42,7 @@
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("CASH_PAY_SISTEM_ID", 1);
     define ("PAYPAL_PAYSYSTEM_ID", 16);
     define ("SBERBANK_PAYSYSTEM_ID", 14);
     define ("CASHLESS_PAYSYSTEM_ID", 12);
@@ -338,10 +340,16 @@
             $day = $day + 2;
         }
 
-        $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
-        $date_d = date("j", (time()+(3600*24)*$day));
-        $date_n = date("n", (time()+3600*24*$day));
-        $date_Y = date("Y", (time()+3600*24*$day));
+        if(strtotime($_SESSION["DATE_DELIVERY_STATE"])){
+            $delivery_pre_order = strtotime($_SESSION["DATE_DELIVERY_STATE"]) + (3600*24)*2;
+        } else {
+            $delivery_pre_order = (time()+(3600*24)*$day);
+        }
+
+        $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
+        $date_d = date("j", $delivery_pre_order);
+        $date_n = date("n", $delivery_pre_order);
+        $date_Y = date("Y", $delivery_pre_order);
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
@@ -354,18 +362,24 @@
         $date_prev = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
         $date_N_today = date("N"); // определим какой сегодня день недели
 
-        if ($date_N_today == 5 || $date_N_today == 6) {
+       /* if ($date_N_today == 5 || $date_N_today == 6) {
             $day = $day + 2;
         } else if ($date_N_today == 7) {
             $day = $day + 1;
         } else {
             $day = $day;
+        }   */
+
+        if(strtotime($_SESSION["DATE_DELIVERY_STATE"])){
+            $delivery_pre_order = strtotime($_SESSION["DATE_DELIVERY_STATE"]) + (3600*24)*2;
+        } else {
+            $delivery_pre_order = (time()+(3600*24)*$day);
         }
 
-        $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
-        $date_d = date("j", (time()+(3600*24)*$day));
-        $date_n = date("n", (time()+3600*24*$day));
-        $date_Y = date("Y", (time()+3600*24*$day));
+        $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
+        $date_d = date("j", $delivery_pre_order);
+        $date_n = date("n", $delivery_pre_order);
+        $date_Y = date("Y", $delivery_pre_order);
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
@@ -388,10 +402,16 @@
             $day = $day + 1;
         }
 
-        $date_N = date("N", (time()+(3600*24)*$day)); // считаем через какое количество дней
-        $date_d = date("j", (time()+(3600*24)*$day));
-        $date_n = date("n", (time()+(3600*24)*$day));
-        $date_Y = date("Y", (time()+(3600*24)*$day));
+        if(strtotime($_SESSION["DATE_DELIVERY_STATE"])){
+            $delivery_pre_order = strtotime($_SESSION["DATE_DELIVERY_STATE"]) + (3600*24)*2;
+        } else {
+            $delivery_pre_order = (time()+(3600*24)*$day);
+        }
+
+        $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
+        $date_d = date("j", $delivery_pre_order);
+        $date_n = date("n", $delivery_pre_order);
+        $date_Y = date("Y", $delivery_pre_order);
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
@@ -439,6 +459,7 @@
         return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
     }
 
+
     AddEventHandler("sale", "OnBeforeOrderAdd", "flippostHandlerBefore"); // меняем цену для flippost
     AddEventHandler("sale", "OnOrderSave", "flippostHandlerAfter"); // меняем адрес для flippost
 
@@ -473,6 +494,30 @@
             $arFields['PRICE'] += floatval($delivery_price);
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
         }
+
+
+    }
+       // изменяем статус для заказов с предзаказом
+    AddEventHandler("sale", "OnBeforeOrderAdd", "statusUpdate");
+
+    function statusUpdate(&$arFields){
+        CModule::IncludeModule('iblock');
+        CModule::IncludeModule('sale');
+        $VALUES = 0;
+        foreach($arFields["BASKET_ITEMS"] as $basket_item){
+
+            $res = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $basket_item["PRODUCT_ID"], array(), array("CODE" => "STATE"));
+            if ($ob = $res->GetNext()) {
+                if($ob["VALUE"] == STATE_SOON){
+                    $VALUES += 1;
+                }
+            }
+        }
+
+        if($VALUES > 0){
+            $arFields["STATUS_ID"] = "PR";
+        }
+
     }
 
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
@@ -766,6 +811,7 @@
     //обработка статусов заказа при получении оплаты
     AddEventHandler('sale', 'OnSalePayOrder', "UpdOrderStatus");
     function UpdOrderStatus ($ID, $val) {
+
         $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
         //при получении оплаты
         if ($val == "Y") {
@@ -788,7 +834,9 @@
 
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
-                    $ids .= $arItems["PRODUCT_ID"].',';
+                    if ($arItems["PRODUCT_ID"] != '186046' && $arItems["PRODUCT_ID"] != '372526') {
+                        $ids .= $arItems["PRODUCT_ID"].',';
+                    }
                 }
 
                 $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
@@ -831,13 +879,14 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-                if ($order_list[PERSON_TYPE_ID] == 1) {
+                if ($order_list[PERSON_TYPE_ID] == 1 && !strstr($ids, "186046") && !strstr($ids, "372526")) {
                     CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
                 }
 
                 CSaleOrder::StatusOrder($ID, "D");
             }
         }
+
 
         //Create gift coupon after buy certificate
         $IBLOCK_ID = GIFT_COUNPON_IBLOCK_ID;
@@ -991,6 +1040,7 @@
                     UpdOrderStatus($ID, "Y");
                 }
             }
+
         }
 
 
@@ -2259,6 +2309,7 @@
         $urlLabel = "http://e-solution.pickpoint.ru/api/makelabel";
         $content = json_encode($dataSend);
         //        arshow($content);
+        $order_info = CSaleOrder::GetByID($orderId);
         $curl = curl_init($urlLabel);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -3234,31 +3285,77 @@
 
 
     }
-    
+
     //AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'updatingQuantityforPreorderItems');
-    
+
     function updatingQuantityforPreorderItems (&$arFields) {
         if ($arFields["IBLOCK_ID"] == CATALOG_IBLOCK_ID) {
             $updated_item_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $arFields["ID"]), false, false, array("IBLOCK_ID", "ID", "PROPERTY_STATE"));
             while ($updated_item = $updated_item_info -> Fetch()) {
                 if ($updated_item["PROPERTY_STATE_ENUM_ID"] == getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && $arFields["QUANTITY"] != 0) {
                     $upd_product = new CCatalogProduct();
-                    $prodFields = array("QUANTITY" => 99999);      
+                    $prodFields = array("QUANTITY" => 99999);
                     $upd_product -> Update($arFields["ID"], $prodFields);
                 }
             }
-            
+
         }
     }
 
-    function object_to_array($data) {
-    if (is_array($data) || is_object($data)) {
-        $result = array();
-        foreach ($data as $key => $value) {
-            $result[$key] = object_to_array($value);
-        }
-        return $result;
+
+// Проверяем изменение статуса товара для изменения статуса заказа
+AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", "UpdateStatusOrderOnProduct");
+
+// создаем обработчик события "UpdateStatusOrderOnProduct"
+function UpdateStatusOrderOnProduct(&$arFields) {
+
+    $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("sort" => "asc"), Array("CODE"=>"STATE"));
+    if($ar_props = $db_props->Fetch()){
+        $status_product = $ar_props["VALUE"];
     }
-    return $data;
+    if($status_product == STATE_SOON && $status_product != $arFields["PROPERTY_VALUES"][PROPERTY_STATE_ID][0]["VALUE"]){
+       $arFilter = Array(
+          "STATUS_ID" => "PR"
+       );
+       $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+       $order_new_statys = array();
+       $state = '';
+       while ($arSales = $rsSales->Fetch()) {
+
+          if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
+          } else {
+              $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
+
+              while($arproduct = $dbItemsInOrder->Fetch()){
+                $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
+
+                if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
+                    $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
+                }
+                if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
+                    $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
+                }
+
+              }
+          }
+       }
+
+       foreach($order_new_statys as $order_update){
+           if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
+                if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID){
+                   CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+                } else {
+                   CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата "
+                }
+           }
+       }
+
+    }
+
 }
+
+function object_to_array($a, $b) {
+    return strtotime($b) - strtotime($a);
+}
+
 ?>

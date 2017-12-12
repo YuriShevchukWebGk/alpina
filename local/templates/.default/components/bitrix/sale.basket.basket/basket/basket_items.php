@@ -9,7 +9,7 @@
     $bDeleteColumn = false;
     $bWeightColumn = false;
     $bPropsColumn  = false;
-    $bPriceType    = false; 
+    $bPriceType    = false;
     if ($normalCount > 0):
     ?>
 <script>
@@ -190,6 +190,20 @@
                                             {?>
                                                 <p class="nameOfAutor"><?=$curr_author["NAME"]?></p>
                                             <?}?>
+                                            <?
+                                            $val_order = '';
+                                            $state = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "STATE"));
+                                            if ($prop = $state->GetNext()) {
+                                                $val_order = $prop['VALUE_ENUM'];
+                                            }
+                                            $status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));
+                                            if ($prop = $status->GetNext()) {
+                                                if($val_order == "Скоро в продаже"){
+                                                    $date_state[] = $prop['VALUE'];
+                                                    ?><p class="newPriceText">Ожидаемая дата выхода: <?= strtolower(FormatDate("j F Y", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?> г.</p><?
+                                                }
+                                            }?>
+                                            <??>
                                             <p class="nameOfType"><?=$arItem["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                             <div class="bx_ordercart_itemart">
                                                 <?
@@ -269,7 +283,13 @@
                                         </td>
                                         <?
                                             elseif ($arHeader["id"] == "PRICE"):
-                                        ?>
+
+                                        if (strlen (stristr($arItem["PRICE"], ".")) == 2) {
+                                            $arItem["PRICE"] .= "0";
+                                        }
+                                        if (strlen (stristr($arItem["FULL_PRICE"], ".")) == 2) {
+                                            $arItem["FULL_PRICE"] .= "0";
+                                        }?>
                                         <td class="price priceOfBook">
                                             <p class="current_price costOfBook" id="current_price_<?=$arItem["ID"]?>">
                                                 <?=$arItem["PRICE"]?><span class='rubsign'></span>
@@ -326,6 +346,9 @@
 
             <div class="grayDownLine"></div>
             <?
+            if (strlen (stristr($arResult['allSum'], ".")) == 2) {
+                $arResult['allSum'] .= "0";
+            }
 	        $psum = $arResult['allSum'];
 	        $pdiscabs = $arResult['DISCOUNT_PRICE_ALL'];
 	        $pdiscrel = round(((100*$pdiscabs)/($pdiscabs+$psum)), 0);
@@ -341,7 +364,7 @@
 				<span id="discountMessage" style="background:#fff9b7"><span class='sale_price'><?=$printDiscountText?></span></span>
 			</div>
 
-            <p class="finalCost"><span id="allSum_FORMATED"><?=str_replace(" ", "&nbsp;", $arResult["allSum"])?><b class="rubsign"></b></span></p>
+            <p class="finalCost"><span id="allSum_FORMATED"><?if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N" && strlen($_SESSION["CUSTOM_COUPON"]["COUPON_ID"]) > 0 && intval($_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"]) > intval($arResult["allSum"])) {echo str_replace(" ", "&nbsp;", 0);} else {echo str_replace(" ", "&nbsp;", $arResult["allSum"]);}?><b class="rubsign"></b></span></p>
             <p class="finalQuant">Кол-во: <span id="totalQuantity"><?=$totalQuantity?></span></p>
             <p class="finalText">Итого</p>
             <?
@@ -409,7 +432,7 @@
                     <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
                     <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
                 </div><?
-                    if (!empty($arResult['COUPON_LIST']))
+                    if (!empty($arResult['COUPON_LIST']) || ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N" && strlen($_SESSION["CUSTOM_COUPON"]["COUPON_ID"])) > 0)
                     {
                         foreach ($arResult['COUPON_LIST'] as $oneCoupon)
                         {
@@ -432,16 +455,43 @@
                             ?></div></div><?
                         }
                         unset($couponClass, $oneCoupon);
+                        if (empty($arResult["COUPON_LIST"])) {
+                            $couponClass = 'disabled';
+                            if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N" && $_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"] > 0) {
+                                $couponClass = "good";
+                            } else {
+                                $couponClass = "bad";
+                            }
+                            $couponCode = $_SESSION["CUSTOM_COUPON"]["COUPON_CODE"];?>
+                            <div class="bx_ordercart_coupon"><input disabled readonly type="text" name="OLD_COUPON[]" value="<?=htmlspecialcharsbx($couponCode);?>" class="<? echo $couponClass; ?>"><span class="<? echo $couponClass; ?>" data-coupon="<? echo htmlspecialcharsbx($couponCode); ?>"></span><div class="bx_ordercart_coupon_notes"><?
+                                echo "Код применен";
+                            ?></div></div>
+                        <?}
                     }
                 ?>
             </div>
-                        <p class="nextPageWrap">
-                        	<? if ($arResult['allSum']) { ?>
-                        		<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
-                        	<? } else { ?>
-                        		<span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
-                        	<? } ?>
-                        </p>
+            <p class="nextPageWrap">
+                <? if ($arResult['allSum']) { ?>
+                    <a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                <? } else { ?>
+                    <span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
+                <? } ?>
+            </p>
+
+            <?
+            if($date_state){
+                usort($date_state, 'object_to_array'); // сортируем по дате предзаказа
+                session_start();
+                $_SESSION["DATE_DELIVERY_STATE"] = $date_state[0];
+               /* $str = strtotime($date_state[0]);
+                $new_day_delivery = date('d m Y',($str+86400*2));*/
+            } else {
+                $_SESSION["DATE_DELIVERY_STATE"] = '';
+            }
+            ?>
+        <?if($date_state){?>
+            <span class="order_state">В заказе есть товары с ожидаемой датой выхода <?=strtolower(FormatDate("j F Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
+        <?}?>
         </div>
 
         <input type="hidden" id="column_headers" value="<?=CUtil::JSEscape(implode($arHeaders, ","))?>" />
@@ -454,7 +504,7 @@
         <input type="hidden" id="use_prepayment" value="<?=($arParams["USE_PREPAYMENT"] == "Y") ? "Y" : "N"?>" />
 
 		<!-- gdeslon -->
-		<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276"></script>
+		<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276" async></script>
 		<?$_SESSION['gtmEnchECommerceCheckout'] = $gtmEnchECommerceCheckout;?>
 		<?$_SESSION['itemsForCriteo']			= $itemsForCriteo;?>
 		<?$_SESSION['retailRocketRecs']			= $retailRocketRecs;?>

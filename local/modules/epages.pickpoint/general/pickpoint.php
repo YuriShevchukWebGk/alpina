@@ -431,6 +431,7 @@
 
         function ExportOrders($arIDs)
         {
+            $arIDs = array_reverse($arIDs);
             global $APPLICATION;
             $MODULE_ID = "epages.pickpoint";
             $api_login = COption::GetOptionString($MODULE_ID, "pp_api_login", "");
@@ -472,7 +473,6 @@
 
                             $arFIO = CPickpoint::GetParam($arOrder["ID"], $arOrder["PERSON_TYPE_ID"], "FIO");
                             $sFIO = current($arFIO);
-
                             $arSending["EDTN"] = $arOrder["ID"];
                             $arInvoice["SenderCode"] = $arOrder["ID"];
                             $arInvoice["Description"] = $sEmbed;
@@ -510,8 +510,10 @@
 
                             $arInvoice["UnclaimedReturnAddress"] = $ClientReturnAddress;
 
-                            $arSending["Invoice"] = $arInvoice;
-                            $arQuery["Sendings"][] = $arSending;
+                            if (strlen($arInvoice["MobilePhone"]) > 3) {
+                                $arSending["Invoice"] = $arInvoice;
+                                $arQuery["Sendings"][] = $arSending;    
+                            }
                         }
                     }
                     if(count($arQuery["Sendings"]) > 0)
@@ -527,7 +529,9 @@
                             }
                             elseif(intval($createdSendings->InvoiceNumber) > 0)
                             {
-
+                                $sending_edtn = intval($createdSendings->EDTN);
+                                mail('raulschokino@yandex.ru', 'edtn', $sending_edtn);
+                                mail('raulschokino@yandex.ru', 'sendercode', $arQuery["Sendings"][$sending_edtn]["Invoice"]["SenderCode"]);
                                 CPickpoint::SetOrderInvoice($arQuery["Sendings"][$key]["Invoice"]["SenderCode"], $createdSendings->InvoiceNumber);
                             }
                         }

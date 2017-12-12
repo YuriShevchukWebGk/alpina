@@ -205,7 +205,7 @@
 				</a>
 			<?}?>
 
-			<a href="/personal/profile/">
+			<a href="/personal/profile/" id="authorisationPopup">
 				<div class="headLogin"></div>
 			</a>
 
@@ -239,11 +239,11 @@
 		</div>
 
     <div class="hidingCatalogLeft">
-        <img src="/img/catalogLeftClose.png" class="windowClose">    
-        
+        <img src="/img/catalogLeftClose.png" class="windowClose">
+
         <?$APPLICATION->IncludeComponent(
-                "bitrix:catalog.section.list", 
-                "left.tree", 
+                "bitrix:catalog.section.list",
+                "left.tree",
                 array(
                     "IBLOCK_TYPE" => "catalog",
                     "IBLOCK_ID" => "4",
@@ -273,8 +273,8 @@
                 ),
                 false
             );?>
-        
-        <?$APPLICATION->IncludeComponent("bitrix:menu", "left_menu", 
+
+        <?$APPLICATION->IncludeComponent("bitrix:menu", "left_menu",
                 Array(
                     "ROOT_MENU_TYPE" => "left_block",    // Тип меню для первого уровня
                     "MAX_LEVEL" => "1",    // Уровень вложенности меню
@@ -292,8 +292,8 @@
             );?>
         <div class="webServ">
             <?$APPLICATION->IncludeComponent(
-				"bitrix:main.include", 
-				".default", 
+				"bitrix:main.include",
+				".default",
 				array(
 					"AREA_FILE_SHOW" => "file",
 					"AREA_FILE_SUFFIX" => "inc",

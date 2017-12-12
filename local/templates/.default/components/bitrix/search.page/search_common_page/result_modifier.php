@@ -243,18 +243,105 @@ if (!empty($experts_books_arr)) {
             "PRODUCT_PROVIDER_CLASS"
         )
     );
+    $arResult["CART_NUM"] = 0;
+    $arResult["CART_SUM"] = 0;
     while ($basket_items = $basket_items_list -> Fetch()) {
+        $arResult["CART_NUM"] += $basket_items['QUANTITY'];
+        $arResult["CART_SUM"] += $basket_items['PRICE'] * $basket_items['QUANTITY'];
         $arResult["BASKET_ITEMS"][$basket_items["PRODUCT_ID"]] = $basket_items;
     }
 }
+    $basket_items = CSaleBasket::GetList(
+        array("ID" => "ASC"),
+        array(
+            'FUSER_ID' => CSaleBasket::GetBasketUserID(),
+            'LID' => SITE_ID,
+            'ORDER_ID' => 'NULL'
+        ),
+        false,
+        false,
+        array(
+            'ID', 'PRODUCT_ID', 'QUANTITY', 'PRICE', 'DISCOUNT_PRICE', 'WEIGHT'
+        )
+    );
 
-$rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
+   $allSum = 0;
+   $allWeight = 0;
+   $arItems = array();
+
+   while ($basket_items_array = $basket_items->Fetch()) {
+      $allSum += ($basket_items_array["PRICE"] * $basket_items_array["QUANTITY"]);
+      $allWeight += ($basket_items_array["WEIGHT"] * $basket_items_array["QUANTITY"]);
+      $arItems[] = $basket_items_array;
+   }
+   $arOrder = array(
+       'SITE_ID' => SITE_ID,
+       'USER_ID' => CSaleBasket::GetBasketUserID(),
+       'ORDER_PRICE' => $allSum,
+       'ORDER_WEIGHT' => $allWeight,
+       'BASKET_ITEMS' => $arItems
+   );
+
+   $arOptions = array(
+      'COUNT_DISCOUNT_4_ALL_QUANTITY' => 'Y',
+   );
+
+   $arErrors = array();
+   $product_ids = array();
+   $product_discount_prices = array();
+   
+   CSaleDiscount::DoProcessOrder($arOrder, $arOptions, $arErrors);
+   foreach ($arOrder["BASKET_ITEMS"] as $arOneItem) {
+       /*if ($arOneItem["PRODUCT_ID"] == $arResult["ID"] && $arOneItem["DISCOUNT_PRICE"] < 1) {
+           $arItem["ITEM_WITHOUT_DISCOUNT"] = "Y";
+       }*/
+       $product_ids[] = $arOneItem["PRODUCT_ID"];
+       $product_discount_prices[$arOneItem["PRODUCT_ID"]] = $arOneItem["DISCOUNT_PRICE"];
+   }
+   foreach($arResult["SEARCH"] as $key => $arItem) {
+    if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) { 
+        if (in_array($arItem["ITEM_ID"], $product_ids) && $product_discount_prices[$arItem["ITEM_ID"]] < 1) {
+            $arResult[$arItem["ITEM_ID"]]["ITEM_WITHOUT_DISCOUNT"] = "Y";
+        }
+    }
+   }
+   
+   
+$arResult["SAVINGS_DISCOUNT"] =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
+if (!empty($arResult["SAVINGS_DISCOUNT"][0])) {
+    $arFilter = array("DISCOUNT_ID" => $arResult["SAVINGS_DISCOUNT"][0]["ID"]);
+}
+if ($arResult["SAVINGS_DISCOUNT"][1]["VALUE"] >= $arResult["SAVINGS_DISCOUNT"][0]["VALUE"]) {
+    $arFilter = array("DISCOUNT_ID" => $arResult["SAVINGS_DISCOUNT"][1]["ID"]);
+}
+if (!empty($arFilter)) {
+    $rr = CCatalogDiscountSave::GetRangeByDiscount($arOrder = array(), $arFilter, $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array());
     $ar_sale = array();
     while($ar_sale=$rr->Fetch()) {
         $arResult["SALE_NOTE"][] = $ar_sale;
     }
- $arResult["SAVINGS_DISCOUNT"] =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
- $discounts_list = CCatalogDiscount::GetList(array(), array("PRODUCT_ID" => $books_array, "ACTIVE" => "Y"), false, false, array("ID", "VALUE", "PRODUCT_ID"));
+}
+ //$arResult["SAVINGS_DISCOUNT"] =  CCatalogDiscountSave::GetDiscount(array('USER_ID' => $USER->GetID()), true);
+ $discounts_list = CCatalogDiscount::GetList(
+    array(), 
+    array(
+        "PRODUCT_ID" => $books_array, 
+        "ACTIVE" => "Y", 
+        "!>ACTIVE_FROM" => $DB->FormatDate(
+            date("Y-m-d H:i:s"), 
+            "YYYY-MM-DD HH:MI:SS",
+            CSite::GetDateFormat("FULL")
+        ),
+        "!<ACTIVE_TO" => $DB->FormatDate(
+            date("Y-m-d H:i:s"), 
+            "YYYY-MM-DD HH:MI:SS", 
+            CSite::GetDateFormat("FULL")
+        )
+    ), 
+    false, 
+    false, 
+    array("ID", "VALUE", "PRODUCT_ID")
+ );
  while ($discounts = $discounts_list -> Fetch()) {
      $arResult["BOOK_INFO"][$discounts["PRODUCT_ID"]]["DISCOUNT_INFO"] = $discounts;
  }

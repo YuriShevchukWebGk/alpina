@@ -36,6 +36,12 @@
     <link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
     <link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
     <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
+    <?if ($_SERVER["HTTP_HTTPS"]) {
+        $protocol_name = "https://";
+    } else {
+        $protocol_name = "http://";
+    }?>
+    <link rel="amphtml" href="http://amp.alpinabook.ru/mobile/alpinabook-ru/amp/?p=<?= $protocol_name . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
 
@@ -62,7 +68,7 @@
     <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<!-- header .index -->
 	<!-- gdeslon -->
-	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276"></script>
+	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276" async></script>
 
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
@@ -149,6 +155,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	<?$frame = new \Bitrix\Main\Page\FrameBuffered("header");
 	$frame->begin();?>
+
 	<script>
 		function basketOpenFlag() {
 			$('.hidingBasketRight, .layout, .windowClose').toggle();
@@ -175,9 +182,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				$('.authorisationWrapper').show();
 				return false;
 			});
+            setTimeout(function() { $('.lkWrapp').show() }, 800);
 		});
 	</script>
-	<div class="lkWrapp">
+
+	<div class="lkWrapp" style="display: none;">
 		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
 			<div class="headBasket">
 				<div class="BasketQuant"></div>
@@ -219,37 +228,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			);?>
 		</p>
 	</div>
+
 	<?$frame->beginStub();?>
-	<div class="lkWrapp">
-		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
-			<div class="headBasket">
-				<div class="BasketQuant" style="display: none;"></div>
-			</div>
-		</a>
+     <?if(!CUser::IsAuthorized()) {?>
+	    <div class="lkWrapp" style="display: none;">
+		    <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+			    <div class="headBasket">
+				    <div class="BasketQuant" style="display: none;"></div>
+			    </div>
+		    </a>
 
-		<a href="/personal/profile/" id="authorisationPopup">
-			<div>
-				<img src="/img/lkImg.png">
-			</div>
-		</a>
+		    <a href="/personal/profile/" id="authorisationPopup">
+			    <div>
+				    <img src="/img/lkImg.png">
+			    </div>
+		    </a>
 
-		<p class="telephone">
-			<?$APPLICATION->IncludeComponent(
-				"bitrix:main.include",
-				".default",
-				array(
-					"AREA_FILE_SHOW" => "file",
-					"AREA_FILE_SUFFIX" => "inc",
-					"AREA_FILE_RECURSIVE" => "Y",
-					"EDIT_TEMPLATE" => "",
-					"COMPONENT_TEMPLATE" => ".default",
-					"PATH" => "/include/telephone.php"
-				),
-				false
-			);?>
-		</p>
-	</div>
+		    <p class="telephone">
+			    <?$APPLICATION->IncludeComponent(
+				    "bitrix:main.include",
+				    ".default",
+				    array(
+					    "AREA_FILE_SHOW" => "file",
+					    "AREA_FILE_SUFFIX" => "inc",
+					    "AREA_FILE_RECURSIVE" => "Y",
+					    "EDIT_TEMPLATE" => "",
+					    "COMPONENT_TEMPLATE" => ".default",
+					    "PATH" => "/include/telephone.php"
+				    ),
+				    false
+			    );?>
+		    </p>
+	    </div>
+      <?}?>
 	<?$frame->end();?>
+
 </header>
 
 <div class="mainWrapp" itemprop="mainContentOfPage">
@@ -1086,7 +1099,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		);?>
 
 
-            <?
+            <?/*
 			global $BestsOnMain;
             if(!$USER->IsAdmin()){
                 $BestsOnMain = array('SECTION_ID' => 469, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID), "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
@@ -1223,7 +1236,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"COMPATIBLE_MODE" => "Y"
 			),
 			false
-		);?>
+		);*/?>
+			
+			<?$APPLICATION->IncludeComponent(
+				"bitrix:main.include",
+				".default",
+				array(
+					"AREA_FILE_SHOW" => "file",
+					"AREA_FILE_SUFFIX" => "inc",
+					"AREA_FILE_RECURSIVE" => "Y",
+					"EDIT_TEMPLATE" => "",
+					"COMPONENT_TEMPLATE" => ".default",
+					"PATH" => "/include/overview.php"
+				),
+				false
+			);?>
+
         </div>
 
 

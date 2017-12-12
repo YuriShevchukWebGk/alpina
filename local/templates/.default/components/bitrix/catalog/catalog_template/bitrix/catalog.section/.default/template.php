@@ -166,7 +166,7 @@
                         "AJAX_OPTION_JUMP" => "N",
                         "AJAX_OPTION_STYLE" => "Y",
                         "AJAX_OPTION_HISTORY" => "N",
-                        "CACHE_TYPE" => "N",
+                        "CACHE_TYPE" => "A",
                         "CACHE_TIME" => "3600",
                         "META_KEYWORDS" => "-",
                         "META_DESCRIPTION" => "-",
@@ -239,7 +239,7 @@
                 );
                 //}?>
             <?  //блок с цитатой
-                $arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_*"))->Fetch();
+                $arSection = CIBlockSection::GetList(array(),array("IBLOCK_ID"=>$arResult["IBLOCK_ID"],"ID"=>$arResult["ID"]),false,array("UF_QUOTE"))->Fetch();
                 if ($arSection["UF_QUOTE"] > 0) {
                     $arQuote = CIBlockElement::GetList(array(),array("ID"=>$arSection["UF_QUOTE"]),false,false,array("NAME","DETAIL_TEXT","DETAIL_PICTURE","PROPERTY_AUTHOR.NAME"))->Fetch();
                 }
@@ -441,7 +441,7 @@
                     "IBLOCK_HEADER_TITLE" => "Каталог книг",
                     "IBLOCK_HEADER_LINK" => "",
                     "SECTION_URL" => "#SITE_DIR#/catalog/#SECTION_CODE#/",
-                    "CACHE_TYPE" => "N",
+                    "CACHE_TYPE" => "A",
                     "CACHE_TIME" => "3600",
                     "DISPLAY_PANEL" => "N",
                     "ADD_SECTIONS_CHAIN" => "Y",

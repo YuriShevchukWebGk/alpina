@@ -114,6 +114,7 @@ $MESS["BUY_BOOK"] = "купить книгу ";
 $MESS["EDITORS_CHOICE"] = "Editor's choice";
 $MESS["EDITORS_CHOICE_TIP"] = "Выбор главного редактора. Смотреть все выбранные книги <a href='/catalog/editors-choice/'>по ссылке</a>";
 $MESS["PAPER_V"] = "Бумажная + электронная";
+$MESS["PAPER_WITHOUT_DIGITAL"] = "Бумажная";
 $MESS["DIGITAL_V"] = "Электронная книга";
 $MESS["EPUB"] = "ePub";
 $MESS["BUY_EPUB"] = "Купить в Бизнес.Книги";

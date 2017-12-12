@@ -84,7 +84,16 @@
 
 </style>
 
-<div id="map" style="width:0; height:0;"></div>
+<div id="map" style="width:10px; height:10px;"></div>
+
+
+<?
+// получение количества дней с которого возможна доставка
+$datetime1 = new DateTime(date("d.m.Y"));
+$datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));
+$interval = date_diff($datetime1, $datetime2)->format('%a');
+
+?>
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
@@ -174,15 +183,17 @@
            function deleteDateId(){
               var text = document.getElementById("ORDER_PROP_44"),
                   testText;
-                  text.onkeyup          =  function testKey(){
-                     var testText       =  text.value;
-                     text.value      = testText.substring(0, testText.length - 1)
+                  if (text !== null) {
+                      text.onkeyup          =  function testKey(){
+                          var testText       =  text.value;
+                          text.value      = testText.substring(0, testText.length - 1)
+                      }
                   }
            }
            deleteDateId("ORDER_PROP_44");
            deleteDateId("ORDER_PROP_45");
         //календарь
-		var disabledDates = ['02/23/2017','02/24/2017','03/08/2017','01/04/2017','01/05/2017','01/06/2017']; //даты для отключения mm/dd/yyyy
+		var disabledDates = <?=$holidays?>; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
 			if (noWeekend[0]) {
@@ -200,9 +211,17 @@
 			return [true];
 		}
 
+
         ourday = <?=date("w");?>;
 
-		minDatePlus = <?=$setProps['nextDay']?>;
+        <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
+		    minDatePlus = <?=$interval + $setProps['nextDay']?> + 1;
+            new_day = minDatePlus + 14;
+            minDate = "+" + new_day + "d";
+        <?} else { ?>
+            minDatePlus = <?=$setProps['nextDay']?>;
+            minDate = "+2w +1d";
+        <?}?>
 
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             minDatePlus++;
@@ -218,7 +237,7 @@
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker({
             minDate: minDatePlus,
             defaultDate: minDatePlus,
-            maxDate: "+2w +1d",
+            maxDate: minDate,
             beforeShowDay: disableSpecificDaysAndWeekends, //blackfriday черная пятница
             dateFormat: "dd.mm.yy",
             setDate:minDatePlus
@@ -380,7 +399,7 @@
                         }
                     }
                 ?>
-
+                <??>
                 <div class="bx_order_make">
                     <?
                         if(!$USER->IsAuthorized() && $arParams["ALLOW_AUTO_REGISTER"] == "N")

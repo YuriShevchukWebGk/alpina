@@ -36,9 +36,16 @@
     <link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
     <link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
     <link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
+    <?if ($_SERVER["HTTP_HTTPS"]) {
+        $protocol_name = "https://";
+    } else {
+        $protocol_name = "http://";
+    }?>
+    <link rel="amphtml" href="http://amp.alpinabook.ru/mobile/alpinabook-ru/amp/?p=<?= $protocol_name . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
     <meta name="theme-color" content="#ffffff">
+    <meta name="yandex-verification" content="9b63e2cc68c18dd9" />
 
     <script src="/js/inputmask.date.extension.js"></script>
     <script src="/js/jquery.selectric.min.js"></script>
@@ -74,7 +81,7 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript">
         //ymaps.ready(init);
-        function init(adress_input) {
+        function map_metro(adress_input) {
 
             var myMap = new ymaps.Map('map', {
                 center: [55.753994, 37.622093],
@@ -222,5 +229,3 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             );?>
     </div>
 </div>
-
-

@@ -135,7 +135,7 @@
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
-
+ <?//arshow($_POST,false)?>
 <input type="hidden" name="BUYER_STORE" id="BUYER_STORE" value="<?=$arResult["BUYER_STORE"]?>" />
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="bx_section js_delivery_block">
     <?
@@ -238,21 +238,21 @@
                     <?}?>
                     <?
                         if($arDelivery["ID"] == DELIVERY_PICKUP) {
-							if(intval(date('w') == 6)) {
-								echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
-							} elseif (intval(date('w') == 0)) {
-								echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
-							} else {
-								if(intval(date('H')) < 17) {
-									echo str_replace('#DATE_DELIVERY#',date_day_today(0), $arDelivery["DESCRIPTION"])."<br />";
-								} else {
-									if(intval(date('w') == 5)) {
-										echo str_replace('#DATE_DELIVERY#',date_day_today(3), $arDelivery["DESCRIPTION"])."<br />";
-									} else {
-										echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
-									}
-								}
-							}
+                            if(intval(date('w') == 6)) {
+                                echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+                            } elseif (intval(date('w') == 0)) {
+                                echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+                            } else {
+                                if(intval(date('H')) < 17) {
+                                    echo str_replace('#DATE_DELIVERY#',date_day_today(0), $arDelivery["DESCRIPTION"])."<br />";
+                                } else {
+                                    if(intval(date('w') == 5)) {
+                                        echo str_replace('#DATE_DELIVERY#',date_day_today(3), $arDelivery["DESCRIPTION"])."<br />";
+                                    } else {
+                                        echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+                                    }
+                                }
+                            }
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) {
                             echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD) {

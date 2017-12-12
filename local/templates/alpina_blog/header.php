@@ -28,9 +28,16 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	<link rel="manifest" href="/manifest.json?v=WGG39kPBLm">
 	<link rel="mask-icon" href="/safari-pinned-tab.svg?v=WGG39kPBLm" color="#5bbad5">
 	<link rel="shortcut icon" href="/favicon.ico?v=WGG39kPBLm">
+    <?if ($_SERVER["HTTP_HTTPS"]) {
+        $protocol_name = "https://";
+    } else {
+        $protocol_name = "http://";
+    }?>
+    <link rel="amphtml" href="http://amp.alpinabook.ru/mobile/alpinabook-ru/amp/?p=<?= $protocol_name . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"] ?>">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=WGG39kPBLm">
 	<meta name="theme-color" content="#ffffff">
+    <meta name="yandex-verification" content="9b63e2cc68c18dd9" />
 
     <?$APPLICATION->ShowHead();?>
     <?$APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH."/script.js");?>
@@ -38,7 +45,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	<!-- header .content -->
-	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=other&amp;mid=79276"></script>
+	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=other&amp;mid=79276" async></script>
 	<script type="text/javascript">
        var rrPartnerId = "59703efb5a658825342f445a";
        var rrApi = {};
