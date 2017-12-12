@@ -46,23 +46,6 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	<!-- header .content -->
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=other&amp;mid=79276" async></script>
-	<script type="text/javascript">
-       var rrPartnerId = "59703efb5a658825342f445a";
-       var rrApi = {};
-       var rrApiOnReady = rrApiOnReady || [];
-       rrApi.addToBasket = rrApi.order = rrApi.categoryView = rrApi.view =
-           rrApi.recomMouseDown = rrApi.recomAddToCart = function() {};
-       (function(d) {
-           var ref = d.getElementsByTagName('script')[0];
-           var apiJs, apiJsId = 'rrApi-jssdk';
-           if (d.getElementById(apiJsId)) return;
-           apiJs = d.createElement('script');
-           apiJs.id = apiJsId;
-           apiJs.async = true;
-           apiJs.src = "//cdn.retailrocket.ru/content/javascript/tracking.js";
-           ref.parentNode.insertBefore(apiJs, ref);
-       }(document));
-    </script>
 </head>
 <body itemscope itemtype="https://schema.org/Blog">
 <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter1611177 = new Ya.Metrika({ id:1611177, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/1611177" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->

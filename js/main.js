@@ -952,7 +952,7 @@ function update_quant(sign, e)
     update_basket($(this), "minus");
     })*/
     var numbOfBooks = parseInt($(e).parent().children('p').html());
-    switch (sign)
+    /*switch (sign)
     {
         case "plus":
             var new_count = numbOfBooks+1;
@@ -964,7 +964,7 @@ function update_quant(sign, e)
                 $(e).parent().children('p').html(numbOfBooks-1);
             }
             break;
-    }
+    }*/
     update_basket(e);
 }
 
