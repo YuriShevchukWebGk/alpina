@@ -80,15 +80,13 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
 			
 			<?if ($arResult["ID"] == 471) {?>
-				<h2>-30% при заказе от трех книг</h2>
-				
-				<h3>Дарите детям познавательные книги!</h3>
+				<h2 style="color:#627478">-30% при заказе от трех книг<br />Дарите детям познавательные книги!</h2>
 
-				С книгами <span style="color:red">&laquo;Альпина.Дети&raquo;</span> каждый ребенок станет <span style="color:#00abb8">любознательным</span>, захочет заниматься <span style="color:#00abb8">наукой</span>, изучать <span style="color:#00abb8">историю</span>, знакомиться с <span style="color:#00abb8">животными</span>, улететь в космос. И увидит, как интересно <span style="color:#00abb8">исследовать мир</span>.<br />
+				<div style="font-size:17px">С книгами <span style="color:red">&laquo;Альпина.Дети&raquo;</span> каждый ребенок станет <span style="color:#00abb8">любознательным</span>, захочет заниматься <span style="color:#00abb8">наукой</span>, изучать <span style="color:#00abb8">историю</span>, знакомиться с <span style="color:#00abb8">животными</span>, улететь в космос. И увидит, как интересно <span style="color:#00abb8">исследовать мир</span>.<br />
 				<br />
 				При заказе <span style="color:red">до 15 декабря</span> мы гарантированно доставим вам заказ <span style="color:red">до Нового года в любую точку России</span>.<br />
 				<br />
-				Получить <span style="color:red">скидку 30%</span> очень просто! Цена автоматически станет меньше, как только в вашей корзине будет более трех книг с этой акции.
+				Получить <span style="color:red">скидку 30%</span> очень просто! Цена автоматически станет меньше, как только в вашей корзине будет более трех книг с этой акции.</div>
 			<?}?>
 			
 			<?
