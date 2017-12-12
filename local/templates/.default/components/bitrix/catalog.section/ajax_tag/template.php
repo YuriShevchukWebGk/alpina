@@ -29,17 +29,14 @@
 <?}?>
 <style>
 .wrapperCategor, .categoryWrapper .contentWrapp {height:auto;}
+.catalogIcon span, .basketIcon span {color: #99ABB1;}
 </style>
 <?
 $navnum = $arResult["NAV_RESULT"]->NavNum;
 if ($_REQUEST["PAGEN_" . $navnum]) {
     //$_SESSION[$APPLICATION -> GetCurDir()] = $_REQUEST["PAGEN_" . $navnum];
 }
-$is_bot_detected = false;
-if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) {
-    $is_bot_detected = true;
-}?>
-
+?>
 <div class="wrapperCategor">
     <div class="categoryWrapper">
         <div class="catalogIcon">
@@ -54,30 +51,16 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                     </a>
                     <meta itemprop="position" content="1">
                 </span>
-                <?
-                $num = 2;
-                $navChain = CIBlockSection::GetNavChain(4, $arResult["ID"]);
-                $stopNum = $navChain->nSelectedCount + 1;
-                while ($arNav = $navChain->GetNext()) {?>
-                <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+				<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
                     <span class="gap"></span>
-                    <?if ($num != $stopNum) {?>
-                        <a href="/catalog<?=$arNav[SECTION_PAGE_URL]?>" title="<?=$arNav[NAME]?>" itemprop="item">
-                    <?}?>
-                        <span itemprop="name"><?=$arNav[NAME]?></span>
-                    <?if ($num != $stopNum) {?>
-                        </a>
-                    <?}?>
-                    <meta itemprop="position" content="<?=$num?>">
+					<span itemprop="name"><?=$GLOBALS["NAME"]?></span>
+					<meta itemprop="position" content="2">
                 </span>
-                <?
-                $num++;
-                }?>
             </p>
             <div itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
             <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
 
-            <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
+            <h1 itemprop="name"><?=$GLOBALS["NAME"]?></h1>
 			
 			<?
 			$arData = array();
@@ -308,24 +291,24 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
          <ul class="filterParams">
              <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])) { ?> class="active" <?}?>>
                  <p data-id="1">
-                         <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=POPULARITY&DIRECTION=DESC" onclick="update_sect_page('popularity', 'desc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По популярности</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=POPULARITY&DIRECTION=DESC" onclick="update_sect_page('popularity', 'desc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По популярности</a>
                  </p>
              </li>
              <li <?if ($_REQUEST['SORT'] == 'DATE'){?>class="active"<?}?>>
                  <p data-id="2">
                      <?if ($_REQUEST['SORT'] == 'DATE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                         <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=DATE&DIRECTION=DESC" onclick="update_sect_page('date', 'asc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По дате выхода</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=DATE&DIRECTION=DESC" onclick="update_sect_page('date', 'asc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По дате выхода</a>
                      <?} else {?>
-                         <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=DATE&DIRECTION=ASC" onclick="update_sect_page('date', 'desc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По дате выхода</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=DATE&DIRECTION=ASC" onclick="update_sect_page('date', 'desc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По дате выхода</a>
                      <?}?>
                  </p>
              </li>
              <li <?if ($_REQUEST['SORT'] == 'PRICE'){?>class="active"<?}?>>
                  <p data-id="3">
                      <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                         <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=PRICE&DIRECTION=DESC" onclick="update_sect_page('price', 'desc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По цене</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=PRICE&DIRECTION=DESC" onclick="update_sect_page('price', 'desc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По цене</a>
                      <?} else {?>
-                         <a href="/catalog/<?= $arParams["SECTION_CODE"]?>/?SORT=PRICE&DIRECTION=ASC" onclick="update_sect_page('price', 'asc', '<?= $arParams["SECTION_CODE"]?>'); return false;">По цене</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=PRICE&DIRECTION=ASC" onclick="update_sect_page('price', 'asc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По цене</a>
                      <?}?>
                  </p>
              </li>
@@ -374,17 +357,17 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                                      if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
                                             if ($arPrice["DISCOUNT_VALUE_VAT"] && $arResult['ID'] != CERTIFICATE_SECTION_ID) { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                                <link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <? if (!$is_bot_detected){?><span class="rub_symbol">i</span><?} else {?>руб.<?}?></p>
+                                                <link itemprop="availability" href="http://schema.org/InStock"><link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? } elseif ($arResult['ID'] == CERTIFICATE_SECTION_ID) { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["VALUE_VAT"])?></span> <? if (!$is_bot_detected){?><span class="rub_symbol">i</span><?} else {?>руб.<?}?></p>
+                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? } else { ?>
                                                 <p class="priceOfBook" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <? if (!$is_bot_detected){?><span class="rub_symbol">i</span><?} else {?>руб.<?}?></p>
+                                                <link itemprop="availability" href="http://schema.org/InStock"<link itemprop="itemCondition" href="http://schema.org/NewCondition"><span itemprop="price"><?= ceil($arPrice["ORIG_VALUE_VAT"])?></span> <span>руб.</span></p>
                                             <? }
                                          ?>
                                          <?if ($arResult[$arItem["ID"]]["ITEM_IN_BASKET"]["QUANTITY"] == 0 && $arResult['ID'] != CERTIFICATE_SECTION_ID) {?>
-                                            <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="<?// if ($arItem["CATALOG_QUANTITY"] >= 0) {?>addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); <?//}?> return false;">
+                                            <a class="product<?= $arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="<?// if ($arItem["CATALOG_QUANTITY"] >= 0) {?>addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>', '<?=$arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]?>'); addToCartTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', '1'); <?//}?> return false;">
                                                 <?if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {
                                                     /*if ($arItem["CATALOG_QUANTITY"] <= 0) {?>
                                                         <p class="basketBook basketBook_unavailable"><?=GetMessage("CT_BCS_TPL_MESS_PRODUCT_NOT_AVAILABLE")?></p>
@@ -415,7 +398,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                                  <? } ?>
                              </div>
                          </li>
-                         <?      //}
+                         <?   //   }
                          }
                         if($criteoCounter<3){
                             array_push($criteoItems, $arItem['ID']);
@@ -452,7 +435,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                      <!-- // dataLayer GTM -->
                  </script>
                 <!-- gdeslon -->
-                <script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>" async></script>
+                <script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
 
                  <!--Criteo counter-->
                  <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
@@ -474,9 +457,6 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                 <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
                 <span></span>
             </div>
-
-
-
 
 
             <?if (($arResult["NAV_RESULT"]->NavPageCount) > 1) {?>
