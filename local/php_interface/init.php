@@ -369,7 +369,9 @@
         } else {
             $day = $day;
         }   */
-
+        if ($date_N_today + $day == 6 || $date_N_today + $day == 7) {
+            $day = $day + 2;
+        }
         if(strtotime($_SESSION["DATE_DELIVERY_STATE"])){
             $delivery_pre_order = strtotime($_SESSION["DATE_DELIVERY_STATE"]) + (3600*24)*2;
         } else {
