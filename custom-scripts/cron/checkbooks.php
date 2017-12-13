@@ -12,11 +12,16 @@ CModule::IncludeModule("main");
 global $USER;
 
 
+$noEbook = array(
+391958, //Автобизнес новой реальности
+);
+
 	$arSelect = Array('ID',"NAME","PROPERTY_PUBLISHER");
 	$arFilter = Array(	"IBLOCK_ID"=>4,
 						"PROPERTY_PUBLISHER"=>array(24,25,82,26),
 						"ACTIVE" => "Y",
-						"!PROPERTY_STATE" => 23);
+						"!PROPERTY_STATE" => 23,
+						"!ID" => $noEbook);
 	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>10000), $arSelect);
 	
 	$continue = 0;

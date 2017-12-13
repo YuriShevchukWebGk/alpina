@@ -26,13 +26,14 @@ header .telephone{float:left;padding-right:34px;padding-top:11px}
 .red{color:red}
 .blue{color:#00abb8}
 header .menu{padding-top:18px}
-#actionWrapp,#descriptionWrapp,.blueBlock,.whiteBlock,footer,#mainWrapp{width:100%;margin:0 auto;max-width:1200px;height:auto;overflow:hidden}
-#header{background:url(img/top.jpg) no-repeat;font-size:54px;font-family:Walshein_regular;text-align:right;padding:270px 80px 30px}
-#header .ball{color:#fff;background:url(img/ball.png) no-repeat;position:relative;left:0;font-size:32px;float:left;text-align:center;width:300px;height:223px;padding:40px 0 0 20px;line-height:160%}
+#actionWrapp,#descriptionWrapp,.blueBlock,.whiteBlock,footer,#mainWrapp{width:100%;margin:0 auto;height:auto;overflow:hidden}
+#descriptionWrapp{max-width:1100px}
+#header{background:url(img/top_big.jpg) no-repeat;font-size:54px;font-family:Walshein_regular;text-align:right;padding:400px 15% 30px}
+.ball{color:#fff;background:url(img/ball.png) no-repeat;position:absolute;left:0;font-size:32px;text-align:center;width:300px;height:223px;line-height:160%;top:200px;left:100px;padding:40px 0 0 20px}
 #header .title{color:#444}
 #header .description{color:#444}
 .ya-share2{clear:both}
-#descriptionWrapp{font-size:24px;color:#444;padding:20px}
+#descriptionWrapp{font-size:24px;color:#444;padding:20px;margin:20px auto!important}
 .blueBlock{background:#e8f7f9;text-align:center}
 .whiteBlock{text-align:center}
 .blueBlock .bookWrap{width:30%}
@@ -44,7 +45,7 @@ header .menu{padding-top:18px}
 .price{display:block}
 .bookWrap a{color:#444;text-decoration:none}
 .price .old{color:#777;text-decoration:line-through;text-align:left}
-.price .new{color:#333}
+.price .new{color:#333;font-weight:700}
 .rubsign{font-family: 'RoubleSign'!important}
 .rubsign:after{content:'i'}
 footer .delivery{background:#fdf7ec;text-align:center;padding:30px 80px;color:#444;display:inline-block}
@@ -56,10 +57,11 @@ footer .socials{background:#1bb4c2;width:100%;padding:50px 0}
 footer .bottom{text-align:center;padding:50px 0;background:url(img/boo.png) no-repeat right}
 
 @media screen and (max-width:1200px) {
-	#actionWrapp,#descriptionWrapp,.blueBlock,.whiteBlock,footer,#mainWrapp{max-width:900px}
+	#descriptionWrapp,.blueBlock,.whiteBlock,footer{max-width:900px}
+	#descriptionWrapp{max-width:800px;margin:20px auto!important}
 	header .telephone {padding-right:0px}
-	#header{font-size:38px;font-family:Walshein_regular;text-align:right;padding:205px 60px 22px}
-	#header .ball{padding:40px 0 0 20px}
+	#header{font-size:38px;font-family:Walshein_regular;text-align:right;padding:250px 60px 22px}
+	#header .ball{padding:40px 0 0 20px;top:80px;left:30px}
 	#descriptionWrapp{font-size:18px;margin:16px;padding:0}
 	footer .delivery{padding:23px 60px}
 	footer .delivery .title{font-size:30px}
@@ -72,10 +74,11 @@ footer .bottom{text-align:center;padding:50px 0;background:url(img/boo.png) no-r
 }
 
 @media screen and (max-width:900px) {
-	#actionWrapp,#descriptionWrapp,.blueBlock,.whiteBlock,footer,#mainWrapp{max-width:675px}
+	#descriptionWrapp,.blueBlock,.whiteBlock,footer{max-width:675px}
+	#descriptionWrapp{max-width:600px;margin:20px auto!important}
 	header .telephone {padding-right:0px}
-	#header{font-size:29px;font-family:Walshein_regular;text-align:right;padding:152px 45px 16px}
-	#header .ball{color:#fff;background:url(img/ball.png) no-repeat auto;position:relative;left:0;font-size:32px;float:left;text-align:center;width:300px;height:223px;padding:40px 0 0 20px;line-height:160%}
+	#header{font-size:29px;font-family:Walshein_regular;text-align:right;padding:200px 45px 16px}
+	#header .ball{color:#fff;background:url(img/ball.png) no-repeat auto;position:relative;left:0;font-size:32px;float:left;text-align:center;width:300px;height:223px;padding:40px 0 0 20px;line-height:160%;top:80px;left:30px}
 	#descriptionWrapp{font-size:14px;margin:12px;padding:0}
 	footer .delivery{padding:17px 45px}
 	footer .delivery .title{font-size:23px}

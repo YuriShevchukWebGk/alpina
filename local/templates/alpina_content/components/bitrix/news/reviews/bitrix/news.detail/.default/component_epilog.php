@@ -9,7 +9,4 @@ $description = "Прочитайте обзор на книгу «" . $arResult[
 $APPLICATION->SetPageProperty("title", $title);
 $APPLICATION->SetPageProperty("description", $description);
 
-echo '<!--12345<pre>';
-var_dump($arResult);
-echo '<pre>-->';
 ?>
