@@ -28,6 +28,7 @@
                 <p><?echo GetMessage("AUTH_EMAIL_WILL_BE_SENT")?></p>
                 <?endif?>
         <noindex>
+
             <form method="post" action="<?=$arResult["AUTH_URL"]?>" name="bform" id="js_register_submit">
                 <?
                     if (strlen($arResult["BACKURL"]) > 0)
@@ -59,9 +60,9 @@
                             <td><input type="text" name="USER_LOGIN" maxlength="50" value="<?=$arResult["USER_LOGIN"]?>" class="bx-auth-input" /></td>
                             </tr>
                         <?*/?>
-                        <tr>                                                                                                           
+                        <tr>
                             <td>
-                            
+
                             <p class="paswordIncorrectly" id="existingEmail" style="display:none"><?=GetMessage("EXISTING_EMAIL");?></p>
                             <input type="email" name="USER_EMAIL" maxlength="255" value="<?=$arResult["USER_EMAIL"]?>" class="bx-auth-input" placeholder="<?=GetMessage("AUTH_EMAIL")?>"/></td>
                         </tr>
@@ -104,7 +105,7 @@
                             /* CAPTCHA */
                             if ($arResult["USE_CAPTCHA"] == "Y")
                             {
-                            ?>         
+                            ?>
                             <tr>
                                 <td><p class="paswordIncorrectly"><?=GetMessage("CAPTCHA_REGF_TITLE")?></p></td>
                             </tr>
@@ -113,7 +114,7 @@
                                     <input type="hidden" name="captcha_sid" value="<?=$arResult["CAPTCHA_CODE"]?>" />
                                     <img class="CaptchaRegistration" src="/bitrix/tools/captcha.php?captcha_sid=<?=$arResult["CAPTCHA_CODE"]?>" width="180" height="40" alt="CAPTCHA" />
                                 </td>
-                            </tr>                                                                                  
+                            </tr>
                             <tr>
                                 <td><input type="text" name="captcha_word" maxlength="50" value="" placeholder="<?=GetMessage("CAPTCHA_REGF_PROMT")?>" /></td>
                             </tr>
@@ -132,31 +133,43 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td><center class="pii">Нажимая на кнопку «<?=GetMessage("AUTH_REGISTER")?>», вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></center><input class="RegisterButton" name="Register" value="<?=GetMessage("AUTH_REGISTER")?>" onclick="return checkRegisterFields();" /></td>
+                            <td><center class="pii">Нажимая на кнопку «<?=GetMessage("AUTH_REGISTER")?>», вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></center>
+                            <input class="RegisterButton"
+                                value="<?=GetMessage("AUTH_REGISTER")?>"
+                                onclick="recupcha();" /></td>
                         </tr>
                     </tfoot>
                 </table>
-
+                <button
+                    class="g-recaptcha"
+                    data-sitekey="6LcGJj0UAAAAAKbw7eZdviKaM-B6ff-f7bpAXlP-"
+                    data-callback="onSubmit"
+                    >
+                </button>
             </form>
         </noindex>
         <script type="text/javascript">
             document.bform.USER_NAME.focus();
 
-            function checkRegisterFields() {                 
-                flag = true;  
+            function recupcha(){
+                $('.g-recaptcha').click();
+            }
+
+            function checkRegisterFields() {
+                flag = true;
                 if($('input[name=USER_EMAIL]').val() != ''){
-                    emailVal = $('input[name=USER_EMAIL]').val();  
+                    emailVal = $('input[name=USER_EMAIL]').val();
                     $.ajax({
                         url : "/ajax/CheckingExistingEmail.php",
                         type: "POST",
                         data : { email: emailVal },
                         success: function(data)
-                        {                  
-                            if (data != '') { 
+                        {
+                            if (data != '') {
                                 flag = false;
-                                $('input[name=USER_EMAIL]').css('border-color','#FF0000');   
-                                $('#existingEmail').fadeIn();                              
-                            }                                             
+                                $('input[name=USER_EMAIL]').css('border-color','#FF0000');
+                                $('#existingEmail').fadeIn();
+                            }
                             if($('input[name=USER_NAME]').val() == ''){
                                 flag = false;
                                 $('input[name=USER_NAME]').css('border-color','#FF0000');
@@ -166,9 +179,9 @@
                                 $('input[name=USER_LAST_NAME]').css('border-color','#FF0000');
                             }
                             if(isEmail($('input[name=USER_EMAIL]').val()) == false){
-                                flag = false;                                 
-                                $('input[name=USER_EMAIL]').css('border-color','#FF0000');                  
-                            }                   
+                                flag = false;
+                                $('input[name=USER_EMAIL]').css('border-color','#FF0000');
+                            }
                             if($('.reg_password').val().length < 6){
                                 flag = false;
                                 $('.reg_password').css('border-color','#FF0000');
@@ -181,17 +194,17 @@
                                 dataLayer.push({'event' : 'otherEvents', 'action' : 'registrationButtonPush', 'label' : 'true'});
                             } else {
                                 dataLayer.push({'event' : 'otherEvents', 'action' : 'registrationButtonPush', 'label' : 'false'});
-                            }        
+                            }
                             if(flag){
                                 $("#js_register_submit").submit();
-                            } 
-                        }, 
-                        error: function()                      
-                        {                
-                            return false; 
-                        }                                              
-                    });                    
-                }                
+                            }
+                        },
+                        error: function()
+                        {
+                            return false;
+                        }
+                    });
+                }
             }
 
         </script>
