@@ -486,6 +486,10 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                     // дополнительная проверка полей и вывод ошибки
                                     if (val == "Y")
                                     {
+                                        if($("#ORDER_PROP_11").size() > 0 && $("#ORDER_PROP_11").val().length < 16){
+                                            flag = false;
+                                            $('#ORDER_PROP_11').parent("div").children(".warningMessage").show();
+                                        }
 
                                         if($("#ORDER_PROP_111").size() > 0 && $('#ORDER_PROP_111').val() == false){
                                             flag = false;

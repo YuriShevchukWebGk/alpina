@@ -51,8 +51,3 @@ foreach ($arResult["ITEMS"] as $i => $arItem) {
 		<?=$arResult["NAV_STRING"]?>
 	</div>
 </div>
-<script type="text/javascript">
-    (window["rrApiOnReady"] = window["rrApiOnReady"] || []).push(function() {
-		try { rrApi.categoryView(<?=$arResult["SECTION"]["PATH"][0]["ID"]?>); } catch(e) {}
-	})
-</script>

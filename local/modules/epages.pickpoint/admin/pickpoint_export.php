@@ -17,7 +17,7 @@ if(!empty($_REQUEST["EXPORT"])&&($_REQUEST["export"]))
 		
 		if($arFields["EXPORT"])
 		{
-			$obOrder = CSaleOrder::GetList(Array(),Array("ID"=>$iOrderID),false,false,Array("ID","PRICE","PAY_SYSTEM_ID","PERSON_TYPE_ID"));
+			$obOrder = CSaleOrder::GetList(Array(),Array("ID"=>$iOrderID, "!PROPERTY_VAL_BY_CODE_ADDRESS" => false),false,false,Array("ID","PRICE","PAY_SYSTEM_ID","PERSON_TYPE_ID"));
 			if($arOrder = $obOrder->Fetch())
 			{
 				/*if(CPickpoint::CheckPPPaySystem($arOrder["PAY_SYSTEM_ID"],$arOrder["PERSON_TYPE_ID"]))

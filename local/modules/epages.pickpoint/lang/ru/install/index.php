@@ -18,8 +18,8 @@
     $MESS ['ST_INSTALL_UNPOSSIBLE'] = "Деинсталляция модуля невозможна.";
     $MESS ['MODULE_NAME'] = "PickPoint";
     $MESS ['MODULE_DESCRIPTION'] = "Модуль для работы с системой доставки PickPoint";
-	$MESS["INSERT_ERROR"] = "Произошла ошибка записи в файл #INTERFACE#. Пропишите в файл вручную следующий код:<br>#INTERFACE#";
-	$MESS["PP_INSTALL_TITLE"] = "Установка модуля доставки Pickpoint";
-	$MESS["INSERT_SELF"] = "Для подключения модуля, пропишите там, где необходимо, следующий код:<br>#INTERFACE#";
+    $MESS["INSERT_ERROR"] = "Произошла ошибка записи в файл #INTERFACE#. Пропишите в файл вручную следующий код:<br>#INTERFACE#";
+    $MESS["PP_INSTALL_TITLE"] = "Установка модуля доставки Pickpoint";
+    $MESS["INSERT_SELF"] = "Для подключения модуля, пропишите там, где необходимо, следующий код:<br>#INTERFACE#";
 
 ?>

@@ -18192,3 +18192,3819 @@ Array
 
 ---------------
 
+2017.12.08 10:24:17:
+Array
+(
+    [comment] => 105486
+    [phone_number] => 79290526747
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 0e5aae9131215519bc7a0ab21b39fe2a
+    [name] => Оплата заказа №105486
+    [system_income] => 1087.0
+    [partner_income] => 1057.65
+    [tid] => 84254359
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => irisfom@mail.ru
+)
+
+---------------
+
+2017.12.08 10:45:21:
+Array
+(
+    [comment] => 105488
+    [phone_number] => 79217581491
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5134208795ab211867dc3d2dfae19964
+    [name] => Оплата заказа №105488
+    [system_income] => 1433.0
+    [partner_income] => 1394.31
+    [tid] => 84257387
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => vasandrej@yandex.ru
+)
+
+---------------
+
+2017.12.08 10:55:59:
+Array
+(
+    [comment] => 105489
+    [phone_number] => 79277146464
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 38c18aca9a6d1f424a7378ec599f6a6d
+    [name] => Оплата заказа №105489
+    [system_income] => 924.0
+    [partner_income] => 899.05
+    [tid] => 84258720
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => nadeus.zapomnu@yandex.ru
+)
+
+---------------
+
+2017.12.08 11:02:56:
+Array
+(
+    [comment] => 105490
+    [phone_number] => 79856986612
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 23040f1e2e861aadb45e230a2559b52a
+    [name] => Оплата заказа №105490
+    [system_income] => 799.0
+    [partner_income] => 777.43
+    [tid] => 84260477
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ele.b@bk.ru
+)
+
+---------------
+
+2017.12.08 11:50:50:
+Array
+(
+    [comment] => 105493
+    [phone_number] => 79030077809
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 04dbe67c6ed32385a51a2efe1a137202
+    [name] => Оплата заказа №105493
+    [system_income] => 597.0
+    [partner_income] => 565.36
+    [tid] => 84270881
+    [service_id] => 66366
+    [type] => ym_rfi
+    [email] => dmitry.tarnovsky@gmail.com
+)
+
+---------------
+
+2017.12.08 11:58:42:
+Array
+(
+    [comment] => 105495
+    [phone_number] => 79123833453
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 31caf3100747b5dfd658761ab1b49b50
+    [name] => Оплата заказа №105495
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84271896
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => nkembel@bk.ru
+)
+
+---------------
+
+2017.12.08 11:59:49:
+Array
+(
+    [comment] => 103470
+    [phone_number] => 79636212484
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 6609c044a3b8f74a7fcbcc31d9160cdb
+    [name] => Оплата заказа №103470
+    [system_income] => 648.0
+    [partner_income] => 630.5
+    [tid] => 84271933
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => nadna90@mail.ru
+)
+
+---------------
+
+2017.12.08 12:08:24:
+Array
+(
+    [comment] => 105498
+    [phone_number] => 79169242694
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f968da3771acd22c8ca411c4811a4439
+    [name] => Оплата заказа №105498
+    [system_income] => 952.2
+    [partner_income] => 926.49
+    [tid] => 84276588
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => michael.kutateladze@yandex.ru
+)
+
+---------------
+
+2017.12.08 12:22:58:
+Array
+(
+    [comment] => 105497
+    [phone_number] => 79822026193
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => c4ac91521aafdd32f6e52d25a84f8ea0
+    [name] => Оплата заказа №105497
+    [system_income] => 552.2
+    [partner_income] => 537.29
+    [tid] => 84280794
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => pink61@inbox.ru
+)
+
+---------------
+
+2017.12.08 12:45:41:
+Array
+(
+    [comment] => 105504
+    [phone_number] => 79122822570
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 0a73b56beeff0ddc2133c3f65d070496
+    [name] => Оплата заказа №105504
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84285125
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Dudyshev.nt@mail.ru
+)
+
+---------------
+
+2017.12.08 12:56:39:
+Array
+(
+    [comment] => 105507
+    [phone_number] => 79110933932
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => ecb90b7000309cacc1bedbfc2bc44748
+    [name] => Оплата заказа №105507
+    [system_income] => 1101.3
+    [partner_income] => 1071.56
+    [tid] => 84287357
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => yaroslava.a.key@gmail.com
+)
+
+---------------
+
+2017.12.08 13:10:40:
+Array
+(
+    [comment] => 105508
+    [phone_number] => 79218713901
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2bfb7177e15e477423b241388da70eae
+    [name] => Оплата заказа №105508
+    [system_income] => 1252.0
+    [partner_income] => 1218.2
+    [tid] => 84292638
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => schmavgonets@gmail.com
+)
+
+---------------
+
+2017.12.08 13:16:13:
+Array
+(
+    [comment] => 105510
+    [phone_number] => 71111111111
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e121578674e78e3937ace2853d20dde5
+    [name] => Оплата заказа №105510
+    [system_income] => 1298.0
+    [partner_income] => 1262.95
+    [tid] => 84293319
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => nasikiver@gmail.com
+)
+
+---------------
+
+2017.12.08 14:16:00:
+Array
+(
+    [comment] => 105523
+    [phone_number] => 79167008183
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 98e29807441d319e6e249296d9c6e61b
+    [name] => Оплата заказа №105523
+    [system_income] => 728.3
+    [partner_income] => 708.64
+    [tid] => 84306570
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => konstantin.v.rozhkov@gmail.com
+)
+
+---------------
+
+2017.12.08 14:32:52:
+Array
+(
+    [comment] => 105529
+    [phone_number] => 79876079352
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e1f46019123aa78d09d498bf52aaed6d
+    [name] => Оплата заказа №105529
+    [system_income] => 580.1
+    [partner_income] => 564.44
+    [tid] => 84310781
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => rg.yanybaev@gmail.com
+)
+
+---------------
+
+2017.12.08 15:40:08:
+Array
+(
+    [comment] => 105536
+    [phone_number] => 79082127337
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e5fa81a8fd73f9b44679a8e388c70c40
+    [name] => Оплата заказа №105536
+    [system_income] => 881.6
+    [partner_income] => 857.8
+    [tid] => 84328994
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => denissafronov@rambler.ru
+)
+
+---------------
+
+2017.12.08 16:26:05:
+Array
+(
+    [comment] => 105539
+    [phone_number] => 79645418847
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5ae73fe533a93f4986cb9f772095cc22
+    [name] => Оплата заказа №105539
+    [system_income] => 1087.0
+    [partner_income] => 1057.65
+    [tid] => 84337139
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => firiet@mail.ru
+)
+
+---------------
+
+2017.12.08 17:38:11:
+Array
+(
+    [comment] => 105548
+    [phone_number] => 79213360261
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 02634bbe8573926ea40c8d7bf9498d12
+    [name] => Оплата заказа №105548
+    [system_income] => 892.0
+    [partner_income] => 867.92
+    [tid] => 84350383
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => zeezeetop@narod.ru
+)
+
+---------------
+
+2017.12.08 17:45:29:
+Array
+(
+    [comment] => 105474
+    [phone_number] => 79140603950
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 8d308c00aafc9213469911b108e3f7ae
+    [name] => Оплата заказа №105474
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84350917
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => MiLa_1231@mail.ru
+)
+
+---------------
+
+2017.12.08 17:49:50:
+Array
+(
+    [comment] => 105549
+    [phone_number] => 79505129129
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 248609aaaa31ba35984688f2d8df66d1
+    [name] => Оплата заказа №105549
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84351830
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => yuliakb@yandex.ru
+)
+
+---------------
+
+2017.12.08 18:10:19:
+Array
+(
+    [comment] => 105550
+    [phone_number] => 79193043503
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f415698fca115adddb44b3bcb63cf47f
+    [name] => Оплата заказа №105550
+    [system_income] => 1187.0
+    [partner_income] => 1154.95
+    [tid] => 84356987
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Svetik-mama2raza@yandex.ru
+)
+
+---------------
+
+2017.12.08 18:30:38:
+Array
+(
+    [comment] => 105552
+    [phone_number] => 79283335675
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 35d171bd3e9a1aacb47a70bbc2e2f1e2
+    [name] => Оплата заказа №105552
+    [system_income] => 580.1
+    [partner_income] => 564.44
+    [tid] => 84362612
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => spesivtseva@poslogic.pro
+)
+
+---------------
+
+2017.12.08 20:02:08:
+Array
+(
+    [comment] => 102837
+    [phone_number] => 79132507800
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2c07fb7d48dd30d053d85c11885ac08e
+    [name] => Оплата заказа №102837
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84384898
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => motuliaka2002@mail.ru
+)
+
+---------------
+
+2017.12.08 20:11:32:
+Array
+(
+    [comment] => 105554
+    [phone_number] => 79297040467
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 090b7a26b8d84351cddbc2aa53ab5fda
+    [name] => Оплата заказа №105554
+    [system_income] => 678.0
+    [partner_income] => 659.69
+    [tid] => 84389335
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ekaterinafoto21@gmail.com
+)
+
+---------------
+
+2017.12.08 23:05:06:
+Array
+(
+    [comment] => 105562
+    [phone_number] => 79005916868
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 84e138d6d688ef1da06aca6caea2bb73
+    [name] => Оплата заказа №105562
+    [system_income] => 597.0
+    [partner_income] => 580.88
+    [tid] => 84425921
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => fionchik@list.ru
+)
+
+---------------
+
+2017.12.08 23:48:35:
+Array
+(
+    [comment] => 105566
+    [phone_number] => 79118024001
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3eeb3efc6322a67ce34b641bcad93b8b
+    [name] => Оплата заказа №105566
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84432800
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => vitunya51@gmail.com
+)
+
+---------------
+
+2017.12.08 23:52:21:
+Array
+(
+    [comment] => 105567
+    [phone_number] => 79175791983
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f853e08159f13d274c6df41082ae50de
+    [name] => Оплата заказа №105567
+    [system_income] => 1127.0
+    [partner_income] => 1096.57
+    [tid] => 84433187
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => serpen58@yandex.ru
+)
+
+---------------
+
+2017.12.09 00:06:51:
+Array
+(
+    [comment] => 105569
+    [phone_number] => 79629188904
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => ed65c5e4f5e0ec5cda34eca404ea3d07
+    [name] => Оплата заказа №105569
+    [system_income] => 403.2
+    [partner_income] => 392.31
+    [tid] => 84435403
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => aschevychalova@gmail.com
+)
+
+---------------
+
+2017.12.09 00:08:37:
+Array
+(
+    [comment] => 105568
+    [phone_number] => 79035224059
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 44cea9a0a67c9b4ba2cb723e8f6688cd
+    [name] => Оплата заказа №105568
+    [system_income] => 399.0
+    [partner_income] => 388.23
+    [tid] => 84435561
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => nina-tsareva@list.ru
+)
+
+---------------
+
+2017.12.09 02:55:56:
+Array
+(
+    [comment] => 105571
+    [phone_number] => 79267197690
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 052f845bc98277eb0304f51e07f1f24e
+    [name] => Оплата заказа №105571
+    [system_income] => 728.3
+    [partner_income] => 708.64
+    [tid] => 84466329
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => 7197690@mail.ru
+)
+
+---------------
+
+2017.12.09 13:33:14:
+Array
+(
+    [comment] => 105579
+    [phone_number] => 79616780808
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => b70256784074af1e8467e1d19f205041
+    [name] => Оплата заказа №105579
+    [system_income] => 2076.0
+    [partner_income] => 2019.95
+    [tid] => 84582235
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => le-cannet@yandex.ru
+)
+
+---------------
+
+2017.12.09 14:31:48:
+Array
+(
+    [comment] => 105582
+    [phone_number] => 79150120144
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 934312050e0968813b048fcdd5cee57a
+    [name] => Оплата заказа №105582
+    [system_income] => 2521.0
+    [partner_income] => 2452.93
+    [tid] => 84595482
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => tayeva@mail.ru
+)
+
+---------------
+
+2017.12.09 15:16:31:
+Array
+(
+    [comment] => 105585
+    [phone_number] => 79218844353
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 64c41750722acc36e55810a3317fae8f
+    [name] => Оплата заказа №105585
+    [system_income] => 732.0
+    [partner_income] => 712.24
+    [tid] => 84606170
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => epronina.ru@mail.ru
+)
+
+---------------
+
+2017.12.09 15:29:40:
+Array
+(
+    [comment] => 104285
+    [phone_number] => 79826131172
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e84c0a023fccfd6fb43bb24c9ab3e38d
+    [name] => Оплата заказа №104285
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84608387
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => finova89@mail.ru
+)
+
+---------------
+
+2017.12.09 15:31:18:
+Array
+(
+    [comment] => 102576
+    [phone_number] => 79135033304
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 1575e07df486fea295ca9b0861c9cb4f
+    [name] => Оплата заказа №102576
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84608220
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => olena.changemyself2017@yandex.ru
+)
+
+---------------
+
+2017.12.09 16:56:45:
+Array
+(
+    [comment] => 105587
+    [phone_number] => 74799038282
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => fb4d9ef5681ccc8763b8407d5093f7ae
+    [name] => Оплата заказа №105587
+    [system_income] => 1249.0
+    [partner_income] => 1215.28
+    [tid] => 84626437
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ksenia.stanishevski@gmail.com
+)
+
+---------------
+
+2017.12.09 17:47:47:
+Array
+(
+    [comment] => 105589
+    [phone_number] => 79029911849
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => a12576ec78041411f3780a6d6d3a29cd
+    [name] => Оплата заказа №105589
+    [system_income] => 3968.2
+    [partner_income] => 3861.06
+    [tid] => 84636065
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dima@zabuzanov.ru
+)
+
+---------------
+
+2017.12.09 19:14:15:
+Array
+(
+    [comment] => 105575
+    [phone_number] => 79152225741
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 44ddcebbfe0800b0d7a06326917e0066
+    [name] => Оплата заказа №105575
+    [system_income] => 648.0
+    [partner_income] => 630.5
+    [tid] => 84655238
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => jannasunshine@mail.ru
+)
+
+---------------
+
+2017.12.09 19:43:37:
+Array
+(
+    [comment] => 105594
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 8d98d5cbefd4a37debd67589d50afc23
+    [name] => Оплата заказа №105594
+    [system_income] => 4098.0
+    [partner_income] => 3987.35
+    [tid] => 84660152
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => jelenabeauty@gmail.com
+)
+
+---------------
+
+2017.12.09 20:12:40:
+Array
+(
+    [comment] => 105595
+    [phone_number] => 79829099292
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3268b4775b4f4d6657bf2ca4b460b190
+    [name] => Оплата заказа №105595
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84667733
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Svetin@mail.ru
+)
+
+---------------
+
+2017.12.09 20:45:47:
+Array
+(
+    [comment] => 105597
+    [phone_number] => 79169588974
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => fd7f302d206db01ae075501eeb9bba94
+    [name] => Оплата заказа №105597
+    [system_income] => 2244.85
+    [partner_income] => 2184.24
+    [tid] => 84676915
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => sergkozin@mail.ru
+)
+
+---------------
+
+2017.12.09 21:28:57:
+Array
+(
+    [comment] => 105598
+    [phone_number] => 79994527079
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 8bba05fc5df385337c02d9b141942054
+    [name] => Оплата заказа №105598
+    [system_income] => 788.0
+    [partner_income] => 766.72
+    [tid] => 84686404
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Korkunova.yi@gmail.com
+)
+
+---------------
+
+2017.12.09 23:55:52:
+Array
+(
+    [comment] => 105604
+    [phone_number] => 79671582362
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 26140521376d69d63a73a06e3a82afab
+    [name] => Оплата заказа №105604
+    [system_income] => 2388.8
+    [partner_income] => 2324.3
+    [tid] => 84716927
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => v.n.burmistrov@gmail.com
+)
+
+---------------
+
+2017.12.10 00:04:41:
+Array
+(
+    [comment] => 105605
+    [phone_number] => 79217536644
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5d918371d6f0709359d8f6e2bf4ded20
+    [name] => Оплата заказа №105605
+    [system_income] => 2251.0
+    [partner_income] => 2190.22
+    [tid] => 84719086
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => feniks.tg@gmail.com
+)
+
+---------------
+
+2017.12.10 02:04:15:
+Array
+(
+    [comment] => 105600
+    [phone_number] => 79998261094
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e61a32f88ca2e29232ed11809613924f
+    [name] => Оплата заказа №105600
+    [system_income] => 366.0
+    [partner_income] => 356.12
+    [tid] => 84740072
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => keymton@mail.ru
+)
+
+---------------
+
+2017.12.10 05:12:08:
+Array
+(
+    [comment] => 105615
+    [phone_number] => 79139151212
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 8ffd27ee51ad609f1fdb43b4cf6b8647
+    [name] => Оплата заказа №105615
+    [system_income] => 2272.0
+    [partner_income] => 2186.8
+    [tid] => 84766303
+    [service_id] => 66366
+    [type] => mtsbank_mts_mc
+    [email] => alekozz@ya.ru
+)
+
+---------------
+
+2017.12.10 08:20:50:
+Array
+(
+    [comment] => 105617
+    [phone_number] => 79053328487
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 96082389f2dabffef0fd15e9cc028f73
+    [name] => Оплата заказа №105617
+    [system_income] => 5399.46
+    [partner_income] => 5253.67
+    [tid] => 84795817
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dmitry.kryzhanovsky@gmail.com
+)
+
+---------------
+
+2017.12.10 09:29:18:
+Array
+(
+    [comment] => 105619
+    [phone_number] => 79028078508
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => eeac6b87955c309e171a7d7ac235f933
+    [name] => Оплата заказа №105619
+    [system_income] => 2416.0
+    [partner_income] => 2350.77
+    [tid] => 84810583
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => cveta@inbox.ru
+)
+
+---------------
+
+2017.12.10 09:41:35:
+Array
+(
+    [comment] => 100556
+    [phone_number] => 79146392840
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => d2993d65bf546f594667ccebe86fa2c0
+    [name] => Оплата заказа №100556
+    [system_income] => 1658.3
+    [partner_income] => 1613.53
+    [tid] => 84797010
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => flower2112@gmail.com
+)
+
+---------------
+
+2017.12.10 10:02:42:
+Array
+(
+    [comment] => 105621
+    [phone_number] => 79233679447
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => b97fe29c021263021950f6c156769ac0
+    [name] => Оплата заказа №105621
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84816205
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Afonina-anya@mail.ru
+)
+
+---------------
+
+2017.12.10 10:26:49:
+Array
+(
+    [comment] => 105622
+    [phone_number] => 79281524617
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 55d0b182330ddb3dd818d7b5cfe109e0
+    [name] => Оплата заказа №105622
+    [system_income] => 2683.0
+    [partner_income] => 2610.56
+    [tid] => 84823118
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => mobil1979@yandex.ru
+)
+
+---------------
+
+2017.12.10 11:39:51:
+Array
+(
+    [comment] => 105626
+    [phone_number] => 79242191482
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 6fb37aeac151c9adacb73567e58f8d72
+    [name] => Оплата заказа №105626
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84837590
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => missis.pospelova2012@yandex.ru
+)
+
+---------------
+
+2017.12.10 13:38:45:
+Array
+(
+    [comment] => 105631
+    [phone_number] => 79167003686
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 6c211546c5ba58157f06b1d6b1b90be3
+    [name] => Оплата заказа №105631
+    [system_income] => 639.0
+    [partner_income] => 621.75
+    [tid] => 84863433
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => volodin.eduard@gmail.com
+)
+
+---------------
+
+2017.12.10 14:23:32:
+Array
+(
+    [comment] => 105476
+    [phone_number] => 79198252191
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => bc29e8d8964c25187f7bff240ebe4ad5
+    [name] => Оплата заказа №105476
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84873347
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Kupriyanovaalya@mail.ru
+)
+
+---------------
+
+2017.12.10 15:28:43:
+Array
+(
+    [comment] => 105641
+    [phone_number] => 79637842188
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 017cc13947a0e0b2d48c10cb75907616
+    [name] => Оплата заказа №105641
+    [system_income] => 2066.0
+    [partner_income] => 2010.22
+    [tid] => 84887817
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => northmaybesouth@gmail.com
+)
+
+---------------
+
+2017.12.10 16:14:41:
+Array
+(
+    [comment] => 105643
+    [phone_number] => 79196374867
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => a4f3583e3eeeb57e4ec06d4d02cc1446
+    [name] => Оплата заказа №105643
+    [system_income] => 2197.0
+    [partner_income] => 2137.68
+    [tid] => 84901827
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => rezeda.85@mail.ru
+)
+
+---------------
+
+2017.12.10 16:51:08:
+Array
+(
+    [comment] => 105644
+    [phone_number] => 79281002323
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => c47f4d0227f83dd63d7d26fee3c66261
+    [name] => Оплата заказа №105644
+    [system_income] => 4544.1
+    [partner_income] => 4421.41
+    [tid] => 84907926
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => admin@2admin.ru
+)
+
+---------------
+
+2017.12.10 16:58:20:
+Array
+(
+    [comment] => 105646
+    [phone_number] => 79127630436
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 8f51d7c3555c25dc1641761be97a4ee4
+    [name] => Оплата заказа №105646
+    [system_income] => 399.0
+    [partner_income] => 377.85
+    [tid] => 84908917
+    [service_id] => 66366
+    [type] => ym_rfi
+    [email] => urry-1973@yandex.ru
+)
+
+---------------
+
+2017.12.10 18:40:51:
+Array
+(
+    [comment] => 105650
+    [phone_number] => 79065530777
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 38a747d6ac9e1ae7569511b20376a9b9
+    [name] => Оплата заказа №105650
+    [system_income] => 650.1
+    [partner_income] => 632.55
+    [tid] => 84928323
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => andr5002@yandex.ru
+)
+
+---------------
+
+2017.12.10 18:50:40:
+Array
+(
+    [comment] => 105653
+    [phone_number] => 79166036520
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 429661b38f994a7de62a69cbb30921bd
+    [name] => Оплата заказа №105653
+    [system_income] => 2507.4
+    [partner_income] => 2439.7
+    [tid] => 84930925
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => vladis_volkov@mail.ru
+)
+
+---------------
+
+2017.12.10 19:53:16:
+Array
+(
+    [comment] => 105659
+    [phone_number] => 79065809705
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f01e3ee9ab679ee7d0792284ed3e817b
+    [name] => Оплата заказа №105659
+    [system_income] => 678.0
+    [partner_income] => 659.69
+    [tid] => 84946587
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => olga.turkeeva@gmail.com
+)
+
+---------------
+
+2017.12.10 20:32:32:
+Array
+(
+    [comment] => 105661
+    [phone_number] => 79265736236
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => b61a111a7564611b3125dc9544ef2a9d
+    [name] => Оплата заказа №105661
+    [system_income] => 699.1
+    [partner_income] => 671.21
+    [tid] => 84957546
+    [service_id] => 66366
+    [type] => wm_rfi
+    [email] => a@alexcooper.ru
+)
+
+---------------
+
+2017.12.10 21:13:12:
+Array
+(
+    [comment] => 105664
+    [phone_number] => 79262762737
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 68960300e320c4619bc0c46c3c8b4324
+    [name] => Оплата заказа №105664
+    [system_income] => 2171.0
+    [partner_income] => 2112.38
+    [tid] => 84967342
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dlinnbly@gmail.com
+)
+
+---------------
+
+2017.12.10 21:36:40:
+Array
+(
+    [comment] => 105666
+    [phone_number] => 79377725791
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 0bc0a4d51779b5307a38d2313a26c3de
+    [name] => Оплата заказа №105666
+    [system_income] => 1357.0
+    [partner_income] => 1320.36
+    [tid] => 84971729
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => neabest@gmail.com
+)
+
+---------------
+
+2017.12.10 22:36:39:
+Array
+(
+    [comment] => 105671
+    [phone_number] => 79634807766
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 49ea2222ad14c5e2e9dcba70d6515e39
+    [name] => Оплата заказа №105671
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 84985527
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => waspagv@idz.ru
+)
+
+---------------
+
+2017.12.10 22:43:27:
+Array
+(
+    [comment] => 105674
+    [phone_number] => 79037244467
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 9e72c59fb70663bf51cd25f36795717e
+    [name] => Оплата заказа №105674
+    [system_income] => 3990.0
+    [partner_income] => 3882.27
+    [tid] => 84986657
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => nemakov@mail.ru
+)
+
+---------------
+
+2017.12.10 22:49:19:
+Array
+(
+    [comment] => 105675
+    [phone_number] => 79102025511
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3c44f918e5a0ddbdf339c899ef6d026a
+    [name] => Оплата заказа №105675
+    [system_income] => 851.0
+    [partner_income] => 828.02
+    [tid] => 84987162
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => X-lator@yandex.ru
+)
+
+---------------
+
+2017.12.10 22:57:39:
+Array
+(
+    [comment] => 105676
+    [phone_number] => 79128506763
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => fe7f8735db9ea267b8afc61006bd503b
+    [name] => Оплата заказа №105676
+    [system_income] => 399.0
+    [partner_income] => 388.23
+    [tid] => 84988018
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => chitaich@gmail.com
+)
+
+---------------
+
+2017.12.11 06:20:42:
+Array
+(
+    [comment] => 105576
+    [phone_number] => 79615617777
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 09d9b50a4d071e0bc9e0cd7d3aabed0c
+    [name] => Оплата заказа №105576
+    [system_income] => 1078.0
+    [partner_income] => 1048.89
+    [tid] => 85069096
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => sind1no@inbox.ru
+)
+
+---------------
+
+2017.12.11 08:20:40:
+Array
+(
+    [comment] => 105692
+    [phone_number] => 79261708181
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => b8199ae10a4fb16f9b4f893ad0d5e464
+    [name] => Оплата заказа №105692
+    [system_income] => 1046.0
+    [partner_income] => 1017.76
+    [tid] => 85092171
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => grishman@gmail.com
+)
+
+---------------
+
+2017.12.11 09:00:51:
+Array
+(
+    [comment] => 105694
+    [phone_number] => 79052888888
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => d4b84b9608865638f80023c217bd963f
+    [name] => Оплата заказа №105694
+    [system_income] => 794.0
+    [partner_income] => 772.56
+    [tid] => 85098233
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => o-ivanova@mail.ru
+)
+
+---------------
+
+2017.12.11 09:01:50:
+Array
+(
+    [comment] => 105695
+    [phone_number] => 79643335131
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => d09989d7be24e07db36b5538706ea620
+    [name] => Оплата заказа №105695
+    [system_income] => 2028.0
+    [partner_income] => 1973.24
+    [tid] => 85098589
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => sherkunova89@gmail.com
+)
+
+---------------
+
+2017.12.11 09:43:31:
+Array
+(
+    [comment] => 105698
+    [phone_number] => 79276577590
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => fe6d43c2835257eb2809761ff80071b6
+    [name] => Оплата заказа №105698
+    [system_income] => 706.0
+    [partner_income] => 686.94
+    [tid] => 85111010
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => saksonova88@mail.ru
+)
+
+---------------
+
+2017.12.11 09:51:20:
+Array
+(
+    [comment] => 105699
+    [phone_number] => 79142717519
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => ce41a806a05233fb3614961486823ca6
+    [name] => Оплата заказа №105699
+    [system_income] => 947.0
+    [partner_income] => 921.43
+    [tid] => 85112627
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => j.adore@mail.ru
+)
+
+---------------
+
+2017.12.11 10:38:13:
+Array
+(
+    [comment] => 105704
+    [phone_number] => 79025121300
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 7f7a1f2f4208faee5f1a449397825137
+    [name] => Оплата заказа №105704
+    [system_income] => 3068.3
+    [partner_income] => 2985.46
+    [tid] => 85124462
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => 89086440777@mail.ru
+)
+
+---------------
+
+2017.12.11 11:14:50:
+Array
+(
+    [comment] => 105711
+    [phone_number] => 79251911287
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5ba3a9c72ead292aa66e8aa696b5cdc2
+    [name] => Оплата заказа №105711
+    [system_income] => 1431.5
+    [partner_income] => 1392.85
+    [tid] => 85132858
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => bblade@gmail.com
+)
+
+---------------
+
+2017.12.11 11:17:38:
+Array
+(
+    [comment] => 105712
+    [phone_number] => 79260463206
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f2b3b574a012f4e0e1f962a595cd6b88
+    [name] => Оплата заказа №105712
+    [system_income] => 568.0
+    [partner_income] => 552.66
+    [tid] => 85133114
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => s_lesh76@mail.ru
+)
+
+---------------
+
+2017.12.11 12:22:07:
+Array
+(
+    [comment] => 105593
+    [phone_number] => 79221149991
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2f5d0033cd72b980b55af28ae6b56a57
+    [name] => Оплата заказа №105593
+    [system_income] => 1848.0
+    [partner_income] => 1798.1
+    [tid] => 85147085
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => alenarus96@yandex.ru
+)
+
+---------------
+
+2017.12.11 12:28:52:
+Array
+(
+    [comment] => 105720
+    [phone_number] => 79104063085
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2f19ed9b9bb26a2bc39a29982e5d34fd
+    [name] => Оплата заказа №105720
+    [system_income] => 678.0
+    [partner_income] => 659.69
+    [tid] => 85148806
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => capitan36@yandex.ru
+)
+
+---------------
+
+2017.12.11 13:18:20:
+Array
+(
+    [comment] => 105722
+    [phone_number] => 79502744863
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 8d269af634c2697b7bf5a4dd165340f3
+    [name] => Оплата заказа №105722
+    [system_income] => 2053.0
+    [partner_income] => 1997.57
+    [tid] => 85162157
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dmitry887@mail.ru
+)
+
+---------------
+
+2017.12.11 13:19:27:
+Array
+(
+    [comment] => 105721
+    [phone_number] => 79117030210
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 9edb02c20c799e189f4d6c324d9953ba
+    [name] => Оплата заказа №105721
+    [system_income] => 4818.6
+    [partner_income] => 4688.5
+    [tid] => 85161035
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Alexandra.bp@mail.ru
+)
+
+---------------
+
+2017.12.11 13:30:16:
+Array
+(
+    [comment] => 105724
+    [phone_number] => 79150097379
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 78ee77aebe541f7a5c0ca04502066aab
+    [name] => Оплата заказа №105724
+    [system_income] => 1359.0
+    [partner_income] => 1322.31
+    [tid] => 85165627
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Kasyska27@rambler.ru
+)
+
+---------------
+
+2017.12.11 14:13:44:
+Array
+(
+    [comment] => 105725
+    [phone_number] => 79111667977
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 19596c7f40c1135e92adf0d5374b0b63
+    [name] => Оплата заказа №105725
+    [system_income] => 744.1
+    [partner_income] => 724.01
+    [tid] => 85177200
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dolgova_a86@mail.ru
+)
+
+---------------
+
+2017.12.11 14:16:52:
+Array
+(
+    [comment] => 105726
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => fe6c0ca852e0f5596a1a198a03702ec9
+    [name] => Оплата заказа №105726
+    [system_income] => 979.0
+    [partner_income] => 952.57
+    [tid] => 85177384
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => lola_gauralila@yahoo.com
+)
+
+---------------
+
+2017.12.11 14:29:44:
+Array
+(
+    [comment] => 105727
+    [phone_number] => 79032853062
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => c0e0eba936afdbd00615a53cf0e92108
+    [name] => Оплата заказа №105727
+    [system_income] => 580.1
+    [partner_income] => 549.35
+    [tid] => 85178848
+    [service_id] => 66366
+    [type] => ym_rfi
+    [email] => dmitrysotnikov@bk.ru
+)
+
+---------------
+
+2017.12.11 14:33:13:
+Array
+(
+    [comment] => 105728
+    [phone_number] => 79224224000
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 15ac2a36aeda558637eb005ec08aafd3
+    [name] => Оплата заказа №105728
+    [system_income] => 3509.0
+    [partner_income] => 3414.26
+    [tid] => 85180969
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => neftegaz@gmail.com
+)
+
+---------------
+
+2017.12.11 14:37:10:
+Array
+(
+    [comment] => 105729
+    [phone_number] => 79162255290
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 03ae988a49ac5db9abb77d35b2ac1b91
+    [name] => Оплата заказа №105729
+    [system_income] => 3495.0
+    [partner_income] => 3400.63
+    [tid] => 85181831
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => vadim1337@gmail.com
+)
+
+---------------
+
+2017.12.11 14:37:55:
+Array
+(
+    [comment] => 105730
+    [phone_number] => 79169242694
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 8277687d8cab9e33364e8237bed5a5ac
+    [name] => Оплата заказа №105730
+    [system_income] => 580.1
+    [partner_income] => 564.44
+    [tid] => 85181896
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => michael.kutateladze@yandex.ru
+)
+
+---------------
+
+2017.12.11 14:47:08:
+Array
+(
+    [comment] => 105734
+    [phone_number] => 79036623420
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => b7b614ae35fdb87716945cb928de55c6
+    [name] => Оплата заказа №105734
+    [system_income] => 399.0
+    [partner_income] => 388.23
+    [tid] => 85183634
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ennisirein@yandex.ru
+)
+
+---------------
+
+2017.12.11 14:53:02:
+Array
+(
+    [comment] => 105735
+    [phone_number] => 79169242694
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => b4a4d306a80374f1c4823b795881df75
+    [name] => Оплата заказа №105735
+    [system_income] => 2134.6
+    [partner_income] => 2076.97
+    [tid] => 85184641
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => michael.kutateladze@yandex.ru
+)
+
+---------------
+
+2017.12.11 15:35:52:
+Array
+(
+    [comment] => 105738
+    [phone_number] => 79037806113
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => bf33d617b8ad6fd7f44511dc52accc60
+    [name] => Оплата заказа №105738
+    [system_income] => 1045.0
+    [partner_income] => 1016.78
+    [tid] => 85194828
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => khayrut@yandex.ru
+)
+
+---------------
+
+2017.12.11 15:51:16:
+Array
+(
+    [comment] => 105742
+    [phone_number] => 79163641477
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f4cc212e0535e913536e7fb5e557019f
+    [name] => Оплата заказа №105742
+    [system_income] => 4709.7
+    [partner_income] => 4582.54
+    [tid] => 85198030
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => kirsanova@bioprotection.ru
+)
+
+---------------
+
+2017.12.11 15:55:33:
+Array
+(
+    [comment] => 105743
+    [phone_number] => 79031287689
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e5bcc9236c5195b9c5259f33cdf23c45
+    [name] => Оплата заказа №105743
+    [system_income] => 7816.5
+    [partner_income] => 7605.45
+    [tid] => 85199006
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => r.nureev@miel-prechistenka.ru
+)
+
+---------------
+
+2017.12.11 16:38:23:
+Array
+(
+    [comment] => 105749
+    [phone_number] => 79166939030
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 64742f0de381aa1bdc72a531cbc24ff1
+    [name] => Оплата заказа №105749
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 85212789
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => kenguru13@yandex.ru
+)
+
+---------------
+
+2017.12.11 17:00:01:
+Array
+(
+    [comment] => 105753
+    [phone_number] => 79052310309
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 78c8e19a72e6002cf3645b2dc22301fd
+    [name] => Оплата заказа №105753
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 85216833
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Lena.chashina2011@yandex.ru
+)
+
+---------------
+
+2017.12.11 17:28:46:
+Array
+(
+    [comment] => 105762
+    [phone_number] => 79169848180
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3f2fb3d0e4a23f77fb1b45967ca6f24d
+    [name] => Оплата заказа №105762
+    [system_income] => 1995.0
+    [partner_income] => 1941.13
+    [tid] => 85222005
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => m_naz77@mail.ru
+)
+
+---------------
+
+2017.12.11 18:06:14:
+Array
+(
+    [comment] => 105648
+    [phone_number] => 79152052409
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 300ee002ede6bd3c62e177c5a89ef85b
+    [name] => Оплата заказа №105648
+    [system_income] => 399.0
+    [partner_income] => 388.23
+    [tid] => 85229313
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => valentina-cukanova2011@rambler.ru
+)
+
+---------------
+
+2017.12.11 18:24:53:
+Array
+(
+    [comment] => 105769
+    [phone_number] => 79268572998
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e75c80cb397753364af54e833d1275a3
+    [name] => Оплата заказа №105769
+    [system_income] => 529.0
+    [partner_income] => 514.72
+    [tid] => 85234846
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => kenny55506@gmail.com
+)
+
+---------------
+
+2017.12.11 19:21:19:
+Array
+(
+    [comment] => 105777
+    [phone_number] => 79119926477
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2e4e493249589fd860afa517e8a8052f
+    [name] => Оплата заказа №105777
+    [system_income] => 2364.0
+    [partner_income] => 2300.17
+    [tid] => 85246612
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ersh-anton@yandex.ru
+)
+
+---------------
+
+2017.12.11 20:14:12:
+Array
+(
+    [comment] => 105782
+    [phone_number] => 79160330341
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 1d6b4abe571739e90aff2bb6ddfb5fbb
+    [name] => Оплата заказа №105782
+    [system_income] => 1058.0
+    [partner_income] => 1029.43
+    [tid] => 85259957
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => vigukov@gmail.com
+)
+
+---------------
+
+2017.12.11 20:29:47:
+Array
+(
+    [comment] => 105783
+    [phone_number] => 79085707962
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5ca16f69f83ae74fb269a787e5b7a82e
+    [name] => Оплата заказа №105783
+    [system_income] => 747.0
+    [partner_income] => 726.83
+    [tid] => 85262078
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => angellds777@gmail.com
+)
+
+---------------
+
+2017.12.11 20:37:47:
+Array
+(
+    [comment] => 105785
+    [phone_number] => 79081928366
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => a6bd37a62b05049cb8011da83becccaf
+    [name] => Оплата заказа №105785
+    [system_income] => 2813.0
+    [partner_income] => 2737.05
+    [tid] => 85266209
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => sergeevaekater@yandex.ru
+)
+
+---------------
+
+2017.12.11 20:51:30:
+Array
+(
+    [comment] => 105780
+    [phone_number] => 79825460145
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 506a979ab64e633e89fa7d6734502f62
+    [name] => Оплата заказа №105780
+    [system_income] => 1444.0
+    [partner_income] => 1405.01
+    [tid] => 85254511
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => S_ocean@mail.ru
+)
+
+---------------
+
+2017.12.11 21:25:01:
+Array
+(
+    [comment] => 105789
+    [phone_number] => 79118856167
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2cfe422c09febf19013e99d71ec8dfeb
+    [name] => Оплата заказа №105789
+    [system_income] => 2382.3
+    [partner_income] => 2317.98
+    [tid] => 85275694
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => sergeidmitriev7@yahoo.com
+)
+
+---------------
+
+2017.12.11 21:33:21:
+Array
+(
+    [comment] => 105788
+    [phone_number] => 79110071368
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 7dd0beb4779dc5aff5d10a0a9a9a263c
+    [name] => Оплата заказа №105788
+    [system_income] => 708.0
+    [partner_income] => 688.88
+    [tid] => 85272662
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => aleks_52@mail.ru
+)
+
+---------------
+
+2017.12.11 21:39:15:
+Array
+(
+    [comment] => 105792
+    [phone_number] => 79060494563
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => af8d6d6f3ddfa2d77cd22b783c55635b
+    [name] => Оплата заказа №105792
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 85279331
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => busya_girl@mail.ru
+)
+
+---------------
+
+2017.12.11 21:43:53:
+Array
+(
+    [comment] => 105794
+    [phone_number] => 79601521763
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 93c614b2f9c883fd2b598693b3f7aa62
+    [name] => Оплата заказа №105794
+    [system_income] => 1874.0
+    [partner_income] => 1823.4
+    [tid] => 85280268
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => schastlivitsya@yandex.ru
+)
+
+---------------
+
+2017.12.11 21:49:42:
+Array
+(
+    [comment] => 105795
+    [phone_number] => 79150866945
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => cb99787d35506e18c497691ae764678d
+    [name] => Оплата заказа №105795
+    [system_income] => 3325.0
+    [partner_income] => 3235.22
+    [tid] => 85281419
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => a_dolgo@mail.ru
+)
+
+---------------
+
+2017.12.11 21:59:16:
+Array
+(
+    [comment] => 105796
+    [phone_number] => 79060711858
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3e885b963bfea1e2ec0d488efe640bb2
+    [name] => Оплата заказа №105796
+    [system_income] => 1168.0
+    [partner_income] => 1136.46
+    [tid] => 85283165
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dmitry.ustyugov@gmail.com
+)
+
+---------------
+
+2017.12.12 00:27:51:
+Array
+(
+    [comment] => 105805
+    [phone_number] => 79062193522
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => ea2f8cd632162d54220361f8629975e3
+    [name] => Оплата заказа №105805
+    [system_income] => 548.0
+    [partner_income] => 533.2
+    [tid] => 85315032
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => zanoses@gmail.com
+)
+
+---------------
+
+2017.12.12 00:32:59:
+Array
+(
+    [comment] => 105806
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => eac189b5975a65c70433abadfb5e85f1
+    [name] => Оплата заказа №105806
+    [system_income] => 4410.0
+    [partner_income] => 4290.93
+    [tid] => 85316087
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Rada8181@mail.ru
+)
+
+---------------
+
+2017.12.12 00:36:58:
+Array
+(
+    [comment] => 105808
+    [phone_number] => 79157488523
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => aa4c328e2519b353c0f7c39a9dbb8c39
+    [name] => Оплата заказа №105808
+    [system_income] => 519.3
+    [partner_income] => 505.28
+    [tid] => 85316931
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => alexandrgusev@list.ru
+)
+
+---------------
+
+2017.12.12 01:00:20:
+Array
+(
+    [comment] => 105809
+    [phone_number] => 79055064024
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => a10ac7cf78405077c4e963be4b915e78
+    [name] => Оплата заказа №105809
+    [system_income] => 1117.0
+    [partner_income] => 1086.84
+    [tid] => 85319717
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => mikhail@delyagin.ru
+)
+
+---------------
+
+2017.12.12 03:38:30:
+Array
+(
+    [comment] => 105811
+    [phone_number] => 79644203707
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 92ef40cf3c2d1f2fad4b27340000deef
+    [name] => Оплата заказа №105811
+    [system_income] => 1067.0
+    [partner_income] => 823.06
+    [tid] => 85350172
+    [service_id] => 66366
+    [type] => beeline_rfi_mc
+    [email] => asuszhanna@gmail.com
+)
+
+---------------
+
+2017.12.12 07:02:51:
+Array
+(
+    [comment] => 105814
+    [phone_number] => 79588788778
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => bb259f16980fa383c45c49fa435a9af8
+    [name] => Оплата заказа №105814
+    [system_income] => 2405.3
+    [partner_income] => 2340.36
+    [tid] => 85379779
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => vika.18.94@yandex.ru
+)
+
+---------------
+
+2017.12.12 07:11:51:
+Array
+(
+    [comment] => 105816
+    [phone_number] => 79241730017
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 462564402fc4de630c1385ec8dbe8e2f
+    [name] => Оплата заказа №105816
+    [system_income] => 1076.0
+    [partner_income] => 1046.95
+    [tid] => 85383240
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => 718039@inbox.ru
+)
+
+---------------
+
+2017.12.12 07:54:03:
+Array
+(
+    [comment] => 105818
+    [phone_number] => 79536104008
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 01600d46e32e1bb7df458b271e03baec
+    [name] => Оплата заказа №105818
+    [system_income] => 891.0
+    [partner_income] => 866.94
+    [tid] => 85392090
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Nadjanew@rambler.ru
+)
+
+---------------
+
+2017.12.12 10:46:23:
+Array
+(
+    [comment] => 105832
+    [phone_number] => 79095149143
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e1db391567961898cfb639d4a9e3a8a5
+    [name] => Оплата заказа №105832
+    [system_income] => 1049.0
+    [partner_income] => 1020.68
+    [tid] => 85430148
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => pr.mira.22.4@gmail.com
+)
+
+---------------
+
+2017.12.12 10:49:39:
+Array
+(
+    [comment] => 105833
+    [phone_number] => 79104562693
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 657c1907f0b15c57af6b3d6b9c15c58a
+    [name] => Оплата заказа №105833
+    [system_income] => 2997.0
+    [partner_income] => 2916.08
+    [tid] => 85430680
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ekimova.a.a@mail.ru
+)
+
+---------------
+
+2017.12.12 11:20:45:
+Array
+(
+    [comment] => 105836
+    [phone_number] => 79166081696
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e7428a39f14e0294fc021fafb3122011
+    [name] => Оплата заказа №105836
+    [system_income] => 23341.0
+    [partner_income] => 22710.79
+    [tid] => 85438560
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => troyanovaevgeniya@mail.ru
+)
+
+---------------
+
+2017.12.12 11:31:33:
+Array
+(
+    [comment] => 105837
+    [phone_number] => 79166045636
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => dc8628b2526cafb9e46e87e9df18f256
+    [name] => Оплата заказа №105837
+    [system_income] => 672.1
+    [partner_income] => 653.95
+    [tid] => 85440434
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => alabina.maria@yandex.ru
+)
+
+---------------
+
+2017.12.12 11:49:58:
+Array
+(
+    [comment] => 105841
+    [phone_number] => 79265810154
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => b73245e5c968fe6f0a580c22497275c6
+    [name] => Оплата заказа №105841
+    [system_income] => 1126.0
+    [partner_income] => 1095.6
+    [tid] => 85443511
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => 5810154@gmail.com
+)
+
+---------------
+
+2017.12.12 12:02:29:
+Array
+(
+    [comment] => 105842
+    [phone_number] => 79237023556
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 93ec8abfb5d14219bc7050152cc9fcc8
+    [name] => Оплата заказа №105842
+    [system_income] => 989.0
+    [partner_income] => 962.3
+    [tid] => 85445651
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => sidenkowow@mail.ru
+)
+
+---------------
+
+2017.12.12 12:12:58:
+Array
+(
+    [comment] => 105845
+    [phone_number] => 79146982399
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2a32275a3e8236ca77510f9196576788
+    [name] => Оплата заказа №105845
+    [system_income] => 467.0
+    [partner_income] => 454.39
+    [tid] => 85449362
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => s.v.gerzen@gmail.com
+)
+
+---------------
+
+2017.12.12 12:20:59:
+Array
+(
+    [comment] => 105847
+    [phone_number] => 79139246520
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5a0cba5104ffc1e3710553e96f732ab1
+    [name] => Оплата заказа №105847
+    [system_income] => 552.2
+    [partner_income] => 537.29
+    [tid] => 85450741
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Vasya9in@list.ru
+)
+
+---------------
+
+2017.12.12 13:01:50:
+Array
+(
+    [comment] => 105813
+    [phone_number] => 79243480984
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f0f5cec8c6fd41065537df51621b9cec
+    [name] => Оплата заказа №105813
+    [system_income] => 1587.2
+    [partner_income] => 1544.35
+    [tid] => 85457008
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => anna-actpa@rambler.ru
+)
+
+---------------
+
+2017.12.12 13:08:45:
+Array
+(
+    [comment] => 105850
+    [phone_number] => 79296508002
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => efe4a2363b300832b6aa02d1a3beb1b3
+    [name] => Оплата заказа №105850
+    [system_income] => 2233.0
+    [partner_income] => 2172.71
+    [tid] => 85461356
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => olesyan2004@mail.ru
+)
+
+---------------
+
+2017.12.12 13:11:47:
+Array
+(
+    [comment] => 105851
+    [phone_number] => 77013228338
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 61490ca9f9258b2afc486449ae1a2b20
+    [name] => Оплата заказа №105851
+    [system_income] => 13408.35
+    [partner_income] => 13046.32
+    [tid] => 85461681
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => karakoz.tashimbetova@halyklife.kz
+)
+
+---------------
+
+2017.12.12 13:15:11:
+Array
+(
+    [comment] => 105852
+    [phone_number] => 79299970072
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 1e245e510a6ab222e59e06f383f62e3a
+    [name] => Оплата заказа №105852
+    [system_income] => 1823.0
+    [partner_income] => 1773.78
+    [tid] => 85463365
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => belousovov@mos.ru
+)
+
+---------------
+
+2017.12.12 13:21:42:
+Array
+(
+    [comment] => 105853
+    [phone_number] => 79502677633
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3d0727365832e5e66b999dde9974f46e
+    [name] => Оплата заказа №105853
+    [system_income] => 2026.0
+    [partner_income] => 1971.3
+    [tid] => 85464584
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => thewolf042@gmail.com
+)
+
+---------------
+
+2017.12.12 13:46:34:
+Array
+(
+    [comment] => 104958
+    [phone_number] => 79169020285
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 4dff02bac4778e20f44f4594e6c71db4
+    [name] => Оплата заказа №104958
+    [system_income] => 2642.6
+    [partner_income] => 2571.25
+    [tid] => 85469184
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => leniano@gmail.com
+)
+
+---------------
+
+2017.12.12 14:06:29:
+Array
+(
+    [comment] => 105860
+    [phone_number] => 79166095569
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => fa49a31e548e58917ba5b41103434821
+    [name] => Оплата заказа №105860
+    [system_income] => 798.0
+    [partner_income] => 776.45
+    [tid] => 85474175
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => leka_18@mail.ru
+)
+
+---------------
+
+2017.12.12 14:33:05:
+Array
+(
+    [comment] => 105855
+    [phone_number] => 79036822799
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3c7aa86d1d72fca31bddde6f3089dba8
+    [name] => Оплата заказа №105855
+    [system_income] => 2093.0
+    [partner_income] => 2036.49
+    [tid] => 85482414
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ivtatiana@mail.ru
+)
+
+---------------
+
+2017.12.12 14:57:20:
+Array
+(
+    [comment] => 105863
+    [phone_number] => 79067838506
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 6f5ca2101250c534899686daf15b1682
+    [name] => Оплата заказа №105863
+    [system_income] => 2227.5
+    [partner_income] => 2167.36
+    [tid] => 85486793
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => forleoster@gmail.com
+)
+
+---------------
+
+2017.12.12 14:57:27:
+Array
+(
+    [comment] => 105864
+    [phone_number] => 79030940500
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 477169d93ab208af13da5ed8920ee183
+    [name] => Оплата заказа №105864
+    [system_income] => 399.0
+    [partner_income] => 301.52
+    [tid] => 85486897
+    [service_id] => 66366
+    [type] => beeline_rfi_mc
+    [email] => nady_turtle@inbox.ru
+)
+
+---------------
+
+2017.12.12 15:39:55:
+Array
+(
+    [comment] => 105868
+    [phone_number] => 79094364400
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => ac932875101c4ff09f40d23e7631a143
+    [name] => Оплата заказа №105868
+    [system_income] => 947.0
+    [partner_income] => 921.43
+    [tid] => 85500681
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => serg.zababurin@gmail.com
+)
+
+---------------
+
+2017.12.12 15:49:11:
+Array
+(
+    [comment] => 105871
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 0597ec36507f6d02f15ca0405484e6ea
+    [name] => Оплата заказа №105871
+    [system_income] => 548.0
+    [partner_income] => 533.2
+    [tid] => 85502920
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => lesha19980202@gmail.com
+)
+
+---------------
+
+2017.12.12 15:51:54:
+Array
+(
+    [comment] => 105870
+    [phone_number] => 79037386824
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2ed952d81987ffec5b4301e03fbe6ae5
+    [name] => Оплата заказа №105870
+    [system_income] => 2997.0
+    [partner_income] => 2916.08
+    [tid] => 85503710
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dsibiryak@yandex.ru
+)
+
+---------------
+
+2017.12.12 15:55:28:
+Array
+(
+    [comment] => 105872
+    [phone_number] => 79154860700
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 88a717bb5820ab2c88ec57798e5c0635
+    [name] => Оплата заказа №105872
+    [system_income] => 668.0
+    [partner_income] => 649.96
+    [tid] => 85504229
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => sosfenov@gmail.com
+)
+
+---------------
+
+2017.12.12 16:29:20:
+Array
+(
+    [comment] => 104217
+    [phone_number] => 79134529378
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 7ea6e18e2f052c6395c62885c24a54b5
+    [name] => Оплата заказа №104217
+    [system_income] => 597.0
+    [partner_income] => 580.88
+    [tid] => 85512686
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => anny96@yandex.ru
+)
+
+---------------
+
+2017.12.12 16:47:25:
+Array
+(
+    [comment] => 104638
+    [phone_number] => 79035185188
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2f9ab6958f6f03ceba7f881a5563984f
+    [name] => Оплата заказа №104638
+    [system_income] => 2233.0
+    [partner_income] => 2172.71
+    [tid] => 85516498
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => alexey.zajcev@gmail.com
+)
+
+---------------
+
+2017.12.12 16:52:19:
+Array
+(
+    [comment] => 105877
+    [phone_number] => 79879334400
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5ca82528d130a48edbafd731926d656c
+    [name] => Оплата заказа №105877
+    [system_income] => 898.0
+    [partner_income] => 873.75
+    [tid] => 85517244
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => anzola@yandex.ru
+)
+
+---------------
+
+2017.12.12 16:53:04:
+Array
+(
+    [comment] => 103479
+    [phone_number] => 79113888964
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e9f23bf441ae51d9738ba4f49560bec6
+    [name] => Оплата заказа №103479
+    [system_income] => 1887.0
+    [partner_income] => 1816.24
+    [tid] => 85517075
+    [service_id] => 66366
+    [type] => mtsbank_mts_mc
+    [email] => Serheas@yahoo.com
+)
+
+---------------
+
+2017.12.12 17:00:31:
+Array
+(
+    [comment] => 104454
+    [phone_number] => 79172243437
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 7c98cc2d77fe846a469375222351f223
+    [name] => Оплата заказа №104454
+    [system_income] => 1116.0
+    [partner_income] => 1085.87
+    [tid] => 85516641
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ztl-maestro@yandex.ru
+)
+
+---------------
+
+2017.12.12 17:00:40:
+Array
+(
+    [comment] => 105882
+    [phone_number] => 79623848918
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5f1980d724bc171b675870f5ad6d0b9c
+    [name] => Оплата заказа №105882
+    [system_income] => 972.1
+    [partner_income] => 945.85
+    [tid] => 85518769
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dmitry.svirikhin@gmail.com
+)
+
+---------------
+
+2017.12.12 17:11:48:
+Array
+(
+    [comment] => 105512
+    [phone_number] => 79087227772
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 69fcbd9a0d13cf2db0e71bf2b97c087d
+    [name] => Оплата заказа №105512
+    [system_income] => 2855.2
+    [partner_income] => 2778.11
+    [tid] => 85524128
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => meridian-nn@yandex.ru
+)
+
+---------------
+
+2017.12.12 17:21:17:
+Array
+(
+    [comment] => 103750
+    [phone_number] => 79149307979
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3ebe7c298c7357bc94d485645f812e17
+    [name] => Оплата заказа №103750
+    [system_income] => 21732.8
+    [partner_income] => 21146.01
+    [tid] => 85528305
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => sia004@mail.ru
+)
+
+---------------
+
+2017.12.12 17:26:54:
+Array
+(
+    [comment] => 104987
+    [phone_number] => 79219111525
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 90fdf7b46a7aec9338edbb7235349d23
+    [name] => Оплата заказа №104987
+    [system_income] => 701.0
+    [partner_income] => 682.07
+    [tid] => 85528621
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => nforsy@gmail.com
+)
+
+---------------
+
+2017.12.12 17:26:54:
+Array
+(
+    [comment] => 104652
+    [phone_number] => 79263524686
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f7438c66a9925c249f0a3b8d41e49608
+    [name] => Оплата заказа №104652
+    [system_income] => 948.0
+    [partner_income] => 922.4
+    [tid] => 85529315
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => kostyasergeich@mail.ru
+)
+
+---------------
+
+2017.12.12 17:29:30:
+Array
+(
+    [comment] => 105599
+    [phone_number] => 79118233576
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2e1bc87ceac26a0b0fa023e75f5ed409
+    [name] => Оплата заказа №105599
+    [system_income] => 972.1
+    [partner_income] => 945.85
+    [tid] => 85529805
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => buhparitet@mail.ru
+)
+
+---------------
+
+2017.12.12 17:48:21:
+Array
+(
+    [comment] => 105889
+    [phone_number] => 79091650861
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 74e8da945f34b45a7664298030428c8e
+    [name] => Оплата заказа №105889
+    [system_income] => 2240.0
+    [partner_income] => 2179.52
+    [tid] => 85532384
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => shilkina_vika@mail.ru
+)
+
+---------------
+
+2017.12.12 17:48:24:
+Array
+(
+    [comment] => 105891
+    [phone_number] => 79196360490
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => ed1482340f15758d6a800f1f78840362
+    [name] => Оплата заказа №105891
+    [system_income] => 1107.0
+    [partner_income] => 1077.11
+    [tid] => 85532570
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => aleksandr.ermolin2201@gmail.com
+)
+
+---------------
+
+2017.12.12 18:03:15:
+Array
+(
+    [comment] => 105890
+    [phone_number] => 79109541939
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 280c4ba67eb7a6d33e47e859f35eed9b
+    [name] => Оплата заказа №105890
+    [system_income] => 2077.0
+    [partner_income] => 2020.92
+    [tid] => 85533925
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => arsenieva.galina2014@yandex.ru
+)
+
+---------------
+
+2017.12.12 18:07:34:
+Array
+(
+    [comment] => 105527
+    [phone_number] => 79155500575
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => d586cb4af6b94f1808944bb68c65270c
+    [name] => Оплата заказа №105527
+    [system_income] => 1713.2
+    [partner_income] => 1666.94
+    [tid] => 85537527
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => skev48@mail.ru
+)
+
+---------------
+
+2017.12.12 18:20:20:
+Array
+(
+    [comment] => 105530
+    [phone_number] => 79056206485
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f4a22e79223521b4f9f410f0ae4aef0e
+    [name] => Оплата заказа №105530
+    [system_income] => 2086.3
+    [partner_income] => 2029.97
+    [tid] => 85539368
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => belayabraga@yandex.ru
+)
+
+---------------
+
+2017.12.12 18:26:27:
+Array
+(
+    [comment] => 105895
+    [phone_number] => 79172390343
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => c7491b5f0a57d6dab329bd779775c969
+    [name] => Оплата заказа №105895
+    [system_income] => 1347.0
+    [partner_income] => 1310.63
+    [tid] => 85540005
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => lilita.84@mail.ru
+)
+
+---------------
+
+2017.12.12 19:13:16:
+Array
+(
+    [comment] => 105898
+    [phone_number] => 79177576724
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 6b45c6f2a26b109ad171c040762ff75c
+    [name] => Оплата заказа №105898
+    [system_income] => 7074.4
+    [partner_income] => 6883.39
+    [tid] => 85549855
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => evidineev@mail.ru
+)
+
+---------------
+
+2017.12.12 19:44:21:
+Array
+(
+    [comment] => 105903
+    [phone_number] => 79037927858
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => bf34334d95661a67b6bb304957fd5843
+    [name] => Оплата заказа №105903
+    [system_income] => 3595.5
+    [partner_income] => 3498.42
+    [tid] => 85556140
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => antoshkin@comtv.ru
+)
+
+---------------
+
+2017.12.12 19:54:17:
+Array
+(
+    [comment] => 105902
+    [phone_number] => 79039404740
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 55eaf46584e671955c50592d11aaad00
+    [name] => Оплата заказа №105902
+    [system_income] => 3793.0
+    [partner_income] => 3690.59
+    [tid] => 85554828
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => o.dubnova@narod.ru
+)
+
+---------------
+
+2017.12.12 20:10:49:
+Array
+(
+    [comment] => 105900
+    [phone_number] => 79189246070
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => fc4da124cf2e4885ea92faadd55a1244
+    [name] => Оплата заказа №105900
+    [system_income] => 820.1
+    [partner_income] => 797.96
+    [tid] => 85553828
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ruslan.cheuchev@mail.ru
+)
+
+---------------
+
+2017.12.12 20:14:59:
+Array
+(
+    [comment] => 105908
+    [phone_number] => 79168306276
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 04574782aa3740d6779e25d2bf2fd9b9
+    [name] => Оплата заказа №105908
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 85565843
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => goldentany@list.ru
+)
+
+---------------
+
+2017.12.12 20:38:47:
+Array
+(
+    [comment] => 105909
+    [phone_number] => 79050849324
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 93f635ca40de34e0950cb1a20b249106
+    [name] => Оплата заказа №105909
+    [system_income] => 1076.0
+    [partner_income] => 1046.95
+    [tid] => 85570491
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => andimusic1@gmail.com
+)
+
+---------------
+
+2017.12.12 21:09:06:
+Array
+(
+    [comment] => 103562
+    [phone_number] => 79522650857
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 978e8f3ef87dea1799e706a4c9e3e09c
+    [name] => Оплата заказа №103562
+    [system_income] => 597.0
+    [partner_income] => 580.88
+    [tid] => 85576120
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => yani.novikova@gmail.com
+)
+
+---------------
+
+2017.12.12 21:12:33:
+Array
+(
+    [comment] => 105910
+    [phone_number] => 79218878783
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => a963e862e2ef3b90714bc6f510a076cf
+    [name] => Оплата заказа №105910
+    [system_income] => 2276.8
+    [partner_income] => 2215.33
+    [tid] => 85580506
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ov.reatch@gmail.com
+)
+
+---------------
+
+2017.12.12 21:29:54:
+Array
+(
+    [comment] => 105914
+    [phone_number] => 79039612851
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f6d1fb0dc9cc3e74f0a2e9e401a60d28
+    [name] => Оплата заказа №105914
+    [system_income] => 7028.8
+    [partner_income] => 6839.02
+    [tid] => 85584498
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => khusainova_alina@yahoo.com
+)
+
+---------------
+
+2017.12.12 21:32:02:
+Array
+(
+    [comment] => 105913
+    [phone_number] => 79134494662
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 4f75cbe4b8fd0490e284ecb7b82923dc
+    [name] => Оплата заказа №105913
+    [system_income] => 385.0
+    [partner_income] => 374.6
+    [tid] => 85584084
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dzherapow2@mail.ru
+)
+
+---------------
+
+2017.12.12 21:53:35:
+Array
+(
+    [comment] => 105915
+    [phone_number] => 79282050864
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f2410af198f69113f033553d5f6c14e1
+    [name] => Оплата заказа №105915
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 85589100
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => skrinnikowa@mail.ru
+)
+
+---------------
+
+2017.12.12 22:11:41:
+Array
+(
+    [comment] => 105917
+    [phone_number] => 79060760006
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5e78d2c214d30bef32988998ad6f5b8c
+    [name] => Оплата заказа №105917
+    [system_income] => 2282.0
+    [partner_income] => 2220.39
+    [tid] => 85594973
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => halitcavusogluist@gmail.com
+)
+
+---------------
+
+2017.12.12 22:25:27:
+Array
+(
+    [comment] => 103475
+    [phone_number] => 79185811313
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => afbc90d9af7387eb415d25ec6bc24f78
+    [name] => Оплата заказа №103475
+    [system_income] => 748.0
+    [partner_income] => 727.8
+    [tid] => 85597393
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => neymark@yandex.ru
+)
+
+---------------
+
+2017.12.12 22:40:15:
+Array
+(
+    [comment] => 105919
+    [phone_number] => 79192462857
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 334f0176bf2f7addb035e4f6418db758
+    [name] => Оплата заказа №105919
+    [system_income] => 1050.0
+    [partner_income] => 1021.65
+    [tid] => 85600420
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => fear.noname@gmail.com
+)
+
+---------------
+
+2017.12.12 22:56:48:
+Array
+(
+    [comment] => 105921
+    [phone_number] => 73712993167
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3bab2cd8252285e28ded2c1dfb4edb93
+    [name] => Оплата заказа №105921
+    [system_income] => 2049.0
+    [partner_income] => 1993.68
+    [tid] => 85602604
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => suhlecova@gmail.com
+)
+
+---------------
+
+2017.12.12 23:25:04:
+Array
+(
+    [comment] => 105924
+    [phone_number] => 79853662679
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 170d49cbb4d7446dc41d1118b4b2e569
+    [name] => Оплата заказа №105924
+    [system_income] => 948.0
+    [partner_income] => 922.4
+    [tid] => 85610732
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => egor2315@mail.ru
+)
+
+---------------
+
+2017.12.12 23:25:15:
+Array
+(
+    [comment] => 105925
+    [phone_number] => 79204682445
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => e7d222c1550c0fa1a6385b8c93f0a072
+    [name] => Оплата заказа №105925
+    [system_income] => 2006.0
+    [partner_income] => 1951.84
+    [tid] => 85610701
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => tarasov.vyacheslav90@gmail.com
+)
+
+---------------
+
+2017.12.13 00:20:53:
+Array
+(
+    [comment] => 105927
+    [phone_number] => 79175975284
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 73a5108fb29bbc6d1571f397a5ea9d43
+    [name] => Оплата заказа №105927
+    [system_income] => 2064.4
+    [partner_income] => 2008.66
+    [tid] => 85615054
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => sergeydonskikh@gmail.com
+)
+
+---------------
+
+2017.12.13 00:21:16:
+Array
+(
+    [comment] => 105932
+    [phone_number] => 79177405064
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 0ee0ed46c063f2c9ed121aaa27d4388c
+    [name] => Оплата заказа №105932
+    [system_income] => 2076.0
+    [partner_income] => 2019.95
+    [tid] => 85618222
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => ksaitbatalova@gmail.com
+)
+
+---------------
+
+2017.12.13 00:21:29:
+Array
+(
+    [comment] => 105928
+    [phone_number] => 79204996066
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => bdcd3f1103d0c0461e11b917081acf06
+    [name] => Оплата заказа №105928
+    [system_income] => 1297.0
+    [partner_income] => 1228.26
+    [tid] => 85616651
+    [service_id] => 66366
+    [type] => ym_rfi
+    [email] => 2bizpro2@gmail.com
+)
+
+---------------
+
+2017.12.13 00:49:33:
+Array
+(
+    [comment] => 105826
+    [phone_number] => 79084411288
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 5f8cf38ef20c0f94a9aa4891a935c097
+    [name] => Оплата заказа №105826
+    [system_income] => 608.0
+    [partner_income] => 591.58
+    [tid] => 85622668
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => innay01@mail.ru
+)
+
+---------------
+
+2017.12.13 03:13:02:
+Array
+(
+    [comment] => 105937
+    [phone_number] => 79841618491
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 614da5168239ecaa222e8e1903bb4c7e
+    [name] => Оплата заказа №105937
+    [system_income] => 1790.2
+    [partner_income] => 1741.86
+    [tid] => 85648832
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => mahadevdas777@gmail.com
+)
+
+---------------
+
+2017.12.13 04:08:04:
+Array
+(
+    [comment] => 105938
+    [phone_number] => 79262586541
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 99a3d61096b52c69bf5b94bd1e3e0e57
+    [name] => Оплата заказа №105938
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 85659921
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dimitry.165@gmail.com
+)
+
+---------------
+
+2017.12.13 06:17:35:
+Array
+(
+    [comment] => 104747
+    [phone_number] => 79261121811
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 864f60426b5ffb7af54f9e485f6ad523
+    [name] => Оплата заказа №104747
+    [system_income] => 2077.0
+    [partner_income] => 2020.92
+    [tid] => 85681652
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => rad303@yandex.ru
+)
+
+---------------
+
+2017.12.13 06:52:41:
+Array
+(
+    [comment] => 105535
+    [phone_number] => 79246341976
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 31ae2ddc9b7789cf31b59a5daa65423d
+    [name] => Оплата заказа №105535
+    [system_income] => 1347.0
+    [partner_income] => 1310.63
+    [tid] => 85685245
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Suderr@yandex.ru
+)
+
+---------------
+
+2017.12.13 07:19:12:
+Array
+(
+    [comment] => 105941
+    [phone_number] => 79292421312
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 2985117dea6bcef79ec361a3b285e11e
+    [name] => Оплата заказа №105941
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 85691119
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => miv2307@mail.ru
+)
+
+---------------
+
+2017.12.13 07:51:22:
+Array
+(
+    [comment] => 105942
+    [phone_number] => 79852969635
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 526a22eb171ad4fa80fc0411a32f9ff1
+    [name] => Оплата заказа №105942
+    [system_income] => 2107.0
+    [partner_income] => 2050.11
+    [tid] => 85695772
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => Alex-dmitriev2005@yandex.ru
+)
+
+---------------
+
+2017.12.13 08:51:50:
+Array
+(
+    [comment] => 105945
+    [phone_number] => 79031911641
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => a11308f48aeec9a90cf25c3368ded39f
+    [name] => Оплата заказа №105945
+    [system_income] => 2360.6
+    [partner_income] => 2296.86
+    [tid] => 85709512
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => unceasing@inbox.ru
+)
+
+---------------
+
+2017.12.13 09:19:07:
+Array
+(
+    [comment] => 105947
+    [phone_number] => 79037888668
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => d66e1479454606448ee2df075faf4d4c
+    [name] => Оплата заказа №105947
+    [system_income] => 2009.0
+    [partner_income] => 1954.76
+    [tid] => 85717336
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => dolya@yahoo.com
+)
+
+---------------
+
+2017.12.13 09:30:45:
+Array
+(
+    [comment] => 105482
+    [phone_number] => 79193538631
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => f2a591247aa6056c3dbcbf9799d4d42a
+    [name] => Оплата заказа №105482
+    [system_income] => 1122.0
+    [partner_income] => 1091.71
+    [tid] => 85719981
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => fedyukevich93@mail.ru
+)
+
+---------------
+
+2017.12.13 09:50:00:
+Array
+(
+    [comment] => 105308
+    [phone_number] => 79104184847
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 3893bf28f3e1bab1fffdb73c6dc50f10
+    [name] => Оплата заказа №105308
+    [system_income] => 4806.0
+    [partner_income] => 4676.24
+    [tid] => 85723625
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => voronina.v@mail.ru
+)
+
+---------------
+
+2017.12.13 10:46:56:
+Array
+(
+    [comment] => 105955
+    [phone_number] => 79213280428
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => d8601f761f963bc1fb113153a16675b1
+    [name] => Оплата заказа №105955
+    [system_income] => 1078.0
+    [partner_income] => 1048.89
+    [tid] => 85737399
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => g.s.e@mail.ru
+)
+
+---------------
+
+2017.12.13 11:08:39:
+Array
+(
+    [comment] => 105960
+    [phone_number] => 79058247354
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 9d1e190a71d7b6762e5049745514c74b
+    [name] => Оплата заказа №105960
+    [system_income] => 628.0
+    [partner_income] => 611.04
+    [tid] => 85743679
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => tanya27_mir@mail.ru
+)
+
+---------------
+
+2017.12.13 11:14:30:
+Array
+(
+    [comment] => 105859
+    [phone_number] => 79814620666
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 962003e6cc6e4f0072ad066e70aaafd5
+    [name] => Оплата заказа №105859
+    [system_income] => 1083.2
+    [partner_income] => 1053.95
+    [tid] => 85471454
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => grampicat@gmail.ru
+)
+
+---------------
+
+2017.12.13 12:01:07:
+Array
+(
+    [comment] => 105957
+    [phone_number] => 79197240804
+    [order_id] => 0
+    [currency] => RUB
+    [partner_id] => 244847
+    [check] => 39614029e3502c09dbc2e1393741b253
+    [name] => Оплата заказа №105957
+    [system_income] => 1767.0
+    [partner_income] => 1719.29
+    [tid] => 85754719
+    [service_id] => 66366
+    [type] => spg_rfi4
+    [email] => olgaish@mail.ru
+)
+
+---------------
+

@@ -74,22 +74,17 @@ if (!empty($authors_IDs)) {
     }
 } 
 
-//print_r($arResult["PROPERTIES"]);
-
-
 $title = $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"];
 
 if(strlen($arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"])){
 	$title .= '. ' . $arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"];
 }
-
 //$title .= " - ". $arResult["AUTHOR_NAME"] ." - ".  GetMessage("ADD_TITLE");
+$title .= " - ". 'купить книгу ' . $author_name ." - с доставкой, издание ". $arResult["PROPERTIES"]["YEAR"]["VALUE"];
 
 /*if (strlen($arResult['PROPERTIES']["ISBN"]["VALUE"])){
-	$title .= '. ' . $arResult["PROPERTIES"]["SECOND_NAME"]["VALUE"];
+	$title .= ' | ' . $arResult['PROPERTIES']["ISBN"]["VALUE"];
 }*/
-
-$title .= " - ". 'купить книгу ' . $author_name ." - с доставкой, издание ". $arResult["PROPERTIES"]["YEAR"]["VALUE"];
 
 $APPLICATION->SetPageProperty("title", $title);
 

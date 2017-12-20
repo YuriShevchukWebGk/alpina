@@ -431,7 +431,8 @@
 
         function ExportOrders($arIDs)
         {
-            $arIDs = array_reverse($arIDs);
+            $arIDs = asort($arIDs);
+            $arIDs = array_values(array_unique($arIDs));
             global $APPLICATION;
             $MODULE_ID = "epages.pickpoint";
             $api_login = COption::GetOptionString($MODULE_ID, "pp_api_login", "");
@@ -492,8 +493,7 @@
                             {
                                 $arInvoice["PostageType"] = $arServiceTypesCodes[0];
                             }
-                            $arInvoice["GettingType"] =
-                            $arEnclosingTypesCodes[$_REQUEST["EXPORT"][$arOrder["ID"]]["ENCLOSING_TYPE"]];
+                            $arInvoice["GettingType"] = $arEnclosingTypesCodes[$_REQUEST["EXPORT"][$arOrder["ID"]]["ENCLOSING_TYPE"]];
                             $arInvoice["PayType"] = 1;
 
                             if(CPickpoint::CheckPPPaySystem($arOrder["PAY_SYSTEM_ID"], $arOrder["PERSON_TYPE_ID"]) || ($_REQUEST["EXPORT"][$arOrder["ID"]]["PAYED"]) > 0)
@@ -530,8 +530,7 @@
                             elseif(intval($createdSendings->InvoiceNumber) > 0)
                             {
                                 $sending_edtn = intval($createdSendings->EDTN);
-                                mail('raulschokino@yandex.ru', 'edtn', $sending_edtn);
-                                mail('raulschokino@yandex.ru', 'sendercode', $arQuery["Sendings"][$sending_edtn]["Invoice"]["SenderCode"]);
+                                logger('edtn = ' . $sending_edtn, $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/pickpoint_log.log');
                                 CPickpoint::SetOrderInvoice($arQuery["Sendings"][$key]["Invoice"]["SenderCode"], $createdSendings->InvoiceNumber);
                             }
                         }
