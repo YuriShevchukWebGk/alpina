@@ -200,7 +200,7 @@
                                             if ($prop = $status->GetNext()) {
                                                 if($val_order == "Скоро в продаже"){
                                                     $date_state[] = $prop['VALUE'];
-                                                    ?><p class="newPriceText">Ожидаемая дата выхода: <?= strtolower(FormatDate("j F Y", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?> г.</p><?
+                                                    ?><p class="newPriceText">Ожидаемая дата выхода: <?= strtolower(FormatDate("f Y", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?> г.</p><?
                                                 }
                                             }?>
                                             <??>

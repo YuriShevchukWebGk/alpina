@@ -651,7 +651,7 @@
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/PreOrder">
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
-                        <p class="newPriceText"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
+                        <p class="newPriceText"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("f", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
 
                         <?foreach ($arResult["PRICES"] as $code => $arPrice) {?>
                             <?$StockInfo = "SoonStock";
@@ -2108,7 +2108,7 @@
             }
         });
     });
-	
+
 	$(function(){
 		var count_recenzion = 1;
 		$('.tabIsRecenzion').click(function(){
@@ -2122,7 +2122,7 @@
 					success: function(data){
 						$('.recenzion').html(data);
 					}
-				});						
+				});
 			}
 		});
 
@@ -2132,9 +2132,9 @@
 		$('#commentsLink a').click(function(e){
 			e.preventDefault();
 		});
-		
-		$('#digitalversion').click(function(e){			
-			$('.digitalVersionWrap').html('<div class="wrap_prise_top"><?=GetMessage("EPUB")?><p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]["VALUE"]?> <span>руб.</span></p></div><div class="wrap_prise_bottom"><a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]["VALUE"]?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({"event" : "selectVersion", "action" : "leaveSite", "label": "<?=$arResult["NAME"];?>"});"><p class="inBasket"><?=GetMessage("BUY_EPUB")?></p></a></div>');			
+
+		$('#digitalversion').click(function(e){
+			$('.digitalVersionWrap').html('<div class="wrap_prise_top"><?=GetMessage("EPUB")?><p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]["VALUE"]?> <span>руб.</span></p></div><div class="wrap_prise_bottom"><a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]["VALUE"]?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({"event" : "selectVersion", "action" : "leaveSite", "label": "<?=$arResult["NAME"];?>"});"><p class="inBasket"><?=GetMessage("BUY_EPUB")?></p></a></div>');
 			e.preventDefault();
 		});
 	});
