@@ -324,11 +324,11 @@
 
                     </div>
                     <div class="boxbery_error"><?= GetMessage('BOXBERY_SELECT_EMPTY') ?></div>
-                    <?if($arDelivery["ID"] == BOXBERY_ID){ ?>
+                    <?/*if($arDelivery["ID"] == BOXBERY_ID){ ?>
                         <div id="boxbery_delivery_time delivery_date" class="boxbery_delivery_time"> <span></span></div>
                     <?} else {?>
                         <div id="boxbery_delivery_time delivery_date" class="boxbery_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
-                    <?}?>
+                    <?}*/?>
                     <input type="hidden" id="boxbery_address" name="boxbery_address" value="">
                     <input type="hidden" id="boxbery_cost" name="boxbery_cost" value="">
                     <input type="hidden" id="boxbery_price" name="boxbery_price" value="">
@@ -342,7 +342,7 @@
                         <span style="cursor:pointer; display:block; text-decoration:underline;" class="message-map-link"><?= GetMessage('CHOSE_ON_MAP') ?></span>
                         <div id="YMapsID"></div>
                         <div class="guru_point_addr"></div>
-                        <div id="guru_delivery_time" class="guru_delivery_time delivery_date"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
+                        <?/*<div id="guru_delivery_time" class="guru_delivery_time delivery_date"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>*/?>
                         <input type="hidden" id="guru_delivery_data" name="guru_delivery_data" value="">
                         <input type="hidden" id="guru_cost" name="guru_cost" value="">
                         <input type="hidden" id="guru_selected" name="guru_selected" value="">
@@ -350,10 +350,10 @@
                 <? } ?>
                 <? if ($arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID) { ?>
                     <div class="boxberry_delivery_wrapper">
-                        <div class="boxberry_error delivery_date"><?= GetMessage('BOXBERRY_ERROR') ?></div>
+                        <?/*<div class="boxberry_error delivery_date"><?= GetMessage('BOXBERRY_ERROR') ?></div> */?>
                         <a href="#" class="message-map-link" style="cursor: pointer; display: block;  text-decoration: underline; color:#000;" onclick="boxberry.open('boxberry_callback', '<?= BOXBERRY_TOKEN_API?>', 'Москва', '68', <?= $arResult['ORDER_DATA']['ORDER_PRICE']?>, <?= $arResult['ORDER_DATA']['ORDER_WEIGHT']?>, 0, 50, 50, 50); return false"><?= GetMessage('CHOSE_ON_MAP') ?></a>
                         <div class="boxberry_point_addr"></div>
-                        <div id="boxberry_delivery_time" class="boxberry_delivery_time delivery_date"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
+                        <?/*<div id="boxberry_delivery_time" class="boxberry_delivery_time delivery_date"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div> */?>
                         <input type="hidden" id="boxberry_delivery_data" name="boxberry_delivery_data" value="">
                         <input type="hidden" id="boxberry_cost" name="boxberry_cost" value="">
                         <input type="hidden" id="boxberry_selected" name="boxberry_selected" value="">
