@@ -254,6 +254,7 @@
                                 }
                             }
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) {
+                            if($_SESSION["DATE_DELIVERY_STATE"]){}
                             echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD) {
                             echo str_replace('#DATE_DELIVERY#',date_day(1), $arDelivery["DESCRIPTION"])."<br />";
