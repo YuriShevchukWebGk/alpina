@@ -1686,11 +1686,17 @@
         * @return string $result
         *
         *************/
+        private $login = 't.razumovskaya@alpina.ru'; //логин в системе терасмс
+        private $token = '8lUOOC9tDKKsqvn1hOYh'; //токен в системе МТС терасмс
+        private $password_sms = 'TL5MBRT6FE'; //токен в системе МТС терасмс
+        private $sender = 'alpina.ru'; //подпись отправителя
+        private $url = "https://auth.terasms.ru/outbox/send/"; //url для api запросов
 
         public function sendMessage($ID,$val,$curArr,$ordsum,$tracking) {
 
             $phone = $this->getPhone($ID);
             $name = $this->getClientName($ID);
+
             $message = preg_replace('/order/',$ID,self::$messages[$val]); // ---- вставляем номер заказа
             $message = preg_replace('/ordsum/',$ordsum,$message); // ---- вставляем сумму заказа
             $message = preg_replace('/tracking/',$tracking,$message); // ---- вставляем трек-номер
@@ -1699,27 +1705,38 @@
                 $message = preg_replace('/cur_name/',$curArr['CUR']['NAME'],$message); // ---- вставляем имя курьера
                 $message = preg_replace('/cur_phone/',$curArr['CUR']['PHONE'],$message); // ---- вставляем телефон курьера
             }
+            if (empty($phone) || empty($message)) {
+                return false;
+            }
+
+            //форматируем номер телефона - убираем лишние символы
+            $phone = preg_replace('/[^0-9]/', '', $phone);
+
+            $path = $this->url;
+
+            //альтернативный варинт авторизации
+            $sign = md5("login=" . $this->login . "&message= " . $message . "&sender= " . $this->sender . "&target=" . $phone . $this->token);
 
             $postdata = http_build_query(
-                array(
-                    'user' => $this->user,
-                    'pass' => $this->password,
-                    'action' => 'post_sms ',
-                    'message' => $message,
-                    'target' => $phone,
-                )
-            );
+               array(
+                "login" => $this->login,
+                "password" => $this->password_sms,
+                "message" => $message,
+                "sender" => $this->sender,
+                "target" => $phone,
+            ));
 
             $opts = array('http' =>
-                array(
-                    'method' => 'POST',
-                    'header' => 'Content-Type: application/x-www-form-urlencoded;charset=UTF-8',
+                 array(
+                    'method'  => 'POST',
+                    'header'  => 'Content-type: application/x-www-form-urlencoded',
                     'content' => $postdata
-                )
+                    )
             );
 
-            $context = stream_context_create($opts);
-            $result = file_get_contents('http://admin.gammasms.ru/public/http/', false, $context);
+            $context  = stream_context_create($opts);
+            $result = file_get_contents($path, false, $context);
+
             return $result;
         }
 
