@@ -1893,7 +1893,7 @@
             $arFields['EMAIL_DELIVERY_TERM'] = "<br />Ближайшая отправка: 10 января 2018 года</b><br>";
             $arFields['EMAIL_DELIVERY_ADDR'] = "Адрес доставки: <b>".getDeliveryAddress(trim($orderArr['DELIVERY_ID']),$orderID)."</b><br>";
 
-        } elseif in_array($orderArr['DELIVERY_ID'], array(DELIVERY_COURIER_1, DELIVERY_COURIER_2)) {
+        } elseif (in_array($orderArr['DELIVERY_ID'], array(DELIVERY_COURIER_1, DELIVERY_COURIER_2))) {
 
             $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("DELIVERY_DATE","ADDRESS")));
             while ($arVals = $db_vals -> Fetch()) {
