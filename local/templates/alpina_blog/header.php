@@ -230,6 +230,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<p class="iblog no-mobile">
 		я<img src="/img/logoBig.png">блог
 	</p>
+    <?$APPLICATION->IncludeComponent(
+		"bitrix:search.title",
+		"search_form_blog",
+		array(
+			"CATEGORY_0" => array(
+				0 => "iblock_catalog",
+			),
+			"CATEGORY_0_TITLE" => "Результаты",
+			"CHECK_DATES" => "N",
+			"COMPONENT_TEMPLATE" => "search_form",
+			"CONTAINER_ID" => "title-search-top",
+			"INPUT_ID" => "title-search-input-top",
+			"NUM_CATEGORIES" => "1",
+			"ORDER" => "rank",
+			"PAGE" => "/blog/search/",
+			"SHOW_INPUT" => "Y",
+			"SHOW_OTHERS" => "N",
+			"TOP_COUNT" => "5",
+			"USE_LANGUAGE_GUESS" => "N",
+			"CATEGORY_0_iblock_catalog" => array(
+				0 => "71",
+				0 => "72",
+			),
+			"COMPOSITE_FRAME_MODE" => "A",
+			"COMPOSITE_FRAME_TYPE" => "AUTO"
+		),
+		false
+
+	);?>
 <?}?>
 
 	<a href="#" onclick="showCats();return false;" class="showCats">Рубрики</a>

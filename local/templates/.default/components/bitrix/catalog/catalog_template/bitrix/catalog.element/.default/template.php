@@ -651,7 +651,10 @@
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/PreOrder">
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
-                        <p class="newPriceText"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("f", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
+                        <p class="newPriceText"><?= GetMessage("EXPECTED_DATE_2") ?>
+                        <? $date_str = strtolower(FormatDate("f", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
+                        <?=substr($date_str,0, strlen($date_str)-1).'е';?>
+                        </p>
 
                         <?foreach ($arResult["PRICES"] as $code => $arPrice) {?>
                             <?$StockInfo = "SoonStock";

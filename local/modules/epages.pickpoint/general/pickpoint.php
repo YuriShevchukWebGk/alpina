@@ -177,6 +177,7 @@
 
         function OnOrderAdd($orderId, $arFields) {
             GLOBAL $arParams;
+        
             if($arFields["DELIVERY_ID"] == $arParams["PICKPOINT"]["DELIVERY_ID"]) {
                 $arToAdd = array(
                     "ORDER_ID" => $orderId,
@@ -185,13 +186,13 @@
                     "SMS_PHONE" => $_SESSION["PICKPOINT"]["PP_SMS_PHONE"]
                 );
                 CPickpoint::AddOrderPostamat($arToAdd);
+                $_SESSION["PICKPOINT_ADDRESS"] = "{$_SESSION["PICKPOINT"]["PP_ID"]}\n{$_SESSION["PICKPOINT"]["PP_ADDRESS"]}\n{$_SESSION["PICKPOINT"]["PP_SMS_PHONE"]}";
                 if(COption::GetOptionString($arParams["PICKPOINT"]["MODULE_ID"], $arParams["PICKPOINT"]["ADD_INFO_NAME"], "")) {    
-                    $_SESSION["PICKPOINT_ADDRESS"] = "{$_SESSION["PICKPOINT"]["PP_ID"]}\n{$_SESSION["PICKPOINT"]["PP_ADDRESS"]}\n{$_SESSION["PICKPOINT"]["PP_SMS_PHONE"]}";
                 }  
             }
             unset($_SESSION["PICKPOINT"]);
         }
-
+        
         function Calculate($arOrder)
         {
             $MODULE_ID = "epages.pickpoint";
@@ -250,7 +251,7 @@
                     array(),
                     array(
                         "ID" => $arOrderPostamat["ORDER_ID"],
-                        "STATUS_ID" => "D",
+                        "@STATUS_ID" => array("D", "AC"),
                         "CANCELED" => "N", 
                         "EXPORTED_TO_PICKPOINT" => "NULL"
                     ),
@@ -262,7 +263,7 @@
                         "PERSON_TYPE_ID",
                         "DATE_INSERT",
                         "PRICE",
-                        "DELIVERY_ID"
+                        "DELIVERY_ID",
                     )
                 );
                 if($arOrder = $obOrder->Fetch())
@@ -431,7 +432,7 @@
 
         function ExportOrders($arIDs)
         {
-            $arIDs = asort($arIDs);
+            asort($arIDs);    
             $arIDs = array_values(array_unique($arIDs));
             global $APPLICATION;
             $MODULE_ID = "epages.pickpoint";
@@ -471,7 +472,7 @@
                         {
                             $obData = CPickpoint::SelectOrderPostamat($arOrder["ID"]);
                             $arData = $obData->Fetch();
-
+                            
                             $arFIO = CPickpoint::GetParam($arOrder["ID"], $arOrder["PERSON_TYPE_ID"], "FIO");
                             $sFIO = current($arFIO);
                             $arSending["EDTN"] = $arOrder["ID"];
@@ -530,7 +531,6 @@
                             elseif(intval($createdSendings->InvoiceNumber) > 0)
                             {
                                 $sending_edtn = intval($createdSendings->EDTN);
-                                logger('edtn = ' . $sending_edtn, $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/pickpoint_log.log');
                                 CPickpoint::SetOrderInvoice($arQuery["Sendings"][$key]["Invoice"]["SenderCode"], $createdSendings->InvoiceNumber);
                             }
                         }

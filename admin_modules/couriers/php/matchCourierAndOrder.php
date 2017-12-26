@@ -65,20 +65,20 @@ class OrderToCourier {
         $returnArray = array();
         $arSelect = Array("ID", "IBLOCK_ID", "NAME","PROPERTY_COURIRER");
         $arFilter = Array("IBLOCK_ID"=>$this -> iblockID,"ACTIVE"=>"Y","PROPERTY_ORDER"=>json_decode($idArr,true));
-        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>99999), $arSelect);
-        while($ob = $res->GetNextElement()){
-         $arFields = $ob->GetFields();
-         $rsUsers = CUser::GetList(($by=""), ($order=""), $filter = Array("ID" => $arFields['PROPERTY_COURIRER_VALUE']),array("FIELDS"=>array("ID","NAME","LAST_NAME","PERSONAL_MOBILE")));
-         if($next_cur = $rsUsers->NavNext(true, "f_")){
-             if(!preg_match('/[0-9]/',$next_cur['LAST_NAME'])){
-                 $curInfo = $next_cur['NAME']." ".$next_cur['LAST_NAME']." ".$next_cur['PERSONAL_MOBILE'];
-             } else {
-                 $curInfo = $next_cur['NAME']." ".$next_cur['LAST_NAME'];
-             }
-         }
-         array_push($returnArray,array("relationID"=>$arFields['ID'],"orderID"=>$arFields['NAME'],"courierID"=>$arFields['PROPERTY_COURIRER_VALUE'],"courierInfo"=>$curInfo));
+        $res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nPageSize"=>100), $arSelect);
+        while($ob = $res->GetNextElement()) {
+			$arFields = $ob->GetFields();
+			$rsUsers = CUser::GetList(($by=""), ($order=""), $filter = Array("ID" => $arFields['PROPERTY_COURIRER_VALUE']),array("FIELDS"=>array("ID","NAME","LAST_NAME","PERSONAL_MOBILE")));
+			if($next_cur = $rsUsers->NavNext(true, "f_")) {
+				if(!preg_match('/[0-9]/',$next_cur['LAST_NAME'])) {
+					$curInfo = $next_cur['NAME']." ".$next_cur['LAST_NAME']." ".$next_cur['PERSONAL_MOBILE'];
+				} else {
+					$curInfo = $next_cur['NAME']." ".$next_cur['LAST_NAME'];
+				}
+			}
+			array_push($returnArray,array("relationID"=>$arFields['ID'],"orderID"=>$arFields['NAME'],"courierID"=>$arFields['PROPERTY_COURIRER_VALUE'],"courierInfo"=>$curInfo));
         }
-        if($returnArray){
+        if($returnArray) {
             echo json_encode(array("status"=>"success","msg" => "Список прикрепленных курьеров получен.", "existingCouriers" => $returnArray));
         } else {
             echo json_encode(array("status"=>"error","msg" => "Не удалось получить список прикрепленных курьеров,либо ни к одному курьеру не прикреплено ни одного заказа."));

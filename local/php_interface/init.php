@@ -354,8 +354,12 @@
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
 
-            // формат вывода
-        $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
+        // формат вывода
+        if($_SESSION["DATE_DELIVERY_STATE"]){
+            $date = 'после поступления книг в продажу';
+        } else {
+            $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
+        }
         return $date;
     } // -----> создаем свой формат выводимой даты доставки
     function date_day_courier($day) {
@@ -387,7 +391,11 @@
 
 
             // формат вывода
-        $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
+        if($_SESSION["DATE_DELIVERY_STATE"]){
+            $date = 'после поступления книг в продажу';
+        } else {
+            $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
+        }
         return $date;
     }
     function date_day_today($day) {
@@ -418,8 +426,12 @@
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
 
-            // формат вывода
-        $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
+        // формат вывода
+        if($_SESSION["DATE_DELIVERY_STATE"]){
+            $date = 'после поступления книг в продажу';
+        } else {
+            $date = $days[$date_N].', '.$date_d.' '.$month[$date_n].', '.$date_Y;
+        }
         return $date;
     }
     // <------ создаем свой формат выводимой даты доставки
