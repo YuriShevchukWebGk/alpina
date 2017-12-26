@@ -5,11 +5,11 @@
 if ($_REQUEST["email"]) {
     $user_list = CUser::GetList (($by="ID"), ($order="desc"), array ("EMAIL" => $_REQUEST["email"]));
     while ($user_fetch = $user_list -> Fetch()) {
-        $arUsers[] = $user_fetch;    
+        $arUsers[] = $user_fetch;
     }
-    
+
     if (count($arUsers) == 1) {
-        $login = 'newuser_' . htmlspecialcharsbx($_REQUEST["email"]);   
+        $login = 'newuser_' . htmlspecialcharsbx($_REQUEST["email"]);
     } else if (count($arUsers)>1) {
         $login = 'newuser_'.count($arUsers).'_' . htmlspecialcharsbx($_REQUEST["email"]);
     }
