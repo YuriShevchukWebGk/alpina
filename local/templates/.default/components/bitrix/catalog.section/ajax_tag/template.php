@@ -27,6 +27,7 @@
     </style>
 
 <?}?>
+<div class="cat_block">
 <style>
 .wrapperCategor, .categoryWrapper .contentWrapp {height:auto;}
 .catalogIcon span, .basketIcon span {color: #99ABB1;}
@@ -288,27 +289,30 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
              </div>
          <?}?>
          <?// блок с цитатой END ?>
+		 <?
+			$data_ajax = json_encode($arResult["ORIGINAL_PARAMETERS"]["GLOBAL_FILTER"]["ID"], JSON_NUMERIC_CHECK);
+		 ?>
          <ul class="filterParams">
              <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])) { ?> class="active" <?}?>>
                  <p data-id="1">
-                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=POPULARITY&DIRECTION=DESC" onclick="update_sect_page('popularity', 'desc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По популярности</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=POPULARITY&DIRECTION=DESC" onclick="update_page_product('popularity', 'desc', <?=$data_ajax?>); return false;">По популярности</a>
                  </p>
              </li>
              <li <?if ($_REQUEST['SORT'] == 'DATE'){?>class="active"<?}?>>
                  <p data-id="2">
                      <?if ($_REQUEST['SORT'] == 'DATE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=DATE&DIRECTION=DESC" onclick="update_sect_page('date', 'asc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По дате выхода</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=DATE&DIRECTION=DESC" onclick="update_page_product('date', 'asc', <?=$data_ajax?>); return false;">По дате выхода</a>
                      <?} else {?>
-                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=DATE&DIRECTION=ASC" onclick="update_sect_page('date', 'desc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По дате выхода</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=DATE&DIRECTION=ASC" onclick="update_page_product('date', 'desc', <?=$data_ajax?>); return false;">По дате выхода</a>
                      <?}?>
                  </p>
              </li>
              <li <?if ($_REQUEST['SORT'] == 'PRICE'){?>class="active"<?}?>>
                  <p data-id="3">
                      <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=PRICE&DIRECTION=DESC" onclick="update_sect_page('price', 'desc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По цене</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=PRICE&DIRECTION=DESC" onclick="update_page_product('price', 'desc', <?=$data_ajax?>); return false;">По цене</a>
                      <?} else {?>
-                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=PRICE&DIRECTION=ASC" onclick="update_sect_page('price', 'asc', '<?= $arParams["CURRENT_BASE_PAGE"]?>'); return false;">По цене</a>
+                         <a href="<?= $arParams["CURRENT_BASE_PAGE"]?>?SORT=PRICE&DIRECTION=ASC" onclick="update_page_product('price', 'asc', <?=$data_ajax?>); return false;">По цене</a>
                      <?}?>
                  </p>
              </li>
@@ -527,6 +531,8 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             <?=$arResult["DESCRIPTION"]?>
         </div>
     </div>
+</div>
+
 </div>
 
 <?
