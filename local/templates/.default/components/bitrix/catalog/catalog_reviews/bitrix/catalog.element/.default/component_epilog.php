@@ -125,7 +125,7 @@ $APPLICATION->AddHeadString('<meta name="twitter:description" content=\''.strip_
 $APPLICATION->AddHeadString('<meta name="twitter:image" content="https://'.SITE_SERVER_NAME.$templateData["OG_IMAGE"].'" />',false);
 $APPLICATION->AddHeadString('<meta name="twitter:url" content="'.$arResult["CANONICAL_PAGE_URL"].'" />',false);
 
-if ('https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPageParam() != $arResult["CANONICAL_PAGE_URL"]) {
-	$APPLICATION->AddHeadString('<link rel="canonical" href="'.$arResult["CANONICAL_PAGE_URL"].'" />',false);
-}
+$canonicalurl = $_SERVER["SERVER_NAME"] . $arResult["DETAIL_PAGE_URL"];
+$canonicalurl = $_SERVER["SERVER_NAME"] . $APPLICATION->GetCurPage();
+$APPLICATION->AddHeadString('<link rel="canonical" href="https://'.$canonicalurl.'" />',false);
 ?>

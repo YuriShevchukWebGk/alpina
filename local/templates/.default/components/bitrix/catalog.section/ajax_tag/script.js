@@ -1653,6 +1653,69 @@ window.JCCatalogSection.prototype.InitPopupWindow = function()
 };
 })(window);
 
+function update_page_product(sort, direction, sect_code) {
+	
+	$.post('/ajax/update_page_product.php', {sort: sort, direction: direction, sect_code: sect_code}, function(data)
+		{
+			//console.log(data);
+			
+			//return false;
+			$(".cat_block").html(data);
+			if($('.bestSlider').length > 0){
+				easySlider('.bestSlider', 5);
+			}
+
+			if ($(".bestSlider ul li").size() < 6)
+			{
+				$(".bestSlider .left").hide();
+				$(".bestSlider .rigth").hide();
+
+			}
+			$(".filterParams li").removeClass("active");
+			switch (sort) {
+				case "popularity":
+					$(".filterParams li:first-child").addClass("active");
+					break;
+				case "date":
+					$(".filterParams li:nth-child(2)").addClass("active");
+					break;
+				case "price":
+					$(".filterParams li:nth-child(3)").addClass("active");
+					break;
+			}
+			if (sort != "popularity" && direction == "desc") {
+				$(".filterParams li.active").addClass("dir_desc");
+			}
+			$(".filterParams li.active").on("click", function(){
+				if (direction == "asc")
+				{
+					update_page_product (sort, "desc", sect_code);
+				}
+				else if (sort != "popularity")
+				{
+					update_page_product (sort, "asc", sect_code);
+				}
+			})
+
+			if (($(".filterParams li:nth-child(2)").hasClass("active")) && (direction == "desc"))
+			{
+				$(".filterParams li:nth-child(2)").css("width", "153px");
+			}
+
+			$('.categoryWrapper .leftMenu .firstLevel>li>a').click(function(){
+				if ($(this).find("p").hasClass('activeListName')) {
+					$('.categoryWrapper .leftMenu li ul').hide();
+					$(this).find("p").removeClass('activeListName');
+				}else{
+					$('.categoryWrapper .leftMenu>ul>li>p').removeClass('activeListName');
+					$(this).find("p").addClass('activeListName')
+					$('.categoryWrapper .leftMenu li ul').hide();
+					$(this).parent('li').find('ul').show();
+				}
+			})
+	});
+}
+
 $(document).ready(function() {
     $(".basketLater").click(function(){
         $.post("/ajax/ajax_add2wishlist.php", {id: $(this).attr("id")}, function(data){
@@ -1706,4 +1769,5 @@ $(document).ready(function() {
         $(".bestSlider").parent().prev(".grayTitle").hide();
         $(".filterParams").css("margin-top", "40px");
     }
+	
 });

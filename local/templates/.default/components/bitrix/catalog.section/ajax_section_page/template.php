@@ -95,7 +95,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 <br />
 Торопитесь!
 <br />
-Акция продлится <span style="color:red">до 15 декабря</span>. При заказе в дни проведения акции мы гарантированно доставим вам книги <span style="color:red">до Нового года в любую точку России</span>.<br /><br />
+Акция продлится <span style="color:red">до 31 декабря</span>. Мы доставим книги <span style="color:red">в любую точку России</span>.<br /><br />
 Получить <span style="color:red">скидку 30%</span> очень просто: как только в вашей корзине будет более трех книг, представленных здесь, цена автоматически станет ниже.</div>
 			<?}?>
 			
@@ -111,12 +111,12 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 			
 			if(count($arData) > 0):
 			?> 
-			<div class="doner_tags">
+			<?/*<div class="doner_tags">
 				<span>Популярные категории</span>
 				<?foreach($arData as $data):?>
 				<a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
 				<?endforeach;?>
-			</div>
+			</div>*/?>
 			
 			<?endif;?>
             <? global $SectionRoundBanner;

@@ -651,7 +651,10 @@
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/PreOrder">
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
-                        <p class="newPriceText"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
+                        <p class="newPriceText"><?= GetMessage("EXPECTED_DATE_2") ?>
+                        <? $date_str = strtolower(FormatDate("f", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
+                        <?=substr($date_str,0, strlen($date_str)-1).'е';?>
+                        </p>
 
                         <?foreach ($arResult["PRICES"] as $code => $arPrice) {?>
                             <?$StockInfo = "SoonStock";
@@ -1237,10 +1240,10 @@
             <?}?>
             <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
             <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
-                <li data-id="2" class="tabIsRecenzion"><a  class="ajax_link" href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-reviews/'?>"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</a></li>
+                <li data-id="2" class="tabIsRecenzion"><a class="ajax_link" href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-reviews/'?>"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</a></li>
 			<?}?>
             <? if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { ?>
-            <li data-id="3" class="tabsInElement" id="commentsLink"><?= GetMessage("COMMENTS_TITLE") ?></li>
+				<li data-id="3" class="tabsInElement" id="commentsLink"><a class="ajax_link" href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-comments/'?>"><?= GetMessage("COMMENTS_TITLE") ?></a></li>
             <?}?>
         </ul>
 
@@ -2108,7 +2111,7 @@
             }
         });
     });
-	
+
 	$(function(){
 		var count_recenzion = 1;
 		$('.tabIsRecenzion').click(function(){
@@ -2122,7 +2125,7 @@
 					success: function(data){
 						$('.recenzion').html(data);
 					}
-				});						
+				});
 			}
 		});
 
@@ -2132,9 +2135,9 @@
 		$('#commentsLink a').click(function(e){
 			e.preventDefault();
 		});
-		
-		$('#digitalversion').click(function(e){			
-			$('.digitalVersionWrap').html('<div class="wrap_prise_top"><?=GetMessage("EPUB")?><p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]["VALUE"]?> <span>руб.</span></p></div><div class="wrap_prise_bottom"><a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]["VALUE"]?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({"event" : "selectVersion", "action" : "leaveSite", "label": "<?=$arResult["NAME"];?>"});"><p class="inBasket"><?=GetMessage("BUY_EPUB")?></p></a></div>');			
+
+		$('#digitalversion').click(function(e){
+			$('.digitalVersionWrap').html('<div class="wrap_prise_top"><?=GetMessage("EPUB")?><p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]["VALUE"]?> <span>руб.</span></p></div><div class="wrap_prise_bottom"><a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]["VALUE"]?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({"event" : "selectVersion", "action" : "leaveSite", "label": "<?=$arResult["NAME"];?>"});"><p class="inBasket"><?=GetMessage("BUY_EPUB")?></p></a></div>');
 			e.preventDefault();
 		});
 	});

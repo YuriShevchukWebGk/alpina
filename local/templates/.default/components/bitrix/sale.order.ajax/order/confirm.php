@@ -44,6 +44,21 @@
                 $couponStr.=', ';
             }
         }
+		
+		$orderedBooks = '<div class="orderedBooks">';
+        $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arResult["ORDER"]["ID"]));
+        while ($arItems = $dbItemsInOrder->Fetch()) {
+			//$pict = CFile::ResizeImageGet($arItems["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+			$orderedBooks .= "<div class='bookRow'>";
+			$orderedBooks .= "<a href='https://www.alpinabook.ru".$arItems["DETAIL_PAGE_URL"]."'>";
+			//$orderedBooks .= "<div class='bookImg'><img src=".$pict." /></div>";
+			$orderedBooks .= "<div class='bookTitle'>".$arItems['NAME']."</div>";
+			$orderedBooks .= "<div class='bookQuantity'>".$arItems['QUANTITY']."</div>";
+			$orderedBooks .= "<div class='bookPrice'>".$arItems['PRICE']."</div>";
+			$orderedBooks .= "</a>";
+			$orderedBooks .= "</div>";
+        }
+		$orderedBooks .= "</div>";
     ?>
     <?/*<script type="text/javascript">
         // формирование сервиса  Get4Click
@@ -135,10 +150,9 @@
             </script>
         <?*/?>
         <?  //получаем email из заказа. у физлиц будет EMAIL, у юрлиц F_EMAIL
-            $orderProps = CSaleOrderPropsValue::GetList(array(),array("ORDER_ID"=>$arResult["ORDER_ID"],"CODE"=>array("EMAIL","F_EMAIL")),false,false,array());
-            while($arProp = $orderProps->Fetch()) {
-                $userEmail = $arProp["VALUE"];
-            }
+            
+			$userEmail = Message::getClientEmail($arResult["ORDER"]["ID"]);
+            
         ?>
         <script type="text/javascript">
             rrApiOnReady.push(function() {
@@ -204,39 +218,53 @@
 
 
     <div class="confirmWrapper">
-        <?if($arResult['ORDER']['STATUS_ID'] == 'PR'){?>
             <div class="finishOrdWrap">
                 <div class="centerWrapper">
-                    <div class="rightBlockWrap">
+					<div class="rightBlockWrap">
                         <p class="blockTitle">Уважаемый клиент!</p>
                         <p class="blokText">В качестве благодарности за покупку вам предоставляется возможность выбрать один из подарков наших партнеров.</p>
                         <p class="giftCont"><a href="#">Получить подарок</a></p>
                     </div>
-
                     <div class="mainInfoWrap">
-                        <p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
-                        <p class="OrdAkses">Ваш предзаказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
-                        <p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
+						<?if ($arResult['ORDER']['STATUS_ID'] == 'PR') {?>
+							<p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен!</p>
+							<p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
+						<?} else {?>
+							<p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен...</p>
+							<p class="ordHint">
+								...и уже принят в работу! Мы <b>не</b> будем звонить без необходимости. Нужная информация представлена ниже и отправлена на адрес <?=$userEmail?>.
+								<br /><br />
+								А пока можете <a href="/content/team/">посмотреть на команду интернет-магазина</a>, которая займется подготовкой и доставкой заказанных книг ☺
+								<br /><br />
+								Спасибо за хороший выбор!
+							</p>
+						<?}?>
+						<div class="orderInfo">
+							<div class="infoTitle">Информация о заказе</div>
+							<div class="infoRow">
+								<div class="fieldq">Покупатель</div><div class="fielda"><?=$userName?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">Телефон</div><div class="fielda"><?=$userName?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">E-mail</div><div class="fielda"><?=$userEmail?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">Способ оплаты</div><div class="fielda"><?=getOrderPaySystemName($arResult["ORDER"]['PAY_SYSTEM_ID'])?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">Способ доставки</div><div class="fielda"><?=getOrderDeliverySystemName($arResult["ORDER"]["DELIVERY_ID"])?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">К оплате</div><div class="fielda"><?=$arResult['ORDER']['PRICE']?></div>
+							</div>
+							<?=$orderedBooks?>
+						</div>
+						<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$userEmail?>"></div>                
                     </div>
                 </div>
             </div>
-        <?} else {?>
-            <div class="finishOrdWrap">
-                <div class="centerWrapper">
-                    <div class="rightBlockWrap">
-                        <p class="blockTitle">Уважаемый клиент!</p>
-                        <p class="blokText">В качестве благодарности за покупку вам предоставляется возможность выбрать один из подарков наших партнеров.</p>
-                        <p class="giftCont"><a href="#">Получить подарок</a></p>
-                    </div>
-
-                    <div class="mainInfoWrap">
-                        <p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
-                        <p class="OrdAkses">Ваш заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
-                        <p class="ordHint">Вы можете следить за выполнением заказа в <a href="/personal/">Личном кабинете.</a> Обратите внимание, что для входа в этот раздел вам необходимо будет ввести логин и пароль</p>
-                    </div>
-                </div>
-            </div>
-        <?}?>
         <?
             if (!empty($arResult["PAY_SYSTEM"]) && $arResult['ORDER']['STATUS_ID'] != 'PR')
             {
@@ -605,8 +633,6 @@
                   </div>
                 <?}*/
         }?>
-
-<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$userEmail?>"></div>                
 
     </div>
 

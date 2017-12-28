@@ -45,7 +45,7 @@ if ($_GET['ids']) {
 	
 	$arFilter = Array(
 		"DELIVERY_ID" => "9",
-		"@STATUS_ID" => array("N", "O", "D"),
+		"@STATUS_ID" => array("N", "O", "D", "AC"),
 		"PERSON_TYPE_ID" => 1
 	);
 	$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);

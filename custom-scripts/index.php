@@ -10,8 +10,9 @@ if ($USER->isAdmin()) {?>
 	<a target="_blank" href="/custom-scripts/misc/count_delivery.php">Количество заказов на доставку по Москве</a><br /><br />
 	<a target="_blank" href="/custom-scripts/misc/ruspost.php">Таблица для отправки в РусПост</a><br /><br />
 	<a target="_blank" href="/custom-scripts/checkdelivery/waiting_delivery.php">Изменить дату доставки заказа и отправить письмо клиенту</a><br /><br />
-	<a target="_blank" href="/custom-scripts/checkdelivery/couroutes.php">Маршрутные листы для курьеров</a><br /><br 
-	<a target="_blank" href="/custom-scripts/checkdelivery/dimax.php">Таблица для Dimax</a><br /><br 
+	<a target="_blank" href="/custom-scripts/checkdelivery/couroutes.php">Маршрутные листы для курьеров</a><br /><br />
+	<a target="_blank" href="/custom-scripts/checkdelivery/dimax.php">Таблица для Dimax</a><br /><br />
+	<a target="_blank" href="/custom-scripts/orders/check_book_status.php">Статус книг в заказе</a><br /><br />
 	
 <?} else {
 	echo 'error';
