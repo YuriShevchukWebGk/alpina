@@ -191,21 +191,32 @@
                                                 <p class="nameOfAutor"><?=$curr_author["NAME"]?></p>
                                             <?}?>
                                             <?
-                                            $val_order = '';
+                                            $curState = '';
                                             $state = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "STATE"));
                                             if ($prop = $state->GetNext()) {
-                                                $val_order = $prop['VALUE_ENUM'];
+                                                $curState = $prop['VALUE'];
                                             }
-                                            $status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));
-                                            if ($prop = $status->GetNext()) {
-                                                if($val_order == "Скоро в продаже"){
+											
+											if ($curState == STATE_SOON) {
+												$status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));
+												if ($prop = $status->GetNext()) {
                                                     $date_state[] = $prop['VALUE'];
                                                     ?><p class="newPriceText">Поступит в продажу в
-                                                    <?$date_str = strtolower(FormatDate("f", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
+                                                    <?$date_str = strtolower(FormatDate("F", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
                                                     <?=substr($date_str,0, strlen($date_str)-1).'е';?> </p><?
                                                 }
-                                            }?>
-                                            <??>
+                                            } elseif ($curState == 23) {
+												CSaleBasket::Delete($arItem["ID"]);?>
+												<script>
+													$(document).ready(function() {
+														<?if ($USER->IsAuthorized()) {?>
+															addToWishList(<?=$arItem["PRODUCT_ID"]?>, <?=$arItem["ID"]?>);
+														<?}?>
+														location.reload();
+													});
+												</script>
+											<?}?>
+											
                                             <p class="nameOfType"><?=$arItem["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                             <div class="bx_ordercart_itemart">
                                                 <?
