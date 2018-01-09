@@ -103,9 +103,9 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
-        <?//if($arResult['PREORDER'] == 'Y') {?>
+        <?if($arResult['PREORDER'] == 'Y') {?>
             $("#tPP .delivery_date").remove();
-        <?//}?>
+        <?}?>
 
 		$(".bx_section div:has(input:checked), input:checked>label").css("background", "rgba(216, 194, 165, 0.35)");
 		$("input[name='PERSON_TYPE']:checked").next().css("background", "rgba(216, 194, 165, 0.35)");
@@ -823,7 +823,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                                         d = date.getDate() + parseInt(result.period);
                                                         m = date.getMonth();
                                                         y = date.getFullYear();
-                                                     //   $(".boxberry_delivery_time ").html('Ожидаемая дата доставки: ' + getDay(d,m,y, parseInt(result.period)));
+                                                        $(".boxberry_delivery_time ").html('Ожидаемая дата доставки: ' + getDay(d,m,y, parseInt(result.period)));
                                                     }
                                                 }
 
