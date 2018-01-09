@@ -2,7 +2,7 @@
 <?   Cmodule::IncludeModule('basket');
 
     if(empty($_SESSION['price_delivery_flippost']) || $_SESSION['cyty_flipost'] != $_REQUEST["city"]){
-
+		/*
         $queryArray = array(
             'dbAct' => 'getCities',
             'city' => $_REQUEST["city"],
@@ -71,5 +71,7 @@
             $_SESSION['cyty_flipost'] = $_REQUEST["city"];
         }
         echo round(($ar_price["data"][0]["tarif"] + 485 + 485 * $weight_all) * 1.18);
+		*/
+		echo 461;
     }
 ?>

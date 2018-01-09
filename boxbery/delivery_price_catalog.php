@@ -2,6 +2,7 @@
 <?
 
     if(empty($_SESSION['price_delivery']) || $_SESSION['cyty'] != $_REQUEST["city"]){
+		/*
         $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListZips';
 
         $handle = fopen($url, "rb");
@@ -30,5 +31,7 @@
             $_SESSION['cyty'] = $_REQUEST["city"];
         }
         echo round($array_pvz["price"]);
+		*/
+		echo 235;
     }
 ?>
