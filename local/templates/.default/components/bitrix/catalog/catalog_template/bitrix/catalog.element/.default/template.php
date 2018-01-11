@@ -266,7 +266,8 @@
                     <br>
                     <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
                     <br>
-                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
+                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a><br />
+					<span class="legal_description">* на каждый купленный сертификат вы получите счет-фактуру на аванс. Далее, по мере погашения сертификатов, выдается акт и счет-фактура на каждый «погашенный» сертификат.</span>
                 </div>
             </div>
             <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
