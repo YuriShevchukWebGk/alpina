@@ -652,7 +652,7 @@
                         <link itemprop="availability" href="https://schema.org/PreOrder">
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
                         <p class="newPriceText"><?= GetMessage("EXPECTED_DATE_2") ?>
-                        <? $date_str = strtolower(FormatDate("f", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
+                        <? $date_str = strtolower(FormatDate("F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
                         <?=substr($date_str,0, strlen($date_str)-1).'е';?>
                         </p>
 
@@ -1037,23 +1037,7 @@
                         )
                     );?>
                  <?} else {?>
-                    <?if($city == "Москва" || empty($city)){ ?>
-                        <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
-                            <?= GetMessage("MSK_DELIVERY") ?>
 
-                        </a> по Москве <br /><?=$delivery_day.' '?>
-                        <b><?if($arBasketPrice > FREE_SHIPING){
-                            echo GetMessage("FREE_DELIVERY_ENDING");
-                        } else {
-                            echo GetMessage("DELIVERY_POST");
-                        }?></b>
-                        </li>
-                        <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
-                            <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
-
-                        </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
-                        </li>
-                    <?}?>
                     <?$APPLICATION->IncludeComponent(
                         "altasib:geobase.select.city",
                         "altasib_geobase",
@@ -1388,7 +1372,7 @@
                 );?>
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
-				
+
 				<?if (!empty($arResult['PROPERTIES']['ADDITIONAL_IMAGES'])) {
 					echo '<br /><h3>'.GetMessage("ADDITIONAL_IMAGES").'</h3>';
 					foreach ($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'] as $additional_image) {
