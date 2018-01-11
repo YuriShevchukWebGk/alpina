@@ -401,7 +401,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ol>
 <br />
 <h3>Сроки изготовления</h3><br />
-От 3 дней
+От 12 дней
 </div>
 </div>
 </div>
@@ -449,7 +449,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ol>
 <br />
 <h3>Сроки изготовления</h3><br />
-От 7 дней
+От 12 дней
 </div>
 </div>
 </div>
@@ -576,7 +576,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 <div class="t-product__option-title t-descr t-descr_xxs js-product-option-name" style="padding-top:20px;">Бесплатная доставка по всему миру <span class="fa fa-truck" aria-hidden="true"></span></div>
 </div>
-<span style="color:red">В&nbsp;связи с&nbsp;новогодними праздниками печать и&nbsp;доставка постеров возобновятся 9&nbsp;января</span>
+<?/*<span style="color:red">В&nbsp;связи с&nbsp;новогодними праздниками печать и&nbsp;доставка постеров возобновятся 9&nbsp;января</span>*/?>
 <div class="t744__btn-wrapper">
 <a href="#" onclick="order();return false;" arget="" class="t744__btn t-btn t-btn_sm " style="color:#ffffff;background-color:#000000;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;">
 <table style="width:100%; height:100%;">
