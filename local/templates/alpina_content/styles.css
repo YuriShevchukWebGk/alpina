@@ -6,3 +6,20 @@
         display:none;
     }
 }
+.grecaptcha-badge{
+    display: none;
+}
+.contactsFormWrap input[type=button] {
+    background-color: #fff;
+    border: 1px solid #c7a271;
+    border-radius: 40px;
+    color: #c7a271;
+    cursor: pointer;
+    font-size: 19px;
+    margin-left: 72px;
+    padding: 10px 0;
+    width: 216px;
+}
+.g-recaptcha,.hide{
+    display: none;
+}

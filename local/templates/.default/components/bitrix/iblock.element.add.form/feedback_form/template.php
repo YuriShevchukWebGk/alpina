@@ -25,7 +25,7 @@ if (strlen($arResult["MESSAGE"]) > 0):?>
 <?endif?>
 <div class="contactsFormWrap">
 <p>Обратная связь</p>
-<form name="iblock_add" action="<?=POST_FORM_ACTION_URI?>" method="post" enctype="multipart/form-data">
+<form name="iblock_add" action="<?=POST_FORM_ACTION_URI?>" method="post" class="fead_beack_form" enctype="multipart/form-data">
     <?=bitrix_sessid_post()?>
     <?if ($arParams["MAX_FILE_SIZE"] > 0):?><input type="hidden" name="MAX_FILE_SIZE" value="<?=$arParams["MAX_FILE_SIZE"]?>" /><?endif?>
     <table class="data-table">
@@ -168,7 +168,7 @@ if (strlen($arResult["MESSAGE"]) > 0):?>
                                         array('id' => 'More', 'compact' => true, 'sort' => 400)
                                     ),
                                 ));
-                                break; 
+                                break;
                             case "T":
                                 for ($i = 0; $i<$inputNum; $i++)
                                 {
@@ -359,7 +359,8 @@ if (strlen($arResult["MESSAGE"]) > 0):?>
         <tfoot>
             <tr>
                 <td colspan="2">
-                    <input type="submit" name="iblock_submit" value="<?=GetMessage("IBLOCK_FORM_SUBMIT")?>" />
+                    <input onclick="recupcha();" type="button" class="show" value="<?=GetMessage("IBLOCK_FORM_SUBMIT")?>" />
+                    <input type="submit" name="iblock_submit" class="hide" value="<?=GetMessage("IBLOCK_FORM_SUBMIT")?>" />
                     <?if (strlen($arParams["LIST_URL"]) > 0):?>
                         <input type="submit" name="iblock_apply" value="<?=GetMessage("IBLOCK_FORM_APPLY")?>" />
                         <input
@@ -369,40 +370,60 @@ if (strlen($arResult["MESSAGE"]) > 0):?>
                             onclick="location.href='<? echo CUtil::JSEscape($arParams["LIST_URL"])?>';"
                         >
                     <?endif?>
-					<br /><br />
-					<div class="pii">Нажимая на кнопку «<?=GetMessage("IBLOCK_FORM_SUBMIT")?>», вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/">с условиями</a></div>
+                    <br /><br />
+                    <div class="pii">Нажимая на кнопку «<?=GetMessage("IBLOCK_FORM_SUBMIT")?>», вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/">с условиями</a></div>
                 </td>
             </tr>
         </tfoot>
     </table>
+    <button
+        class="g-recaptcha"
+        data-sitekey="6LcGJj0UAAAAAKbw7eZdviKaM-B6ff-f7bpAXlP-"
+        data-callback="onSubmitForm"
+        >
+    </button>
 </form>
 
 </div>
 
 <script>
+        function recupcha(){
+            $('.g-recaptcha').click();
+        }
+       function onSubmitForm(token) {
+           $(function(e){
+                var error = 0;
+                if (!isEmail($("input[name='PROPERTY[183][0]']").val())) {
+                    error = 1;
+                    $("input[name='PROPERTY[183][0]']").css("border", "1px solid red");
 
+                } else {
+                    $("input[name='PROPERTY[183][0]']").css("border", "1px solid #f0f0f0");
+                }
+
+                if (!isTelephone($("input[name='PROPERTY[184][0]']").val())) {
+                    error = 1;
+                    $("input[name='PROPERTY[184][0]']").css("border", "1px solid red");
+                } else {
+                    $("input[name='PROPERTY[184][0]']").css("border", "1px solid #f0f0f0");
+                }
+
+                if ($("input[name='PROPERTY[NAME][0]']").val() == '') {
+                    error = 1;
+                    $("input[name='PROPERTY[NAME][0]']").css("border", "1px solid red");
+                } else {
+                    $("input[name='PROPERTY[NAME][0]']").css("border", "1px solid #f0f0f0");
+                }
+                if(error == 0){
+                     $('.show').hide();
+                     $('.hide').show();
+                     $('.hide').click();
+                }
+           })
+
+       }
     $(".contactsFormWrap input[type=submit]").on("click", function(e){
-        if (!isEmail($("input[name='PROPERTY[183][0]']").val())) {
-            e.preventDefault();
-            $("input[name='PROPERTY[183][0]']").css("border", "1px solid red");
-            
-        } else {
-            $("input[name='PROPERTY[183][0]']").css("border", "1px solid #f0f0f0");    
-        }
-		
-        if (!isTelephone($("input[name='PROPERTY[184][0]']").val())) {
-            e.preventDefault();
-            $("input[name='PROPERTY[184][0]']").css("border", "1px solid red");
-        } else {
-            $("input[name='PROPERTY[184][0]']").css("border", "1px solid #f0f0f0");    
-        }
-		
-		if ($("input[name='PROPERTY[NAME][0]']").val() == '') {
-            e.preventDefault();
-            $("input[name='PROPERTY[NAME][0]']").css("border", "1px solid red");
-        } else {
-            $("input[name='PROPERTY[NAME][0]']").css("border", "1px solid #f0f0f0");    
-        }
+
     })
 
 </script>
