@@ -283,7 +283,7 @@
                                              
     $arFilter = Array(       
         "DELIVERY_ID" => array_merge($commonDeliveryIDs, $internationalDeliveryIDs), 
-        "STATUS_ID" => "D", 
+        "@STATUS_ID" => array("D", "AC"),
         "PAYED" => "Y"                                                            
     );        
                                

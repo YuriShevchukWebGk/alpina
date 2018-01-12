@@ -200,7 +200,9 @@
                                             if ($prop = $status->GetNext()) {
                                                 if($val_order == "Скоро в продаже"){
                                                     $date_state[] = $prop['VALUE'];
-                                                    ?><p class="newPriceText">Ожидаемая дата выхода: <?= strtolower(FormatDate("j F Y", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?> г.</p><?
+                                                    ?><p class="newPriceText">Поступит в продажу в
+                                                    <?$date_str = strtolower(FormatDate("f", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
+                                                    <?=substr($date_str,0, strlen($date_str)-1).'е';?> </p><?
                                                 }
                                             }?>
                                             <??>
@@ -490,7 +492,7 @@
             }
             ?>
         <?if($date_state){?>
-            <span class="order_state">В заказе есть товары с ожидаемой датой выхода <?=strtolower(FormatDate("j F Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
+            <span class="order_state">В заказе есть товары с ожидаемой датой выхода <?=strtolower(FormatDate("f Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
         <?}?>
         </div>
 

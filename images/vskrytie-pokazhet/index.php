@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<meta name="robots" content="noindex, nofollow"/>
+	<meta name="robots" content="index, follow"/>
     <meta charset="utf-8"/>
     <title>Фотографии из книги «Вскрытие покажет: Записки увлеченного судмедэксперта»</title>
     <meta name="keywords" content=""/>

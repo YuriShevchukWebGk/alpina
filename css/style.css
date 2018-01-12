@@ -1,7 +1,7 @@
-.sitemap{columns:2;-moz-column-count:2;-webkit-column-count:2;column-count:2;}
-.sitemap a{text-decoration: none;color: #7b8c90;font-family: "Walshein_regular";font-size: 15px;}
-.sitemap .level_0, .sitemap .level_1, .sitemap .level_2{margin-left: 20px;}
-.busket_senk{display:none;box-sizing: border-box;position: fixed;width: 200px;height: 50px;font-size: 15px;padding: 10px;top: 100px;right: 50px;background: #00abb8;line-height: 30px;color: #fff;z-index:999;}
+.sitemap{columns:2;-moz-column-count:2;-webkit-column-count:2;column-count:2}
+.sitemap a{text-decoration:none;color:#7b8c90;font-family:"Walshein_regular";font-size:15px}
+.sitemap .level_0, .sitemap .level_1, .sitemap .level_2{margin-left:20px}
+.busket_senk{display:none;box-sizing:border-box;position:fixed;width:200px;height:50px;font-size:15px;padding:10px;top:100px;right:50px;background:#00abb8;line-height:30px;color:#fff;z-index:999}
 .headCatalog,.lkWrapp div{border-left:1px solid #e2e2e2}
 .mainWrapp,.mainWrapp:after,header{background-color:#fff}
 .giftWrap input[type=text],.mainWrapp input,.mainWrapp input[type=text]{-moz-border-bottom-colors:none;-moz-border-left-colors:none;-moz-border-right-colors:none;-moz-border-top-colors:none;border-image:none}
@@ -358,26 +358,26 @@ header .headBasket{margin-right:0}
 .wrapperCategor{background-color:#F4F4F4;height:2500px}
 .categoryWrapper .categoryBooks{float:left;padding:6px;margin-bottom:40px;position:relative}
 .categoryWrapper .showMore{
-    border: 1px solid #c8a474;
-    -moz-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    -ms-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    -o-transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    transition: color .3s ease,background-color .3s ease,border-color .3s ease;
-    border-radius: 34px;
-    color: #c8a474;
-    font-size: 19px;
-    margin: 47px auto 70px;
-    padding: 12px 44px;
-    text-align: center;
-    width: 245px;
-    cursor: pointer;
-    clear: both;}
+border:1px solid #c8a474;
+-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;
+-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease;
+-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;
+transition:color .3s ease,background-color .3s ease,border-color .3s ease;
+border-radius:34px;
+color:#c8a474;
+font-size:19px;
+margin:47px auto 70px;
+padding:12px 44px;
+text-align:center;
+width:245px;
+cursor:pointer;
+clear:both}
 .elementDescriptWrap .buyLater,.elementDescriptWrap .inBasket{-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
 .categoryWrapper .showMore:hover{background:#e6e6e6}
 .categoryWrapper .otherBooks{
-    height:1302px;
-    float: left;
-    margin-bottom: 90px;
+height:1302px;
+float:left;
+margin-bottom:90px;
 }
 .otherBooks .nameBook{color:#424C4F;font-size:14px;padding-left:4px;padding-top:5px;height:45px;width:142px;overflow:hidden}
 .otherBooks .bookAutor{color:#7B8C90;font-size:14px;padding-left:4px;padding-top:5px;height:24px;overflow:hidden}
@@ -479,8 +479,8 @@ header .headBasket{margin-right:0}
 .centerWrapper,.elementDescriptWrap .elementMainPict{position:relative}
 .productElementWrapp:before{background-color:#99ABB1;height:260px;top:0}
 .productElementWrapp:after{background-color:#F4F4F4;opacity:0.03;content:'';display:block;left:0;position:absolute;width:100%;height:100%;top:0;z-index:0}
-.centerWrapper{margin:0 auto;width:100%;max-width:1170px;min-width:1140px;}
-.productElementWrapp .centerWrapper {z-index:100;}
+.centerWrapper{margin:0 auto;width:100%;max-width:1170px;min-width:1140px}
+.productElementWrapp .centerWrapper {z-index:100}
 .elementDescriptWrap .leftColumn{float:left;height:100%;width:380px}
 .elementDescriptWrap .rightColumn{float:right;height:100%;width:264px}
 .elementDescriptWrap .centerColumn{height:100%;margin:0 264px 0 380px;padding:0 28px;width:auto}
@@ -516,7 +516,7 @@ header .headBasket{margin-right:0}
 .elementDescriptWrap .priceBasketWrap{background:#fcfcfc;box-shadow:0 2px 5px 0 rgba(0,0,0,.18),0 0 1px 0 rgba(0,0,0,.14);width:264px;text-align:center;padding-top:34px;padding-bottom:34px;clear:both}
 .oldPrice p{background-color:#7b8c90;height:2px;position:absolute;top:14px;width:92%}
 .elementDescriptWrap .newPrice{color:#00ABB8;font-family:Walshein_black;font-size:42px;margin-left:10px;margin-top:8px}
-.elementDescriptWrap .newPrice span{font-size:26px;font-weight:700;font-family:RoubleSign;}
+.elementDescriptWrap .newPrice span{font-size:26px;font-weight:700;font-family:RoubleSign}
 .bookPrice span:after, .rubsign:after{content:'i'}
 .priceBasketWrap .text{color:#7B8C90;font-size:15px;padding:8px;margin-bottom:85px}
 .elementDescriptWrap .inBasket{background-color:#00abb8;border-radius:35px;color:#fff;font-size:19px;margin:0 28px;padding:14px 58px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
@@ -761,9 +761,9 @@ header .headBasket{margin-right:0}
 .finishOrdWrap .blokText{font-size:14px;color:#3f4a4d}
 .finishOrdWrap .giftCont{border:1px solid #c7a271;border-radius:30px;margin-top:30px;padding:6px 25px;text-align:center;width:130px}
 .finishOrdWrap .giftCont a{text-decoration:none;color:#C7A271;font-size:14px}
-.finishOrdWrap .ordTitle{color:#3f4a4d;font-family:Walshein_black;font-size:42px;padding-bottom:20px;padding-top:42px}
-.finishOrdWrap .OrdAkses,.finishOrdWrap .ordHint{color:#2F3839;font-family:Walshein_light;font-size:20px}
-.finishOrdWrap .ordHint{padding-top:30px;width:640px}
+.finishOrdWrap .ordTitle{color:#3f4a4d;font-family:Walshein_black;font-size:42px;padding-bottom:20px;padding-top:42px;text-align:center}
+.finishOrdWrap .OrdAkses,.finishOrdWrap .ordHint{color:#222;font-family:Walshein_light;font-size:20px}
+.finishOrdWrap .ordHint{padding-top:30px}
 .finishOrdWrap .ordHint a{text-decoration:none;color:#00A0AF}
 .finishOrder,.finishOrder body{height:100%}
 .deliveryPageTitleWrap{height:136px;width:100%;background-color:#99ABB1}
@@ -1081,10 +1081,10 @@ table.form-table tr td:nth-child(2){text-align:left}
 .ga-views .ttip {width:140px!important}
 .gap {padding:0 5px}.gap:before {content:"\003E"}
 .saleSlider .tapeOfPack {color:#627478;font-size:14px;font-family:"Walshein_regular";height:20px}
-.ya-share2__container.ya-share2__container_size_m .ya-share2__icon{width:35px;height:35px;background-repeat:no-repeat;background-position:50%}
+.ya-share2__container.ya-share2__container_size_m .ya-share2__icon{width:35px;height:35px;background-repeat:no-repeat;background-position:50%;padding-bottom:0!important}
 .ya-share2__container.ya-share2__container_size_m .ya-share2__counter{min-width:35px;height:35px;font-size:15px;line-height:35px;box-sizing:border-box;padding:0 12px;text-align:center;border-left:1px solid hsla(0,0%,100%,.25)}
 .ya-share2__counter::before{display:none}
-.ya-share2__badge{background-color:#85959a!important}
+.ya-share2__badge{background-color:#85959a!important;padding-bottom:0!important}
 .ya-share2__item {margin:0 10px!important}
 .sliderElement{display:inline-block;width:146px;vertical-align:top}
 .sliderElementMin{display:inline-block;width:234px}
@@ -1250,4 +1250,17 @@ body div a.google_auth{background:url(/img/google_auth.jpg) no-repeat 30% 50%;di
 #prefs .pref:nth-child(5) .pic{background-position:0 65px}
 #prefs .pref:hover .title {color:#677377}
 #prefs .pref .title{display:block;padding-bottom:6px;font-family:Walshein_bold;font-size:22px;padding-top:20px;width:auto;color:#fff}
+
+.mainInfoWrap{max-width:1170px;width:100%;background:#fff;padding:0 50px 50px;margin-top:50px;display:inline-block}
+.mainInfoWrap .orderInfo{font-family:Walshein_light;margin:40px 0;width:100%}
+.mainInfoWrap .infoTitle{font-size:32px;text-align:center;color:#3f4a4d;font-family:Walshein_bold}
+.mainInfoWrap .infoRow{width:100%;font-size:18px;margin-top:20px}
+.mainInfoWrap .infoRow .fieldq{width:15%;float:left;padding-right:20px;font-family:Walshein_bold;color:#3f4a4d;min-width:150px}
+.mainInfoWrap .infoRow .fielda{width:80%}
+.orderedBooks{width:100%;margin:30px 0}
+.orderedBooks .bookRow{width:100%;font-size:18px;margin-top:20px;display:inline-block}
+.orderedBooks .bookRow .bookImg{width:160px;text-align:left;float:left}
+.orderedBooks .bookRow .bookTitle{float:left;padding:0 20px;width:60%}
+.orderedBooks .bookRow .bookQuantity{float:left;padding:0 20px;width:10%}
+.orderedBooks .bookRow .bookPrice{float:left;padding:0 20px}
 

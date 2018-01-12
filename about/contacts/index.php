@@ -33,7 +33,7 @@ $APPLICATION->SetTitle("Контакты интернет-магазина «А�
     <div class="deliveryPageTitleWrap">
         <div class="centerWrapper">
             <p>Главная</p>
-            <h1>Контакты</h1>
+            <h1>Контакты интернет-магазина и издательства</h1>
         </div>
     </div>
 
@@ -115,11 +115,26 @@ $APPLICATION->SetTitle("Контакты интернет-магазина «А�
 	false
 );?>
             <div class="contactsTextWrap" itemprop="mainEntity" itemscope itemtype="http://schema.org/BookStore">
-                <h1 itemprop="name">Издательство «Альпина Паблишер»</h1>
+                <meta itemprop="name" content="Интернет-магазин «Альпина Паблишер»"/>
 				<meta itemprop="url" content="http://<?=$_SERVER['SERVER_NAME']?>"/>
 				<meta itemprop="logo" content="http://<?=$_SERVER['SERVER_NAME']?>/img/logo.png"/>
-				<time itemprop="openingHours" datetime="Mo-Fr 08:00-18:00">
-                <p class="organisName">ООО «Альпина Паблишер»</p>
+				<time itemprop="openingHours" datetime="Mo-Fr 08:00-18:00" />
+				<!--noindex-->
+				<p style="margin:30px 0;padding:20px;max-width:600px;background:#fffcdb">
+				<b>График работы офиса интернет-магазина в&nbsp;предпраздничные и&nbsp;праздничные дни:</b> <br /><br />
+				&bull; до&nbsp;29&nbsp;декабря в&nbsp;обычном режиме с&nbsp;8&nbsp;до&nbsp;18&nbsp;часов;<br />
+				&bull; с&nbsp;30&nbsp;декабря по&nbsp;8&nbsp;января офис интернет-магазина работать не&nbsp;будет.
+				<br /><br />
+
+				Заказы оформляются с&nbsp;обычном режиме.
+				<br />
+				Заказы, оформленные с&nbsp;30&nbsp;декабря по&nbsp;8&nbsp;января, будут доставлены в&nbsp;первые несколько рабочих дней нового года.
+				<br />
+				Отправка заказов за&nbsp;пределы Москвы состоится в&nbsp;начале следующего года.
+				</p>
+				<!--/noindex-->
+				
+				<p>ООО «Альпина Паблишер»</p>
 				<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 					<p><span itemprop="postalCode">123007</span>, <meta itemprop="addressCountry" content="RU" />Россия, <span itemprop="addressLocality">Москва</span>, м.Полежаевская</p>    
 					<p itemprop="streetAddress">4-я Магистральная улица, дом 5, строение 1,</p>

@@ -85,7 +85,7 @@ if(!$USER->IsAdmin()){
 			9 => "MATERIAL",
 			10 => "",
 		),
-		"DETAIL_SET_CANONICAL_URL" => "Y",
+		"DETAIL_SET_CANONICAL_URL" => "N",
 		"DETAIL_SET_VIEWED_IN_COMPONENT" => "N",
 		"DETAIL_SHOW_BASIS_PRICE" => "Y",
 		"DETAIL_SHOW_MAX_QUANTITY" => "N",

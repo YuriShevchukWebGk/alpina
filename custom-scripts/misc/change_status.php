@@ -7,7 +7,7 @@ if ($_GET['orders']) {
 	$array3 = explode("\n",$_GET['orders']);
 
 	foreach ($array3 as $id) {
-		if (CSaleOrder::StatusOrder($id, "K")) {
+		if (CSaleOrder::StatusOrder($id, "F")) {
 			echo $id.'*ok<br />';
 		} else {
 			echo $id."*status error<br />";

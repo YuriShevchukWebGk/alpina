@@ -17,7 +17,7 @@
 15 => array('id' => 16, 'name' => 'WHITE ISLAND', 'place' => 'HAWAII COAST', 'description' => '', 'ratio' => '1:1',),
 16 => array('id' => 17, 'name' => 'HAWAII COAST', 'place' => 'INDONESIAN SHIPS', 'description' => '', 'ratio' => '1:1',),
 17 => array('id' => 18, 'name' => 'INDONESIAN SHIPS', 'place' => 'ТАНДЖУНГ ПЕРАК –7·181946°, 112·717889°', 'description' => 'Грузовые корабли движутся через Танджунг Перак, главный порт Сурабаи в Индонезии. В настоящее время в нем проводятся работы по расширению и углублению дна до 16 м, что позволит крупным контейнерным судам заходить более безопасно. Через порт экспортируется главным образом сахар, табак и кофе.', 'ratio' => '1:1', 'eng' => 'INDONESIAN SHIPS', 'rus' => 'ТАНДЖУНГ ПЕРАК', 'coordinates' => '–7·181946°, 112·717889°',),
-18 => array('id' => 19, 'name' => 'CRESCENT DUNES SOLAR', 'place' => 'АТОМНАЯ ЭЛЕКТРОСТАНЦИЯ TURKEY POINT 25·394189°, –80·346119°', 'description' => 'Атомная электростанция Turkey Point в Хомстеде, в американском штате Флорида, окружена разветвленной сетью охлаждающих каналов. Вода, используемая для охлаждения атомных реакторов, отправляется в двухдневное путешествие с завода (виден в правом нижнем углу) по системе каналов протяженностью 270 км, а затем возвращается для повторного использования. Поскольку вода в каналах очень теплая и соленая, ее облюбовали северо-американские крокодилы.', 'ratio' => '1:1', 'eng' => 'CRESCENT DUNES SOLAR', 'rus' => 'АТОМНАЯ ЭЛЕКТРОСТАНЦИЯ TURKEY POINT', 'coordinates' => '25·394189°, –80·346119°',),
+18 => array('id' => 19, 'name' => 'CRESCENT DUNES SOLAR', 'place' => 'CRESCENT DUNES SOLAR 25·394189°, –80·346119°', 'description' => 'This Overview shows the Crescent Dunes Solar Energy Project in Tonopah, Nevada. The facility powers up to 75,000 homes during peak electricity periods. The project uses 17,500 heliostat mirrors to collect and focus the sun’s thermal energy to heat molten salt flowing through a 540-foot (160 m) tall solar power tower. The molten salt then circulates from the tower to a storage tank where it is used to produce steam and generate electricity. One last thing  - for a sense of scale here, look closely at the lower left corner of the Overview and you’ll notice a commercial airplane flying over the complex!', 'ratio' => '1:1', 'eng' => 'CRESCENT DUNES SOLAR', 'rus' => 'CRESCENT DUNES SOLAR', 'coordinates' => '25·394189°, –80·346119°',),
 19 => array('id' => 20, 'name' => 'GOLDEN GATE BRIDGE', 'place' => 'МОСТ ЗОЛОТЫЕ ВОРОТА 37·818672°, –122·478708°', 'description' => 'Подвесной мост «Золотые ворота» протяженностью 2,7 км в Сан-Франциско, в американском штате Калифорния, соединяет берега пролива Золотые ворота — канала между заливом Сан-Франциско и Тихим океаном. Фирменный цвет моста, известный как «международный оранжевый», был выбран, чтобы дополнять окружающий пейзаж и усиливать его видимость в тумане.', 'ratio' => '1:2', 'eng' => 'GOLDEN GATE BRIDGE', 'rus' => 'МОСТ ЗОЛОТЫЕ ВОРОТА', 'coordinates' => '37·818672°, –122·478708°',),
 20 => array('id' => 21, 'name' => 'CENTRAL PARK', 'place' => 'ЦЕНТРАЛЬНЫЙ ПАРК 40·782997°, –73·966741°', 'description' => 'Центральный парк в американском городе Нью-Йорк раскинулся на площади 341 га, что составляет 6% от всей территории Манхэттена. Одной из наиболее заметных инноваций в дизайне парка стали «отдельные системы циркуляции» для пешеходов, велосипедистов, конных наездников и машин. В парке имеются многочисленные корты и бейсбольные поля, каток и бассейн. Здесь также финиширует Нью-йоркский марафон и Нью-йоркский триатлон.', 'ratio' => '2:3', 'eng' => 'CENTRAL PARK', 'rus' => 'ЦЕНТРАЛЬНЫЙ ПАРК', 'coordinates' => '40·782997°, –73·966741°',),
 21 => array('id' => 22, 'name' => 'BURNING MAN', 'place' => 'ФЕСТИВАЛЬ BURNING MAN 40·786981°, –119·204379°', 'description' => 'Burning Man («Горящий человек») — ежегодный недельный фестиваль, проходящий в пустыне Блэк-Рок в американском штате Невада. Фестиваль ежегодно привлекает более 65 000 участников, которые полностью отвечают за свое жизнеобеспечение. Организаторы определяют его как эксперимент жизни в общине с реализацией стремления к искусству и самовыражению. Один из основных принципов фестиваля — не оставлять следов, то есть участники прилагают значительные усилия, чтобы к концу фестиваля оставить пустыню в таком же состоянии, в каком она была до его начала.', 'ratio' => '1:1', 'eng' => 'BURNING MAN', 'rus' => 'ФЕСТИВАЛЬ BURNING MAN', 'coordinates' => '40·786981°, –119·204379°',),
@@ -160,12 +160,13 @@ foreach ($prints as $print) {
 <meta name="format-detection" content="telephone=no" />
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <!-- Assets -->
-<link rel="stylesheet" href="img/css/tilda-grid-3.0.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="img/css/tilda-grid-3.0.min.css?12<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/content/overview/img/css/tilda-grid-3.0.min.css')?>" type="text/css" media="all" />
+<link href="/bitrix/css/main/font-awesome.css?146037394928798" type="text/css" rel="stylesheet" />
 
-<link rel="stylesheet" href="source/tilda-blocks-2.12e80b.css?t=1511512933" type="text/css" media="all" />
-<link rel="stylesheet" href="img/css/tilda-animation-1.0.min.css" type="text/css" media="all" />
-<link rel="stylesheet" href="img/css/tilda-slds-1.4.min.css" type="text/css" media="all" />
-<link rel="stylesheet" href="img/css/tilda-zoom-2.0.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="source/tilda-blocks-2.12e80b.css?12t=1511512933" type="text/css" media="all" />
+<link rel="stylesheet" href="img/css/tilda-animation-1.0.min.css?12" type="text/css" media="all" />
+<link rel="stylesheet" href="img/css/tilda-slds-1.4.min.css?12" type="text/css" media="all" />
+<link rel="stylesheet" href="img/css/tilda-zoom-2.0.min.css?12" type="text/css" media="all" />
 <script type="text/javascript" src="https://partner.rficb.ru/gui/rfi_widget/js/v1.js"></script>
 <script src="img/js/jquery-1.10.2.min.js"></script>
 <script src="img/js/tilda-scripts-2.8.min.js"></script>
@@ -188,49 +189,51 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PM87GH');</script>
 <!-- End Google Tag Manager -->
 <div class="certificate_popup" style="display:none">
-        <form id="certificate_form">
-            <div class="popup_form_data">
-                <div class="natural_person active_certificate_block">
+    <form id="certificate_form">
+      <div class="popup_form_data">
+        <div class="natural_person active_certificate_block">
 					<br /><br />
-                    <input type='text' placeholder="Имя" name="natural_name" id="natural_name">
-                    <br>
-                    <input type='email' placeholder="Email" name="natural_email" id="natural_email">
+          <input type='text' placeholder="Имя" name="natural_name" id="natural_name">
+          <br>
+          <input type='email' placeholder="Email" name="natural_email" id="natural_email">
 					<input type='text' placeholder="Номер телефона" name="natural_phone" id="natural_phone">
-                    <br>
-                    <a href="#" class="certificate_buy_button" onclick="place_order(); return false;" style="width:300px;font-size:22px;">Перейти к оплате</a>
-                </div>
-            </div>
-            <input type="hidden" name="print_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>
-        </form>
-        <div class="certificate_popup_close closeIcon">
-</div>
-        <div class="rfi_block">
-        <?
-            $APPLICATION->IncludeComponent(
-                "webgk:rfi.widget",
-                "",
-                Array(
-                    "ORDER_ID"      => "PRINT_",
-                    "OTHER_PAYMENT" => "Y",
-                    "OTHER_PARAMS"  => array(
-                        "PAYSUM"   => $newPrice,
-                        "EMAIL"    => "",
-                        "PHONE"    => "",
-                        "COMMENT"  => str_replace("#SUM#", $newPrice, "Покупка плаката на сайте alpinabook.ru на сумму #SUM# рублей")
-                    )
-                ),
-                false
-            );
-        ?>
+          <br>
+          <a href="#" class="certificate_buy_button" onclick="place_order(); return false;" style="width:300px;font-size:22px;">Перейти к оплате</a><br /><br />
+		<div style="font-size:14px;color:grey;width:100%;text-align:left;padding:0 30px">Нажимая на кнопку «Перейти к оплате», вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" style="font-size:14px;background:none;color:grey;text-decoration:underline;width:auto;height:auto;padding:0" target="_blank">с условиями</a></div>
+
         </div>
+      </div>
+      <input type="hidden" name="print_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>
+    </form>
+    <div class="certificate_popup_close closeIcon">
+</div>
+    <div class="rfi_block">
+    <?
+      $APPLICATION->IncludeComponent(
+        "webgk:rfi.widget",
+        "",
+        Array(
+          "ORDER_ID"   => "PRINT_",
+          "OTHER_PAYMENT" => "Y",
+          "OTHER_PARAMS" => array(
+            "PAYSUM"  => $newPrice,
+            "EMAIL"  => "",
+            "PHONE"  => "",
+            "COMMENT" => str_replace("#SUM#", $newPrice, "Покупка плаката на сайте alpinabook.ru на сумму #SUM# рублей")
+          )
+        ),
+        false
+      );
+    ?>
     </div>
+  </div>
 <!--allrecords-->
 <a href="/catalog/Gifts/384889/"><img src="img/book.png" class="topbook" /></a>
 <div id="allrecords" class="t-records">
 <div id="rec38620142" class="r t-rec" style=" " data-animationappear="off" data-record-type="18" >
 <!-- cover -->
 <div class="t-cover" id="recorddiv38620142" bgimgfield="img" style="height:60vh; background-image:url('img/tild3631-3137-4235-b363-333134626166/-/resize/20x/05.png');" >
-<div class="t-cover__carrier" id="coverCarry38620142" data-content-cover-id="38620142" data-content-cover-bg="img/fon.jpg" data-content-cover-height="60vh" data-content-cover-parallax="fixed" style="background-image:url('');height:60vh; background-position:center bottom;">
+<div class="t-cover__carrier" id="coverCarry38620142" data-content-cover-id="38620142" data-content-cover-bg="img/fon.jpg" data-content-cover-height="60vh" data-content-cover-parallax="fixed" style="background-image:url('');height:60vh; background-position:center top;">
 	<div class="topauthor">
 		<img src="img/avtor.png" style="padding-right:20px;" align="left" />
 		<span style="font-size:24px;">ОБ АВТОРЕ</span><br /><br />
@@ -286,22 +289,160 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<div class="t603__container t-container" style="padding-bottom: 0px;">
 		<?foreach ($prints as $print) {?>
 			<div class="t603__tile t603__tile_25" itemscope itemtype="http://schema.org/ImageObject">
-				<div class="t603__blockimg t603__blockimg_1-1 t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-zoomable="yes" data-img-zoom-url="img/_<?=$print['id']?>.jpg" data-img-zoom-descr="<b><?echo !empty($print['rus']) ? $print['rus'] : $print['name'];?></b><br /><?=$print["description"]?>" data-original="img/_<?=$print['id']?>.jpg" style="background: url('img/small__<?=$print['id']?>.jpg') center center no-repeat; background-size:cover;">
+				<div class="t603__blockimg t603__blockimg_1-1 t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-zoomable="yes" data-img-zoom-url="img/_<?=$print['id']?>.jpg" data-img-zoom-descr="<b><a href='?buy=<?=$print['id']?>' style='color:#ff8562;text-decoration:none;font-size:16px'>Купить</a><br /><br /><?echo !empty($print['rus']) ? $print['rus'] : $print['name'];?></b><br /><?=$print["description"]?>" data-original="img/_<?=$print['id']?>.jpg" style="background: url('img/small__<?=$print['id']?>.jpg') center center no-repeat; background-size:cover;">
 					<meta itemprop="image" content="img/_<?=$print['id']?>.jpg">
 				</div>
 				<div class="t603__textwrapper t-align_left">
 					<div class="t603__descr t-text t-text_xs" data-redactor-toolbar="no" field="gi_descr__1" itemprop="description"><?echo !empty($print['rus']) ? $print['rus'] : $print['name'];?></div>
-					<a href="#" onclick="buy(<?=$print['id']?>,'<?echo !empty($print['rus']) ? $print['rus'] : $print['name'];?>','<?=$print['description']?>','<?=$print['coordinates']?>','<?=$print['ratio']?>');return false;" style="width:auto;height:auto;font-size:16px;">Купить</a>
+					<a href="#<?=$print['id']?>" onclick="buy(<?=$print['id']?>,'<?echo !empty($print['rus']) ? $print['rus'] : $print['name'];?>','<?=$print['description']?>','<?=$print['coordinates']?>','<?=$print['ratio']?>');" style="width:auto;height:auto;font-size:16px;">Купить</a>
 				</div>
 			</div>
 		<?}?>
 	</div>
 </div>
 
-<div id="rec38167909" class="r t-rec t-rec_pt_150 t-rec_pb_0" style="padding-top:150px;padding-bottom:0px;" data-animationappear="off" data-record-type="744">
+<div id="rec38570864" class="r t-rec t-rec_pt_30 t-rec_pb_0" style="padding-top:30px;padding-bottom:0px; " data-record-type="219" >
+<!-- T191 -->
+<div class="t191">
+<div class="t-align_center">
+<hr class="t191__line t-width t-width_2" style="background-color:#000000;opacity:0.2;">
+</div>
+</div>
+</div>
+<div id="rec38570726" class="r t-rec t-rec_pt_30" style="padding-top:30px; " data-record-type="147" >
+<!-- t214-->
+<div class="t214">
+<div class="t-container">
+<div class="t-row">
+<center><h2>Бумажный постер</h2></center><br /><br />
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild6531-3738-4463-a565-373166616661/1.jpg" style="background: url('img/tild6531-3738-4463-a565-373166616661/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild6531-3738-4463-a565-373166616661/1.jpg">
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-original="img/tild3766-3537-4137-b164-653762626363/2.jpg" style="background: url('img/tild3766-3537-4137-b164-653762626363/-/resize/20x/2.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3766-3537-4137-b164-653762626363/2.jpg">
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__2" data-zoom-target="2" data-original="img/tild3965-6631-4334-a335-373538356237/3.jpg" style="background: url('img/tild3965-6631-4334-a335-373538356237/-/resize/20x/3.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3965-6631-4334-a335-373538356237/3.jpg">
+</div>
+</div>
+</div>
+<div class="t-row">
+</div>
+</div>
+</div>
+</div>
+<div id="rec38570875" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="padding-top:0px;padding-bottom:0px; " data-record-type="219" >
+<!-- T191 -->
+<div class="t191">
+<div class="t-align_center">
+<hr class="t191__line t-width t-width_2" style="background-color:#000000;opacity:0.2;">
+</div>
+</div>
+</div>
+<div id="rec38570888" class="r t-rec t-rec_pt_30" style="padding-top:30px; " data-record-type="147" >
+<!-- t214-->
+<div class="t214">
+<div class="t-container">
+<div class="t-row">
+<center><h2>Постер на холсте</h2></center><br /><br />
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild3739-6431-4134-b537-376339333635/1.jpg" style="background: url('img/tild3739-6431-4134-b537-376339333635/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3739-6431-4134-b537-376339333635/1.jpg">
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-original="img/tild3037-3233-4837-a330-383431666535/2.jpg" style="background: url('img/tild3037-3233-4837-a330-383431666535/-/resize/20x/2.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3037-3233-4837-a330-383431666535/2.jpg">
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__2" data-zoom-target="2" data-original="img/tild6566-3430-4264-b466-383932656662/3.jpg" style="background: url('img/tild6566-3430-4264-b466-383932656662/-/resize/20x/3.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild6566-3430-4264-b466-383932656662/3.jpg">
+</div>
+</div>
+</div>
+<div class="t-row">
+</div>
+<div class="t-container" style="font-family:'Open Sans',serif;font-weight:300;">
+<h3>Крепление холста</h3><br /><ol>
+<li><b>Набор стильных креплений из нержавеющей стали</b><br />
+К каждой напечатанной картине мы прилагаем необходимые крепления. К картине на холсте в обязательном порядке идет подрамник прямоугольной формы и крепления из нержавейки. Парное крепление плюс плетеный металлический жгут обеспечат надежную фиксацию холста на стене.</li>
+</ol>
+<br />
+<h3>Сроки изготовления</h3><br />
+От 3 дней
+</div>
+</div>
+</div>
+</div>
+<div id="rec38571077" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="padding-top:0px;padding-bottom:0px; " data-record-type="219" >
+<!-- T191 -->
+<div class="t191">
+<div class="t-align_center">
+<hr class="t191__line t-width t-width_2" style="background-color:#000000;opacity:0.2;">
+</div>
+</div>
+</div>
+<div id="rec38571103" class="r t-rec t-rec_pt_30" style="padding-top:30px; " data-record-type="147" >
+<!-- t214-->
+<div class="t214">
+<div class="t-container">
+<div class="t-row">
+<center><h2>Пластификация постера</h2></center><br /><br />
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild3539-6265-4264-b162-353461373633/1.jpg" style="background: url('img/tild3539-6265-4264-b162-353461373633/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3539-6265-4264-b162-353461373633/1.jpg">
+</div>
+
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-original="img/tild3834-6637-4663-b136-333637383739/2.jpg" style="background: url('img/tild3834-6637-4663-b136-333637383739/-/resize/20x/2.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3834-6637-4663-b136-333637383739/2.jpg">
+</div>
+</div>
+<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
+<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__2" data-zoom-target="2" data-original="img/tild3534-6333-4364-b233-373464323031/3.jpg" style="background: url('img/tild3534-6333-4364-b233-373464323031/-/resize/20x/3.jpg') center center no-repeat; background-size:cover;">
+<meta itemprop="image" content="img/tild3534-6333-4364-b233-373464323031/3.jpg">
+</div>
+</div>
+</div>
+<div class="t-row">
+</div>
+</div>
+<div class="t-container" style="font-family:'Open Sans',serif;font-weight:300;">
+<h3>Крепление пластификации</h3><br /><ol>
+<li><b>Шасси</b><br />
+Алюминиевый профиль (Шасси) высотой в 4,5 см, который закреплен с изнанки по периметру. Чаще всего применяется в форматах более 50х75 см. Подвижные точки крепления позволяют смещать картину по горизонтали. Эффект "парящей" картины.</li>
+<li><b>Скрытая подвесная пластина</b><br />
+Стальная пластина, закрепленная с обратной стороны работы. Фиксированная точка крепления. Крепеж используется для небольших форматов, до 50х75 см. Эффект "парящей" картины.</li>
+</ol>
+<br />
+<h3>Сроки изготовления</h3><br />
+От 7 дней
+</div>
+</div>
+</div>
+
+
+<div id="rec38167909" class="r t-rec t-rec_pt_150 t-rec_pb_0" style="padding-top:10px;padding-bottom:0px;" data-animationappear="off" data-record-type="744">
+<div class="t191">
+<div class="t-col">
+<div class="t-section__topwrapper t-align_center">
+<div class="t-section__title t-title t-title_xs" field="btitle">
+<br />
+<center><div style="font-size:82px;" data-customstyle="yes">ОФОРМЛЕНИЕ ЗАКАЗА</div></center>
+</div>
+</div>
+</div>
+</div>
 <!-- t744 -->
 <div class="t744" style="">
-<div class="t-container js-product">
+<div class="t-container js-product" style="padding-top:80px;clear:both">
 <div class="t744__col t744__col_first t-col t-col_8 ">
 <!-- gallery -->
 <div class="t-slds" style="visibility: hidden;">
@@ -310,18 +451,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t-slds__items-wrapper t-slds_animated-none " data-slider-transition="300" data-slider-with-cycle="true" data-slider-correct-height="true" data-auto-correct-mobile-width="false" >
 <div class="t-slds__item t-slds__item_active" data-slide-index="1">
 <div class="t-slds__wrapper" itemscope itemtype="http://schema.org/ImageObject">
-<meta itemprop="image" content="img/tild6238-6166-4838-a465-396564303237/_10.png">
 <div class="t-slds__imgwrapper" bgimgfield="gi_img__0" >
-<div class="t-slds__bgimg t-slds__bgimg-contain t-bgimg js-product-img" data-original="img/tild6238-6166-4838-a465-396564303237/_10.png" style="padding-bottom:75%; background-image: url('img/tild6238-6166-4838-a465-396564303237/-/resize/20x/_10.png');">
+<div class="t-slds__bgimg t-slds__bgimg-contain t-bgimg js-product-img" data-original="" style="padding-bottom:75%; background-image: url('');">
 </div>
 </div>
 </div>
 </div>
 <div class="t-slds__item " data-slide-index="2">
 <div class="t-slds__wrapper" itemscope itemtype="http://schema.org/ImageObject">
-<meta itemprop="image" content="img/tild6639-6335-4063-b831-336537653331/_10_1.png">
 <div class="t-slds__imgwrapper" bgimgfield="gi_img__1" >
-<div class="t-slds__bgimg t-slds__bgimg-contain t-bgimg " data-original="img/tild6639-6335-4063-b831-336537653331/_10_1.png" style="padding-bottom:75%; background-image: url('img/tild6639-6335-4063-b831-336537653331/-/resize/20x/_10_1.png');">
+<div class="t-slds__bgimg t-slds__bgimg-contain t-bgimg " data-original="" style="padding-bottom:75%; background-image: url('');">
 </div>
 </div>
 </div>
@@ -378,6 +517,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 <div class="t-product__option js-product-option">
+<div class="t-product__option-title t-descr t-descr_xxs js-product-option-name">Тип печати</div>
+<div class="t-product__option-variants">
+<select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants print-type">
+<option value="Постер">Постер</option>
+<option value="Холст">Холст</option>
+<option value="Пластификация">Пластификация</option>
+</select>
+</div>
+</div>
+<div class="t-product__option js-product-option">
 <div class="t-product__option-title t-descr t-descr_xxs js-product-option-name format" >Формат 2:3</div>
 <div class="t-product__option-variants">
 <select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants format-options">
@@ -390,24 +539,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 <div class="t-product__option js-product-option">
-<div class="t-product__option-title t-descr t-descr_xxs js-product-option-name">Тип печати</div>
-<div class="t-product__option-variants">
-<select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants print-type">
-<option value="Постер">Постер</option>
-<option value="Холст">Холст</option>
-<option value="Пластификация">Пластификация</option>
-</select>
-</div>
-</div>
-<div class="t-product__option js-product-option">
 <div class="t-product__option-title t-descr t-descr_xxs js-product-option-name" >Заказать печать карточки с информацией о фотографии</div>
 <div class="t-product__option-variants">
-<select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants">
-<option value="нет
-" data-product-variant-price="">нет</option>
-<option value="да" data-product-variant-price="">да</option>
+<select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants card">
+<option value="N" data-product-variant-price="">нет</option>
+<option value="Y" data-product-variant-price="+100">да (+100 руб.)</option>
 </select>
 </div>
+<div class="t-product__option-title t-descr t-descr_xxs js-product-option-name" style="padding-top:20px;">Бесплатная доставка по всему миру <span class="fa fa-truck" aria-hidden="true"></span></div>
 </div>
 <div class="t744__btn-wrapper">
 <a href="#" onclick="order();return false;" arget="" class="t744__btn t-btn t-btn_sm " style="color:#ffffff;background-color:#000000;border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;">
@@ -417,7 +556,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </tr>
 </table>
 </a>
-<div style="width:200px;float:right">или закажите по телефону <a href="tel:+79264083558">+ 7 926 408 35 58</a></div>
+<div style="width:200px;float:right">или закажите по телефону <a href="tel:+74951200704">+ 7 495 120 07 04</a></div>
+<b class="warning" style="color:red"></b>
 </div>
 <div class="t744__descr t-descr t-descr_xxs" field="descr" style="">Вокруг лагуны Шадеган в Муса-Бей, в Иране, видны дендритовые дренажные системы. Слово «дендритовый» означает «похожий на ветви дерева». Именно такой рисунок образуется, когда потоки движутся через относительно плоские и однородные скалы или по поверхности, устойчивой к эрозии. <br />
 </div>
@@ -428,117 +568,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 <style type="text/css"> #rec38167909 .t-slds__bullet_active .t-slds__bullet_body { background-color: #222 !important; } #rec38167909 .t-slds__bullet:hover .t-slds__bullet_body { background-color: #222 !important; }</style>
 </div>
-<div id="rec38570864" class="r t-rec t-rec_pt_30 t-rec_pb_0" style="padding-top:30px;padding-bottom:0px; " data-record-type="219" >
-<!-- T191 -->
-<div class="t191">
-<div class="t-align_center">
-<hr class="t191__line t-width t-width_2" style="background-color:#000000;opacity:0.2;">
-</div>
-</div>
-</div>
-<div id="rec38570726" class="r t-rec t-rec_pt_30" style="padding-top:30px; " data-record-type="147" >
-<!-- t214-->
-<div class="t214">
-<div class="t-container">
-<div class="t-row">
-<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
-<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild6531-3738-4463-a565-373166616661/1.jpg" style="background: url('img/tild6531-3738-4463-a565-373166616661/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
-<meta itemprop="image" content="img/tild6531-3738-4463-a565-373166616661/1.jpg">
-</div>
-<div class="t214__textwrapper t-align_left">
-<div class="t214__descr t-text" data-redactor-toolbar="no" field="gi_descr__0" itemprop="description">Бумажный постер</div>
-</div>
-</div>
-<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
-<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-original="img/tild3766-3537-4137-b164-653762626363/2.jpg" style="background: url('img/tild3766-3537-4137-b164-653762626363/-/resize/20x/2.jpg') center center no-repeat; background-size:cover;">
-<meta itemprop="image" content="img/tild3766-3537-4137-b164-653762626363/2.jpg">
-</div>
-</div>
-<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
-<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__2" data-zoom-target="2" data-original="img/tild3965-6631-4334-a335-373538356237/3.jpg" style="background: url('img/tild3965-6631-4334-a335-373538356237/-/resize/20x/3.jpg') center center no-repeat; background-size:cover;">
-<meta itemprop="image" content="img/tild3965-6631-4334-a335-373538356237/3.jpg">
-</div>
-</div>
-</div>
-<div class="t-row">
-</div>
-</div>
-</div>
-</div>
-<div id="rec38570875" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="padding-top:0px;padding-bottom:0px; " data-record-type="219" >
-<!-- T191 -->
-<div class="t191">
-<div class="t-align_center">
-<hr class="t191__line t-width t-width_2" style="background-color:#000000;opacity:0.2;">
-</div>
-</div>
-</div>
-<div id="rec38570888" class="r t-rec t-rec_pt_30" style="padding-top:30px; " data-record-type="147" >
-<!-- t214-->
-<div class="t214">
-<div class="t-container">
-<div class="t-row">
-<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
-<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild3739-6431-4134-b537-376339333635/1.jpg" style="background: url('img/tild3739-6431-4134-b537-376339333635/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
-<meta itemprop="image" content="img/tild3739-6431-4134-b537-376339333635/1.jpg">
-</div>
-<div class="t214__textwrapper t-align_left">
-<div class="t214__descr t-text" data-redactor-toolbar="no" field="gi_descr__0" itemprop="description">Постер на холсте</div>
-</div>
-</div>
-<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
-<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-original="img/tild3037-3233-4837-a330-383431666535/2.jpg" style="background: url('img/tild3037-3233-4837-a330-383431666535/-/resize/20x/2.jpg') center center no-repeat; background-size:cover;">
-<meta itemprop="image" content="img/tild3037-3233-4837-a330-383431666535/2.jpg">
-</div>
-</div>
-<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
-<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__2" data-zoom-target="2" data-original="img/tild6566-3430-4264-b466-383932656662/3.jpg" style="background: url('img/tild6566-3430-4264-b466-383932656662/-/resize/20x/3.jpg') center center no-repeat; background-size:cover;">
-<meta itemprop="image" content="img/tild6566-3430-4264-b466-383932656662/3.jpg">
-</div>
-</div>
-</div>
-<div class="t-row">
-</div>
-</div>
-</div>
-</div>
-<div id="rec38571077" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="padding-top:0px;padding-bottom:0px; " data-record-type="219" >
-<!-- T191 -->
-<div class="t191">
-<div class="t-align_center">
-<hr class="t191__line t-width t-width_2" style="background-color:#000000;opacity:0.2;">
-</div>
-</div>
-</div>
-<div id="rec38571103" class="r t-rec t-rec_pt_30" style="padding-top:30px; " data-record-type="147" >
-<!-- t214-->
-<div class="t214">
-<div class="t-container">
-<div class="t-row">
-<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
-<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild3539-6265-4264-b162-353461373633/1.jpg" style="background: url('img/tild3539-6265-4264-b162-353461373633/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
-<meta itemprop="image" content="img/tild3539-6265-4264-b162-353461373633/1.jpg">
-</div>
-<div class="t214__textwrapper t-align_left">
-<div class="t214__descr t-text" data-redactor-toolbar="no" field="gi_descr__0" itemprop="description">Пластификация постера</div>
-</div>
-</div>
-<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
-<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__1" data-zoom-target="1" data-original="img/tild3834-6637-4663-b136-333637383739/2.jpg" style="background: url('img/tild3834-6637-4663-b136-333637383739/-/resize/20x/2.jpg') center center no-repeat; background-size:cover;">
-<meta itemprop="image" content="img/tild3834-6637-4663-b136-333637383739/2.jpg">
-</div>
-</div>
-<div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
-<div class="t214__blockimg t-bgimg" bgimgfield="gi_img__2" data-zoom-target="2" data-original="img/tild3534-6333-4364-b233-373464323031/3.jpg" style="background: url('img/tild3534-6333-4364-b233-373464323031/-/resize/20x/3.jpg') center center no-repeat; background-size:cover;">
-<meta itemprop="image" content="img/tild3534-6333-4364-b233-373464323031/3.jpg">
-</div>
-</div>
-</div>
-<div class="t-row">
-</div>
-</div>
-</div>
-</div>
+
+
 <div id="rec38180097" class="r t-rec t-rec_pt_180 t-rec_pb_120" style="padding-top:180px;padding-bottom:120px; " data-record-type="528" >
 <!-- t528 -->
 <div class="t528">
@@ -610,53 +641,60 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 $(document).ready(function(){
 	t744_init('38167909');
 	$(".certificate_popup_close").click(function(){
-        $(".certificate_popup").hide();
-        $('.layout').hide();
-    })
+    $(".certificate_popup").hide();
+    $('.layout').hide();
+  });
+	
+	$("div[data-slide-index='1'] .t-bgimg").data("original","img/_10.jpg").css("background-image","url(img/_10.jpg)");
+	$("div[data-slide-index='2'] .t-bgimg").data("original","img/_10_1.jpg").css("background-image","url(img/_10_1.jpg)");
+	$("div[data-slide-index='3'] .t-bgimg").data("original","img/_10_2.jpg").css("background-image","url(img/_10_2.jpg)");
 });
-    function place_order(){
-        var form_valid = true;
-        var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
-        // просматриваем все поля на предмет заполненности
-        $(".active_certificate_block input").each(function(){
-            if (!$(this).val()) {
-                form_valid = false;
-                $(this).css("border-color", "red");
-            } else {
-                if ($(this).attr("name") == 'legal_email') {
-                    if (!(pattern.test($(this).val()))) {
-                        form_valid = false;
-                        $(this).css("border-color", "red");
-                    } else {
-                        $(this).css("border-color", "#f0f0f0");
-                    }
-                }
+  function place_order(){
+    var form_valid = true;
+    var price = parseInt($(".js-product-price").text());
+    var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+    // просматриваем все поля на предмет заполненности
+    $(".active_certificate_block input").each(function(){
+      if (!$(this).val()) {
+        form_valid = false;
+        $(this).css("border-color", "red");
+      } else {
+        if ($(this).attr("name") == 'legal_email') {
+          if (!(pattern.test($(this).val()))) {
+            form_valid = false;
+            $(this).css("border-color", "red");
+          } else {
+            $(this).css("border-color", "#f0f0f0");
+          }
+        }
 				$(this).css("border-color", "#ddd");
-            }
-        });
-        // если все ок, то сабмитим
-        if (form_valid) {
-            var natural_person_email = $("#natural_email").val();
+      }
+    });
+
+    // если все ок, то сабмитим
+    if (form_valid) {
+      var natural_person_email = $("#natural_email").val();
 			var natural_person_name = $("#natural_name").val();
 			var natural_person_phone = $("#natural_phone").val();
-            var price = parseInt($(".js-product-price").text());
+
 			
-            $.ajax({
-                url: '/ajax/ajax_create_overview_print_order.php',
-                type: "POST",
-                data: {
-                    data: $("#certificate_form").serialize(),
+      $.ajax({
+        url: '/ajax/ajax_create_overview_print_order.php',
+        type: "POST",
+        data: {
+          data: $("#certificate_form").serialize(),
 					print_price: price,
 					print_name: $(".js-product-name").text(),
 					print_format: $(".format").text(),
 					print_type: $(".print-type option:selected").text(),
+					print_card: $(".card option:selected").val(),
 					print_size: $(".format-options option:selected").text()
-                }
-            }).done(function(result) {
-                var certificate_result = JSON.parse(result);
-                if (certificate_result.status == "success") {
-                    order_id = certificate_result.data;
-                    $("#certificate_form").remove();
+        }
+      }).done(function(result) {
+        var certificate_result = JSON.parse(result);
+        if (certificate_result.status == "success") {
+          order_id = certificate_result.data;
+          $("#certificate_form").remove();
 					var success_message = "Заказ успешно оформлен.";
 					$(".submit_rfi").attr("data-email", natural_person_email);
 					$(".submit_rfi").attr("data-comment", "PRINT_" + order_id);
@@ -666,43 +704,45 @@ $(document).ready(function(){
 					$("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
 					$(".certificate_popup_close").click();
 					$('html, body').animate({ scrollTop: $("body").offset().top }, 1000);
-                } else {
-                    console.error(certificate_result.data);
-                }
-            });
+        } else {
+          console.error(certificate_result.data);
         }
+      });
     }
+  }
 	
-	<?if ($_GET["buy"] == 1) {?>
-		buy(<?=$_GET["id"]?>,"<?=$_GET["name"]?>","<?=$_GET["description"]?>","<?=$_GET["place"]?>","<?=$_GET["ratio"]?>");
+	<?if ($_GET["buy"]) {
+		$get = $prints[$_GET["buy"]-1];?>
+		buy(<?=$get["id"]?>,"<?echo !empty($get['rus']) ? $get['rus'] : $get['name']?>","<?=$get["description"]?>","<?=$get["coordinates"]?>","<?=$get["ratio"]?>");
 	<?}?>
 	
 	function buy(id,name,description,place,ratio) {
+		//id = location.hash.slice(1);
 		$(".js-product-name").text(name);
 		$(".js-product-sku").text(place);
 		$(".t744__descr").text(description);
 		$(".format").text("Формат "+ratio);
 		$(".js-product-price").text("");
-	
+		
 		switch (ratio) {
 			case "1:1":
-				format = "<option value='30x30см' data-product-variant-price='675 ₽'>30x30см</option><option value='60x60см'  data-product-variant-price='2600 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='4750 ₽'>90x90см</option>";
+				format = "<option value='30x30см' data-product-variant-price='675 ₽'>30x30см</option><option value='60x60см' data-product-variant-price='2600 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='4750 ₽'>90x90см</option>";
 				break;
 			case "1:2":
 			case "2:1":
-				format = "<option value='30x60см' data-product-variant-price='1450 ₽'>30x60см</option><option value='45x90см'  data-product-variant-price='3000 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='4500 ₽'>60x120см</option>";
+				format = "<option value='30x60см' data-product-variant-price='1450 ₽'>30x60см</option><option value='45x90см' data-product-variant-price='3000 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='4500 ₽'>60x120см</option>";
 				break;
 			case "2:3":
 			case "3:2":
-				format = "<option value='30x45см' data-product-variant-price='1125 ₽'>30x45см</option><option value='60x90см'  data-product-variant-price='3500 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='6250 ₽'>90x135см</option>";
+				format = "<option value='30x45см' data-product-variant-price='1125 ₽'>30x45см</option><option value='60x90см' data-product-variant-price='3500 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='6250 ₽'>90x135см</option>";
 				break;
 			case "4:5":
 			case "5:4":
-				format = "<option value='40x50см' data-product-variant-price='2000 ₽'>40x50см</option><option value='60x75см'  data-product-variant-price='3250 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='4625 ₽'>80x100см</option>";
+				format = "<option value='40x50см' data-product-variant-price='2000 ₽'>40x50см</option><option value='60x75см' data-product-variant-price='3250 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='4625 ₽'>80x100см</option>";
 				break;
 			case "3:5":
 			case "5:3":
-				format = "<option value='30x50см' data-product-variant-price='1187 ₽'>30x50см</option><option value='60x100см'  data-product-variant-price='4000 ₽'>60x100см</option>";
+				format = "<option value='30x50см' data-product-variant-price='1187 ₽'>30x50см</option><option value='60x100см' data-product-variant-price='4000 ₽'>60x100см</option>";
 				break;
 			default:
 				format = "Saturday";
@@ -722,6 +762,21 @@ $(document).ready(function(){
 		setTimeout(switchIt, 1400);
 	}
 	
+	$(".card").change(function() {
+		var printcard = $(".card option:selected").val();
+		var price = parseInt($(".js-product-price").text());
+		switch(printcard) {
+			case "N":
+				price = price - 100;
+				$(".js-product-price").text(price);
+				break;
+			case "Y":
+				price = price + 100;
+				$(".js-product-price").text(price);
+				break;
+		}
+	});
+		
 	$(".print-type").change(function() {
 		var printtype = $(".print-type option:selected").text();
 		var ratio = $(".format").text().slice(-3);
@@ -730,23 +785,27 @@ $(document).ready(function(){
 			case "Постер":
 				switch (ratio) {
 					case "1:1":
-						format = "<option value='30x30см' data-product-variant-price='675 ₽'>30x30см</option><option value='60x60см'  data-product-variant-price='2600 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='4750 ₽'>90x90см</option>";
+						format = "<option value='30x30см' data-product-variant-price='675 ₽'>30x30см</option><option value='60x60см' data-product-variant-price='2600 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='4750 ₽'>90x90см</option>";
 						break;
 					case "1:2":
 					case "2:1":
-						format = "<option value='30x60см' data-product-variant-price='1450 ₽'>30x60см</option><option value='45x90см'  data-product-variant-price='3000 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='4500 ₽'>60x120см</option>";
+						format = "<option value='30x60см' data-product-variant-price='1450 ₽'>30x60см</option><option value='45x90см' data-product-variant-price='3000 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='4500 ₽'>60x120см</option>";
 						break;
 					case "2:3":
 					case "3:2":
-						format = "<option value='30x45см' data-product-variant-price='1125 ₽'>30x45см</option><option value='60x90см'  data-product-variant-price='3500 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='6250 ₽'>90x135см</option>";
+						format = "<option value='30x45см' data-product-variant-price='1125 ₽'>30x45см</option><option value='60x90см' data-product-variant-price='3500 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='6250 ₽'>90x135см</option>";
+						break;
+					case "3:4":
+					case "4:3":
+						format = "<option value='30x40' data-product-variant-price='650 ₽'>30x40</option><option value='60x80'  data-product-variant-price='2875 ₽'>60x80</option><option value='4х5' data-product-variant-price=' ₽'>4х5</option>";
 						break;
 					case "4:5":
 					case "5:4":
-						format = "<option value='40x50см' data-product-variant-price='2000 ₽'>40x50см</option><option value='60x75см'  data-product-variant-price='3250 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='4625 ₽'>80x100см</option>";
+						format = "<option value='40x50см' data-product-variant-price='2000 ₽'>40x50см</option><option value='60x75см' data-product-variant-price='3250 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='4625 ₽'>80x100см</option>";
 						break;
 					case "3:5":
 					case "5:3":
-						format = "<option value='30x50см' data-product-variant-price='1187 ₽'>30x50см</option><option value='60x100см'  data-product-variant-price='4000 ₽'>60x100см</option>";
+						format = "<option value='30x50см' data-product-variant-price='1187 ₽'>30x50см</option><option value='60x100см' data-product-variant-price='4000 ₽'>60x100см</option>";
 						break;
 					default:
 						format = "Saturday";
@@ -756,23 +815,27 @@ $(document).ready(function(){
 			case "Холст":
 				switch (ratio) {
 					case "1:1":
-						format = "<option value='30х30см' data-product-variant-price='1252 ₽'>30х30см</option><option value='60х60см'  data-product-variant-price='8375 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='14250 ₽'>90х90см</option>";
+						format = "<option value='30х30см' data-product-variant-price='1252 ₽'>30х30см</option><option value='60х60см' data-product-variant-price='8375 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='14250 ₽'>90х90см</option>";
 						break;
 					case "1:2":
 					case "2:1":
-						format = "<option value='30х60см' data-product-variant-price='6000 ₽'>30х60см</option><option value='45х90см'  data-product-variant-price='9250 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='16250 ₽'>60х120см</option>";
+						format = "<option value='30х60см' data-product-variant-price='6000 ₽'>30х60см</option><option value='45х90см' data-product-variant-price='9250 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='16250 ₽'>60х120см</option>";
 						break;
 					case "2:3":
 					case "3:2":
-						format = "<option value='30х45см' data-product-variant-price='3500 ₽'>30х45см</option><option value='60х90см'  data-product-variant-price='11400 ₽'>60х90см</option><option value='90х135см' data-product-variant-price='15500 ₽'>90х135см</option>";
+						format = "<option value='30х45см' data-product-variant-price='3500 ₽'>30х45см</option><option value='60х90см' data-product-variant-price='11400 ₽'>60х90см</option><option value='90х135см' data-product-variant-price='15500 ₽'>90х135см</option>";
+						break;
+					case "3:4":
+					case "4:3":
+						format = "<option value='30x40' data-product-variant-price='4250 ₽'>30x40</option><option value='60x80'  data-product-variant-price='9500 ₽'>60x80</option>";
 						break;
 					case "4:5":
 					case "5:4":
-						format = "<option value='40х50см' data-product-variant-price='4750 ₽'>40х50см</option><option value='60х75см'  data-product-variant-price='12250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='19500 ₽'>80х100см</option>";
+						format = "<option value='40х50см' data-product-variant-price='4750 ₽'>40х50см</option><option value='60х75см' data-product-variant-price='12250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='19500 ₽'>80х100см</option>";
 						break;
 					case "3:5":
 					case "5:3":
-						format = "<option value='30х50см' data-product-variant-price='3625 ₽'>30х50см</option><option value='60х100см'  data-product-variant-price='8750 ₽'>60х100см</option>";
+						format = "<option value='30х50см' data-product-variant-price='3625 ₽'>30х50см</option><option value='60х100см' data-product-variant-price='8750 ₽'>60х100см</option>";
 						break;
 					default:
 						format = "Saturday";
@@ -782,23 +845,27 @@ $(document).ready(function(){
 			case "Пластификация":
 				switch (ratio) {
 					case "1:1":
-						format = "<option value='30х30см' data-product-variant-price='5500 ₽'>30х30см</option><option value='60х60см'  data-product-variant-price='16500 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='38500 ₽'>90х90см</option>";
+						format = "<option value='30х30см' data-product-variant-price='5500 ₽'>30х30см</option><option value='60х60см' data-product-variant-price='16500 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='38500 ₽'>90х90см</option>";
 						break;
 					case "1:2":
 					case "2:1":
-						format = "<option value='30х60см' data-product-variant-price='10750 ₽'>30х60см</option><option value='45х90см'  data-product-variant-price='17500 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='31250 ₽'>60х120см</option>";
+						format = "<option value='30х60см' data-product-variant-price='10750 ₽'>30х60см</option><option value='45х90см' data-product-variant-price='17500 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='31250 ₽'>60х120см</option>";
 						break;
 					case "2:3":
 					case "3:2":
-						format = "<option value='30х45см' data-product-variant-price='4500 ₽'>30х45см</option><option value='60х90см'  data-product-variant-price='22800 ₽'>60х90см</option><option value='90х135см' data-product-variant-price='48500 ₽'>90х135см</option>";
+						format = "<option value='30х45см' data-product-variant-price='4500 ₽'>30х45см</option><option value='60х90см' data-product-variant-price='22800 ₽'>60х90см</option><option value='90х135см' data-product-variant-price='48500 ₽'>90х135см</option>";
+						break;
+					case "3:4":
+					case "4:3":
+						format = "<option value='30x40' data-product-variant-price='6750 ₽'>30x40</option><option value='60x80'  data-product-variant-price='21000 ₽'>60x80</option>";
 						break;
 					case "4:5":
 					case "5:4":
-						format = "<option value='40х50см' data-product-variant-price='2000 ₽'>40х50см</option><option value='60х75см'  data-product-variant-price='3250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='4625 ₽'>80х100см</option>";
+						format = "<option value='40х50см' data-product-variant-price='2000 ₽'>40х50см</option><option value='60х75см' data-product-variant-price='3250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='4625 ₽'>80х100см</option>";
 						break;
 					case "3:5":
 					case "5:3":
-						format = "<option value='30х50см' data-product-variant-price='9500 ₽'>30х50см</option><option value='60х100см'  data-product-variant-price='26250 ₽'>60х100см</option>";
+						format = "<option value='30х50см' data-product-variant-price='9500 ₽'>30х50см</option><option value='60х100см' data-product-variant-price='26250 ₽'>60х100см</option>";
 						break;
 					default:
 						format = "Saturday";
@@ -814,6 +881,14 @@ $(document).ready(function(){
 	});
 	
 	function order() {
+		var price = parseInt($(".js-product-price").text());
+
+		if (price < 200 || !price) {
+			$(".warning").text("Заполните все поля формы");
+			return false;
+		} else {
+			$(".warning").text("");
+		}
 		$(".certificate_popup").fadeIn();
 	}
 	
