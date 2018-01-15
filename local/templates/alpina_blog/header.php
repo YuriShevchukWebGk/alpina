@@ -42,7 +42,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
     <?$APPLICATION->ShowHead();?>
     <?$APPLICATION->AddHeadScript(SITE_TEMPLATE_PATH."/script.js");?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+	<?file_exists($_SERVER["DOCUMENT_ROOT"] . '/include/include_ab_tests.php') ? include($_SERVER["DOCUMENT_ROOT"] . '/include/include_ab_tests.php') : ""; //Хардовые AB-тесты?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	<!-- header .content -->
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=other&amp;mid=79276" async></script>

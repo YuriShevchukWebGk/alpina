@@ -1,4 +1,4 @@
-<?
+<?  
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 
@@ -3392,8 +3392,8 @@ AddEventHandler("iblock", "OnAfterIBlockElementAdd", "SyncProductCode");
 AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "SyncProductCode");
 
 function SyncProductCode($arFields) {
-    if ($arFields["IBLOCK_ID"] == 76) {
-        $new_iblock_element_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 76, "ID" => $arFields["ID"]), false, false, array("IBLOCK_ID", "ID", "XML_ID", "PROPERTY_ID_BITRIKS"));
+    if ($arFields["IBLOCK_ID"] == 78) {
+        $new_iblock_element_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 78, "ID" => $arFields["ID"]), false, false, array("IBLOCK_ID", "ID", "XML_ID", "PROPERTY_ID_BITRIKS"));
         while ($new_iblock_element = $new_iblock_element_info -> Fetch()) {
             $id_bitrix_property_value = intval($new_iblock_element["PROPERTY_ID_BITRIKS_VALUE"]);
             $new_iblock_element_code = $new_iblock_element["XML_ID"];    
