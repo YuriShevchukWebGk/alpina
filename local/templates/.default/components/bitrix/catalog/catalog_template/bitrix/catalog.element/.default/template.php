@@ -1374,7 +1374,7 @@
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
 
-				<?if (!empty($arResult['PROPERTIES']['ADDITIONAL_IMAGES'])) {
+				<?if (!empty($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'])) {
 					echo '<br /><h3>'.GetMessage("ADDITIONAL_IMAGES").'</h3>';
 					foreach ($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'] as $additional_image) {
 						$additional_image = CFile::ResizeImageGet($additional_image, array("width" => 500, "height" => 700), BX_RESIZE_IMAGE_PROPORTIONAL, true);
