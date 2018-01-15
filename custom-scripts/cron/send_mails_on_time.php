@@ -12,8 +12,8 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
     CModule::IncludeModule("sale");
     CModule::IncludeModule("catalog");
     CModule::IncludeModule("main");
-	
-	
+
+
 	/***************
 	* Новинки в письмо
 	*************/
@@ -29,7 +29,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 	{
 		$pict = CFile::ResizeImageGet($NewItemsList["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 		$curr_sect = CIBlockSection::GetByID($NewItemsList["IBLOCK_SECTION_ID"]) -> Fetch();
-		
+
 		$newItemsBlock .= '
 		<table align="left" border="0" cellpadding="8" cellspacing="0" class="tile" width="32%">
 		<tbody>
@@ -56,8 +56,8 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 	}
 	$newItemsBlock .= '</td></tr>';
 
-	
-			
+
+
 	/***************
 	* Получаем телефон из заказа
 	*************/
@@ -96,9 +96,9 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				return $arProps["VALUE"];
 			}
 		}
-	}	
+	}
 
-		
+
 	/***************
 	* Отправляем большой эмэйл
 	*************/
@@ -106,7 +106,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 	function sendNotificationEmail($id,$subject,$notification,$userID, $latestBooks, $email) {
 		if (empty($email))
 			$email = getClientEmail($id);
-			
+
 		$arEventFields = array(
 			"EMAIL" => $email,
 			"ORDER_USER" => getClientName($id),
@@ -114,21 +114,21 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 			"SUBJECT" => $subject,
 			"NOTIFICATION" => $notification,
 			"NEW_ITEMS_BLOCK" => $latestBooks
-		);				
+		);
 		CEvent::Send("ON_TIME_NOTIFICATIONS", "s1", $arEventFields,"N");
-		
+
 		$arFields = array(
 			"EMP_STATUS_ID" => $userID
 		);
 		CSaleOrder::Update($id, $arFields);
 		//echo $id."*".$subject."*".$userID."<br />";
 	}
-	
-	
+
+
 	function addTrek($data){
 		$userid = "34";
 		$api_key = "2fa4c69a8aba5f8f9a38c35873ca325f";
-		
+
 		foreach($data as $arTrek){
 			$tracks_id[]=$arTrek["trek"];
 			$tracks[]="{
@@ -156,7 +156,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 
 
 		if( $curl = curl_init() ) {
-			// устанавливаем заголовки соединения 
+			// устанавливаем заголовки соединения
 			$url='http://apilr2.r-lab.biz/addtrack.ashx';
 			$header[0] = "Accept: text/xml,application/xml,application/xhtml+xml,";
 			$header[0] .= "text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
@@ -169,13 +169,13 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $arr_json);
 			$out = curl_exec($curl);
 			curl_close($curl);
-		// разбираем полученый ответ от сервера, более детальное описание параметров в документации 
+		// разбираем полученый ответ от сервера, более детальное описание параметров в документации
 			$response=json_decode($out);
 			//echo "Ответ от сервера ".$response->resultState.":".$response->resultInfo." #".$arTrek["ordernum"]." tel:".$arTrek["tel"]."<br />";
 		}
 	}
 
-	
+
 	$userID1 = 175985; 			//triggerMailUser_1
 	$userID2 = 175986; 			//triggerMailUser_2
 	$userIDabroad = 176080; 	//triggerMailUser_abroad
@@ -192,10 +192,10 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 		array('login'=>'dxviIPkwrlaEHS','password'=>'8dZACYAfBEqj'), //Данилова
 		array('login'=>'AGSEccWQxDUTVY','password'=>'RbOU2Eh3cJqH') //Разумовская
 	);
-	
-	$countUsers = count($allUsers);	
-	
-	
+
+	$countUsers = count($allUsers);
+
+
 	/***************
 	* Итоговое отчетное письмо
 	*************/
@@ -211,10 +211,10 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 					<td><b>Идентификатор</b></td>
 					<td><b>Состояние</b></td>
 					<td><b>Комментарий</b></td>
-					</tr>					
+					</tr>
 	";
 
-	
+
 	echo "2<br />";
 	/* I Проверяем даты собранных самовывозов */
 	$arFilter = Array(
@@ -230,7 +230,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 			(time() - strtotime($arSales[DATE_STATUS]))/86400 < 5 && 	// и меньше 12 дней
 			$arSales["EMP_STATUS_ID"] != $userID1) 						// еще не отправляли первое уведомление о собранном заказе
 		{
-			
+
 			$subject = 'Истекает срок хранения заказа №'.$id.'. Альпина Паблишер';
 			$notification = "Ваши книги скучают и ждут Вас. Скорее приезжайте за ними, срок хранения вашего заказа истекает уже через 4 дня.<br />
 			Вы можете забрать заказ ".$id." по адресу: метро «Полежаевская», 4-я Магистральная улица, дом 5, подъезд 2, второй этаж.<br /><br />
@@ -264,7 +264,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				<td></td>
 				<td></td>
 				<td>Осталось два дня</td>
-				</tr>";			
+				</tr>";
 		}
 	}
 	echo "3<br />";
@@ -281,7 +281,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 		  echo "Заказ выполнен! Спасибо!";
 	  echo "</pre>";
 	}*/
-	
+
 	echo "4<br />";
 	/* III Проверяем доставку почтой */
 	$arFilter = Array(
@@ -307,21 +307,21 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				"!=\Bitrix\Sale\Internals\ShipmentTable:ORDER.TRACKING_NUMBER" => "",
 				"=ID" => $id
 			),
-			'limit'=> 1 
+			'limit'=> 1
 		))->fetchAll();
-		
+
 		//echo "4c<br />";
-		
+
 		if (!empty($list[0]['TRACKING_NUM'])) {
 			$trackingNumber = $list[0]['TRACKING_NUM'];
 		} else {
 			$order = CSaleOrder::GetByID($id);
 			$trackingNumber = $order["DELIVERY_DOC_NUM"];
 		}
-		
+
 		/* ОТКЛЮЧАЕМ ОТСЛЕДИТЬ ПОСЫЛКУ!
 		if (!empty($trackingNumber) && (preg_match('/([0-9]){13,20}/', $trackingNumber) || preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) && !empty(getPhone($id))) {
-			// составляем массив треков под отправку 
+			// составляем массив треков под отправку
 			$allTreks[]= array(
 				"trek" => $trackingNumber,
 				"name" => getClientName($id),
@@ -333,9 +333,9 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 			);
 			addTrek($allTreks);
 		}*/
-		
+
 		//echo "4d<br />";
-		
+
 		//$trackingNumber = $list[0]['TRACKING_NUM'];
 		if ((time() - strtotime($arSales[DATE_STATUS]))/86400 < 2.5 && $arSales["EMP_STATUS_ID"] == $userIDontheway) {
 			$finalReport .= "<tr>
@@ -347,12 +347,12 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				<td>".$trackingNumber."</td>
 				<td>Ждем поступление в отделение</td>
 				<td>Уже проверяли</td>
-				</tr>";			
+				</tr>";
 			continue;
 		}
-		
+
 		//echo "4e<br />";
-		
+
 		if ($stopAuth) {
 			$finalReport .= "<tr>
 				<td>".$id."</td>
@@ -366,14 +366,14 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				</tr>";
 				continue;
 		}
-		
+
 		//echo "4f<br />";
-		
+
 		if (!empty($trackingNumber) &&								// Трекер проставлен
 			preg_match('/([0-9]){13,20}/', $trackingNumber)) {
-				
+
 			//echo "4.1a<br />";
-			
+
 			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
 			$client2 = '';
 
@@ -385,7 +385,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 			for ($i = 1; $i <= $countUsers; $i++) {
 				try {
 					$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
-					
+
 					$i = $countUsers;
 					$count = count($result->OperationHistoryData->historyRecord);
 					if ($count != 1) {
@@ -393,14 +393,14 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 					} else {
 						$record = $result->OperationHistoryData->historyRecord;
 					}
-					
+
 					$parcelReturn = false;
 					foreach ($result->OperationHistoryData->historyRecord as $record) {
 						if ($record->OperationParameters->OperType->Id == 3) {
 							$parcelReturn = true;
 						}
 					}
-					
+
 					/*
 					*
 					*
@@ -409,13 +409,13 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 					*
 					*/
 					if ($record->OperationParameters->OperType->Id == 2) {
-							
+
 						if (CSaleOrder::StatusOrder($id, "F")) {
 							$arFields = array(
 								"EMP_STATUS_ID" => $userID1
 							);
 							CSaleOrder::Update($id, $arFields);
-							
+
 							$finalReport .= "<tr style='color:green;font-weight:700;'>
 								<td>".$id."</td>
 								<td>Почта</td>
@@ -425,7 +425,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 								<td>".$trackingNumber."</td>
 								<td>Россия выполнен</td>
 								<td></td>
-								</tr>";	
+								</tr>";
 						}
 					/*
 					*
@@ -433,7 +433,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 					Заказ возвращается
 					*
 					*
-					*/						
+					*/
 					} elseif ($parcelReturn) {
 						$finalReport .= "<tr style='color:red;font-weight:700;'>
 							<td>".$id."</td>
@@ -445,11 +445,11 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 							<td>Возврат</td>
 							<td>Уведомить доставку</td>
 							</tr>";
-						
+
 						$subject = 'Заказ №'.$id.' истек срок хранения';
 						$notification = 'Истек срок хранения заказа №'.$id.'. Необходимо отправить заказ повторно.';
 						$result = sendNotificationEmail($id, $subject, $notification, $userIDreturn, '', 'm.danilova@alpinabook.ru');
-						
+
 					/*
 					*
 					*
@@ -470,10 +470,16 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 							<td>Прибыло в место вручения</td>
 							<td>Уведомить клиента</td>
 							</tr>";
-							
+
 						$message = new Message();
-						$result = $message->sendMessage($id,'PD','','',$trackingNumber);
-						
+                        if($_SESSION["MESSAGE_STATE"] != $userIDarrived || $_SESSION["MESSAGE_ORDER"] != $id || $_SESSION["MESSAGE_TRACING"] != $trackingNumber){
+						    $result = $message->sendMessage($id,'PD','','',$trackingNumber);
+                        }
+
+                        $_SESSION["MESSAGE_STATE"] = $userIDarrived;
+                        $_SESSION["MESSAGE_TRACING"] = $trackingNumber;
+                        $_SESSION["MESSAGE_ORDER"] = $id;
+
 						$subject = 'Заказ №'.$id.' поступил в почтовое отделение';
 						$notification = 'Ваш заказ №'.$id.' прибыл в почтовое отделение. Заполнить извещение можно <a href="https://www.pochta.ru/form?type=F22&withBarcode=true&Banderol=true&Insured=true&PostId='.$trackingNumber.'">по данной ссылке</a>.';
 						$result = sendNotificationEmail($id, $subject, $notification, $userIDarrived, $newItemsBlock, '');
@@ -495,27 +501,33 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 							<td>Прошло 20 дней</td>
 							<td>Уведомить клиента</td>
 							</tr>";
-							
+
 						$message = new Message();
-						$result = $message->sendMessage($id,'PA','','',$trackingNumber);
-						
+                        if($_SESSION["MESSAGE_STATE"] != $userIDreturn || $_SESSION["MESSAGE_ORDER"] != $id || $_SESSION["MESSAGE_TRACING"] != $trackingNumber){
+						    $result = $message->sendMessage($id,'PA','','',$trackingNumber);
+                        }
+
+                        $_SESSION["MESSAGE_STATE"] = $userIDreturn;
+                        $_SESSION["MESSAGE_TRACING"] = $trackingNumber;
+                        $_SESSION["MESSAGE_ORDER"] = $id;
+
 						$subject = 'Заказ №'.$id.' истекает срок хранения';
 						$notification = 'Истекает срок хранения заказа №'.$id.'. Пожалуйста, заберите заказ в почтовом отделении. Заполнить извещение можно <a href="https://www.pochta.ru/form?type=F22&withBarcode=true&Banderol=true&Insured=true&PostId='.$trackingNumber.'">по данной ссылке</a>. Спасибо!';
 						$result = sendNotificationEmail($id, $subject, $notification, $userIDarrived, $newItemsBlock, '');
-						
+
 					/*
 					*
 					*
 					Заказ в пути
 					*
 					*
-					*/					
+					*/
 					} else {
 						$arFields = array(
 							"EMP_STATUS_ID" => $userIDontheway
 						);
 						CSaleOrder::Update($id, $arFields);
-						
+
 						$finalReport .= "<tr style='color:#6a9868'>
 							<td>".$id."</td>
 							<td>Почта</td>
@@ -525,7 +537,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 							<td>".$trackingNumber."</td>
 							<td>Заказ в пути</td>
 							<td></td>
-							</tr>";	
+							</tr>";
 					}
 				} catch (SoapFault $e) {
 					$params3['AuthorizationHeader'] = $allUsers[$i];
@@ -544,21 +556,22 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 					}
 				}
 			}
+
 		} elseif (
 			!empty($trackingNumber) &&								// Трекер проставлен
 			preg_match('/([a-z0-9]){13,20}/i', $trackingNumber)) {			// еще не простален флаг, что доставка по миру
-			
+
 			//echo "4.2a<br />";
-				
+
 			$wsdlurl = 'https://tracking.russianpost.ru/rtm34?wsdl';
 			$client2 = '';
 
 			$client2 = new SoapClient($wsdlurl, array('trace' => 1, 'soap_version' => SOAP_1_2));
-			
+
 			$params3 = array ('OperationHistoryRequest' => array ('Barcode' => $trackingNumber, 'MessageType' => '0','Language' => 'RUS'),
 							  'AuthorizationHeader' => $allUsers[0]);
 
-			
+
 			/*if ($arSales["EMP_STATUS_ID"] != $userIDabroad) {
 				$arFields = array(
 					"EMP_STATUS_ID" => $userIDabroad
@@ -581,23 +594,23 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				try {
 					$result = $client2->getOperationHistory(new SoapParam($params3,'OperationHistoryRequest'));
 					$i = $countUsers;
-					
+
 					$count = count($result->OperationHistoryData->historyRecord);
 					if ($count != 1) {
 						$record = $result->OperationHistoryData->historyRecord[$count-1];
 					} else {
 						$record = $result->OperationHistoryData->historyRecord;
 					}
-					
+
 					//echo "4.2c<br />";
-					
+
 					$parcelReturn = false;
 					foreach ($result->OperationHistoryData->historyRecord as $record) {
 						if ($record->OperationParameters->OperType->Id == 3) {
 							$parcelReturn = true;
 						}
 					}
-					
+
 					//echo "4.2d<br />";
 
 					if ($record->OperationParameters->OperType->Id == 2) {
@@ -631,8 +644,8 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 							<td>".$trackingNumber."</td>
 							<td>Возврат</td>
 							<td>Уведомить доставку</td>
-							</tr>";	
-							
+							</tr>";
+
 						$subject = 'Заказ №'.$id.' истек срок хранения';
 						$notification = 'Истек срок хранения заказа №'.$id.'. Необходимо отправить заказ повторно.';
 						$result = sendNotificationEmail($id, $subject, $notification, $userIDreturn, '', 'm.danilova@alpinabook.ru');
@@ -640,9 +653,9 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 						$arFields = array(
 							"EMP_STATUS_ID" => $userIDabroad
 						);
-						
+
 						//echo "4.2.3a<br />";
-						
+
 						CSaleOrder::Update($id, $arFields);
 						//echo "abroad ".$id."<br />";
 						$finalReport .= "<tr style='color:#6a9868'>
@@ -657,7 +670,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 							</tr>";
 					}
 				} catch (SoapFault $e) {
-					//var_dump($e); 
+					//var_dump($e);
 					//echo 'Ошибка авторизации<br />';
 					$params3['AuthorizationHeader'] = $allUsers[$i];
 					if ($i == $countUsers) {
@@ -727,7 +740,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 					</tr>";
 		}
 	}
-	
+
 	echo "5<br />";
 	/* IV Проверяем даты отправленной Flippost */
 	$arFilter = Array(
@@ -754,10 +767,10 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				<td></td>
 				<td></td>
 				<td></td>
-				</tr>";	
+				</tr>";
 		}
 	}
-	
+
 	echo "6<br />";
 	/* V Заказ еще не оплачен, ждем */
 	$arFilter = Array(
@@ -785,7 +798,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				<td></td>
 				<td></td>
 				<td>Прошло пять дней</td>
-				</tr>";	
+				</tr>";
 		} elseif ((time() - strtotime($arSales[DATE_STATUS]))/86400 >= 10 &&	// Если прошло больше 10 дней
 			$arSales["EMP_STATUS_ID"] != $userID2) {							// и еще не отправляли второе уведомление
 			$subject = 'Заказ '.$id.' собран и ожидает оплаты. Альпина Паблишер.';
@@ -802,15 +815,15 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 				<td></td>
 				<td></td>
 				<td>Прошло десять дней</td>
-				</tr>";	
+				</tr>";
 		}
 	}
 
     //Data access for PickPoint API
-    $dataLogin = $arParams["PICKPOINT"]["DATA_ACCESS"]; 
-    $ikn = $arParams["PICKPOINT"]["IKN"]; 
+    $dataLogin = $arParams["PICKPOINT"]["DATA_ACCESS"];
+    $ikn = $arParams["PICKPOINT"]["IKN"];
     $urlLogin = "http://e-solution.pickpoint.ru/api/login";
-    
+
     //Request for authorization on PickPoint server
     $content = json_encode($dataLogin);
     $curl = curl_init($urlLogin);
@@ -823,8 +836,8 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
     $json_response = curl_exec($curl);
     $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
-    $response = json_decode($json_response, true);  
-    
+    $response = json_decode($json_response, true);
+
     //Request for received orders
     $lastDayMonth = mktime(0, 0, 0, date('m')+1, 0, date('Y'));
     $dataSend = array('SessionId' => $response["SessionId"], 'DateFrom' => '1.'.date('m').'.'.date('Y'), 'DateTo' => strftime("%d", $lastDayMonth).'.'.date('m').'.'.date('Y'), 'State' => 111);
@@ -841,7 +854,7 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
     $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
     $response = json_decode($json_response, true);
-    
+
     //Change orders status on site
     foreach ($response as $arOrderPickPoint) {
         $arOrder = CSaleOrder::GetByID($arOrderPickPoint["SenderInvoiceNumber"]);
@@ -856,19 +869,19 @@ AddMessage2Log('Скрипт выполнен cron', 'send_mails_on_time.php');
 					<td>Pickpoint</td>
 					<td>Pickpoint выполнен</td>
 					<td></td>
-					</tr>";					
+					</tr>";
 			}
         }
     }
-	
+
 	echo "7<br />";
 	$finalReport .= "</tbody></table>";
 	print $finalReport;
-	
+
 	$arEventFields = array(
 		"ORDER_USER" => "Александр",
 		"REPORT" => $finalReport
-	);				
+	);
 	CEvent::Send("SEND_TRIGGER_REPORT", "s1", $arEventFields,"N");
 
 ?>

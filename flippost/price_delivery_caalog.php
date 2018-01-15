@@ -1195,6 +1195,6 @@ $cities = array(
 		}
 	}
 	if (!$setPrice)
-		echo 729;
+		echo 1229;
 
 ?>

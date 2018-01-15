@@ -41,7 +41,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 	$recsArray = array_unique($recsArray);
 	echo "<br />";	
 	$excludeBests = array(
-		378296
+		//378296 //Сам себе финансист
 	);
 	echo "<b>Информация о бестселлерах</b><br />";
 	if (!empty($recsArray)) {

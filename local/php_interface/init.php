@@ -112,6 +112,8 @@
     define ("REISSUE_ID", 218); //ID свойства "Переиздание"
     define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
     define ("STATE_SOON", 22); //ID состояния книги "Скоро в продаже"
+    define ("STATE_NULL", 23); //ID состояния книги "Нет в наличии"
+    define ("STATE_NEWS", 21); //ID состояния книги "Новинка"
     define ("EXPERTS_IBLOCK_ID", 23); //ID инфоблока Эксперты
     define ("PAY_SYSTEM_RFI", 11); //ID платежный системы РФИ
 
@@ -1055,12 +1057,23 @@
                 if (Message::getOrderDeliveryType($ID)==2) {
                     $message = new Message();
                     $order = CSaleOrder::GetById($ID);
-                    $result = $message->sendMessage($ID,$val,'',$order['PRICE']);
+                    if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID || $_SESSION["MESSAGE_PRICE"] != $order['PRICE']){
+                        $result = $message->sendMessage($ID,$val,'',$order['PRICE']);
+                    }
+
+
                 }
-            } else {
+            } else if($val=="N"){
                 $message = new Message();
-                $result = $message->sendMessage($ID,$val);
+                if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID){
+                    $result = $message->sendMessage($ID,$val);
+                }
             }
+            $_SESSION["MESSAGE_STATE"] = $val;
+            $_SESSION["MESSAGE_PRICE"] = $order['PRICE'];
+            $_SESSION["MESSAGE_ORDER"] = $ID;
+
+            logger(date('d.m.Y::H:m').': '.$_SESSION["MESSAGE_STATE"].$_SESSION["MESSAGE_PRICE"].$_SESSION["MESSAGE_ORDER"],$_SERVER["DOCUMENT_ROOT"].'/logs/log1.txt' );
         }
 
         //----- Триггерные письма при изменении статуса заказа
@@ -1715,7 +1728,7 @@
             $path = $this->url;
 
             //альтернативный варинт авторизации
-            $sign = md5("login=" . $this->login . "&message= " . $message . "&sender= " . $this->sender . "&target=" . $phone . $this->token);
+           // $sign = md5("login=" . $this->login . "&message= " . $message . "&sender= " . $this->sender . "&target=" . $phone . $this->token);
 
             $postdata = http_build_query(
                array(
@@ -3239,7 +3252,7 @@
             if ($arTemplate['CC']) {
                 $params['cc'] .= $arTemplate['CC'];
             }
-            logger($params, $_SERVER["DOCUMENT_ROOT"].'/logs/log1.php');
+
             $domain = $arParams['MAILGUN']['DOMAIN'];
 
             //  # Make the call to the client.

@@ -55,10 +55,12 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 		$(".catalogIcon").html("<span>Каталог</span>");
 		$(".basketIcon").html("<span>Корзина</span>");
 		
-		<?if (empty($_COOKIE["subscribePopup"]) && empty($APPLICATION->get_cookie("subscribePopup"))) {?>
-			if (readCookie("subscribePopup") == null) {
-				//setTimeout(subscribePopup, 2000);
-			}
+		<?if (empty($_COOKIE["subscribePopup"]) && empty($APPLICATION->get_cookie("subscribePopup"))) {
+			if (strpos($APPLICATION->GetCurPage(),"/personal/") === false) {?>
+				if (readCookie("subscribePopup") == null) {
+					setTimeout(subscribePopup, 2000);
+				}
+			<?}?>
 		<?}?>
 	});
 	document.addEventListener('visibilitychange', function(e) {
