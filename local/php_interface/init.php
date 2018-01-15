@@ -1,4 +1,4 @@
-<?
+<?  
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 
@@ -181,25 +181,27 @@
         preg_match($bcc_pattern, $additional_headers, $bcc_matches);
         preg_match($cc_pattern, $additional_headers, $cc_matches);
 
-        $mailgun = new Mailgun(MAILGUN_KEY);
+        if (file_exists("/home/bitrix/vendor/mailgun/mailgun-php/src/Mailgun/Mailgun.php")) {
+            $mailgun = new Mailgun(MAILGUN_KEY);
 
-        $params = array(
-            'from'	=> ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
-            'to'		=> $to,
-            'subject' => $subject,
-            'html'	=> $message
-        );
+            $params = array(
+                'from'    => ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
+                'to'        => $to,
+                'subject' => $subject,
+                'html'    => $message
+            );
 
-        if (trim($bcc_matches[0])) {
-            $params['bcc'] = $bcc_matches[0];
+            if (trim($bcc_matches[0])) {
+                $params['bcc'] = $bcc_matches[0];
+            }
+            if (trim($bcc_matches[0])) {
+                $params['cc'] = $cc_matches[0];
+            }
+            //$attachments = 'https://www.alpinabook.ru/img/twi.png';
+            $domain = MAILGUN_DOMAIN;
+            # Make the call to the client.
+            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
         }
-        if (trim($bcc_matches[0])) {
-            $params['cc'] = $cc_matches[0];
-        }
-        //$attachments = 'https://www.alpinabook.ru/img/twi.png';
-        $domain = MAILGUN_DOMAIN;
-        # Make the call to the client.
-        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
     }
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
@@ -3398,5 +3400,23 @@
     function object_to_array($a, $b) {
         return strtotime($b) - strtotime($a);
     }
+
+AddEventHandler("iblock", "OnAfterIBlockElementAdd", "SyncProductCode");
+AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "SyncProductCode");
+
+function SyncProductCode($arFields) {
+    if ($arFields["IBLOCK_ID"] == 78) {
+        $new_iblock_element_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 78, "ID" => $arFields["ID"]), false, false, array("IBLOCK_ID", "ID", "XML_ID", "PROPERTY_ID_BITRIKS"));
+        while ($new_iblock_element = $new_iblock_element_info -> Fetch()) {
+            $id_bitrix_property_value = intval($new_iblock_element["PROPERTY_ID_BITRIKS_VALUE"]);
+            $new_iblock_element_code = $new_iblock_element["XML_ID"];    
+        } 
+        if ($id_bitrix_property_value > 0) {
+            $current_iblock_element = new CIBlockElement;
+            $arLoadProductArray = array("XML_ID" => $new_iblock_element_code);
+            $res = $current_iblock_element -> Update($id_bitrix_property_value, $arLoadProductArray);
+        } 
+    }
+}
 
 ?>

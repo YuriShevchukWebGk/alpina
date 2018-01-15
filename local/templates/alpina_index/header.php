@@ -65,7 +65,7 @@
     <meta property="fb:app_id" content="138738742872757" />
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+    <? file_exists($_SERVER["DOCUMENT_ROOT"] . '/include/include_ab_tests.php') ? include($_SERVER["DOCUMENT_ROOT"] . '/include/include_ab_tests.php') : ""; //Хардовые AB-тесты?>
 	<!-- header .index -->
 	<!-- gdeslon -->
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276" async></script>
