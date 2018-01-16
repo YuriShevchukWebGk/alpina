@@ -531,7 +531,11 @@
                             elseif(intval($createdSendings->InvoiceNumber) > 0)
                             {
                                 $sending_edtn = intval($createdSendings->EDTN);
-                                CPickpoint::SetOrderInvoice($arQuery["Sendings"][$key]["Invoice"]["SenderCode"], $createdSendings->InvoiceNumber);
+                                if (strlen($arQuery["Sendings"][$key]["Invoice"]["SenderCode"]) > 0) {
+                                    CPickpoint::SetOrderInvoice($arQuery["Sendings"][$key]["Invoice"]["SenderCode"], $createdSendings->InvoiceNumber);
+                                } else if (strlen($sending_edtn) > 0) {
+                                    CPickpoint::SetOrderInvoice($sending_edtn, $createdSendings->InvoiceNumber);    
+                                }
                             }
                         }
                         foreach($response->RejectedSendings as $rejectedSending)

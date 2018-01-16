@@ -423,7 +423,21 @@ if (strlen($arResult["MESSAGE"]) > 0):?>
 
        }
     $(".contactsFormWrap input[type=submit]").on("click", function(e){
+        if (!isEmail($("input[name='PROPERTY[183][0]']").val())) {
+            e.preventDefault();
+            $("input[name='PROPERTY[183][0]']").css("border", "1px solid red");
 
+        } else {
+            $("input[name='PROPERTY[183][0]']").css("border", "1px solid #f0f0f0");
+        }
+
+
+		if ($("input[name='PROPERTY[NAME][0]']").val() == '') {
+            e.preventDefault();
+            $("input[name='PROPERTY[NAME][0]']").css("border", "1px solid red");
+        } else {
+            $("input[name='PROPERTY[NAME][0]']").css("border", "1px solid #f0f0f0");
+        }
     })
 
 </script>

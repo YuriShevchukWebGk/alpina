@@ -932,6 +932,10 @@ $(document).ready(function(){
 	NProgress.set(0.6);
 	setTimeout(function() { NProgress.done();}, 200);
 	//Progress Bar END
+
+    $('body').on('click', '#altasib_geobase_btn', function(){
+        altasib_geobase.sc_onclk();
+    })
 });
 
 
