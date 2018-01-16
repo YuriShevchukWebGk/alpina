@@ -45,7 +45,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
         <?}?>
 
         <div class="bx-authform-formgroup-container">
-            
+
             <div class="bx-authform-input-container">
                 <input type="text" name="USER_LOGIN" maxlength="255" value="<?= $arResult["LAST_LOGIN"] ?>" placeholder="<?= GetMessage("YOUR_LOGIN_OR_EMAIL") ?>"/>
             </div>
@@ -125,7 +125,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
             <div class="bx-authform-link-container">
                 <p class="noRegisterText"><?= GetMessage("AUTH_FIRST_ONE") ?></p>
                 <p class="onregistrationLink">
-                    <a href="/auth/?register=yes" rel="nofollow">
+                    <a href="/auth/" rel="nofollow">
                         <?= GetMessage("AUTH_REGISTER") ?>
                     </a>
                 </p>
@@ -146,10 +146,10 @@ function checkAuthFields(){
             $(".auth_note").html(data);
         } else {
             $("#form_auth").submit();
-        }    
-    })  
+        }
+    })
 
-} 
+}
 
 </script>
 
