@@ -432,7 +432,8 @@
 
         function ExportOrders($arIDs)
         {
-            asort($arIDs);    
+            //asort($arIDs); 
+            $arIDs = array_reverse($arIDs, true);   
             $arIDs = array_values(array_unique($arIDs));
             global $APPLICATION;
             $MODULE_ID = "epages.pickpoint";

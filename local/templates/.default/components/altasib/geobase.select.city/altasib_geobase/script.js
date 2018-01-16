@@ -107,7 +107,7 @@ altasib_geobase.sc_init_handlers=function(){
 		.keyup(function(event){altasib_geobase.sc_selKey(event);})
 		.dblclick(function(event){altasib_geobase.sc_onclk();});
 
-	   $('.altasib_geobase_find #altasib_geobase_search').keypress(function(event){
+	   $('.altasib_geobase_find #altasib_geobase_search').keyup(function(event){
             altasib_geobase.sc_inpKey(event);
         }).keydown(function(event){
             altasib_geobase.sc_inpKeyDwn(event);
