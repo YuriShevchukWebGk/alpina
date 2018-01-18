@@ -8,7 +8,9 @@ $return = array(
     "data"   => ""
 );
 
-if ($certificate_data['certificate_quantity'] > 0) {
+if ($certificate_data['certificate_quantity'] > 0 && $certificate_data['certificate_id'] > 0) {
+
+
 
     $ar_res_sert_price = CPrice::GetBasePrice($certificate_data['certificate_id']);
 
