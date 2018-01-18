@@ -107,7 +107,9 @@ altasib_geobase.sc_init_handlers=function(){
 		.keyup(function(event){altasib_geobase.sc_selKey(event);})
 		.dblclick(function(event){altasib_geobase.sc_onclk();});
 
-	   $('.altasib_geobase_find #altasib_geobase_search').keyup(function(event){
+       console.log('yes');
+	   //$('body .altasib_geobase_find #altasib_geobase_search').keyup(function(event){
+       $('body').on('keyup', '.altasib_geobase_find #altasib_geobase_search', function(event){
             altasib_geobase.sc_inpKey(event);
         }).keydown(function(event){
             altasib_geobase.sc_inpKeyDwn(event);
@@ -650,7 +652,6 @@ altasib_geobase.sc_inpKeyDwn=function(e){//input search
 altasib_geobase.sc_inpKey=function(e){//input search
 	e=e||window.event;
 	t=(window.event)?window.event.srcElement:e.currentTarget;
-    console.log(window.event)
 	if(altasib_geobase.is_mobile){
 		var list=$('div#altasib_geobase_mb_info');
 	}else{

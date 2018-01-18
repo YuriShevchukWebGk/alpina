@@ -43,10 +43,10 @@ $tx = [
     "account"      => json_encode(["id" => $email]),
     "currency"     => $currency,
     "order"        => json_encode(["type" => "order_id", "order_id" => (string) $orderID]),
+    "val"          => "second"
 ];
 ksort($tx);
 $tx['sign'] = getSignature(json_encode($tx));
-
 ?>
 <form action="<?php echo $url ?>" method="get" enctype="application/json">
     <?php

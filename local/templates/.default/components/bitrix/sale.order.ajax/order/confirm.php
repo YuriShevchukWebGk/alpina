@@ -282,40 +282,52 @@
                     false
                 ); ?>
             <? } else if ($arResult["PAY_SYSTEM"]["ID"] == 24){
-                $merchant_id = "0879c750d38aae9c073b94c8c470461f";
-                $secret_key = "ff084641f88df727b029a4816b428082";
-                $order_id = $_REQUEST["ORDER_ID"];
-                $order_info = CSaleOrder::GetByID($order_id);
+                $merchant_id = CSalePaySystemAction::GetParamValue("MERCHANT_ID");
+                $secret_key = CSalePaySystemAction::GetParamValue("SKEY");
+                $order_id = (strlen(CSalePaySystemAction::GetParamValue("PAYMENT_ID")) > 0) ? CSalePaySystemAction::GetParamValue(
+    "PAYMENT_ID"
+) : $GLOBALS["SALE_INPUT_PARAMS"]["PAYMENT"]["ID"];
+                /*$order_info = CSaleOrder::GetByID($order_id);
                 $order_props = CSaleOrderProps::GetOrderProps($order_id);
                 while ($arProps = $order_props -> Fetch()) {
                     if ($arProps["ORDER_PROPS_ID"] == "EMAIL") {
                         $user_email = $arProps["VALUE"];
                     }
-                }
-                if (!empty($order_info)) {
+                }*/
+                //if (!empty($order_info)) {
                     //$account = ({"id" : $order_info["USER_ID"]});
+                    $user_email    = CSalePaySystemAction::GetParamValue("EMAIL");
                     $account = ["id" => $user_email];
-                    $amount = $order_info["PRICE"] * 100;
-                    $currency = $order_info["CURRENCY"];
-                    $payer = ["phone_number" => str_replace(array(")", "(", "-"), "", substr($phone_val, 2))];
+                    //$amount = $order_info["PRICE"] * 100;
+                    $amount = (string) round(CSalePaySystemAction::GetParamValue("PAYMENT_SUM") * 100.0);
+                    //$currency = $order_info["CURRENCY"];
+                    $currency = (strlen(CSalePaySystemAction::GetParamValue("CURRENCY")) > 0) ? CSalePaySystemAction::GetParamValue(
+    "CURRENCY"
+) : $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["CURRENCY"];
+                    $currency = getCorrectCurrency($currency);
+                    //$payer = ["phone_number" => str_replace(array(")", "(", "-"), "", substr($phone_val, 2))];
                     //$order = ({"type" : "order_id", "order_id" : $order_id});
-                    $order = ["type" => "order_id", "order_id" => $order_id];
-                    $project = "alpinabook";
+                    $order = ["type" => "order_id", "order_id" => (string)$order_id];
+                    //$project = "alpinabook";
+                    $project = CSalePaySystemAction::GetParamValue("PROJECT");
+                    $resultUrl = CSalePaySystemAction::GetParamValue("PATH_TO_RESULT_URL");
                     $merchant_info = [
                         "merchant_id" => rawurldecode($merchant_id),
                         "account" => json_encode($account),
-                        "payer" => json_encode($payer),
+                        //"payer" => json_encode($payer),
+                        "redirect_url" => rawurldecode($resultUrl),
                         "amount" => rawurldecode($amount),
                         "val" => "second",
-                        "currency" => "RUB",
+                        "currency" => $currency,
                         "order" => json_encode($order),
                         "project" => rawurldecode($project)
                     ];
                     ksort($merchant_info);
                     $str = json_encode($merchant_info);
-                    $sign = hash_hmac("SHA256", $str, $secret_key);
+                    //$sign = hash_hmac("SHA256", $str, $secret_key);
+                    $sign = getSignature($str);
                     $merchant_info["sign"] = $sign;
-                }
+                //}
             ?>
             <a class="platbox_button submit_platbox">Оплатить</a>
             <br>

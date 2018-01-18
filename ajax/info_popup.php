@@ -1,6 +1,5 @@
 <?
-if ($_REQUEST["info"])
-{
+if ($_REQUEST["info"]) {
 	
 	$info = '';
 	
