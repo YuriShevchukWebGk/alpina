@@ -1,33 +1,33 @@
 function buy_certificate_popup(){
     //$('body').find('.layout').show();
-    $('body').find('.certificate_popup').show();                                                
-}                                               
+    $('body').find('.certificate_popup').show();
+}
 function create_certificate_order(){
     var form_valid = true;
     var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
     // просматриваем все поля на предмет заполненности
     $(".active_certificate_block input").each(function(){
-        if (!$(this).val()) {   
+        if (!$(this).val()) {
             form_valid = false;
-            $(this).css("border-color", "red");    
+            $(this).css("border-color", "red");
         } else {
-            if ($(this).attr("name") == 'natural_email' || $(this).attr("name") == 'legal_email') {                      
-                if (!(pattern.test($(this).val()))) {    
+            if ($(this).attr("name") == 'natural_email' || $(this).attr("name") == 'legal_email') {
+                if (!(pattern.test($(this).val()))) {
                     form_valid = false;
                     $(this).css("border-color", "red");
                 } else {
-                    $(this).css("border-color", "#f0f0f0");   
-                }       
-            }                                     
+                    $(this).css("border-color", "#f0f0f0");
+                }
+            }
         }
-    });                
+    });
     // если все ок, то сабмитим
     if (form_valid) {
         var natural_person_email = $("#natural_email").val(),
         selected_tab = $(".certificate_tab_active").data("popup-block");
         $("input[name='certificate_quantity']").val($(".transparent_input").val());
-        var certificate_price = parseInt($("input[name='certificate_price']").val());   
-        var certificate_quantity = parseInt($(".transparent_input").val()); 
+        var certificate_price = parseInt($("input[name='certificate_price']").val());
+        var certificate_quantity = parseInt($(".transparent_input").val());
         $.ajax({
             url: '/ajax/ajax_create_certificate_order.php',
             type: "POST",
@@ -39,14 +39,15 @@ function create_certificate_order(){
             var certificate_result = JSON.parse(result);
             if (certificate_result.status == "success") {
                 order_id = certificate_result.data;
+                certificate_price = certificate_result.price;
                 $("#certificate_form").remove();
                 if (selected_tab == "natural_person") {
                     // физ. лицо
-                    var success_message = "<?= GetMessage('NATURAL_SUCCESS_MESSAGE') ?>"; 
-                    $(".submit_rfi").attr("data-email", natural_person_email);  
-                    $(".submit_rfi").attr("data-comment", "CERT_" + order_id);  
-                    $(".submit_rfi").attr("data-orderid", "CERT_" + order_id);         
-                    $(".submit_rfi").attr("data-cost", certificate_price * certificate_quantity);  
+                    var success_message = "<?= GetMessage('NATURAL_SUCCESS_MESSAGE') ?>";
+                    $(".submit_rfi").attr("data-email", natural_person_email);
+                    $(".submit_rfi").attr("data-comment", "CERT_" + order_id);
+                    $(".submit_rfi").attr("data-orderid", "CERT_" + order_id);
+                    $(".submit_rfi").attr("data-cost", certificate_price * certificate_quantity);
                     $(".submit_rfi").click();
                     $("<span>" + success_message.replace("#NUM#", order_id) + "</span>").insertBefore(".certificate_popup_close");
                     $(".certificate_popup_close").click();
