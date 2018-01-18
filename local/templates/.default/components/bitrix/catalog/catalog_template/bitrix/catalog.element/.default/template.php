@@ -272,6 +272,7 @@
             </div>
             <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
             <input type="hidden" name="certificate_quantity" value="1"/>
+            <input type="hidden" name="certificate_id" value="<?=$arResult['ID']?>"/>
             <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>
             <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
         </form>
