@@ -76,12 +76,13 @@ $APPLICATION->SetTitle("Заказы");
 		"COMPOSITE_FRAME_TYPE" => "AUTO",
 		"USE_ENHANCED_ECOMMERCE" => "N",
 		"ALLOW_APPEND_ORDER" => "Y",
-		"SPOT_LOCATION_BY_GEOIP" => "N",
+		"SPOT_LOCATION_BY_GEOIP" => "Y",
 		"SHOW_VAT_PRICE" => "Y",
 		"USER_CONSENT" => "N",
 		"USER_CONSENT_ID" => "0",
 		"USER_CONSENT_IS_CHECKED" => "Y",
-		"USER_CONSENT_IS_LOADED" => "N"
+		"USER_CONSENT_IS_LOADED" => "N",
+		"ADDITIONAL_PICT_PROP_78" => "-"
 	),
 	false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

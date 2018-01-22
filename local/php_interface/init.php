@@ -3329,6 +3329,7 @@
 
     }
 
+
     //AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'updatingQuantityforPreorderItems');
 
     function updatingQuantityforPreorderItems (&$arFields) {

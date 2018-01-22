@@ -84,9 +84,22 @@
 
 </style>
 
+
 <div id="map" style="width:10px; height:10px;"></div>
 
-
+<?$APPLICATION->IncludeComponent(
+    "altasib:geobase.select.city",
+    "",
+    Array(
+        "COMPOSITE_FRAME_MODE" => "A",
+        "COMPOSITE_FRAME_TYPE" => "AUTO",
+        "LOADING_AJAX" => "N",
+        "RIGHT_ENABLE" => "Y",
+        "SMALL_ENABLE" => "Y",
+        "SPAN_LEFT" => "Мой город:",
+        "SPAN_RIGHT" => "Выберите город"
+    )
+);?>
 <?
 // получение количества дней с которого возможна доставка
 $datetime1 = new DateTime(date("d.m.Y"));
@@ -100,6 +113,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
     window.BOXBERRY_PICKUP_DELIVERY_ID = '<?= BOXBERRY_PICKUP_DELIVERY_ID ?>';
     window.ORDER_PRICE = '<?= $arResult['ORDER_DATA']['ORDER_PRICE'] ?>';
     window.FREE_SHIPING = '<?= FREE_SHIPING ?>';
+
     //дополнительные функции, необходимые для работы
     function setOptions() {
 
@@ -109,6 +123,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 
 		$(".bx_section div:has(input:checked), input:checked>label").css("background", "rgba(216, 194, 165, 0.35)");
 		$("input[name='PERSON_TYPE']:checked").next().css("background", "rgba(216, 194, 165, 0.35)");
+
 
         if ($.browser.msie && $.browser.version <= 9) {
 
@@ -180,7 +195,12 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             }
         })
 
-           function deleteDateId(){
+        if($('.js_delivery_block > div').size() <= 3 && $('.region_click.addCircle').size() > 0){
+            setTimeout(function() {
+                $('.check_delivery .faceText').click();
+            }, 500);
+        }
+     /*      function deleteDateId(){
               var text = document.getElementById("ORDER_PROP_44"),
                   testText;
                   if (text !== null) {
@@ -191,7 +211,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                   }
            }
            deleteDateId("ORDER_PROP_44");
-           deleteDateId("ORDER_PROP_45");
+           deleteDateId("ORDER_PROP_45");   */
         //календарь
 		var disabledDates = <?=$holidays?>; //даты для отключения mm/dd/yyyy
         function disableSpecificDaysAndWeekends(date) {
@@ -288,6 +308,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
              $('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
         }
 
+
     }
 
     $(function(){
@@ -298,6 +319,10 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         catch(err) {
         }*/
         setOptions();
+
+        $('body').on('click', '.region_click', function(){
+
+        })
     })
     //далее костыль
     var stopupdate = false;
@@ -434,7 +459,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 								$(document).ready(function(){
 									dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'pageLoaded'});
 
-								});
+                                });
                                 <?if(CSaleLocation::isLocationProEnabled()):?>
 
                                     <?
@@ -483,6 +508,8 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                     if ($("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").attr("checked") != "checked") {
                                         $("#ID_DELIVERY_ID_<?= DELIVERY_PICK_POINT ?>").closest("div").find(".bx_result_price").find("a").hide();
                                     }
+
+
                                     // дополнительная проверка полей и вывод ошибки
                                     if (val == "Y")
                                     {
@@ -660,7 +687,11 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                             } else {
                                             }
                                         }
+                                       console.log('ugbb');
+                                    <?if(empty($_POST)){ ?>
+                                         $('.bx_section.js_delivery_block #ID_DELIVERY_ID_15').click();
 
+                                     <?}?>
 
                                     }
 
@@ -925,7 +956,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 								                alert('Нет соединения с сервером пунктов выдачи!');
 								                return false;
 								            }
-								            maps_init_GURU(points, center_1, center_2);
+								          //  maps_init_GURU(points, center_1, center_2);
 								    });
 
                                     if($(".js_delivery_block .radioInp").is(':checked') == true){
@@ -982,6 +1013,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                     <?/*<p class="blockText">Выберите ваше местоположение</p> <br>*/?>
 
                                     <?//блок с местоположением
+
                                         if ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]) {
                                             $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]);
                                         } else {

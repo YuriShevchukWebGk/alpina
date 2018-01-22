@@ -1,6 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 ?>
 <script type="text/javascript">
+
     function fShowStore(id, showImages, formWidth, siteId)
     {
         var strUrl = '<?=$templateFolder?>' + '/map.php';
@@ -132,6 +133,7 @@
             $isOnlyCertificate = false;
         }
     }
+
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
@@ -180,7 +182,7 @@
             <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
 
             } else {?>
-            <div>
+            <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?>">
                 <?
                 $arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
                 $pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
