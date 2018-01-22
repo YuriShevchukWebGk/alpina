@@ -55,6 +55,12 @@ $arUrlRewrite = array(
 		"PATH" => "/sitemap/add.php",
 	),
 	array(
+		"CONDITION" => "#^/tags/([0-9a-zA-Z_\-]+)/#",
+		"RULE" => "",
+		"ID" => "",
+		"PATH" => "/tags/index.php",
+	),
+	array(
 		"CONDITION" => "#^/good-arithmetics-news/#",
 		"RULE" => "",
 		"ID" => "bitrix:news",

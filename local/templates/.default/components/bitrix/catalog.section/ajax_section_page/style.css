@@ -11,6 +11,31 @@
     margin-bottom:20px;
     border-bottom:1px solid #e5e5e5;
 }
+.doner_tags{
+	overflow: hidden;
+	margin: 40px 0px 0px;
+}
+.doner_tags a, .doner_tags span{
+	float: left;
+	display: block;
+	margin-right: 40px;
+	color: #627478;
+	text-decoration: none;
+	margin-bottom: 8px;
+}
+.doner_tags a{
+	padding: 2px 20px;
+	border: 1px solid #627478;
+	border-radius: 20px;
+}
+.doner_tags a:hover{
+	border: 1px solid #627478;
+	text-decoration: underline;
+}
+.doner_tags span{
+	padding: 3px 0px;
+}
+
 @media (max-width:640px) {.bx_catalog_list_home {border-bottom:1px solid #e5e5e5;}}
 
 .bx_catalog_list_home .bx_catalog_item{
@@ -26,7 +51,7 @@
     -o-transition:none;
     transition:none;
     margin-bottom:30px;
-}
+} 
 @media (min-width:960px){
     .bx_catalog_list_home.col1 .bx_catalog_item{padding:1px 26px;margin:0 0 30px 0   ;width:100%}
 

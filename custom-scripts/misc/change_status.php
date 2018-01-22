@@ -7,7 +7,7 @@ if ($_GET['orders']) {
 	$array3 = explode("\n",$_GET['orders']);
 
 	foreach ($array3 as $id) {
-		if (CSaleOrder::StatusOrder($id, "K")) {
+		if (CSaleOrder::StatusOrder($id, "F")) {
 			echo $id.'*ok<br />';
 		} else {
 			echo $id."*status error<br />";
@@ -15,7 +15,7 @@ if ($_GET['orders']) {
 	}
 } else {?>
 	<form action="/custom-scripts/misc/change_status.php">
-	<textarea type="text" name="orders" value="" rows="20" cols="45"></textarea><br /><br />
+	<textarea type="text" name="orders" value="" rows="20" cols="45" placeholder="Каждый заказ на новой строке"></textarea><br /><br />
 	<input type="submit" value="Поменять статус на Отправлен на почту РФ">
 	</form>	
 <?}

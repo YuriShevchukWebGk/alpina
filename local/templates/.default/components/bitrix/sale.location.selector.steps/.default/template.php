@@ -26,7 +26,7 @@ Loc::loadMessages(__FILE__);
 		<?if(is_array($arResult['DEFAULT_LOCATIONS']) && !empty($arResult['DEFAULT_LOCATIONS'])):?>
 
 			<div class="bx-ui-sls-quick-locations quick-locations">
-
+                <?//arshow($arResult['DEFAULT_LOCATIONS'])?>
 				<?foreach($arResult['DEFAULT_LOCATIONS'] as $lid => $loc):?>
                     <?
                     $class = '';

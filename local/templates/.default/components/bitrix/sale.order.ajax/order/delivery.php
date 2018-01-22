@@ -137,7 +137,7 @@
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
-
+ <?//arshow($_POST,false)?>
 <input type="hidden" name="BUYER_STORE" id="BUYER_STORE" value="<?=$arResult["BUYER_STORE"]?>" />
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="bx_section js_delivery_block">
     <?
@@ -256,6 +256,7 @@
                                 }
                             }
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) {
+                            if($_SESSION["DATE_DELIVERY_STATE"]){}
                             echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD) {
                             echo str_replace('#DATE_DELIVERY#',date_day(1), $arDelivery["DESCRIPTION"])."<br />";

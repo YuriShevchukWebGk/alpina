@@ -1141,3 +1141,15 @@ body .altasib_geobase_link{
         left: 17% !important;
     }
 }
+.apiship_pvzLair a {
+    color: #12a9e1;
+    font-size: 15px;
+    margin-left: 35px;
+    font-weight: normal;
+}
+.apiship_pvzLair span{
+    color: #12a9e1;
+    font-size: 15px;
+    margin-left: 35px;
+    font-weight: normal;
+}

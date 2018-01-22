@@ -44,6 +44,21 @@
                 $couponStr.=', ';
             }
         }
+		
+		$orderedBooks = '<div class="orderedBooks">';
+        $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arResult["ORDER"]["ID"]));
+        while ($arItems = $dbItemsInOrder->Fetch()) {
+			//$pict = CFile::ResizeImageGet($arItems["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+			$orderedBooks .= "<div class='bookRow'>";
+			$orderedBooks .= "<a href='https://www.alpinabook.ru".$arItems["DETAIL_PAGE_URL"]."'>";
+			//$orderedBooks .= "<div class='bookImg'><img src=".$pict." /></div>";
+			$orderedBooks .= "<div class='bookTitle'>".$arItems['NAME']."</div>";
+			$orderedBooks .= "<div class='bookQuantity'>".$arItems['QUANTITY']."</div>";
+			$orderedBooks .= "<div class='bookPrice'>".$arItems['PRICE']."</div>";
+			$orderedBooks .= "</a>";
+			$orderedBooks .= "</div>";
+        }
+		$orderedBooks .= "</div>";
     ?>
     <?/*<script type="text/javascript">
         // формирование сервиса  Get4Click
@@ -70,7 +85,7 @@
         var iPromoCpnObj = new _iPromoBannerObj();
     </script>*/?>
 
-	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276" async></script>
+    <script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=basket&amp;codes=<?=substr($gdeslon,0,-1)?>&amp;mid=79276" async></script>
     <?if (!empty($_SESSION['gtmEnchECommerceCheckout'])) {?>
         <!--Criteo-->
         <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
@@ -86,7 +101,7 @@
             );
         </script>
 
-		
+
         <!--google eCommerce-->
         <?/* Enhanced Ecommerce новый код 2016.05.23 для поля category и coupon */?>
         <script>
@@ -135,10 +150,9 @@
             </script>
         <?*/?>
         <?  //получаем email из заказа. у физлиц будет EMAIL, у юрлиц F_EMAIL
-            $orderProps = CSaleOrderPropsValue::GetList(array(),array("ORDER_ID"=>$arResult["ORDER_ID"],"CODE"=>array("EMAIL","F_EMAIL")),false,false,array());
-            while($arProp = $orderProps->Fetch()) {
-                $userEmal = $arProp["VALUE"];
-            }
+            
+			$userEmail = Message::getClientEmail($arResult["ORDER"]["ID"]);
+            
         ?>
         <script type="text/javascript">
             rrApiOnReady.push(function() {
@@ -149,7 +163,7 @@
                     });
                 } catch(e) {}
             });
-            rrApiOnReady.push(function () { rrApi.setEmail("<?=$userEmal?>"); });
+            rrApiOnReady.push(function () { rrApi.setEmail("<?=$userEmail?>"); });
         </script>
 
         <!-- Facebook Conversion Code for Оформление заказов - Альпина 1 -->
@@ -175,7 +189,7 @@
             window.flocktory.push(['postcheckout', {
                 user: {
                     name: '<?=$userName?>',
-                    email: '<?=$USER->GetEmail()?>',
+                    email: '<?=$userEmail?>',
                 },
                 order: {
                     id: '<?=$arResult["ORDER"]["ID"]?>',
@@ -184,109 +198,141 @@
                 },
             }]);
         </script>
-		
-		<script>
-			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'paymentID <?=$arResult["ORDER"]["PAY_SYSTEM_ID"]?>'});
-			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'deliveryID <?=$arResult["ORDER"]["DELIVERY_ID"]?>'});
-			dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'personType <?=$arResult["ORDER"]["PERSON_TYPE_ID"]?>'});
-		</script>
-		<!-- gdeslon -->
-		<?/*<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=<?=$_SESSION['gdeslon']?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>*/?>
-		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276&amp;codes=<?=$_SESSION['gdeslon']?>"></script>
-		<script type="text/javascript" src="//www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
+
+        <script>
+            dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'paymentID <?=$arResult["ORDER"]["PAY_SYSTEM_ID"]?>'});
+            dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'deliveryID <?=$arResult["ORDER"]["DELIVERY_ID"]?>'});
+            dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'personType <?=$arResult["ORDER"]["PERSON_TYPE_ID"]?>'});
+        </script>
+        <!-- gdeslon -->
+        <?/*<script type="text/javascript" src="https://www.gdeslon.ru/thanks.js?codes=<?=$_SESSION['gdeslon']?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>*/?>
+        <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=thanks&amp;mid=79276&amp;codes=<?=$_SESSION['gdeslon']?>"></script>
+        <script type="text/javascript" src="//www.gdeslon.ru/thanks.js?codes=001:<?=($arResult["ORDER"]["PRICE"]-$arResult['ORDER']['PRICE_DELIVERY'])?>&amp;order_id=<?=$arResult["ORDER"]["ID"]?>&amp;merchant_id=79276"></script>
         <?unset($_SESSION['criteo'])?>
         <?unset($_SESSION['gtmEnchECommerceCheckout'])?>
         <?unset($_SESSION['floctory'])?>
         <?unset($_SESSION['retailRocket'])?>
-		<?unset($_SESSION['gdeslon'])?>
+        <?unset($_SESSION['gdeslon'])?>
 
         <?}?>
 
-              
-    <div class="confirmWrapper">  
-        <?if($arResult['ORDER']['STATUS_ID'] == 'PR'){?>        
+
+    <div class="confirmWrapper">
             <div class="finishOrdWrap">
                 <div class="centerWrapper">
-                    <div class="rightBlockWrap">
+					<div class="rightBlockWrap">
                         <p class="blockTitle">Уважаемый клиент!</p>
                         <p class="blokText">В качестве благодарности за покупку вам предоставляется возможность выбрать один из подарков наших партнеров.</p>
                         <p class="giftCont"><a href="#">Получить подарок</a></p>
                     </div>
-
                     <div class="mainInfoWrap">
-                        <p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
-                        <p class="OrdAkses">Ваш предзаказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
-                        <p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
+						<?if ($arResult['ORDER']['STATUS_ID'] == 'PR') {?>
+							<p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен!</p>
+							<p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
+						<?} else {?>
+							<p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен...</p>
+							<p class="ordHint">
+								...и уже принят в работу! Мы <b>не</b> будем звонить без необходимости. Нужная информация представлена ниже и отправлена на адрес <?=$userEmail?>.
+								<br /><br />
+								А пока можете <a href="/content/team/">посмотреть на команду интернет-магазина</a>, которая займется подготовкой и доставкой заказанных книг ☺
+								<br /><br />
+								Спасибо за хороший выбор!
+							</p>
+						<?}?>
+						<div class="orderInfo">
+							<div class="infoTitle">Информация о заказе</div>
+							<div class="infoRow">
+								<div class="fieldq">Покупатель</div><div class="fielda"><?=$userName?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">Телефон</div><div class="fielda"><?=$userName?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">E-mail</div><div class="fielda"><?=$userEmail?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">Способ оплаты</div><div class="fielda"><?=getOrderPaySystemName($arResult["ORDER"]['PAY_SYSTEM_ID'])?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">Способ доставки</div><div class="fielda"><?=getOrderDeliverySystemName($arResult["ORDER"]["DELIVERY_ID"])?></div>
+							</div>
+							<div class="infoRow">
+								<div class="fieldq">К оплате</div><div class="fielda"><?=$arResult['ORDER']['PRICE']?></div>
+							</div>
+							<?=$orderedBooks?>
+						</div>
+						<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$userEmail?>"></div>                
                     </div>
                 </div>
-            </div>     
-        <?} else {?>          
-            <div class="finishOrdWrap">
-                <div class="centerWrapper">
-                    <div class="rightBlockWrap">
-                        <p class="blockTitle">Уважаемый клиент!</p>
-                        <p class="blokText">В качестве благодарности за покупку вам предоставляется возможность выбрать один из подарков наших партнеров.</p>
-                        <p class="giftCont"><a href="#">Получить подарок</a></p>
-                    </div>
-
-                    <div class="mainInfoWrap">
-                        <p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> сформирован</p>
-                        <p class="OrdAkses">Ваш заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> от <?=$arResult["ORDER"]["DATE_INSERT"]?> успешно создан.</p>
-                        <p class="ordHint">Вы можете следить за выполнением заказа в <a href="/personal/order/">Личном кабинете.</a> Обратите внимание, что для входа в этот раздел вам необходимо будет ввести логин и пароль</p>
-                    </div>
-                </div>
-            </div>  
-        <?}?>    
+            </div>
         <?
             if (!empty($arResult["PAY_SYSTEM"]) && $arResult['ORDER']['STATUS_ID'] != 'PR')
             {
-            ?>  
+            ?>
             <br /><br />
             <div id="promocode-element-container"></div>
-            <?  
+            <?
             if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID) { ?>
-            	<? $APPLICATION->IncludeComponent(
-					"webgk:rfi.widget",
-					"",
-					Array(
-						"ORDER_ID" => $_REQUEST["ORDER_ID"]
-					),
-					false
-				); ?>
+                <? $APPLICATION->IncludeComponent(
+                    "webgk:rfi.widget",
+                    "",
+                    Array(
+                        "ORDER_ID" => $_REQUEST["ORDER_ID"]
+                    ),
+                    false
+                ); ?>
             <? } else if ($arResult["PAY_SYSTEM"]["ID"] == 24){
-                $merchant_id = "0879c750d38aae9c073b94c8c470461f";
-                $secret_key = "ff084641f88df727b029a4816b428082";
-                $order_id = $_REQUEST["ORDER_ID"];
-                $order_info = CSaleOrder::GetByID($order_id);
-                if (!empty($order_info)) {
+                $merchant_id = CSalePaySystemAction::GetParamValue("MERCHANT_ID");
+                $secret_key = CSalePaySystemAction::GetParamValue("SKEY");
+                $order_id = (strlen(CSalePaySystemAction::GetParamValue("PAYMENT_ID")) > 0) ? CSalePaySystemAction::GetParamValue(
+    "PAYMENT_ID"
+) : $GLOBALS["SALE_INPUT_PARAMS"]["PAYMENT"]["ID"];
+                /*$order_info = CSaleOrder::GetByID($order_id);
+                $order_props = CSaleOrderProps::GetOrderProps($order_id);
+                while ($arProps = $order_props -> Fetch()) {
+                    if ($arProps["ORDER_PROPS_ID"] == "EMAIL") {
+                        $user_email = $arProps["VALUE"];
+                    }
+                }*/
+                //if (!empty($order_info)) {
                     //$account = ({"id" : $order_info["USER_ID"]});
-                    $account = ["id" => $order_info["USER_ID"]];
-                    $amount = $order_info["PRICE"] * 100;
-                    $currency = $order_info["CURRENCY"];
-                    $payer = ["phone_number" => str_replace(array(")", "(", "-"), "", substr($phone_val, 2))];
+                    $user_email    = CSalePaySystemAction::GetParamValue("EMAIL");
+                    $account = ["id" => $user_email];
+                    //$amount = $order_info["PRICE"] * 100;
+                    $amount = (string) round(CSalePaySystemAction::GetParamValue("PAYMENT_SUM") * 100.0);
+                    //$currency = $order_info["CURRENCY"];
+                    $currency = (strlen(CSalePaySystemAction::GetParamValue("CURRENCY")) > 0) ? CSalePaySystemAction::GetParamValue(
+    "CURRENCY"
+) : $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["CURRENCY"];
+                    $currency = getCorrectCurrency($currency);
+                    //$payer = ["phone_number" => str_replace(array(")", "(", "-"), "", substr($phone_val, 2))];
                     //$order = ({"type" : "order_id", "order_id" : $order_id});
-                    $order = ["type" => "order_id", "order_id" => $order_id];
-                    $project = "alpinabook";
+                    $order = ["type" => "order_id", "order_id" => (string)$order_id];
+                    //$project = "alpinabook";
+                    $project = CSalePaySystemAction::GetParamValue("PROJECT");
+                    $resultUrl = CSalePaySystemAction::GetParamValue("PATH_TO_RESULT_URL");
                     $merchant_info = [
                         "merchant_id" => rawurldecode($merchant_id),
                         "account" => json_encode($account),
-                        "payer" => json_encode($payer),
+                        //"payer" => json_encode($payer),
+                        "redirect_url" => rawurldecode($resultUrl),
                         "amount" => rawurldecode($amount),
                         "val" => "second",
-                        "currency" => "RUB",
+                        "currency" => $currency,
                         "order" => json_encode($order),
                         "project" => rawurldecode($project)
                     ];
                     ksort($merchant_info);
                     $str = json_encode($merchant_info);
-                    $sign = hash_hmac("SHA256", $str, $secret_key);
+                    //$sign = hash_hmac("SHA256", $str, $secret_key);
+                    $sign = getSignature($str);
                     $merchant_info["sign"] = $sign;
-                }                    
+                //}
             ?>
-            <a class="platbox_button submit_platbox">Оплатить</a>                     
+            <a class="platbox_button submit_platbox">Оплатить</a>
             <br>
             <??>
-            <?}    
+            <?}
             else if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) { ?>
                 <table class="sale_order_full_table" >
                     <tr <? /*if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID && $_SESSION['rfi_recurrent_type'] == "next" && $_SESSION['rfi_bank_tab'] == "spg" && $arResult["UF_RECURRENT_ID"]) { ?> style="display: none" <? }*/ ?>>
@@ -343,8 +389,8 @@
                                     </div>
                                     <?} else {?>
                                     <?=CFile::ShowImage($arResult["PAY_SYSTEM"]["LOGOTIP"], 100, 100, "border=0", "", false);?>
-                                    <div class="paysystem_name"><?= $arResult["PAY_SYSTEM"]["NAME"] ?></div><br>    
-                                    <?}?>                                
+                                    <div class="paysystem_name"><?= $arResult["PAY_SYSTEM"]["NAME"] ?></div><br>
+                                    <?}?>
                             </td>
                             <td>
                                 <? if ($arResult["PAY_SYSTEM"]["ID"] == "13")
@@ -486,14 +532,14 @@
                                 <td>Общество с ограниченной ответственностью "Альпина Паблишер", ИНН 7705396957, КПП 770501001, 115035, Москва г, Космодамианская наб, дом № 4/22, корпус Б, оф.ПОМ. IX,  КОМН.1, тел.: (495) 980-53-54</td>
                             </tr>
                         </table>
-                        <br> 
+                        <br>
                         <table class="order_company_info">
                             <tr>
                                 <td><?= GetMessage("BUYER_TITLE") ?></td>
                                 <td><?= $company_name ?>, ИНН <?= $company_inn ?>, КПП <?= $company_kpp ?>, <?= $address ?></td>
                             </tr>
                         </table>
-                        <br> 
+                        <br>
                         <table class="order_company_info">
                             <tr>
                                 <td><?= GetMessage("CONSIGNEE_TITLE") ?></td>
@@ -596,10 +642,10 @@
                                 </tr>
                             </table>
                         </div>
-                  </div>     
+                  </div>
                 <?}*/
         }?>
-<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$USER->GetEmail()?>"></div>				
+
     </div>
 
     <? }
@@ -625,8 +671,8 @@
         var result = $(".confirmWrapper").html();
         $(".orderBody").parent().html(result);
     });
-	$(document).ready(function(){
-    	dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'pageLoaded'});
+    $(document).ready(function(){
+        dataLayer.push({event: 'EventsInCart', action: '3rd Step', label: 'pageLoaded'});
         $(".submit_platbox").on("click", function(){
             $(".layout").show();
             $(".platbox_iframe_block").show();

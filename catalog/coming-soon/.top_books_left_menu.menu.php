@@ -22,8 +22,8 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Серия Must Read", 
-		"/catalog/mustread/", 
+		"Новые скидки каждый день", 
+		"/catalog/sale/", 
 		Array(), 
 		Array(), 
 		"" 

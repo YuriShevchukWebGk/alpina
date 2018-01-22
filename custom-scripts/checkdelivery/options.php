@@ -11,10 +11,16 @@ $weekend = false; //Если вдруг доставляем в выходные
 
 $holidays = array( //Указываем даты праздничных дней
 'check',
-'17.10.2017',
-'18.10.2017',
-'20.10.2017',
-'06.11.2017',
+'30.12.2017',
+'31.12.2017',
+'01.01.2018',
+'02.01.2018',
+'03.01.2018',
+'04.01.2018',
+'05.01.2018',
+'06.01.2018',
+'07.01.2018',
+'08.01.2018',
 );
 
 $setProps = array();
@@ -22,7 +28,7 @@ $setProps['nextDay'] = 1;
 
 $days = array();
 
-for ($g = 0; $g < 15; $g++) {
+for ($g = 1; $g < 15; $g++) {
     $days[] = date("d.m.Y", mktime(0, 0, 0, date("m")  , date("d")+$g, date("Y")));
 }
 
@@ -37,10 +43,12 @@ foreach ($days as $no => $day) {
     while ($arSales = $rsSales->Fetch()) {
         $i++;
     }
-
+	
     if ($i >= $limit && $no > 0) {
         $setProps['nextDay']++;
-    }
+    } else {
+		break;
+	}
 }
 
 $dateIsSet = false;

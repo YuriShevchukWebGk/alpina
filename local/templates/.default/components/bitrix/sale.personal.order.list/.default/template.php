@@ -19,9 +19,10 @@
         <?endforeach?>
 
     <?endif?>
-
+</section>
+</div>
     <div class="orderHistorWrap">                                                                           
-    <p class="personal_title"><?$APPLICATION->ShowTitle();?></p>
+    <p class="personal_title"><?echo $APPLICATION->GetTitle();?></p>
 
     <div class="historyWrap">                      
         <div class="tableTitle">

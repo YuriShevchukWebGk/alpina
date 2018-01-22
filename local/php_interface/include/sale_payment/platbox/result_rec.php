@@ -104,6 +104,10 @@ $order_info     = null;
 $payment_info   = null;
 
 list($orderId, $paymentId) = \Bitrix\Sale\PaySystem\Manager::getIdsByPayment($request_params->order->order_id);
+/*$orderId = $request_params->order->order_id;
+$paymentId = (strlen(CSalePaySystemAction::GetParamValue("PAYMENT_ID")) > 0) ? CSalePaySystemAction::GetParamValue(
+    "PAYMENT_ID"
+) : $GLOBALS["SALE_INPUT_PARAMS"]["PAYMENT"]["ID"];*/
 
 /** @var \Bitrix\Sale\Order $order_info */
 $order_info = \Bitrix\Sale\Order::load($orderId);

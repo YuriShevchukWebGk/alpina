@@ -219,13 +219,13 @@
 
 				<table class="receiver_block">
 					<tr>
-						<td rowspan="2" colspan="4"><div>ВТБ 24 (ПАО) Г. МОСКВА</div><span>Банк получателя</span></td>
+						<td rowspan="2" colspan="4"><div>Филиал № 7701 Банка ВТБ (публичное акционерное общество) в г. Москве (Филиал № 7701 Банка ВТБ (ПАО))</div><span>Банк получателя</span></td>
 						<td>БИК</td>
-						<td><?= BIK_FOR_EXPENSE_OFFER ?></td>
+						<td>044525745</td>
 					</tr>
 					<tr>
 						<td>Сч. №</td>
-						<td>30101810100000000716</td>
+						<td>30101810345250000745</td>
 					</tr>
 					<tr>
 						<td>ИНН</td>

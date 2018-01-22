@@ -56,7 +56,7 @@
     <meta name="yandex-verification" content="9b63e2cc68c18dd9" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/jquery.fancybox.css" id="fancycss" media="screen" />
     <link rel="stylesheet" type="text/css" href="/js/fancybox-2/helpers/jquery.fancybox-thumbs.css" id="fancycss" media="screen" />
-    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+    <? file_exists($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') ? include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') : ""; //Хардовые AB-тесты?>
     <!-- header .personal -->
 </head>
 <body class="historyBodyWr" itemscope itemtype="https://schema.org/WebPage">
@@ -142,14 +142,26 @@
                 );?>
         </ul>
     </div>
+    <script>
+    function basketOpenFlag() {
+            $('.hidingBasketRight, .layout, .windowClose').toggle();
+            if ($('.hidingBasketRight, .layout, .windowClose').css('display') == 'block') {
+                $('html').css('overflow', 'hidden');
+            } else {
+                $('html').css('overflow', 'auto');
+            }
+        }
+    </script>
     <div class="lkWrapp">
-        <div class="headBasket">
-            <div class="BasketQuant">
+        <a href="/personal/cart/" onclick="basketOpenFlag();return false;">
+            <div class="headBasket">
+                <div class="BasketQuant">
+                </div>
             </div>
-        </div>
+        </a>
         <a href="/personal/profile/" <?if (!$USER->IsAuthorized()){?>id="authorisationPopup"<?}?>>
             <div>
-                <img src="/img/lkImg.png">
+                <img src="/img/lkImgBl.png">
             </div>
         </a>
         <p class="telephone"><!--+7 (495) 980 80 77-->

@@ -118,7 +118,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
     function setOptions() {
 
         <?if($arResult['PREORDER'] == 'Y') {?>
-            $(".delivery_date").remove();
+            $("#tPP .delivery_date").remove();
         <?}?>
 
 		$(".bx_section div:has(input:checked), input:checked>label").css("background", "rgba(216, 194, 165, 0.35)");
@@ -195,7 +195,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             }
         })
 
-        if($('.js_delivery_block > div').size() == 3 && $('.region_click.addCircle').size() > 0){
+        if($('.js_delivery_block > div').size() <= 3 && $('.region_click.addCircle').size() > 0){
             setTimeout(function() {
                 $('.check_delivery .faceText').click();
             }, 500);
@@ -513,6 +513,10 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                     // дополнительная проверка полей и вывод ошибки
                                     if (val == "Y")
                                     {
+                                        if($("#ORDER_PROP_11").size() > 0 && $("#ORDER_PROP_11").val().length < 16){
+                                            flag = false;
+                                            $('#ORDER_PROP_11').parent("div").children(".warningMessage").show();
+                                        }
 
                                         if($("#ORDER_PROP_111").size() > 0 && $('#ORDER_PROP_111').val() == false){
                                             flag = false;
@@ -1009,6 +1013,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                     <?/*<p class="blockText">Выберите ваше местоположение</p> <br>*/?>
 
                                     <?//блок с местоположением
+
                                         if ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]) {
                                             $location[] = ($arResult["ORDER_PROP"]["USER_PROPS_N"][2]);
                                         } else {
@@ -1102,7 +1107,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
     </div>
     <?if ($arResult["PAY_SYSTEM"]["ID"] == 24) {?>
     <div class="platbox_iframe_block" style="width: 50%; height: 613px; display: none; position: absolute; z-index: 2000; left: 27%; top: 30%; background-color: white;">
-        <iframe class="platbox_iframe" src='https://playground.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=6000000&currency=RUB&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&payer=<?= json_encode($payer) ?>&amount=<?= rawurldecode($amount) ?>' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
+        <iframe class="platbox_iframe" src='https://playground.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
         </iframe>
         <div class="platbox_iframe_closing" style="position: absolute; cursor: pointer; top: -10px; right: -13px;">
             <img src="/img/catalogLeftClose.png">

@@ -10,11 +10,21 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 $userGroup = CUser::GetUserGroup($USER->GetID());
 if ($USER->isAdmin() || in_array(6,$userGroup)) {
 	$holidays = array( //Указываем даты праздничных дней
-	'check',
-	'01.05.2017',
-	'08.05.2017',
-	'09.05.2017',
-	'06.11.2017',
+		'check',
+		'17.10.2017',
+		'18.10.2017',
+		'20.10.2017',
+		'06.11.2017',
+		'30.12.2017',
+		'31.12.2017',
+		'01.01.2017',
+		'02.01.2017',
+		'03.01.2017',
+		'04.01.2017',
+		'05.01.2017',
+		'06.01.2017',
+		'07.01.2017',
+		'08.01.2017',
 	);
 	$days = array();
 	

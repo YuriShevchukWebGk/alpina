@@ -238,7 +238,7 @@
                                             <?/*<a id="<?= $arItemIDs['BUY_LINK']; ?>" class="bx_bt_button bx_medium" href="javascript:void(0)" rel="nofollow"><?
                                                 echo('' != $arParams['MESS_BTN_BUY'] ? $arParams['MESS_BTN_BUY'] : GetMessage('CVP_TPL_MESS_BTN_BUY_GIFT'));
                                             ?></a>*/?>
-											<a id="<?= $arItemIDs['BUY_LINK']; ?>" class="bx_bt_button bx_medium" href="?action=ADD2BASKET&id=<?=$arItem["ID"]?>" rel="nofollow"><?
+											<a id="<?= $arItemIDs['BUY_LINK']; ?>" class="bx_bt_button bx_medium" href="?action=ADD2BASKET&id=<?=$arItem["ID"]?>" rel="nofollow" onclick="$('.nextPageWrap').html('<div id=nprogresss><div class=spinner><div class=spinner-icon></div></div></div>');"><?
 												echo('' != $arParams['MESS_BTN_BUY'] ? $arParams['MESS_BTN_BUY'] : GetMessage('CVP_TPL_MESS_BTN_BUY_GIFT'));
 											?></a>
                                         </div>

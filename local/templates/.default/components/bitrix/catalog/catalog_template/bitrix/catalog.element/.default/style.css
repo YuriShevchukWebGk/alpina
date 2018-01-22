@@ -1398,7 +1398,7 @@
 	-webkit-border-radius:35px;
 	-o-border-radius:35px;
 	-moz-border-radius:35px;
-	margin-top:20px;
+	margin-top:10px;
 	text-align:center;
 	padding:14px 58px;
 	box-sizing:border-box;
@@ -1479,3 +1479,4 @@
 .suggestions-suggestions {
     font-size: 16px;
 }
+.legal_description{font-size:14px}

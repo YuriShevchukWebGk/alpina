@@ -25,7 +25,6 @@ $str = file("/home/bitrix/www/parse_pickpoint.csv");
       $values[$i] = explode(';', $line);
     }
   }
-
 ?>
 <table id="tPP" onclick="return false;" style="display:<?=$displayValue?>;">
     <tr>
@@ -35,7 +34,7 @@ $str = file("/home/bitrix/www/parse_pickpoint.csv");
         <?
           foreach($values as $pickpoint){
 
-              if($pickpoint[0] == trim($adress[2])){
+              if($pickpoint[0] == trim($adress[2]) || $pickpoint[1] == trim($adress[1])){
                   $start = preg_replace('~\D+~','',$pickpoint[3]); // доставка начало;
                   $end = preg_replace('~\D+~','',$pickpoint[4]); // доставка конец
                   if($start == $end){

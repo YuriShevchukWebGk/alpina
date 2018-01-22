@@ -48,12 +48,15 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
                 </div>
 
                 <div class="registrationBlock">
+                    <?if($_GET["register"] != 'yes'){?>
+                        <?$APPLICATION->IncludeComponent("bitrix:system.auth.registration", "flat", Array(
 
-                    <?$APPLICATION->IncludeComponent("bitrix:system.auth.registration", "flat", Array(
-
-                        ),
-                        false
-                    );?>
+                            ),
+                            false
+                        );?>
+                    <?} else {
+                        echo '<p style="text-align: center">Вы успешно зарегестрированы!</p>';
+                    }?>
                 </div>
             <?} else {?>
                 <div class="reg_text">

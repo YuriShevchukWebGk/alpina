@@ -290,6 +290,8 @@ header .lkWrapp {
 
 @media screen and (max-width:1200px) {
 	body,html{max-width:1200px}
+	header .telephone {padding-right:0px}
+	.catalogLogo img {left:40px!important}
 }
 /* ----------- iPhone 4 and 4S ----------- */
 

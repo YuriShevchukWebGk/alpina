@@ -193,7 +193,7 @@ $APPLICATION->SetTitle("Где купить");
 		 • м. Электрозаводская, ул. Большая Семеновская, д. 26, стр. 2<br>
  <br>
  <br>
- <strong>Сеть магазинов «Читай Город» </strong><br>
+ <strong>Сеть книжных магазинов «Читай-город» </strong><br>
  <strong>http://www.chitai-gorod.ru</strong><br>
  <strong>Тел.: 8-800-444-8-444; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br>
  <strong>(495) 780-58-30</strong><br>

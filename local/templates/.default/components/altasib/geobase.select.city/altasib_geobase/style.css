@@ -239,7 +239,7 @@ a#altasib_geobase_btn.altasib_geobase_disabled,a#altasib_geobase_btn.altasib_geo
 	cursor:default;
 }
 #altasib_geobase_win{
-	display:none;
+	/*display:none;
 	top:9%;
 	left:0;
 	color:#000;
@@ -248,7 +248,7 @@ a#altasib_geobase_btn.altasib_geobase_disabled,a#altasib_geobase_btn.altasib_geo
 	width:100%;
 	z-index:100000;
 	height:100%;
-	position:fixed;
+	position:fixed;*/
 }
 #altasib_geobase_popup_back{
 	background-color:#000;
@@ -631,4 +631,16 @@ a#altasib_geobase_mb_btn.altasib_geobase_mb_disabled,a#altasib_geobase_mb_btn.al
 }
 .altasib_geobase_fst li:before{
     content: '';
+}
+.altasib_geobase_win {
+    display:none;
+    top:9%;
+    left:0;
+    color:#000;
+    margin:0;
+    padding:0;
+    width:100%;
+    z-index:100000;
+    height:100%;
+    position:fixed;
 }

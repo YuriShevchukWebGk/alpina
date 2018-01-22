@@ -42,7 +42,6 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 
 <div class="wrapperCategor">
     <div class="categoryWrapper">
-
         <div class="catalogIcon">
         </div>
         <div class="basketIcon">
@@ -79,7 +78,47 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
 
             <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
+			
+			<?if ($arResult["ID"] == 471) {?>
+				<h2 style="color:#627478">-30% при заказе от трех книг</h2>
 
+				<div style="font-size:17px">Дарите детям лучшие познавательные книги!<br /><br />
+
+С книгами <span style="color:red">«Альпина.Дети»</span> ваш ребёнок:<ul>
+
+<li>• станет любознательным исследователем;</li>
+<li>• узнает самые невероятные факты о любимых животных;</li>
+<li>• откроет для себя космос и захочет туда полететь;</li>
+<li>• полюбит науку и начнет экспериментировать;</li>
+<li>• оторвётся от гаджетов и начнёт замечать что-то интересное в мире вокруг.</li>
+</ul>
+<br />
+Торопитесь!
+<br />
+Акция продлится <span style="color:red">до 31 декабря</span>. Мы доставим книги <span style="color:red">в любую точку России</span>.<br /><br />
+Получить <span style="color:red">скидку 30%</span> очень просто: как только в вашей корзине будет более трех книг, представленных здесь, цена автоматически станет ниже.</div>
+			<?}?>
+			
+			<?
+			$arData = array();
+			$arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL");
+			$arFilter = Array("IBLOCK_ID" => 75, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_BIND_SECTION" => $arResult["ID"]);
+			$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+			while($ob = $res->GetNextElement())
+			{
+				$arData[] = $ob->GetFields();
+			}
+			
+			if(count($arData) > 0):
+			?> 
+			<?/*<div class="doner_tags">
+				<span>Популярные категории</span>
+				<?foreach($arData as $data):?>
+				<a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
+				<?endforeach;?>
+			</div>*/?>
+			
+			<?endif;?>
             <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
             $APPLICATION->IncludeComponent(
@@ -146,7 +185,6 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                 ),
                 false
             );?>
-
             <? /* Получаем от RetailRocket рекомендации для товара */
             $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
             $recsArray = json_decode($stringRecs);

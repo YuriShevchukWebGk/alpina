@@ -167,7 +167,8 @@
                         $order_code = str_pad($order_id, 14, "0", STR_PAD_LEFT);   
                         $unic_code = $partner_code.$order_code;      
                         $zip = ($order_properties['INDEX']) ? $order_properties['INDEX'] : $order_properties['F_INDEX'];                            
-                        $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="0" parcel_sumvl="'.$order_properties['SUM_PAID'].'" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$zip.'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                  
+                        $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="0" parcel_sumvl="'.$order_properties['SUM_PAID'].'" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$zip.'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                 
+						CSaleOrder::StatusOrder($order_id, "K");
                     }
                 }      
                                                      
@@ -283,7 +284,7 @@
                                              
     $arFilter = Array(       
         "DELIVERY_ID" => array_merge($commonDeliveryIDs, $internationalDeliveryIDs), 
-        "STATUS_ID" => "D", 
+        "@STATUS_ID" => array("D", "AC"),
         "PAYED" => "Y"                                                            
     );        
                                

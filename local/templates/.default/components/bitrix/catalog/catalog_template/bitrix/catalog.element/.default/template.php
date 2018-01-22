@@ -19,7 +19,7 @@
     LocalRedirect('/404.php', '301 Moved permanently');
 }?>
 <script>
-    $(document).ready(function(){
+    $(function(){
         <!-- //dataLayer GTM -->
         dataLayer.push({
             'stockInfo' : '<?= $StockInfo ?>',
@@ -41,7 +41,7 @@
             $(".basketIcon").hide();
         }
 
-        $(".buyLater").click(function(){
+        $("body").on('click', '.buyLater', function(){
             $.post("/ajax/ajax_add2wishlist.php", {id: <?= $arResult["ID"] ?>}, function(data){
                 $(".layout").show();
                 $(".wishlist_info").css("top", 1.5 * window.pageYOffset+"px");
@@ -266,11 +266,13 @@
                     <br>
                     <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
                     <br>
-                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
+                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a><br />
+					<span class="legal_description">* на каждый купленный сертификат вы получите счет-фактуру на аванс. Далее, по мере погашения сертификатов, выдается акт и счет-фактура на каждый «погашенный» сертификат.</span>
                 </div>
             </div>
             <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
             <input type="hidden" name="certificate_quantity" value="1"/>
+            <input type="hidden" name="certificate_id" value="<?=$arResult['ID']?>"/>
             <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>
             <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
         </form>
@@ -399,7 +401,7 @@
                 <p class="AlreadyInWishlist"><?= GetMessage("ALREADY_IN_WISHLIST") ?></p>
             </a>
             <?} else {?>
-            <a href="javascript:void(0); return true;" onclick="dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');">
+            <a href="javascript:void(0);" onclick="//dataLayer.push({event: 'addToWishList'});yaCounter1611177.reachGoal('addToWishlist');">
                 <p class="buyLater"><?= GetMessage("TO_BUY_LATER") ?></p>
             </a>
             <?}
@@ -474,7 +476,7 @@
             </div>
             <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                 <div class="characteris epubHide">
-                    <a href="http://www.alpinab2b.ru/product/prodvinut-brend/izdanie-spetstirazha/" title="Издать тираж книги с символикой компании" target="_blank" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
+					<a href='#' class="getInfoCourier" onclick="specEdition('<?=$arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"]?>');dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});return false;" title="Издать тираж книги с символикой компании"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
                 </div>
                 <?}?>
             <?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
@@ -544,7 +546,7 @@
         <?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])  && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <div id="diffversions">
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?if ($arResult["ID"] != 186046 && $arResult["ID"] != 372526) {?><?=GetMessage("PAPER_V")?><?} else {?><?= GetMessage("PAPER_WITHOUT_DIGITAL") ?><?}?></span></a>
-                <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
+                <a href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-ebook/'?>" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
             </div>
             <?}?>
         <?$frame = $this->createFrame()->begin();?>
@@ -651,7 +653,10 @@
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/PreOrder">
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
-                        <p class="newPriceText"><?= GetMessage("EXPECTED_DATE") ?><?= strtolower(FormatDate("j F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
+                        <p class="newPriceText"><?= GetMessage("EXPECTED_DATE_2") ?>
+                        <? $date_str = strtolower(FormatDate("F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
+                        <?=substr($date_str,0, strlen($date_str)-1).'е';?>
+                        </p>
 
                         <?foreach ($arResult["PRICES"] as $code => $arPrice) {?>
                             <?$StockInfo = "SoonStock";
@@ -944,10 +949,33 @@
                 $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
             }
             ?>
-
+            <?/*?>
              <ul class="shippings" data-weight="<?=$weight?>">
-             <?
-                if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
+                <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
+                    <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                        <?= GetMessage("MSK_DELIVERY") ?>
+
+                    </a> по Москве <br /><?=$delivery_day.' '?>
+                    <b><?if($arBasketPrice > FREE_SHIPING){
+                        echo GetMessage("FREE_DELIVERY_ENDING");
+                    } else {
+                        echo GetMessage("DELIVERY_POST");
+                    }?></b>
+                    </li>
+                    <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                        <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
+
+                    </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
+                    </li>
+                <?}?>
+                <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
+                    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
+                    ),
+                    false
+                );?>
+             <? */ ?>
+             <ul class="shippings" data-weight="<?=$weight?>">
+                <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
                     if($city == "Москва" || empty($city)){ ?>
                         <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
                             <?= GetMessage("MSK_DELIVERY") ?>
@@ -989,8 +1017,8 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "N",
-                            "SMALL_ENABLE" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
                             "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
@@ -1004,30 +1032,14 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "N",
-                            "SMALL_ENABLE" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
                             "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
                     );?>
                  <?} else {?>
-                    <?if($city == "Москва" || empty($city)){ ?>
-                        <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
-                            <?= GetMessage("MSK_DELIVERY") ?>
 
-                        </a> по Москве <br /><?=$delivery_day.' '?>
-                        <b><?if($arBasketPrice > FREE_SHIPING){
-                            echo GetMessage("FREE_DELIVERY_ENDING");
-                        } else {
-                            echo GetMessage("DELIVERY_POST");
-                        }?></b>
-                        </li>
-                        <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
-                            <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
-
-                        </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
-                        </li>
-                    <?}?>
                     <?$APPLICATION->IncludeComponent(
                         "altasib:geobase.select.city",
                         "altasib_geobase",
@@ -1035,8 +1047,8 @@
                             "COMPOSITE_FRAME_MODE" => "A",
                             "COMPOSITE_FRAME_TYPE" => "AUTO",
                             "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "N",
-                            "SMALL_ENABLE" => "N",
+                            "RIGHT_ENABLE" => "Y",
+                            "SMALL_ENABLE" => "Y",
                             "SPAN_LEFT" => "Мой город:",
                             "SPAN_RIGHT" => "Выберите город"
                         )
@@ -1214,10 +1226,10 @@
             <?}?>
             <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
             <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
-                <li data-id="2" class="tabsInElement"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</li>
-                <?}?>
+                <li data-id="2" class="tabIsRecenzion"><a class="ajax_link" href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-reviews/'?>"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</a></li>
+			<?}?>
             <? if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { ?>
-            <li data-id="3" class="tabsInElement" id="commentsLink"><?= GetMessage("COMMENTS_TITLE") ?></li>
+				<li data-id="3" class="tabsInElement" id="commentsLink"><a class="ajax_link" href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-comments/'?>"><?= GetMessage("COMMENTS_TITLE") ?></a></li>
             <?}?>
         </ul>
 
@@ -1362,6 +1374,14 @@
                 );?>
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
+
+				<?if (!empty($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'])) {
+					echo '<br /><h3>'.GetMessage("ADDITIONAL_IMAGES").'</h3>';
+					foreach ($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'] as $additional_image) {
+						$additional_image = CFile::ResizeImageGet($additional_image, array("width" => 500, "height" => 700), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+						echo '<center><img src="'.$additional_image['src'].'" /></center>';
+					}
+				}?>
             </div>
             <?$videosCount  = 0;
 
@@ -2084,5 +2104,35 @@
                 $("#bank_title").val(bank_suggestion['value']);
             }
         });
-    })
+    });
+
+	$(function(){
+		var count_recenzion = 1;
+		$('.tabIsRecenzion').click(function(){
+			if(count_recenzion){
+				$('.recenzion #loadingInfo').show();
+				count_recenzion = 0;
+				$.ajax({
+					type: 'POST',
+					url: '/local/templates/.default/ajax/recenzion.php',
+					data: 'id=<?= $arResult["ID"] ?>',
+					success: function(data){
+						$('.recenzion').html(data);
+					}
+				});
+			}
+		});
+
+		$('.tabIsRecenzion a').click(function(e){
+			e.preventDefault();
+		});
+		$('#commentsLink a').click(function(e){
+			e.preventDefault();
+		});
+
+		$('#digitalversion').click(function(e){
+			$('.digitalVersionWrap').html('<div class="wrap_prise_top"><?=GetMessage("EPUB")?><p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]["VALUE"]?> <span>руб.</span></p></div><div class="wrap_prise_bottom"><a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]["VALUE"]?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({"event" : "selectVersion", "action" : "leaveSite", "label": "<?=$arResult["NAME"];?>"});"><p class="inBasket"><?=GetMessage("BUY_EPUB")?></p></a></div>');
+			e.preventDefault();
+		});
+	});
 </script>

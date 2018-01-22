@@ -83,31 +83,33 @@ altasib_geobase.sc_init_handlers=function(){
 
 		dp_cities.click(function(event){event.preventDefault();});
 
-		$('#altasib_geobase_close a').click(function(event){
-			event.preventDefault();altasib_geobase.sc_cls();
-		});
 
-		$('.altasib_geobase_link_city').click(function(event){
+        $('body').on('click', '.altasib_geobase_close a', function(event){
+            event.preventDefault();altasib_geobase.sc_cls();
+        });
+
+		$('body').on('click', '.altasib_geobase_link_city', function(event){
 			if($('div#altasib_geobase_win').length>0)
 				altasib_geobase.sc_open();
 			else
 				altasib_geobase.sc_load_open();
 		});
 
-		$('.altasib_geobase_disabled#altasib_geobase_btn').click(function(event){
-			event.preventDefault();altasib_geobase.sc_onclk();
+        $('body').on('click', '.altasib_geobase_disabled#altasib_geobase_btny', function(event){
+            $(this).dblclick();
+			event.preventDefault();
+            altasib_geobase.sc_onclk();
 		});
 
-		$('.altasib_geobase_find #altasib_geobase_info').click(function(event){
+        $('body').on('click', '.altasib_geobase_find #altasib_geobase_info', function(event){
 			event.preventDefault();altasib_geobase.sc_add_city(event);
 		})
 		.keyup(function(event){altasib_geobase.sc_selKey(event);})
 		.dblclick(function(event){altasib_geobase.sc_onclk();});
 
-       /* $('.altasib_geobase_find #altasib_geobase_search')
-            .keyup(function(event){altasib_geobase.sc_inpKey(event);})
-            .keydown(function(event){altasib_geobase.sc_inpKeyDwn(event);}); */
-		$('.altasib_geobase_find #altasib_geobase_search').keyup(function(event){
+       console.log('yes');
+	   //$('body .altasib_geobase_find #altasib_geobase_search').keyup(function(event){
+       $('body').on('keyup', '.altasib_geobase_find #altasib_geobase_search', function(event){
             altasib_geobase.sc_inpKey(event);
         }).keydown(function(event){
             altasib_geobase.sc_inpKeyDwn(event);
@@ -243,6 +245,9 @@ altasib_geobase.after_set_city=function(data,cityid,cityName,id){
 		var list=$('div#altasib_geobase_mb_info');
 	}else{
 		var list=$('div#altasib_geobase_info');
+        $('.preload').show();
+        $('#altasib_geobase_btn').hide();
+        altasib_geobase.sc_inpKeyDwn(event);
 	}
 	list.html('');
 	if(data==''||data==null)
@@ -382,7 +387,7 @@ $(function(){
 
 altasib_geobase.sc_cls=function(vis){
 	if(vis==='visible'&&!$('div#altasib_geobase_popup').is(':visible'))return false;
-	$('div#altasib_geobase_win').animate({top:'-'+altasib_geobase.height},750).fadeOut(400);
+	$('div.altasib_geobase_win').animate({top:'-'+altasib_geobase.height},750).fadeOut(400);
 	$('div#altasib_geobase_popup_back').hide();
 	altasib_geobase.sc_is_open=false;
 	if(typeof altasib_geobase.replace!='undefined'){
@@ -430,7 +435,7 @@ altasib_geobase.sc_open=function(){
 		altasib_geobase.sc_init_vars();
 		$('div#altasib_geobase_mb_popup_back').show();
 	}else{
-		var win=$('div#altasib_geobase_win');
+		var win=$('div.altasib_geobase_win');
 		win.fadeIn();altasib_geobase.sc_init_vars();
 		$('div#altasib_geobase_popup_back').show();
 		win.animate({top:'9%'},750);
@@ -500,6 +505,9 @@ altasib_geobase.sc_load=function(){
 					var list=$('div#altasib_geobase_mb_info');
 				}else{
 					var list=$('div#altasib_geobase_info');
+                    $('.preload').show();
+                    $('#altasib_geobase_btn').hide();
+                    altasib_geobase.sc_inpKeyDwn(event);
 				}
 
 				list.html('');
@@ -645,10 +653,10 @@ altasib_geobase.sc_inpKey=function(e){//input search
 	e=e||window.event;
 	t=(window.event)?window.event.srcElement:e.currentTarget;
 	if(altasib_geobase.is_mobile){
-
 		var list=$('div#altasib_geobase_mb_info');
 	}else{
 		var list=$('div#altasib_geobase_info');
+        ;
         $('.preload').show();
         $('#altasib_geobase_btn').hide();
         altasib_geobase.sc_inpKeyDwn(event);

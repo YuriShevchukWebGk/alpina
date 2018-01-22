@@ -52,10 +52,12 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
      <?$APPLICATION->ShowHead();?>
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-	<?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+	<? file_exists($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') ? include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') : ""; //Хардовые AB-тесты?>
 	<?$APPLICATION->ShowProperty('FACEBOOK_META');?>
 	<!-- header .content -->
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=other&amp;mid=79276" async></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
 <body itemscope itemtype="<?=preg_match("/(.*)\/about\/contacts\/(.*)/i", $_SERVER['REQUEST_URI']) ? 'https://schema.org/ContactPage' : 'https://schema.org/WebPage'?>">
 <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter1611177 = new Ya.Metrika({ id:1611177, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/1611177" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
@@ -165,9 +167,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				$('.authorisationWrapper').show();
 				return false;
 			});
+            setTimeout(function() { $('.lkWrapp').show() }, 800);
+
 		});
 	</script>
-	<div class="lkWrapp">
+	<div class="lkWrapp" style="display: none;">
 		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
 			<div class="headBasket">
 				<div class="BasketQuant"></div>
@@ -210,7 +214,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		</p>
 	</div>
 	<?$frame->beginStub();?>
-	<div class="lkWrapp">
+    <?if(!CUser::IsAuthorized()) {?>
+	<div class="lkWrapp" style="display: none;">
 		<a href="/personal/cart/" onclick="basketOpenFlag();return false;">
 			<div class="headBasket">
 				<div class="BasketQuant" style="display: none;"></div>
@@ -240,6 +245,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			);?>
 		</p>
 	</div>
+    <?}?>
 	<?$frame->end();?>
 </header>
 

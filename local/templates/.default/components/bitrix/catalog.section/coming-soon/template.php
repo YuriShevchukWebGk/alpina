@@ -12,7 +12,10 @@
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
     $gdeSlon = '';
-?>
+$is_bot_detected = false;
+if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) {
+    $is_bot_detected = true;
+}?>
 <?if ($_REQUEST["DIRECTION"] == "DESC")
     {?>
     <style>
@@ -129,7 +132,7 @@
                                     if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23)
                                     {
                                     ?>
-                                        <p class="priceOfBook"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <span>руб.</span></p>
+                                        <p class="priceOfBook"><?=ceil($arPrice["DISCOUNT_VALUE_VAT"])?> <? if (!$is_bot_detected){?><span class="rub_symbol">i</span><?} else {?><span>руб.</span><?}?></p>
                                         <?
                                             if ($dbBasketItems["QUANTITY"] == 0)
                                             {?>
@@ -149,7 +152,7 @@
                                     else
                                     {
                                     ?>
-                                        <p class="priceOfBook"><?=strtolower(FormatDate("j F Y", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
+                                        <p class="priceOfBook"><?=strtolower(FormatDate("f Y", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS")));?></p>
                                         <a class="product<?=$arItem["ID"];?>" href="<?echo $arItem["ADD_URL"]?>" onclick="addtocart(<?=$arItem["ID"];?>, '<?=$arItem["NAME"];?>');return false;"><p class="basketBook">Предзаказ</p></a>
                                     <?
                                     }

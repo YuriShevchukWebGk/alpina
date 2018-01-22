@@ -932,6 +932,10 @@ $(document).ready(function(){
 	NProgress.set(0.6);
 	setTimeout(function() { NProgress.done();}, 200);
 	//Progress Bar END
+
+    $('body').on('click', '#altasib_geobase_btn', function(){
+        altasib_geobase.sc_onclk();
+    })
 });
 
 
@@ -952,20 +956,30 @@ function update_quant(sign, e)
     update_basket($(this), "minus");
     })*/
     var numbOfBooks = parseInt($(e).parent().children('p').html());
+    var quantity = numbOfBooks;
     switch (sign)
     {
         case "plus":
-            var new_count = numbOfBooks+1;
-            $(e).parent().children('p').html(new_count);
+            quantity = numbOfBooks+1;
+            //$(e).parent().children('p').html(new_count);
             break;
         case "minus":
             if (numbOfBooks > 1)
             {
-                $(e).parent().children('p').html(numbOfBooks-1);
+                quantity = numbOfBooks-1;
             }
             break;
     }
-    update_basket(e);
+    //var quantity = $(e).closest(".countMenu").find(".countOfBook").html();
+    var id = $(e).closest(".basketBook").attr("basket-id");
+    var product = $(e).closest(".basketBook").attr("product-id");
+    var delay = $(e).closest(".basketBook").attr("basket-delay");
+    $.post("/ajax/ajax_add2basket.php", {quantity: quantity, id: id, product: product, delay: delay, action: 'update'}, function(data){
+        $(".hidingBasketRight").html(data);
+        var total_quant = parseInt($(".hidingBasketRight p.count").text().replace(/\D/g, ""));
+        $(".BasketQuant").html(total_quant);
+    });
+    //update_basket(e);
 }
 
 function update_basket(e)

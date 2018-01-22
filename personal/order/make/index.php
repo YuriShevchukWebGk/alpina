@@ -82,7 +82,7 @@ $APPLICATION->SetTitle("Заказы");
 		"USER_CONSENT_ID" => "0",
 		"USER_CONSENT_IS_CHECKED" => "Y",
 		"USER_CONSENT_IS_LOADED" => "N",
-		"ADDITIONAL_PICT_PROP_74" => "-"
+		"ADDITIONAL_PICT_PROP_78" => "-"
 	),
 	false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

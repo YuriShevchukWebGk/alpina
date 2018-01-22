@@ -426,3 +426,6 @@ strong em, em strong {
     border-left: 1px solid hsla(0,0%,100%,.25);
 }
 .ya-share2__counter::before {display:none}
+.blogWrap .find{margin:30px auto 0;width:428px;position:relative}
+.blogWrap input{border-color:-moz-use-text-color -moz-use-text-color #fff;border-style:none none solid;border-width:medium medium 2px;color:#d0d8da;font-size:20px;padding-bottom:13px;width:325px;background:transparent 302px 6px no-repeat}
+.find button[type="submit"]{background:transparent}
