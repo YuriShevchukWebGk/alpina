@@ -1070,7 +1070,12 @@
                 if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID){
                     $result = $message->sendMessage($ID,$val);
                 }
-            }
+            } elseif (($val=="A")) {
+				$message = new Message();
+                if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID){
+                    $result = $message->sendMessage($ID,$val);
+                }
+			}
             $_SESSION["MESSAGE_STATE"] = $val;
             $_SESSION["MESSAGE_PRICE"] = $order['PRICE'];
             $_SESSION["MESSAGE_ORDER"] = $ID;
