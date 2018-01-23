@@ -1263,4 +1263,4 @@ body div a.google_auth{background:url(/img/google_auth.jpg) no-repeat 30% 50%;di
 .orderedBooks .bookRow .bookTitle{float:left;padding:0 20px;width:60%}
 .orderedBooks .bookRow .bookQuantity{float:left;padding:0 20px;width:10%}
 .orderedBooks .bookRow .bookPrice{float:left;padding:0 20px}
-
+body>.bottomBlock{display:none}
