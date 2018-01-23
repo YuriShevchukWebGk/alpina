@@ -87,19 +87,7 @@
 
 <div id="map" style="width:10px; height:10px;"></div>
 
-<?$APPLICATION->IncludeComponent(
-    "altasib:geobase.select.city",
-    "",
-    Array(
-        "COMPOSITE_FRAME_MODE" => "A",
-        "COMPOSITE_FRAME_TYPE" => "AUTO",
-        "LOADING_AJAX" => "N",
-        "RIGHT_ENABLE" => "Y",
-        "SMALL_ENABLE" => "Y",
-        "SPAN_LEFT" => "Мой город:",
-        "SPAN_RIGHT" => "Выберите город"
-    )
-);?>
+
 <?
 // получение количества дней с которого возможна доставка
 $datetime1 = new DateTime(date("d.m.Y"));
@@ -1022,7 +1010,19 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 
                                         PrintPropsForm($location, $arParams["TEMPLATE_LOCATION"]);
                                     ?>
-
+                                    <?$APPLICATION->IncludeComponent("altasib:geobase.select.city", "city_order", Array(
+                                        "COMPOSITE_FRAME_MODE" => "A",    // Голосование шаблона компонента по умолчанию
+                                            "COMPOSITE_FRAME_TYPE" => "AUTO",    // Содержимое компонента
+                                            "LOADING_AJAX" => "N",    // Подгружать окно "Выбор города" со списком городов ajax-запросом
+                                            "RIGHT_ENABLE" => "Y",    // Выводить вместо правой надписи строки "Выберите город" город, определенный автоматически
+                                            "SMALL_ENABLE" => "N",    // Показывать компактное окно подтверждения "Это ваш город?"
+                                            "SPAN_LEFT" => "Мой город:",    // Текст левой строки, клик по которой вызывает всплывающее окно
+                                            "SPAN_RIGHT" => "Выберите город",    // Текст правой строки, если город не задан или не определен
+                                            "COMPONENT_TEMPLATE" => ".default",
+                                            "SMALL_TEXT" => ""
+                                        ),
+                                        false
+                                    );?>
                                     <?
                                         if ($arParams["DELIVERY_TO_PAYSYSTEM"] == "p2d")
                                         {

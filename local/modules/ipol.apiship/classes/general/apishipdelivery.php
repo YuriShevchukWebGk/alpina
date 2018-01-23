@@ -1,7 +1,7 @@
 <?
 cmodule::includeModule('sale');
 IncludeModuleLangFile(__FILE__);
-include_once($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/ipol.apiship/classes/general/apishiphelper.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/local/modules/ipol.apiship/classes/general/apishiphelper.php');
 
 /*
 	IPOLapiship_CACHE_TIME - время кэша в секундах
