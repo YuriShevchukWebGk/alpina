@@ -1,7 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Спецпредложения");
-$APPLICATION->SetPageProperty("description", "Спецпредложения");
+$APPLICATION->SetTitle("Скидки дня на книги");
+$APPLICATION->SetPageProperty("description", "Скидки дня");
 
 if ($_REQUEST["DIRECTION"])
 {

@@ -197,6 +197,7 @@
                             }
                             if(flag){
                                 $("#js_register_submit").submit();
+                                //location.href = '/auth/?register=yes';
                             }
                         },
                         error: function()

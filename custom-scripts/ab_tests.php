@@ -50,16 +50,28 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
             $(data).appendTo("body").fadeIn();
         });
     }
+	
+    function subscribePopupChildren() {
+        $.post("/ajax/subscribe_pop_children.php", {id: 1}, function(data){
+            $(data).appendTo("body").fadeIn();
+        });
+    }
 
     $(document).ready(function() {
         $(".catalogIcon").html("<span>Каталог</span>");
         $(".basketIcon").html("<span>Корзина</span>");
 
         <?if (empty($_COOKIE["subscribePopup"]) && empty($APPLICATION->get_cookie("subscribePopup"))) {
-            if (strpos($APPLICATION->GetCurPage(),"/personal/") === false) {?>
-                if (readCookie("subscribePopup") == null) {
-                    setTimeout(subscribePopup, 2000);
-                }
+            if (strpos($APPLICATION->GetCurPage(),"/personal/") === false) {
+				if (strpos($APPLICATION->GetCurPage(),"/BooksForParentsAndChildren/") === false && strpos($APPLICATION->GetCurPage(),"/KnigiDlyaDetei/") === false && strpos($APPLICATION->GetCurPage(),"/BooksForParents/") === false) {?>
+					if (readCookie("subscribePopup") == null) {
+						setTimeout(subscribePopup, 2000);
+					}
+				<?} else {?>
+					if (readCookie("subscribePopupChildren") == null) {
+						setTimeout(subscribePopupChildren, 2000);
+					}
+				<?}?>
             <?}?>
         <?}?>
     });

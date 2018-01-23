@@ -64,7 +64,7 @@
     <meta property="og:description" content="<?=htmlspecialchars($APPLICATION->ShowProperty("description"))?>" />*/?>
     <?$APPLICATION->ShowProperty('FACEBOOK_META');?>
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-    <?file_exists($_SERVER["DOCUMENT_ROOT"] . '/include/include_ab_tests.php') ? include($_SERVER["DOCUMENT_ROOT"] . '/include/include_ab_tests.php') : ""; //Хардовые AB-тесты?>
+    <? file_exists($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') ? include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') : ""; //Хардовые AB-тесты?>
     <!-- header .eshop_bootstrap_green -->
 </head>
 <body itemscope itemtype="
