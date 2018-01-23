@@ -204,6 +204,7 @@
 												$status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));
 												if ($prop = $status->GetNext()) {
                                                     $date_state[] = $prop['VALUE'];
+													$setSoonButton = true;
                                                     ?><p class="newPriceText">Поступит в продажу в
                                                     <?$date_str = strtolower(FormatDate("F", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
                                                     <?=substr($date_str,0, strlen($date_str)-1).'е';?> </p><?
@@ -487,8 +488,12 @@
                 ?>
             </div>
             <p class="nextPageWrap">
-                <? if ($arResult['allSum']) { ?>
-                    <a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                <? if ($arResult['allSum']) {
+					if ($setSoonButton) {?>
+						<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_PREORDER")?></a>
+					<?} else {?>
+						<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+					<?}?>
                 <? } else { ?>
                     <span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
                 <? } ?>
