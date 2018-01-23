@@ -306,7 +306,7 @@ class apishipHelper{
 				$arCity["REGION_NAME"] = "";
 		}
 
-
+        logger($arCity, $_SERVER["DOCUMENT_ROOT"].'/logs/log.txt');
 		if (!$arCity)
 			$arCity = CSaleLocation::GetByID($locationID, "RU");
 
