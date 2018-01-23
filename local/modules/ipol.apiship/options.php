@@ -18,7 +18,7 @@ if(apishipdriver::$MODULE_ID !== $module_id)
 
 CModule::IncludeModule('sale');
 CJSCore::Init(array("jquery"));CJSCore::Init(array('window'));
-$isLogged = COption::GetOptionString($module_id,"logged",false); 
+$isLogged = COption::GetOptionString($module_id,"logged",false);
 $converted = apishipHelper::isConverted();
 
 //определяем статусы заказов
@@ -79,7 +79,7 @@ $arAllOptions = array(
 	"status" => Array(
 		array("setDeliveryId", GetMessage("IPOLapiship_OPT_setDeliveryId"),"Y",array("checkbox")),
 		array("markPayed", GetMessage("IPOLapiship_OPT_markPayed"),"N",array("checkbox")),
-		
+
 		array("uploaded", GetMessage("IPOLapiship_OPT_statusUPLOADED"),false,array("selectbox"),$orderState),
 		array("uploadingError", GetMessage("IPOLapiship_OPT_statusUPLOADED_ERROR"),false,array("selectbox"),$orderState),
 		array("statusSTORE", GetMessage("IPOLapiship_OPT_statusSTORE"),false,array("selectbox"),$orderState),
@@ -90,7 +90,7 @@ $arAllOptions = array(
 		array("statusOTKAZ", GetMessage("IPOLapiship_OPT_statusOTKAZ"),false,array("selectbox"),$orderState),
 	),
 	"storeProps" => Array(// адрес магазина откуда отправляется заказ
-		
+
 		Array("Storestreet", GetMessage("IPOLapiship_Storestreet"), '', Array("text")),
 		Array("Storehouse", GetMessage("IPOLapiship_Storehouse"), '', Array("text")),
 		Array("Storeblock", GetMessage("IPOLapiship_Storeblock"), '', Array("text")),
@@ -99,7 +99,7 @@ $arAllOptions = array(
 		Array("StorecontactName", GetMessage("IPOLapiship_StorecontactName"), '', Array("text")),
 		Array("Storephone", GetMessage("IPOLapiship_Storephone"), '', Array("text")),
 		Array("Storeemail", GetMessage("IPOLapiship_Storeemail"), '', Array("text")),
-		
+
 		// договор на курьерскую доставку
 		Array("DogovorNum", GetMessage("IPOLapiship_DogovorNum"), '', Array("text")),
 		Array("DogovorDate", GetMessage("IPOLapiship_DogovorDate"), '', Array("text"))
@@ -172,7 +172,7 @@ if($REQUEST_METHOD=="POST" && strlen($Update.$Apply.$RestoreDefaults)>0 && check
 		$_REQUEST['tarifs']        = ($_REQUEST['tarifs'])        ? serialize($_REQUEST['tarifs'])        : 'a:0:{}';
 		$_REQUEST['dostTimeout']   = (floatval($_REQUEST['dostTimeout']) > 0) ? $_REQUEST['dostTimeout']  : 6;
 		$_REQUEST['cntExpress']   = (floatval($_REQUEST['cntExpress']) > 0) ? $_REQUEST['cntExpress']  : 0;
-		
+
 		$arNumReq = array('numberOfPrints','termInc','lengthD','widthD','heightD','weightD');
 		foreach($arNumReq as $key){
 			$_REQUEST[$key] = intval($_REQUEST[$key]);
@@ -192,7 +192,7 @@ if($REQUEST_METHOD=="POST" && strlen($Update.$Apply.$RestoreDefaults)>0 && check
 				__AdmSettingsSaveOption($module_id, $option);
 			}
 		}
-		
+
 		if(COption::GetOptionString($module_id,'delReqOrdr','')=='Y')
 			RegisterModuleDependences("sale","OnOrderDelete",$module_id,"imldriver","delReqOD");
 		else
@@ -200,7 +200,7 @@ if($REQUEST_METHOD=="POST" && strlen($Update.$Apply.$RestoreDefaults)>0 && check
 	}
 
 	if($_REQUEST["back_url_settings"] <> "" && $_REQUEST["Apply"] == "")
-		 echo '<script type="text/javascript">window.location="'.CUtil::addslashes($_REQUEST["back_url_settings"]).'";</script>';				
+		 echo '<script type="text/javascript">window.location="'.CUtil::addslashes($_REQUEST["back_url_settings"]).'";</script>';
 }
 
 function ShowParamsHTMLByArray($arParams)
@@ -236,7 +236,7 @@ function ShowParamsHTMLByArray($arParams)
 						$first = true;
 						foreach($arCites as $cite => $city){
 							$apishipcity = apishipHelper::getNormalCityByLocationID($city);
-							
+
 							$strSel .= "<option ". ($first?"selected":"") ." value='".$apishipcity["BITRIX_ID"]."'>".$apishipcity['NAME']." [$cite]</option>";
 							if ($first)
 								$first = false;
@@ -259,7 +259,7 @@ function ShowParamsHTMLByArray($arParams)
 				$str.='<option '.$chkd.' value="'.$key.'">'.$val.'</option>';
 			}
 			echo '<tr>
-					<td width="50%" class="adm-detail-content-cell-l">'.$Option[1].'</td>  
+					<td width="50%" class="adm-detail-content-cell-l">'.$Option[1].'</td>
 					<td width="50%" class="adm-detail-content-cell-r"><select name="'.$Option['0'].'">'.$str.'</select></td>
 				</tr>';
 		}
@@ -311,13 +311,13 @@ function showOrderOptions(){//должна вызываться после получения плательщиков
 					<div class="close" onclick="$(this).closest('.b-popup').hide();"></div>
 				</div>
 			<?}
-			
+
 			if($arError['str'])
 				$showErr=true;
 		}
 		elseif(array_key_exists($orderProp[0],$arNomatterProps))
 			$showErr=false;
-		
+
 		$styleTdStr = ($orderProp[0] == 'street')?'style="border-top: 1px solid #BCC2C4;"':'';
 	?>
 		<tr>
@@ -372,13 +372,13 @@ $tabControl = new CAdminTabControl("tabControl", $aTabs);
 	<?
 	$tabControl->Begin();
 	$tabControl->BeginNextTab();
-	include_once($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/".$module_id ."/optionsInclude/faq.php");
+	include_once($_SERVER['DOCUMENT_ROOT']."/local/modules/".$module_id ."/optionsInclude/faq.php");
 	$tabControl->BeginNextTab();
-	include_once($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/".$module_id ."/optionsInclude/setups.php");
+	include_once($_SERVER['DOCUMENT_ROOT']."/local/modules/".$module_id ."/optionsInclude/setups.php");
 	$tabControl->BeginNextTab();
-	include_once($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/".$module_id ."/optionsInclude/delivery.php");
+	include_once($_SERVER['DOCUMENT_ROOT']."/local/modules/".$module_id ."/optionsInclude/delivery.php");
 	$tabControl->BeginNextTab();
-	include_once($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/".$module_id ."/optionsInclude/table.php");
+	include_once($_SERVER['DOCUMENT_ROOT']."/local/modules/".$module_id ."/optionsInclude/table.php");
 	$tabControl->Buttons();
 	?>
 	<div align="left">
@@ -392,6 +392,6 @@ $tabControl = new CAdminTabControl("tabControl", $aTabs);
 else{
 	$tabControl->Begin();
 	$tabControl->BeginNextTab();
-	include_once($_SERVER['DOCUMENT_ROOT']."/bitrix/modules/".$module_id ."/optionsInclude/login.php");
+	include_once($_SERVER['DOCUMENT_ROOT']."/local/modules/".$module_id ."/optionsInclude/login.php");
 	$tabControl->End();
 }
