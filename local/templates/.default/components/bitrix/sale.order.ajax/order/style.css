@@ -1147,7 +1147,7 @@ body .altasib_geobase_link{
     margin-left: 35px;
     font-weight: normal;
 }
-.apiship_pvzLair span{
+.apiship_pvzLair span, #IPOLapiship_injectHere_pickup{
     color: #12a9e1;
     font-size: 15px;
     margin-left: 35px;

@@ -1,4 +1,4 @@
-<?  
+<?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 
@@ -3410,14 +3410,33 @@ function SyncProductCode($arFields) {
         $new_iblock_element_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 78, "ID" => $arFields["ID"]), false, false, array("IBLOCK_ID", "ID", "XML_ID", "PROPERTY_ID_BITRIKS"));
         while ($new_iblock_element = $new_iblock_element_info -> Fetch()) {
             $id_bitrix_property_value = intval($new_iblock_element["PROPERTY_ID_BITRIKS_VALUE"]);
-            $new_iblock_element_code = $new_iblock_element["XML_ID"];    
-        } 
+            $new_iblock_element_code = $new_iblock_element["XML_ID"];
+        }
         if ($id_bitrix_property_value > 0) {
             $current_iblock_element = new CIBlockElement;
             $arLoadProductArray = array("XML_ID" => $new_iblock_element_code);
             $res = $current_iblock_element -> Update($id_bitrix_property_value, $arLoadProductArray);
-        } 
+        }
     }
+}
+// задаем свои условия доставки apichip
+AddEventHandler('ipol.apiship', 'onCalculate', 'changeapishipTerms');
+
+function changeapishipTerms(&$arResult, $profile, $arConfig, $arOrder){
+
+   //     $profile - профиль
+   //     $arConfig - настройки СД
+  /*      $arOrder - параметры заказа
+            LOCATION_TO   - id местоположения доставки
+            LOCATION_FROM - id местоположения отправления
+            PRICE         - стоимость заказа
+            WEIGHT        - вес заказа в граммах
+        $arResult - массив вида
+            RESULT  - OK, если рассчет верен, ERROR - если ошибка
+            VALUE   - стоимость доставки в рублях
+            TRANSIT - срок доставки в днях
+            TARIF   - рассчитанный тариф, только для информации  */
+
 }
 
 ?>

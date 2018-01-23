@@ -163,6 +163,9 @@
                         } elseif ($arProperties["TYPE"] == "TEXTAREA") {
                             $rows = ($arProperties["SIZE2"] > 10) ? 4 : $arProperties["SIZE2"];
                         ?>
+                        <?if($arProperties["FIELD_ID"] == "ORDER_PROP_ADDRESS"){
+                            $arProperties["VALUE"] = $_SESSION["city_order_checked"].', '.$arProperties["VALUE"];
+                        }?>
                         <div class="bx_block r3x1">
                             <textarea rows="<?=$rows?>" cols="<?=$arProperties["SIZE1"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>"><?=$arProperties["VALUE"]?></textarea>
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>

@@ -182,7 +182,7 @@
             <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
 
             } else {?>
-            <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?>">
+            <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?> <?=($arDelivery["PRICE"] == '')? 'apichip':''?>">
                 <?
                 $arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
                 $pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
