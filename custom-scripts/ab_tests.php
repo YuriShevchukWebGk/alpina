@@ -20,35 +20,29 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 <link rel="search" href="/opensearch.xml" title="Alpina.ru" type="application/opensearchdescription+xml" />
 
 <link href="/bitrix/css/main/font-awesome.css?146037394928798" type="text/css" rel="stylesheet" />
-
-<?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
-    if (!preg_match("/([0-9]+)/i",$APPLICATION->GetCurPage())) {?>
-        <style>
-            .catalogIcon span, .basketIcon span {
-                color: #99ABB1;
-            }
-        </style>
-    <?}?>
-<?}?>
-
 <style>
-.productElementWrapp .dopSaleWrap{display:none}
+	.productElementWrapp .dopSaleWrap{display:none}
+	<?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false) {
+		if (!preg_match("/([0-9]+)/i",$APPLICATION->GetCurPage())) {?>
+				.catalogIcon span, .basketIcon span {
+					color: #99ABB1;
+				}
+		<?}?>
+	<?}?>
 </style>
 
 <script type="text/javascript">
     $(document).ready(function() {
-        <?if (empty($_COOKIE["subscribePopup"]) && empty($APPLICATION->get_cookie("subscribePopup"))) {
-            if (strpos($APPLICATION->GetCurPage(),"/personal/") === false) {
-				if (strpos($APPLICATION->GetCurPage(),"/BooksForParentsAndChildren/") === false && strpos($APPLICATION->GetCurPage(),"/KnigiDlyaDetei/") === false && strpos($APPLICATION->GetCurPage(),"/BooksForParents/") === false) {?>
-					if (readCookie("subscribePopup") == null) {
-						setTimeout(subscribePopup, 2000);
-					}
-				<?} else {?>
-					if (readCookie("subscribePopupChildren") == null) {
-						setTimeout(subscribePopupChildren, 2000);
-					}
-				<?}?>
-            <?}?>
+        <?if (empty($_COOKIE["subscribePopup"]) && empty($APPLICATION->get_cookie("subscribePopup")) && empty($_COOKIE["subscribePopupChildren"]) && empty($APPLICATION->get_cookie("subscribePopupChildren"))) {
+			if (strpos($APPLICATION->GetCurPage(),"/BooksForParentsAndChildren/") === false && strpos($APPLICATION->GetCurPage(),"/KnigiDlyaDetei/") === false && strpos($APPLICATION->GetCurPage(),"/BooksForParents/") === false) {?>
+				if (readCookie("subscribePopup") == null) {
+					setTimeout(subscribePopup, 2000);
+				}
+			<?} else {?>
+				if (readCookie("subscribePopupChildren") == null) {
+					setTimeout(subscribePopupChildren, 2000);
+				}
+			<?}?>
         <?}?>
 		
 		<?#Настраиваю свои брошенные корзины?>
@@ -58,7 +52,6 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 				setAbandonedInfo(<?=$_COOKIE["userId"]?>,<?=CSaleBasket::GetBasketUserID()?>);
 			}, 1000 * 60 * 10);
 		<?}?>
-
     });
 	
     document.addEventListener('visibilitychange', function(e) {

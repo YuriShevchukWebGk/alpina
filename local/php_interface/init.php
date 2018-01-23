@@ -3317,16 +3317,13 @@
 
     AddEventHandler("sale", "OnBeforeBasketAdd", "ProductAddPreOrder");  // событие перед добавлением товара в корзину
     function ProductAddPreOrder(&$arFields) {
-        $res = CIBlockElement::GetList(Array(), Array("ID" => $_GET["id"]), false, false, Array("PROPERTY_STATE"));
-        if($item = $res->Fetch()){
-            if($_GET["action"] == "ADD2BASKET" && $_GET["id"] && $item["PROPERTY_STATE_ENUM_ID"]){ // проверяем доступен товар для покупки или является предзаказом
-                $arFields["DELAY"] = "Y";	  // перемещаем товар в предзаказ
-
-                return $arFields;   // возвращаем знаячение
-            }
-        }
-
-
+		if ($_GET["action"] == "ADD2BASKET" && $_GET["id"]) {
+			$res = CIBlockElement::GetList(Array(), Array("ID" => $_GET["id"], "PROPERTY_STATE" => STATE_SOON), false, false, Array("ID"));
+			if($item = $res->Fetch()) {
+				$arFields["DELAY"] = "Y";	  // перемещаем товар в предзаказ
+				return $arFields;   // возвращаем знаячение
+			}
+		}
     }
 
     //AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'updatingQuantityforPreorderItems');
