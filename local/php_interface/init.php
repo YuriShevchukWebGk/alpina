@@ -3320,7 +3320,7 @@
 		if ($_GET["action"] == "ADD2BASKET" && $_GET["id"]) {
 			$res = CIBlockElement::GetList(Array(), Array("ID" => $_GET["id"], "PROPERTY_STATE" => STATE_SOON), false, false, Array("ID"));
 			if($item = $res->Fetch()) {
-				$arFields["DELAY"] = "Y";	  // перемещаем товар в предзаказ
+				//$arFields["DELAY"] = "Y";	  // перемещаем товар в предзаказ
 				return $arFields;   // возвращаем знаячение
 			}
 		}

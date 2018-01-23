@@ -41,6 +41,9 @@
                     <tr>
                         <td></td>
                         <?
+							foreach ($arResult["GRID"]["ROWS"] as $k => $arItem){
+								$arResult["GRID"]["ROWS"][$k]["DELAY"] = "N";
+							}
                             foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader):
                                 $arHeader["name"] = (isset($arHeader["name"]) ? (string)$arHeader["name"] : '');
                                 if ($arHeader["name"] == '')
