@@ -81,37 +81,34 @@
                                 </a>
                                 <p class="bookAutor"><?= $arResult["AUTHORS"][$arItem["PROPERTIES"]["AUTHORS"]["VALUE"][0]]["NAME"] ?></p>
                                 <p class="tapeOfPack"><?= $arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"] ?></p>
-                                <?
-                                    foreach ($arItem["PRICES"] as $code => $arPrice) {
-                                        if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")
-                                            && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
-                                        ?>
-                                        <p class="priceOfBook"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"]) ?> <span>руб.</span></p>
-                                        <?
-                                            if ($arResult["ITEM_IN_BASKET"][$arBasketItems["PRODUCT_ID"]]["QUANTITY"] == 0) {?>
-                                            <a class="product<?= $arItem["ID"]; ?>" href="<?= $arItem["ADD_URL"] ?>" onclick="addtocart(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>'); addToCartTracking(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>', '<?= $arPrice["VALUE"] ?>', '<?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?>', '1'); return false;">
-                                                <p class="basketBook">В корзину</p>
-                                            </a>
-                                            <?} else {?>
-                                            <a class="product<?= $arItem["ID"]; ?>" href="/personal/cart/">
-                                                <p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p>
-                                            </a>
-                                            <?}
-                                        } else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {
-                                        ?>
-                                        <p class="priceOfBook"><?= $arItem["PROPERTIES"]["STATE"]["VALUE"] ?></p>
-                                        <?
-                                        } else {
-                                        ?>
-                                        <p class="priceOfBook"><?= strtolower(FormatDate("j F Y", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
-                                        <?
-                                        }
-                                    }
-									$gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
+                                <?foreach ($arItem["PRICES"] as $code => $arPrice) {
+									if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")
+										&& intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {?>
+									<p class="priceOfBook"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"]) ?> <span>руб.</span></p>
+									<?if ($arResult["ITEM_IN_BASKET"][$arBasketItems["PRODUCT_ID"]]["QUANTITY"] == 0) {?>
+										<a class="product<?= $arItem["ID"]; ?>" href="<?= $arItem["ADD_URL"] ?>" onclick="addtocart(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>'); addToCartTracking(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>', '<?= $arPrice["VALUE"] ?>', '<?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?>', '1'); return false;">
+											<p class="basketBook">В корзину</p>
+										</a>
+										<?} else {?>
+										<a class="product<?= $arItem["ID"]; ?>" href="/personal/cart/">
+											<p class="basketBook" style="background-color: #A9A9A9;color: white;">Оформить</p>
+										</a>
+										<?}
+									} else if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")) {?>
+										<p class="priceOfBook"><?= $arItem["PROPERTIES"]["STATE"]["VALUE"] ?></p>
+									<?} else {?>
+										<a class="product<?= $arItem["ID"]; ?>" href="<?= $arItem["ADD_URL"] ?>" onclick="addtocart(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>'); addToCartTracking(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>', '<?= $arPrice["VALUE"] ?>', '<?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?>', '1'); return false;">
+											<p class="basketBook">Предзаказ</p>
+										</a>
+										<p class="priceOfBook"><?= strtolower(FormatDate("j F Y", MakeTimeStamp($arItem['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></p>
+									<?}
+								}
+								
+								$gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
 
-                                    if ($USER -> IsAuthorized()) {?>
-                                        <p class="basketLater" id="<?= $arItem["ID"] ?>">Куплю позже</p>
-                                    <?}?>
+								if ($USER -> IsAuthorized()) {?>
+									<p class="basketLater" id="<?= $arItem["ID"] ?>">Куплю позже</p>
+								<?}?>
                             </div>
                         </li>
                     <?}?>
