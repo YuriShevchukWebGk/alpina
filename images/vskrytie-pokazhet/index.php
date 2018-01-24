@@ -6,9 +6,9 @@
     <title>Фотографии из книги «Вскрытие покажет: Записки увлеченного судмедэксперта»</title>
     <meta name="keywords" content=""/>
     <meta name="description" content="Фотографии из книги «Вскрытие покажет: Записки увлеченного судмедэксперта»"/>
-    <link href="css/style.css?1234" rel="stylesheet">
+    <link href="css/style.css?12345" rel="stylesheet">
     <link href="css/template_57363f3dd71b4bfd17109917de7b3143.css?123" rel="stylesheet">
-	<link href="css/newstyle.css?123" rel="stylesheet">
+	<link href="css/newstyle.css?12345" rel="stylesheet">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script src="/js/jquery.cookie.js"></script>
@@ -384,7 +384,65 @@ $(function() {
 <br />
 <img src="files/70.jpg" style="width:100%; max-width:800px;" align="center" /><br /><br />
 </div>
+<div id="bookInBlogWrap">
+	<p class="title">О «Вскрытии» в блоге</p>
+	<div class="bookInBlog">
+		<div class="">
+			<ul class="bookInBlogPosts">
+										<li class="bookInBlogPost">
+						<a href="/blog/10-glavnykh-knig-2017-go-chto-vy-chitali/" title="Пост в блоге Альпины «10 главных книг 2017-го: что вы читали?»">
+							<img src="/upload/resize_cache/iblock/620/306_306_2/6201d7975be49136ac46dc8d9b6522a3.jpg" title="Пост в блоге Альпины «10 главных книг 2017-го: что вы читали?»" alt="10 главных книг 2017-го: что вы читали?">
+							<br>
+							<div class="name">
+								<span title="Пост в блоге Альпины «10 главных книг 2017-го: что вы читали?»">10 главных книг 2017-го: что вы читали?</span>
+							</div>
+							<p class="author"></p>
+						</a>
+					</li>
+										<li class="bookInBlogPost">
+						<a href="/blog/kak-rozhdaetsya-kniga/" title="Пост в блоге Альпины «Как рождается книга»">
+							<img src="/upload/resize_cache/iblock/bc4/306_306_2/bc488cf8e27523357878c70be39d71a0.jpg" title="Пост в блоге Альпины «Как рождается книга»" alt="Как рождается книга">
+							<br>
+							<div class="name">
+								<span title="Пост в блоге Альпины «Как рождается книга»">Как рождается книга</span>
+							</div>
+							<p class="author"></p>
+						</a>
+					</li>
+										<li class="bookInBlogPost">
+						<a href="/blog/nehoroshaya-kvartira-ii-detektivnaya-istoriya-s-elementami-horrora-i-byitovyimi-zarisovkami/" title="Пост в блоге Альпины «Нехорошая квартира II. Детективная история с элементами хоррора и бытовыми зарисовками»">
+							<img src="/upload/resize_cache/iblock/3e7/306_306_2/3e7619db9a56fe6817a31e883f0685f2.jpg" title="Пост в блоге Альпины «Нехорошая квартира II. Детективная история с элементами хоррора и бытовыми зарисовками»" alt="Нехорошая квартира II. Детективная история с элементами хоррора и бытовыми зарисовками">
+							<br>
+							<div class="name">
+								<span title="Пост в блоге Альпины «Нехорошая квартира II. Детективная история с элементами хоррора и бытовыми зарисовками»">Нехорошая квартира II. Детективная история с элеме...</span>
+							</div>
+							<p class="author"></p>
+						</a>
+					</li>
+										<li class="bookInBlogPost">
+						<a href="/blog/chto-chitat-v-otpuske/" title="Пост в блоге Альпины «Что читать в отпуске?»">
+							<img src="/upload/resize_cache/iblock/ef5/306_306_2/ef5b7537e153eef33f183f1dcf70487d.jpg" title="Пост в блоге Альпины «Что читать в отпуске?»" alt="Что читать в отпуске?">
+							<br>
+							<div class="name">
+								<span title="Пост в блоге Альпины «Что читать в отпуске?»">Что читать в отпуске?</span>
+							</div>
+							<p class="author"></p>
+						</a>
+					</li>
+						<li class="bookInBlogPost">
+						<a href="/blog/hvatit-guglit-simptomyi-5-knig-o-zdorove-kotoryie-napisali-praktikuyushhie-vrachi/" title="Пост в блоге Альпины «Хватит гуглить симптомы! 5 книг о здоровье, которые написали практикующие врачи»">
+							<img src="/upload/resize_cache/iblock/037/306_306_2/037fd8cc81a3eb04b4488796c954ab63.jpg" title="Пост в блоге Альпины «Хватит гуглить симптомы! 5 книг о здоровье, которые написали практикующие врачи»" alt="Хватит гуглить симптомы! 5 книг о здоровье, которые написали практикующие врачи">
+							<br>
+							<div class="name">
+								<span title="Пост в блоге Альпины «Хватит гуглить симптомы! 5 книг о здоровье, которые написали практикующие врачи»">Хватит гуглить симптомы! 5 книг о здоровье, которы...</span>
+							</div>
+							<p class="author"></p>
+						</a>
+					</li>
+			</ul>
+		</div>
+	</div>    
+</div>
 <div style="width: 64px; background: rgb(133, 149, 154); height: 64px; border-radius: 80px; text-align: center; position: fixed; bottom: 10px; right: 10px; cursor: pointer; color: rgb(255, 255, 255); font-family: Walshein_black; font-size: 40px;" id="toTop" class="no-mobile">↑</div>
 </body>
  </html>
- 

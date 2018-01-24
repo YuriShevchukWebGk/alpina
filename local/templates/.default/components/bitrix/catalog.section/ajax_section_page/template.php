@@ -49,8 +49,8 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
         <div class="contentWrapp">
             <p class="breadCrump no-mobile" itemprop="breadcrumb" itemscope="" itemtype="https://schema.org/BreadcrumbList">
                 <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
-                    <a href="/" title="Главная страница" itemprop="item">
-                        <span itemprop="name">Главная страница</span>
+                    <a href="/" title="Книги Альпина" itemprop="item">
+                        <span itemprop="name">Книги Альпина</span>
                     </a>
                     <meta itemprop="position" content="1">
                 </span>
