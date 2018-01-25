@@ -97,7 +97,7 @@ $sect_name = $arResult['IPROPERTY_VALUES']['SECTION_PAGE_TITLE']!=''?$arResult['
 $key_name = preg_replace('/[^\w\s]/u', "", strtolower($arResult["NAME"]) );
 $description = 'Купить книгу: ' . $arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"] . '; ' .$arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"]. '; дата издания: ' . $arResult["PROPERTIES"]["YEAR"]["VALUE"] . '; &#9758; цена ' . round(($arResult["CATALOG_PRICE_1"]), 2) . ' &#8381;. Заказ по &#9990; +7(495)120 07 04';
 if (!empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE']))
-	$description .= '; Электронная книга в подарок.';
+	$description .= '; Электронная книга бесплатно.';
 else
 	$description .= '.';
 
