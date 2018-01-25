@@ -69,7 +69,9 @@ if ($_REQUEST["ask"]) {
 		<input class="input_row" type="text" placeholder="Телефон" name="data_phone" required><br />
 		<input class="input_row"type="text" placeholder="Электронная почта" name="data_email" required><br /><br />
 		<a href="#" onclick="specSend();return false;" class="specSumb">ОСТАВИТЬ ЗАЯВКУ</a>
-		<br /><br /><br />
+		<br /><br />
+		<a href="http://www.alpinab2b.ru/product/prodvinut-brend/izdanie-spetstirazha/" target="_blank" title="Издание спецтиража книги">Подробнее об услуге <i class="fa fa-external-link" aria-hidden="true"></i></a>
+		<br /><br />
 		<div class="check" style="text-align:left;color:#777">Hажимая кнопку «Оставить заявку», вы принимаете условия <a href="/content/pii/" target="_blank">Пользовательского соглашения</a></div>
 	
 	';
