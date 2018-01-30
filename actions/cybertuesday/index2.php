@@ -63,7 +63,7 @@ header a{color:#333!important}
 #header{width:100%;text-align:center;font-size:38px;font-family: 'Walshein_regular';color:#fff;background:#9db7b7;text-transform:uppercase;padding:25px 0;text-shadow: 1px 1px 23px #053544, 0 0 1em white;}
 #header img{margin: 0 0 -15px 30px}
 .landing .slide1 {
-	background: url(img/header_winter.jpg) no-repeat 50% 50%;
+	background: url(img/header_winter.png) no-repeat 50% 50%;
 	height:581px;
 	max-width:1420px;
 	width:100%;
@@ -331,7 +331,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 				<?foreach ($booksArray as $book) {
 					if ($i <= 5) {?>
 					<div class="bookWrap">
-						<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+						<a href="<?=$book["link"]?>?from=cybertuesday">
 							<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 							<p>
 							<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -353,7 +353,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 6) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" style="width:360px;height:auto"/>
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -374,7 +374,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 7 && $i < 9) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -395,7 +395,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 9 && $i < 11) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -419,7 +419,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 11) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -441,7 +441,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 12) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -470,7 +470,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 13 && $i < 15) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -491,7 +491,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 15 && $i < 18) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -516,7 +516,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 18) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -538,7 +538,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 19) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -562,7 +562,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 20) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" style="width:360px;height:auto"/>
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -583,7 +583,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 21 && $i < 23) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -604,7 +604,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 23 && $i < 25) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -628,7 +628,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 25 && $i < 28) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -649,7 +649,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 28) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" style="width:360px;height:auto"/>
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -670,7 +670,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 29) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -692,7 +692,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 30) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -716,7 +716,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 31) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" style="width:360px;height:auto"/>
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -738,7 +738,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 32 && $i < 34) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -761,7 +761,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 35) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -783,7 +783,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 36) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -806,7 +806,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 37) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" style="width:360px;height:auto"/>
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -827,7 +827,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 38 && $i < 40) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -848,7 +848,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 40 && $i < 42) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -872,7 +872,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 42) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" style="width:360px;height:auto"/>
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -893,7 +893,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 43 && $i < 45) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -914,7 +914,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i >= 45 && $i < 47) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -938,7 +938,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 47) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -960,7 +960,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 					foreach ($booksArray as $book) {
 						if ($i == 48) {?>
 						<div class="bookWrap">
-							<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+							<a href="<?=$book["link"]?>?from=cybertuesday">
 								<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 								<p>
 								<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>
@@ -983,7 +983,7 @@ array('no'=>13, 'img'=>'/upload/resize_cache/iblock/930/360_520_1/9301f3d2817f16
 				foreach ($booksArray as $book) {
 					if ($i >= 49 && $i < 60) {?>
 					<div class="bookWrap">
-						<a href="<?=$book["link"]?>?from=cybertuesday" target="_blank">
+						<a href="<?=$book["link"]?>?from=cybertuesday">
 							<div class="discountBadge">-<?=$book["discount"]?>%</div><img src="<?=$book["img"]?>" alt="<?=$book["name"]?>" alt="Обложка книги «<?=$book["name"]?>»" title="Книга «<?=$book["name"]?>» со скидкой" title="<?=$book["name"]?>" />
 							<p>
 							<span class="oldprice"><?=$book["oldprice"]?> <i class="fa fa-rub" aria-hidden="true"></i></span> <span class="diff">-<?=round($book["diff"],0)?> <i class="fa fa-rub" aria-hidden="true"></i></span>

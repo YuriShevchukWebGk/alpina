@@ -817,7 +817,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="catalogWrapper saleWrapp">
 		<?/* Получаем персональные рекомендации RetailRocket */
 		if (isset($_COOKIE["rcuid"])){
-			$stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"]);
+			$opts = array('http' =>
+				array(
+					'method'  => 'GET',
+					'timeout' => 3 
+				)
+			);
+
+			$context  = stream_context_create($opts);
+			$stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"], false, $context);
 			$recsArray = array_slice(json_decode($stringRecs, true), 0, 6);
 			$arrFilter = array();
 			foreach($recsArray as $val) {

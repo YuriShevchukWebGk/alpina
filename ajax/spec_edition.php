@@ -95,7 +95,17 @@ if ($_REQUEST["ask"]) {
 		"NAME"           => $_POST["email"],
 		"ACTIVE"         => "Y"
 	);
+
+	$el->Add($arLoadProductArray);	
 	
-	$el->Add($arLoadProductArray);
+	$mailFields = array(
+		"EMAIL" => $_POST["email"],
+		"BOOK_NAME" => $_POST["book"],
+		"NAME" => $_POST["name"],
+		"PHONE" => $_POST["phone"]
+	);
+		
+	CEvent::Send("SPECIAL_EDITION", "s1", $mailFields,"N");
+
 }
 ?>
