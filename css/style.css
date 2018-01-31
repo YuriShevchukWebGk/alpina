@@ -963,7 +963,7 @@ table.form-table td,table.form-table th{border:none!important}
 table.form-table th{background:0 0!important}
 .image_mastercard,.image_visa{background-image:url(/img/payImg.png)}
 .image_mastercard,.image_visa,.image_yandexmoney{background-repeat:no-repeat}
-.section_item_img{height:220px;height:auto;width:142px;text-align:center;vertical-align:middle}
+.section_item_img{height:225px;width:142px;text-align:center;vertical-align:middle}
 .element_item_img{width:380px;height:567px}
 table.form-table{background-color:#F4F4F4!important;text-align:right}
 table.form-table tr td:nth-child(2){text-align:left}

@@ -8,7 +8,7 @@ foreach($arResult as $arItem) {
 	<li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?}?>
 
-<?if (1 == 1) {?>
+<?if (date("Y-m-d") == "2018-01-30") {?>
 	<li class="timer"><a href="/actions/cybertuesday/" style="color:red!important" target="_blank">Кибервторник <span id="days"></span>:<span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span></a></li>
 	<script type="text/javascript" src="/js/countdown.js?2017112312"></script>
 <?} else {?>

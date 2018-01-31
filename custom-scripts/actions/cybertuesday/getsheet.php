@@ -86,7 +86,7 @@ array('id'=>341008, 'discount'=>10),
 	
 	foreach ($sale_books as $i => $book) {
 		$table .=	"<tr>";
-		$res = CIBlockElement::GetByID($book[id]);
+		$res = CIBlockElement::GetList(Array(), array("ID"=>$book['id'], "PROPERTY_STATE"=>array(22,23)), false, false, array("NAME", "DETAIL_PAGE_URL", "PROPERTY_STATE","DETAIL_PICTURE"));
 		$price = substr(CPrice::GetBasePrice($book[id])['PRICE'],0,-3);
 		if($ar_res = $res->GetNext()) {
 			$img = CFile::ResizeImageGet($ar_res[DETAIL_PICTURE], array("width" => 360, "height" => 520), BX_RESIZE_IMAGE_PROPORTIONAL, true)[src];
@@ -97,7 +97,7 @@ array('id'=>341008, 'discount'=>10),
 			$table .=	"<td>".($price*(100-$book[discount])/100)."</td>";
 			$table .=	"<td>".($price*$book[discount]/100)."</td>";
 			$table .=	"<td>".$ar_res['DETAIL_PAGE_URL']."</td>";
-			$table .=	"<td>".$img."</td>";
+			$table .=	"<td>".$ar_res["PROPERTY_STATE_VALUE"]."</td>";
 			$table .=	"<td>".$book[id]."</td>";
 			$table .=	"<td>array('no'=>".$i.", 'img'=>'".$img."', 'name'=>'".$ar_res['NAME']."', 'discount'=>".$book[discount].", 'oldprice'=>'".$price."', 'newprice'=>'".($price*(100-$book[discount])/100)."', 'link'=>'".$ar_res['DETAIL_PAGE_URL']."', 'diff'=>'".($price*$book[discount]/100)."', 'id'=>".$book[id]."),";
 		}
