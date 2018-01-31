@@ -40,7 +40,7 @@
                 $couponStr.=', ';
             }
         }
-		
+
 		$orderedBooks = '<div class="orderedBooks">';
         $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arResult["ORDER"]["ID"]));
         while ($arItems = $dbItemsInOrder->Fetch()) {
@@ -200,10 +200,13 @@
                     ),
                     false
                 ); ?>
-            <?} else if ($arResult["PAY_SYSTEM"]["ID"] == 24) {
+            <? } else if ($arResult["PAY_SYSTEM"]["ID"] == 24){
                 $merchant_id = CSalePaySystemAction::GetParamValue("MERCHANT_ID");
                 $secret_key = CSalePaySystemAction::GetParamValue("SKEY");
-                $order_id = (strlen(CSalePaySystemAction::GetParamValue("PAYMENT_ID")) > 0) ? CSalePaySystemAction::GetParamValue("PAYMENT_ID"):$GLOBALS["SALE_INPUT_PARAMS"]["PAYMENT"]["ID"];
+                $order_id = (strlen(CSalePaySystemAction::GetParamValue("PAYMENT_ID")) > 0) ? CSalePaySystemAction::GetParamValue(
+    "PAYMENT_ID"
+) : $GLOBALS["SALE_INPUT_PARAMS"]["PAYMENT"]["ID"];
+
                 /*$order_info = CSaleOrder::GetByID($order_id);
                 $order_props = CSaleOrderProps::GetOrderProps($order_id);
                 while ($arProps = $order_props -> Fetch()) {
@@ -218,7 +221,9 @@
                     //$amount = $order_info["PRICE"] * 100;
                     $amount = (string) round(CSalePaySystemAction::GetParamValue("PAYMENT_SUM") * 100.0);
                     //$currency = $order_info["CURRENCY"];
-                    $currency = (strlen(CSalePaySystemAction::GetParamValue("CURRENCY")) > 0) ? CSalePaySystemAction::GetParamValue("CURRENCY") : $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["CURRENCY"];
+                    $currency = (strlen(CSalePaySystemAction::GetParamValue("CURRENCY")) > 0) ? CSalePaySystemAction::GetParamValue(
+    "CURRENCY"
+) : $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["CURRENCY"];
                     $currency = getCorrectCurrency($currency);
                     //$payer = ["phone_number" => str_replace(array(")", "(", "-"), "", substr($phone_val, 2))];
                     //$order = ({"type" : "order_id", "order_id" : $order_id});

@@ -1,6 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 ?>
 <script type="text/javascript">
+
     function fShowStore(id, showImages, formWidth, siteId)
     {
         var strUrl = '<?=$templateFolder?>' + '/map.php';
@@ -132,6 +133,7 @@
             $isOnlyCertificate = false;
         }
     }
+
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
@@ -180,7 +182,7 @@
             <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
 
             } else {?>
-            <div>
+            <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?> <?=($arDelivery["PRICE"] == '')? 'apichip':''?>">
                 <?
                 $arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
                 $pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
@@ -199,7 +201,11 @@
                 <?if($arDelivery["ID"] == PICKPOINT_DELIVERY_ID){  ?>
                     <?= htmlspecialcharsbx($arDelivery["OWN_NAME"])?>
                 <?} else {?>
-                    <?= htmlspecialcharsbx($arDelivery["NAME"])?>
+                    <?if(stristr($arDelivery["NAME"], '(', true) != false){?>
+                        <?= htmlspecialcharsbx(stristr($arDelivery["NAME"], '(', true))?>
+                    <?} else {?>
+                        <?= htmlspecialcharsbx($arDelivery["NAME"])?>
+                    <?}?>
                 <?}?>-
                     <?if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !isset($arDelivery["PRICE"]))) {?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
@@ -217,15 +223,17 @@
                             <? } ?>
                         </b>
                         <?
-                            if (strlen($arDelivery["PERIOD_TEXT"])>0)
-                            {
-                                echo GetMessage('SALE_SADC_TRANSIT').": <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
-                            ?><br /><?
-                            }
+
                             if ($arDelivery["PACKS_COUNT"] > 1)
                             {
                                 echo '<br />';
                                 echo GetMessage('SALE_SADC_PACKS').': <b>'.$arDelivery["PACKS_COUNT"].'</b>';
+                            }
+
+                            if (strlen($arDelivery["PERIOD_TEXT"])>0)
+                            {
+                                echo " <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
+                            ?><br /><?
                             }
                         ?>
                         <?endif;?>

@@ -1332,6 +1332,7 @@ function enterCouponCustom(preorderID) {
                 } else {
                     $('#allSum_FORMATED_' + preorderID).html('0 руб.');
                 }
+                $('.nextPageWrap').html(progress);
             }
         });
     } else {
@@ -1394,6 +1395,7 @@ function enterCouponCustom(preorderID) {
                             ]
                         }
                     ));
+
                     $('#allSum_FORMATED').html('0 руб.');
                 }
                 if(arResult.TEST_INFO_arCoupon.CREATED_BY != null && arResult.TEST_INFO_arCoupon.MODIFIED_BY != null){
