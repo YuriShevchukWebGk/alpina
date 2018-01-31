@@ -1926,8 +1926,7 @@
 
         if (in_array(trim($orderArr['DELIVERY_ID']), array(DELIVERY_PICK_POINT, DELIVERY_PICK_POINT2, DELIVERY_BOXBERRY_PICKUP, "pickpoint:postamat"))) {
 
-            //$arFields['EMAIL_DELIVERY_TERM'] = "<br />Сроки доставки (дней): <b>".$_SESSION['EMAIL_DELIVERY_TERM']."</b><br>";
-            $arFields['EMAIL_DELIVERY_TERM'] = "<br />Ближайшая отправка: 10 января 2018 года</b><br>";
+            $arFields['EMAIL_DELIVERY_TERM'] = "<br />Сроки доставки (дней): <b>".$_SESSION['EMAIL_DELIVERY_TERM']."</b><br>";
             $arFields['EMAIL_DELIVERY_ADDR'] = "Адрес доставки: <b>".getDeliveryAddress(trim($orderArr['DELIVERY_ID']),$orderID)."</b><br>";
 
         } elseif (in_array($orderArr['DELIVERY_ID'], array(DELIVERY_COURIER_1, DELIVERY_COURIER_2))) {
