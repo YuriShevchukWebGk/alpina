@@ -201,7 +201,11 @@
                 <?if($arDelivery["ID"] == PICKPOINT_DELIVERY_ID){  ?>
                     <?= htmlspecialcharsbx($arDelivery["OWN_NAME"])?>
                 <?} else {?>
-                    <?= htmlspecialcharsbx($arDelivery["NAME"])?>
+                    <?if(stristr($arDelivery["NAME"], '(', true) != false){?>
+                        <?= htmlspecialcharsbx(stristr($arDelivery["NAME"], '(', true))?>
+                    <?} else {?>
+                        <?= htmlspecialcharsbx($arDelivery["NAME"])?>
+                    <?}?>
                 <?}?>-
                     <?if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !isset($arDelivery["PRICE"]))) {?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
@@ -219,15 +223,17 @@
                             <? } ?>
                         </b>
                         <?
-                            if (strlen($arDelivery["PERIOD_TEXT"])>0)
-                            {
-                                echo GetMessage('SALE_SADC_TRANSIT').": <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
-                            ?><br /><?
-                            }
+
                             if ($arDelivery["PACKS_COUNT"] > 1)
                             {
                                 echo '<br />';
                                 echo GetMessage('SALE_SADC_PACKS').': <b>'.$arDelivery["PACKS_COUNT"].'</b>';
+                            }
+
+                            if (strlen($arDelivery["PERIOD_TEXT"])>0)
+                            {
+                                echo " <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
+                            ?><br /><?
                             }
                         ?>
                         <?endif;?>

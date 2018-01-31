@@ -591,16 +591,16 @@ class CDeliveryapiship
 						if (($vals["TRANSIT_MIN"] > $vals["TRANSIT_MAX"]) || (empty($vals["TRANSIT_MAX"])))
 							$vals["TRANSIT_MAX"] = $vals["TRANSIT_MIN"];
 
+                        $new_dey = date_day($vals["TRANSIT_MAX"]);
 						// сохраняем для компонента
 						self::$defaultVals = $vals;
 
 						$tarif_name = "pickup";
 
+                        //($vals["TRANSIT_MIN"] == $vals["TRANSIT_MAX"]) ?($vals["TRANSIT_MIN"] + $addTerm) . $selectPVZButton : (($vals["TRANSIT_MIN"] + $addTerm) . " - " . ($vals["TRANSIT_MAX"] + $addTerm))
 						self::$profiles[$tarif_name] = array(
 							"VALUE" => $vals["VALUE_MIN"],
-							"TRANSIT" => ($vals["TRANSIT_MIN"] == $vals["TRANSIT_MAX"]) ?
-								($vals["TRANSIT_MIN"] + $addTerm) . $selectPVZButton :
-								(($vals["TRANSIT_MIN"] + $addTerm) . " - " . ($vals["TRANSIT_MAX"] + $addTerm)) . $selectPVZButton,
+							"TRANSIT" => $selectPVZButton .'<br> <p class="delivery_apiship">'. GetMessage('SALE_SADC_TRANSIT').' '. $new_dey. '</p>',
 							"TARIF" => $tarif_name,
 						);
 

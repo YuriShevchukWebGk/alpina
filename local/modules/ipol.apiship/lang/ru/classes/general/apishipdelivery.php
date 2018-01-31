@@ -23,6 +23,7 @@ $MESS ['IPOLapiship_LANG_YO_S'] = 'ё';
 $MESS ['IPOLapiship_LANG_YE_S'] = 'е';
 //FRONTEND
 $MESS ['IPOLapiship_FRNT_CHOOSEPICKUP'] = "Выбрать пункт самовывоза";
+$MESS ['SALE_SADC_TRANSIT'] = "Ожидаемый срок доставки:";
 $MESS ['IPOLapiship_FRNT_MOSCOW'] = "Москва";
 $MESS ['IPOLapiship_FRNT_MOSCOWCAPITAL'] = "МОСКВА";
 $MESS ['IPOLapiship_FRNT_CHOOSE'] = "Выбрать";

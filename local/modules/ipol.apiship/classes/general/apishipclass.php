@@ -115,7 +115,7 @@ class apishipdriver
 			);
 
 			// добавляем название профиля
-			$bxProfileName = "(" . GetMessage("IPOLapiship_JS_SOD_deliveryPickup") . ") ";
+			//$bxProfileName = "(" . GetMessage("IPOLapiship_JS_SOD_deliveryPickup") . ") ";
 
 			// если это курьер, то изменяем поля
 			if ((preg_match("/courier/", $orderFields["DELIVERY_ID"]) || ($orderFields["DELIVERY_ID"] == $deliveryIDs["courier"])) /*&& $_REQUEST["apiship_isPickup"] == "false"*/)
