@@ -1,7 +1,8 @@
 <?
     require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetPageProperty("title", "Авторам: издательство ищет новых авторов в России");
     $APPLICATION->SetPageProperty("keywords", "Информация для авторов");
-    $APPLICATION->SetPageProperty("description", "Информация для авторов");
+    $APPLICATION->SetPageProperty("description", "Ищем авторов! Мы предлагаем лучшие финансовые условия, качества и гарантируем продажи ваших книг. Для продвижения заполните форму на сайте нашего издательства.");
     $APPLICATION->SetTitle("Авторам");
 ?>
 <div class="searchWrap">

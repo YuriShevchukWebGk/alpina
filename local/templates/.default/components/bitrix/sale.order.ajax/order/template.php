@@ -185,7 +185,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 
         if($('.apichip').size() <= 0 && $('.region_click.addCircle').size() > 0){
             setTimeout(function() {
-                $('.check_delivery .faceText').click();
+             //   $('.check_delivery .faceText').click();
             }, 500);
         }
      /*      function deleteDateId(){
@@ -232,7 +232,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         <?}?>
 
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
-            minDatePlus = minDatePlus+2;
+            minDatePlus = minDatePlus+1;
         }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
@@ -1010,7 +1010,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 
                                         PrintPropsForm($location, $arParams["TEMPLATE_LOCATION"]);
                                     ?>
-                                    <?$APPLICATION->IncludeComponent("altasib:geobase.select.city", "city_order", Array(
+                                    <?/*$APPLICATION->IncludeComponent("altasib:geobase.select.city", "city_order", Array(
                                         "COMPOSITE_FRAME_MODE" => "A",    // Голосование шаблона компонента по умолчанию
                                             "COMPOSITE_FRAME_TYPE" => "AUTO",    // Содержимое компонента
                                             "LOADING_AJAX" => "N",    // Подгружать окно "Выбор города" со списком городов ajax-запросом
@@ -1022,7 +1022,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                             "SMALL_TEXT" => ""
                                         ),
                                         false
-                                    );?>
+                                    );*/?>
                                     <?
                                         if ($arParams["DELIVERY_TO_PAYSYSTEM"] == "p2d")
                                         {
