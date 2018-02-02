@@ -675,15 +675,11 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                             } else {
                                             }
                                         }
-                                       console.log('ugbb');
-                                    <?if(empty($_POST)){ ?>
-                                         $('.bx_section.js_delivery_block #ID_DELIVERY_ID_15').click();
-
-                                     <?}?>
 
                                     }
 
                                     if(flag){
+
 										if (!orderSubmitted) {
 											dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'orderSubmitted'});
 											orderSubmitted = true;
@@ -700,6 +696,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                             BX.saleOrderAjax.cleanUp();
                                             <?endif?>
 
+                                            
                                         BX.ajax.submit(orderForm, ajaxResult);
 
                                     } else {
@@ -1010,6 +1007,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 
                                         PrintPropsForm($location, $arParams["TEMPLATE_LOCATION"]);
                                     ?>
+                                    <?//arshow($_POST, true)?>
                                     <?/*$APPLICATION->IncludeComponent("altasib:geobase.select.city", "city_order", Array(
                                         "COMPOSITE_FRAME_MODE" => "A",    // Голосование шаблона компонента по умолчанию
                                             "COMPOSITE_FRAME_TYPE" => "AUTO",    // Содержимое компонента
@@ -1047,6 +1045,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                                     <?if($_POST["is_ajax_post"] != "Y")
                                         {
                                         ?>
+                                        
                                     </div>
                                     <input type="hidden" name="confirmorder" id="confirmorder" value="Y">
                                     <input type="hidden" name="profile_change" id="profile_change" value="N">

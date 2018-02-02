@@ -182,7 +182,7 @@
             <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
 
             } else {?>
-            <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?> <?=($arDelivery["PRICE"] == '')? 'apichip':''?>">
+            <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?>">
                 <?
                 $arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
                 $pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
@@ -201,11 +201,11 @@
                 <?if($arDelivery["ID"] == PICKPOINT_DELIVERY_ID){  ?>
                     <?= htmlspecialcharsbx($arDelivery["OWN_NAME"])?>
                 <?} else {?>
-                    <?if(stristr($arDelivery["NAME"], '(', true) != false){?>
-                        <?= htmlspecialcharsbx(stristr($arDelivery["NAME"], '(', true))?>
-                    <?} else {?>
+                    <?//if(stristr($arDelivery["NAME"], '(', true) != false){?>
+                        <?//= htmlspecialcharsbx(stristr($arDelivery["NAME"], '(', true))?>
+                    <?//} else {?>
                         <?= htmlspecialcharsbx($arDelivery["NAME"])?>
-                    <?}?>
+                    <?//}?>
                 <?}?>-
                     <?if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !isset($arDelivery["PRICE"]))) {?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
@@ -223,7 +223,6 @@
                             <? } ?>
                         </b>
                         <?
-
                             if ($arDelivery["PACKS_COUNT"] > 1)
                             {
                                 echo '<br />';

@@ -164,7 +164,7 @@
                             $rows = ($arProperties["SIZE2"] > 10) ? 4 : $arProperties["SIZE2"];
                         ?>
                         <?if($arProperties["FIELD_ID"] == "ORDER_PROP_ADDRESS"){
-                            $arProperties["VALUE"] = $_SESSION["city_order_checked"].', '.$arProperties["VALUE"];
+                           // $arProperties["VALUE"] = $_SESSION["city_order_checked"].', '.$arProperties["VALUE"];
                         }?>
                         <div class="bx_block r3x1">
                             <textarea rows="<?=$rows?>" cols="<?=$arProperties["SIZE1"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>"><?=$arProperties["VALUE"]?></textarea>
@@ -175,11 +175,11 @@
                         </div>
                         <?
                         } elseif ($arProperties["TYPE"] == "LOCATION") {
-                            if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
+                           /* if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
                                 $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
                             } else {
                                 $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
-                            }
+                            }   */
                           if($arProperties["CODE"] != 'LOCATION_CITY'){
                             $value = 0;
                             if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
@@ -190,9 +190,15 @@
                                       //  break;
                                     }
 
-                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $city == "Москва" || $arVariant["ID"] == $_POST["ORDER_PROP_2"] && $_POST["ORDER_PROP_2"] != 21278){
+                                    /*if($arVariant["CITY_NAME"] == "Москва и МО" && $city == "Москва" || $arVariant["ID"] == $_POST["ORDER_PROP_2"] && $_POST["ORDER_PROP_2"] != 21278){
                                        $value = $arVariant["ID"];
                                        break;
+                                    } */
+                                    if($arVariant["ID"] == $_POST["ORDER_PROP_2"]){
+                                       $value = $arVariant["ID"];
+                                       break;
+                                    } else {
+                                       $value = 88;
                                     }
                                 }
                                 if ($value == ""){
