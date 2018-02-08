@@ -1,7 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 $this->setFrameMode(true);
 if (count($arResult["ITEMS"]) > 0){?>
-    <div id="bookInBlogWrap">
+    <div id="bookInBlogWrap" class="no-mobile">
         <p class="title"><?=GetMessage("TITLE")?></p>
         <div class="bookInBlog">
             <div class="">

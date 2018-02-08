@@ -17,7 +17,7 @@ $this->addExternalCss($this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].
 ?>
 <div class="deliveryPageTitleWrap">
     <div class="centerWrapper">
-        <p><?= GetMessage("MAIN_PAGE") ?></p>
+        <a href="/"><p><?= GetMessage("MAIN_PAGE") ?></p></a>
         <? 
             if (strstr($APPLICATION -> GetCurDir(), "events", true) != "") {?>
                 <h1><?= GetMessage("EVENTS") ?></h1>

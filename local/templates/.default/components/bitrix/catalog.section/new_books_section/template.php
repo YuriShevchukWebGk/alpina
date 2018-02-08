@@ -436,9 +436,9 @@ if ($arrFilter['ID'][0] > 0) {
                                 $(this).html(truncate($(this).html(), 40));
                             }
                     });
-                    var otherBooksHeight = 1190 * Math.ceil(($(".otherBooks ul li").length / 15));
+                    var otherBooksHeight = 1310 * Math.ceil(($(".otherBooks ul li").length / 15));
                     //var categorHeight = 2750 + 1190 * (($(".otherBooks ul li").length - 15) / 15);
-                    var categorHeight = 1600 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
+                    var categorHeight = 1700 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 455;
                     otherBooks.css("height", otherBooksHeight+"px");
                     $(".wrapperCategor").css("height", categorHeight+"px");
                     $(".contentWrapp").css("height", categorHeight-10+"px");

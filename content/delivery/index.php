@@ -34,7 +34,7 @@
 
 <div class="deliveryPageTitleWrap">
     <div class="centerWrapper">
-        <p>Главная</p>
+        <a href="/"><p>Главная</p></a>
         <h1>Доставка</h1>
     </div>
 </div>

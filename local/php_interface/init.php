@@ -115,7 +115,8 @@
     define ("STATE_NULL", 23); //ID состояния книги "Нет в наличии"
     define ("STATE_NEWS", 21); //ID состояния книги "Новинка"
     define ("EXPERTS_IBLOCK_ID", 23); //ID инфоблока Эксперты
-    define ("PAY_SYSTEM_RFI", 11); //ID платежный системы РФИ
+    define ("PAY_SYSTEM_RFI", 13); //ID платежный системы РФИ
+	define ("PAY_SYSTEM_IN_OFFICE", 11); //ID платежный системы "При получении"
 
     define ("ADMIN_GROUP_ID", 1);
     define ("ECOM_ADMIN_GROUP_ID", 6);
@@ -3387,7 +3388,7 @@
 
             foreach($order_new_statys as $order_update){
                 if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
-                    if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID){
+                    if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
                     } else {
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата "
