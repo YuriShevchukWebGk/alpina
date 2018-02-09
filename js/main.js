@@ -3039,3 +3039,17 @@ function getsubbook(){
 function closeX(){
 	$('.hideInfo').hide();
 }
+function getInfo(id) {
+    $.ajax({
+        type: "POST",
+        url: "/ajax/info_popup.php",
+        data: {info: id}
+    }).done(function(strResult) {
+        $("#ajaxBlock").append(strResult);
+        $("body").css('overflow','hidden');
+    });
+}
+function closeInfo() {
+    $('#ajaxBlock').empty();
+    $("body").css('overflow','auto');
+}

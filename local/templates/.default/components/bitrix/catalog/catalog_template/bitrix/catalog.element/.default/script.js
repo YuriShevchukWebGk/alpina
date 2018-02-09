@@ -3043,17 +3043,6 @@ function getReview(id) {
     });
 }
 
-function getInfo(id) {
-    $.ajax({
-        type: "POST",
-        url: "/ajax/info_popup.php",
-        data: {info: id}
-    }).done(function(strResult) {
-        $("#ajaxBlock").append(strResult);
-        $("body").css('overflow','hidden');
-    });
-}
-
 function specEdition(book) {
     $.ajax({
         type: "POST",
@@ -3079,12 +3068,6 @@ function getPreview(id,stock) {
         $(".previwLoading").hide();
     });
 }
-
-function closeInfo() {
-    $('#ajaxBlock').empty();
-    $("body").css('overflow','auto');
-}
-
 
 setTimeout(function(){
     var city = $('.shippings .city_pull').attr('data-city');
