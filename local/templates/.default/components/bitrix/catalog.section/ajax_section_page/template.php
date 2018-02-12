@@ -78,35 +78,25 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
 
             <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
-			
-			<?if ($arResult["ID"] == 471) {?>
 
-				<div style="font-size:17px;margin-top:40px">
-				В эти морозные дни особенно приятно возвращаться домой — в уют и тепло. Предлагаем вам провести вечер вместе с ребенком и новой книгой. Пусть счастливых семейных воспоминаний будет больше!
-				<br /><br />
-				А мы поможем вам продлить ощущение праздника: только до <b>29 января</b> более 100 книг для детей и родителей вы можете купить у нас <b>со скидкой 30%</b>.
-				<br /><br />
-				Выбирайте!</div>
-			<?}?>
 			
 			<?
 			$arData = array();
 			$arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL");
-			$arFilter = Array("IBLOCK_ID" => 75, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_BIND_SECTION" => $arResult["ID"]);
+			$arFilter = Array("IBLOCK_ID" => 80, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_THIS_SECTION" => $arResult["ID"]);
+			
 			$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-			while($ob = $res->GetNextElement())
-			{
+			while($ob = $res->GetNextElement()) {
 				$arData[] = $ob->GetFields();
 			}
 			
-			if(count($arData) > 0):
-			?> 
-			<?/*<div class="doner_tags">
+			if(count($arData) > 0):?> 
+			<div class="doner_tags">
 				<span>Популярные категории</span>
 				<?foreach($arData as $data):?>
 				<a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
 				<?endforeach;?>
-			</div>*/?>
+			</div>
 			
 			<?endif;?>
             <? global $SectionRoundBanner;

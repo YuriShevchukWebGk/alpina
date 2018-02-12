@@ -1107,15 +1107,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		);?>
 
 
-            <?/*
-			global $BestsOnMain;
+            <?
+			global $vipbooks;
             if(!$USER->IsAdmin()){
-                $BestsOnMain = array('SECTION_ID' => 469, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID), "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+                $vipbooks = array('SECTION_ID' => 491, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID), "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
             } else {
-                $BestsOnMain = array('SECTION_ID' => 469, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID));
+                $vipbooks = array('SECTION_ID' => 491, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID));
             }
             ?>
-            <p class="titleMain"><a href="/catalog/sumki/">Книжные сумки</a></p>
+            <p class="titleMain"><a href="/catalog/vipbooks/">Книги в коже</a></p>
             <?
 			$APPLICATION->IncludeComponent(
 			"bitrix:catalog.section",
@@ -1136,7 +1136,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"ELEMENT_SORT_ORDER" => "desc",
 				"ELEMENT_SORT_FIELD2" => "rand",
 				"ELEMENT_SORT_ORDER2" => "desc",
-				"FILTER_NAME" => "BestsOnMain",
+				"FILTER_NAME" => "vipbooks",
 				"INCLUDE_SUBSECTIONS" => "Y",
 				"SHOW_ALL_WO_SECTION" => "Y",
 				"HIDE_NOT_AVAILABLE" => "N",
@@ -1244,9 +1244,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"COMPATIBLE_MODE" => "Y"
 			),
 			false
-		);*/?>
+		);?>
 			
-			<?$APPLICATION->IncludeComponent(
+			<?/*$APPLICATION->IncludeComponent(
 				"bitrix:main.include",
 				".default",
 				array(
@@ -1258,7 +1258,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					"PATH" => "/include/overview.php"
 				),
 				false
-			);?>
+			);*/?>
 
         </div>
 
