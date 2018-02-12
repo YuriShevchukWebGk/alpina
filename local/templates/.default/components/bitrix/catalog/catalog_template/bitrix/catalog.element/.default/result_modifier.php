@@ -588,6 +588,26 @@ if ($arResult['MODULES']['currency'])
     }
 }
 
+	// Получаем переводчика
+	$arResult["TRANSLATOR"] = '';
+
+	$translator = $arResult['PROPERTIES']['TRANSLATORS']['VALUE'];
+
+	if (!empty($translator)) {
+		$translator_list = CIBlockElement::GetList(
+			array("SORT"=>"ASC"),
+			array("IBLOCK_ID" => 79, "ID" => $translator),
+			false,
+			false,
+			array("NAME")
+		);
+		
+		while ($translator = $translator_list -> Fetch()) {
+			
+			$arResult["TRANSLATOR"] .= (strlen ($arResult["TRANSLATOR"]) > 0 ? ', ' : '') . $translator["NAME"];
+		}
+	}
+
     // получение имён авторов книги
     $arResult["AUTHOR_NAME"] = '';
     $ar_properties = array();

@@ -33,6 +33,27 @@ BX.ready(BX.defer(function(){
 }));
 </script><?
 }
+
+// Получаем переводчика
+$arResult["TRANSLATOR"] = '';
+
+$translator = $arResult['PROPERTIES']['TRANSLATORS']['VALUE'];
+
+if (!empty($translator)) {
+	$translator_list = CIBlockElement::GetList(
+		array("SORT"=>"ASC"),
+		array("IBLOCK_ID" => 79, "ID" => $translator),
+		false,
+		false,
+		array("NAME")
+	);
+	
+	while ($translator = $translator_list -> Fetch()) {
+		
+		$arResult["TRANSLATOR"] .= (strlen ($arResult["TRANSLATOR"]) > 0 ? ', ' : '') . $translator["NAME"];
+	}
+}
+
 // установка мета-свойств заголовка и описания
 // так как в component_epilog.php недоступен $arResult["AUTHOR_NAME"] и $arResult["PREVIEW_TEXT"], используем функционал из result_modifier.php
 $author_name = '';

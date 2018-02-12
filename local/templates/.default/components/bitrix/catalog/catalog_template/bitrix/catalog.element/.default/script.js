@@ -3015,7 +3015,7 @@ function changeQ(dest) {
 function setItemBgHeight() {
 
     var priceHeight = parseInt($(".wrap_prise_top").css("height"));
-    var bgHeight = parseInt(90 + parseInt($(".breadCrump").css("height")) + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + 20 + parseInt($(".productAutor").css("height")) + 13 + parseInt($(".authorReviewWrap").css("height")));
+    var bgHeight = parseInt(90 + parseInt($(".breadCrump").css("height")) + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + 20 + parseInt($(".productAutor").css("height")) + 13 + parseInt($(".authorReviewWrap").css("height")) + parseInt($(".whyBuyWrap").css("height")));
     priceHeight = bgHeight - 125;
     //console.log(priceHeight);
     //$(".wrap_prise_top").css("height", priceHeight);
