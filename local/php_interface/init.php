@@ -1906,6 +1906,7 @@
         $arFields['EMAIL_NEXT_DISCOUNT_SAVE_SUM'] = $_SESSION['EMAIL_NEXT_DISCOUNT_SAVE_SUM'];
         $arFields['EMAIL_ORDER_WEIGHT'] = $_SESSION['EMAIL_ORDER_WEIGHT'];
         $arFields['EMAIL_ORDER_ITEMS'] = getOrderItemsForMail($orderID);
+		$authHash = get_hash_for_authorization($arFields['EMAIL']);
         $phone_prop = CSaleOrderPropsValue::GetList (array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => "PHONE"));
         while ($phone = $phone_prop -> Fetch()) {
             $arFields["CUSTOMER_PHONE"] = $phone["VALUE"];
@@ -1920,7 +1921,7 @@
 
         if ($orderArr["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID || $orderArr["PAY_SYSTEM_ID"] == SBERBANK_PAYSYSTEM_ID) {
             //получаем путь до обработчика
-            $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='https://www.alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."'>ссылке</a>.";
+            $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='https://www.alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."&hash=".$authHash."'>ссылке</a>.";
         }
 
         $arFields['DELIVERY_NAME'] = getOrderDeliverySystemName($orderArr['DELIVERY_ID']);
@@ -2218,8 +2219,9 @@
         if (in_array($arTemplate["ID"],array(16,178))) {
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
             if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI) {
+				$authHash = get_hash_for_authorization($arFields['EMAIL']);
                 $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
-                <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
+                <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'&hash='.$authHash.'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
                 </div>';
             } else {
                 $pay_button = "";
