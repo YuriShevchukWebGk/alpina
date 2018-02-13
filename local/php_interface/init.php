@@ -703,6 +703,7 @@
         if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
             if($_REQUEST['boxbery_price'] <= 0 && $arFields["PRICE"] < 2000){
                 $delivery_price = 235;
+				$delivery_price = 0;
             } else {
                 $delivery_price = $_REQUEST['boxbery_price'];
             }
