@@ -581,9 +581,6 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             }
         });
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;
-        if ($navnum == 1) {
-            $navnum = 2;
-        }
         switch ($arParams["ELEMENT_SORT_FIELD"]) {
             case "CATALOG_PRICE_1":
             $sort = "PRICE";
@@ -624,14 +621,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             ?>
                 $.get(window.location.href + '&PAGEN_<?= $navnum?>=' + page, function(data) {
                     var next_page = $('.otherBooks ul li', data);
-                    $('.otherBooks ul').append(next_page);
-                    console.log('123');
-                    $(".bx-pagination-container ul li").each(function(){
-                            if ($(this).find("span").html() == page) {
-                                $(".bx-pagination-container ul li").removeClass("bx-active");
-                                $(this).addClass("bx-active");
-                            }
-                        }) 
+                    $('.otherBooks ul').append(next_page); 
                     page++;
                 })
             <?
@@ -640,13 +630,6 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                     function(data) {
                     var next_page = $('.otherBooks ul li', data);
                     $('.otherBooks ul').append(next_page);
-                    console.log('456');
-                    $(".bx-pagination-container ul li").each(function(){
-                            if ($(this).find("span").html() == page) {
-                                $(".bx-pagination-container ul li").removeClass("bx-active");
-                                $(this).addClass("bx-active");
-                            }
-                        })
                     page++;
                 })
             <?
