@@ -1278,7 +1278,7 @@ border-color:transparent;
 /* Попап для сертификатов  */
 .certificate_popup {
 background-color:#ffffff;
-height:660px;
+height:770px;
 position:fixed;
 width:654px;
 z-index:1100;

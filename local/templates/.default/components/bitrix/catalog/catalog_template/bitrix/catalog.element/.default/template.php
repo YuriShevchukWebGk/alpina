@@ -249,6 +249,10 @@
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
                 <div class="legal_person">
+                    <input type='text' placeholder="ФИО" name="FIO" id="FIO">
+                    <br>   
+                    <input type='text' placeholder="Телефон" name="phone" id="phone">
+                    <br>   
                     <input type='email' placeholder="Email" name="legal_email" id="legal_email">
                     <br>
                     <input type='text' placeholder="ИНН" name="inn" id="inn" style="margin-left: 10px;">
