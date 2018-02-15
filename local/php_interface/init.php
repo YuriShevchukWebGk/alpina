@@ -108,6 +108,7 @@
     define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);
 
     define ("PREORDER_STATUS_ID", 'PR');
+    define ("ROUTE_STATUS_ID", 'I');  // в пути
 
     define ("REISSUE_ID", 218); //ID свойства "Переиздание"
     define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
@@ -567,6 +568,7 @@
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
             if(floatval($delivery_price) <= 0 && $arFields["PRICE"] < 2000){
                 $arFields['PRICE_DELIVERY'] = 235;
+				$arFields['PRICE_DELIVERY'] = 0;
                 $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
             } else {
                 $arFields['PRICE'] += floatval($delivery_price);
@@ -729,6 +731,7 @@
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
             if(floatval($delivery_price) <= 0 && $arFields['PRICE'] < 2000){
                 $arFields['PRICE_DELIVERY'] = 235;
+				$arFields['PRICE_DELIVERY'] = 0;
                 $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
             } else {
                 $arFields['PRICE'] += floatval($delivery_price);
@@ -894,7 +897,19 @@
                     CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
                 }
 
-                CSaleOrder::StatusOrder($ID, "D");
+                if($order_list["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID && 
+                    ($order_list["DELIVERY_ID"] == DELIVERY_COURIER_1 ||  
+                     $order_list["DELIVERY_ID"] == DELIVERY_COURIER_2 || 
+                     $order_list["DELIVERY_ID"] == DELIVERY_COURIER_MKAD) && 
+                     $order_list["STATUS_ID"] == ROUTE_STATUS_ID){
+                        CSaleOrder::StatusOrder($ID, "I");
+                        $arFields = array(
+                            "ID"=> $ID,
+                        );
+                        CEvent::Send("NOTICE_OF_PAYMENT", "s1", $arFields, "N");
+                } else {
+                    CSaleOrder::StatusOrder($ID, "D");
+                }
             }
         }
 
