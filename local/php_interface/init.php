@@ -531,6 +531,77 @@
 
     }
 
+	
+	function updateCumulativeDiscount() {
+		$arFilter = Array(
+			">=DATE_INSERT" => date("d.m.Y H:i:s", strtotime("-2 minutes"))
+		);
+
+		$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+
+		while ($arOrder = $rsSales->Fetch()) {
+			
+			$userGroup = CUser::GetUserGroup($arOrder["USER_ID"]);
+			if (in_array(ADMIN_GROUP_ID, $userGroup) || in_array(ECOM_ADMIN_GROUP_ID, $userGroup)) {
+				continue;
+			}
+				
+			$order = \Bitrix\Sale\Order::loadByAccountNumber($arOrder["ID"]);
+			$discountList = $order->getDiscount()->getApplyResult();
+
+			unset($discountList["DISCOUNT_LIST"][1060]);
+			$rubcoupon = '';
+			foreach($discountList["DISCOUNT_LIST"] as $oneDiscount) {
+				if ($oneDiscount["ACTIONS_DESCR_DATA"]["BASKET"][0]["VALUE_TYPE"] == "S") {
+					$rubcoupon = $oneDiscount["ID"];
+					foreach ($discountList["COUPON_LIST"] as $oneCoupon) {
+						if ($oneCoupon["ORDER_DISCOUNT_ID"] == $rubcoupon)
+							$rubcoupon = $oneCoupon["COUPON"];
+					}
+					unset($discountList["DISCOUNT_LIST"][$oneDiscount["ID"]]);
+				}
+			}
+		 
+			
+			if (empty($discountList["DISCOUNT_LIST"])) {
+				//$userDiscount = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $arOrder["USER_ID"]));
+				$userDiscount = CSaleUser::GetBuyersList(array(),array("USER_ID"=>$arOrder["USER_ID"]))->Fetch();
+				
+				if ($userDiscount["ORDER_SUM"] >= 5000) {
+					if (!($basket = $order->getBasket())) {
+					   throw new \Bitrix\Main\ObjectNotFoundException('Entity "Basket" not found');
+					}
+
+					$discount = $order->getDiscount();
+
+					\Bitrix\Sale\DiscountCouponsManager::clearApply(true);
+					\Bitrix\Sale\DiscountCouponsManager::clear(true);
+					if ($rubcoupon != '') {
+						\Bitrix\Sale\DiscountCouponsManager::add($rubcoupon);
+					}
+					
+					if ($userDiscount["ORDER_SUM"] < 20000) {
+						\Bitrix\Sale\DiscountCouponsManager::add("cumulativeDiscount10");
+					} else {
+						\Bitrix\Sale\DiscountCouponsManager::add("cumulativeDiscount20");
+					}
+					
+					\Bitrix\Sale\DiscountCouponsManager::useSavedCouponsForApply(true);
+					\Bitrix\Sale\DiscountCouponsManager::saveApplied(true);
+
+					$discount->setOrderRefresh(true);
+					$discount->setApplyResult(array());
+					
+					$basket->refreshData(array('PRICE', 'COUPONS'));
+					$discount->calculate();
+					$order->save();
+				}
+			}
+		}
+		return "updateCumulativeDiscount();";
+	}
+	
+	
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
     AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
 
