@@ -185,7 +185,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 
         if($('.apichip').size() <= 0 && $('.region_click.addCircle').size() > 0){
             setTimeout(function() {
-             //   $('.check_delivery .faceText').click();
+                
             }, 500);
         }
      /*      function deleteDateId(){
@@ -307,9 +307,9 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         catch(err) {
         }*/
         setOptions();
-
+        $('.check_delivery .faceText').click();   // клик по доставке из-за оображения всех доставок
         $('body').on('click', '.region_click', function(){
-
+              
         })
     })
     //далее костыль
