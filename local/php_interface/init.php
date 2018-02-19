@@ -532,9 +532,9 @@
     }
 
 	
-	function updateCumulativeDiscount() {
+	function updateCumulativeDiscount($ID) {
 		$arFilter = Array(
-			">=DATE_INSERT" => date("d.m.Y H:i:s", strtotime("-2 minutes"))
+			"ID" => $ID
 		);
 
 		$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
@@ -542,7 +542,10 @@
 		while ($arOrder = $rsSales->Fetch()) {
 			
 			$userGroup = CUser::GetUserGroup($arOrder["USER_ID"]);
-			if (in_array(ADMIN_GROUP_ID, $userGroup) || in_array(ECOM_ADMIN_GROUP_ID, $userGroup)) {
+			
+			$domain = strstr(Message::getClientEmail($ID), '@');
+			
+			if (in_array(ADMIN_GROUP_ID, $userGroup) || in_array(ECOM_ADMIN_GROUP_ID, $userGroup) || $domain == "@alpina.ru" || $domain == "@alpinabook.ru") {
 				continue;
 			}
 				
@@ -598,10 +601,8 @@
 				}
 			}
 		}
-		return "updateCumulativeDiscount();";
 	}
-	
-	
+
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
     AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
 
@@ -639,7 +640,6 @@
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
             if(floatval($delivery_price) <= 0 && $arFields["PRICE"] < 2000){
                 $arFields['PRICE_DELIVERY'] = 235;
-				$arFields['PRICE_DELIVERY'] = 0;
                 $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
             } else {
                 $arFields['PRICE'] += floatval($delivery_price);
@@ -776,7 +776,6 @@
         if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
             if($_REQUEST['boxbery_price'] <= 0 && $arFields["PRICE"] < 2000){
                 $delivery_price = 235;
-				$delivery_price = 0;
             } else {
                 $delivery_price = $_REQUEST['boxbery_price'];
             }
@@ -802,7 +801,6 @@
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
             if(floatval($delivery_price) <= 0 && $arFields['PRICE'] < 2000){
                 $arFields['PRICE_DELIVERY'] = 235;
-				$arFields['PRICE_DELIVERY'] = 0;
                 $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
             } else {
                 $arFields['PRICE'] += floatval($delivery_price);
@@ -1139,7 +1137,7 @@
             }
 
         }
-
+		
 
         //----- Отправка смс при изменении статуса заказа
         if (array_key_exists($val,Message::$messages)) {
@@ -1986,9 +1984,11 @@
     AddEventHandler("sale", "OnOrderNewSendEmail", "customizeNewOrderMail");
 
     function customizeNewOrderMail($orderID, &$eventName, &$arFields) {
+		updateCumulativeDiscount($orderID);
         $orderArr = CSaleOrder::GetByID($orderID);
         $arFields['EMAIL_DISCOUNT_PERCENT_TOTAL'] = $_SESSION['EMAIL_DISCOUNT_PERCENT_TOTAL'];
         $arFields['EMAIL_DISCOUNT_SUM_TOTAL'] = $_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'];
+		$arFields['PRICE'] = $orderArr["PRICE"];
         $arFields['EMAIL_CURRENT_DISCOUNT_SAVE_PERCENT'] = $_SESSION['EMAIL_CURRENT_DISCOUNT_SAVE_PERCENT'];
         $arFields['EMAIL_NEXT_DISCOUNT_SAVE_SUM'] = $_SESSION['EMAIL_NEXT_DISCOUNT_SAVE_SUM'];
         $arFields['EMAIL_ORDER_WEIGHT'] = $_SESSION['EMAIL_ORDER_WEIGHT'];
