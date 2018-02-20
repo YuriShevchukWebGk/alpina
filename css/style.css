@@ -963,7 +963,7 @@ table.form-table td,table.form-table th{border:none!important}
 table.form-table th{background:0 0!important}
 .image_mastercard,.image_visa{background-image:url(/img/payImg.png)}
 .image_mastercard,.image_visa,.image_yandexmoney{background-repeat:no-repeat}
-.section_item_img{min-height:215px;height:auto;width:142px;text-align:center;vertical-align:middle}
+.section_item_img{height:225px;width:142px;text-align:center;vertical-align:middle}
 .element_item_img{width:380px;height:567px}
 table.form-table{background-color:#F4F4F4!important;text-align:right}
 table.form-table tr td:nth-child(2){text-align:left}
@@ -1250,6 +1250,7 @@ body div a.google_auth{background:url(/img/google_auth.jpg) no-repeat 30% 50%;di
 #prefs .pref:nth-child(5) .pic{background-position:0 65px}
 #prefs .pref:hover .title {color:#677377}
 #prefs .pref .title{display:block;padding-bottom:6px;font-family:Walshein_bold;font-size:22px;padding-top:20px;width:auto;color:#fff}
+
 .mainInfoWrap{max-width:1170px;width:100%;background:#fff;padding:0 50px 50px;margin-top:50px;display:inline-block}
 .mainInfoWrap .orderInfo{font-family:Walshein_light;margin:40px 0;width:100%}
 .mainInfoWrap .infoTitle{font-size:32px;text-align:center;color:#3f4a4d;font-family:Walshein_bold}
@@ -1262,3 +1263,4 @@ body div a.google_auth{background:url(/img/google_auth.jpg) no-repeat 30% 50%;di
 .orderedBooks .bookRow .bookTitle{float:left;padding:0 20px;width:60%}
 .orderedBooks .bookRow .bookQuantity{float:left;padding:0 20px;width:10%}
 .orderedBooks .bookRow .bookPrice{float:left;padding:0 20px}
+body>.bottomBlock{display:none}

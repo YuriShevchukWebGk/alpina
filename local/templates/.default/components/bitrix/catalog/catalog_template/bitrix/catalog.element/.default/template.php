@@ -266,11 +266,13 @@
                     <br>
                     <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
                     <br>
-                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
+                    <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a><br />
+					<span class="legal_description">* на каждый купленный сертификат вы получите счет-фактуру на аванс. Далее, по мере погашения сертификатов, выдается акт и счет-фактура на каждый «погашенный» сертификат.</span>
                 </div>
             </div>
             <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
             <input type="hidden" name="certificate_quantity" value="1"/>
+            <input type="hidden" name="certificate_id" value="<?=$arResult['ID']?>"/>
             <input type="hidden" name="certificate_price" value="<?=$arResult['PRICES']['BASE']['VALUE']?>"/>
             <input type="hidden" name="basket_rule" value="<?= preg_replace("/[^0-9]/", '', $arResult['XML_ID']);?>"/>
         </form>
@@ -474,7 +476,7 @@
             </div>
             <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                 <div class="characteris epubHide">
-                    <a href="http://www.alpinab2b.ru/product/prodvinut-brend/izdanie-spetstirazha/" title="Издать тираж книги с символикой компании" target="_blank" onclick="dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
+					<a href='#' class="getInfoCourier" onclick="specEdition('<?=$arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"]?>');dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});return false;" title="Издать тираж книги с символикой компании"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
                 </div>
                 <?}?>
             <?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
@@ -544,7 +546,7 @@
         <?if (!$checkMobile && intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon") && !empty ($arResult["PROPERTIES"]["appstore"]['VALUE'])  && !empty($arResult["PROPERTIES"]["alpina_digital_price"]['VALUE'])) {?>
             <div id="diffversions">
                 <a href="#" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="paperversion" class="active"><span><?if ($arResult["ID"] != 186046 && $arResult["ID"] != 372526) {?><?=GetMessage("PAPER_V")?><?} else {?><?= GetMessage("PAPER_WITHOUT_DIGITAL") ?><?}?></span></a>
-                <a href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-ebook/'?>" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
+                <a href="<?=substr($arResult["CANONICAL_PAGE_URL"], 0, -1) . '-ebook/'?>" onclick="selectversion($(this).attr('class'), $(this).attr('id'));return false;" id="digitalversion" class="passive"><span><?=GetMessage("DIGITAL_V")?></span></a>
             </div>
             <?}?>
         <?$frame = $this->createFrame()->begin();?>
@@ -652,7 +654,7 @@
                         <link itemprop="availability" href="https://schema.org/PreOrder">
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
                         <p class="newPriceText"><?= GetMessage("EXPECTED_DATE_2") ?>
-                        <? $date_str = strtolower(FormatDate("f", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
+                        <? $date_str = strtolower(FormatDate("F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
                         <?=substr($date_str,0, strlen($date_str)-1).'е';?>
                         </p>
 
@@ -1037,23 +1039,7 @@
                         )
                     );?>
                  <?} else {?>
-                    <?if($city == "Москва" || empty($city)){ ?>
-                        <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
-                            <?= GetMessage("MSK_DELIVERY") ?>
 
-                        </a> по Москве <br /><?=$delivery_day.' '?>
-                        <b><?if($arBasketPrice > FREE_SHIPING){
-                            echo GetMessage("FREE_DELIVERY_ENDING");
-                        } else {
-                            echo GetMessage("DELIVERY_POST");
-                        }?></b>
-                        </li>
-                        <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
-                            <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
-
-                        </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
-                        </li>
-                    <?}?>
                     <?$APPLICATION->IncludeComponent(
                         "altasib:geobase.select.city",
                         "altasib_geobase",
@@ -1240,10 +1226,10 @@
             <?}?>
             <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
             <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
-                <li data-id="2" class="tabIsRecenzion"><a class="ajax_link" href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-reviews/'?>"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</a></li>
+                <li data-id="2" class="tabIsRecenzion"><a class="ajax_link" href="<?=substr($arResult["CANONICAL_PAGE_URL"], 0, -1) . '-reviews/'?>"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</a></li>
 			<?}?>
             <? if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { ?>
-				<li data-id="3" class="tabsInElement" id="commentsLink"><a class="ajax_link" href="<?=substr($arResult['ORIGINAL_PARAMETERS']['CURRENT_BASE_PAGE'], 0, -1) . '-comments/'?>"><?= GetMessage("COMMENTS_TITLE") ?></a></li>
+				<li data-id="3" class="tabsInElement" id="commentsLink"><a class="ajax_link" href="<?=substr($arResult["CANONICAL_PAGE_URL"], 0, -1) . '-comments/'?>"><?= GetMessage("COMMENTS_TITLE") ?></a></li>
             <?}?>
         </ul>
 
@@ -1388,6 +1374,14 @@
                 );?>
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
+
+				<?if (!empty($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'])) {
+					echo '<br /><h3>'.GetMessage("ADDITIONAL_IMAGES").'</h3>';
+					foreach ($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'] as $additional_image) {
+						$additional_image = CFile::ResizeImageGet($additional_image, array("width" => 500, "height" => 700), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+						echo '<center><img src="'.$additional_image['src'].'" /></center>';
+					}
+				}?>
             </div>
             <?$videosCount  = 0;
 
@@ -1702,6 +1696,118 @@
         </div>
     </div>
     <?}?>
+<?
+global $blogPostsFilter;
+$blogPostsFilter = array("PROPERTY_BOOKS" => $arResult["ID"]);
+$APPLICATION->IncludeComponent(
+	"bitrix:catalog.section",
+	"this_book_in_blog",
+	array(
+		"IBLOCK_TYPE_ID" => "catalog",
+		"IBLOCK_ID" => "71",
+		"BASKET_URL" => "/personal/cart/",
+		"COMPONENT_TEMPLATE" => "this_book_in_blog",
+		"IBLOCK_TYPE" => "catalog",
+		"SECTION_ID" => "",
+		"SECTION_CODE" => "",
+		"SECTION_USER_FIELDS" => array(
+			0 => "",
+			1 => "",
+		),
+		"ELEMENT_SORT_FIELD" => "id",
+		"ELEMENT_SORT_ORDER" => "desc",
+		"ELEMENT_SORT_FIELD2" => "id",
+		"ELEMENT_SORT_ORDER2" => "asc",
+		"FILTER_NAME" => "blogPostsFilter",
+		"INCLUDE_SUBSECTIONS" => "Y",
+		"SHOW_ALL_WO_SECTION" => "Y",
+		"HIDE_NOT_AVAILABLE" => "N",
+		"PAGE_ELEMENT_COUNT" => "5",
+		"LINE_ELEMENT_COUNT" => "1",
+		"PROPERTY_CODE" => array(
+			0 => "",
+		),
+		"TEMPLATE_THEME" => "site",
+		"PRODUCT_DISPLAY_MODE" => "Y",
+		"PRODUCT_SUBSCRIPTION" => "N",
+		"SHOW_DISCOUNT_PERCENT" => "N",
+		"SHOW_OLD_PRICE" => "Y",
+		"SHOW_CLOSE_POPUP" => "N",
+		"MESS_BTN_BUY" => "Купить",
+		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
+		"MESS_BTN_SUBSCRIBE" => "Подписаться",
+		"MESS_BTN_DETAIL" => "Подробнее",
+		"MESS_NOT_AVAILABLE" => "Нет в наличии",
+		"SECTION_URL" => "",
+		"DETAIL_URL" => "",
+		"SECTION_ID_VARIABLE" => "SECTION_ID",
+		"SEF_MODE" => "N",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "36000",
+		"CACHE_GROUPS" => "Y",
+		"SET_TITLE" => "N",
+		"SET_BROWSER_TITLE" => "N",
+		"BROWSER_TITLE" => "-",
+		"SET_META_KEYWORDS" => "N",
+		"META_KEYWORDS" => "-",
+		"SET_META_DESCRIPTION" => "N",
+		"META_DESCRIPTION" => "-",
+		"SET_LAST_MODIFIED" => "N",
+		"USE_MAIN_ELEMENT_SECTION" => "N",
+		"ADD_SECTIONS_CHAIN" => "N",
+		"CACHE_FILTER" => "N",
+		"ACTION_VARIABLE" => "action",
+		"PRODUCT_ID_VARIABLE" => "id",
+		"PRICE_CODE" => array(
+			0 => "BASE",
+		),
+		"USE_PRICE_COUNT" => "N",
+		"SHOW_PRICE_COUNT" => "1",
+		"PRICE_VAT_INCLUDE" => "Y",
+		"CONVERT_CURRENCY" => "N",
+		"USE_PRODUCT_QUANTITY" => "N",
+		"PRODUCT_QUANTITY_VARIABLE" => "",
+		"ADD_PROPERTIES_TO_BASKET" => "Y",
+		"PRODUCT_PROPS_VARIABLE" => "prop",
+		"PARTIAL_PRODUCT_PROPERTIES" => "N",
+		"PRODUCT_PROPERTIES" => array(
+		),
+		"OFFERS_CART_PROPERTIES" => array(
+			0 => "COLOR_REF",
+			1 => "SIZES_SHOES",
+			2 => "SIZES_CLOTHES",
+		),
+		"ADD_TO_BASKET_ACTION" => "ADD",
+		"PAGER_TEMPLATE" => "round",
+		"DISPLAY_TOP_PAGER" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "Y",
+		"PAGER_TITLE" => "Товары",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"SET_STATUS_404" => "N",
+		"SHOW_404" => "N",
+		"MESSAGE_404" => "",
+		"BACKGROUND_IMAGE" => "-",
+		"DISABLE_INIT_JS_IN_COMPONENT" => "N",
+		"CUSTOM_FILTER" => "",
+		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO",
+		"DISPLAY_COMPARE" => "N",
+		"COMPATIBLE_MODE" => "Y"
+	),
+	false
+);
+?>
+
 <div class="reviewsSliderWrapp">
     <div class="centerWrapper">
         <!--noindex-->

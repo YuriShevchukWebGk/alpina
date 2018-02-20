@@ -41,6 +41,9 @@
                     <tr>
                         <td></td>
                         <?
+							foreach ($arResult["GRID"]["ROWS"] as $k => $arItem){
+								$arResult["GRID"]["ROWS"][$k]["DELAY"] = "N";
+							}
                             foreach ($arResult["GRID"]["HEADERS"] as $id => $arHeader):
                                 $arHeader["name"] = (isset($arHeader["name"]) ? (string)$arHeader["name"] : '');
                                 if ($arHeader["name"] == '')
@@ -191,21 +194,33 @@
                                                 <p class="nameOfAutor"><?=$curr_author["NAME"]?></p>
                                             <?}?>
                                             <?
-                                            $val_order = '';
+                                            $curState = '';
                                             $state = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "STATE"));
                                             if ($prop = $state->GetNext()) {
-                                                $val_order = $prop['VALUE_ENUM'];
+                                                $curState = $prop['VALUE'];
                                             }
-                                            $status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));
-                                            if ($prop = $status->GetNext()) {
-                                                if($val_order == "Скоро в продаже"){
+
+											if ($curState == STATE_SOON) {
+												$status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));
+												if ($prop = $status->GetNext()) {
                                                     $date_state[] = $prop['VALUE'];
+													$setSoonButton = true;
                                                     ?><p class="newPriceText">Поступит в продажу в
-                                                    <?$date_str = strtolower(FormatDate("f", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
+                                                    <?$date_str = strtolower(FormatDate("F", MakeTimeStamp($prop['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
                                                     <?=substr($date_str,0, strlen($date_str)-1).'е';?> </p><?
                                                 }
-                                            }?>
-                                            <??>
+                                            } elseif ($curState == 23) {
+												CSaleBasket::Delete($arItem["ID"]);?>
+												<script>
+													$(document).ready(function() {
+														<?if ($USER->IsAuthorized()) {?>
+															addToWishList(<?=$arItem["PRODUCT_ID"]?>, <?=$arItem["ID"]?>);
+														<?}?>
+														location.reload();
+													});
+												</script>
+											<?}?>
+
                                             <p class="nameOfType"><?=$arItem["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                             <div class="bx_ordercart_itemart">
                                                 <?
@@ -382,9 +397,7 @@
             <p class="finalDiscount">Вам не хватает 770<span class='rubsign'></span> и получите скидку 10%</p>
             */?>
             <p class="promoWrap"><span class="promocode" onclick="$('#coupon, #acceptCoupon').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промо-код/сертификат?<span></p>
-
 			<div class="gifts_block">
-
 				<?if($arParams['USE_GIFTS'] == 'Y' ) {
 					$APPLICATION->IncludeComponent(
 						"bitrix:sale.gift.basket",
@@ -431,7 +444,7 @@
 
             <div class="bx_ordercart_order_pay_left" id="coupons_block">
                 <div class="bx_ordercart_coupon">
-                    <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'});return false;">Применить</a>
+                    <input type="text" id="coupon" class="couponInput" name="COUPON" value="" style="margin-right:12px;"><br /><a href="#" id="acceptCoupon" onclick="enterCouponCustom();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeApply'}); return false;">Применить</a>
                     <input type="hidden" id="priceBasketToCoupon" value="<?=$arResult["allSum"]?>">
                 </div><?
                     if (!empty($arResult['COUPON_LIST']) || ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N" && strlen($_SESSION["CUSTOM_COUPON"]["COUPON_ID"])) > 0)
@@ -449,7 +462,8 @@
                                     $couponClass = 'good';
                                     break;
                             }
-                        ?><div class="bx_ordercart_coupon"><input disabled readonly type="text" name="OLD_COUPON[]" value="<?=htmlspecialcharsbx($oneCoupon['COUPON']);?>" class="<? echo $couponClass; ?>"><span class="<? echo $couponClass; ?>" data-coupon="<? echo htmlspecialcharsbx($oneCoupon['COUPON']); ?>"></span><div class="bx_ordercart_coupon_notes"><?
+                        ?><div class="bx_ordercart_coupon"><input disabled readonly type="text" name="OLD_COUPON[]" value="<?=htmlspecialcharsbx($oneCoupon['COUPON']);?>" class="<? echo $couponClass; ?>"><span class="<? echo $couponClass; ?>" data-coupon="<? echo htmlspecialcharsbx($oneCoupon['COUPON']); ?>"></span>
+                        <div class="bx_ordercart_coupon_notes"><?
                                 if (isset($oneCoupon['CHECK_CODE_TEXT']))
                                 {
                                     echo (is_array($oneCoupon['CHECK_CODE_TEXT']) ? implode('<br>', $oneCoupon['CHECK_CODE_TEXT']) : $oneCoupon['CHECK_CODE_TEXT']);
@@ -465,7 +479,8 @@
                                 $couponClass = "bad";
                             }
                             $couponCode = $_SESSION["CUSTOM_COUPON"]["COUPON_CODE"];?>
-                            <div class="bx_ordercart_coupon"><input disabled readonly type="text" name="OLD_COUPON[]" value="<?=htmlspecialcharsbx($couponCode);?>" class="<? echo $couponClass; ?>"><span class="<? echo $couponClass; ?>" data-coupon="<? echo htmlspecialcharsbx($couponCode); ?>"></span><div class="bx_ordercart_coupon_notes"><?
+                            <div class="bx_ordercart_coupon"><input disabled readonly type="text" name="OLD_COUPON[]" value="<?=htmlspecialcharsbx($couponCode);?>" class="<? echo $couponClass; ?>"><span class="<? echo $couponClass; ?>" data-coupon="<? echo htmlspecialcharsbx($couponCode); ?>"></span>
+                            <div class="bx_ordercart_coupon_notes"><?
                                 echo "Код применен";
                             ?></div></div>
                         <?}
@@ -473,8 +488,12 @@
                 ?>
             </div>
             <p class="nextPageWrap">
-                <? if ($arResult['allSum']) { ?>
-                    <a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+                <? if ($arResult['allSum']) {
+					if ($setSoonButton) {?>
+						<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_PREORDER")?></a>
+					<?} else {?>
+						<a href="javascript:void(0)" onclick="checkOut();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'nextStepButtonClick'});$('.nextPageWrap').html('<div id=\'nprogresss\'><div class=\'spinner\'><div class=\'spinner-icon\'></div></div></div>');" class="nextPage"><?=GetMessage("SALE_ORDER")?></a>
+					<?}?>
                 <? } else { ?>
                     <span class="basket_zero_cost"><?= GetMessage("SALE_ZERO_COST") ?></span>
                 <? } ?>

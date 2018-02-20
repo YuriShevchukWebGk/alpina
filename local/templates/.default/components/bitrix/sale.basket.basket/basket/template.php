@@ -1,5 +1,8 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-
+	if ($_REQUEST['preorder']) {
+		header("Location: /personal/cart/"); /* Redirect browser */
+		exit;
+	}
     /** @var array $arParams */
     /** @var array $arResult */
     /** @global CMain $APPLICATION */

@@ -112,6 +112,8 @@
     define ("REISSUE_ID", 218); //ID свойства "Переиздание"
     define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
     define ("STATE_SOON", 22); //ID состояния книги "Скоро в продаже"
+    define ("STATE_NULL", 23); //ID состояния книги "Нет в наличии"
+    define ("STATE_NEWS", 21); //ID состояния книги "Новинка"
     define ("EXPERTS_IBLOCK_ID", 23); //ID инфоблока Эксперты
     define ("PAY_SYSTEM_RFI", 11); //ID платежный системы РФИ
 
@@ -1055,12 +1057,28 @@
                 if (Message::getOrderDeliveryType($ID)==2) {
                     $message = new Message();
                     $order = CSaleOrder::GetById($ID);
-                    $result = $message->sendMessage($ID,$val,'',$order['PRICE']);
+                    if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID || $_SESSION["MESSAGE_PRICE"] != $order['PRICE']){
+                        $result = $message->sendMessage($ID,$val,'',$order['PRICE']);
+                    }
+
+
                 }
-            } else {
+            } else if($val=="N"){
                 $message = new Message();
-                $result = $message->sendMessage($ID,$val);
-            }
+                if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID){
+                    $result = $message->sendMessage($ID,$val);
+                }
+            } elseif (($val=="A")) {
+				$message = new Message();
+                if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID){
+                    $result = $message->sendMessage($ID,$val);
+                }
+			}
+            $_SESSION["MESSAGE_STATE"] = $val;
+            $_SESSION["MESSAGE_PRICE"] = $order['PRICE'];
+            $_SESSION["MESSAGE_ORDER"] = $ID;
+
+            logger(date('d.m.Y::H:m').': '.$_SESSION["MESSAGE_STATE"].$_SESSION["MESSAGE_PRICE"].$_SESSION["MESSAGE_ORDER"],$_SERVER["DOCUMENT_ROOT"].'/logs/log1.txt' );
         }
 
         //----- Триггерные письма при изменении статуса заказа
@@ -1715,7 +1733,7 @@
             $path = $this->url;
 
             //альтернативный варинт авторизации
-            $sign = md5("login=" . $this->login . "&message= " . $message . "&sender= " . $this->sender . "&target=" . $phone . $this->token);
+           // $sign = md5("login=" . $this->login . "&message= " . $message . "&sender= " . $this->sender . "&target=" . $phone . $this->token);
 
             $postdata = http_build_query(
                array(
@@ -1906,8 +1924,7 @@
 
         if (in_array(trim($orderArr['DELIVERY_ID']), array(DELIVERY_PICK_POINT, DELIVERY_PICK_POINT2, DELIVERY_BOXBERRY_PICKUP, "pickpoint:postamat"))) {
 
-            //$arFields['EMAIL_DELIVERY_TERM'] = "<br />Сроки доставки (дней): <b>".$_SESSION['EMAIL_DELIVERY_TERM']."</b><br>";
-            $arFields['EMAIL_DELIVERY_TERM'] = "<br />Ближайшая отправка: 10 января 2018 года</b><br>";
+            $arFields['EMAIL_DELIVERY_TERM'] = "<br />Сроки доставки (дней): <b>".$_SESSION['EMAIL_DELIVERY_TERM']."</b><br>";
             $arFields['EMAIL_DELIVERY_ADDR'] = "Адрес доставки: <b>".getDeliveryAddress(trim($orderArr['DELIVERY_ID']),$orderID)."</b><br>";
 
         } elseif (in_array($orderArr['DELIVERY_ID'], array(DELIVERY_COURIER_1, DELIVERY_COURIER_2))) {
@@ -3239,7 +3256,7 @@
             if ($arTemplate['CC']) {
                 $params['cc'] .= $arTemplate['CC'];
             }
-            logger($params, $_SERVER["DOCUMENT_ROOT"].'/logs/log1.php');
+
             $domain = $arParams['MAILGUN']['DOMAIN'];
 
             //  # Make the call to the client.
@@ -3302,17 +3319,15 @@
 
     AddEventHandler("sale", "OnBeforeBasketAdd", "ProductAddPreOrder");  // событие перед добавлением товара в корзину
     function ProductAddPreOrder(&$arFields) {
-        $res = CIBlockElement::GetList(Array(), Array("ID" => $_GET["id"]), false, false, Array("PROPERTY_STATE"));
-        if($item = $res->Fetch()){
-            if($_GET["action"] == "ADD2BASKET" && $_GET["id"] && $item["PROPERTY_STATE_ENUM_ID"]){ // проверяем доступен товар для покупки или является предзаказом
-                $arFields["DELAY"] = "Y";	  // перемещаем товар в предзаказ
-
-                return $arFields;   // возвращаем знаячение
-            }
-        }
-
-
+		if ($_GET["action"] == "ADD2BASKET" && $_GET["id"]) {
+			$res = CIBlockElement::GetList(Array(), Array("ID" => $_GET["id"], "PROPERTY_STATE" => STATE_SOON), false, false, Array("ID"));
+			if($item = $res->Fetch()) {
+				//$arFields["DELAY"] = "Y";	  // перемещаем товар в предзаказ
+				return $arFields;   // возвращаем знаячение
+			}
+		}
     }
+
 
     //AddEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'updatingQuantityforPreorderItems');
 
@@ -3385,5 +3400,42 @@
     function object_to_array($a, $b) {
         return strtotime($b) - strtotime($a);
     }
+
+AddEventHandler("iblock", "OnAfterIBlockElementAdd", "SyncProductCode");
+AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "SyncProductCode");
+
+function SyncProductCode($arFields) {
+    if ($arFields["IBLOCK_ID"] == 78) {
+        $new_iblock_element_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 78, "ID" => $arFields["ID"]), false, false, array("IBLOCK_ID", "ID", "XML_ID", "PROPERTY_ID_BITRIKS"));
+        while ($new_iblock_element = $new_iblock_element_info -> Fetch()) {
+            $id_bitrix_property_value = intval($new_iblock_element["PROPERTY_ID_BITRIKS_VALUE"]);
+            $new_iblock_element_code = $new_iblock_element["XML_ID"];
+        }
+        if ($id_bitrix_property_value > 0) {
+            $current_iblock_element = new CIBlockElement;
+            $arLoadProductArray = array("XML_ID" => $new_iblock_element_code);
+            $res = $current_iblock_element -> Update($id_bitrix_property_value, $arLoadProductArray);
+        }
+    }
+}
+// задаем свои условия доставки apichip
+AddEventHandler('ipol.apiship', 'onCalculate', 'changeapishipTerms');
+
+function changeapishipTerms(&$arResult, $profile, $arConfig, $arOrder){
+
+   //     $profile - профиль
+   //     $arConfig - настройки СД
+  /*      $arOrder - параметры заказа
+            LOCATION_TO   - id местоположения доставки
+            LOCATION_FROM - id местоположения отправления
+            PRICE         - стоимость заказа
+            WEIGHT        - вес заказа в граммах
+        $arResult - массив вида
+            RESULT  - OK, если рассчет верен, ERROR - если ошибка
+            VALUE   - стоимость доставки в рублях
+            TRANSIT - срок доставки в днях
+            TARIF   - рассчитанный тариф, только для информации  */
+
+}
 
 ?>

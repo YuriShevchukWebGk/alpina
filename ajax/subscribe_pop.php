@@ -4,12 +4,16 @@ if ($_REQUEST["id"]) {
 	CModule::IncludeModule("subscribe");
 	
 	$already = false;
-	//$alpinaip = "81.23.1.228";
+	$alpinaip = "81.23.1.228";
 	
 	if ($USER->IsAuthorized())
 		$already = CSubscription::GetList(array(), array("USER_ID"=>$USER->GetID()), false)->Fetch();
 	
-	if (!$already && $_SERVER['REMOTE_ADDR'] != $alpinaip && !preg_match("/(.*)\/personal\/(.*)/i", $_SERVER['REQUEST_URI'])) {
+	if (!$already
+		&& $_SERVER['REMOTE_ADDR'] != $alpinaip
+		&& !preg_match("/(.*)\/personal\/(.*)/i", $_SERVER['HTTP_REFERER'])
+		&& strpos($_SERVER['HTTP_REFERER'],"yandex.market") === false) {
+			
 		$return = '<style>.outLink {text-decoration:underline} .outLink:hover {text-decoration:none;}.stopProp img {max-width:650px;height:auto;display:block;margin:0 auto;padding:0 50px 0 0;}.awayLink:hover {background-color: #cab796!important;color: #fff!important;} .addLink:hover {background-color: #c7a271!important;color: #fff!important;} .closeX:after{font-size:48px;position: absolute;content:"\00d7";color:#fff;width: 21px;height: 21px;right: 40px;cursor: pointer;display: block} .closeX:hover:after {content:"\00d7";color:#888}#subpop input[type=button]{background:transparent;color:#0dce00;margin-left:-50px;font-size:28px;}input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {background-color:transparent!important;color:#fff!important}</style>';
 		
 		$return .= '<script>$(document).ready(function() { $(".stopProp").click(function(e) { e.stopPropagation(); }); });';
@@ -36,6 +40,7 @@ if ($_REQUEST["id"]) {
 
 		$return .= '</div></div></div>';
 		echo $return;
+		
 	} else {
 		return false;
 	}

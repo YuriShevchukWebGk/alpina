@@ -49,8 +49,8 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
         <div class="contentWrapp">
             <p class="breadCrump no-mobile" itemprop="breadcrumb" itemscope="" itemtype="https://schema.org/BreadcrumbList">
                 <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
-                    <a href="/" title="Главная страница" itemprop="item">
-                        <span itemprop="name">Главная страница</span>
+                    <a href="/" title="Книги Альпина" itemprop="item">
+                        <span itemprop="name">Книги Альпина</span>
                     </a>
                     <meta itemprop="position" content="1">
                 </span>
@@ -78,47 +78,37 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
 
             <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
-			
-			<?if ($arResult["ID"] == 471) {?>
-				<h2 style="color:#627478">-30% при заказе от трех книг</h2>
+            
+            <?if ($arResult["ID"] == 471) {?>
 
-				<div style="font-size:17px">Дарите детям лучшие познавательные книги!<br /><br />
-
-С книгами <span style="color:red">«Альпина.Дети»</span> ваш ребёнок:<ul>
-
-<li>• станет любознательным исследователем;</li>
-<li>• узнает самые невероятные факты о любимых животных;</li>
-<li>• откроет для себя космос и захочет туда полететь;</li>
-<li>• полюбит науку и начнет экспериментировать;</li>
-<li>• оторвётся от гаджетов и начнёт замечать что-то интересное в мире вокруг.</li>
-</ul>
-<br />
-Торопитесь!
-<br />
-Акция продлится <span style="color:red">до 31 декабря</span>. Мы доставим книги <span style="color:red">в любую точку России</span>.<br /><br />
-Получить <span style="color:red">скидку 30%</span> очень просто: как только в вашей корзине будет более трех книг, представленных здесь, цена автоматически станет ниже.</div>
-			<?}?>
-			
-			<?
-			$arData = array();
-			$arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL");
-			$arFilter = Array("IBLOCK_ID" => 75, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_BIND_SECTION" => $arResult["ID"]);
-			$res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-			while($ob = $res->GetNextElement())
-			{
-				$arData[] = $ob->GetFields();
-			}
-			
-			if(count($arData) > 0):
-			?> 
-			<?/*<div class="doner_tags">
-				<span>Популярные категории</span>
-				<?foreach($arData as $data):?>
-				<a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
-				<?endforeach;?>
-			</div>*/?>
-			
-			<?endif;?>
+                <div style="font-size:17px;margin-top:40px">
+                В эти морозные дни особенно приятно возвращаться домой — в уют и тепло. Предлагаем вам провести вечер вместе с ребенком и новой книгой. Пусть счастливых семейных воспоминаний будет больше!
+                <br /><br />
+                А мы поможем вам продлить ощущение праздника: только до <b>29 января</b> более 100 книг для детей и родителей вы можете купить у нас <b>со скидкой 30%</b>.
+                <br /><br />
+                Выбирайте!</div>
+            <?}?>
+            
+            <?
+            $arData = array();
+            $arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL");
+            $arFilter = Array("IBLOCK_ID" => 75, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_BIND_SECTION" => $arResult["ID"]);
+            $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
+            while($ob = $res->GetNextElement())
+            {
+                $arData[] = $ob->GetFields();
+            }
+            
+            if(count($arData) > 0):
+            ?> 
+            <?/*<div class="doner_tags">
+                <span>Популярные категории</span>
+                <?foreach($arData as $data):?>
+                <a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
+                <?endforeach;?>
+            </div>*/?>
+            
+            <?endif;?>
             <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
             $APPLICATION->IncludeComponent(
@@ -589,7 +579,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                     $(this).find("ul.secondLevel").show();
                 }
             }
-        })
+        });
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;
         switch ($arParams["ELEMENT_SORT_FIELD"]) {
             case "CATALOG_PRICE_1":
@@ -631,7 +621,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             ?>
                 $.get(window.location.href + '&PAGEN_<?= $navnum?>=' + page, function(data) {
                     var next_page = $('.otherBooks ul li', data);
-                    $('.otherBooks ul').append(next_page);
+                    $('.otherBooks ul').append(next_page); 
                     page++;
                 })
             <?
@@ -664,7 +654,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             if (page == maxpage) {
                 $('.showMore').hide();
             }
-            return false;
+            return false;                       
 
         });
         <?if (isset($_SESSION[$APPLICATION -> GetCurDir()])) {?>

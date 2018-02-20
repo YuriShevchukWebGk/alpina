@@ -1189,13 +1189,13 @@ function recalcBasketAjax(params)
                     }
                 }
             }
-       
+
             $(".gifts_block").load(document.location.href + " .gifts_block > *", function(response, status, xhr){
                 if ($(".gifts_block").find("div").size() > 0) {
                     $(".gifts_block").show();
                 }
             });
-         
+
         }
     });
 }
@@ -1315,6 +1315,8 @@ BX.ready(function() {
 //Custom coupon
 function enterCouponCustom(preorderID) {
     preorderID = preorderID || '';
+    var progress = $('.nextPageWrap').html();
+    $('.nextPageWrap').html('<div id=nprogresss><div class=spinner><div class=spinner-icon></div></div></div>');
     if (preorderID != '') {
         var couponCode = $("#coupon_" + preorderID).val();
         var price = $("#priceBasketToCoupon_" + preorderID).val();
@@ -1330,6 +1332,7 @@ function enterCouponCustom(preorderID) {
                 } else {
                     $('#allSum_FORMATED_' + preorderID).html('0 руб.');
                 }
+                $('.nextPageWrap').html(progress);
             }
         });
     } else {
@@ -1392,8 +1395,14 @@ function enterCouponCustom(preorderID) {
                             ]
                         }
                     ));
+
                     $('#allSum_FORMATED').html('0 руб.');
                 }
+                if(arResult.TEST_INFO_arCoupon.CREATED_BY != null && arResult.TEST_INFO_arCoupon.MODIFIED_BY != null){
+                    setTimeout(function() { $('.nextPageWrap').html(progress); }, 11000);
+                } else {
+                    setTimeout(function() { $('.nextPageWrap').html(progress); }, 3000);
+                };
             }
         });
     }

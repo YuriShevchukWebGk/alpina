@@ -3054,6 +3054,17 @@ function getInfo(id) {
     });
 }
 
+function specEdition(book) {
+    $.ajax({
+        type: "POST",
+        url: "/ajax/spec_edition.php",
+        data: {ask: book}
+    }).done(function(strResult) {
+        $("#ajaxBlock").append(strResult);
+        $("body").css('overflow','hidden');
+    });
+}
+
 function getPreview(id,stock) {
     $(".element_item_img .bookPreviewLink").css('opacity', '0.8');
     $(".element_item_img").append('<div id="loadingInfo" class="previwLoading" style="margin-top: -75%;"><div class="spinner"><div class="spinner-icon"></div></div></div>');

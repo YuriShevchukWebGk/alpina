@@ -629,7 +629,8 @@ if ($arResult['MODULES']['currency'])
                 $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['NAME'];
             }*/
             if (strlen ($ar_properties['ORIG_NAME']) > 0) {
-                $oriname = implode(" ", array_reverse(explode(" ", $ar_properties['ORIG_NAME'])));
+                //$oriname = implode(" ", array_reverse(explode(" ", $ar_properties['ORIG_NAME'])));
+				$oriname = $ar_properties['ORIG_NAME'];
                 $arResult["AUTHOR_NAME"] .= " (" . $oriname.")";
             }
         }
@@ -921,8 +922,17 @@ if ($arResult['MODULES']['currency'])
     foreach ($arResult["AUTHOR"] as $key => $author) {
         $arResult["AUTHOR"][$key]["IMAGE_FILE"] = CFile::GetFileArray($author["DETAIL_PICTURE"]);
     }
+	
+	$opts = array('http' =>
+		array(
+			'method'  => 'GET',
+			'timeout' => 3 
+		)
+	);
 
-	$recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CrossSellItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"]);
+	$context  = stream_context_create($opts);
+	
+	$recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/ItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"], false, $context);
 	$arResult["STRING_RECS"] = array_slice(json_decode($recsArray), 0, 6);
 
 	//Порог для бесплатной доставки

@@ -932,11 +932,21 @@ $(document).ready(function(){
 	NProgress.set(0.6);
 	setTimeout(function() { NProgress.done();}, 200);
 	//Progress Bar END
+
+    $('body').on('click', '#altasib_geobase_btn', function(){
+        altasib_geobase.sc_onclk();
+    })
+	
+	$(".stopProp").click(function(e){
+		e.stopPropagation();
+	});
+	
+	$(".catalogIcon").html("<span>Каталог</span>");
+	$(".basketIcon").html("<span>Корзина</span>");
 });
 
 
-function update_quant(sign, e)
-{
+function update_quant(sign, e) {
     //изменение кол-ва в выезжающей корзине
     /*$('.hidingBasketRight .plus').on('click', function(){
     var numbOfBooks = parseInt($(this).parent().children('p').html());
@@ -1905,6 +1915,13 @@ function docReadyComponent(id) {
 	NProgress.set(0.6);
 	setTimeout(function() { NProgress.done();}, 200);
 	//Progress Bar END
+	
+	$(".stopProp").click(function(e){
+		e.stopPropagation();
+	});
+	
+	$(".catalogIcon").html("<span>Каталог</span>");
+	$(".basketIcon").html("<span>Корзина</span>");
 }
 
 /*
@@ -2975,3 +2992,50 @@ function easySlider(className, PageQuantitySlides){
     return jQuery;
   }
 }());
+
+function setAbandonedInfo(userId,basketid) {
+	$.ajax({
+		type: "POST",
+		url: "/ajax/abandoned_carts.php",
+		data: {
+			userid: userId,
+			basketid: basketid
+		}
+	}).done(function(strResult) {
+		if (strResult == 'ok') {
+			console.log("userid:"+userId);
+			console.log("basketid:"+basketid);
+		}
+	});
+}
+
+function readCookie(name) {
+	var nameEQ = encodeURIComponent(name) + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+	}
+	return null;
+}
+
+function subscribePopup() {
+	$.post("/ajax/subscribe_pop.php", {id: 1}, function(data){
+		$(data).appendTo("body").fadeIn();
+	});
+}
+
+function subscribePopupChildren() {
+	$.post("/ajax/subscribe_pop_children.php", {id: 1}, function(data){
+		$(data).appendTo("body").fadeIn();
+	});
+}
+
+function getsubbook(){
+	$.post("/ajax/request_add.php",{email:$("#subpop input[type=email]").val()},function(data){$(".errorinfo").html(data);})
+}
+
+function closeX(){
+	$('.hideInfo').hide();
+}

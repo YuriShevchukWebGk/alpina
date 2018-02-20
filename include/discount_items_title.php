@@ -1,3 +1,3 @@
 <p class="titleMain">
-	 <a href="/catalog/sale/">Спецпредложения</a>
+	 <a href="/catalog/sale/">Скидки дня</a>
 </p>

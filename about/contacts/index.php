@@ -30,6 +30,12 @@ $APPLICATION->SetTitle("Контакты интернет-магазина «А�
 <div class="ContentbasketIcon">
 </div>
 
+<style>
+	.contactsTextWrap{margin-top:50px}
+	.contactsFormWrap{margin-right:70px}
+</style>
+
+
     <div class="deliveryPageTitleWrap">
         <div class="centerWrapper">
             <p>Главная</p>
@@ -40,99 +46,64 @@ $APPLICATION->SetTitle("Контакты интернет-магазина «А�
 
     <div class="contactsBodyWrap">
         <div class="centerWrapper">
-        <?/*?>
-            <div class="contactsFormWrap">
-                <p>Обратная связь</p>
-                <input type="text" placeholder="Ваше имя">
-                <input type="text" placeholder="Ваш e-mail">
-                <input type="text" placeholder="Ваш телефон">
-                <textarea placeholder="Ваш вопрос" class="questInput"></textarea>
-                <input type="submit" value="Отправить">
-            </div>
-        <?*/?>
-            <?/*$APPLICATION->IncludeComponent(
-        "bitrix:main.feedback",
-        "feedback_form",
-        Array(
-            "USE_CAPTCHA" => "Y",
-            "OK_TEXT" => "Спасибо, ваше сообщение принято.",
-            "EMAIL_TO" => "raulschokino@yandex.ru",
-            "REQUIRED_FIELDS" => array(),
-            "EVENT_MESSAGE_ID" => array()
-        ),
-    false
-    );*/?>
-        <?$APPLICATION->IncludeComponent(
-	"bitrix:iblock.element.add.form", 
-	"feedback_form", 
-	array(
-		"SEF_MODE" => "Y",
-		"IBLOCK_TYPE" => "news",
-		"IBLOCK_ID" => "12",
-		"PROPERTY_CODES" => array(
-			0 => "183",
-			1 => "184",
-			2 => "185",
-			3 => "NAME",
-		),
-		"PROPERTY_CODES_REQUIRED" => array(
-			0 => "183",
-			1 => "184",
-			2 => "185",
-			3 => "NAME",
-		),
-		"GROUPS" => array(
-			0 => "2",
-		),
-		"STATUS_NEW" => "N",
-		"STATUS" => "ANY",
-		"LIST_URL" => "",
-		"ELEMENT_ASSOC" => "PROPERTY_ID",
-		"ELEMENT_ASSOC_PROPERTY" => "",
-		"MAX_USER_ENTRIES" => "100000",
-		"MAX_LEVELS" => "100000",
-		"LEVEL_LAST" => "Y",
-		"USE_CAPTCHA" => "N",
-		"USER_MESSAGE_EDIT" => "",
-		"USER_MESSAGE_ADD" => "Ваше сообщение успешно отправлено. Мы ответим в рабочее время на ваш e-mail",
-		"DEFAULT_INPUT_SIZE" => "30",
-		"RESIZE_IMAGES" => "Y",
-		"MAX_FILE_SIZE" => "0",
-		"PREVIEW_TEXT_USE_HTML_EDITOR" => "Y",
-		"DETAIL_TEXT_USE_HTML_EDITOR" => "Y",
-		"CUSTOM_TITLE_NAME" => "Ваше имя",
-		"CUSTOM_TITLE_TAGS" => "",
-		"CUSTOM_TITLE_DATE_ACTIVE_FROM" => "",
-		"CUSTOM_TITLE_DATE_ACTIVE_TO" => "",
-		"CUSTOM_TITLE_IBLOCK_SECTION" => "",
-		"CUSTOM_TITLE_PREVIEW_TEXT" => "",
-		"CUSTOM_TITLE_PREVIEW_PICTURE" => "",
-		"CUSTOM_TITLE_DETAIL_TEXT" => "",
-		"CUSTOM_TITLE_DETAIL_PICTURE" => "",
-		"SEF_FOLDER" => "/",
-		"COMPONENT_TEMPLATE" => "feedback_form"
-	),
-	false
-);?>
+			<?$APPLICATION->IncludeComponent(
+				"bitrix:iblock.element.add.form", 
+				"feedback_form", 
+				array(
+					"SEF_MODE" => "Y",
+					"IBLOCK_TYPE" => "news",
+					"IBLOCK_ID" => "12",
+					"PROPERTY_CODES" => array(
+						0 => "183",
+						1 => "184",
+						2 => "185",
+						3 => "NAME",
+					),
+					"PROPERTY_CODES_REQUIRED" => array(
+						0 => "183",
+						1 => "184",
+						2 => "185",
+						3 => "NAME",
+					),
+					"GROUPS" => array(
+						0 => "2",
+					),
+					"STATUS_NEW" => "N",
+					"STATUS" => "ANY",
+					"LIST_URL" => "",
+					"ELEMENT_ASSOC" => "PROPERTY_ID",
+					"ELEMENT_ASSOC_PROPERTY" => "",
+					"MAX_USER_ENTRIES" => "100000",
+					"MAX_LEVELS" => "100000",
+					"LEVEL_LAST" => "Y",
+					"USE_CAPTCHA" => "N",
+					"USER_MESSAGE_EDIT" => "",
+					"USER_MESSAGE_ADD" => "Ваше сообщение успешно отправлено. Мы ответим в рабочее время на ваш e-mail",
+					"DEFAULT_INPUT_SIZE" => "30",
+					"RESIZE_IMAGES" => "Y",
+					"MAX_FILE_SIZE" => "0",
+					"PREVIEW_TEXT_USE_HTML_EDITOR" => "Y",
+					"DETAIL_TEXT_USE_HTML_EDITOR" => "Y",
+					"CUSTOM_TITLE_NAME" => "Ваше имя",
+					"CUSTOM_TITLE_TAGS" => "",
+					"CUSTOM_TITLE_DATE_ACTIVE_FROM" => "",
+					"CUSTOM_TITLE_DATE_ACTIVE_TO" => "",
+					"CUSTOM_TITLE_IBLOCK_SECTION" => "",
+					"CUSTOM_TITLE_PREVIEW_TEXT" => "",
+					"CUSTOM_TITLE_PREVIEW_PICTURE" => "",
+					"CUSTOM_TITLE_DETAIL_TEXT" => "",
+					"CUSTOM_TITLE_DETAIL_PICTURE" => "",
+					"SEF_FOLDER" => "/",
+					"COMPONENT_TEMPLATE" => "feedback_form"
+				),
+				false
+			);?>
+			
             <div class="contactsTextWrap" itemprop="mainEntity" itemscope itemtype="http://schema.org/BookStore">
                 <meta itemprop="name" content="Интернет-магазин «Альпина Паблишер»"/>
 				<meta itemprop="url" content="http://<?=$_SERVER['SERVER_NAME']?>"/>
 				<meta itemprop="logo" content="http://<?=$_SERVER['SERVER_NAME']?>/img/logo.png"/>
-				<time itemprop="openingHours" datetime="Mo-Fr 08:00-18:00" />
-				<!--noindex-->
-				<p style="margin:30px 0;padding:20px;max-width:600px;background:#fffcdb">
-				<b>График работы офиса интернет-магазина в&nbsp;предпраздничные и&nbsp;праздничные дни:</b> <br /><br />
-				&bull; до&nbsp;29&nbsp;декабря в&nbsp;обычном режиме с&nbsp;8&nbsp;до&nbsp;18&nbsp;часов;<br />
-				&bull; с&nbsp;30&nbsp;декабря по&nbsp;8&nbsp;января офис интернет-магазина работать не&nbsp;будет.
-				<br /><br />
-
-				Заказы оформляются с&nbsp;обычном режиме.
-				<br />
-				Заказы, оформленные с&nbsp;30&nbsp;декабря по&nbsp;8&nbsp;января, будут доставлены в&nbsp;первые несколько рабочих дней нового года.
-				<br />
-				Отправка заказов за&nbsp;пределы Москвы состоится в&nbsp;начале следующего года.
-				</p>
-				<!--/noindex-->
+				<time itemprop="openingHours" datetime="Mo-Fr 08:00-18:00"></time>
 				
 				<p>ООО «Альпина Паблишер»</p>
 				<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
@@ -148,7 +119,6 @@ $APPLICATION->SetTitle("Контакты интернет-магазина «А�
 				<p class="wayTitle">Как к нам пройти</p>
 				<p> Метро «Полежаевская», первый вагон из центра (в связи с реконструкцией станции выход из последнего вагона закрыт), из вестибюля налево. После выхода на улицу огибаете метро справа и двигаетесь вдоль Хорошевского шоссе. Далее проходите мимо ресторана «Макдоналдс», банков «Альфа-Банк» и «Промсвязь Банк». Переходите на противоположную сторону к ТЦ «Хорошо», поворачиваете направо и двигаетесь по 4-ой Магистральной улице. Проходите магазин «Ларес» и доходите до дома 5 строения 1. Вам нужен «БЦ на Магистральной», второй подъезд, второй этаж.</p>
             </div>
-            
         </div>
     </div>
 

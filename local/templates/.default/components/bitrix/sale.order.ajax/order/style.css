@@ -1132,9 +1132,32 @@ to {
     top: -10px;
     right: -13px;
 }
+body .altasib_geobase_link{
+
+}
 @media (max-width: 1300px) {
     .platbox_iframe_block {
         width: 75% !important;
         left: 17% !important;
     }
+}
+.apiship_pvzLair a {
+    color: #12a9e1;
+    font-size: 15px;
+    margin-left: 35px;
+    font-weight: normal;
+}
+.apiship_pvzLair span, #IPOLapiship_injectHere_pickup{
+    color: #12a9e1;
+    font-size: 15px;
+    margin-left: 35px;
+    font-weight: normal;
+}
+.delivery_apiship{
+    color: #627478;
+    font-family: "Walshein_regular";
+    font-size: 16px;
+    margin-left: 34px;
+    float: left;
+    font-weight: normal;
 }
