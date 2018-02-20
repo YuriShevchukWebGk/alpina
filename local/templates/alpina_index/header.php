@@ -65,11 +65,7 @@
     <meta property="fb:app_id" content="138738742872757" />
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-<<<<<<< HEAD
-    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
-=======
     <? file_exists($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') ? include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') : ""; //Хардовые AB-тесты?>
->>>>>>> upstream/master
 	<!-- header .index -->
 	<!-- gdeslon -->
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276" async></script>
@@ -802,11 +798,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li class="first"><span class="active" data-id="1"><a href="/catalog/new/?SORT=NEW" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'newest'});">Новинки</a></span></li>
             <li><span data-id="2"><a href="/catalog/bestsellers/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'best'});">Бестселлеры</a></span></li>
             <li><span data-id="3"><a href="/catalog/coming-soon/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'soon'});">Скоро <br>в продаже</a></span></li>
-<<<<<<< HEAD
-            <li><span data-id="4"><a href="/catalog/sale/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'sale'});">Новые скидки<br />ежедневно</span></li>
-=======
             <li><span data-id="4"><a href="/catalog/sale/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'sale'});">Скидки дня</span></li>
->>>>>>> upstream/master
         </ul>
         <div class="socServ">
             <p class="text">
@@ -825,9 +817,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="catalogWrapper saleWrapp">
 		<?/* Получаем персональные рекомендации RetailRocket */
 		if (isset($_COOKIE["rcuid"])){
-<<<<<<< HEAD
-			$stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"]);
-=======
 			$opts = array('http' =>
 				array(
 					'method'  => 'GET',
@@ -837,7 +826,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 			$context  = stream_context_create($opts);
 			$stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"], false, $context);
->>>>>>> upstream/master
 			$recsArray = array_slice(json_decode($stringRecs, true), 0, 6);
 			$arrFilter = array();
 			foreach($recsArray as $val) {

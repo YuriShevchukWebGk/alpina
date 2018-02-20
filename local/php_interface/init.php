@@ -146,7 +146,12 @@
             die();
         }
     }
-
+    AddEventHandler('main', 'OnBeforeEventSend', 'addingTagParameterForTemplate');
+    function addingTagParameterForTemplate ($arFields, $arTemplate) {
+        if ($arTemplate["ID"] == 168) {
+            $arFields["TAG_MACROS"] = '$%my_tag%$';
+        }    
+    }
     /**
     *
     * Отдельная функция для писем с вложениями, т.к. разобрать то, что шлет битрикс нереально
@@ -181,13 +186,19 @@
         preg_match($bcc_pattern, $additional_headers, $bcc_matches);
         preg_match($cc_pattern, $additional_headers, $cc_matches);
 
+        if (strstr($message, '$%')) {
+            $macros_pos_beginning = strpos($message, '$%') + 2;
+            $macros_pos_end = strpos($message, '%$');
+            $macros_value = substr($message, $macros_pos_beginning, ($macros_pos_end - $macros_pos_beginning));
+        }
         $mailgun = new Mailgun(MAILGUN_KEY);
 
         $params = array(
             'from'	=> ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
             'to'		=> $to,
             'subject' => $subject,
-            'html'	=> $message
+            'html'	=> $message,
+            'o:tag' => $macros_value
         );
 
         if (trim($bcc_matches[0])) {
@@ -3437,5 +3448,4 @@ function changeapishipTerms(&$arResult, $profile, $arConfig, $arOrder){
             TARIF   - рассчитанный тариф, только для информации  */
 
 }
-
 ?>
