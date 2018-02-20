@@ -1,4 +1,19 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+	/*//обработка адресов с /temporary/
+	if ($arResult["VARIABLES"]["SECTION_CODE"] == "temporary" && $arResult["VARIABLES"]["ELEMENT_ID"] > 0) {
+		$arElement = CIBlockElement::GetList(array(), array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"]), false, false, array("CANONICAL_PAGE_URL", "SECTION_CODE")) -> GetNext();
+		if($arElement["CANONICAL_PAGE_URL"]) {
+		   LocalRedirect($arElement["CANONICAL_PAGE_URL"], true, "301 Moved permanently");
+		   exit();
+		}
+	}*/
+	$arElement = CIBlockElement::GetList(array(), array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"]), false, false, array("CANONICAL_PAGE_URL")) -> GetNext();
+	if ('https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage() != $arElement["CANONICAL_PAGE_URL"]) {
+		$queryString = !empty($_SERVER['QUERY_STRING']) ? '?from=section301&'.$_SERVER['QUERY_STRING'] : '';
+		LocalRedirect($arElement["CANONICAL_PAGE_URL"].$queryString, true, "301 Moved permanently");
+		exit();
+	}
+
     /** @var array $arParams */
     /** @var array $arResult */
     /** @global CMain $APPLICATION */
@@ -29,15 +44,7 @@
         ),
         false
     );?>
-<?
-   //обработка адресов с /temporary/
-   if ($arResult["VARIABLES"]["SECTION_CODE"] == "temporary" && $arResult["VARIABLES"]["ELEMENT_ID"] > 0) {
-       $arElement = CIBlockElement::GetList(array(), array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"]), false, false, array("DETAIL_PAGE_URL")) -> GetNext();
-       if($arElement["DETAIL_PAGE_URL"]) {
-           LocalRedirect($arElement["DETAIL_PAGE_URL"], true, "301 Moved permanently");
-       }
-   }
-?>
+
 <?
     $ElementID = $APPLICATION->IncludeComponent(
         "bitrix:catalog.element",

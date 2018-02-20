@@ -22,7 +22,7 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Ежедневные скидки", 
+		"Скидки дня",
 		"/catalog/sale/", 
 		Array(), 
 		Array(), 

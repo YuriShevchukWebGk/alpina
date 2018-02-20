@@ -72,7 +72,7 @@ if ($_REQUEST["PAGEN_".$navnum])
                         }
                     }?>
                 </div>
-				<?echo $_REQUEST["SORT"]?>
+                <?echo $_REQUEST["SORT"]?>
                 <a href="#" class="allBooks">Показать ещё</a>
             </div>
 </div>
@@ -85,33 +85,33 @@ if ($_REQUEST["PAGEN_".$navnum])
 <script>
 // скрипт ajax-подгрузки товаров в блоке "Все книги"
 $(document).ready(function() {
-	<?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
-	<?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
-		var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
-	<?}else{?>
-		var page = 2;
-	<?}?>
-	var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
-		$('.allBooks').click(function(){
-			$.get('/catalog/all-books/?SORT=POPULARITY&PAGEN_<?=$navnum?>='+page, function(data) {
-				var next_page = $('.catalogBooks .bookWrapp', data);
-				$('.catalogBooks').append(next_page);
-				page++;          
-			})
-			.done(function() {
-				$(".bookName").each(function()
-				{
-					if($(this).length > 0)
-					{
-						$(this).html(truncate($(this).html(), 40));    
-					}    
-				});
+    <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
+    <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
+        var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
+    <?}else{?>
+        var page = 2;
+    <?}?>
+    var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
+        $('.allBooks').click(function(){
+            $.get('/catalog/all-books/?SORT=POPULARITY&PAGEN_<?=$navnum?>='+page, function(data) {
+                var next_page = $('.catalogBooks .bookWrapp', data);
+                $('.catalogBooks').append(next_page);
+                page++;          
+            })
+            .done(function() {
+                $(".bookName").each(function()
+                {
+                    if($(this).length > 0)
+                    {
+                        $(this).html(truncate($(this).html(), 40));    
+                    }    
+                });
 
-			});
-			if (page == maxpage) {
-				$('.allBooks').hide();
-			}
-			return false;
-		});
+            });
+            if (page == maxpage) {
+                $('.allBooks').hide();
+            }
+            return false;
+        });
     });
 </script>

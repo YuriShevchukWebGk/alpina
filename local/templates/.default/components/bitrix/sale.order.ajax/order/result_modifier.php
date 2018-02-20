@@ -1,12 +1,13 @@
 <?
-
+/*
 //Отсеем подарки из корзины, нужно для проверки ниже
 $basket_without_present = array();
-
+$basket_without_present_ids = array();
 
 foreach($arResult["BASKET_ITEMS"] as $basket_item) {
     if ($basket_item['PRICE'] != 0) {
         $basket_without_present[] = $basket_item;
+		$basket_without_present_ids[] = $basket_item["PRODUCT_ID"];
     }
 }
 
@@ -25,7 +26,21 @@ if(count($basket_without_present) == 1) {
             $arResult['PREORDER'] = 'Y';
         }
     }
-};
+};*/
+
+//Отсеем подарки из корзины, нужно для проверки ниже
+$basket_without_present_ids = array();
+
+foreach($arResult["BASKET_ITEMS"] as $basket_item) {
+    if ($basket_item['PRICE'] != 0) {
+		$basket_without_present_ids[] = $basket_item["PRODUCT_ID"];
+    }
+}
+
+$res = CIBlockElement::GetList(Array(), Array("PROPERTY_STATE" => STATE_SOON, "ID" => $basket_without_present_ids), false, Array(), Array("ID"));
+if($arFields = $res->Fetch()) {
+	$arResult['PREORDER'] = 'Y';
+}
 
 foreach($arResult["DELIVERY"] as $DeliveryID => $DeliveryResult) {
     $arDeliv = CSaleDelivery::GetByID($DeliveryResult['ID']);

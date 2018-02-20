@@ -13,6 +13,7 @@ if ($USER->isAdmin()) {?>
 	<a target="_blank" href="/custom-scripts/checkdelivery/couroutes.php">Маршрутные листы для курьеров</a><br /><br />
 	<a target="_blank" href="/custom-scripts/checkdelivery/dimax.php">Таблица для Dimax</a><br /><br />
 	<a target="_blank" href="/custom-scripts/orders/check_book_status.php">Статус книг в заказе</a><br /><br />
+	<a target="_blank" href="/custom-scripts/checkdelivery/lost.php">Проверка упущенных заказов</a><br /><br />
 	
 <?} else {
 	echo 'error';

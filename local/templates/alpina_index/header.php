@@ -65,7 +65,7 @@
     <meta property="fb:app_id" content="138738742872757" />
 
     <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/initial_scale_values.php');?>
-    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //Хардовые AB-тесты?>
+    <? file_exists($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') ? include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') : ""; //Хардовые AB-тесты?>
 	<!-- header .index -->
 	<!-- gdeslon -->
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276" async></script>
@@ -798,7 +798,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li class="first"><span class="active" data-id="1"><a href="/catalog/new/?SORT=NEW" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'newest'});">Новинки</a></span></li>
             <li><span data-id="2"><a href="/catalog/bestsellers/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'best'});">Бестселлеры</a></span></li>
             <li><span data-id="3"><a href="/catalog/coming-soon/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'soon'});">Скоро <br>в продаже</a></span></li>
-            <li><span data-id="4"><a href="/catalog/sale/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'sale'});">Новые скидки<br />ежедневно</span></li>
+            <li><span data-id="4"><a href="/catalog/sale/" onclick="dataLayer.push({'event' : 'topBlockOnMain', 'action' : 'categoryClick', 'label' : 'sale'});">Скидки дня</span></li>
         </ul>
         <div class="socServ">
             <p class="text">
@@ -817,7 +817,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="catalogWrapper saleWrapp">
 		<?/* Получаем персональные рекомендации RetailRocket */
 		if (isset($_COOKIE["rcuid"])){
-			$stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"]);
+			$opts = array('http' =>
+				array(
+					'method'  => 'GET',
+					'timeout' => 3 
+				)
+			);
+
+			$context  = stream_context_create($opts);
+			$stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"], false, $context);
 			$recsArray = array_slice(json_decode($stringRecs, true), 0, 6);
 			$arrFilter = array();
 			foreach($recsArray as $val) {
@@ -1582,6 +1590,118 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </div>
 </div>
+
+<?
+global $blogPostsFilter;
+$blogPostsFilter = array("!ID" => false);
+$APPLICATION->IncludeComponent(
+	"bitrix:catalog.section",
+	"this_book_in_blog",
+	array(
+		"IBLOCK_TYPE_ID" => "catalog",
+		"IBLOCK_ID" => "71",
+		"BASKET_URL" => "/personal/cart/",
+		"COMPONENT_TEMPLATE" => "this_book_in_blog",
+		"IBLOCK_TYPE" => "catalog",
+		"SECTION_ID" => "",
+		"SECTION_CODE" => "",
+		"SECTION_USER_FIELDS" => array(
+			0 => "",
+			1 => "",
+		),
+		"ELEMENT_SORT_FIELD" => "id",
+		"ELEMENT_SORT_ORDER" => "desc",
+		"ELEMENT_SORT_FIELD2" => "id",
+		"ELEMENT_SORT_ORDER2" => "asc",
+		"FILTER_NAME" => "blogPostsFilter",
+		"INCLUDE_SUBSECTIONS" => "Y",
+		"SHOW_ALL_WO_SECTION" => "Y",
+		"HIDE_NOT_AVAILABLE" => "N",
+		"PAGE_ELEMENT_COUNT" => "5",
+		"LINE_ELEMENT_COUNT" => "1",
+		"PROPERTY_CODE" => array(
+			0 => "",
+		),
+		"TEMPLATE_THEME" => "site",
+		"PRODUCT_DISPLAY_MODE" => "Y",
+		"PRODUCT_SUBSCRIPTION" => "N",
+		"SHOW_DISCOUNT_PERCENT" => "N",
+		"SHOW_OLD_PRICE" => "Y",
+		"SHOW_CLOSE_POPUP" => "N",
+		"MESS_BTN_BUY" => "Купить",
+		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
+		"MESS_BTN_SUBSCRIBE" => "Подписаться",
+		"MESS_BTN_DETAIL" => "Последние посты в блоге",
+		"MESS_NOT_AVAILABLE" => "Нет в наличии",
+		"SECTION_URL" => "",
+		"DETAIL_URL" => "",
+		"SECTION_ID_VARIABLE" => "SECTION_ID",
+		"SEF_MODE" => "N",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "36000",
+		"CACHE_GROUPS" => "Y",
+		"SET_TITLE" => "N",
+		"SET_BROWSER_TITLE" => "N",
+		"BROWSER_TITLE" => "-",
+		"SET_META_KEYWORDS" => "N",
+		"META_KEYWORDS" => "-",
+		"SET_META_DESCRIPTION" => "N",
+		"META_DESCRIPTION" => "-",
+		"SET_LAST_MODIFIED" => "N",
+		"USE_MAIN_ELEMENT_SECTION" => "N",
+		"ADD_SECTIONS_CHAIN" => "N",
+		"CACHE_FILTER" => "N",
+		"ACTION_VARIABLE" => "action",
+		"PRODUCT_ID_VARIABLE" => "id",
+		"PRICE_CODE" => array(
+			0 => "BASE",
+		),
+		"USE_PRICE_COUNT" => "N",
+		"SHOW_PRICE_COUNT" => "1",
+		"PRICE_VAT_INCLUDE" => "Y",
+		"CONVERT_CURRENCY" => "N",
+		"USE_PRODUCT_QUANTITY" => "N",
+		"PRODUCT_QUANTITY_VARIABLE" => "",
+		"ADD_PROPERTIES_TO_BASKET" => "Y",
+		"PRODUCT_PROPS_VARIABLE" => "prop",
+		"PARTIAL_PRODUCT_PROPERTIES" => "N",
+		"PRODUCT_PROPERTIES" => array(
+		),
+		"OFFERS_CART_PROPERTIES" => array(
+			0 => "COLOR_REF",
+			1 => "SIZES_SHOES",
+			2 => "SIZES_CLOTHES",
+		),
+		"ADD_TO_BASKET_ACTION" => "ADD",
+		"PAGER_TEMPLATE" => "round",
+		"DISPLAY_TOP_PAGER" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "Y",
+		"PAGER_TITLE" => "Товары",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"SET_STATUS_404" => "N",
+		"SHOW_404" => "N",
+		"MESSAGE_404" => "",
+		"BACKGROUND_IMAGE" => "-",
+		"DISABLE_INIT_JS_IN_COMPONENT" => "N",
+		"CUSTOM_FILTER" => "",
+		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO",
+		"DISPLAY_COMPARE" => "N",
+		"COMPATIBLE_MODE" => "Y"
+	),
+	false
+);
+?>
 
 <div class="reviewsWrapp">
     <div class="catalogWrapper">

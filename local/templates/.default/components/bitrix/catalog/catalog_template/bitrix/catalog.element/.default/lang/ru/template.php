@@ -98,6 +98,7 @@ $MESS["GET_FREE_DELIVERY"] = "Добавьте книг на ";
 $MESS["GET_FREE_DELIVERY_ENDING"] = "<span class='rubsign'></span> — доставим бесплатно<br />";
 $MESS["FREE_DELIVERY_ENDING"] = "Бесплатно<br />";
 $MESS["KEYWORDS"] = "Ключевые понятия";
+$MESS["ADDITIONAL_IMAGES"] = "Дополнительные изображения";
 $MESS["TODAY"] = "сегодня";
 $MESS["TOMORROW"] = "завтра";
 $MESS["IN_A_DAY"] = "послезавтра";

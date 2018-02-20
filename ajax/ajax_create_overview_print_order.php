@@ -38,6 +38,14 @@ if ($print_data['natural_email']) {
     if ($product_id = $element_object->Add($fields)) {
         $return['status'] = "success";
         $return['data'] = $product_id;
+		
+		$arEventFields = array(
+			"EMAIL" => $print_data['natural_email'],
+			"ORDER_ID" => $product_id,
+			"INFO" => implode(',', $properties)
+		);
+				
+		CEvent::Send("POSTER_ORDER", "s1", $arEventFields,"N");
     } else {
         $return['status'] = "error";
         $return['data'] = $element_object->LAST_ERROR;

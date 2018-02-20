@@ -1,6 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 ?>
 <script type="text/javascript">
+
     function fShowStore(id, showImages, formWidth, siteId)
     {
         var strUrl = '<?=$templateFolder?>' + '/map.php';
@@ -132,6 +133,7 @@
             $isOnlyCertificate = false;
         }
     }
+
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
@@ -180,7 +182,7 @@
             <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
 
             } else {?>
-            <div>
+            <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?> <?=($arDelivery["PRICE"] == '')? 'apichip':''?>">
                 <?
                 $arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
                 $pict = CFile::ResizeImageGet($arDeliv["LOGOTIP"], array("width" => 75, "height" => 150), BX_RESIZE_IMAGE_PROPORTIONAL, true);
@@ -199,7 +201,11 @@
                 <?if($arDelivery["ID"] == PICKPOINT_DELIVERY_ID){  ?>
                     <?= htmlspecialcharsbx($arDelivery["OWN_NAME"])?>
                 <?} else {?>
-                    <?= htmlspecialcharsbx($arDelivery["NAME"])?>
+                    <?if(stristr($arDelivery["NAME"], '(', true) != false){?>
+                        <?= htmlspecialcharsbx(stristr($arDelivery["NAME"], '(', true))?>
+                    <?} else {?>
+                        <?= htmlspecialcharsbx($arDelivery["NAME"])?>
+                    <?}?>
                 <?}?>-
                     <?if (($arDelivery["ID"] == PICKPOINT_DELIVERY_ID && !isset($arDelivery["PRICE"]))) {?>
                         <b class="ID_DELIVERY_ID_<?=$arDelivery["ID"]?>">
@@ -217,15 +223,17 @@
                             <? } ?>
                         </b>
                         <?
-                            if (strlen($arDelivery["PERIOD_TEXT"])>0)
-                            {
-                                echo GetMessage('SALE_SADC_TRANSIT').": <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
-                            ?><br /><?
-                            }
+
                             if ($arDelivery["PACKS_COUNT"] > 1)
                             {
                                 echo '<br />';
                                 echo GetMessage('SALE_SADC_PACKS').': <b>'.$arDelivery["PACKS_COUNT"].'</b>';
+                            }
+
+                            if (strlen($arDelivery["PERIOD_TEXT"])>0)
+                            {
+                                echo " <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
+                            ?><br /><?
                             }
                         ?>
                         <?endif;?>
@@ -325,11 +333,11 @@
 
                     </div>
                     <div class="boxbery_error"><?= GetMessage('BOXBERY_SELECT_EMPTY') ?></div>
-                    <?/*if($arDelivery["ID"] == BOXBERY_ID){ ?>
+                    <?if($arDelivery["ID"] == BOXBERY_ID){ ?>
                         <div id="boxbery_delivery_time delivery_date" class="boxbery_delivery_time"> <span></span></div>
                     <?} else {?>
                         <div id="boxbery_delivery_time delivery_date" class="boxbery_delivery_time"><?= GetMessage("FLIPPOST_DELIVERY_TIME")?>: <span></span></div>
-                    <?}*/?>
+                    <?}?>
                     <input type="hidden" id="boxbery_address" name="boxbery_address" value="">
                     <input type="hidden" id="boxbery_cost" name="boxbery_cost" value="">
                     <input type="hidden" id="boxbery_price" name="boxbery_price" value="">
@@ -343,7 +351,7 @@
                         <span style="cursor:pointer; display:block; text-decoration:underline;" class="message-map-link"><?= GetMessage('CHOSE_ON_MAP') ?></span>
                         <div id="YMapsID"></div>
                         <div class="guru_point_addr"></div>
-                        <?/*<div id="guru_delivery_time" class="guru_delivery_time delivery_date"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>*/?>
+                        <div id="guru_delivery_time" class="guru_delivery_time delivery_date"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
                         <input type="hidden" id="guru_delivery_data" name="guru_delivery_data" value="">
                         <input type="hidden" id="guru_cost" name="guru_cost" value="">
                         <input type="hidden" id="guru_selected" name="guru_selected" value="">
@@ -351,10 +359,10 @@
                 <? } ?>
                 <? if ($arDelivery["ID"] == BOXBERRY_PICKUP_DELIVERY_ID) { ?>
                     <div class="boxberry_delivery_wrapper">
-                        <?/*<div class="boxberry_error delivery_date"><?= GetMessage('BOXBERRY_ERROR') ?></div> */?>
+                        <div class="boxberry_error delivery_date"><?= GetMessage('BOXBERRY_ERROR') ?></div>
                         <a href="#" class="message-map-link" style="cursor: pointer; display: block;  text-decoration: underline; color:#000;" onclick="boxberry.open('boxberry_callback', '<?= BOXBERRY_TOKEN_API?>', 'Москва', '68', <?= $arResult['ORDER_DATA']['ORDER_PRICE']?>, <?= $arResult['ORDER_DATA']['ORDER_WEIGHT']?>, 0, 50, 50, 50); return false"><?= GetMessage('CHOSE_ON_MAP') ?></a>
                         <div class="boxberry_point_addr"></div>
-                        <?/*<div id="boxberry_delivery_time" class="boxberry_delivery_time delivery_date"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div> */?>
+                        <div id="boxberry_delivery_time" class="boxberry_delivery_time delivery_date"><?= GetMessage("GURU_DELIVERY_TIME")?>: <span></span></div>
                         <input type="hidden" id="boxberry_delivery_data" name="boxberry_delivery_data" value="">
                         <input type="hidden" id="boxberry_cost" name="boxberry_cost" value="">
                         <input type="hidden" id="boxberry_selected" name="boxberry_selected" value="">

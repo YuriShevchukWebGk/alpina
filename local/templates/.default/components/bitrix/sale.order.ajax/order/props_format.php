@@ -83,7 +83,6 @@
                             $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
                             if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
                             ?>
-                            <?//arshow($_POST)?>
 
                             <?if(($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE") && !$window){?>
 
@@ -164,6 +163,9 @@
                         } elseif ($arProperties["TYPE"] == "TEXTAREA") {
                             $rows = ($arProperties["SIZE2"] > 10) ? 4 : $arProperties["SIZE2"];
                         ?>
+                        <?if($arProperties["FIELD_ID"] == "ORDER_PROP_ADDRESS"){
+                            $arProperties["VALUE"] = $_SESSION["city_order_checked"].', '.$arProperties["VALUE"];
+                        }?>
                         <div class="bx_block r3x1">
                             <textarea rows="<?=$rows?>" cols="<?=$arProperties["SIZE1"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>"><?=$arProperties["VALUE"]?></textarea>
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0):?>
@@ -173,15 +175,25 @@
                         </div>
                         <?
                         } elseif ($arProperties["TYPE"] == "LOCATION") {
+                            if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
+                                $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
+                            } else {
+                                $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
+                            }
                           if($arProperties["CODE"] != 'LOCATION_CITY'){
                             $value = 0;
                             if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
                                 foreach ($arProperties["VARIANTS"] as $arVariant){
-                                    if ($arVariant["SELECTED"] == "Y"){
+
+                                    if ($arVariant["CITY_NAME"] == $city){
                                         $value = $arVariant["ID"];
-                                        break;
+                                      //  break;
                                     }
 
+                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $city == "Москва" || $arVariant["ID"] == $_POST["ORDER_PROP_2"] && $_POST["ORDER_PROP_2"] != 21278){
+                                       $value = $arVariant["ID"];
+                                       break;
+                                    }
                                 }
                                 if ($value == ""){
                                     $value = $arProperties["VALUE"];
@@ -199,6 +211,7 @@
                         <?if($locationTemplateP == 'steps'):?>
                             <input type="hidden" id="LOCATION_ALT_PROP_DISPLAY_MANUAL[<?=intval($arProperties["ID"])?>]" name="LOCATION_ALT_PROP_DISPLAY_MANUAL[<?=intval($arProperties["ID"])?>]" value="<?=($_REQUEST['LOCATION_ALT_PROP_DISPLAY_MANUAL'][intval($arProperties["ID"])] ? '1' : '0')?>" />
                             <?endif?>
+
                         <?CSaleLocation::proxySaleAjaxLocationsComponent(array(
                             "AJAX_CALL" => "N",
                             "COUNTRY_INPUT_NAME" => "COUNTRY",
@@ -241,7 +254,8 @@
                             <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                             <?endif?>
                         <?
-                        } else { ?>
+                        } else {
+                            ?>
 
                             <div class="bx_block r3x1">
                                 <?

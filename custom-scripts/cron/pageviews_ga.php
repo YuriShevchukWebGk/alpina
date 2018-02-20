@@ -125,8 +125,8 @@ function printResultsTwoDays($results) {
 				else
 					$views = round($book['views']*1.8);
 				
-				if ($oneb["ID"] == 384889) //Книге Overview поднимаем рейтинг
-					$views += 302;
+				/*if ($oneb["ID"] == 384889) //Книге Overview поднимаем рейтинг
+					$views += 302;*/
 				
 				//echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
 				CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('page_views_ga' => $views));

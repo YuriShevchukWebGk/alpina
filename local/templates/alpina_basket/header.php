@@ -12,6 +12,7 @@
     <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8"> -->
     <title><?$APPLICATION->ShowTitle()?></title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://paybox-v4-beta.platbox.com/widget.js"></script>
 
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
     <link rel="stylesheet" href="/css/selectric.css" type="text/css">
@@ -75,7 +76,7 @@
             $('head').append('<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.8, width=device-width">');
         }
     </script>
-    <?include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php'); //РҐР°СЂРґРѕРІС‹Рµ AB-С‚РµСЃС‚С‹?>
+    <? file_exists($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') ? include($_SERVER["DOCUMENT_ROOT"] . '/custom-scripts/ab_tests.php') : ""; //Хардовые AB-тесты?>
     <!-- header .alpina_basket -->
     <script src="https://api-maps.yandex.ru/1.1/index.xml?modules=metro" type="text/javascript"></script>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
