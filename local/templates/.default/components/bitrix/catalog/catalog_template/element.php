@@ -7,12 +7,13 @@
 		   exit();
 		}
 	}*/
-	$arElement = CIBlockElement::GetList(array(), array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"]), false, false, array("CANONICAL_PAGE_URL")) -> GetNext();
+	$arElement = CIBlockElement::GetList(array(), array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"]), false, false, array("CANONICAL_PAGE_URL", "DETAIL_PAGE_URL")) -> GetNext();
 	if ('https://'.SITE_SERVER_NAME.$APPLICATION->GetCurPage() != $arElement["CANONICAL_PAGE_URL"]) {
 		$queryString = !empty($_SERVER['QUERY_STRING']) ? '?from=section301&'.$_SERVER['QUERY_STRING'] : '';
 		LocalRedirect($arElement["CANONICAL_PAGE_URL"].$queryString, true, "301 Moved permanently");
 		exit();
 	}
+	arshow($arElement);
 
     /** @var array $arParams */
     /** @var array $arResult */

@@ -181,26 +181,19 @@
                                 $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
                             }   */
                           if($arProperties["CODE"] != 'LOCATION_CITY'){
-                            $value = 0;
+                            $value = 0;    
                             if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
                                 foreach ($arProperties["VARIANTS"] as $arVariant){
-
-                                    if ($arVariant["CITY_NAME"] == $city){
+                                    if ($arVariant["SELECTED"] == "Y"){
                                         $value = $arVariant["ID"];
-                                      //  break;
+                                        break;
                                     }
 
+                                }
                                     /*if($arVariant["CITY_NAME"] == "Москва и МО" && $city == "Москва" || $arVariant["ID"] == $_POST["ORDER_PROP_2"] && $_POST["ORDER_PROP_2"] != 21278){
                                        $value = $arVariant["ID"];
                                        break;
                                     } */
-                                    if($arVariant["ID"] == $_POST["ORDER_PROP_2"]){
-                                       $value = $arVariant["ID"];
-                                       break;
-                                    } else {
-                                       $value = 88;
-                                    }
-                                }
                                 if ($value == ""){
                                     $value = $arProperties["VALUE"];
                                 }

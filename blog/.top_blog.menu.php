@@ -1,8 +1,8 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Интернет-магазин", 
-		"/", 
+		"Главная блога", 
+		"/blog/", 
 		Array(), 
 		Array(), 
 		"" 

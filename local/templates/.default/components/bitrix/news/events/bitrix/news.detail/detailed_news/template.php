@@ -12,7 +12,9 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-
+<style>
+ul{list-style-type:disc}
+</style>
 <div class="newsBodyWrap">
     <div class="newsPageTitleWrap">
         <div class="centerWrapper">

@@ -87,9 +87,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
 
 <header itemscope="" id="WPHeader" itemtype="https://schema.org/WPHeader">
-	<a href="/blog/" class="logoBlog" <?echo $APPLICATION->GetCurPage() == '/blog/' ? 'style="display:none;"' : '';?>>
+	<a href="/" class="logoBlog">
 	<div class="logo">
-		<img src="/img/footerBlogLogo.png" alt="Блог издательства «Альпина Паблишер»" />
+		<img src="/img/logo.png" alt="Интернет-магазин Альпина.Книги" />
 	</div>
 	</a>
 
