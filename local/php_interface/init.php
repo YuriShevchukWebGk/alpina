@@ -148,7 +148,7 @@
     }
     AddEventHandler('main', 'OnBeforeEventSend', 'addingTagParameterForTemplate');
     function addingTagParameterForTemplate ($arFields, $arTemplate) {
-        if ($arTemplate["ID"] == 168) {
+        if ($arTemplate["EVENT_NAME"] == "SUBSCRIBE_CONFIRM") {
             $arFields["TAG_MACROS"] = '$%my_tag%$';
         }    
     }
@@ -182,14 +182,14 @@
         $cc_pattern = "/(?<=CC:)(.*)(?=)/";
         $from_matches = array();
         $bcc_matches = array();
+        $macros_matches = array();
         preg_match($from_pattern, $additional_headers, $from_matches);
         preg_match($bcc_pattern, $additional_headers, $bcc_matches);
         preg_match($cc_pattern, $additional_headers, $cc_matches);
 
-        if (strstr($message, '$%')) {
-            $macros_pos_beginning = strpos($message, '$%') + 2;
-            $macros_pos_end = strpos($message, '%$');
-            $macros_value = substr($message, $macros_pos_beginning, ($macros_pos_end - $macros_pos_beginning));
+        preg_match('/\$\%.*\%\$/', $message, $macros_matches);
+        if (!empty($macros_matches)) {
+            $macros_value = substr($macros_matches[0], 2, -2);    
         }
         $mailgun = new Mailgun(MAILGUN_KEY);
 
