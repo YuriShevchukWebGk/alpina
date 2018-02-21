@@ -187,9 +187,9 @@
         preg_match($bcc_pattern, $additional_headers, $bcc_matches);
         preg_match($cc_pattern, $additional_headers, $cc_matches);
 
-        preg_match('/\$\%.*\%\$/', $message, $macros_matches);
+        preg_match('/\$\%(.*)\%\$/', $message, $macros_matches);
         if (!empty($macros_matches)) {
-            $macros_value = substr($macros_matches[0], 2, -2);    
+            $macros_value = $macros_matches[1];    
         }
         $mailgun = new Mailgun(MAILGUN_KEY);
 
