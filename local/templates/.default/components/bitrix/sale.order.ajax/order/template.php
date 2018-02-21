@@ -201,7 +201,8 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
            deleteDateId("ORDER_PROP_44");
            deleteDateId("ORDER_PROP_45");   */
         //календарь
-		var disabledDates = <?=$holidays?>; //даты для отключения mm/dd/yyyy
+		var disabledDates = <?=json_encode($holidays)?>; //даты для отключения mm/dd/yyyy
+		disabledDates = disabledDates.toString().split(',');
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
 			if (noWeekend[0]) {
@@ -211,8 +212,12 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 			}
         }
 		function editDays(date) {
+			var dd = date.getDate();
+			var mm = date.getMonth()+1;
+			var yyyy = date.getFullYear();
+			changeDate = dd+'.'+mm+'.'+yyyy; 
 			for (var i = 0; i < disabledDates.length; i++) {
-				if (new Date(disabledDates[i]).toString() == date.toString()) {
+				if (disabledDates[i] == changeDate.toString()) {
 					 return [false];
 				}
 			}
@@ -308,15 +313,15 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         }*/
         setOptions();
         $('.check_delivery .faceText').click();   // клик по доставке из-за оображения всех доставок
-        $('body').on('click', '.region_click', function(){
-              
+        $('body').on('click', '.faceText', function(){
+           
         })
     })
     //далее костыль
     var stopupdate = false;
     $('body').click(function(){
         if (!stopupdate) {
-            setOptions();
+            setOptions();    
             stopupdate = true;
         }
     })
