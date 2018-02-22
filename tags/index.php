@@ -2,16 +2,18 @@
 <?
 $code = explode('/',$_SERVER['REQUEST_URI']);
 $arData = array();
-$arSelect = Array("PROPERTY_TITLE", "ID", "NAME", "DETAIL_PAGE_URL", "PROPERTY_BIND_PRODUCT");
-$arFilter = Array("IBLOCK_ID" => 75, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "CODE" => $code[2]);
+$arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL", "PROPERTY_THIS_ELEMENT");
+$arFilter = Array("IBLOCK_ID" => 80, "ACTIVE"=>"Y", "CODE" => $code[2]);
 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
 while($ob = $res->GetNextElement())
 {
 	$arData = $ob->GetFields();
+	$arProps = $ob->GetProperties();
 }
+
 $GLOBALS["NAME"] = $arData["NAME"];
 $ipropValues = new \Bitrix\Iblock\InheritedProperty\ElementValues(
-	75,
+	80,
 	$arData["ID"]
 );
 $arSection["IPROPERTY_VALUES"] = $ipropValues->getValues();
@@ -24,16 +26,11 @@ if($arSection["IPROPERTY_VALUES"]["ELEMENT_META_DESCRIPTION"]){
     $APPLICATION->SetPageProperty("description", $arSection["IPROPERTY_VALUES"]["ELEMENT_META_DESCRIPTION"]);
 }
 
-$APPLICATION->SetTitle("Page title");
-//print_r($arData["PROPERTY_BIND_PRODUCT_VALUE"]);
-$arrFilter = array("ID" => $arData["PROPERTY_BIND_PRODUCT_VALUE"]);
+$arrFilter = array("ID" => $arProps['THIS_ELEMENT']['VALUE']);
+//$BestsellFilter = array("ID" => $arProps['THIS_ELEMENT']['VALUE']);
+
 ?>
 
-<?
-$BestsellFilter = array("ID" => $arData["PROPERTY_BIND_PRODUCT_VALUE"]);
-
-//print_r($BestsellFilter);
-?>
 
 <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog.section", 

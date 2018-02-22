@@ -31,7 +31,7 @@ $APPLICATION->SetTitle("Как заказать");
         <div class="howToCatalogWrapper"></div>
         <div class="howToBasketWrapper"></div>
         <div class="centerWrapper">
-            <p>Главная</p>
+            <a href="/"><p>Главная</p></a>
             <h1>Как заказать</h1>
         </div>
     </div>

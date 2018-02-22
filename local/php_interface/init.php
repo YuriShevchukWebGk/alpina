@@ -108,6 +108,7 @@
     define ("DELIVERY_DATE_NATURAL_ORDER_PROP_ID", 44);
 
     define ("PREORDER_STATUS_ID", 'PR');
+    define ("ROUTE_STATUS_ID", 'I');  // в пути
 
     define ("REISSUE_ID", 218); //ID свойства "Переиздание"
     define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
@@ -115,7 +116,8 @@
     define ("STATE_NULL", 23); //ID состояния книги "Нет в наличии"
     define ("STATE_NEWS", 21); //ID состояния книги "Новинка"
     define ("EXPERTS_IBLOCK_ID", 23); //ID инфоблока Эксперты
-    define ("PAY_SYSTEM_RFI", 11); //ID платежный системы РФИ
+    define ("PAY_SYSTEM_RFI", 13); //ID платежный системы РФИ
+	define ("PAY_SYSTEM_IN_OFFICE", 11); //ID платежный системы "При получении"
 
     define ("ADMIN_GROUP_ID", 1);
     define ("ECOM_ADMIN_GROUP_ID", 6);
@@ -538,6 +540,78 @@
 
     }
 
+	
+	function updateCumulativeDiscount($ID) {
+		$arFilter = Array(
+			"ID" => $ID
+		);
+
+		$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+
+		while ($arOrder = $rsSales->Fetch()) {
+			
+			$userGroup = CUser::GetUserGroup($arOrder["USER_ID"]);
+			
+			$domain = strstr(Message::getClientEmail($ID), '@');
+			
+			if (in_array(ADMIN_GROUP_ID, $userGroup) || in_array(ECOM_ADMIN_GROUP_ID, $userGroup) || $domain == "@alpina.ru" || $domain == "@alpinabook.ru") {
+				continue;
+			}
+				
+			$order = \Bitrix\Sale\Order::loadByAccountNumber($arOrder["ID"]);
+			$discountList = $order->getDiscount()->getApplyResult();
+
+			unset($discountList["DISCOUNT_LIST"][1060]);
+			$rubcoupon = '';
+			foreach($discountList["DISCOUNT_LIST"] as $oneDiscount) {
+				if ($oneDiscount["ACTIONS_DESCR_DATA"]["BASKET"][0]["VALUE_TYPE"] == "S") {
+					$rubcoupon = $oneDiscount["ID"];
+					foreach ($discountList["COUPON_LIST"] as $oneCoupon) {
+						if ($oneCoupon["ORDER_DISCOUNT_ID"] == $rubcoupon)
+							$rubcoupon = $oneCoupon["COUPON"];
+					}
+					unset($discountList["DISCOUNT_LIST"][$oneDiscount["ID"]]);
+				}
+			}
+		 
+			
+			if (empty($discountList["DISCOUNT_LIST"])) {
+				//$userDiscount = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $arOrder["USER_ID"]));
+				$userDiscount = CSaleUser::GetBuyersList(array(),array("USER_ID"=>$arOrder["USER_ID"]))->Fetch();
+				
+				if ($userDiscount["ORDER_SUM"] >= 5000) {
+					if (!($basket = $order->getBasket())) {
+					   throw new \Bitrix\Main\ObjectNotFoundException('Entity "Basket" not found');
+					}
+
+					$discount = $order->getDiscount();
+
+					\Bitrix\Sale\DiscountCouponsManager::clearApply(true);
+					\Bitrix\Sale\DiscountCouponsManager::clear(true);
+					if ($rubcoupon != '') {
+						\Bitrix\Sale\DiscountCouponsManager::add($rubcoupon);
+					}
+					
+					if ($userDiscount["ORDER_SUM"] < 20000) {
+						\Bitrix\Sale\DiscountCouponsManager::add("cumulativeDiscount10");
+					} else {
+						\Bitrix\Sale\DiscountCouponsManager::add("cumulativeDiscount20");
+					}
+					
+					\Bitrix\Sale\DiscountCouponsManager::useSavedCouponsForApply(true);
+					\Bitrix\Sale\DiscountCouponsManager::saveApplied(true);
+
+					$discount->setOrderRefresh(true);
+					$discount->setApplyResult(array());
+					
+					$basket->refreshData(array('PRICE', 'COUPONS'));
+					$discount->calculate();
+					$order->save();
+				}
+			}
+		}
+	}
+
     AddEventHandler("sale", "OnBeforeOrderAdd", "boxberyHandlerBefore"); // меняем цену для boxbery
     AddEventHandler("sale", "OnOrderSave", "boxberyHandlerAfter"); // меняем адрес для boxbery
 
@@ -901,7 +975,19 @@
                     CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
                 }
 
-                CSaleOrder::StatusOrder($ID, "D");
+                if($order_list["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID && 
+                    ($order_list["DELIVERY_ID"] == DELIVERY_COURIER_1 ||  
+                     $order_list["DELIVERY_ID"] == DELIVERY_COURIER_2 || 
+                     $order_list["DELIVERY_ID"] == DELIVERY_COURIER_MKAD) && 
+                     $order_list["STATUS_ID"] == ROUTE_STATUS_ID){
+                        CSaleOrder::StatusOrder($ID, "I");
+                        $arFields = array(
+                            "ID"=> $ID,
+                        );
+                        CEvent::Send("NOTICE_OF_PAYMENT", "s1", $arFields, "N");
+                } else {
+                    CSaleOrder::StatusOrder($ID, "D");
+                }
             }
         }
 
@@ -1060,7 +1146,7 @@
             }
 
         }
-
+		
 
         //----- Отправка смс при изменении статуса заказа
         if (array_key_exists($val,Message::$messages)) {
@@ -1907,13 +1993,16 @@
     AddEventHandler("sale", "OnOrderNewSendEmail", "customizeNewOrderMail");
 
     function customizeNewOrderMail($orderID, &$eventName, &$arFields) {
+		updateCumulativeDiscount($orderID);
         $orderArr = CSaleOrder::GetByID($orderID);
         $arFields['EMAIL_DISCOUNT_PERCENT_TOTAL'] = $_SESSION['EMAIL_DISCOUNT_PERCENT_TOTAL'];
         $arFields['EMAIL_DISCOUNT_SUM_TOTAL'] = $_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'];
+		$arFields['PRICE'] = $orderArr["PRICE"];
         $arFields['EMAIL_CURRENT_DISCOUNT_SAVE_PERCENT'] = $_SESSION['EMAIL_CURRENT_DISCOUNT_SAVE_PERCENT'];
         $arFields['EMAIL_NEXT_DISCOUNT_SAVE_SUM'] = $_SESSION['EMAIL_NEXT_DISCOUNT_SAVE_SUM'];
         $arFields['EMAIL_ORDER_WEIGHT'] = $_SESSION['EMAIL_ORDER_WEIGHT'];
         $arFields['EMAIL_ORDER_ITEMS'] = getOrderItemsForMail($orderID);
+		$authHash = get_hash_for_authorization($arFields['EMAIL']);
         $phone_prop = CSaleOrderPropsValue::GetList (array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => "PHONE"));
         while ($phone = $phone_prop -> Fetch()) {
             $arFields["CUSTOMER_PHONE"] = $phone["VALUE"];
@@ -1928,7 +2017,7 @@
 
         if ($orderArr["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID || $orderArr["PAY_SYSTEM_ID"] == SBERBANK_PAYSYSTEM_ID) {
             //получаем путь до обработчика
-            $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='https://www.alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."'>ссылке</a>.";
+            $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='https://www.alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."&hash=".$authHash."'>ссылке</a>.";
         }
 
         $arFields['DELIVERY_NAME'] = getOrderDeliverySystemName($orderArr['DELIVERY_ID']);
@@ -2226,8 +2315,9 @@
         if (in_array($arTemplate["ID"],array(16,178))) {
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
             if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI) {
+				$authHash = get_hash_for_authorization($arFields['EMAIL']);
                 $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
-                <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
+                <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'&hash='.$authHash.'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
                 </div>';
             } else {
                 $pay_button = "";
@@ -3396,7 +3486,7 @@
 
             foreach($order_new_statys as $order_update){
                 if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
-                    if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID){
+                    if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
                     } else {
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата "

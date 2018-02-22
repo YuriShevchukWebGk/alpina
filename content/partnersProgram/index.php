@@ -31,7 +31,7 @@ $APPLICATION->SetTitle("Партнерская программа");
         <div class="howToCatalogWrapper"></div>
         <div class="howToBasketWrapper"></div>
         <div class="centerWrapper">   
-            <p>Главная</p>
+            <a href="/"><p>Главная</p></a>
             <h1>Партнерская программа</h1>
         </div>
     </div>

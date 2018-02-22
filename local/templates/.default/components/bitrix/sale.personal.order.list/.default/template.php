@@ -30,6 +30,7 @@
             <p class="dateTitle"><?= GetMessage("DATE"); ?></p>
             <p class="quantTitle"><?= GetMessage("QUANTITY"); ?></p>
             <p class="statTitle"><?= GetMessage("STATUS"); ?></p>
+            <p class="quantTitle"><?= GetMessage("SALE"); ?></p>
             <p class="sumTitle"><?= GetMessage("SUMM"); ?></p>
         </div>
         <?
@@ -163,6 +164,8 @@
                         <p class="ordBooksTitle"><?= GetMessage("SPOL_ORDER_DETAIL") ?></p>
                         <table class="orderBooks">
                             <?foreach ($order["BASKET_ITEMS"] as $arBaskItem) {
+                                $discount_price = round(($arBaskItem["DISCOUNT_PRICE"] * 100) / $arBaskItem["BASE_PRICE"]);
+
                                 ?>
                                 <tr>
                                     <td class="infoTextTab infBookName"><a href="<?=$arBaskItem["DETAIL_PAGE_URL"]?>"><?= $arBaskItem["NAME"] ?></a></td>
@@ -171,7 +174,12 @@
                                         <?if ($preOrder == 'Y') {?>
                                             <?= GetMessage("SOON_DATE") ?><br><div><?= strtolower(FormatDate("j F", MakeTimeStamp($arFields['PROPERTY_SOON_DATE_TIME_VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?></div>
                                         <?}?>
-                                        </td>
+                                    </td>
+                                    <td class="infosale">
+                                        <?if ($discount_price > 0) {?>
+                                            <?=$discount_price?><?=GetMessage('PROCENT')?>
+                                        <?}?>
+                                    </td>
                                     <td class="infoPriceTd"><?= ceil($arBaskItem["PRICE"]) * $arBaskItem["QUANTITY"] ?> <?= GetMessage("ROUBLES") ?></td>
                                 </tr>
                             <?}?>
@@ -180,6 +188,7 @@
                                     <td class="infoTextTab infBookName"><?= GetMessage("SPOL_DELIVERY") ?></td>
                                     <td class="infoQuant"></td>
                                     <td class="infoSoonDate"></td>
+                                    <td class="infosale"></td>
                                     <td class="infoPriceTd"><?= ceil($order["ORDER"]["PRICE_DELIVERY"]) ?> <?= GetMessage("ROUBLES") ?></td>
                                 </tr>
                             <?}?>
@@ -187,6 +196,7 @@
                                 <td class="infoTextTab"><?= GetMessage("FINAL_SUMM") ?></td>
                                 <td class="infoQuant"></td>
                                 <td class="infoSoonDate"></td>
+                                <td class="infosale"></td>
                                 <td class="infoPriceTd"><?= ceil($order["ORDER"]["PRICE"]) ?> <?= GetMessage("ROUBLES") ?></td>
                             </tr>
                         </table>

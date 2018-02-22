@@ -27,7 +27,6 @@ if ($_REQUEST["id"])
 		$review["NAME"] 				= $arFields['NAME'];
 		$review["URL"] 					= $arFields['DETAIL_PAGE_URL'];
 		$review["TEXT"]					= strip_tags($arFields['PREVIEW_TEXT'], '<br>, <p>, <img>, <ul>, <li>, <ol>');
-		print_r($arFields);
 		$review["SOURCE_LINK"] 			= $arFields['PROPERTY_SOURCE_LINK_VALUE'];
 	}
 

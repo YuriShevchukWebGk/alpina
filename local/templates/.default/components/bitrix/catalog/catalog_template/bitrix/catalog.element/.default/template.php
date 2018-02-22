@@ -33,7 +33,7 @@
         $(".elementMainPict .overlay").css("height", $(".element_item_img img").height());
         $(".elementMainPict .overlay p").css("margin-top", ($(".elementMainPict .overlay").height() / 2) - 10);
         if ($(".element_item_img img").height() < 562 && $(".element_item_img img").height() > 100) {
-            $(".element_item_img").height($(".element_item_img img").height());
+            $(".element_item_img").height($(".element_item_img img").height() + $(".target_audience").height());
         }
 
         if (window.innerWidth <= 1500) {
@@ -160,7 +160,7 @@
         background-color: <?=$bgcolors[0]?>;
         opacity: 0.15;
     }
-    .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive, .multipleBooks li span,.previewLink {
+    .centerColumn .productName, .breadCrump span a, .breadCrump, .centerColumn .engBookName, .centerColumn .productAutor, .catalogIcon span, .basketIcon span, .crr, .crr .mc-star span, #diffversions .passive, .multipleBooks li span,.previewLink,.whyBuy,.whyBuy:before {
         color: <?=$mincolor['color']?>!important;
     }
     #diffversions .passive span, .multipleBooks li span,.previewLink {
@@ -170,6 +170,7 @@
         background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
         opacity: 0.8;
     }
+	.target_audience{background:<?=$bgcolors[0]?>}
     .basketIcon {
         background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
         opacity: 0.8;
@@ -248,6 +249,10 @@
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a>
                 </div>
                 <div class="legal_person">
+                    <input type='text' placeholder="ФИО" name="FIO" id="FIO">
+                    <br>   
+                    <input type='text' placeholder="Телефон" name="phone" id="phone">
+                    <br>   
                     <input type='email' placeholder="Email" name="legal_email" id="legal_email">
                     <br>
                     <input type='text' placeholder="ИНН" name="inn" id="inn" style="margin-left: 10px;">
@@ -315,6 +320,9 @@
             ?>
 
             <div class="element_item_img">
+				<?if ($arResult["PROPERTIES"]["TARGET_AUDIENCE"]["VALUE"]) {?>
+					<div class="target_audience"><?=$arResult["PROPERTIES"]["TARGET_AUDIENCE"]["VALUE"]?></div>
+				<?}?>
                 <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
                     <?if (!$checkMobile) {?>
                         <a href="#" class="bookPreviewLink" onclick="getPreview(<?= $arResult["ID"] ?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;">
@@ -449,7 +457,7 @@
                         <?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br /><span itemprop="bookEdition">' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] .'</span>' : ""?>
                     </p>
                 </div>
-                <?}?>
+			<?}?>
             <?if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {?>
                 <div class="characteris">
                     <p class="title"><?= GetMessage("SERIES") ?></p>
@@ -457,7 +465,7 @@
                         <span class="text"><?= $arResult["CURR_SERIES"]["NAME"] ?></span>
                     </a>
                 </div>
-                <?}?>
+			<?}?>
             <?if($arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != "") {?>
                 <div class="characteris epubHide">
                     <p class="title"><?= GetMessage("COVER_TYPE") ?></p>
@@ -468,7 +476,7 @@
                         <link itemprop="bookFormat" href="https://schema.org/Hardcover">
                         <?}?>
                 </div>
-                <?}?>
+			<?}?>
 
             <div class="characteris epub" style="display:none;">
                 <p class="title">Форматы</p>
@@ -476,9 +484,9 @@
             </div>
             <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                 <div class="characteris epubHide">
-					<a href='#' class="getInfoCourier" onclick="specEdition('<?=$arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"]?>');dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});return false;" title="Издать тираж книги с символикой компании"><span class="text noborderlink">Хотите тираж со своим логотипом?</span></a>
+					<a href='#' class="getInfoCourier" onclick="specEdition('<?=$arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"]?>');dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});return false;" title="Издать тираж книги с символикой компании"><span class="text">Хотите тираж со своим логотипом?</span></a>
                 </div>
-                <?}?>
+			<?}?>
             <?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
                 <div class="characteris">
                     <p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
@@ -490,7 +498,15 @@
                     <p class="title"><?= GetMessage("ISBN") ?></p>
                     <p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>
                 </div>
-                <?}?>
+			<?}?>
+			
+			<?if (!empty($arResult["TRANSLATOR"])) {?>
+                <div class="characteris">
+                    <p class="title"><?= GetMessage("TRANSLATOR") ?></p>
+                    <p class="text" itemprop="translator"><?= $arResult["TRANSLATOR"] ?></p>
+                </div>
+			<?}?>
+			
             <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
                 <div class="characteris epubHide">
                     <a href="http://readright.ru/?=alpinabook" target="_blank">
@@ -1215,6 +1231,13 @@
             </p>
             <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?><p class="bookPreviewLink previewLink no-mobile" onclick="getPreview(<?=$arResult["ID"]?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;"><?= GetMessage("BROWSE_THE_BOOK") ?></p><?}?>
         </div>
+		<div class="whyBuyWrap">
+			<?if ($USER->isAdmin() && $arResult['PROPERTIES']['WHY_BUY']['VALUE']) {?>
+				<?foreach($arResult['PROPERTIES']['WHY_BUY']['VALUE'] as $why_buy) {?>
+					<div class="whyBuy"><?=$why_buy?></div>
+				<?}?>
+			<?}?>
+		</div>
 
         <ul class="productsMenu">
             <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>

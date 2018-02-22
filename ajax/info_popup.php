@@ -17,9 +17,17 @@ if ($_REQUEST["info"]) {
 		case 'box':
 			$info = '<h6>Доставка почтой России</h6><hr /><h6>Сроки доставки</h6><ul><li>от 7 до 28 дней с момента оплаты заказа.</li></ul><h6>Стоимость доставки</h6><ul><li>сумма заказа от&nbsp;0&nbsp;до&nbsp;2&nbsp;000&nbsp;руб. &mdash;&nbsp;149&nbsp;руб;</li><li>сумма заказа от&nbsp;2&nbsp;000&nbsp;руб. &mdash;&nbsp;БЕСПЛАТНО.</li></ul><h6>Дополнительная информация</h6><ul><li>необходимо внести 100% предоплату;</li><li>после поступления оплаты заказ будет передан в распределительный центр Почты России в течение двух рабочих дней. Затем в течение трех рабочих дней отправлению будет присвоен идентификатор, который будет отправлен на указанный вами адрес электронной почты.</li></ul>';
 			break;
+		case 'freedelivery':
+			$info = '<center><h6 style="color:#00abb8;font-weight:700">Бесплатная доставка ко дню святого Валентина</h6></center><br />
+			Сделать приятный подарок ещё проще и приятнее! Как получить доставку бесплатно? Легко:
+			<ol><li>Положите в корзину книги на любую сумму;</li><li>Выберите доставку курьером по Москве, пункт выдачи Boxberry или Pickpoint или почту России;</li>
+			<li>Оформите заказ до 14 февраля 23:59 по московскому времени.</li></ol>
+			Приятных покупок!
+			';
+			break;
 	}
 	
-	$return = '<style>.stopProp img {max-width:650px;height:auto;display:block;margin:0 auto;padding:20px 0;}.awayLink:hover {background-color: #cab796!important;color: #fff!important;} .addLink:hover {background-color: #c7a271!important;color: #fff!important;} .closeIcon:after {position: absolute;background: url("/img/close.png") left center;width: 21px;height: 21px;right: 40px;top: 30px;margin-left: -15px;margin-top: -8px;cursor: pointer;display: block;content: "";} .closeIcon:hover:after {background: url("/img/close.png") right center;}</style>';
+	$return = '<style>ul{list-style-type:disc;padding:30px 0 30px 30px}.stopProp img {max-width:650px;height:auto;display:block;margin:0 auto;padding:20px 0;}.awayLink:hover {background-color: #cab796!important;color: #fff!important;} .addLink:hover {background-color: #c7a271!important;color: #fff!important;} .closeIcon:after {position: absolute;background: url("/img/close.png") left center;width: 21px;height: 21px;right: 40px;top: 30px;margin-left: -15px;margin-top: -8px;cursor: pointer;display: block;content: "";} .closeIcon:hover:after {background: url("/img/close.png") right center;}</style>';
 	$return .= '<script>$(document).ready(function() { $(".stopProp").click(function(e) { e.stopPropagation(); }); });</script>';
 	$return .= '<div style="position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 999999999998; background: rgba(206,206,206,.62);overflow-y:auto;" onclick="closeInfo();" class="hideInfo">';
 	$return .= '<div style="max-width: 800px; width:100%;margin-left: -410px; margin-top: 7%;margin-bottom:7%;box-shadow: 0 0 1px 0px rgba(0,0,0,.7); top: 0; left: 50%; position: absolute; background: #fff; padding: 30px 40px; z-index: 999999999999;display: block;font-family: \'Walshein_regular\';color:#2F3839" class="stopProp infoPopup">';

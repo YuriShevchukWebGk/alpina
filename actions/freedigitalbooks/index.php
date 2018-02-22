@@ -283,10 +283,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </a>
 <div class="headerWrapper">
 <ul class="menu">
-<li><a href="/content/payment/">Оплата</a></li>
-			<li><a href="/content/delivery/">Доставка</a></li>
-			<li><a href="/content/discounts/">Скидки</a></li>
-			<li><a href="/about/contacts/">Контакты</a></li>
+	<li><a href="/">Главная</a></li>
+	<li><a href="/content/payment/">Оплата</a></li>
+	<li><a href="/content/delivery/">Доставка</a></li>
+	<li><a href="/content/discounts/">Скидки</a></li>
+	<li><a href="/about/contacts/">Контакты</a></li>
 </ul> 
 </div>
 <div class="lkWrapp">

@@ -3015,7 +3015,7 @@ function changeQ(dest) {
 function setItemBgHeight() {
 
     var priceHeight = parseInt($(".wrap_prise_top").css("height"));
-    var bgHeight = parseInt(90 + parseInt($(".breadCrump").css("height")) + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + 20 + parseInt($(".productAutor").css("height")) + 13 + parseInt($(".authorReviewWrap").css("height")));
+    var bgHeight = parseInt(90 + parseInt($(".breadCrump").css("height")) + parseInt($(".productName").css("height")) + 15 + parseInt($(".engBookName").css("height")) + 20 + parseInt($(".productAutor").css("height")) + 13 + parseInt($(".authorReviewWrap").css("height")) + parseInt($(".whyBuyWrap").css("height")));
     priceHeight = bgHeight - 125;
     //console.log(priceHeight);
     //$(".wrap_prise_top").css("height", priceHeight);
@@ -3040,17 +3040,6 @@ function getReview(id) {
         $("#ajaxBlock").append(strResult);
         $("body").css('overflow','hidden');
         NProgress.done();
-    });
-}
-
-function getInfo(id) {
-    $.ajax({
-        type: "POST",
-        url: "/ajax/info_popup.php",
-        data: {info: id}
-    }).done(function(strResult) {
-        $("#ajaxBlock").append(strResult);
-        $("body").css('overflow','hidden');
     });
 }
 
@@ -3079,12 +3068,6 @@ function getPreview(id,stock) {
         $(".previwLoading").hide();
     });
 }
-
-function closeInfo() {
-    $('#ajaxBlock').empty();
-    $("body").css('overflow','auto');
-}
-
 
 setTimeout(function(){
     var city = $('.shippings .city_pull').attr('data-city');

@@ -64,7 +64,7 @@ $frame = $this->createFrame()->begin();
 			$tags = explode(', ',$arResult["TAGS"]);
 				echo '<div class="keywords">';
 				foreach($tags as $tag) {
-					echo '<span>'.$tag.'</span>';
+					echo '<a href="/blog/search/?q='.$tag.'&s=blog" style="border-bottom:none"><span>'.$tag.'</span></a>';
 				}
 				echo '</div>';
 			}?>
@@ -81,7 +81,7 @@ $frame = $this->createFrame()->begin();
 			$articleBooks = array("ID" => $arResult["PROPERTIES"]["BOOKS"]["VALUE"]);?>     
 			<div class="weRecomWrap">
 				<div class="centerWrapper">
-					<p class="tile">Упомянутые книги</p>
+					<p class="tile">Книги на эту тему</p>
 					<?$APPLICATION->IncludeComponent(
 					"bitrix:catalog.section",
 					"all_recommended_books",
@@ -209,13 +209,9 @@ $frame = $this->createFrame()->begin();
 				</div>
 			</div>
 		<?}?>
-		<h2>Интересное по теме</h2>
-		<span style="color:#fff;"><?=$arResult["ID"]?></span>
-		<?$stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/59703efb5a658825342f445a/'.$arResult["ID"]);
-		$recsArray = json_decode($stringRecs);
-		array_splice($recsArray,5);
+		<h2>Читайте также</h2>
+		<?
 		global $arFilter;
-		//$arFilter = array("ID" => $recsArray);
 		$arFilter = array("!ID" => $arResult["ID"], "SECTION_ID" => $section["ID"]);
 		$APPLICATION->IncludeComponent(
 			"bitrix:catalog.section",
