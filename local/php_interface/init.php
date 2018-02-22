@@ -1,4 +1,4 @@
-<?
+<? 
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 
@@ -148,7 +148,12 @@
             die();
         }
     }
-
+    AddEventHandler('main', 'OnBeforeEventSend', 'addingTagParameterForTemplate');
+    function addingTagParameterForTemplate ($arFields, $arTemplate) {
+        if ($arTemplate["EVENT_NAME"] == "SUBSCRIBE_CONFIRM") {
+            $arFields["TAG_MACROS"] = '$%my_tag%$';
+        }    
+    }
     /**
     *
     * Отдельная функция для писем с вложениями, т.к. разобрать то, что шлет битрикс нереально
@@ -179,31 +184,35 @@
         $cc_pattern = "/(?<=CC:)(.*)(?=)/";
         $from_matches = array();
         $bcc_matches = array();
+        $macros_matches = array();
         preg_match($from_pattern, $additional_headers, $from_matches);
         preg_match($bcc_pattern, $additional_headers, $bcc_matches);
         preg_match($cc_pattern, $additional_headers, $cc_matches);
 
-        if (file_exists("/home/bitrix/vendor/mailgun/mailgun-php/src/Mailgun/Mailgun.php")) {
-            $mailgun = new Mailgun(MAILGUN_KEY);
-
-            $params = array(
-                'from'    => ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
-                'to'        => $to,
-                'subject' => $subject,
-                'html'    => $message
-            );
-
-            if (trim($bcc_matches[0])) {
-                $params['bcc'] = $bcc_matches[0];
-            }
-            if (trim($bcc_matches[0])) {
-                $params['cc'] = $cc_matches[0];
-            }
-            //$attachments = 'https://www.alpinabook.ru/img/twi.png';
-            $domain = MAILGUN_DOMAIN;
-            # Make the call to the client.
-            $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
+        preg_match('/\$\%(.*)\%\$/', $message, $macros_matches);
+        if (!empty($macros_matches)) {
+            $macros_value = $macros_matches[1];    
         }
+        $mailgun = new Mailgun(MAILGUN_KEY);
+
+        $params = array(
+            'from'	=> ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
+            'to'		=> $to,
+            'subject' => $subject,
+            'html'	=> $message,
+            'o:tag' => $macros_value
+        );
+
+        if (trim($bcc_matches[0])) {
+            $params['bcc'] = $bcc_matches[0];
+        }
+        if (trim($bcc_matches[0])) {
+            $params['cc'] = $cc_matches[0];
+        }
+        //$attachments = 'https://www.alpinabook.ru/img/twi.png';
+        $domain = MAILGUN_DOMAIN;
+        # Make the call to the client.
+        $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
     }
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
@@ -3529,5 +3538,4 @@ function changeapishipTerms(&$arResult, $profile, $arConfig, $arOrder){
             TARIF   - рассчитанный тариф, только для информации  */
 
 }
-
 ?>
