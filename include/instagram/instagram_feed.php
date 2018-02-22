@@ -5,8 +5,6 @@
 <div class="anf" onclick="changeFeed('anf');"><span>Альпина Нон-фикшн</span></div>
 <div class="ad" onclick="changeFeed('ad');"><span>Альпина.Дети</span></div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/instafeed.js/1.4.1/instafeed.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.7/jquery.lazy.min.js"></script>
 <script src="//foursixty.com/media/scripts/fs.embed.v2.5.js" data-feed-id="alpina-publisher" data-open-links-in-same-page="false" data-theme="sizes_v2_5" data-page-size="7"></script>
 
 <style>.fs-has-links::after {  padding: 10px 15px; background-color: #fff; color: rgba(0,0,0,0.8); content: "Подробнее";  }.fs-wrapper div.fs-text-container .fs-entry-title, div.fs-detail-title{font-family:Walshein_light, serif;font-style:normal;font-weight:normal;}div.fs-text-container .fs-entry-date, div.fs-detail-container .fs-post-info, div.fs-wrapper div.fs-has-links::after, .fs-text-product, .fs-overlink-text{font-family:Walshein_light, Helvetica, Arial, sans-serif;font-style:normal;font-weight:bold;}.fs-wrapper div.fs-text-container * {color:#fff}.fs-wrapper div.fs-text-container {background-color:rgba(0,0,0,0.8); margin: 0px}div.fs-entry-date{display:none}.fs-wrapper div.fs-timeline-entry{ margin: 0px }
@@ -28,61 +26,4 @@
 .instafeed span:hover {border-bottom:none}
 #fs-detail-branding img{display:none!important}
 </style>
-
-
 <div id="instafeed" class="no-mobile"></div>
-
-<script type="text/javascript">
-	function changeFeed(feed) {
-		$('#instafeed').empty();
-		switch(feed) {
-			case 'ap':
-			default:
-				userId = 234788880;
-				accessToken = '234788880.1677ed0.b4707b411f044b99985f95f1b044d7e7';
-				$(".fs-wrapper").show();
-				$("#instafeed").hide();
-				break;
-			case 'anf':
-				userId = 526445861;
-				accessToken = '526445861.1677ed0.83228ef97e3f46859b97e833e93b0ba9';
-				$("#instafeed").show();
-				$(".fs-wrapper").hide();
-				break;
-			case 'ad':
-				userId = 3089843803;
-				accessToken = '3089843803.1677ed0.d1e6a7c5f4e14da5815fc69b2d31b8c1';
-				$("#instafeed").show();
-				$(".fs-wrapper").hide();
-				break;
-		}
-		
-		$(".instafeed div").removeClass('active');
-		
-		var lazyfeed = new Instafeed({
-			get: 'user',
-			userId: userId,
-			accessToken: accessToken,
-			limit:14,
-			resolution:'standard_resolution',
-			mock: false,
-			useHttp: false,
-			template:'<a class="lazy" data-src="{{image}}" onclick="popup(\'{{image}}\', \'{{caption}}\');" style="display:block;float:left;background-position: center center;background-repeat: no-repeat;-ms-background-size: cover;-webkit-background-size: cover;-o-background-size: cover;-moz-background-size: cover;background-size: cover" href="{{link}}" target="_blank"><span class="instagram-{{type}}"></span><div class="hover-layer"><span class="likes"><img src="/include/instagram/likes.svg" /> &nbsp;{{likes}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style="width:20px; height:auto" src="/include/instagram/comment.svg" /> &nbsp;{{comments}}</span></div></a>',
-			after: function () {
-				'use strict';
-				$('.lazy').Lazy({
-					scrollDirection: 'vertical',
-					effect : "fadeIn",
-					effectTime : 500,
-					visibleOnly: true,
-					threshold:70
-				});
-				$('.'+feed).addClass('active');
-			}
-		});
-		lazyfeed.run();
-	}
-	$(document).ready(function() {
-		changeFeed('ap');
-	});
-</script>
