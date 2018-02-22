@@ -7,14 +7,13 @@ if (count($arResult["ITEMS"]) > 0){?>
             <div class="">
                 <ul class="bookInBlogPosts">
                     <?foreach ($arResult["ITEMS"] as $arItem) {
-                        $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>306, 'height'=>306), BX_RESIZE_IMAGE_EXACT, true);?>
+                        $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>102, 'height'=>102), BX_RESIZE_IMAGE_EXACT, true);?>
 						<li class="bookInBlogPost">
 							<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" title="Пост в блоге Альпины «<?=$arItem["NAME"]?>»">
 								<img src="<?=$pict["src"]?>" title="Пост в блоге Альпины «<?=$arItem["NAME"]?>»" alt="<?=$arItem["NAME"]?>" />
-								<br />
-								<div class="name">
+								<span class="name">
 									<span title="Пост в блоге Альпины «<?=$arItem["NAME"]?>»"><?echo strlen($arItem["NAME"])>50 ? substr($arItem["NAME"],0,50).'...' : $arItem["NAME"];?></span>
-								</div>
+								</span>
 								<p class="author"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
 							</a>
 						</li>

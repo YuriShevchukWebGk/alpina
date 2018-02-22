@@ -1261,7 +1261,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			);*/?>
         </div>
 
-
+		<?
+		$APPLICATION->IncludeComponent(
+			"bitrix:main.include",
+			".default",
+			array(
+				"AREA_FILE_SHOW" => "file",
+				"AREA_FILE_SUFFIX" => "inc",
+				"AREA_FILE_RECURSIVE" => "Y",
+				"EDIT_TEMPLATE" => "",
+				"COMPONENT_TEMPLATE" => ".default",
+				"PATH" => "/include/instagram/instagram_feed.php"
+			),
+			false
+		);
+		?>
         <div class="no-mobile bestbookmain">
             <?
 			global $bestWeekBook;
@@ -1589,7 +1603,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </div>
 </div>
-
 <?
 global $blogPostsFilter;
 $blogPostsFilter = array("!ID" => false);
@@ -1616,7 +1629,7 @@ $APPLICATION->IncludeComponent(
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"SHOW_ALL_WO_SECTION" => "Y",
 		"HIDE_NOT_AVAILABLE" => "N",
-		"PAGE_ELEMENT_COUNT" => "5",
+		"PAGE_ELEMENT_COUNT" => "9",
 		"LINE_ELEMENT_COUNT" => "1",
 		"PROPERTY_CODE" => array(
 			0 => "",
@@ -1701,7 +1714,6 @@ $APPLICATION->IncludeComponent(
 	false
 );
 ?>
-
 <div class="reviewsWrapp">
     <div class="catalogWrapper">
         <div class="arrows">
@@ -1975,21 +1987,6 @@ $APPLICATION->IncludeComponent(
         </div>
     </div>
 </div>
-<?
-$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	array(
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "inc",
-		"AREA_FILE_RECURSIVE" => "Y",
-		"EDIT_TEMPLATE" => "",
-		"COMPONENT_TEMPLATE" => ".default",
-		"PATH" => "/include/instagram/instagram_feed.php"
-	),
-	false
-);
-?>
 <script>
     $(".some_info").click(function(){
         $(".some_info").hide();

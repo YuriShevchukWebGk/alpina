@@ -9,7 +9,22 @@
 $limit = 50; //Максимальное количество заказов
 $weekend = false; //Если вдруг доставляем в выходные, то поменять на true
 
-$holidays = array( //Указываем даты праздничных дней
+$holidaysArray = array( //Указываем даты праздничных дней
+'check',
+'23.02.2018',
+'08.03.2018',
+'09.03.2018',
+'29.04.2018',
+'01.05.2018',
+'02.05.2018',
+'09.05.2018',
+'11.06.2018',
+'12.06.2018',
+'05.11.2018',
+'31.12.2018',
+);
+
+$holidaysString = array( //Указываем даты праздничных дней
 '23.2.2018',
 '8.3.2018',
 '9.3.2018',
@@ -23,7 +38,6 @@ $holidays = array( //Указываем даты праздничных дней
 '31.12.2018',
 );
 
-$holidays = implode(',',$holidays);
 $setProps = array();
 $setProps['nextDay'] = 1;
 
@@ -69,7 +83,7 @@ while (!$dateIsSet) {
 
     $dateIsSet = true;
 
-    if (array_search($setProps['deliveryDate'], $holidays)) {
+    if (array_search($setProps['deliveryDate'], $holidaysArray)) {
         $setProps['nextDay']++;
         $dateIsSet = false;
     }
@@ -122,6 +136,8 @@ if ($setProps['nextDay'] > 4) {
             break;
     }
 }
+
+$holidays = implode(',',$holidaysString);
 
 if ($setProps['nextDay'] == 1)
     $setProps['deliveryDayName'] = "завтра";
