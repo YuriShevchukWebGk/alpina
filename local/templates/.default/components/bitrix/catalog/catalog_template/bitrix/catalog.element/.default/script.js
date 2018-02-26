@@ -3019,6 +3019,10 @@ function setItemBgHeight() {
     priceHeight = bgHeight - 125;
     //console.log(priceHeight);
     //$(".wrap_prise_top").css("height", priceHeight);
+	if($("div").is(".videoWrappTop")) {
+		bgHeight += 100;
+	}
+	
     $("head").append("<style>.productElementWrapp::before{height:"+ bgHeight + "px}</style>");
     if(bgHeight > 292){
        // $(".shippings").css('margin-top','86px');

@@ -7,7 +7,7 @@
 </div>
 <script src="//foursixty.com/media/scripts/fs.embed.v2.5.js" data-feed-id="alpina-publisher" data-open-links-in-same-page="false" data-theme="sizes_v2_5" data-page-size="7"></script>
 
-<style>.fs-has-links::after {  padding: 10px 15px; background-color: #fff; color: rgba(0,0,0,0.8); content: "Подробнее";  }.fs-wrapper div.fs-text-container .fs-entry-title, div.fs-detail-title{font-family:Walshein_light, serif;font-style:normal;font-weight:normal;}div.fs-text-container .fs-entry-date, div.fs-detail-container .fs-post-info, div.fs-wrapper div.fs-has-links::after, .fs-text-product, .fs-overlink-text{font-family:Walshein_light, Helvetica, Arial, sans-serif;font-style:normal;font-weight:bold;}.fs-wrapper div.fs-text-container * {color:#fff}.fs-wrapper div.fs-text-container {background-color:rgba(0,0,0,0.8); margin: 0px}div.fs-entry-date{display:none}.fs-wrapper div.fs-timeline-entry{ margin: 0px }
+<style>.fs-has-links::after {  padding: 10px 15px; background-color: #fff; color: rgba(0,0,0,0.8); content: "Купить";  }.fs-wrapper div.fs-text-container .fs-entry-title, div.fs-detail-title{font-family:Walshein_light, serif;font-style:normal;font-weight:normal;}div.fs-text-container .fs-entry-date, div.fs-detail-container .fs-post-info, div.fs-wrapper div.fs-has-links::after, .fs-text-product, .fs-overlink-text{font-family:Walshein_light, Helvetica, Arial, sans-serif;font-style:normal;font-weight:bold;}.fs-wrapper div.fs-text-container * {color:#fff}.fs-wrapper div.fs-text-container {background-color:rgba(0,0,0,0.8); margin: 0px}div.fs-entry-date{display:none}.fs-wrapper div.fs-timeline-entry{ margin: 0px }
 .fs-text-product-cta:after{content: "КУПИТЬ"!important}
 .fs-post-info, .fs-link-text, div.fs-detail-title{font-size:15px!important}
 
