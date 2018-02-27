@@ -561,9 +561,11 @@
 			$order = \Bitrix\Sale\Order::loadByAccountNumber($arOrder["ID"]);
 			$discountList = $order->getDiscount()->getApplyResult();
 
-			unset($discountList["DISCOUNT_LIST"][1060]);
 			$rubcoupon = '';
 			foreach($discountList["DISCOUNT_LIST"] as $oneDiscount) {
+				if ($oneDiscount["REAL_DISCOUNT_ID"] == 129)
+					continue;
+				
 				if ($oneDiscount["ACTIONS_DESCR_DATA"]["BASKET"][0]["VALUE_TYPE"] == "S") {
 					$rubcoupon = $oneDiscount["ID"];
 					foreach ($discountList["COUPON_LIST"] as $oneCoupon) {
@@ -648,7 +650,8 @@
             }
             $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
             if(floatval($delivery_price) <= 0 && $arFields["PRICE"] < 2000){
-                $arFields['PRICE_DELIVERY'] = 235;
+                //$arFields['PRICE_DELIVERY'] = 235;
+                $arFields["PRICE_DELIVERY"] = 0;
                 $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
             } else {
                 $arFields['PRICE'] += floatval($delivery_price);
