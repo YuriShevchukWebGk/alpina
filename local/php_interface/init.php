@@ -564,7 +564,7 @@
 			$rubcoupon = '';
 			foreach($discountList["DISCOUNT_LIST"] as $oneDiscount) {
 				if ($oneDiscount["REAL_DISCOUNT_ID"] == 129)
-					continue;
+					unset($discountList["DISCOUNT_LIST"][$oneDiscount["ID"]]);
 				
 				if ($oneDiscount["ACTIONS_DESCR_DATA"]["BASKET"][0]["VALUE_TYPE"] == "S") {
 					$rubcoupon = $oneDiscount["ID"];
