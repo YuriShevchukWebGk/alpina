@@ -494,7 +494,9 @@ function setAddressDataBoxberry(delivery_data) {
 
 function getDay(day,mon,year, new_day){
      date_new = new Date(year, mon, day);
+     
      d_new = date_new.getDate();
+     
      var month = ["","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"];
      var days = ["","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье"];
 
@@ -507,7 +509,7 @@ function getDay(day,mon,year, new_day){
      day = parseInt(day, 10); //если день двухсимвольный и <10
 
      var a = parseInt((14-mon)/12, 10);
-     var y = year-a;
+     var y = year;
      var m = mon+12*a-2;
 
      var d = (7000+parseInt(d_new+y+parseInt(y/4, 10)-parseInt(y/100, 10)+parseInt(y/400, 10)+(31*m)/12, 10))%7;
@@ -520,11 +522,13 @@ function getDay(day,mon,year, new_day){
        d_new = d_new + 2;
      }
      d = (7000+parseInt(d_new+y+parseInt(y/4, 10)-parseInt(y/100, 10)+parseInt(y/400, 10)+(31*m)/12, 10))%7;
-
+     
+    
 
  return days[d] +', '+ d_new +' '+ month[mon] +', '+ y;
 }
-date = new Date();
+
+
 
 //<-- вычисляем сегодняшнюю дату и разбиваем по частям --//
 /**
@@ -535,6 +539,8 @@ date = new Date();
  */
 function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
     // установка цен внизу страницы
+    
+    date = new Date();
     if (delivery_price == 0) {
         var delivery_message = 'Бесплатно';
     } else {
@@ -557,13 +563,16 @@ function fitDeliveryDataBoxberry(delivery_time, delivery_price) {
     if (parseInt(delivery_time) != 0) {
         if($("#ID_DELIVERY_ID_"+ window.BOXBERRY_PICKUP_DELIVERY_ID).is(':checked') == false){
              $("#ID_DELIVERY_ID_"+ window.BOXBERRY_PICKUP_DELIVERY_ID).trigger('click');
+        } else {
+            // если значения не будет, то значит произошла ошибка и время доставки не показываем
+            $("#boxberry_delivery_time").show();
+            date.setDate(date.getDate() + parseInt(delivery_time));
+            d = date.getDate();
+            m = date.getMonth();
+            y = date.getFullYear();
+
+            $("#boxberry_delivery_time").html('Ожидаемая дата доставки: ' + getDay(d,m,y, parseInt(delivery_time)));
         }
-        // если значения не будет, то значит произошла ошибка и время доставки не показываем
-        $("#boxberry_delivery_time").show();
-        d = date.getDate() + parseInt(delivery_time);
-        m = date.getMonth();
-        y = date.getFullYear();
-        $("#boxberry_delivery_time").html('Ожидаемая дата доставки: ' + getDay(d,m,y, parseInt(delivery_time)));
     }
 }
 
