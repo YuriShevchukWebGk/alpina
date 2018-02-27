@@ -109,6 +109,7 @@
 
     define ("PREORDER_STATUS_ID", 'PR');
     define ("ROUTE_STATUS_ID", 'I');  // в пути
+    define ("ASSEMBLED_STATUS_ID", 'C');  // собран
 
     define ("REISSUE_ID", 218); //ID свойства "Переиздание"
     define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
@@ -988,6 +989,8 @@
                             "ID"=> $ID,
                         );
                         CEvent::Send("NOTICE_OF_PAYMENT", "s1", $arFields, "N");
+                } else if($order_list["STATUS_ID"] == ASSEMBLED_STATUS_ID){
+                    CSaleOrder::StatusOrder($ID, ASSEMBLED_STATUS_ID);
                 } else {
                     CSaleOrder::StatusOrder($ID, "D");
                 }
