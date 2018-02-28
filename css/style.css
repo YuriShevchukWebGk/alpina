@@ -253,7 +253,7 @@ input:focus{outline:0}
 .roundSlider .buttons{cursor:pointer}
 .books>ul span{cursor:pointer}
 .bookNew{display:block}
-.bookBest,.bookMust,.bookSoon{display:none}
+.bookBest,.bookMust,.bookSoon,.bookChildren{display:none}
 .catalogIcon{left:-6px;background:url(/img/catalogIco.png) center no-repeat #85959a}
 .catalogIcon:hover{background:url(/img/catalogLogoMini.png) center no-repeat #fff}
 .basketIcon{right:-6px;background:url(/img/basketIcoHovers.png) center no-repeat #85959a}
