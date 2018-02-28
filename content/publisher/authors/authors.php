@@ -6,7 +6,7 @@
 
 <center><center><span style="font-size:32px;color:#00ABB8;border:1px solid #aaa;border-radius:50px;padding:11px 29px;text-align:center">1</span></center><br />
 <span style="color:#00bba8;font-size:24px">Деньги</span><br />
-Лучшие финансовые условия на рынке.
+Лучшие финансовые условия.
 <br /><br /><br />
 <center><span style="font-size:32px;color:#00ABB8;border:1px solid #aaa;border-radius:50px;padding:11px 25px;text-align:center">2</span></center><br />
 <span style="color:#00bba8;font-size:24px">Качество</span><br />

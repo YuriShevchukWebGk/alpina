@@ -3546,4 +3546,107 @@ function changeapishipTerms(&$arResult, $profile, $arConfig, $arOrder){
             TARIF   - рассчитанный тариф, только для информации  */
 
 }
+
+function AddBasketRule() { 
+    // получение релятивных товаров для создания правила корзины 
+    CModule::IncludeModule('sale');                                                    
+    if (isset($_COOKIE["rcuid"])){
+        $opts = array('http' =>
+            array(
+                'method'  => 'GET',
+                'timeout' => 3 
+            )
+        );
+
+        $context  = stream_context_create($opts);
+        $stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"], false, $context);
+        $recsArray = array_slice(json_decode($stringRecs, true), 0, 6);
+        $arrFilter = array();
+        foreach($recsArray as $val) {
+            $arrFilter[ID][] = $val[ItemId];
+        }
+    }
+
+    $id_favorite = $arrFilter["ID"][rand(0,5)];  
+
+    $CONDITIONS = array (
+       "CLASS_ID" => "CondGroup",
+       "DATA" => array (
+          "All" => "AND",
+          "True" => "True"
+       ),
+       "CHILDREN" => array(
+           array(  
+              "CLASS_ID" => "CondBsktCntGroup",
+              "DATA" => array (
+                 "All" => "AND",
+                 "logic" => "Equal",
+                 "Value" => 1
+              ) 
+           ),array(  
+              "CLASS_ID" => "CondBsktCntGroup",
+              "DATA" => array (
+                 "All" => "AND",
+                 "logic" => "Equal",
+                 "Value" => 1
+              ),
+              "CHILDREN" => Array(
+                 array(  
+                  "CLASS_ID" => "CondBsktFldProduct",
+                  "DATA" => array (
+                     "logic" => "Equal",
+                     "value" => $id_favorite
+                  ) 
+                 ) 
+              ) 
+           ),
+       ),
+    );
+      
+    $ACTIONS = array (
+       "CLASS_ID" => "CondGroup",
+       "DATA" => array (
+          "All" => "AND",
+       ),
+       "CHILDREN" => array(  
+        array( 
+          "CLASS_ID" => "ActSaleBsktGrp",
+          "DATA" => array (
+             "Type" => "Discount",
+             "Value" => 10,
+             "Unit" => "Perc",
+             "Max" => 0,
+             "All" => "AND",
+             "True" => "True"
+             
+          ),
+          "CHILDREN" => Array(
+      
+          )
+        ),
+       ),
+    );
+    $arFields = array(
+
+       "LID" => SITE_ID,
+       "NAME" => "Скидка 1+1 для товара ".$id_favorite,
+       "PRIORITY" => 1,
+       "SORT" => 100,
+       "LAST_LEVEL_DISCOUNT" => "N",
+       "LAST_DISCOUNT" => "Y",
+        "ACTIVE" => "Y",
+        "ACTIVE_FROM" => "",
+        "ACTIVE_TO" => "",
+        "SORT" => 100,
+        "XML_ID" => "",
+        "CONDITIONS" => $CONDITIONS, 
+        "ACTIONS" => $ACTIONS,
+        "USER_GROUPS" => array(
+            0 => 2
+        ),
+    );   
+    $ID = CSaleDiscount::Add($arFields);
+
+    return "AddBasketRule();";
+}
 ?>

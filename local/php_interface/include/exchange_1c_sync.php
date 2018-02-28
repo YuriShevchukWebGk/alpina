@@ -81,7 +81,7 @@ class Exchange1C {
             $arSelect = Array("CATALOG_QUANTITY", "NAME");
             $arFilter_1 = Array("IBLOCK_ID"=>IBLOCK_1C_EXCHANGE, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_ID_BITRIKS_VALUE" => $bitrix_id);
             $cat = CIBlockElement::GetList(Array(), $arFilter_1, false, false, $arSelect);
-          //  $total_quantity = 0;
+            $total_quantity = 0;
             while($arCatalog = $cat->Fetch()) {
                 $total_quantity = $total_quantity + $arCatalog['CATALOG_QUANTITY'];
                // $name = $arCatalog['NAME'];
