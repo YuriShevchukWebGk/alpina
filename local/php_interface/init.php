@@ -200,9 +200,11 @@
             'from'	=> ($from_matches[0])?$from_matches[0]:MAIL_FROM_DEFAULT,
             'to'		=> $to,
             'subject' => $subject,
-            'html'	=> $message,
-            'o:tag' => $macros_value
+            'html'	=> $message
         );
+		
+		if ($macros_value)
+            $params['o:tag'] = $macros_value;
 
         if (trim($bcc_matches[0])) {
             $params['bcc'] = $bcc_matches[0];
