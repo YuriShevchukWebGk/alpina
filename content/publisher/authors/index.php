@@ -5,6 +5,10 @@ $APPLICATION->SetPageProperty("title", "Авторам: издательство
     $APPLICATION->SetPageProperty("description", "Ищем авторов! Мы предлагаем лучшие финансовые условия, качества и гарантируем продажи ваших книг. Для продвижения заполните форму на сайте нашего издательства.");
     $APPLICATION->SetTitle("Авторам");
 ?>
+<style>
+	.authorsContent{color:#222;font-size:18px;font-family:Walshein_light!important}
+	td{padding-top:25px}
+</style>
 <div class="searchWrap">
     <div class="catalogWrapper">
         <?$APPLICATION->IncludeComponent("bitrix:search.title", "search_form", 
@@ -42,12 +46,12 @@ $APPLICATION->SetPageProperty("title", "Авторам: издательство
 
 <div class="deliveryPageTitleWrap">
     <div class="centerWrapper">
-        <p>Главная</p>
+        <p><a href="/" style="color:#fefefe">Книги Альпина</a></p>
         <h1>Авторам</h1>
     </div>
 </div>
 
-<div class="deliveryBodyWrap">
+<div>
     <div class="centerWrapper">
         <div class="authorsContent">
             <?$APPLICATION->IncludeComponent(
@@ -59,7 +63,7 @@ $APPLICATION->SetPageProperty("title", "Авторам: издательство
                         "EDIT_TEMPLATE" => ""
                     )
                 );?><br>
-            <a onclick="jQuery('#author_form').slideToggle(); return false;" href="#">Чтобы предложить к изданию рукопись, заполните, пожалуйста, заявку. Это можно сделать здесь.</a> 
+            <center><a onclick="$('#author_form').slideToggle(); return false;" style="font-size:24px" href="#">Нажмите, чтобы открыть форму</a></center>
             <div id="author_form"<?if (!isset($_POST['web_form_submit']) && $_GET['formresult'] != 'addok'):?> style="display:none"<?endif;?>>
                 <?$APPLICATION->IncludeComponent(
 	"bitrix:form.result.new", 

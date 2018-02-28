@@ -95,6 +95,7 @@ header .headBasket{padding:17px 1px 0}
 .firstSection .smallContainer:nth-child(1),.hintWrapp .firstSection,.secondSection .smallContainer:nth-child(2n+1){margin-right:34px}
 .hintWrapp .books>div{float:left}
 .hintWrapp .title{color:#3f4a4d;font-size:32px;padding-top:74px;padding-bottom:34px}
+#bookInBlogWrap .title{font-family:Walshein_light!important}
 .hintWrapp .titleBlock>div{display:inline-block;background-color:#3f4a4d}
 .catalogWrapper .recomendation:nth-child(2) .left,.catalogWrapper .recomendation:nth-child(2) .right,.recomendation .saleSlider .left,.recomendation .saleSlider .right{display:none}
 .hintWrapp .titleText{width:524px;padding-left:30px}
@@ -111,7 +112,7 @@ header .headBasket{padding:17px 1px 0}
 .hintWrapp .count{color:#9C9C9C!important;font-family:Walshein_regular!important;font-size:16px!important;text-decoration:none!important}
 .smallContainer img{bottom:0;position:absolute}
 .secondSection>div{height:370px}
-.hintWrapp .recomendation>p{color:#3f4a4d;font-size:32px;padding-bottom:38px;padding-top:30px}
+.hintWrapp .recomendation>p{color:#3f4a4d;font-size:48px;padding-bottom:38px;padding-top:38px;font-family:Walshein_light!important}
 .recomendation .bookName,.saleWrapp .bookName{padding-bottom:6px;padding-top:16px;font-size:14px}
 .hintWrapp .recomendation{border-top:1px solid #e4e4e4;margin-top:63px;position:relative}
 .recomendation .saleSlider{overflow:hidden}
@@ -128,7 +129,7 @@ header .headBasket{padding:17px 1px 0}
 .saleWrapp{background-color:#f4f4f4;min-height:694px;overflow:visible;margin-bottom:40px}
 .saleWrapp .bookName{color:#424c4f;height:39px;width:142px;overflow:hidden}
 .saleWrapp .bookPrice{color:#7B8C90;font-size:14px}
-.saleWrapp .titleMain{color:#3f4a4d;font-size:32px;padding-bottom:38px;padding-top:45px}
+.saleWrapp .titleMain{color:#3f4a4d;font-size:48px;padding-bottom:38px;padding-top:53px;text-align:center;font-family:Walshein_light!important}
 .saleWrapp .titleMain a{color:#3f4a4d}
 .titleMain a {text-decoration:none}
 .titleMain a:hover {border-bottom:1px solid}

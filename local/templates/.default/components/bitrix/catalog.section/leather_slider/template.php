@@ -1,19 +1,9 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-/** @var array $arParams */
-/** @var array $arResult */
-/** @global CMain $APPLICATION */
-/** @global CUser $USER */
-/** @global CDatabase $DB */
-/** @var CBitrixComponentTemplate $this */
-/** @var string $templateName */
-/** @var string $templateFile */
-/** @var string $templateFolder */
-/** @var string $componentPath */
-/** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
 
-<div class="saleSlider">
+<div class="saleSlider leatherSlider">
+	<p class="titleMain"><a href="/catalog/knigivkozhe/">Книги в коже</a></p>
     <ul>
         <?foreach ($arResult["ITEMS"] as $arItem) {
             foreach ($arItem["PRICES"] as $code => $arPrice) {
@@ -22,6 +12,7 @@ $this->setFrameMode(true);
                 ?>
                 <li>
                     <div class="bookWrapp">
+						<p class="bookName" title="<?=$arItem["NAME"]?>"><?echo strstr($arItem["PROPERTIES"]["SHORT_NAME"]["VALUE"],'(', true) ? strstr($arItem["PROPERTIES"]["SHORT_NAME"]["VALUE"],'(', true) : $arItem["PROPERTIES"]["SHORT_NAME"]["VALUE"];?></p>
                         <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
                             <div class="section_item_img">
                                 <?if($pict["src"] != ''){?>
@@ -30,9 +21,7 @@ $this->setFrameMode(true);
                                     <img src="/images/no_photo.png">      
                                     <?}?>
                             </div>
-                            <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem['NAME']?></p>
-                            <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                            <p class="bookPrice"><?=$arPrice['DISCOUNT_VALUE_VAT']?><span></span></p>
+						<p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
                         </a>
                     </div>    
                 </li>    

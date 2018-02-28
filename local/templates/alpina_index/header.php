@@ -826,7 +826,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 			$context  = stream_context_create($opts);
 			$stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"], false, $context);
-			$recsArray = array_slice(json_decode($stringRecs, true), 0, 6);
+			$recsArray = array_slice(json_decode($stringRecs, true), 0, 5);
 			$arrFilter = array();
 			foreach($recsArray as $val) {
 				$arrFilter[ID][] = $val[ItemId];
@@ -1113,18 +1113,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 $vipbooks = array('SECTION_ID' => 491, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID), "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
             } else {
                 $vipbooks = array('SECTION_ID' => 491, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID));
-            }
-            ?>
-            <p class="titleMain"><a href="/catalog/vipbooks/">Книги в коже</a></p>
+            }?>
             <?
 			$APPLICATION->IncludeComponent(
 			"bitrix:catalog.section",
-			"bestsellers_slider",
+			"leather_slider",
 			array(
 				"IBLOCK_TYPE_ID" => "catalog",
 				"IBLOCK_ID" => "4",
 				"BASKET_URL" => "/personal/cart/",
-				"COMPONENT_TEMPLATE" => "bestsellers_slider",
+				"COMPONENT_TEMPLATE" => "leather_slider",
 				"IBLOCK_TYPE" => "catalog",
 				"SECTION_ID" => $_REQUEST["SECTION_ID"],
 				"SECTION_CODE" => "",
@@ -1140,7 +1138,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"INCLUDE_SUBSECTIONS" => "Y",
 				"SHOW_ALL_WO_SECTION" => "Y",
 				"HIDE_NOT_AVAILABLE" => "N",
-				"PAGE_ELEMENT_COUNT" => "6",
+				"PAGE_ELEMENT_COUNT" => "7",
 				"LINE_ELEMENT_COUNT" => "3",
 				"PROPERTY_CODE" => array(
 					0 => "",
@@ -1565,27 +1563,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="saleWrapp">
             <div class="catalogWrapper">
-				<!--noindex-->
-                <div class="giftWrapBlock">
-                    <div class="giftWrap">
-                        <form action="/" method="post">
-                            <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
-                            <input type="button" value="">
-                        </form>
-                        <div class="some_info">
-                            Заявка на подписку принята, ждите информацию на почту
-                        </div>
-                        <p class="title">
-                            Книга в подарок
-                        </p>
-                        <p>
-                            Подпишитесь на рассылку и получите книгу<br />в формате PDF бесплатно
-                        </p>
-						<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
-                    </div>
-                </div>
-				<!--/noindex-->
-
                 <div>
 					<?$APPLICATION->IncludeComponent(
 						"bitrix:main.include",
@@ -1710,6 +1687,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						false
 					);?>
 				</div>
+				<!--noindex-->
+                <div class="giftWrapBlock">
+                    <div class="giftWrap">
+                        <form action="/" method="post">
+                            <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
+                            <input type="button" value="">
+                        </form>
+                        <div class="some_info">
+                            Заявка на подписку принята, ждите информацию на почту
+                        </div>
+                        <p class="title">
+                            Книга в подарок
+                        </p>
+                        <p>
+                            Подпишитесь на рассылку и получите книгу<br />в формате PDF бесплатно
+                        </p>
+						<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
+                    </div>
+                </div>
+				<!--/noindex-->
             </div>
         </div>
     </div>

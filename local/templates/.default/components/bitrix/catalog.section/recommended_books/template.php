@@ -34,27 +34,24 @@ if (file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/person
 	});
 	</script>
 <?}?>
-<div class="saleSlider">
+<div class="saleSlider recsOnMain">
     <ul>
 
         <?foreach ($arResult["ITEMS"] as $arItem) {
             foreach ($arItem["PRICES"] as $code => $arPrice) {
                 if ($arPrice["PRINT_DISCOUNT_VALUE"]) {
-                    $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                    $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>200, 'height'=>300), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                 ?>
                 <li>
                     <div class="bookWrapp">
-                        <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
+                        <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" title="Книга «<?=$arItem["NAME"]?>»">
                             <div class="section_item_img">
                                 <?if($pict["src"] != ''){?>
-                                    <img src="<?=$pict["src"]?>">    
+                                    <img src="<?=$pict["src"]?>" alt="Обложка книги «<?=$arItem["NAME"]?>»">    
                                     <?} else {?>
                                     <img src="/images/no_photo.png">      
                                     <?}?>
                             </div>
-                            <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem['NAME']?></p>
-                            <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                            <p class="bookPrice"><?=$arPrice['DISCOUNT_VALUE_VAT']?><span></span></p>
                         </a>
                     </div>    
                 </li>    
