@@ -106,6 +106,9 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         <?if($arResult['PREORDER'] == 'Y') {?>
             $("#tPP .delivery_date").remove();
         <?}?>
+        <?if(!empty($_SESSION["DATE_DELIVERY_STATE"])) {?>
+            $(".delivery_date").remove();
+        <?}?>
 
 		$(".bx_section div:has(input:checked), input:checked>label").css("background", "rgba(216, 194, 165, 0.35)");
 		$("input[name='PERSON_TYPE']:checked").next().css("background", "rgba(216, 194, 165, 0.35)");

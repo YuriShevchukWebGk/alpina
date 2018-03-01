@@ -83,7 +83,7 @@
                             $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
                             if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
                             ?>
-
+                                
                             <?if(($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE") && !$window){?>
 
                                 <input class="clientInfo" placeholder="(___) ___ __ __" id="<?=$arProperties["FIELD_NAME"]?>" type="tel" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=($arProperties["VALUE"])?$arProperties["VALUE"]:$_POST["ORDER_PROP_".$arProperties["ID"]]?>" name="<?=$arProperties["FIELD_NAME"]?>" />
@@ -102,7 +102,7 @@
 
                             <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0 && $arProperties["CODE"] != "ADRESS_PICKPOINT"):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
-                            <?endif?>
+                            <?endif?>     
                             <? } else if ($arProperties["CODE"]=="CODE_COUPON") {   ?>
                                 <div class="certInput">
                                     <?=$arProperties["NAME"]?>
