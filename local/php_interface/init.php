@@ -933,7 +933,9 @@
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
                     if ($arItems["PRODUCT_ID"] != '186046' && $arItems["PRODUCT_ID"] != '372526') {
-                        $ids .= $arItems["PRODUCT_ID"].',';
+						$mainID = CIBlockElement::GetList(Array(), array("ID" => $arItems["PRODUCT_ID"]), false, false, array("ID", "PROPERTY_MAIN_APP_ID"))->Fetch();
+						
+                        $ids .= $mainID["PROPERTY_MAIN_APP_ID_VALUE"] ? $mainID["PROPERTY_MAIN_APP_ID_VALUE"].',' : $arItems["PRODUCT_ID"].',';
                     }
                 }
 
@@ -1098,7 +1100,9 @@
 
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
-                    $ids .= $arItems["PRODUCT_ID"].',';
+					$mainID = CIBlockElement::GetList(Array(), array("ID" => $arItems["PRODUCT_ID"]), false, false, array("ID", "PROPERTY_MAIN_APP_ID"))->Fetch();
+					
+					$ids .= $mainID["PROPERTY_MAIN_APP_ID_VALUE"] ? $mainID["PROPERTY_MAIN_APP_ID_VALUE"].',' : $arItems["PRODUCT_ID"].',';
                 }
 
                 $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
