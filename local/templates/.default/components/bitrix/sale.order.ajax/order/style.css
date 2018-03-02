@@ -575,7 +575,7 @@ div#order_form_content .errortext {
 }
 
 .orderBody .infoPunct {
-    padding-left: 210px !important;
+    padding-left: 270px !important;
     /*overflow: hidden;*/
 }
 
@@ -1160,4 +1160,15 @@ body .altasib_geobase_link{
     margin-left: 34px;
     float: left;
     font-weight: normal;
+}
+.orderBody .pasport{
+    float: left;
+    margin-right: 15px;
+    z-index: 20;
+}
+.orderBody .pasport input{
+    width: 100px!important; 
+}
+.orderBody .pasport_number input{
+    width: 120px!important; 
 }

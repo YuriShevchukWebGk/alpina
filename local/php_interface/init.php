@@ -3581,7 +3581,7 @@ function AddBasketRule() {
               "DATA" => array (
                  "All" => "AND",
                  "logic" => "Equal",
-                 "Value" => 1
+                 "Value" => 2
               ) 
            ),array(  
               "CLASS_ID" => "CondBsktCntGroup",

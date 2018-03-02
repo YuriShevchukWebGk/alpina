@@ -296,10 +296,22 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         if( $('#ORDER_PROP_24,#ORDER_PROP_11').val() == ''){
              $('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
         }
+        $("body #ORDER_PROP_132").keypress(function (e) {
+            console.log($(this).val().length);
+            if(($(this).val().length)+1 == 4){
+                $('body #ORDER_PROP_133').focus();
+            } 
+        }); 
 
     }
 
     $(function(){
+        // переходи на следующий input при вводе срии паспорта
+        $("body #ORDER_PROP_132").keypress(function (e) {
+            if($(this).length == 4){
+                $('body #ORDER_PROP_133').focus();
+            } 
+        }); 
         $('.application input[type=image]').attr('src','/images/pay.jpg');
         /*try {
         submitForm();

@@ -3,7 +3,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 
 $postData = file_get_contents('php://input');
 $data = json_decode($postData, true);
-  logger($data, $_SERVER["DOCUMENT_ROOT"].'/logs/log.txt');
+  //logger($data, $_SERVER["DOCUMENT_ROOT"].'/logs/log.txt');
 
 if(!empty($data)){
     $secretkey = "secret";
@@ -19,7 +19,12 @@ if(!empty($data)){
         $sign = hash_hmac("SHA256", $str, $secretkey);
         
     $json = '{ "status": "ok", "merchant_tx_id": '.$data["order"]["order_id"].' }';
-    $ch = curl_init(); 
+    
+    header('Content-Type: application/json');
+    header('X-Signature: '. $sign);
+    echo $json;
+    
+  /*  $ch = curl_init(); 
     curl_setopt($ch, CURLOPT_URL, "https://playground.platbox.com/paybox");
 //    curl_setopt($ch, CURLOPT_URL, "http://dev-alpinabook.webgk.ru/test.php");
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -38,7 +43,7 @@ if(!empty($data)){
     
     $headerSent = curl_getinfo($ch, CURLINFO_HEADER_OUT );
     logger($headerSent, $_SERVER["DOCUMENT_ROOT"].'/logs/log_platbox.txt');
-
+   */
 }
 /*  if($data["payer"] != 'NULL'){
         $json = '{ "status": "ok", "merchant_tx_id": "1001" }';
