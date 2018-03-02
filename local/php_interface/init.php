@@ -2402,11 +2402,11 @@
             $order_list=CSaleOrder::GetByID($arFields['ORDER_ID']);
             $arFields['HREF']='<a href="https://pochta.ru/tracking#'.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Почты России</a>.';
             if ($order_list['DELIVERY_ID']==17) {
-                $arFields['HREF']='<a href="http://pickpoint.ru/" target="_blank">на сайте PickPoint</a>.';
+                $arFields['HREF']='<a href="https://pickpoint.ru/monitoring/?shop=alpinabook.ru&number='.$arFields['ORDER_ID'].'" target="_blank">на сайте PickPoint</a>.';
             } elseif ($order_list['DELIVERY_ID']==30) {
                 $arFields['HREF']='<a href="http://flippost.com/instruments/online/" target="_blank">Flipost</a>.';
             } elseif ($order_list['DELIVERY_ID']==49) {
-                $arFields['HREF']='<a href="http://boxberry.ru/tracking/" target="_blank">на сайте Boxberry</a>.';
+                $arFields['HREF']='<a href="http://boxberry.ru/tracking/?id='.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Boxberry</a>.';
             }
         }
     }
