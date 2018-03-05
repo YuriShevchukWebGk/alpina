@@ -979,9 +979,8 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-                if ($order_list[PERSON_TYPE_ID] == 1 && !strstr($ids, "186046") && !strstr($ids, "372526")) {
-                    CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
-                }
+				
+				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 
                 if($order_list["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID && 
                     ($order_list["DELIVERY_ID"] == DELIVERY_COURIER_1 ||  
@@ -1145,9 +1144,9 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-                if ($order_list[PERSON_TYPE_ID] == 1) {
-                    CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
-                }
+
+				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
+
 
                 // при смене статуса и последующего автоматического CSaleOrder::PayOrder
                 // не срабатывает хендлер OnSalePayOrder, поэтому применяем выполнение функции здесь после оплаты
