@@ -92,23 +92,21 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             <?
             $arData = array();
             $arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL");
-            $arFilter = Array("IBLOCK_ID" => 75, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_BIND_SECTION" => $arResult["ID"]);
+            $arFilter = Array("IBLOCK_ID" => 80, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_THIS_SECTION" => $arResult["ID"]);
             $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-            while($ob = $res->GetNextElement())
-            {
+            while($ob = $res->GetNextElement()) {
                 $arData[] = $ob->GetFields();
             }
             
-            if(count($arData) > 0):
-            ?> 
-            <?/*<div class="doner_tags">
-                <span>Популярные категории</span>
-                <?foreach($arData as $data):?>
-                <a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
-                <?endforeach;?>
-            </div>*/?>
-            
-            <?endif;?>
+            if(count($arData) > 0) {?> 
+				<div class="doner_tags">
+					<span>Популярные категории</span>
+					<?foreach($arData as $data) {?>
+						<a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
+					<?}?>
+				</div>
+            <?}?>
+			
             <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
             $APPLICATION->IncludeComponent(

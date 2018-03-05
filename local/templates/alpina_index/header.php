@@ -1106,7 +1106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					0 => "",
 					1 => "",
 				),
-				"ELEMENT_SORT_FIELD" => "PROPERTY_shows_a_day",
+				"ELEMENT_SORT_FIELD" => "PROPERTY_DESIRABILITY",
 				"ELEMENT_SORT_ORDER" => "desc",
 				"ELEMENT_SORT_FIELD2" => "rand",
 				"ELEMENT_SORT_ORDER2" => "desc",
@@ -2098,6 +2098,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </div>
 </div>
+
 <script>
     $(".some_info").click(function(){
         $(".some_info").hide();

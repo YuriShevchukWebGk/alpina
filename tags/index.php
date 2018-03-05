@@ -5,8 +5,7 @@ $arData = array();
 $arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL", "PROPERTY_THIS_ELEMENT");
 $arFilter = Array("IBLOCK_ID" => 80, "ACTIVE"=>"Y", "CODE" => $code[2]);
 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
-while($ob = $res->GetNextElement())
-{
+while($ob = $res->GetNextElement()) {
 	$arData = $ob->GetFields();
 	$arProps = $ob->GetProperties();
 }
@@ -27,8 +26,6 @@ if($arSection["IPROPERTY_VALUES"]["ELEMENT_META_DESCRIPTION"]){
 }
 
 $arrFilter = array("ID" => $arProps['THIS_ELEMENT']['VALUE']);
-//$BestsellFilter = array("ID" => $arProps['THIS_ELEMENT']['VALUE']);
-
 ?>
 
 

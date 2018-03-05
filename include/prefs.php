@@ -1,3 +1,5 @@
+<div id="ajaxBlock"></div>
+
 <div id="prefsWrap" class="no-mobile">
 	<div id="prefs">
 		<?$prefs = array(
