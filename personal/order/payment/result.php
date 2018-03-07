@@ -1,12 +1,20 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
+CModule::IncludeModule('sale');
 $postData = file_get_contents('php://input');
 $data = json_decode($postData, true);
-  //logger($data, $_SERVER["DOCUMENT_ROOT"].'/logs/log.txt');
 
+$id = explode('_', $data["order"]["order_id"]);  
+$id = $id[0];   
+
+if($data["action"] == "pay"){
+    if (!CSaleOrder::PayOrder( $id, "Y", True, True, 0, array())) {
+       logger($id, $_SERVER["DOCUMENT_ROOT"].'/logs/log.txt');
+    }  
+}
 if(!empty($data)){
-    $secretkey = "secret";
+    $secretkey = "ff084641f88df727b029a4816b428082";
 
         $x = [
             "status" => "ok",
@@ -15,14 +23,13 @@ if(!empty($data)){
 
         ksort($x);
         $str = json_encode($x);
-
         $sign = hash_hmac("SHA256", $str, $secretkey);
         
-    $json = '{ "status": "ok", "merchant_tx_id": '.$data["order"]["order_id"].' }';
+   // $json = '{ "status": "ok", "merchant_tx_id": '.$data["order"]["order_id"].' }';
     
     header('Content-Type: application/json');
     header('X-Signature: '. $sign);
-    echo $json;
+    echo $str;
     
   /*  $ch = curl_init(); 
     curl_setopt($ch, CURLOPT_URL, "https://playground.platbox.com/paybox");

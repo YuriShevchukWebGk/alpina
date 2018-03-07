@@ -297,7 +297,6 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
              $('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
         }
         $("body #ORDER_PROP_132").keypress(function (e) {
-            console.log($(this).val().length);
             if(($(this).val().length)+1 == 4){
                 $('body #ORDER_PROP_133').focus();
             } 
@@ -1095,6 +1094,28 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь на обработку персональных данных в соответствии <a href="/info_popup/pii.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showPii'});return false;" class="cartMenuPopup">с условиями</a><br />и с условиями <a href="/info_popup/oferta.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showOferta'});return false;" class="cartMenuPopup">публичной оферты</a></span>
     </div>
     <?if ($arResult["PAY_SYSTEM"]["ID"] == 24) {?>
+    <?  
+        $order["order_id"] = $arResult["ORDER_ID"].'_'.rand(0, 100);
+        
+        $secretkey = "ff084641f88df727b029a4816b428082";
+
+        $x = [
+            "merchant_id" => rawurldecode($merchant_id),
+            "account"     => json_encode($account),
+            "amount"      => rawurldecode($amount), 
+            "currency"    => $currency,
+            "order"       => json_encode($order),
+           // "sign"        => rawurldecode($sign),
+            "project"     => rawurldecode($project),
+            "val"         => "second",
+            "redirect_url"=> rawurldecode($resultUrl)
+        ];
+        
+        ksort($x);
+        $str = json_encode($x);
+        
+        $sign = hash_hmac("SHA256", $str, $secretkey); 
+    ?>
     <div class="platbox_iframe_block" style="width: 50%; height: 613px; display: none; position: absolute; z-index: 2000; left: 27%; top: 30%; background-color: white;">
         <iframe class="platbox_iframe" src='https://playground.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
         </iframe>
