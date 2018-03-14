@@ -14,4 +14,7 @@ $PERM["online"]["*"]="R";
 $PERM["actions"]["*"]="R";
 $PERM["upload"]["8"]="T_8";
 $PERM["index.php"]["7"]="W";
+$PERM["custom-scripts"]["*"]="D";
+$PERM["custom-scripts"]["8"]="W";
+$PERM["custom-scripts"]["6"]="W";
 ?>

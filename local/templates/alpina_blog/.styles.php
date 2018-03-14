@@ -1,3 +1,8 @@
 <?
-return false;
+return array(
+	"border" => array(
+			"tag" =>  "span",
+			"title" => "Граница",
+	)
+);
 ?>

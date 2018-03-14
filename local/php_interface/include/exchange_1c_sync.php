@@ -100,6 +100,7 @@ class Exchange1C {
 
             //Запросе на обновление остатков у товара
             $arField = array('QUANTITY' => $total_quantity);// зарезервированное количество
+            CCatalogProduct::Update($bitrix_id, $arField);
             if($total_quantity > 0 && $quantity <= 0){
                 if($state == STATE_SOON && $reissue == ""){
                     CIBlockElement::SetPropertyValuesEx($bitrix_id, false, array("STATE" => STATE_NEWS));
@@ -127,7 +128,6 @@ class Exchange1C {
             }
 
           //  if ($state_prop_enum_id != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {
-                CCatalogProduct::Update($bitrix_id, $arField);
          //   }
         }
     }

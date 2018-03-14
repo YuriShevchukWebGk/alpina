@@ -4,7 +4,7 @@ if ($_REQUEST["id"]) {
 	CModule::IncludeModule("subscribe");
 	
 	$already = false;
-	$alpinaip = "81.23.1.228";
+	//$alpinaip = "81.23.1.228";
 	
 	if ($USER->IsAuthorized())
 		$already = CSubscription::GetList(array(), array("USER_ID"=>$USER->GetID()), false)->Fetch();

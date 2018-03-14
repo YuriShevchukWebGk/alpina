@@ -8,7 +8,7 @@ foreach($arResult as $arItem) {
 	<li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?}?>
 
-<?if (date("Y-m-d") == "2018-01-30" || $USER->isAdmin()) {?>
+<?if (date("Y-m-d") == "2018-01-30") {?>
 	<li class="timer"><a href="#" style="color:red!important" onclick="getInfo('freedelivery');return false">Акция! Бесплатная доставка</li>
 	<script>
 	function getInfo(id) {

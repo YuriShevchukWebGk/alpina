@@ -236,7 +236,8 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         <?}?>
 
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
-            minDatePlus++;
+            //minDatePlus++;
+			minDatePlus = minDatePlus + 2;
         }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;

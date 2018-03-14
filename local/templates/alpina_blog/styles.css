@@ -384,7 +384,7 @@ h1 {
 
 .textWrap img {
 	max-width:500px;
-	max-height:500px;
+	height:auto;
 }
 .bookName {
 	font-size: 16px!important;
