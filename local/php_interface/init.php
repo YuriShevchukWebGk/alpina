@@ -3569,12 +3569,35 @@ function AddBasketRule() {
     }
     
     $id_favorite = $arrFilter["ID"][rand(0,5)];
-     
-    $arFields["VALUES"][0] = Array(
-      "VALUE" => $id_favorite,
-      "DEF" => "Y",
-      "SORT" => "100"
-      );
+    
+    $db_enum_list = CIBlockProperty::GetPropertyEnum(SALE_POPULAR_ELEMENT, Array(), Array());
+    while($ar_enum_list = $db_enum_list->GetNext()) {
+      $ar_prop[] = $ar_enum_list["VALUE"];
+    }
+    
+    if(is_array($ar_prop)){
+      foreach($ar_prop as $prop){
+        $arFields["VALUES"][] = Array(
+          "VALUE" => $prop,
+          "DEF" => "Y",
+          "SORT" => "100"
+          );   
+      }
+      if(!in_array($id_favorite, $ar_prop)) {
+          $arFields["VALUES"][count($ar_prop)] = Array(
+              "VALUE" => $id_favorite,
+              "DEF" => "Y",
+              "SORT" => "100"
+              ); 
+      }
+    } else {
+        $arFields["VALUES"][] = Array(
+          "VALUE" => $id_favorite,
+          "DEF" => "Y",
+          "SORT" => "100"
+          );
+    }
+    
     $ibp = new CIBlockProperty;
     if(!$ibp->Update(SALE_POPULAR_ELEMENT, $arFields))
         echo $ibp->LAST_ERROR;
@@ -3583,21 +3606,22 @@ function AddBasketRule() {
 }
 // регистрируем обработчик
 AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
-
+    
     // создаем обработчик события "OnAfterIBlockElementUpdate"
     function UpdateSaleElement(&$arFields)
     {
-
-        $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("sort" => "asc"), Array("CODE"=>"SALE_POPULAR_ELEMENT"));
-        if($ar_props = $db_props->Fetch())
-        $property_enums = CIBlockPropertyEnum::GetList(Array("DEF"=>"DESC"), Array("ID"=>$ar_props["VALUE"]));
-        while($enum_fields = $property_enums->GetNext()) {
-            if($enum_fields["DEF"] == "Y"){
+        CModule::IncludeModule('sale');  
+        $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("id" => "desc"), Array("CODE"=>"SALE_POPULAR_ELEMENT"));
+        if($ar_props = $db_props->Fetch()){
+            $property_enums = CIBlockPropertyEnum::GetList(Array("DEF"=>"DESC"), Array("CODE"=>$ar_props["CODE"], "DEF" => "Y"));
+            while($enum_fields = $property_enums->GetNext()) {
                 $prop_value = $enum_fields["VALUE"];
-            }
-        }           
+            }   
+        }
         
-        
+        $rsDiscounts = CSaleDiscount::GetList(array(), array("ID" => 409), false, false, array('CONDITIONS'))->Fetch();
+            
+        $arDiscount = unserialize($rsDiscounts['CONDITIONS']);                       
         $CONDITIONS = array (
            "CLASS_ID" => "CondGroup",
            "DATA" => array (
@@ -3608,11 +3632,12 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
                array(  
                   "CLASS_ID" => "CondBsktCntGroup",
                   "DATA" => array (
-                     "All" => "AND",
+                     "All" => "OR",
                      "logic" => "EqGr",
                      "Value" => 2
                   ),
-                  "CHILDREN" => Array(
+                  "CHILDREN" => Array( 
+                     $arDiscount["CHILDREN"][0]["CHILDREN"][0], 
                      array(  
                       "CLASS_ID" => "CondBsktFldProduct",
                       "DATA" => array (
@@ -3641,7 +3666,7 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
            ),
         );
           
-   /*     $ACTIONS = array (
+        $ACTIONS = array (
            "CLASS_ID" => "CondGroup",
            "DATA" => array (
               "All" => "AND",
@@ -3663,10 +3688,10 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
               )
             ),
            ),
-        );    */
+        );   
         $arFields = array(
-           "LID" => SITE_ID,
-           "NAME" => "Скидка 1+1 для товара ".$id_favorite,
+           "LID" => 's1',
+           "NAME" => "Скидка 1+1 для товара ".$prop_value,
            "PRIORITY" => 1,
            "LAST_LEVEL_DISCOUNT" => "N",
            "LAST_DISCOUNT" => "Y",
@@ -3676,15 +3701,14 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
             "SORT" => 100,
             "XML_ID" => "",
             "CONDITIONS" => $CONDITIONS, 
-         //   "ACTIONS" => $ACTIONS,
+            "ACTIONS" => $ACTIONS,
             "USER_GROUPS" => array(
                 0 => 2
             ), 
         );
-       // $ID = CSaleDiscount::Add($arFields);
+      //  $ID = CSaleDiscount::Add($arFields);
         $ID = CSaleDiscount::Update(409, $arFields);
-       arshow($ID);
-     //  die();
+
        // 
     }
 ?>
