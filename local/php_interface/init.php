@@ -123,6 +123,7 @@
     define ("ADMIN_GROUP_ID", 1);
     define ("ECOM_ADMIN_GROUP_ID", 6);
     define ("GIFT_BAG_EXHIBITION", 331); // правило корзины Подарок: сумка с выставки ММКВЯ 2017
+    define ("SALE_POPULAR_ELEMENT", 970); // свойство для обновления популярной книги
 
     /**
     * Изменить на define() при апе до 7 версии PHP
@@ -3564,7 +3565,7 @@ function AddBasketRule() {
                 'method'  => 'GET',
                 'timeout' => 3 
             )
-        );
+        );                      
 
         $context  = stream_context_create($opts);
         $stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"], false, $context);
@@ -3574,87 +3575,148 @@ function AddBasketRule() {
             $arrFilter[ID][] = $val[ItemId];
         }
     }
-
-    $id_favorite = $arrFilter["ID"][rand(0,5)];  
-
-    $CONDITIONS = array (
-       "CLASS_ID" => "CondGroup",
-       "DATA" => array (
-          "All" => "AND",
-          "True" => "True"
-       ),
-       "CHILDREN" => array(
-           array(  
-              "CLASS_ID" => "CondBsktCntGroup",
+    
+    $id_favorite = $arrFilter["ID"][rand(0,5)];
+    
+    $db_enum_list = CIBlockProperty::GetPropertyEnum(SALE_POPULAR_ELEMENT, Array(), Array());
+    while($ar_enum_list = $db_enum_list->GetNext()) {
+      $ar_prop[] = $ar_enum_list["VALUE"];
+    }
+    
+    if(is_array($ar_prop)){
+      foreach($ar_prop as $prop){
+        $arFields["VALUES"][] = Array(
+          "VALUE" => $prop,
+          "DEF" => "Y",
+          "SORT" => "100"
+          );   
+      }
+      if(!in_array($id_favorite, $ar_prop)) {
+          $arFields["VALUES"][count($ar_prop)] = Array(
+              "VALUE" => $id_favorite,
+              "DEF" => "Y",
+              "SORT" => "100"
+              ); 
+      }
+    } else {
+        $arFields["VALUES"][] = Array(
+          "VALUE" => $id_favorite,
+          "DEF" => "Y",
+          "SORT" => "100"
+          );
+    }
+    
+    $ibp = new CIBlockProperty;
+    if(!$ibp->Update(SALE_POPULAR_ELEMENT, $arFields))
+        echo $ibp->LAST_ERROR;
+     
+     return "AddBasketRule();";  
+}
+// регистрируем обработчик
+AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
+    
+    // создаем обработчик события "OnAfterIBlockElementUpdate"
+    function UpdateSaleElement(&$arFields)
+    {
+        CModule::IncludeModule('sale');  
+        $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("id" => "desc"), Array("CODE"=>"SALE_POPULAR_ELEMENT"));
+        if($ar_props = $db_props->Fetch()){
+            $property_enums = CIBlockPropertyEnum::GetList(Array("DEF"=>"DESC"), Array("CODE"=>$ar_props["CODE"], "DEF" => "Y"));
+            while($enum_fields = $property_enums->GetNext()) {
+                $prop_value = $enum_fields["VALUE"];
+            }   
+        }
+        
+        $rsDiscounts = CSaleDiscount::GetList(array(), array("ID" => 409), false, false, array('CONDITIONS'))->Fetch();
+            
+        $arDiscount = unserialize($rsDiscounts['CONDITIONS']);                       
+        $CONDITIONS = array (
+           "CLASS_ID" => "CondGroup",
+           "DATA" => array (
+              "All" => "AND",
+              "True" => "True"
+           ),
+           "CHILDREN" => array(
+               array(  
+                  "CLASS_ID" => "CondBsktCntGroup",
+                  "DATA" => array (
+                     "All" => "OR",
+                     "logic" => "EqGr",
+                     "Value" => 2
+                  ),
+                  "CHILDREN" => Array( 
+                     $arDiscount["CHILDREN"][0]["CHILDREN"][0], 
+                     array(  
+                      "CLASS_ID" => "CondBsktFldProduct",
+                      "DATA" => array (
+                         "logic" => "Equal",
+                         "value" => $arFields["ID"]
+                      ) 
+                     ) 
+                  )  
+               ),array(  
+                  "CLASS_ID" => "CondBsktCntGroup",
+                  "DATA" => array (
+                     "All" => "AND",
+                     "logic" => "Equal",
+                     "Value" => 1
+                  ),
+                  "CHILDREN" => Array(
+                     array(  
+                      "CLASS_ID" => "CondBsktFldProduct",
+                      "DATA" => array (
+                         "logic" => "Equal",
+                         "value" => $prop_value
+                      ) 
+                     ) 
+                  ) 
+               ),
+           ),
+        );
+          
+        $ACTIONS = array (
+           "CLASS_ID" => "CondGroup",
+           "DATA" => array (
+              "All" => "AND",
+           ),
+           "CHILDREN" => array(  
+            array( 
+              "CLASS_ID" => "ActSaleBsktGrp",
               "DATA" => array (
+                 "Type" => "Discount",
+                 "Value" => 10,
+                 "Unit" => "Perc",
+                 "Max" => 0,
                  "All" => "AND",
-                 "logic" => "Equal",
-                 "Value" => 1
-              ) 
-           ),array(  
-              "CLASS_ID" => "CondBsktCntGroup",
-              "DATA" => array (
-                 "All" => "AND",
-                 "logic" => "Equal",
-                 "Value" => 1
+                 "True" => "True"
+                 
               ),
               "CHILDREN" => Array(
-                 array(  
-                  "CLASS_ID" => "CondBsktFldProduct",
-                  "DATA" => array (
-                     "logic" => "Equal",
-                     "value" => $id_favorite
-                  ) 
-                 ) 
-              ) 
+          
+              )
+            ),
            ),
-       ),
-    );
-      
-    $ACTIONS = array (
-       "CLASS_ID" => "CondGroup",
-       "DATA" => array (
-          "All" => "AND",
-       ),
-       "CHILDREN" => array(  
-        array( 
-          "CLASS_ID" => "ActSaleBsktGrp",
-          "DATA" => array (
-             "Type" => "Discount",
-             "Value" => 10,
-             "Unit" => "Perc",
-             "Max" => 0,
-             "All" => "AND",
-             "True" => "True"
-             
-          ),
-          "CHILDREN" => Array(
-      
-          )
-        ),
-       ),
-    );
-    $arFields = array(
+        );   
+        $arFields = array(
+           "LID" => 's1',
+           "NAME" => "Скидка 1+1 для товара ".$prop_value,
+           "PRIORITY" => 1,
+           "LAST_LEVEL_DISCOUNT" => "N",
+           "LAST_DISCOUNT" => "Y",
+            "ACTIVE" => "Y",
+            "ACTIVE_FROM" => "",
+            "ACTIVE_TO" => "",
+            "SORT" => 100,
+            "XML_ID" => "",
+            "CONDITIONS" => $CONDITIONS, 
+            "ACTIONS" => $ACTIONS,
+            "USER_GROUPS" => array(
+                0 => 2
+            ), 
+        );
+      //  $ID = CSaleDiscount::Add($arFields);
+        $ID = CSaleDiscount::Update(409, $arFields);
 
-       "LID" => SITE_ID,
-       "NAME" => "Скидка 1+1 для товара ".$id_favorite,
-       "PRIORITY" => 1,
-       "SORT" => 100,
-       "LAST_LEVEL_DISCOUNT" => "N",
-       "LAST_DISCOUNT" => "Y",
-        "ACTIVE" => "Y",
-        "ACTIVE_FROM" => "",
-        "ACTIVE_TO" => "",
-        "SORT" => 100,
-        "XML_ID" => "",
-        "CONDITIONS" => $CONDITIONS, 
-        "ACTIONS" => $ACTIONS,
-        "USER_GROUPS" => array(
-            0 => 2
-        ),
-    );   
-    $ID = CSaleDiscount::Add($arFields);
-
-    return "AddBasketRule();";
-}
+       // 
+    }
 ?>

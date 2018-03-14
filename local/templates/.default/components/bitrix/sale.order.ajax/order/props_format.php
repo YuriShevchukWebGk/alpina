@@ -53,17 +53,28 @@
                     }
                     else {
                         $class = "";
+                }
+                if($arProperties["CODE"] == "series_pasport" ){
+                     $class .= ' pasport';
+                } else if($arProperties["CODE"] == "number_pasport"){
+                     $class .= ' pasport_number';
                 } ?>
-                <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>" <?if($preorder && ($arProperties["ID"] == DELIVERY_DATE_LEGAL_ORDER_PROP_ID || $arProperties["ID"] == DELIVERY_DATE_NATURAL_ORDER_PROP_ID)) { echo 'style="display:none"'; }?>>
+                <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?> " <?if($preorder && ($arProperties["ID"] == DELIVERY_DATE_LEGAL_ORDER_PROP_ID || $arProperties["ID"] == DELIVERY_DATE_NATURAL_ORDER_PROP_ID)) { echo 'style="display:none"'; }?>>
                     <?if ($arProperties["TYPE"] != "LOCATION") {?>
 
-                        <p class="inputTitle">
-                            <?=$arProperties["NAME"]?>
-                            <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
-                                <span class="bx_sof_req">*</span>
-                                <?endif?>
-                        </p>
-
+                        <?if(($arProperties["CODE"] != "number_pasport")){?>
+                            <p class="inputTitle">
+                                <?echo $arProperties["NAME"];?>
+                                <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
+                                    <span class="bx_sof_req">*</span>
+                                    <?endif?>
+                             <?if($arProperties["CODE"] == "series_pasport"){ ?>
+                                    <br>
+                                    <span>(необходимы для получения груза)</span>
+                             <?} ?> 
+                            </p> 
+              
+                         <?}?>
                         <?}?>
 
                         <?
@@ -83,8 +94,15 @@
                             $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
                             if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
                             ?>
-                                
-                            <?if(($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE") && !$window){?>
+
+                            <?if(($arProperties["CODE"] == "series_pasport" || $arProperties["CODE"] == "number_pasport")){?>
+                                <input class="clientInfo" placeholder="<?=$arProperties["DESCRIPTION"]?>" id="<?=$arProperties["FIELD_NAME"]?>" type="tel" 
+                                       maxlength="<?=($arProperties['CODE'] == 'series_pasport')? 4: 6?>" 
+                                       size="<?=$arProperties["SIZE1"]?>" 
+                                       value="<?=($arProperties["VALUE"])?$arProperties["VALUE"]:$_POST["ORDER_PROP_".$arProperties["ID"]]?>" 
+                                       name="<?=$arProperties["FIELD_NAME"]?>" />
+                            
+                            <?} else if(($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE") && !$window){?>
 
                                 <input class="clientInfo" placeholder="(___) ___ __ __" id="<?=$arProperties["FIELD_NAME"]?>" type="tel" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=($arProperties["VALUE"])?$arProperties["VALUE"]:$_POST["ORDER_PROP_".$arProperties["ID"]]?>" name="<?=$arProperties["FIELD_NAME"]?>" />
                             <?} else if($arProperties["CODE"] == "ADRESS_PICKPOINT"){?>
@@ -100,7 +118,7 @@
                                 <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
                             <?endif?>
 
-                            <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0 && $arProperties["CODE"] != "ADRESS_PICKPOINT"):?>
+                            <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0 && $arProperties["CODE"] != "ADRESS_PICKPOINT" && ($arProperties["CODE"] != "series_pasport" && $arProperties["CODE"] != "number_pasport")):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                             <?endif?>     
                             <? } else if ($arProperties["CODE"]=="CODE_COUPON") {   ?>
