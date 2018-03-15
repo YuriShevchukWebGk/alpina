@@ -1135,12 +1135,24 @@ to {
 body .altasib_geobase_link{
 
 }
+
 @media (max-width: 1300px) {
-    .platbox_iframe_block {
+   .finishOrdWrap .platbox_iframe_block {
         width: 75% !important;
         left: 17% !important;
     }
 }
+@media (max-width: 800px) {
+   .finishOrdWrap .platbox_iframe_block {
+        width: 100% !important;
+        left: 0% !important;
+    }
+}
+.platbox_iframe_block{
+    width: 61%!important;
+    left: 20%!important; 
+}
+
 .apiship_pvzLair a {
     color: #12a9e1;
     font-size: 15px;
