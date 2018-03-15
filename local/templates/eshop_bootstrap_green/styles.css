@@ -209,3 +209,6 @@ tabsection,
 .grecaptcha-badge{
     display: none;
 }
+.wrapperCategor .categoryWrapper .otherBooks{
+    clear: both;
+}

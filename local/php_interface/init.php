@@ -3029,6 +3029,7 @@
     * */
     function certificatePayed(&$arParamsCertificate) {
         GLOBAL $arParams;
+
         if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
             $current_object = CIBlockElement::GetList(
                 Array(),
@@ -3056,8 +3057,9 @@
             $first_coupon_array_key = key($arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
             //Сохраним все купоны после генерации
             $arCoupons = array();
-
+            
             if (!$arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParamsCertificate['ACTIVE'] == "Y" && !empty($quantity)) {
+
                 $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
             }
             if (!empty($arCoupons)) {
@@ -3626,97 +3628,99 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
                 $prop_value = $enum_fields["VALUE"];
             }   
         }
-        
-        $rsDiscounts = CSaleDiscount::GetList(array(), array("ID" => 409), false, false, array('CONDITIONS'))->Fetch();
-            
-        $arDiscount = unserialize($rsDiscounts['CONDITIONS']);                       
-        $CONDITIONS = array (
-           "CLASS_ID" => "CondGroup",
-           "DATA" => array (
-              "All" => "AND",
-              "True" => "True"
-           ),
-           "CHILDREN" => array(
-               array(  
-                  "CLASS_ID" => "CondBsktCntGroup",
-                  "DATA" => array (
-                     "All" => "OR",
-                     "logic" => "EqGr",
-                     "Value" => 2
-                  ),
-                  "CHILDREN" => Array( 
-                     $arDiscount["CHILDREN"][0]["CHILDREN"][0], 
-                     array(  
-                      "CLASS_ID" => "CondBsktFldProduct",
+        if($prop_value){
+            $rsDiscounts = CSaleDiscount::GetList(array(), array("ID" => 409), false, false, array('CONDITIONS'))->Fetch();
+                
+            $arDiscount = unserialize($rsDiscounts['CONDITIONS']);                       
+            $CONDITIONS = array (
+               "CLASS_ID" => "CondGroup",
+               "DATA" => array (
+                  "All" => "AND",
+                  "True" => "True"
+               ),
+               "CHILDREN" => array(
+                   array(  
+                      "CLASS_ID" => "CondBsktCntGroup",
                       "DATA" => array (
+                         "All" => "OR",
+                         "logic" => "EqGr",
+                         "Value" => 2
+                      ),
+                      "CHILDREN" => Array( 
+                         $arDiscount["CHILDREN"][0]["CHILDREN"][0], 
+                         array(  
+                          "CLASS_ID" => "CondBsktFldProduct",
+                          "DATA" => array (
+                             "logic" => "Equal",
+                             "value" => $arFields["ID"]
+                          ) 
+                         ) 
+                      )  
+                   ),array(  
+                      "CLASS_ID" => "CondBsktCntGroup",
+                      "DATA" => array (
+                         "All" => "AND",
                          "logic" => "Equal",
-                         "value" => $arFields["ID"]
+                         "Value" => 1
+                      ),
+                      "CHILDREN" => Array(
+                         array(  
+                          "CLASS_ID" => "CondBsktFldProduct",
+                          "DATA" => array (
+                             "logic" => "Equal",
+                             "value" => $prop_value
+                          ) 
+                         ) 
                       ) 
-                     ) 
-                  )  
-               ),array(  
-                  "CLASS_ID" => "CondBsktCntGroup",
+                   ),
+               ),
+            );
+              
+            $ACTIONS = array (
+               "CLASS_ID" => "CondGroup",
+               "DATA" => array (
+                  "All" => "AND",
+               ),
+               "CHILDREN" => array(  
+                array( 
+                  "CLASS_ID" => "ActSaleBsktGrp",
                   "DATA" => array (
+                     "Type" => "Discount",
+                     "Value" => 10,
+                     "Unit" => "Perc",
+                     "Max" => 0,
                      "All" => "AND",
-                     "logic" => "Equal",
-                     "Value" => 1
+                     "True" => "True"
+                     
                   ),
                   "CHILDREN" => Array(
-                     array(  
-                      "CLASS_ID" => "CondBsktFldProduct",
-                      "DATA" => array (
-                         "logic" => "Equal",
-                         "value" => $prop_value
-                      ) 
-                     ) 
-                  ) 
+              
+                  )
+                ),
                ),
-           ),
-        );
-          
-        $ACTIONS = array (
-           "CLASS_ID" => "CondGroup",
-           "DATA" => array (
-              "All" => "AND",
-           ),
-           "CHILDREN" => array(  
-            array( 
-              "CLASS_ID" => "ActSaleBsktGrp",
-              "DATA" => array (
-                 "Type" => "Discount",
-                 "Value" => 10,
-                 "Unit" => "Perc",
-                 "Max" => 0,
-                 "All" => "AND",
-                 "True" => "True"
-                 
-              ),
-              "CHILDREN" => Array(
-          
-              )
-            ),
-           ),
-        );   
-        $arFields = array(
-           "LID" => 's1',
-           "NAME" => "Скидка 1+1 для товара ".$prop_value,
-           "PRIORITY" => 1,
-           "LAST_LEVEL_DISCOUNT" => "N",
-           "LAST_DISCOUNT" => "Y",
-            "ACTIVE" => "Y",
-            "ACTIVE_FROM" => "",
-            "ACTIVE_TO" => "",
-            "SORT" => 100,
-            "XML_ID" => "",
-            "CONDITIONS" => $CONDITIONS, 
-            "ACTIONS" => $ACTIONS,
-            "USER_GROUPS" => array(
-                0 => 2
-            ), 
-        );
-      //  $ID = CSaleDiscount::Add($arFields);
-        $ID = CSaleDiscount::Update(409, $arFields);
+            );   
+            $arFields = array(
+               "LID" => 's1',
+               "NAME" => "Скидка 1+1 для товара ".$prop_value,
+               "PRIORITY" => 1,
+               "LAST_LEVEL_DISCOUNT" => "N",
+               "LAST_DISCOUNT" => "Y",
+                "ACTIVE" => "Y",
+                "ACTIVE_FROM" => "",
+                "ACTIVE_TO" => "",
+                "SORT" => 100,
+                "XML_ID" => "",
+                "CONDITIONS" => $CONDITIONS, 
+                "ACTIONS" => $ACTIONS,
+                "USER_GROUPS" => array(
+                    0 => 2
+                ), 
+            );
+          //  $ID = CSaleDiscount::Add($arFields);
+            $ID = CSaleDiscount::Update(409, $arFields);
 
-       // 
+           // 
+        }
     }
+  // error_reporting(E_ALL); 
 ?>
