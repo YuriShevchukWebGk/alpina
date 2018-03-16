@@ -3487,7 +3487,6 @@
 
                     while($arproduct = $dbItemsInOrder->Fetch()){
                         $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
-                        logger($arSales, $_SERVER["DOCUMENT_ROOT"].'/logs/log_property.txt');
                         if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
                             $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
                         }
@@ -3495,16 +3494,12 @@
                             $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
                         }
                         
-                        logger($order_new_statys[$arSales["ID"]]["ORDER"], $_SERVER["DOCUMENT_ROOT"].'/logs/log_property_1.txt');
-
                     }
                 }
             }
             foreach($order_new_statys as $order_update){
                 
                 if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
-                    logger($order_update, $_SERVER["DOCUMENT_ROOT"].'/logs/log_property_1.txt');
-
                     if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
                     } else {
@@ -3538,25 +3533,7 @@ function SyncProductCode($arFields) {
         }
     }
 }
-// задаем свои условия доставки apichip
-AddEventHandler('ipol.apiship', 'onCalculate', 'changeapishipTerms');
 
-function changeapishipTerms(&$arResult, $profile, $arConfig, $arOrder){
-
-   //     $profile - профиль
-   //     $arConfig - настройки СД
-  /*      $arOrder - параметры заказа
-            LOCATION_TO   - id местоположения доставки
-            LOCATION_FROM - id местоположения отправления
-            PRICE         - стоимость заказа
-            WEIGHT        - вес заказа в граммах
-        $arResult - массив вида
-            RESULT  - OK, если рассчет верен, ERROR - если ошибка
-            VALUE   - стоимость доставки в рублях
-            TRANSIT - срок доставки в днях
-            TARIF   - рассчитанный тариф, только для информации  */
-
-}
 
 function AddBasketRule() { 
     // получение релятивных товаров для создания правила корзины 
@@ -3722,5 +3699,4 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
            // 
         }
     }
-  // error_reporting(E_ALL); 
 ?>

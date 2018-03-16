@@ -169,8 +169,10 @@ if($_REQUEST["mess"] == "save")
                     <td><?=GetMessage("PP_RECEPTION_TYPE")?></td>
 <?/*                    <td><?=GetMessage("PP_SIZE")?></td>               */?>
 
-                </tr>                
+                </tr> 
+                             
                 <?foreach($arItems as $arItem):?>  
+                
                     <?$arRequestItem = $_REQUEST["EXPORT"][$arItem["ORDER_ID"]];
                         $bActive = $arItem["INVOICE_ID"]?false:true;
                         /*
@@ -185,6 +187,7 @@ if($_REQUEST["mess"] == "save")
                         if (in_array($arItem["SETTINGS"]["SERVICE_TYPE"], Array(1,3)))
                             $arItem["PAYED_PP_SET"] = 1;
                     ?>
+                    <?//arshow($arRequestItem)?>
                     <tr <?if(!$bActive):?>style="display:none;"<?endif;?>>
                         <td><input <?if(!$bActive):?> disabled="disabled"<?endif;?> type = "checkbox" <?=($arRequestItem["EXPORT"])?"checked":""?> class = "cToExport" name = "EXPORT[<?=$arItem["ORDER_ID"]?>][EXPORT]" autocomplete="off"/></td>
                         <td><?=GetMessage("PP_N")?><?=$arItem["ORDER_ID"]?> <?=GetMessage("PP_FROM")?><br/><?=$arItem["ORDER_DATE"]?></td>
