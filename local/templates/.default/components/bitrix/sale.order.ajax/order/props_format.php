@@ -91,6 +91,11 @@
                         <?
 
                         } else if ($arProperties["TYPE"] == "TEXT"){
+                            if ($arProperties["CODE"] == "INDEX") {
+                                $field_size = 6;
+                            } else {
+                                $field_size = 250;
+                            }
                             $window = strpos($_SERVER['HTTP_USER_AGENT'],"Windows");
                             if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
                             ?>
@@ -112,7 +117,7 @@
                             <?} else if($arProperties["CODE"] == "DELIVERY_DATE"){?>
                                 <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=($arProperties["VALUE"])?$arProperties["VALUE"]:$_POST["ORDER_PROP_".$arProperties["ID"]]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
                             <?} else {?>
-                                <input class="clientInfo" type="text" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=($arProperties["VALUE"])?$arProperties["VALUE"]:$_POST["ORDER_PROP_".$arProperties["ID"]]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
+                                <input class="clientInfo" type="text" maxlength="<?= $field_size ?>" size="<?=$arProperties["SIZE1"]?>" value="<?=($arProperties["VALUE"])?$arProperties["VALUE"]:$_POST["ORDER_PROP_".$arProperties["ID"]]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>" />
                             <?}?>
                             <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
                                 <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
