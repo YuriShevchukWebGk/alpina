@@ -495,6 +495,7 @@
     *
     * */
     function flippostHandlerBefore(&$arFields) {
+        
         if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
             $delivery_price = 0;
             $flippost_default_values = getDefaultFlippostValues();
@@ -2951,7 +2952,7 @@
         $curPage = $APPLICATION->GetCurPage();
         $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';
         $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';
-        logger($order_log, $file);
+       // logger($order_log, $file);
     }
 
     /**

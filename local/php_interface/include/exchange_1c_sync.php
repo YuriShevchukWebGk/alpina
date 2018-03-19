@@ -83,7 +83,7 @@ class Exchange1C {
             $cat = CIBlockElement::GetList(Array(), $arFilter_1, false, false, $arSelect);
             $total_quantity = 0;
             while($arCatalog = $cat->Fetch()) {
-                $total_quantity = $total_quantity + $arCatalog['CATALOG_QUANTITY'];
+                $total_quantity = $total_quantity + intval($arCatalog['CATALOG_QUANTITY']);
                // $name = $arCatalog['NAME'];
             }
 

@@ -245,7 +245,9 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         //если день доставки попадает на субботу
         if (newDay == 6) {
             curDay = curDay + 3;
-        }
+        } else if (newDay == 0) {
+			curDay = curDay + 2;
+		}
         //для физических и юридических лиц
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker({
             minDate: minDatePlus,
