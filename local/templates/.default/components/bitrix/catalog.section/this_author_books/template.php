@@ -61,3 +61,10 @@ $this->setFrameMode(true);
     </div>
     
     <?}?>
+<script>
+$(document).ready(function(){
+    $(".authorBoolSlider li .tapeOfPack").each(function(){
+        $(this).html(truncate($(this).html(), 15));
+    })
+})
+</script>

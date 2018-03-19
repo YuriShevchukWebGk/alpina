@@ -152,4 +152,5 @@ $MESS["CHOSE_ON_MAP"] = "Выбрать на карте";
 $MESS["GURU_ERROR"] = "Местоположение не выбрано";
 $MESS["BOXBERRY_ERROR"] = "Ожидаемая дата доставки: ";
 $MESS["BOXBERY_SELECT_EMPTY"] = "Выберите адрес доставки!";
+$MESS["NAME_PASPORT"] = "Покупатель, ФИО!";
 ?>

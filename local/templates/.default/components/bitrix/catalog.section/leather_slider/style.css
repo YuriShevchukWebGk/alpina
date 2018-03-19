@@ -1,0 +1,8 @@
+.leatherSlider li {display:block!important;float:left;width:14%!important}
+.leatherSlider ul{width:100%;max-width:1140px;height:340px;overflow:hidder}
+.leatherSlider .titleMain{padding-bottom:0!important}
+.leatherSlider .tapeOfPack {height:35px!important;}
+.leatherSlider .section_item_img img {width:80%}
+.leatherSlider .section_item_img {width:100%}
+.leatherSlider .bookName{font-size:15px;color:#283438;padding-bottom:13px}
+.leatherSlider .bookName,.leatherSlider .tapeOfPack{width:100%!important;text-align:center}

@@ -23,12 +23,13 @@ foreach ($arResult["ITEMS"] as $i => $arItem) {
 			<?foreach($block as $arItem) {
 			$pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"], array('width'=>360, 'height'=>360), BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
 				<li class="blogPostPreview">
-					<a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><img title="<?=$arItem['NAME']?>" alt="Фотография <?=$arItem['NAME']?>" src="<?=$pict["src"]?>"></a>
+					<div class="date"><?=strtoupper(FormatDate("d M", MakeTimeStamp($arItem["ACTIVE_FROM"])))?></div>
+					<a href="<?=$arItem["DETAIL_PAGE_URL"]?>"style="position:relative;width:100%;display:block"><div class="layer"></div><img title="<?=$arItem['NAME']?>" alt="Фотография <?=$arItem['NAME']?>" src="<?=$pict["src"]?>"></a>
 					<?if (!empty($arItem["IBLOCK_SECTION_ID"])) {
 						$section = CIBlockSection::GetByID($arItem["IBLOCK_SECTION_ID"]);
-						$section = $section->GetNext();
-						echo '<div class="cat">'.$section["NAME"].'</div>';
-					}?>
+						$section = $section->GetNext();?>
+						<div class="cat"><?=$section["NAME"]?></div>
+					<?}?>
 					<div class="previewContent">
 						<a class="title" href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?=$arItem['NAME']?></a>
 						<div class="previewText"><?=substr(strip_tags($arItem['DETAIL_TEXT']),0,250).'...'?></div>

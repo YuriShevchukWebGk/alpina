@@ -204,11 +204,16 @@
     width: 60px;
 }
 .historyBodywrap .orderBooks .infoSoonDate {
-    width: 290px;
+    width: 170px;
     font-size: 14px;
     color: #7b8c90;
 }   
 .historyBodywrap .orderBooks .infoSoonDate div {     
     font-size: 14px;
     color: #424C4F;;
+}
+.historyBodywrap .infosale{
+    color: #8F9DA0;
+    font-size: 13px;
+    width: 110px;
 }

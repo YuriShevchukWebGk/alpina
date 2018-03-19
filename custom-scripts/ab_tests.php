@@ -18,7 +18,6 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 
 <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = 'https://vk.com/rtrg?p=VK-RTRG-172981-6JKYS';</script>
 <link rel="search" href="/opensearch.xml" title="Alpina.ru" type="application/opensearchdescription+xml" />
-
 <link href="/bitrix/css/main/font-awesome.css?146037394928798" type="text/css" rel="stylesheet" />
 <style>
 	.productElementWrapp .dopSaleWrap{display:none}

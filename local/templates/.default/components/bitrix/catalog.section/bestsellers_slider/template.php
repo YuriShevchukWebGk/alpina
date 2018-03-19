@@ -15,7 +15,6 @@ $this->setFrameMode(true);
 
 <div class="saleSlider">
     <ul>
-
         <?foreach ($arResult["ITEMS"] as $arItem) {
             foreach ($arItem["PRICES"] as $code => $arPrice) {
                 if ($arPrice["PRINT_DISCOUNT_VALUE"]) {
@@ -41,6 +40,4 @@ $this->setFrameMode(true);
             }
         }?>
     </ul>
-    <img src="/img/arrowLeft.png" class="left">
-    <img src="/img/arrowRight.png" class="right">
 </div>

@@ -12,24 +12,18 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-
+<style>
+ul{list-style-type:disc}
+</style>
 <div class="newsBodyWrap">
     <div class="newsPageTitleWrap">
         <div class="centerWrapper">
-            <p>Главная</p>
-            <? 
-                if (strstr($APPLICATION -> GetCurDir(), "events", true) != "")
-                {?>
-                <h1><a href="/events/">Мероприятия</a></h1>
-                <?
-                }
-                else if (strstr($APPLICATION -> GetCurDir(), "news", true) != "")
-                {
-                ?>
-                <h1><a href="/events/">Новости</a></h1>
-                <?
-                }
-            ?>
+            <p><a href="/">Главная</a> > <a href="/events/">Мероприятия</a> > <?=$arResult["NAME"]?></p>
+            <?if (strpos($APPLICATION->GetCurDir(), "events") !== false) {?>
+				<h1>Мероприятия</h1>
+			<?} else if (strstr($APPLICATION -> GetCurDir(), "news", true) != "") {?>
+				<h1><a href="/events/">Новости</a></h1>
+			<?}?>
         </div>
     </div>
     <div class="content">

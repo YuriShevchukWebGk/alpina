@@ -8,9 +8,20 @@ foreach($arResult as $arItem) {
 	<li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?}?>
 
-<?if (date("Y-m-d") == "2018-01-30") {?>
-	<li class="timer"><a href="/actions/cybertuesday/" style="color:red!important" target="_blank">Кибервторник <span id="days"></span>:<span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span></a></li>
-	<script type="text/javascript" src="/js/countdown.js?2017112312"></script>
+<?if (date("Y-m-d") == "2018-01-30" || $USER->isAdmin()) {?>
+	<li class="timer"><a href="#" style="color:red!important" onclick="getInfo('freedelivery');return false">Акция! Бесплатная доставка</li>
+	<script>
+	function getInfo(id) {
+		$.ajax({
+			type: "POST",
+			url: "/ajax/info_popup.php",
+			data: {info: id}
+		}).done(function(strResult) {
+			$("#ajaxBlock").append(strResult);
+			$("body").css('overflow','hidden');
+		});
+	}
+	</script>
 <?} else {?>
 	<li><a class="topMenuLink" href="/actions/freedigitalbooks/" target="_blank">Бесплатные электронные книги</a></li>
 <?}?>
