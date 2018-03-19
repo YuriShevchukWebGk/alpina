@@ -168,7 +168,6 @@
                         $unic_code = $partner_code.$order_code;      
                         $zip = ($order_properties['INDEX']) ? $order_properties['INDEX'] : $order_properties['F_INDEX'];                            
                         $xmlBody .= '<order order_id="'.$order_id.'" zbarcode="'.$unic_code.'" parcel_nalog="0" parcel_sumvl="'.$order_properties['SUM_PAID'].'" delivery_type="'.ACCORDPOST_DELIVERY_TYPE.'" zip="'.$zip.'" clnt_name="'.$order_properties['FINAL_NAME'].'" post_addr="'.$order_properties['FINAL_ADRESS_FULL'].'"/>';                 
-						CSaleOrder::StatusOrder($order_id, "K");
                     }
                 }      
                                                      
@@ -184,7 +183,9 @@
             }                                   
             
             //Экспортируем       
-            export_to_accordpost($xmlBody, $zdoc_id_common, $shipment_id_common, $arIDsCommonOrders, $order_props);    
+            if (export_to_accordpost($xmlBody, $zdoc_id_common, $shipment_id_common, $arIDsCommonOrders, $order_props)) {
+                CSaleOrder::StatusOrder($order_id, "K");
+            }    
         }  
                                
         //Генерация xml для международных заказов 
