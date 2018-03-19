@@ -76,9 +76,9 @@ $prints = array(
 shuffle($prints);
 $prints = array_slice($prints,0,5);
 ?>
-<p class="titleMain"><a href="/content/overview/">Постеры для дома и офиса</a> <span title="Показать еще" class="reloadPrints fa fa-refresh no-mobile" style="cursor:pointer" aria-hidden="true" onclick="reloadPrints()"></span></p>
+<p class="titleMain no-mobile"><a href="/content/overview/">Постеры для дома и офиса</a> <span title="Показать еще" class="reloadPrints fa fa-refresh no-mobile" style="cursor:pointer" aria-hidden="true" onclick="reloadPrints()"></span></p>
 
-<div class="saleSlider">
+<div class="saleSlider no-mobile">
     <ul class="reloadPrintsHere">
         <?foreach ($prints as $print) {?>
 			<li style="width:300px">

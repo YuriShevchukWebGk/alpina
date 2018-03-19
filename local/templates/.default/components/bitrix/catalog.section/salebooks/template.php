@@ -13,6 +13,12 @@
     $this->setFrameMode(true);
 	$gdeSlon = '';
 ?>
+<link rel="stylesheet" href="/css/flipclock.css">
+<script src="/js/flipclock.js"></script>
+
+<style>
+.clock{width:470px;margin-bottom:60px}
+</style>
 
 <div class="wrapperCategor">
     <div class="categoryWrapper">
@@ -23,10 +29,14 @@
         </div>
 
         <div class="contentWrapp">
-            <p class="titleMain"><?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?></p>
-				<div class="description">На&nbsp;этой странице вы&nbsp;найдете все книги по&nbsp;очень, очень низкой цене!<br />
-				Если вы&nbsp;где-то найдете эти&nbsp;же книги еще дешевле (что маловероятно) сообщите нам, и&nbsp;мы&nbsp;сделаем вам персональную скидку.
-				</div>
+			<h1 class="titleMain"><?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?></h1>
+			
+			
+			<center>
+				<h2>До новых скидок осталось</h2>
+				<div class="clock no-mobile"></div>
+			</center>
+
             <?if (is_array($arResult["QUOTE"])) {?>
                 <div class="titleDiv">
                 <?if ($arResult["QUOTE"]["DETAIL_PICTURE"]){?>
@@ -43,107 +53,7 @@
                     <p class="text"><?= $arResult["SERIES"]["ELEMENT"]["DETAIL_TEXT"] ?></p>
                 </div>
             <?}?>
-            <? global $SeriesRoundBanner;
-            $SeriesRoundBanner = array("PROPERTY_BIND_TO_SERIE" => $arResult["SERIES"]["ID"]);
-			/* УБИРАЕМ БАННЕРЫ ПОКА
-            $APPLICATION->IncludeComponent(
-                "bitrix:news.list",
-                "series_banners",
-                array(
-                    "ACTIVE_DATE_FORMAT" => "d.m.Y",
-                    "ADD_SECTIONS_CHAIN" => "Y",
-                    "AJAX_MODE" => "N",
-                    "AJAX_OPTION_ADDITIONAL" => "",
-                    "AJAX_OPTION_HISTORY" => "N",
-                    "AJAX_OPTION_JUMP" => "N",
-                    "AJAX_OPTION_STYLE" => "Y",
-                    "CACHE_FILTER" => "N",
-                    "CACHE_GROUPS" => "N",
-                    "CACHE_TIME" => "36000000",
-                    "CACHE_TYPE" => "A",
-                    "CHECK_DATES" => "Y",
-                    "COMPONENT_TEMPLATE" => "section_banners",
-                    "DETAIL_URL" => "",
-                    "DISPLAY_BOTTOM_PAGER" => "Y",
-                    "DISPLAY_DATE" => "Y",
-                    "DISPLAY_NAME" => "Y",
-                    "DISPLAY_PICTURE" => "Y",
-                    "DISPLAY_PREVIEW_TEXT" => "Y",
-                    "DISPLAY_TOP_PAGER" => "N",
-                    "FIELD_CODE" => array(
-                        0 => "DETAIL_PICTURE",
-                        1 => "",
-                    ),
-                    "FILTER_NAME" => "SeriesRoundBanner",
-                    "HIDE_LINK_WHEN_NO_DETAIL" => "N",
-                    "IBLOCK_ID" => SERIES_BANNERS_IBLOCK_ID,
-                    "IBLOCK_TYPE" => "news",
-                    "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
-                    "INCLUDE_SUBSECTIONS" => "Y",
-                    "MESSAGE_404" => "",
-                    "NEWS_COUNT" => "20",
-                    "PAGER_BASE_LINK_ENABLE" => "N",
-                    "PAGER_DESC_NUMBERING" => "N",
-                    "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-                    "PAGER_SHOW_ALL" => "N",
-                    "PAGER_SHOW_ALWAYS" => "N",
-                    "PAGER_TEMPLATE" => ".default",
-                    "PAGER_TITLE" => "Баннеры серии",
-                    "PARENT_SECTION" => "",
-                    "PARENT_SECTION_CODE" => "",
-                    "PREVIEW_TRUNCATE_LEN" => "",
-                    "PROPERTY_CODE" => array(
-                        0 => "SERIE_BANNER_LINK",
-                        1 => "",
-                    ),
-                    "SET_BROWSER_TITLE" => "Y",
-                    "SET_LAST_MODIFIED" => "N",
-                    "SET_META_DESCRIPTION" => "Y",
-                    "SET_META_KEYWORDS" => "Y",
-                    "SET_STATUS_404" => "N",
-                    "SET_TITLE" => "Y",
-                    "SHOW_404" => "N",
-                    "SORT_BY1" => "ACTIVE_FROM",
-                    "SORT_BY2" => "SORT",
-                    "SORT_ORDER1" => "DESC",
-                    "SORT_ORDER2" => "ASC"
-                ),
-                false
-            );*/?>
-             <?// блок с цитатой END?>
-            <ul class="filterParams">
-                <li <?if ($_REQUEST['SORT'] == 'POPULARITY' || !($_REQUEST['SORT'])) {?>class="active <?if ($_REQUEST["DIRECTION"] == "DESC"){?>descArrow<?}?>"<?}?>>
-                    <p data-id="1">
-                        <?if ($_REQUEST['SORT'] == 'POPULARITY' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                            <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=POPULARITY&DIRECTION=DESC">По популярности</a>
-                        <?} else {?>
-                            <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=POPULARITY&DIRECTION=ASC">По популярности</a>
-                        <?}?>
-                    </p>
-                </li>
-                <li <?if ($_REQUEST['SORT'] == 'DATE' || $_REQUEST['SORT'] == 'NEW') {?>class="active <?if ($_REQUEST["DIRECTION"] == "DESC"){?>descArrow<?}?>"<?}?>>
-                    <p data-id="2">
-                        <?if ($_REQUEST['SORT'] == 'DATE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                            <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=DATE&DIRECTION=DESC">По дате выхода</a>
-                        <?} else {?>
-                            <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=DATE&DIRECTION=ASC">По дате выхода</a>
-                        <?}?>
-                    </p>
-                </li>
-                <?if ($arParams['HIDE_PRICE_SORT'] != 'Y'){?>
-                    <li <?if ($_REQUEST['SORT'] == 'PRICE') {?>class="active <?if ($_REQUEST["DIRECTION"] == "DESC"){?>descArrow<?}?>"<?}?>>
-                        <p data-id="3">
-                            <?if ($_REQUEST['SORT'] == 'PRICE' && $_REQUEST["DIRECTION"] == 'ASC') {?>
-                                <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=PRICE&DIRECTION=DESC">По цене</a>
-                            <?} else {?>
-                                <a href="<?= $APPLICATION->GetCurPage(); ?>?SORT=PRICE&DIRECTION=ASC">По цене</a>
-                            <?}?>
-                        </p>
-                    </li>
-                <?}?>
 
-            </ul>
-            <??>
             <div class="otherBooks" id="block1">
                 <ul>
 
@@ -282,124 +192,6 @@
     </div>
 </div>
 
-<?/* Получаем бестселлеры от RetailRocket */
-global $arrFilterPersonal;
-if (isset($_COOKIE["rrpusid"])){
-    $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/PersonalRecommendation/50b90f71b994b319dc5fd855/?rrUserId=' . $_COOKIE["rrpusid"]);
-    $recsArray = json_decode($stringRecs);
-    $arrFilterPersonal = Array('ID' => (array_slice($recsArray, 0, 6)));
-}
-if(!$USER->IsAdmin()){
-    $arrFilterPersonal["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
-}
-if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные рекомендаций нет, не показываем блок?>
-    <?$APPLICATION->IncludeComponent(
-        "bitrix:catalog.section",
-        "interesting_items",
-        array(
-            "IBLOCK_TYPE" => "catalog",
-            "IBLOCK_ID" => CATALOG_IBLOCK_ID,
-            "SECTION_ID" => $arResult["ID"],
-            "SECTION_CODE" => "",
-            "IBLOCK_HEADER_TITLE" => "",
-            "ELEMENT_SORT_FIELD" => "ID",
-            "ELEMENT_SORT_ORDER" => "desc",
-            "FILTER_NAME" => "arrFilterPersonal",
-            "INCLUDE_SUBSECTIONS" => "N",
-            "SHOW_ALL_WO_SECTION" => "Y",
-            "PAGE_ELEMENT_COUNT" => "10",
-            "LINE_ELEMENT_COUNT" => "1",
-            "PROPERTY_CODE" => array(
-                0 => "SHORT_NAME",
-                1 => "BIRTHDATE",
-                2 => "FIRST_NAME",
-                3 => "LAST_NAME",
-                4 => "",
-            ),
-            "SECTION_URL" => "",
-            "DETAIL_URL" => "",
-            "BASKET_URL" => "/personal/cart/",
-            "ACTION_VARIABLE" => "action",
-            "PRODUCT_ID_VARIABLE" => "",
-            "SECTION_ID_VARIABLE" => "",
-            "AJAX_MODE" => "N",
-            "AJAX_OPTION_SHADOW" => "Y",
-            "AJAX_OPTION_JUMP" => "N",
-            "AJAX_OPTION_STYLE" => "Y",
-            "AJAX_OPTION_HISTORY" => "N",
-            "CACHE_TYPE" => "N",
-            "CACHE_TIME" => "3600",
-            "META_KEYWORDS" => "-",
-            "META_DESCRIPTION" => "-",
-            "DISPLAY_PANEL" => "N",
-            "ADD_SECTIONS_CHAIN" => "N",
-            "DISPLAY_COMPARE" => "N",
-            "SET_TITLE" => "N",
-            "SET_STATUS_404" => "N",
-            "CACHE_FILTER" => "Y",
-            "PRICE_CODE" => array(
-                0 => "BASE",
-            ),
-            "USE_PRICE_COUNT" => "N",
-            "SHOW_PRICE_COUNT" => "1",
-            "PRICE_VAT_INCLUDE" => "N",
-            "DISPLAY_TOP_PAGER" => "N",
-            "DISPLAY_BOTTOM_PAGER" => "N",
-            "PAGER_TITLE" => "Товары",
-            "PAGER_SHOW_ALWAYS" => "N",
-            "PAGER_TEMPLATE" => "",
-            "PAGER_DESC_NUMBERING" => "N",
-            "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-            "PAGER_SHOW_ALL" => "Y",
-            "AJAX_OPTION_ADDITIONAL" => "",
-            "COMPONENT_TEMPLATE" => "interesting_items",
-            "SECTION_USER_FIELDS" => array(
-                0 => "",
-                1 => "",
-            ),
-            "ELEMENT_SORT_FIELD2" => "id",
-            "ELEMENT_SORT_ORDER2" => "desc",
-            "HIDE_NOT_AVAILABLE" => "N",
-            "OFFERS_LIMIT" => "5",
-            "BACKGROUND_IMAGE" => "-",
-            "TEMPLATE_THEME" => "blue",
-            "ADD_PICT_PROP" => "-",
-            "LABEL_PROP" => "-",
-            "PRODUCT_SUBSCRIPTION" => "N",
-            "SHOW_DISCOUNT_PERCENT" => "N",
-            "SHOW_OLD_PRICE" => "N",
-            "SHOW_CLOSE_POPUP" => "N",
-            "MESS_BTN_BUY" => "Купить",
-            "MESS_BTN_ADD_TO_BASKET" => "В корзину",
-            "MESS_BTN_SUBSCRIBE" => "Подписаться",
-            "MESS_BTN_COMPARE" => "Сравнить",
-            "MESS_BTN_DETAIL" => "Подробнее",
-            "MESS_NOT_AVAILABLE" => "Нет в наличии",
-            "SEF_MODE" => "N",
-            "CACHE_GROUPS" => "N",
-            "SET_BROWSER_TITLE" => "Y",
-            "BROWSER_TITLE" => "-",
-            "SET_META_KEYWORDS" => "Y",
-            "SET_META_DESCRIPTION" => "Y",
-            "SET_LAST_MODIFIED" => "N",
-            "USE_MAIN_ELEMENT_SECTION" => "N",
-            "CONVERT_CURRENCY" => "N",
-            "USE_PRODUCT_QUANTITY" => "N",
-            "PRODUCT_QUANTITY_VARIABLE" => "undefined",
-            "ADD_PROPERTIES_TO_BASKET" => "Y",
-            "PRODUCT_PROPS_VARIABLE" => "prop",
-            "PARTIAL_PRODUCT_PROPERTIES" => "N",
-            "PRODUCT_PROPERTIES" => array(
-            ),
-            "ADD_TO_BASKET_ACTION" => "ADD",
-            "PAGER_BASE_LINK_ENABLE" => "N",
-            "SHOW_404" => "N",
-            "MESSAGE_404" => ""
-        ),
-        false
-    );?>
-    </div>
-<?}?>
 
 <script>
     // скрипт ajax-подгрузки товаров в блоке "Все книги"
@@ -450,5 +242,16 @@ if ($arrFilterPersonal['ID'][0] > 0) { // Если персональные ре
                 $(this).css("height", "390px");
             });
         <?}?>
+
+		var currentDate = new Date();
+		var futureDate = new Date('<?=date("m/d/Y")?> 23:59:59');
+
+		var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+
+		clock = $('.clock').FlipClock(diff, {
+			clockFace: 'HourlyCounter',
+			countdown: true
+		});
+
     });
 </script>

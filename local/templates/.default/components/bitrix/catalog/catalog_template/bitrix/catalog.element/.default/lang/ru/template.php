@@ -137,7 +137,7 @@ $MESS["SECOND_BOOK"] = "Вторая книга";
 $MESS["THIRD_BOOK"] = "Третья книга";
 $MESS["EBOOK_READ"] = ", электронная версия, читать онлайн";
 $MESS["LAST_EDITION"] = ", последнее издание ";
-
+$MESS["TRANSLATOR"] = "Переводчик";
 $MESS["DELIVERY_POST_SITY"] = " пункт выдачи ";
 $MESS["EXPECTED_DATE_2"] = " Поступит в продажу в ";
 

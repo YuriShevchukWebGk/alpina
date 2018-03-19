@@ -33,6 +33,8 @@ if ($certificate_data['certificate_quantity'] > 0 && $certificate_data['certific
             break;
 
         case "legal_person":
+            $properties["FIO"] = $certificate_data['FIO'];
+            $properties["PHONE"] = $certificate_data['phone'];
             $properties["LEGAL_NAME"] = $certificate_data['legal_name'];
             $properties["LEGAL_EMAIL"] = $certificate_data['legal_email'];
             $properties["BIK"] = $certificate_data['bik'];

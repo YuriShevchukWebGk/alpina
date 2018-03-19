@@ -673,13 +673,7 @@ http://www.knigi-club.ru/
  
  
 <span class="city"><strong>Краснодар</strong></span> 
-  
-<strong>Книжный магазин «Добро Лавка» </strong> 
-  
-<span class="description">ул. Крылатая, 2, OZ МОЛЛ, 2 этаж 
-тел. +7 988 244 38 37 
-http://www.msphone.ru/ 
-Ежедневно с 10:00 до 22:00 </span>
+
   
 <strong>Сеть магазинов «Читай Город»</strong> 
   

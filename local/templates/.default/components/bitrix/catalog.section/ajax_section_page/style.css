@@ -822,3 +822,8 @@
 .bookPrice span, .rubsign, .priceOfBook .rub_symbol {
     font-family: 'RoubleSign'!important;
 }
+.hidingCatalogLeft, .hidingCatalogLeft * {
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+}

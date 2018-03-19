@@ -3,34 +3,6 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Скидки дня на книги");
 $APPLICATION->SetPageProperty("description", "Скидки дня");
 
-if ($_REQUEST["DIRECTION"])
-{
-    $order = $_REQUEST["DIRECTION"];
-}
-else
-{
-    $order = "desc";
-}
-switch ($_REQUEST["SORT"])
-{
-    case "DATE":
-    $sort = "PROPERTY_YEAR";
-    break;
-
-    case "PRICE":
-    $sort = "CATALOG_PRICE_1";
-    break;
-
-    case "POPULARITY":
-    $sort = "PROPERTY_shows_a_day";          //PROPERTY_shows_a_day
-    $order = "asc";
-    break;
-
-    default:
-    //$sort = "PROPERTY_SALES_CNT";
-	$sort = "PROPERTY_shows_a_day";
-    $order = "desc";
-}
 global $arrFilter;
 if(!$USER->IsAdmin()){
     $arrFilter = array ('PROPERTY_discount_on' => '276', "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
@@ -63,9 +35,9 @@ if(!$USER->IsAdmin()){
 		"DISABLE_INIT_JS_IN_COMPONENT" => "N",	// Не подключать js-библиотеки в компоненте
 		"DISPLAY_BOTTOM_PAGER" => "Y",	// Выводить под списком
 		"DISPLAY_TOP_PAGER" => "N",	// Выводить над списком
-		"ELEMENT_SORT_FIELD" => $sort,	// По какому полю сортируем элементы
+		"ELEMENT_SORT_FIELD" => "PROPERTY_shows_a_day",	// По какому полю сортируем элементы
 		"ELEMENT_SORT_FIELD2" => "name",	// Поле для второй сортировки элементов
-		"ELEMENT_SORT_ORDER" => $order,	// Порядок сортировки элементов
+		"ELEMENT_SORT_ORDER" => "desc",	// Порядок сортировки элементов
 		"ELEMENT_SORT_ORDER2" => "asc",	// Порядок второй сортировки элементов
 		"FILTER_NAME" => "arrFilter",	// Имя массива со значениями фильтра для фильтрации элементов
 		"HIDE_NOT_AVAILABLE" => "N",	// Не отображать товары, которых нет на складах

@@ -47,7 +47,7 @@ foreach ($editor_choice_list as $key => $val)
 ?>
 <div class="books">
 	<div class="firstSection">
-		<div class="titleBlock">
+		<?/*<div class="titleBlock">
 			<div class="titleText">
 				<?
 				$tops = array(
@@ -71,6 +71,26 @@ foreach ($editor_choice_list as $key => $val)
 				print $tops[0];
 				?>
 			</div>
+		</div>*/?>
+		<div>
+			<?if ($count[6] > 0)
+			{?>
+			<a class="smallContainer" href="<?=$sect_urls[6]?>" onclick="dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionClick', 'label' : '<?=$sect_names[2]?>'});" style="    margin-bottom: 36px">
+						<p><?=$sect_names[6]?></p>
+						<p class="count"><?=$count[6].' '.format_by_count($count[6], 'книга', 'книги', 'книг');?></p>
+						<div class="colorCorrect"></div> 
+						<img src="<?if($arImagesPath[6]){echo $arImagesPath[6];}else{?>/img/book111.png<?}?>">
+			</a>
+			<?}?>
+			<?if ($count[7] > 0)
+			{?>
+			<a class="smallContainer" href="<?=$sect_urls[7]?>" onclick="dataLayer.push({'event' : 'collectionsOnMain', 'action' : 'collectionClick', 'label' : '<?=$sect_names[7]?>'});">
+					<p><?=$sect_names[7]?></p>
+					<p class="count"><?=$count[7].' '.format_by_count($count[7], 'книга', 'книги', 'книг');?></p>
+					<div class="colorCorrect"></div>
+					<img src="<?if($arImagesPath[7]){echo $arImagesPath[7];}else{?>/img/book121.png<?}?>">
+			</a>
+			<?}?>
 		</div>
 		<div>
 			<?if ($count[2] > 0)

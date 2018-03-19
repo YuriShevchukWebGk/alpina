@@ -30,11 +30,11 @@ Loc::loadMessages(__FILE__);
 				<?foreach($arResult['DEFAULT_LOCATIONS'] as $lid => $loc):?>
                     <?
                     $class = '';
-                     if($loc['ID'] == $arParams["ID"] || ($arParams["ID"] != 88 && $arParams["ID"] != 21279 && $loc["ID"] == 21278)){
+                     if($loc['ID'] == $arParams["ID"] /*|| ($arParams["ID"] != 88 && $arParams["ID"] != 21279 && $loc["ID"] == 21278)*/){
                         $class = 'addCircle';
                      }
                      ?>
-					<a href="javascript:void(0)" data-id="<?=$loc['ID']?>" class="quick-location-tag <?=$class?> <?=($loc["ID"] == 21278)? 'region_click': ''?>"><?=htmlspecialcharsbx($loc['NAME'])?></a>
+					<a href="javascript:void(0)" data-id="<?=$loc['ID']?>" class="quick-location-tag <?=$class?> <?//=($loc["ID"] == 21278)? 'region_click': ''?>"><?=htmlspecialcharsbx($loc['NAME'])?></a>
 				<?endforeach?>
 
 			</div>

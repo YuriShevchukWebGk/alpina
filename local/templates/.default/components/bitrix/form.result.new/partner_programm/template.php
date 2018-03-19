@@ -150,41 +150,50 @@ if ($arResult["isFormTitle"])
         var data = form.serialize();
         if ($("input[name='form_text_111']").val() == "") {
             $("input[name='form_text_111']").css("border", "2px solid red");
-        }
-        if ($("input[name='form_email_114']").val() == "") {
-            $("input[name='form_email_114']").css("border", "2px solid red");
-        }
+        } else {
+			$("input[name='form_text_111']").css("border", "1px solid #c1c5c8");
+		}
+		
+        if ($("input[name='form_email_114']").val() == "" || isEmail($("input[name='form_email_114']").val()) == false) {
+			$("input[name='form_email_114']").css("border", "2px solid red");
+        } else {
+			$("input[name='form_email_114']").css("border", "1px solid #c1c5c8");
+		}
+		
         if ($("input[name='form_text_117']").val() == "") {
-            $("input[name='form_text_117']").css("border", "2px solid red");
-        }
-        if ($("input[name='form_text_111']").val() == "" || $("input[name='form_email_114']").val() == "" || $("input[name='form_text_117']").val() == "") {
+			$("input[name='form_text_117']").css("border", "2px solid red");
+        } else {
+			$("input[name='form_text_117']").css("border", "1px solid #c1c5c8");
+		}
+		
+        if ($("input[name='form_text_111']").val() == "" || $("input[name='form_email_114']").val() == "" || $("input[name='form_text_117']").val() == "" || isEmail($("input[name='form_email_114']").val()) == false) {
             e.preventDefault();
-        }
-        if (!allowSubmit) {
-            $.ajax({
-                type: 'POST',
-                url: '/ajax/recaptcha_sending.php',
-                dataType: 'json',
-                data: data,
-                beforeSend: function(data){
-                },
-                success: function(data){
-                    if (data.result == "ERROR") {
-                        form.find('input[type="submit"]').prop('disabled', true);          
-                        $(".g-recaptcha iframe").css("border", "2px solid red");  
-                    } else {
-                        form.find('input[type="submit"]').prop('disabled', false);
-                        allowSubmit = true;
-                        form.find('input[type="submit"]').trigger("click");
-                    } 
-                },
-                complete :function(data){
-                    form.find('input[type="submit"]').prop('disabled', false);
+        } else {
+			if (!allowSubmit) {
+				$.ajax({
+					type: 'POST',
+					url: '/ajax/recaptcha_sending.php',
+					dataType: 'json',
+					data: data,
+					success: function(data){
+						if (data.result == "ERROR") {
+							form.find('input[type="submit"]').prop('disabled', true);          
+							$(".g-recaptcha iframe").css("border", "2px solid red");
+							$(".g-recaptcha").show();
+						} else {
+							form.find('input[type="submit"]').prop('disabled', false);
+							allowSubmit = true;
+							form.find('input[type="submit"]').trigger("click");
+						} 
+					},
+					complete :function(data){
+						form.find('input[type="submit"]').prop('disabled', false);
 
 
-                }
-            });    
-        }
-        return allowSubmit;
+					}
+				});	
+			}
+			return allowSubmit;
+		}
     })
 </script>

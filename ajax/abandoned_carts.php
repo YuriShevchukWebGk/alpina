@@ -8,7 +8,6 @@ if ($_POST["userid"] != '' && $_POST["basketid"] != '') {
 
 	$arFilter = array(
 		"IBLOCK_ID" => 75,
-		//"ACTIVE" => "Y",
 		"NAME" => $_POST["userid"]
 	);
 

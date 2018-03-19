@@ -826,7 +826,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 			$context  = stream_context_create($opts);
 			$stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"], false, $context);
-			$recsArray = array_slice(json_decode($stringRecs, true), 0, 6);
+			$recsArray = array_slice(json_decode($stringRecs, true), 0, 5);
 			$arrFilter = array();
 			foreach($recsArray as $val) {
 				$arrFilter[ID][] = $val[ItemId];
@@ -1107,24 +1107,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		);?>
 
 
-            <?/*
-			global $BestsOnMain;
+            <?
+			global $vipbooks;
             if(!$USER->IsAdmin()){
-                $BestsOnMain = array('SECTION_ID' => 469, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID), "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+                $vipbooks = array('SECTION_ID' => 491, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID), "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
             } else {
-                $BestsOnMain = array('SECTION_ID' => 469, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID));
-            }
-            ?>
-            <p class="titleMain"><a href="/catalog/sumki/">Книжные сумки</a></p>
+                $vipbooks = array('SECTION_ID' => 491, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID));
+            }?>
             <?
 			$APPLICATION->IncludeComponent(
 			"bitrix:catalog.section",
-			"bestsellers_slider",
+			"leather_slider",
 			array(
 				"IBLOCK_TYPE_ID" => "catalog",
 				"IBLOCK_ID" => "4",
 				"BASKET_URL" => "/personal/cart/",
-				"COMPONENT_TEMPLATE" => "bestsellers_slider",
+				"COMPONENT_TEMPLATE" => "leather_slider",
 				"IBLOCK_TYPE" => "catalog",
 				"SECTION_ID" => $_REQUEST["SECTION_ID"],
 				"SECTION_CODE" => "",
@@ -1136,11 +1134,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"ELEMENT_SORT_ORDER" => "desc",
 				"ELEMENT_SORT_FIELD2" => "rand",
 				"ELEMENT_SORT_ORDER2" => "desc",
-				"FILTER_NAME" => "BestsOnMain",
+				"FILTER_NAME" => "vipbooks",
 				"INCLUDE_SUBSECTIONS" => "Y",
 				"SHOW_ALL_WO_SECTION" => "Y",
 				"HIDE_NOT_AVAILABLE" => "N",
-				"PAGE_ELEMENT_COUNT" => "6",
+				"PAGE_ELEMENT_COUNT" => "7",
 				"LINE_ELEMENT_COUNT" => "3",
 				"PROPERTY_CODE" => array(
 					0 => "",
@@ -1244,9 +1242,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				"COMPATIBLE_MODE" => "Y"
 			),
 			false
-		);*/?>
+		);?>
 			
-			<?$APPLICATION->IncludeComponent(
+			<?/*$APPLICATION->IncludeComponent(
 				"bitrix:main.include",
 				".default",
 				array(
@@ -1258,11 +1256,135 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					"PATH" => "/include/overview.php"
 				),
 				false
-			);?>
-
+			);*/?>
         </div>
 
-
+		<?
+		$APPLICATION->IncludeComponent(
+			"bitrix:main.include",
+			".default",
+			array(
+				"AREA_FILE_SHOW" => "file",
+				"AREA_FILE_SUFFIX" => "inc",
+				"AREA_FILE_RECURSIVE" => "Y",
+				"EDIT_TEMPLATE" => "",
+				"COMPONENT_TEMPLATE" => ".default",
+				"PATH" => "/include/instagram/instagram_feed.php"
+			),
+			false
+		);
+		?>
+		<?
+		global $blogPostsFilter;
+		$blogPostsFilter = array("!ID" => false);
+		$APPLICATION->IncludeComponent(
+			"bitrix:catalog.section",
+			"this_book_in_blog",
+			array(
+				"IBLOCK_TYPE_ID" => "catalog",
+				"IBLOCK_ID" => "71",
+				"BASKET_URL" => "/personal/cart/",
+				"COMPONENT_TEMPLATE" => "this_book_in_blog",
+				"IBLOCK_TYPE" => "catalog",
+				"SECTION_ID" => "",
+				"SECTION_CODE" => "",
+				"SECTION_USER_FIELDS" => array(
+					0 => "",
+					1 => "",
+				),
+				"ELEMENT_SORT_FIELD" => "id",
+				"ELEMENT_SORT_ORDER" => "desc",
+				"ELEMENT_SORT_FIELD2" => "id",
+				"ELEMENT_SORT_ORDER2" => "asc",
+				"FILTER_NAME" => "blogPostsFilter",
+				"INCLUDE_SUBSECTIONS" => "Y",
+				"SHOW_ALL_WO_SECTION" => "Y",
+				"HIDE_NOT_AVAILABLE" => "N",
+				"PAGE_ELEMENT_COUNT" => "9",
+				"LINE_ELEMENT_COUNT" => "1",
+				"PROPERTY_CODE" => array(
+					0 => "",
+				),
+				"TEMPLATE_THEME" => "site",
+				"PRODUCT_DISPLAY_MODE" => "Y",
+				"PRODUCT_SUBSCRIPTION" => "N",
+				"SHOW_DISCOUNT_PERCENT" => "N",
+				"SHOW_OLD_PRICE" => "Y",
+				"SHOW_CLOSE_POPUP" => "N",
+				"MESS_BTN_BUY" => "Купить",
+				"MESS_BTN_ADD_TO_BASKET" => "В корзину",
+				"MESS_BTN_SUBSCRIBE" => "Подписаться",
+				"MESS_BTN_DETAIL" => "Последние посты в блоге",
+				"MESS_NOT_AVAILABLE" => "Нет в наличии",
+				"SECTION_URL" => "",
+				"DETAIL_URL" => "",
+				"SECTION_ID_VARIABLE" => "SECTION_ID",
+				"SEF_MODE" => "N",
+				"AJAX_MODE" => "N",
+				"AJAX_OPTION_JUMP" => "N",
+				"AJAX_OPTION_STYLE" => "Y",
+				"AJAX_OPTION_HISTORY" => "N",
+				"AJAX_OPTION_ADDITIONAL" => "",
+				"CACHE_TYPE" => "A",
+				"CACHE_TIME" => "36000",
+				"CACHE_GROUPS" => "Y",
+				"SET_TITLE" => "N",
+				"SET_BROWSER_TITLE" => "N",
+				"BROWSER_TITLE" => "-",
+				"SET_META_KEYWORDS" => "N",
+				"META_KEYWORDS" => "-",
+				"SET_META_DESCRIPTION" => "N",
+				"META_DESCRIPTION" => "-",
+				"SET_LAST_MODIFIED" => "N",
+				"USE_MAIN_ELEMENT_SECTION" => "N",
+				"ADD_SECTIONS_CHAIN" => "N",
+				"CACHE_FILTER" => "N",
+				"ACTION_VARIABLE" => "action",
+				"PRODUCT_ID_VARIABLE" => "id",
+				"PRICE_CODE" => array(
+					0 => "BASE",
+				),
+				"USE_PRICE_COUNT" => "N",
+				"SHOW_PRICE_COUNT" => "1",
+				"PRICE_VAT_INCLUDE" => "Y",
+				"CONVERT_CURRENCY" => "N",
+				"USE_PRODUCT_QUANTITY" => "N",
+				"PRODUCT_QUANTITY_VARIABLE" => "",
+				"ADD_PROPERTIES_TO_BASKET" => "Y",
+				"PRODUCT_PROPS_VARIABLE" => "prop",
+				"PARTIAL_PRODUCT_PROPERTIES" => "N",
+				"PRODUCT_PROPERTIES" => array(
+				),
+				"OFFERS_CART_PROPERTIES" => array(
+					0 => "COLOR_REF",
+					1 => "SIZES_SHOES",
+					2 => "SIZES_CLOTHES",
+				),
+				"ADD_TO_BASKET_ACTION" => "ADD",
+				"PAGER_TEMPLATE" => "round",
+				"DISPLAY_TOP_PAGER" => "N",
+				"DISPLAY_BOTTOM_PAGER" => "Y",
+				"PAGER_TITLE" => "Товары",
+				"PAGER_SHOW_ALWAYS" => "N",
+				"PAGER_DESC_NUMBERING" => "N",
+				"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+				"PAGER_SHOW_ALL" => "N",
+				"PAGER_BASE_LINK_ENABLE" => "N",
+				"SET_STATUS_404" => "N",
+				"SHOW_404" => "N",
+				"MESSAGE_404" => "",
+				"BACKGROUND_IMAGE" => "-",
+				"DISABLE_INIT_JS_IN_COMPONENT" => "N",
+				"CUSTOM_FILTER" => "",
+				"HIDE_NOT_AVAILABLE_OFFERS" => "N",
+				"COMPOSITE_FRAME_MODE" => "A",
+				"COMPOSITE_FRAME_TYPE" => "AUTO",
+				"DISPLAY_COMPARE" => "N",
+				"COMPATIBLE_MODE" => "Y"
+			),
+			false
+		);
+		?>
         <div class="no-mobile bestbookmain">
             <?
 			global $bestWeekBook;
@@ -1441,27 +1563,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="saleWrapp">
             <div class="catalogWrapper">
-				<!--noindex-->
-                <div class="giftWrapBlock">
-                    <div class="giftWrap">
-                        <form action="/" method="post">
-                            <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
-                            <input type="button" value="">
-                        </form>
-                        <div class="some_info">
-                            Заявка на подписку принята, ждите информацию на почту
-                        </div>
-                        <p class="title">
-                            Книга в подарок
-                        </p>
-                        <p>
-                            Подпишитесь на рассылку и получите книгу<br />в формате PDF бесплатно
-                        </p>
-						<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
-                    </div>
-                </div>
-				<!--/noindex-->
-
                 <div>
 					<?$APPLICATION->IncludeComponent(
 						"bitrix:main.include",
@@ -1586,123 +1687,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						false
 					);?>
 				</div>
+				<!--noindex-->
+                <div class="giftWrapBlock">
+                    <div class="giftWrap">
+                        <form action="/" method="post">
+                            <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
+                            <input type="button" value="">
+                        </form>
+                        <div class="some_info">
+                            Заявка на подписку принята, ждите информацию на почту
+                        </div>
+                        <p class="title">
+                            Книга в подарок
+                        </p>
+                        <p>
+                            Подпишитесь на рассылку и получите книгу<br />в формате PDF бесплатно
+                        </p>
+						<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
+                    </div>
+                </div>
+				<!--/noindex-->
             </div>
         </div>
     </div>
 </div>
-
-<?
-global $blogPostsFilter;
-$blogPostsFilter = array("!ID" => false);
-$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section",
-	"this_book_in_blog",
-	array(
-		"IBLOCK_TYPE_ID" => "catalog",
-		"IBLOCK_ID" => "71",
-		"BASKET_URL" => "/personal/cart/",
-		"COMPONENT_TEMPLATE" => "this_book_in_blog",
-		"IBLOCK_TYPE" => "catalog",
-		"SECTION_ID" => "",
-		"SECTION_CODE" => "",
-		"SECTION_USER_FIELDS" => array(
-			0 => "",
-			1 => "",
-		),
-		"ELEMENT_SORT_FIELD" => "id",
-		"ELEMENT_SORT_ORDER" => "desc",
-		"ELEMENT_SORT_FIELD2" => "id",
-		"ELEMENT_SORT_ORDER2" => "asc",
-		"FILTER_NAME" => "blogPostsFilter",
-		"INCLUDE_SUBSECTIONS" => "Y",
-		"SHOW_ALL_WO_SECTION" => "Y",
-		"HIDE_NOT_AVAILABLE" => "N",
-		"PAGE_ELEMENT_COUNT" => "5",
-		"LINE_ELEMENT_COUNT" => "1",
-		"PROPERTY_CODE" => array(
-			0 => "",
-		),
-		"TEMPLATE_THEME" => "site",
-		"PRODUCT_DISPLAY_MODE" => "Y",
-		"PRODUCT_SUBSCRIPTION" => "N",
-		"SHOW_DISCOUNT_PERCENT" => "N",
-		"SHOW_OLD_PRICE" => "Y",
-		"SHOW_CLOSE_POPUP" => "N",
-		"MESS_BTN_BUY" => "Купить",
-		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-		"MESS_BTN_SUBSCRIBE" => "Подписаться",
-		"MESS_BTN_DETAIL" => "Последние посты в блоге",
-		"MESS_NOT_AVAILABLE" => "Нет в наличии",
-		"SECTION_URL" => "",
-		"DETAIL_URL" => "",
-		"SECTION_ID_VARIABLE" => "SECTION_ID",
-		"SEF_MODE" => "N",
-		"AJAX_MODE" => "N",
-		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y",
-		"AJAX_OPTION_HISTORY" => "N",
-		"AJAX_OPTION_ADDITIONAL" => "",
-		"CACHE_TYPE" => "A",
-		"CACHE_TIME" => "36000",
-		"CACHE_GROUPS" => "Y",
-		"SET_TITLE" => "N",
-		"SET_BROWSER_TITLE" => "N",
-		"BROWSER_TITLE" => "-",
-		"SET_META_KEYWORDS" => "N",
-		"META_KEYWORDS" => "-",
-		"SET_META_DESCRIPTION" => "N",
-		"META_DESCRIPTION" => "-",
-		"SET_LAST_MODIFIED" => "N",
-		"USE_MAIN_ELEMENT_SECTION" => "N",
-		"ADD_SECTIONS_CHAIN" => "N",
-		"CACHE_FILTER" => "N",
-		"ACTION_VARIABLE" => "action",
-		"PRODUCT_ID_VARIABLE" => "id",
-		"PRICE_CODE" => array(
-			0 => "BASE",
-		),
-		"USE_PRICE_COUNT" => "N",
-		"SHOW_PRICE_COUNT" => "1",
-		"PRICE_VAT_INCLUDE" => "Y",
-		"CONVERT_CURRENCY" => "N",
-		"USE_PRODUCT_QUANTITY" => "N",
-		"PRODUCT_QUANTITY_VARIABLE" => "",
-		"ADD_PROPERTIES_TO_BASKET" => "Y",
-		"PRODUCT_PROPS_VARIABLE" => "prop",
-		"PARTIAL_PRODUCT_PROPERTIES" => "N",
-		"PRODUCT_PROPERTIES" => array(
-		),
-		"OFFERS_CART_PROPERTIES" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-		),
-		"ADD_TO_BASKET_ACTION" => "ADD",
-		"PAGER_TEMPLATE" => "round",
-		"DISPLAY_TOP_PAGER" => "N",
-		"DISPLAY_BOTTOM_PAGER" => "Y",
-		"PAGER_TITLE" => "Товары",
-		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_DESC_NUMBERING" => "N",
-		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-		"PAGER_SHOW_ALL" => "N",
-		"PAGER_BASE_LINK_ENABLE" => "N",
-		"SET_STATUS_404" => "N",
-		"SHOW_404" => "N",
-		"MESSAGE_404" => "",
-		"BACKGROUND_IMAGE" => "-",
-		"DISABLE_INIT_JS_IN_COMPONENT" => "N",
-		"CUSTOM_FILTER" => "",
-		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
-		"COMPOSITE_FRAME_MODE" => "A",
-		"COMPOSITE_FRAME_TYPE" => "AUTO",
-		"DISPLAY_COMPARE" => "N",
-		"COMPATIBLE_MODE" => "Y"
-	),
-	false
-);
-?>
-
 <div class="reviewsWrapp">
     <div class="catalogWrapper">
         <div class="arrows">
@@ -1887,143 +1895,6 @@ $APPLICATION->IncludeComponent(
     </div>
 </div>
 
-<?
-    if(!$USER->IsAdmin()){
-        $AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
-    } else {
-        $AllBooksFilter = array ("!SECTION_ID" => 57, ">CATALOG_PRICE_1" => 0, "!PROPERTY_STATE" => 23);
-    }
-
-    $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section",
-	"all_books",
-	array(
-		"IBLOCK_TYPE_ID" => "catalog",
-		"IBLOCK_ID" => "4",
-		"BASKET_URL" => "/personal/cart/",
-		"COMPONENT_TEMPLATE" => "all_books",
-		"IBLOCK_TYPE" => "catalog",
-		"SECTION_ID" => $_REQUEST["SECTION_ID"],
-		"SECTION_CODE" => "",
-		"SECTION_USER_FIELDS" => array(
-			0 => "",
-			1 => "",
-		),
-		"ELEMENT_SORT_FIELD" => "RAND",
-		"ELEMENT_SORT_ORDER" => "desc",
-		"ELEMENT_SORT_FIELD2" => "id",
-		"ELEMENT_SORT_ORDER2" => "desc",
-		"FILTER_NAME" => "AllBooksFilter",
-		"INCLUDE_SUBSECTIONS" => "Y",
-		"SHOW_ALL_WO_SECTION" => "Y",
-		"HIDE_NOT_AVAILABLE" => "N",
-		"PAGE_ELEMENT_COUNT" => "18",
-		"LINE_ELEMENT_COUNT" => "6",
-		"PROPERTY_CODE" => array(
-			0 => "STATE",
-			1 => "number_volumes",
-			2 => "",
-		),
-		"OFFERS_FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
-		"OFFERS_PROPERTY_CODE" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-			3 => "",
-		),
-		"OFFERS_SORT_FIELD" => "sort",
-		"OFFERS_SORT_ORDER" => "desc",
-		"OFFERS_SORT_FIELD2" => "id",
-		"OFFERS_SORT_ORDER2" => "desc",
-		"OFFERS_LIMIT" => "5",
-		"TEMPLATE_THEME" => "site",
-		"PRODUCT_DISPLAY_MODE" => "Y",
-		"ADD_PICT_PROP" => "BIG_PHOTO",
-		"LABEL_PROP" => "-",
-		"OFFER_ADD_PICT_PROP" => "-",
-		"OFFER_TREE_PROPS" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-		),
-		"PRODUCT_SUBSCRIPTION" => "N",
-		"SHOW_DISCOUNT_PERCENT" => "N",
-		"SHOW_OLD_PRICE" => "Y",
-		"SHOW_CLOSE_POPUP" => "N",
-		"MESS_BTN_BUY" => "Купить",
-		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-		"MESS_BTN_SUBSCRIBE" => "Подписаться",
-		"MESS_BTN_DETAIL" => "Подробнее",
-		"MESS_NOT_AVAILABLE" => "Нет в наличии",
-		"SECTION_URL" => "",
-		"DETAIL_URL" => "",
-		"SECTION_ID_VARIABLE" => "SECTION_ID",
-		"SEF_MODE" => "N",
-		"AJAX_MODE" => "N",
-		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y",
-		"AJAX_OPTION_HISTORY" => "N",
-		"AJAX_OPTION_ADDITIONAL" => "",
-		"CACHE_TYPE" => "Y",
-		"CACHE_TIME" => "3600",
-		"CACHE_GROUPS" => "N",
-		"SET_TITLE" => "N",
-		"SET_BROWSER_TITLE" => "Y",
-		"BROWSER_TITLE" => "-",
-		"SET_META_KEYWORDS" => "Y",
-		"META_KEYWORDS" => "-",
-		"SET_META_DESCRIPTION" => "Y",
-		"META_DESCRIPTION" => "-",
-		"SET_LAST_MODIFIED" => "N",
-		"USE_MAIN_ELEMENT_SECTION" => "N",
-		"ADD_SECTIONS_CHAIN" => "N",
-		"CACHE_FILTER" => "N",
-		"ACTION_VARIABLE" => "action",
-		"PRODUCT_ID_VARIABLE" => "id",
-		"PRICE_CODE" => array(
-			0 => "BASE",
-		),
-		"USE_PRICE_COUNT" => "N",
-		"SHOW_PRICE_COUNT" => "1",
-		"PRICE_VAT_INCLUDE" => "Y",
-		"CONVERT_CURRENCY" => "N",
-		"USE_PRODUCT_QUANTITY" => "N",
-		"PRODUCT_QUANTITY_VARIABLE" => "",
-		"ADD_PROPERTIES_TO_BASKET" => "Y",
-		"PRODUCT_PROPS_VARIABLE" => "prop",
-		"PARTIAL_PRODUCT_PROPERTIES" => "N",
-		"PRODUCT_PROPERTIES" => array(
-		),
-		"OFFERS_CART_PROPERTIES" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-		),
-		"ADD_TO_BASKET_ACTION" => "ADD",
-		"PAGER_TEMPLATE" => "round",
-		"DISPLAY_TOP_PAGER" => "N",
-		"DISPLAY_BOTTOM_PAGER" => "Y",
-		"PAGER_TITLE" => "Товары",
-		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_DESC_NUMBERING" => "N",
-		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-		"PAGER_SHOW_ALL" => "N",
-		"PAGER_BASE_LINK_ENABLE" => "N",
-		"SET_STATUS_404" => "N",
-		"SHOW_404" => "N",
-		"MESSAGE_404" => "",
-		"BACKGROUND_IMAGE" => "-",
-		"DISABLE_INIT_JS_IN_COMPONENT" => "N",
-		"CUSTOM_FILTER" => "",
-		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
-		"COMPATIBLE_MODE" => "Y"
-	),
-	false
-);?>
-
 <div class="socialServises no-mobile" style="text-align: center;padding:40px 0">
 	<style>
 	.b-share-btn__wrap {margin:0 20px!important}
@@ -2114,8 +1985,6 @@ $APPLICATION->IncludeComponent(
     </div>
 </div>
 <script>
-
-
     $(".some_info").click(function(){
         $(".some_info").hide();
         $(".layout").hide();

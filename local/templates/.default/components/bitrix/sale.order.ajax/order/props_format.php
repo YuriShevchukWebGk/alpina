@@ -53,17 +53,28 @@
                     }
                     else {
                         $class = "";
+                }
+                if($arProperties["CODE"] == "series_pasport" ){
+                     $class .= ' pasport';
+                } else if($arProperties["CODE"] == "number_pasport"){
+                     $class .= ' pasport_number';
                 } ?>
-                <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?>" <?if($preorder && ($arProperties["ID"] == DELIVERY_DATE_LEGAL_ORDER_PROP_ID || $arProperties["ID"] == DELIVERY_DATE_NATURAL_ORDER_PROP_ID)) { echo 'style="display:none"'; }?>>
+                <div data-property-id-row="<?=intval(intval($arProperties["ID"]))?>" class="<?=$class?> " <?if($preorder && ($arProperties["ID"] == DELIVERY_DATE_LEGAL_ORDER_PROP_ID || $arProperties["ID"] == DELIVERY_DATE_NATURAL_ORDER_PROP_ID)) { echo 'style="display:none"'; }?>>
                     <?if ($arProperties["TYPE"] != "LOCATION") {?>
 
-                        <p class="inputTitle">
-                            <?=$arProperties["NAME"]?>
-                            <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
-                                <span class="bx_sof_req">*</span>
-                                <?endif?>
-                        </p>
-
+                        <?if(($arProperties["CODE"] != "number_pasport")){?>
+                            <p class="inputTitle">
+                                <?echo $arProperties["NAME"];?>
+                                <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
+                                    <span class="bx_sof_req">*</span>
+                                    <?endif?>
+                             <?if($arProperties["CODE"] == "series_pasport"){ ?>
+                                    <br>
+                                    <span>(необходимы для получения груза)</span>
+                             <?} ?> 
+                            </p> 
+              
+                         <?}?>
                         <?}?>
 
                         <?
@@ -84,7 +95,14 @@
                             if($arProperties["CODE"]!="certificate" && $arProperties["CODE"]!="CODE_COUPON") {
                             ?>
 
-                            <?if(($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE") && !$window){?>
+                            <?if(($arProperties["CODE"] == "series_pasport" || $arProperties["CODE"] == "number_pasport")){?>
+                                <input class="clientInfo" placeholder="<?=$arProperties["DESCRIPTION"]?>" id="<?=$arProperties["FIELD_NAME"]?>" type="tel" 
+                                       maxlength="<?=($arProperties['CODE'] == 'series_pasport')? 4: 6?>" 
+                                       size="<?=$arProperties["SIZE1"]?>" 
+                                       value="<?=($arProperties["VALUE"])?$arProperties["VALUE"]:$_POST["ORDER_PROP_".$arProperties["ID"]]?>" 
+                                       name="<?=$arProperties["FIELD_NAME"]?>" />
+                            
+                            <?} else if(($arProperties["CODE"] == "PHONE" || $arProperties["CODE"] == "F_PHONE") && !$window){?>
 
                                 <input class="clientInfo" placeholder="(___) ___ __ __" id="<?=$arProperties["FIELD_NAME"]?>" type="tel" maxlength="250" size="<?=$arProperties["SIZE1"]?>" value="<?=($arProperties["VALUE"])?$arProperties["VALUE"]:$_POST["ORDER_PROP_".$arProperties["ID"]]?>" name="<?=$arProperties["FIELD_NAME"]?>" />
                             <?} else if($arProperties["CODE"] == "ADRESS_PICKPOINT"){?>
@@ -100,7 +118,7 @@
                                 <span class="warningMessage">Заполните поле <?=$arProperties["NAME"]?></span>
                             <?endif?>
 
-                            <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0 && $arProperties["CODE"] != "ADRESS_PICKPOINT"):?>
+                            <?if (strlen(trim($arProperties["DESCRIPTION"])) > 0 && $arProperties["CODE"] != "ADRESS_PICKPOINT" && ($arProperties["CODE"] != "series_pasport" && $arProperties["CODE"] != "number_pasport")):?>
                                 <div class="bx_description"><?=$arProperties["DESCRIPTION"]?></div>
                             <?endif?>
                             <? } else if ($arProperties["CODE"]=="CODE_COUPON") {   ?>
@@ -164,7 +182,7 @@
                             $rows = ($arProperties["SIZE2"] > 10) ? 4 : $arProperties["SIZE2"];
                         ?>
                         <?if($arProperties["FIELD_ID"] == "ORDER_PROP_ADDRESS"){
-                            $arProperties["VALUE"] = $_SESSION["city_order_checked"].', '.$arProperties["VALUE"];
+                           // $arProperties["VALUE"] = $_SESSION["city_order_checked"].', '.$arProperties["VALUE"];
                         }?>
                         <div class="bx_block r3x1">
                             <textarea rows="<?=$rows?>" cols="<?=$arProperties["SIZE1"]?>" name="<?=$arProperties["FIELD_NAME"]?>" id="<?=$arProperties["FIELD_NAME"]?>"><?=$arProperties["VALUE"]?></textarea>
@@ -175,26 +193,25 @@
                         </div>
                         <?
                         } elseif ($arProperties["TYPE"] == "LOCATION") {
-                            if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
+                           /* if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
                                 $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
                             } else {
                                 $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
-                            }
+                            }   */
                           if($arProperties["CODE"] != 'LOCATION_CITY'){
-                            $value = 0;
+                            $value = 0;    
                             if (is_array($arProperties["VARIANTS"]) && count($arProperties["VARIANTS"]) > 0){
                                 foreach ($arProperties["VARIANTS"] as $arVariant){
-
-                                    if ($arVariant["CITY_NAME"] == $city){
+                                    if ($arVariant["SELECTED"] == "Y"){
                                         $value = $arVariant["ID"];
-                                      //  break;
+                                        break;
                                     }
 
-                                    if($arVariant["CITY_NAME"] == "Москва и МО" && $city == "Москва" || $arVariant["ID"] == $_POST["ORDER_PROP_2"] && $_POST["ORDER_PROP_2"] != 21278){
+                                }
+                                    /*if($arVariant["CITY_NAME"] == "Москва и МО" && $city == "Москва" || $arVariant["ID"] == $_POST["ORDER_PROP_2"] && $_POST["ORDER_PROP_2"] != 21278){
                                        $value = $arVariant["ID"];
                                        break;
-                                    }
-                                }
+                                    } */
                                 if ($value == ""){
                                     $value = $arProperties["VALUE"];
                                 }
