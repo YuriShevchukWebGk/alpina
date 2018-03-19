@@ -15,6 +15,7 @@
     CModule::IncludeModule("catalog");
     CModule::IncludeModule("main");
     CModule::IncludeModule('highloadblock');
+    use Bitrix\Sale;
     use Bitrix\Main;
     use Bitrix\Main\Loader;
     use Bitrix\Main\Localization\Loc;
@@ -3604,7 +3605,7 @@ function AddBasketRule() {
      
      return "AddBasketRule();";  
 }
-// регистрируем обработчик
+// регистрируем обработчик                 
 AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
     
     // создаем обработчик события "OnAfterIBlockElementUpdate"
@@ -3711,4 +3712,35 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
 
        // 
     }
+// регистрируем обработчик                 
+AddEventHandler("sale", "OnBeforeOrderUpdate", "UpdateSaleOrder");
+
+function UpdateSaleOrder($ID, $arFields){
+         
+    $order = Sale\Order::loadByAccountNumber($ID); 
+    //и получаем Коллекцию Отгрузок текущего Заказа
+    $shipmentCollection = $order->getShipmentCollection();
+
+    foreach($shipmentCollection as $shipment) {
+         $shipment_id = $shipment->getId();
+
+         //пропускаем системные
+         if ($shipment->isSystem())
+          continue;
+          
+         $arShipments[$ID] = array(
+          'ID' => $shipment_id,
+          'ORDER_ID' => $shipment->getField('ORDER_ID'),
+          'DELIVERY_ID' => $shipment->getField('DELIVERY_ID'),
+          'PRICE_DELIVERY' => (float)$shipment->getField('PRICE_DELIVERY'),
+         );
+           if($arFields["PRICE_DELIVERY"] != $arShipments[$ID]["PRICE_DELIVERY"]){ 
+          
+              $shipment->setField('PRICE_DELIVERY', $arShipments[$ID]["PRICE_DELIVERY"]);
+              $order->save();
+               
+           }
+     }
+ 
+}
 ?>
