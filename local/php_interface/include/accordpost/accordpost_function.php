@@ -241,7 +241,8 @@ function update_order_accordpost($zdoc_id, $arIDs, $order_props) {
         if ($legal) {
             if (update_property($prop_data) && update_property($prop_data_zdoc)) {
                 $order_log = $logger_date.' - Успешно обновил';  
-                logger($order_log, $logger_file);      
+                logger($order_log, $logger_file); 
+                CSaleOrder::StatusOrder($ID, "K");     
                 $error_result = true;    
             } else {
                 $order_log = $logger_date.' - Не обновил';  
@@ -250,7 +251,8 @@ function update_order_accordpost($zdoc_id, $arIDs, $order_props) {
         } else {  
             if (update_property($prop_data) && update_property($prop_data_zdoc)) {
                 $order_log = $logger_date.' - Успешно обновил';  
-                logger($order_log, $logger_file);      
+                logger($order_log, $logger_file);
+                CSaleOrder::StatusOrder($ID, "K");      
                 $error_result = true;   
             } else {
                 $order_log = $logger_date.' - Не обновил';  

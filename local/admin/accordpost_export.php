@@ -183,9 +183,8 @@
             }                                   
             
             //Экспортируем       
-            if (export_to_accordpost($xmlBody, $zdoc_id_common, $shipment_id_common, $arIDsCommonOrders, $order_props)) {
-                CSaleOrder::StatusOrder($order_id, "K");
-            }    
+            export_to_accordpost($xmlBody, $zdoc_id_common, $shipment_id_common, $arIDsCommonOrders, $order_props);
+                //CSaleOrder::StatusOrder($order_id, "K");    
         }  
                                
         //Генерация xml для международных заказов 
