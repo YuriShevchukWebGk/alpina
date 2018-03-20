@@ -1659,7 +1659,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						1 => "",
 					),
 					"SECTION_USER_FIELDS" => array(
-						0 => "",
+						0 => "UF_SHOW_ALWAYS",
 						1 => "",
 					),
 					"ADD_SECTIONS_CHAIN" => "Y",
