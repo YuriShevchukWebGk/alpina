@@ -98,5 +98,10 @@ if (0 < $arResult['SECTIONS_COUNT'])
 } 
 
 shuffle($arResult["SECTIONS"]);
-
+foreach ($arResult["SECTIONS"] as $key => $arSection) {
+   if ($arSection["UF_SHOW_ALWAYS"] == SHOW_ALWAYS_PROP_VALUE_ID) {
+        array_unshift($arResult["SECTIONS"], $arResult["SECTIONS"][$key]);
+        unset($arResult["SECTIONS"][$key]);
+   } 
+}
 ?>
