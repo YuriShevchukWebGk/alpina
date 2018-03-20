@@ -225,10 +225,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="blogWrap">
 <?if ($APPLICATION->GetCurPage() == '/blog/') {?>
 	<p class="iblogalpina no-mobile">
-		БЛОГ О КНИГАХ, ЛЮДЯХ И СМЫСЛАХ
+		МЕДИА О КНИГАХ, ЛЮДЯХ И СМЫСЛАХ
 	</p>
 	<p class="iblog no-mobile">
-		я<img src="/img/logoBig.png">блог
+		я<img src="/img/logoBig.png">медиа
 	</p>
     <?$APPLICATION->IncludeComponent(
 		"bitrix:search.title",
