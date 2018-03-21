@@ -493,11 +493,12 @@
     *
     * @param array $arFields
     * @return void
-    *
+    *          
     * */
-    function flippostHandlerBefore(&$arFields) {
+    function flippostHandlerBefore(&$arFields) { 
         if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
             $delivery_price = 0;
+            
             $flippost_default_values = getDefaultFlippostValues();
             if ($_REQUEST['flippost_cost']) {
                 $delivery_price = $_REQUEST['flippost_cost'];
@@ -515,11 +516,32 @@
                         }
                     }
                 }
-            }
-            $arFields['PRICE'] += floatval($delivery_price);
-            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
-        }
+            }   
+            
+            // записываем стоимость доставки в отгрузку 
+            $order = Sale\Order::loadByAccountNumber($orderId); 
+            //и получаем Коллекцию Отгрузок текущего Заказа
+            $shipmentCollection = $order->getShipmentCollection();
+            
+            foreach($shipmentCollection as $shipment) {
+                 $shipment_id = $shipment->getId();
 
+                 //пропускаем системные
+                 if ($shipment->isSystem())
+                  continue;
+                  
+                 $arShipments[$orderId] = array(
+                  'ID' => $shipment_id,
+                  'ORDER_ID' => $shipment->getField('ORDER_ID'),
+                  'DELIVERY_ID' => $shipment->getField('DELIVERY_ID'),
+                  'PRICE_DELIVERY' => (float)$shipment->getField('PRICE_DELIVERY'),
+                 );                  
+                      $shipment->setField('BASE_PRICE_DELIVERY', $delivery_price);
+                      $shipment->setField('CUSTOM_PRICE_DELIVERY', 'Y');
+                      $order->save();
+             }  
+            
+        }
 
     }
     // изменяем статус для заказов с предзаказом
@@ -780,7 +802,7 @@
         }
     }
 
-    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberryDeliveryHandlerBefore"); // меняем цену для boxbery
+    AddEventHandler("sale", "OnOrderSave", "boxberryDeliveryHandlerBefore"); // меняем цену для boxbery
 
     /**
     * Handler для доставки boxbery. Плюсуем стоимость доставки
@@ -791,40 +813,38 @@
     * */
     function boxberryDeliveryHandlerBefore(&$arFields) {
         if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
-            if($_REQUEST['boxbery_price'] <= 0 && $arFields["PRICE"] < 2000){
-                $delivery_price = 235;
-            } else {
-                $delivery_price = $_REQUEST['boxbery_price'];
+            $delivery_price = $_REQUEST['boxbery_price'];
+            if(floatval($delivery_price) <= 0 && $arFields['PRICE'] < 2000){
+                $delivery_price = 235;   
             }
-            $arFields['PRICE'] += floatval($delivery_price);
-            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
+            // записываем стоимость доставки в отгрузку 
+            $order = Sale\Order::loadByAccountNumber($orderId); 
+            //и получаем Коллекцию Отгрузок текущего Заказа
+            $shipmentCollection = $order->getShipmentCollection();
+            
+            foreach($shipmentCollection as $shipment) {
+                 $shipment_id = $shipment->getId();
+
+                 //пропускаем системные
+                 if ($shipment->isSystem())
+                  continue;
+                  
+                 $arShipments[$orderId] = array(
+                  'ID' => $shipment_id,
+                  'ORDER_ID' => $shipment->getField('ORDER_ID'),
+                  'DELIVERY_ID' => $shipment->getField('DELIVERY_ID'),
+                  'PRICE_DELIVERY' => (float)$shipment->getField('PRICE_DELIVERY'),
+                 );                  
+                      $shipment->setField('BASE_PRICE_DELIVERY', $delivery_price);
+                      $shipment->setField('CUSTOM_PRICE_DELIVERY', 'Y');
+                      $order->save();
+             }  
         }
     }
 
     //Обновление заказа для доставки Boxberry
-    AddEventHandler("sale", "OnBeforeOrderAdd", "boxberryHandlerBefore"); // меняем цену для boxberry
     AddEventHandler("sale", "OnOrderSave", "boxberryHandlerAfter"); // меняем адрес для boxberry
 
-    /**
-    * Handler для доставки boxberry. Плюсуем стоимость доставки
-    *
-    * @param array $arFields
-    * @return void
-    *
-    * */
-    function boxberryHandlerBefore(&$arFields) {
-        if ($arFields['DELIVERY_ID'] == BOXBERRY_PICKUP_DELIVERY_ID) {
-            $delivery_price = $_REQUEST['boxberry_cost'];
-            $arFields['PRICE_DELIVERY'] = floatval($delivery_price);
-            if(floatval($delivery_price) <= 0 && $arFields['PRICE'] < 2000){
-                $arFields['PRICE_DELIVERY'] = 235;
-                $arFields['PRICE'] += $arFields['PRICE_DELIVERY'];
-            } else {
-                $arFields['PRICE'] += floatval($delivery_price);
-            }
-
-        }
-    }
 
     /**
     * Handler для доставки boxberry. Изменяем адрес
@@ -836,6 +856,34 @@
     function boxberryHandlerAfter($ID, $arFields) {
         GLOBAL $arParams;
         if ($arFields['DELIVERY_ID'] == BOXBERRY_PICKUP_DELIVERY_ID) {
+
+            $delivery_price = $_REQUEST['boxberry_cost'];
+            if(floatval($delivery_price) <= 0 && $arFields['PRICE'] < 2000){
+                $delivery_price = 235;   
+            }
+            // записываем стоимость доставки в отгрузку 
+            $order = Sale\Order::loadByAccountNumber($orderId); 
+            //и получаем Коллекцию Отгрузок текущего Заказа
+            $shipmentCollection = $order->getShipmentCollection();
+            
+            foreach($shipmentCollection as $shipment) {
+                 $shipment_id = $shipment->getId();
+
+                 //пропускаем системные
+                 if ($shipment->isSystem())
+                  continue;
+                  
+                 $arShipments[$orderId] = array(
+                  'ID' => $shipment_id,
+                  'ORDER_ID' => $shipment->getField('ORDER_ID'),
+                  'DELIVERY_ID' => $shipment->getField('DELIVERY_ID'),
+                  'PRICE_DELIVERY' => (float)$shipment->getField('PRICE_DELIVERY'),
+                 );                  
+                      $shipment->setField('BASE_PRICE_DELIVERY', $delivery_price);
+                      $shipment->setField('CUSTOM_PRICE_DELIVERY', 'Y');
+                      $order->save();
+             }  
+
             // Добавляем полную стоимость заказа в оплату
             $order_instance = Bitrix\Sale\Order::load($ID);
             $payment_collection = $order_instance->getPaymentCollection();
@@ -3712,35 +3760,38 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
 
        // 
     }
+
+
 // регистрируем обработчик                 
 AddEventHandler("sale", "OnBeforeOrderUpdate", "UpdateSaleOrder");
 
 function UpdateSaleOrder($ID, $arFields){
-         
-    $order = Sale\Order::loadByAccountNumber($ID); 
-    //и получаем Коллекцию Отгрузок текущего Заказа
-    $shipmentCollection = $order->getShipmentCollection();
+       
+        $order = Sale\Order::loadByAccountNumber($ID); 
+        //и получаем Коллекцию Отгрузок текущего Заказа
+        $shipmentCollection = $order->getShipmentCollection();
+        $arFields["PRICE_DELIVERY"] = 0;
+        foreach($shipmentCollection as $shipment) {
+             $shipment_id = $shipment->getId();
 
-    foreach($shipmentCollection as $shipment) {
-         $shipment_id = $shipment->getId();
+             //пропускаем системные
+             if ($shipment->isSystem())
+              continue;
+              
+             $arShipments[$ID] = array(
+              'ID' => $shipment_id,
+              'ORDER_ID' => $shipment->getField('ORDER_ID'),
+              'DELIVERY_ID' => $shipment->getField('DELIVERY_ID'),
+              'PRICE_DELIVERY' => (float)$shipment->getField('PRICE_DELIVERY'),
+             );
+               if($arFields["PRICE_DELIVERY"] != $arShipments[$ID]["PRICE_DELIVERY"]){ 
+                  
+                  $shipment->setField('BASE_PRICE_DELIVERY', $arShipments[$ID]["PRICE_DELIVERY"]);
+                  $shipment->setField('CUSTOM_PRICE_DELIVERY', 'Y');
+                  $order->save();
+                   
+               }
+         }
 
-         //пропускаем системные
-         if ($shipment->isSystem())
-          continue;
-          
-         $arShipments[$ID] = array(
-          'ID' => $shipment_id,
-          'ORDER_ID' => $shipment->getField('ORDER_ID'),
-          'DELIVERY_ID' => $shipment->getField('DELIVERY_ID'),
-          'PRICE_DELIVERY' => (float)$shipment->getField('PRICE_DELIVERY'),
-         );
-           if($arFields["PRICE_DELIVERY"] != $arShipments[$ID]["PRICE_DELIVERY"]){ 
-          
-              $shipment->setField('PRICE_DELIVERY', $arShipments[$ID]["PRICE_DELIVERY"]);
-              $order->save();
-               
-           }
-     }
- 
 }
 ?>
