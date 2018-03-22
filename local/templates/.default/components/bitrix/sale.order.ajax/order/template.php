@@ -1100,10 +1100,12 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь на обработку персональных данных в соответствии <a href="/info_popup/pii.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showPii'});return false;" class="cartMenuPopup">с условиями</a><br />и с условиями <a href="/info_popup/oferta.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showOferta'});return false;" class="cartMenuPopup">публичной оферты</a></span>
     </div>
     <?if ($arResult["PAY_SYSTEM"]["ID"] == 24) {?>
+    <script src="https://payment.platbox.com/widget.js"></script>  
+
     <?  
         $order["order_id"] = $arResult["ORDER_ID"].'_'.rand(0, 100);
         
-        $secretkey = "ff084641f88df727b029a4816b428082";
+        $secretkey = "83508e01b1ef2a175d54e81d8e2532fe";
 
         $x = [
             "merchant_id" => rawurldecode($merchant_id),
@@ -1114,17 +1116,50 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
            // "sign"        => rawurldecode($sign),
             "project"     => rawurldecode($project),
             "val"         => "second",
-            "redirect_url"=> rawurldecode($resultUrl)
+            "redirect_url"=> rawurldecode($resultUrl),
+            "mobile"      => 1
         ];
-        
         ksort($x);
         $str = json_encode($x);
         
         $sign = hash_hmac("SHA256", $str, $secretkey); 
     ?>
-    <div class="platbox_iframe_block" style="width: 50%; height: 613px; display: none; position: absolute; z-index: 2000; left: 27%; top: 30%; background-color: white;">
-        <iframe class="platbox_iframe" src='https://playground.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
-        </iframe>
+    <script>
+        const widget = new PBWidget({
+            account: {
+                id: '<?=$account["id"]?>',
+            },
+            amount: <?=rawurldecode($amount)?>,
+            currency: '<?=$currency?>',
+            merchant_id: <?=rawurldecode($merchant_id)?>,
+            order: {
+                order_id: '<?=$order["order_id"]?>',
+                type: '<?=$order["type"]?>',
+            },
+            project: '<?=rawurldecode($project)?>',
+            val: 'second',
+            redirect_url: '<?=rawurldecode($resultUrl)?>',
+            mobile: 1,
+            sign: <?=$sign?>,
+        }, {
+            attributes: {
+                className: 'platbox_iframe_block',
+            },
+
+            onDestroy: function () {
+                // Сделать что-то после закрытия формы оплаты.
+            },
+            onRender: function () {
+                console.log('yes');
+            },
+        });
+    window.addEventListener('message', function (event) {
+        console.log(event.data); // -> { action: "action name", type: "type name", payload: {...} }
+    });
+    </script>
+    <div class="platbox_iframe_block" style="width: 100%; left: 0%; height: 613px; display: none; position: absolute; z-index: 2000; top: 30%; background-color: white;">
+        <?/*<iframe class="platbox_iframe" src='https://paybox-global.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>&mobile=1' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
+        </iframe>*/?>
         <div class="platbox_iframe_closing" style="position: absolute; cursor: pointer; top: -10px; right: -13px;">
             <img src="/img/catalogLeftClose.png">
         </div>
