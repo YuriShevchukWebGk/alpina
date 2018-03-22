@@ -15,12 +15,33 @@
 	$googleEnhancedECommerce = Array();
     $itemsForFloctory = Array();
     $itemsForRetailRocket = array();
+	$itemsForAdmitad = array();
+	
+	$positionCount = count($arResult["BASKET_ITEMS"]);
 
+	if (isset($_COOKIE['_aid'])) {
+		$admitAdCookie = $_COOKIE['_aid'];
+	} else {
+		$admitAdCookie ='';
+	}
 
     foreach ($arResult["BASKET_ITEMS"] as $key => $basketItem) {
         array_push($itemsForCriteo,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", quantity: ".$basketItem["QUANTITY"]." }");
         array_push($itemsForFloctory,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", quantity: ".$basketItem["QUANTITY"].", title: '".$basketItem["NAME"]."' }");
         array_push($itemsForRetailRocket,"{ id: '".$basketItem["PRODUCT_ID"]."', price: ".$basketItem["PRICE"].", qnt: ".$basketItem["QUANTITY"]." }");
+		
+		array_push($itemsForAdmitad,"
+			uid: '".$admitAdCookie."',
+			tariff_code: '1',
+			order_id: '".$basketItem["PRODUCT_ID"]."',
+			position_id: '".($key+1)."',
+			currency_code: 'RUB',
+			position_count: '".$positionCount."',
+			price: '".$basketItem["PRICE"]."',
+			quantity: '".$basketItem["QUANTITY"]."',
+			product_id: '".$basketItem["PRODUCT_ID"]."',
+			payment_type: 'sale',
+		");
 
          // --- for google ecommerce
 
@@ -54,6 +75,8 @@
     $comma_separated_retailRocket = implode(",", $itemsForRetailRocket);
     $comma_separated_retailRocket = '['.$comma_separated_retailRocket.']';
     $_SESSION['retailRocket'] = $comma_separated_retailRocket;
+	//---- admitad
+	$_SESSION['itemsForAdmitad'] = $itemsForAdmitad;
 
 
 ?>
