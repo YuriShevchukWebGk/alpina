@@ -341,3 +341,6 @@ bx-newslist-slider-arrow,
 .events_info table {
     margin-bottom: 50px;
 }
+footer {
+    overflow-y: hidden;
+}
