@@ -1114,8 +1114,8 @@ function recalcBasketAjax(params)
                 $('.sale_price').html('Добавьте товаров на '+ (2000 - sum).toFixed() +' руб. и получите БЕСПЛАТНУЮ доставку');
             } else if (sum < 5000 && discrel < 10) {
                 $('.sale_price').html('Добавьте товаров на '+ (5000 - sum).toFixed() +' руб. и получите скидку 10%');
-            } else if (sum < 20000 && discrel < 20) {
-                $('.sale_price').html('Добавьте товаров на '+ (20000 - sum).toFixed() +' руб. и получите скидку 20%');
+            } else if (sum < 18000 && discrel < 20) {
+                $('.sale_price').html('Добавьте товаров на '+ (18000 - sum).toFixed() +' руб. и получите скидку 20%');
             } else {
                 $('.sale_price').html('');
             }

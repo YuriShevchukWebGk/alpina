@@ -244,9 +244,10 @@
         function GetOrdersArray()
         {                      
             $obOrdersPostamat = CPickpoint::SelectOrderPostamat();
-            $arItems = array();           
-            while($arOrderPostamat = $obOrdersPostamat->Fetch())
-            {                                         
+            $arItems = array();  
+            
+            while($arOrderPostamat = $obOrdersPostamat->Fetch()){  
+                                                  
                 $obOrder = CSaleOrder::GetList(
                     array(),
                     array(
@@ -266,8 +267,8 @@
                         "DELIVERY_ID",
                     )
                 );
-                if($arOrder = $obOrder->Fetch())
-                {                    
+                while($arOrder = $obOrder->Fetch())
+                {   arshow($arOrder);                  
                     if(strpos($arOrder['DELIVERY_ID'], 'pickpoint') !== false)
                     {                    
                         $arSettings = unserialize($arOrderPostamat["SETTINGS"]);

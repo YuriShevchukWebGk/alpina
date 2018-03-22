@@ -35,6 +35,9 @@ CModule::IncludeModule("iblock");
 	
 	$noEbook = array(
 		391958, //Автобизнес новой реальности
+		186046,
+		372526,
+		7377 //Жесткий менеджмент
 	);
 
 	
@@ -154,18 +157,34 @@ CModule::IncludeModule("iblock");
 				$bookdid = get_object_vars($oned)['id'];
 				$bookprice = get_object_vars(get_object_vars($oned)['prices'][0])['reference_price'];
 				CIBlockElement::SetPropertyValuesEx($bookid, CATALOG_IBLOCK_ID, array('appstore' => '231', 'android' => '232', 'alpina_digital_ids' => $bookdid, 'alpina_digital_price' => $bookprice));
-			} elseif ($bookid != 186046 && $bookid != 372526) {
+			} else {
 				CIBlockElement::SetPropertyValuesEx($bookid, CATALOG_IBLOCK_ID, array('appstore' => '', 'android' => '', 'alpina_digital_ids' => '', 'alpina_digital_price' => ''));    
 			}
 		}
 	}
 
 	foreach ($lost as $findrec) {
-        if ($findrec != 186046 && $findrec != 372526) {
-		    CIBlockElement::SetPropertyValuesEx($findrec, CATALOG_IBLOCK_ID, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
-        }
+		CIBlockElement::SetPropertyValuesEx($findrec, CATALOG_IBLOCK_ID, array('rec_for_ad' => '', 'appstore' => '', 'android' => ''));
 	}
 	echo 1;
+	
+	
+	$arFilter = Array(
+		"IBLOCK_ID" => CATALOG_IBLOCK_ID,
+		"PROPERTY_PUBLISHER" => array(24,25,82,26),
+		"ACTIVE" => "Y",
+		"!PROPERTY_STATE" => 23,
+		"!PROPERTY_MAIN_APP_ID" => false
+	);
+	
+	$addDigital = CIBlockElement::GetList(Array(), $arFilter, false, false, array("ID", "PROPERTY_MAIN_APP_ID"));
+	
+	while ($addBook = $addDigital->Fetch()) {
+		
+		$mainBook = CIBlockElement::GetList(Array(), array("ID" => $addBook["PROPERTY_MAIN_APP_ID_VALUE"]), false, false, array("ID", "PROPERTY_alpina_digital_ids", "PROPERTY_alpina_digital_price"))->Fetch();
+		
+		CIBlockElement::SetPropertyValuesEx($addBook["ID"], CATALOG_IBLOCK_ID, array('appstore' => '231', 'android' => '232', 'alpina_digital_ids' => $mainBook["PROPERTY_ALPINA_DIGITAL_IDS_VALUE"], 'alpina_digital_price' => $mainBook["PROPERTY_ALPINA_DIGITAL_PRICE_VALUE"]));
+	}
 	
 	AddMessage2Log('Скрипт выполнен cron', 'checkbooks.php');
 ?>

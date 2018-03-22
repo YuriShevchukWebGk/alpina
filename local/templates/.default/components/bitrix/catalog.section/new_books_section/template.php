@@ -34,7 +34,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 }?>
 
 
-<div class="wrapperCategor">
+<div class="wrapperCategor" style="height: auto;">
     <div class="categoryWrapper">
 
         <div class="catalogIcon">
@@ -42,7 +42,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
         <div class="basketIcon">
         </div>
 
-        <div class="contentWrapp">
+        <div class="contentWrapp" style="height: auto;">
 
             <p class="titleMain"><?=($arResult["NAME"])?$arResult["NAME"]:GetMessage("NEW")?></p>
 

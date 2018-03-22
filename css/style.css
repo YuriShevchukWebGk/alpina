@@ -200,7 +200,7 @@ header .headBasket{padding:17px 1px 0}
 .paymentWrapp .variants p:before{content:url(/img/reht.png);display:inline-block;float:left;height:23px;left:0;padding-right:11px;position:relative;top:-3px}
 .variants div{float:left;width:222px}
 .variants div:nth-child(1){margin-right:48px}
-footer{background-color:#353535;height:564px;clear:both}
+footer{background-color:#353535;clear:both;display:inline-block;width:100%;padding-bottom:30px;margin-bottom:-10px}
 .footerMenu p{color:#8F8F8F;font-size:17px}
 .footerMenu a{color:#8F8F8F!important}
 .footerContacts .yaMarket p{color:#5F5F5F;font-family:Walshein_regular;font-size:10px}
@@ -253,7 +253,7 @@ input:focus{outline:0}
 .roundSlider .buttons{cursor:pointer}
 .books>ul span{cursor:pointer}
 .bookNew{display:block}
-.bookBest,.bookMust,.bookSoon{display:none}
+.bookBest,.bookMust,.bookSoon,.bookChildren{display:none}
 .catalogIcon{left:-6px;background:url(/img/catalogIco.png) center no-repeat #85959a}
 .catalogIcon:hover{background:url(/img/catalogLogoMini.png) center no-repeat #fff}
 .basketIcon{right:-6px;background:url(/img/basketIcoHovers.png) center no-repeat #85959a}

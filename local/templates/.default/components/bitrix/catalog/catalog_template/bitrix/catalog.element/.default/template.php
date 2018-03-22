@@ -989,9 +989,11 @@
                     ),
                     false
                 );?>
-             <? */ ?>
+             <? */ 
+            // arshow($city, false);?>
              <ul class="shippings" data-weight="<?=$weight?>">
-                <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) && empty($_SESSION["ALTASIB_GEOBASE"])){
+                <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) || $city == "Москва"){
+                    
                     if($city == "Москва" || empty($city)){ ?>
                         <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
                             <?= GetMessage("MSK_DELIVERY") ?>

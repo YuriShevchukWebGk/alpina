@@ -125,6 +125,7 @@
     define ("ECOM_ADMIN_GROUP_ID", 6);
     define ("GIFT_BAG_EXHIBITION", 331); // правило корзины Подарок: сумка с выставки ММКВЯ 2017
     define ("SALE_POPULAR_ELEMENT", 970); // свойство для обновления популярной книги
+    define ("SHOW_ALWAYS_PROP_VALUE_ID", 15); // ID значения "Да" пользовательского поля "Показывать постоянно" для подборок на главной
 
     /**
     * Изменить на define() при апе до 7 версии PHP
@@ -989,7 +990,9 @@
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
                     if ($arItems["PRODUCT_ID"] != '186046' && $arItems["PRODUCT_ID"] != '372526') {
-                        $ids .= $arItems["PRODUCT_ID"].',';
+						$mainID = CIBlockElement::GetList(Array(), array("ID" => $arItems["PRODUCT_ID"]), false, false, array("ID", "PROPERTY_MAIN_APP_ID"))->Fetch();
+						
+                        $ids .= $mainID["PROPERTY_MAIN_APP_ID_VALUE"] ? $mainID["PROPERTY_MAIN_APP_ID_VALUE"].',' : $arItems["PRODUCT_ID"].',';
                     }
                 }
 
@@ -1033,9 +1036,8 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-                if ($order_list[PERSON_TYPE_ID] == 1 && !strstr($ids, "186046") && !strstr($ids, "372526")) {
-                    CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
-                }
+				
+				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 
                 if($order_list["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID && 
                     ($order_list["DELIVERY_ID"] == DELIVERY_COURIER_1 ||  
@@ -1154,7 +1156,9 @@
 
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
-                    $ids .= $arItems["PRODUCT_ID"].',';
+					$mainID = CIBlockElement::GetList(Array(), array("ID" => $arItems["PRODUCT_ID"]), false, false, array("ID", "PROPERTY_MAIN_APP_ID"))->Fetch();
+					
+					$ids .= $mainID["PROPERTY_MAIN_APP_ID_VALUE"] ? $mainID["PROPERTY_MAIN_APP_ID_VALUE"].',' : $arItems["PRODUCT_ID"].',';
                 }
 
                 $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
@@ -1197,9 +1201,9 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-                if ($order_list[PERSON_TYPE_ID] == 1) {
-                    CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
-                }
+
+				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
+
 
                 // при смене статуса и последующего автоматического CSaleOrder::PayOrder
                 // не срабатывает хендлер OnSalePayOrder, поэтому применяем выполнение функции здесь после оплаты
@@ -2454,11 +2458,11 @@
             $order_list=CSaleOrder::GetByID($arFields['ORDER_ID']);
             $arFields['HREF']='<a href="https://pochta.ru/tracking#'.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Почты России</a>.';
             if ($order_list['DELIVERY_ID']==17) {
-                $arFields['HREF']='<a href="http://pickpoint.ru/" target="_blank">на сайте PickPoint</a>.';
+                $arFields['HREF']='<a href="https://pickpoint.ru/monitoring/?shop=alpinabook.ru&number='.$arFields['ORDER_ID'].'" target="_blank">на сайте PickPoint</a>.';
             } elseif ($order_list['DELIVERY_ID']==30) {
                 $arFields['HREF']='<a href="http://flippost.com/instruments/online/" target="_blank">Flipost</a>.';
             } elseif ($order_list['DELIVERY_ID']==49) {
-                $arFields['HREF']='<a href="http://boxberry.ru/tracking/" target="_blank">на сайте Boxberry</a>.';
+                $arFields['HREF']='<a href="http://boxberry.ru/tracking/?id='.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Boxberry</a>.';
             }
         }
     }
@@ -3003,7 +3007,7 @@
         $curPage = $APPLICATION->GetCurPage();
         $order_log = 'Date: '.$date.'; CurPage: '.$curPage.'; IP: '.$_SERVER['REMOTE_ADDR'].'; UserID: '.$userID.'; OrderStatus: '.$status_id.'; OrderID: '.$order_id.';';
         $file = $_SERVER['DOCUMENT_ROOT'].'/local/php_interface/include/order_log.log';
-        logger($order_log, $file);
+       // logger($order_log, $file);
     }
 
     /**
@@ -3081,6 +3085,7 @@
     * */
     function certificatePayed(&$arParamsCertificate) {
         GLOBAL $arParams;
+
         if ($arParamsCertificate['IBLOCK_ID'] == CERTIFICATE_IBLOCK_ID) {
             $current_object = CIBlockElement::GetList(
                 Array(),
@@ -3108,8 +3113,9 @@
             $first_coupon_array_key = key($arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
             //Сохраним все купоны после генерации
             $arCoupons = array();
-
+            
             if (!$arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParamsCertificate['ACTIVE'] == "Y" && !empty($quantity)) {
+
                 $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
             }
             if (!empty($arCoupons)) {
@@ -3521,13 +3527,14 @@
         if($ar_props = $db_props->Fetch()){
             $status_product = $ar_props["VALUE"];
         }
+
         if($status_product == STATE_SOON && $status_product != $arFields["PROPERTY_VALUES"][PROPERTY_STATE_ID][0]["VALUE"]){
             $arFilter = Array(
                 "STATUS_ID" => "PR"
             );
             $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
             $order_new_statys = array();
-            $state = '';
+           // $state = '';
             while ($arSales = $rsSales->Fetch()) {
 
                 if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
@@ -3536,19 +3543,18 @@
 
                     while($arproduct = $dbItemsInOrder->Fetch()){
                         $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
-
                         if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
                             $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
                         }
                         if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
                             $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
                         }
-
+                        
                     }
                 }
             }
-
             foreach($order_new_statys as $order_update){
+                
                 if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
                     if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
@@ -3583,25 +3589,7 @@ function SyncProductCode($arFields) {
         }
     }
 }
-// задаем свои условия доставки apichip
-AddEventHandler('ipol.apiship', 'onCalculate', 'changeapishipTerms');
 
-function changeapishipTerms(&$arResult, $profile, $arConfig, $arOrder){
-
-   //     $profile - профиль
-   //     $arConfig - настройки СД
-  /*      $arOrder - параметры заказа
-            LOCATION_TO   - id местоположения доставки
-            LOCATION_FROM - id местоположения отправления
-            PRICE         - стоимость заказа
-            WEIGHT        - вес заказа в граммах
-        $arResult - массив вида
-            RESULT  - OK, если рассчет верен, ERROR - если ошибка
-            VALUE   - стоимость доставки в рублях
-            TRANSIT - срок доставки в днях
-            TARIF   - рассчитанный тариф, только для информации  */
-
-}
 
 function AddBasketRule() { 
     // получение релятивных товаров для создания правила корзины 
@@ -3673,98 +3661,99 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
                 $prop_value = $enum_fields["VALUE"];
             }   
         }
-        
-        $rsDiscounts = CSaleDiscount::GetList(array(), array("ID" => 409), false, false, array('CONDITIONS'))->Fetch();
-            
-        $arDiscount = unserialize($rsDiscounts['CONDITIONS']);                       
-        $CONDITIONS = array (
-           "CLASS_ID" => "CondGroup",
-           "DATA" => array (
-              "All" => "AND",
-              "True" => "True"
-           ),
-           "CHILDREN" => array(
-               array(  
-                  "CLASS_ID" => "CondBsktCntGroup",
-                  "DATA" => array (
-                     "All" => "OR",
-                     "logic" => "EqGr",
-                     "Value" => 2
-                  ),
-                  "CHILDREN" => Array( 
-                     $arDiscount["CHILDREN"][0]["CHILDREN"][0], 
-                     array(  
-                      "CLASS_ID" => "CondBsktFldProduct",
+        if($prop_value){
+            $rsDiscounts = CSaleDiscount::GetList(array(), array("ID" => 409), false, false, array('CONDITIONS'))->Fetch();
+                
+            $arDiscount = unserialize($rsDiscounts['CONDITIONS']);                       
+            $CONDITIONS = array (
+               "CLASS_ID" => "CondGroup",
+               "DATA" => array (
+                  "All" => "AND",
+                  "True" => "True"
+               ),
+               "CHILDREN" => array(
+                   array(  
+                      "CLASS_ID" => "CondBsktCntGroup",
                       "DATA" => array (
+                         "All" => "OR",
+                         "logic" => "EqGr",
+                         "Value" => 2
+                      ),
+                      "CHILDREN" => Array( 
+                         $arDiscount["CHILDREN"][0]["CHILDREN"][0], 
+                         array(  
+                          "CLASS_ID" => "CondBsktFldProduct",
+                          "DATA" => array (
+                             "logic" => "Equal",
+                             "value" => $arFields["ID"]
+                          ) 
+                         ) 
+                      )  
+                   ),array(  
+                      "CLASS_ID" => "CondBsktCntGroup",
+                      "DATA" => array (
+                         "All" => "AND",
                          "logic" => "Equal",
-                         "value" => $arFields["ID"]
+                         "Value" => 1
+                      ),
+                      "CHILDREN" => Array(
+                         array(  
+                          "CLASS_ID" => "CondBsktFldProduct",
+                          "DATA" => array (
+                             "logic" => "Equal",
+                             "value" => $prop_value
+                          ) 
+                         ) 
                       ) 
-                     ) 
-                  )  
-               ),array(  
-                  "CLASS_ID" => "CondBsktCntGroup",
+                   ),
+               ),
+            );
+              
+            $ACTIONS = array (
+               "CLASS_ID" => "CondGroup",
+               "DATA" => array (
+                  "All" => "AND",
+               ),
+               "CHILDREN" => array(  
+                array( 
+                  "CLASS_ID" => "ActSaleBsktGrp",
                   "DATA" => array (
+                     "Type" => "Discount",
+                     "Value" => 10,
+                     "Unit" => "Perc",
+                     "Max" => 0,
                      "All" => "AND",
-                     "logic" => "Equal",
-                     "Value" => 1
+                     "True" => "True"
+                     
                   ),
                   "CHILDREN" => Array(
-                     array(  
-                      "CLASS_ID" => "CondBsktFldProduct",
-                      "DATA" => array (
-                         "logic" => "Equal",
-                         "value" => $prop_value
-                      ) 
-                     ) 
-                  ) 
+              
+                  )
+                ),
                ),
-           ),
-        );
-          
-        $ACTIONS = array (
-           "CLASS_ID" => "CondGroup",
-           "DATA" => array (
-              "All" => "AND",
-           ),
-           "CHILDREN" => array(  
-            array( 
-              "CLASS_ID" => "ActSaleBsktGrp",
-              "DATA" => array (
-                 "Type" => "Discount",
-                 "Value" => 10,
-                 "Unit" => "Perc",
-                 "Max" => 0,
-                 "All" => "AND",
-                 "True" => "True"
-                 
-              ),
-              "CHILDREN" => Array(
-          
-              )
-            ),
-           ),
-        );   
-        $arFields = array(
-           "LID" => 's1',
-           "NAME" => "Скидка 1+1 для товара ".$prop_value,
-           "PRIORITY" => 1,
-           "LAST_LEVEL_DISCOUNT" => "N",
-           "LAST_DISCOUNT" => "Y",
-            "ACTIVE" => "Y",
-            "ACTIVE_FROM" => "",
-            "ACTIVE_TO" => "",
-            "SORT" => 100,
-            "XML_ID" => "",
-            "CONDITIONS" => $CONDITIONS, 
-            "ACTIONS" => $ACTIONS,
-            "USER_GROUPS" => array(
-                0 => 2
-            ), 
-        );
-      //  $ID = CSaleDiscount::Add($arFields);
-        $ID = CSaleDiscount::Update(409, $arFields);
+            );   
+            $arFields = array(
+               "LID" => 's1',
+               "NAME" => "Скидка 1+1 для товара ".$prop_value,
+               "PRIORITY" => 1,
+               "LAST_LEVEL_DISCOUNT" => "N",
+               "LAST_DISCOUNT" => "Y",
+                "ACTIVE" => "Y",
+                "ACTIVE_FROM" => "",
+                "ACTIVE_TO" => "",
+                "SORT" => 100,
+                "XML_ID" => "",
+                "CONDITIONS" => $CONDITIONS, 
+                "ACTIONS" => $ACTIONS,
+                "USER_GROUPS" => array(
+                    0 => 2
+                ), 
+            );
+          //  $ID = CSaleDiscount::Add($arFields);
+            $ID = CSaleDiscount::Update(409, $arFields);
 
-       // 
+           // 
+        }
     }
 
 

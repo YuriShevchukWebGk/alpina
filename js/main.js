@@ -896,6 +896,10 @@ $(document).ready(function(){
                         break
                     case "4":
                         //$('.bookMust').css('display','block');
+                        $('.bookChildren').delay(500).fadeIn();
+                        break
+                    case "5":
+                        //$('.bookMust').css('display','block');
                         $('.bookMust').delay(500).fadeIn();
                         break
                 };

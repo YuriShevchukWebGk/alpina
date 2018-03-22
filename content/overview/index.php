@@ -359,6 +359,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 <div class="t-row">
 </div>
+<div class="t-container" style="font-family:'Open Sans',serif;font-weight:300;">
+<h3>Сроки изготовления</h3><br />
+От 7 дней
+</div>
 </div>
 </div>
 </div>

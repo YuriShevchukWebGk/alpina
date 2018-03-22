@@ -8,20 +8,8 @@ foreach($arResult as $arItem) {
 	<li><a class="topMenuLink" href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
 <?}?>
 
-<?if (date("Y-m-d") == "2018-01-30" || $USER->isAdmin()) {?>
-	<li class="timer"><a href="#" style="color:red!important" onclick="getInfo('freedelivery');return false">Акция! Бесплатная доставка</li>
-	<script>
-	function getInfo(id) {
-		$.ajax({
-			type: "POST",
-			url: "/ajax/info_popup.php",
-			data: {info: id}
-		}).done(function(strResult) {
-			$("#ajaxBlock").append(strResult);
-			$("body").css('overflow','hidden');
-		});
-	}
-	</script>
+<?if (date("Y-m-d") == "2018-03-19" || date("Y-m-d") == "2018-03-20" || date("Y-m-d") == "2018-03-21") {?>
+	<li class="timer"><a href="/catalog/childrensale/" style="color:red!important">Книги для родителей по 199 рублей</li>
 <?} else {?>
 	<li><a class="topMenuLink" href="/actions/freedigitalbooks/" target="_blank">Бесплатные электронные книги</a></li>
 <?}?>

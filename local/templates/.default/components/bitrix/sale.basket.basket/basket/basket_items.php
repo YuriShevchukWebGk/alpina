@@ -374,14 +374,24 @@
 		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((2000 - $psum), 2) ."<span class='rubsign'></span> и получите БЕСПЛАТНУЮ доставку";
 	        } elseif ($psum < 5000 && $pdiscrel < 10) {
 		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((5000 - $psum), 2)."<span class='rubsign'></span> и получите скидку 10%";
-	        } elseif ($psum < 20000 && $pdiscrel < 20) {
-		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((20000 - $psum), 2)."<span class='rubsign'></span> и получите скидку 20%";
+	        } elseif ($psum < 18000 && $pdiscrel < 20) {
+		        $printDiscountText = "<a href='/catalog/crossbooks/' target='_blank'>Добавьте товаров</a> на " . round((18000 - $psum), 2)."<span class='rubsign'></span> и получите скидку 20%";
 	        }?>
 			<div id="discountMessageWrap" style="color: #353535;font-family: 'Walshein_regular';font-size: 15px;text-aling: right;text-align: right;padding: 10px 30px;">
 				<span id="discountMessage" style="background:#fff9b7"><span class='sale_price'><?=$printDiscountText?></span></span>
 			</div>
-
-            <p class="finalCost"><span id="allSum_FORMATED"><?if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N" && strlen($_SESSION["CUSTOM_COUPON"]["COUPON_ID"]) > 0 && intval($_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"]) > intval($arResult["allSum"])) {echo str_replace(" ", "&nbsp;", 0);} else {echo str_replace(" ", "&nbsp;", $arResult["allSum"]);}?><b class="rubsign"></b></span></p>
+			
+			<?if ($pdiscrel > 0) {?>
+				<p class="wodiscount">Сумма без скидки: <span id="PRICE_WITHOUT_DISCOUNT"><?=$arResult["PRICE_WITHOUT_DISCOUNT"]?></span></p>
+			<?}?>
+			
+            <p class="finalCost"><span id="allSum_FORMATED">
+			<?if ($_SESSION["CUSTOM_COUPON"]["DEFAULT_COUPON"] == "N" && strlen($_SESSION["CUSTOM_COUPON"]["COUPON_ID"]) > 0 && intval($_SESSION["CUSTOM_COUPON"]["COUPON_VALUE"]) > intval($arResult["allSum"])) {
+				echo str_replace(" ", "&nbsp;", 0);
+			} else {
+				echo str_replace(" ", "&nbsp;", $arResult["allSum"]);
+			}?>
+			<b class="rubsign"></b></span></p>
             <p class="finalQuant">Кол-во: <span id="totalQuantity"><?=$totalQuantity?></span></p>
             <p class="finalText">Итого</p>
             <?

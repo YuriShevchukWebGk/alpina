@@ -83,7 +83,7 @@ class Exchange1C {
             $cat = CIBlockElement::GetList(Array(), $arFilter_1, false, false, $arSelect);
             $total_quantity = 0;
             while($arCatalog = $cat->Fetch()) {
-                $total_quantity = $total_quantity + $arCatalog['CATALOG_QUANTITY'];
+                $total_quantity = $total_quantity + intval($arCatalog['CATALOG_QUANTITY']);
                // $name = $arCatalog['NAME'];
             }
 
@@ -108,6 +108,7 @@ class Exchange1C {
                 } else if($state == STATE_NULL){
                     CIBlockElement::SetPropertyValuesEx($bitrix_id, false, array("STATE" => ""));
                 }
+                CCatalogProduct::Update($bitrix_id, $arField);
                 $mailFields = array(   // В наличии
                     "QUANTITY"=> 'В НАЛИЧИИ',
                     "PAGE_URL" => $href,
@@ -117,6 +118,7 @@ class Exchange1C {
             } else if($total_quantity <= 0 && $quantity > 0 && $state != STATE_SOON){
              //   if($state == "NULL" || $state == STATE_NEWS){
                     CIBlockElement::SetPropertyValuesEx($bitrix_id, false, array("STATE" => STATE_NULL));
+                    CCatalogProduct::Update($bitrix_id, $arField);
              //   }
                 $mailFields = array(   // В наличии
                     "QUANTITY"=> 'НЕТ В НАЛИЧИИ',
@@ -127,7 +129,6 @@ class Exchange1C {
             }
 
           //  if ($state_prop_enum_id != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {
-                CCatalogProduct::Update($bitrix_id, $arField);
          //   }
         }
     }

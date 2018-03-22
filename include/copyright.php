@@ -9,3 +9,12 @@
 	<meta itemprop="logo" content="http://<?=$_SERVER['SERVER_NAME']?>/img/logo.png"/>
 	© 2000-<?=date("Y")?>, <span itemprop="name">ООО «Альпина Паблишер»</span>	
 </span>
+
+<a href="#" onclick='$.ajax({
+	type: "POST",
+	url: "/ajax/contact.php",
+	data: {contact: "1"}
+}).done(function(strResult) {
+	$("#ajaxBlock").append(strResult);
+	$("body").css("overflow","hidden");
+});return false;' style="background:#2a2a2a;color:#fff;padding:10px 25px;font-size:17px;text-decoration:none;border-radius:30px;border:1px solid #888;display:block;margin:20px auto 0;width:200px" class="contactUs">Письмо издательству</a>

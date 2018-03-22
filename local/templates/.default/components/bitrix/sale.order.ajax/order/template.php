@@ -106,6 +106,9 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         <?if($arResult['PREORDER'] == 'Y') {?>
             $("#tPP .delivery_date").remove();
         <?}?>
+        <?if(!empty($_SESSION["DATE_DELIVERY_STATE"])) {?>
+            $(".delivery_date").remove();
+        <?}?>
 
 		$(".bx_section div:has(input:checked), input:checked>label").css("background", "rgba(216, 194, 165, 0.35)");
 		$("input[name='PERSON_TYPE']:checked").next().css("background", "rgba(216, 194, 165, 0.35)");
@@ -233,7 +236,8 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         <?}?>
 
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
-            minDatePlus++;
+            //minDatePlus++;
+			minDatePlus = minDatePlus + 2;
         }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
@@ -241,7 +245,9 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         //если день доставки попадает на субботу
         if (newDay == 6) {
             curDay = curDay + 3;
-        }
+        } else if (newDay == 0) {
+			curDay = curDay + 2;
+		}
         //для физических и юридических лиц
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker({
             minDate: minDatePlus,
@@ -296,9 +302,9 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         if( $('#ORDER_PROP_24,#ORDER_PROP_11').val() == ''){
              $('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
         }
-        $("body #ORDER_PROP_132").keypress(function (e) {
+        $("body #ORDER_PROP_133").keypress(function (e) {
             if(($(this).val().length)+1 == 4){
-                $('body #ORDER_PROP_133').focus();
+                $('body #ORDER_PROP_134').focus();
             } 
         }); 
 
