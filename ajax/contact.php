@@ -87,23 +87,23 @@ if (!empty($_POST['contact'])) {
 				<div class=\"closeIcon\" onclick=\"closeInfo();\"></div>
 				
 				<div>
-					<div class=\"popupTitle\">Письмо издательству</div>
+					<div class=\"popupTitle\">Письмо в издательство</div>
 					<div class=\"options\">
 						<div class=\"active\">
-							<span>предлагаю книгу</span>
+							<span>Предлагаю книгу</span>
 						</div>
 						<div>
-							<span>сообщаю об опечатке</span>
+							<span>Сообщаю об опечатке</span>
 						</div>
 						<div>
-							<span>напишу о вашей книге</span>
+							<span>Хочу стать рецензентом</span>
 						</div>
 						<div>
-							<span>у вас ошибка на сайте</span>
+							<span>У вас ошибка на сайте</span>
 						</div>
 						
 						<div>
-							<span>о другом</span>
+							<span>О другом</span>
 						</div>
 					</div>
 					
@@ -112,6 +112,7 @@ if (!empty($_POST['contact'])) {
 						<br />
 						<br />
 						<center><input type=\"email\" name=\"emailContact\" placeholder=\"email\" /></center>
+						<br />
 						<center><p onclick=\"contact();return false;\">Отправить письмо</p></center>
 						<br /><br />
 						Нажимая на&nbsp;кнопку &laquo;Отправить письмо&raquo;, вы&nbsp;соглашаетесь на&nbsp;обработку персональных данных в&nbsp;соответствии <a href=\"/content/pii/\" target=\"_blank\">с&nbsp;условиями</a>

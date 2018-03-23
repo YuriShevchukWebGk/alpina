@@ -1836,7 +1836,7 @@
         function getClientName($id) {
             $db_props = CSaleOrderPropsValue::GetOrderProps($id);
             while ($arProps = $db_props->Fetch()) {
-                if ($arProps['CODE']=='F_CONTACT_PERSON') {
+                if ($arProps['CODE']=='CONTACT_PERSON' || $arProps['CODE']=='F_CONTACT_PERSON') {
                     return $arProps['VALUE'];
                 }
             }

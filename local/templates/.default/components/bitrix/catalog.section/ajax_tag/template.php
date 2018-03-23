@@ -234,6 +234,9 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
             <?}?>
             <?=$arResult["NAV_STRING"]?>
             </div>
+			<div itemprop="description" style="padding: 10px 0px;">
+				<?=$GLOBALS["DETAIL_TEXT"]?>
+			</div>
         </div>
 
 
