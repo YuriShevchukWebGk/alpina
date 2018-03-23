@@ -1125,37 +1125,79 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         $sign = hash_hmac("SHA256", $str, $secretkey); 
     ?>
     <script>
-        const widget = new PBWidget({
-            account: {
-                id: '<?=$account["id"]?>',
-            },
-            amount: <?=rawurldecode($amount)?>,
-            currency: '<?=$currency?>',
-            merchant_id: <?=rawurldecode($merchant_id)?>,
-            order: {
-                order_id: '<?=$order["order_id"]?>',
-                type: '<?=$order["type"]?>',
-            },
-            project: '<?=rawurldecode($project)?>',
-            val: 'second',
-            redirect_url: '<?=rawurldecode($resultUrl)?>',
-            mobile: 1,
-            sign: <?=$sign?>,
-        }, {
-            attributes: {
-                className: 'platbox_iframe_block',
-            },
 
-            onDestroy: function () {
-                // Сделать что-то после закрытия формы оплаты.
-            },
-            onRender: function () {
-                console.log('yes');
-            },
-        });
-    window.addEventListener('message', function (event) {
-        console.log(event.data); // -> { action: "action name", type: "type name", payload: {...} }
-    });
+        var Page = function () {
+            this.init();
+        };
+
+
+        Page.prototype.init = function () {
+            var _this = this;
+
+            if (window.PBWidget) {
+                /**
+                 * Шаг 2. Создаем экземпляр виджета.
+                 *
+                 * Конструктор принимает два параметра: объект с параметрами платежа (PaymentParams) и объект
+                 * дополнительных настроек (options).
+                 */
+                this.widget = new PBWidget({
+                    account: {
+                        id: '<?=$account["id"]?>',
+                        location: 'https://paybox-global.platbox.com/paybox',
+                    },
+                    amount: <?=rawurldecode($amount)?>,
+                    currency: '<?=$currency?>',
+                    merchant_id: '<?=rawurldecode($merchant_id)?>',
+                    order: {
+                        order_id: '<?=$order["order_id"]?>',
+                        type: '<?=$order["type"]?>',
+                    },
+                    project: '<?=rawurldecode($project)?>',
+                    val: 'second',
+                    redirect_url: '<?=rawurldecode($resultUrl)?>',
+                    mobile: 1,
+                    sign: '<?=$sign?>',
+                }, {
+                    /* options */
+                });
+
+                $('body').on('click', '.submit_platbox', function () {
+                    var params = {
+
+                    };
+                    var options = {
+                        container: document.querySelector('.platbox_iframe_block'),
+                        attributes: {
+                            className: 'platbox_iframe',
+                        },
+
+                    };
+
+                    /**
+                     * Шаг 3. Для отображения платежной формы вызываем метод renderInset().
+                     *
+                     * Метод, как и конструктор, может принимать два параметра:
+                     *  - в качестве первого передается обект, содержащий недостающие параметры платежа,
+                     *  - вторым параметром можно переопределить параметры объекта настроек options,
+                     *    переданные в конструктор.
+                     */
+                    _this.widget.renderInset(params, options);
+                });
+
+                $('body').on('click', '.platbox_iframe_closing', function () {
+                    /**
+                     * Шаг 4. Принудительно закрыть форму оплаты можно вызвав метод destroy().
+                     */
+                    _this.widget.destroy();
+                });
+            }
+        };
+
+        (function () {
+            new Page();
+        })();        
+        
     </script>
     <div class="platbox_iframe_block" style="width: 100%; left: 0%; height: 613px; display: none; position: absolute; z-index: 2000; top: 30%; background-color: white;">
         <?/*<iframe class="platbox_iframe" src='https://paybox-global.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>&mobile=1' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
