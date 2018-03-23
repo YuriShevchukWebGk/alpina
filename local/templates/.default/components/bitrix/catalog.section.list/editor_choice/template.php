@@ -29,7 +29,7 @@ foreach ($arResult["SECTIONS"] as $key => $sect)
             }
         }   
     }
-}
+} 
 //arshow($editor_choice_list);
 foreach ($editor_choice_list as $key => $val)
 {

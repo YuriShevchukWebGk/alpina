@@ -56,6 +56,7 @@ $frame = $this->createFrame()->begin();
 			<center itemprop="image"><img src="<?=$pict["src"]?>" alt="Изображение к посту «<?=$arResult["NAME"]?>»" /></center>
 		<?}?>
 		<div class="textWrap">
+			<?$arResult["DETAIL_TEXT"] = str_replace("ifr ame", "iframe", $arResult["DETAIL_TEXT"]);?>
 			<?=typonew($arResult["DETAIL_TEXT"])?>
 		</div>
 		<div class="author">

@@ -100,6 +100,7 @@ class Exchange1C {
 
             //Запросе на обновление остатков у товара
             $arField = array('QUANTITY' => $total_quantity);// зарезервированное количество
+            CCatalogProduct::Update($bitrix_id, $arField);
             if($total_quantity > 0 && $quantity <= 0){
                 if($state == STATE_SOON && $reissue == ""){
                     CIBlockElement::SetPropertyValuesEx($bitrix_id, false, array("STATE" => STATE_NEWS));
@@ -108,7 +109,6 @@ class Exchange1C {
                 } else if($state == STATE_NULL){
                     CIBlockElement::SetPropertyValuesEx($bitrix_id, false, array("STATE" => ""));
                 }
-                CCatalogProduct::Update($bitrix_id, $arField);
                 $mailFields = array(   // В наличии
                     "QUANTITY"=> 'В НАЛИЧИИ',
                     "PAGE_URL" => $href,
@@ -118,7 +118,6 @@ class Exchange1C {
             } else if($total_quantity <= 0 && $quantity > 0 && $state != STATE_SOON){
              //   if($state == "NULL" || $state == STATE_NEWS){
                     CIBlockElement::SetPropertyValuesEx($bitrix_id, false, array("STATE" => STATE_NULL));
-                    CCatalogProduct::Update($bitrix_id, $arField);
              //   }
                 $mailFields = array(   // В наличии
                     "QUANTITY"=> 'НЕТ В НАЛИЧИИ',
