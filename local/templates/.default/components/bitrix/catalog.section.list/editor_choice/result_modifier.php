@@ -104,4 +104,35 @@ foreach ($arResult["SECTIONS"] as $key => $arSection) {
         unset($arResult["SECTIONS"][$key]);
    } 
 }
+$arResult["EDITOR_CHOICE_LIST"] = array();
+$arResult["COUNT"] = array();
+$arResult["SECT_NAMES"] = array();
+$arResult["SECT_URLS"] = array();
+$arResult["IMAGES_PATHS_ARRAY"] = array();
+foreach ($arResult["SECTIONS"] as $key => $sect)
+{   
+   
+    if ($sect["IBLOCK_SECTION_ID"] == MAIN_PAGE_SELECTIONS_SECTION_ID)
+    {    
+        $arElem = CIBlockElement::GetList(array(), array('IBLOCK_ID'=>CATALOG_IBLOCK_ID, 'SECTION_ID'=>$sect['ID'], "ACTIVE"=>"Y"), false, false, array('ID', 'NAME', 'IBLOCK_SECTION_ID', 'PROPERTY_editors_choice', "CATALOG_GROUP_1"));
+        while ($rsElem = $arElem -> Fetch())
+        {   
+            if ($rsElem["CATALOG_PRICE_1"] > 0)
+            {
+                $arResult["EDITOR_CHOICE_LIST"][$sect['ID']][]=$rsElem['ID'];
+            }
+        }   
+    }
+}
+foreach ($arResult["EDITOR_CHOICE_LIST"] as $key => $val) {
+    $arResult["EDITOR_CHOICE_LIST"][$key] = array_unique($arResult["EDITOR_CHOICE_LIST"][$key]);
+}
+foreach ($arResult["EDITOR_CHOICE_LIST"] as $key => $val)
+{
+    $curr_sect_name = CIBlockSection::GetByID($key)->Fetch();
+    $arResult["SECT_NAMES"][] = $curr_sect_name["NAME"];
+    $arResult["COUNT"][] = count($arResult["EDITOR_CHOICE_LIST"][$key]);
+    $arResult["SECT_URLS"][] = "/catalog/".$curr_sect_name["CODE"]."/";
+    $arResult["IMAGES_PATHS_ARRAY"][] = CFile::GetPath($curr_sect_name["PICTURE"]);
+}
 ?>
