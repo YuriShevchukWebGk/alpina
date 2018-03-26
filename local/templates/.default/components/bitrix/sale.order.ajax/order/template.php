@@ -1144,7 +1144,6 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                 this.widget = new PBWidget({
                     account: {
                         id: '<?=$account["id"]?>',
-                        location: 'https://paybox-global.platbox.com/paybox',
                     },
                     amount: <?=rawurldecode($amount)?>,
                     currency: '<?=$currency?>',
@@ -1154,7 +1153,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                         type: '<?=$order["type"]?>',
                     },
                     project: '<?=rawurldecode($project)?>',
-                    val: 'second',
+                 //   val: 'second',
                     redirect_url: '<?=rawurldecode($resultUrl)?>',
                     mobile: 1,
                     sign: '<?=$sign?>',
@@ -1199,10 +1198,10 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         })();        
         
     </script>
-    <div class="platbox_iframe_block" style="width: 100%; left: 0%; height: 613px; display: none; position: absolute; z-index: 2000; top: 30%; background-color: white;">
+    <div class="platbox_iframe_block" style="width: 100%; left: 0%; height: 531px; display: none; position: absolute; z-index: 2000; top: 30%; background-color: white;">
         <?/*<iframe class="platbox_iframe" src='https://paybox-global.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>&mobile=1' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
         </iframe>*/?>
-        <div class="platbox_iframe_closing" style="position: absolute; cursor: pointer; top: -10px; right: -13px;">
+        <div class="platbox_iframe_closing" style="position: absolute; cursor: pointer; top: -30px; right: -33px;">
             <img src="/img/catalogLeftClose.png">
         </div>
     </div>
