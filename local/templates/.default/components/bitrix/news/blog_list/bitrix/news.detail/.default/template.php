@@ -31,7 +31,7 @@ $frame = $this->createFrame()->begin();
 	<div class="catalogWrapper">
 		<p class="breadCrump" itemprop="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 			<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-				<a itemprop="url" href="/blog"><span itemprop="name">Альпина.Медиа</span></a>
+				<a itemprop="url" href="/blog/"><span itemprop="name">Альпина.Медиа</span></a>
 				<meta itemprop="position" content="1" />
 			</span> / 
 			<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -56,6 +56,7 @@ $frame = $this->createFrame()->begin();
 			<center itemprop="image"><img src="<?=$pict["src"]?>" alt="Изображение к посту «<?=$arResult["NAME"]?>»" /></center>
 		<?}?>
 		<div class="textWrap">
+			<?$arResult["DETAIL_TEXT"] = str_replace("ifr ame", "iframe", $arResult["DETAIL_TEXT"]);?>
 			<?=typonew($arResult["DETAIL_TEXT"])?>
 		</div>
 		<div class="author">

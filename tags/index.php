@@ -11,6 +11,7 @@ while($ob = $res->GetNextElement()) {
 }
 
 $GLOBALS["NAME"] = $arData["NAME"];
+$GLOBALS["DETAIL_TEXT"] = $arData["DETAIL_TEXT"];
 $ipropValues = new \Bitrix\Iblock\InheritedProperty\ElementValues(
 	80,
 	$arData["ID"]

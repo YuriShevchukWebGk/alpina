@@ -1484,3 +1484,4 @@ font-size:16px;
 .whyBuyWrap{padding:20px 0}
 .whyBuy{font-family:Walshein_light}
 .whyBuy:before{content:"\f069"!important;font-family:FontAwesome;font-size:13px;margin-right:8px}
+.elementDescriptWrap .annotation b, .recenzion .recenz_text b{font-size:16px;font-family:Walshein_regular}

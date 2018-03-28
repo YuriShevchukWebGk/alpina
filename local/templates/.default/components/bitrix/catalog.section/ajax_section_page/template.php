@@ -83,15 +83,15 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 
                 <div style="font-size:17px;margin-top:40px">
                 Ваш ребенок совсем маленький и плохо спит? Столкнулись с трудностями переходного возраста?
-				<br />
-				Только собираетесь завести малыша? Здесь найдутся книги для всех!
-				<br /><br />
-				Беременность, раннее развитие, здоровый сон, воспитание подростков и многое другое в наших лучших книгах для родителей.
-				<br /><br />
-				Только <b>до 21 марта</b> 2018 года всего по <b>199 рублей</b>!
-				<br /><br />
-				Выбирайте!
-				</div>
+                <br />
+                Только собираетесь завести малыша? Здесь найдутся книги для всех!
+                <br /><br />
+                Беременность, раннее развитие, здоровый сон, воспитание подростков и многое другое в наших лучших книгах для родителей.
+                <br /><br />
+                Только <b>до 23 марта</b> 2018 года всего по <b>199 рублей</b>!
+                <br /><br />
+                Выбирайте!
+                </div>
             <?}?>
             
             <?
@@ -104,14 +104,14 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             }
             
             if(count($arData) > 0) {?> 
-				<div class="doner_tags">
-					<span>Популярные категории</span>
-					<?foreach($arData as $data) {?>
-						<a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
-					<?}?>
-				</div>
+                <div class="doner_tags">
+                    <span>Популярные категории</span>
+                    <?foreach($arData as $data) {?>
+                        <a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
+                    <?}?>
+                </div>
             <?}?>
-			
+            
             <? global $SectionRoundBanner;
             $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
             $APPLICATION->IncludeComponent(

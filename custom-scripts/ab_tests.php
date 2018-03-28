@@ -65,3 +65,25 @@ if (preg_match("/(.*)\/catalog\/([a-z]+)\/([0-9]+)\/(.*)/i", $_SERVER['REQUEST_U
 <?if (strpos($APPLICATION->GetCurPage(),"/catalog/") !== false || $APPLICATION->GetCurDir() == "/") {?>
     <!--amp.eski.mobi--><link href="https://amp.alpinabook.ru/mobile/alpinabook-ru/amp/?p=<?php echo "https://www.alpinabook.ru".$APPLICATION->GetCurPage();?>" rel="amphtml" /><!--/amp.eski.mobi-->
 <?}?>
+
+
+<script>
+// uid от admitad в cookie при передаче в запросе
+function handleadmitadUid(lifeTime) {
+	var aid = (/admitad_uid=([^&]+)/.exec(location.search) || [])[1];
+	if (!aid) {
+		return;
+	}
+
+	var expiresDate = new Date((lifeTime || 90 * 60 * 60 * 24 * 1000) + +new Date);
+	var cookieString = '_aid=' + aid + '; path=/; expires=' + expiresDate + ';';
+	document.cookie = cookieString;
+	document.cookie = cookieString + '; domain=.' + location.host;
+}
+
+handleadmitadUid(90 * 60 * 60 * 24 * 1000);
+
+function getadmitadUid() {
+	return (document.cookie.match(/_aid=([^;]+)/) || [])[1];
+}
+</script>

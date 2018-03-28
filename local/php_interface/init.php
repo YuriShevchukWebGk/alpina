@@ -126,6 +126,7 @@
     define ("GIFT_BAG_EXHIBITION", 331); // правило корзины Подарок: сумка с выставки ММКВЯ 2017
     define ("SALE_POPULAR_ELEMENT", 970); // свойство для обновления популярной книги
     define ("SHOW_ALWAYS_PROP_VALUE_ID", 15); // ID значения "Да" пользовательского поля "Показывать постоянно" для подборок на главной
+    define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209); // ID раздела "Подборки книг на главной" инфоблока книг
 
     /**
     * Изменить на define() при апе до 7 версии PHP
@@ -1835,7 +1836,7 @@
         function getClientName($id) {
             $db_props = CSaleOrderPropsValue::GetOrderProps($id);
             while ($arProps = $db_props->Fetch()) {
-                if ($arProps['CODE']=='F_CONTACT_PERSON') {
+                if ($arProps['CODE']=='CONTACT_PERSON' || $arProps['CODE']=='F_CONTACT_PERSON') {
                     return $arProps['VALUE'];
                 }
             }

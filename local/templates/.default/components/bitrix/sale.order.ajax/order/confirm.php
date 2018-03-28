@@ -101,7 +101,34 @@
                 'discountRUB': '<?=substr($_SESSION['EMAIL_DISCOUNT_SUM_TOTAL'],0,-5)?>'
             });
         </script>
-
+		
+		<!-- Admitad.com -->
+		<script type="text/javascript">
+			(function (d, w) {
+				w._admitadPixel = {
+					response_type: 'img',
+					action_code: '1',
+					campaign_code: 'c4ab8a6bed'
+				};
+				w._admitadPositions = w._admitadPositions || [];
+				<?foreach($_SESSION['itemsForAdmitad'] as $itemForAdmitad) {?>
+					w._admitadPositions.push({
+						<?=$itemForAdmitad?>
+						order_id: '<?=$arResult["ORDER"]["ID"]?>'
+					});
+				<?}?>
+				var id = '_admitad-pixel';
+				if (d.getElementById(id)) { return; }
+				var s = d.createElement('script');
+				s.id = id;
+				var r = (new Date).getTime();
+				var protocol = (d.location.protocol === 'https:' ? 'https:' : 'http:');
+				s.src = protocol + '//cdn.asbmit.com/static/js/npixel.js?r=' + r;
+				var head = d.getElementsByTagName('head')[0];
+				head.appendChild(s);
+			})(document, window)
+		</script>
+		
         <?//получаем email из заказа. у физлиц будет EMAIL, у юрлиц F_EMAIL
 			$userEmail = Message::getClientEmail($arResult["ORDER"]["ID"]);
         ?>
@@ -163,6 +190,7 @@
         <?unset($_SESSION['floctory'])?>
         <?unset($_SESSION['retailRocket'])?>
         <?unset($_SESSION['gdeslon'])?>
+		<?unset($_SESSION['itemsForAdmitad'])?>
 	<?}?>
 
 
