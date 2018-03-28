@@ -296,8 +296,21 @@ array('no'=>42, 'img'=>'/upload/resize_cache/iblock/6fd/140_270_1/6fd6e2f2d22e91
 			font-size: 48px;
 			font-family: &quot;Walshein_regular&quot;;
 			margin-top: 50px;max-width:900px;
-			"><span style="color:red">С&nbsp;28&nbsp;по&nbsp;30&nbsp;марта</span> <br />Дни больших перемен!<br /><span style="font-size:24px;color:#888;">Иногда хочется чего-то нового в&nbsp;обыденной жизни, взять и&nbsp;все изменить в&nbsp;один день. Для желающих поменять жизнь к&nbsp;лучшему создан специальный праздник.</span></div>
+			"><span style="color:red">С&nbsp;28&nbsp;по&nbsp;30&nbsp;марта 2017 года</span> <br />Дни больших перемен!<br /><span style="font-size:24px;color:#888;">Иногда хочется чего-то нового в&nbsp;обыденной жизни, взять и&nbsp;все изменить в&nbsp;один день. Для желающих поменять жизнь к&nbsp;лучшему создан специальный праздник.</span></div>
 			<div class="bg">
+				<div class="hintWrapp">
+				<div class="title" style="font-family:'Walshein_bold'; font-size:42px;padding:30px 0;color:#486795">28-30 марта&nbsp;2017 года состоялись Дни больших перемен со&nbsp;скидками до&nbsp;70%!</div>
+				<span style="font-family:'Walshein_bold'; font-size:18px;">Хотите узнать о начале следующей акции? Оставьте свой e-mail</span>
+				<div class="giftWrap">
+					<form action="/" method="post">
+						<input type="text" placeholder="Ваш e-mail" name="email" id="email" style="float:none;box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.18), 0 3px 14px 0 rgba(0, 0, 0, 0.14);">
+						<br /><br /><br />
+						<a href="#" onclick="subscribe();return false;" style="background-color: #00abb8;border-radius: 35px;color: #fff;font-size: 19px;margin: 0 28px;padding: 14px 58px;">Подписаться на рассылку</a>
+					</form>
+				</div>
+				<br />
+				</div>
+			<?/*
 				<div class="hintWrapp">
 				<?foreach ($booksArray as $book) {
 					if ($i < 24) {?>
@@ -337,6 +350,7 @@ array('no'=>42, 'img'=>'/upload/resize_cache/iblock/6fd/140_270_1/6fd6e2f2d22e91
 					$i++;
 				}?>
 				</div>
+				*/?>
 			</div>
         </div>
 

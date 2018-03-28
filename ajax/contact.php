@@ -124,15 +124,48 @@ if (!empty($_POST['contact'])) {
 
 	echo $return;
 
-} elseif (!empty($_POST['send_contact'])) {
+} elseif ($_POST['send_contact'] && $_POST['email'] && $_POST['subject']) {
 	
+	$contactName = $_POST['name'];
+	$contactEmail = $_POST['email'];
+	$contactPhone = $_POST['phone'];
+	$contactMessage = $_POST['text'];
+	$contactSubject = $_POST['subject'];
+	
+	
+	$PROP[183] = $contactEmail; //email
+	$PROP[184] = $contactPhone; //phone
+	$PROP[185] = $contactMessage; //message
+	$PROP[940] = $contactSubject; //message
+	
+	$fields = Array(
+		"MODIFIED_BY"    => 15,
+		"IBLOCK_SECTION" => false,
+		"IBLOCK_ID"      => 12,
+		"PROPERTY_VALUES"=> $PROP,
+		"NAME"           => $contactName,
+		"ACTIVE"         => "Y"
+	);
+
 	$mailFields = array(
-		"EMAIL" => $_POST['email'],
-		"SUBJECT" => $_POST['subject'],
-		"TEXT" => $_POST['text']
+		"AUTHOR_EMAIL" => $contactEmail,
+		"AUTHOR_PHONE" => $contactPhone,
+		"SUBJECT" => $contactSubject,
+		"TEXT" => $contactMessage,
+		"AUTHOR" => $contactName,
 	);
 	
-	if (CEvent::Send("CONTACT_PUBLISHER", "s1", $mailFields,"N"))
-		echo 123;
+	$el = new CIBlockElement;
+	
+	if ($requestID = $el->Add($fields)) {
+		
+		$mailFields["REQUEST_ID"] = $requestID;
+		
+		if (CEvent::Send("FEEDBACK_FORM", "s1", $mailFields,"N"))
+			echo 123;
+		
+	} else {
+		echo 'error';
+	}
 }
 ?>

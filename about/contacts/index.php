@@ -51,58 +51,18 @@ $APPLICATION->SetTitle("Контакты интернет-магазина «А�
     <div class="contactsBodyWrap">
         <div class="centerWrapper">
 			<?$APPLICATION->IncludeComponent(
-				"bitrix:iblock.element.add.form", 
-				"feedback_form", 
+				"bitrix:main.include",
+				".default",
 				array(
-					"SEF_MODE" => "Y",
-					"IBLOCK_TYPE" => "news",
-					"IBLOCK_ID" => "12",
-					"PROPERTY_CODES" => array(
-						0 => "183",
-						1 => "184",
-						2 => "185",
-						3 => "NAME",
-					),
-					"PROPERTY_CODES_REQUIRED" => array(
-						0 => "183",
-						1 => "184",
-						2 => "185",
-						3 => "NAME",
-					),
-					"GROUPS" => array(
-						0 => "2",
-					),
-					"STATUS_NEW" => "N",
-					"STATUS" => "ANY",
-					"LIST_URL" => "",
-					"ELEMENT_ASSOC" => "PROPERTY_ID",
-					"ELEMENT_ASSOC_PROPERTY" => "",
-					"MAX_USER_ENTRIES" => "100000",
-					"MAX_LEVELS" => "100000",
-					"LEVEL_LAST" => "Y",
-					"USE_CAPTCHA" => "N",
-					"USER_MESSAGE_EDIT" => "",
-					"USER_MESSAGE_ADD" => "Ваше сообщение успешно отправлено. Мы ответим в рабочее время на ваш e-mail",
-					"DEFAULT_INPUT_SIZE" => "30",
-					"RESIZE_IMAGES" => "Y",
-					"MAX_FILE_SIZE" => "0",
-					"PREVIEW_TEXT_USE_HTML_EDITOR" => "Y",
-					"DETAIL_TEXT_USE_HTML_EDITOR" => "Y",
-					"CUSTOM_TITLE_NAME" => "Ваше имя",
-					"CUSTOM_TITLE_TAGS" => "",
-					"CUSTOM_TITLE_DATE_ACTIVE_FROM" => "",
-					"CUSTOM_TITLE_DATE_ACTIVE_TO" => "",
-					"CUSTOM_TITLE_IBLOCK_SECTION" => "",
-					"CUSTOM_TITLE_PREVIEW_TEXT" => "",
-					"CUSTOM_TITLE_PREVIEW_PICTURE" => "",
-					"CUSTOM_TITLE_DETAIL_TEXT" => "",
-					"CUSTOM_TITLE_DETAIL_PICTURE" => "",
-					"SEF_FOLDER" => "/",
-					"COMPONENT_TEMPLATE" => "feedback_form"
+					"AREA_FILE_SHOW" => "file",
+					"AREA_FILE_SUFFIX" => "inc",
+					"AREA_FILE_RECURSIVE" => "Y",
+					"EDIT_TEMPLATE" => "",
+					"COMPONENT_TEMPLATE" => ".default",
+					"PATH" => "/include/contact_form.php"
 				),
 				false
-			);?>
-			
+			);?>			
             <div class="contactsTextWrap" itemprop="mainEntity" itemscope itemtype="http://schema.org/BookStore">
                 <meta itemprop="name" content="Интернет-магазин «Альпина Паблишер»"/>
 				<meta itemprop="url" content="http://<?=$_SERVER['SERVER_NAME']?>"/>

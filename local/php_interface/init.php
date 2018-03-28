@@ -1390,7 +1390,7 @@
         return $form3;
     }
 
-    AddEventHandler('iblock', 'OnAfterIBlockElementAdd', "my_OnAfterIBlockElementAdd");
+    /*AddEventHandler('iblock', 'OnAfterIBlockElementAdd', "my_OnAfterIBlockElementAdd");
 
     function my_OnAfterIBlockElementAdd(&$arFields) {
         if ($arFields["IBLOCK_ID"] == 12) {
@@ -1409,7 +1409,7 @@
         }
         //РїРѕР»СѓС‡РёРј СЃРѕРѕР±С‰РµРЅРёРµ
 
-    }
+    }*/
 
 
     //подмена логина на EMAIL
