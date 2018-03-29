@@ -26,6 +26,7 @@
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
+    define ("CATALOG_IBLOCK_ID_REMAINDER", 77);
     define ("AUTHORS_IBLOCK_ID", 29);
     define ("REVIEWS_IBLOCK_ID", 24);
     define ("SERIES_IBLOCK_ID", 45);
@@ -1409,7 +1410,8 @@
         }
         //РїРѕР»СѓС‡РёРј СЃРѕРѕР±С‰РµРЅРёРµ
 
-    }*/
+    }
+	*/
 
 
     //подмена логина на EMAIL
@@ -3757,6 +3759,27 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
         }
     }
 
+    // обработчик на изменение внешенго кода товара перед добавлением в корзину
+AddEventHandler("sale", "OnBeforeBasketAdd", "MontageBasketAdd");
+function MontageBasketAdd(&$arFields) {
+    $arSelect = Array("ID", "XML_ID");
+    $arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID_REMAINDER, "PROPERTY_ID_BITRIKS_VALUE"=>$arFields["PRODUCT_ID"]);
+    $res_element = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+    while($ob = $res_element->GetNext()) {
+        // выясняем остатки у товара остатков
+        $rsStore = CCatalogProduct::GetByID($ob["ID"]); 
+        if($rsStore["QUANTITY"] > 0 ){
+             $ar_quantity[] = $rsStore["QUANTITY"];
+             $ar_xml_id[$rsStore["QUANTITY"]] = $ob["XML_ID"];
+        }
+        
+    }
+    // вычисляем наибольший остаток и подставляем в xml товара
+    if($ar_xml_id[max($ar_quantity)]){
+        $arFields["CATALOG_XML_ID"] = $ar_xml_id[max($ar_quantity)];
+    }
+    
+}
 
 
 ?>
