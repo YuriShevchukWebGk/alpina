@@ -183,6 +183,7 @@
     *
     **/
     function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
+        logger($message, $_SERVER["DOCUMENT_ROOT"].'/logs/log.txt');
         GLOBAL $arParams;
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
