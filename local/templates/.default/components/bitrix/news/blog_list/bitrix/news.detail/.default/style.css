@@ -40,21 +40,25 @@ ul {
 	margin: 0 auto;
 }
 .catalogWrapper center img {
-width:700px;
+width:800px;
 height:auto;
 }
 
 .catalogWrapper .author {
 	text-align:center;
-	margin-bottom:10px;
+	margin-bottom:60px;
+	vertical-align:top;
+	margin-left:40px
 }
 .catalogWrapper .author img {
 	margin:10px auto;
 	display:block;
 }
 .textWrap {
-	max-width: 700px;
+	max-width: 800px!important;
 	margin: 30px auto 0;
+	display:inline-block;
+	float:left
 }
 .textWrap li {
 	padding:10px 0;
@@ -95,7 +99,7 @@ height:auto;
 	}
 }
 
-@media screen and (max-width: 1120px){
+@media screen and (max-width: 1150px){
 	.blogPostPreview,.blogPostPreview img {
 		max-width:250px;
 	}
@@ -111,6 +115,7 @@ height:auto;
 	.cataloggWrapper {
 		max-width:880px;
 	}
+	.authorName{width:100%!important}
 }
 
 ul li:nth-child(6n-2),ul li:nth-child(6n-1),ul li:nth-child(6n) {
@@ -151,3 +156,25 @@ ul li:nth-child(6n-2),ul li:nth-child(6n-1),ul li:nth-child(6n) {
 }
 .mainRecs a,.author a {border-bottom:none}
 .border{border:1px solid #aaa}
+
+.postWrapper, .hintWrapp .catalogWrapper{
+    margin-left: 170px;
+    text-align: left;
+	max-width: 1150px!important;
+	overflow:hidden
+}
+.breadCrump, h1, h2, .titleWrap .mainTitle, .date, .breadCrump span a {
+	text-align:left;
+}
+.authorName{width:200px;display:inline-block}
+.mainImage{max-width:1150px;width:100%;}
+.mainImage img{width:100%;max-width:800px}
+.mainRecs{height:auto!important}
+.textWrap img{max-width:800px!important}
+
+@media screen and (max-width: 940px) {
+	.weRecomWrap {
+		height: auto!important;
+		overflow: hidden
+	}
+}

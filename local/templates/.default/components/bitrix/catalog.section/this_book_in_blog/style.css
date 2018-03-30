@@ -1,5 +1,6 @@
-#bookInBlogWrap{overflow:hidden;width:100%;max-width:990px;margin:0 auto 10px}
+#bookInBlogWrap{overflow:hidden;width:100%;max-width:1140px;margin:30px auto 10px}
 #bookInBlogWrap .title{font-size:48px;padding:40px 0 20px;text-align:center;color:#3f4a4d}
+#bookInBlogWrap .bookInBlog{width:100%;max-width:940px;margin:0 auto}
 #bookInBlogWrap .bookInBlog ul{width:auto!important}
 #bookInBlogWrap .bookInBlogPosts{text-align:left}
 #bookInBlogWrap .bookInBlogPost{display:inline-block;margin:10px;width:100%;max-width:290px;float:left}

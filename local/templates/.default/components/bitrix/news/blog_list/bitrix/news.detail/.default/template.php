@@ -28,7 +28,7 @@ $frame = $this->createFrame()->begin();
 <script src="//yastatic.net/share2/share.js"></script>
 
 <div class="titleWrap">
-	<div class="catalogWrapper">
+	<div class="catalogWrapper postWrapper">
 		<p class="breadCrump" itemprop="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 			<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
 				<a itemprop="url" href="/blog/"><span itemprop="name">Альпина.Медиа</span></a>
@@ -51,37 +51,27 @@ $frame = $this->createFrame()->begin();
 </div>
 <div class="content">
 	<meta itemprop="name" content="<?=$arResult["NAME"]?>" />
-	<div class="catalogWrapper">
+	<div class="catalogWrapper postWrapper">
 		<?if ($pict["src"]) {?>
-			<center itemprop="image"><img src="<?=$pict["src"]?>" alt="Изображение к посту «<?=$arResult["NAME"]?>»" /></center>
+			<div itemprop="image" class="mainImage"><img src="<?=$pict["src"]?>" alt="Изображение к посту «<?=$arResult["NAME"]?>»" /></div>
 		<?}?>
 		<div class="textWrap">
 			<?$arResult["DETAIL_TEXT"] = str_replace("ifr ame", "iframe", $arResult["DETAIL_TEXT"]);?>
 			<?=typonew($arResult["DETAIL_TEXT"])?>
 		</div>
-		<div class="author">
-			<center><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div></center>
-			<?if (!empty($arResult["TAGS"])) {
-			$tags = explode(', ',$arResult["TAGS"]);
-				echo '<div class="keywords">';
-				foreach($tags as $tag) {
-					echo '<a href="/blog/search/?q='.$tag.'&s=blog" style="border-bottom:none"><span>'.$tag.'</span></a>';
-				}
-				echo '</div>';
-			}?>
-
+		<div class="author authorName">
 			<h2>Автор</h2>
 			<a href="<?=$author["DETAIL_PAGE_URL"]?>" class="authorLink">
 				<img src=<?=$authpic["src"]?> alt="<?=$author["NAME"]?>" style="border-radius: 90px;"/>
 				<span itemprop="author"><?=$author["NAME"]?><?echo !empty($author["PROPERTY_WHOIS_VALUE"]) ? ',<br />'.$author["PROPERTY_WHOIS_VALUE"] : '';?></span>
 			</a>
 		</div>
+		<div class="author authorName bottomWrap">
 		<?
 		if (!empty($arResult["PROPERTIES"]["BOOKS"]["VALUE"])) {
 			global $articleBooks;
 			$articleBooks = array("ID" => $arResult["PROPERTIES"]["BOOKS"]["VALUE"]);?>     
 			<div class="weRecomWrap">
-				<div class="centerWrapper">
 					<p class="tile">Книги на эту тему</p>
 					<?$APPLICATION->IncludeComponent(
 					"bitrix:catalog.section",
@@ -207,9 +197,7 @@ $frame = $this->createFrame()->begin();
 					),
 					false
 					);?>
-				</div>
-			</div>
-		<?}?>
+					
 		<h2>Читайте также</h2>
 		<?
 		global $arFilter;
@@ -338,6 +326,22 @@ $frame = $this->createFrame()->begin();
 			),
 			false
 		);?>
+			</div>
+		<?}?>
+		</div>
+
+		<div class="author" style="clear:both">
+			<center><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div></center>
+			<?if (!empty($arResult["TAGS"])) {
+			$tags = explode(', ',$arResult["TAGS"]);
+				echo '<div class="keywords">';
+				foreach($tags as $tag) {
+					echo '<a href="/blog/search/?q='.$tag.'&s=blog" style="border-bottom:none"><span>'.$tag.'</span></a>';
+				}
+				echo '</div>';
+			}?>
+		</div>
+		
 		<div id="cackleReviews"></div>
 		<center><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,collections,whatsapp,viber,telegram" data-counter=""></div></center>
 	</div>
@@ -383,7 +387,11 @@ cackle_widget.push({
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
 })();
 
-
+$(document).ready(function() {
+	if (($(".textWrap").height() + 150) < $(".bottomWrap").height()) {
+		$(".bottomWrap").css("width", "100%");
+	}
+});
 </script>
 <script type="text/javascript">
     (window["rrApiOnReady"] = window["rrApiOnReady"] || []).push(function() {
