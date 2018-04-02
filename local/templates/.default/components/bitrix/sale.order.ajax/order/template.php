@@ -1100,29 +1100,24 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь на обработку персональных данных в соответствии <a href="/info_popup/pii.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showPii'});return false;" class="cartMenuPopup">с условиями</a><br />и с условиями <a href="/info_popup/oferta.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showOferta'});return false;" class="cartMenuPopup">публичной оферты</a></span>
     </div>
     <?if ($arResult["PAY_SYSTEM"]["ID"] == 24) {?>
-    <script src="https://payment.platbox.com/widget.js"></script>  
-
     <?  
-        $order["order_id"] = $arResult["ORDER_ID"].'_'.rand(0, 100);
+       $order["order_id"] = $arResult["ORDER_ID"].'_'.rand(0, 100);
         
         $secretkey = "83508e01b1ef2a175d54e81d8e2532fe";
 
         $x = [
-            "merchant_id" => rawurldecode($merchant_id),
-            "account"     => json_encode($account),
-            "amount"      => rawurldecode($amount), 
+            "account"     => $account,
+            "amount"      => (int)rawurldecode($amount), 
             "currency"    => $currency,
-            "order"       => json_encode($order),
-           // "sign"        => rawurldecode($sign),
+            "merchant_id" => rawurldecode($merchant_id),
+            "order"       => $order,
             "project"     => rawurldecode($project),
-            "val"         => "second",
-            "redirect_url"=> rawurldecode($resultUrl),
-            "mobile"      => 1
         ];
         ksort($x);
+        
         $str = json_encode($x);
         
-        $sign = hash_hmac("SHA256", $str, $secretkey); 
+        $sign = hash_hmac("SHA256", $str, $secretkey);
     ?>
     <script>
 
@@ -1135,12 +1130,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             var _this = this;
 
             if (window.PBWidget) {
-                /**
-                 * Шаг 2. Создаем экземпляр виджета.
-                 *
-                 * Конструктор принимает два параметра: объект с параметрами платежа (PaymentParams) и объект
-                 * дополнительных настроек (options).
-                 */
+
                 this.widget = new PBWidget({
                     account: {
                         id: '<?=$account["id"]?>',
@@ -1149,13 +1139,10 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                     currency: '<?=$currency?>',
                     merchant_id: '<?=rawurldecode($merchant_id)?>',
                     order: {
-                        order_id: '<?=$order["order_id"]?>',
                         type: '<?=$order["type"]?>',
+                        order_id: '<?=$order["order_id"]?>',
                     },
                     project: '<?=rawurldecode($project)?>',
-                 //   val: 'second',
-                    redirect_url: '<?=rawurldecode($resultUrl)?>',
-                    mobile: 1,
                     sign: '<?=$sign?>',
                 }, {
                     /* options */

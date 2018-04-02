@@ -12,7 +12,7 @@
     <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8"> -->
     <title><?$APPLICATION->ShowTitle()?></title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="https://paybox-v4-beta.platbox.com/widget.js"></script>
+    <script src="https://payment.platbox.com/widget.js"></script>
 
     <link rel="stylesheet" href="/css/style.css?<?=filemtime($_SERVER["DOCUMENT_ROOT"].'/css/style.css')?>" type="text/css">
     <link rel="stylesheet" href="/css/selectric.css" type="text/css">

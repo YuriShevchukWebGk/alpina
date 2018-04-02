@@ -3757,6 +3757,27 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
         }
     }
 
+    // обработчик на изменение внешенго кода товара перед добавлением в корзину
+AddEventHandler("sale", "OnBeforeBasketAdd", "MontageBasketAdd");
+function MontageBasketAdd(&$arFields) {
+    $arSelect = Array("ID", "XML_ID");
+    $arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID_REMAINDER, "PROPERTY_ID_BITRIKS_VALUE"=>$arFields["PRODUCT_ID"]);
+    $res_element = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+    while($ob = $res_element->GetNext()) {
+        // выясняем остатки у товара остатков
+        $rsStore = CCatalogProduct::GetByID($ob["ID"]); 
+        if($rsStore["QUANTITY"] > 0 ){
+             $ar_quantity[] = $rsStore["QUANTITY"];
+             $ar_xml_id[$rsStore["QUANTITY"]] = $ob["XML_ID"];
+        }
+        
+    }
+    // вычисляем наибольший остаток и подставляем в xml товара
+    if($ar_xml_id[max($ar_quantity)]){
+        $arFields["PRODUCT_XML_ID"] = $ar_xml_id[max($ar_quantity)];
+    }
+    
+}
 
 
 ?>
