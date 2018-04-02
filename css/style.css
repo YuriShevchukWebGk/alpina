@@ -1132,7 +1132,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .element_item_img img{width:300px;height:auto}
 .bookPreviewButton{top:30%;left:40px}
 .element_item_img{width:320px;height:450px !important}
-.elementDescriptWrap .centerColumn{margin:0 240px 0 270px}
+.elementDescriptWrap .centerColumn{margin:0 240px 0 295px}
 .elementDescriptWrap .leftColumn{width:320px}
 .centerColumn .productName .mainPart{font-size:28px}
 .productElementWrapp::before{height:260px}

@@ -3022,6 +3022,9 @@ function setItemBgHeight() {
 	if($("div").is(".videoWrappTop")) {
 		bgHeight += 100;
 	}
+	if($("div").is(".whyBuyWrap")) {
+		bgHeight += 30;
+	}
 	
     $("head").append("<style>.productElementWrapp::before{height:"+ bgHeight + "px}</style>");
     if(bgHeight > 292){
