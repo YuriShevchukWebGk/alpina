@@ -43,6 +43,7 @@
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("PLATBOX_PAYSISTEM_ID", 24);
     define ("CASH_PAY_SISTEM_ID", 1);
     define ("PAYPAL_PAYSYSTEM_ID", 16);
     define ("SBERBANK_PAYSYSTEM_ID", 14);
@@ -844,6 +845,8 @@
                           $order->save();
                  }  
             }
+            logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_boxbery.txt');
+
         }
     }
 
@@ -891,7 +894,7 @@
                           $order->save();
                  }  
             }
-
+            logger($_REQUEST, $_SERVER["DOCUMENT_ROOT"].'/logs/log_boxbery_saved.txt');
             // Добавляем полную стоимость заказа в оплату
             $order_instance = Bitrix\Sale\Order::load($orderId);
             $payment_collection = $order_instance->getPaymentCollection();
@@ -2084,7 +2087,7 @@
             $arFields['EMAIL_PAY_SYSTEM'] = getOrderPaySystemName($orderArr['PAY_SYSTEM_ID']);
         }
 
-        if ($orderArr["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID || $orderArr["PAY_SYSTEM_ID"] == SBERBANK_PAYSYSTEM_ID) {
+        if ($orderArr["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID || $orderArr["PAY_SYSTEM_ID"] == SBERBANK_PAYSYSTEM_ID || $orderArr["PAY_SYSTEM_ID"] == PLATBOX_PAYSISTEM_ID) {
             //получаем путь до обработчика
             $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='https://www.alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."&hash=".$authHash."'>ссылке</a>.";
         }

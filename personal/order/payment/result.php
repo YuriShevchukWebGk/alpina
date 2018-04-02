@@ -10,7 +10,7 @@ $id = $id[0];
 
 if($data["action"] == "pay"){
     if (!CSaleOrder::PayOrder( $id, "Y", True, True, 0, array())) {
-       logger($id, $_SERVER["DOCUMENT_ROOT"].'/logs/log.txt');
+       logger($data, $_SERVER["DOCUMENT_ROOT"].'/logs/log.txt');
     }  
 }
 if(!empty($data)){

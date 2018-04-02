@@ -1334,9 +1334,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <?
 			global $vipbooks;
             if(!$USER->IsAdmin()){
-                $vipbooks = array('SECTION_ID' => 491, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID), "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
+                $vipbooks = array('PROPERTY_SERIES' => array(435902,429853), "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID), "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
             } else {
-                $vipbooks = array('SECTION_ID' => 491, "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID));
+                $vipbooks = array('PROPERTY_SERIES' => array(435902,429853), "PROPERTY_STATE" => array(false,NEW_BOOK_STATE_XML_ID));
             }?>
             <?
 			$APPLICATION->IncludeComponent(
@@ -1674,7 +1674,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			</div>
 		</div>
 
-        <div class="saleWrapp">
+        <div class="saleWrapp saleDiscount">
             <div class="catalogWrapper">
                 <div>
 					<?$APPLICATION->IncludeComponent(
