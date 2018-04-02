@@ -3777,7 +3777,7 @@ function MontageBasketAdd(&$arFields) {
     }
     // вычисляем наибольший остаток и подставляем в xml товара
     if($ar_xml_id[max($ar_quantity)]){
-        $arFields["CATALOG_XML_ID"] = $ar_xml_id[max($ar_quantity)];
+        $arFields["PRODUCT_XML_ID"] = $ar_xml_id[max($ar_quantity)];
     }
     
 }

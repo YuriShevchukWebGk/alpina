@@ -1117,7 +1117,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         
         $str = json_encode($x);
         
-        $sign = hash_hmac("SHA256", $str, $secretkey); 
+        $sign = hash_hmac("SHA256", $str, $secretkey);
     ?>
     <script>
 
