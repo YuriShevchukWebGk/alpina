@@ -3542,6 +3542,18 @@
             while ($arSales = $rsSales->Fetch()) {
 
                 if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
+                    $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
+
+                    while($arproduct = $dbItemsInOrder->Fetch()){
+                        $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
+                        if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
+                            $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
+                        }
+                        if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
+                            $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
+                        }
+                        
+                    }
                 } else {
                     $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
 
@@ -3562,8 +3574,10 @@
                 if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
                     if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+                    }else if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID ){
+                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
                     } else {
-                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата "
+                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата"
                     }
                 }
             }
