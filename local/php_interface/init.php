@@ -183,7 +183,13 @@
     * @param string $additional_parameters
     *
     **/
-    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {   
+    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
+    
+        $htmlStart = strripos($message, "<html");          
+        $message = substr($message, $htmlStart);
+        $htmlEnd = strripos($message, "html>");
+        $message = substr($message, 0, -(strlen($message) - $htmlEnd - 5));               
+     
         GLOBAL $arParams;     
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
@@ -3391,9 +3397,6 @@
            // return false;                                 
            $arFields["PREORDER"] = "предзаказ";
            $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
-           $arFields['EMAIL_DELIVERY_TERM'] = '';
-           $arFields['EMAIL_DELIVERY_ADDR'] = '';
-           
 
         } else {
            $arFields["PREORDER"] = "заказ"; 
