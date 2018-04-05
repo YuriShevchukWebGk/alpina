@@ -331,7 +331,7 @@ $frame = $this->createFrame()->begin();
 		</div>
 
 		<div class="author" style="clear:both">
-			<center><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki" data-counter=""></div></center>
+			<center><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,collections,whatsapp,viber,telegram" data-counter=""></div></center>
 			<?if (!empty($arResult["TAGS"])) {
 			$tags = explode(', ',$arResult["TAGS"]);
 				echo '<div class="keywords">';
@@ -343,7 +343,6 @@ $frame = $this->createFrame()->begin();
 		</div>
 		
 		<div id="cackleReviews"></div>
-		<center><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,collections,whatsapp,viber,telegram" data-counter=""></div></center>
 	</div>
 </div>
 <?/*if ($USER->isAdmin()) {?>

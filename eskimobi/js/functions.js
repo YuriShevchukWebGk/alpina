@@ -125,7 +125,7 @@ $(document).ready(function(){
   }
 
   var catalog_splitter = function () {
-    var cob = $('.x-series .otherBooks, .x-catalog .catalogBooks, .x-catalog .otherBooks, .x-catalog .sliderUl, .x-search .sliderUl, .x-search .searchWidthWrapper');
+    var cob = $('.x-series .otherBooks, .x-catalog .catalogBooks, .x-catalog .otherBooks, .x-search .sliderUl, .x-search .searchWidthWrapper');
     if( cob.get(0) ){
       cob.find('li:not(.js_changed)').each(function (i,n) {
         $(this).addClass('js_changed');

@@ -1,5 +1,8 @@
-.seriesBooks{width:100%!important;list-style-type:none!important;overflow:hidden;padding-left:0!important;height:270px}
+.seriesBooks{width:100%!important;list-style-type:none!important;overflow:hidden;padding-left:0!important;height:310px;padding-top:15px}
 .seriesBook{width:100%;max-width:140px;padding:10px 35px 0 0;float:left}
+.seriesBook .section_item_img{height:210px}
+.seriesBook .tapeOfPack{font-size:15px;padding:5px 0;color:#777}
 .seriesBook a{text-decoration:none!important;font-size:16px!important}
 .seriesBook .bookName,.seriesBook .bookPrice{font-size:16px}
-.seriesBooksWrap .sectionTitle{font-family:Walshein_bold;font-size:25px;padding:30px 0 15px;text-decoration:none}
+.seriesBooksWrap .sectionTitle{font-family:Walshein_regular;font-size:28px;padding:30px 0 15px;text-decoration:none;color:#454545}
+.seriesBooksWrap{padding:25px 0 15px}

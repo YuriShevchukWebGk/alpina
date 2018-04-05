@@ -2011,7 +2011,8 @@ if (!$childrenDesign) {
 		<?if ($childrenDesign) {?>
 			<script>
 			function subscribeChildren() {
-				var emailAddres = $(".giftWrap form input[name=email]").val();
+				var emailAddres = $(".giftWrapChildren form input[name=email]").val();
+				console.log($(".giftWrapChildren form input[name=email]"));
 				var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 				if (regex.test(emailAddres)){
 					$.post("/ajax/subscribe_actions.php", {email: emailAddres, children: 1},
@@ -2040,7 +2041,7 @@ if (!$childrenDesign) {
 					<?= GetMessage("GIFT_BOOK_TITLE") ?>
 				</p>
 				<p>
-					<?= GetMessage("GIFT_BOOK_DESCRIPTION") ?>
+					Подпишитесь на рассылку о детских книгах<br />и получите бестселлер «Наказания бесполезны»<br />в формате PDF бесплатно.
 				</p>
 				<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
 			</div>

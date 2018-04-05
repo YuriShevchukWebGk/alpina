@@ -27,6 +27,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Альпина.Медиа", 
+		"/blog/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>

@@ -33,6 +33,7 @@
     define ("PROPERTY_STATE_ID", 56); // свойство состояния статуса товара
     define ("WISHLIST_IBLOCK_ID", 17);
     define ("EXPERTS_IBLOCK_ID", 23);
+    define ("CATALOG_IBLOCK_ID_REMAINDER", 77);
     define ("LECTIONS_ANNOUNCES_IBLOCK_ID", 60);
     define ("EXPERTS_REVIEWS_IBLOCK_ID", 31);
     define ("SERIES_BANNERS_IBLOCK_ID", 54); // 53 - для тестовой копии
@@ -182,7 +183,7 @@
     * @param string $additional_parameters
     *
     **/
-    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
+    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {   
         GLOBAL $arParams;     
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
@@ -1282,6 +1283,8 @@
 
             );
             CEvent::Send("ORDER_PAYED_MANUAL", "s1", $arEventFields,"N");
+        } elseif ($val=="RT") {
+            UpdOrderStatus($ID, "F");
         }
     }
 
@@ -3380,13 +3383,18 @@
 
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
 
-    function messagesWithAttachments($arFields, $arTemplate) {
+    function messagesWithAttachments(&$arFields, &$arTemplate) {
         GLOBAL $arParams;
 
-        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
+        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа   
         if(cancelMail($arFields, $arTemplate)) {
-            return false;
-        }
+           // return false;                                 
+           $arFields["PREORDER"] = "предзаказ";
+           $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
+
+        } else {
+           $arFields["PREORDER"] = "заказ"; 
+        } 
 
         // отправка письма по наличию вложенных файлов
         if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
