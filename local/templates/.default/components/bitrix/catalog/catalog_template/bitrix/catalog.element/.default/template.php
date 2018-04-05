@@ -1669,7 +1669,7 @@
     </div>
 	
 	<?if ($arResult['PROPERTIES']['instagram_embed']['VALUE']) {?>
-		<h4 style="clear:both;font-size: 38px;font-family: Walshein_regular;color:#444">Отзывы в <i class="fa fa-instagram" style="font-family: FontAwesome;font-size: 32px;" aria-hidden="true"></i> Instagram</h3>
+		<h4 style="clear:both;font-size: 38px;font-family: Walshein_regular;color:#444"><span style="border-bottom:2px solid #00abb8">Отзы</span>вы в <i class="fa fa-instagram" style="font-family: FontAwesome;font-size: 32px;" aria-hidden="true"></i> Instagram</h3>
 		<?foreach($arResult['PROPERTIES']['instagram_embed']['~VALUE'] as $instagram_embed) {?>
 			<center><div style="max-width:280px;float:left;display:inline-block;margin:0 15px"><?=$instagram_embed?></div></center>
 		<?}?>
@@ -2223,6 +2223,40 @@ if (!$childrenDesign) {
 			}?>
 		<?}?>
     </div>
+</div>
+
+<div class="testdriveWrapChildren" style="background:#e7a65f;color:#fff;min-height:270px">
+	<div class="centerWrapper" style="font-size:17px">
+	<img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height:270px" />
+		<p class="title" style="color:#fff">
+			Книжный тест-драйв
+		</p>
+		<p style="line-height:200%">
+			Вы увлеченная мама, ведете свой блог в социальных сетях и интересно пишете про детские книги?<br />
+			Нам интересно ваше мнение! Если аудитория вашего блога более 10 000 человек, получите одну из 20 бесплатных книг на рецензию.<br />
+			<a href="mailto:n.tentser@alpina.ru" style="color:#fff;text-decoration:none;border-bottom:1px solid">Напишите на почту Наталье Тенцер n.tentser@alpina.ru</a>, расскажите о себе и своем блоге, мы рассмотрим ваше предложение и обязательно ответим!<br />
+
+		</p>
+	</div>
+</div>
+
+<div class="testdriveWrapChildren" style="width:100%;background:#00aab8 url(/images/childrenbg.jpg) no-repeat;background-size:cover;color:#fff;">
+	<div class="centerWrapper" style="padding-left:10%;font-size:17px">
+		<p class="title" style="color:#fff">
+			Корпоративные заказы
+		</p>
+		<p style="line-height:200%;line-height:200%">
+			Книга станет желанным подарком для детей сотрудников, клиентов и партнеров.
+			<ul style="line-height:200%">
+			<li>&nbsp;&nbsp; • Выпустим подарочную детскую книгу о вашей компании</li>
+			<li>&nbsp;&nbsp; • Напечатаем специальный тираж с вашим логотипом или даже уникальным текстом</li>
+			<li>&nbsp;&nbsp; • Сделаем скидку при заказе от 50 экземпляров</li>
+			</ul>
+			Расскажите детям, где работают их мамы и папы!
+			<br /><br />
+			<a href="mailto:l.bogomaz@alpinabook.ru" style="color:#fff;text-decoration:none;border-bottom:1px solid">Лана Богомаз ответит на все ваши вопросы: l.bogomaz@alpinabook.ru</a>
+		</p>
+	</div>
 </div>
 
 <? global $authBooksFilter;
