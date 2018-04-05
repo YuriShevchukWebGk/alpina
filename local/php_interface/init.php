@@ -3391,6 +3391,9 @@
            // return false;                                 
            $arFields["PREORDER"] = "предзаказ";
            $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
+           $arFields['EMAIL_DELIVERY_TERM'] = '';
+           $arFields['EMAIL_DELIVERY_ADDR'] = '';
+           
 
         } else {
            $arFields["PREORDER"] = "заказ"; 
