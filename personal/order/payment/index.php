@@ -373,19 +373,25 @@
 				</div>
 			</div> 
 			<?} else if ($arOrder['PAY_SYSTEM_ID'] == 24) {?>
-            
-            <p>Оплата заказа №<?=$arOrder["ID"]?> от <?=$arOrder["DATE_INSERT"]?> в интернет-магазине alpinabook.ru "Альпина Паблишер"</p>
-            <p>Сумма к оплате по счету <?=CurrencyFormat($arOrder["PRICE"], $arOrder["CURRENCY"])?></p>
-            <a class="platbox_button submit_platbox">Оплатить</a>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script src="https://payment.platbox.com/widget.js"></script>
+            <div style="text-align: center;">
+                <p>Оплата заказа №<?=$arOrder["ID"]?> от <?=$arOrder["DATE_INSERT"]?> в интернет-магазине alpinabook.ru "Альпина Паблишер"</p>
+                <p>Сумма к оплате по счету <?=CurrencyFormat($arOrder["PRICE"], $arOrder["CURRENCY"])?></p>
+                <a class="platbox_button submit_platbox">Оплатить</a>
+            </div>
         <? 
-           $order["order_id"] = $arOrder["ID"].'_'.rand(0, 100);
-           $order["type"] = 'order_id';
+            $order["type"] = 'order_id';
+            $order["order_id"] = $arOrder["ID"].'_'.rand(0, 100);
             $merchant_id = 'bfa6ffc2eab115dfb28af6854cfceca9';
             $secretkey = "83508e01b1ef2a175d54e81d8e2532fe";
-            $account = $arOrder["USER_LOGIN"];
+            $account = array("id" => $arOrder["USER_LOGIN"]);
             $project = 'alpinabook';
-            $amount = $arOrder["PRICE"];
+            
+            $string = $arOrder["PRICE"]; 
+            $amount = preg_replace('~[^0-9]+~','',$string); 
 
+            
             $x = [
                 "account"     => $account,
                 "amount"      => (int)rawurldecode($amount), 
@@ -398,10 +404,9 @@
             
             $str = json_encode($x);
             
-            $sign = hash_hmac("SHA256", $str, $secretkey);
+            $sign = hash_hmac("SHA256", $str, $secretkey); 
         ?>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script src="https://payment.platbox.com/widget.js"></script>
+
         <script>
 
             var Page = function () {
@@ -416,7 +421,7 @@
 
                     this.widget = new PBWidget({
                         account: {
-                            id: '<?=$account?>',
+                            id: '<?=$account["id"]?>',
                         },
                         amount: <?=rawurldecode($amount)?>,
                         currency: '<?=$arOrder["CURRENCY"]?>',
@@ -443,7 +448,8 @@
                                 },
 
                             };
-
+                             $('.platbox_iframe_block').show();
+                             $('.layout').show();
                             /**
                              * Шаг 3. Для отображения платежной формы вызываем метод renderInset().
                              *
@@ -459,6 +465,8 @@
                             /**
                              * Шаг 4. Принудительно закрыть форму оплаты можно вызвав метод destroy().
                              */
+                              $('.platbox_iframe_block').hide();
+                              $('.layout').hide();
                             _this.widget.destroy();
                         });
                     })
@@ -494,6 +502,25 @@
             display: inline-block;
             text-decoration: none;
         }
+        .platbox_iframe_block {
+            width: 61%!important;
+            left: 20%!important;
+        }
+        .platbox_iframe {
+            width: 100%;
+            height: 100%;
+        }
+        .layout, .layout2 {
+            z-index: 1000;
+            position: fixed;
+            left: 0;
+            height: 100%;
+            background-color: #000;
+            opacity: .35;
+            width: 100%;
+            top: 0;
+            display: none;
+        }
         </style>
         <div class="platbox_iframe_block" style="width: 100%; left: 0%; height: 531px; display: none; position: absolute; z-index: 2000; top: 30%; background-color: white;">
             <?/*<iframe class="platbox_iframe" src='https://paybox-global.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>&mobile=1' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
@@ -502,7 +529,7 @@
                 <img src="/img/catalogLeftClose.png">
             </div>
         </div>
-
+        <div class="layout"></div>
         <?} else {?>
 			<div style="text-align: center">
 				<?$APPLICATION->IncludeComponent(
