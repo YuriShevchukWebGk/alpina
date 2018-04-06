@@ -2225,6 +2225,7 @@ if (!$childrenDesign) {
     </div>
 </div>
 
+<?if ($childrenDesign) {?>
 <div class="testdriveWrapChildren" style="background:#e7a65f;color:#fff;min-height:270px">
 	<div class="centerWrapper" style="font-size:17px">
 	<img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height:270px" />
@@ -2258,6 +2259,7 @@ if (!$childrenDesign) {
 		</p>
 	</div>
 </div>
+<?}?>
 
 <? global $authBooksFilter;
     if (!empty ($arResult["PROPERTIES"]["AUTHORS"]["VALUE"][0]) ) {

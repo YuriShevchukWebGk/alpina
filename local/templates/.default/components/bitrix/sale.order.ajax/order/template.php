@@ -1111,12 +1111,12 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             "currency"    => $currency,
             "merchant_id" => rawurldecode($merchant_id),
             "order"       => $order,
-            "project"     => rawurldecode($project),
+            "project"     => rawurldecode($project), 
         ];
         ksort($x);
         
         $str = json_encode($x);
-        
+        arshow($str);
         $sign = hash_hmac("SHA256", $str, $secretkey);
     ?>
     <script>
@@ -1142,8 +1142,8 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                         type: '<?=$order["type"]?>',
                         order_id: '<?=$order["order_id"]?>',
                     },
-                    project: '<?=rawurldecode($project)?>',
-                    sign: '<?=$sign?>',
+                    project: '<?=rawurldecode($project)?>',        
+                    sign: '<?=$sign?>',  
                 }, {
                     /* options */
                 });

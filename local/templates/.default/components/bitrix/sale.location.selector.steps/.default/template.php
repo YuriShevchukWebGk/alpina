@@ -20,7 +20,7 @@ Loc::loadMessages(__FILE__);
 	<?$GLOBALS['APPLICATION']->AddHeadScript('/bitrix/js/sale/core_ui_pager.js')?>
 	<?$GLOBALS['APPLICATION']->AddHeadScript('/bitrix/js/sale/core_ui_combobox.js')?>
 	<?$GLOBALS['APPLICATION']->AddHeadScript('/bitrix/js/sale/core_ui_chainedselectors.js')?>
-
+     <?//arshow($_POST["PERSON_TYPE"])?>
 	<div id="sls-<?=$arResult['RANDOM_TAG']?>" class="bx-slst<?if($arResult['ADMIN_MODE']):?> bx-admin-mode<?endif?>">
 
 		<?if(is_array($arResult['DEFAULT_LOCATIONS']) && !empty($arResult['DEFAULT_LOCATIONS'])):?>
@@ -29,13 +29,17 @@ Loc::loadMessages(__FILE__);
                 <?//arshow($arResult['DEFAULT_LOCATIONS'])?>
 				<?foreach($arResult['DEFAULT_LOCATIONS'] as $lid => $loc):?>
                     <?
-                    $class = '';
-                     if($loc['ID'] == $arParams["ID"] /*|| ($arParams["ID"] != 88 && $arParams["ID"] != 21279 && $loc["ID"] == 21278)*/){
-                        $class = 'addCircle';
-                     }
-                     ?>
-					<a href="javascript:void(0)" data-id="<?=$loc['ID']?>" class="quick-location-tag <?=$class?> <?//=($loc["ID"] == 21278)? 'region_click': ''?>"><?=htmlspecialcharsbx($loc['NAME'])?></a>
-				<?endforeach?>
+                    if($_POST["PERSON_TYPE"] == 2 && $loc["ID"] == LOCATION_IMTERNATIONAL){ ?>
+
+                    <?} else {
+                        $class = '';
+                         if($loc['ID'] == $arParams["ID"] /*|| ($arParams["ID"] != 88 && $arParams["ID"] != 21279 && $loc["ID"] == 21278)*/){
+                            $class = 'addCircle';
+                         }
+                         ?>
+					    <a href="javascript:void(0)" data-id="<?=$loc['ID']?>" class="quick-location-tag <?=$class?> <?//=($loc["ID"] == 21278)? 'region_click': ''?>"><?=htmlspecialcharsbx($loc['NAME'])?></a>
+				    <?}?>
+                <?endforeach?>
 
 			</div>
 
