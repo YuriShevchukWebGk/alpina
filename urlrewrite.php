@@ -176,22 +176,6 @@ $arUrlRewrite=array (
     'PATH' => '/testnews/index.php',
     'SORT' => 100,
   ),
-  22 => 
-  array (
-    'CONDITION' => '#^/news(/?)#',
-    'RULE' => '',
-    'ID' => 'bitrix:news',
-    'PATH' => '/news/index.php',
-    'SORT' => 100,
-  ),
-  23 => 
-  array (
-    'CONDITION' => '#^/blog(/?)#',
-    'RULE' => '',
-    'ID' => 'bitrix:news',
-    'PATH' => '/blog/index.php',
-    'SORT' => 100,
-  ),
   24 => 
   array (
     'CONDITION' => '#^/authors/#',
@@ -200,12 +184,28 @@ $arUrlRewrite=array (
     'PATH' => '/authors/index.php',
     'SORT' => 100,
   ),
+  22 => 
+  array (
+    'CONDITION' => '#^/news(/?)#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/news/index.php',
+    'SORT' => 100,
+  ),
   25 => 
   array (
     'CONDITION' => '#^/store/#',
     'RULE' => '',
     'ID' => 'bitrix:catalog.store',
     'PATH' => '/store/index.php',
+    'SORT' => 100,
+  ),
+  26 => 
+  array (
+    'CONDITION' => '#^/blog/#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/blog/index.php',
     'SORT' => 100,
   ),
 );

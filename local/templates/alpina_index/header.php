@@ -923,6 +923,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <a href="https://twitter.com/AlpinaBookRu" target="_blank"><img src="/img/twitter.png"></a>
                 <a href="https://www.facebook.com/alpinabook/" target="_blank"><img src="/img/facebook.png"></a>
                 <a href="https://instagram.com/alpinabook" target="_blank"><img src="/img/instagramm.png"></a>
+                <a href="https://t.me/alpinaru " target="_blank" ><img src="/img/tele1.png"></a>
             </div>
         </div>
     </div>

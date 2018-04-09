@@ -181,7 +181,8 @@
                         <a href="https://www.facebook.com/alpinabook/"><img src="/img/fbImg.png"></a>
                         <a href="https://www.youtube.com/user/AlpinaPublishers"><img src="/img/youImg.png"></a>
                         <a href="https://plus.google.com/+alpinabook?prsrc=5"><img src="/img/googImg.png"></a>
-                        <a href="https://instagram.com/alpinabook"><img src="/img/instImg.png"></a>     
+                        <a href="https://instagram.com/alpinabook"><img src="/img/instImg.png"></a>    
+                        <a href="https://t.me/alpinaru " target="_blank" rel="nofollow"><img src="/img/tele1.png"></a> 
                     </div>
                 </div>
             </div>

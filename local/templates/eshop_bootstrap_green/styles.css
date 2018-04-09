@@ -213,3 +213,6 @@ tabsection,
     clear: both;
 }
 footer{display:inline-block}
+.contactUs{
+    height: auto!important;
+}

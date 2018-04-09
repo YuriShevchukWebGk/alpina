@@ -100,7 +100,7 @@
             scrollDepth = $(window).scrollTop();
             if (scrollDepth > 450 && checkReadiness == 0) {
                 $(".centerColumn").css("margin-right", "0");
-                $(".showAllWrapp").css("padding-top", "110px");
+                $(".showAllWrapp").css("padding-top", "20px");
 
                 $(".rightColumn").hide();
 
