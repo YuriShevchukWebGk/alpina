@@ -23,7 +23,7 @@ foreach ($arResult["ITEMS"] as $i => $arItem) {
 }
 ?>
 
-<div class="cataloggWrapper">
+
 	<h1><?=$arResult["SECTION"]["PATH"][0]["NAME"]?></h1>
 	
 	<?foreach ($blocks as $block) {?>
@@ -50,4 +50,3 @@ foreach ($arResult["ITEMS"] as $i => $arItem) {
 	<div class="navigation">
 		<?=$arResult["NAV_STRING"]?>
 	</div>
-</div>
