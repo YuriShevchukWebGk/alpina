@@ -185,12 +185,13 @@
     *
     **/
     function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
-
-        if(strlen($message) > 1000) {
-            $htmlStart = strripos($message, "<html");          
+        
+        
+        if(strlen($message) > 3000) {
+            $htmlStart = strripos($message, "8bit");          
             $message = substr($message, $htmlStart);
-            $htmlEnd = strripos($message, "html>");
-            $message = substr($message, 0, -(strlen($message) - $htmlEnd - 4));               
+            $htmlEnd = strripos($message, "---------");
+            $message = substr($message, 5, -(strlen($message) - $htmlEnd ));               
         }
 
         GLOBAL $arParams;     
@@ -1058,7 +1059,7 @@
                      $order_list["DELIVERY_ID"] == DELIVERY_COURIER_2 || 
                      $order_list["DELIVERY_ID"] == DELIVERY_COURIER_MKAD) && 
                      $order_list["STATUS_ID"] == ROUTE_STATUS_ID){
-                        CSaleOrder::StatusOrder($ID, "I");
+                        
                         $arFields = array(
                             "ID"=> $ID,
                         );
@@ -3814,5 +3815,34 @@ function MontageBasketAdd(&$arFields) {
     
 }
 
+// переводим заказ в статус "выполнен" если статус доставки "возврат"
+function UpdateStatusBoxberyCancel() {
+     // получаем заказы с Boxbery  и статусом "в пути"
+    $arFilter = Array("DELIVERY_ID" => DELIVERY_BOXBERRY_PICKUP, "STATUS_ID" => "I");
+    $rsOrder = CSaleOrder::GetList(Array(), $arFilter, Array("ID", "STATUS_ID"), false); // Array("PROPERTY_CONSIGNEE")
+    while($arOrder = $rsOrder->Fetch()) {
+         $order = \Bitrix\Sale\Order::load($arOrder["ID"]);
+
+        /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
+        $shipmentCollection = $order->getShipmentCollection();
+
+        /** @var \Bitrix\Sale\Shipment $shipment */
+        foreach ($shipmentCollection as $shipment) {
+            $track = $shipment->getField("TRACKING_NUMBER");
+            
+            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$track;
+
+            $handle = fopen($url, "rb");
+            $contents = stream_get_contents($handle);
+            fclose($handle);
+            $data = json_decode($contents,true);
+          
+            if($data["statuses"][0]["Name"] == "Возвращено в ИМ"){
+                CSaleOrder::StatusOrder($arOrder["ID"], "F");  // обновление статуса если заказ был возвращен
+            }
+        } 
+    }
+    return "UpdateStatusBoxberyCancel();";
+}
 
 ?>
