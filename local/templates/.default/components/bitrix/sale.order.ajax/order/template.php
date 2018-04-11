@@ -237,7 +237,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             //minDatePlus++;
-			minDatePlus = minDatePlus + 2;
+			minDatePlus = minDatePlus + 1;
         }
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
@@ -1103,7 +1103,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
     <?  
        $order["order_id"] = $arResult["ORDER_ID"].'_'.rand(0, 100);
         
-        $secretkey = "83508e01b1ef2a175d54e81d8e2532fe";
+        $secretkey = "83508e01b1ef2a175d54e81d8e2532fe";     
 
         $x = [
             "account"     => $account,
@@ -1111,7 +1111,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             "currency"    => $currency,
             "merchant_id" => rawurldecode($merchant_id),
             "order"       => $order,
-            "project"     => rawurldecode($project),
+            "project"     => rawurldecode($project), 
         ];
         ksort($x);
         
@@ -1142,8 +1142,8 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                         type: '<?=$order["type"]?>',
                         order_id: '<?=$order["order_id"]?>',
                     },
-                    project: '<?=rawurldecode($project)?>',
-                    sign: '<?=$sign?>',
+                    project: '<?=rawurldecode($project)?>',        
+                    sign: '<?=$sign?>',  
                 }, {
                     /* options */
                 });
@@ -1184,7 +1184,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             new Page();
         })();        
         
-    </script>
+    </script>     
     <div class="platbox_iframe_block" style="width: 100%; left: 0%; height: 531px; display: none; position: absolute; z-index: 2000; top: 30%; background-color: white;">
         <?/*<iframe class="platbox_iframe" src='https://paybox-global.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>&mobile=1' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
         </iframe>*/?>

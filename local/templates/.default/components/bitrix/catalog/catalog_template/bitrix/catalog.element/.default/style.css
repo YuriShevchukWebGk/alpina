@@ -1482,11 +1482,11 @@ font-size:16px;
 .legal_description{font-size:14px}
 .target_audience{color:#fff;width:auto;padding:4px 14px 8px;border-radius:7px;display:inline;margin-left:3px;font-family:Walshein_bold;font-size:15px}
 .whyBuyWrap{padding:20px 0}
-.whyBuy{font-family:Walshein_light}
-.whyBuy:before{content:"\f069"!important;font-family:FontAwesome;font-size:13px;margin-right:8px}
-.elementDescriptWrap .annotation b, .recenzion .recenz_text b{font-size:16px;font-family:Walshein_regular}
-
-.giftWrapChildren .title{font-size:20px}
+.whyBuy{font-family:Walshein_light;padding:3px 0}
+.whyBuy:before{content:"\f005"!important;font-family:FontAwesome;font-size:12px;margin-right:8px}
+.elementDescriptWrap .annotation b, .recenzion .recenz_text b{font-size:18px;font-family:Walshein_light;color:#555}
+.testdriveWrapChildren{padding:80px 0}
+.giftWrapChildren .title, .testdriveWrapChildren .title{font-size:20px}
 .giftWrapChildren p,.giftWrapChildren .pii{font-size:14px}
 .giftWrapChildren input[type=text]{margin-right:-65px;float:none}
 .giftWrapChildren .pii{float:left}
@@ -1501,7 +1501,7 @@ font-size:16px;
 .giftWrapChildren .pii{float:right;width:462px;color:#768AAC;font-family:Walshein_regular;font-size:16px}
 .giftWrapChildren .pii a{color:#3f4a4d}
 .giftWrapChildren .pii a:hover{border-bottom:1px solid}
-.giftWrapChildren .title{font-family:Walshein_black;font-size:42px;color:#486796;padding-top:0;padding-bottom:0}
+.giftWrapChildren .title, .testdriveWrapChildren .title{font-family:Walshein_black;font-size:42px;color:#486796;padding-top:0;padding-bottom:0}
 .giftWrapChildren p{color:#768AAC;font-family:Walshein_regular;font-size:16px}
 .giftWrapChildren{position:relative}
 .giftWrapChildren:before{content:url(/img/lov.png);position:absolute;text-align:center;top:0px;right:46%}

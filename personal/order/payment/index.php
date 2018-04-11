@@ -176,7 +176,6 @@
 			<?
 			die();
 		}*/ ?>	
-
 		<?if($arOrder['PAY_SYSTEM_ID']== RFI_PAYSYSTEM_ID){?>
 			<?= $APPLICATION->ShowHead();?>
 			<br>
@@ -194,7 +193,8 @@
 						),
 						false
 					); ?>
-				<?die(); }?>
+				<?die(); 
+        } ?>
 		</div>
 		<br>
 
@@ -372,7 +372,165 @@
 					</table>
 				</div>
 			</div> 
-			<?} else {?>
+			<?} else if ($arOrder['PAY_SYSTEM_ID'] == 24) {?>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script src="https://payment.platbox.com/widget.js"></script>
+            <div style="text-align: center;">
+                <p>Оплата заказа №<?=$arOrder["ID"]?> от <?=$arOrder["DATE_INSERT"]?> в интернет-магазине alpinabook.ru "Альпина Паблишер"</p>
+                <p>Сумма к оплате по счету <?=CurrencyFormat($arOrder["PRICE"], $arOrder["CURRENCY"])?></p>
+                <a class="platbox_button submit_platbox">Оплатить</a>
+            </div>
+        <? 
+            $order["type"] = 'order_id';
+            $order["order_id"] = $arOrder["ID"].'_'.rand(0, 100);
+            $merchant_id = 'bfa6ffc2eab115dfb28af6854cfceca9';
+            $secretkey = "83508e01b1ef2a175d54e81d8e2532fe";
+            $account = array("id" => $arOrder["USER_LOGIN"]);
+            $project = 'alpinabook';
+            
+            $string = $arOrder["PRICE"]; 
+            $amount = preg_replace('~[^0-9]+~','',$string); 
+
+            
+            $x = [
+                "account"     => $account,
+                "amount"      => (int)rawurldecode($amount), 
+                "currency"    => $arOrder["CURRENCY"],
+                "merchant_id" => rawurldecode($merchant_id),
+                "order"       => $order,
+                "project"     => rawurldecode($project),
+            ];
+            ksort($x);
+            
+            $str = json_encode($x);
+            
+            $sign = hash_hmac("SHA256", $str, $secretkey); 
+        ?>
+
+        <script>
+
+            var Page = function () {
+                this.init();
+            };
+
+
+            Page.prototype.init = function () {
+                var _this = this;
+
+                if (window.PBWidget) {
+
+                    this.widget = new PBWidget({
+                        account: {
+                            id: '<?=$account["id"]?>',
+                        },
+                        amount: <?=rawurldecode($amount)?>,
+                        currency: '<?=$arOrder["CURRENCY"]?>',
+                        merchant_id: '<?=rawurldecode($merchant_id)?>',
+                        order: {
+                            type: '<?=$order["type"]?>',
+                            order_id: '<?=$order["order_id"]?>',
+                        },
+                        project: '<?=rawurldecode($project)?>',
+                        sign: '<?=$sign?>',
+                    }, {
+                        /* options */
+                    });
+
+                    $(function(){
+                        $('body').on('click', '.submit_platbox', function () {
+                            var params = {
+
+                            };
+                            var options = {
+                                container: document.querySelector('.platbox_iframe_block'),
+                                attributes: {
+                                    className: 'platbox_iframe',
+                                },
+
+                            };
+                             $('.platbox_iframe_block').show();
+                             $('.layout').show();
+                            /**
+                             * Шаг 3. Для отображения платежной формы вызываем метод renderInset().
+                             *
+                             * Метод, как и конструктор, может принимать два параметра:
+                             *  - в качестве первого передается обект, содержащий недостающие параметры платежа,
+                             *  - вторым параметром можно переопределить параметры объекта настроек options,
+                             *    переданные в конструктор.
+                             */
+                            _this.widget.renderInset(params, options);
+                        });
+                    
+                        $('body').on('click', '.platbox_iframe_closing', function () {
+                            /**
+                             * Шаг 4. Принудительно закрыть форму оплаты можно вызвав метод destroy().
+                             */
+                              $('.platbox_iframe_block').hide();
+                              $('.layout').hide();
+                            _this.widget.destroy();
+                        });
+                    })
+                }
+            };
+
+            (function () {
+                new Page();
+            })();        
+            
+        </script>
+        <style>
+        .platbox_button {
+            width: 230px;
+            height: 59px;
+            border: 2px solid;
+            border-color: #fff;
+            background-color: rgba(227, 27, 66, 0.9);
+            border-radius: 15px;
+            font-size: 28px;
+            color: #fff;
+            font-family: sans-serif;
+            cursor: pointer;
+            outline: none;
+            transition: 0.1s;
+            box-sizing: content-box;
+            -webkit-border-radius: 15px;
+            -o-border-radius: 15px;
+            -moz-border-radius: 15px;
+            text-align: center;
+            padding-top: 13px;
+            box-sizing: border-box;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .platbox_iframe_block {
+            width: 61%!important;
+            left: 20%!important;
+        }
+        .platbox_iframe {
+            width: 100%;
+            height: 100%;
+        }
+        .layout, .layout2 {
+            z-index: 1000;
+            position: fixed;
+            left: 0;
+            height: 100%;
+            background-color: #000;
+            opacity: .35;
+            width: 100%;
+            top: 0;
+            display: none;
+        }
+        </style>
+        <div class="platbox_iframe_block" style="width: 100%; left: 0%; height: 531px; display: none; position: absolute; z-index: 2000; top: 30%; background-color: white;">
+            <?/*<iframe class="platbox_iframe" src='https://paybox-global.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>&mobile=1' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
+            </iframe>*/?>
+            <div class="platbox_iframe_closing" style="position: absolute; cursor: pointer; top: -30px; right: -33px;">
+                <img src="/img/catalogLeftClose.png">
+            </div>
+        </div>
+        <div class="layout"></div>
+        <?} else {?>
 			<div style="text-align: center">
 				<?$APPLICATION->IncludeComponent(
 						"user:sale.order.payment",

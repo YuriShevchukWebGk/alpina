@@ -158,7 +158,7 @@ ul li:nth-child(6n-2),ul li:nth-child(6n-1),ul li:nth-child(6n) {
 .border{border:1px solid #aaa}
 
 .postWrapper, .hintWrapp .catalogWrapper{
-    margin-left: 170px;
+    margin-left: 8%;
     text-align: left;
 	max-width: 1150px!important;
 	overflow:hidden

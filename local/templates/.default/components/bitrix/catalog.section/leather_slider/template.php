@@ -2,8 +2,8 @@
 $this->setFrameMode(true);
 ?>
 
-<div class="saleSlider leatherSlider">
-	<p class="titleMain"><a href="/catalog/knigivkozhe/">Книги в коже</a></p>
+<div class="saleSlider leatherSlider no-mobile">
+	<p class="titleMain"><a href="/catalog/bigideas/">Маленькие книги — большие идеи</a></p>
     <ul>
         <?foreach ($arResult["ITEMS"] as $arItem) {
             foreach ($arItem["PRICES"] as $code => $arPrice) {
@@ -21,7 +21,7 @@ $this->setFrameMode(true);
                                     <img src="/images/no_photo.png">      
                                     <?}?>
                             </div>
-						<p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
+						<?/*<p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>*/?>
                         </a>
                     </div>    
                 </li>    

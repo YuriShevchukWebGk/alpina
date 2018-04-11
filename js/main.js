@@ -270,27 +270,23 @@ $(document).ready(function(){
     });
 
     // скрывать стрелки слайдера, если элементов меньше 6
-    if ($(".saleSlider ul li").size() < 6)
-    {
+    if ($(".saleSlider ul li").size() < 6) {
         $(".saleSlider .left").hide();
         $(".saleSlider .right").hide();
     }
-
-    if ($(".otherEasySlider ul li").size() < 6)
-    {
+    fxSlider('saleSlider.recsOnMain', 'left', 'right', false, 200, 5);
+    if ($(".otherEasySlider ul li").size() < 6) {
         $(".otherEasySlider .left").hide();
         $(".otherEasySlider .rigth").hide();
     }
 
     // если блок "Мероприятия товара" отображается - поправить вёрстку страницы автора
 
-    if ($(".autorInfo .events").css("display") == "block")
-    {
+    if ($(".autorInfo .events").css("display") == "block") {
         $(".content").css("min-height", "840px");
     }
 
-    if ($(".autorInfo .textWrap").height() > 300)
-    {
+    if ($(".autorInfo .textWrap").height() > 300) {
         $(".content .catalogWrapper").css("height", $(".autorInfo .textWrap").height() + 100 + "px");
     }
 
@@ -375,8 +371,7 @@ $(document).ready(function(){
         update_quant();
     }
 
-    if ($(".hidingBasketRight .basketBooks .basketBook").length == 0)
-    {
+    if ($(".hidingBasketRight .basketBooks .basketBook").length == 0) {
         $(".BasketQuant").css("display", "none");
     }
     //плавающий блок в карточке товара
@@ -514,15 +509,13 @@ $(document).ready(function(){
         easySlider('.bestSlider', 5);
     }
 
-    if ($(".bestSlider ul li").size() < 6)
-    {
+    if ($(".bestSlider ul li").size() < 6) {
         $(".bestSlider .left").hide();
         $(".bestSlider .rigth").hide();
 
     }
 
-    if ($(".authorBoolSlider ul li").size() < 6)
-    {
+    if ($(".authorBoolSlider ul li").size() < 6) {
         $(".authorBoolSlider .left").hide();
         $(".authorBoolSlider .rigth").hide();
 
@@ -702,8 +695,7 @@ $(document).ready(function(){
     var widthOfSlide = '196px';
     var intwidthOfSlide = 196;
     var countLi = $('.saleWrapp ul li').size();
-    if (countLi < 6)
-    {
+    if (countLi < 6) {
         $(".saleWrapp .left").hide();
         $(".saleWrapp .right").hide();
     }
@@ -776,8 +768,7 @@ $(document).ready(function(){
     var widthOfSlideReccomend = '196px';
     var intwidthOfSlideReccomend = 196;
     var countLiRec = $('.recomendation ul li').size();
-    if (countLiRec < 7)
-    {
+    if (countLiRec < 7) {
         $(".recomendation .left").hide();
         $(".recomendation .right").hide();
     }
@@ -967,8 +958,7 @@ function update_quant(sign, e) {
     })*/
     var numbOfBooks = parseInt($(e).parent().children('p').html());
     var quantity = numbOfBooks;
-    switch (sign)
-    {
+    switch (sign) {
         case "plus":
             quantity = numbOfBooks+1;
             //$(e).parent().children('p').html(new_count);
@@ -1339,10 +1329,8 @@ function updateSearchPage() {
         }
     });
 
-    /*$(".descrWrap .bookNames").each(function()
-    {
-    if($(this).length > 0)
-    {
+    /*$(".descrWrap .bookNames").each(function() {
+    if($(this).length > 0) {
     $(this).html(truncate($(this).html(), 50));
     }
     });*/
@@ -1379,8 +1367,7 @@ function newSubFunction(submitButton){
                 }
         });
     }
-    else
-    {
+    else {
         $(".subscr_result").html("Введите корректный e-mail адрес.");
         $(".subscr_result").show();
         $(".layout").show();
@@ -1391,16 +1378,14 @@ function newSubFunction(submitButton){
 function CheckRequestFields() {
     var emailAddres = $('.giftWrap input[type=text]').val();
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (regex.test(emailAddres))
-    {
+    if (regex.test(emailAddres)) {
         $.post("/ajax/request_add.php", {email: $(".giftWrap input[type=text]").val()}, function(data){
             $(".layout").show();
             $(".some_info").show();
             $(".some_info").html(data);
         })
     }
-    else
-    {
+    else {
         $(".layout").show();
         $(".some_info").show();
         $(".some_info").html('Кажется, вы ошиблись в написании своего адреса');
@@ -1408,8 +1393,7 @@ function CheckRequestFields() {
 }
 
 function SubmitRequest(e){
-    if (e.keyCode == 13)
-    {
+    if (e.keyCode == 13) {
         CheckRequestFields();
     }
     return false;
@@ -1604,27 +1588,23 @@ function docReadyComponent(id) {
 	});
 
 	// скрывать стрелки слайдера, если элементов меньше 6
-	if ($(".saleSlider ul li").size() < 6)
-	{
+	if ($(".saleSlider ul li").size() < 6) {
 		$(".saleSlider .left").hide();
 		$(".saleSlider .right").hide();
 	}
 
-	if ($(".otherEasySlider ul li").size() < 6)
-	{
+	if ($(".otherEasySlider ul li").size() < 6) {
 		$(".otherEasySlider .left").hide();
 		$(".otherEasySlider .rigth").hide();
 	}
 
 	// если блок "Мероприятия товара" отображается - поправить вёрстку страницы автора
 
-	if ($(".autorInfo .events").css("display") == "block")
-	{
+	if ($(".autorInfo .events").css("display") == "block") {
 		$(".content").css("min-height", "840px");
 	}
 
-	if ($(".autorInfo .textWrap").height() > 300)
-	{
+	if ($(".autorInfo .textWrap").height() > 300) {
 		$(".content .catalogWrapper").css("height", $(".autorInfo .textWrap").height() + 100 + "px");
 	}
 
@@ -1671,8 +1651,7 @@ function docReadyComponent(id) {
 	//update_quant();
 
 
-	if ($(".hidingBasketRight .basketBooks .basketBook").length == 0)
-	{
+	if ($(".hidingBasketRight .basketBooks .basketBook").length == 0) {
 		$(".BasketQuant").css("display", "none");
 	}
 	//плавающий блок в карточке товара
@@ -1776,8 +1755,7 @@ function docReadyComponent(id) {
 	var widthOfSlide = '196px';
 	var intwidthOfSlide = 196;
 	var countLi = $('.saleWrapp ul li').size();
-	if (countLi < 6)
-	{
+	if (countLi < 6) {
 		$(".saleWrapp .left").hide();
 		$(".saleWrapp .right").hide();
 	}
@@ -1850,8 +1828,7 @@ function docReadyComponent(id) {
 	var widthOfSlideReccomend = '196px';
 	var intwidthOfSlideReccomend = 196;
 	var countLiRec = $('.recomendation ul li').size();
-	if (countLiRec < 7)
-	{
+	if (countLiRec < 7) {
 		$(".recomendation .left").hide();
 		$(".recomendation .right").hide();
 	}

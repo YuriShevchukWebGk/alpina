@@ -17,4 +17,4 @@
 }).done(function(strResult) {
 	$("#ajaxBlock").append(strResult);
 	$("body").css("overflow","hidden");
-});return false;' style="background:#2a2a2a;color:#fff;padding:10px 25px;font-size:17px;text-decoration:none;border-radius:30px;border:1px solid #888;display:block;margin:20px auto 0;width:200px" class="contactUs">Письмо издательству</a>
+});return false;' style="background:#2a2a2a;color:#fff;padding:10px 25px;font-size:17px;text-decoration:none;border-radius:30px;border:1px solid #888;display:block;margin:20px auto 0;width:225px;height:25px" class="contactUs">Письмо издательству</a>

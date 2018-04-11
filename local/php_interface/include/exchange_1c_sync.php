@@ -94,8 +94,7 @@ class Exchange1C {
                   $state = $bitrix_id_elem['PROPERTY_STATE_ENUM_ID'];
                   $reissue = $bitrix_id_elem['PROPERTY_REISSUE_VALUE'];
                   $name = $bitrix_id_elem['NAME'];
-
-                  logger($bitrix_id_elem, $_SERVER["DOCUMENT_ROOT"].'/logs/log_1.log');
+         
              }
 
             //Запросе на обновление остатков у товара
@@ -115,6 +114,7 @@ class Exchange1C {
                     "NAME" => $name,
                 );
                 CEvent::Send("BOOK_AVAILABILITY", "s1", $mailFields, "N");
+             //   logger($mailFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_1_catalog.log');
             } else if($total_quantity <= 0 && $quantity > 0 && $state != STATE_SOON){
              //   if($state == "NULL" || $state == STATE_NEWS){
                     CIBlockElement::SetPropertyValuesEx($bitrix_id, false, array("STATE" => STATE_NULL));
@@ -125,6 +125,8 @@ class Exchange1C {
                     "NAME" => $name,
                 );
                 CEvent::Send("BOOK_AVAILABILITY", "s1", $mailFields, "N");
+             //   logger($mailFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_catalog.log');
+
             }
 
           //  if ($state_prop_enum_id != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {

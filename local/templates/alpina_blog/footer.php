@@ -9,7 +9,7 @@
                     <br />
                     <br />
                     <a href="https://blog.alpinabook.ru/" target="_blank">
-                        <img src="/img/footerBlogLogo.png">
+                        <img src="/images/blog/media_dark.png">
                     </a>				
                 </div>
                 <div>
@@ -153,6 +153,7 @@
                     <a href="https://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/youImg.png"></a>
                     <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/googImg.png"></a>
                     <a href="https://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
+                    <a href="https://t.me/alpinaru " target="_blank" rel="nofollow"><img src="/img/tele1.png"></a>
                 </div>
             </div>
         </div>

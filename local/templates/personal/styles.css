@@ -285,3 +285,9 @@ tabsection,
 		-moz-transform: rotate(360deg);
 	}
 }
+footer{
+    overflow: hidden;
+}
+.contactUs{
+    height: auto!important;
+}

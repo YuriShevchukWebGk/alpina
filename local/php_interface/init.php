@@ -44,6 +44,7 @@
     define ("COVER_TYPE_SOFTCOVER_XML_ID", 168);
     define ("COVER_TYPE_HARDCOVER_XML_ID", 169);
     define ("RFI_PAYSYSTEM_ID", 13);
+    define ("PLATBOX_PAYSISTEM_ID", 24);
     define ("CASH_PAY_SISTEM_ID", 1);
     define ("PAYPAL_PAYSYSTEM_ID", 16);
     define ("SBERBANK_PAYSYSTEM_ID", 14);
@@ -68,6 +69,7 @@
     define ("PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID", 350); // 354 - для тестовой копии
     define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
     define ("TRADING_FINANCE_SECTION_ID", 111);
+    define ("LOCATION_IMTERNATIONAL", 21279);
 
     define ("DELIVERY_COURIER_1", 9);
     define ("DELIVERY_COURIER_2", 15);
@@ -182,7 +184,17 @@
     * @param string $additional_parameters
     *
     **/
-   /* function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
+
+    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
+        
+        
+        if(strlen($message) > 3000) {
+            $htmlStart = strripos($message, "8bit");          
+            $message = substr($message, $htmlStart);
+            $htmlEnd = strripos($message, "---------");
+            $message = substr($message, 5, -(strlen($message) - $htmlEnd ));               
+        }
+
         GLOBAL $arParams;     
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
@@ -221,7 +233,7 @@
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
         $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
-    }   */
+    }   
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
     function cancelMail($arFields, $arTemplate) {
@@ -847,6 +859,8 @@
                           $order->save();
                  }  
             }
+            logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_boxbery.txt');
+
         }
     }
 
@@ -894,7 +908,7 @@
                           $order->save();
                  }  
             }
-
+            logger($_REQUEST, $_SERVER["DOCUMENT_ROOT"].'/logs/log_boxbery_saved.txt');
             // Добавляем полную стоимость заказа в оплату
             $order_instance = Bitrix\Sale\Order::load($orderId);
             $payment_collection = $order_instance->getPaymentCollection();
@@ -1048,7 +1062,7 @@
                      $order_list["DELIVERY_ID"] == DELIVERY_COURIER_2 || 
                      $order_list["DELIVERY_ID"] == DELIVERY_COURIER_MKAD) && 
                      $order_list["STATUS_ID"] == ROUTE_STATUS_ID){
-                        CSaleOrder::StatusOrder($ID, "I");
+                        
                         $arFields = array(
                             "ID"=> $ID,
                         );
@@ -1282,6 +1296,8 @@
 
             );
             CEvent::Send("ORDER_PAYED_MANUAL", "s1", $arEventFields,"N");
+        } elseif ($val=="RT") {
+            UpdOrderStatus($ID, "F");
         }
     }
      
@@ -2087,7 +2103,7 @@
             $arFields['EMAIL_PAY_SYSTEM'] = getOrderPaySystemName($orderArr['PAY_SYSTEM_ID']);
         }
 
-        if ($orderArr["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID || $orderArr["PAY_SYSTEM_ID"] == SBERBANK_PAYSYSTEM_ID) {
+        if ($orderArr["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID || $orderArr["PAY_SYSTEM_ID"] == SBERBANK_PAYSYSTEM_ID || $orderArr["PAY_SYSTEM_ID"] == PLATBOX_PAYSISTEM_ID) {
             //получаем путь до обработчика
             $arFields["PAYMENT_LINK"] = "Для оплаты заказа перейдите по <a href='https://www.alpinabook.ru/personal/order/payment/?ORDER_ID=".$orderArr["ID"]."&hash=".$authHash."'>ссылке</a>.";
         }
@@ -3387,11 +3403,12 @@
         if(cancelMail($arFields, $arTemplate)) {
            // return false;                                 
            $arFields["PREORDER"] = "предзаказ";
-           $arFields["DELIVERY_PREORDER"] = "<br><br>После поступления книги в продажу";
+           $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
+           $arFields["EMAIL_DELIVERY_TERM"] = "";
 
         } else {
            $arFields["PREORDER"] = "заказ"; 
-        }         
+        } 
 
         // отправка письма по наличию вложенных файлов
         if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
@@ -3579,7 +3596,7 @@
                 if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
                     if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
-                    } else if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID ){
+                    }else if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID ){
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
                     } else {
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата"
@@ -3806,6 +3823,37 @@ function MontageBasketAdd(&$arFields) {
         }
     }
     
+}
+
+
+// переводим заказ в статус "выполнен" если статус доставки "возврат"
+function UpdateStatusBoxberyCancel() {
+     // получаем заказы с Boxbery  и статусом "в пути"
+    $arFilter = Array("DELIVERY_ID" => DELIVERY_BOXBERRY_PICKUP, "STATUS_ID" => "I");
+    $rsOrder = CSaleOrder::GetList(Array(), $arFilter, Array("ID", "STATUS_ID"), false); // Array("PROPERTY_CONSIGNEE")
+    while($arOrder = $rsOrder->Fetch()) {
+         $order = \Bitrix\Sale\Order::load($arOrder["ID"]);
+
+        /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
+        $shipmentCollection = $order->getShipmentCollection();
+
+        /** @var \Bitrix\Sale\Shipment $shipment */
+        foreach ($shipmentCollection as $shipment) {
+            $track = $shipment->getField("TRACKING_NUMBER");
+            
+            $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$track;
+
+            $handle = fopen($url, "rb");
+            $contents = stream_get_contents($handle);
+            fclose($handle);
+            $data = json_decode($contents,true);
+          
+            if($data["statuses"][0]["Name"] == "Возвращено в ИМ"){
+                CSaleOrder::StatusOrder($arOrder["ID"], "F");  // обновление статуса если заказ был возвращен
+            }
+        } 
+    }
+    return "UpdateStatusBoxberyCancel();";
 }
 
 ?>

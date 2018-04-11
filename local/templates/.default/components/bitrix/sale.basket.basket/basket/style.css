@@ -1039,3 +1039,31 @@ color:red;
 padding-right:92px;
 color:#888;
 font-size:15px}
+ 
+.saleSlider.recsOnMain {
+    padding-left: 26px;
+}
+.saleSlider.recsOnMain li{
+    height: 320px;
+    width: 230px!important;
+    margin-left: 0;
+
+}
+.saleSlider.recsOnMain ul{
+    max-width: unset;
+    height: 320px;
+}
+.left{
+    top: 120px;
+    position: absolute;
+    z-index: 200;
+    left: 0px;
+    cursor: pointer;
+}
+.right{
+    top: 120px;
+    position: absolute;
+    z-index: 200;
+    right: 0px;
+    cursor: pointer;
+}

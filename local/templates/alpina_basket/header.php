@@ -19,6 +19,7 @@
 
     <script type="text/javascript" src="/js/fancybox-2/jquery.fancybox.js"></script>
     <script type="text/javascript" src="/js/fancybox-2/helpers/jquery.fancybox-thumbs.js"></script>
+    <script type="text/javascript" src="/js/fxSlider.js"></script>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=WGG39kPBLm">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=WGG39kPBLm">

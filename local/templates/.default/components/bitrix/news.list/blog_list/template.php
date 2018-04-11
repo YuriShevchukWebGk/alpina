@@ -17,7 +17,7 @@ foreach ($arResult["ITEMS"] as $i => $arItem) {
 }
 ?>
 
-<div class="cataloggWrapper">
+
 	<?foreach ($blocks as $block) {?>
 		<ul class="block">
 			<?foreach($block as $arItem) {
@@ -44,5 +44,5 @@ foreach ($arResult["ITEMS"] as $i => $arItem) {
 	<div class="navigation">
 		<?=$arResult["NAV_STRING"]?>
 	</div> 
-</div>
+
 <?$frame->end();?>
