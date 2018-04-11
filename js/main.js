@@ -274,7 +274,7 @@ $(document).ready(function(){
         $(".saleSlider .left").hide();
         $(".saleSlider .right").hide();
     }
-
+    fxSlider('saleSlider.recsOnMain', 'left', 'right', false, 200, 5);
     if ($(".otherEasySlider ul li").size() < 6) {
         $(".otherEasySlider .left").hide();
         $(".otherEasySlider .rigth").hide();

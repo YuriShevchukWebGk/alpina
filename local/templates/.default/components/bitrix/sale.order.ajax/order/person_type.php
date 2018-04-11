@@ -7,7 +7,11 @@
         <p class="blockTitle">Тип плательщика</p>
         <?foreach($arResult["PERSON_TYPE"] as $v):?>
             <input class="radioInp" type="radio" id="PERSON_TYPE_<?=$v["ID"]?>" name="PERSON_TYPE" value="<?=$v["ID"]?>"<?if ($v["CHECKED"]=="Y") echo " checked=\"checked\"";?> onClick="submitForm()">
-            <label class="faceText" for="PERSON_TYPE_<?=$v["ID"]?>"><?=$v["NAME"]?></label>
+            <?if($v["ID"] == 2){ ?>  
+                <label class="faceText" for="PERSON_TYPE_<?=$v["ID"]?>"><?=$v["NAME"]?> (ООО, ИП и т.д.)</label>
+            <?} else {?>
+                <label class="faceText" for="PERSON_TYPE_<?=$v["ID"]?>"><?=$v["NAME"]?></label>
+            <?}?>
             <?endforeach;?>
         <input type="hidden" name="PERSON_TYPE_OLD" value="<?=$arResult["USER_VALS"]["PERSON_TYPE_ID"]?>" />
     </div>
