@@ -228,10 +228,14 @@
                                 echo '<br />';
                                 echo GetMessage('SALE_SADC_PACKS').': <b>'.$arDelivery["PACKS_COUNT"].'</b>';
                             }
-
-                            if (strlen($arDelivery["PERIOD_TEXT"])>0)
-                            {
-                                echo " <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем
+                            if (strlen($arDelivery["PERIOD_TEXT"])>0) {
+                                if($arDelivery["LOGOTIP"]["MODULE_ID"] == 'shiptor.delivery'){
+                                   $text = strripos($arDelivery["PERIOD_TEXT"], 'руб.');
+                                   echo " <b>".$text."</b>"; 
+                                } else {
+                                   echo " <b>".$arDelivery["PERIOD_TEXT"]."</b>"; //Временно убираем 
+                                }
+                                
                             ?><br /><?
                             }
                         ?>
@@ -270,8 +274,15 @@
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']).' - '.date_day_courier($setProps['nextDay']+1), $arDelivery["DESCRIPTION"])."<br />";
                             }
                         }
-
-
+                        ?><p class="delivery_date_shiptor"><?
+                        if($arDelivery["LOGOTIP"]["MODULE_ID"] == 'shiptor.delivery'){
+                            $date_delivery_shiptor = preg_replace('~\D+~','',explode('руб.', $arDelivery["PERIOD_TEXT"])[0]); 
+                            if($date_delivery_shiptor){
+                                echo GetMessage('BOXBERRY_ERROR').' '.date_day_today($date_delivery_shiptor);
+                            }
+                        }
+                        ?></p><?
+      
                         if (count($arDelivery["STORE"]) > 0):
                         ?>
                         <span id="select_store"<?if(strlen($arResult["STORE_LIST"][$arResult["BUYER_STORE"]]["TITLE"]) <= 0) echo " style=\"display:none;\"";?>>

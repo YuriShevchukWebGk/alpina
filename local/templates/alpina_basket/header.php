@@ -84,7 +84,7 @@
         //ymaps.ready(init);
         function map_metro(adress_input) {
 
-            var myMap = new ymaps.Map('map', {
+            var myMap = new ymaps.Map('map_station', {
                 center: [55.753994, 37.622093],
                 zoom: 9
             });

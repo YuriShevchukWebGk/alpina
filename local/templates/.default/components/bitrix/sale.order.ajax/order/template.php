@@ -84,7 +84,7 @@
 
 </style>
 
-<div id="map" style="width:10px; height:10px;"></div>
+<div id="map_station" style="width:10px; height:10px;"></div>
 
 
 <?

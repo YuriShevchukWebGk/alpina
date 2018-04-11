@@ -33,6 +33,7 @@
     define ("PROPERTY_STATE_ID", 56); // свойство состояния статуса товара
     define ("WISHLIST_IBLOCK_ID", 17);
     define ("EXPERTS_IBLOCK_ID", 23);
+    define ("CATALOG_IBLOCK_ID_REMAINDER", 77);
     define ("LECTIONS_ANNOUNCES_IBLOCK_ID", 60);
     define ("EXPERTS_REVIEWS_IBLOCK_ID", 31);
     define ("SERIES_BANNERS_IBLOCK_ID", 54); // 53 - для тестовой копии
@@ -124,7 +125,7 @@
     define ("ADMIN_GROUP_ID", 1);
     define ("ECOM_ADMIN_GROUP_ID", 6);
     define ("GIFT_BAG_EXHIBITION", 331); // правило корзины Подарок: сумка с выставки ММКВЯ 2017
-    define ("SALE_POPULAR_ELEMENT", 970); // свойство для обновления популярной книги
+    define ("SALE_POPULAR_ELEMENT", 941); // свойство для обновления популярной книги
     define ("SHOW_ALWAYS_PROP_VALUE_ID", 15); // ID значения "Да" пользовательского поля "Показывать постоянно" для подборок на главной
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209); // ID раздела "Подборки книг на главной" инфоблока книг
 
@@ -181,7 +182,7 @@
     * @param string $additional_parameters
     *
     **/
-    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
+   /* function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
         GLOBAL $arParams;     
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
@@ -220,7 +221,7 @@
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
         $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
-    }
+    }   */
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
     function cancelMail($arFields, $arTemplate) {
@@ -237,6 +238,8 @@
                 $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
                 if ($arItem = $res->Fetch()) {
                     if (intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
+                       // CEvent::Send("SALE_NEW_ORDER", 's1', $arTemplate, 423);
+                        
                         return true;
                     }
                 }
@@ -263,7 +266,7 @@
                 "WEIGHT" => 5000
             ),
         );
-    }
+    }   
 
     /**
     * Дефолтные значения для доставки гуру на случай, если что-то пошло не так и цена доставки 0
@@ -276,7 +279,7 @@
             "TIME" => 0
         );
     }
-
+    
 
     /**
     * Создаем ссылку для авторизации пользователя
@@ -569,7 +572,7 @@
         }
 
     }
-
+   
 	
 	function updateCumulativeDiscount($ID) {
 		$arFilter = Array(
@@ -813,7 +816,7 @@
     * @param array $arFields
     * @return void
     *
-    * */
+    * */  
     function boxberryDeliveryHandlerBefore($orderId, $arFields) {
         if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
             $delivery_price = $_REQUEST['boxbery_price'];
@@ -1130,7 +1133,7 @@
         }
     }
 
-
+    
     //обработка флага оплаты, при изменении статусов заказа
     AddEventHandler('sale', 'OnSaleStatusOrder', "triggerLogic");
 
@@ -1281,7 +1284,7 @@
             CEvent::Send("ORDER_PAYED_MANUAL", "s1", $arEventFields,"N");
         }
     }
-
+     
     //Получаем ссылку на бесплатную книгу в приложении Бизнес книги
     function getUrlForFreeDigitalBook($productID) {
         $ids = explode(',', $productID);
@@ -1421,7 +1424,7 @@
             return $arFields;
         }
     }
-
+  
     //Handler switch on iml delivery service for cities
     AddEventHandler('ipol.iml', 'onCompabilityBefore', 'onCompabilityBeforeIML');
 
@@ -1659,7 +1662,7 @@
             }
         }
     }
-
+    
     AddEventHandler("main", "OnAfterUserRegister", Array("OnAfterUserRegisterHandler", "OnAfterUserRegister"));
     class OnAfterUserRegisterHandler {
         function OnAfterUserRegister(&$arFields, &$arTemplate) {
@@ -1752,7 +1755,7 @@
     }
 
 
-
+   
     // --- класс для отправки смс при изменении статусов заказа
     class Message {
 
@@ -2006,7 +2009,7 @@
         }
     }
 
-
+   
 
     //Функция перевода числа в текстовую форму
     function num2str($num) {
@@ -3377,13 +3380,18 @@
 
     AddEventHandler('main', 'OnBeforeEventSend', "messagesWithAttachments");
 
-    function messagesWithAttachments($arFields, $arTemplate) {
+    function messagesWithAttachments(&$arFields, &$arTemplate) {
         GLOBAL $arParams;
 
-        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
+        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа   
         if(cancelMail($arFields, $arTemplate)) {
-            return false;
-        }
+           // return false;                                 
+           $arFields["PREORDER"] = "предзаказ";
+           $arFields["DELIVERY_PREORDER"] = "<br><br>После поступления книги в продажу";
+
+        } else {
+           $arFields["PREORDER"] = "заказ"; 
+        }         
 
         // отправка письма по наличию вложенных файлов
         if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
@@ -3539,6 +3547,18 @@
             while ($arSales = $rsSales->Fetch()) {
 
                 if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
+                    $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
+
+                    while($arproduct = $dbItemsInOrder->Fetch()){
+                        $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
+                        if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
+                            $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
+                        }
+                        if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
+                            $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
+                        }
+                        
+                    }
                 } else {
                     $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
 
@@ -3555,12 +3575,14 @@
                 }
             }
             foreach($order_new_statys as $order_update){
-                
+               logger($order_update["ORDER"], $_SERVER["DOCUMENT_ROOT"].'/logs/log_status.txt'); 
                 if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
                     if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
                         CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+                    } else if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID ){
+                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
                     } else {
-                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата "
+                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата"
                     }
                 }
             }
@@ -3608,8 +3630,10 @@ function AddBasketRule() {
         $recsArray = array_slice(json_decode($stringRecs, true), 0, 6);
         $arrFilter = array();
         foreach($recsArray as $val) {
-            $arrFilter[ID][] = $val[ItemId];
+            $arrFilter["ID"][] = $val["ItemId"];
+            
         }
+        
     }
     
     $id_favorite = $arrFilter["ID"][rand(0,5)];
@@ -3759,25 +3783,29 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
 
     // обработчик на изменение внешенго кода товара перед добавлением в корзину
 AddEventHandler("sale", "OnBeforeBasketAdd", "MontageBasketAdd");
+
 function MontageBasketAdd(&$arFields) {
     $arSelect = Array("ID", "XML_ID");
-    $arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID_REMAINDER, "PROPERTY_ID_BITRIKS_VALUE"=>$arFields["PRODUCT_ID"]);
-    $res_element = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
-    while($ob = $res_element->GetNext()) {
-        // выясняем остатки у товара остатков
-        $rsStore = CCatalogProduct::GetByID($ob["ID"]); 
-        if($rsStore["QUANTITY"] > 0 ){
-             $ar_quantity[] = $rsStore["QUANTITY"];
-             $ar_xml_id[$rsStore["QUANTITY"]] = $ob["XML_ID"];
+    if($arFields["PRODUCT_ID"]){
+        $arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID_REMAINDER, "PROPERTY_ID_BITRIKS_VALUE"=>$arFields["PRODUCT_ID"]);
+        $res_element = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+        while($ob = $res_element->GetNext()) {
+            // выясняем остатки у товара остатков
+            $rsStore = CCatalogProduct::GetByID($ob["ID"]); 
+            
+            logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_basket.txt');
+            if($rsStore["QUANTITY"] > 0 ){
+                 $ar_quantity[] = $rsStore["QUANTITY"];
+                 $ar_xml_id[$rsStore["QUANTITY"]] = $ob["XML_ID"];
+            }
+            
         }
-        
-    }
-    // вычисляем наибольший остаток и подставляем в xml товара
-    if($ar_xml_id[max($ar_quantity)]){
-        $arFields["PRODUCT_XML_ID"] = $ar_xml_id[max($ar_quantity)];
+        // вычисляем наибольший остаток и подставляем в xml товара
+        if($ar_xml_id[max($ar_quantity)]){
+            $arFields["PRODUCT_XML_ID"] = $ar_xml_id[max($ar_quantity)];
+        }
     }
     
 }
-
 
 ?>
