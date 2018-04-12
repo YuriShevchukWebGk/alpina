@@ -32,6 +32,7 @@
     define ("SPONSORS_IBLOCK_ID", 47);
     define ("PROPERTY_STATE_ID", 56); // свойство состояния статуса товара
     define ("WISHLIST_IBLOCK_ID", 17);
+    define ("WISHLIST_LOGGER_IBLOCK_ID", 81);
     define ("EXPERTS_IBLOCK_ID", 23);
     define ("CATALOG_IBLOCK_ID_REMAINDER", 77);
     define ("LECTIONS_ANNOUNCES_IBLOCK_ID", 60);
@@ -3856,4 +3857,59 @@ function UpdateStatusBoxberyCancel() {
     return "UpdateStatusBoxberyCancel();";
 }
 
+
+// регистрируем обработчик для добалвнеия элемента в отдельный список желаний
+AddEventHandler("iblock", "OnAfterIBlockElementAdd", "AddElementWishList");
+
+// создаем обработчик события "OnAfterIBlockElementAdd"
+function AddElementWishList(&$arFields) {
+    global $USER;
+     
+    if($arFields["IBLOCK_ID"] == WISHLIST_IBLOCK_ID){
+        
+        $el = new CIBlockElement;
+
+        $PROP = array();
+        $PROP["EMAIL"] = $USER->GetEmail();  
+        $PROP["ID_BOOCK"] = $arFields["PROPERTY_VALUES"]["PRODUCTS"];       
+        $PROP["DATE_CREATE"] = date('d.m.Y');        
+        $PROP["ID_ELEMENT_LIST"] = $arFields["ID"];        
+
+        $arLoadProductArray = Array(
+          "MODIFIED_BY"    => $USER->GetID(), // элемент изменен текущим пользователем
+          "IBLOCK_SECTION_ID" => false,          // элемент лежит в корне раздела
+          "IBLOCK_ID"      => WISHLIST_LOGGER_IBLOCK_ID,
+          "PROPERTY_VALUES"=> $PROP,
+          "NAME"           => $arFields['NAME'],
+          "ACTIVE"         => "Y",            // активен
+          "PREVIEW_TEXT"   => "текст",
+          "DETAIL_TEXT"    => "текст",
+          );
+
+        $PRODUCT_ID = $el->Add($arLoadProductArray);
+  
+    }
+
+}
+
+
+AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList");
+
+    // создаем обработчик события "DeleteElementWishList" на добавление даты удаления элемента из списка желаний
+    function DeleteElementWishList($arFields){
+        if($arFields["IBLOCK_ID"] == WISHLIST_IBLOCK_ID){
+            $arSelect = Array("ID");
+            
+            $arFilter = Array("IBLOCK_ID"=>WISHLIST_LOGGER_IBLOCK_ID, "PROPERTY_ID_ELEMENT_LIST" => $arFields["ID"]);
+            $arwish = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+            if($list = $arwish->GetNext()) {
+                $PROPERTY_CODE = "DATE_DELETE";  // код свойства
+                $PROPERTY_VALUE = date('d.m.Y');  // значение свойства
+
+                // Установим новое значение для данного свойства данного элемента
+                CIBlockElement::SetPropertyValuesEx($list["ID"], false, array($PROPERTY_CODE => $PROPERTY_VALUE));
+            }      
+        }
+     }
+  
 ?>
