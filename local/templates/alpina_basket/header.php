@@ -139,6 +139,10 @@
               }
             });
         }
+        $(function(){
+           fxSlider('saleSlider.recsOnMain', 'left', 'right', false, 200, 5); 
+        })
+        
     </script>
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
