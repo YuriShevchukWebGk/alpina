@@ -206,16 +206,19 @@
 						<?if ($arResult['ORDER']['STATUS_ID'] == 'PR') {?>
 							<p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен!</p>
 							<p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
+                            <a class="platbox_button submit_platbox">Оплатить</a>
 						<?} else {?>
 							<p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен...</p>
 							<p class="ordHint">
 								...и уже принят в работу! Мы <b>не</b> будем звонить без необходимости. Нужная информация представлена ниже и отправлена на адрес <?=$userEmail?>.
 								<br /><br />
 								А пока можете <a href="/content/team/">посмотреть на команду интернет-магазина</a>, которая займется подготовкой и доставкой заказанных книг ☺
+                                <br /><br />
+                                <a class="platbox_button submit_platbox" style="color: #fff;">Оплатить</a>
 								<br /><br />
 								Спасибо за хороший выбор!
-							</p>
-						<?}?>
+							</p>  
+						<?}?>        
         <?if (!empty($arResult["PAY_SYSTEM"]) && $arResult['ORDER']['STATUS_ID'] != 'PR') {?>
             <br /><br />
             <div id="promocode-element-container"></div>
@@ -277,8 +280,6 @@
                     $merchant_info["sign"] = $sign;
                 //}
             ?>
-            <a class="platbox_button submit_platbox">Оплатить</a>
-            <br>
 
             <?} else if ($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 12) {?>
                 <table class="sale_order_full_table" >

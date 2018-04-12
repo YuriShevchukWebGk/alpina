@@ -188,8 +188,8 @@
 
     function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
         
-        
-        if(strlen($message) > 3000) {
+       //logger($message, $_SERVER["DOCUMENT_ROOT"].'/logs/log_event.txt');
+        if(strlen($message) > 1000) {
             $htmlStart = strripos($message, "8bit");          
             $message = substr($message, $htmlStart);
             $htmlEnd = strripos($message, "---------");

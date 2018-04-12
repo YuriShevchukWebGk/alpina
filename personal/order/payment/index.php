@@ -388,9 +388,8 @@
             $account = array("id" => $arOrder["USER_LOGIN"]);
             $project = 'alpinabook';
             
-            $string = $arOrder["PRICE"]; 
-            $amount = preg_replace('~[^0-9]+~','',$string); 
-
+            $amount = $arOrder["PRICE"] * 100; 
+        //    $amount = preg_replace('~[^0-9]+~','',$string); 
             
             $x = [
                 "account"     => $account,
@@ -413,7 +412,7 @@
                 this.init();
             };
 
-
+            
             Page.prototype.init = function () {
                 var _this = this;
 
@@ -435,7 +434,7 @@
                     }, {
                         /* options */
                     });
-
+                     
                     $(function(){
                         $('body').on('click', '.submit_platbox', function () {
                             var params = {
@@ -448,6 +447,7 @@
                                 },
 
                             };
+                            console.log(_this.widget);
                              $('.platbox_iframe_block').show();
                              $('.layout').show();
                             /**
