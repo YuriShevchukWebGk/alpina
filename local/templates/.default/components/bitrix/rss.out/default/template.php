@@ -52,7 +52,7 @@ $this->setFrameMode(false);
 	<?endif?>
 <?endif?>
 <?foreach($arResult["ITEMS"] as $arItem):?>
-<item>
+<item turbo="true">
 	<title><?=$arItem["title"]?></title>
 	<link><?=$arItem["link"]?></link>
 	<description><?=$arItem["description"]?></description>
@@ -65,7 +65,6 @@ $this->setFrameMode(false);
 	<?if($arParams["YANDEX"]):?>
 		<yandex:full-text><?=$arItem["full-text"]?></yandex:full-text>
 	<?endif?>
-    <turbo>true</turbo>
 	<pubDate><?=$arItem["pubDate"]?></pubDate>
 </item>
 <?endforeach?>

@@ -68,35 +68,30 @@ class Exchange1C {
         while($arResult = $res->Fetch()) {
             $bitrix_id = $arResult['PROPERTY_ID_BITRIKS_VALUE'];
         }
-
-        logger('$bitrix_id:', $_SERVER["DOCUMENT_ROOT"].'/logs/log_1c.log');
-        logger($bitrix_id, $_SERVER["DOCUMENT_ROOT"].'/logs/log_1c.log');
-
+        $total_quantity = 0;
         if(!empty($bitrix_id)) {
-
-            logger('$bitrix_id_YES:', $_SERVER["DOCUMENT_ROOT"].'/logs/log_1c.log');
-
 
             //Запрос для получения остатков у элементов, которые привязаны к тому же товару в каталоге
             $arSelect = Array("CATALOG_QUANTITY", "NAME");
             $arFilter_1 = Array("IBLOCK_ID"=>IBLOCK_1C_EXCHANGE, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_ID_BITRIKS_VALUE" => $bitrix_id);
             $cat = CIBlockElement::GetList(Array(), $arFilter_1, false, false, $arSelect);
-            $total_quantity = 0;
+            
             while($arCatalog = $cat->Fetch()) {
                 $total_quantity = $total_quantity + intval($arCatalog['CATALOG_QUANTITY']);
+                logger($arCatalog, $_SERVER["DOCUMENT_ROOT"].'/logs/log_1_catalog.log');
                // $name = $arCatalog['NAME'];
             }
 
              $bitrix_id_elem_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $bitrix_id), false, false, array("CATALOG_QUANTITY", "CANONICAL_PAGE_URL", "PROPERTY_STATE", "PROPERTY_reissue", "NAME"));
-             while ($bitrix_id_elem = $bitrix_id_elem_info -> GetNext()) {
+             if ($bitrix_id_elem = $bitrix_id_elem_info -> GetNext()) {
                   $quantity = $bitrix_id_elem["CATALOG_QUANTITY"];
                   $href = $bitrix_id_elem['CANONICAL_PAGE_URL'];
                   $state = $bitrix_id_elem['PROPERTY_STATE_ENUM_ID'];
                   $reissue = $bitrix_id_elem['PROPERTY_REISSUE_VALUE'];
                   $name = $bitrix_id_elem['NAME'];
-         
+                  
              }
-
+            
             //Запросе на обновление остатков у товара
             $arField = array('QUANTITY' => $total_quantity);// зарезервированное количество
             CCatalogProduct::Update($bitrix_id, $arField);
@@ -113,8 +108,9 @@ class Exchange1C {
                     "PAGE_URL" => $href,
                     "NAME" => $name,
                 );
+                
                 CEvent::Send("BOOK_AVAILABILITY", "s1", $mailFields, "N");
-             //   logger($mailFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_1_catalog.log');
+                logger($mailFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_1_catalog.log');
             } else if($total_quantity <= 0 && $quantity > 0 && $state != STATE_SOON){
              //   if($state == "NULL" || $state == STATE_NEWS){
                     CIBlockElement::SetPropertyValuesEx($bitrix_id, false, array("STATE" => STATE_NULL));
@@ -124,8 +120,9 @@ class Exchange1C {
                     "PAGE_URL" => $href,
                     "NAME" => $name,
                 );
+                
                 CEvent::Send("BOOK_AVAILABILITY", "s1", $mailFields, "N");
-             //   logger($mailFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_catalog.log');
+                logger($mailFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_catalog.log');
 
             }
 
