@@ -3848,8 +3848,9 @@ function UpdateStatusBoxberyCancel() {
             $contents = stream_get_contents($handle);
             fclose($handle);
             $data = json_decode($contents,true);
-          
-            if($data["statuses"][0]["Name"] == "Возвращено в ИМ"){
+            
+            $end_status = end($data["statuses"]);
+            if($end_status["Name"] == "Возвращено в ИМ"){
                 CSaleOrder::StatusOrder($arOrder["ID"], "F");  // обновление статуса если заказ был возвращен
             }
         } 

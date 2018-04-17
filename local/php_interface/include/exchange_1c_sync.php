@@ -110,7 +110,8 @@ class Exchange1C {
                 );
                 
                 CEvent::Send("BOOK_AVAILABILITY", "s1", $mailFields, "N");
-                logger($mailFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_1_catalog.log');
+                logger('$total_quantity:'.$total_quantity, $_SERVER["DOCUMENT_ROOT"].'/logs/log_catalog_1.log');
+                logger('$quantity:'.$quantity, $_SERVER["DOCUMENT_ROOT"].'/logs/log_catalog_1.log');
             } else if($total_quantity <= 0 && $quantity > 0 && $state != STATE_SOON){
              //   if($state == "NULL" || $state == STATE_NEWS){
                     CIBlockElement::SetPropertyValuesEx($bitrix_id, false, array("STATE" => STATE_NULL));
@@ -122,8 +123,8 @@ class Exchange1C {
                 );
                 
                 CEvent::Send("BOOK_AVAILABILITY", "s1", $mailFields, "N");
-                logger($mailFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_catalog.log');
-
+                logger('$total_quantity:'.$total_quantity, $_SERVER["DOCUMENT_ROOT"].'/logs/log_catalog.log');
+                logger('$quantity:'.$quantity, $_SERVER["DOCUMENT_ROOT"].'/logs/log_catalog.log');
             }
 
           //  if ($state_prop_enum_id != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {
