@@ -201,43 +201,60 @@
                         <p class="blockTitle">Уважаемый клиент!</p>
                         <p class="blokText">В качестве благодарности за покупку вам предоставляется возможность выбрать один из подарков наших партнеров.</p>
                         <p class="giftCont"><a href="#">Получить подарок</a></p>
-                    </div>
+                    </div>  
                     <div class="mainInfoWrap">
 						<?if ($arResult['ORDER']['STATUS_ID'] == 'PR') {?>
 							<p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен!</p>
-							<p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
-                            <a class="platbox_button submit_platbox">Оплатить</a>
+							<p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>    
+                            <?if($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID){?>
+                                <? $APPLICATION->IncludeComponent(
+                                    "webgk:rfi.widget",
+                                    "",
+                                    Array(
+                                        "ORDER_ID" => $_REQUEST["ORDER_ID"]
+                                    ),
+                                    false
+                                ); ?>   
+                            <?} else {?>
+                                <a class="platbox_button submit_platbox">Оплатить</a>   
+                            <?}?>
 						<?} else {?>
 							<p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен...</p>
-							<p class="ordHint">
+                            
+							<p class="new_ordHint">
 								...и уже принят в работу! Мы <b>не</b> будем звонить без необходимости. Нужная информация представлена ниже и отправлена на адрес <?=$userEmail?>.
 								<br /><br />
 								А пока можете <a href="/content/team/">посмотреть на команду интернет-магазина</a>, которая займется подготовкой и доставкой заказанных книг ☺
-                                <br /><br />
-                                <a class="platbox_button submit_platbox" style="color: #fff;">Оплатить</a>
+                                <br /><br />  
+                                <?if($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID){?>
+                                    <? $APPLICATION->IncludeComponent(
+                                        "webgk:rfi.widget",
+                                        "",
+                                        Array(
+                                            "ORDER_ID" => $_REQUEST["ORDER_ID"]
+                                        ),
+                                        false
+                                    ); ?>   
+                                <?} else {?> 
+                                    <a class="platbox_button submit_platbox" style="color: #fff;">Оплатить</a>
+                                <?}?>
 								<br /><br />
 								Спасибо за хороший выбор!
 							</p>  
-						<?}?>        
+						<?}?> 
+                 <p class="ordHint"></p>       
         <?if (!empty($arResult["PAY_SYSTEM"]) && $arResult['ORDER']['STATUS_ID'] != 'PR') {?>
-            <br /><br />
+            <br /><br />   
             <div id="promocode-element-container"></div>
             <?if ($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID) {?>
-                <? $APPLICATION->IncludeComponent(
-                    "webgk:rfi.widget",
-                    "",
-                    Array(
-                        "ORDER_ID" => $_REQUEST["ORDER_ID"]
-                    ),
-                    false
-                ); ?>
+               
             <? } else if ($arResult["PAY_SYSTEM"]["ID"] == 24){
                 $merchant_id = CSalePaySystemAction::GetParamValue("MERCHANT_ID");
                 $secret_key = CSalePaySystemAction::GetParamValue("SKEY");
                 $order_id = (strlen(CSalePaySystemAction::GetParamValue("PAYMENT_ID")) > 0) ? CSalePaySystemAction::GetParamValue(
     "PAYMENT_ID"
 ) : $GLOBALS["SALE_INPUT_PARAMS"]["PAYMENT"]["ID"];
-
+              
                 /*$order_info = CSaleOrder::GetByID($order_id);
                 $order_props = CSaleOrderProps::GetOrderProps($order_id);
                 while ($arProps = $order_props -> Fetch()) {
