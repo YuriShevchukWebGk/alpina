@@ -1667,7 +1667,25 @@
 			</div>
 		<?}?>
     </div>
-	
+    <?if ($childrenDesign && $USER->isAdmin()) { ?>
+        <h4 style="clear:both;font-size: 38px;font-family: Walshein_regular;color:#444"><span style="border-bottom:2px solid #00abb8">Кни</span>жные  развороты</h3>
+        <?if($arResult['PROPERTIES']["book_spreads"]["VALUE"]){
+            foreach($arResult['PROPERTIES']["book_spreads"]["VALUE"] as $img){
+                $image[] = CFile::GetPath($img);
+            }
+        }
+        ?>
+        <div class="slider-box">
+            <div class="slider">  
+                <?foreach($image as $img){ ?>
+                    <img src="<?=$img?>" alt="<?=$arResult["NAME"]?>" height="500px">
+                <?}?>
+             </div>
+            <ul class="bullets"></ul>
+            <div class="prev"></div>
+            <div class="next"></div>
+        </div>
+    <?}?>
 	<?if ($arResult['PROPERTIES']['instagram_embed']['VALUE']) {?>
 		<h4 style="clear:both;font-size: 38px;font-family: Walshein_regular;color:#444"><span style="border-bottom:2px solid #00abb8">Отзы</span>вы в <i class="fa fa-instagram" style="font-family: FontAwesome;font-size: 32px;" aria-hidden="true"></i> Instagram</h3>
 		<?foreach($arResult['PROPERTIES']['instagram_embed']['~VALUE'] as $instagram_embed) {?>
@@ -2226,22 +2244,34 @@ if (!$childrenDesign) {
 </div>
 
 <?if ($childrenDesign) {?>
-<div class="testdriveWrapChildren" style="background:#e7a65f;color:#fff;min-height:270px">
+<div class="testdriveWrapChildren" style="background:#e7a65f;color:#fff;min-height:650px">
 	<div class="centerWrapper" style="font-size:17px">
-	<img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height:270px" />
 		<p class="title" style="color:#fff">
 			Книжный тест-драйв
 		</p>
-		<p style="line-height:200%">
+		<p style="line-height: 150%;width: 50%;float: left;">
 			Вы увлеченная мама, ведете свой блог в социальных сетях и интересно пишете про детские книги?<br />
 			Нам интересно ваше мнение! Если аудитория вашего блога более 10 000 человек, получите одну из 20 бесплатных книг на рецензию.<br />
 			<a href="mailto:n.tentser@alpina.ru" style="color:#fff;text-decoration:none;border-bottom:1px solid">Напишите на почту Наталье Тенцер n.tentser@alpina.ru</a>, расскажите о себе и своем блоге, мы рассмотрим ваше предложение и обязательно ответим!<br />
-
+            <img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height: 450px;text-align: center;margin-left: 20%;" />
 		</p>
+        <div class="frame_soc_service" style=" float: right; margin-right: 10%; margin-top: -37px;"> 
+            <iframe src="//widget.stapico.ru/?q=alpinadeti&s=95&w=2&h=1&b=1&p=5&effect=2" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:240px; height: 255px; margin-left: 15%;" ></iframe> <!-- stapico - stapico.ru -->        
+            <script type="text/javascript" src="//vk.com/js/api/openapi.js?153"></script>
+
+            <!-- VK Widget -->
+            <div id="vk_groups"></div>
+            <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 1}, 108862896);
+            </script>
+            <br>
+            <div class="fb-page" data-href="https://www.facebook.com/alpinadeti/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/alpinadeti/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/alpinadeti/">Альпина Дети</a></blockquote></div>
+        </div> 
 	</div>
+
 </div>
 
-<div class="testdriveWrapChildren" style="width:100%;background:#00aab8 url(/images/childrenbg.jpg) no-repeat;background-size:cover;color:#fff;">
+<div class="testdriveWrapChildren" style="width:100%;background:#00aab8 url(/images/childrenbg.jpg) no-repeat;background-size:cover;color:#fff; background-size: 100% 100%;">
 	<div class="centerWrapper" style="padding-left:10%;font-size:17px">
 		<p class="title" style="color:#fff">
 			Корпоративные заказы

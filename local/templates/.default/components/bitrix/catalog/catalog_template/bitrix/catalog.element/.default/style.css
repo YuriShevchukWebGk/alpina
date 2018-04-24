@@ -1510,3 +1510,9 @@ font-size:16px;
 .reviewsSliderWrapp .giftWrapChildren img{left:414px;position:absolute;top:0}
 .saleWrapp .giftWrapChildren{margin-top:0}
 .videoWrappTop iframe{max-width:450px;width:100%;border-radius:6px}
+iframe .copyright{
+    display: none;
+}
+#vk_groups{
+    margin-left: 20%;
+}

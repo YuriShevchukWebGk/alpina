@@ -183,7 +183,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             }
         })
 
-           function deleteDateId(){
+        /*   function deleteDateId(){
               var text = document.getElementById("ORDER_PROP_44"),
                   testText;
                   if (text !== null) {
@@ -194,7 +194,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                   }
            }
            deleteDateId("ORDER_PROP_44");
-           deleteDateId("ORDER_PROP_45");
+           deleteDateId("ORDER_PROP_45");  */
 		   
         //календарь
 		var disabledDates = "<?=$holidays?>";
@@ -334,6 +334,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                 console.log(suggestion);
             }
         });
+
     })
     //далее костыль
     var stopupdate = false;

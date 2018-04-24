@@ -110,3 +110,4 @@
         </div>
     </form>
 </div>
+<h2 style=" margin-bottom: 10px; float: left; color: red; font-size: 17px; "><b>Внимание! С 08.05.2018 года бонусная программа лояльности прекращает работу.</b></h2>

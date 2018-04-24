@@ -71,6 +71,7 @@
     define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
     define ("TRADING_FINANCE_SECTION_ID", 111);
     define ("LOCATION_IMTERNATIONAL", 21279);
+    define ("BOOK_COLOR_BLACK", 434300);
 
     define ("DELIVERY_COURIER_1", 9);
     define ("DELIVERY_COURIER_2", 15);
@@ -3549,64 +3550,65 @@
 
     // создаем обработчик события "UpdateStatusOrderOnProduct"
     function UpdateStatusOrderOnProduct(&$arFields) {
-
-        $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("sort" => "asc"), Array("CODE"=>"STATE"));
-        if($ar_props = $db_props->Fetch()){
-            $status_product = $ar_props["VALUE"];
-        }
-
-        if($status_product == STATE_SOON && $status_product != $arFields["PROPERTY_VALUES"][PROPERTY_STATE_ID][0]["VALUE"]){
-            $arFilter = Array(
-                "STATUS_ID" => "PR"
-            );
-            $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
-            $order_new_statys = array();
-           // $state = '';
-            while ($arSales = $rsSales->Fetch()) {
-
-                if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
-                    $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
-
-                    while($arproduct = $dbItemsInOrder->Fetch()){
-                        $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
-                        if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
-                            $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
-                        }
-                        if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
-                            $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
-                        }
-                        
-                    }
-                } else {
-                    $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
-
-                    while($arproduct = $dbItemsInOrder->Fetch()){
-                        $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
-                        if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
-                            $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
-                        }
-                        if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
-                            $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
-                        }
-                        
-                    }
-                }
+        if($arFields["IBLOCK_ID"] == CATALOG_IBLOCK_ID){
+            $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("sort" => "asc"), Array("CODE"=>"STATE"));
+            if($ar_props = $db_props->Fetch()){
+                $status_product = $ar_props["VALUE"];
             }
-            foreach($order_new_statys as $order_update){
-               logger($order_update["ORDER"], $_SERVER["DOCUMENT_ROOT"].'/logs/log_status.txt'); 
-                if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
-                    if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
-                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
-                    }else if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID ){
-                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+
+            if($status_product == STATE_SOON && $status_product != $arFields["PROPERTY_VALUES"][PROPERTY_STATE_ID][0]["VALUE"]){
+                $arFilter = Array(
+                    "STATUS_ID" => "PR"
+                );
+                
+                $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+                $order_new_statys = array();
+               // $state = '';
+                while ($arSales = $rsSales->Fetch()) {
+                    
+                    if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
+                        $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
+
+                        while($arproduct = $dbItemsInOrder->Fetch()){
+                            $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
+                            if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
+                                $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
+                            }
+                            if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
+                                $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
+                            }
+                            
+                        }
                     } else {
-                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата"
+                        $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
+
+                        while($arproduct = $dbItemsInOrder->Fetch()){
+                            $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
+                            if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
+                                $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
+                            }
+                            if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
+                                $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
+                            }
+                            
+                        }
                     }
                 }
+                foreach($order_new_statys as $order_update){
+                   logger($order_update["ORDER"], $_SERVER["DOCUMENT_ROOT"].'/logs/log_status.txt'); 
+                    if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
+                        if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
+                            CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+                        }else if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID ){
+                            CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+                        } else {
+                            CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата"
+                        }
+                    }
+                }
+
             }
-
         }
-
     }
 
     function object_to_array($a, $b) {
@@ -3909,8 +3911,30 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
 
                 // Установим новое значение для данного свойства данного элемента
                 CIBlockElement::SetPropertyValuesEx($list["ID"], false, array($PROPERTY_CODE => $PROPERTY_VALUE));
-            }      
+                
+                $el = new CIBlockElement;
+                $arLoadProductArray = Array(
+                  "ACTIVE" => "N",            // не активен
+                );
+
+                $res = $el->Update($list["ID"], $arLoadProductArray);  
+            }
+    
         }
      }
-  
+     
+ function DELETE_STATUS(){
+    if (CModule::IncludeModule("sale")):
+
+       $arFilter = Array(
+          "STATUS_ID" => "O",
+          );
+       $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+       while ($arSales = $rsSales->Fetch())
+       {
+          CSaleOrder::StatusOrder($arSales["ID"], "A");
+       }
+    endif;
+    return "DELETE_STATUS();";
+ }
 ?>

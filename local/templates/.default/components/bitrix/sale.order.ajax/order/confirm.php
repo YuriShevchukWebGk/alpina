@@ -215,7 +215,7 @@
                                     ),
                                     false
                                 ); ?>   
-                            <?} else {?>
+                            <?} else if($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 11 && $arResult["PAY_SYSTEM"]["ID"] != 17){?> 
                                 <a class="platbox_button submit_platbox">Оплатить</a>   
                             <?}?>
 						<?} else {?>
@@ -235,7 +235,7 @@
                                         ),
                                         false
                                     ); ?>   
-                                <?} else {?> 
+                                <?} else if($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 11 && $arResult["PAY_SYSTEM"]["ID"] != 17){?> 
                                     <a class="platbox_button submit_platbox" style="color: #fff;">Оплатить</a>
                                 <?}?>
 								<br /><br />
