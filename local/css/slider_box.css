@@ -1,15 +1,16 @@
 .slider-box{
-  position:relative;
-  width:370px;
-  height:560px;
-  background-color: #fff;
-  
-  margin: 0 auto;
+    position: relative;
+    width: 500px;
+    height: 560px;
+    background-color: #fff;
+    /* margin: 0 auto; */
+    margin-left: 250px;
 }
 .slider{
   position:relative;
   width:10000px;
   height:560px;
+    margin-left: -400px;
 }
 .slider img{
   float:left;

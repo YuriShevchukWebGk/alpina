@@ -248,12 +248,12 @@
             if (count($arBasketItems) == 1) {
                 $basketItem = $arBasketItems;
                 $basketItem = array_pop($basketItem);
-                $itemID = $basketItem["PRODUCT_ID"];
+                $itemID = $basketItem["PRODUCT_ID"];  
                 $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
                 if ($arItem = $res->Fetch()) {
+
                     if (intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
                        // CEvent::Send("SALE_NEW_ORDER", 's1', $arTemplate, 423);
-                        
                         return true;
                     }
                 }
@@ -3407,6 +3407,7 @@
            $arFields["PREORDER"] = "предзаказ";
            $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
            $arFields["EMAIL_DELIVERY_TERM"] = "";
+           $arFields["PAYMENT_LINK"] = "";
 
         } else {
            $arFields["PREORDER"] = "заказ"; 
