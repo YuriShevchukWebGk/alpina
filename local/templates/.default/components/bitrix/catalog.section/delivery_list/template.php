@@ -15,6 +15,8 @@ $this->setFrameMode(true);
                 <ul>
                     <?foreach ($arResult["ITEMS"] as $arItem)
                     {?>
-                    <a href="#<?=$arItem["CODE"]?>"><li><?=$arItem["NAME"]?></li></a>
+                    <li>
+                        <a href="#<?=$arItem["CODE"]?>"><?=$arItem["NAME"]?></a>
+                    </li>
                     <?}?>
                 </ul>
