@@ -11,7 +11,7 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
-	$gdeSlon = '';
+    $gdeSlon = '';
 ?>
 <link rel="stylesheet" href="/css/flipclock.css">
 <script src="/js/flipclock.js"></script>
@@ -29,13 +29,13 @@
         </div>
 
         <div class="contentWrapp">
-			<h1 class="titleMain"><?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?></h1>
-			
-			
-			<center>
-				<h2>До новых скидок осталось</h2>
-				<div class="clock no-mobile"></div>
-			</center>
+            <h1 class="titleMain"><?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?></h1>
+            
+            
+            <center>
+                <h2>До новых скидок осталось</h2>
+                <div class="clock no-mobile"></div>
+            </center>
 
             <?if (is_array($arResult["QUOTE"])) {?>
                 <div class="titleDiv">
@@ -112,7 +112,7 @@
                                         <?
                                         }
                                     }
-									$gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
+                                    $gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
                                     if ($USER -> IsAuthorized()) {?>
                                         <p class="basketLater" id="<?= $arItem["ID"] ?>">Куплю позже</p>
                                     <?}?>
@@ -131,8 +131,8 @@
                 <p class="showMore">Показать ещё</p>
             <?}?>
         </div>
-		<!-- GdeSlon -->
-		<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
+        <!-- GdeSlon -->
+        <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276&amp;cat_id=<?= $arResult['ID'];?>"></script>
         <?$APPLICATION->IncludeComponent(
             "bitrix:menu",
             "catalog_left_menu",
@@ -243,15 +243,15 @@
             });
         <?}?>
 
-		var currentDate = new Date();
-		var futureDate = new Date('<?=date("m/d/Y")?> 23:59:59');
+        var currentDate = new Date();
+        var futureDate = new Date('<?=date("m/d/Y")?> 23:59:59');
 
-		var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+        var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
 
-		clock = $('.clock').FlipClock(diff, {
-			clockFace: 'HourlyCounter',
-			countdown: true
-		});
+        clock = $('.clock').FlipClock(diff, {
+            clockFace: 'HourlyCounter',
+            countdown: true
+        });
 
     });
 </script>

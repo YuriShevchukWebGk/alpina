@@ -112,8 +112,15 @@
                 $cont_name = '';            
                 $cont_name = (!empty($order_properties["F_CONTACT_PERSON"]) ? $order_properties["F_CONTACT_PERSON"] : $order_properties["F_NAME"]);
                 $order_props[$order_id]['FINAL_NAME'] = preg_replace("/[^\w\s]+/u", "", $cont_name);
-                //адрес
-                $order_props[$order_id]['FINAL_ADRESS_FULL'] = (!empty($order_properties["ADDRESS"]) ? $order_properties["ADDRESS"] : $order_properties["F_ADDRESS"]);
+                // формирование адреса 
+                if($order_properties["CITY_DELIVERY"] && $order_properties["STREET"] && $order_properties["HOUSE"]){
+                      $order_props[$order_id]['FINAL_ADRESS_FULL'] = 'г.'.$order_properties["CITY_DELIVERY"].' ул.'.$order_properties["STREET"].' '.$order_properties["HOUSE"];
+                } else if($order_properties["COUNTRY"] &&$order_properties["CITY"] && $order_properties["STREET"] && $order_properties["HOUSE"]){
+                      $order_props[$order_id]['FINAL_ADRESS_FULL'] = $order_properties["COUNTRY"].'г.'.$order_properties["CITY"].' ул.'.$order_properties["STREET"].' '.$order_properties["HOUSE"];
+                } else {
+                //адрес    
+                    $order_props[$order_id]['FINAL_ADRESS_FULL'] = (!empty($order_properties["ADDRESS"]) ? $order_properties["ADDRESS"] : $order_properties["F_ADDRESS"]);
+                }
             }    
             
             //Уберем кавычки, XML не очень дружит с ними            

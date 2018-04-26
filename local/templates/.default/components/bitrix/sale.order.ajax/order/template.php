@@ -324,6 +324,16 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         catch(err) {
         }*/
         setOptions();
+       
+       $(".suggestions-input").suggestions({
+            token: "${2bcb5e9abaf55f41dade38571b76a2efe3f8d257}",
+            type: "PARTY",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(suggestion) {
+                console.log(suggestion);
+            }
+        });
     })
     //далее костыль
     var stopupdate = false;

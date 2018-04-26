@@ -188,8 +188,8 @@
 
     function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
         
-        
-        if(strlen($message) > 3000) {
+       //logger($message, $_SERVER["DOCUMENT_ROOT"].'/logs/log_event.txt');
+        if(strlen($message) > 1000) {
             $htmlStart = strripos($message, "8bit");          
             $message = substr($message, $htmlStart);
             $htmlEnd = strripos($message, "---------");
@@ -3848,8 +3848,9 @@ function UpdateStatusBoxberyCancel() {
             $contents = stream_get_contents($handle);
             fclose($handle);
             $data = json_decode($contents,true);
-          
-            if($data["statuses"][0]["Name"] == "Возвращено в ИМ"){
+            
+            $end_status = end($data["statuses"]);
+            if($end_status["Name"] == "Возвращено в ИМ"){
                 CSaleOrder::StatusOrder($arOrder["ID"], "F");  // обновление статуса если заказ был возвращен
             }
         } 

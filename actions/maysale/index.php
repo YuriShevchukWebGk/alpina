@@ -272,7 +272,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				</div>
 				<br />
 				</div>
-				<?/*
+				<
 				<div class="hintWrapp">
 				<div class="title">Я не трус... но я боюсь</div>
 									<div class="bookWrap">
@@ -793,8 +793,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 						</a>
 					</div>
 			</div>
-			*/?>
-				
+			>
+
 				<center style="margin: 50px 0;padding:50px;background:#f4f4f4;">
 					<div class="title">Когда купил книгу за 99 рублей!</div>
 					<br />

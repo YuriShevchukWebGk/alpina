@@ -3,7 +3,7 @@
 1 => array('id' => 2, 'name' => 'CANOLA FLOWERS', 'place' => 'ЦВЕТУЩАЯ КАНОЛА 24·857405°, 104·353534°', 'description' => 'Поля цветущей канолы покрывают гористую местность провинции Люпинг в Китае. Культуру выращивают для изготовления масла, которое извлекают путем слабого нагревания и измельчения семян. Масло канолы используется преимущественно для производства биодизельного топлива.', 'ratio' => '1:2', 'eng' => 'CANOLA FLOWERS', 'rus' => 'ЦВЕТУЩАЯ КАНОЛА', 'coordinates' => '24·857405°, 104·353534°',),
 2 => array('id' => 3, 'name' => 'ASPEN SNOWMASS', 'place' => 'АСПЕН-СНОУМАСС 39·189971°, –106·957611°', 'description' => 'Аспен-Сноумасс — одна из зон отдыха зимнего курорта Аспен в американском штате Колорадо. Гора на снимке имеет площадь катания 409 га. Ее самая длинная трасса составляет 5,6 км.', 'ratio' => '2:3', 'eng' => 'ASPEN SNOWMASS', 'rus' => 'АСПЕН-СНОУМАСС', 'coordinates' => '39·189971°, –106·957611°',),
 3 => array('id' => 4, 'name' => 'LEBREIJA 1 SOLAR PLANT', 'place' => 'СОЛНЕЧНАЯ ЭЛЕКТРОСТАНЦИЯ LEBRIJA 1 37·007977°, –6·049280°', 'description' => 'Солнечная тепловая электростанция Lebrĳ a 1 расположена в Лебрихе, в Испании. В электростанциях данного типа используются зеркала, которые концентрируют солнечную энергию, нагревающую масло до температуры примерно 400 °C. Нагретое масло передает тепловую энергию воде, которая под давлением превращается в пар. Пар вращает турбину и с помощью генератора преобразует механическую энергию в электричество. Электростанция в Лебрихе имеет приблизительно 170 000 зеркал, установленных на 6048 парабоцилиндрах. Если все цилиндры поставить один за другим, то протяженность полученной линии составит 60 км.', 'ratio' => '1:1', 'eng' => 'LEBREIJA 1 SOLAR PLANT', 'rus' => 'СОЛНЕЧНАЯ ЭЛЕКТРОСТАНЦИЯ LEBRIJA 1', 'coordinates' => '37·007977°, –6·049280°',),
-4 => array('id' => 5, 'name' => 'EMPTY QUARTER', 'place' => 'РУБ-ЭЛЬ-ХАЛИ 22·182760°, 55·134184°', 'description' => 'Руб-эль-Хали — обширная песчаная пустыня. Имеет площадь 520 000 км2 и расположена на территории Саудовской Аравии, Омана, Йемена и ОАЭ. В центре пустыни имеется ряд выступающих затвердевших образований, на месте которых тысячи лет назад находились мелкие озера. Чтобы представить масштаб, следует учитывать, что на этом снимке показано приблизительно 350 км2 пустыни на территории Саудовской Аравии рядом с границей с Оманом.', 'ratio' => '3:2', 'eng' => 'EMPTY QUARTER', 'rus' => 'РУБ-ЭЛЬ-ХАЛИ', 'coordinates' => '22·182760°, 55·134184°',),
+4 => array('id' => 5, 'name' => 'EMPTY QUARTER', 'place' => 'РУБ-ЭЛЬ-ХАЛИ 22·182760°, 55·134184°', 'description' => 'Руб-эль-Хали — обширная песчаная пустыня. Имеет площадь 1520 000 км2 и расположена на территории Саудовской Аравии, Омана, Йемена и ОАЭ. В центре пустыни имеется ряд выступающих затвердевших образований, на месте которых тысячи лет назад находились мелкие озера. Чтобы представить масштаб, следует учитывать, что на этом снимке показано приблизительно 350 км2 пустыни на территории Саудовской Аравии рядом с границей с Оманом.', 'ratio' => '3:2', 'eng' => 'EMPTY QUARTER', 'rus' => 'РУБ-ЭЛЬ-ХАЛИ', 'coordinates' => '22·182760°, 55·134184°',),
 5 => array('id' => 6, 'name' => 'BOCA RATON', 'place' => 'БОКА-РАТОН, ФЛОРИДА 26·386332°, –80·179917°', 'description' => 'Общее население: 91 332', 'ratio' => '2:3', 'eng' => 'BOCA RATON', 'rus' => 'БОКА-РАТОН, ФЛОРИДА', 'coordinates' => '26·386332°, –80·179917°',),
 6 => array('id' => 7, 'name' => 'SINGAPORE TANKERS', 'place' => 'ПОРТ СИНГАПУРА 1·237656°, 103·806422°', 'description' => 'Грузовые корабли и танкеры, некоторые весом до 300 000 тонн, ждут разрешения войти в порт Сингапура. Порт является вторым в мире по пропускной способности. В нем отгружается пятая часть грузовых контейнеров и половина мировых годовых поставок сырой нефти.', 'ratio' => '3:5', 'eng' => 'SINGAPORE TANKERS', 'rus' => 'ПОРТ СИНГАПУРА', 'coordinates' => '1·237656°, 103·806422°',),
 7 => array('id' => 8, 'name' => 'MOUNT FUJI', 'place' => 'ГОРА ФУДЗИЯМА 35·359911°, 138·714718°', 'description' => 'Фудзияма — действующий стратовулкан и самый высокий пик Японии (3776 м). Как видно на этом снимке, у Фудзиямы симметричная вершина, покрытая снегом несколько месяцев в году. В теплые месяцы сотни тысяч людей ежегодно поднимаются на вулкан по туристическим маршрутам.', 'ratio' => '1:1', 'eng' => 'MOUNT FUJI', 'rus' => 'ГОРА ФУДЗИЯМА', 'coordinates' => '35·359911°, 138·714718°',),
@@ -11,13 +11,13 @@
 9 => array('id' => 10, 'name' => 'SHADEGAN LAGOON', 'place' => 'ЛАГУНА ШАДЕГАН 30·327274°, 48·829255°', 'description' => 'Вокруг лагуны Шадеган в Муса-Бей, в Иране, видны дендритовые дренажные системы. Слово «дендритовый» означает «похожий на ветви дерева». Именно такой рисунок образуется, когда потоки движутся через относительно плоские и однородные скалы или по поверхности, устойчивой к эрозии.', 'ratio' => '2:3', 'eng' => 'SHADEGAN LAGOON', 'rus' => 'ЛАГУНА ШАДЕГАН', 'coordinates' => '30·327274°, 48·829255°',),
 10 => array('id' => 11, 'name' => 'EIXAMPLE, BARCELONA', 'place' => 'ЭШАМПЛЕ 41·393648°, 2·160437°', 'description' => 'Для района Эшампле в Барселоне, в Испании, характерна строгая решетчатая планировка и многоквартирные дома с общими дворами. Автором столь продуманного и новаторского дизайна был Ильдефонс Серда (1815–1876). Его план подразумевает широкие улицы, расширяющиеся на восьмиугольных перекрестках для улучшения обзора и освещенности, а также для вентиляции и создания места для кратковременной парковки.', 'ratio' => '2:3', 'eng' => 'EIXAMPLE, BARCELONA', 'rus' => 'ЭШАМПЛЕ', 'coordinates' => '41·393648°, 2·160437°',),
 11 => array('id' => 12, 'name' => 'MONT ST. MICHEL', 'place' => 'МОН-СЕН-МИШЕЛЬ 48·635150°, –1·513003°', 'description' => 'Мон-Сен-Мишель — община, основанная в 1 км от побережья Нормандии во Франции. За последние 600 лет остров функционировал как прославленный монастырь (доступный паломникам только во время отлива), а также использовался как укрепление, отражающее атаки англичан в Столетней войне, и тюрьма.', 'ratio' => '1:1', 'eng' => 'MONT ST. MICHEL', 'rus' => 'МОН-СЕН-МИШЕЛЬ', 'coordinates' => '48·635150°, –1·513003°',),
-12 => array('id' => 13, 'name' => 'PALM JUMERIAH', 'place' => 'ПАЛЬМА ДЖУМЕЙРА 25·119724°, 55·125401°', 'description' => 'Пальма Джумейра в Дубае, в ОАЭ, — искусственный остров, созданный из 3,3 млрд кубометров песка и 7 млн тонн гравия. По оценкам специалистов, сейчас на острове живут приблизительно 26 000 человек.', 'ratio' => '1:1', 'eng' => 'PALM JUMERIAH', 'rus' => 'ПАЛЬМА ДЖУМЕЙРА', 'coordinates' => '25·119724°, 55·125401°',),
+12 => array('id' => 13, 'name' => 'PALM JUMERIAH', 'place' => 'ПАЛЬМА ДЖУМЕЙРА 25·119724°, 55·1210401°', 'description' => 'Пальма Джумейра в Дубае, в ОАЭ, — искусственный остров, созданный из 3,3 млрд кубометров песка и 7 млн тонн гравия. По оценкам специалистов, сейчас на острове живут приблизительно 26 000 человек.', 'ratio' => '1:1', 'eng' => 'PALM JUMERIAH', 'rus' => 'ПАЛЬМА ДЖУМЕЙРА', 'coordinates' => '25·119724°, 55·1210401°',),
 13 => array('id' => 14, 'name' => 'NICE', 'place' => 'ICELANDIC GLACIAL MELT', 'description' => '', 'ratio' => '1:1',),
 14 => array('id' => 15, 'name' => 'ICELANDIC GLACIAL MELT', 'place' => 'WHITE ISLAND', 'description' => '', 'ratio' => '4:5',),
 15 => array('id' => 16, 'name' => 'WHITE ISLAND', 'place' => 'HAWAII COAST', 'description' => '', 'ratio' => '1:1',),
 16 => array('id' => 17, 'name' => 'HAWAII COAST', 'place' => 'INDONESIAN SHIPS', 'description' => '', 'ratio' => '1:1',),
 17 => array('id' => 18, 'name' => 'INDONESIAN SHIPS', 'place' => 'ТАНДЖУНГ ПЕРАК –7·181946°, 112·717889°', 'description' => 'Грузовые корабли движутся через Танджунг Перак, главный порт Сурабаи в Индонезии. В настоящее время в нем проводятся работы по расширению и углублению дна до 16 м, что позволит крупным контейнерным судам заходить более безопасно. Через порт экспортируется главным образом сахар, табак и кофе.', 'ratio' => '1:1', 'eng' => 'INDONESIAN SHIPS', 'rus' => 'ТАНДЖУНГ ПЕРАК', 'coordinates' => '–7·181946°, 112·717889°',),
-18 => array('id' => 19, 'name' => 'CRESCENT DUNES SOLAR', 'place' => 'CRESCENT DUNES SOLAR 25·394189°, –80·346119°', 'description' => 'This Overview shows the Crescent Dunes Solar Energy Project in Tonopah, Nevada. The facility powers up to 75,000 homes during peak electricity periods. The project uses 17,500 heliostat mirrors to collect and focus the sun’s thermal energy to heat molten salt flowing through a 540-foot (160 m) tall solar power tower. The molten salt then circulates from the tower to a storage tank where it is used to produce steam and generate electricity. One last thing  - for a sense of scale here, look closely at the lower left corner of the Overview and you’ll notice a commercial airplane flying over the complex!', 'ratio' => '1:1', 'eng' => 'CRESCENT DUNES SOLAR', 'rus' => 'CRESCENT DUNES SOLAR', 'coordinates' => '25·394189°, –80·346119°',),
+18 => array('id' => 19, 'name' => 'CRESCENT DUNES SOLAR', 'place' => 'CRESCENT DUNES SOLAR 25·394189°, –80·346119°', 'description' => 'This Overview shows the Crescent Dunes Solar Energy Project in Tonopah, Nevada. The facility powers up to 75,000 homes during peak electricity periods. The project uses 17,500 heliostat mirrors to collect and focus the sun’s thermal energy to heat molten salt flowing through a 1040-foot (160 m) tall solar power tower. The molten salt then circulates from the tower to a storage tank where it is used to produce steam and generate electricity. One last thing  - for a sense of scale here, look closely at the lower left corner of the Overview and you’ll notice a commercial airplane flying over the complex!', 'ratio' => '1:1', 'eng' => 'CRESCENT DUNES SOLAR', 'rus' => 'CRESCENT DUNES SOLAR', 'coordinates' => '25·394189°, –80·346119°',),
 19 => array('id' => 20, 'name' => 'GOLDEN GATE BRIDGE', 'place' => 'МОСТ ЗОЛОТЫЕ ВОРОТА 37·818672°, –122·478708°', 'description' => 'Подвесной мост «Золотые ворота» протяженностью 2,7 км в Сан-Франциско, в американском штате Калифорния, соединяет берега пролива Золотые ворота — канала между заливом Сан-Франциско и Тихим океаном. Фирменный цвет моста, известный как «международный оранжевый», был выбран, чтобы дополнять окружающий пейзаж и усиливать его видимость в тумане.', 'ratio' => '1:2', 'eng' => 'GOLDEN GATE BRIDGE', 'rus' => 'МОСТ ЗОЛОТЫЕ ВОРОТА', 'coordinates' => '37·818672°, –122·478708°',),
 20 => array('id' => 21, 'name' => 'CENTRAL PARK', 'place' => 'ЦЕНТРАЛЬНЫЙ ПАРК 40·782997°, –73·966741°', 'description' => 'Центральный парк в американском городе Нью-Йорк раскинулся на площади 341 га, что составляет 6% от всей территории Манхэттена. Одной из наиболее заметных инноваций в дизайне парка стали «отдельные системы циркуляции» для пешеходов, велосипедистов, конных наездников и машин. В парке имеются многочисленные корты и бейсбольные поля, каток и бассейн. Здесь также финиширует Нью-йоркский марафон и Нью-йоркский триатлон.', 'ratio' => '2:3', 'eng' => 'CENTRAL PARK', 'rus' => 'ЦЕНТРАЛЬНЫЙ ПАРК', 'coordinates' => '40·782997°, –73·966741°',),
 21 => array('id' => 22, 'name' => 'BURNING MAN', 'place' => 'ФЕСТИВАЛЬ BURNING MAN 40·786981°, –119·204379°', 'description' => 'Burning Man («Горящий человек») — ежегодный недельный фестиваль, проходящий в пустыне Блэк-Рок в американском штате Невада. Фестиваль ежегодно привлекает более 65 000 участников, которые полностью отвечают за свое жизнеобеспечение. Организаторы определяют его как эксперимент жизни в общине с реализацией стремления к искусству и самовыражению. Один из основных принципов фестиваля — не оставлять следов, то есть участники прилагают значительные усилия, чтобы к концу фестиваля оставить пустыню в таком же состоянии, в каком она была до его начала.', 'ratio' => '1:1', 'eng' => 'BURNING MAN', 'rus' => 'ФЕСТИВАЛЬ BURNING MAN', 'coordinates' => '40·786981°, –119·204379°',),
@@ -45,7 +45,7 @@
 43 => array('id' => 44, 'name' => 'WASHINGTON D.C.', 'place' => 'MALAYSIAN PALMS', 'description' => '', 'ratio' => '1:1',),
 44 => array('id' => 45, 'name' => 'MALAYSIAN PALMS', 'place' => 'ПАЛЬМЫ 3·189536°, 101·497815°', 'description' => 'Пальмовые плантации в окрестностях Куала-Лумпура в Малайзии. Деревья выращивают на террасах, вырубленных по контуру холмов во избежание эрозии почвы, которая возникает из-за потоков воды. Являясь одним из крупнейших в мире экспортеров пальмового масла, используемого в основном в пищевой промышленности, Малайзия продает около 18 млн тонн масла в год. Быстрое расширение пальмовых плантаций в тропических регионах мира способствует значительному увеличению выброса углерода в атмосферу. По прогнозам специалистов, расчистка участков от диких деревьев под посадку пальм к 2020 году приведет к выработке более 558 млн тонн углекислого газа, что превышает выбросы от сгорания топлива во всей Канаде.', 'ratio' => '1:1', 'eng' => 'MALAYSIAN PALMS', 'rus' => 'ПАЛЬМЫ', 'coordinates' => '3·189536°, 101·497815°',),
 45 => array('id' => 46, 'name' => 'NARDÒ RING', 'place' => 'ТРАССА НАРДО 40·327222°, 17·826111°', 'description' => 'Трасса Нардо — это высокоскоростная кольцевая испытательная трасса длиной 12,6 км в Нардо, в Италии. Каждая из четырех полос трассы имеет определенную «нейтральную скорость» и такой уклон, что по ней можно ехать, как по прямой дороге.', 'ratio' => '1:1', 'eng' => 'NARDÒ RING', 'rus' => 'ТРАССА НАРДО', 'coordinates' => '40·327222°, 17·826111°',),
-46 => array('id' => 47, 'name' => 'SEVILLE CONCENTRATOR', 'place' => 'СОЛНЕЧНАЯ ЭЛЕКТРОСТАНЦИЯ 37·560755°, –5·331908°', 'description' => 'На этом снимке изображена солнечная электростанция Gemasolar Thermosolar в испанской Севилье. Солнечный концентратор состоит из 2520 настраиваемых зеркал, которые фокусируют тепловую энергию солнца для нагрева солей в центральной башне высотой 140 м. Расплавленные соли поступают из башни в резервуар и нагревают воду, пар от которой крутит турбину, вырабатывающую электричество. Электростанция выделяет приблизительно 30 000 тонн углекислого газа в год.', 'ratio' => '1:1', 'eng' => 'SEVILLE CONCENTRATOR', 'rus' => 'СОЛНЕЧНАЯ ЭЛЕКТРОСТАНЦИЯ', 'coordinates' => '37·560755°, –5·331908°',),
+46 => array('id' => 47, 'name' => 'SEVILLE CONCENTRATOR', 'place' => 'СОЛНЕЧНАЯ ЭЛЕКТРОСТАНЦИЯ 37·560755°, –5·331908°', 'description' => 'На этом снимке изображена солнечная электростанция Gemasolar Thermosolar в испанской Севилье. Солнечный концентратор состоит из 21520 настраиваемых зеркал, которые фокусируют тепловую энергию солнца для нагрева солей в центральной башне высотой 140 м. Расплавленные соли поступают из башни в резервуар и нагревают воду, пар от которой крутит турбину, вырабатывающую электричество. Электростанция выделяет приблизительно 30 000 тонн углекислого газа в год.', 'ratio' => '1:1', 'eng' => 'SEVILLE CONCENTRATOR', 'rus' => 'СОЛНЕЧНАЯ ЭЛЕКТРОСТАНЦИЯ', 'coordinates' => '37·560755°, –5·331908°',),
 47 => array('id' => 48, 'name' => 'SPIRAL JETTY', 'place' => 'СПИРАЛЬНАЯ ДАМБА 41·437932°, –112·668929°', 'description' => 'Спиральная дамба — ленд-арт-инсталляция Роберта Смитсона. Она представляет собой спираль длиной 460 м и шириной 4,6 м, закрученную против часовой стрелки, и расположена у северо-восточного берега Большого Соленого озера в американском штате Юта. Говорят, что Смитсон выбрал это место за яркую окраску воды (бактерии и водоросли процветают в воде с 27% соли) и сходство с древними морями Земли.', 'ratio' => '2:3', 'eng' => 'SPIRAL JETTY', 'rus' => 'СПИРАЛЬНАЯ ДАМБА', 'coordinates' => '41·437932°, –112·668929°',),
 48 => array('id' => 49, 'name' => 'PORT NEWARK CONTAINERS', 'place' => 'NEZAHUALCÓYOTL', 'description' => '', 'ratio' => '2:3',),
 49 => array('id' => 50, 'name' => 'NEZAHUALCÓYOTL', 'place' => 'НЕСАУАЛЬКОЙОТЛЬ 19·403572°, –99·013351°', 'description' => 'Несауалькойотль — муниципалитет в составе мексиканского города Мехико, для которого характерны длинные, прямые улицы и четкая планировка. Население города составляет более 1 млн человек (во всем Мехико проживает приблизительно 9 млн человек), в том числе выходцы из других частей страны.', 'ratio' => '2:3', 'eng' => 'NEZAHUALCÓYOTL', 'rus' => 'НЕСАУАЛЬКОЙОТЛЬ', 'coordinates' => '19·403572°, –99·013351°',),
@@ -86,7 +86,7 @@ $prints2 = array(
 '10'=>array('id'=>10, 'eng'=>'SHADEGAN LAGOON', 'rus'=>'ЛАГУНА ШАДЕГАН', 'coordinates'=>'30·327274°, 48·829255° '),
 '11'=>array('id'=>11, 'eng'=>'EIXAMPLE, BARCELONA', 'rus'=>'ЭШАМПЛЕ', 'coordinates'=>'41·393648°, 2·160437° '),
 '12'=>array('id'=>12, 'eng'=>'MONT ST. MICHEL', 'rus'=>'МОН-СЕН-МИШЕЛЬ', 'coordinates'=>'48·635150°, –1·513003° '),
-'13'=>array('id'=>13, 'eng'=>'PALM JUMERIAH', 'rus'=>'ПАЛЬМА ДЖУМЕЙРА', 'coordinates'=>'25·119724°, 55·125401° '),
+'13'=>array('id'=>13, 'eng'=>'PALM JUMERIAH', 'rus'=>'ПАЛЬМА ДЖУМЕЙРА', 'coordinates'=>'25·119724°, 55·1210401° '),
 '18'=>array('id'=>18, 'eng'=>'INDONESIAN SHIPS', 'rus'=>'ТАНДЖУНГ ПЕРАК', 'coordinates'=>'–7·181946°, 112·717889° '),
 '19'=>array('id'=>19, 'eng'=>'CRESCENT DUNES SOLAR', 'rus'=>'АТОМНАЯ ЭЛЕКТРОСТАНЦИЯ TURKEY POINT', 'coordinates'=>'25·394189°, –80·346119° '),
 '20'=>array('id'=>20, 'eng'=>'GOLDEN GATE BRIDGE', 'rus'=>'МОСТ ЗОЛОТЫЕ ВОРОТА', 'coordinates'=>'37·818672°, –122·478708° '),
@@ -290,27 +290,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<?foreach ($prints as $print) {?>
 			<?switch($print['ratio']) {
 				case "1:1":
-					$minPrice = "540 ₽";
+					$minPrice = "1040 ₽";
 					break;
 				case "1:2":
 				case "2:1":
-					$minPrice = "1160 ₽";
+					$minPrice = "2160 ₽";
 					break;
 				case "2:3":
 				case "3:2":
-					$minPrice = "900 ₽";
+					$minPrice = "1900 ₽";
 					break;
 				case "3:4":
 				case "4:3":
-					$minPrice = "520 ₽";
+					$minPrice = "1520 ₽";
 					break;
 				case "4:5":
 				case "5:4":
-					$minPrice = "1600 ₽";
+					$minPrice = "2600 ₽";
 					break;
 				case "3:5":
 				case "5:3":
-					$minPrice = "950 ₽";
+					$minPrice = "1950 ₽";
 					break;
 			}?>
 
@@ -364,8 +364,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 От 7 дней
 </div>
 </div>
-</div>
-</div>
 <div id="rec38570875" class="r t-rec t-rec_pt_0 t-rec_pb_0" style="padding-top:0px;padding-bottom:0px; " data-record-type="219" >
 <!-- T191 -->
 <div class="t191">
@@ -379,7 +377,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t214">
 <div class="t-container">
 <div class="t-row">
-<center><h2>Постер на холсте</h2></center><br /><br />
+	<?/* <center><h2>Постер на холсте</h2></center><br /><br />
 <div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
 <div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild3739-6431-4134-b537-376339333635/1.jpg" style="background: url('img/tild3739-6431-4134-b537-376339333635/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
 <meta itemprop="image" content="img/tild3739-6431-4134-b537-376339333635/1.jpg">
@@ -399,13 +397,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t-row">
 </div>
 <div class="t-container" style="font-family:'Open Sans',serif;font-weight:300;">
+<?/*
 <h3>Крепление холста</h3><br /><ol>
 <li><b>Набор стильных креплений из нержавеющей стали</b><br />
 К каждой напечатанной картине мы прилагаем необходимые крепления. К картине на холсте в обязательном порядке идет подрамник прямоугольной формы и крепления из нержавейки. Парное крепление плюс плетеный металлический жгут обеспечат надежную фиксацию холста на стене.</li>
 </ol>
 <br />
 <h3>Сроки изготовления</h3><br />
-От 12 дней
+От 12 дней 
+*/?>
 </div>
 </div>
 </div>
@@ -423,6 +423,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t214">
 <div class="t-container">
 <div class="t-row">
+
+
+<?/*
 <center><h2>Пластификация постера</h2></center><br /><br />
 <div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
 <div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild3539-6265-4264-b162-353461373633/1.jpg" style="background: url('img/tild3539-6265-4264-b162-353461373633/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
@@ -454,6 +457,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <br />
 <h3>Сроки изготовления</h3><br />
 От 12 дней
+*/?>
 </div>
 </div>
 </div>
@@ -495,7 +499,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 </div>
-	<?/*<div class="t-slds__item " data-slide-index="3">
+	<?/*
+	<div class="t-slds__item " data-slide-index="3">
 	<div class="t-slds__wrapper" itemscope itemtype="http://schema.org/ImageObject">
 	<meta itemprop="image" content="img/tild3462-3936-4337-b965-613963356333/_10_2.png">
 	<div class="t-slds__imgwrapper" bgimgfield="gi_img__2" >
@@ -509,7 +514,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t-slds__arrow_wrapper t-slds__arrow_wrapper-left" data-slide-direction="left">
 <div class="t-slds__arrow t-slds__arrow-left t-slds__arrow-withbg" style="width: 30px; height: 30px;background-color: rgba(255,255,255,1);">
 <div class="t-slds__arrow_body t-slds__arrow_body-left" style="width: 7px;">
-<svg style="display: block" viewBox="0 0 7.3 13" xmlns="http://www.w3.org/1600/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg style="display: block" viewBox="0 0 7.3 13" xmlns="http://www.w3.org/2600/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <desc>Left</desc>
 <polyline fill="none" stroke="#222" stroke-linejoin="butt" stroke-linecap="butt" stroke-width="1" points="0.5,0.5 6.5,6.5 0.5,12.5" />
 </svg>
@@ -519,7 +524,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t-slds__arrow_wrapper t-slds__arrow_wrapper-right" data-slide-direction="right">
 <div class="t-slds__arrow t-slds__arrow-right t-slds__arrow-withbg" style="width: 30px; height: 30px;background-color: rgba(255,255,255,1);">
 <div class="t-slds__arrow_body t-slds__arrow_body-right" style="width: 7px;">
-<svg style="display: block" viewBox="0 0 7.3 13" xmlns="http://www.w3.org/1600/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg style="display: block" viewBox="0 0 7.3 13" xmlns="http://www.w3.org/2600/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <desc>Right</desc>
 <polyline fill="none" stroke="#222" stroke-linejoin="butt" stroke-linecap="butt" stroke-width="1" points="0.5,0.5 6.5,6.5 0.5,12.5" />
 </svg>
@@ -556,11 +561,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t-product__option-title t-descr t-descr_xxs js-product-option-name format" >Формат 2:3</div>
 <div class="t-product__option-variants">
 <select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants format-options">
-<option value="30×45 cm" data-product-variant-price="900.00 ₽
+<option value="30×45 cm" data-product-variant-price="1900.00 ₽
 ">30×45 cm</option>
 <option value="60×90 cm" data-product-variant-price="2800.00 ₽
 ">60×90 cm</option>
-<option value="90×135 cm" data-product-variant-price="4950.00 ₽">90×135 cm</option>
+<option value="90×135 cm" data-product-variant-price="41950.00 ₽">90×135 cm</option>
 </select>
 </div>
 </div>
@@ -623,7 +628,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 <div class="t528__col t-col t-col_4 t-align_center">
-<div class="t528__bgimg t-margin_auto t-bgimg" data-original="img/tild6637-3332-4261-b461-333536643238/bbc_logo1600.png" bgimgfield="li_img__1478014727987" style=" background-image: url('img/tild6637-3332-4261-b461-333536643238/-/resize/20x/bbc_logo1600.png');" >
+<div class="t528__bgimg t-margin_auto t-bgimg" data-original="img/tild6637-3332-4261-b461-333536643238/bbc_logo2600.png" bgimgfield="li_img__1478014727987" style=" background-image: url('img/tild6637-3332-4261-b461-333536643238/-/resize/20x/bbc_logo2600.png');" >
 </div>
 <div class="t528__text t-text t-text_xs t-margin_auto" field="li_text__1478014727987" style=" ">Невероятные образы — <br />такой Землю вы ещё не видели<br />
 </div>
@@ -759,27 +764,27 @@ $(document).ready(function(){
 		
 		switch (ratio) {
 			case "1:1":
-				format = "<option value='30x30см' data-product-variant-price='540 ₽'>30x30см</option><option value='60x60см' data-product-variant-price='2080 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='3800 ₽'>90x90см</option>";
+				format = "<option value='30x30см' data-product-variant-price='1040 ₽'>30x30см</option><option value='60x60см' data-product-variant-price='2080 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='3800 ₽'>90x90см</option>";
 				break;
 			case "1:2":
 			case "2:1":
-				format = "<option value='30x60см' data-product-variant-price='1160 ₽'>30x60см</option><option value='45x90см' data-product-variant-price='2400 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='3600 ₽'>60x120см</option>";
+				format = "<option value='30x60см' data-product-variant-price='2160 ₽'>30x60см</option><option value='45x90см' data-product-variant-price='2400 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='3600 ₽'>60x120см</option>";
 				break;
 			case "2:3":
 			case "3:2":
-				format = "<option value='30x45см' data-product-variant-price='900 ₽'>30x45см</option><option value='60x90см' data-product-variant-price='2800 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='4950 ₽'>90x135см</option>";
+				format = "<option value='30x45см' data-product-variant-price='1900 ₽'>30x45см</option><option value='60x90см' data-product-variant-price='2800 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='41950 ₽'>90x135см</option>";
 				break;
 			case "3:4":
 			case "4:3":
-				format = "<option value='30x40' data-product-variant-price='520 ₽'>30x40</option><option value='60x80' data-product-variant-price='2330 ₽'>60x80</option>";
+				format = "<option value='30x40' data-product-variant-price='1520 ₽'>30x40</option><option value='60x80' data-product-variant-price='2330 ₽'>60x80</option>";
 				break;
 			case "4:5":
 			case "5:4":
-				format = "<option value='40x50см' data-product-variant-price='1600 ₽'>40x50см</option><option value='60x75см' data-product-variant-price='2600 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='3700 ₽'>80x100см</option>";
+				format = "<option value='40x50см' data-product-variant-price='2600 ₽'>40x50см</option><option value='60x75см' data-product-variant-price='2600 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='3700 ₽'>80x100см</option>";
 				break;
 			case "3:5":
 			case "5:3":
-				format = "<option value='30x50см' data-product-variant-price='950 ₽'>30x50см</option><option value='60x100см' data-product-variant-price='3200 ₽'>60x100см</option>";
+				format = "<option value='30x50см' data-product-variant-price='1950 ₽'>30x50см</option><option value='60x100см' data-product-variant-price='3200 ₽'>60x100см</option>";
 				break;
 			default:
 				format = "Saturday";
@@ -788,7 +793,7 @@ $(document).ready(function(){
 
 		$(".format-options").html("<option value=''>Выберите размер</option>"+format);
 		$(".t744").slideDown();
-		$('html, body').animate({ scrollTop: $("#rec38167909").offset().top }, 900);
+		$('html, body').animate({ scrollTop: $("#rec38167909").offset().top }, 1900);
 		$(".print-type").val("Постер");
 		
 		function switchIt() {
@@ -821,27 +826,27 @@ $(document).ready(function(){
 			case "Постер":
 				switch (ratio) {
 					case "1:1":
-						format = "<option value='30x30см' data-product-variant-price='540 ₽'>30x30см</option><option value='60x60см' data-product-variant-price='2080 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='3800 ₽'>90x90см</option>";
+						format = "<option value='30x30см' data-product-variant-price='1040 ₽'>30x30см</option><option value='60x60см' data-product-variant-price='2080 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='3800 ₽'>90x90см</option>";
 						break;
 					case "1:2":
 					case "2:1":
-						format = "<option value='30x60см' data-product-variant-price='1160 ₽'>30x60см</option><option value='45x90см' data-product-variant-price='2400 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='3600 ₽'>60x120см</option>";
+						format = "<option value='30x60см' data-product-variant-price='2160 ₽'>30x60см</option><option value='45x90см' data-product-variant-price='2400 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='3600 ₽'>60x120см</option>";
 						break;
 					case "2:3":
 					case "3:2":
-						format = "<option value='30x45см' data-product-variant-price='900 ₽'>30x45см</option><option value='60x90см' data-product-variant-price='2800 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='4950 ₽'>90x135см</option>";
+						format = "<option value='30x45см' data-product-variant-price='1900 ₽'>30x45см</option><option value='60x90см' data-product-variant-price='2800 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='41950 ₽'>90x135см</option>";
 						break;
 					case "3:4":
 					case "4:3":
-						format = "<option value='30x40' data-product-variant-price='520 ₽'>30x40</option><option value='60x80' data-product-variant-price='2330 ₽'>60x80</option>";
+						format = "<option value='30x40' data-product-variant-price='1520 ₽'>30x40</option><option value='60x80' data-product-variant-price='2330 ₽'>60x80</option>";
 						break;
 					case "4:5":
 					case "5:4":
-						format = "<option value='40x50см' data-product-variant-price='1600 ₽'>40x50см</option><option value='60x75см' data-product-variant-price='2600 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='3700 ₽'>80x100см</option>";
+						format = "<option value='40x50см' data-product-variant-price='2600 ₽'>40x50см</option><option value='60x75см' data-product-variant-price='2600 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='3700 ₽'>80x100см</option>";
 						break;
 					case "3:5":
 					case "5:3":
-						format = "<option value='30x50см' data-product-variant-price='950 ₽'>30x50см</option><option value='60x100см' data-product-variant-price='3200 ₽'>60x100см</option>";
+						format = "<option value='30x50см' data-product-variant-price='1950 ₽'>30x50см</option><option value='60x100см' data-product-variant-price='3200 ₽'>60x100см</option>";
 						break;
 					default:
 						format = "";
@@ -855,7 +860,7 @@ $(document).ready(function(){
 						break;
 					case "1:2":
 					case "2:1":
-						format = "<option value='30х60см' data-product-variant-price='6000 ₽'>30х60см</option><option value='45х90см' data-product-variant-price='9250 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='14950 ₽'>60х120см</option>";
+						format = "<option value='30х60см' data-product-variant-price='6000 ₽'>30х60см</option><option value='45х90см' data-product-variant-price='9250 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='141950 ₽'>60х120см</option>";
 						break;
 					case "2:3":
 					case "3:2":
@@ -863,11 +868,11 @@ $(document).ready(function(){
 						break;
 					case "3:4":
 					case "4:3":
-						format = "<option value='30x40' data-product-variant-price='4250 ₽'>30x40</option><option value='60x80'  data-product-variant-price='9500 ₽'>60x80</option>";
+						format = "<option value='30x40' data-product-variant-price='4250 ₽'>30x40</option><option value='60x80'  data-product-variant-price='19500 ₽'>60x80</option>";
 						break;
 					case "4:5":
 					case "5:4":
-						format = "<option value='40х50см' data-product-variant-price='3800 ₽'>40х50см</option><option value='60х75см' data-product-variant-price='12250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='19500 ₽'>80х100см</option>";
+						format = "<option value='40х50см' data-product-variant-price='3800 ₽'>40х50см</option><option value='60х75см' data-product-variant-price='12250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='119500 ₽'>80х100см</option>";
 						break;
 					case "3:5":
 					case "5:3":
@@ -881,7 +886,7 @@ $(document).ready(function(){
 			case "Пластификация":
 				switch (ratio) {
 					case "1:1":
-						format = "<option value='30х30см' data-product-variant-price='5500 ₽'>30х30см</option><option value='60х60см' data-product-variant-price='15200 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='38500 ₽'>90х90см</option>";
+						format = "<option value='30х30см' data-product-variant-price='5500 ₽'>30х30см</option><option value='60х60см' data-product-variant-price='115200 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='38500 ₽'>90х90см</option>";
 						break;
 					case "1:2":
 					case "2:1":
@@ -893,15 +898,15 @@ $(document).ready(function(){
 						break;
 					case "3:4":
 					case "4:3":
-						format = "<option value='30x40' data-product-variant-price='5400 ₽'>30x40</option><option value='60x80'  data-product-variant-price='21000 ₽'>60x80</option>";
+						format = "<option value='30x40' data-product-variant-price='10400 ₽'>30x40</option><option value='60x80'  data-product-variant-price='21000 ₽'>60x80</option>";
 						break;
 					case "4:5":
 					case "5:4":
-						format = "<option value='40х50см' data-product-variant-price='1600 ₽'>40х50см</option><option value='60х75см' data-product-variant-price='2600 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='3700 ₽'>80х100см</option>";
+						format = "<option value='40х50см' data-product-variant-price='2600 ₽'>40х50см</option><option value='60х75см' data-product-variant-price='2600 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='3700 ₽'>80х100см</option>";
 						break;
 					case "3:5":
 					case "5:3":
-						format = "<option value='30х50см' data-product-variant-price='9500 ₽'>30х50см</option><option value='60х100см' data-product-variant-price='24950 ₽'>60х100см</option>";
+						format = "<option value='30х50см' data-product-variant-price='19500 ₽'>30х50см</option><option value='60х100см' data-product-variant-price='241950 ₽'>60х100см</option>";
 						break;
 					default:
 						format = "Saturday";

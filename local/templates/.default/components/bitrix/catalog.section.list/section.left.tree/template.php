@@ -17,38 +17,38 @@ $this->setFrameMode(true);
     <ul class="firstLevel">
     <?foreach ($arResult["SECTIONS"] as $arSection)
     {?>
-		<?if ($arSection["ID"] == "209") {
-			$collections = $arSection;
-			continue;
-		}
-		if ($arSection["DEPTH_LEVEL"]=="1") {?>
-			<li><a href="<?=$arSection["SECTION_PAGE_URL"]?>"><p><?=$arSection["NAME"]?></p></a>
+        <?if ($arSection["ID"] == "209") {
+            $collections = $arSection;
+            continue;
+        }
+        if ($arSection["DEPTH_LEVEL"]=="1") {?>
+            <li><a href="<?=$arSection["SECTION_PAGE_URL"]?>"><p><?=$arSection["NAME"]?></p></a>
         <?}?>
-		<?if ($arSection["ID"] == "141") { //Если подарочные издания?>
-			<ul class="secondLevel">
-				<li><a href="/content/overview/"><p>Постеры для дома и офиса</p></a></li>
-			</ul>
-		<?}?>
+        <?if ($arSection["ID"] == "141") { //Если подарочные издания?>
+          <?/*  <ul class="secondLevel">
+                <li><a href="/content/overview/"><p>Постеры для дома и офиса</p></a></li>
+            </ul>
+        <?*/}?>
         <?foreach ($arResult["SECTIONS"] as $arChildSection) {?>
             <?if ($arChildSection["IBLOCK_SECTION_ID"]==$arSection["ID"]) {?>
-				<ul class="secondLevel">
-						<li><a href="<?=$arChildSection["SECTION_PAGE_URL"]?>"><p><?=$arChildSection["NAME"]?></p></a></li>
-				</ul>
+                <ul class="secondLevel">
+                        <li><a href="<?=$arChildSection["SECTION_PAGE_URL"]?>"><p><?=$arChildSection["NAME"]?></p></a></li>
+                </ul>
             <?}?>
        <?}?>
        </li>
     <?}?>
-	
+    
 
-		<li><a href="<?=$collections["SECTION_PAGE_URL"]?>"><p>Тематические подборки</p></a>
-		<?foreach ($arResult["SECTIONS"] as $arChildSection) {?>
-			<?if ($arChildSection["IBLOCK_SECTION_ID"]==$collections["ID"]) {?>
-				<ul class="secondLevel">
-					<li><a href="<?=$arChildSection["SECTION_PAGE_URL"]?>"><p><?=$arChildSection["NAME"]?></p></a></li>
-				</ul>
-			<?}?>
-		<?}?>
-		</li>
+        <li><a href="<?=$collections["SECTION_PAGE_URL"]?>"><p>Тематические подборки</p></a>
+        <?foreach ($arResult["SECTIONS"] as $arChildSection) {?>
+            <?if ($arChildSection["IBLOCK_SECTION_ID"]==$collections["ID"]) {?>
+                <ul class="secondLevel">
+                    <li><a href="<?=$arChildSection["SECTION_PAGE_URL"]?>"><p><?=$arChildSection["NAME"]?></p></a></li>
+                </ul>
+            <?}?>
+        <?}?>
+        </li>
 
     </ul>
 </div>
