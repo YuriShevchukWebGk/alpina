@@ -92,8 +92,16 @@
 $datetime1 = new DateTime(date("d.m.Y"));
 $datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));
 $interval = date_diff($datetime1, $datetime2)->format('%a');
-
+function date_deactive(){    // ограничение вывода доставок в праздничные дни
+    $date_deactive = array('29.04.2018', '30.04.2018', '01.05.2018', '02.05.2018', '09.05.2018');
+    if(in_array(date('d.m.Y'),$date_deactive)){
+        return true;                                                                                          
+    } else {
+        return false;
+    }                         
+}
 ?>
+
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
@@ -106,7 +114,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         <?if($arResult['PREORDER'] == 'Y') {?>
             $("#tPP .delivery_date").remove();
         <?}?>
-        <?if(!empty($_SESSION["DATE_DELIVERY_STATE"])) {?>
+        <?if(!empty($_SESSION["DATE_DELIVERY_STATE"]) || date_deactive()) {?>
             $(".delivery_date").remove();
         <?}?>
 
