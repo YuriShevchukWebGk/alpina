@@ -4,10 +4,15 @@
 
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+
 CHTTP::SetStatus("404 Not Found");
 @define("ERROR_404","Y");
 $APPLICATION->SetTitle("Страница не найдена");?>
-
+<style type="text/css">
+    body > table, body > br{
+        display:none;
+    }
+</style>
 	<div class="noResultBodyWrap">
 		<div class="centerWrapper noResWrapp">
 			<p class="noResultTitle">Неправильно набран адрес, <br>или такой страницы на сайте больше не существует.</p>

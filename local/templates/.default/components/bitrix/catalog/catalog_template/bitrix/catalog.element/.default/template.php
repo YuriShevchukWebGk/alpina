@@ -2418,7 +2418,7 @@ if (!$childrenDesign) {
             <img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height: 450px;text-align: center;margin-top: 10px;margin-left: 20%;" />
 		</p>
         <div class="frame_soc_service" style=" float: right; margin-right: 10%; margin-top: -37px;"> 
-            <iframe src="//widget.stapico.ru/?q=alpinadeti&s=95&w=2&h=1&b=1&p=5&effect=2" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:240px; height: 255px; margin-left: 15%;" ></iframe> <!-- stapico - stapico.ru -->        
+            <iframe src="//widget.stapico.ru/?q=alpinadeti&s=95&w=2&h=1&b=1&p=5&effect=2" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:240px; height: 255px;" ></iframe> <!-- stapico - stapico.ru -->        
             <script type="text/javascript" src="//vk.com/js/api/openapi.js?153"></script>
 
             <!-- VK Widget -->
@@ -2434,7 +2434,7 @@ if (!$childrenDesign) {
 </div>
 
 <div class="testdriveWrapChildren" style="width:100%;background:#00aab8 url(/images/childrenbg.jpg) no-repeat;background-size:cover;color:#fff; background-size: 100% 100%;">
-	<div class="centerWrapper" style="padding-left:10%;font-size:17px">
+	<div class="centerWrapper" style="padding-left:10%;font-size:17px;width: 680px;min-width: auto;">
 		<p class="title" style="color:#fff">
 			Корпоративные заказы
 		</p>
