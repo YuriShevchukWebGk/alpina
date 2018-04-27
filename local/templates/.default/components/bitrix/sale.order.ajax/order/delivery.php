@@ -133,7 +133,15 @@
             $isOnlyCertificate = false;
         }
     }
-
+    function date_deactive(){    // ограничение вывода доставок в праздничные дни
+        $date_deactive = array('29.04.2018', '30.04.2018', '01.05.2018', '02.05.2018', '09.05.2018');
+        if(in_array(date('d.m.Y'),$date_deactive)){
+            return true; 
+        } else {
+            return false;
+        }
+    }
+    
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
@@ -179,7 +187,7 @@
                     $clickHandler = "onClick = \"BX('ID_DELIVERY_ID_".$arDelivery["ID"]."').checked=true;".$extraParams."submitForm();\"";
 
             ?>
-            <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
+            <?if( ($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2 || $arDelivery["ID"] == DELIVERY_COURIER_MKAD || $arDelivery["ID"] == DELIVERY_BOXBERRY_PICKUP) && date_deactive() ) {
 
             } else {?>
             <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?>">
