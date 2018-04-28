@@ -206,18 +206,7 @@
 						<?if ($arResult['ORDER']['STATUS_ID'] == 'PR') {?>
 							<p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен!</p>
 							<p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>    
-                            <?if($arResult["PAY_SYSTEM"]["ID"] == RFI_PAYSYSTEM_ID){?>
-                                <? $APPLICATION->IncludeComponent(
-                                    "webgk:rfi.widget",
-                                    "",
-                                    Array(
-                                        "ORDER_ID" => $_REQUEST["ORDER_ID"]
-                                    ),
-                                    false
-                                ); ?>   
-                            <?} else if($arResult["PAY_SYSTEM"]["ID"] != 1 && $arResult["PAY_SYSTEM"]["ID"] != 11 && $arResult["PAY_SYSTEM"]["ID"] != 17){?> 
-                                <a class="platbox_button submit_platbox">Оплатить</a>   
-                            <?}?>
+                            
 						<?} else {?>
 							<p class="ordTitle">Заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен...</p>
                             

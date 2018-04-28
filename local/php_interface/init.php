@@ -419,11 +419,15 @@
         } else {
             $delivery_pre_order = (time()+(3600*24)*$day);
         }
-
+        
         $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
         $date_d = date("j", $delivery_pre_order);
         $date_n = date("n", $delivery_pre_order);
         $date_Y = date("Y", $delivery_pre_order);
+        $date_promt = date("d.m.Y", $delivery_pre_order);
+        $date_deactive = array('29.04.2018', '30.04.2018', '01.05.2018', '02.05.2018', '09.05.2018');
+     
+
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
@@ -451,7 +455,6 @@
         } else {
             $delivery_pre_order = (time()+(3600*24)*$day);
         }
-
         $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
         $date_d = date("j", $delivery_pre_order);
         $date_n = date("n", $delivery_pre_order);
@@ -2404,7 +2407,7 @@
     function PayButtonForOnlinePayment (&$arFields, &$arTemplate) {
         if (in_array($arTemplate["ID"],array(16,178))) {
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
-            if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI) {
+            if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI && $order["STATUS_ID"] != "PR") {
 				$authHash = get_hash_for_authorization($arFields['EMAIL']);
                 $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
                 <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'&hash='.$authHash.'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
@@ -3403,11 +3406,13 @@
 
         //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа   
         if(cancelMail($arFields, $arTemplate)) {
-           // return false;                                 
+           // return false;           
+           logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/event.txt');                      
            $arFields["PREORDER"] = "предзаказ";
            $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
            $arFields["EMAIL_DELIVERY_TERM"] = "";
            $arFields["PAYMENT_LINK"] = "";
+           $arFields["PAYMENT_BUTTON"] = "";
 
         } else {
            $arFields["PREORDER"] = "заказ"; 
