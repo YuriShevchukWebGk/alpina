@@ -251,7 +251,11 @@
                     <?
                         if($arDelivery["ID"] == DELIVERY_PICKUP) {
                             if(intval(date('w') == 6)) {
-                                echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+                                if(date('d.m.Y') == '28.04.2018'){
+                                    echo str_replace('#DATE_DELIVERY#',date_day_today(-1), $arDelivery["DESCRIPTION"])."<br />";
+                                } else {
+                                    echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+                                }
                             } elseif (intval(date('w') == 0)) {
                                 echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
                             } else {

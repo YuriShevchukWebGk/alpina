@@ -92,6 +92,9 @@
 $datetime1 = new DateTime(date("d.m.Y"));
 $datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));
 $interval = date_diff($datetime1, $datetime2)->format('%a');
+
+$holidays .= ',30.4.2018';
+arshow($holidays);
 function date_deactive(){    // ограничение вывода доставок в праздничные дни
     $date_deactive = array('28.04.2018','29.04.2018', '30.04.2018', '01.05.2018', '08.05.2018');
     if(in_array(date('d.m.Y'),$date_deactive)){
@@ -207,10 +210,11 @@ function date_deactive(){    // ограничение вывода достав
         //календарь
 		var disabledDates = "<?=$holidays?>";
 		disabledDates = disabledDates.toString().split(',');
-	
+	    
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
 			if (noWeekend[0]) {
+                
 				return editDays(date);
 			} else {
 				return noWeekend;
@@ -230,7 +234,16 @@ function date_deactive(){    // ограничение вывода достав
 			}
 			return [true];
 		}
-
+        
+        function discount_day(day, now_todey){
+            now_todey.setDate(now_todey.getDate() + day);
+            if(editDays(now_todey)){
+               day = day + 1; 
+               return day;
+            } else {
+                discount_day(day, now_todey);
+            }   
+        }
 
         ourday = <?=date("w");?>;
 
@@ -242,7 +255,12 @@ function date_deactive(){    // ограничение вывода достав
             minDatePlus = <?=$setProps['nextDay']?>;
             minDate = "+2w +1d";
         <?}?>
-
+        var now_todey = new Date();
+        
+        new_minus_date = discount_day(minDatePlus, now_todey);
+        if(new_minus_date != minDatePlus){
+            minDatePlus = minDatePlus + new_minus_date;
+        }
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             //minDatePlus++;
 			minDatePlus = minDatePlus + 1;

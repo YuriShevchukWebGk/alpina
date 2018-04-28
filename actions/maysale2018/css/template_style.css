@@ -1,0 +1,184 @@
+.bookWrap {
+    display:inline-block;
+    width:170px;
+    height:225px;
+    padding:20px 0;
+}
+.bookWrap a {
+    text-decoration:none;
+}
+.diff {
+    color: green!important;
+    font-size: 14px!important;
+}
+.bookWrap img {
+    width:140px;
+    box-shadow: 0 9px 5px 0 rgba(0, 0, 0, 0.18), 0 10px 7px 0 rgba(0, 0, 0, 0.14);
+}
+.bookWrap p {
+    padding: 10px 0 0;
+}
+.bookWrap span {
+    color: #7b8c90;
+    font-family: "Walshein_regular";
+    font-size: 16px;
+    position: relative;
+    padding-top:15px;
+    
+}
+.bookWrap .oldprice::before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background: #ff4126;
+    position: absolute;
+    top: 68%;
+    left: 0;
+}
+.bookWrap .oldprice {
+    font-size:14px;
+}
+.landing .bg, .hintWrapp {
+    background:none;
+    margin:0;
+    padding:14px 0;
+}
+
+.mainWrapp::before {
+    height:auto;
+}
+.landing .footer img {
+    margin:0;
+}
+header .lkWrapp {
+    right: 33px;
+}
+
+.landing .a {
+    background: url(img/a.png) no-repeat 50% 50%;
+    height: 585px;
+    margin: 20px 0 14px;    
+}
+.text_center{
+    margin: 0 auto;
+    width: 550px;
+    overflow: hidden;
+    position: relative;
+    left: 260px;
+}
+#slide1text {
+    position: absolute;
+    margin:0 auto;
+    width:100%;
+    top:130px;
+    color: #613434;
+    font-size: 40px;
+    font-family: "Walshein_regular";
+    text-align: center;
+    line-height:140%;
+    min-width:800px;
+}
+.text_center > span {
+    font-family: 'Walshein_bold';
+    display: block;
+    float: left;
+    text-align: left;
+    line-height: 1.1;
+    margin-left: 30px;
+    font-size: 48px;
+}
+.text_center p{
+    float: left;
+    clear: right;
+    text-align: left;
+    margin-left: 30px;
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+#slide1text .ya-share2__container_size_m .ya-share2__item {
+    margin: 5px 28px 5px 0;
+}
+#slide1text .ya-share2__container_size_m .ya-share2__icon {
+    height: 30px;
+    width: 34px;
+}
+#slide1text .ya-share2__container_size_m .ya-share2__counter{
+    font-size: 15px;
+    line-height: 29px;
+}
+#slide2text {
+    margin:-300px auto 0;
+    text-transform:uppercase;
+    width:100%;
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    font-family: "Walshein_bold";
+    text-align: center;
+    line-height:140%;
+}
+
+.titleMain {
+    position: relative;
+    padding-bottom: 25px;
+    margin-bottom: 20px;
+    color: #627478;
+    font-family: "Walshein_regular";
+    font-size: 24px;
+    padding-top: 30px;
+}
+.titleMain::after {
+    content: "";
+    width: 140px;
+    height: 3px;
+    background: #627477;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin: 0 0 0 -70px;    
+}
+@media screen and (max-width:1800px){
+    #slide1text {
+        font-size:32px;
+        top: 100px;
+    }
+    #slide1text>span {
+        font-size:48px!important;
+    }
+}
+@media screen and (max-width:1500px){
+    #slide1text {
+        font-size:24px;
+        top: 100px;
+    }
+    #slide1text>span {
+        font-size:48px!important;
+    }
+}
+@media screen and (max-width:1160px){
+    #slide1text {
+        font-size:24px;
+        top: 40px;
+        line-height:110%;
+    }
+    #slide1text>span {
+        font-size:36px!important;
+    }
+    .landing .bg .title {
+        font-size:36px;
+    }
+    .hintWrapp .title {
+        padding-top: 20px;
+        padding-bottom: 16px;
+    }
+}
+@media screen and (max-width:900px){
+    #slide1text {
+        font-size:22px;
+        top: 30px;
+        line-height:100%;
+    }
+    #slide1text>span {
+        font-size:30px!important;
+    }
+}
