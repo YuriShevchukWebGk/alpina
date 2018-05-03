@@ -117,6 +117,11 @@
 			width: 50%;
 			text-align: left;
 		}
+		.basket_summary .td_attention {
+			width: 43% !important;
+			border: 3px solid black;
+			font-weight: bold;
+    	}
 		.additional_info {
 			font-size: 11px;
 		}
@@ -313,7 +318,7 @@
 				<br>
 				<table class="basket_summary">
 					<tr>
-						<td>Обратите внимание на процентную ставку НДС!</td>
+						<td class="td_attention">Обратите внимание на процентную ставку НДС!</td>
 						<td>Итого:</td>
 						<td><?= CurrencyFormat(round($arOrder["PRICE"] - $arOrder["PRICE_DELIVERY"], 2), $arOrder["CURRENCY"], true); ?></td>
 					</tr>

@@ -66,6 +66,41 @@ header .lkWrapp {
     position: relative;
     left: 260px;
 }
+
+@media screen and (max-width: 1024px){
+    .landing .text_center{
+        top: 26px;  
+    }
+    .landing .text_center > span{
+        font-size: 36px;
+    }
+    .landing .text_center p{
+        margin-top: 20px;
+        font-size: 23px;
+    }
+    .landing .ya-share2{
+         margin-top: 8%!important;   
+    }
+    .landing .hintWrapp .title{
+        font-size: 27px!important;
+    }
+}
+@media screen and (max-device-width: 414px){
+    .landing .text_center{
+        top: 60px;
+    }    
+    .landing .text_center > span{
+        font-size: 48px;
+    }
+    .landing .text_center p{
+        margin-top: 20px;
+        font-size: 32px;
+        line-height: 1.2;
+    }
+    .landing .ya-share2{
+         margin-top: 11%!important;   
+    }
+}
 #slide1text {
     position: absolute;
     margin:0 auto;

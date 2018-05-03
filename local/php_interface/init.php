@@ -2585,9 +2585,9 @@
             //		arshow($content);
             //Преобразуем массив байтов в изображение    
             $imagick = new Imagick();
-            // $imagick->setResolution(200, 200);
+            $imagick->setResolution(200, 200);
             $imagick->readImage($data["label"]);   
-            // $imagick->cropImage(500, 450, 250, 80);
+          //  $imagick->cropImage(500, 450, 250, 80);
             $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/boxbery/'.$track.'.jpg', false);
         }
     }

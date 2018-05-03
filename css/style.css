@@ -128,7 +128,6 @@ header .headBasket{padding:17px 1px 0}
 .recomendation .right{cursor:pointer;position:absolute;right:-32px;top:195px}
 .recomendation li{width:192px}
 .recomendation .bookName{color:#424c4f;height:39px;width:142px;overflow:hidden}
-.recomendation .bookName:hover{text-decoration: underline;}
 .recomendation .bookPrice{color:#7b8c90;font-size:14px}
 .recomendation ul{left:0;position:relative;width:9999px}
 .hintWrapp .books{height:780px}
@@ -1033,6 +1032,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .authorsContent .hide{display:none}
 .authorsContent .submit{margin-top:20px;background-color:#00a0af;border:none;border-radius:40px;color:#fff;font-size:19px;padding:13px 48px;text-decoration:none}
 #development a,.bookWrapp a:hover>.bookName,.categoryBooks a:hover>.nameBook{opacity:0.8}
+.bookWrapp .bookName:hover {text-decoration: underline;}
 #development a,.bookWrapp a:hover,.categoryBooks a:hover{text-decoration:none}
 .exitA a{color:#fff!important;padding-left:30px}
 .flippostSelectContainer{margin-left:34px;display:none}
