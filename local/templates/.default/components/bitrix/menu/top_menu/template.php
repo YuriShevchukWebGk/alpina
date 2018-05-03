@@ -14,5 +14,5 @@ foreach($arResult as $arItem) {
 <?} else if (date("d-m-Y") == "29-03-2018") {?>
 	<li class="timer"><a href="/catalog/childrensale/" style="color:red!important">Книги для родителей по 199 рублей</a></li>
 <?} else {?>
-	<li><a class="topMenuLink" href="/actions/freedigitalbooks/" target="_blank">Бесплатные электронные книги</a></li>
+	<li><a class="topMenuLink" href="/actions/maysale2018/" target="_blank">Книги по 99 руб</a></li>
 <?}?> 

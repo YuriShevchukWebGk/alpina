@@ -57,7 +57,7 @@ header .lkWrapp {
 .landing .a {
     background: url(img/a.png) no-repeat 50% 50%;
     height: 585px;
-    margin: 20px 0 14px;    
+    margin: 20px 0 14px;     
 }
 .text_center{
     margin: 0 auto;
@@ -93,8 +93,9 @@ header .lkWrapp {
     text-align: left;
     margin-left: 30px;
     margin-top: 30px;
-    font-size: 24px;
+    font-size: 27px;
     font-weight: bold;
+    font-family: 'Walshein_bold';
 }
 #slide1text .ya-share2__container_size_m .ya-share2__item {
     margin: 5px 28px 5px 0;

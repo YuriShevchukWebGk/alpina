@@ -2022,7 +2022,7 @@ if (!$childrenDesign) {
 	);
 } else {
     ?>
-    <div class="reviewsSliderWrapp" style="height: 474px;float: left;background-color: #F4F4F4;">
+    <div class="reviewsSliderWrapp slide" style="height: 474px;float: left;background-color: #F4F4F4;">
     <div class="centerWrapper">
     <?
         global $arFilter;
@@ -2185,7 +2185,7 @@ if (!$childrenDesign) {
 }
 ?>
 
-<div class="reviewsSliderWrapp">
+<div class="reviewsSliderWrapp" style="height: 474px; ">
     <div class="centerWrapper">
         <!--noindex-->
 		<?if ($childrenDesign) {?>

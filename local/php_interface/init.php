@@ -5,8 +5,12 @@
     //Подключим хендлеры для работы с остатками
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
     //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
+    
+    // подключаем PDFLib для конвертации в jpg 
+    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/PDFLib.php");
 
-    file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
+//    file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
+    file_exists('/var/www/alpinabook.ru/vendor/autoload.php') ? require '/var/www/alpinabook.ru/vendor/autoload.php' : "";
     use Mailgun\Mailgun;
 
     CModule::IncludeModule("blog");
@@ -2573,7 +2577,7 @@
     // Получение этикетки для boxbery
     function SetLabellCheckBoxbery($track) {
         $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ParselCheck&ImId='.$track;
-
+        
         // $arOrder["TRACKING_NUMBER"] - Код для отслеживания.
         $handle = fopen($url, "rb");
         $contents = stream_get_contents($handle);
@@ -2583,11 +2587,17 @@
             // если произошла ошибка и ответ не был получен.
             //		arshow($content);
             //Преобразуем массив байтов в изображение
-            $imagick = new Imagick();
+          
+           /* $imagick = new Imagick();
             // $imagick->setResolution(200, 200);
             $imagick->readImage($data["label"]);
+            $imagick->setImageFormat('jpg');;
+            header('Content-Type: image/jpeg');
             // $imagick->cropImage(500, 450, 250, 80);
             $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/boxbery/'.$track.'.jpg', false);
+            */
+        } else {
+            return $track;
         }
     }
 
@@ -3934,6 +3944,8 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
 
        $arFilter = Array(
           "STATUS_ID" => "O",
+          "<=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date('m'), date('d') - 14, date('Y'))),
+          "PAYED" => "N"
           );
        $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
        while ($arSales = $rsSales->Fetch())

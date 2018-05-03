@@ -1,6 +1,6 @@
 ﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
-require '/home/bitrix/vendor/autoload.php';
+require '/var/www/alpinabook.ru/html/vendor/bitrix/autoload.php';
 use Mailgun\Mailgun;
 if ($_POST['email']) {
 	$email = $_POST['email'];

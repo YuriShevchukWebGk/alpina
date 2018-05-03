@@ -1,5 +1,5 @@
 <?
-    require("/home/bitrix/www/bitrix/modules/main/include/prolog_before.php");
+    require("/var/www/alpinabook.ru/html/bitrix/modules/main/include/prolog_before.php");
 
     //Data access for PickPoint API
     $dataLogin = $arParams["PICKPOINT"]["DATA_ACCESS"]; 

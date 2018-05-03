@@ -1,6 +1,6 @@
 <?php
 //include the autoloader
-require_once('/home/bitrix/www/custom-scripts/pdfcompressor/init.php');
+require_once('/var/www/alpinabook.ru/html/custom-scripts/pdfcompressor/init.php');
 
 use Ilovepdf\WatermarkTask;
 
@@ -9,7 +9,7 @@ $myTask = new WatermarkTask('project_public_92d17fc0e70037d9e7f8b8f68aae7d4f_Z0j
 
 // file var keeps info about server file id, name...
 // it can be used latter to cancel file
-$file = $myTask->addFile('/home/bitrix/www/upload/books_catalog_files/iblock/d48/test.pdf');
+$file = $myTask->addFile('/var/www/alpinabook.ru/html/upload/books_catalog_files/iblock/d48/test.pdf');
 
 // set mode to text
 $myTask->setMode("text");
