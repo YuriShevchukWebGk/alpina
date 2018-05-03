@@ -1,6 +1,6 @@
 <?
 	set_time_limit(0);
-	$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+	$_SERVER["DOCUMENT_ROOT"] = '/var/www/alpinabook.ru/html';
 	require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
     CModule::IncludeModule("blog");

@@ -1,6 +1,6 @@
 <?
 setlocale(LC_ALL, 'ru_RU');
-$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+$_SERVER["DOCUMENT_ROOT"] = '/var/www/alpinabook.ru/html';
 define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]."/custom-scripts/log.txt");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 ?>

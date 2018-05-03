@@ -1,5 +1,5 @@
 <?php
-$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+$_SERVER["DOCUMENT_ROOT"] = '/var/www/alpinabook.ru/html';
 define('LOG_FILENAME', $_SERVER["DOCUMENT_ROOT"]."/custom-scripts/log.txt");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 if (AddMessage2Log('Скрипт выполнен', 'checkbooks.php'))
