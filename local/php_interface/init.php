@@ -5,9 +5,6 @@
     //Подключим хендлеры для работы с остатками
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
     //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
-    
-    // подключаем PDFLib для конвертации в jpg 
-    require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/PDFLib.php");
 
 //    file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
     file_exists('/var/www/alpinabook.ru/vendor/autoload.php') ? require '/var/www/alpinabook.ru/vendor/autoload.php' : "";
@@ -2577,27 +2574,21 @@
     // Получение этикетки для boxbery
     function SetLabellCheckBoxbery($track) {
         $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ParselCheck&ImId='.$track;
-        
+
         // $arOrder["TRACKING_NUMBER"] - Код для отслеживания.
         $handle = fopen($url, "rb");
         $contents = stream_get_contents($handle);
         fclose($handle);
-        $data=json_decode($contents,true);
+        $data=json_decode($contents,true);         
         if ($data["label"]) {
             // если произошла ошибка и ответ не был получен.
             //		arshow($content);
-            //Преобразуем массив байтов в изображение
-          
-           /* $imagick = new Imagick();
+            //Преобразуем массив байтов в изображение    
+            $imagick = new Imagick();
             // $imagick->setResolution(200, 200);
-            $imagick->readImage($data["label"]);
-            $imagick->setImageFormat('jpg');;
-            header('Content-Type: image/jpeg');
+            $imagick->readImage($data["label"]);   
             // $imagick->cropImage(500, 450, 250, 80);
             $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/boxbery/'.$track.'.jpg', false);
-            */
-        } else {
-            return $track;
         }
     }
 
