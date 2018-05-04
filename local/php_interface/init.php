@@ -80,6 +80,8 @@
     define ("DELIVERY_PICKUP", 2);
     define ("DELIVERY_MAIL", 10);
     define ("DELIVERY_MAIL_2", 11);
+    define ("DELIVERY_MAIL_3", 16);
+    define ("DELIVERY_MAIL_4", 24);
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
     define ("DELIVERY_BOXBERRY_PICKUP", 49);
@@ -2140,6 +2142,20 @@
 
             $arFields['YANDEX_MAP'] = "<tr><td style=\"border-collapse: collapse;padding-bottom:20px;\"><table align=\"left\" width=\"100%\"><tbody><tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans', 'Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" colspan=\"2\" valign=\"top\"><img src=\"https://www.alpinabook.ru/img/ymap.png\" /></td></tr></tbody></table></td></tr>";
 
+        } else if($orderArr['DELIVERY_ID'] == DELIVERY_MAIL || $orderArr['DELIVERY_ID'] == DELIVERY_MAIL_2 || $orderArr['DELIVERY_ID'] == DELIVERY_MAIL_3 || $orderArr['DELIVERY_ID'] == DELIVERY_MAIL_4){
+            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("INDEX", "CITY_DELIVERY")));
+            while ($arVals = $db_vals -> Fetch()) {
+                if(!empty($arVals["VALUE"])){
+                    $arFields['EMAIL_DELIVERY_ADDR'] .=  " <b>".$arVals['NAME']."</b> ".$arVals["VALUE"]."<br>";
+                }
+            }
+            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("CITY", "STREET", "HOUSE")));
+            $arFields['EMAIL_DELIVERY_ADDR'] = "Адрес доставки:<br>";
+            while ($arVals = $db_vals -> Fetch()) {
+                if(!empty($arVals["VALUE"])){
+                    $arFields['EMAIL_DELIVERY_ADDR'] .=  " <b>".$arVals['NAME']."</b> ".$arVals["VALUE"]."<br>";
+                }
+            }
         }
 
         $arFields['USER_DESCRIPTION'] = $orderArr['USER_DESCRIPTION'];

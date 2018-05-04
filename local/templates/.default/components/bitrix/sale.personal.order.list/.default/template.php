@@ -41,7 +41,7 @@
 
                 $quantity = 0;    
                 
-                //Если у нас предзаказ, то разрешим вывод информации о сроках выхода книги          
+                //Р•СЃР»Рё Сѓ РЅР°СЃ РїСЂРµРґР·Р°РєР°Р·, С‚Рѕ СЂР°Р·СЂРµС€РёРј РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ СЃСЂРѕРєР°С… РІС‹С…РѕРґР° РєРЅРёРіРё          
                 if(count($order["BASKET_ITEMS"]) == 1) {     
                     $basketItem = $order["BASKET_ITEMS"];   
                     $basketItem = array_pop($basketItem);    
@@ -89,7 +89,27 @@
 								}
 							} else {?>
 								<?if($arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]) {?>
-									<p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
+                                <??>
+                                    <div style="font-size: 14px;">
+                                    <? if($order["ORDER"]["DELIVERY_ID"]== DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_3 || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_4){
+                                            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $order["ORDER"]["ID"], "CODE" => array("INDEX", "CITY_DELIVERY")));
+                                            while ($arVals = $db_vals -> Fetch()) {
+                                                if(!empty($arVals["VALUE"])){
+                                                    $adress .=  " <b>".$arVals['NAME']."</b> ".$arVals["VALUE"]."<br>";
+                                                }
+                                            }
+                                            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $order["ORDER"]["ID"], "CODE" => array("CITY", "STREET", "HOUSE")));
+                                            while ($arVals = $db_vals -> Fetch()) {
+                                                if(!empty($arVals["VALUE"])){
+                                                    $adress .=  " <b>".$arVals['NAME']."</b> ".$arVals["VALUE"]."<br>";
+                                                }
+                                            }
+                                            echo $adress;
+                                        } else { ?>
+                                            <p class="dopInfoText"><?= GetMessage("CITY") ?><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_CITY"]["CITY_NAME"] ?></p>
+                                       <? }
+                                    ?>
+                                    </div>
 								<?}?>
 								<p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
 							<?}?>
@@ -100,7 +120,7 @@
                         <div>
                             <p class="dopInfoTitle"><?= GetMessage("DELIVERY_TYPE") ?></p>
                             <p class="dopInfoText"><?= $arResult["INFO"]["DELIVERY"][$order["ORDER"]["DELIVERY_ID"]]["NAME"] ?></p>
-                            <p class="dopInfoTitle thiCol"<?if($order["ORDER"]['STATUS_ID'] == PREORDER_STATUS_ID) { echo 'style="display:none"'; }?>><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--класс отступа сверху -->
+                            <p class="dopInfoTitle thiCol"<?if($order["ORDER"]['STATUS_ID'] == PREORDER_STATUS_ID) { echo 'style="display:none"'; }?>><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--РєР»Р°СЃСЃ РѕС‚СЃС‚СѓРїР° СЃРІРµСЂС…Сѓ -->
                             
                             <p class="dopInfoText" <?if($order["ORDER"]['STATUS_ID'] == PREORDER_STATUS_ID) { echo 'style="display:none"'; }?>>
                                 <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) && $order["ORDER"]["PAYED"] != "Y" ){?>
@@ -109,7 +129,7 @@
                                     <?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?>
                                 <?}?></p>
                             <?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
-                                <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_DATE") ?></p> <!--класс отступа сверху -->
+                                <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_DATE") ?></p> <!--РєР»Р°СЃСЃ РѕС‚СЃС‚СѓРїР° СЃРІРµСЂС…Сѓ -->
                                 <p class="dopInfoText"><?= CustomPickPoint::getDeliveryDate($order["ORDER"]["ID"]) ?></p>
                                 <?}?> 
                             <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID))) {
@@ -202,7 +222,7 @@
                         </table>
                     </div>
                     <div>
-                        <?/*<p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p> */// Убираем кнопку отмены заказа?> 
+                        <?/*<p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p> */// РЈР±РёСЂР°РµРј РєРЅРѕРїРєСѓ РѕС‚РјРµРЅС‹ Р·Р°РєР°Р·Р°?> 
                     </div>
                 </div>
             <?}
