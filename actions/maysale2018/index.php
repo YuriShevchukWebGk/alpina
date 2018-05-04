@@ -147,7 +147,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                 <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                 <p>
-                                <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                 <br />
                                 <span class="newprice">99 руб.</span>
                                 </p>
@@ -175,7 +175,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                     <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                     <p>
-                                    <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                    <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                     <br />
                                     <span class="newprice">99 руб.</span>
                                     </p>
@@ -207,7 +207,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                     <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                     <p>
-                                    <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                    <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                     <br />
                                     <span class="newprice">99 руб.</span>
                                     </p>
@@ -236,7 +236,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                     <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                     <p>
-                                    <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                    <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                     <br />
                                     <span class="newprice">99 руб.</span>
                                     </p>
@@ -268,7 +268,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                     <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                     <p>
-                                    <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                    <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                     <br />
                                     <span class="newprice">99 руб.</span>
                                     </p>
@@ -296,7 +296,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                     <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                     <p>
-                                    <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                    <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                     <br />
                                     <span class="newprice">99 руб.</span>
                                     </p>
@@ -325,7 +325,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                     <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                     <p>
-                                    <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                    <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                     <br />
                                     <span class="newprice">99 руб.</span>
                                     </p>
@@ -352,7 +352,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                     <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                     <p>
-                                    <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                    <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                     <br />
                                     <span class="newprice">99 руб.</span>
                                     </p>
@@ -382,7 +382,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                     <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                     <p>
-                                    <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                    <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                     <br />
                                     <span class="newprice">99 руб.</span>
                                     </p>
@@ -411,7 +411,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <a href="<?=$arFields["DETAIL_PAGE_URL"]?>">
                                     <img src="<?=$picture?>" alt="<?=$arFields["NAME"]?>" title="<?=$arFields["NAME"]?>" />
                                     <p>
-                                    <span class="oldprice"><?=round($final_price)?> руб.</span> <span class="diff"><?=$final_price - 99?> руб.</span>
+                                    <span class="oldprice"><?=round($final_price)?> руб.</span> - <span class="diff"><?=$final_price - 99?> руб.</span>
                                     <br />
                                     <span class="newprice">99 руб.</span>
                                     </p>

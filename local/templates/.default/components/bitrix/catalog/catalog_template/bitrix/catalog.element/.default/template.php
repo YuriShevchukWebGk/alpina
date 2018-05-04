@@ -637,7 +637,9 @@
                                         <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span></div>
                                          <p class="newPrice"><?= $arPrice["DISCOUNT_VALUE"] ?> <span>руб.</span></p>
                                     <?} elseif ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span>                                    
+                                    <span class="diff"><?echo '-'.$arPrice["DISCOUNT_DIFF"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                    <?//arshow($arPrice)?>
                                     <?// расчитываем накопительную скидку от стоимости
                                         if ($discount) {
                                             $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
@@ -650,6 +652,7 @@
                                                 $newPrice .= "0";
                                             }
                                     }?>
+                                    
                                     <p class="newPrice"><?= $newPrice ?> <span>руб.</span></p>
                                     <?} else if ($discount) {
                                         $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
@@ -681,6 +684,8 @@
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
                         <p class="newPriceText"><?= GetMessage("EXPECTED_DATE_2") ?>
                         <? $date_str = strtolower(FormatDate("F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
+                        <?echo "<!-- test1 ".$date_str." -->";?>
+                        <!-- TEST3 -->
                         <?=substr($date_str,0, strlen($date_str)-1).'е';?>
                         </p>
 
