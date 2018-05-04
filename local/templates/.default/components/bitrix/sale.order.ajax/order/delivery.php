@@ -271,7 +271,7 @@
                             }
                         } else if(($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) && !date_deactive() ) {
                             if($_SESSION["DATE_DELIVERY_STATE"]){}
-                            echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
+                            echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']+1), $arDelivery["DESCRIPTION"])."<br />";
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD && !date_deactive()) {
                             echo str_replace('#DATE_DELIVERY#',date_day(1), $arDelivery["DESCRIPTION"])."<br />";
                         } else if(!date_deactive()){

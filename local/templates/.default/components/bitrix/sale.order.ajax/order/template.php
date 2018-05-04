@@ -93,10 +93,10 @@ $datetime1 = new DateTime(date("d.m.Y"));
 $datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));
 $interval = date_diff($datetime1, $datetime2)->format('%a');
 
-$holidays .= ',30.4.2018';
+$holidays .= ',30.4.2018,7.5.2018';
 
 function date_deactive(){    // ограничение вывода доставок в праздничные дни
-    $date_deactive = array('28.04.2018','29.04.2018', '30.04.2018', '01.05.2018', '08.05.2018');
+    $date_deactive = array('28.04.2018','29.04.2018', '30.04.2018', '01.05.2018', '05.05.2018', '07.05.2018');
     if(in_array(date('d.m.Y'),$date_deactive)){
         return true;                                                                                          
     } else {
@@ -248,11 +248,11 @@ function date_deactive(){    // ограничение вывода достав
         ourday = <?=date("w");?>;
 
         <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
-		    minDatePlus = <?=$interval + $setProps['nextDay']?> + 1;
+		    ftePlus = <?=$interval + $setProps['nextDay']?> + 1;
             new_day = minDatePlus + 14;
             minDate = "+" + new_day + "d";
         <?} else { ?>
-            minDatePlus = <?=$setProps['nextDay']?>;
+            minDatePlus = <?=$setProps['nextDay']?>+1;
             minDate = "+2w +1d";
         <?}?>
         var now_todey = new Date();
