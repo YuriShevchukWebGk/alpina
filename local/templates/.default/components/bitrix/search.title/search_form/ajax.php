@@ -15,7 +15,8 @@ function mySort($a, $b) {
                 <td class="title-search-separator">&nbsp;</td>
             </tr>
             <?foreach($arCategory["ITEMS"] as $i => $arItem){?>
-                <?if(!$arItem["FOR_ADMIN"]){?>
+            <?$url = explode('/', $arItem["URL"]);  // проверяем массив на наличие неверных ссылок на товар?>
+                <?if(!$arItem["FOR_ADMIN"] && (count($url) != 4 && !is_int($url[2]))){?>
                 <tr>
                     <?if($i == 0 && $category_id !== "all"):?>
                         <th>&nbsp;<?echo 'Р РµР·СѓР»СЊС‚Р°С‚'?></th>
