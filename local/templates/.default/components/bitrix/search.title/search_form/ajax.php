@@ -14,8 +14,15 @@ function mySort($a, $b) {
                 <th class="title-search-separator">&nbsp;</th>
                 <td class="title-search-separator">&nbsp;</td>
             </tr>
-            <?foreach($arCategory["ITEMS"] as $i => $arItem){?>
-            <?$url = explode('/', $arItem["URL"]);  // проверяем массив на наличие неверных ссылок на товар?>
+            <?foreach($arCategory["ITEMS"] as $i => $arItem){
+                $arSelect = Array("NAME", "PROPERTY_FOR_ADMIN", "DETAIL_PAGE_URL");
+                $arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "DETAIL_PAGE_URL"=>$arItem["URL"], "NAME" => $arItem["NAME"]);
+                $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+                if($element = $res->GetNext()) {
+                    $arItem["FOR_ADMIN"] = $element["PROPERTY_FOR_ADMIN_VALUE"];
+                }
+                ?>
+                <?$url = explode('/', $arItem["URL"]);  // РїСЂРѕРІРµСЂСЏРµРј РјР°СЃСЃРёРІ РЅР° РЅР°Р»РёС‡РёРµ РЅРµРІРµСЂРЅС‹С… СЃСЃС‹Р»РѕРє РЅР° С‚РѕРІР°СЂ?>
                 <?if(!$arItem["FOR_ADMIN"] && (count($url) != 4 && !is_int($url[2]))){?>
                 <tr>
                     <?if($i == 0 && $category_id !== "all"):?>

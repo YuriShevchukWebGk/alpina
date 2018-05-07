@@ -2146,14 +2146,14 @@
             $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("INDEX", "CITY_DELIVERY")));
             while ($arVals = $db_vals -> Fetch()) {
                 if(!empty($arVals["VALUE"])){
-                    $arFields['EMAIL_DELIVERY_ADDR'] .=  " <b>".$arVals['NAME']."</b> ".$arVals["VALUE"]."<br>";
+                    $arFields['EMAIL_DELIVERY_ADDR'] .=  " ".$arVals['NAME'].": ".$arVals["VALUE"]."<br>";
                 }
             }
             $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("CITY", "STREET", "HOUSE")));
             $arFields['EMAIL_DELIVERY_ADDR'] = "Адрес доставки:<br>";
             while ($arVals = $db_vals -> Fetch()) {
                 if(!empty($arVals["VALUE"])){
-                    $arFields['EMAIL_DELIVERY_ADDR'] .=  " <b>".$arVals['NAME']."</b> ".$arVals["VALUE"]."<br>";
+                    $arFields['EMAIL_DELIVERY_ADDR'] .=  " ".$arVals['NAME'].": ".$arVals["VALUE"]."<br>";
                 }
             }
         }
