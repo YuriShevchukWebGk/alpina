@@ -119,6 +119,7 @@
     define ("REISSUE_ID", 218); //ID свойства "Переиздание"
     define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
     define ("STATE_SOON", 22); //ID состояния книги "Скоро в продаже"
+    define ("UNDER_ORDER", 5827); //ID состояния книги "предзаказ"
     define ("STATE_NULL", 23); //ID состояния книги "Нет в наличии"
     define ("STATE_NEWS", 21); //ID состояния книги "Новинка"
     define ("EXPERTS_IBLOCK_ID", 23); //ID инфоблока Эксперты

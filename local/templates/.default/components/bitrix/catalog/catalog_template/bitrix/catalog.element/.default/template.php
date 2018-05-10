@@ -673,7 +673,11 @@
                             <?if ($printDiscountText != '' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {
                                 echo $printDiscountText; // цена до скидки
                             }?>
-                            <button class="inStockCirlce"></button><span>&nbsp;<?= GetMessage("IN_STOCK") ?></span>
+                            <?if((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order"))){?>
+                                <button class="inStockCirlce"></button><span>&nbsp;<?= GetMessage("IN_STOCK") ?></span>
+                            <?} else {
+                                echo GetMessage('UNDER_ORDER', array("#day#" => $arResult["PROPERTIES"]["DELIVERY_TIME"]["VALUE"]));
+                            }?>
                             <?}
                         } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
@@ -807,7 +811,9 @@
                             <div id="loadingInfo" style="display:none;"><div class="spinner"><div class="spinner-icon"></div></div></div>
                             <?} elseif ($arResult["ITEM_IN_BASKET"]["QUANTITY"] == 0) {?>
                             <a href="#" onclick="<?//if ($arResult["CATALOG_QUANTITY"] > 0) {?>addtocart(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>'); addToCartTracking(<?= $arResult["ID"]; ?>, '<?= $arResult["NAME"]; ?>', '<?= $arResult["PRICES"]["BASE"]["VALUE"] ?>', '<?= $arResult['SECTION']['NAME']; ?>', '1');<?//}?> return false;">
-                                <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {
+                            <?if((intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order"))){?>
+                                 <p class="inBasket"><?= GetMessage('UNDER_ORDER_SALE') ?></p>
+                            <?} else if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {
                                     //if ($arResult["CATALOG_QUANTITY"] > 0) {?>
                                     <p class="inBasket"><?= GetMessage("ADD_IN_BASKET") ?></p>
                                     <?/*} else {?>
@@ -963,48 +969,21 @@
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
 
             </ul>    -->
-
-            <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
-                $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
-            } else {
-                $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
-            }
-            if($_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"]){
-                $country = $_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"];
-            } else {
-                $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
-            }
-            ?>
-            <?/*?>
-             <ul class="shippings" data-weight="<?=$weight?>">
-                <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
-                    <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
-                        <?= GetMessage("MSK_DELIVERY") ?>
-
-                    </a> по Москве <br /><?=$delivery_day.' '?>
-                    <b><?if($arBasketPrice > FREE_SHIPING){
-                        echo GetMessage("FREE_DELIVERY_ENDING");
-                    } else {
-                        echo GetMessage("DELIVERY_POST");
-                    }?></b>
-                    </li>
-                    <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
-                        <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
-
-                    </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
-                    </li>
-                <?}?>
-                <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
-                    "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
-                    ),
-                    false
-                );?>
-             <? */ 
-            // arshow($city, false);?>
-             <ul class="shippings" data-weight="<?=$weight?>">
-                <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) || $city == "Москва"){
-                    
-                    if($city == "Москва" || empty($city)){ ?>
+            <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")){?>
+                <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
+                    $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
+                } else {
+                    $city = $_SESSION["ALTASIB_GEOBASE"]["CITY_NAME"];
+                }
+                if($_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"]){
+                    $country = $_SESSION["ALTASIB_GEOBASE_COUNTRY"]["country"];
+                } else {
+                    $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
+                }
+                ?>
+                <?/*?>
+                 <ul class="shippings" data-weight="<?=$weight?>">
+                    <?if($_SESSION["REASPEKT_GEOBASE"]["CITY"] == "Москва" || empty($_SESSION["REASPEKT_GEOBASE"]["CITY"])){ ?>
                         <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
                             <?= GetMessage("MSK_DELIVERY") ?>
 
@@ -1021,71 +1000,99 @@
                         </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
                         </li>
                     <?}?>
-                    <?$APPLICATION->IncludeComponent(
-                        "altasib:geobase.select.city",
-                        "altasib_geobase",
-                        Array(
-                            "COMPOSITE_FRAME_MODE" => "A",
-                            "COMPOSITE_FRAME_TYPE" => "AUTO",
-                            "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "",
-                            "SPAN_RIGHT" => "Выберите город"
-                        )
-                    );
-                } else { ?>
-
-                <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"] != "RU" && $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"]){?>
-                    <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
-                    <?$APPLICATION->IncludeComponent(
-                        "altasib:geobase.select.city",
-                        "sity_selection",
-                        Array(
-                            "COMPOSITE_FRAME_MODE" => "A",
-                            "COMPOSITE_FRAME_TYPE" => "AUTO",
-                            "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "Мой город:",
-                            "SPAN_RIGHT" => "Выберите город"
-                        )
+                    <?$APPLICATION->IncludeComponent("reaspekt:reaspekt.geoip", "geoip", Array(
+                        "CHANGE_CITY_MANUAL" => "N",    // Подтверждение города
+                        ),
+                        false
                     );?>
-                 <?} else if($country != "RU"){?>
-                    <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
-                    <?$APPLICATION->IncludeComponent(
-                        "altasib:geobase.select.city",
-                        "sity_selection",
-                        Array(
-                            "COMPOSITE_FRAME_MODE" => "A",
-                            "COMPOSITE_FRAME_TYPE" => "AUTO",
-                            "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "Мой город:",
-                            "SPAN_RIGHT" => "Выберите город"
-                        )
-                    );?>
-                 <?} else {?>
+                 <? */ 
+                // arshow($city, false);?>
+                 <ul class="shippings" data-weight="<?=$weight?>">
+                    <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) || $city == "Москва"){
+                        
+                        if($city == "Москва" || empty($city)){ ?>
+                            <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                                <?= GetMessage("MSK_DELIVERY") ?>
 
-                    <?$APPLICATION->IncludeComponent(
-                        "altasib:geobase.select.city",
-                        "altasib_geobase",
-                        Array(
-                            "COMPOSITE_FRAME_MODE" => "A",
-                            "COMPOSITE_FRAME_TYPE" => "AUTO",
-                            "LOADING_AJAX" => "N",
-                            "RIGHT_ENABLE" => "Y",
-                            "SMALL_ENABLE" => "Y",
-                            "SPAN_LEFT" => "Мой город:",
-                            "SPAN_RIGHT" => "Выберите город"
-                        )
-                    );?>
+                            </a> по Москве <br /><?=$delivery_day.' '?>
+                            <b><?if($arBasketPrice > FREE_SHIPING){
+                                echo GetMessage("FREE_DELIVERY_ENDING");
+                            } else {
+                                echo GetMessage("DELIVERY_POST");
+                            }?></b>
+                            </li>
+                            <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
+                                <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
 
-                 <?}?>
+                            </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
+                            </li>
+                        <?}?>
+                        <?$APPLICATION->IncludeComponent(
+                            "altasib:geobase.select.city",
+                            "altasib_geobase",
+                            Array(
+                                "COMPOSITE_FRAME_MODE" => "A",
+                                "COMPOSITE_FRAME_TYPE" => "AUTO",
+                                "LOADING_AJAX" => "N",
+                                "RIGHT_ENABLE" => "Y",
+                                "SMALL_ENABLE" => "Y",
+                                "SPAN_LEFT" => "",
+                                "SPAN_RIGHT" => "Выберите город"
+                            )
+                        );
+                    } else { ?>
+
+                    <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"] != "RU" && $_SESSION["ALTASIB_GEOBASE_CODE"]["COUNTRY_CODE"]){?>
+                        <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+                        <?$APPLICATION->IncludeComponent(
+                            "altasib:geobase.select.city",
+                            "sity_selection",
+                            Array(
+                                "COMPOSITE_FRAME_MODE" => "A",
+                                "COMPOSITE_FRAME_TYPE" => "AUTO",
+                                "LOADING_AJAX" => "N",
+                                "RIGHT_ENABLE" => "Y",
+                                "SMALL_ENABLE" => "Y",
+                                "SPAN_LEFT" => "Мой город:",
+                                "SPAN_RIGHT" => "Выберите город"
+                            )
+                        );?>
+                     <?} else if($country != "RU"){?>
+                        <li><?= GetMessage("INTERNATIONAL_DELIVERY") ?></li>
+                        <?$APPLICATION->IncludeComponent(
+                            "altasib:geobase.select.city",
+                            "sity_selection",
+                            Array(
+                                "COMPOSITE_FRAME_MODE" => "A",
+                                "COMPOSITE_FRAME_TYPE" => "AUTO",
+                                "LOADING_AJAX" => "N",
+                                "RIGHT_ENABLE" => "Y",
+                                "SMALL_ENABLE" => "Y",
+                                "SPAN_LEFT" => "Мой город:",
+                                "SPAN_RIGHT" => "Выберите город"
+                            )
+                        );?>
+                     <?} else {?>
+
+                        <?$APPLICATION->IncludeComponent(
+                            "altasib:geobase.select.city",
+                            "altasib_geobase",
+                            Array(
+                                "COMPOSITE_FRAME_MODE" => "A",
+                                "COMPOSITE_FRAME_TYPE" => "AUTO",
+                                "LOADING_AJAX" => "N",
+                                "RIGHT_ENABLE" => "Y",
+                                "SMALL_ENABLE" => "Y",
+                                "SPAN_LEFT" => "Мой город:",
+                                "SPAN_RIGHT" => "Выберите город"
+                            )
+                        );?>
+
+                     <?}?>
+                    <?}?>
+                </ul>
+
                 <?}?>
-            </ul>
-
             <?}?>
         <?$frame->end();?>
 

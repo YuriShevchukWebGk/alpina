@@ -134,10 +134,15 @@
                         foreach ($arResult["GRID"]["ROWS"] as $k => $arItem):
                             if ($arItem["DELAY"] == "N" && $arItem["CAN_BUY"] == "Y"):
 
+                            $curState = '';
+                            $state = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "STATE"));
+                            if ($prop = $state->GetNext()) {
+                                $curState = $prop['VALUE'];
+                            }
                             $arItems = CSaleDiscount::GetByID(GIFT_BAG_EXHIBITION);
                             $count_number = preg_replace("/[^0-9]/", '', $arItems["UNPACK"]);  // вытаскиваем количество позиций из условия
-
-                            if($count < $count_number && !stristr($arItem["DETAIL_PAGE_URL"], "/sumki/") && (/*$arItem["PROPERTY_COVER_TYPE_VALUE"] == 'Подарок' || */empty($arItem["PROPERTY_COVER_TYPE_VALUE"]))){
+                           
+                            if($count < $count_number && !stristr($arItem["DETAIL_PAGE_URL"], "/sumki/") && (empty($arItem["PROPERTY_COVER_TYPE_VALUE"])) && intval ($curState) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")){
                                 CSaleBasket::Delete($arItem["ID"]);
                             }
                             $totalQuantity += $arItem["QUANTITY"];
@@ -194,13 +199,16 @@
                                                 <p class="nameOfAutor"><?=$curr_author["NAME"]?></p>
                                             <?}?>
                                             <?
-                                            $curState = '';
-                                            $state = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "STATE"));
-                                            if ($prop = $state->GetNext()) {
-                                                $curState = $prop['VALUE'];
-                                            }
 
-											if ($curState == STATE_SOON) {
+
+											if ($curState == UNDER_ORDER) {
+                                                $status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "DELIVERY_TIME"));
+                                                if ($prop = $status->GetNext()) {
+                                                    $date_state = "under_order";
+                                                    $setSoonButton = true;
+                                                    ?><p class="newPriceText">Срок поставки <?=$prop['VALUE']?> дней после поставки </p><?
+                                                }
+                                            } else if ($curState == STATE_SOON) {
 												$status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));
 												if ($prop = $status->GetNext()) {
                                                     $date_state[] = $prop['VALUE'];
@@ -509,18 +517,22 @@
                 <? } ?>
             </p>
 
-            <?
-            if($date_state){
+            <?  
+            
+            if($date_state && $date_state != 'under_order'){
                 usort($date_state, 'object_to_array'); // сортируем по дате предзаказа
                 session_start();
                 $_SESSION["DATE_DELIVERY_STATE"] = $date_state[0];
                /* $str = strtotime($date_state[0]);
                 $new_day_delivery = date('d m Y',($str+86400*2));*/
+            } else if($date_state == 'under_order'){
+                session_start();
+                $_SESSION["DATE_DELIVERY_STATE"] = 'under_order';            
             } else {
                 $_SESSION["DATE_DELIVERY_STATE"] = '';
             }
             ?>
-        <?if($date_state){?>
+        <?if($date_state && $date_state != 'under_order'){?>
             <span class="order_state">В заказе есть товары с ожидаемой датой выхода <?=strtolower(FormatDate("f Y", MakeTimeStamp($date_state[0], "DD.MM.YYYY HH:MI:SS")));?>. Ваш заказ будет доставлен после этого срока. </span>
         <?}?>
         </div>
