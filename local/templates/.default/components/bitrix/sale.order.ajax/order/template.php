@@ -103,7 +103,17 @@ function date_deactive(){    // ограничение вывода достав
         return false;
     }                         
 }
-?>
+    $arFilter = Array(
+        ">=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date("m") , date("d"), date("Y"))),
+        //"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => date("d.m.Y"),
+        "!STATUS_ID" => array("PR","F","A","I")
+    ); // получение даты доставки курьером 
+    $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter, false, false, array("DATE_INSERT", "PROPERTY_VAL_BY_CODE_DELIVERY_DATE"));
+    $count_dev = 0;
+    while ($arSales = $rsSales->Fetch()){
+        $count_dev++;
+    }
+        ?>
 
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
@@ -246,13 +256,15 @@ function date_deactive(){    // ограничение вывода достав
         }
 
         ourday = <?=date("w");?>;
-
+        delivery_ourday = <?=$dayes_count?>; 
+        days_courier = <?=$dayes?>;
+        console.log(delivery_ourday);
         <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
 		    ftePlus = <?=$interval + $setProps['nextDay']?> + 1;
             new_day = minminDatePlus + 14;
             minDate = "+" + new_day + "d";
         <?} else { ?>
-            minDatePlus = <?=$setProps['nextDay']?>+1;
+            minDatePlus = <?=$setProps['nextDay']?>+1 + days_courier;
             minDate = "+2w +1d";
         <?}?>
         var now_todey = new Date();
