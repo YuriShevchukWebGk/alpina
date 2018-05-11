@@ -187,7 +187,7 @@
     *
     **/
 
-    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
+   /* function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
         
        //logger($message, $_SERVER["DOCUMENT_ROOT"].'/logs/log_event.txt');
         if(strlen($message) > 1000) {
@@ -235,7 +235,7 @@
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
         $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
-    }   
+    }  */ 
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
     function cancelMail($arFields, $arTemplate) {
@@ -253,7 +253,11 @@
                 if ($arItem = $res->Fetch()) {
                     if (intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
                        // CEvent::Send("SALE_NEW_ORDER", 's1', $arTemplate, 423);
-                        
+                       $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
+
+                        return true;
+                    } else if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")) {
+                        $arFields["DELIVERY_PREORDER"] = '';
                         return true;
                     }
                 }
@@ -3405,7 +3409,6 @@
         if(cancelMail($arFields, $arTemplate)) {
            // return false;                                 
            $arFields["PREORDER"] = "предзаказ";
-           $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
            $arFields["EMAIL_DELIVERY_TERM"] = "";
 
         } else {
