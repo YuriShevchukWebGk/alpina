@@ -26,7 +26,23 @@
         .giftWrapChildren p,.giftWrapChildren .pii a{color:#ddd}
         .reviewsSliderWrapp .giftWrapChildren{border-top:none;height:300px}
         .giftWrapChildren:before{content:"";background-image: url('/upload/resize_cache/iblock/5d9/380_567_1/5d938b4c37fb96a5cd5755ee000e7df3.jpg');background-size: 200px 296px;width: 200px;height: 296px;} 
+
     </style>
+<?}?>
+<?if($arResult["PROPERTIES"]["TRANSPARENT_CORNER"]["VALUE_XML_ID"] == "Y"){?>  
+    <style>
+        .elementDescriptWrap .elementMainPict .element_item_img img {
+            border-radius: 25px 25px 25px 25px;
+        } 
+      
+    </style>   
+<?} else if($arResult["PROPERTIES"]["TRANSPARENT_CORNER_1_2"]["VALUE_XML_ID"] == "Y"){?>
+    <style>
+        .elementDescriptWrap .elementMainPict .element_item_img img {
+            border-radius: 0px 25px 25px 0px;
+        } 
+     
+    </style>   
 <?}?>
 <script>
     $(function(){
@@ -492,7 +508,7 @@
                 <p class="title">Форматы</p>
                 <p class="text">epub</p>
             </div>
-            <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+            <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233 && $arResult["PROPERTIES"]["PROPS_CATALOG_HIDE"]["VALUE_XML_ID"] != "Y" ) {?>
                 <div class="characteris epubHide">
                     <a href='#' class="getInfoCourier" onclick="specEdition('<?=$arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"]?>');dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});return false;" title="Издать тираж книги с символикой компании"><span class="text">Хотите тираж со своим логотипом?</span></a>
                 </div>
@@ -517,7 +533,7 @@
                 </div>
             <?}?>
             
-            <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+            <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233 && $arResult["PROPERTIES"]["PROPS_CATALOG_HIDE"]["VALUE_XML_ID"] != "Y") {?>
                 <div class="characteris epubHide">
                     <a href="http://readright.ru/?=alpinabook" target="_blank">
                         <span class="text noborderlink"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
@@ -1675,7 +1691,7 @@
             </div>
         <?}?>
     </div>
-    <?if ($childrenDesign ) { ?>
+    <?if ($childrenDesign && $arResult['PROPERTIES']["book_spreads"]["VALUE"]) { ?>
         <h4 style="clear:both;font-size: 38px;font-family: Walshein_regular;color:#444"><span style="border-bottom:2px solid #00abb8">Кни</span>жные  развороты</h3>
         <?if($arResult['PROPERTIES']["book_spreads"]["VALUE"]){
             foreach($arResult['PROPERTIES']["book_spreads"]["VALUE"] as $img){
@@ -2030,7 +2046,7 @@ if (!$childrenDesign) {
     );
 } else {
     ?>
-    <div class="reviewsSliderWrapp slide" style="float: left;background-color: #F4F4F4;"> <!-- height: 474px; -->
+    <div class="reviewsSliderWrapp slide" style="float: left;background-color: #F4F4F4; <?=($childrenDesign)?'height: 474px;':''?>"> 
     <div class="centerWrapper">
     <?
         global $arFilter;
@@ -2193,7 +2209,7 @@ if (!$childrenDesign) {
 }
 ?>
 
-<div class="reviewsSliderWrapp"> <!-- style="height: 474px; " -->
+<div class="reviewsSliderWrapp" style="<?=($childrenDesign)? 'height: 474px;':''?>"> 
     <div class="centerWrapper">
         <!--noindex-->
         <?if ($childrenDesign) {?>
@@ -2414,19 +2430,19 @@ if (!$childrenDesign) {
 </div>
 
 <?if ($childrenDesign) {?>
-<div class="testdriveWrapChildren" style="background:#e7a65f;color:#fff;min-height:650px">
+<div class="testdriveWrapChildren" style="background:#e7a65f;color:#fff;">
     <div class="centerWrapper" style="font-size:17px">
-        <p class="title" style="color:#fff">
+        <p class="title" style="color:#fff; text-align: center;">
             Книжный тест-драйв
         </p>
-        <p style="line-height: 150%;width: 50%;float: left;">
+        <p style="line-height: 150%;">
             Вы увлеченная мама, ведете свой блог в социальных сетях и интересно пишете про детские книги?<br />
             Нам интересно ваше мнение! Если аудитория вашего блога более 10 000 человек, получите одну из 20 бесплатных книг на рецензию.<br />
             <a href="mailto:n.tentser@alpina.ru" style="color:#fff;text-decoration:none;border-bottom:1px solid">Напишите на почту Наталье Тенцер n.tentser@alpina.ru</a>, расскажите о себе и своем блоге, мы рассмотрим ваше предложение и обязательно ответим!<br />
-            <img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height: 450px;text-align: center;margin-top: 10px;margin-left: 20%;" />
+           <?/* <img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height: 450px;text-align: center;margin-top: 10px;margin-left: 20%;" /> */?>
         </p>
-        <div class="frame_soc_service" style=" float: right; margin-right: 10%; margin-top: -37px;"> 
-            <iframe src="//widget.stapico.ru/?q=alpinadeti&s=95&w=2&h=1&b=1&p=5&effect=2" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:240px; height: 255px;" ></iframe> <!-- stapico - stapico.ru -->        
+        <div class="frame_soc_service" style=" margin-top: 13px;width: 70%;clear: both;margin: 13px auto 0;"> 
+            <iframe class="deactive" src="//widget.stapico.ru/?q=alpinadeti&s=95&w=2&h=1&b=1&p=5&effect=2" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:240px;float: left;height: 245px;" ></iframe> <!-- stapico - stapico.ru -->        
             <script type="text/javascript" src="//vk.com/js/api/openapi.js?153"></script>
 
             <!-- VK Widget -->

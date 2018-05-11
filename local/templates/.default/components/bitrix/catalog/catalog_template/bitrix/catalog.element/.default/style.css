@@ -1517,8 +1517,17 @@ body .copyright{
     background: #e7a65f!important;
     position: relative;
     top: -19px;
-    padding-top: 20px;
+    padding-top: 40px;
+    float: left;
+    margin-right: 14px;
 }
 .testdriveWrapChildren .centerWrapper a:hover{
     color: #00abb8!important;
+}
+.fb_iframe_widget{
+    position: relative;
+    top: 4px;  
+}
+.deactive .copyright{
+    display: none;
 }

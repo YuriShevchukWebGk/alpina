@@ -78,7 +78,7 @@ $SearchFilter = array(">CATALOG_PRICE_1" => 0);
 if(!$USER->IsAdmin()){
     $SearchFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
 }
-
+  
 $APPLICATION->IncludeComponent(
     "bitrix:search.page",
     "search_common_page",

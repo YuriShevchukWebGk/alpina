@@ -95,13 +95,13 @@
                                             $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $order["ORDER"]["ID"], "CODE" => array("INDEX", "CITY_DELIVERY")));
                                             while ($arVals = $db_vals -> Fetch()) {
                                                 if(!empty($arVals["VALUE"])){
-                                                    $adress .=  " <b>".$arVals['NAME']."</b> ".$arVals["VALUE"]."<br>";
+                                                    $adress .=  " ".$arVals['NAME'].": ".$arVals["VALUE"]."<br>";
                                                 }
                                             }
                                             $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $order["ORDER"]["ID"], "CODE" => array("CITY", "STREET", "HOUSE")));
                                             while ($arVals = $db_vals -> Fetch()) {
                                                 if(!empty($arVals["VALUE"])){
-                                                    $adress .=  " <b>".$arVals['NAME']."</b> ".$arVals["VALUE"]."<br>";
+                                                    $adress .=  " ".$arVals['NAME'].": ".$arVals["VALUE"]."<br>";
                                                 }
                                             }
                                             echo $adress;

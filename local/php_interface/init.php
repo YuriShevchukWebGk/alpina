@@ -1052,7 +1052,7 @@
                     $useremail = Message::getClientEmail($ID);
                 } else {
                     $freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
-                    $useremail = 'a.marchenkov@alpinabook.ru';
+                    $useremail = 'shop@alpinabook.ru';
                 }
                 $mailFields = array(
                     //"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
@@ -1217,7 +1217,7 @@
                     $useremail = Message::getClientEmail($ID);
                 } else {
                     $freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
-                    $useremail = 'a.marchenkov@alpinabook.ru';
+                    $useremail = 'shop@alpinabook.ru';
                 }
                 $mailFields = array(
                     //"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
