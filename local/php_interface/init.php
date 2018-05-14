@@ -2980,7 +2980,7 @@
         return 'BoxberryListStatuses();';
     }
 
-    //агент для выгрузки статусов заказов из личного кабинета Boxberry
+    //агент для выгрузки статусов заказов из личного кабинета accordpost
     function AccordListStatuses() {
         //Константы для curl запроса
         define('CFG_NL', "\n");
@@ -3013,6 +3013,7 @@
                 if ($out_second_request = curl_exec($curl_second_request)) {
                     $response_second_request = new SimpleXMLElement($out_second_request);
                     foreach ($response_second_request->doc->parcel as $parcel) {
+                        logger($parcel, $_SERVER["DOCUMENT_ROOT"].'/logs/accord_post.txt');
                         //поменять на barcode
                         $ar_barcode_list[strval($parcel['order_id'])] = strval($parcel['Barcode']);
                         $arFilter = Array(
