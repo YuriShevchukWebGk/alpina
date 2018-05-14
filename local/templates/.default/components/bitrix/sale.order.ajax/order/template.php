@@ -256,15 +256,13 @@ function date_deactive(){    // ограничение вывода достав
         }
 
         ourday = <?=date("w");?>;
-        delivery_ourday = <?=$dayes_count?>; 
-        days_courier = <?=$dayes?>;
-        console.log(delivery_ourday);
+
         <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
 		    ftePlus = <?=$interval + $setProps['nextDay']?> + 1;
             new_day = minminDatePlus + 14;
             minDate = "+" + new_day + "d";
         <?} else { ?>
-            minDatePlus = <?=$setProps['nextDay']?>+1 + days_courier;
+            minDatePlus = <?=$setProps['nextDay']?>+1 ;
             minDate = "+2w +1d";
         <?}?>
         var now_todey = new Date();
