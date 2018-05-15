@@ -68,7 +68,7 @@ class Exchange1C {
         while($arResult = $res->Fetch()) {
             $bitrix_id = $arResult['PROPERTY_ID_BITRIKS_VALUE'];
         }
-        
+        logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/iblock_77.txt');
         if(!empty($bitrix_id)) {
             
            // $total_quantity = -1;
