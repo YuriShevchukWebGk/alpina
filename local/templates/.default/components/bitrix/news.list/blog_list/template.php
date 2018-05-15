@@ -32,7 +32,7 @@ foreach ($arResult["ITEMS"] as $i => $arItem) {
 					<?}?>
 					<div class="previewContent">
 						<a class="title" href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?=$arItem['NAME']?></a>
-						<div class="previewText"><?=(!empty($arItem['PREVIEW_TEXT'])) ? $arItem['PREVIEW_TEXT'] : substr(strip_tags($arItem['DETAIL_TEXT']),0,250).'...'?></div>
+						<div class="previewText"><?=(!empty($arItem['PREVIEW_TEXT'])) ? $arItem['PREVIEW_TEXT'] : mb_substr(strip_tags($arItem['DETAIL_TEXT']),0,250).'...'?></div>
 						<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="fullText">Читать</a>
 					</div>
 				</li>

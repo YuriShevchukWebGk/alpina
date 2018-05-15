@@ -47,7 +47,7 @@ $colors = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
 			<?if (!empty($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"])) {?>
 				<div class="author">
 					<?if ($author_pict["src"]) {?><img src="<?=$author_pict["src"]?>" style="margin-right:30px;border-radius:100px;width:100px;height:100px" align="left" /><?}?>
-					<?=typo(substr(strip_tags($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]),0,150).'...')?>
+					<?=typo(mb_substr(strip_tags($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]),0,150).'...')?>
 				</div>
 			<?}?>
 			<a href="<?=$arResult["DETAIL_PAGE_URL"]?>" class="button">

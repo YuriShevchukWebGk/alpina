@@ -32,7 +32,7 @@ $APPLICATION->SetTitle("Накопительные скидки, скидки з
 </div>
 <div class="deliveryPageTitleWrap">
 	<div class="centerWrapper">
-		<a href="/"><p>Главная</p></a>
+		<!-- <a href="/"><p>Главная</p></a> -->
 		<h1>Накопительные скидки</h1>
 	</div>
 </div>

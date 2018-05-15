@@ -207,6 +207,7 @@ header .headBasket{padding:17px 1px 0}
 .paymentWrapp .variants{color:#3f4a4d;font-size:15px}
 .paymentWrapp .variants p{position:relative;padding-bottom:24px}
 .paymentWrapp .variants p:before{content:url(/img/reht.png);display:inline-block;float:left;height:23px;left:0;padding-right:11px;position:relative;top:-3px}
+.paymentWrapp a p:hover {text-decoration:underline;}
 .variants div{float:left;width:222px}
 .variants div:nth-child(1){margin-right:48px}
 footer{background-color:#353535;clear:both;display:inline-block;width:100%;padding-bottom:30px;margin-bottom:-10px}
@@ -221,6 +222,7 @@ footer{background-color:#353535;clear:both;display:inline-block;width:100%;paddi
 .footerContacts a{color:#7A7A7A;font-size:13px}
 .footerContacts .years{color:#7A7A7A;font-size:13px;margin-top:18px;margin-bottom:50px}
 .footerContacts>div{float:left;margin-left:8px}
+.footerContacts .contactUs:hover {filter: brightness(0.5);}
 .footerMenu{padding-top:78px;padding-bottom:260px;border-bottom:1px solid #4B4B4B;margin-bottom:46px}
 .footerMenu>div{float:left}
 .footerMenu>div:nth-child(1){margin-right:50px}
@@ -509,6 +511,7 @@ margin-bottom:30px;
 .elementDescriptWrap .marks>div .ttip:before{content:'';position:absolute;top:-8px;left:10%;margin-left:-8px;width:0;height:0;border-bottom:8px solid #FFF;border-right:8px solid transparent;border-left:8px solid transparent}
 .elementDescriptWrap .marks>div:hover .ttip{visibility:visible;opacity:1;top:99%;left:0;z-index:999}
 .footerMenu img:hover,.webServ img:hover,.socServ img:hover,.yaMarket>a:hover>img,.yaMarket>a:hover>p>span>img{filter:brightness(0.5)}
+.footerMenu img:hover {filter: brightness(1.5);}
 .lkWrapp div:hover{background-color:#eee}
 .elementDescriptWrap .AlreadyInWishlist{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:1px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:40px}
 .elementDescriptWrap .takePartWrap{border-top:1px solid #ddd;padding:14px 6px;margin-bottom:20px;margin-bottom:5px;height:auto;margin-top:0px;width:264px}
@@ -781,7 +784,7 @@ margin-bottom:30px;
 .deliveryPageTitleWrap{height:136px;width:100%;background-color:#99ABB1}
 .deliveryBody,.deliveryBodyWrap{background-color:#F4F4F4}
 .deliveryPageTitleWrap p{color:#E4E8EA;font-size:14px;padding-top:28px}
-.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:4px}
+.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
 .delivMenuWrapp{float:left;height:100%;width:250px;padding-top:48px}
 .delivMenuWrapp ul{list-style-type:none}
 .delivMenuWrapp li{text-transform:uppercase;color:#6B6B6B;font-family:Walshein_bold;font-size:13px;padding-bottom:20px;cursor:pointer}
@@ -992,6 +995,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .image_iml,.image_pickpoint,.image_russianpost{background-image:url(/img/shipimg.png);position:absolute;top:76px;background-repeat:no-repeat}
 .image_iml{width:50px;height:30px;right:213px}
 .image_pickpoint{width:113px;height:30px;right:90px;background-position:-62px center}
+.image_boxberry{background-image:url(/img/shipimg_boxberry.png);background-size:contain;position:absolute;top:76px;background-repeat:no-repeat;width:113px;height:30px;right:90px;}
 .image_russianpost{width:72px;height:34px;right:10px;background-position:-180px 0}
 .slidingDelivMenu{position:fixed;top:40px}
 .wrapperCategor .filterParams li p a{color:#3f4a4d!important}

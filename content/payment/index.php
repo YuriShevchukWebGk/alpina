@@ -34,7 +34,7 @@ $APPLICATION->SetTitle("Способы оплаты в интернет-мага
     
     <div class="deliveryPageTitleWrap">
         <div class="centerWrapper">
-            <a href="/"><p>Главная</p></a>
+            <!-- <a href="/"><p>Главная</p></a> -->
             <h1>Оплата</h1>
         </div>
     </div>
