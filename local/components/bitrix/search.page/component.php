@@ -115,7 +115,7 @@ if($arParams["USE_TITLE_RANK"])
     if($how=="d")
         $aSort=array("DATE_CHANGE"=>"DESC", "CUSTOM_RANK"=>"DESC", "TITLE_RANK"=>"DESC", "RANK"=>"DESC");
     else
-        $aSort=array("TITLE_RANK"=>"DESC", "CUSTOM_RANK"=>"DESC", "RANK"=>"DESC",);
+        $aSort=array("TITLE"=>"ASC", "TITLE_RANK"=>"DESC", "CUSTOM_RANK"=>"DESC", "RANK"=>"DESC",);
 }
 else
 {
@@ -299,11 +299,17 @@ if($this->InitComponentTemplate($templatePage))
 
     if(strlen($folderPath) > 0)
     {  //arshow($arResult["REQUEST"]);
-        $arFilter = array(
+       /* $arFilter = array(
             "SITE_ID" => SITE_ID,
             "QUERY" => $arResult["REQUEST"]["~QUERY"],
             "TAGS" => $arResult["REQUEST"]["~TAGS"],
             "MODULE_ID" => 'iblock',
+        );    */    
+        $arFilter = array(
+         //   'LOGIC' => 'OR',
+                'QUERY' => "%" . $arResult["REQUEST"]["~QUERY"] . "%",
+                "SITE_ID" => SITE_ID,
+                'TITLE' => "%" . $arResult["REQUEST"]["~QUERY"] . "%",
         );
         $arFilter = array_merge($arFILTERCustom, $arFilter);
         if(strlen($where)>0)
@@ -338,7 +344,7 @@ if($this->InitComponentTemplate($templatePage))
             $obSearch->NavStart($arParams["PAGE_RESULT_COUNT"], false);
             $ar = $obSearch->GetNext();
             //Search restart
-            
+            arshow($ar);
             if(!$ar && ($arParams["RESTART"] == "Y") && $obSearch->Query->bStemming)
             {
                 $exFILTER["STEMMING"] = false;
