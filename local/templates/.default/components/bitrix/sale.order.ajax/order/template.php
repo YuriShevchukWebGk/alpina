@@ -262,7 +262,7 @@ function date_deactive(){    // ограничение вывода достав
             new_day = minminDatePlus + 14;
             minDate = "+" + new_day + "d";
         <?} else { ?>
-            minDatePlus = <?=$setProps['nextDay']?>+1 ;
+            minDatePlus = <?=$setProps['nextDay']?> ;
             minDate = "+2w +1d";
         <?}?>
         var now_todey = new Date();

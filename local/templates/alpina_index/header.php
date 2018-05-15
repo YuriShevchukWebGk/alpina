@@ -2062,7 +2062,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <p class="title">
                 Удобная доставка
             </p>
-            <div class="image_pickpoint"></div>
+            <div class="image_boxberry"></div>
             <div class="image_russianpost"></div>
             <div class="variants">
                 <div>

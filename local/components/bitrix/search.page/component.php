@@ -115,7 +115,7 @@ if($arParams["USE_TITLE_RANK"])
     if($how=="d")
         $aSort=array("DATE_CHANGE"=>"DESC", "CUSTOM_RANK"=>"DESC", "TITLE_RANK"=>"DESC", "RANK"=>"DESC");
     else
-        $aSort=array("CUSTOM_RANK"=>"DESC", "TITLE_RANK"=>"DESC", "RANK"=>"DESC", "DATE_CHANGE"=>"DESC");
+        $aSort=array("TITLE_RANK"=>"DESC", "CUSTOM_RANK"=>"DESC", "RANK"=>"DESC",);
 }
 else
 {
@@ -298,11 +298,12 @@ if($this->InitComponentTemplate($templatePage))
     $arResult["FOLDER_PATH"] = $folderPath = $template->GetFolder();
 
     if(strlen($folderPath) > 0)
-    {
+    {  //arshow($arResult["REQUEST"]);
         $arFilter = array(
             "SITE_ID" => SITE_ID,
             "QUERY" => $arResult["REQUEST"]["~QUERY"],
             "TAGS" => $arResult["REQUEST"]["~TAGS"],
+            "MODULE_ID" => 'iblock',
         );
         $arFilter = array_merge($arFILTERCustom, $arFilter);
         if(strlen($where)>0)
@@ -317,7 +318,7 @@ if($this->InitComponentTemplate($templatePage))
             $arFilter[">=DATE_CHANGE"] = $from;
         if($to)
             $arFilter["<=DATE_CHANGE"] = $to;
-
+        
         $obSearch = new CSearch();
 
         //When restart option is set we will ignore error on query with only stop words
@@ -337,6 +338,7 @@ if($this->InitComponentTemplate($templatePage))
             $obSearch->NavStart($arParams["PAGE_RESULT_COUNT"], false);
             $ar = $obSearch->GetNext();
             //Search restart
+            
             if(!$ar && ($arParams["RESTART"] == "Y") && $obSearch->Query->bStemming)
             {
                 $exFILTER["STEMMING"] = false;

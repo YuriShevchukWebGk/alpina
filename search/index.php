@@ -99,7 +99,7 @@ $APPLICATION->IncludeComponent(
         "PAGER_SHOW_ALWAYS" => "Y",
         "PAGER_TEMPLATE" => "",
         "PAGER_TITLE" => "Результаты поиска",
-        "PAGE_RESULT_COUNT" => "50",
+        "PAGE_RESULT_COUNT" => "70",
         "PATH_TO_USER_PROFILE" => "",
         "RATING_TYPE" => "",
         "RESTART" => "Y",

@@ -191,6 +191,9 @@
             <div class="searchBooksWrap">
                 <div class="searchWidthWrapper">
                     <?foreach($arResult["SEARCH"] as $arItem) {
+                    //    arshow($_REQUEST);
+                     //   arshow($arItem);
+
                         /***************
                         *
                         * $arItem["PARAM2"] хранится ID инфоблока, содержащего элемент результатов поиска

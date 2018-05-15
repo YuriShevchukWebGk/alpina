@@ -207,6 +207,7 @@ header .headBasket{padding:17px 1px 0}
 .paymentWrapp .variants{color:#3f4a4d;font-size:15px}
 .paymentWrapp .variants p{position:relative;padding-bottom:24px}
 .paymentWrapp .variants p:before{content:url(/img/reht.png);display:inline-block;float:left;height:23px;left:0;padding-right:11px;position:relative;top:-3px}
+.paymentWrapp a p:hover {text-decoration:underline;}
 .variants div{float:left;width:222px}
 .variants div:nth-child(1){margin-right:48px}
 footer{background-color:#353535;clear:both;display:inline-block;width:100%;padding-bottom:30px;margin-bottom:-10px}
@@ -221,6 +222,7 @@ footer{background-color:#353535;clear:both;display:inline-block;width:100%;paddi
 .footerContacts a{color:#7A7A7A;font-size:13px}
 .footerContacts .years{color:#7A7A7A;font-size:13px;margin-top:18px;margin-bottom:50px}
 .footerContacts>div{float:left;margin-left:8px}
+.footerContacts .contactUs:hover {filter: brightness(0.5);}
 .footerMenu{padding-top:78px;padding-bottom:260px;border-bottom:1px solid #4B4B4B;margin-bottom:46px}
 .footerMenu>div{float:left}
 .footerMenu>div:nth-child(1){margin-right:50px}
@@ -783,6 +785,7 @@ margin-bottom:30px;
 .deliveryPageTitleWrap p{color:#E4E8EA;font-size:14px;padding-top:28px}
 .deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:4px}
 .delivMenuWrapp{float:left;height:100%;width:250px;padding-top:48px}
+.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
 .delivMenuWrapp ul{list-style-type:none}
 .delivMenuWrapp li{text-transform:uppercase;color:#6B6B6B;font-family:Walshein_bold;font-size:13px;padding-bottom:20px;cursor:pointer}
 .delivMenuWrapp a{color: #6B6B6B;}
@@ -992,6 +995,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .image_iml,.image_pickpoint,.image_russianpost{background-image:url(/img/shipimg.png);position:absolute;top:76px;background-repeat:no-repeat}
 .image_iml{width:50px;height:30px;right:213px}
 .image_pickpoint{width:113px;height:30px;right:90px;background-position:-62px center}
+.image_boxberry{background-image:url(/img/shipimg_boxberry.png);background-size:contain;position:absolute;top:76px;background-repeat:no-repeat;width:113px;height:30px;right:90px;}
 .image_russianpost{width:72px;height:34px;right:10px;background-position:-180px 0}
 .slidingDelivMenu{position:fixed;top:40px}
 .wrapperCategor .filterParams li p a{color:#3f4a4d!important}

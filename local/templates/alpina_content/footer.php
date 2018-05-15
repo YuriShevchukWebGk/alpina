@@ -264,8 +264,8 @@
                 ),
                 false
             );?>
-        <div class="webServ">
-            <?$APPLICATION->IncludeComponent(
+        <!-- <div class="webServ">
+            <?/*$APPLICATION->IncludeComponent(
 				"bitrix:main.include", 
 				".default", 
 				array(
@@ -277,8 +277,8 @@
 					"PATH" => "/include/socnets.php"
 				),
 				false
-			);?>
-        </div>
+			);*/?>
+        </div> -->
     </div>
 
     
