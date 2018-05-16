@@ -511,6 +511,7 @@ margin-bottom:30px;
 .elementDescriptWrap .marks>div .ttip:before{content:'';position:absolute;top:-8px;left:10%;margin-left:-8px;width:0;height:0;border-bottom:8px solid #FFF;border-right:8px solid transparent;border-left:8px solid transparent}
 .elementDescriptWrap .marks>div:hover .ttip{visibility:visible;opacity:1;top:99%;left:0;z-index:999}
 .footerMenu img:hover,.webServ img:hover,.socServ img:hover,.yaMarket>a:hover>img,.yaMarket>a:hover>p>span>img{filter:brightness(0.5)}
+.footerMenu img:hover {filter: brightness(1.5);}
 .lkWrapp div:hover{background-color:#eee}
 .elementDescriptWrap .AlreadyInWishlist{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:1px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:40px}
 .elementDescriptWrap .takePartWrap{border-top:1px solid #ddd;padding:14px 6px;margin-bottom:20px;margin-bottom:5px;height:auto;margin-top:0px;width:264px}
@@ -783,7 +784,7 @@ margin-bottom:30px;
 .deliveryPageTitleWrap{height:136px;width:100%;background-color:#99ABB1}
 .deliveryBody,.deliveryBodyWrap{background-color:#F4F4F4}
 .deliveryPageTitleWrap p{color:#E4E8EA;font-size:14px;padding-top:28px}
-.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:4px}
+.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
 .delivMenuWrapp{float:left;height:100%;width:250px;padding-top:48px}
 .deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
 .delivMenuWrapp ul{list-style-type:none}
