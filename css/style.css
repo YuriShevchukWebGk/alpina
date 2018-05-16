@@ -318,6 +318,7 @@ input:focus{outline:0}
 .searchBooksWrap .searchBook{height:310px;width:540px;margin-bottom:24px;display:inline-block}
 .categoryWrapper .secondLevel,.categoryWrapper li>ul,.hidingCatalogLeft,.slidingTopMenu{display:none}
 .searchBook img{float:left;margin-left:-8px}
+.searchBook img:hover{box-shadow: 0 15px 18px 0 rgba(0,0,0,.18), 0 15px 18px 0 rgba(0,0,0,.14);transform: scale(1.02);}
 .searchBook .bookNames{color:#3f4a4d;font-size:20px;height:80px;overflow:hidden;width:374px}
 .searchBook .autorName{font-family:Walshein_bold;font-size:13px;color:#3f4a4d;text-transform:uppercase;padding-top:2px}
 .searchBook .price{color:#7B8C90;font-size:14px;padding-top:10px}
