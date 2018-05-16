@@ -235,7 +235,7 @@
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
         $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
-    }  */ 
+    }   */
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
     function cancelMail($arFields, $arTemplate) {
