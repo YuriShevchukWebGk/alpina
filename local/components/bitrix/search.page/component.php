@@ -344,7 +344,7 @@ if($this->InitComponentTemplate($templatePage))
             $obSearch->NavStart($arParams["PAGE_RESULT_COUNT"], false);
             $ar = $obSearch->GetNext();
             //Search restart
-            arshow($ar);
+            
             if(!$ar && ($arParams["RESTART"] == "Y") && $obSearch->Query->bStemming)
             {
                 $exFILTER["STEMMING"] = false;
