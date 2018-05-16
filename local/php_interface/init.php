@@ -3952,7 +3952,7 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
 
        $arFilter = Array(
           "STATUS_ID" => "O",
-          "<=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date('m'), date('d') - 14, date('Y'))),
+          "<=DATE_UPDATE" => date("d.m.Y", mktime(0, 0, 0, date('m'), date('d') - 14, date('Y'))),
           "PAYED" => "N"
           );
        $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
