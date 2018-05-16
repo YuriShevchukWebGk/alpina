@@ -786,6 +786,7 @@ margin-bottom:30px;
 .deliveryPageTitleWrap p{color:#E4E8EA;font-size:14px;padding-top:28px}
 .deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
 .delivMenuWrapp{float:left;height:100%;width:250px;padding-top:48px}
+.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
 .delivMenuWrapp ul{list-style-type:none}
 .delivMenuWrapp li{text-transform:uppercase;color:#6B6B6B;font-family:Walshein_bold;font-size:13px;padding-bottom:20px;cursor:pointer}
 .delivMenuWrapp a{color: #6B6B6B;}
@@ -1036,6 +1037,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .authorsContent .hide{display:none}
 .authorsContent .submit{margin-top:20px;background-color:#00a0af;border:none;border-radius:40px;color:#fff;font-size:19px;padding:13px 48px;text-decoration:none}
 #development a,.bookWrapp a:hover>.bookName,.categoryBooks a:hover>.nameBook{opacity:0.8}
+.bookWrapp .bookName:hover {text-decoration: underline;}
 #development a,.bookWrapp a:hover,.categoryBooks a:hover{text-decoration:none}
 .exitA a{color:#fff!important;padding-left:30px}
 .flippostSelectContainer{margin-left:34px;display:none}

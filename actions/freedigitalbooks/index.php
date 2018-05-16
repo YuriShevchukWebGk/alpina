@@ -1,4 +1,5 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+$APPLICATION->SetTitle("Электронная версия книги в&nbsp;подарок");
 global $USER;
 CModule::IncludeModule("iblock");
 if (!$USER->isAdmin()) {

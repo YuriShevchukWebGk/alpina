@@ -8,52 +8,59 @@ $colors = explode(',',$arResult["PROPERTIES"]["colors"]["VALUE"]);
 ?>
 
 <style>
-	.bestbook{background:<?=$colors[1]?>}
-	.bestbook .badge{background-color: <?=$colors[1]?>}
-	.bestbook .name, .bestbook .name a,.bestbook .description,.bestbook .author{color:<?=$colors[0]?>}
+    .bestbook{background:<?=$colors[1]?>}
+    .bestbook .badge{background-color: <?=$colors[1]?>}
+    .bestbook .name, .bestbook .name a,.bestbook .description,.bestbook .author{color:<?=$colors[0]?>}
 </style>
 <script>
-	$(document).ready(function() {
-		var setheight = $(".bestbook .name").height();
-		$(".bestbook .before").css("height",setheight+30+'px');
-		$(".bestbook .after").css("margin-top",setheight+10+'px');
-	});
+    $(document).ready(function() {
+        var setheight = $(".bestbook .name").height();
+        $(".bestbook .before").css("height",setheight+30+'px');
+        $(".bestbook .after").css("margin-top",setheight+10+'px');
+    });
 </script>
 
 <div class="bestbook">
-	<div class="before"></div>
-	<div class="after"></div>
+    <div class="before"></div>
+    <div class="after"></div>
 
-	<div class="wrap">
-		<div class="cover">
-			<a href="<?=$arResult["DETAIL_PAGE_URL"]?>">
-				<img src="<?=$main_pict["src"]?>" title="<?=$main_author["NAME"].' «'.$arResult["NAME"].'»'?>">
-			</a>
-		</div>
+    <div class="wrap">
+        <div class="cover">
+            <a href="<?=$arResult["DETAIL_PAGE_URL"]?>">
+                <img src="<?=$main_pict["src"]?>" title="<?=$main_author["NAME"].' «'.$arResult["NAME"].'»'?>">
+            </a>
+        </div>
 
-		<div class="badge">
-			<a href="<?=$arResult["DETAIL_PAGE_URL"]?>">Книга недели</a>
-		</div>
+        <div class="badge">
+            <a href="<?=$arResult["DETAIL_PAGE_URL"]?>">Книга недели</a>
+        </div>
 
-		<div class="name">
-			<a href="<?=$arResult["DETAIL_PAGE_URL"]?>"><?=typo($arResult["NAME"])?></a>
-			<br />
-			<span><?=$main_author["NAME"]?></span>
-		</div>
+        <div class="name">
+            <a href="<?=$arResult["DETAIL_PAGE_URL"]?>"><?=typo($arResult["NAME"])?></a>
+            <br />
+            <span><?=$main_author["NAME"]?></span>
+        </div>
 
-		<div class="description">
-			<?=typo(strip_tags($arResult["PREVIEW_TEXT"]))?>
-			
-			<?if (!empty($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"])) {?>
-				<div class="author">
-					<?if ($author_pict["src"]) {?><img src="<?=$author_pict["src"]?>" style="margin-right:30px;border-radius:100px;width:100px;height:100px" align="left" /><?}?>
-					<?=typo(mb_substr(strip_tags($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]),0,150).'...')?>
-				</div>
-			<?}?>
-			<a href="<?=$arResult["DETAIL_PAGE_URL"]?>" class="button">
-				Описание, отзывы
-			</a>
-		</div>
+        <div class="description">
+        <?if($arResult["ID"] == BOOK_COLOR_BLACK){?>
+             <p style="color: #000;"><?=typo(strip_tags($arResult["PREVIEW_TEXT"]))?></p>
+        <?} else {?>
+            <?=typo(strip_tags($arResult["PREVIEW_TEXT"]))?>
+        <?}?>     
+            <?if (!empty($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"])) {?>
+                <div class="author">
+                    <?if ($author_pict["src"]) {?><img src="<?=$author_pict["src"]?>" style="margin-right:30px;border-radius:100px;width:100px;height:100px" align="left" /><?}?>
+                     <?if($arResult["ID"] == BOOK_COLOR_BLACK){?>
+                        <p style="color: #000;"><?=typo(substr(strip_tags($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]),0,150).'...')?></p>
+                     <?} else {?>
+                        <?=typo(substr(strip_tags($main_author["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]),0,150).'...')?>
+                     <?}?>
+                </div>
+            <?}?>
+            <a href="<?=$arResult["DETAIL_PAGE_URL"]?>" class="button">
+                Описание, отзывы
+            </a>
+        </div>
 
-	</div>
+    </div>
 </div>

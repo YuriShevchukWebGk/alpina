@@ -37,7 +37,7 @@ $APPLICATION->SetTitle("Как заказать");
     </div>
 <div class="howToBodyWrap">
     <div class="centerWrapper" style="padding:40px 0;">
-        <h1>Как заказать книгу в интернет-магазине</h1>
+        <h2>Как заказать книгу в интернет-магазине</h2>
         <p>Уважаемый читатель, спасибо за то, что вы приняли решение сделать заказ  в <a href="http://www.alpinabook.ru/" target="_blank">интернет-магазине издательства &quot;Альпина Паблишер&quot;</a>. 
               <br />
              

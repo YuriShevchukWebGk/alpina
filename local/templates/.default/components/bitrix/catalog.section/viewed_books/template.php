@@ -81,12 +81,20 @@ if($USER->IsAuthorized()){// blackfriday черная пятница
 					$pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>120, 'height'=>175), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 					foreach ($arItem["PRICES"] as $arPrice) {?>
 						<li class="sliderElement">
+                            <?if($arItem["PROPERTIES"]["TRANSPARENT_CORNER"]["VALUE_XML_ID"] == "Y"){?>  
+                                <?$corner_1 = "Y";?> 
+                            <?} else if($arItem["PROPERTIES"]["TRANSPARENT_CORNER_1_2"]["VALUE_XML_ID"] == "Y"){?>
+                                <?$corner_2 = "Y";?>  
+                            <?} else {
+                                $corner_1 = '';
+                                $corner_2 = '';
+                            }?>   
 							<div class="">
 								<a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
 									<div class="section_item_img">
-										<img src="<?=$pict["src"]?>" class="bookImg" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>">
+										<img src="<?=$pict["src"]?>" class="bookImg" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>" style="<?=($corner_1)?'border-radius: 8px 8px 8px 8px;':''?> <?=($corner_2)?'border-radius: 0px 8px 8px 0px;':''?>">
 									</div>
-									<p class="bookName" title="<?=$arItem["NAME"]?>"><?=substr($arItem["NAME"],0,20).'...'?></p>
+									<p class="bookName" title="<?=$arItem["NAME"]?>"><?=mb_substr($arItem["NAME"],0,20).'...'?></p>
 									<?
 									if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 
 										&& intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23) {

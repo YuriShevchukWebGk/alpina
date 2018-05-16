@@ -78,7 +78,7 @@ $SearchFilter = array(">CATALOG_PRICE_1" => 0);
 if(!$USER->IsAdmin()){
     $SearchFilter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
 }
-
+  
 $APPLICATION->IncludeComponent(
     "bitrix:search.page",
     "search_common_page",
@@ -99,7 +99,7 @@ $APPLICATION->IncludeComponent(
         "PAGER_SHOW_ALWAYS" => "Y",
         "PAGER_TEMPLATE" => "",
         "PAGER_TITLE" => "Результаты поиска",
-        "PAGE_RESULT_COUNT" => "50",
+        "PAGE_RESULT_COUNT" => "70",
         "PATH_TO_USER_PROFILE" => "",
         "RATING_TYPE" => "",
         "RESTART" => "Y",

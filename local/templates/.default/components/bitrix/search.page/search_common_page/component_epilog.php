@@ -9,6 +9,6 @@ $description = 'Результаты поиска на сайте Альпина
    
 if (!empty ($title) )  {
     $APPLICATION -> SetPageProperty("title", $title);
-	$APPLICATION -> SetPageProperty("description", $description); 
+    $APPLICATION -> SetPageProperty("description", $description); 
 }
 ?>

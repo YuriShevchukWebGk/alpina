@@ -1207,3 +1207,9 @@ body .altasib_geobase_link{
 #shd_pvz_pick button:hover{
     background-color: transparent; 
 }
+.finishOrdWrap .new_ordHint{
+    color: #222;
+    font-family: Walshein_light;
+    font-size: 20px;
+    padding-top: 30px;
+}

@@ -38,9 +38,9 @@
         <script>
             window.onload = function () { 
                 $(".cssload-container").fadeOut(200);
-                $(".historyBodywrap > div > .full").fadeIn(200);
+             //   $(".historyBodywrap > div > .full").fadeIn(200);
                 $(".historyBodywrap > div > .l-section-wrap").fadeIn(200);
-                $(".rsOverflow.grab-cursor").css("width", "100%");
+           //     $(".rsOverflow.grab-cursor").css("width", "100%");
             }
         </script>
         <div class="cssload-container">
@@ -69,6 +69,8 @@
         $('.js-acc-edit').slideUp(300);
     }
     $(document).ready(function () {
+        $('.ng-scope .container.std-section').html('');
+        $('.l-section-wrap.top-section.ng-scope').html('');
         // selects
         $('.js-create-select').selectize({});
 

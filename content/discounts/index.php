@@ -59,10 +59,10 @@ ul {
 			</ul>
 			<h6>Скидки не&nbsp;распространяются</h6><ul>
 				<li>на&nbsp;подарочные сертификаты,</li>
-				<li>на&nbsp;книги в&nbsp;коже,</li>
+				<li>на&nbsp;книги в&nbsp;коже и эко-коже,</li>
 				<li>на&nbsp;книгу &laquo;Правила жизни том&nbsp;1&raquo;,</li>
 				<li>на&nbsp;книгу &laquo;Правила жизни том&nbsp;2&raquo;,</li>
-				<li>на&nbsp;книгу &laquo;МСФО: Точка зрения КМПГ&raquo;.</li>
+				<li>на&nbsp;книги по &laquo;МСФО&raquo;.</li>
 			</ul>
 		</div>
 	</div>

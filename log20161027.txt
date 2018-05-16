@@ -1,6 +1,6 @@
 
 2016-10-27T19:16:44+03:00
-/home/bitrix/www/bitrix/modules/epages.pickpoint/delivery/delivery_pickpoint.php:122
+/var/www/alpinabook.ru/html/bitrix/modules/epages.pickpoint/delivery/delivery_pickpoint.php:122
 array (
   'ID' => '88',
   'SORT' => '100',
@@ -20,7 +20,7 @@ array (
 )
 
 2016-10-27T19:17:41+03:00
-/home/bitrix/www/bitrix/modules/epages.pickpoint/delivery/delivery_pickpoint.php:122
+/var/www/alpinabook.ru/html/bitrix/modules/epages.pickpoint/delivery/delivery_pickpoint.php:122
 array (
   'ID' => '88',
   'SORT' => '100',

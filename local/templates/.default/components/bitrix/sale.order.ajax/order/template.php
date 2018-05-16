@@ -93,7 +93,28 @@ $datetime1 = new DateTime(date("d.m.Y"));
 $datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));
 $interval = date_diff($datetime1, $datetime2)->format('%a');
 
-?>
+$holidays .= ',30.4.2018,7.5.2018,8.5.2018,10.5.2018';
+
+function date_deactive(){    // ограничение вывода доставок в праздничные дни
+    $date_deactive = array('28.04.2018','29.04.2018', '30.04.2018', '01.05.2018', '05.05.2018', '07.05.2018, 09.05.2018');
+    if(in_array(date('d.m.Y'),$date_deactive)){
+        return true;                                                                                          
+    } else {
+        return false;
+    }                         
+}
+    $arFilter = Array(
+        ">=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date("m") , date("d"), date("Y"))),
+        //"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => date("d.m.Y"),
+        "!STATUS_ID" => array("PR","F","A","I")
+    ); // получение даты доставки курьером 
+    $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter, false, false, array("DATE_INSERT", "PROPERTY_VAL_BY_CODE_DELIVERY_DATE"));
+    $count_dev = 0;
+    while ($arSales = $rsSales->Fetch()){
+        $count_dev++;
+    }
+        ?>
+
 <script>
 	window.THIS_TEMPLATE_PATH = '<?= $templateFolder ?>';
 	window.GURU_DELIVERY_ID = '<?= GURU_DELIVERY_ID ?>';
@@ -106,7 +127,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
         <?if($arResult['PREORDER'] == 'Y') {?>
             $("#tPP .delivery_date").remove();
         <?}?>
-        <?if(!empty($_SESSION["DATE_DELIVERY_STATE"])) {?>
+        <?if(!empty($_SESSION["DATE_DELIVERY_STATE"]) || date_deactive()) {?>
             $(".delivery_date").remove();
         <?}?>
 
@@ -183,7 +204,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
             }
         })
 
-           function deleteDateId(){
+        /*   function deleteDateId(){
               var text = document.getElementById("ORDER_PROP_44"),
                   testText;
                   if (text !== null) {
@@ -194,15 +215,16 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                   }
            }
            deleteDateId("ORDER_PROP_44");
-           deleteDateId("ORDER_PROP_45");
+           deleteDateId("ORDER_PROP_45");  */
 		   
         //календарь
 		var disabledDates = "<?=$holidays?>";
 		disabledDates = disabledDates.toString().split(',');
-	
+	    
         function disableSpecificDaysAndWeekends(date) {
             var noWeekend = $.datepicker.noWeekends(date);
 			if (noWeekend[0]) {
+                
 				return editDays(date);
 			} else {
 				return noWeekend;
@@ -222,19 +244,35 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
 			}
 			return [true];
 		}
-
+        
+        function discount_day(day, now_todey){
+            now_todey.setDate(now_todey.getDate() + day);
+            if(editDays(now_todey)){
+               day = day + 1; 
+               return day;
+            } else {
+                discount_day(day, now_todey);
+            }   
+        }
 
         ourday = <?=date("w");?>;
 
         <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
-		    minDatePlus = <?=$interval + $setProps['nextDay']?> + 1;
-            new_day = minDatePlus + 14;
+		    ftePlus = <?=$interval + $setProps['nextDay']?> + 1;
+            new_day = minminDatePlus + 14;
             minDate = "+" + new_day + "d";
         <?} else { ?>
-            minDatePlus = <?=$setProps['nextDay']?>;
+            minDatePlus = <?=$setProps['nextDay']?> ;
             minDate = "+2w +1d";
         <?}?>
+        var now_todey = new Date();
+        
+        new_minus_date = discount_day(minDatePlus, now_todey);
 
+        if(new_minus_date != minDatePlus+1){
+            minDatePlus = minDatePlus + new_minus_date;
+        }
+        
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             //minDatePlus++;
 			minDatePlus = minDatePlus + 1;
@@ -334,6 +372,7 @@ $interval = date_diff($datetime1, $datetime2)->format('%a');
                 console.log(suggestion);
             }
         });
+
     })
     //далее костыль
     var stopupdate = false;
