@@ -35,10 +35,25 @@ $navnum = $arResult["NAV_RESULT"]->NavNum;
 if ($_REQUEST["PAGEN_" . $navnum]) {
     //$_SESSION[$APPLICATION -> GetCurDir()] = $_REQUEST["PAGEN_" . $navnum];
 }
+if($arResult["ID"] == SECTION_ID_FOR_CHILDREN){
+    $for_chyldren = "Y";    
+}
 $is_bot_detected = false;
 if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) {
-    $is_bot_detected = true;
+    $is_bot_detected = true;              
 }?>
+<?if($for_chyldren){?>
+    <link rel="stylesheet" href="/local/css/style_for_children.css" type="text/css">
+    <div class="soc_service_wrap">   
+        <p>Мы в соцсетях</p>
+        <ul>
+            <li><a href="" class="net_1"></a></li>
+            <li><a href="" class="net_2"></a></li>
+            <li><a href="https://twitter.com/AlpinaBookRu" class="net_3"><img src="/img/twitterImg.png"></a></li>
+            <li><a href="http://vk.com/ideabooks" class="net_4"><img src="/img/vkImg.png"></a></li>
+        </ul>
+    </div>
+<?}?>
 
 <div class="wrapperCategor">
     <div class="categoryWrapper">
@@ -541,10 +556,11 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             );?>
 
 
-
-        <div class="catalogDescription" itemprop="description">
-            <?=$arResult["DESCRIPTION"]?>
-        </div>
+        <?if(!$for_chyldren){?>
+            <div class="catalogDescription" itemprop="description">
+                <?=$arResult["DESCRIPTION"]?>
+            </div>
+        <?}?>
     </div>
 </div>
 
