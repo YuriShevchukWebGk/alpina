@@ -12,6 +12,9 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 /** @var string $parentComponentName */
 /** @var string $parentComponentPath */
 /** @var string $parentComponentTemplate */
+use Bitrix\Highloadblock as HL;
+use Bitrix\Main\Entity;
+
 $this->setFrameMode(false);
 
 if(!CModule::IncludeModule("search"))
@@ -115,7 +118,7 @@ if($arParams["USE_TITLE_RANK"])
     if($how=="d")
         $aSort=array("DATE_CHANGE"=>"DESC", "CUSTOM_RANK"=>"DESC", "TITLE_RANK"=>"DESC", "RANK"=>"DESC");
     else
-        $aSort=array("CUSTOM_RANK"=>"DESC", "TITLE_RANK"=>"DESC", "RANK"=>"DESC", "DATE_CHANGE"=>"DESC");
+        $aSort=array("TITLE_RANK"=>"ASC", "RANK"=>"DESC", "DATE_CHANGE"=>"DESC");
 }
 else
 {
@@ -330,8 +333,45 @@ if($this->InitComponentTemplate($templatePage))
 
         $arResult["ERROR_CODE"] = $obSearch->errorno;
         $arResult["ERROR_TEXT"] = $obSearch->error;
+        
 
-        $arResult["SEARCH"] = array();
+
+    $hl_block = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
+    $entity = HL\HighloadBlockTable::compileEntity($hl_block);    
+    $entity_data_class = $entity->getDataClass();
+
+    $search_tips_filter = array(
+        'LOGIC' => 'OR',
+        array(
+            '=%UF_SEARCH_WORDS' => "%" . $arResult["REQUEST"]["~QUERY"] . "%"
+        ),
+        array(
+            '=%UF_TITLE' => "%" . $arResult["REQUEST"]["~QUERY"] . "%"
+        )
+    );
+
+    $table_id = 'tbl_' . $entity_table_name;
+    $result = $entity_data_class::getList(array(
+        "select" => array('UF_IBLOCK_ID'),
+        "filter" => $search_tips_filter,
+        "limit"  => 100,
+        "order"  => array("UF_PAGE_VIEWS_GA" => "ASC")
+    ));
+
+    $result = new CDBResult($result, $table_id);
+    
+    while ($search_tip = $result->Fetch()) {      
+        $item_filetr["ID"][] = $search_tip["UF_IBLOCK_ID"];
+        $arFilter["ITEM_ID"] = $search_tip["UF_IBLOCK_ID"];
+       
+    }
+    $arResult["SEARCH"] = array();
+    $res = CIBlockElement::GetList(Array("SORT"=>"ASC"), $item_filetr, false, Array("nPageSize"=>100), Array());
+    while($ar_fields = $res->GetNext()) {
+      //  $arResult["SEARCH"][$ar_fields["ID"]] = $ar_fields;
+    }
+    
+       
         if($obSearch->errorno==0)
         {
             $obSearch->NavStart($arParams["PAGE_RESULT_COUNT"], false);
@@ -352,36 +392,69 @@ if($this->InitComponentTemplate($templatePage))
                     $ar = $obSearch->GetNext();
                 }
             }
-
             $arReturn = array();
-            while($ar)
-            {
-                $arReturn[$ar["ID"]] = $ar["ITEM_ID"];
-                $ar["CHAIN_PATH"] = $APPLICATION->GetNavChain($ar["URL"], 0, $folderPath."/chain_template.php", true, false);
-                $ar["URL"] = htmlspecialcharsbx($ar["URL"]);
-                $ar["TAGS"] = array();
-                if (!empty($ar["~TAGS_FORMATED"]))
-                {
-                    foreach ($ar["~TAGS_FORMATED"] as $name => $tag)
+            while($ar = $obSearch->GetNext()){ 
+                if(in_array($ar["ITEM_ID"],$item_filetr["ID"])){
+                    $arReturn[$ar["ID"]] = $ar["ITEM_ID"];
+                    $ar["CHAIN_PATH"] = $APPLICATION->GetNavChain($ar["URL"], 0, $folderPath."/chain_template.php", true, false);
+                    $ar["URL"] = htmlspecialcharsbx($ar["URL"]);
+                    $ar["TAGS"] = array();
+                    if (!empty($ar["~TAGS_FORMATED"]))
                     {
-                        if($arParams["TAGS_INHERIT"] == "Y")
+                        foreach ($ar["~TAGS_FORMATED"] as $name => $tag)
                         {
-                            $arTags = $arResult["REQUEST"]["~TAGS_ARRAY"];
-                            $arTags[$tag] = $tag;
-                            $tags = implode("," , $arTags);
+                            if($arParams["TAGS_INHERIT"] == "Y")
+                            {
+                                $arTags = $arResult["REQUEST"]["~TAGS_ARRAY"];
+                                $arTags[$tag] = $tag;
+                                $tags = implode("," , $arTags);
+                            }
+                            else
+                            {
+                                $tags = $tag;
+                            }
+                            $ar["TAGS"][] = array(
+                                "URL" => $APPLICATION->GetCurPageParam("tags=".urlencode($tags), array("tags")),
+                                "TAG_NAME" => htmlspecialcharsex($name),
+                            );
                         }
-                        else
-                        {
-                            $tags = $tag;
-                        }
-                        $ar["TAGS"][] = array(
-                            "URL" => $APPLICATION->GetCurPageParam("tags=".urlencode($tags), array("tags")),
-                            "TAG_NAME" => htmlspecialcharsex($name),
-                        );
                     }
+                    $arResult["SEARCH"][]=$ar;   
+                } else {
+                    $ar_search[] = $ar;
                 }
-                $arResult["SEARCH"][]=$ar;
-                $ar = $obSearch->GetNext();
+            }
+            
+            foreach($ar_search as $ar){
+               
+               if(!in_array($ar["ITEM_ID"],$item_filetr["ID"])){
+                    $arReturn[$ar["ID"]] = $ar["ITEM_ID"];
+                    $ar["CHAIN_PATH"] = $APPLICATION->GetNavChain($ar["URL"], 0, $folderPath."/chain_template.php", true, false);
+                    $ar["URL"] = htmlspecialcharsbx($ar["URL"]);
+                    $ar["TAGS"] = array();
+                    if (!empty($ar["~TAGS_FORMATED"]))
+                    {
+                        foreach ($ar["~TAGS_FORMATED"] as $name => $tag)
+                        {
+                            if($arParams["TAGS_INHERIT"] == "Y")
+                            {
+                                $arTags = $arResult["REQUEST"]["~TAGS_ARRAY"];
+                                $arTags[$tag] = $tag;
+                                $tags = implode("," , $arTags);
+                            }
+                            else
+                            {
+                                $tags = $tag;
+                            }
+                            $ar["TAGS"][] = array(
+                                "URL" => $APPLICATION->GetCurPageParam("tags=".urlencode($tags), array("tags")),
+                                "TAG_NAME" => htmlspecialcharsex($name),
+                            );
+                        }
+                    }
+                    $arResult["SEARCH"][]=$ar;
+                    
+                }
             }
 
             $navComponentObject = null;
@@ -406,6 +479,7 @@ if($this->InitComponentTemplate($templatePage))
         }
 
         $this->ShowComponentTemplate();
+        
     }
 }
 else

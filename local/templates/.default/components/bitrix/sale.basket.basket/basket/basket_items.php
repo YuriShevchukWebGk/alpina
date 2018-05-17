@@ -206,7 +206,7 @@
                                                 if ($prop = $status->GetNext()) {
                                                     $date_state = "under_order";
                                                     $setSoonButton = true;
-                                                    ?><p class="newPriceText">Срок поставки <?=$prop['VALUE']?> дней после поставки </p><?
+                                                    ?><p class="newPriceText">Срок поставки <?=$prop['VALUE']?> дней после оплаты </p><?
                                                 }
                                             } else if ($curState == STATE_SOON) {
 												$status = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arItem["PRODUCT_ID"], array(), array("CODE" => "SOON_DATE_TIME"));

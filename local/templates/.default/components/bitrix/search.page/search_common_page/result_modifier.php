@@ -8,6 +8,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED!==true) die();
 /** @var array $arResult */
 
 foreach($arResult["SEARCH"] as $key => $arItem) {
+    
     if ($arItem["PARAM2"] == AUTHORS_IBLOCK_ID) {
         $authors_array[] = $arItem["ITEM_ID"];
     } else if ($arItem["PARAM2"] == CATALOG_IBLOCK_ID) {

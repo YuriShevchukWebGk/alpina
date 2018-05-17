@@ -191,6 +191,9 @@
             <div class="searchBooksWrap">
                 <div class="searchWidthWrapper">
                     <?foreach($arResult["SEARCH"] as $arItem) {
+                    //    arshow($_REQUEST);
+                     //   arshow($arItem);
+
                         /***************
                         *
                         * $arItem["PARAM2"] хранится ID инфоблока, содержащего элемент результатов поиска
@@ -295,7 +298,14 @@
                                 <div class="descrWrap">
                                     <a href="<?= $arItem["URL"] ?>" itemprop="url">
                                         <p class="bookNames" title="<?= $arItem["TITLE"] ?>" itemprop="name"><?= $arItem["TITLE"] ?></p>
-                                        <p class="autorName" itemprop="author"><?= $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]]?></p>
+                                        <?//=arshow($arResult["BOOK_AUTHOR_INFO"])?>
+                                        <?//=arshow($arResult["BOOK_INFO"][$arItem["ITEM_ID"]])?>
+                                        <p class="autorName" itemprop="author"><?
+                                            if(is_array($arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]])){
+                                                echo $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]]["NAME"];
+                                            } else {
+                                                echo $arResult["BOOK_AUTHOR_INFO"][$arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_AUTHORS_VALUE"]];
+                                            }?></p>
                                         <p class="wrapperType"><?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_COVER_TYPE_VALUE"]?></p>
                                         <?if (($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon"))
                                             && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
