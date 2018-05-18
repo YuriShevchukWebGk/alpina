@@ -46,3 +46,31 @@
 .soc_service_wrap a.net_4{
     background-color: #7f92b1;
 }
+.image_header{
+    position: relative;
+    top: 15px;
+}
+.wrap_style_1{
+    position: relative;
+    float: left;
+}
+.wrap_style_1 p{
+    float: left;
+    width: 57%; 
+    font-family: GTWalsheimPro;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #555e60;
+    position: relative;
+    z-index: 2;
+}
+.wrap_style_1 img{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
