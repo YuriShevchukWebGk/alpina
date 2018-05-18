@@ -528,6 +528,7 @@
             if ($_REQUEST['flippost_cost']) {
                 $delivery_price = $_REQUEST['flippost_cost'];
             } else {
+                logger($flippost_default_values, $_SERVER["DOCUMENT_ROOT"].'/logs/flippost.txt');
                 foreach ($flippost_default_values as $default_variant) {
                     if (is_array($default_variant['WEIGHT'])) {
                         if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
@@ -542,6 +543,8 @@
                     }
                 }
             }   
+            logger($_REQUEST, $_SERVER["DOCUMENT_ROOT"].'/logs/flippost_request.txt');
+
             if($_REQUEST['flippost_cost']){
                 // записываем стоимость доставки в отгрузку 
                 $order = Sale\Order::loadByAccountNumber($orderId); 

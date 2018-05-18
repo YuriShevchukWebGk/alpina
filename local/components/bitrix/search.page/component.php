@@ -115,7 +115,7 @@ if($arParams["USE_TITLE_RANK"])
     if($how=="d")
         $aSort=array("DATE_CHANGE"=>"DESC", "CUSTOM_RANK"=>"DESC", "TITLE_RANK"=>"DESC", "RANK"=>"DESC");
     else
-        $aSort=array("TITLE"=>"ASC", "TITLE_RANK"=>"DESC", "CUSTOM_RANK"=>"DESC", "RANK"=>"DESC",);
+        $aSort=array("TITLE_RANK"=>"DESC", "RANK"=>"asc", "CUSTOM_RANK"=>"DESC");
 }
 else
 {
@@ -124,6 +124,7 @@ else
     else
         $aSort=array("CUSTOM_RANK"=>"DESC", "RANK"=>"DESC", "DATE_CHANGE"=>"DESC");
 }
+ 
 /*************************************************************************
             Operations with cache
 *************************************************************************/

@@ -68,7 +68,6 @@ class Exchange1C {
         while($arResult = $res->Fetch()) {
             $bitrix_id = $arResult['PROPERTY_ID_BITRIKS_VALUE'];
         }
-        logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/iblock_77.txt');
         if(!empty($bitrix_id)) {
             
            // $total_quantity = -1;
@@ -155,7 +154,7 @@ class Exchange1C {
             while($arCatalog = $cat->Fetch()) {
                 $total_quantity += intval($arCatalog['CATALOG_QUANTITY']);
             }
-
+            logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/iblock_77.txt');
              $bitrix_id_elem_info = CIBlockElement::GetList (array(), array("IBLOCK_ID" => CATALOG_IBLOCK_ID, "ID" => $bitrix_id), false, false, array("CATALOG_QUANTITY", "CANONICAL_PAGE_URL", "PROPERTY_STATE", "PROPERTY_reissue", "NAME"));
              if ($bitrix_id_elem = $bitrix_id_elem_info -> GetNext()) {
                   $quantity = $bitrix_id_elem["CATALOG_QUANTITY"];

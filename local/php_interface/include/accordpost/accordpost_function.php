@@ -289,12 +289,13 @@ function export_to_accordpost($xmlBody, $zdoc_id, $shipment_id, $arIDs, $order_p
 
     //Запрос и обработка ответа
     if ($out = curl_exec($curl)) {   
-        
+
         //Логируем начало экспорта
         $order_log = $logger_date.' - Ответ от аккорд:'.$out;  
         logger($order_log, $logger_file);  
                 
         $response = new SimpleXMLElement($out);   
+        
         if($response['state'] == 0) {
             //Обновим элементы
             if (update_order_accordpost($zdoc_id, $arIDs, $order_props)) {    
@@ -325,10 +326,13 @@ function export_to_accordpost($xmlBody, $zdoc_id, $shipment_id, $arIDs, $order_p
                 echo 'Выгрузка прошла успешно, не удалось обновить элемент в системе';    
             }   
         } else {
+            
             foreach($response->error as $error) {  
                 echo $error['msg'].'<br>';                     
-            }              
-            CIBlockElement::Delete($shipment_id); 
+            }     
+            
+            $parent = CIBlockElement::Delete($shipment_id);
+        
             curl_close($curl);    
             die();    
         }  
