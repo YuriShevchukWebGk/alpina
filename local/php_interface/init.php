@@ -189,7 +189,7 @@
     *
     **/
 
-   /* function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
+    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
         
        //logger($message, $_SERVER["DOCUMENT_ROOT"].'/logs/log_event.txt');
         if(strlen($message) > 1000) {
@@ -237,7 +237,7 @@
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
         $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
-    }   */
+    }   
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
     function cancelMail(&$arFields, $arTemplate) {

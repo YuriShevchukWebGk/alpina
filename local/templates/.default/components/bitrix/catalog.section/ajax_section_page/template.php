@@ -36,7 +36,7 @@ if ($_REQUEST["PAGEN_" . $navnum]) {
     //$_SESSION[$APPLICATION -> GetCurDir()] = $_REQUEST["PAGEN_" . $navnum];
 }
 if($arResult["ID"] == SECTION_ID_FOR_CHILDREN){
-    $for_chyldren = "Y";    
+    $for_chyldren = "";    
 }
 $is_bot_detected = false;
 if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) {
