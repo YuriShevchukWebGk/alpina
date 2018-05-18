@@ -25,7 +25,7 @@ $this->setFrameMode(true);
 							<div class="section_item_img">
 								<img src="<?=$pict["src"]?>" class="bookImg" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>">
 							</div>
-							<p class="bookName" title="<?=$arItem["NAME"]?>"><?echo (strlen($arItem["NAME"]) > 30) ? substr($arItem["NAME"],0,30).'...' : $arItem["NAME"];?></p>
+							<p class="bookName" title="<?=$arItem["NAME"]?>"><?echo (mb_strlen($arItem["NAME"]) > 30) ? mb_substr($arItem["NAME"],0,30).'...' : $arItem["NAME"];?></p>
 							<p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
 							<?
 							if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23) {

@@ -45,4 +45,5 @@ $MESS["TRACK_NUMBER_PICK_POINT"] = "Отследить заказ можно п�
 $MESS["TRACK_NUMBER_FLIPOST"] = "Отследить заказ можно по <a href='http://flippost.com/instruments/online/' target='_blank'>ссылке</a>";
 $MESS["TRACK_NUMBER_BOXBERRY"] = "Отследить заказ можно по <a href='http://boxberry.ru/tracking/?id=#TRACK#' target='_blank'>ссылке</a>";
 $MESS["SOON_DATE"] = "Ориентировочная дата выхода книги"; 
+$MESS["ADDR_DELIVERY"] = "Адрес доставки:<br>"; 
 ?>

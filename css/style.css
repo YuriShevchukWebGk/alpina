@@ -207,6 +207,7 @@ header .headBasket{padding:17px 1px 0}
 .paymentWrapp .variants{color:#3f4a4d;font-size:15px}
 .paymentWrapp .variants p{position:relative;padding-bottom:24px}
 .paymentWrapp .variants p:before{content:url(/img/reht.png);display:inline-block;float:left;height:23px;left:0;padding-right:11px;position:relative;top:-3px}
+.paymentWrapp a p:hover {text-decoration:underline;}
 .variants div{float:left;width:222px}
 .variants div:nth-child(1){margin-right:48px}
 footer{background-color:#353535;clear:both;display:inline-block;width:100%;padding-bottom:30px;margin-bottom:-10px}
@@ -221,6 +222,7 @@ footer{background-color:#353535;clear:both;display:inline-block;width:100%;paddi
 .footerContacts a{color:#7A7A7A;font-size:13px}
 .footerContacts .years{color:#7A7A7A;font-size:13px;margin-top:18px;margin-bottom:50px}
 .footerContacts>div{float:left;margin-left:8px}
+.footerContacts .contactUs:hover {filter: brightness(0.5);}
 .footerMenu{padding-top:78px;padding-bottom:260px;border-bottom:1px solid #4B4B4B;margin-bottom:46px}
 .footerMenu>div{float:left}
 .footerMenu>div:nth-child(1){margin-right:50px}
@@ -316,11 +318,13 @@ input:focus{outline:0}
 .searchBooksWrap .searchBook{height:310px;width:540px;margin-bottom:24px;display:inline-block}
 .categoryWrapper .secondLevel,.categoryWrapper li>ul,.hidingCatalogLeft,.slidingTopMenu{display:none}
 .searchBook img{float:left;margin-left:-8px}
+.searchBook img:hover{box-shadow: 0 15px 18px 0 rgba(0,0,0,.18), 0 15px 18px 0 rgba(0,0,0,.14);transform: scale(1.02);}
 .searchBook .bookNames{color:#3f4a4d;font-size:20px;height:80px;overflow:hidden;width:374px}
 .searchBook .autorName{font-family:Walshein_bold;font-size:13px;color:#3f4a4d;text-transform:uppercase;padding-top:2px}
 .searchBook .price{color:#7B8C90;font-size:14px;padding-top:10px}
 .searchBook .description{color:#3f4a4d;font-size:15px;line-height:22px;padding-top:10px}
 .searchBook .basket{background-color:#009fad;border-radius:50px;color:#fff;font-size:15px;margin-top:16px;padding:12px 0;text-align:center;vertical-align:middle;width:166px;cursor:pointer}
+.searchBook .basket:hover{background-color: #00b9c8;color: #f2f2f2;}
 .searchBook>div{float:left}
 .searchBook .descrWrap{padding-left:9px;width:374px}
 .searchWidthWrapper{margin:0 auto;position:relative;width:1142px}
@@ -509,6 +513,7 @@ margin-bottom:30px;
 .elementDescriptWrap .marks>div .ttip:before{content:'';position:absolute;top:-8px;left:10%;margin-left:-8px;width:0;height:0;border-bottom:8px solid #FFF;border-right:8px solid transparent;border-left:8px solid transparent}
 .elementDescriptWrap .marks>div:hover .ttip{visibility:visible;opacity:1;top:99%;left:0;z-index:999}
 .footerMenu img:hover,.webServ img:hover,.socServ img:hover,.yaMarket>a:hover>img,.yaMarket>a:hover>p>span>img{filter:brightness(0.5)}
+.footerMenu img:hover {filter: brightness(1.5);}
 .lkWrapp div:hover{background-color:#eee}
 .elementDescriptWrap .AlreadyInWishlist{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:1px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:40px}
 .elementDescriptWrap .takePartWrap{border-top:1px solid #ddd;padding:14px 6px;margin-bottom:20px;margin-bottom:5px;height:auto;margin-top:0px;width:264px}
@@ -624,7 +629,7 @@ margin-bottom:30px;
 .breadCrumpWrap a{font-size:24px;color:#E4E8EA;text-decoration:none}
 .orderBodyWrapp{background-color:#F4F4F4;width:100%;padding-bottom:100px;padding-top:38px}
 .orderBody{background-color:#fff;padding:24px 46px 0 22px;width:782px;border-bottom:1px solid #ebebeb}
-.helpBlock{border:1px solid #c7a271;float:right;padding:28px 32px 19px;text-align:center;width:192px}
+.helpBlock{border:1px solid #c7a271;float:right;padding:28px 32px 19px;text-align:center;width:196px}
 .helpBlock .text{color:#3f4a4d;font-size:14px}
 .helpBlock .telephone{color:#3f4a4d;font-size:20px;padding-top:16px}
 .cartMenuWrap .basketItems,.helpBlock .mailAdr,.orderBody .allCost,.totalPriceWrap .allCost{font-family:Walshein_bold}
@@ -781,8 +786,9 @@ margin-bottom:30px;
 .deliveryPageTitleWrap{height:136px;width:100%;background-color:#99ABB1}
 .deliveryBody,.deliveryBodyWrap{background-color:#F4F4F4}
 .deliveryPageTitleWrap p{color:#E4E8EA;font-size:14px;padding-top:28px}
-.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:4px}
+.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
 .delivMenuWrapp{float:left;height:100%;width:250px;padding-top:48px}
+.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
 .delivMenuWrapp ul{list-style-type:none}
 .delivMenuWrapp li{text-transform:uppercase;color:#6B6B6B;font-family:Walshein_bold;font-size:13px;padding-bottom:20px;cursor:pointer}
 .delivMenuWrapp a{color: #6B6B6B;}
@@ -992,6 +998,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .image_iml,.image_pickpoint,.image_russianpost{background-image:url(/img/shipimg.png);position:absolute;top:76px;background-repeat:no-repeat}
 .image_iml{width:50px;height:30px;right:213px}
 .image_pickpoint{width:113px;height:30px;right:90px;background-position:-62px center}
+.image_boxberry{background-image:url(/img/shipimg_boxberry.png);background-size:contain;position:absolute;top:76px;background-repeat:no-repeat;width:113px;height:30px;right:90px;}
 .image_russianpost{width:72px;height:34px;right:10px;background-position:-180px 0}
 .slidingDelivMenu{position:fixed;top:40px}
 .wrapperCategor .filterParams li p a{color:#3f4a4d!important}
@@ -1032,6 +1039,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .authorsContent .hide{display:none}
 .authorsContent .submit{margin-top:20px;background-color:#00a0af;border:none;border-radius:40px;color:#fff;font-size:19px;padding:13px 48px;text-decoration:none}
 #development a,.bookWrapp a:hover>.bookName,.categoryBooks a:hover>.nameBook{opacity:0.8}
+.bookWrapp .bookName:hover {text-decoration: underline;}
 #development a,.bookWrapp a:hover,.categoryBooks a:hover{text-decoration:none}
 .exitA a{color:#fff!important;padding-left:30px}
 .flippostSelectContainer{margin-left:34px;display:none}

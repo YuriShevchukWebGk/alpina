@@ -13,7 +13,7 @@
 </div>
 <?
 $adress = explode(',', $_SESSION['PICKPOINT']["PP_ADDRESS"]);
-$str = file("/home/bitrix/www/parse_pickpoint.csv");
+$str = file("/var/www/alpinabook.ru/html/parse_pickpoint.csv");
 
   if(is_array($str))
   {

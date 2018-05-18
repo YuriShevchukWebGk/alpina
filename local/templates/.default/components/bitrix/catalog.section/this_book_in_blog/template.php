@@ -23,7 +23,7 @@ if (count($arResult["ITEMS"]) > 0){?>
 										<?if ($section) {?>
 											<div class="cat"><?=$section["NAME"]?></div>
 										<?}?>
-										<span title="Пост в блоге Альпины «<?=$arItem["NAME"]?>»"><?echo strlen($arItem["NAME"])>50 ? substr($arItem["NAME"],0,50).'...' : $arItem["NAME"];?></span>
+										<span title="Пост в блоге Альпины «<?=$arItem["NAME"]?>»"><?echo mb_strlen($arItem["NAME"])>50 ? mb_substr($arItem["NAME"],0,50).'...' : $arItem["NAME"];?></span>
 									</span>
 									<p class="author"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
 								</a>
@@ -38,7 +38,9 @@ if (count($arResult["ITEMS"]) > 0){?>
 										<?if ($section) {?>
 											<div class="cat"><?=$section["NAME"]?></div>
 										<?}?>
-										<span title="Пост в блоге Альпины «<?=$arItem["NAME"]?>»"><?echo strlen($arItem["NAME"])>50 ? substr($arItem["NAME"],0,50).'...' : $arItem["NAME"];?></span>
+										<span title="Пост в блоге Альпины «<?=$arItem["NAME"]?>»">
+											<?echo mb_strlen($arItem["NAME"])>78 ? mb_substr($arItem["NAME"],0,78).'...' : $arItem["NAME"];?>
+										</span>
 									</span>
 									<p class="author"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
 								</a>

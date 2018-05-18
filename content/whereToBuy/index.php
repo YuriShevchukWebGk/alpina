@@ -1291,8 +1291,17 @@ marina@elga.kiev.ua, vadim@elga.kiev.ua
 Тел.: +371 6 7221778 
 +371 6 7221776 
 +371 29448941 
+
+
+ <span class="city"><strong>Беларуссия</strong></span> 
  
+ <strong>OZ Книги</strong> 
  
+ Интернет-магазин https://oz.by 
+ 
+ <p>
+  </br>
+   </br>
 <strong>Для покупки книг оптом необходимо обратиться в издательство по телефону (495) 980-53-54 или в одну из оптовых книготорговых компаний:</strong> 
  
 <span class="city"><strong>Москва</strong></span> 
@@ -1300,7 +1309,7 @@ marina@elga.kiev.ua, vadim@elga.kiev.ua
 www.omega-l.ru 
 шоссе Энтузиастов, д. 56 
 Тел.: (495) 228-64-58, 228-64-59 
- 
+ <p>
 <strong>«Книжный Клуб 36,6»</strong> 
  http://www.club366.ru/ 
 ул. Бакунинская, д. 71, стр.10 

@@ -54,13 +54,13 @@ function subscribeTest($id, $mail) {
         //addUnisenderSub($mail,$subName);
         echo "Sub success";
     }
-	} else {
+    } else {
         $PROP = array();
         $PROP[385] = '1';  // --- book id
         $PROP[386] = $mail; // --- subscriber E-mail
         $PROP[387] = 'Глава из книги';  // --- subscription description
-        $PROP[388] = "3"; // --- subscription id		
-		
+        $PROP[388] = "3"; // --- subscription id        
+        
         $arLoadProductArray = Array(
           "MODIFIED_BY"    => $USER->GetID(), 
           "IBLOCK_SECTION_ID" => false,         
@@ -71,7 +71,7 @@ function subscribeTest($id, $mail) {
           ); 
           
         $el->Add($arLoadProductArray);
-	}
+    }
 }
 
 subscribeTest($_POST['book_id'],$_POST['sub_mail']);

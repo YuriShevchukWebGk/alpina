@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?
-$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+$_SERVER["DOCUMENT_ROOT"] = '/var/www/alpinabook.ru/html';
 //define("NO_KEEP_STATISTIC", true);
 //define("NOT_CHECK_PERMISSIONS", true);
 //define('SITE_ID', 's1');

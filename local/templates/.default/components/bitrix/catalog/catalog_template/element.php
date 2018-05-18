@@ -1,5 +1,5 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-	/*//обработка адресов с /temporary/
+	/*//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ /temporary/
 	if ($arResult["VARIABLES"]["SECTION_CODE"] == "temporary" && $arResult["VARIABLES"]["ELEMENT_ID"] > 0) {
 		$arElement = CIBlockElement::GetList(array(), array("ID"=>$arResult["VARIABLES"]["ELEMENT_ID"]), false, false, array("CANONICAL_PAGE_URL", "SECTION_CODE")) -> GetNext();
 		if($arElement["CANONICAL_PAGE_URL"]) {
@@ -37,9 +37,9 @@
 <div class="basketIcon" onmouseover="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCartInteractions', 'action' : 'openSmallCart'});">
 </div>
 <?$APPLICATION->IncludeComponent("bitrix:breadcrumb", "catalog_crumb", Array(
-        "START_FROM" => "0",    // Номер пункта, начиная с которого будет построена навигационная цепочка
-        "PATH" => "",    // Путь, для которого будет построена навигационная цепочка (по умолчанию, текущий путь)
-        "SITE_ID" => "s1",    // Cайт (устанавливается в случае многосайтовой версии, когда DOCUMENT_ROOT у сайтов разный)
+        "START_FROM" => "0",    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        "PATH" => "",    // пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
+        "SITE_ID" => "s1",    // CпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ DOCUMENT_ROOT пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
 
         ),
         false

@@ -68,10 +68,18 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                                         }
                                     }?>
                                 </div>
+                                <?if($arItem["PROPERTIES"]["TRANSPARENT_CORNER"]["VALUE_XML_ID"] == "Y"){?>  
+                                    <?$corner_1 = "Y";?> 
+                                <?} else if($arItem["PROPERTIES"]["TRANSPARENT_CORNER_1_2"]["VALUE_XML_ID"] == "Y"){?>
+                                    <?$corner_2 = "Y";?>  
+                                <?} else {
+                                    $corner_1 = '';
+                                    $corner_2 = '';
+                                }?>  
                                 <a href="<?= $arItem["DETAIL_PAGE_URL"] ?>">
                                     <div class="section_item_img">
                                         <?if ($pict["src"]) {?>
-                                            <img src="<?=$pict["src"]?>" alt="<?=$arItem["NAME"];?>">
+                                            <img src="<?=$pict["src"]?>" alt="<?=$arItem["NAME"];?>" style="<?=($corner_1)?'border-radius: 15px 15px 15px 15px;':''?> <?=($corner_2)?'border-radius: 0px 9px 9px 0px;':''?>">
                                             <?} else {?>
                                             <img src="/images/no_photo.png" width="142" height="142">
                                             <?}?>

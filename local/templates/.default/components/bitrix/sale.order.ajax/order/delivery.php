@@ -134,6 +134,7 @@
         }
     }
 
+    
 ?>
 
 <div <?if($isOnlyCertificate == true) { echo 'style="display:none;"';}?> class="grayLine"></div>
@@ -179,9 +180,9 @@
                     $clickHandler = "onClick = \"BX('ID_DELIVERY_ID_".$arDelivery["ID"]."').checked=true;".$extraParams."submitForm();\"";
 
             ?>
-            <?if($arDelivery["ID"] == BOXBERY_ID && !$USER->IsAdmin()) {
+            <?/*if( ($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2 || $arDelivery["ID"] == DELIVERY_COURIER_MKAD || $arDelivery["ID"] == DELIVERY_BOXBERRY_PICKUP) && date_deactive() ) {
 
-            } else {?>
+            } else {*/?>
             <div class="<?if ($arDelivery["CHECKED"]=="Y") echo " check_delivery";?>">
                 <?
                 $arDeliv = CSaleDelivery::GetByID($arDelivery["ID"]);
@@ -250,7 +251,11 @@
                     <?
                         if($arDelivery["ID"] == DELIVERY_PICKUP) {
                             if(intval(date('w') == 6)) {
-                                echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+                                if(date('d.m.Y') == '28.04.2018'){
+                                    echo str_replace('#DATE_DELIVERY#',date_day_today(-1), $arDelivery["DESCRIPTION"])."<br />";
+                                } else {
+                                    echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+                                }
                             } elseif (intval(date('w') == 0)) {
                                 echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
                             } else {
@@ -264,14 +269,18 @@
                                     }
                                 }
                             }
-                        } else if($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) {
+                        } else if(($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) && !date_deactive() ) {
                             if($_SESSION["DATE_DELIVERY_STATE"]){}
-                            echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
-                        } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD) {
+                            echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']+1), $arDelivery["DESCRIPTION"])."<br />";
+                        } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD && !date_deactive()) {
                             echo str_replace('#DATE_DELIVERY#',date_day(1), $arDelivery["DESCRIPTION"])."<br />";
-                        } else {
+                        } else if(!date_deactive()){
                             if (strlen($arDelivery["DESCRIPTION"])>0){
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']).' - '.date_day_courier($setProps['nextDay']+1), $arDelivery["DESCRIPTION"])."<br />";
+                            }
+                        } else {
+                            if (strlen($arDelivery["DESCRIPTION"])>0){
+                                echo str_replace('#DATE_DELIVERY#','', $arDelivery["DESCRIPTION"])."<br />";
                             }
                         }
                         ?><p class="delivery_date_shiptor"><?
@@ -388,7 +397,7 @@
 
                 <div class="clear"></div>
             </div>
-            <?}?>
+            <?//}?>
             <?
             }
         }

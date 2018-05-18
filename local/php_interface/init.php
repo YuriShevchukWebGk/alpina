@@ -6,7 +6,8 @@
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
     //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
 
-    file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
+//    file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
+    file_exists('/var/www/alpinabook.ru/vendor/autoload.php') ? require '/var/www/alpinabook.ru/vendor/autoload.php' : "";
     use Mailgun\Mailgun;
 
     CModule::IncludeModule("blog");
@@ -72,6 +73,7 @@
     define ("TRADING_FINANCE_SECTION_ID", 111);
     define ("LOCATION_IMTERNATIONAL", 21279);
     define ("SECTION_ID_FOR_CHILDREN", 131);  // id раздела для детей и родителей
+    define ("BOOK_COLOR_BLACK", 434300);
 
     define ("DELIVERY_COURIER_1", 9);
     define ("DELIVERY_COURIER_2", 15);
@@ -79,6 +81,8 @@
     define ("DELIVERY_PICKUP", 2);
     define ("DELIVERY_MAIL", 10);
     define ("DELIVERY_MAIL_2", 11);
+    define ("DELIVERY_MAIL_3", 16);
+    define ("DELIVERY_MAIL_4", 24);
     define ("DELIVERY_PICK_POINT", 18);
     define ("DELIVERY_FLIPOST", 30);
     define ("DELIVERY_BOXBERRY_PICKUP", 49);
@@ -253,6 +257,7 @@
                 $itemID = $basketItem["PRODUCT_ID"];
                 $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE", "PROPERTY_DELIVERY_TIME"));
                 if ($arItem = $res->Fetch()) {
+
                     if (intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
                        // CEvent::Send("SALE_NEW_ORDER", 's1', $arTemplate, 423);
                         $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
@@ -426,11 +431,15 @@
         } else {
             $delivery_pre_order = (time()+(3600*24)*$day);
         }
-
+        
         $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
         $date_d = date("j", $delivery_pre_order);
         $date_n = date("n", $delivery_pre_order);
         $date_Y = date("Y", $delivery_pre_order);
+        $date_promt = date("d.m.Y", $delivery_pre_order);
+        $date_deactive = array('29.04.2018', '30.04.2018', '01.05.2018', '02.05.2018', '09.05.2018');
+     
+
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
 
@@ -458,7 +467,6 @@
         } else {
             $delivery_pre_order = (time()+(3600*24)*$day);
         }
-
         $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
         $date_d = date("j", $delivery_pre_order);
         $date_n = date("n", $delivery_pre_order);
@@ -529,6 +537,7 @@
             if ($_REQUEST['flippost_cost']) {
                 $delivery_price = $_REQUEST['flippost_cost'];
             } else {
+                logger($flippost_default_values, $_SERVER["DOCUMENT_ROOT"].'/logs/flippost.txt');
                 foreach ($flippost_default_values as $default_variant) {
                     if (is_array($default_variant['WEIGHT'])) {
                         if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
@@ -543,6 +552,8 @@
                     }
                 }
             }   
+            logger($_REQUEST, $_SERVER["DOCUMENT_ROOT"].'/logs/flippost_request.txt');
+
             if($_REQUEST['flippost_cost']){
                 // записываем стоимость доставки в отгрузку 
                 $order = Sale\Order::loadByAccountNumber($orderId); 
@@ -1053,7 +1064,7 @@
                     $useremail = Message::getClientEmail($ID);
                 } else {
                     $freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
-                    $useremail = 'a.marchenkov@alpinabook.ru';
+                    $useremail = 'shop@alpinabook.ru';
                 }
                 $mailFields = array(
                     //"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
@@ -1218,7 +1229,7 @@
                     $useremail = Message::getClientEmail($ID);
                 } else {
                     $freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
-                    $useremail = 'a.marchenkov@alpinabook.ru';
+                    $useremail = 'shop@alpinabook.ru';
                 }
                 $mailFields = array(
                     //"EMAIL" => "a-marchenkov@yandex.ru, a.limansky@alpina.ru, t.razumovskaya@alpinabook.ru, karenshain@gmail.com, sarmat2012@yandex.ru",
@@ -2143,6 +2154,20 @@
 
             $arFields['YANDEX_MAP'] = "<tr><td style=\"border-collapse: collapse;padding-bottom:20px;\"><table align=\"left\" width=\"100%\"><tbody><tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans', 'Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" colspan=\"2\" valign=\"top\"><img src=\"https://www.alpinabook.ru/img/ymap.png\" /></td></tr></tbody></table></td></tr>";
 
+        } else if($orderArr['DELIVERY_ID'] == DELIVERY_MAIL || $orderArr['DELIVERY_ID'] == DELIVERY_MAIL_2 || $orderArr['DELIVERY_ID'] == DELIVERY_MAIL_3 || $orderArr['DELIVERY_ID'] == DELIVERY_MAIL_4){
+            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("INDEX", "CITY_DELIVERY")));
+            while ($arVals = $db_vals -> Fetch()) {
+                if(!empty($arVals["VALUE"])){
+                    $arFields['EMAIL_DELIVERY_ADDR'] .=  " ".$arVals['NAME'].": ".$arVals["VALUE"]."<br>";
+                }
+            }
+            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("CITY", "STREET", "HOUSE")));
+            $arFields['EMAIL_DELIVERY_ADDR'] = "Адрес доставки:<br>";
+            while ($arVals = $db_vals -> Fetch()) {
+                if(!empty($arVals["VALUE"])){
+                    $arFields['EMAIL_DELIVERY_ADDR'] .=  " ".$arVals['NAME'].": ".$arVals["VALUE"]."<br>";
+                }
+            }
         }
 
         $arFields['USER_DESCRIPTION'] = $orderArr['USER_DESCRIPTION'];
@@ -2411,7 +2436,7 @@
     function PayButtonForOnlinePayment (&$arFields, &$arTemplate) {
         if (in_array($arTemplate["ID"],array(16,178))) {
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
-            if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI) {
+            if ($order["PAY_SYSTEM_ID"] == PAY_SYSTEM_RFI && $order["STATUS_ID"] != "PR") {
 				$authHash = get_hash_for_authorization($arFields['EMAIL']);
                 $pay_button = '<div class="payment_button" style="white-space: normal; font-size: 18px; text-align: center; vertical-align: middle; background-color: #00abb8; height: 50px; width: 146px; margin-left: 60%; border-radius: 35px; margin-top: 15px;">
                 <a href="https://www.alpinabook.ru/personal/order/payment/?ORDER_ID='.$arFields["ORDER_ID"].'&hash='.$authHash.'" style="color: #fff; text-decoration: none;"><span style="line-height: 45px">Оплатить</span></a>
@@ -2582,15 +2607,15 @@
         $handle = fopen($url, "rb");
         $contents = stream_get_contents($handle);
         fclose($handle);
-        $data=json_decode($contents,true);
+        $data=json_decode($contents,true);         
         if ($data["label"]) {
             // если произошла ошибка и ответ не был получен.
             //		arshow($content);
-            //Преобразуем массив байтов в изображение
+            //Преобразуем массив байтов в изображение    
             $imagick = new Imagick();
-            // $imagick->setResolution(200, 200);
-            $imagick->readImage($data["label"]);
-            // $imagick->cropImage(500, 450, 250, 80);
+            $imagick->setResolution(200, 200);
+            $imagick->readImage($data["label"]);   
+          //  $imagick->cropImage(500, 450, 250, 80);
             $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/boxbery/'.$track.'.jpg', false);
         }
     }
@@ -2967,7 +2992,7 @@
         return 'BoxberryListStatuses();';
     }
 
-    //агент для выгрузки статусов заказов из личного кабинета Boxberry
+    //агент для выгрузки статусов заказов из личного кабинета accordpost
     function AccordListStatuses() {
         //Константы для curl запроса
         define('CFG_NL', "\n");
@@ -3000,6 +3025,7 @@
                 if ($out_second_request = curl_exec($curl_second_request)) {
                     $response_second_request = new SimpleXMLElement($out_second_request);
                     foreach ($response_second_request->doc->parcel as $parcel) {
+                        logger($parcel, $_SERVER["DOCUMENT_ROOT"].'/logs/accord_post.txt');
                         //поменять на barcode
                         $ar_barcode_list[strval($parcel['order_id'])] = strval($parcel['Barcode']);
                         $arFilter = Array(
@@ -3410,10 +3436,13 @@
 
         //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа   
         if(cancelMail($arFields, $arTemplate)) {
-           // return false;                                 
+           // return false;           
+           logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/event.txt');                      
            $arFields["PREORDER"] = "предзаказ";
            $arFields["EMAIL_DELIVERY_TERM"] = "";
-           logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/event_delivery.txt');                        
+           $arFields["PAYMENT_LINK"] = "";
+           $arFields["PAYMENT_BUTTON"] = "";
+
         } else {
            $arFields["PREORDER"] = "заказ"; 
         } 
@@ -3556,64 +3585,65 @@
 
     // создаем обработчик события "UpdateStatusOrderOnProduct"
     function UpdateStatusOrderOnProduct(&$arFields) {
-
-        $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("sort" => "asc"), Array("CODE"=>"STATE"));
-        if($ar_props = $db_props->Fetch()){
-            $status_product = $ar_props["VALUE"];
-        }
-
-        if($status_product == STATE_SOON && $status_product != $arFields["PROPERTY_VALUES"][PROPERTY_STATE_ID][0]["VALUE"]){
-            $arFilter = Array(
-                "STATUS_ID" => "PR"
-            );
-            $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
-            $order_new_statys = array();
-           // $state = '';
-            while ($arSales = $rsSales->Fetch()) {
-
-                if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
-                    $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
-
-                    while($arproduct = $dbItemsInOrder->Fetch()){
-                        $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
-                        if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
-                            $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
-                        }
-                        if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
-                            $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
-                        }
-                        
-                    }
-                } else {
-                    $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
-
-                    while($arproduct = $dbItemsInOrder->Fetch()){
-                        $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
-                        if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
-                            $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
-                        }
-                        if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
-                            $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
-                        }
-                        
-                    }
-                }
+        if($arFields["IBLOCK_ID"] == CATALOG_IBLOCK_ID){
+            $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("sort" => "asc"), Array("CODE"=>"STATE"));
+            if($ar_props = $db_props->Fetch()){
+                $status_product = $ar_props["VALUE"];
             }
-            foreach($order_new_statys as $order_update){
-               logger($order_update["ORDER"], $_SERVER["DOCUMENT_ROOT"].'/logs/log_status.txt'); 
-                if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
-                    if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
-                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
-                    }else if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID ){
-                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+
+            if($status_product == STATE_SOON && $status_product != $arFields["PROPERTY_VALUES"][PROPERTY_STATE_ID][0]["VALUE"]){
+                $arFilter = Array(
+                    "STATUS_ID" => "PR"
+                );
+                
+                $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+                $order_new_statys = array();
+               // $state = '';
+                while ($arSales = $rsSales->Fetch()) {
+                    
+                    if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
+                        $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
+
+                        while($arproduct = $dbItemsInOrder->Fetch()){
+                            $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
+                            if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
+                                $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
+                            }
+                            if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
+                                $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
+                            }
+                            
+                        }
                     } else {
-                        CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата"
+                        $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
+
+                        while($arproduct = $dbItemsInOrder->Fetch()){
+                            $product_order_property = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $arproduct["PRODUCT_ID"], array("sort" => "asc"), Array("CODE"=>"STATE"))->Fetch();
+                            if($arFields["ID"] == $arproduct["PRODUCT_ID"]){
+                                $order_new_statys[$arSales["ID"]]["ORDER"] = $arSales;
+                            }
+                            if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
+                                $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
+                            }
+                            
+                        }
                     }
                 }
+                foreach($order_new_statys as $order_update){
+                   logger($order_update["ORDER"], $_SERVER["DOCUMENT_ROOT"].'/logs/log_status.txt'); 
+                    if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
+                        if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
+                            CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+                        }else if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASHLESS_PAYSYSTEM_ID ){
+                            CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
+                        } else {
+                            CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "O");  // меняем статус на "принят, ожидается оплата"
+                        }
+                    }
+                }
+
             }
-
         }
-
     }
 
     function object_to_array($a, $b) {
@@ -3916,8 +3946,48 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
 
                 // Установим новое значение для данного свойства данного элемента
                 CIBlockElement::SetPropertyValuesEx($list["ID"], false, array($PROPERTY_CODE => $PROPERTY_VALUE));
-            }      
+                
+                $el = new CIBlockElement;
+                $arLoadProductArray = Array(
+                  "ACTIVE" => "N",            // не активен
+                );
+
+                $res = $el->Update($list["ID"], $arLoadProductArray);  
+            }
+    
         }
      }
-  
+     
+ function DELETE_STATUS(){
+    if (CModule::IncludeModule("sale")):
+
+       $arFilter = Array(
+          "STATUS_ID" => "O",
+          "<=DATE_UPDATE" => date("d.m.Y", mktime(0, 0, 0, date('m'), date('d') - 14, date('Y'))),
+          "PAYED" => "N"
+          );
+       $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
+       while ($arSales = $rsSales->Fetch())
+       {
+          CSaleOrder::StatusOrder($arSales["ID"], "A");
+       }
+    endif;
+    return "DELETE_STATUS();";
+ }
+ 
+    function courier_status(){    // смена статуса у заказов с курьером и ноплатой наличными    
+        if(date('N') != 6 && date('N') != 7){
+            $arFilter = Array("DELIVERY_ID" => array(DELIVERY_COURIER_1, DELIVERY_COURIER_2, DELIVERY_COURIER_MKAD), "PAY_SYSTEM_ID" => CASH_PAY_SISTEM_ID, "STATUS_ID" => array("N", "D"), "PAYED" => 'Y');
+            $rsOrder = CSaleOrder::GetList(Array(), $arFilter, Array("ID", "DATE_INSERT"), false); // Array("PROPERTY_CONSIGNEE")
+            while($arOrder = $rsOrder->Fetch()) {
+                $time = strtotime('-10 minutes');
+                $date_today = strtotime(date('d.m.Y H:i:s', $time)); 
+                $date_oldday = strtotime($arOrder["DATE_INSERT"]); 
+                if($date_today > $date_oldday){             
+                    CSaleOrder::StatusOrder($arOrder["ID"], "AC"); 
+                }
+            }  
+        } 
+        return "courier_status();";  
+   }
 ?>

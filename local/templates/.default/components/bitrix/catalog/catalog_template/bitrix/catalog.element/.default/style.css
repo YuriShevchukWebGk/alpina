@@ -1510,3 +1510,24 @@ font-size:16px;
 .reviewsSliderWrapp .giftWrapChildren img{left:414px;position:absolute;top:0}
 .saleWrapp .giftWrapChildren{margin-top:0}
 .videoWrappTop iframe{max-width:450px;width:100%;border-radius:6px}
+body .copyright{
+    display: none;
+}
+#vk_groups{
+    background: #e7a65f!important;
+    position: relative;
+    top: -19px;
+    padding-top: 40px;
+    float: left;
+    margin-right: 14px;
+}
+.testdriveWrapChildren .centerWrapper a:hover{
+    color: #00abb8!important;
+}
+.fb_iframe_widget{
+    position: relative;
+    top: 4px;  
+}
+.deactive .copyright{
+    display: none;
+}

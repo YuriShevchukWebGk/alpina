@@ -12,7 +12,7 @@
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
     $checkMobile = checkMobile();
-	$childrenDesign = $arResult["PROPERTIES"]["CHILDREN_DESIGN"]["VALUE"] == "Y" ? true : false;
+    $childrenDesign = $arResult["PROPERTIES"]["CHILDREN_DESIGN"]["VALUE"] == "Y" ? true : false;
     include_once($_SERVER["DOCUMENT_ROOT"].'/custom-scripts/checkdelivery/options.php');
 ?>
 <?global $USER;?>
@@ -20,13 +20,29 @@
     LocalRedirect('/404.php', '301 Moved permanently');
 }?>
 <?if ($childrenDesign) {?>
-	<style>
-		.reviewsSliderWrapp{background:#006f8e}
-		.giftWrapChildren .title,.giftWrapChildren .pii{color:#fff}
-		.giftWrapChildren p,.giftWrapChildren .pii a{color:#ddd}
-		.reviewsSliderWrapp .giftWrapChildren{border-top:none;height:300px}
-		.giftWrapChildren:before{content:"";background-image: url('/upload/resize_cache/iblock/5d9/380_567_1/5d938b4c37fb96a5cd5755ee000e7df3.jpg');background-size: 200px 296px;width: 200px;height: 296px;} 
-	</style>
+    <style>
+        .reviewsSliderWrapp{background:#006f8e}
+        .giftWrapChildren .title,.giftWrapChildren .pii{color:#fff}
+        .giftWrapChildren p,.giftWrapChildren .pii a{color:#ddd}
+        .reviewsSliderWrapp .giftWrapChildren{border-top:none;height:300px}
+        .giftWrapChildren:before{content:"";background-image: url('/upload/resize_cache/iblock/5d9/380_567_1/5d938b4c37fb96a5cd5755ee000e7df3.jpg');background-size: 200px 296px;width: 200px;height: 296px;} 
+
+    </style>
+<?}?>
+<?if($arResult["PROPERTIES"]["TRANSPARENT_CORNER"]["VALUE_XML_ID"] == "Y"){?>  
+    <style>
+        .elementDescriptWrap .elementMainPict .element_item_img img {
+            border-radius: 25px 25px 25px 25px;
+        } 
+      
+    </style>   
+<?} else if($arResult["PROPERTIES"]["TRANSPARENT_CORNER_1_2"]["VALUE_XML_ID"] == "Y"){?>
+    <style>
+        .elementDescriptWrap .elementMainPict .element_item_img img {
+            border-radius: 0px 25px 25px 0px;
+        } 
+     
+    </style>   
 <?}?>
 <script>
     $(function(){
@@ -180,7 +196,7 @@
         background: <?=$bgcolors[0]?> url(/img/catalogIco.png) no-repeat center;
         opacity: 0.8;
     }
-	.target_audience{background:<?=$bgcolors[0]?>}
+    .target_audience{background:<?=$bgcolors[0]?>}
     .basketIcon {
         background: <?=$bgcolors[0]?> url(/img/basketIcoHovers.png) no-repeat center;
         opacity: 0.8;
@@ -282,7 +298,7 @@
                     <input type='text' placeholder="Расчетный счет" name="settlement_account" id="settlement_account">
                     <br>
                     <a href="#" class="certificate_buy_button" onclick="create_certificate_order(); return false;"><?= GetMessage("PAY") ?></a><br />
-					<span class="legal_description">* на каждый купленный сертификат вы получите счет-фактуру на аванс. Далее, по мере погашения сертификатов, выдается акт и счет-фактура на каждый «погашенный» сертификат.</span>
+                    <span class="legal_description">* на каждый купленный сертификат вы получите счет-фактуру на аванс. Далее, по мере погашения сертификатов, выдается акт и счет-фактура на каждый «погашенный» сертификат.</span>
                 </div>
             </div>
             <input type="hidden" name="certificate_name" value="<?= $arResult['NAME'] ?>"/>
@@ -330,9 +346,9 @@
             ?>
 
             <div class="element_item_img">
-				<?if ($arResult["PROPERTIES"]["TARGET_AUDIENCE"]["VALUE"]) {?>
-					<div class="target_audience"><?=$arResult["PROPERTIES"]["TARGET_AUDIENCE"]["VALUE"]?></div>
-				<?}?>
+                <?if ($arResult["PROPERTIES"]["TARGET_AUDIENCE"]["VALUE"]) {?>
+                    <div class="target_audience"><?=$arResult["PROPERTIES"]["TARGET_AUDIENCE"]["VALUE"]?></div>
+                <?}?>
                 <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?>
                     <?if (!$checkMobile) {?>
                         <a href="#" class="bookPreviewLink" onclick="getPreview(<?= $arResult["ID"] ?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;">
@@ -467,7 +483,7 @@
                         <?= !empty($arResult["PROPERTIES"]["edition_n"]["VALUE"]) ? '<br /><span itemprop="bookEdition">' . $arResult["PROPERTIES"]["edition_n"]["VALUE"] .'</span>' : ""?>
                     </p>
                 </div>
-			<?}?>
+            <?}?>
             <?if ($arResult["PROPERTIES"]["SERIES"]["VALUE"]) {?>
                 <div class="characteris">
                     <p class="title"><?= GetMessage("SERIES") ?></p>
@@ -475,7 +491,7 @@
                         <span class="text"><?= $arResult["CURR_SERIES"]["NAME"] ?></span>
                     </a>
                 </div>
-			<?}?>
+            <?}?>
             <?if($arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != "") {?>
                 <div class="characteris epubHide">
                     <p class="title"><?= GetMessage("COVER_TYPE") ?></p>
@@ -486,17 +502,17 @@
                         <link itemprop="bookFormat" href="https://schema.org/Hardcover">
                         <?}?>
                 </div>
-			<?}?>
+            <?}?>
 
             <div class="characteris epub" style="display:none;">
                 <p class="title">Форматы</p>
                 <p class="text">epub</p>
             </div>
-            <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+            <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233 && $arResult["PROPERTIES"]["PROPS_CATALOG_HIDE"]["VALUE_XML_ID"] != "Y" ) {?>
                 <div class="characteris epubHide">
-					<a href='#' class="getInfoCourier" onclick="specEdition('<?=$arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"]?>');dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});return false;" title="Издать тираж книги с символикой компании"><span class="text">Хотите тираж со своим логотипом?</span></a>
+                    <a href='#' class="getInfoCourier" onclick="specEdition('<?=$arResult["PROPERTIES"]["SHORT_NAME"]["VALUE"]?>');dataLayer.push({event: 'otherEvents', action: 'specialEditionLink', label: '<?= $arResult['NAME'] ?>'});return false;" title="Издать тираж книги с символикой компании"><span class="text">Хотите тираж со своим логотипом?</span></a>
                 </div>
-			<?}?>
+            <?}?>
             <?if ($arResult["PROPERTIES"]["PAGES"]["VALUE"]) {?>
                 <div class="characteris">
                     <p class="title"><?= GetMessage("PAGES_COUNT") ?></p>
@@ -508,16 +524,16 @@
                     <p class="title"><?= GetMessage("ISBN") ?></p>
                     <p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>
                 </div>
-			<?}?>
-			
-			<?if (!empty($arResult["TRANSLATOR"])) {?>
+            <?}?>
+            
+            <?if (!empty($arResult["TRANSLATOR"])) {?>
                 <div class="characteris">
                     <p class="title"><?= GetMessage("TRANSLATOR") ?></p>
                     <p class="text" itemprop="translator"><?= $arResult["TRANSLATOR"] ?></p>
                 </div>
-			<?}?>
-			
-            <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233) {?>
+            <?}?>
+            
+            <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233 && $arResult["PROPERTIES"]["PROPS_CATALOG_HIDE"]["VALUE_XML_ID"] != "Y") {?>
                 <div class="characteris epubHide">
                     <a href="http://readright.ru/?=alpinabook" target="_blank">
                         <span class="text noborderlink"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
@@ -637,8 +653,13 @@
                                         <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span></div>
                                          <p class="newPrice"><?= $arPrice["DISCOUNT_VALUE"] ?> <span>руб.</span></p>
                                     <?} elseif ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span> <span class="diff"><?echo '-'.$arPrice["VALUE_VAT"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
-                                    <?// расчитываем накопительную скидку от стоимости
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span>                                    
+                                    <span class="diff"><?echo '-'.$arPrice["DISCOUNT_DIFF"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
+                                    <?  // проверяем установлена ли фиксированная скидка на товар
+                                    if($arPrice["DISCOUNT_VALUE"] == 99){
+                                        $newPrice = $arPrice["DISCOUNT_VALUE"];
+                                    } else {
+                                        // расчитываем накопительную скидку от стоимости
                                         if ($discount) {
                                             $newPrice = round (($arPrice["DISCOUNT_VALUE"]) * (1 - $discount / 100), 2);
                                             if (strlen (stristr($newPrice, ".")) == 2) {
@@ -649,7 +670,9 @@
                                             if (strlen (stristr($newPrice, ".")) == 2) {
                                                 $newPrice .= "0";
                                             }
+                                        }
                                     }?>
+                                    
                                     <p class="newPrice"><?= $newPrice ?> <span>руб.</span></p>
                                     <?} else if ($discount) {
                                         $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
@@ -680,12 +703,13 @@
                             }?>
                             <?}
                         } else if ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) { ?>
+                        <!-- TEST3 -->
                         <meta itemprop="price" content="<?=$arPrice["VALUE_VAT"]?>" />
                         <link itemprop="availability" href="https://schema.org/PreOrder">
                         <meta itemprop="availabilityStarts" content="<?=date('Y-m-d', MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))?>" />
                         <p class="newPriceText"><?= GetMessage("EXPECTED_DATE_2") ?>
                         <? $date_str = strtolower(FormatDate("F", MakeTimeStamp($arResult['PROPERTIES']['SOON_DATE_TIME']['VALUE'], "DD.MM.YYYY HH:MI:SS"))); ?>
-                        <?=substr($date_str,0, strlen($date_str)-1).'е';?>
+                        <?=mb_substr($date_str,0, mb_strlen($date_str)-1).'е';?>
                         </p>
 
                         <?foreach ($arResult["PRICES"] as $code => $arPrice) {?>
@@ -862,7 +886,7 @@
                 <div class="wrap_prise_bottom">
                     <span class="item_buttons_counter_block">
 
-                        <a href="#" class="minus">−</a>
+                        <a href="#" class="minus">-</a>
                         <input type="text" class="tac transparent_input" value="1">
                         <a href="#" class="plus">+</a>
                         </span>
@@ -1250,22 +1274,22 @@
             </p>
             <?if (($arResult["PHOTO_COUNT"] > 0) && ($arResult["MAIN_PICTURE"] != '')) {?><p class="bookPreviewLink previewLink no-mobile" onclick="getPreview(<?=$arResult["ID"]?>, <?echo ($arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'net_v_nal') ? 1 : 0;?>);return false;"><?= GetMessage("BROWSE_THE_BOOK") ?></p><?}?>
         </div>
-		<div class="whyBuyWrap">
-			<?if ($arResult['PROPERTIES']['WHY_BUY']['VALUE']) {?>
-				<?foreach($arResult['PROPERTIES']['WHY_BUY']['VALUE'] as $why_buy) {?>
-					<div class="whyBuy"><?=$why_buy?></div>
-				<?}?>
-			<?}?>
-		</div>
+        <div class="whyBuyWrap">
+            <?if ($arResult['PROPERTIES']['WHY_BUY']['VALUE']) {?>
+                <?foreach($arResult['PROPERTIES']['WHY_BUY']['VALUE'] as $why_buy) {?>
+                    <div class="whyBuy"><?=$why_buy?></div>
+                <?}?>
+            <?}?>
+        </div>
 
-		<?if ($arResult['PROPERTIES']['video_about_top']['~VALUE']) {
-			$video_convert = str_replace("ifr ame", "iframe", $arResult['PROPERTIES']['video_about_top']['~VALUE']);
-			$video_convert_2 = str_replace("sc ript", "script", $video_convert);?>
-			<div class="videoWrapp videoWrappTop" style="width:400px;margin-top:15px">
-			<?=$video_convert?>
-			</div>
-		<?}?>
-		
+        <?if ($arResult['PROPERTIES']['video_about_top']['~VALUE']) {
+            $video_convert = str_replace("ifr ame", "iframe", $arResult['PROPERTIES']['video_about_top']['~VALUE']);
+            $video_convert_2 = str_replace("sc ript", "script", $video_convert);?>
+            <div class="videoWrapp videoWrappTop" style="width:400px;margin-top:15px">
+            <?=$video_convert?>
+            </div>
+        <?}?>
+        
         <ul class="productsMenu">
             <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>
             <li class="active tabsInElement" data-id="1"><?= GetMessage("CERTIFICATE_TITLE") ?></li>
@@ -1277,9 +1301,9 @@
             <?if (!empty($arResult["AUTHORS"])) {?><li data-id="4" class="tabsInElement"><?echo count($arResult["AUTHOR"]) == 1 ? GetMessage("ABOUT_AUTHOR_TITLE") : GetMessage("ABOUT_AUTHORS_TITLE");?></li><?}?>
             <?if ($arResult["REVIEWS_COUNT"] > 0) {?>
                 <li data-id="2" class="tabIsRecenzion"><a class="ajax_link" href="<?=substr($arResult["CANONICAL_PAGE_URL"], 0, -1) . '-reviews/'?>"><?= GetMessage("REVIEWS_TITLE") ?> (<?=$arResult["REVIEWS_COUNT"]?>)</a></li>
-			<?}?>
+            <?}?>
             <? if ($arResult['IBLOCK_SECTION_ID'] != CERTIFICATE_SECTION_ID) { ?>
-				<li data-id="3" class="tabsInElement" id="commentsLink"><a class="ajax_link" href="<?=substr($arResult["CANONICAL_PAGE_URL"], 0, -1) . '-comments/'?>"><?= GetMessage("COMMENTS_TITLE") ?></a></li>
+                <li data-id="3" class="tabsInElement" id="commentsLink"><a class="ajax_link" href="<?=substr($arResult["CANONICAL_PAGE_URL"], 0, -1) . '-comments/'?>"><?= GetMessage("COMMENTS_TITLE") ?></a></li>
             <?}?>
         </ul>
 
@@ -1425,153 +1449,153 @@
 
                 <?= typo($arResult["DETAIL_TEXT"]) ?>
 
-				<?if (!empty($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'])) {
-					echo '<br /><h3>'.GetMessage("ADDITIONAL_IMAGES").'</h3>';
-					foreach ($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'] as $additional_image) {
-						$additional_image = CFile::ResizeImageGet($additional_image, array("width" => 500, "height" => 700), BX_RESIZE_IMAGE_PROPORTIONAL, true);
-						echo '<center><img src="'.$additional_image['src'].'" /></center>';
-					}
-				}?>
+                <?if (!empty($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'])) {
+                    echo '<br /><h3>'.GetMessage("ADDITIONAL_IMAGES").'</h3>';
+                    foreach ($arResult['PROPERTIES']['ADDITIONAL_IMAGES']['VALUE'] as $additional_image) {
+                        $additional_image = CFile::ResizeImageGet($additional_image, array("width" => 500, "height" => 700), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                        echo '<center><img src="'.$additional_image['src'].'" /></center>';
+                    }
+                }?>
             </div>
-			<?if ($arResult['PROPERTIES']['SERIES']['VALUE']) {?>
-				<?global $seriesFilter;
-				$seriesFilter = array('PROPERTY_SERIES' => $arResult['PROPERTIES']['SERIES']['VALUE'], '!ID' => $arResult["ID"]);
-				$APPLICATION->IncludeComponent(
-					"bitrix:catalog.section",
-					"series_books",
-					array(
-						"IBLOCK_TYPE_ID" => "catalog",
-						"IBLOCK_ID" => "4",
-						"BASKET_URL" => "/personal/cart/",
-						"COMPONENT_TEMPLATE" => "series_books",
-						"IBLOCK_TYPE" => "catalog",
-						"SECTION_ID" => $_REQUEST["SECTION_ID"],
-						"SECTION_CODE" => "",
-						"SECTION_USER_FIELDS" => array(
-						0 => "",
-						1 => "",
-						),
+            <?if ($arResult['PROPERTIES']['SERIES']['VALUE']) {?>
+                <?global $seriesFilter;
+                $seriesFilter = array('PROPERTY_SERIES' => $arResult['PROPERTIES']['SERIES']['VALUE'], '!ID' => $arResult["ID"]);
+                $APPLICATION->IncludeComponent(
+                    "bitrix:catalog.section",
+                    "series_books",
+                    array(
+                        "IBLOCK_TYPE_ID" => "catalog",
+                        "IBLOCK_ID" => "4",
+                        "BASKET_URL" => "/personal/cart/",
+                        "COMPONENT_TEMPLATE" => "series_books",
+                        "IBLOCK_TYPE" => "catalog",
+                        "SECTION_ID" => $_REQUEST["SECTION_ID"],
+                        "SECTION_CODE" => "",
+                        "SECTION_USER_FIELDS" => array(
+                        0 => "",
+                        1 => "",
+                        ),
 
-						"ELEMENT_SORT_FIELD" => "id",
-						"ELEMENT_SORT_ORDER" => "desc",
-						"ELEMENT_SORT_FIELD2" => "id",
-						"ELEMENT_SORT_ORDER2" => "desc",
-						"FILTER_NAME" => "seriesFilter",
-						"INCLUDE_SUBSECTIONS" => "Y",
-						"SHOW_ALL_WO_SECTION" => "Y",
-						"HIDE_NOT_AVAILABLE" => "N",
-						"PAGE_ELEMENT_COUNT" => "12",
-						"LINE_ELEMENT_COUNT" => "3",
-						"PROPERTY_CODE" => array(
-						0 => "",
-						1 => "",
-						),
-						"OFFERS_FIELD_CODE" => array(
-						0 => "",
-						1 => "",
-						),
-						"OFFERS_PROPERTY_CODE" => array(
-						0 => "COLOR_REF",
-						1 => "SIZES_SHOES",
-						2 => "SIZES_CLOTHES",
-						3 => "",
-						),
-						"OFFERS_SORT_FIELD" => "sort",
-						"OFFERS_SORT_ORDER" => "desc",
-						"OFFERS_SORT_FIELD2" => "id",
-						"OFFERS_SORT_ORDER2" => "desc",
-						"OFFERS_LIMIT" => "5",
-						"TEMPLATE_THEME" => "site",
-						"PRODUCT_DISPLAY_MODE" => "Y",
-						"ADD_PICT_PROP" => "BIG_PHOTO",
-						"LABEL_PROP" => "-",
-						"OFFER_ADD_PICT_PROP" => "-",
-						"OFFER_TREE_PROPS" => array(
-						0 => "COLOR_REF",
-						1 => "SIZES_SHOES",
-						2 => "SIZES_CLOTHES",
-						),
-						"PRODUCT_SUBSCRIPTION" => "N",
-						"SHOW_DISCOUNT_PERCENT" => "N",
-						"SHOW_OLD_PRICE" => "Y",
-						"SHOW_CLOSE_POPUP" => "N",
-						"MESS_BTN_BUY" => "Купить",
-						"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-						"MESS_BTN_SUBSCRIBE" => "Подписаться",
-						"MESS_BTN_DETAIL" => "Подробнее",
-						"MESS_NOT_AVAILABLE" => "Нет в наличии",
-						"SECTION_URL" => "",
-						"DETAIL_URL" => "",
-						"SECTION_ID_VARIABLE" => "SECTION_ID",
-						"SEF_MODE" => "N",
-						"AJAX_MODE" => "N",
-						"AJAX_OPTION_JUMP" => "N",
-						"AJAX_OPTION_STYLE" => "Y",
-						"AJAX_OPTION_HISTORY" => "N",
-						"AJAX_OPTION_ADDITIONAL" => "",
-						"CACHE_TYPE" => "A",
-						"CACHE_TIME" => "36000",
-						"CACHE_GROUPS" => "N",
-						"SET_TITLE" => "N",
-						"SET_BROWSER_TITLE" => "N",
-						"BROWSER_TITLE" => "-",
-						"SET_META_KEYWORDS" => "N",
-						"META_KEYWORDS" => "-",
-						"SET_META_DESCRIPTION" => "N",
-						"META_DESCRIPTION" => "-",
-						"SET_LAST_MODIFIED" => "N",
-						"USE_MAIN_ELEMENT_SECTION" => "N",
-						"ADD_SECTIONS_CHAIN" => "N",
-						"CACHE_FILTER" => "N",
-						"ACTION_VARIABLE" => "action",
-						"PRODUCT_ID_VARIABLE" => "id",
-						"PRICE_CODE" => array(
-						0 => "BASE",
-						),
-						"USE_PRICE_COUNT" => "N",
-						"SHOW_PRICE_COUNT" => "1",
-						"PRICE_VAT_INCLUDE" => "Y",
-						"CONVERT_CURRENCY" => "N",
-						"USE_PRODUCT_QUANTITY" => "N",
-						"PRODUCT_QUANTITY_VARIABLE" => "",
-						"ADD_PROPERTIES_TO_BASKET" => "Y",
-						"PRODUCT_PROPS_VARIABLE" => "prop",
-						"PARTIAL_PRODUCT_PROPERTIES" => "N",
-						"PRODUCT_PROPERTIES" => array(
-						),
-						"OFFERS_CART_PROPERTIES" => array(
-						0 => "COLOR_REF",
-						1 => "SIZES_SHOES",
-						2 => "SIZES_CLOTHES",
-						),
-						"ADD_TO_BASKET_ACTION" => "ADD",
-						"PAGER_TEMPLATE" => "round",
-						"DISPLAY_TOP_PAGER" => "N",
-						"DISPLAY_BOTTOM_PAGER" => "Y",
-						"PAGER_TITLE" => "Товары",
-						"PAGER_SHOW_ALWAYS" => "N",
-						"PAGER_DESC_NUMBERING" => "N",
-						"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-						"PAGER_SHOW_ALL" => "N",
-						"PAGER_BASE_LINK_ENABLE" => "N",
-						"SET_STATUS_404" => "N",
-						"SHOW_404" => "N",
-						"MESSAGE_404" => "",
-						"BACKGROUND_IMAGE" => "-",
-						"DISABLE_INIT_JS_IN_COMPONENT" => "N",
-						"CUSTOM_FILTER" => "",
-						"HIDE_NOT_AVAILABLE_OFFERS" => "N",
-						"COMPOSITE_FRAME_MODE" => "A",
-						"COMPOSITE_FRAME_TYPE" => "AUTO",
-						"DISPLAY_COMPARE" => "N",
-						"COMPATIBLE_MODE" => "Y"
-					),
+                        "ELEMENT_SORT_FIELD" => "id",
+                        "ELEMENT_SORT_ORDER" => "desc",
+                        "ELEMENT_SORT_FIELD2" => "id",
+                        "ELEMENT_SORT_ORDER2" => "desc",
+                        "FILTER_NAME" => "seriesFilter",
+                        "INCLUDE_SUBSECTIONS" => "Y",
+                        "SHOW_ALL_WO_SECTION" => "Y",
+                        "HIDE_NOT_AVAILABLE" => "N",
+                        "PAGE_ELEMENT_COUNT" => "12",
+                        "LINE_ELEMENT_COUNT" => "3",
+                        "PROPERTY_CODE" => array(
+                        0 => "",
+                        1 => "",
+                        ),
+                        "OFFERS_FIELD_CODE" => array(
+                        0 => "",
+                        1 => "",
+                        ),
+                        "OFFERS_PROPERTY_CODE" => array(
+                        0 => "COLOR_REF",
+                        1 => "SIZES_SHOES",
+                        2 => "SIZES_CLOTHES",
+                        3 => "",
+                        ),
+                        "OFFERS_SORT_FIELD" => "sort",
+                        "OFFERS_SORT_ORDER" => "desc",
+                        "OFFERS_SORT_FIELD2" => "id",
+                        "OFFERS_SORT_ORDER2" => "desc",
+                        "OFFERS_LIMIT" => "5",
+                        "TEMPLATE_THEME" => "site",
+                        "PRODUCT_DISPLAY_MODE" => "Y",
+                        "ADD_PICT_PROP" => "BIG_PHOTO",
+                        "LABEL_PROP" => "-",
+                        "OFFER_ADD_PICT_PROP" => "-",
+                        "OFFER_TREE_PROPS" => array(
+                        0 => "COLOR_REF",
+                        1 => "SIZES_SHOES",
+                        2 => "SIZES_CLOTHES",
+                        ),
+                        "PRODUCT_SUBSCRIPTION" => "N",
+                        "SHOW_DISCOUNT_PERCENT" => "N",
+                        "SHOW_OLD_PRICE" => "Y",
+                        "SHOW_CLOSE_POPUP" => "N",
+                        "MESS_BTN_BUY" => "Купить",
+                        "MESS_BTN_ADD_TO_BASKET" => "В корзину",
+                        "MESS_BTN_SUBSCRIBE" => "Подписаться",
+                        "MESS_BTN_DETAIL" => "Подробнее",
+                        "MESS_NOT_AVAILABLE" => "Нет в наличии",
+                        "SECTION_URL" => "",
+                        "DETAIL_URL" => "",
+                        "SECTION_ID_VARIABLE" => "SECTION_ID",
+                        "SEF_MODE" => "N",
+                        "AJAX_MODE" => "N",
+                        "AJAX_OPTION_JUMP" => "N",
+                        "AJAX_OPTION_STYLE" => "Y",
+                        "AJAX_OPTION_HISTORY" => "N",
+                        "AJAX_OPTION_ADDITIONAL" => "",
+                        "CACHE_TYPE" => "A",
+                        "CACHE_TIME" => "36000",
+                        "CACHE_GROUPS" => "N",
+                        "SET_TITLE" => "N",
+                        "SET_BROWSER_TITLE" => "N",
+                        "BROWSER_TITLE" => "-",
+                        "SET_META_KEYWORDS" => "N",
+                        "META_KEYWORDS" => "-",
+                        "SET_META_DESCRIPTION" => "N",
+                        "META_DESCRIPTION" => "-",
+                        "SET_LAST_MODIFIED" => "N",
+                        "USE_MAIN_ELEMENT_SECTION" => "N",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "CACHE_FILTER" => "N",
+                        "ACTION_VARIABLE" => "action",
+                        "PRODUCT_ID_VARIABLE" => "id",
+                        "PRICE_CODE" => array(
+                        0 => "BASE",
+                        ),
+                        "USE_PRICE_COUNT" => "N",
+                        "SHOW_PRICE_COUNT" => "1",
+                        "PRICE_VAT_INCLUDE" => "Y",
+                        "CONVERT_CURRENCY" => "N",
+                        "USE_PRODUCT_QUANTITY" => "N",
+                        "PRODUCT_QUANTITY_VARIABLE" => "",
+                        "ADD_PROPERTIES_TO_BASKET" => "Y",
+                        "PRODUCT_PROPS_VARIABLE" => "prop",
+                        "PARTIAL_PRODUCT_PROPERTIES" => "N",
+                        "PRODUCT_PROPERTIES" => array(
+                        ),
+                        "OFFERS_CART_PROPERTIES" => array(
+                        0 => "COLOR_REF",
+                        1 => "SIZES_SHOES",
+                        2 => "SIZES_CLOTHES",
+                        ),
+                        "ADD_TO_BASKET_ACTION" => "ADD",
+                        "PAGER_TEMPLATE" => "round",
+                        "DISPLAY_TOP_PAGER" => "N",
+                        "DISPLAY_BOTTOM_PAGER" => "Y",
+                        "PAGER_TITLE" => "Товары",
+                        "PAGER_SHOW_ALWAYS" => "N",
+                        "PAGER_DESC_NUMBERING" => "N",
+                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                        "PAGER_SHOW_ALL" => "N",
+                        "PAGER_BASE_LINK_ENABLE" => "N",
+                        "SET_STATUS_404" => "N",
+                        "SHOW_404" => "N",
+                        "MESSAGE_404" => "",
+                        "BACKGROUND_IMAGE" => "-",
+                        "DISABLE_INIT_JS_IN_COMPONENT" => "N",
+                        "CUSTOM_FILTER" => "",
+                        "HIDE_NOT_AVAILABLE_OFFERS" => "N",
+                        "COMPOSITE_FRAME_MODE" => "A",
+                        "COMPOSITE_FRAME_TYPE" => "AUTO",
+                        "DISPLAY_COMPARE" => "N",
+                        "COMPATIBLE_MODE" => "Y"
+                    ),
 
 
-					false
-				);
+                    false
+                );
 
-			}?>
+            }?>
             <?$videosCount  = 0;
 
                 foreach ($arResult['PROPERTIES']['video_about']['~VALUE'] as $videoYoutube) {
@@ -1668,21 +1692,39 @@
                 <?}?>
         </div>
         <!-- /noindex -->
-		<?if (!$childrenDesign) {?>
-			<div class="socialServises" style="text-align: center;padding:40px 0">
-				<?require('include/socialbuttons.php'); ?>
-			</div>
-		<?}?>
+        <?if (!$childrenDesign) {?>
+            <div class="socialServises" style="text-align: center;padding:40px 0">
+                <?require('include/socialbuttons.php'); ?>
+            </div>
+        <?}?>
     </div>
-	
-	<?if ($arResult['PROPERTIES']['instagram_embed']['VALUE']) {?>
-		<h4 style="clear:both;font-size: 38px;font-family: Walshein_regular;color:#444"><span style="border-bottom:2px solid #00abb8">Отзы</span>вы в <i class="fa fa-instagram" style="font-family: FontAwesome;font-size: 32px;" aria-hidden="true"></i> Instagram</h3>
-		<?foreach($arResult['PROPERTIES']['instagram_embed']['~VALUE'] as $instagram_embed) {?>
-			<center><div style="max-width:280px;float:left;display:inline-block;margin:0 15px"><?=$instagram_embed?></div></center>
-		<?}?>
-		<script async defer src="//www.instagram.com/embed.js"></script>
-	<?}?>
-	
+    <?if ($childrenDesign && $arResult['PROPERTIES']["book_spreads"]["VALUE"]) { ?>
+        <h4 style="clear:both;font-size: 38px;font-family: Walshein_regular;color:#444"><span style="border-bottom:2px solid #00abb8">Кни</span>жные  развороты</h3>
+        <?if($arResult['PROPERTIES']["book_spreads"]["VALUE"]){
+            foreach($arResult['PROPERTIES']["book_spreads"]["VALUE"] as $img){
+                $image[] = CFile::GetPath($img);
+            }
+        }
+        ?>
+        <div class="slider-box">
+            <div class="slider">  
+                <?foreach($image as $img){ ?>
+                    <img src="<?=$img?>" alt="<?=$arResult["NAME"]?>" height="500px">
+                <?}?>
+             </div>
+            <ul class="bullets"></ul>
+            <div class="prev"></div>
+            <div class="next"></div>
+        </div>
+    <?}?>
+    <?if ($arResult['PROPERTIES']['instagram_embed']['VALUE']) {?>
+        <h4 style="clear:both;font-size: 38px;font-family: Walshein_regular;color:#444"><span style="border-bottom:2px solid #00abb8">Отзы</span>вы в <i class="fa fa-instagram" style="font-family: FontAwesome;font-size: 32px;" aria-hidden="true"></i> Instagram</h3>
+        <?foreach($arResult['PROPERTIES']['instagram_embed']['~VALUE'] as $instagram_embed) {?>
+            <center><div style="max-width:280px;float:left;display:inline-block;margin:0 15px 0 0;"><?=$instagram_embed?></div></center>
+        <?}?>
+        <script async defer src="//www.instagram.com/embed.js"></script>
+    <?}?>
+    
 </div>
 </div>
 
@@ -1758,514 +1800,799 @@
     );
 </script>
 
-<?if (!$childrenDesign) {
-	if ($recommFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем и отправляем статистику в RR?>
-		<script>
-			function rrAsyncInit() {
-				try {rrApi.recomTrack('UpSellItemToItems', <?= $arResult["ID"] ?>, [<?= $printid ?>]);} catch(e) {}
-			}
-		</script>
-		<div class="weRecomWrap">
-			<div class="centerWrapper">
-				<p class="tile"><?= GetMessage("ALSO_RECOMMENDED_BOOKS") ?></p>
-				<?$APPLICATION->IncludeComponent(
-						"bitrix:catalog.section",
-						"all_recommended_books",
-						array(
-							"IBLOCK_TYPE_ID" => "catalog",
-							"IBLOCK_ID" => "4",
-							"BASKET_URL" => "/personal/cart/",
-							"COMPONENT_TEMPLATE" => "all_recommended_books",
-							"IBLOCK_TYPE" => "catalog",
-							"SECTION_ID" => $_REQUEST["SECTION_ID"],
-							"SECTION_CODE" => "",
-							"SECTION_USER_FIELDS" => array(
-								0 => "",
-								1 => "",
-							),
-							"ELEMENT_SORT_FIELD" => "id",
-							"ELEMENT_SORT_ORDER" => "desc",
-							"ELEMENT_SORT_FIELD2" => "id",
-							"ELEMENT_SORT_ORDER2" => "desc",
-							"FILTER_NAME" => "recommFilter",
-							"INCLUDE_SUBSECTIONS" => "Y",
-							"SHOW_ALL_WO_SECTION" => "Y",
-							"HIDE_NOT_AVAILABLE" => "N",
-							"PAGE_ELEMENT_COUNT" => "12",
-							"LINE_ELEMENT_COUNT" => "3",
-							"PROPERTY_CODE" => array(
-								0 => "",
-								1 => "",
-							),
-							"OFFERS_FIELD_CODE" => array(
-								0 => "",
-								1 => "",
-							),
-							"OFFERS_PROPERTY_CODE" => array(
-								0 => "COLOR_REF",
-								1 => "SIZES_SHOES",
-								2 => "SIZES_CLOTHES",
-								3 => "",
-							),
-							"OFFERS_SORT_FIELD" => "sort",
-							"OFFERS_SORT_ORDER" => "desc",
-							"OFFERS_SORT_FIELD2" => "id",
-							"OFFERS_SORT_ORDER2" => "desc",
-							"OFFERS_LIMIT" => "5",
-							"TEMPLATE_THEME" => "site",
-							"PRODUCT_DISPLAY_MODE" => "Y",
-							"ADD_PICT_PROP" => "BIG_PHOTO",
-							"LABEL_PROP" => "-",
-							"OFFER_ADD_PICT_PROP" => "-",
-							"OFFER_TREE_PROPS" => array(
-								0 => "COLOR_REF",
-								1 => "SIZES_SHOES",
-								2 => "SIZES_CLOTHES",
-							),
-							"PRODUCT_SUBSCRIPTION" => "N",
-							"SHOW_DISCOUNT_PERCENT" => "N",
-							"SHOW_OLD_PRICE" => "Y",
-							"SHOW_CLOSE_POPUP" => "N",
-							"MESS_BTN_BUY" => "Купить",
-							"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-							"MESS_BTN_SUBSCRIBE" => "Подписаться",
-							"MESS_BTN_DETAIL" => "Подробнее",
-							"MESS_NOT_AVAILABLE" => "Нет в наличии",
-							"SECTION_URL" => "",
-							"DETAIL_URL" => "",
-							"SECTION_ID_VARIABLE" => "SECTION_ID",
-							"SEF_MODE" => "N",
-							"AJAX_MODE" => "N",
-							"AJAX_OPTION_JUMP" => "N",
-							"AJAX_OPTION_STYLE" => "Y",
-							"AJAX_OPTION_HISTORY" => "N",
-							"AJAX_OPTION_ADDITIONAL" => "",
-							"CACHE_TYPE" => "A",
-							"CACHE_TIME" => "36000000",
-							"CACHE_GROUPS" => "N",
-							"SET_TITLE" => "N",
-							"SET_BROWSER_TITLE" => "N",
-							"BROWSER_TITLE" => "-",
-							"SET_META_KEYWORDS" => "N",
-							"META_KEYWORDS" => "-",
-							"SET_META_DESCRIPTION" => "N",
-							"META_DESCRIPTION" => "-",
-							"SET_LAST_MODIFIED" => "N",
-							"USE_MAIN_ELEMENT_SECTION" => "N",
-							"ADD_SECTIONS_CHAIN" => "N",
-							"CACHE_FILTER" => "N",
-							"ACTION_VARIABLE" => "action",
-							"PRODUCT_ID_VARIABLE" => "id",
-							"PRICE_CODE" => array(
-								0 => "BASE",
-							),
-							"USE_PRICE_COUNT" => "N",
-							"SHOW_PRICE_COUNT" => "1",
-							"PRICE_VAT_INCLUDE" => "Y",
-							"CONVERT_CURRENCY" => "N",
-							"USE_PRODUCT_QUANTITY" => "N",
-							"PRODUCT_QUANTITY_VARIABLE" => "",
-							"ADD_PROPERTIES_TO_BASKET" => "Y",
-							"PRODUCT_PROPS_VARIABLE" => "prop",
-							"PARTIAL_PRODUCT_PROPERTIES" => "N",
-							"PRODUCT_PROPERTIES" => array(
-							),
-							"OFFERS_CART_PROPERTIES" => array(
-								0 => "COLOR_REF",
-								1 => "SIZES_SHOES",
-								2 => "SIZES_CLOTHES",
-							),
-							"ADD_TO_BASKET_ACTION" => "ADD",
-							"PAGER_TEMPLATE" => "round",
-							"DISPLAY_TOP_PAGER" => "N",
-							"DISPLAY_BOTTOM_PAGER" => "Y",
-							"PAGER_TITLE" => "Товары",
-							"PAGER_SHOW_ALWAYS" => "Y",
-							"PAGER_DESC_NUMBERING" => "N",
-							"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-							"PAGER_SHOW_ALL" => "N",
-							"PAGER_BASE_LINK_ENABLE" => "N",
-							"SET_STATUS_404" => "N",
-							"SHOW_404" => "N",
-							"MESSAGE_404" => "",
-							"BACKGROUND_IMAGE" => "-"
-						),
-						false
-					);
+<?
+    if ($recommFilter['ID'][0] > 0) { // Если рекомендации есть, ничего не меняем и отправляем статистику в RR?>
+        <script>
+            function rrAsyncInit() {
+                try {rrApi.recomTrack('UpSellItemToItems', <?= $arResult["ID"] ?>, [<?= $printid ?>]);} catch(e) {}
+            }
+        </script>
+        <div class="weRecomWrap">
+            <div class="centerWrapper">
+                <p class="tile"><?= GetMessage("ALSO_RECOMMENDED_BOOKS") ?></p>
+                <?$APPLICATION->IncludeComponent(
+                        "bitrix:catalog.section",
+                        "all_recommended_books",
+                        array(
+                            "IBLOCK_TYPE_ID" => "catalog",
+                            "IBLOCK_ID" => "4",
+                            "BASKET_URL" => "/personal/cart/",
+                            "COMPONENT_TEMPLATE" => "all_recommended_books",
+                            "IBLOCK_TYPE" => "catalog",
+                            "SECTION_ID" => $_REQUEST["SECTION_ID"],
+                            "SECTION_CODE" => "",
+                            "SECTION_USER_FIELDS" => array(
+                                0 => "",
+                                1 => "",
+                            ),
+                            "ELEMENT_SORT_FIELD" => "id",
+                            "ELEMENT_SORT_ORDER" => "desc",
+                            "ELEMENT_SORT_FIELD2" => "id",
+                            "ELEMENT_SORT_ORDER2" => "desc",
+                            "FILTER_NAME" => "recommFilter",
+                            "INCLUDE_SUBSECTIONS" => "Y",
+                            "SHOW_ALL_WO_SECTION" => "Y",
+                            "HIDE_NOT_AVAILABLE" => "N",
+                            "PAGE_ELEMENT_COUNT" => "12",
+                            "LINE_ELEMENT_COUNT" => "3",
+                            "PROPERTY_CODE" => array(
+                                0 => "",
+                                1 => "",
+                            ),
+                            "OFFERS_FIELD_CODE" => array(
+                                0 => "",
+                                1 => "",
+                            ),
+                            "OFFERS_PROPERTY_CODE" => array(
+                                0 => "COLOR_REF",
+                                1 => "SIZES_SHOES",
+                                2 => "SIZES_CLOTHES",
+                                3 => "",
+                            ),
+                            "OFFERS_SORT_FIELD" => "sort",
+                            "OFFERS_SORT_ORDER" => "desc",
+                            "OFFERS_SORT_FIELD2" => "id",
+                            "OFFERS_SORT_ORDER2" => "desc",
+                            "OFFERS_LIMIT" => "5",
+                            "TEMPLATE_THEME" => "site",
+                            "PRODUCT_DISPLAY_MODE" => "Y",
+                            "ADD_PICT_PROP" => "BIG_PHOTO",
+                            "LABEL_PROP" => "-",
+                            "OFFER_ADD_PICT_PROP" => "-",
+                            "OFFER_TREE_PROPS" => array(
+                                0 => "COLOR_REF",
+                                1 => "SIZES_SHOES",
+                                2 => "SIZES_CLOTHES",
+                            ),
+                            "PRODUCT_SUBSCRIPTION" => "N",
+                            "SHOW_DISCOUNT_PERCENT" => "N",
+                            "SHOW_OLD_PRICE" => "Y",
+                            "SHOW_CLOSE_POPUP" => "N",
+                            "MESS_BTN_BUY" => "Купить",
+                            "MESS_BTN_ADD_TO_BASKET" => "В корзину",
+                            "MESS_BTN_SUBSCRIBE" => "Подписаться",
+                            "MESS_BTN_DETAIL" => "Подробнее",
+                            "MESS_NOT_AVAILABLE" => "Нет в наличии",
+                            "SECTION_URL" => "",
+                            "DETAIL_URL" => "",
+                            "SECTION_ID_VARIABLE" => "SECTION_ID",
+                            "SEF_MODE" => "N",
+                            "AJAX_MODE" => "N",
+                            "AJAX_OPTION_JUMP" => "N",
+                            "AJAX_OPTION_STYLE" => "Y",
+                            "AJAX_OPTION_HISTORY" => "N",
+                            "AJAX_OPTION_ADDITIONAL" => "",
+                            "CACHE_TYPE" => "A",
+                            "CACHE_TIME" => "36000000",
+                            "CACHE_GROUPS" => "N",
+                            "SET_TITLE" => "N",
+                            "SET_BROWSER_TITLE" => "N",
+                            "BROWSER_TITLE" => "-",
+                            "SET_META_KEYWORDS" => "N",
+                            "META_KEYWORDS" => "-",
+                            "SET_META_DESCRIPTION" => "N",
+                            "META_DESCRIPTION" => "-",
+                            "SET_LAST_MODIFIED" => "N",
+                            "USE_MAIN_ELEMENT_SECTION" => "N",
+                            "ADD_SECTIONS_CHAIN" => "N",
+                            "CACHE_FILTER" => "N",
+                            "ACTION_VARIABLE" => "action",
+                            "PRODUCT_ID_VARIABLE" => "id",
+                            "PRICE_CODE" => array(
+                                0 => "BASE",
+                            ),
+                            "USE_PRICE_COUNT" => "N",
+                            "SHOW_PRICE_COUNT" => "1",
+                            "PRICE_VAT_INCLUDE" => "Y",
+                            "CONVERT_CURRENCY" => "N",
+                            "USE_PRODUCT_QUANTITY" => "N",
+                            "PRODUCT_QUANTITY_VARIABLE" => "",
+                            "ADD_PROPERTIES_TO_BASKET" => "Y",
+                            "PRODUCT_PROPS_VARIABLE" => "prop",
+                            "PARTIAL_PRODUCT_PROPERTIES" => "N",
+                            "PRODUCT_PROPERTIES" => array(
+                            ),
+                            "OFFERS_CART_PROPERTIES" => array(
+                                0 => "COLOR_REF",
+                                1 => "SIZES_SHOES",
+                                2 => "SIZES_CLOTHES",
+                            ),
+                            "ADD_TO_BASKET_ACTION" => "ADD",
+                            "PAGER_TEMPLATE" => "round",
+                            "DISPLAY_TOP_PAGER" => "N",
+                            "DISPLAY_BOTTOM_PAGER" => "Y",
+                            "PAGER_TITLE" => "Товары",
+                            "PAGER_SHOW_ALWAYS" => "Y",
+                            "PAGER_DESC_NUMBERING" => "N",
+                            "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                            "PAGER_SHOW_ALL" => "N",
+                            "PAGER_BASE_LINK_ENABLE" => "N",
+                            "SET_STATUS_404" => "N",
+                            "SHOW_404" => "N",
+                            "MESSAGE_404" => "",
+                            "BACKGROUND_IMAGE" => "-"
+                        ),
+                        false
+                    );
 
-					unset($RecommFilter);?>
-			</div>
-		</div>
-	<?}?>
-<?}?>
+                    unset($RecommFilter);?>
+            </div>
+        </div>
+    <?}?>
+
 <?
 if (!$childrenDesign) {
-	global $blogPostsFilter;
-	$blogPostsFilter = array("PROPERTY_BOOKS" => $arResult["ID"]);
-	$APPLICATION->IncludeComponent(
-		"bitrix:catalog.section",
-		"this_book_in_blog",
-		array(
-			"IBLOCK_TYPE_ID" => "catalog",
-			"IBLOCK_ID" => "71",
-			"BASKET_URL" => "/personal/cart/",
-			"COMPONENT_TEMPLATE" => "this_book_in_blog",
-			"IBLOCK_TYPE" => "catalog",
-			"SECTION_ID" => "",
-			"SECTION_CODE" => "",
-			"SECTION_USER_FIELDS" => array(
-				0 => "",
-				1 => "",
-			),
-			"ELEMENT_SORT_FIELD" => "id",
-			"ELEMENT_SORT_ORDER" => "desc",
-			"ELEMENT_SORT_FIELD2" => "id",
-			"ELEMENT_SORT_ORDER2" => "asc",
-			"FILTER_NAME" => "blogPostsFilter",
-			"INCLUDE_SUBSECTIONS" => "Y",
-			"SHOW_ALL_WO_SECTION" => "Y",
-			"HIDE_NOT_AVAILABLE" => "N",
-			"PAGE_ELEMENT_COUNT" => "5",
-			"LINE_ELEMENT_COUNT" => "1",
-			"PROPERTY_CODE" => array(
-				0 => "",
-			),
-			"TEMPLATE_THEME" => "site",
-			"PRODUCT_DISPLAY_MODE" => "Y",
-			"PRODUCT_SUBSCRIPTION" => "N",
-			"SHOW_DISCOUNT_PERCENT" => "N",
-			"SHOW_OLD_PRICE" => "Y",
-			"SHOW_CLOSE_POPUP" => "N",
-			"MESS_BTN_BUY" => "Купить",
-			"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-			"MESS_BTN_SUBSCRIBE" => "Подписаться",
-			"MESS_BTN_DETAIL" => "Подробнее",
-			"MESS_NOT_AVAILABLE" => "Нет в наличии",
-			"SECTION_URL" => "",
-			"DETAIL_URL" => "",
-			"SECTION_ID_VARIABLE" => "SECTION_ID",
-			"SEF_MODE" => "N",
-			"AJAX_MODE" => "N",
-			"AJAX_OPTION_JUMP" => "N",
-			"AJAX_OPTION_STYLE" => "Y",
-			"AJAX_OPTION_HISTORY" => "N",
-			"AJAX_OPTION_ADDITIONAL" => "",
-			"CACHE_TYPE" => "A",
-			"CACHE_TIME" => "36000",
-			"CACHE_GROUPS" => "Y",
-			"SET_TITLE" => "N",
-			"SET_BROWSER_TITLE" => "N",
-			"BROWSER_TITLE" => "-",
-			"SET_META_KEYWORDS" => "N",
-			"META_KEYWORDS" => "-",
-			"SET_META_DESCRIPTION" => "N",
-			"META_DESCRIPTION" => "-",
-			"SET_LAST_MODIFIED" => "N",
-			"USE_MAIN_ELEMENT_SECTION" => "N",
-			"ADD_SECTIONS_CHAIN" => "N",
-			"CACHE_FILTER" => "N",
-			"ACTION_VARIABLE" => "action",
-			"PRODUCT_ID_VARIABLE" => "id",
-			"PRICE_CODE" => array(
-				0 => "BASE",
-			),
-			"USE_PRICE_COUNT" => "N",
-			"SHOW_PRICE_COUNT" => "1",
-			"PRICE_VAT_INCLUDE" => "Y",
-			"CONVERT_CURRENCY" => "N",
-			"USE_PRODUCT_QUANTITY" => "N",
-			"PRODUCT_QUANTITY_VARIABLE" => "",
-			"ADD_PROPERTIES_TO_BASKET" => "Y",
-			"PRODUCT_PROPS_VARIABLE" => "prop",
-			"PARTIAL_PRODUCT_PROPERTIES" => "N",
-			"PRODUCT_PROPERTIES" => array(
-			),
-			"OFFERS_CART_PROPERTIES" => array(
-				0 => "COLOR_REF",
-				1 => "SIZES_SHOES",
-				2 => "SIZES_CLOTHES",
-			),
-			"ADD_TO_BASKET_ACTION" => "ADD",
-			"PAGER_TEMPLATE" => "round",
-			"DISPLAY_TOP_PAGER" => "N",
-			"DISPLAY_BOTTOM_PAGER" => "Y",
-			"PAGER_TITLE" => "Товары",
-			"PAGER_SHOW_ALWAYS" => "N",
-			"PAGER_DESC_NUMBERING" => "N",
-			"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-			"PAGER_SHOW_ALL" => "N",
-			"PAGER_BASE_LINK_ENABLE" => "N",
-			"SET_STATUS_404" => "N",
-			"SHOW_404" => "N",
-			"MESSAGE_404" => "",
-			"BACKGROUND_IMAGE" => "-",
-			"DISABLE_INIT_JS_IN_COMPONENT" => "N",
-			"CUSTOM_FILTER" => "",
-			"HIDE_NOT_AVAILABLE_OFFERS" => "N",
-			"COMPOSITE_FRAME_MODE" => "A",
-			"COMPOSITE_FRAME_TYPE" => "AUTO",
-			"DISPLAY_COMPARE" => "N",
-			"COMPATIBLE_MODE" => "Y"
-		),
-		false
-	);
+    global $blogPostsFilter;
+    $blogPostsFilter = array("PROPERTY_BOOKS" => $arResult["ID"]);
+    $APPLICATION->IncludeComponent(
+        "bitrix:catalog.section",
+        "this_book_in_blog",
+        array(
+            "IBLOCK_TYPE_ID" => "catalog",
+            "IBLOCK_ID" => "71",
+            "BASKET_URL" => "/personal/cart/",
+            "COMPONENT_TEMPLATE" => "this_book_in_blog",
+            "IBLOCK_TYPE" => "catalog",
+            "SECTION_ID" => "",
+            "SECTION_CODE" => "",
+            "SECTION_USER_FIELDS" => array(
+                0 => "",
+                1 => "",
+            ),
+            "ELEMENT_SORT_FIELD" => "id",
+            "ELEMENT_SORT_ORDER" => "desc",
+            "ELEMENT_SORT_FIELD2" => "id",
+            "ELEMENT_SORT_ORDER2" => "asc",
+            "FILTER_NAME" => "blogPostsFilter",
+            "INCLUDE_SUBSECTIONS" => "Y",
+            "SHOW_ALL_WO_SECTION" => "Y",
+            "HIDE_NOT_AVAILABLE" => "N",
+            "PAGE_ELEMENT_COUNT" => "5",
+            "LINE_ELEMENT_COUNT" => "1",
+            "PROPERTY_CODE" => array(
+                0 => "",
+            ),
+            "TEMPLATE_THEME" => "site",
+            "PRODUCT_DISPLAY_MODE" => "Y",
+            "PRODUCT_SUBSCRIPTION" => "N",
+            "SHOW_DISCOUNT_PERCENT" => "N",
+            "SHOW_OLD_PRICE" => "Y",
+            "SHOW_CLOSE_POPUP" => "N",
+            "MESS_BTN_BUY" => "Купить",
+            "MESS_BTN_ADD_TO_BASKET" => "В корзину",
+            "MESS_BTN_SUBSCRIBE" => "Подписаться",
+            "MESS_BTN_DETAIL" => "Подробнее",
+            "MESS_NOT_AVAILABLE" => "Нет в наличии",
+            "SECTION_URL" => "",
+            "DETAIL_URL" => "",
+            "SECTION_ID_VARIABLE" => "SECTION_ID",
+            "SEF_MODE" => "N",
+            "AJAX_MODE" => "N",
+            "AJAX_OPTION_JUMP" => "N",
+            "AJAX_OPTION_STYLE" => "Y",
+            "AJAX_OPTION_HISTORY" => "N",
+            "AJAX_OPTION_ADDITIONAL" => "",
+            "CACHE_TYPE" => "A",
+            "CACHE_TIME" => "36000",
+            "CACHE_GROUPS" => "Y",
+            "SET_TITLE" => "N",
+            "SET_BROWSER_TITLE" => "N",
+            "BROWSER_TITLE" => "-",
+            "SET_META_KEYWORDS" => "N",
+            "META_KEYWORDS" => "-",
+            "SET_META_DESCRIPTION" => "N",
+            "META_DESCRIPTION" => "-",
+            "SET_LAST_MODIFIED" => "N",
+            "USE_MAIN_ELEMENT_SECTION" => "N",
+            "ADD_SECTIONS_CHAIN" => "N",
+            "CACHE_FILTER" => "N",
+            "ACTION_VARIABLE" => "action",
+            "PRODUCT_ID_VARIABLE" => "id",
+            "PRICE_CODE" => array(
+                0 => "BASE",
+            ),
+            "USE_PRICE_COUNT" => "N",
+            "SHOW_PRICE_COUNT" => "1",
+            "PRICE_VAT_INCLUDE" => "Y",
+            "CONVERT_CURRENCY" => "N",
+            "USE_PRODUCT_QUANTITY" => "N",
+            "PRODUCT_QUANTITY_VARIABLE" => "",
+            "ADD_PROPERTIES_TO_BASKET" => "Y",
+            "PRODUCT_PROPS_VARIABLE" => "prop",
+            "PARTIAL_PRODUCT_PROPERTIES" => "N",
+            "PRODUCT_PROPERTIES" => array(
+            ),
+            "OFFERS_CART_PROPERTIES" => array(
+                0 => "COLOR_REF",
+                1 => "SIZES_SHOES",
+                2 => "SIZES_CLOTHES",
+            ),
+            "ADD_TO_BASKET_ACTION" => "ADD",
+            "PAGER_TEMPLATE" => "round",
+            "DISPLAY_TOP_PAGER" => "N",
+            "DISPLAY_BOTTOM_PAGER" => "Y",
+            "PAGER_TITLE" => "Товары",
+            "PAGER_SHOW_ALWAYS" => "N",
+            "PAGER_DESC_NUMBERING" => "N",
+            "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+            "PAGER_SHOW_ALL" => "N",
+            "PAGER_BASE_LINK_ENABLE" => "N",
+            "SET_STATUS_404" => "N",
+            "SHOW_404" => "N",
+            "MESSAGE_404" => "",
+            "BACKGROUND_IMAGE" => "-",
+            "DISABLE_INIT_JS_IN_COMPONENT" => "N",
+            "CUSTOM_FILTER" => "",
+            "HIDE_NOT_AVAILABLE_OFFERS" => "N",
+            "COMPOSITE_FRAME_MODE" => "A",
+            "COMPOSITE_FRAME_TYPE" => "AUTO",
+            "DISPLAY_COMPARE" => "N",
+            "COMPATIBLE_MODE" => "Y"
+        ),
+        false
+    );
+} else {
+    ?>
+    <div class="reviewsSliderWrapp slide" style="float: left;background-color: #F4F4F4; <?=($childrenDesign)?'height: 474px;':''?>"> 
+    <div class="centerWrapper">
+    <?
+        global $arFilter;
+            $lastseen = CSaleViewedProduct::GetList(
+                array("DATE_VISIT" => "DESC"),
+                array("FUSER_ID" => CSaleBasket::GetBasketUserID()),
+                false,
+                array("nTopCount" => 8),
+                array("PRODUCT_ID")
+            );
+            $lastidids = array();
+
+            while ($lastid = $lastseen->GetNext()) {
+                $lastidids[] = $lastid["PRODUCT_ID"];
+            }
+            if (!empty($lastidids)) {?>
+                <p class="sliderName"><a href="/catalog/lastseen/" class="youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></a></p>
+
+
+                <?$arFilter = array('ID' => $lastidids, ">DETAIL_PICTURE" => 0);
+
+                $APPLICATION->IncludeComponent(
+                    "bitrix:catalog.section",
+                    "viewed_books",
+                    array(
+                        "IBLOCK_TYPE_ID" => "catalog",
+                        "IBLOCK_ID" => "4",
+                        "BASKET_URL" => "/personal/cart/",
+                        "COMPONENT_TEMPLATE" => "viewed_books",
+                        "IBLOCK_TYPE" => "catalog",
+                        "SECTION_ID" => $_REQUEST["SECTION_ID"],
+                        "SECTION_CODE" => "",
+                        "SECTION_USER_FIELDS" => array(
+                        0 => "",
+                        1 => "",
+                        ),
+
+                        "ELEMENT_SORT_FIELD" => "id",
+                        "ELEMENT_SORT_ORDER" => "desc",
+                        "ELEMENT_SORT_FIELD2" => "id",
+                        "ELEMENT_SORT_ORDER2" => "desc",
+                        "FILTER_NAME" => "arFilter",
+                        "INCLUDE_SUBSECTIONS" => "Y",
+                        "SHOW_ALL_WO_SECTION" => "Y",
+                        "HIDE_NOT_AVAILABLE" => "N",
+                        "PAGE_ELEMENT_COUNT" => "12",
+                        "LINE_ELEMENT_COUNT" => "3",
+                        "PROPERTY_CODE" => array(
+                        0 => "",
+                        1 => "",
+                        ),
+                        "OFFERS_FIELD_CODE" => array(
+                        0 => "",
+                        1 => "",
+                        ),
+                        "OFFERS_PROPERTY_CODE" => array(
+                        0 => "COLOR_REF",
+                        1 => "SIZES_SHOES",
+                        2 => "SIZES_CLOTHES",
+                        3 => "",
+                        ),
+                        "OFFERS_SORT_FIELD" => "sort",
+                        "OFFERS_SORT_ORDER" => "desc",
+                        "OFFERS_SORT_FIELD2" => "id",
+                        "OFFERS_SORT_ORDER2" => "desc",
+                        "OFFERS_LIMIT" => "5",
+                        "TEMPLATE_THEME" => "site",
+                        "PRODUCT_DISPLAY_MODE" => "Y",
+                        "ADD_PICT_PROP" => "BIG_PHOTO",
+                        "LABEL_PROP" => "-",
+                        "OFFER_ADD_PICT_PROP" => "-",
+                        "OFFER_TREE_PROPS" => array(
+                        0 => "COLOR_REF",
+                        1 => "SIZES_SHOES",
+                        2 => "SIZES_CLOTHES",
+                        ),
+                        "PRODUCT_SUBSCRIPTION" => "N",
+                        "SHOW_DISCOUNT_PERCENT" => "N",
+                        "SHOW_OLD_PRICE" => "Y",
+                        "SHOW_CLOSE_POPUP" => "N",
+                        "MESS_BTN_BUY" => "Купить",
+                        "MESS_BTN_ADD_TO_BASKET" => "В корзину",
+                        "MESS_BTN_SUBSCRIBE" => "Подписаться",
+                        "MESS_BTN_DETAIL" => "Подробнее",
+                        "MESS_NOT_AVAILABLE" => "Нет в наличии",
+                        "SECTION_URL" => "",
+                        "DETAIL_URL" => "",
+                        "SECTION_ID_VARIABLE" => "SECTION_ID",
+                        "SEF_MODE" => "N",
+                        "AJAX_MODE" => "N",
+                        "AJAX_OPTION_JUMP" => "N",
+                        "AJAX_OPTION_STYLE" => "Y",
+                        "AJAX_OPTION_HISTORY" => "N",
+                        "AJAX_OPTION_ADDITIONAL" => "",
+                        "CACHE_TYPE" => "A",
+                        "CACHE_TIME" => "36000",
+                        "CACHE_GROUPS" => "N",
+                        "SET_TITLE" => "N",
+                        "SET_BROWSER_TITLE" => "N",
+                        "BROWSER_TITLE" => "-",
+                        "SET_META_KEYWORDS" => "N",
+                        "META_KEYWORDS" => "-",
+                        "SET_META_DESCRIPTION" => "N",
+                        "META_DESCRIPTION" => "-",
+                        "SET_LAST_MODIFIED" => "N",
+                        "USE_MAIN_ELEMENT_SECTION" => "N",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "CACHE_FILTER" => "N",
+                        "ACTION_VARIABLE" => "action",
+                        "PRODUCT_ID_VARIABLE" => "id",
+                        "PRICE_CODE" => array(
+                        0 => "BASE",
+                        ),
+                        "USE_PRICE_COUNT" => "N",
+                        "SHOW_PRICE_COUNT" => "1",
+                        "PRICE_VAT_INCLUDE" => "Y",
+                        "CONVERT_CURRENCY" => "N",
+                        "USE_PRODUCT_QUANTITY" => "N",
+                        "PRODUCT_QUANTITY_VARIABLE" => "",
+                        "ADD_PROPERTIES_TO_BASKET" => "Y",
+                        "PRODUCT_PROPS_VARIABLE" => "prop",
+                        "PARTIAL_PRODUCT_PROPERTIES" => "N",
+                        "PRODUCT_PROPERTIES" => array(
+                        ),
+                        "OFFERS_CART_PROPERTIES" => array(
+                        0 => "COLOR_REF",
+                        1 => "SIZES_SHOES",
+                        2 => "SIZES_CLOTHES",
+                        ),
+                        "ADD_TO_BASKET_ACTION" => "ADD",
+                        "PAGER_TEMPLATE" => "round",
+                        "DISPLAY_TOP_PAGER" => "N",
+                        "DISPLAY_BOTTOM_PAGER" => "Y",
+                        "PAGER_TITLE" => "Товары",
+                        "PAGER_SHOW_ALWAYS" => "N",
+                        "PAGER_DESC_NUMBERING" => "N",
+                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                        "PAGER_SHOW_ALL" => "N",
+                        "PAGER_BASE_LINK_ENABLE" => "N",
+                        "SET_STATUS_404" => "N",
+                        "SHOW_404" => "N",
+                        "MESSAGE_404" => "",
+                        "BACKGROUND_IMAGE" => "-",
+                        "DISABLE_INIT_JS_IN_COMPONENT" => "N",
+                        "CUSTOM_FILTER" => "",
+                        "HIDE_NOT_AVAILABLE_OFFERS" => "N",
+                        "COMPOSITE_FRAME_MODE" => "A",
+                        "COMPOSITE_FRAME_TYPE" => "AUTO",
+                        "DISPLAY_COMPARE" => "N",
+                        "COMPATIBLE_MODE" => "Y"
+                    ),
+
+
+                    false
+                );
+            }?>
+        </div>
+    </div>
+    <?
 }
 ?>
 
-<div class="reviewsSliderWrapp">
+<div class="reviewsSliderWrapp" style="<?=($childrenDesign)? 'height: 474px;':''?>"> 
     <div class="centerWrapper">
         <!--noindex-->
-		<?if ($childrenDesign) {?>
-			<script>
-			function subscribeChildren() {
-				var emailAddres = $(".giftWrapChildren form input[name=email]").val();
-				console.log($(".giftWrapChildren form input[name=email]"));
-				var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-				if (regex.test(emailAddres)){
-					$.post("/ajax/subscribe_actions.php", {email: emailAddres, children: 1},
-					function(data){
-						$(".layout").show();
-						$(".some_info").show();
-						$(".some_info").html(data);
-					})
-				} else {
-					$(".layout").show();
-					$(".some_info").show();
-					$(".some_info").html('Кажется, вы ошиблись в написании своего адреса');
-				}
-			}
-			</script>
-		
-			<div class="giftWrapChildren">
-				<form action="/" method="post">
-					<input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return subscribeChildren();}">
-					<input type="button" onclick="subscribeChildren();return false;" value="">
-				</form>
-				<div class="some_info">
-					<?= GetMessage("SUBSCRIPTION_REQUEST_ACCEPTED" )?>
-				</div>
-				<p class="title">
-					<?= GetMessage("GIFT_BOOK_TITLE") ?>
-				</p>
-				<p>
-					Подпишитесь на рассылку о детских книгах<br />и получите бестселлер «Наказания бесполезны»<br />в формате PDF бесплатно.
-				</p>
-				<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
-			</div>
-		<?} else {?>
-			<div class="giftWrap">
-				<form action="/" method="post">
-					<input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
-					<input type="button" value="">
-				</form>
-				<div class="some_info">
-					<?= GetMessage("SUBSCRIPTION_REQUEST_ACCEPTED" )?>
-				</div>
-				<p class="title">
-					<?= GetMessage("GIFT_BOOK_TITLE") ?>
-				</p>
-				<p>
-					<?= GetMessage("GIFT_BOOK_DESCRIPTION") ?>
-				</p>
-				<div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
-			</div>
-		<?}?>
+        <?if ($childrenDesign) {?>
+            <script>
+            function subscribeChildren() {
+                var emailAddres = $(".giftWrapChildren form input[name=email]").val();
+                console.log($(".giftWrapChildren form input[name=email]"));
+                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (regex.test(emailAddres)){
+                    $.post("/ajax/subscribe_actions.php", {email: emailAddres, children: 1},
+                    function(data){
+                        $(".layout").show();
+                        $(".some_info").show();
+                        $(".some_info").html(data);
+                    })
+                } else {
+                    $(".layout").show();
+                    $(".some_info").show();
+                    $(".some_info").html('Кажется, вы ошиблись в написании своего адреса');
+                }
+            }
+            </script>
+        
+            <div class="giftWrapChildren">
+                <form action="/" method="post">
+                    <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return subscribeChildren();}">
+                    <input type="button" onclick="subscribeChildren();return false;" value="">
+                </form>
+                <div class="some_info">
+                    <?= GetMessage("SUBSCRIPTION_REQUEST_ACCEPTED" )?>
+                </div>
+                <p class="title">
+                    <?= GetMessage("GIFT_BOOK_TITLE") ?>
+                </p>
+                <p>
+                    Подпишитесь на рассылку о детских книгах<br />и получите бестселлер «Наказания бесполезны»<br />в формате PDF бесплатно.
+                </p>
+                <div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
+            </div>
+        <?} else {?>
+            <div class="giftWrap">
+                <form action="/" method="post">
+                    <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
+                    <input type="button" value="">
+                </form>
+                <div class="some_info">
+                    <?= GetMessage("SUBSCRIPTION_REQUEST_ACCEPTED" )?>
+                </div>
+                <p class="title">
+                    <?= GetMessage("GIFT_BOOK_TITLE") ?>
+                </p>
+                <p>
+                    <?= GetMessage("GIFT_BOOK_DESCRIPTION") ?>
+                </p>
+                <div class="pii no-mobile">* подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></div>
+            </div>
+        <?}?>
         <!--/noindex-->
 
         <?
-		if (!$childrenDesign) {
-			global $arFilter;
-			$lastseen = CSaleViewedProduct::GetList(
-				array("DATE_VISIT" => "DESC"),
-				array("FUSER_ID" => CSaleBasket::GetBasketUserID()),
-				false,
-				array("nTopCount" => 8),
-				array("PRODUCT_ID")
-			);
-			$lastidids = array();
+        if (!$childrenDesign) {
+            global $arFilter;
+            $lastseen = CSaleViewedProduct::GetList(
+                array("DATE_VISIT" => "DESC"),
+                array("FUSER_ID" => CSaleBasket::GetBasketUserID()),
+                false,
+                array("nTopCount" => 8),
+                array("PRODUCT_ID")
+            );
+            $lastidids = array();
 
-			while ($lastid = $lastseen->GetNext()) {
-				$lastidids[] = $lastid["PRODUCT_ID"];
-			}
-			if (!empty($lastidids)) {?>
-				<p class="sliderName"><a href="/catalog/lastseen/" class="youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></a></p>
-
-
-				<?$arFilter = array('ID' => $lastidids, ">DETAIL_PICTURE" => 0);
-
-				$APPLICATION->IncludeComponent(
-					"bitrix:catalog.section",
-					"viewed_books",
-					array(
-						"IBLOCK_TYPE_ID" => "catalog",
-						"IBLOCK_ID" => "4",
-						"BASKET_URL" => "/personal/cart/",
-						"COMPONENT_TEMPLATE" => "viewed_books",
-						"IBLOCK_TYPE" => "catalog",
-						"SECTION_ID" => $_REQUEST["SECTION_ID"],
-						"SECTION_CODE" => "",
-						"SECTION_USER_FIELDS" => array(
-						0 => "",
-						1 => "",
-						),
-
-						"ELEMENT_SORT_FIELD" => "id",
-						"ELEMENT_SORT_ORDER" => "desc",
-						"ELEMENT_SORT_FIELD2" => "id",
-						"ELEMENT_SORT_ORDER2" => "desc",
-						"FILTER_NAME" => "arFilter",
-						"INCLUDE_SUBSECTIONS" => "Y",
-						"SHOW_ALL_WO_SECTION" => "Y",
-						"HIDE_NOT_AVAILABLE" => "N",
-						"PAGE_ELEMENT_COUNT" => "12",
-						"LINE_ELEMENT_COUNT" => "3",
-						"PROPERTY_CODE" => array(
-						0 => "",
-						1 => "",
-						),
-						"OFFERS_FIELD_CODE" => array(
-						0 => "",
-						1 => "",
-						),
-						"OFFERS_PROPERTY_CODE" => array(
-						0 => "COLOR_REF",
-						1 => "SIZES_SHOES",
-						2 => "SIZES_CLOTHES",
-						3 => "",
-						),
-						"OFFERS_SORT_FIELD" => "sort",
-						"OFFERS_SORT_ORDER" => "desc",
-						"OFFERS_SORT_FIELD2" => "id",
-						"OFFERS_SORT_ORDER2" => "desc",
-						"OFFERS_LIMIT" => "5",
-						"TEMPLATE_THEME" => "site",
-						"PRODUCT_DISPLAY_MODE" => "Y",
-						"ADD_PICT_PROP" => "BIG_PHOTO",
-						"LABEL_PROP" => "-",
-						"OFFER_ADD_PICT_PROP" => "-",
-						"OFFER_TREE_PROPS" => array(
-						0 => "COLOR_REF",
-						1 => "SIZES_SHOES",
-						2 => "SIZES_CLOTHES",
-						),
-						"PRODUCT_SUBSCRIPTION" => "N",
-						"SHOW_DISCOUNT_PERCENT" => "N",
-						"SHOW_OLD_PRICE" => "Y",
-						"SHOW_CLOSE_POPUP" => "N",
-						"MESS_BTN_BUY" => "Купить",
-						"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-						"MESS_BTN_SUBSCRIBE" => "Подписаться",
-						"MESS_BTN_DETAIL" => "Подробнее",
-						"MESS_NOT_AVAILABLE" => "Нет в наличии",
-						"SECTION_URL" => "",
-						"DETAIL_URL" => "",
-						"SECTION_ID_VARIABLE" => "SECTION_ID",
-						"SEF_MODE" => "N",
-						"AJAX_MODE" => "N",
-						"AJAX_OPTION_JUMP" => "N",
-						"AJAX_OPTION_STYLE" => "Y",
-						"AJAX_OPTION_HISTORY" => "N",
-						"AJAX_OPTION_ADDITIONAL" => "",
-						"CACHE_TYPE" => "A",
-						"CACHE_TIME" => "36000",
-						"CACHE_GROUPS" => "N",
-						"SET_TITLE" => "N",
-						"SET_BROWSER_TITLE" => "N",
-						"BROWSER_TITLE" => "-",
-						"SET_META_KEYWORDS" => "N",
-						"META_KEYWORDS" => "-",
-						"SET_META_DESCRIPTION" => "N",
-						"META_DESCRIPTION" => "-",
-						"SET_LAST_MODIFIED" => "N",
-						"USE_MAIN_ELEMENT_SECTION" => "N",
-						"ADD_SECTIONS_CHAIN" => "N",
-						"CACHE_FILTER" => "N",
-						"ACTION_VARIABLE" => "action",
-						"PRODUCT_ID_VARIABLE" => "id",
-						"PRICE_CODE" => array(
-						0 => "BASE",
-						),
-						"USE_PRICE_COUNT" => "N",
-						"SHOW_PRICE_COUNT" => "1",
-						"PRICE_VAT_INCLUDE" => "Y",
-						"CONVERT_CURRENCY" => "N",
-						"USE_PRODUCT_QUANTITY" => "N",
-						"PRODUCT_QUANTITY_VARIABLE" => "",
-						"ADD_PROPERTIES_TO_BASKET" => "Y",
-						"PRODUCT_PROPS_VARIABLE" => "prop",
-						"PARTIAL_PRODUCT_PROPERTIES" => "N",
-						"PRODUCT_PROPERTIES" => array(
-						),
-						"OFFERS_CART_PROPERTIES" => array(
-						0 => "COLOR_REF",
-						1 => "SIZES_SHOES",
-						2 => "SIZES_CLOTHES",
-						),
-						"ADD_TO_BASKET_ACTION" => "ADD",
-						"PAGER_TEMPLATE" => "round",
-						"DISPLAY_TOP_PAGER" => "N",
-						"DISPLAY_BOTTOM_PAGER" => "Y",
-						"PAGER_TITLE" => "Товары",
-						"PAGER_SHOW_ALWAYS" => "N",
-						"PAGER_DESC_NUMBERING" => "N",
-						"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-						"PAGER_SHOW_ALL" => "N",
-						"PAGER_BASE_LINK_ENABLE" => "N",
-						"SET_STATUS_404" => "N",
-						"SHOW_404" => "N",
-						"MESSAGE_404" => "",
-						"BACKGROUND_IMAGE" => "-",
-						"DISABLE_INIT_JS_IN_COMPONENT" => "N",
-						"CUSTOM_FILTER" => "",
-						"HIDE_NOT_AVAILABLE_OFFERS" => "N",
-						"COMPOSITE_FRAME_MODE" => "A",
-						"COMPOSITE_FRAME_TYPE" => "AUTO",
-						"DISPLAY_COMPARE" => "N",
-						"COMPATIBLE_MODE" => "Y"
-					),
+            while ($lastid = $lastseen->GetNext()) {
+                $lastidids[] = $lastid["PRODUCT_ID"];
+            }
+            if (!empty($lastidids)) {?>
+                <p class="sliderName"><a href="/catalog/lastseen/" class="youViewedTitle"><?= GetMessage("VIEWED_BOOKS_TITLE") ?></a></p>
 
 
-					false
-				);
-			}?>
-		<?}?>
+                <?$arFilter = array('ID' => $lastidids, ">DETAIL_PICTURE" => 0);
+
+                $APPLICATION->IncludeComponent(
+                    "bitrix:catalog.section",
+                    "viewed_books",
+                    array(
+                        "IBLOCK_TYPE_ID" => "catalog",
+                        "IBLOCK_ID" => "4",
+                        "BASKET_URL" => "/personal/cart/",
+                        "COMPONENT_TEMPLATE" => "viewed_books",
+                        "IBLOCK_TYPE" => "catalog",
+                        "SECTION_ID" => $_REQUEST["SECTION_ID"],
+                        "SECTION_CODE" => "",
+                        "SECTION_USER_FIELDS" => array(
+                        0 => "",
+                        1 => "",
+                        ),
+
+                        "ELEMENT_SORT_FIELD" => "id",
+                        "ELEMENT_SORT_ORDER" => "desc",
+                        "ELEMENT_SORT_FIELD2" => "id",
+                        "ELEMENT_SORT_ORDER2" => "desc",
+                        "FILTER_NAME" => "arFilter",
+                        "INCLUDE_SUBSECTIONS" => "Y",
+                        "SHOW_ALL_WO_SECTION" => "Y",
+                        "HIDE_NOT_AVAILABLE" => "N",
+                        "PAGE_ELEMENT_COUNT" => "12",
+                        "LINE_ELEMENT_COUNT" => "3",
+                        "PROPERTY_CODE" => array(
+                        0 => "",
+                        1 => "",
+                        ),
+                        "OFFERS_FIELD_CODE" => array(
+                        0 => "",
+                        1 => "",
+                        ),
+                        "OFFERS_PROPERTY_CODE" => array(
+                        0 => "COLOR_REF",
+                        1 => "SIZES_SHOES",
+                        2 => "SIZES_CLOTHES",
+                        3 => "",
+                        ),
+                        "OFFERS_SORT_FIELD" => "sort",
+                        "OFFERS_SORT_ORDER" => "desc",
+                        "OFFERS_SORT_FIELD2" => "id",
+                        "OFFERS_SORT_ORDER2" => "desc",
+                        "OFFERS_LIMIT" => "5",
+                        "TEMPLATE_THEME" => "site",
+                        "PRODUCT_DISPLAY_MODE" => "Y",
+                        "ADD_PICT_PROP" => "BIG_PHOTO",
+                        "LABEL_PROP" => "-",
+                        "OFFER_ADD_PICT_PROP" => "-",
+                        "OFFER_TREE_PROPS" => array(
+                        0 => "COLOR_REF",
+                        1 => "SIZES_SHOES",
+                        2 => "SIZES_CLOTHES",
+                        ),
+                        "PRODUCT_SUBSCRIPTION" => "N",
+                        "SHOW_DISCOUNT_PERCENT" => "N",
+                        "SHOW_OLD_PRICE" => "Y",
+                        "SHOW_CLOSE_POPUP" => "N",
+                        "MESS_BTN_BUY" => "Купить",
+                        "MESS_BTN_ADD_TO_BASKET" => "В корзину",
+                        "MESS_BTN_SUBSCRIBE" => "Подписаться",
+                        "MESS_BTN_DETAIL" => "Подробнее",
+                        "MESS_NOT_AVAILABLE" => "Нет в наличии",
+                        "SECTION_URL" => "",
+                        "DETAIL_URL" => "",
+                        "SECTION_ID_VARIABLE" => "SECTION_ID",
+                        "SEF_MODE" => "N",
+                        "AJAX_MODE" => "N",
+                        "AJAX_OPTION_JUMP" => "N",
+                        "AJAX_OPTION_STYLE" => "Y",
+                        "AJAX_OPTION_HISTORY" => "N",
+                        "AJAX_OPTION_ADDITIONAL" => "",
+                        "CACHE_TYPE" => "A",
+                        "CACHE_TIME" => "36000",
+                        "CACHE_GROUPS" => "N",
+                        "SET_TITLE" => "N",
+                        "SET_BROWSER_TITLE" => "N",
+                        "BROWSER_TITLE" => "-",
+                        "SET_META_KEYWORDS" => "N",
+                        "META_KEYWORDS" => "-",
+                        "SET_META_DESCRIPTION" => "N",
+                        "META_DESCRIPTION" => "-",
+                        "SET_LAST_MODIFIED" => "N",
+                        "USE_MAIN_ELEMENT_SECTION" => "N",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "CACHE_FILTER" => "N",
+                        "ACTION_VARIABLE" => "action",
+                        "PRODUCT_ID_VARIABLE" => "id",
+                        "PRICE_CODE" => array(
+                        0 => "BASE",
+                        ),
+                        "USE_PRICE_COUNT" => "N",
+                        "SHOW_PRICE_COUNT" => "1",
+                        "PRICE_VAT_INCLUDE" => "Y",
+                        "CONVERT_CURRENCY" => "N",
+                        "USE_PRODUCT_QUANTITY" => "N",
+                        "PRODUCT_QUANTITY_VARIABLE" => "",
+                        "ADD_PROPERTIES_TO_BASKET" => "Y",
+                        "PRODUCT_PROPS_VARIABLE" => "prop",
+                        "PARTIAL_PRODUCT_PROPERTIES" => "N",
+                        "PRODUCT_PROPERTIES" => array(
+                        ),
+                        "OFFERS_CART_PROPERTIES" => array(
+                        0 => "COLOR_REF",
+                        1 => "SIZES_SHOES",
+                        2 => "SIZES_CLOTHES",
+                        ),
+                        "ADD_TO_BASKET_ACTION" => "ADD",
+                        "PAGER_TEMPLATE" => "round",
+                        "DISPLAY_TOP_PAGER" => "N",
+                        "DISPLAY_BOTTOM_PAGER" => "Y",
+                        "PAGER_TITLE" => "Товары",
+                        "PAGER_SHOW_ALWAYS" => "N",
+                        "PAGER_DESC_NUMBERING" => "N",
+                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                        "PAGER_SHOW_ALL" => "N",
+                        "PAGER_BASE_LINK_ENABLE" => "N",
+                        "SET_STATUS_404" => "N",
+                        "SHOW_404" => "N",
+                        "MESSAGE_404" => "",
+                        "BACKGROUND_IMAGE" => "-",
+                        "DISABLE_INIT_JS_IN_COMPONENT" => "N",
+                        "CUSTOM_FILTER" => "",
+                        "HIDE_NOT_AVAILABLE_OFFERS" => "N",
+                        "COMPOSITE_FRAME_MODE" => "A",
+                        "COMPOSITE_FRAME_TYPE" => "AUTO",
+                        "DISPLAY_COMPARE" => "N",
+                        "COMPATIBLE_MODE" => "Y"
+                    ),
+
+
+                    false
+                );
+            }?>
+        <?}?>
     </div>
 </div>
 
 <?if ($childrenDesign) {?>
-<div class="testdriveWrapChildren" style="background:#e7a65f;color:#fff;min-height:270px">
-	<div class="centerWrapper" style="font-size:17px">
-	<img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height:270px" />
-		<p class="title" style="color:#fff">
-			Книжный тест-драйв
-		</p>
-		<p style="line-height:200%">
-			Вы увлеченная мама, ведете свой блог в социальных сетях и интересно пишете про детские книги?<br />
-			Нам интересно ваше мнение! Если аудитория вашего блога более 10 000 человек, получите одну из 20 бесплатных книг на рецензию.<br />
-			<a href="mailto:n.tentser@alpina.ru" style="color:#fff;text-decoration:none;border-bottom:1px solid">Напишите на почту Наталье Тенцер n.tentser@alpina.ru</a>, расскажите о себе и своем блоге, мы рассмотрим ваше предложение и обязательно ответим!<br />
+<div class="testdriveWrapChildren" style="background:#e7a65f;color:#fff;">
+    <div class="centerWrapper" style="font-size:17px">
+        <p class="title" style="color:#fff; text-align: center;">
+            Книжный тест-драйв
+        </p>
+        <p style="line-height: 150%;">
+            Вы увлеченная мама, ведете свой блог в социальных сетях и интересно пишете про детские книги?<br />
+            Нам интересно ваше мнение! Если аудитория вашего блога более 10 000 человек, получите одну из 20 бесплатных книг на рецензию.<br />
+            <a href="mailto:n.tentser@alpina.ru" style="color:#fff;text-decoration:none;border-bottom:1px solid">Напишите на почту Наталье Тенцер n.tentser@alpina.ru</a>, расскажите о себе и своем блоге, мы рассмотрим ваше предложение и обязательно ответим!<br />
+           <?/* <img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height: 450px;text-align: center;margin-top: 10px;margin-left: 20%;" /> */?>
+        </p>
+        <div class="frame_soc_service" style=" margin-top: 13px;width: 70%;clear: both;margin: 13px auto 0;"> 
+            <iframe class="deactive" src="//widget.stapico.ru/?q=alpinadeti&s=95&w=2&h=1&b=1&p=5&effect=2" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:240px;float: left;height: 245px;" ></iframe> <!-- stapico - stapico.ru -->        
+            <script type="text/javascript" src="//vk.com/js/api/openapi.js?153"></script>
 
-		</p>
-	</div>
+            <!-- VK Widget -->
+            <div id="vk_groups"></div>
+            <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 1}, 108862896);
+            </script>
+            <br>
+            <div class="fb-page" data-href="https://www.facebook.com/alpinadeti/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/alpinadeti/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/alpinadeti/">Альпина Дети</a></blockquote></div>
+        </div> 
+    </div>
+
 </div>
 
-<div class="testdriveWrapChildren" style="width:100%;background:#00aab8 url(/images/childrenbg.jpg) no-repeat;background-size:cover;color:#fff;">
-	<div class="centerWrapper" style="padding-left:10%;font-size:17px">
-		<p class="title" style="color:#fff">
-			Корпоративные заказы
-		</p>
-		<p style="line-height:200%;line-height:200%">
-			Книга станет желанным подарком для детей сотрудников, клиентов и партнеров.
-			<ul style="line-height:200%">
-			<li>&nbsp;&nbsp; • Выпустим подарочную детскую книгу о вашей компании</li>
-			<li>&nbsp;&nbsp; • Напечатаем специальный тираж с вашим логотипом или даже уникальным текстом</li>
-			<li>&nbsp;&nbsp; • Сделаем скидку при заказе от 50 экземпляров</li>
-			</ul>
-			Расскажите детям, где работают их мамы и папы!
-			<br /><br />
-			<a href="mailto:l.bogomaz@alpinabook.ru" style="color:#fff;text-decoration:none;border-bottom:1px solid">Лана Богомаз ответит на все ваши вопросы: l.bogomaz@alpinabook.ru</a>
-		</p>
-	</div>
+<div class="testdriveWrapChildren" style="width:100%;background:#00aab8 url(/images/childrenbg.jpg) no-repeat;background-size:cover;color:#fff; background-size: 100% 100%;">
+    <div class="centerWrapper" style="padding-left:10%;font-size:17px;width: 680px;min-width: auto;">
+        <p class="title" style="color:#fff">
+            Корпоративные заказы
+        </p>
+        <p style="line-height:200%;line-height:200%">
+            Книга станет желанным подарком для детей сотрудников, клиентов и партнеров.
+            <ul style="line-height:200%">
+            <li>&nbsp;&nbsp; • Выпустим подарочную детскую книгу о вашей компании</li>
+            <li>&nbsp;&nbsp; • Напечатаем специальный тираж с вашим логотипом или даже уникальным текстом</li>
+            <li>&nbsp;&nbsp; • Сделаем скидку при заказе от 50 экземпляров</li>
+            </ul>
+            Расскажите детям, где работают их мамы и папы!
+            <br /><br />
+            <a href="mailto:l.bogomaz@alpinabook.ru" style="color:#fff;text-decoration:none;border-bottom:1px solid">Лана Богомаз ответит на все ваши вопросы: l.bogomaz@alpinabook.ru</a>
+        </p>
+    </div>
 </div>
+<?
+    global $blogPostsFilter;
+    $blogPostsFilter = array("PROPERTY_BOOKS" => $arResult["ID"]);
+    $APPLICATION->IncludeComponent(
+        "bitrix:catalog.section",
+        "this_book_in_blog",
+        array(
+            "IBLOCK_TYPE_ID" => "catalog",
+            "IBLOCK_ID" => "71",
+            "BASKET_URL" => "/personal/cart/",
+            "COMPONENT_TEMPLATE" => "this_book_in_blog",
+            "IBLOCK_TYPE" => "catalog",
+            "SECTION_ID" => "",
+            "SECTION_CODE" => "",
+            "SECTION_USER_FIELDS" => array(
+                0 => "",
+                1 => "",
+            ),
+            "ELEMENT_SORT_FIELD" => "id",
+            "ELEMENT_SORT_ORDER" => "desc",
+            "ELEMENT_SORT_FIELD2" => "id",
+            "ELEMENT_SORT_ORDER2" => "asc",
+            "FILTER_NAME" => "blogPostsFilter",
+            "INCLUDE_SUBSECTIONS" => "Y",
+            "SHOW_ALL_WO_SECTION" => "Y",
+            "HIDE_NOT_AVAILABLE" => "N",
+            "PAGE_ELEMENT_COUNT" => "5",
+            "LINE_ELEMENT_COUNT" => "1",
+            "PROPERTY_CODE" => array(
+                0 => "",
+            ),
+            "TEMPLATE_THEME" => "site",
+            "PRODUCT_DISPLAY_MODE" => "Y",
+            "PRODUCT_SUBSCRIPTION" => "N",
+            "SHOW_DISCOUNT_PERCENT" => "N",
+            "SHOW_OLD_PRICE" => "Y",
+            "SHOW_CLOSE_POPUP" => "N",
+            "MESS_BTN_BUY" => "Купить",
+            "MESS_BTN_ADD_TO_BASKET" => "В корзину",
+            "MESS_BTN_SUBSCRIBE" => "Подписаться",
+            "MESS_BTN_DETAIL" => "Подробнее",
+            "MESS_NOT_AVAILABLE" => "Нет в наличии",
+            "SECTION_URL" => "",
+            "DETAIL_URL" => "",
+            "SECTION_ID_VARIABLE" => "SECTION_ID",
+            "SEF_MODE" => "N",
+            "AJAX_MODE" => "N",
+            "AJAX_OPTION_JUMP" => "N",
+            "AJAX_OPTION_STYLE" => "Y",
+            "AJAX_OPTION_HISTORY" => "N",
+            "AJAX_OPTION_ADDITIONAL" => "",
+            "CACHE_TYPE" => "A",
+            "CACHE_TIME" => "36000",
+            "CACHE_GROUPS" => "Y",
+            "SET_TITLE" => "N",
+            "SET_BROWSER_TITLE" => "N",
+            "BROWSER_TITLE" => "-",
+            "SET_META_KEYWORDS" => "N",
+            "META_KEYWORDS" => "-",
+            "SET_META_DESCRIPTION" => "N",
+            "META_DESCRIPTION" => "-",
+            "SET_LAST_MODIFIED" => "N",
+            "USE_MAIN_ELEMENT_SECTION" => "N",
+            "ADD_SECTIONS_CHAIN" => "N",
+            "CACHE_FILTER" => "N",
+            "ACTION_VARIABLE" => "action",
+            "PRODUCT_ID_VARIABLE" => "id",
+            "PRICE_CODE" => array(
+                0 => "BASE",
+            ),
+            "USE_PRICE_COUNT" => "N",
+            "SHOW_PRICE_COUNT" => "1",
+            "PRICE_VAT_INCLUDE" => "Y",
+            "CONVERT_CURRENCY" => "N",
+            "USE_PRODUCT_QUANTITY" => "N",
+            "PRODUCT_QUANTITY_VARIABLE" => "",
+            "ADD_PROPERTIES_TO_BASKET" => "Y",
+            "PRODUCT_PROPS_VARIABLE" => "prop",
+            "PARTIAL_PRODUCT_PROPERTIES" => "N",
+            "PRODUCT_PROPERTIES" => array(
+            ),
+            "OFFERS_CART_PROPERTIES" => array(
+                0 => "COLOR_REF",
+                1 => "SIZES_SHOES",
+                2 => "SIZES_CLOTHES",
+            ),
+            "ADD_TO_BASKET_ACTION" => "ADD",
+            "PAGER_TEMPLATE" => "round",
+            "DISPLAY_TOP_PAGER" => "N",
+            "DISPLAY_BOTTOM_PAGER" => "Y",
+            "PAGER_TITLE" => "Товары",
+            "PAGER_SHOW_ALWAYS" => "N",
+            "PAGER_DESC_NUMBERING" => "N",
+            "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+            "PAGER_SHOW_ALL" => "N",
+            "PAGER_BASE_LINK_ENABLE" => "N",
+            "SET_STATUS_404" => "N",
+            "SHOW_404" => "N",
+            "MESSAGE_404" => "",
+            "BACKGROUND_IMAGE" => "-",
+            "DISABLE_INIT_JS_IN_COMPONENT" => "N",
+            "CUSTOM_FILTER" => "",
+            "HIDE_NOT_AVAILABLE_OFFERS" => "N",
+            "COMPOSITE_FRAME_MODE" => "A",
+            "COMPOSITE_FRAME_TYPE" => "AUTO",
+            "DISPLAY_COMPARE" => "N",
+            "COMPATIBLE_MODE" => "Y"
+        ),
+        false
+    );
+?>
 <?}?>
 
 <? global $authBooksFilter;
@@ -2498,33 +2825,33 @@ if (!$childrenDesign) {
         });
     });
 
-	$(function(){
-		var count_recenzion = 1;
-		$('.tabIsRecenzion').click(function(){
-			if(count_recenzion){
-				$('.recenzion #loadingInfo').show();
-				count_recenzion = 0;
-				$.ajax({
-					type: 'POST',
-					url: '/local/templates/.default/ajax/recenzion.php',
-					data: 'id=<?= $arResult["ID"] ?>',
-					success: function(data){
-						$('.recenzion').html(data);
-					}
-				});
-			}
-		});
+    $(function(){
+        var count_recenzion = 1;
+        $('.tabIsRecenzion').click(function(){
+            if(count_recenzion){
+                $('.recenzion #loadingInfo').show();
+                count_recenzion = 0;
+                $.ajax({
+                    type: 'POST',
+                    url: '/local/templates/.default/ajax/recenzion.php',
+                    data: 'id=<?= $arResult["ID"] ?>',
+                    success: function(data){
+                        $('.recenzion').html(data);
+                    }
+                });
+            }
+        });
 
-		$('.tabIsRecenzion a').click(function(e){
-			e.preventDefault();
-		});
-		$('#commentsLink a').click(function(e){
-			e.preventDefault();
-		});
+        $('.tabIsRecenzion a').click(function(e){
+            e.preventDefault();
+        });
+        $('#commentsLink a').click(function(e){
+            e.preventDefault();
+        });
 
-		$('#digitalversion').click(function(e){
-			$('.digitalVersionWrap').html('<div class="wrap_prise_top"><?=GetMessage("EPUB")?><p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]["VALUE"]?> <span>руб.</span></p></div><div class="wrap_prise_bottom"><a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]["VALUE"]?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({"event" : "selectVersion", "action" : "leaveSite", "label": "<?=$arResult["NAME"];?>"});"><p class="inBasket"><?=GetMessage("BUY_EPUB")?></p></a></div>');
-			e.preventDefault();
-		});
-	});
+        $('#digitalversion').click(function(e){
+            $('.digitalVersionWrap').html('<div class="wrap_prise_top"><?=GetMessage("EPUB")?><p class="newPrice"><?=$arResult["PROPERTIES"]["alpina_digital_price"]["VALUE"]?> <span>руб.</span></p></div><div class="wrap_prise_bottom"><a href="https://ebook.alpina.ru/book/<?=$arResult["PROPERTIES"]["alpina_digital_ids"]["VALUE"]?>?utm_source=alpinabook.ru&utm_medium=referral&utm_campaign=alpinamainsite" class="digitalLink" target="_blank" rel="nofollow" onclick="dataLayer.push({"event" : "selectVersion", "action" : "leaveSite", "label": "<?=$arResult["NAME"];?>"});"><p class="inBasket"><?=GetMessage("BUY_EPUB")?></p></a></div>');
+            e.preventDefault();
+        });
+    });
 </script>

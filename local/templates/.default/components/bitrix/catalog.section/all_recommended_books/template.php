@@ -51,10 +51,18 @@ $arElementDeleteParams = array("CONFIRM" => GetMessage('CT_BCS_TPL_ELEMENT_DELET
         $pict = CFile::ResizeImageGet($arItem["PREVIEW_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
         foreach ($arItem["PRICES"] as $code => $arPrice) {?>
         <div class="bookWrapp" id=<?= $strMainID ?>>
+            <?if($arItem["PROPERTIES"]["TRANSPARENT_CORNER"]["VALUE_XML_ID"] == "Y"){?>  
+                <?$corner_1 = "Y";?> 
+            <?} else if($arItem["PROPERTIES"]["TRANSPARENT_CORNER_1_2"]["VALUE_XML_ID"] == "Y"){?>
+                <?$corner_2 = "Y";?>  
+            <?} else {
+                $corner_1 = '';
+                $corner_2 = '';
+            }?>   
             <link itemprop="relatedLink" href="<?=$arItem["DETAIL_PAGE_URL"]?>" />
             <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" onmousedown="try { rrApi.recomMouseDown(<?=$arItem["ID"]?>, {methodName: 'UpSellItemToItems'}) } catch(e) {}">
                 <div class="section_item_img">
-                    <img src="<?=$pict["src"]?>" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>" />
+                    <img src="<?=$pict["src"]?>" title="<?=$arItem["NAME"]?>" alt="<?=$arItem["NAME"]?>" style="<?=($corner_1)?'border-radius: 15px 15px 15px 15px;':''?> <?=($corner_2)?'border-radius: 0px 15px 15px 0px;':''?>"/>
                 </div>
                 <p class="bookName" title="<?=$arItem["NAME"]?>"><?=$arItem["NAME"]?></p>
                 <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>

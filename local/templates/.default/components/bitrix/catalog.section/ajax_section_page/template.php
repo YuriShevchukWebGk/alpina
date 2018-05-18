@@ -386,11 +386,18 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                                                 }
                                      }?>
                                  </div>
-
-                                 <a href="<?= $arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', <?= ($cell+1)?>, 'Catalog Section');" itemprop="url">
+                                <?if($arItem["PROPERTIES"]["TRANSPARENT_CORNER"]["VALUE_XML_ID"] == "Y"){?>  
+                                    <?$corner_1 = "Y";?> 
+                                <?} else if($arItem["PROPERTIES"]["TRANSPARENT_CORNER_1_2"]["VALUE_XML_ID"] == "Y"){?>
+                                    <?$corner_2 = "Y";?>  
+                                <?} else {
+                                    $corner_1 = '';
+                                    $corner_2 = '';
+                                }?>                                 
+                                <a href="<?= $arItem["DETAIL_PAGE_URL"]?>" onclick="productClickTracking(<?= $arItem["ID"];?>, '<?= $arItem["NAME"];?>', '<?= ceil($arPrice["DISCOUNT_VALUE_VAT"])?>','<?= $arResult["NAME"]?>', <?= ($cell+1)?>, 'Catalog Section');" itemprop="url">
                                      <div class="section_item_img">
                                          <?if ($arResult[$arItem["ID"]]["PICTURE"]["src"]) {?>
-                                             <img src="<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>" alt="<?= $arItem["NAME"];?>" itemprop="image">
+                                             <img src="<?= $arResult[$arItem["ID"]]["PICTURE"]["src"]?>" alt="<?= $arItem["NAME"];?>" itemprop="image" style="<?=($corner_1)?'border-radius: 15px 15px 15px 15px;':''?> <?=($corner_2)?'border-radius: 0px 15px 15px 0px;':''?>">
                                          <?} else {?>
                                              <img src="/images/no_photo.png" width="142" height="142">
                                          <?}?>

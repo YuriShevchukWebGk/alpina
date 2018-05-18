@@ -133,7 +133,7 @@
         
         $logger_date = date('Y-m-d, H:i:s');
         $logger_file = $_SERVER['DOCUMENT_ROOT'].'/local/admin/accorpdost.log';
-              
+     
         //Генерация и отправка xml для заказов по России 
         if ($hasCommonOrders == 'Y') {          
                                                                                           
@@ -155,7 +155,7 @@
                 echo GetMessage("ACCORDPOST_EXPORT_COMMON_FAIL");
                 die();
             } 
-                
+       
             $order_log = $logger_date.' - Создан новый элемент IB с выгрузкой - $shipment_id_common: '.$shipment_id_common.';';  
             logger($order_log, $logger_file);                       
                      
@@ -188,12 +188,12 @@
                 $order_log = $logger_date.' - Перед самим экспортом - номер заказа: '.$logger_id.';';  
                 logger($order_log, $logger_file);   
             }                                   
-            
+        
             //Экспортируем       
             export_to_accordpost($xmlBody, $zdoc_id_common, $shipment_id_common, $arIDsCommonOrders, $order_props);
                 //CSaleOrder::StatusOrder($order_id, "K");    
         }  
-                               
+                      
         //Генерация xml для международных заказов 
         if ($hasInternationalOrders == 'Y') {
             
@@ -260,14 +260,14 @@
                 $order_log = $logger_date.' - Перед самим экспортом - номер заказа: '.$logger_id.';';  
                 logger($order_log, $logger_file);   
             }                   
-            
-            //Экспортируем      
+
+                //Экспортируем      
             export_to_accordpost($xmlBodyInternational, $zdoc_id_international, $shipment_id_international, $arIDsInternationalOrders, $order_props);   
         }  
         
         die(); //прерываем дальнейшее выполнение страницы при аякс-запросе   
     }                                                                                                                                 
-    
+
     $sTableID = "tbl_accordpost_export_orders"; // table ID         
     //Не работает соритровка             
     //$oSort = new CAdminSorting($sTableID, "ID", "DESC"); // sort object
@@ -294,7 +294,7 @@
         "@STATUS_ID" => array("D", "AC"),
         "PAYED" => "Y"                                                            
     );        
-                               
+                              
     if(!empty($find_id)){                                         
         $arFilter["ID"] = explode(",", $find_id);;  
     }                  
@@ -436,7 +436,7 @@
             "default"  => true,
         ),                          
     );
-                                       
+                                        
     //init headers
     $lAdmin->AddHeaders($arHeaders);                 
 

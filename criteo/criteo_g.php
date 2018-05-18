@@ -1,4 +1,4 @@
-<?  $_SERVER["DOCUMENT_ROOT"] = "/home/bitrix/www";
+<?  $_SERVER["DOCUMENT_ROOT"] = "/var/www/alpinabook.ru/html";
     $DOCUMENT_ROOT = $_SERVER["DOCUMENT_ROOT"];
     define("NO_KEEP_STATISTIC", true);
     define("NOT_CHECK_PERMISSIONS", true);
