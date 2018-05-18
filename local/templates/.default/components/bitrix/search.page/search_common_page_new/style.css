@@ -1,0 +1,58 @@
+a.search-page-params {
+	border-bottom: 1px dashed blue;
+	text-decoration: none;
+}
+div.search-page-params {
+	margin-top: 6px;
+}
+.search-item-rate {font-size: 11px;}
+.title {
+    margin: 0 auto;
+    width: 1140px;
+    color: #627478;
+    font-family: "Walshein_regular";
+    font-size: 24px;
+    padding-bottom: 20px;
+    padding-top: 20px; 
+}
+.AuthorsWrapp, .BooksWrapp, .SeriesWrapp {
+    background-color: #F4F4F4;
+}
+.SeriesWrapp .description a {
+    color: #627478 !important;
+} 
+.catalogIcon {
+    z-index: 990;
+    left: 200px !important;
+}
+.basketIcon {
+    z-index: 990;
+    right: 196px !important;
+}
+@media screen and (max-width: 1680px) {
+    .catalogIcon, .basketIcon {
+        display:none;
+    }
+}
+.inBasket {
+    border-radius: 50px;
+    font-family: "Walshein_regular";
+    font-size: 15px;
+    margin-top: 16px;
+    padding: 12px 0;
+    text-align: center;
+    vertical-align: middle;
+    width: 166px;
+    cursor: pointer;    
+}
+.searchBooksWrap {
+    padding-bottom: 0 !important;
+}
+.search-language-guess {
+    font-family: "Walshein_light";
+    color: #485254;
+    background-color: #F4F4F4;
+}
+.searchBook .price, .searchBook .wrapperType {
+    padding-top: 5px;
+}

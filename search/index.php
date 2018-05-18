@@ -54,7 +54,7 @@ $SearchFilter = array(">CATALOG_PRICE_1" => 0);
         "CHECK_DATES" => "Y",
         "DISPLAY_TOP_PAGER" => "Y",
         "DISPLAY_BOTTOM_PAGER" => "Y",
-        "PAGER_TITLE" => "Товары",
+        "PAGER_TITLE" => "РўРѕРІР°СЂС‹",
         "PAGER_SHOW_ALWAYS" => "Y",
         "PAGER_TEMPLATE" => "",
         "PAGER_DESC_NUMBERING" => "Y",

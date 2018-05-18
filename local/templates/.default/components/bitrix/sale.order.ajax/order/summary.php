@@ -86,7 +86,7 @@
 
         <p class="ordContain">    <!--chekingFields('Y')-->
             <a href="javascript:void(0);" onclick="submitForm('Y'); return false;" id="ORDER_CONFIRM_BUTTON" class="checkout orderConfirm">
-                <?if($arResult['PREORDER'] == 'Y'){
+                <?if($arResult['PREORDER'] == 'Y' || $_SESSION["DATE_DELIVERY_STATE"]){
                     echo GetMessage("SOA_TEMPL_BUTTON_PREORDER");                    
                 } else {
                     echo GetMessage("SOA_TEMPL_BUTTON");
