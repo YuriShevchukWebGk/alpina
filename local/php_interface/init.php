@@ -72,6 +72,7 @@
     define ("GURU_LEGAL_ENTITY_MAX_WEIGHT", 10000); // максимальный допустимый вес для юр. лиц у доставки гуру
     define ("TRADING_FINANCE_SECTION_ID", 111);
     define ("LOCATION_IMTERNATIONAL", 21279);
+    define ("SECTION_ID_FOR_CHILDREN", 131);  // id раздела для детей и родителей
     define ("BOOK_COLOR_BLACK", 434300);
 
     define ("DELIVERY_COURIER_1", 9);
@@ -119,10 +120,12 @@
     define ("PREORDER_STATUS_ID", 'PR');
     define ("ROUTE_STATUS_ID", 'I');  // в пути
     define ("ASSEMBLED_STATUS_ID", 'C');  // собран
+    define ("STATUS_UNDER_ORDER", 'PZ');  // под заказ
 
     define ("REISSUE_ID", 218); //ID свойства "Переиздание"
     define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
     define ("STATE_SOON", 22); //ID состояния книги "Скоро в продаже"
+    define ("UNDER_ORDER", 5827); //ID состояния книги "предзаказ"
     define ("STATE_NULL", 23); //ID состояния книги "Нет в наличии"
     define ("STATE_NEWS", 21); //ID состояния книги "Новинка"
     define ("EXPERTS_IBLOCK_ID", 23); //ID инфоблока Эксперты
@@ -241,7 +244,7 @@
     }   
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
-    function cancelMail($arFields, $arTemplate) {
+    function cancelMail(&$arFields, $arTemplate) {
         if ($arTemplate["ID"] == 16) {
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
             $rsBasket = CSaleBasket::GetList(array(), array("ORDER_ID" => $order["ID"]));
@@ -251,12 +254,18 @@
             if (count($arBasketItems) == 1) {
                 $basketItem = $arBasketItems;
                 $basketItem = array_pop($basketItem);
-                $itemID = $basketItem["PRODUCT_ID"];  
-                $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
+                $itemID = $basketItem["PRODUCT_ID"];
+                $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE", "PROPERTY_DELIVERY_TIME"));
                 if ($arItem = $res->Fetch()) {
 
                     if (intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
                        // CEvent::Send("SALE_NEW_ORDER", 's1', $arTemplate, 423);
+                        $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
+
+                        return true;
+                    } else if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")) {
+                        CSaleOrder::StatusOrder($arFields["ORDER_ID"], STATUS_UNDER_ORDER);
+                        $arFields["DELIVERY_PREORDER"] = '<br>Срок поставки '.$arItem["PROPERTY_DELIVERY_TIME_VALUE"].' дней после оплаты';
                         return true;
                     }
                 }
@@ -3430,7 +3439,6 @@
            // return false;           
            logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/event.txt');                      
            $arFields["PREORDER"] = "предзаказ";
-           $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
            $arFields["EMAIL_DELIVERY_TERM"] = "";
            $arFields["PAYMENT_LINK"] = "";
            $arFields["PAYMENT_BUTTON"] = "";

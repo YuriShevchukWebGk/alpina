@@ -13,6 +13,8 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 /** @var string $parentComponentPath */
 /** @var string $parentComponentTemplate */
 $this->setFrameMode(false);
+use Bitrix\Highloadblock as HL;
+use Bitrix\Main\Entity;
 
 if(!CModule::IncludeModule("search"))
 {
@@ -307,10 +309,9 @@ if($this->InitComponentTemplate($templatePage))
             "MODULE_ID" => 'iblock',
         );    */    
         $arFilter = array(
-         //   'LOGIC' => 'OR',
-                'QUERY' => "%" . $arResult["REQUEST"]["~QUERY"] . "%",
-                "SITE_ID" => SITE_ID,
-                'TITLE' => "%" . $arResult["REQUEST"]["~QUERY"] . "%",
+            'QUERY' => "%" . $arResult["REQUEST"]["~QUERY"] . "%",
+            "SITE_ID" => SITE_ID,
+            'TITLE' => "%" . $arResult["REQUEST"]["~QUERY"] . "%",
         );
         $arFilter = array_merge($arFILTERCustom, $arFilter);
         if(strlen($where)>0)
@@ -338,8 +339,39 @@ if($this->InitComponentTemplate($templatePage))
 
         $arResult["ERROR_CODE"] = $obSearch->errorno;
         $arResult["ERROR_TEXT"] = $obSearch->error;
+        
 
-        $arResult["SEARCH"] = array();
+
+    $hl_block = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
+    $entity = HL\HighloadBlockTable::compileEntity($hl_block);    
+    $entity_data_class = $entity->getDataClass();
+
+    $search_tips_filter = array(
+        'LOGIC' => 'OR',
+        array(
+            '=%UF_SEARCH_WORDS' => "%" . $arResult["REQUEST"]["~QUERY"] . "%"
+        ),
+        array(
+            '=%UF_TITLE' => "%" . $arResult["REQUEST"]["~QUERY"] . "%"
+        )
+    );
+
+    $table_id = 'tbl_' . $entity_table_name;
+    $result = $entity_data_class::getList(array(
+        "select" => array('UF_IBLOCK_ID'),
+        "filter" => $search_tips_filter,
+        "limit"  => 100,
+        "order"  => array("UF_PAGE_VIEWS_GA" => "ASC")
+    ));
+
+    $result = new CDBResult($result, $table_id);
+    
+    while ($search_tip = $result->Fetch()) {      
+        $item_filetr["ID"][] = $search_tip["UF_IBLOCK_ID"];    
+    }
+    
+    $arResult["SEARCH"] = array();
+    
         if($obSearch->errorno==0)
         {
             $obSearch->NavStart($arParams["PAGE_RESULT_COUNT"], false);
@@ -362,8 +394,74 @@ if($this->InitComponentTemplate($templatePage))
                 }
             }
 
-            $arReturn = array();
-            while($ar)
+            $arReturn = array();  
+ while($ar = $obSearch->GetNext()){ 
+                if(in_array($ar["ITEM_ID"],$item_filetr["ID"])){
+                    $arReturn[$ar["ID"]] = $ar["ITEM_ID"];
+                    $ar["CHAIN_PATH"] = $APPLICATION->GetNavChain($ar["URL"], 0, $folderPath."/chain_template.php", true, false);
+                    $ar["URL"] = htmlspecialcharsbx($ar["URL"]);
+                    $ar["TAGS"] = array();
+                    if (!empty($ar["~TAGS_FORMATED"]))
+                    {
+                        foreach ($ar["~TAGS_FORMATED"] as $name => $tag)
+                        {
+                            if($arParams["TAGS_INHERIT"] == "Y")
+                            {
+                                $arTags = $arResult["REQUEST"]["~TAGS_ARRAY"];
+                                $arTags[$tag] = $tag;
+                                $tags = implode("," , $arTags);
+                            }
+                            else
+                            {
+                                $tags = $tag;
+                            }
+                            $ar["TAGS"][] = array(
+                                "URL" => $APPLICATION->GetCurPageParam("tags=".urlencode($tags), array("tags")),
+                                "TAG_NAME" => htmlspecialcharsex($name),
+                            );
+                        }
+                    }
+                    $arResult["SEARCH"][]=$ar;   
+                } else {
+                    $ar_search[] = $ar;
+                }
+            }
+            
+            if(is_array($ar_search)){
+                foreach($ar_search as $ar){
+                   
+                   if(!in_array($ar["ITEM_ID"],$item_filetr["ID"])){
+                        $arReturn[$ar["ID"]] = $ar["ITEM_ID"];
+                        $ar["CHAIN_PATH"] = $APPLICATION->GetNavChain($ar["URL"], 0, $folderPath."/chain_template.php", true, false);
+                        $ar["URL"] = htmlspecialcharsbx($ar["URL"]);
+                        $ar["TAGS"] = array();
+                        if (!empty($ar["~TAGS_FORMATED"]))
+                        {
+                            foreach ($ar["~TAGS_FORMATED"] as $name => $tag)
+                            {
+                                if($arParams["TAGS_INHERIT"] == "Y")
+                                {
+                                    $arTags = $arResult["REQUEST"]["~TAGS_ARRAY"];
+                                    $arTags[$tag] = $tag;
+                                    $tags = implode("," , $arTags);
+                                }
+                                else
+                                {
+                                    $tags = $tag;
+                                }
+                                $ar["TAGS"][] = array(
+                                    "URL" => $APPLICATION->GetCurPageParam("tags=".urlencode($tags), array("tags")),
+                                    "TAG_NAME" => htmlspecialcharsex($name),
+                                );
+                            }
+                        }
+                        $arResult["SEARCH"][]=$ar;
+                        
+                    }
+                }
+            }
+            
+           /* while($ar)
             {
                 $arReturn[$ar["ID"]] = $ar["ITEM_ID"];
                 $ar["CHAIN_PATH"] = $APPLICATION->GetNavChain($ar["URL"], 0, $folderPath."/chain_template.php", true, false);
@@ -391,7 +489,7 @@ if($this->InitComponentTemplate($templatePage))
                 }
                 $arResult["SEARCH"][]=$ar;
                 $ar = $obSearch->GetNext();
-            }
+            }     */
 
             $navComponentObject = null;
             $arResult["NAV_STRING"] = $obSearch->GetPageNavStringEx($navComponentObject,  $arParams["PAGER_TITLE"], $arParams["PAGER_TEMPLATE"], $arParams["PAGER_SHOW_ALWAYS"]);

@@ -35,10 +35,25 @@ $navnum = $arResult["NAV_RESULT"]->NavNum;
 if ($_REQUEST["PAGEN_" . $navnum]) {
     //$_SESSION[$APPLICATION -> GetCurDir()] = $_REQUEST["PAGEN_" . $navnum];
 }
+if($arResult["ID"] == SECTION_ID_FOR_CHILDREN){
+    $for_chyldren = "";    
+}
 $is_bot_detected = false;
 if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) {
-    $is_bot_detected = true;
+    $is_bot_detected = true;              
 }?>
+<?if($for_chyldren){?>
+    <link rel="stylesheet" href="/local/css/style_for_children.css" type="text/css">
+    <div class="soc_service_wrap">   
+        <p>Мы в соцсетях</p>
+        <ul>
+            <li><a href="" class="net_1"></a></li>
+            <li><a href="" class="net_2"></a></li>
+            <li><a href="https://twitter.com/AlpinaBookRu" class="net_3"><img src="/img/twitterImg.png"></a></li>
+            <li><a href="http://vk.com/ideabooks" class="net_4"><img src="/img/vkImg.png"></a></li>
+        </ul>
+    </div>
+<?}?>
 
 <div class="wrapperCategor">
     <div class="categoryWrapper">
@@ -76,7 +91,10 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             </p>
             <div itemprop="mainEntity" itemscope itemtype="http://schema.org/OfferCatalog">
             <link itemprop="url" href="<?=$_SERVER['REQUEST_URI']?>" />
-
+            <?if($for_chyldren){?>
+                <img src="/img/for_children/page-1.png" class="image_header">
+            <?}?>
+           
             <h1 itemprop="name"><?= $arResult["NAME"]?></h1>
 
             
@@ -97,73 +115,88 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                     <?}?>
                 </div>
             <?}?>
+            <?if($for_chyldren){?>
+                <?
+                $arFilter = Array('IBLOCK_ID'=>$arResult['IBLOCK_ID'],'ID'=>$arResult["ID"], 'GLOBAL_ACTIVE'=>'Y');
+                $db_list = CIBlockSection::GetList(Array(), $arFilter, false, Array("ID","UF_TEXT_WRAP_1"));
+                 if($uf_value = $db_list->GetNext()){
+                     $text_wrap_1 = $uf_value["UF_TEXT_WRAP_1"];
+                   };
+                ?>
+                <div class="wrap_style_1">
+                    <p><?=$text_wrap_1?> </p>
+                    <img src="/img/for_children/bitmap1.png">
+                </div>
+            <?}?>
             
-            <? global $SectionRoundBanner;
-            $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
-            $APPLICATION->IncludeComponent(
-                "bitrix:news.list",
-                "section_banners",
-                array(
-                    "ACTIVE_DATE_FORMAT" => "d.m.Y",
-                    "ADD_SECTIONS_CHAIN" => "Y",
-                    "AJAX_MODE" => "N",
-                    "AJAX_OPTION_ADDITIONAL" => "",
-                    "AJAX_OPTION_HISTORY" => "N",
-                    "AJAX_OPTION_JUMP" => "N",
-                    "AJAX_OPTION_STYLE" => "Y",
-                    "CACHE_FILTER" => "N",
-                    "CACHE_GROUPS" => "N",
-                    "CACHE_TIME" => "36000000",
-                    "CACHE_TYPE" => "A",
-                    "CHECK_DATES" => "Y",
-                    "COMPONENT_TEMPLATE" => "section_banners",
-                    "DETAIL_URL" => "",
-                    "DISPLAY_BOTTOM_PAGER" => "Y",
-                    "DISPLAY_DATE" => "Y",
-                    "DISPLAY_NAME" => "Y",
-                    "DISPLAY_PICTURE" => "Y",
-                    "DISPLAY_PREVIEW_TEXT" => "Y",
-                    "DISPLAY_TOP_PAGER" => "N",
-                    "FIELD_CODE" => array(
-                        0 => "DETAIL_PICTURE",
-                        1 => "",
+            <?if(!$for_chyldren){?>
+                <? global $SectionRoundBanner;
+                $SectionRoundBanner = array("PROPERTY_BIND_TO_SECTION" => $arResult["ID"]);
+                $APPLICATION->IncludeComponent(
+                    "bitrix:news.list",
+                    "section_banners",
+                    array(
+                        "ACTIVE_DATE_FORMAT" => "d.m.Y",
+                        "ADD_SECTIONS_CHAIN" => "Y",
+                        "AJAX_MODE" => "N",
+                        "AJAX_OPTION_ADDITIONAL" => "",
+                        "AJAX_OPTION_HISTORY" => "N",
+                        "AJAX_OPTION_JUMP" => "N",
+                        "AJAX_OPTION_STYLE" => "Y",
+                        "CACHE_FILTER" => "N",
+                        "CACHE_GROUPS" => "N",
+                        "CACHE_TIME" => "36000000",
+                        "CACHE_TYPE" => "A",
+                        "CHECK_DATES" => "Y",
+                        "COMPONENT_TEMPLATE" => "section_banners",
+                        "DETAIL_URL" => "",
+                        "DISPLAY_BOTTOM_PAGER" => "Y",
+                        "DISPLAY_DATE" => "Y",
+                        "DISPLAY_NAME" => "Y",
+                        "DISPLAY_PICTURE" => "Y",
+                        "DISPLAY_PREVIEW_TEXT" => "Y",
+                        "DISPLAY_TOP_PAGER" => "N",
+                        "FIELD_CODE" => array(
+                            0 => "DETAIL_PICTURE",
+                            1 => "",
+                        ),
+                        "FILTER_NAME" => "SectionRoundBanner",
+                        "HIDE_LINK_WHEN_NO_DETAIL" => "N",
+                        "IBLOCK_ID" => "6",
+                        "IBLOCK_TYPE" => "news",
+                        "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
+                        "INCLUDE_SUBSECTIONS" => "Y",
+                        "MESSAGE_404" => "",
+                        "NEWS_COUNT" => "20",
+                        "PAGER_BASE_LINK_ENABLE" => "N",
+                        "PAGER_DESC_NUMBERING" => "N",
+                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                        "PAGER_SHOW_ALL" => "N",
+                        "PAGER_SHOW_ALWAYS" => "N",
+                        "PAGER_TEMPLATE" => ".default",
+                        "PAGER_TITLE" => "Новости",
+                        "PARENT_SECTION" => "",
+                        "PARENT_SECTION_CODE" => "",
+                        "PREVIEW_TRUNCATE_LEN" => "",
+                        "PROPERTY_CODE" => array(
+                            0 => "SECT_BANNER_LINK",
+                            1 => "",
+                        ),
+                        "SET_BROWSER_TITLE" => "Y",
+                        "SET_LAST_MODIFIED" => "N",
+                        "SET_META_DESCRIPTION" => "Y",
+                        "SET_META_KEYWORDS" => "Y",
+                        "SET_STATUS_404" => "N",
+                        "SET_TITLE" => "Y",
+                        "SHOW_404" => "N",
+                        "SORT_BY1" => "ACTIVE_FROM",
+                        "SORT_BY2" => "SORT",
+                        "SORT_ORDER1" => "DESC",
+                        "SORT_ORDER2" => "ASC"
                     ),
-                    "FILTER_NAME" => "SectionRoundBanner",
-                    "HIDE_LINK_WHEN_NO_DETAIL" => "N",
-                    "IBLOCK_ID" => "6",
-                    "IBLOCK_TYPE" => "news",
-                    "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
-                    "INCLUDE_SUBSECTIONS" => "Y",
-                    "MESSAGE_404" => "",
-                    "NEWS_COUNT" => "20",
-                    "PAGER_BASE_LINK_ENABLE" => "N",
-                    "PAGER_DESC_NUMBERING" => "N",
-                    "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-                    "PAGER_SHOW_ALL" => "N",
-                    "PAGER_SHOW_ALWAYS" => "N",
-                    "PAGER_TEMPLATE" => ".default",
-                    "PAGER_TITLE" => "Новости",
-                    "PARENT_SECTION" => "",
-                    "PARENT_SECTION_CODE" => "",
-                    "PREVIEW_TRUNCATE_LEN" => "",
-                    "PROPERTY_CODE" => array(
-                        0 => "SECT_BANNER_LINK",
-                        1 => "",
-                    ),
-                    "SET_BROWSER_TITLE" => "Y",
-                    "SET_LAST_MODIFIED" => "N",
-                    "SET_META_DESCRIPTION" => "Y",
-                    "SET_META_KEYWORDS" => "Y",
-                    "SET_STATUS_404" => "N",
-                    "SET_TITLE" => "Y",
-                    "SHOW_404" => "N",
-                    "SORT_BY1" => "ACTIVE_FROM",
-                    "SORT_BY2" => "SORT",
-                    "SORT_ORDER1" => "DESC",
-                    "SORT_ORDER2" => "ASC"
-                ),
-                false
-            );?>
+                    false
+                );?>
+            
             <? /* Получаем от RetailRocket рекомендации для товара */
             $stringRecs = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/CategoryToItems/50b90f71b994b319dc5fd855/' . $arResult["ID"]);
             $recsArray = json_decode($stringRecs);
@@ -288,8 +321,10 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                     false
                 )
                 //}?>
+               
          <?} else {  //проверка на вывод подборок на главной?>
             <p class="grayTitle"></p>
+         <?}?>
          <?}?>
          <?  //блок с цитатой ?>
          <?if (is_array($arResult["QUOTE_ARRAY"])) {?>
@@ -548,10 +583,11 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             );?>
 
 
-
-        <div class="catalogDescription" itemprop="description">
-            <?=$arResult["DESCRIPTION"]?>
-        </div>
+        <?if(!$for_chyldren){?>
+            <div class="catalogDescription" itemprop="description">
+                <?=$arResult["DESCRIPTION"]?>
+            </div>
+        <?}?>
     </div>
 </div>
 
