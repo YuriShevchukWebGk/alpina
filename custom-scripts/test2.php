@@ -12,17 +12,17 @@ foreach ($array3 as $for2) {
 
     foreach ($array2 as $id) {
 
-		$arOrder = CSaleOrder::GetByID($id[0]);
+        $arOrder = CSaleOrder::GetByID($id[0]);
 
-		if ($arOrder['STATUS_ID'] == "F") {
-			echo $id[0].' - skip<br />';
-			continue;
-		}
+        if ($arOrder['STATUS_ID'] == "F") {
+            echo $id[0].' - skip<br />';
+            continue;
+        }
 
-		if ($id[0] == '' || $id[1] == '') {
-			echo $id[0].$id[1].' - empty<br />';
-			continue;
-		}
+        if ($id[0] == '' || $id[1] == '') {
+            echo $id[0].$id[1].' - empty<br />';
+            continue;
+        }
 
 
         $trackingNumber = '';
