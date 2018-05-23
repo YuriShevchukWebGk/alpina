@@ -13,7 +13,7 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", Array("Exchange1C", "Syn
 
 class QuantityChanges {
     function QuantityOnZero($ID, $arFields) {
-        if($arFields['QUANTITY'] <= 0 && CModule::IncludeModule('iblock')) {
+        if(isset($arFields['QUANTITY']) && $arFields['QUANTITY'] <= 0 && CModule::IncludeModule('iblock')) {
             $arSelect = Array("CATALOG_QUANTITY", "PROPERTY_STATE", "NAME");
             $arFilter = Array("ID" => $ID, "IBLOCK_ID" => CATALOG_IBLOCK_ID, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
             $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
@@ -22,7 +22,7 @@ class QuantityChanges {
                 //Проверим не является ли предзаказом и не был ли ранее отстаток меньше 0, после чего отправим сообщение и поменяем статус
                 if(($ar_product['PROPERTY_STATE_ENUM_ID'] != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) && ($ar_product['CATALOG_QUANTITY'] <= 0)) {
                     //Установим новое значение для данного свойства данного элемента
-                    CIBlockElement::SetPropertyValuesEx($ID, false, array('STATE' => getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")));
+                    CIBlockElement::SetPropertyValuesEx($ID, false, array('STATE' => getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")));				
                     $view_link = sprintf("https://www.alpinabook.ru/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=catalog&ID=%d", CATALOG_IBLOCK_ID, $ID);
                     $ar_template = array(
                         "NAME" => $ar_product['NAME'],
@@ -35,23 +35,25 @@ class QuantityChanges {
     }
 
     function QuantityOnMoreThanZero($ID, $arFields) {
-        if($arFields['QUANTITY'] > 0 && CModule::IncludeModule('iblock')) {
+        if(CModule::IncludeModule('iblock')) {
             $arSelect = Array("CATALOG_QUANTITY", "PROPERTY_STATE", "NAME");
-            $arFilter = Array("ID" => $ID, "IBLOCK_ID" => CATALOG_IBLOCK_ID, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
+            $arFilter = Array("ID" => intval($ID), "IBLOCK_ID" => CATALOG_IBLOCK_ID, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
             $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
             if ($ob = $res->GetNextElement()) {
                 $ar_product = $ob->GetFields();
-                //Проверим не является ли предзаказом и не был ли ранее отстаток меньше 0, после чего отправим сообщение и поменяем статус
-                if(($ar_product['PROPERTY_STATE_ENUM_ID'] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) {
-                    //Установим новое значение для данного свойства данного элемента
-                    CIBlockElement::SetPropertyValuesEx($ID, false, array('STATE' => getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "")));
-                    $view_link = sprintf("https://www.alpinabook.ru/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=catalog&ID=%d", CATALOG_IBLOCK_ID, $ID);
+				//Проверим не является ли предзаказом и не был ли ранее отстаток меньше 0, после чего отправим сообщение и поменяем статус
+				if(($ar_product["CATALOG_QUANTITY"] > 0 && ($ar_product['PROPERTY_STATE_ENUM_ID'] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal"))) ||
+				   ($arFields['QUANTITY'] 	       > 0 && ($ar_product['PROPERTY_STATE_ENUM_ID'] == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "net_v_nal")))
+				) {
+					//Установим новое значение для данного свойства данного элемента
+                    CIBlockElement::SetPropertyValuesEx($ID, false, array('STATE' => false));	
+	                    $view_link = sprintf("https://www.alpinabook.ru/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=%d&type=catalog&ID=%d", CATALOG_IBLOCK_ID, $ID);
                     $ar_template = array(
                         "NAME" => $ar_product['NAME'],
                         "URL"  => $view_link
                     );
                     CEvent::Send("CATALOG_PRODUCT_AVAILABLE", array("ru"), $ar_template);
-                }
+				}
             }
         }
     }

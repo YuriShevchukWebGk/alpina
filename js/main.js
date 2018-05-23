@@ -82,6 +82,15 @@ function sendchapter(bookid) {
         });
 };
 $(document).ready(function(){
+	//Отправка главы
+	$("#chapter-email").keydown(function(event){
+		if(event.keyCode == 13) {
+		  event.preventDefault();
+		  $(this).siblings("button").click();
+		  return false;
+		}
+	});
+
 	$(".element_item_img").hover(
 	  function() {
 		$(this).find('img').css({'filter':'grayscale(0.7)', '-webkit-filter':'grayscale(0.7)', '-moz-filter':'grayscale(0.7)', '-o-filter':'grayscale(0.7)', '-ms-filter':'grayscale(0.7)'});

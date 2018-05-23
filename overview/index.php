@@ -563,9 +563,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants format-options">
 <option value="30×45 cm" data-product-variant-price="1900.00 ₽
 ">30×45 cm</option>
-<option value="60×90 cm" data-product-variant-price="2800.00 ₽
+<option value="60×90 cm" data-product-variant-price="3500.00 ₽
 ">60×90 cm</option>
-<option value="90×135 cm" data-product-variant-price="41950.00 ₽">90×135 cm</option>
+<option value="90×135 cm" data-product-variant-price="6250.00 ₽">90×135 cm</option>
 </select>
 </div>
 </div>

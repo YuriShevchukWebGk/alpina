@@ -395,7 +395,7 @@ if($this->InitComponentTemplate($templatePage))
             }
 
             $arReturn = array();  
- while($ar = $obSearch->GetNext()){ 
+            /* while($ar = $obSearch->GetNext()){ 
                 if(in_array($ar["ITEM_ID"],$item_filetr["ID"])){
                     $arReturn[$ar["ID"]] = $ar["ITEM_ID"];
                     $ar["CHAIN_PATH"] = $APPLICATION->GetNavChain($ar["URL"], 0, $folderPath."/chain_template.php", true, false);
@@ -459,9 +459,9 @@ if($this->InitComponentTemplate($templatePage))
                         
                     }
                 }
-            }
+            } */
             
-           /* while($ar)
+            while($ar)
             {
                 $arReturn[$ar["ID"]] = $ar["ITEM_ID"];
                 $ar["CHAIN_PATH"] = $APPLICATION->GetNavChain($ar["URL"], 0, $folderPath."/chain_template.php", true, false);
@@ -489,7 +489,7 @@ if($this->InitComponentTemplate($templatePage))
                 }
                 $arResult["SEARCH"][]=$ar;
                 $ar = $obSearch->GetNext();
-            }     */
+            }     
 
             $navComponentObject = null;
             $arResult["NAV_STRING"] = $obSearch->GetPageNavStringEx($navComponentObject,  $arParams["PAGER_TITLE"], $arParams["PAGER_TEMPLATE"], $arParams["PAGER_SHOW_ALWAYS"]);

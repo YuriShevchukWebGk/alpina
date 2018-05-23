@@ -1,6 +1,5 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
-require '/var/www/alpinabook.ru/html/bitrix/vendor/autoload.php';
 use Mailgun\Mailgun;
 if ($_POST['email']) {
     function subscribeTest($id, $mail) {

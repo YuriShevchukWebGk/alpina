@@ -1,6 +1,5 @@
 ﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
-require '/var/www/alpinabook.ru/html/vendor/bitrix/autoload.php';
 use Mailgun\Mailgun;
 if ($_POST['email']) {
 	$email = $_POST['email'];
@@ -57,7 +56,7 @@ if ($_POST['email']) {
 
 	# Make the call to the client.
 	$result = $mgClient->sendMessage($domain, array(
-		'from'    => 'Сергей (Alpina.ru) <shop@alpinabook.ru>',
+		'from'    => 'Альпина Паблишер (Alpina.ru) <shop@alpinabook.ru>',
 		'to'      => $_POST['email'],
 		//'cc'      => 'baz@example.com',
 		//'bcc'     => 'a.marchenkov@alpinabook.ru',

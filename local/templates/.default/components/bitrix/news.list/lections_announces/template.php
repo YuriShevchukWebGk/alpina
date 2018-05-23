@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 if (!empty($arResult["ITEMS"])) {?>
-    <div class="announces_block">
+    <div class="announces_block" style="margin-top: 15px">
         <?if($arParams["DISPLAY_TOP_PAGER"]):?>
 	        <?=$arResult["NAV_STRING"]?><br />
         <?endif;?>

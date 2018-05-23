@@ -993,6 +993,84 @@
                 <li><?= GetMessage("MAIL_DELIVERY") ?><br /><a href='#' onclick="getInfo('box');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'box'});return false;"><?=GetMessage("COUNTRY_DELIVERY")?></a></li>
 
             </ul>    -->
+<?if(!empty($arResult['PROPERTIES']['AUTHORS']['VALUE'][0])){?>
+            <? global $author_filter;
+                $author_filter = array("PROPERTY_AUTHOR_LINK" => $arResult['PROPERTIES']['AUTHORS']['VALUE'][0]);
+                if(!$USER->IsAdmin()){
+                    $author_filter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
+                }
+                $APPLICATION->IncludeComponent(
+    "bitrix:news.list",
+    "lections_announces",
+    array(
+        "ACTIVE_DATE_FORMAT" => "d.m.Y",
+        "ADD_SECTIONS_CHAIN" => "Y",
+        "AJAX_MODE" => "N",
+        "AJAX_OPTION_ADDITIONAL" => "",
+        "AJAX_OPTION_HISTORY" => "N",
+        "AJAX_OPTION_JUMP" => "N",
+        "AJAX_OPTION_STYLE" => "Y",
+        "CACHE_FILTER" => "N",
+        "CACHE_GROUPS" => "N",
+        "CACHE_TIME" => "36000",
+        "CACHE_TYPE" => "A",
+        "CHECK_DATES" => "Y",
+        "DETAIL_URL" => "",
+        "DISPLAY_BOTTOM_PAGER" => "N",
+        "DISPLAY_DATE" => "Y",
+        "DISPLAY_NAME" => "Y",
+        "DISPLAY_PICTURE" => "Y",
+        "DISPLAY_PREVIEW_TEXT" => "Y",
+        "DISPLAY_TOP_PAGER" => "N",
+        "FIELD_CODE" => array(
+            0 => "NAME",
+            1 => "",
+        ),
+        "FILTER_NAME" => "author_filter",
+        "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
+        "IBLOCK_ID" => LECTIONS_ANNOUNCES_IBLOCK_ID,
+        "IBLOCK_TYPE" => "service",
+        "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
+        "INCLUDE_SUBSECTIONS" => "Y",
+        "MESSAGE_404" => "",
+        "NEWS_COUNT" => "1",
+        "PAGER_BASE_LINK_ENABLE" => "N",
+        "PAGER_DESC_NUMBERING" => "N",
+        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+        "PAGER_SHOW_ALL" => "N",
+        "PAGER_SHOW_ALWAYS" => "N",
+        "PAGER_TEMPLATE" => ".default",
+        "PAGER_TITLE" => "Новости",
+        "PARENT_SECTION" => "",
+        "PARENT_SECTION_CODE" => "",
+        "PREVIEW_TRUNCATE_LEN" => "",
+        "PROPERTY_CODE" => array(
+            0 => "",
+            1 => "LECTION_DATE",
+            2 => "EVENT_LINK",
+            3 => "EVENT_TYPE",
+            4 => "AUTHOR_LINK",
+            5 => "",
+        ),
+        "SET_BROWSER_TITLE" => "Y",
+        "SET_LAST_MODIFIED" => "N",
+        "SET_META_DESCRIPTION" => "Y",
+        "SET_META_KEYWORDS" => "Y",
+        "SET_STATUS_404" => "N",
+        "SET_TITLE" => "Y",
+        "SHOW_404" => "N",
+        "SORT_BY1" => "ACTIVE_FROM",
+        "SORT_BY2" => "SORT",
+        "SORT_ORDER1" => "DESC",
+        "SORT_ORDER2" => "ASC",
+        "COMPONENT_TEMPLATE" => "lections_announces",
+        "STRICT_SECTION_CHECK" => "N",
+        "COMPOSITE_FRAME_MODE" => "A",
+        "COMPOSITE_FRAME_TYPE" => "AUTO"
+    ),
+    false
+);?>
+            <?}?>
             <?if(intval ($arResult["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")){?>
                 <?if($_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"]){
                     $city = $_SESSION["ALTASIB_GEOBASE_CODE"]["CITY"]["NAME"];
@@ -1145,84 +1223,7 @@
                 <a href="#"><p class="takePart">Принять участие</p></a>
             </div>
             <?}?>
-        <?if(!empty($arResult['PROPERTIES']['AUTHORS']['VALUE'][0])){?>
-            <? global $author_filter;
-                $author_filter = array("PROPERTY_AUTHOR_LINK" => $arResult['PROPERTIES']['AUTHORS']['VALUE'][0]);
-                if(!$USER->IsAdmin()){
-                    $author_filter["!PROPERTY_FOR_ADMIN_VALUE"] = "Y";
-                }
-                $APPLICATION->IncludeComponent(
-    "bitrix:news.list",
-    "lections_announces",
-    array(
-        "ACTIVE_DATE_FORMAT" => "d.m.Y",
-        "ADD_SECTIONS_CHAIN" => "Y",
-        "AJAX_MODE" => "N",
-        "AJAX_OPTION_ADDITIONAL" => "",
-        "AJAX_OPTION_HISTORY" => "N",
-        "AJAX_OPTION_JUMP" => "N",
-        "AJAX_OPTION_STYLE" => "Y",
-        "CACHE_FILTER" => "N",
-        "CACHE_GROUPS" => "N",
-        "CACHE_TIME" => "36000",
-        "CACHE_TYPE" => "A",
-        "CHECK_DATES" => "Y",
-        "DETAIL_URL" => "",
-        "DISPLAY_BOTTOM_PAGER" => "N",
-        "DISPLAY_DATE" => "Y",
-        "DISPLAY_NAME" => "Y",
-        "DISPLAY_PICTURE" => "Y",
-        "DISPLAY_PREVIEW_TEXT" => "Y",
-        "DISPLAY_TOP_PAGER" => "N",
-        "FIELD_CODE" => array(
-            0 => "NAME",
-            1 => "",
-        ),
-        "FILTER_NAME" => "author_filter",
-        "HIDE_LINK_WHEN_NO_DETAIL" => "Y",
-        "IBLOCK_ID" => LECTIONS_ANNOUNCES_IBLOCK_ID,
-        "IBLOCK_TYPE" => "service",
-        "INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
-        "INCLUDE_SUBSECTIONS" => "Y",
-        "MESSAGE_404" => "",
-        "NEWS_COUNT" => "1",
-        "PAGER_BASE_LINK_ENABLE" => "N",
-        "PAGER_DESC_NUMBERING" => "N",
-        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-        "PAGER_SHOW_ALL" => "N",
-        "PAGER_SHOW_ALWAYS" => "N",
-        "PAGER_TEMPLATE" => ".default",
-        "PAGER_TITLE" => "Новости",
-        "PARENT_SECTION" => "",
-        "PARENT_SECTION_CODE" => "",
-        "PREVIEW_TRUNCATE_LEN" => "",
-        "PROPERTY_CODE" => array(
-            0 => "",
-            1 => "LECTION_DATE",
-            2 => "EVENT_LINK",
-            3 => "EVENT_TYPE",
-            4 => "AUTHOR_LINK",
-            5 => "",
-        ),
-        "SET_BROWSER_TITLE" => "Y",
-        "SET_LAST_MODIFIED" => "N",
-        "SET_META_DESCRIPTION" => "Y",
-        "SET_META_KEYWORDS" => "Y",
-        "SET_STATUS_404" => "N",
-        "SET_TITLE" => "Y",
-        "SHOW_404" => "N",
-        "SORT_BY1" => "ACTIVE_FROM",
-        "SORT_BY2" => "SORT",
-        "SORT_ORDER1" => "DESC",
-        "SORT_ORDER2" => "ASC",
-        "COMPONENT_TEMPLATE" => "lections_announces",
-        "STRICT_SECTION_CHECK" => "N",
-        "COMPOSITE_FRAME_MODE" => "A",
-        "COMPOSITE_FRAME_TYPE" => "AUTO"
-    ),
-    false
-);?>
-            <?}?>
+        
     </div>
     <div class="subscr_result"></div>
     <div class="centerColumn">
