@@ -3247,6 +3247,7 @@
         'HLBlockElementUpdate'
     );
     function HLBlockElementUpdate(Bitrix\Main\Event $arElement){
+        
         if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
             if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){
                 $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN");

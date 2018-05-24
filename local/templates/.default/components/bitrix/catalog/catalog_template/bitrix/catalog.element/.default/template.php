@@ -25,24 +25,24 @@
         .giftWrapChildren .title,.giftWrapChildren .pii{color:#fff}
         .giftWrapChildren p,.giftWrapChildren .pii a{color:#ddd}
         .reviewsSliderWrapp .giftWrapChildren{border-top:none;height:300px}
-        .giftWrapChildren:before{content:"";background-image: url('/upload/resize_cache/iblock/5d9/380_567_1/5d938b4c37fb96a5cd5755ee000e7df3.jpg');background-size: 200px 296px;width: 200px;height: 296px;} 
+        .giftWrapChildren:before{content:"";background-image: url('/upload/resize_cache/iblock/5d9/380_567_1/5d938b4c37fb96a5cd5755ee000e7df3.jpg');background-size: 200px 296px;width: 200px;height: 296px;}
 
     </style>
 <?}?>
-<?if($arResult["PROPERTIES"]["TRANSPARENT_CORNER"]["VALUE_XML_ID"] == "Y"){?>  
+<?if($arResult["PROPERTIES"]["TRANSPARENT_CORNER"]["VALUE_XML_ID"] == "Y"){?>
     <style>
         .elementDescriptWrap .elementMainPict .element_item_img img {
             border-radius: 25px 25px 25px 25px;
-        } 
-      
-    </style>   
+        }
+
+    </style>
 <?} else if($arResult["PROPERTIES"]["TRANSPARENT_CORNER_1_2"]["VALUE_XML_ID"] == "Y"){?>
     <style>
         .elementDescriptWrap .elementMainPict .element_item_img img {
             border-radius: 0px 25px 25px 0px;
-        } 
-     
-    </style>   
+        }
+
+    </style>
 <?}?>
 <script>
     $(function(){
@@ -276,9 +276,9 @@
                 </div>
                 <div class="legal_person">
                     <input type='text' placeholder="ФИО" name="FIO" id="FIO">
-                    <br>   
+                    <br>
                     <input type='text' placeholder="Телефон" name="phone" id="phone">
-                    <br>   
+                    <br>
                     <input type='email' placeholder="Email" name="legal_email" id="legal_email">
                     <br>
                     <input type='text' placeholder="ИНН" name="inn" id="inn" style="margin-left: 10px;">
@@ -525,14 +525,14 @@
                     <p class="text" itemprop="isbn"><?= $arResult["PROPERTIES"]["ISBN"]["VALUE"] ?></p>
                 </div>
             <?}?>
-            
+
             <?if (!empty($arResult["TRANSLATOR"])) {?>
                 <div class="characteris">
                     <p class="title"><?= GetMessage("TRANSLATOR") ?></p>
                     <p class="text" itemprop="translator"><?= $arResult["TRANSLATOR"] ?></p>
                 </div>
             <?}?>
-            
+
             <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233 && $arResult["PROPERTIES"]["PROPS_CATALOG_HIDE"]["VALUE_XML_ID"] != "Y") {?>
                 <div class="characteris epubHide">
                     <a href="http://readright.ru/?=alpinabook" target="_blank">
@@ -653,7 +653,7 @@
                                         <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span></div>
                                          <p class="newPrice"><?= $arPrice["DISCOUNT_VALUE"] ?> <span>руб.</span></p>
                                     <?} elseif ($arPrice["DISCOUNT_DIFF_PERCENT"] > 0) {?>
-                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span>                                    
+                                    <div class="oldPrice"><span class="cross"><?= $arPrice["PRINT_VALUE"] ?></span>
                                     <span class="diff"><?echo '-'.$arPrice["DISCOUNT_DIFF"]+$newPrice.' <span style="font-family:RoubleSign"">'.GetMessage("ROUBLES").'</span>';?></span></div>
                                     <?  // проверяем установлена ли фиксированная скидка на товар
                                     if($arPrice["DISCOUNT_VALUE"] == 99){
@@ -672,7 +672,7 @@
                                             }
                                         }
                                     }?>
-                                    
+
                                     <p class="newPrice"><?= $newPrice ?> <span>руб.</span></p>
                                     <?} else if ($discount) {
                                         $newPrice = round (($arPrice["VALUE"]) * (1 - $discount / 100), 2);
@@ -1107,11 +1107,11 @@
                         ),
                         false
                     );?>
-                 <? */ 
+                 <? */
                 // arshow($city, false);?>
                  <ul class="shippings" data-weight="<?=$weight?>">
                     <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) || $city == "Москва"){
-                        
+
                         if($city == "Москва" || empty($city)){ ?>
                             <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
                                 <?= GetMessage("MSK_DELIVERY") ?>
@@ -1223,7 +1223,7 @@
                 <a href="#"><p class="takePart">Принять участие</p></a>
             </div>
             <?}?>
-        
+
     </div>
     <div class="subscr_result"></div>
     <div class="centerColumn">
@@ -1290,7 +1290,7 @@
             <?=$video_convert?>
             </div>
         <?}?>
-        
+
         <ul class="productsMenu">
             <? if ($arResult['IBLOCK_SECTION_ID'] == CERTIFICATE_SECTION_ID) { ?>
             <li class="active tabsInElement" data-id="1"><?= GetMessage("CERTIFICATE_TITLE") ?></li>
@@ -1708,7 +1708,7 @@
         }
         ?>
         <div class="slider-box">
-            <div class="slider">  
+            <div class="slider">
                 <?foreach($image as $img){ ?>
                     <img src="<?=$img?>" alt="<?=$arResult["NAME"]?>" height="500px">
                 <?}?>
@@ -1725,7 +1725,7 @@
         <?}?>
         <script async defer src="//www.instagram.com/embed.js"></script>
     <?}?>
-    
+
 </div>
 </div>
 
@@ -2054,7 +2054,7 @@ if (!$childrenDesign) {
     );
 } else {
     ?>
-    <div class="reviewsSliderWrapp slide" style="float: left;background-color: #F4F4F4; <?=($childrenDesign)?'height: 474px;':''?>"> 
+    <div class="reviewsSliderWrapp slide" style="float: left;background-color: #F4F4F4; <?=($childrenDesign)?'height: 474px;':''?>">
     <div class="centerWrapper">
     <?
         global $arFilter;
@@ -2217,7 +2217,7 @@ if (!$childrenDesign) {
 }
 ?>
 
-<div class="reviewsSliderWrapp" style="<?=($childrenDesign)? 'height: 474px;':''?>"> 
+<div class="reviewsSliderWrapp" style="<?=($childrenDesign)? 'height: 474px;':''?>">
     <div class="centerWrapper">
         <!--noindex-->
         <?if ($childrenDesign) {?>
@@ -2240,7 +2240,7 @@ if (!$childrenDesign) {
                 }
             }
             </script>
-        
+
             <div class="giftWrapChildren">
                 <form action="/" method="post">
                     <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return subscribeChildren();}">
@@ -2449,8 +2449,8 @@ if (!$childrenDesign) {
             <a href="mailto:n.tentser@alpina.ru" style="color:#fff;text-decoration:none;border-bottom:1px solid">Напишите на почту Наталье Тенцер n.tentser@alpina.ru</a>, расскажите о себе и своем блоге, мы рассмотрим ваше предложение и обязательно ответим!<br />
            <?/* <img src="<?= $arResult["PICTURE"]["src"] ?>" align="left" style="padding-right:30px;max-height: 450px;text-align: center;margin-top: 10px;margin-left: 20%;" /> */?>
         </p>
-        <div class="frame_soc_service" style=" margin-top: 13px;width: 70%;clear: both;margin: 13px auto 0;"> 
-            <iframe class="deactive" src="//widget.stapico.ru/?q=alpinadeti&s=95&w=2&h=1&b=1&p=5&effect=2" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:240px;float: left;height: 245px;" ></iframe> <!-- stapico - stapico.ru -->        
+        <div class="frame_soc_service" style=" margin-top: 13px;width: 70%;clear: both;margin: 13px auto 0;">
+            <iframe class="deactive" src="//widget.stapico.ru/?q=alpinadeti&s=95&w=2&h=1&b=1&p=5&effect=2" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:240px;float: left;height: 245px;" ></iframe> <!-- stapico - stapico.ru -->
             <script type="text/javascript" src="//vk.com/js/api/openapi.js?153"></script>
 
             <!-- VK Widget -->
@@ -2460,7 +2460,7 @@ if (!$childrenDesign) {
             </script>
             <br>
             <div class="fb-page" data-href="https://www.facebook.com/alpinadeti/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/alpinadeti/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/alpinadeti/">Альпина Дети</a></blockquote></div>
-        </div> 
+        </div>
     </div>
 
 </div>
@@ -2776,7 +2776,6 @@ if (!$childrenDesign) {
 
     function cackleReviewsCount() {
         $.getJSON("https://cackle.me/review/36574/rating", {len: 1, 0:'<?= $arResult["ID"] ?>'}, function(data){
-            console.log(data);
             var countReviews = data.res.split(':')[1];
             if (countReviews > 0)
                 $("#commentsLink").append(' ('+countReviews+')');
