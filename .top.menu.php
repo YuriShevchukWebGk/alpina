@@ -8,7 +8,7 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Международная доставка", 
+		"Доставка", 
 		"/content/delivery/", 
 		Array(), 
 		Array(), 
