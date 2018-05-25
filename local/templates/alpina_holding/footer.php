@@ -37,7 +37,7 @@
             <div class ="footerImageLinks">
                 <div class ="footerImage">
                     <a href="/">
-                        <img src="/img/footerLogo.png">
+                        <img src="/img/footerLogo_grey.png">
                     </a>
                 </div>
                 <div class="footerImage">
