@@ -25,7 +25,7 @@
                 <div class="footerMenu">
                     <div>
                         <a href="/">
-                            <img src="/img/footerLogo.png">
+                            <img src="/img/footerLogo_grey.png">
                         </a>
                         <br />
                         <br />

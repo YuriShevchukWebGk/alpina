@@ -14,6 +14,7 @@ $this->setFrameMode(true);
 
 ?>
 <div class="books">
+	<p class="titleMain title"><?=GetMessage("TITLE_EDITOR_CHOICE")?></p>
 	<div class="firstSection">
 		<?/*<div class="titleBlock">
 			<div class="titleText">
