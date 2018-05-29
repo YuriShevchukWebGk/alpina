@@ -1273,6 +1273,10 @@ http://www.tdbars.ru/books/about/
 (8 10 38) 044 502-62-70 (многоканальный) 
 099-190-05-12, 068-575-80-55 
 marina@elga.kiev.ua, vadim@elga.kiev.ua 
+  </br>
+ <strong>Yakaboo</strong> 
+   </br>
+ Интернет-магазин https://www.yakaboo.ua/ 
 <span class="city">Латвия, Рига:</span> 
 <strong>Сеть магазинов «Polaris» </strong> 
  
