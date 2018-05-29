@@ -1656,7 +1656,6 @@ window.JCCatalogSection.prototype.InitPopupWindow = function()
 $(document).ready(function() {
     $(".basketLater").click(function(){
         $.post("/ajax/ajax_add2wishlist.php", {id: $(this).attr("id")}, function(data){
-            
             $(".likedQuant").html(parseInt($(".likedQuant").html()) + 1);
             $(".layout").show();
             $(".wishlist_info").css("top", window.pageYOffset+"px");
@@ -1669,13 +1668,13 @@ $(document).ready(function() {
         $(".layout").hide();
         $(".wishlist_info").hide();
     })
-    // обрезка длинных названий
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     $(".nameBook").each(function()
         {
             if($(this).length > 0)
             {
-                $(this).html(truncate($(this).html(), 40));    
-            }    
+                $(this).html(truncate($(this).html(), 40));
+            }
     });
     if (($(".otherBooks ul li").length < 11) && ($(".otherBooks ul li").length > 5)) {
         //$(".contentWrapp").css("height", "1740px");
@@ -1683,17 +1682,17 @@ $(document).ready(function() {
     }
     else if ($(".otherBooks ul li").length < 6) {
         //$(".contentWrapp").css("height", "1440px");
-        //$(".wrapperCategor").css("height", "1510px");       
+        //$(".wrapperCategor").css("height", "1510px");
     }
     if ($(".bestSlider").size() == 0 && ($(".otherBooks ul li").length > 10)) {
         //$(".contentWrapp").css("height", "2000px");
         //$(".wrapperCategor").css("height", "2080px");
     }
-    if ($(".categoryWrapperWhite .sliderUl li").size() == 0) {   
+    if ($(".categoryWrapperWhite .sliderUl li").size() == 0) {
         $(".categoryWrapperWhite").hide();
         //$(".contentWrapp").css("height",  //$(".contentWrapp").height() - $(".categoryWrapperWhite").height() + "px");
     }
-    if (($(".bestSlider ul li").size() == 0)) {  
+    if (($(".bestSlider ul li").size() == 0)) {
         //ajax_section_styles();
           //$(".wrapperCategor").css("height", //$(".wrapperCategor").height() - $(".grayTitle").height() - 505 + "px");
         //$(".contentWrapp").css("height", //$(".contentWrapp").height() - $(".grayTitle").height() - 505 + "px");
