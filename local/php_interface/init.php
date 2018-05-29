@@ -3250,11 +3250,27 @@
         
         if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
             if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){
-                $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN");
+                $arSelect = Array("ID", "NAME", "IBLOCK_ID", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN", "PROPERTY_IGNORE_SEARCH_INDEX");
                 $arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
                 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
                 while($arFields = $res->GetNext())
                 {
+                    $dbIgnoreSearchIndexProp = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array(), Array("CODE" => "IGNORE_SEARCH_INDEX"));
+                    if($arIgnoreSearchIndexProp = $dbIgnoreSearchIndexProp->Fetch()) {
+                        $ignoreSearchIndexPropID = intval($arIgnoreSearchIndexProp["ID"]);
+                    }
+
+                    $to_delete = false;
+                    if(isset($arElement["PROPERTY_VALUES"][$arIgnoreSearchIndexProp["ID"]])) {
+                        if(!empty($arElement["PROPERTY_VALUES"][$arIgnoreSearchIndexProp["ID"]])) {
+                            $to_delete = true;
+                        }
+                    } else {
+                        if(!empty($arFields[PROPERTY_IGNORE_SEARCH_INDEX_VALUE])) {
+                            $to_delete = true;
+                        }
+                    }
+
                     if (!empty($arFields['NAME'])) {
                         $arHLData['UF_TITLE'] = preg_replace("/([^a-zA-Z\sа-яёА-ЯЁ0-9])/u","",$arFields['NAME']);
                     }
@@ -3295,9 +3311,15 @@
                         "filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
                     ));
                     if($arElementID = $rsElementID->Fetch()){
-                        $result = $entity_data_class::update($arElementID['ID'], $arHLData);
+                        if($to_delete) {
+                            $result = $entity_data_class::delete($arElementID['ID']);
+                        } else {
+                            $result = $entity_data_class::update($arElementID['ID'], $arHLData);
+                        }
                     } else {
-                        $result = $entity_data_class::add($arHLData);
+                        if(!$to_delete) {
+                            $result = $entity_data_class::add($arHLData);
+                        }
                     }
                 }
             }
