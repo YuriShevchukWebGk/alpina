@@ -3260,8 +3260,14 @@
                     }
 
                     $to_delete = false;
-                    if(!empty($arElement["PROPERTY_VALUES"][$arIgnoreSearchIndexProp["ID"]])) {
-                        $to_delete = true;
+                    if(isset($arElement["PROPERTY_VALUES"][$arIgnoreSearchIndexProp["ID"]])) {
+                        if(!empty($arElement["PROPERTY_VALUES"][$arIgnoreSearchIndexProp["ID"]])) {
+                            $to_delete = true;
+                        }
+                    } else {
+                        if(!empty($arFields[PROPERTY_IGNORE_SEARCH_INDEX_VALUE])) {
+                            $to_delete = true;
+                        }
                     }
 
                     if (!empty($arFields['NAME'])) {
