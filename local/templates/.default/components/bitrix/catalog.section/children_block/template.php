@@ -113,7 +113,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 <div class="contentWrapp childrenBooksBlock">
     <div class="seriesBlock">
         <div class="seriesTitle">
-            <h2><?=$arParams["SERIES_NAME"]?></h2>
+            <h2><?=$arParams["TITLE_BLOCK"]?></h2>
         </div>
         <div class="allBooksButton">
             <a href="<?=$arParams["BUTTON_HREF"]?>"><?=$arParams["BUTTON_NAME"]?></a>
@@ -122,13 +122,11 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
     <div class="otherBooks">
         <ul>
             <?foreach ($arResult["ITEMS"] as $arItem) {
-
                 if($arItem["BIG_ITEM"]) {
                     $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>360, 'height'=>528), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                 } else {
                     $pict = CFile::ResizeImageGet($arItem["DETAIL_PICTURE"]["ID"], array('width'=>147, 'height'=>216), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                 }
-
                 foreach ($arItem["PRICES"] as $code => $arPrice) {
                 ?>
                 <li <?if($arItem["BIG_ITEM"]) { echo "class='bigItem'"; }?>>
@@ -218,47 +216,6 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
             }
         });
 
-        <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
-        <?if (isset($_REQUEST["PAGEN_".$navnum])) {?>
-            var page = <?=$_REQUEST["PAGEN_".$navnum]?> + 1;
-            <?}else{?>
-            var page = 2;
-            <?}?>
-        var maxpage = <?=($arResult["NAV_RESULT"]->NavPageCount)?>;
-        $('.showMore').click(function(){
-            var otherBooks = $(this).siblings(".otherBooks");
-
-            <?if (isset($_REQUEST["SORT"])) {?>
-                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?" . $_SERVER["QUERY_STRING"] . "&PAGEN_" . $navnum . "=" ?>';
-            <?} else {?>
-                var section_url = '<?= $arResult["SECTION_PAGE_URL"] . "?PAGEN_" . $navnum . "=" ?>';
-            <?}?>
-            $.get(section_url + page, function(data) {
-                var next_page = $('.otherBooks ul li', data);
-                //$('.catalogBooks').append('<br /><h3>Страница '+ page +'</h3><br />');
-                $('.otherBooks ul').append(next_page);
-                page++;
-            })
-            .done(function() {
-                $(".nameBook").each(function() {
-                    if($(this).length > 0) {
-                        $(this).html(truncate($(this).html(), 40));
-                    }
-                });
-                var otherBooksHeight = 1340 * Math.ceil(($(".otherBooks ul li").length / 15));
-                //var categorHeight = 2750 + 1190 * (($(".otherBooks ul li").length - 15) / 15);
-                var categorHeight = 1600 + Math.ceil(($(".otherBooks ul li").length - 15) / 5) * 450;
-                otherBooks.css("height", otherBooksHeight+"px");
-                $(".wrapperCategor").css("height", categorHeight+"px");
-                $(".contentWrapp").css("height", categorHeight-10+"px");
-            });
-            if (page == maxpage) {
-                $('.showMore').hide();
-                //$('.phpages').hide();
-            }
-            return false;
-
-        });
         <?
         if (!$USER -> IsAuthorized()) {?>
         $(".categoryWrapper .categoryBooks").hover(function(){
