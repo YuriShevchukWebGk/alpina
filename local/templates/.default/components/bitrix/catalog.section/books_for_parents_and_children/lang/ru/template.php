@@ -1,6 +1,6 @@
 <?
 $MESS["CT_BCS_TPL_ELEMENT_DELETE_CONFIRM"] = "Будет удалена вся информация, связанная с этой записью. Продолжить?";
-$MESS["CT_BCS_TPL_MESS_BTN_BUY"] = "Купить";                     
+$MESS["CT_BCS_TPL_MESS_BTN_BUY"] = "Купить";
 $MESS["CT_BCS_TPL_MESS_BTN_ADD_TO_BASKET"] = "В корзину";
 $MESS["CT_BCS_TPL_MESS_BTN_ADD_TO_PREORDER"] = "Предзаказ";
 $MESS["CT_BCS_TPL_MESS_PRODUCT_NOT_AVAILABLE"] = "Нет в наличии";
@@ -23,4 +23,9 @@ $MESS["CT_BCS_CATALOG_MESS_COMPARE_TITLE"] = "Сравнение товаров"
 $MESS["CT_BCS_CATALOG_MESS_COMPARE_UNKNOWN_ERROR"] = "При добавлении товара в список сравнения произошла ошибка";
 $MESS["CT_BCS_CATALOG_BTN_MESSAGE_COMPARE_REDIRECT"] = "Перейти в список сравнения";
 $MESS["POPULAR_ITEMS_TITLE"] = "Самые популярные товары в категории";
+
+
+$MESS["BLOCK_TITLE"] = "Название блока";
+$MESS["BUTTON_NAME"] = "Надпись на кнопке";
+$MESS["BUTTON_HREF"] = "Ссылка у кнопки";
 ?>

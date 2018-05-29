@@ -41,6 +41,36 @@ if (is_dir($dir))
 	}
 }
 
+$arTemplateParameters['TITLE_BLOCK'] = array(
+	'NAME' => GetMessage("TITLE_BLOCK"),
+	'TYPE' => 'STRING',
+	'MULTIPLE' => 'N',
+	'ADDITIONAL_VALUES' => 'N',
+	'REFRESH' => 'N',
+	'DEFAULT' => '-',
+	'VALUES' => ""
+);
+
+$arTemplateParameters['BUTTON_NAME'] = array(
+	'NAME' => GetMessage("BUTTON_NAME"),
+	'TYPE' => 'STRING',
+	'MULTIPLE' => 'N',
+	'ADDITIONAL_VALUES' => 'N',
+	'REFRESH' => 'N',
+	'DEFAULT' => '-',
+	'VALUES' => ""
+);
+
+$arTemplateParameters['BUTTON_HREF'] = array(
+	'NAME' => GetMessage("BUTTON_HREF"),
+	'TYPE' => 'STRING',
+	'MULTIPLE' => 'N',
+	'ADDITIONAL_VALUES' => 'N',
+	'REFRESH' => 'N',
+	'DEFAULT' => '-',
+	'VALUES' => ""
+);
+
 $arTemplateParameters['TEMPLATE_THEME'] = array(
 	'PARENT' => 'VISUAL',
 	'NAME' => GetMessage("CP_BCS_TPL_TEMPLATE_THEME"),
@@ -118,17 +148,6 @@ if (isset($arCurrentValues['IBLOCK_ID']) && 0 < intval($arCurrentValues['IBLOCK_
 			$arSeriesList[] = $arSeries["ID"];
 		}
 	}
-
-	$arTemplateParameters['SERIES_ID'] = array(
-		'PARENT' => 'VISUAL',
-		'NAME' => GetMessage('CP_BCS_TPL_SERIES_ID'),
-		'TYPE' => 'LIST',
-		'MULTIPLE' => 'N',
-		'ADDITIONAL_VALUES' => 'N',
-		'REFRESH' => 'N',
-		'DEFAULT' => '-',
-		'VALUES' => $arSeriesList
-	);
 
 	$arTemplateParameters['LABEL_PROP'] = array(
 		'PARENT' => 'VISUAL',
