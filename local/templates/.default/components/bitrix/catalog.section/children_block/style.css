@@ -70,6 +70,7 @@
 
 .forChildrenWrapper .categoryWrapper .otherBooks li.bigItem .section_item_img img {
     width: 360px;
+    max-height: 500px;
 }
 
 .forChildrenWrapper .categoryWrapper .otherBooks li.bigItem .detailText{

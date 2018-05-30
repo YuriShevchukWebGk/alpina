@@ -36,9 +36,11 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
         <div class="seriesTitle">
             <h2><?=$arParams["TITLE_BLOCK"]?></h2>
         </div>
-        <div class="allBooksButton">
-            <a href="<?=$arParams["BUTTON_HREF"]?>"><?=$arParams["BUTTON_NAME"]?></a>
-        </div>
+        <?if(strlen($arParams["BUTTON_HREF"]) > 0) {?>
+            <div class="allBooksButton">
+                <a href="<?=$arParams["BUTTON_HREF"]?>"><?=$arParams["BUTTON_NAME"]?></a>
+            </div>
+        <?}?>
     </div>
     <div class="otherBooks">
         <ul>
@@ -86,14 +88,14 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                                     <img src="/images/no_photo.png" width="142" height="142">
                                 <?}?>
                             </div>
-                            <p class="nameBook"><?=$arItem["NAME"]?></p>
+                            <div class="nameBook"><?=$arItem["NAME"]?></div>
                         </a>
                         <p class="bookAutor" title="<?=$curr_author["NAME"]?>"><?echo mb_strlen($curr_author["NAME"]) > 18 ? mb_substr($curr_author["NAME"],0,15).'...' : $curr_author["NAME"]?></p>
                         <p class="tapeOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>
-                        <?if($arItem["BIG_ITEM"]) {?>
-                        <div class="detailText">
-                            <?=$arItem["DETAIL_TEXT"]?>
-                        </div>
+                        <?if($arItem["BIG_ITEM"] && $arItem["PROPERTIES"]["BIG_ITEM_TEXT"]["VALUE"]) {?>
+                            <div class="detailText">
+                                <?=$arItem["PROPERTIES"]["BIG_ITEM_TEXT"]["VALUE"]["TEXT"];?>
+                            </div>
                         <?}?>
                         <?
                         if (intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 22 && intval($arItem["PROPERTIES"]["STATE"]["VALUE_ENUM_ID"]) != 23) {

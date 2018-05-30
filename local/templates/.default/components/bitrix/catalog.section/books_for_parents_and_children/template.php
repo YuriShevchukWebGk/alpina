@@ -110,6 +110,8 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                 if(count($arData) > 0) {?>
                     <div class="doner_tags">
                         <span>Популярные категории</span>
+                        <a href="/catalog/new/?SORT=NEW&FILTER=for_kids_and_parents">Новинки</a>
+                        <a href="/catalog/bestsellers/?FILTER=for_kids_and_parents">Бестселлеры</a>
                         <?foreach($arData as $data) {?>
                             <a href="<?=$data["DETAIL_PAGE_URL"]?>"><?=$data["NAME"]?></a>
                         <?}?>
@@ -178,14 +180,14 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                 <div class="childrenBooks childrenBooks_1">
                     <?
                     $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section",
-	"children_block",
+	"bitrix:catalog.section", 
+	"children_block", 
 	array(
 		"IBLOCK_TYPE" => "catalog",
 		"IBLOCK_ID" => "4",
-		"TITLE_BLOCK" => "Книги для детей 11-12",
+		"TITLE_BLOCK" => "Лучший друг — Конни",
 		"BUTTON_NAME" => "Все книги",
-		"BUTTON_HREF" => "#",
+		"BUTTON_HREF" => "http://conni.club/",
 		"ELEMENT_SORT_FIELD" => "PROPERTY_BIG_SECTION_IMAGE",
 		"ELEMENT_SORT_ORDER" => "desc",
 		"ELEMENT_SORT_FIELD2" => "PROPERTY_STATE",
@@ -276,7 +278,140 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 		"SHOW_CLOSE_POPUP" => "N",
 		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
 		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
-		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"AND\",\"True\":\"True\"},\"CHILDREN\":[{\"CLASS_ID\":\"CondIBProp:4:953\",\"DATA\":{\"logic\":\"Equal\",\"value\":5949}}]}",
+		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":[{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Конни на ферме\"}},{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Конни и котёнок\"}},{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Конни идет в детский сад\"}},{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Конни помогает маме\"}}]}",
+		"COMPONENT_TEMPLATE" => "children_block",
+		"SECTION_USER_FIELDS" => array(
+			0 => "",
+			1 => "",
+		),
+		"SHOW_ALL_WO_SECTION" => "N",
+		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
+		"SERIES_ID" => "",
+		"MESS_BTN_COMPARE" => "Сравнить",
+		"SEF_MODE" => "N",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"SET_BROWSER_TITLE" => "Y",
+		"SET_META_KEYWORDS" => "Y",
+		"SET_META_DESCRIPTION" => "Y",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO",
+		"COMPATIBLE_MODE" => "Y",
+		"DISABLE_INIT_JS_IN_COMPONENT" => "N"
+	),
+	false
+);
+                    ?>
+                </div>
+                <div class="demarcation">
+                    <img class="bookWithBall" src="/img/for_children/bitmap8.png"/>
+                    <img class="baloons" src="/img/for_children/bitmap3.png"/>
+                </div>
+                <div class="childrenBooks childrenBooks_3">
+                    <?
+                    $APPLICATION->IncludeComponent(
+	"bitrix:catalog.section",
+	"children_block",
+	array(
+		"IBLOCK_TYPE" => "catalog",
+		"IBLOCK_ID" => "4",
+		"TITLE_BLOCK" => "Летние новинки",
+		"BUTTON_NAME" => "Все книги",
+		"BUTTON_HREF" => "",
+		"ELEMENT_SORT_FIELD" => "PROPERTY_BIG_SECTION_IMAGE",
+		"ELEMENT_SORT_ORDER" => "desc",
+		"ELEMENT_SORT_FIELD2" => "PROPERTY_STATE",
+		"ELEMENT_SORT_ORDER2" => "asc",
+		"PROPERTY_CODE" => array(
+			0 => "",
+			1 => $arResult["ORIGINAL_PARAMETERS"]["LIST_PROPERTY_CODE"],
+			2 => "",
+		),
+		"META_KEYWORDS" => $arResult["ORIGINAL_PARAMETERS"]["LIST_META_KEYWORDS"],
+		"META_DESCRIPTION" => $arResult["ORIGINAL_PARAMETERS"]["LIST_META_DESCRIPTION"],
+		"BROWSER_TITLE" => "-",
+		"SET_LAST_MODIFIED" => "N",
+		"INCLUDE_SUBSECTIONS" => "A",
+		"BASKET_URL" => $arResult["ORIGINAL_PARAMETERS"]["BASKET_URL"],
+		"ACTION_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["ACTION_VARIABLE"],
+		"PRODUCT_ID_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_ID_VARIABLE"],
+		"SECTION_ID_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["SECTION_ID_VARIABLE"],
+		"PRODUCT_QUANTITY_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_QUANTITY_VARIABLE"],
+		"PRODUCT_PROPS_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_PROPS_VARIABLE"],
+		"FILTER_NAME" => "",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => $arResult["ORIGINAL_PARAMETERS"]["CACHE_TIME"],
+		"CACHE_FILTER" => "N",
+		"CACHE_GROUPS" => "N",
+		"SET_TITLE" => "N",
+		"MESSAGE_404" => $arResult["ORIGINAL_PARAMETERS"]["MESSAGE_404"],
+		"SET_STATUS_404" => "N",
+		"SHOW_404" => "N",
+		"FILE_404" => $arResult["ORIGINAL_PARAMETERS"]["FILE_404"],
+		"DISPLAY_COMPARE" => "N",
+		"PAGE_ELEMENT_COUNT" => "",
+		"LINE_ELEMENT_COUNT" => "",
+		"PRICE_CODE" => array(
+			0 => "BASE",
+		),
+		"USE_PRICE_COUNT" => "N",
+		"SHOW_PRICE_COUNT" => $arResult["ORIGINAL_PARAMETERS"]["SHOW_PRICE_COUNT"],
+		"PRICE_VAT_INCLUDE" => "N",
+		"USE_PRODUCT_QUANTITY" => "N",
+		"ADD_PROPERTIES_TO_BASKET" => "N",
+		"PARTIAL_PRODUCT_PROPERTIES" => "N",
+		"PRODUCT_PROPERTIES" => array(
+		),
+		"DISPLAY_TOP_PAGER" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "N",
+		"PAGER_TITLE" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_TITLE"],
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_TEMPLATE" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_TEMPLATE"],
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_DESC_NUMBERING_CACHE_TIME"],
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"PAGER_BASE_LINK" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_BASE_LINK"],
+		"PAGER_PARAMS_NAME" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_PARAMS_NAME"],
+		"OFFERS_CART_PROPERTIES" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_CART_PROPERTIES"],
+		"OFFERS_FIELD_CODE" => $arResult["ORIGINAL_PARAMETERS"]["LIST_OFFERS_FIELD_CODE"],
+		"OFFERS_PROPERTY_CODE" => $arResult["ORIGINAL_PARAMETERS"]["LIST_OFFERS_PROPERTY_CODE"],
+		"OFFERS_SORT_FIELD" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_SORT_FIELD"],
+		"OFFERS_SORT_ORDER" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_SORT_ORDER"],
+		"OFFERS_SORT_FIELD2" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_SORT_FIELD2"],
+		"OFFERS_SORT_ORDER2" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_SORT_ORDER2"],
+		"OFFERS_LIMIT" => $arResult["ORIGINAL_PARAMETERS"]["LIST_OFFERS_LIMIT"],
+		"SECTION_ID" => "",
+		"SECTION_CODE" => "BooksForParentsAndChildren",
+		"SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
+		"DETAIL_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["element"],
+		"USE_MAIN_ELEMENT_SECTION" => "N",
+		"CONVERT_CURRENCY" => "N",
+		"CURRENCY_ID" => $arResult["ORIGINAL_PARAMETERS"]["CURRENCY_ID"],
+		"HIDE_NOT_AVAILABLE" => "L",
+		"LABEL_PROP" => "-",
+		"ADD_PICT_PROP" => "-",
+		"PRODUCT_DISPLAY_MODE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_DISPLAY_MODE"],
+		"OFFER_ADD_PICT_PROP" => $arResult["ORIGINAL_PARAMETERS"]["OFFER_ADD_PICT_PROP"],
+		"OFFER_TREE_PROPS" => $arResult["ORIGINAL_PARAMETERS"]["OFFER_TREE_PROPS"],
+		"PRODUCT_SUBSCRIPTION" => "N",
+		"SHOW_DISCOUNT_PERCENT" => "N",
+		"SHOW_OLD_PRICE" => "N",
+		"MESS_BTN_BUY" => $arResult["ORIGINAL_PARAMETERS"]["MESS_BTN_BUY"],
+		"MESS_BTN_ADD_TO_BASKET" => $arResult["ORIGINAL_PARAMETERS"]["MESS_BTN_ADD_TO_BASKET"],
+		"MESS_BTN_SUBSCRIBE" => $arResult["ORIGINAL_PARAMETERS"]["MESS_BTN_SUBSCRIBE"],
+		"MESS_BTN_DETAIL" => $arResult["ORIGINAL_PARAMETERS"]["MESS_BTN_DETAIL"],
+		"MESS_NOT_AVAILABLE" => $arResult["ORIGINAL_PARAMETERS"]["MESS_NOT_AVAILABLE"],
+		"TEMPLATE_THEME" => (isset($arResult["ORIGINAL_PARAMETERS"]["TEMPLATE_THEME"])?$arResult["ORIGINAL_PARAMETERS"]["TEMPLATE_THEME"]:""),
+		"ADD_SECTIONS_CHAIN" => "N",
+		"ADD_TO_BASKET_ACTION" => "ADD",
+		"SHOW_CLOSE_POPUP" => "N",
+		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
+		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
+		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Приключения в Космосе\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Горсть спелой земляники\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Сказки о царе Колбаске\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Сказки о царе Колбаске\"}}}}",
 		"COMPONENT_TEMPLATE" => "children_block",
 		"SECTION_USER_FIELDS" => array(
 			0 => "",
@@ -319,7 +454,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                         </p>
                         <form action="/" method="post">
                             <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
-                            <input type="button" value="">
+                            <input type="button" onclick="subscribeChildren();return false;" value="">
                         </form>
 						<div class="pii no-mobile">
                             * подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a>
@@ -337,9 +472,9 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 	array(
 		"IBLOCK_TYPE" => "catalog",
 		"IBLOCK_ID" => "4",
-		"TITLE_BLOCK" => "Книги для детей 11-12",
+		"TITLE_BLOCK" => "Занимательная зоология",
 		"BUTTON_NAME" => "Все книги",
-		"BUTTON_HREF" => "#",
+		"BUTTON_HREF" => "/series/66042/?sphrase_id=485712",
 		"ELEMENT_SORT_FIELD" => "PROPERTY_BIG_SECTION_IMAGE",
 		"ELEMENT_SORT_ORDER" => "desc",
 		"ELEMENT_SORT_FIELD2" => "PROPERTY_STATE",
@@ -430,7 +565,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 		"SHOW_CLOSE_POPUP" => "N",
 		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
 		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
-		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"AND\",\"True\":\"True\"},\"CHILDREN\":[{\"CLASS_ID\":\"CondIBProp:4:953\",\"DATA\":{\"logic\":\"Equal\",\"value\":5949}}]}",
+		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я енот\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я еж\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я лисица\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я дельфин\"}},\"5\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я белый медведь\"}}}}",
 		"COMPONENT_TEMPLATE" => "children_block",
 		"SECTION_USER_FIELDS" => array(
 			0 => "",
@@ -470,9 +605,9 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 	array(
 		"IBLOCK_TYPE" => "catalog",
 		"IBLOCK_ID" => "4",
-		"TITLE_BLOCK" => "Книги для детей 11-12",
+		"TITLE_BLOCK" => "Книги для родителей",
 		"BUTTON_NAME" => "Все книги",
-		"BUTTON_HREF" => "#",
+		"BUTTON_HREF" => "/catalog/BooksForParents/",
 		"ELEMENT_SORT_FIELD" => "PROPERTY_BIG_SECTION_IMAGE",
 		"ELEMENT_SORT_ORDER" => "desc",
 		"ELEMENT_SORT_FIELD2" => "PROPERTY_STATE",
@@ -563,7 +698,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 		"SHOW_CLOSE_POPUP" => "N",
 		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
 		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
-		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"AND\",\"True\":\"True\"},\"CHILDREN\":[{\"CLASS_ID\":\"CondIBProp:4:953\",\"DATA\":{\"logic\":\"Equal\",\"value\":5949}}]}",
+		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Любовь и брокколи\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"После трех уже поздно\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Финская система обучения\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"160 развивающих игр\"}},\"5\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Рожденный с характером\"}}}}",
 		"COMPONENT_TEMPLATE" => "children_block",
 		"SECTION_USER_FIELDS" => array(
 			0 => "",
@@ -597,12 +732,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                             Хотите с нами сотрудничать?
                         </div>
                         <div class="text">
-                            Why Do Make Ahead Recipes Work So Well To Reduce
-                            </br>
-                            Your Dinner Party Stress
-                            </br>
-                            </br>
-                            Пишите сюда  aaa@alpinabook.ru
+                            Хотите предложить нам книгу к изданию, взять новинку на рецензию, пригласить нас на мероприятие или продавать наши книги? Рассмотрим все ваши идеи!<br>Пишите Наталье Тенцер  n.tentser@alpina.ru
                         </div>
                     </div>
                     <div class="childrenCooperationImg">
@@ -620,9 +750,9 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 	array(
 		"IBLOCK_TYPE" => "catalog",
 		"IBLOCK_ID" => "4",
-		"TITLE_BLOCK" => "Книги для детей 11-12",
-		"BUTTON_NAME" => "Все книги",
-		"BUTTON_HREF" => "#",
+		"TITLE_BLOCK" => "Книги для детей от 3 до 6 лет",
+		"BUTTON_NAME" => "",
+		"BUTTON_HREF" => "",
 		"ELEMENT_SORT_FIELD" => "PROPERTY_BIG_SECTION_IMAGE",
 		"ELEMENT_SORT_ORDER" => "desc",
 		"ELEMENT_SORT_FIELD2" => "PROPERTY_STATE",
@@ -713,7 +843,140 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 		"SHOW_CLOSE_POPUP" => "N",
 		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
 		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
-		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"AND\",\"True\":\"True\"},\"CHILDREN\":[{\"CLASS_ID\":\"CondIBProp:4:953\",\"DATA\":{\"logic\":\"Equal\",\"value\":5949}}]}",
+		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Десять маленьких принцесс\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Десять маленьких пиратов\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"десять маленьких монстров\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Десять маленьких монстров\"}}}}",
+		"COMPONENT_TEMPLATE" => "children_block",
+		"SECTION_USER_FIELDS" => array(
+			0 => "",
+			1 => "",
+		),
+		"SHOW_ALL_WO_SECTION" => "N",
+		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
+		"SERIES_ID" => "",
+		"MESS_BTN_COMPARE" => "Сравнить",
+		"SEF_MODE" => "N",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"SET_BROWSER_TITLE" => "Y",
+		"SET_META_KEYWORDS" => "Y",
+		"SET_META_DESCRIPTION" => "Y",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO",
+		"COMPATIBLE_MODE" => "Y",
+		"DISABLE_INIT_JS_IN_COMPONENT" => "N"
+	),
+	false
+);
+                    ?>
+                </div>
+                <div class="demarcation">
+                    <img class="bookWithBall" src="/img/for_children/bitmap8.png"/>
+                    <img class="baloons" src="/img/for_children/bitmap3.png"/>
+                </div>
+                <div class="childrenBooks childrenBooks_3">
+                    <?
+                    $APPLICATION->IncludeComponent(
+	"bitrix:catalog.section",
+	"children_block",
+	array(
+		"IBLOCK_TYPE" => "catalog",
+		"IBLOCK_ID" => "4",
+		"TITLE_BLOCK" => "Книги для детей от 7 до 12 лет",
+		"BUTTON_NAME" => "",
+		"BUTTON_HREF" => "",
+		"ELEMENT_SORT_FIELD" => "PROPERTY_BIG_SECTION_IMAGE",
+		"ELEMENT_SORT_ORDER" => "desc",
+		"ELEMENT_SORT_FIELD2" => "PROPERTY_STATE",
+		"ELEMENT_SORT_ORDER2" => "asc",
+		"PROPERTY_CODE" => array(
+			0 => "",
+			1 => $arResult["ORIGINAL_PARAMETERS"]["LIST_PROPERTY_CODE"],
+			2 => "",
+		),
+		"META_KEYWORDS" => $arResult["ORIGINAL_PARAMETERS"]["LIST_META_KEYWORDS"],
+		"META_DESCRIPTION" => $arResult["ORIGINAL_PARAMETERS"]["LIST_META_DESCRIPTION"],
+		"BROWSER_TITLE" => "-",
+		"SET_LAST_MODIFIED" => "N",
+		"INCLUDE_SUBSECTIONS" => "A",
+		"BASKET_URL" => $arResult["ORIGINAL_PARAMETERS"]["BASKET_URL"],
+		"ACTION_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["ACTION_VARIABLE"],
+		"PRODUCT_ID_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_ID_VARIABLE"],
+		"SECTION_ID_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["SECTION_ID_VARIABLE"],
+		"PRODUCT_QUANTITY_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_QUANTITY_VARIABLE"],
+		"PRODUCT_PROPS_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_PROPS_VARIABLE"],
+		"FILTER_NAME" => "",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => $arResult["ORIGINAL_PARAMETERS"]["CACHE_TIME"],
+		"CACHE_FILTER" => "N",
+		"CACHE_GROUPS" => "N",
+		"SET_TITLE" => "N",
+		"MESSAGE_404" => $arResult["ORIGINAL_PARAMETERS"]["MESSAGE_404"],
+		"SET_STATUS_404" => "N",
+		"SHOW_404" => "N",
+		"FILE_404" => $arResult["ORIGINAL_PARAMETERS"]["FILE_404"],
+		"DISPLAY_COMPARE" => "N",
+		"PAGE_ELEMENT_COUNT" => "",
+		"LINE_ELEMENT_COUNT" => "",
+		"PRICE_CODE" => array(
+			0 => "BASE",
+		),
+		"USE_PRICE_COUNT" => "N",
+		"SHOW_PRICE_COUNT" => $arResult["ORIGINAL_PARAMETERS"]["SHOW_PRICE_COUNT"],
+		"PRICE_VAT_INCLUDE" => "N",
+		"USE_PRODUCT_QUANTITY" => "N",
+		"ADD_PROPERTIES_TO_BASKET" => "N",
+		"PARTIAL_PRODUCT_PROPERTIES" => "N",
+		"PRODUCT_PROPERTIES" => array(
+		),
+		"DISPLAY_TOP_PAGER" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "N",
+		"PAGER_TITLE" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_TITLE"],
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_TEMPLATE" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_TEMPLATE"],
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_DESC_NUMBERING_CACHE_TIME"],
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"PAGER_BASE_LINK" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_BASE_LINK"],
+		"PAGER_PARAMS_NAME" => $arResult["ORIGINAL_PARAMETERS"]["PAGER_PARAMS_NAME"],
+		"OFFERS_CART_PROPERTIES" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_CART_PROPERTIES"],
+		"OFFERS_FIELD_CODE" => $arResult["ORIGINAL_PARAMETERS"]["LIST_OFFERS_FIELD_CODE"],
+		"OFFERS_PROPERTY_CODE" => $arResult["ORIGINAL_PARAMETERS"]["LIST_OFFERS_PROPERTY_CODE"],
+		"OFFERS_SORT_FIELD" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_SORT_FIELD"],
+		"OFFERS_SORT_ORDER" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_SORT_ORDER"],
+		"OFFERS_SORT_FIELD2" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_SORT_FIELD2"],
+		"OFFERS_SORT_ORDER2" => $arResult["ORIGINAL_PARAMETERS"]["OFFERS_SORT_ORDER2"],
+		"OFFERS_LIMIT" => $arResult["ORIGINAL_PARAMETERS"]["LIST_OFFERS_LIMIT"],
+		"SECTION_ID" => "",
+		"SECTION_CODE" => "BooksForParentsAndChildren",
+		"SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
+		"DETAIL_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["element"],
+		"USE_MAIN_ELEMENT_SECTION" => "N",
+		"CONVERT_CURRENCY" => "N",
+		"CURRENCY_ID" => $arResult["ORIGINAL_PARAMETERS"]["CURRENCY_ID"],
+		"HIDE_NOT_AVAILABLE" => "L",
+		"LABEL_PROP" => "-",
+		"ADD_PICT_PROP" => "-",
+		"PRODUCT_DISPLAY_MODE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_DISPLAY_MODE"],
+		"OFFER_ADD_PICT_PROP" => $arResult["ORIGINAL_PARAMETERS"]["OFFER_ADD_PICT_PROP"],
+		"OFFER_TREE_PROPS" => $arResult["ORIGINAL_PARAMETERS"]["OFFER_TREE_PROPS"],
+		"PRODUCT_SUBSCRIPTION" => "N",
+		"SHOW_DISCOUNT_PERCENT" => "N",
+		"SHOW_OLD_PRICE" => "N",
+		"MESS_BTN_BUY" => $arResult["ORIGINAL_PARAMETERS"]["MESS_BTN_BUY"],
+		"MESS_BTN_ADD_TO_BASKET" => $arResult["ORIGINAL_PARAMETERS"]["MESS_BTN_ADD_TO_BASKET"],
+		"MESS_BTN_SUBSCRIBE" => $arResult["ORIGINAL_PARAMETERS"]["MESS_BTN_SUBSCRIBE"],
+		"MESS_BTN_DETAIL" => $arResult["ORIGINAL_PARAMETERS"]["MESS_BTN_DETAIL"],
+		"MESS_NOT_AVAILABLE" => $arResult["ORIGINAL_PARAMETERS"]["MESS_NOT_AVAILABLE"],
+		"TEMPLATE_THEME" => (isset($arResult["ORIGINAL_PARAMETERS"]["TEMPLATE_THEME"])?$arResult["ORIGINAL_PARAMETERS"]["TEMPLATE_THEME"]:""),
+		"ADD_SECTIONS_CHAIN" => "N",
+		"ADD_TO_BASKET_ACTION" => "ADD",
+		"SHOW_CLOSE_POPUP" => "N",
+		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
+		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
+		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Большая книга темноты\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Большая книга подземного мира\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Большая книга снега и льда\"}}}}",
 		"COMPONENT_TEMPLATE" => "children_block",
 		"SECTION_USER_FIELDS" => array(
 			0 => "",
@@ -747,7 +1010,12 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                             Выпустим детскую подарочную книгу
                         </div>
                         <div class="text">
-                            В индивидуальном оформлении. Книга станет желанным подарком для детей сотрудников, клиентов и партнеров.
+                            Книга станет желанным подарком для детей сотрудников, клиентов и партнеров.
+                            <ul>
+                                <li>Выпустим подарочную детскую книгу о вашей компании</li>
+                                <li>Напечатаем специальный тираж с вашим логотипом или даже уникальным текстом</li>
+                                <li>Сделаем скидку при заказе от 50 экземпляров</li>
+                            </ul>
                         </div>
                         <div class="phone">
                             +7 964 645 89 79
@@ -756,10 +1024,11 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                             <div class="avatar">
                             </div>
                             <div class="name">
-                                Богомаз Лана
+                                Лана Богомаз<br>
+                                Руководитель направления “Альпина.Дети”
                             </div>
                             <div class="position">
-                                Менеджер
+                                <a href="mailto:l.bogomaz@alpina.ru">l.bogomaz@alpina.ru</a>
                             </div>
                         </div>
                     </div>
