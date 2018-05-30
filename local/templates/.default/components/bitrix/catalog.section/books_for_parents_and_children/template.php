@@ -180,8 +180,8 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                 <div class="childrenBooks childrenBooks_1">
                     <?
                     $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"children_block", 
+	"bitrix:catalog.section",
+	"children_block",
 	array(
 		"IBLOCK_TYPE" => "catalog",
 		"IBLOCK_ID" => "4",
@@ -698,7 +698,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 		"SHOW_CLOSE_POPUP" => "N",
 		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
 		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
-		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Любовь и брокколи\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"После трех уже поздно\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Финская система обучения\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"160 развивающих игр\"}},\"5\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Рожденный с характером\"}}}}",
+		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Любовь и брокколи\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:47\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"978-5-91671-789-1\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Финская система обучения\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"160 развивающих игр для детей от рождения до трех лет\"}},\"5\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Рожденные с характером\"}}}}",
 		"COMPONENT_TEMPLATE" => "children_block",
 		"SECTION_USER_FIELDS" => array(
 			0 => "",
@@ -732,7 +732,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                             Хотите с нами сотрудничать?
                         </div>
                         <div class="text">
-                            Хотите предложить нам книгу к изданию, взять новинку на рецензию, пригласить нас на мероприятие или продавать наши книги? Рассмотрим все ваши идеи!<br>Пишите Наталье Тенцер  n.tentser@alpina.ru
+                            Хотите предложить нам книгу к изданию, взять новинку на рецензию, пригласить нас на мероприятие или продавать наши книги? Рассмотрим все ваши идеи!<br>Пишите Наталье Тенцер <a href="mailto:n.tentser@alpina.ru">n.tentser@alpina.ru</a>
                         </div>
                     </div>
                     <div class="childrenCooperationImg">
@@ -843,7 +843,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 		"SHOW_CLOSE_POPUP" => "N",
 		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
 		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
-		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Десять маленьких принцесс\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Десять маленьких пиратов\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"десять маленьких монстров\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Десять маленьких монстров\"}}}}",
+		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Десять маленьких принцесс\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Десять маленьких пиратов\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"десять маленьких динозавров\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Десять маленьких монстров\"}}}}",
 		"COMPONENT_TEMPLATE" => "children_block",
 		"SECTION_USER_FIELDS" => array(
 			0 => "",
