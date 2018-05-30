@@ -51,6 +51,11 @@
     z-index: 1;
 }
 
+.wrapperCategor.forChildrenWrapper .doner_tags a{
+    position: relative;
+    z-index: 3;
+}
+
 .wrapperCategor.forChildrenWrapper .categoryWrapper .sectionTextWrap img{
     position: absolute;
     bottom: -14px;
@@ -402,8 +407,8 @@
 
 .wrapperCategor.forChildrenWrapper .childrenGiftEdition .text {
     margin: 20px 0 0 0;
-    width: 430px;
-    height: 48px;
+    width: 560px;
+    height: 136px;
     font-size: 16px;
     font-weight: normal;
     font-style: normal;
