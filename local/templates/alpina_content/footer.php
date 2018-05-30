@@ -20,8 +20,8 @@
                     </a>
                     <br />
                     <br />
-                    <a href="https://blog.alpinabook.ru/" target="_blank">
-                        <img src="/img/footerBlogLogo.png">
+                    <a href="/blog/" target="_blank">
+                        <img src="/images/blog/media_dark.png">
                     </a>				
                 </div>
                 <div>
