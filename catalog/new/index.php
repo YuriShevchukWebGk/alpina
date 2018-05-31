@@ -38,6 +38,14 @@ if(!$USER->IsAdmin()){
     $arrFilter["PROPERTY_STATE"] = 21;
 }
 
+
+if (!empty($_REQUEST["FILTER"])) {
+    if($_REQUEST["FILTER"] == "for_kids_and_parents") {
+        $arrFilter["SECTION_CODE"] = "BooksForParentsAndChildren";
+        $arrFilter["INCLUDE_SUBSECTIONS"] = "Y";
+    }
+}
+
 ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog.section",
