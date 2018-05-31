@@ -38,7 +38,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
         </div>
         <?if(strlen($arParams["BUTTON_HREF"]) > 0) {?>
             <div class="allBooksButton">
-                <a href="<?=$arParams["BUTTON_HREF"]?>"><?=$arParams["BUTTON_NAME"]?></a>
+                <a <?if(stristr($arParams["BUTTON_HREF"], "conni")) { echo "target='_blank'"; };?> href="<?=$arParams["BUTTON_HREF"]?>"><?=$arParams["BUTTON_NAME"]?></a>
             </div>
         <?}?>
     </div>

@@ -442,7 +442,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                 <div class="childrenBooksSubscribe">
                     <div class="giftRound">
                     </div>
-                    <div class="giftWrap">
+                    <div class="giftWrapChild">
                         <div class="some_info">
                             Заявка на подписку принята, ждите информацию на почту
                         </div>
@@ -453,8 +453,8 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                             Подпишитесь на рассылку и получите книгу<br />в формате PDF бесплатно
                         </p>
                         <form action="/" method="post">
-                            <input type="text" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
-                            <input type="button" onclick="subscribeChildren();return false;" value="">
+                            <input type="email" placeholder="Ваш e-mail" name="email" onkeypress="if (event.keyCode == 13) {return SubmitRequest(event);}">
+                            <input type="button" onclick="subscribeChildrenPage();return false;" value="">
                         </form>
 						<div class="pii no-mobile">
                             * подписываясь на рассылку, вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a>
@@ -599,6 +599,16 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
                 </div>
                 <div class="childrenBooks childrenBooks_3">
                     <?
+                    global $tempFilter;
+                    $tempFilter = array(
+                        "ID" => array(
+                            405232,
+                            417058,
+                            7885,
+                            7893,
+                            66487
+                        )
+                    );
                     $APPLICATION->IncludeComponent(
 	"bitrix:catalog.section",
 	"children_block",
@@ -628,7 +638,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 		"SECTION_ID_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["SECTION_ID_VARIABLE"],
 		"PRODUCT_QUANTITY_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_QUANTITY_VARIABLE"],
 		"PRODUCT_PROPS_VARIABLE" => $arResult["ORIGINAL_PARAMETERS"]["PRODUCT_PROPS_VARIABLE"],
-		"FILTER_NAME" => "",
+		"FILTER_NAME" => "tempFilter",
 		"CACHE_TYPE" => "A",
 		"CACHE_TIME" => $arResult["ORIGINAL_PARAMETERS"]["CACHE_TIME"],
 		"CACHE_FILTER" => "N",
@@ -698,7 +708,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 		"SHOW_CLOSE_POPUP" => "N",
 		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
 		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
-		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Любовь и брокколи\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:47\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"978-5-91671-789-1\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Финская система обучения\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"160 развивающих игр для детей от рождения до трех лет\"}},\"5\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Рожденные с характером\"}}}}",
+		"CUSTOM_FILTER" => "",
 		"COMPONENT_TEMPLATE" => "children_block",
 		"SECTION_USER_FIELDS" => array(
 			0 => "",

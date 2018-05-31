@@ -1,3 +1,1 @@
-<a href="http://conni.club/">
-    <img src="/img/for_children/banners—2.jpg">
-</a>
+<a href="http://conni.club/" target="_blank"> <img src="/img/for_children/banners—2.jpg"> </a>

@@ -23,6 +23,31 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
 	}
 }
 ?>
+<script>
+$(".some_info").click(function(){
+    $(".some_info").hide();
+    $(".layout").hide();
+});
+
+function subscribeChildrenPage() {
+	var emailAddres = $(".childrenBooksSubscribe input[type=email]").val();
+	var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	if (regex.test(emailAddres)){
+		$.post("/ajax/subscribe_actions.php", {
+			email: $(".childrenBooksSubscribe input[type=email]").val(), children: 1},
+			function(data){
+				$(".some_info").html(data);
+				$(".some_info").show();
+			    $(".layout").show();
+			}
+		);
+	}else{
+		$(".some_info").html("Кажется, вы ошиблись в написании своего адреса");
+		$(".some_info").show();
+		$(".layout").show();
+	}
+};
+</script>
 <style>
 
 .wrapperCategor.forChildrenWrapper {
@@ -180,9 +205,37 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
     position: relative;
 }
 
-.wrapperCategor.forChildrenWrapper .childrenBooksSubscribe .giftWrap {
+.wrapperCategor.forChildrenWrapper .childrenBooksSubscribe .giftWrapChild {
     overflow: hidden;
 }
+
+
+.wrapperCategor.forChildrenWrapper .childrenBooksSubscribe input[type="email"] {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14);
+    float: none;
+    height: 100%;
+    margin: 0;
+}
+
+.giftWrapChild input[type="email"] {
+    border-color: -moz-use-text-color -moz-use-text-color #fff;
+    border-style: none;
+    border-width: medium medium 2px;
+    box-shadow: 0 0 0 0 rgba(0,0,0,.18), 0 3px 7px 0 rgba(0,0,0,.14);
+    color: #8d8d8d;
+    float: right;
+    font-size: 20px;
+    height: 32px;
+    margin-right: 46px;
+    margin-top: 14px;
+    padding-bottom: 13px;
+    padding-left: 20px;
+    padding-top: 13px;
+    position: relative;
+    width: 396px;
+}
+
 
 .wrapperCategor.forChildrenWrapper .childrenBooksSubscribe .title {
     margin: 40px 0 0 50px;
@@ -214,7 +267,7 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
     overflow: hidden;
 }
 
-.wrapperCategor.forChildrenWrapper .childrenBooksSubscribe .giftWrap:before {
+.wrapperCategor.forChildrenWrapper .childrenBooksSubscribe .giftWrapChild:before {
     content: "";
 }
 
@@ -310,13 +363,14 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
 .wrapperCategor.forChildrenWrapper .bookCover {
     width: 313px;
     height: 369px;
-    box-shadow: 0 10px 15px 0 rgba(147, 109, 63, 0.5);
+    box-shadow: 0 -2px 15px 0 rgba(147, 109, 63, 0.5);
     right: 40px;
     top: 40px;
     position: absolute;
+	overflow: inherit;
 }
 
-.wrapperCategor.forChildrenWrapper .giftWrap {
+.wrapperCategor.forChildrenWrapper .giftWrapChild {
     margin: 0px;
     padding: 0px;
     height: 100%;
@@ -410,6 +464,11 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
     margin-top: 80px;
 }
 
+.wrapperCategor.forChildrenWrapper .childrenGiftEdition ul {
+	padding-left: 20px;
+    margin-top: 7px;
+	list-style-type: circle;
+}
 
 .wrapperCategor.forChildrenWrapper .childrenGiftEdition .textBlock {
     position: relative;
@@ -504,7 +563,7 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
     bottom: -60px;
 }
 
-.wrapperCategor.forChildrenWrapper .giftWrap .some_info {
+.wrapperCategor.forChildrenWrapper .giftWrapChild .some_info {
     z-index: 1100;
     position: absolute;
     display: none;
