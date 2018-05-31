@@ -601,9 +601,9 @@ if ($arResult['MODULES']['currency'])
 			false,
 			array("NAME")
 		);
-		
+
 		while ($translator = $translator_list -> Fetch()) {
-			
+
 			$arResult["TRANSLATOR"] .= (strlen ($arResult["TRANSLATOR"]) > 0 ? ', ' : '') . $translator["NAME"];
 		}
 	}
@@ -826,7 +826,7 @@ if ($arResult['MODULES']['currency'])
         $ar_sale = array();
         while($ar_sale=$rr->Fetch()) {
             $arResult["SALE_NOTE"][] = $ar_sale;
-        }    
+        }
     }
 
     if($USER->IsAuthorized()){
@@ -942,16 +942,16 @@ if ($arResult['MODULES']['currency'])
     foreach ($arResult["AUTHOR"] as $key => $author) {
         $arResult["AUTHOR"][$key]["IMAGE_FILE"] = CFile::GetFileArray($author["DETAIL_PICTURE"]);
     }
-	
+
 	$opts = array('http' =>
 		array(
 			'method'  => 'GET',
-			'timeout' => 3 
+			'timeout' => 3
 		)
 	);
 
 	$context  = stream_context_create($opts);
-	
+
 	$recsArray = file_get_contents('https://api.retailrocket.ru/api/1.0/Recomendation/ItemToItems/50b90f71b994b319dc5fd855/'.$arResult["ID"], false, $context);
 	$arResult["STRING_RECS"] = array_slice(json_decode($recsArray), 0, 6);
 

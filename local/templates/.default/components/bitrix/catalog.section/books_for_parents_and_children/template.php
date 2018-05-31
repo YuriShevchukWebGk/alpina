@@ -565,7 +565,7 @@ if (isset($_SERVER["HTTP_USER_AGENT"]) && preg_match('/bot|crawl|slurp|spider|me
 		"SHOW_CLOSE_POPUP" => "N",
 		"COMPARE_PATH" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["compare"],
 		"BACKGROUND_IMAGE" => (isset($arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"])?$arResult["ORIGINAL_PARAMETERS"]["SECTION_BACKGROUND_IMAGE"]:""),
-		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я енот\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я еж\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я лисица\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я дельфин\"}},\"5\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я белый медведь\"}}}}",
+		"CUSTOM_FILTER" => "{\"CLASS_ID\":\"CondGroup\",\"DATA\":{\"All\":\"OR\",\"True\":\"True\"},\"CHILDREN\":{\"1\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я слон\"}},\"2\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я еж\"}},\"3\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я лисица\"}},\"4\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я дельфин\"}},\"5\":{\"CLASS_ID\":\"CondIBProp:4:46\",\"DATA\":{\"logic\":\"Equal\",\"value\":\"Я белый медведь\"}}}}",
 		"COMPONENT_TEMPLATE" => "children_block",
 		"SECTION_USER_FIELDS" => array(
 			0 => "",
