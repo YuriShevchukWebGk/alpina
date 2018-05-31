@@ -29,7 +29,7 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
 
 }
 .childrenBooksBlock .seriesBlock {
-    width: 619px;
+    width: 100%;
     height: 51px;
 }
 
