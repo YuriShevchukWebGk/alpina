@@ -134,7 +134,9 @@
                     <tfoot>
                         <tr>
                             <td><center class="pii">Нажимая на кнопку «<?=GetMessage("AUTH_REGISTER")?>», вы соглашаетесь на обработку персональных данных в соответствии <a href="/content/pii/" target="_blank">с условиями</a></center>
-                            <input class="RegisterButton"
+                            <input
+                                type="button"
+                                class="RegisterButton"
                                 value="<?=GetMessage("AUTH_REGISTER")?>"
                                 onclick="recupcha();" /></td>
                         </tr>

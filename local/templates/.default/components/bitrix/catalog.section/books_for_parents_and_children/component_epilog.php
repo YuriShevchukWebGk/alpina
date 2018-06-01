@@ -595,4 +595,8 @@ function subscribeChildrenPage() {
     overflow: hidden;
     margin: 40px 0px 0px;
 }
+
+.otherBooks .priceOfBook .rub_symbol {
+	font-family: 'RoubleSign'!important;
+}
 </style>
