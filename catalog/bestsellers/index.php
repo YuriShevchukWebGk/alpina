@@ -38,6 +38,12 @@ if(!$USER->IsAdmin()){
     $arrFilter = array('PROPERTY_best_seller' => 285, ">DETAIL_PICTURE" => 0);
 }
 
+if (!empty($_REQUEST["FILTER"])) {
+    if($_REQUEST["FILTER"] == "for_kids_and_parents") {
+        $arrFilter["SECTION_CODE"] = "BooksForParentsAndChildren";
+        $arrFilter["INCLUDE_SUBSECTIONS"] = "Y";
+    }
+}
 ?>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog.section",
