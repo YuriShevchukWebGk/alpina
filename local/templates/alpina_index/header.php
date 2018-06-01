@@ -9,6 +9,13 @@
 <!doctype html>
 <html lang="ru">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WJ59CKW');</script>
+<!-- End Google Tag Manager -->
 <!--eski.mobi--><script class="eskimobi" data-type="mobile">!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];e.src?a.src=e.src:e.innerHTML&&(a.innerHTML=e.innerHTML),a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<div id="eski-overlay" style="font-family:Helvetica-Light,Helvetica,Arial,sans-serif;font-weight:light;font-size:300%;line-height:100%;position:absolute;top:42%;left:0;right:0;text-align:center;color: #999;">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...</div><plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h=function(){var c=new Date;c.setTime(c.getTime()+18e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e){var a=b.createElement("script");if(a.onerror=h,"string"==typeof e)g(a,"main-executable","mobify",{src:e});else{var c="var main = "+e.toString()+"; main();";g(a,"main-executable","mobify",{innerHTML:c})}}},f.onerror=h,g(f,"mobify-js","mobify",{src:d})})}(window,document,function(){var ua=navigator.userAgent||navigator.vendor||window.opera,m=false;if(/mobi|phone|ipod|nokia|android/i.test(ua))m=true;if(/msie|windows|media\scenter|opera\smini|ipad|android\s3|android\s2|iphone\sos\s(4|5|6)|ipad\sos\s(4|5|6)/i.test(ua)||screen.width>1024)m=false;return m;},"/eskimobi/eski.mobi.min.js?20170906","/eskimobi/mobi.js?201710182");</script><!--/eski.mobi-->
     <!--alpina_index-->
     <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8"> -->
@@ -72,6 +79,10 @@
 
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ59CKW"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter1611177 = new Ya.Metrika({ id:1611177, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/1611177" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 <? global $USER;
 if ($USER->IsAuthorized()) {
@@ -1225,112 +1236,117 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		global $blogPostsFilter;
 		$blogPostsFilter = array("!ID" => false);
 		$APPLICATION->IncludeComponent(
-			"bitrix:catalog.section",
-			"this_book_in_blog",
-			array(
-				"IBLOCK_TYPE_ID" => "catalog",
-				"IBLOCK_ID" => "71",
-				"BASKET_URL" => "/personal/cart/",
-				"COMPONENT_TEMPLATE" => "this_book_in_blog",
-				"IBLOCK_TYPE" => "catalog",
-				"SECTION_ID" => "",
-				"SECTION_CODE" => "",
-				"SECTION_USER_FIELDS" => array(
-					0 => "",
-					1 => "",
-				),
-				"ELEMENT_SORT_FIELD" => "id",
-				"ELEMENT_SORT_ORDER" => "desc",
-				"ELEMENT_SORT_FIELD2" => "id",
-				"ELEMENT_SORT_ORDER2" => "asc",
-				"FILTER_NAME" => "blogPostsFilter",
-				"INCLUDE_SUBSECTIONS" => "Y",
-				"SHOW_ALL_WO_SECTION" => "Y",
-				"HIDE_NOT_AVAILABLE" => "N",
-				"PAGE_ELEMENT_COUNT" => "9",
-				"LINE_ELEMENT_COUNT" => "1",
-				"PROPERTY_CODE" => array(
-					0 => "",
-				),
-				"TEMPLATE_THEME" => "site",
-				"PRODUCT_DISPLAY_MODE" => "Y",
-				"PRODUCT_SUBSCRIPTION" => "N",
-				"SHOW_DISCOUNT_PERCENT" => "N",
-				"SHOW_OLD_PRICE" => "Y",
-				"SHOW_CLOSE_POPUP" => "N",
-				"MESS_BTN_BUY" => "Купить",
-				"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-				"MESS_BTN_SUBSCRIBE" => "Подписаться",
-				"MESS_BTN_DETAIL" => "Последние посты в блоге",
-				"MESS_NOT_AVAILABLE" => "Нет в наличии",
-				"SECTION_URL" => "",
-				"DETAIL_URL" => "",
-				"SECTION_ID_VARIABLE" => "SECTION_ID",
-				"SEF_MODE" => "N",
-				"AJAX_MODE" => "N",
-				"AJAX_OPTION_JUMP" => "N",
-				"AJAX_OPTION_STYLE" => "Y",
-				"AJAX_OPTION_HISTORY" => "N",
-				"AJAX_OPTION_ADDITIONAL" => "",
-				"CACHE_TYPE" => "A",
-				"CACHE_TIME" => "36000",
-				"CACHE_GROUPS" => "Y",
-				"SET_TITLE" => "N",
-				"SET_BROWSER_TITLE" => "N",
-				"BROWSER_TITLE" => "-",
-				"SET_META_KEYWORDS" => "N",
-				"META_KEYWORDS" => "-",
-				"SET_META_DESCRIPTION" => "N",
-				"META_DESCRIPTION" => "-",
-				"SET_LAST_MODIFIED" => "N",
-				"USE_MAIN_ELEMENT_SECTION" => "N",
-				"ADD_SECTIONS_CHAIN" => "N",
-				"CACHE_FILTER" => "N",
-				"ACTION_VARIABLE" => "action",
-				"PRODUCT_ID_VARIABLE" => "id",
-				"PRICE_CODE" => array(
-					0 => "BASE",
-				),
-				"USE_PRICE_COUNT" => "N",
-				"SHOW_PRICE_COUNT" => "1",
-				"PRICE_VAT_INCLUDE" => "Y",
-				"CONVERT_CURRENCY" => "N",
-				"USE_PRODUCT_QUANTITY" => "N",
-				"PRODUCT_QUANTITY_VARIABLE" => "",
-				"ADD_PROPERTIES_TO_BASKET" => "Y",
-				"PRODUCT_PROPS_VARIABLE" => "prop",
-				"PARTIAL_PRODUCT_PROPERTIES" => "N",
-				"PRODUCT_PROPERTIES" => array(
-				),
-				"OFFERS_CART_PROPERTIES" => array(
-					0 => "COLOR_REF",
-					1 => "SIZES_SHOES",
-					2 => "SIZES_CLOTHES",
-				),
-				"ADD_TO_BASKET_ACTION" => "ADD",
-				"PAGER_TEMPLATE" => "round",
-				"DISPLAY_TOP_PAGER" => "N",
-				"DISPLAY_BOTTOM_PAGER" => "Y",
-				"PAGER_TITLE" => "Товары",
-				"PAGER_SHOW_ALWAYS" => "N",
-				"PAGER_DESC_NUMBERING" => "N",
-				"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-				"PAGER_SHOW_ALL" => "N",
-				"PAGER_BASE_LINK_ENABLE" => "N",
-				"SET_STATUS_404" => "N",
-				"SHOW_404" => "N",
-				"MESSAGE_404" => "",
-				"BACKGROUND_IMAGE" => "-",
-				"DISABLE_INIT_JS_IN_COMPONENT" => "N",
-				"CUSTOM_FILTER" => "",
-				"HIDE_NOT_AVAILABLE_OFFERS" => "N",
-				"COMPOSITE_FRAME_MODE" => "A",
-				"COMPOSITE_FRAME_TYPE" => "AUTO",
-				"DISPLAY_COMPARE" => "N",
-				"COMPATIBLE_MODE" => "Y"
-			),
-			false
-		);
+	"bitrix:catalog.section", 
+	"this_book_in_blog", 
+	array(
+		"IBLOCK_TYPE_ID" => "catalog",
+		"IBLOCK_ID" => "71",
+		"BASKET_URL" => "/personal/cart/",
+		"COMPONENT_TEMPLATE" => "this_book_in_blog",
+		"IBLOCK_TYPE" => "catalog",
+		"SECTION_ID" => "",
+		"SECTION_CODE" => "",
+		"SECTION_USER_FIELDS" => array(
+			0 => "",
+			1 => "",
+		),
+		"ELEMENT_SORT_FIELD" => "ACTIVE_FROM",
+		"ELEMENT_SORT_ORDER" => "desc",
+		"ELEMENT_SORT_FIELD2" => "id",
+		"ELEMENT_SORT_ORDER2" => "asc",
+		"FILTER_NAME" => "blogPostsFilter",
+		"INCLUDE_SUBSECTIONS" => "Y",
+		"SHOW_ALL_WO_SECTION" => "Y",
+		"HIDE_NOT_AVAILABLE" => "N",
+		"PAGE_ELEMENT_COUNT" => "9",
+		"LINE_ELEMENT_COUNT" => "1",
+		"PROPERTY_CODE" => array(
+			0 => "",
+			1 => "",
+		),
+		"TEMPLATE_THEME" => "site",
+		"PRODUCT_DISPLAY_MODE" => "Y",
+		"PRODUCT_SUBSCRIPTION" => "N",
+		"SHOW_DISCOUNT_PERCENT" => "N",
+		"SHOW_OLD_PRICE" => "Y",
+		"SHOW_CLOSE_POPUP" => "N",
+		"MESS_BTN_BUY" => "Купить",
+		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
+		"MESS_BTN_SUBSCRIBE" => "Подписаться",
+		"MESS_BTN_DETAIL" => "Последние посты в блоге",
+		"MESS_NOT_AVAILABLE" => "Нет в наличии",
+		"SECTION_URL" => "",
+		"DETAIL_URL" => "",
+		"SECTION_ID_VARIABLE" => "SECTION_ID",
+		"SEF_MODE" => "N",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "36000",
+		"CACHE_GROUPS" => "Y",
+		"SET_TITLE" => "N",
+		"SET_BROWSER_TITLE" => "N",
+		"BROWSER_TITLE" => "-",
+		"SET_META_KEYWORDS" => "N",
+		"META_KEYWORDS" => "-",
+		"SET_META_DESCRIPTION" => "N",
+		"META_DESCRIPTION" => "-",
+		"SET_LAST_MODIFIED" => "N",
+		"USE_MAIN_ELEMENT_SECTION" => "N",
+		"ADD_SECTIONS_CHAIN" => "N",
+		"CACHE_FILTER" => "N",
+		"ACTION_VARIABLE" => "action",
+		"PRODUCT_ID_VARIABLE" => "id",
+		"PRICE_CODE" => array(
+			0 => "BASE",
+		),
+		"USE_PRICE_COUNT" => "N",
+		"SHOW_PRICE_COUNT" => "1",
+		"PRICE_VAT_INCLUDE" => "Y",
+		"CONVERT_CURRENCY" => "N",
+		"USE_PRODUCT_QUANTITY" => "N",
+		"PRODUCT_QUANTITY_VARIABLE" => "",
+		"ADD_PROPERTIES_TO_BASKET" => "Y",
+		"PRODUCT_PROPS_VARIABLE" => "prop",
+		"PARTIAL_PRODUCT_PROPERTIES" => "N",
+		"PRODUCT_PROPERTIES" => array(
+		),
+		"OFFERS_CART_PROPERTIES" => array(
+			0 => "COLOR_REF",
+			1 => "SIZES_SHOES",
+			2 => "SIZES_CLOTHES",
+		),
+		"ADD_TO_BASKET_ACTION" => "ADD",
+		"PAGER_TEMPLATE" => "round",
+		"DISPLAY_TOP_PAGER" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "Y",
+		"PAGER_TITLE" => "Товары",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"SET_STATUS_404" => "N",
+		"SHOW_404" => "N",
+		"MESSAGE_404" => "",
+		"BACKGROUND_IMAGE" => "-",
+		"DISABLE_INIT_JS_IN_COMPONENT" => "N",
+		"CUSTOM_FILTER" => "",
+		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO",
+		"DISPLAY_COMPARE" => "N",
+		"COMPATIBLE_MODE" => "Y",
+		"OFFERS_LIMIT" => "5",
+		"ADD_PICT_PROP" => "-",
+		"LABEL_PROP" => "-",
+		"MESS_BTN_COMPARE" => "Сравнить"
+	),
+	false
+);
 		?>
             <?
 		

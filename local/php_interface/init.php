@@ -1,4 +1,4 @@
-<? 
+<?
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/.config.php");
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/sailplay.php");
 
@@ -168,7 +168,7 @@
     function addingTagParameterForTemplate ($arFields, $arTemplate) {
         if ($arTemplate["EVENT_NAME"] == "SUBSCRIBE_CONFIRM") {
             $arFields["TAG_MACROS"] = '$%my_tag%$';
-        }    
+        }
     }
     /**
     *
@@ -193,17 +193,17 @@
     *
     **/
 
-    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {  
-        
+    function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
+
        //logger($message, $_SERVER["DOCUMENT_ROOT"].'/logs/log_event.txt');
         if(strlen($message) > 1000) {
-            $htmlStart = strripos($message, "8bit");          
+            $htmlStart = strripos($message, "8bit");
             $message = substr($message, $htmlStart);
             $htmlEnd = strripos($message, "---------");
-            $message = substr($message, 5, -(strlen($message) - $htmlEnd ));               
+            $message = substr($message, 5, -(strlen($message) - $htmlEnd ));
         }
 
-        GLOBAL $arParams;     
+        GLOBAL $arParams;
         // т.к. доп заголовки битрикс передает строкой, то придется их вырезать
         $from_pattern = "/(?<=From:)(.*)(?=)/";
         $bcc_pattern = "/(?<=BCC:)(.*)(?=)/";
@@ -217,7 +217,7 @@
 
         preg_match('/\$\%(.*)\%\$/', $message, $macros_matches);
         if (!empty($macros_matches)) {
-            $macros_value = $macros_matches[1];    
+            $macros_value = $macros_matches[1];
         }
         $mailgun = new Mailgun(MAILGUN_KEY);
 
@@ -227,7 +227,7 @@
             'subject' => $subject,
             'html'	=> $message
         );
-		
+
 		if ($macros_value)
             $params['o:tag'] = $macros_value;
 
@@ -241,7 +241,7 @@
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
         $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
-    }   
+    }
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
     function cancelMail(&$arFields, $arTemplate) {
@@ -292,7 +292,7 @@
                 "WEIGHT" => 5000
             ),
         );
-    }   
+    }
 
     /**
     * Дефолтные значения для доставки гуру на случай, если что-то пошло не так и цена доставки 0
@@ -305,7 +305,7 @@
             "TIME" => 0
         );
     }
-    
+
 
     /**
     * Создаем ссылку для авторизации пользователя
@@ -431,14 +431,14 @@
         } else {
             $delivery_pre_order = (time()+(3600*24)*$day);
         }
-        
+
         $date_N = date("N", $delivery_pre_order); // считаем через какое количество дней
         $date_d = date("j", $delivery_pre_order);
         $date_n = date("n", $delivery_pre_order);
         $date_Y = date("Y", $delivery_pre_order);
         $date_promt = date("d.m.Y", $delivery_pre_order);
         $date_deactive = array('29.04.2018', '30.04.2018', '01.05.2018', '02.05.2018', '09.05.2018');
-     
+
 
         $month = array("","январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь");
         $days = array("","понедельник","вторник","среда","четверг","пятница","суббота","воскресенье");
@@ -527,12 +527,12 @@
     *
     * @param array $arFields
     * @return void
-    *          
+    *
     * */
-    function flippostHandler($orderId, $arFields) { 
+    function flippostHandler($orderId, $arFields) {
         if ($arFields['DELIVERY_ID'] == FLIPPOST_ID) {
             $delivery_price = 0;
-            
+
             $flippost_default_values = getDefaultFlippostValues();
             if ($_REQUEST['flippost_cost']) {
                 $delivery_price = $_REQUEST['flippost_cost'];
@@ -551,34 +551,34 @@
                         }
                     }
                 }
-            }   
+            }
             logger($_REQUEST, $_SERVER["DOCUMENT_ROOT"].'/logs/flippost_request.txt');
 
             if($_REQUEST['flippost_cost']){
-                // записываем стоимость доставки в отгрузку 
-                $order = Sale\Order::loadByAccountNumber($orderId); 
+                // записываем стоимость доставки в отгрузку
+                $order = Sale\Order::loadByAccountNumber($orderId);
                 //и получаем Коллекцию Отгрузок текущего Заказа
                 $shipmentCollection = $order->getShipmentCollection();
-                
+
                 foreach($shipmentCollection as $shipment) {
                      $shipment_id = $shipment->getId();
 
                      //пропускаем системные
                      if ($shipment->isSystem())
                       continue;
-                      
+
                      $arShipments[$orderId] = array(
                       'ID' => $shipment_id,
                       'ORDER_ID' => $shipment->getField('ORDER_ID'),
                       'DELIVERY_ID' => $shipment->getField('DELIVERY_ID'),
                       'PRICE_DELIVERY' => (float)$shipment->getField('PRICE_DELIVERY'),
-                     );                  
+                     );
                           $shipment->setField('BASE_PRICE_DELIVERY', $delivery_price);
                           $shipment->setField('CUSTOM_PRICE_DELIVERY', 'Y');
                           $order->save();
-                 }  
+                 }
             }
-            
+
         }
 
     }
@@ -604,8 +604,8 @@
         }
 
     }
-   
-	
+
+
 	function updateCumulativeDiscount($ID) {
 		$arFilter = Array(
 			"ID" => $ID
@@ -614,15 +614,15 @@
 		$rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
 
 		while ($arOrder = $rsSales->Fetch()) {
-			
+
 			$userGroup = CUser::GetUserGroup($arOrder["USER_ID"]);
-			
+
 			$domain = strstr(Message::getClientEmail($ID), '@');
-			
+
 			if (in_array(ADMIN_GROUP_ID, $userGroup) || in_array(ECOM_ADMIN_GROUP_ID, $userGroup) || $domain == "@alpina.ru" || $domain == "@alpinabook.ru") {
 				continue;
 			}
-				
+
 			$order = \Bitrix\Sale\Order::loadByAccountNumber($arOrder["ID"]);
 			$discountList = $order->getDiscount()->getApplyResult();
 
@@ -630,7 +630,7 @@
 			foreach($discountList["DISCOUNT_LIST"] as $oneDiscount) {
 				if ($oneDiscount["REAL_DISCOUNT_ID"] == 129)
 					unset($discountList["DISCOUNT_LIST"][$oneDiscount["ID"]]);
-				
+
 				if ($oneDiscount["ACTIONS_DESCR_DATA"]["BASKET"][0]["VALUE_TYPE"] == "S") {
 					$rubcoupon = $oneDiscount["ID"];
 					foreach ($discountList["COUPON_LIST"] as $oneCoupon) {
@@ -640,12 +640,12 @@
 					unset($discountList["DISCOUNT_LIST"][$oneDiscount["ID"]]);
 				}
 			}
-		 
-			
+
+
 			if (empty($discountList["DISCOUNT_LIST"])) {
 				//$userDiscount = CCatalogDiscountSave::GetDiscount(array('USER_ID' => $arOrder["USER_ID"]));
 				$userDiscount = CSaleUser::GetBuyersList(array(),array("USER_ID"=>$arOrder["USER_ID"]))->Fetch();
-				
+
 				if ($userDiscount["ORDER_SUM"] >= 5000) {
 					if (!($basket = $order->getBasket())) {
 					   throw new \Bitrix\Main\ObjectNotFoundException('Entity "Basket" not found');
@@ -658,19 +658,19 @@
 					if ($rubcoupon != '') {
 						\Bitrix\Sale\DiscountCouponsManager::add($rubcoupon);
 					}
-					
+
 					if ($userDiscount["ORDER_SUM"] < 20000) {
 						\Bitrix\Sale\DiscountCouponsManager::add("cumulativeDiscount10");
 					} else {
 						\Bitrix\Sale\DiscountCouponsManager::add("cumulativeDiscount20");
 					}
-					
+
 					\Bitrix\Sale\DiscountCouponsManager::useSavedCouponsForApply(true);
 					\Bitrix\Sale\DiscountCouponsManager::saveApplied(true);
 
 					$discount->setOrderRefresh(true);
 					$discount->setApplyResult(array());
-					
+
 					$basket->refreshData(array('PRICE', 'COUPONS'));
 					$discount->calculate();
 					$order->save();
@@ -848,36 +848,36 @@
     * @param array $arFields
     * @return void
     *
-    * */  
+    * */
     function boxberryDeliveryHandlerBefore($orderId, $arFields) {
         if ($arFields['DELIVERY_ID'] == BOXBERY_ID) {
             $delivery_price = $_REQUEST['boxbery_price'];
             if(floatval($delivery_price) <= 0 && $arFields['PRICE'] < 2000){
-                $delivery_price = 235;   
+                $delivery_price = 235;
             }
             if($_REQUEST['boxbery_price']){
-                // записываем стоимость доставки в отгрузку 
-                $order = Sale\Order::loadByAccountNumber($orderId); 
+                // записываем стоимость доставки в отгрузку
+                $order = Sale\Order::loadByAccountNumber($orderId);
                 //и получаем Коллекцию Отгрузок текущего Заказа
                 $shipmentCollection = $order->getShipmentCollection();
-                
+
                 foreach($shipmentCollection as $shipment) {
                      $shipment_id = $shipment->getId();
 
                      //пропускаем системные
                      if ($shipment->isSystem())
                       continue;
-                      
+
                      $arShipments[$orderId] = array(
                       'ID' => $shipment_id,
                       'ORDER_ID' => $shipment->getField('ORDER_ID'),
                       'DELIVERY_ID' => $shipment->getField('DELIVERY_ID'),
                       'PRICE_DELIVERY' => (float)$shipment->getField('PRICE_DELIVERY'),
-                     );                  
+                     );
                           $shipment->setField('BASE_PRICE_DELIVERY', $delivery_price);
                           $shipment->setField('CUSTOM_PRICE_DELIVERY', 'Y');
                           $order->save();
-                 }  
+                 }
             }
             logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_boxbery.txt');
 
@@ -901,32 +901,32 @@
 
             $delivery_price = $_REQUEST['boxberry_cost'];
             if(floatval($delivery_price) <= 0 && $arFields['PRICE'] < 2000){
-                $delivery_price = 235;   
+                $delivery_price = 235;
             }
-            
+
             if($_REQUEST['boxberry_cost']){
-                // записываем стоимость доставки в отгрузку 
-                $order = Sale\Order::loadByAccountNumber($orderId); 
+                // записываем стоимость доставки в отгрузку
+                $order = Sale\Order::loadByAccountNumber($orderId);
                 //и получаем Коллекцию Отгрузок текущего Заказа
                 $shipmentCollection = $order->getShipmentCollection();
-                
+
                 foreach($shipmentCollection as $shipment) {
                      $shipment_id = $shipment->getId();
 
                      //пропускаем системные
                      if ($shipment->isSystem())
                       continue;
-                      
+
                      $arShipments[$orderId] = array(
                       'ID' => $shipment_id,
                       'ORDER_ID' => $shipment->getField('ORDER_ID'),
                       'DELIVERY_ID' => $shipment->getField('DELIVERY_ID'),
                       'PRICE_DELIVERY' => (float)$shipment->getField('PRICE_DELIVERY'),
-                     );                  
+                     );
                           $shipment->setField('BASE_PRICE_DELIVERY', $delivery_price);
                           $shipment->setField('CUSTOM_PRICE_DELIVERY', 'Y');
                           $order->save();
-                 }  
+                 }
             }
             logger($_REQUEST, $_SERVER["DOCUMENT_ROOT"].'/logs/log_boxbery_saved.txt');
             // Добавляем полную стоимость заказа в оплату
@@ -1029,7 +1029,7 @@
                 while ($arItems = $dbBasketItems->Fetch()) {
                     if ($arItems["PRODUCT_ID"] != '186046' && $arItems["PRODUCT_ID"] != '372526') {
 						$mainID = CIBlockElement::GetList(Array(), array("ID" => $arItems["PRODUCT_ID"]), false, false, array("ID", "PROPERTY_MAIN_APP_ID"))->Fetch();
-						
+
                         $ids .= $mainID["PROPERTY_MAIN_APP_ID_VALUE"] ? $mainID["PROPERTY_MAIN_APP_ID_VALUE"].',' : $arItems["PRODUCT_ID"].',';
                     }
                 }
@@ -1074,15 +1074,15 @@
                     "ORDER_ID" => $ID,
                     "ORDER_USER"=> Message::getClientName($ID)
                 );
-				
+
 				CEvent::Send("FREE_DIGITAL_BOOKS", "s1", $mailFields, "N");
 
-                if($order_list["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID && 
-                    ($order_list["DELIVERY_ID"] == DELIVERY_COURIER_1 ||  
-                     $order_list["DELIVERY_ID"] == DELIVERY_COURIER_2 || 
-                     $order_list["DELIVERY_ID"] == DELIVERY_COURIER_MKAD) && 
+                if($order_list["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID &&
+                    ($order_list["DELIVERY_ID"] == DELIVERY_COURIER_1 ||
+                     $order_list["DELIVERY_ID"] == DELIVERY_COURIER_2 ||
+                     $order_list["DELIVERY_ID"] == DELIVERY_COURIER_MKAD) &&
                      $order_list["STATUS_ID"] == ROUTE_STATUS_ID){
-                        
+
                         $arFields = array(
                             "ID"=> $ID,
                         );
@@ -1167,7 +1167,7 @@
         }
     }
 
-    
+
     //обработка флага оплаты, при изменении статусов заказа
     AddEventHandler('sale', 'OnSaleStatusOrder', "triggerLogic");
 
@@ -1195,7 +1195,7 @@
                 $ids = '';
                 while ($arItems = $dbBasketItems->Fetch()) {
 					$mainID = CIBlockElement::GetList(Array(), array("ID" => $arItems["PRODUCT_ID"]), false, false, array("ID", "PROPERTY_MAIN_APP_ID"))->Fetch();
-					
+
 					$ids .= $mainID["PROPERTY_MAIN_APP_ID_VALUE"] ? $mainID["PROPERTY_MAIN_APP_ID_VALUE"].',' : $arItems["PRODUCT_ID"].',';
                 }
 
@@ -1252,7 +1252,7 @@
             }
 
         }
-		
+
 
         //----- Отправка смс при изменении статуса заказа
         if (array_key_exists($val,Message::$messages)) {
@@ -1281,7 +1281,7 @@
             $_SESSION["MESSAGE_PRICE"] = $order['PRICE'];
             $_SESSION["MESSAGE_ORDER"] = $ID;
 
-            logger(date('d.m.Y::H:m').': '.$_SESSION["MESSAGE_STATE"].$_SESSION["MESSAGE_PRICE"].$_SESSION["MESSAGE_ORDER"],$_SERVER["DOCUMENT_ROOT"].'/logs/log1.txt' );
+            logger(date('d.m.Y H:i:s').': '.$_SESSION["MESSAGE_STATE"]." ".$_SESSION["MESSAGE_PRICE"]." ".$_SESSION["MESSAGE_ORDER"],$_SERVER["DOCUMENT_ROOT"].'/logs/log1.txt' );
         }
 
         //----- Триггерные письма при изменении статуса заказа
@@ -1320,7 +1320,7 @@
             UpdOrderStatus($ID, "F");
         }
     }
-     
+
     //Получаем ссылку на бесплатную книгу в приложении Бизнес книги
     function getUrlForFreeDigitalBook($productID) {
         $ids = explode(',', $productID);
@@ -1460,7 +1460,7 @@
             return $arFields;
         }
     }
-  
+
     //Handler switch on iml delivery service for cities
     AddEventHandler('ipol.iml', 'onCompabilityBefore', 'onCompabilityBeforeIML');
 
@@ -1698,7 +1698,7 @@
             }
         }
     }
-    
+
     AddEventHandler("main", "OnAfterUserRegister", Array("OnAfterUserRegisterHandler", "OnAfterUserRegister"));
     class OnAfterUserRegisterHandler {
         function OnAfterUserRegister(&$arFields, &$arTemplate) {
@@ -1791,7 +1791,7 @@
     }
 
 
-   
+
     // --- класс для отправки смс при изменении статусов заказа
     class Message {
 
@@ -2045,7 +2045,7 @@
         }
     }
 
-   
+
 
     //Функция перевода числа в текстовую форму
     function num2str($num) {
@@ -2607,14 +2607,14 @@
         $handle = fopen($url, "rb");
         $contents = stream_get_contents($handle);
         fclose($handle);
-        $data=json_decode($contents,true);         
+        $data=json_decode($contents,true);
         if ($data["label"]) {
             // если произошла ошибка и ответ не был получен.
             //		arshow($content);
-            //Преобразуем массив байтов в изображение    
+            //Преобразуем массив байтов в изображение
             $imagick = new Imagick();
             $imagick->setResolution(200, 200);
-            $imagick->readImage($data["label"]);   
+            $imagick->readImage($data["label"]);
           //  $imagick->cropImage(500, 450, 250, 80);
             $imagick->writeImages($_SERVER["DOCUMENT_ROOT"].'/local/php_interface/include/boxbery/'.$track.'.jpg', false);
         }
@@ -3168,7 +3168,7 @@
             $first_coupon_array_key = key($arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD]);
             //Сохраним все купоны после генерации
             $arCoupons = array();
-            
+
             if (!$arParamsCertificate['PROPERTY_VALUES'][CERTIFICATE_ORDERS_COUPONS_CODE_FIELD][$first_coupon_array_key]['VALUE'] && $arParamsCertificate['ACTIVE'] == "Y" && !empty($quantity)) {
 
                 $arCoupons = generateCouponsForOrder($order_id, $quantity, $basket_rule_id);
@@ -3247,13 +3247,30 @@
         'HLBlockElementUpdate'
     );
     function HLBlockElementUpdate(Bitrix\Main\Event $arElement){
+        
         if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
             if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){
-                $arSelect = Array("ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN");
+                $arSelect = Array("ID", "NAME", "IBLOCK_ID", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN", "PROPERTY_IGNORE_SEARCH_INDEX");
                 $arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
                 $res = CIBlockElement::GetList(Array(), $arFilter, false, Array(), $arSelect);
                 while($arFields = $res->GetNext())
                 {
+                    $dbIgnoreSearchIndexProp = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array(), Array("CODE" => "IGNORE_SEARCH_INDEX"));
+                    if($arIgnoreSearchIndexProp = $dbIgnoreSearchIndexProp->Fetch()) {
+                        $ignoreSearchIndexPropID = intval($arIgnoreSearchIndexProp["ID"]);
+                    }
+
+                    $to_delete = false;
+                    if(isset($arElement["PROPERTY_VALUES"][$arIgnoreSearchIndexProp["ID"]])) {
+                        if(!empty($arElement["PROPERTY_VALUES"][$arIgnoreSearchIndexProp["ID"]])) {
+                            $to_delete = true;
+                        }
+                    } else {
+                        if(!empty($arFields[PROPERTY_IGNORE_SEARCH_INDEX_VALUE])) {
+                            $to_delete = true;
+                        }
+                    }
+
                     if (!empty($arFields['NAME'])) {
                         $arHLData['UF_TITLE'] = preg_replace("/([^a-zA-Z\sа-яёА-ЯЁ0-9])/u","",$arFields['NAME']);
                     }
@@ -3294,9 +3311,15 @@
                         "filter" => array('UF_IBLOCK_ID' => $arHLData['UF_IBLOCK_ID'])
                     ));
                     if($arElementID = $rsElementID->Fetch()){
-                        $result = $entity_data_class::update($arElementID['ID'], $arHLData);
+                        if($to_delete) {
+                            $result = $entity_data_class::delete($arElementID['ID']);
+                        } else {
+                            $result = $entity_data_class::update($arElementID['ID'], $arHLData);
+                        }
                     } else {
-                        $result = $entity_data_class::add($arHLData);
+                        if(!$to_delete) {
+                            $result = $entity_data_class::add($arHLData);
+                        }
                     }
                 }
             }
@@ -3434,18 +3457,18 @@
     function messagesWithAttachments(&$arFields, &$arTemplate) {
         GLOBAL $arParams;
 
-        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа   
+        //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
         if(cancelMail($arFields, $arTemplate)) {
-           // return false;           
-           logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/event.txt');                      
+           // return false;
+           logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/event.txt');
            $arFields["PREORDER"] = "предзаказ";
            $arFields["EMAIL_DELIVERY_TERM"] = "";
            $arFields["PAYMENT_LINK"] = "";
            $arFields["PAYMENT_BUTTON"] = "";
 
         } else {
-           $arFields["PREORDER"] = "заказ"; 
-        } 
+           $arFields["PREORDER"] = "заказ";
+        }
 
         // отправка письма по наличию вложенных файлов
         if (is_array($arTemplate['FILE']) && !empty($arTemplate['FILE'])) {
@@ -3595,12 +3618,12 @@
                 $arFilter = Array(
                     "STATUS_ID" => "PR"
                 );
-                
+
                 $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter);
                 $order_new_statys = array();
                // $state = '';
                 while ($arSales = $rsSales->Fetch()) {
-                    
+
                     if($arSales["PERSON_TYPE_ID"] == LEGAL_ENTITY_PERSON_TYPE_ID && $arSales["PAY_SYSTEM_ID"] == 12){
                         $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
 
@@ -3612,7 +3635,7 @@
                             if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
                                 $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
                             }
-                            
+
                         }
                     } else {
                         $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $arSales["ID"]));
@@ -3625,12 +3648,12 @@
                             if($product_order_property["VALUE"] == STATE_SOON && $arFields["ID"] != $arproduct["PRODUCT_ID"]){
                                 $order_new_statys[$arSales["ID"]]["STATUS"] = "N";
                             }
-                            
+
                         }
                     }
                 }
                 foreach($order_new_statys as $order_update){
-                   logger($order_update["ORDER"], $_SERVER["DOCUMENT_ROOT"].'/logs/log_status.txt'); 
+                   logger($order_update["ORDER"], $_SERVER["DOCUMENT_ROOT"].'/logs/log_status.txt');
                     if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
                         if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
                             CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
@@ -3669,16 +3692,16 @@ function SyncProductCode($arFields) {
 }
 
 
-function AddBasketRule() { 
-    // получение релятивных товаров для создания правила корзины 
-    CModule::IncludeModule('sale');                                                    
+function AddBasketRule() {
+    // получение релятивных товаров для создания правила корзины
+    CModule::IncludeModule('sale');
     if (isset($_COOKIE["rcuid"])){
         $opts = array('http' =>
             array(
                 'method'  => 'GET',
-                'timeout' => 3 
+                'timeout' => 3
             )
-        );                      
+        );
 
         $context  = stream_context_create($opts);
         $stringRecs = file_get_contents('https://api.retailrocket.ru/api/2.0/recommendation/personal/50b90f71b994b319dc5fd855/?partnerUserSessionId='.$_COOKIE["rcuid"], false, $context);
@@ -3686,32 +3709,32 @@ function AddBasketRule() {
         $arrFilter = array();
         foreach($recsArray as $val) {
             $arrFilter["ID"][] = $val["ItemId"];
-            
+
         }
-        
+
     }
-    
+
     $id_favorite = $arrFilter["ID"][rand(0,5)];
-    
+
     $db_enum_list = CIBlockProperty::GetPropertyEnum(SALE_POPULAR_ELEMENT, Array(), Array());
     while($ar_enum_list = $db_enum_list->GetNext()) {
       $ar_prop[] = $ar_enum_list["VALUE"];
     }
-    
+
     if(is_array($ar_prop)){
       foreach($ar_prop as $prop){
         $arFields["VALUES"][] = Array(
           "VALUE" => $prop,
           "DEF" => "Y",
           "SORT" => "100"
-          );   
+          );
       }
       if(!in_array($id_favorite, $ar_prop)) {
           $arFields["VALUES"][count($ar_prop)] = Array(
               "VALUE" => $id_favorite,
               "DEF" => "Y",
               "SORT" => "100"
-              ); 
+              );
       }
     } else {
         $arFields["VALUES"][] = Array(
@@ -3720,31 +3743,31 @@ function AddBasketRule() {
           "SORT" => "100"
           );
     }
-    
+
     $ibp = new CIBlockProperty;
     if(!$ibp->Update(SALE_POPULAR_ELEMENT, $arFields))
         echo $ibp->LAST_ERROR;
-     
-     return "AddBasketRule();";  
+
+     return "AddBasketRule();";
 }
-// регистрируем обработчик                 
+// регистрируем обработчик
 AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
-    
+
     // создаем обработчик события "OnAfterIBlockElementUpdate"
     function UpdateSaleElement(&$arFields)
     {
-        CModule::IncludeModule('sale');  
+        CModule::IncludeModule('sale');
         $db_props = CIBlockElement::GetProperty($arFields["IBLOCK_ID"], $arFields["ID"], array("id" => "desc"), Array("CODE"=>"SALE_POPULAR_ELEMENT"));
         if($ar_props = $db_props->Fetch()){
             $property_enums = CIBlockPropertyEnum::GetList(Array("DEF"=>"DESC"), Array("CODE"=>$ar_props["CODE"], "DEF" => "Y"));
             while($enum_fields = $property_enums->GetNext()) {
                 $prop_value = $enum_fields["VALUE"];
-            }   
+            }
         }
         if($prop_value){
             $rsDiscounts = CSaleDiscount::GetList(array(), array("ID" => 409), false, false, array('CONDITIONS'))->Fetch();
-                
-            $arDiscount = unserialize($rsDiscounts['CONDITIONS']);                       
+
+            $arDiscount = unserialize($rsDiscounts['CONDITIONS']);
             $CONDITIONS = array (
                "CLASS_ID" => "CondGroup",
                "DATA" => array (
@@ -3752,24 +3775,24 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
                   "True" => "True"
                ),
                "CHILDREN" => array(
-                   array(  
+                   array(
                       "CLASS_ID" => "CondBsktCntGroup",
                       "DATA" => array (
                          "All" => "OR",
                          "logic" => "EqGr",
                          "Value" => 2
                       ),
-                      "CHILDREN" => Array( 
-                         $arDiscount["CHILDREN"][0]["CHILDREN"][0], 
-                         array(  
+                      "CHILDREN" => Array(
+                         $arDiscount["CHILDREN"][0]["CHILDREN"][0],
+                         array(
                           "CLASS_ID" => "CondBsktFldProduct",
                           "DATA" => array (
                              "logic" => "Equal",
                              "value" => $arFields["ID"]
-                          ) 
-                         ) 
-                      )  
-                   ),array(  
+                          )
+                         )
+                      )
+                   ),array(
                       "CLASS_ID" => "CondBsktCntGroup",
                       "DATA" => array (
                          "All" => "AND",
@@ -3777,25 +3800,25 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
                          "Value" => 1
                       ),
                       "CHILDREN" => Array(
-                         array(  
+                         array(
                           "CLASS_ID" => "CondBsktFldProduct",
                           "DATA" => array (
                              "logic" => "Equal",
                              "value" => $prop_value
-                          ) 
-                         ) 
-                      ) 
+                          )
+                         )
+                      )
                    ),
                ),
             );
-              
+
             $ACTIONS = array (
                "CLASS_ID" => "CondGroup",
                "DATA" => array (
                   "All" => "AND",
                ),
-               "CHILDREN" => array(  
-                array( 
+               "CHILDREN" => array(
+                array(
                   "CLASS_ID" => "ActSaleBsktGrp",
                   "DATA" => array (
                      "Type" => "Discount",
@@ -3804,14 +3827,14 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
                      "Max" => 0,
                      "All" => "AND",
                      "True" => "True"
-                     
+
                   ),
                   "CHILDREN" => Array(
-              
+
                   )
                 ),
                ),
-            );   
+            );
             $arFields = array(
                "LID" => 's1',
                "NAME" => "Скидка 1+1 для товара ".$prop_value,
@@ -3823,16 +3846,16 @@ AddEventHandler("iblock", "OnAfterIBlockElementUpdate", "UpdateSaleElement");
                 "ACTIVE_TO" => "",
                 "SORT" => 100,
                 "XML_ID" => "",
-                "CONDITIONS" => $CONDITIONS, 
+                "CONDITIONS" => $CONDITIONS,
                 "ACTIONS" => $ACTIONS,
                 "USER_GROUPS" => array(
                     0 => 2
-                ), 
+                ),
             );
           //  $ID = CSaleDiscount::Add($arFields);
             $ID = CSaleDiscount::Update(409, $arFields);
 
-           // 
+           //
         }
     }
 
@@ -3846,21 +3869,21 @@ function MontageBasketAdd(&$arFields) {
         $res_element = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
         while($ob = $res_element->GetNext()) {
             // выясняем остатки у товара остатков
-            $rsStore = CCatalogProduct::GetByID($ob["ID"]); 
-            
+            $rsStore = CCatalogProduct::GetByID($ob["ID"]);
+
             logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_basket.txt');
             if($rsStore["QUANTITY"] > 0 ){
                  $ar_quantity[] = $rsStore["QUANTITY"];
                  $ar_xml_id[$rsStore["QUANTITY"]] = $ob["XML_ID"];
             }
-            
+
         }
         // вычисляем наибольший остаток и подставляем в xml товара
         if($ar_xml_id[max($ar_quantity)]){
             $arFields["PRODUCT_XML_ID"] = $ar_xml_id[max($ar_quantity)];
         }
     }
-    
+
 }
 
 
@@ -3878,19 +3901,19 @@ function UpdateStatusBoxberyCancel() {
         /** @var \Bitrix\Sale\Shipment $shipment */
         foreach ($shipmentCollection as $shipment) {
             $track = $shipment->getField("TRACKING_NUMBER");
-            
+
             $url='http://api.boxberry.de/json.php?token='.BOXBERRY_TOKEN.'&method=ListStatusesFull&ImId='.$track;
 
             $handle = fopen($url, "rb");
             $contents = stream_get_contents($handle);
             fclose($handle);
             $data = json_decode($contents,true);
-            
+
             $end_status = end($data["statuses"]);
             if($end_status["Name"] == "Возвращено в ИМ"){
                 CSaleOrder::StatusOrder($arOrder["ID"], "F");  // обновление статуса если заказ был возвращен
             }
-        } 
+        }
     }
     return "UpdateStatusBoxberyCancel();";
 }
@@ -3902,16 +3925,16 @@ AddEventHandler("iblock", "OnAfterIBlockElementAdd", "AddElementWishList");
 // создаем обработчик события "OnAfterIBlockElementAdd"
 function AddElementWishList(&$arFields) {
     global $USER;
-     
+
     if($arFields["IBLOCK_ID"] == WISHLIST_IBLOCK_ID){
-        
+
         $el = new CIBlockElement;
 
         $PROP = array();
-        $PROP["EMAIL"] = $USER->GetEmail();  
-        $PROP["ID_BOOCK"] = $arFields["PROPERTY_VALUES"]["PRODUCTS"];       
-        $PROP["DATE_CREATE"] = date('d.m.Y');        
-        $PROP["ID_ELEMENT_LIST"] = $arFields["ID"];        
+        $PROP["EMAIL"] = $USER->GetEmail();
+        $PROP["ID_BOOCK"] = $arFields["PROPERTY_VALUES"]["PRODUCTS"];
+        $PROP["DATE_CREATE"] = date('d.m.Y');
+        $PROP["ID_ELEMENT_LIST"] = $arFields["ID"];
 
         $arLoadProductArray = Array(
           "MODIFIED_BY"    => $USER->GetID(), // элемент изменен текущим пользователем
@@ -3925,7 +3948,7 @@ function AddElementWishList(&$arFields) {
           );
 
         $PRODUCT_ID = $el->Add($arLoadProductArray);
-  
+
     }
 
 }
@@ -3937,7 +3960,7 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
     function DeleteElementWishList($arFields){
         if($arFields["IBLOCK_ID"] == WISHLIST_IBLOCK_ID){
             $arSelect = Array("ID");
-            
+
             $arFilter = Array("IBLOCK_ID"=>WISHLIST_LOGGER_IBLOCK_ID, "PROPERTY_ID_ELEMENT_LIST" => $arFields["ID"]);
             $arwish = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
             if($list = $arwish->GetNext()) {
@@ -3946,18 +3969,18 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
 
                 // Установим новое значение для данного свойства данного элемента
                 CIBlockElement::SetPropertyValuesEx($list["ID"], false, array($PROPERTY_CODE => $PROPERTY_VALUE));
-                
+
                 $el = new CIBlockElement;
                 $arLoadProductArray = Array(
                   "ACTIVE" => "N",            // не активен
                 );
 
-                $res = $el->Update($list["ID"], $arLoadProductArray);  
+                $res = $el->Update($list["ID"], $arLoadProductArray);
             }
-    
+
         }
      }
-     
+
  function DELETE_STATUS(){
     if (CModule::IncludeModule("sale")):
 
@@ -3974,20 +3997,20 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
     endif;
     return "DELETE_STATUS();";
  }
- 
-    function courier_status(){    // смена статуса у заказов с курьером и ноплатой наличными    
+
+    function courier_status(){    // смена статуса у заказов с курьером и ноплатой наличными
         if(date('N') != 6 && date('N') != 7){
             $arFilter = Array("DELIVERY_ID" => array(DELIVERY_COURIER_1, DELIVERY_COURIER_2, DELIVERY_COURIER_MKAD), "PAY_SYSTEM_ID" => CASH_PAY_SISTEM_ID, "STATUS_ID" => array("N", "D"), "PAYED" => 'Y');
             $rsOrder = CSaleOrder::GetList(Array(), $arFilter, Array("ID", "DATE_INSERT"), false); // Array("PROPERTY_CONSIGNEE")
             while($arOrder = $rsOrder->Fetch()) {
                 $time = strtotime('-10 minutes');
-                $date_today = strtotime(date('d.m.Y H:i:s', $time)); 
-                $date_oldday = strtotime($arOrder["DATE_INSERT"]); 
-                if($date_today > $date_oldday){             
-                    CSaleOrder::StatusOrder($arOrder["ID"], "AC"); 
+                $date_today = strtotime(date('d.m.Y H:i:s', $time));
+                $date_oldday = strtotime($arOrder["DATE_INSERT"]);
+                if($date_today > $date_oldday){
+                    CSaleOrder::StatusOrder($arOrder["ID"], "AC");
                 }
-            }  
-        } 
-        return "courier_status();";  
+            }
+        }
+        return "courier_status();";
    }
 ?>

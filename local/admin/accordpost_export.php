@@ -262,6 +262,7 @@
             }                   
 
                 //Экспортируем      
+         
             export_to_accordpost($xmlBodyInternational, $zdoc_id_international, $shipment_id_international, $arIDsInternationalOrders, $order_props);   
         }  
         

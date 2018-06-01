@@ -1,3 +1,1161 @@
+.recomendation .bookPrice{color:#7b8c90;font-size:14px}
+.recomendation ul{left:0;position:relative;width:9999px}
+.hintWrapp .books{height:780px}
+.slideWrapp{height:500px}
+.roundSlideWrapp{height:360px;margin-top:36px}
+.saleWrapp{background-color:#f4f4f4;min-height:694px;overflow:visible;margin-bottom:40px}
+.saleWrapp .bookName{color:#424c4f;height:39px;width:142px;overflow:hidden}
+.saleWrapp .bookPrice{color:#7B8C90;font-size:14px}
+.saleWrapp .titleMain{color:#3f4a4d;font-size:48px;padding-bottom:38px;padding-top:53px;text-align:center;font-family:Walshein_light!important}
+.saleWrapp .titleMain a{color:#3f4a4d}
+.titleMain a {text-decoration:none}
+.titleMain a:hover {border-bottom:1px solid}
+.saleWrapp ul{width:9999px;position:relative;left:0}
+.saleWrapp .left,.saleWrapp .right{position:absolute;top:229px;cursor:pointer}
+.saleWrapp li{width:192px}
+.saleWrapp .saleSlider{overflow:hidden}
+.saleWrapp .left{left:-50px}
+.saleWrapp .right{right:-35px}
+.giftWrap input[type=text]{border-color:-moz-use-text-color -moz-use-text-color #fff;border-style:none;border-width:medium medium 2px;box-shadow:0 0 0 0 rgba(0,0,0,.18),0 3px 7px 0 rgba(0,0,0,.14);color:#8d8d8d;float:right;font-size:20px;height:32px;margin-right:46px;margin-top:14px;padding-bottom:13px;padding-left:20px;padding-top:13px;position:relative;width:396px}
+.bigSlider .sliderElement,.bookEasySlider .bookImg{box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
+.giftWrap input[type=button]{position:absolute;right:47px;top:81px;border:none;width:60px;height:38px;background:url(/img/giftInpBack.png) no-repeat #fff;cursor:pointer}
+/* .giftWrap input[type=button]:hover{opacity:0.5} background:url(/img/giftInpBack.png) no-repeat #fff */
+.giftWrap input[type=button]:hover{border-bottom: 1px solid #536793;}
+.giftWrap .some_info{z-index:1100;position:absolute;display:none;top:100px;left:200px;width:700px;background:#fff;border:1px solid #00f;text-align:center;padding:30px 0}
+.saleWrapp .giftWrap{border-top:1px solid #e2e2e2;margin-top:78px;padding-top:56px}
+.giftWrap .pii{float:right;width:462px;color:#768AAC;font-family:Walshein_regular;font-size:16px}
+.giftWrap .pii a{color:#3f4a4d}
+.giftWrap .pii a:hover{border-bottom:1px solid}
+.giftWrap .title{font-family:Walshein_black;font-size:42px;color:#486796;padding-top:0;padding-bottom:0}
+.giftWrap p{color:#768AAC;font-family:Walshein_regular;font-size:16px}
+.giftWrap{position:relative}
+.giftWrap:before{content:url(/img/lov.png);position:absolute;text-align:center;top:0px;right:46%}
+.giftWrap img{left:414px;position:absolute;top:-27px}
+.allBooksWrapp{min-height:1194px;padding-bottom:50px}
+.allBooksWrapp .titleMain{color:#3f4a4d;font-size:32px;padding-top:62px;padding-bottom:30px;padding-left:4px}
+.allBooksWrapp .bookWrapp{display:block;height:300px;width:184px;float:left;margin:5px 5px 14px}
+.allBooksWrapp .bookWrapp:nth-child(6n){width:160px}
+.allBooksWrapp .bookName{color:#424c4f;font-size:14px;padding-bottom:5px;padding-top:16px;height:39px;width:142px;overflow:hidden}
+.allBooksWrapp .bookPrice{color:#7B8C90;font-size:14px}
+.allBooksWrapp .allBooks{border:1px solid #c7a271;border-radius:46px;color:#c7a271;font-size:19px;margin-left:447px;margin-top:68px;padding:12px 64px;text-decoration:none}
+.books>ul span:hover,.categoryWrapper .leftMenu a:hover,.roundSlider>li>a:hover>div>p{border-bottom:1px solid}
+.allBooksWrapp .catalogBooks{min-height:1140px;margin-bottom:59px}
+.reviewsWrapp{background-color:#f4f4f4;height:804px}
+.reviewsWrapp .arrows{float:right;padding-top:50px}
+.reviewsWrapp .revTitle{color:#3f4a4d;font-size:32px;padding-top:52px}
+.reviewsWrapp .bigSlider{overflow:hidden;position:relative;width:100%;margin-top:32px;height:466px}
+.bigSlider li{display:inline-block;float:left}
+.bigSlider ul{width:9999px;position:relative;left:0}
+.bigSlider .sliderElement{background-color:#fff;height:360px;margin-right:25px;padding:40px 30px;width:300px;position:relative}
+.arrows img{cursor:pointer}
+.arrows img:nth-child(1){left:9px;position:relative}
+.arrows img:nth-child(2){left:3px;position:relative}
+.sliderElement .autor{color:#7B8C90;font-family:Walshein_bold;font-size:13px;text-transform:uppercase;margin-bottom:18px}
+.sliderElement .reviesText{color:#3f4a4d;font-size:15px;line-height:23px}
+.thisBook .autorBook{color:#7B8C90;font-size:13px;text-transform:uppercase;margin-top:14px}
+.thisBook .titleBook{color:#424c4f;font-size:15px;line-height:17px;margin-top:30px}
+.sliderElement .thisBook{border-top:1px solid #e2e2e2;margin-top:28px;padding-top:20px;position:absolute;bottom:36px;width:300px}
+.thisBook img{float:left;margin-right:30px}
+.dopSaleWrap .dopSale{color:#c7a271;font-family:Walshein_black;font-size:26px;line-height:26px;padding-top:10px;margin-right:86px}
+.dopSaleWrap .saleSize{color:#C7A271;font-family:Walshein_light;font-size:62px}
+.dopSaleWrap .persent{color:#C7A271;font-size:24px;line-height:50px}
+.dopSaleWrap .saleText{color:#c7a271;font-size:15px;padding-left:31px;padding-top:18px;width:178px}
+.dopSaleWrap .TwentypercentBlock{margin-right:28px}
+.dopSaleWrap .TwentypercentBlock,.dopSaleWrap .dopSale,.dopSaleWrap .percentBlock{float:left;width:300px}
+.dopSaleWrap .TwentypercentBlock p,.dopSaleWrap .percentBlock p{float:left}
+.dopSaleWrap{border-top:1px solid #e2e2e2;margin-top:46px;padding-top:50px}
+.dopSaleWrap .percentBlock{border-right:2px solid #e2e5e6;margin-right:28px;padding-right:60px}
+.paymentWrapp{height:348px}
+.paymentWrapp .comfortPayment,.paymentWrapp .shiping{float:left;padding-top:65px;width:496px}
+.paymentWrapp .comfortPayment{margin-right:130px;position:relative}
+.paymentWrapp .shiping{position:relative}
+.paymentWrapp .comfortPayment a{color:#3f4a4d!important}
+.paymentWrapp .title{color:#3f4a4d;font-size:24px;padding-bottom:40px}
+.comfortPayment img{padding-left:56px;position:relative;top:10px}
+.shiping img{padding-left:26px;position:relative;top:10px}
+.shiping a{color:#3f4a4d!important}
+.paymentWrapp .variants{color:#3f4a4d;font-size:15px}
+.paymentWrapp .variants p{position:relative;padding-bottom:24px}
+.paymentWrapp .variants p:before{content:url(/img/reht.png);display:inline-block;float:left;height:23px;left:0;padding-right:11px;position:relative;top:-3px}
+.paymentWrapp a p:hover {text-decoration:underline;}
+.variants div{float:left;width:222px}
+.variants div:nth-child(1){margin-right:48px}
+footer{background-color:#353535;clear:both;display:inline-block;width:100%;padding-bottom:30px;margin-bottom:-10px}
+.footerMenu p{color:#8F8F8F;font-size:17px}
+.footerMenu a{color:#8F8F8F!important}
+.footerContacts .yaMarket p{color:#5F5F5F;font-family:Walshein_regular;font-size:10px}
+.roundSlideWrapp .titleSlide,.slideWrapp .titleSlide{font-family:Walshein_black;line-height:62px}
+.yaMarket .stars{left:6px;position:relative;top:3px}
+.yaMarket p{display:inline}
+.yaMarket{width:150px;margin-right:208px}
+.footerContacts .adress{color:#9C9C9C;font-size:15px;padding-bottom:4px}
+.footerContacts a{color:#7A7A7A;font-size:13px}
+.footerContacts .years{color:#7A7A7A;font-size:13px;margin-top:18px;margin-bottom:50px}
+.footerContacts>div{float:left;margin-left:8px}
+.footerContacts .contactUs:hover {filter: brightness(0.5);}
+.footerMenu{padding-top:78px;padding-bottom:260px;border-bottom:1px solid #4B4B4B;margin-bottom:46px}
+.footerMenu>div{float:left}
+.footerMenu>div:nth-child(1){margin-right:50px}
+.footerMenu>div:nth-child(2){margin-right:50px}
+.footerMenu>div:nth-child(3){margin-right:50px}
+.footerMenu>div:nth-child(4){margin-right:50px}
+.footerMenu p{padding-bottom:20px}
+footer .adress{text-align:center}
+footer .appStore{margin-left:3px;margin-right:8px}
+footer .webServ{margin-left:140px}
+.webServ img{padding-left:15px}
+.headerWrapper{margin:0 auto;position:relative;width:700px;text-align:center}
+header .menu{padding-top:18px}
+.colorCorrect{z-index:1;bottom:0;position:absolute;width:260px;height:202px;background:url(/img/blueColor.png)}
+.hintWrapp .smallContainer:hover p{color:#C7A271;cursor:pointer}
+.hintWrapp .smallContainer:hover .colorCorrect{background:url(/img/redColor.png)}
+.slideWrapp .titleSlide{color:#fff;font-size:62px;height:124px}
+.slideWrapp .textSlide{color:#CAD1CE;font-size:20px;margin-top:16px;margin-bottom:36px;height:56px}
+.roundSlideWrapp .titleSlide{color:#fff;font-size:42px;position:relative;z-index:100;width:500px}
+.roundSlideWrapp .textSlide{color:#cad1ce;font-size:20px;margin-bottom:36px;margin-top:10px;position:relative;z-index:100;width:500px}
+.slideWrapp .firstSlide .catalogWrapper{height:100%;padding-top:134px}
+.roundSlideWrapp .firstSlide .catalogWrapper{height:100%;padding-top:70px;padding-left:35px;width:814px}
+.roundCatBack{position:absolute;right:-30px;top:0}
+.slideWrapp .firstSlide{background:url(/img/roundSlideBack.png) 65% 0 no-repeat rgba(0,0,0,0)}
+.slideWrapp li{width:100%;height:100%;display:inline-block}
+.slideWrapp ul{height:100%;width:19999px;position:relative;left:0}
+.roundSlideWrapp li{width:876px;height:100%;display:inline-block}
+.roundSlideWrapp ul{height:100%;width:9999px;position:relative;left:0}
+.roundSlideWrapp .buttons,.slideWrapp .buttons{background-color:#546b60;border-radius:60px;display:inline-block;height:30px;margin-bottom:6px;width:30px;color:#fff;font-family:Walshein_bold;font-size:13px;margin-right:6px;position:relative}
+.circle strong{color:#fff;font-family:Walshein_bold;font-size:13px;left:-28px;position:relative;top:-17px}
+.circle2 strong,.circle3 strong{left:-30px}
+.circle{position:relative;display:inline-block;top:84px}
+.slideWrapp .buttons{top:61px}
+.roundSlideWrapp .buttons{top:-23px}
+.buttons p{left:11px;position:relative;top:6px}
+.basketIcon,.catalogIcon{border-radius:80px;height:64px;position:absolute;top:-313px;width:64px;cursor:pointer}
+.adress img,.footerMenu p,.icons img,.webServ img,.yaMarket>img{cursor:pointer}
+input:focus{outline:0}
+.roundSlider .buttons{cursor:pointer}
+.books>ul span{cursor:pointer}
+.bookNew{display:block}
+.bookBest,.bookMust,.bookSoon,.bookChildren{display:none}
+.catalogIcon{left:-6px;background:url(/img/catalogIco.png) center no-repeat #85959a}
+.catalogIcon:hover{background:url(/img/catalogLogoMini.png) center no-repeat #fff}
+.basketIcon{right:-6px;background:url(/img/basketIcoHovers.png) center no-repeat #85959a}
+.basketIcon:hover{background:url(/img/basketIco.png) center no-repeat #fff}
+.basketIcon span,.catalogIcon span{margin-left:0;margin-top:68px;text-align:center;display:block;position:relative;font-size:18px;color:#e4e8ea}
+.searchWrap{background-color:#ECEDEF;height:60px}
+.searchWrap input[type=text]{background-color:#ECEDEF;border:none;font-size:19px;margin-top:16px;padding-left:43px;width:100%}
+.searchWrap button[type=submit]{background:#ECEDEF;color:#666;width:30px;height:30px;left:0}
+.searchWrap button[type=submit]:after{position:absolute;left:0}
+.find button[type=submit]{font-size:24px;cursor:pointer;top:0;border:none;position:absolute}
+.find button[type=submit]:after{content:"\f002";font-family:"FontAwesome"}
+.mainSearchField::-webkit-input-placeholder{color:#444;font-size:18px;font-family:Walshein_light}
+.mainSearchField::-moz-placeholder{color:#444;font-size:18px;font-family:Walshein_light}
+.authorWrap .titleWrap{background-color:#99abb1;height:138px}
+.breadCrump{color:#e4e8ea;font-size:14px;padding-bottom:28px}
+.titleWrap .mainTitle{color:#fff;font-family:Walshein_black;font-size:42px;padding-left:4px}
+.authorWrap .content{background-color:#F4F4F4}
+.authorWrap .autorInfo{float:left;padding-right:30px;padding-top:50px}
+.events p{color:#424C4F;font-size:19px}
+.event p{color:#424C4F;font-size:14px}
+.event .date{color:#7B8C90;padding-bottom:5px}
+.event{border-bottom:1px solid #eaeaea;margin-bottom:-4px;padding-bottom:14px;padding-top:20px;width:354px}
+.content .autorPhoto{margin-bottom:32px}
+.authorWrap .allEvents{font-size:14px;color:#486796;padding-top:20px;cursor:pointer}
+.allEvents:after{content:url(/img/allEvents.png);padding-left:8px}
+.authorWrap .citation{color:#2F3839;font-size:20px;font-family:Walshein_light;padding-top:48px}
+.authorWrap .autorName{color:#7B8C90;font-family:Walshein_bold;font-size:13px;text-transform:uppercase;margin-top:18px;margin-bottom:40px}
+.authorWrap .title{color:#2F3839;font-size:19px;margin-bottom:14px;margin-top:42px}
+.authorWrap .text{color:#3f4a4d;font-size:17px;line-height:24px;margin-bottom:30px}
+.content .textWrap{padding-bottom:34px}
+.autorBooksWrap{height:1100px}
+.autorBooksWrap .catalogBooks{height:610px}
+.authorsMenuWrap{background-color:#99ABB1;height:186px}
+.authorsMenuWrap .title{color:#FFF;font-family:Walshein_black;font-size:42px;padding-top:42px}
+.authorsMenuWrap .alphabet{color:#fff;font-size:19px;padding:26px 8px}
+.alphabet span{margin-right:10px;cursor:pointer}
+.authorLetter>div{float:left;margin:0 18px;width:160px;height:248px;position:relative}
+.authorsWrap .authorBack{background:url(/img/autBack.png) rgba(0,0,0,0);height:165px;left:5px;position:absolute;top:4px;width:165px}
+.authorsWrap .authorLetter{height:460px;padding-top:36px;position:relative;display:none}
+.authorsWrap .authorLetter:first-child,.authorsWrap .authorLetter:nth-child(2){display:block}
+.authorLetter .bigLetter{color:#3f4a4d;font-family:Walshein_bold;font-size:80px;padding-left:60px;padding-top:32px}
+.authorLetter .autCount{color:#809095;font-size:14px;margin-top:-6px;padding-left:52px}
+.authorsWrap .authorWrap p{color:#3f4a4d;font-family:Walshein_bold;font-size:13px;padding-left:6px;padding-top:10px;text-transform:uppercase}
+.pageTitleWrap .title,.searchBook .bookNames{font-family:Walshein_black}
+.cataloggWrapper{margin:0 auto;position:relative;width:1186px}
+.authorsWrap .showMore{border:1px solid #c8a474;border-radius:34px;color:#c8a474;font-size:19px;margin:40px auto 70px;padding:12px 44px;text-align:center;width:153px}
+.pageTitleWrap{background-color:#99ABB1;height:126px}
+.pageTitleWrap .title{color:#fff;font-size:42px;padding-left:2px;padding-top:32px}
+.pageTitleWrap span{color:#e4e8ea;font-size:14px;margin-left:8px}
+.searchBooksWrap{background-color:#F4F4F4;padding-top:38px;padding-bottom:50px}
+.searchBooksWrap .searchBook{height:310px;width:540px;margin-bottom:24px;display:inline-block}
+.categoryWrapper .secondLevel,.categoryWrapper li>ul,.hidingCatalogLeft,.slidingTopMenu{display:none}
+.searchBook img{float:left;margin-left:-8px}
+.searchBook img:hover{box-shadow: 0 15px 18px 0 rgba(0,0,0,.18), 0 15px 18px 0 rgba(0,0,0,.14);transform: scale(1.02);}
+.searchBook .bookNames{color:#3f4a4d;font-size:20px;height:80px;overflow:hidden;width:374px}
+.searchBook .autorName{font-family:Walshein_bold;font-size:13px;color:#3f4a4d;text-transform:uppercase;padding-top:2px}
+.searchBook .price{color:#7B8C90;font-size:14px;padding-top:10px}
+.searchBook .description{color:#3f4a4d;font-size:15px;line-height:22px;padding-top:10px}
+.searchBook .basket{background-color:#009fad;border-radius:50px;color:#fff;font-size:15px;margin-top:16px;padding:12px 0;text-align:center;vertical-align:middle;width:166px;cursor:pointer}
+.searchBook .basket:hover{background-color: #00b9c8;color: #f2f2f2;}
+.searchBook>div{float:left}
+.searchBook .descrWrap{padding-left:9px;width:374px}
+.searchWidthWrapper{margin:0 auto;position:relative;width:1142px}
+.searchBooksWrap .searchBook:nth-child(2n+1){margin-right:42px}
+.searchBooksWrap .showMore{border:1px solid #c8a474;border-radius:34px;color:#c8a474;font-size:19px;margin:16px auto 0;padding:12px 46px;text-align:center;width:153px}
+.interestingWrap{background-color:#fff;height:426px}
+.interestingWrap .title{color:#3f4a4d;font-size:32px;padding-top:42px;padding-bottom:32px}
+.bookEasySlider .bookName{color:#424c4f;font-size:14px;padding-bottom:6px;padding-top:16px}
+.bookEasySlider .bookPrice,.slidingTopMenu{color:#7b8c90;font-size:14px}
+.slidingTopMenu{background:url() 68px 13px no-repeat #fff;height:58px;position:fixed;top:0;z-index:1500;width:100%;box-shadow:0 0 13px}
+.headCatalog{background:url(/img/catalogLogoMini.png) 26px 22px no-repeat rgba(0,0,0,0);border-right:1px solid #e2e2e2;color:#3f4a4d;font-size:15px;height:100%;width:150px;float:left;margin-left:120px;cursor:pointer}
+.headBasket,.headLiked{width:60px;position:relative;cursor:pointer}
+.headBasket,.headLiked,.headLogin{border-left:1px solid #e2e2e2;float:right}
+.headCatalog p{padding-left:72px;padding-top:20px}
+.headBasket{background:url(/img/basletLogoMini.png) 22px 20px no-repeat rgba(0,0,0,0);height:100%}
+.headLiked{background:url(/img/alp_icon.png) 22px 20px no-repeat rgba(0,0,0,0);height:99%;padding:1px 0 0!important}
+header .headBasket{margin-right:0}
+.BasketQuant,.likedQuant{width:19px;height:19px!important;background:#4B4B4B;position:absolute;right:12px;top:15px;border-radius:10px;color:#fff;font-size:13px;text-align:center;padding:0!important}
+.headLogin{background:url(/img/lkImgBl.png) 18px 16px no-repeat rgba(0,0,0,0);height:100%;width:60px}
+.headFind{float:left;height:100%;left:0;margin-left:272px;position:absolute;right:182px;width:auto;top:0}
+.headFind input,.headFindCatalog input{margin-left:1px;border:none;background-color:#F8F8F8;color:#BBC0C2;font-size:19px;padding-left:30px}
+.headFind input{height:90%;width:300px}
+.headFindCatalog input{height:100%;width:100%}
+.catalogHead,.insideHeader .logoHead{border-right:1px solid #e2e2e2;float:left}
+.insideHeader{background:#fff;color:#7b8c90;font-size:14px;height:58px;position:relative}
+.insideHeader .logoHead{background:url(/img/alpinaLogoMini.png) 69px 12px no-repeat #fff;height:100%;width:121px}
+.catalogHead{background:url(/img/catalogLogoMini.png) 26px 22px no-repeat rgba(0,0,0,0);border-left:1px solid #e2e2e2;height:100%;margin-left:120px;width:150px}
+.catalogHead p{padding-left:72px;padding-top:20px}
+.insideHeader .menuHead{left:400px;margin:auto;position:absolute;right:400px;padding-top:19px}
+.insideHeader .menuHead ul{text-align:center}
+.insideHeader .basketHead{background:url(/img/basletLogoMini.png) 22px 19px no-repeat rgba(0,0,0,0);border-left:1px solid #e2e2e2;float:right;height:100%;width:125px}
+.insideHeader .loginHead{background:url(/img/loginLogoMini.png) 17px 16px no-repeat rgba(0,0,0,0);border-left:1px solid #e2e2e2;float:right;height:100%;width:61px}
+.insideHeader .telephHead{float:right;height:100%;width:142px}
+.insideHeader .telephHead p{padding-top:19px}
+.categoryWrapper{margin:0 auto;width:1140px;background-color:#F4F4F4;position:relative}
+.categoryWrapperWhite{margin:0 auto;width:1140px;background-color:#FFF}
+.categoryWrapper .leftMenu{color:#555e60;font-size:16px;padding-left:2px;padding-top:40px;width:230px}
+.categoryWrapper .leftMenu a{color:#555e60!important}
+.categoryWrapper .leftMenu>ul>li{padding-bottom:18px;cursor:pointer}
+.categoryWrapper .leftMenu>ul>li>a>p:after{content:url(/img/leftMenuAft1.png);margin-left:10px}
+.categoryWrapper .secondLevel li{color:#3f4a4d;margin-left:24px;padding:5px 0;position:relative}
+.categoryWrapper .secondLevel li:before{content:url(/img/secLvlBefore.png);left:-20px;position:absolute;top:0}
+.categoryWrapper .contentWrapp{width:876px;height:2329px;float:right}
+.hidingBasketRight .bookImage,.hidingBasketRight .result>p{float:left}
+.wrapperCategor{background-color:#F4F4F4;height:2500px}
+.categoryWrapper .categoryBooks{float:left;padding:6px;margin-bottom:40px;position:relative}
+.categoryWrapper .showMore{
+border:1px solid #c8a474;
+-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;
+-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease;
+-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;
+transition:color .3s ease,background-color .3s ease,border-color .3s ease;
+border-radius:34px;
+color:#c8a474;
+font-size:19px;
+margin:47px auto 70px;
+padding:12px 44px;
+text-align:center;
+width:245px;
+cursor:pointer;
+clear:both}
+.elementDescriptWrap .buyLater,.elementDescriptWrap .inBasket{-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
+.categoryWrapper .showMore:hover{background:#e6e6e6}
+{
+min-height:1302px;
+float:left;
+margin-bottom:30px;
+}
+.otherBooks .nameBook{color:#424C4F;font-size:14px;padding-left:4px;padding-top:5px;height:45px;width:142px;overflow:hidden}
+.otherBooks .nameBook:hover{text-decoration: underline;}
+.otherBooks .bookAutor{color:#7B8C90;font-size:14px;padding-left:4px;padding-top:5px;height:24px;overflow:hidden}
+.otherBooks .tapeOfPack{color:#3f4a4d;font-size:14px;padding-left:4px;padding-top:8px;height:20px}
+.otherBooks .priceOfBook{color:#7B8C90;font-size:14px;padding-left:6px;padding-top:12px}
+.otherBooks .basketBook,.otherBooks .basketLater{border:1px solid #c7a271;color:#c7a271;font-size:14px;margin:16px auto 0;padding:6px 5px;width:122px;cursor:pointer;text-align:center}
+.otherBooks .basketBook{border-radius:40px}
+.otherBooks .basketLater{display:none;border-radius:40px}
+.otherBooks img{left:0;position:relative;box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
+.categoryWrapper .titleMain{font-family:Walshein_black;font-size:42px;color:#3f4a4d;padding-top:30px;padding-bottom:26px}
+.hidingCatalogLeft{background-color:#fff;height:100%;left:0;padding:85px 0 0 46px;position:fixed;top:0;width:275px;z-index:1050}
+.elementDescriptWrap .buyLater{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:1px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:20px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease;width:179px}
+.allBooks:hover,.elementDescriptWrap .buyLater:hover,.hidingBasketRight .confirm:hover{background-color:#cab796;color:#fff}
+.elementDescriptWrap .oldPrice{color:#7b8c90;font-size:22px;height:15px;display:inline-block;position:relative}
+.countryBlock,.courierBlock,.layout,.pickupBlock,.windowClose{display:none}
+.elementDescriptWrap .oldPrice .cross{text-decoration:line-through}
+.elementDescriptWrap .oldPrice .diff{color:#00ABB8}
+.weRecomWrap{padding-bottom:0;clear:both}
+.signinWrapper .paswordIncorrectly#existingEmail{margin-top:-12px}
+.recenzion .recenz_author_name:hover{text-decoration:none;border-bottom:1px dashed}
+.recenzion .readFullReview{color:#00ABB8;border-bottom:1px dashed #00ABB8;text-decoration:none}
+.recenzion .readFullReview:hover{border-bottom:none}
+.recenzion .recenz_text{margin-top:10px;margin-bottom:30px}
+.element_item_img{z-index:1050}
+.hidingCatalogLeft .windowClose{position:absolute;right:-30px;top:40px;cursor:pointer}
+.hidingCatalogLeft .webServ a:nth-child(2) img{opacity:.3}
+.hidingBasketRight{position:fixed;background-color:#FFF;height:100%;width:350px;right:0;top:0;display:none;z-index:1550;overflow-y:auto}
+.hidingBasketRight .windowClose{left:-30px;position:absolute;top:40px;cursor:pointer}
+.windowClose{position:fixed;right:319px;top:40px;z-index:1600;cursor:pointer}
+.layout,.layout2{z-index:1000;position:fixed;left:0;height:100%;background-color:#000;opacity:.35;width:100%;top:0}
+.layout2{display:block}
+.hidingCatalogLeft .categories{color:#2F3839;font-weight:400;font-size:16px;margin-right:21px}
+.hidingCatalogLeft .categories .secondLevel{display:none}
+.hidingCatalogLeft .categories .secondLevel li{margin-left:24px;margin-bottom:0;padding:5px 0;position:relative}
+.hidingCatalogLeft .categories a{color:#2F3839!important}
+.hidingCatalogLeft .categories li{margin-bottom:18px}
+.hidingCatalogLeft .categories li p{position:relative}
+.hidingCatalogLeft .categories a:hover>p{color:#00abb8}
+.hidingCatalogLeft .categories .firstLevel>li>a p:after{content:url(/img/leftMenuAft1.png);margin-left:5px}
+.hidingCatalogLeft .categories .secondLevel li:before{content:url(/img/secLvlBefore.png);left:-20px;position:absolute;top:0}
+.hidingCatalogLeft .menuCopy{color:#7B8C90;font-family:Walshein_regular;font-size:15px;margin-top:44px}
+.hidingBasketRight .price,.hidingBasketRight .title,.titleDiv .autor{font-family:Walshein_bold}
+.hidingCatalogLeft .menuCopy a{color:#7B8C90!important}
+.hidingCatalogLeft .menuCopy li{margin-bottom:12px}
+.hidingCatalogLeft .webServ{margin-top:146px}
+.hidingCatalogLeft .webServ img{padding-left:0;padding-right:15px}
+.hidingCatalogLeft li{cursor:pointer}
+.hidingBasketRight .title{display:inline-block; color:#c6c9ca;font-size:15px;margin-left:50px;text-transform:uppercase;margin-top:124px;cursor:pointer}
+.hidingBasketRight .title.active{color:#424c4f;cursor:default}
+.hidingBasketRight #preorder_title{margin-left:90px}
+.hidingBasketRight .bonus{color:#7b8c90;font-size:15px;padding:18px 50px;margin-bottom:10px}
+.hidingBasketRight .result{border-bottom:1px solid #ececec;border-top:1px solid #ececec;height:53px;margin-bottom:28px;padding-left:48px;padding-top:14px;width:100%}
+.hidingBasketRight .resultText{color:#424C4F;font-size:19px}
+.hidingBasketRight .count{color:#7b8c90;font-size:13px;padding-left:22px;padding-top:5px}
+.hidingBasketRight .price{color:#424c4f;font-size:17px;padding-left:54px}
+.hidingBasketRight .price span{color:#7B8C90;font-size:15px}
+.hidingBasketRight .confirm{border:1px solid;border-radius:48px;color:#c7a271;font-size:15px;height:32px;margin-bottom:32px;padding-left:60px;padding-top:10px;position:relative;width:182px;margin-top:32px;box-sizing:content-box}
+.confirmTopWrap{background-color:#fff;position:fixed;width:100%;z-index:1050;top:0;border-bottom:1px solid #ececec}
+.hidingBasketRight .confirm p:after{content:url(/img/leftBasketAfter.png);margin-left:36px;position:relative;top:2px}
+.hidingBasketRight .bottomBlock{bottom:0;position:fixed;width:100%;z-index:1050;background-color:#fff}
+.hidingBasketRight .bookNameBask{color:#424C4F;font-size:15px;padding-top:16px;margin-left:102px}
+.hidingBasketRight .bookPrice{color:#7B8C90;font-size:13px;margin-left:102px;padding-top:4px}
+.hidingBasketRight .countOfBook{color:#7B8C90;font-size:13px}
+.hidingBasketRight .basketBooks{margin:0 48px;overflow-y:auto;padding-bottom:175px}
+.hidingBasketRight .minus{background:url(/img/minusImgNew.png) no-repeat rgba(0,0,0,0);height:22px;left:122px;position:absolute;top:19px;width:24px}
+.hidingBasketRight .plus{background:url(/img/plusImgNew.png) no-repeat rgba(0,0,0,0);height:22px;left:146px;position:absolute;top:19px;width:24px}
+.hidingBasketRight .countMenu{padding-left:106px;padding-top:22px;position:relative}
+.hidingBasketRight .basketBook{border-top:1px solid #ececec;height:140px;position:relative;padding-top:20px;box-sizing:content-box}
+.basketBook img{width:81px;height:115px}
+.wrapperCategor .grayTitle{color:#3f4a4d;font-size:32px;padding-top:40px;padding-bottom:36px}
+.bestSlider .bookName{color:#424c4f;font-size:14px;padding-bottom:6px;padding-top:5px;height:50px;width:142px;overflow:hidden}
+.bestSlider .bookName:hover{text-decoration: underline}
+.bestSlider .bookPrice{color:#7b8c90;font-size:14px}
+.titleDiv{background-color:#fff;padding:36px 60px;height:340px;box-shadow:0 0 10px rgba(0,0,0,.5);margin-bottom:38px;margin-top:38px}
+.elementDescriptWrap .elementMainPict .element_item_img img,.otherEasySlider .bookImg{box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
+.titleDiv img{float:right}
+.titleDiv .text{color:#2F3839;font-size:22px;line-height:30px;margin-top:18px}
+.titleDiv .autor{color:#7B8C90;font-size:13px;text-transform:uppercase;margin-top:62px}
+.wrapperCategor .filterParams li{color:#7b898c!important;cursor:pointer;display:inline-block;font-size:14px;margin-right:4px;padding:6px 17px}
+.filterParams li:nth-child(2) p:after,.filterParams li:nth-child(3) p:after{content:url(/img/filterAftPict.png);margin-left:8px}
+.filterParams .active.dir_desc p:after{-moz-transform:scaleX(-1);-o-transform:scaleX(-1);-webkit-transform:scaleX(-1);transform:scaleX(-1);position:absolute;margin-left:10px}
+.wrapperCategor .filterParams li.dir_desc{width:108px}
+.wrapperCategor .filterParams li:hover{background-color:#fff;border-radius:50px}
+.filterParams li:nth-child(2):hover p:after,.filterParams li:nth-child(3):hover p:after{content:url(/img/filtAftPictHov.png)}
+.categoryWrapper .categoryBooks:hover{background-color:#fff;z-index:999;height:450px;position:relative}
+.categoryWrapper .categoryBooks:hover .basketBook{border-color:#00A0AF;background-color:#00A0AF;color:#fff}
+.categoryWrapper .categoryBooks:hover .basketLater{display:block}
+.categoryWrapper .categoryBooks a:hover{text-decoration:none}
+.otherBooks li{display:inline-block;height:450px;width:171px}
+.otherBooks li:hover{z-index:999}
+.wrapperCategor .filterParams{margin-bottom:24px}
+.interestSlider>p{color:#3f4a4d;font-size:32px;padding-bottom:32px;padding-top:40px}
+.otherEasySlider .bookImg{margin-bottom:15px}
+.otherEasySlider .bookName{color:#424C4F;font-size:14px;height:44px;width:142px;overflow:hidden}
+.otherEasySlider .bookPrice{color:#7B8C90;font-size:14px}
+.interestSlider{height:428px}
+.productElementWrapp{position:relative;background-color:#fff}
+.productElementWrapp a{text-decoration:none}
+.productElementWrapp:after,.productElementWrapp:before{content:'';display:block;left:0;position:absolute;width:100%}
+.centerWrapper,.elementDescriptWrap .elementMainPict{position:relative}
+.productElementWrapp:before{background-color:#99ABB1;height:260px;top:0}
+.productElementWrapp:after{background-color:#F4F4F4;opacity:0.03;content:'';display:block;left:0;position:absolute;width:100%;height:100%;top:0;z-index:0}
+.centerWrapper{margin:0 auto;width:100%;max-width:1170px;min-width:1140px}
+.productElementWrapp .centerWrapper {z-index:100}
+.elementDescriptWrap .leftColumn{float:left;height:100%;width:380px}
+.elementDescriptWrap .rightColumn{float:right;height:100%;width:264px}
+.elementDescriptWrap .centerColumn{height:100%;margin:0 264px 0 380px;padding:0 28px;width:auto}
+.elementDescriptWrap .elementMainPict:hover .overlay{display:block}
+.elementDescriptWrap .overlay{display:none;position:absolute;top:0;z-index:2;left:0;background:url(/img/overlayMainPict.png) no-repeat;width:100%;height:100%}
+.elementDescriptWrap .overlay a{border:1px solid #ad9069;border-radius:40px;color:#ad9069;display:block!important;font-size:14px;margin:0 auto;padding:6px 0;text-align:center;text-decoration:none;width:200px}
+.elementDescriptWrap .marks{padding-top:12px;margin-bottom:20px;display:inline-block}
+.elementDescriptWrap .marks>div{border-radius:3px;color:#fff;float:left;font-family:Walshein_regular;font-size:14px;margin:10px 10px 0 0;padding:4px 9px;width:auto;cursor:help;position:relative;display:inline}
+.elementDescriptWrap .newBookMark{background-color:#00A0AF}
+.elementDescriptWrap .bestBookMark{background-color:#E59622}
+.elementDescriptWrap .digitalBookMark{background-color:#dd6eff;margin-top:-24px}
+.elementDescriptWrap .editorsBookMark{background-color:#249822}
+.elementDescriptWrap .marks>div .ttip{position:absolute;color:#3f4a4d;background:#FFF;height:auto;visibility:hidden;box-shadow:0 2px 5px 0 rgba(0,0,0,.18),0 0 1px 0 rgba(0,0,0,.14);width:264px;padding:4px 9px;text-align:left;font-size:14px;line-height:140%;text-transform:none}
+.elementDescriptWrap .marks>div .ttip:before{content:'';position:absolute;top:-8px;left:10%;margin-left:-8px;width:0;height:0;border-bottom:8px solid #FFF;border-right:8px solid transparent;border-left:8px solid transparent}
+.elementDescriptWrap .marks>div:hover .ttip{visibility:visible;opacity:1;top:99%;left:0;z-index:999}
+.footerMenu img:hover,.webServ img:hover,.socServ img:hover,.yaMarket>a:hover>img,.yaMarket>a:hover>p>span>img{filter:brightness(0.5)}
+.footerMenu img:hover {filter: brightness(1.5);}
+.lkWrapp div:hover{background-color:#eee}
+.elementDescriptWrap .AlreadyInWishlist{background:url(/img/buyLaterHeart.png) 60px 10px no-repeat rgba(0,0,0,0);border:1px solid #c7a271;border-radius:30px;color:#c7a271;font-size:14px;padding:6px 0 6px 85px;margin-bottom:40px}
+.elementDescriptWrap .takePartWrap{border-top:1px solid #ddd;padding:14px 6px;margin-bottom:20px;margin-bottom:5px;height:auto;margin-top:0px;width:264px}
+.takePartWrap .title{color:#232b2d;font-size:19px;padding-bottom:8px;font-family:Walshein_bold}
+.takePartWrap .text{font-family:Walshein_light;color:#232b2d;font-size:16px;padding-bottom:14px}
+.takePartWrap input{background:#fff;border:none;box-shadow:0 2px 5px 0 rgba(0,0,0,.18),0 0 1px 0 rgba(0,0,0,.14);color:#8d8d8d;font-size:15px;height:34px;margin-left:-6px;padding-left:18px;padding-right:32px;width:214px}
+.takePartWrap button{position:relative;left:217px;top:-36px;border:none;width:41px;height:36px;cursor:pointer;background:url(/img/custImpOnElement.png) 0 9px no-repeat transparent}
+.elementDescriptWrap .characteris{border-bottom:1px solid #ddd;margin-bottom:10px;padding-bottom:14px;width:264px}
+.characteris:last-child{border:none}
+.characteris .title{color:#7B8C90;font-size:15px;padding-left:4px;font-family:Walshein_bold}
+.characteris .text{color:#232b2d;padding-left:4px;font-size:15px;font-family:Walshein_light}
+.socialServises{margin-left:4px;margin-top:25px}
+.socialServises .twit{background-position:-45px!important}
+.socialServises .faceb{background-position:-90px!important}
+.socialServises .googp{background-position:-135px!important}
+.socialServises .odnkl{background-position:-180px!important}
+.elementDescriptWrap .priceBasketWrap{background:#fcfcfc;box-shadow:0 2px 5px 0 rgba(0,0,0,.18),0 0 1px 0 rgba(0,0,0,.14);width:264px;text-align:center;padding-top:34px;padding-bottom:34px;clear:both}
+.oldPrice p{background-color:#7b8c90;height:2px;position:absolute;top:14px;width:92%}
+.elementDescriptWrap .newPrice{color:#00ABB8;font-family:Walshein_black;font-size:42px;margin-left:10px;margin-top:8px}
+.elementDescriptWrap .newPrice span{font-size:26px;font-weight:700;font-family:RoubleSign}
+.bookPrice span:after, .rubsign:after{content:'i'}
+.priceBasketWrap .text{color:#7B8C90;font-size:15px;padding:8px;margin-bottom:85px}
+.elementDescriptWrap .inBasket{background-color:#00abb8;border-radius:35px;color:#fff;font-size:19px;margin:0 28px;padding:14px 58px;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
+.elementDescriptWrap .inBasket.toPreorder{font-size:16px;padding:14px 15px}
+.authWrapper input[type=submit],.authorisationWrapper input[type=submit],.cartWrapper .nextPageWrap{webkit-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-moz-transition:color .3s ease,background-color .3s ease,border-color .3s ease;-ms-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
+.elementDescriptWrap .inBasket:hover{background-color:#00b9c8;color:#f2f2f2}
+.elementDescriptWrap .buyOneClick{border:1px solid #c7a271;border-radius:40px;color:#c7a271;font-size:19px;margin:20px 28px;padding:12px}
+.elementDescriptWrap .shippings{font-size:16px;margin-left:30px;margin-top:32px;margin-bottom:32px;font-family:Walshein_light;color:#232b2d}
+.shippings li{position:relative;padding-bottom:8px}
+.shippings .lastli{margin-top:15px}
+.shippings a{color:#00ABB8;border-bottom:1px dashed #00ABB8}
+.shippings a:hover{border-bottom:none}
+.noborderlink{color:#00ABB8;border-bottom:0!important;border-bottom:1px solid!important}
+.noborderlink:hover{text-decoration:none!important}
+.shippings li:before{content:"\2022";left:-15px;position:absolute}
+.productAction{border-bottom:1px solid #DDD;padding-bottom:22px}
+.productAction .title{color:#486796;font-family:Walshein_black;font-size:24px;padding-left:4px;padding-top:8px}
+
+.productAction .text{color:#8999b5;font-size:16px;padding-left:6px;padding-top:10px}
+.productAction .takePart{color:#486796;font-size:16px;margin-left:4px;margin-top:10px}
+.productAction .takePart:after{content:url(/img/takePart.png);margin-left:10px;position:relative;top:4px}
+.centerColumn .productName{color:#fff;padding-top:34px}
+.centerColumn .productName .mainPart{font-size:38px;font-family:Walshein_bold}
+.centerColumn .topBlock{min-height:175px}
+.centerColumn .engBookName{color:#e4e8ea;font-size:17px;margin-top:12px;margin-bottom:8px;font-family:Walshein_light}
+.centerColumn .productAutor{color:#E4E8EA;font-size:15px;padding-top:13px;font-family:Walshein_bold}
+.centerColumn .reviews{float:left}
+.centerColumn .countOfRev{color:#E4E8EA;font-size:14px;margin-left:8px}
+.elementDescriptWrap .typesOfProduct{overflow:hidden}
+.elementDescriptWrap .typesOfProduct>div{border:1px solid #e2e2e2;float:left;padding-top:14px;padding-bottom:14px;width:260px;margin-bottom:12px;text-align:center}
+.productType .title{color:#424C4F;font-size:15px;margin-bottom:4px}
+.productType .title a{color:#424C4F!important}
+.productType .cost{color:#7B8C90;font-size:14px}
+.elementDescriptWrap .otherTypes{background:url(/img/otherTypesBack.png) 3px 34px no-repeat #dfdfdf;height:72px!important;margin-right:0!important;padding:0!important;width:16px!important;cursor:pointer}
+.elementDescriptWrap .productsMenu{color:#00abb8;font-size:17px;margin-top:18px;margin-bottom:30px}
+.productsMenu li{display:inline-block;cursor:pointer;border-bottom:1px dashed #00abb8;margin-right:19px;width:auto!important}
+.productsMenu li:hover{border-bottom:none}
+.productsMenu li:last-child{margin-right:0}
+.productsMenu .active a, .productsMenu .active{color:#2F3839;font-size:19px;text-transform:none;border-bottom:none;font-family:Walshein_black}
+.elementDescriptWrap .citate,.elementDescriptWrap i{color:#2F3839;font-family:Walshein_light;font-size:20px;margin-bottom:20px}
+.elementDescriptWrap .citateAutor{color:#7B8C90;font-family:Walshein_bold;font-size:13px;text-transform:uppercase;margin-bottom:36px}
+.breadCrumpWrap a,.helpBlock .telephone{font-family:Walshein_black}
+.elementDescriptWrap .productSelectTitle,.elementDescriptWrap h3{color:#2F3839;font-size:24px;margin-bottom:14px}
+.elementDescriptWrap .productSelectTitle{margin-top:50px}
+.productSelectTitle .count{color:#AEBFC3;font-size:14px;margin-left:6px}
+.productSelectTitle span,.productSelectTitle span a{font-size:14px;color:#00ABB8}
+.productSelectTitle span{margin-left:16px}
+.elementDescriptWrap .annotation,.elementDescriptWrap .prodSelText{color:#3f4a4d;font-size:17px;line-height:24px}
+.elementDescriptWrap .prodSelText{margin-bottom:40px}
+.elementDescriptWrap .annotation span,.elementDescriptWrap .annotation ul{color:#232b2d;font-size:18px;line-height:24px;padding-bottom:18px}
+.elementDescriptWrap .annotation ul{list-style-type:circle;padding-left:40px}
+.elementDescriptWrap .annotation ul li{margin-top:8px}
+.elementDescriptWrap .annotation *,.recenzion .recenz_text{font-family:Walshein_light;font-size:18px;color:#232b2d}
+.elementDescriptWrap .annotation h3,.elementDescriptWrap .productSelectTitle{font-family:Walshein_bold;font-size:25px}
+.elementDescriptWrap .videoWrapp{width:552px;margin-bottom:30px}
+.elementDescriptWrap .keyWords{margin-left:4px;margin-top:8px;padding-bottom:56px}
+.elementDescriptWrap .keyWords a:hover{background-color:#fff;border:#eee 2px solid}
+.authorBooksWrapp{background-color:#fff;width:1140px;margin:0 auto;height:500px}
+.authorBooksWrapp:before{position:absolute;left:0;background:#fff;height:100%;content:"";display:block}
+.authorBooksWrapp>p{color:#3f4a4d;font-size:32px;padding-bottom:38px;padding-top:44px}
+.authorBooksWrapp .bookImg{box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
+.authorBooksWrapp .bookName{color:#424c4f;font-size:14px;padding-bottom:6px;padding-top:14px}
+.authorBooksWrapp .bookPrice{color:#7b8c90;font-size:14px}
+.uLookSlider .bookImg{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14)}
+.uLookSlider .bookName{color:#424c4f;font-size:14px;padding-bottom:6px;padding-top:5px;height:39px;width:142px;overflow:hidden}
+.uLookSlider .bookPrice{color:#7b8c90;font-size:14px}
+.reviewsSliderWrapp{background-color:#F4F4F4;width:100%;height:724px;overflow:hidden}
+.reviewsSliderWrapp .arrows{float:right;padding-top:38px}
+.reviewsSliderWrapp .revTitle{color:#3f4a4d;font-size:32px;padding-top:40px}
+.reviewsSliderWrapp .sliderElement{height:200px!important;float:left}
+.reviewsSliderWrapp .sliderName{color:#3f4a4d;font-size:32px;padding-bottom:40px;padding-top:18px}
+.reviewsSliderWrapp .sliderName a{color:#3f4a4d}
+.reviewsSliderWrapp .sliderName a:hover,.footerContacts a:hover{border-bottom:1px solid}
+.reviewsSliderWrapp .bigSlider{margin-top:32px;overflow:hidden;position:relative;width:100%;height:300px!important}
+.reviewsSliderWrapp .giftWrap{border-top:1px solid #e2e2e2;margin-top:40px;padding-top:56px;overflow:hidden}
+.reviewsSliderWrapp .giftWrap img{left:414px;position:absolute;top:0}
+.weRecomWrap .tile{color:#3f4a4d;font-size:32px;padding-bottom:34px;padding-top:62px}
+.weRecomWrap .bookWrapp{display:inline-block;margin-bottom:46px;margin-right:48px}
+.weRecomWrap .bookWrapp:nth-child(6n){margin-right:0}
+.weRecomWrap .bookName{color:#424c4f;font-size:14px;padding-bottom:5px;padding-top:5px;height:39px;width:142px;overflow:hidden}
+.weRecomWrap .bookPrice{color:#7b8c90;font-size:14px}
+.bookPrice span,.rubsign{font-family:'RoubleSign'!important}
+.weRecomWrap .allBooks{border:1px solid #c7a271;border-radius:46px;color:#c7a271;font-size:19px;margin-left:447px;margin-top:68px;padding:12px 64px;text-decoration:none}
+.weRecomBlock{margin-bottom:28px}
+.basketHeader{background-color:#fff;font-size:14px;color:#7B8C90;height:58px;position:relative}
+.basketHeader .alpiLogo{background:url(/img/alpinaLogoMini.png) 8px 14px no-repeat rgba(0,0,0,0);height:100%;left:60px;position:absolute;width:50px}
+.basketHeader .baskHeadMenu{left:400px;margin:auto;position:absolute;padding-top:20px;right:400px;text-align:center}
+.basketHeader .baskHeadMenu li{display:inline-block;padding-right:10px}
+.basketHeader .headPhone{height:40px;padding-top:20px;position:absolute;right:76px}
+.breadCrumpWrap{background-color:#99ABB1;width:100%;height:100px;padding-top:42px}
+.breadCrumpWrap .afterImg:after{content:url(/img/afterRechte.png);margin-left:14px;margin-right:20px}
+.breadCrumpWrap .active{font-size:42px;color:#fff}
+.breadCrumpWrap a{font-size:24px;color:#E4E8EA;text-decoration:none}
+.orderBodyWrapp{background-color:#F4F4F4;width:100%;padding-bottom:100px;padding-top:38px}
+.orderBody{background-color:#fff;padding:24px 46px 0 22px;width:782px;border-bottom:1px solid #ebebeb}
+.helpBlock{border:1px solid #c7a271;float:right;padding:28px 32px 19px;text-align:center;width:196px}
+.helpBlock .text{color:#3f4a4d;font-size:14px}
+.helpBlock .telephone{color:#3f4a4d;font-size:20px;padding-top:16px}
+.cartMenuWrap .basketItems,.helpBlock .mailAdr,.orderBody .allCost,.totalPriceWrap .allCost{font-family:Walshein_bold}
+.helpBlock .mailAdr{color:#3f4a4d;font-size:13px;text-transform:uppercase;padding-bottom:16px}
+.orderBody .blockTitle{font-size:28px;margin-bottom:2px;color:#444;font-family:Walshein_bold}
+.orderBody .faceText{color:#424C4F;font-size:15px;cursor:pointer;padding-left:4px;margin-right:44px}
+.orderBody .faceText:before{content:url(/img/beforeInputRadio.png);left:-8px;position:relative;top:7px}
+.radioInp{display:none}
+.radioInp:checked+.faceText:before{content:url(/img/chekedInpRadio.png);left:-8px;position:relative;top:7px}
+.orderBody .grayLine{background-color:#ebebeb;height:1px;left:-22px;margin-top:25px;position:relative;width:850px;margin-bottom:24px}
+.orderBody .blockText{color:#353535;font-size:14px;margin-top:6px}
+.orderBody .quickLocation{margin-top:28px;font-size:14px;margin-bottom:32px}
+.orderBody .quickLocation a{border-radius:30px;color:#424c4f!important;padding:6px 24px;text-decoration:none;background-color:#F8F8F8}
+.orderBody .shipingText{color:#3f4a4d;font-size:14px;margin-bottom:8px;margin-left:34px;margin-top:10px}
+.orderBody .imlPuncts{color:#00A0AF;border-bottom:1px dashed;text-decoration:none;font-size:14px;margin-left:34px}
+.orderBody .totalPrice{background-color:#FCFCFC}
+.orderBody .totalCost{float:right;font-size:15px;color:#9AA6AA}
+.orderBody .totalCost span{color:#424C4F}
+.orderBody .totalText{float:right;color:#7B8C90;font-size:13px}
+.orderBody .totalText span{color:#424C4F;font-size:19px}
+.orderBody .orderConfirm{text-decoration:none;border-radius:40px;background-color:#00A0AF;color:#fff;font-size:19px}
+.orderBody .inputTitle{color:#7b8c90;float:left;font-size:16px;left:2px;position:absolute;top:8px}
+.orderBody .clientInfo,.orderBody textarea{background-color:#fdfdfd;border:1px solid #f5f5f5;color:#353535;font-size:14px;padding-left:14px;box-shadow:none}
+.deliveryTypeWrap,.deliveryTypeWrap li{position:relative}
+.orderBody .clientInfo{height:34px;width:248px}
+.orderBody textarea{height:76px;resize:none;width:246px}
+.orderBody .allCost{font-size:17px;color:#424C4F}
+.orderBody .shippingWrap{margin-top:12px;margin-bottom:30px}
+.orderBody .paementWrapp{margin-top:10px;margin-bottom:30px}
+.orderBody .paementWrapp img{margin:8px 544px 12px 30px}
+.orderBody .infoPunct{margin-bottom:22px;padding-left:104px;position:relative}
+.orderBody .clientInfoWrap{margin-top:30px;margin-bottom:40px}
+.totalPriceWrap{background-color:#fff;width:850px;height:274px}
+.totalPriceWrap .totalPrice{background-color:#fcfcfc;border-bottom:1px solid #ebebeb;height:140px}
+.totalPriceWrap .totalCost{color:#9aa6aa;float:right;font-size:15px;margin-right:96px;margin-top:18px}
+.totalPriceWrap .totalCost span{color:#424C4F}
+.totalPriceWrap .totalCost p{margin-bottom:3px}
+.totalPriceWrap .totalCost p:last-child{margin-top:12px}
+.totalPriceWrap .totalText{color:#7b8c90;float:right;font-size:13px;margin-right:12px;margin-top:20px}
+.totalPriceWrap .totalText p{margin-bottom:5px}
+.totalPriceWrap .totalText p:last-child{margin-top:12px}
+.totalPriceWrap .totalText span{color:#424C4F;font-size:19px}
+.totalPriceWrap .orderConfirm{background-color:#00a0af;border-radius:40px;color:#fff;font-size:19px;padding:13px 48px;text-decoration:none}
+.totalPriceWrap .allCost{font-size:17px;color:#424C4F}
+.totalPriceWrap .ordContain{margin-left:auto;margin-right:auto;margin-top:52px;text-align:center;width:248px}
+.cartMenuWrap .basketItems{color:#00abb8;float:left;font-size:13px;height:52px;line-height:52px;text-align:center;text-transform:uppercase;width:204px;cursor:pointer}
+.cartMenuWrap .basketItems span{color:#BCBCBC}
+.cartMenuWrap{height:52px}
+.cartMenuWrap .active{color:#2F3839;font-size:19px;background-color:#fff;text-transform:none}
+.cartWrapper{padding-top:42px;background-color:#F4F4F4;padding-bottom:54px}
+.cartWrapper .yourBooks{background-color:#fff;padding-bottom:24px;padding-top:22px}
+.cartWrapper .deferredBooks{background-color:#fff}
+.yourBooks thead{color:#7B8C90;font-size:13px}
+.yourBooks .nameOfBook{color:#353535;font-size:16px;padding-top:34px}
+.nameOfBook:hover{border-bottom:1px solid}
+.yourBooks .nameOfAutor{color:#7B8C90;font-size:13px;text-transform:uppercase;padding-top:16px}
+.yourBooks .costOfBook{color:#7B8C90;font-size:13px}
+.yourBooks .bookDelete{color:#DB747D;font-size:13px;cursor:pointer}
+.yourBooks input{border:1px solid #d2d2d2;box-shadow:none;color:#7b8c90;float:left;font-size:13px;height:28px;width:29px;text-align:center}
+.yourBooks .minus,.yourBooks .plus{color:#fff;display:block;float:left;font-family:arial;font-size:21px;height:30px;line-height:30px;text-align:center;text-decoration:none;width:30px}
+.cartWrapper .bookImg{padding-left:28px;padding-top:14px;width:98px}
+.cartWrapper .cancelBook,.cartWrapper .priceOfBook{padding-top:36px;vertical-align:top}
+.cartWrapper .bookNameWrap{width:550px;vertical-align:top}
+.cartWrapper .quantityInp{width:118px;vertical-align:top}
+.cartWrapper .quanTitle{text-align:center}
+.cartWrapper .quantityInp div{background-color:#d2d2d2;border-radius:6px;height:32px;margin-left:8px;margin-top:28px;width:103px}
+.cartWrapper .priceOfBook{padding-left:84px;width:142px}
+.cartWrapper .counTitle{padding-left:90px}
+.cartWrapper tbody tr{height:152px}
+.cartWrapper .grayDownLine{width:100%;height:1px;background-color:#D1D1D1;margin-top:14px}
+.cartWrapper .promocode{text-decoration:none;border-bottom:1px dashed #00A9B6;color:#00A9B6;font-size:15px;cursor:pointer}
+.cartWrapper .finalDiscount{color:#7b8c90;float:right;font-size:15px;margin-right:38px;margin-top:21px}
+.cartWrapper .finalText{color:#424c4f;float:right;font-size:19px;margin-right:20px;margin-top:17px}
+.cartWrapper .finalQuant{color:#7b8c90;float:right;font-size:13px;margin-right:70px;margin-top:22px}
+.cartWrapper .finalCost{color:#7b8c90;float:right;font-size:15px;margin-right:92px;margin-top:17px}
+.cartWrapper .finalCost span{color:#424C4F;font-family:Walshein_bold;font-size:17px}
+.cartWrapper .promoWrap{margin-left:36px;margin-top:18px}
+.cartWrapper .nextPage{background:url(/img/nextPageBack.png) 209px 19px no-repeat #00a9b6;border-radius:34px;color:#fff;font-size:19px;padding:14px 68px;text-decoration:none}
+.cartWrapper .nextPageWrap{margin-top:54px;margin-bottom:40px;text-align:center;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
+.cartWrapper .nextPageWrap a:hover,.ordContain a:hover{background-color:#00b9c8;color:#f2f2f2}
+.moreInterestParty>div>p{color:#3f4a4d;font-size:32px;padding-bottom:32px;padding-top:40px}
+.moreInterestParty{height:600px}
+.moreInterestParty .autorSlideName{color:#7B8C90;font-size:13px;text-transform:uppercase}
+.moreInterestParty .coverSlideType{color:#3f4a4d;font-size:14px;margin-top:8px;margin-bottom:12px}
+.moreInterestParty .slideInBasket{border:1px solid #c7a271;border-radius:30px;margin-top:16px;padding:6px 32px;width:66px}
+.moreInterestParty .slideInBasket a{text-decoration:none;color:#C7A271;font-size:14px}
+.moreInterestParty .bookNameSlide{color:#424c4f;font-size:14px;margin-top:20px;margin-bottom:4px}
+.moreInterestParty .bookPriceSlide{color:#7b8c90;font-size:14px}
+.historyCoverWrap{height:138px;background-color:#99ABB1}
+.historyCoverWrap a{background-color:#99ABB1;color:#E4E8EA!important}
+.historyCoverWrap p{color:#E4E8EA;font-size:14px;padding-top:28px}
+.historyCoverWrap h1{color:#fff;font-family:Walshein_black;font-size:42px;margin-top:6px;padding-top:0}
+.historyMenuWrap a,.orderNumbLine span{font-family:Walshein_bold}
+.historyMenuWrap a{text-decoration:none;color:#6B6B6B;text-transform:uppercase;font-size:13px}
+.tableTitle>p{float:left;color:#7B8C90;font-size:13px;padding-top:10px}
+.orderHistorWrap{width:850px;padding-bottom:160px;color:#3f4a4d;font-size:17px;margin:auto;overflow:hidden}
+.orderHistorWrap .wishElement{width:780px!important}
+.historyMenuWrap ul{padding-top:44px}
+.historyMenuWrap li{margin-bottom:16px}
+.orderHistorWrap .info,.orderHistorWrap .personal_title,.orderHistorWrap>p{color:#3f4a4d;font-size:32px;margin-top:46px;margin-bottom:40px}
+.historyWrap{background-color:#fbfbfb;width:850px;margin:auto}
+.historyWrap .tableTitle{width:100%;height:40px;background-color:#FBFBFB}
+.historyBodywrap{background-color:#F4F4F4}
+.orderNumbLine>p{float:left}
+.orderNumbLine{height:54px;width:100%;border-bottom:1px solid #ECECEC;background-color:#FFF}
+.historyBodywrap .numbTitle{margin-left:30px}
+.historyBodywrap .dateTitle{margin-left:138px}
+.historyBodywrap .quantTitle{margin-left:80px}
+.historyBodywrap .statTitle{margin-left:52px}
+.historyBodywrap .sumTitle{margin-left:81px}
+.orderNumbLine span{color:#424C4F;font-size:17px}
+.historyBodywrap .ordTitle{color:#00a0af;cursor:pointer;padding-left:28px;padding-top:16px;width:210px}
+.historyBodywrap .ordTitle span{border-bottom:1px dashed;color:#00a0af;font-size:19px}
+.historyBodywrap .ordDate{color:#7b8c90;font-size:13px;padding-top:18px;width:140px}
+.historyBodywrap .ordQuant{color:#7b8c90;font-size:13px;margin-top:18px;width:90px}
+.historyBodywrap .ordStatus{color:#7b8c90;font-size:13px;margin-top:18px;width:244px}
+.historyBodywrap .ordSum{color:#7b8c90;font-size:15px;margin-top:16px}
+.historyBodywrap .dopInfoTitle{color:#7b8c90;font-size:14px;margin-bottom:2px}
+.historyBodywrap .dopInfoText{color:#424c4f;font-size:14px;margin-bottom:4px}
+.historyBodywrap .hiddenOrderInf>div{border-bottom:1px solid #ececec}
+.historyBodywrap .infoQuant{color:#8F9DA0;font-size:13px}
+.historyBodywrap .infoTextTab{color:#7B8C90;font-size:14px}
+.historyBodywrap .infBookName{color:#424C4F;padding:8px 8px 8px 0}
+.historyBodywrap .infoPriceTd{color:#7B8C90;font-size:14px}
+.historyBodywrap .orderCancel a{text-decoration:none;color:#C7A271;font-size:14px}
+.historyBodywrap .infoAddrWrap>div{float:left;padding:18px 30px}
+.historyBodywrap .infoAddrWrap>div:nth-child(1){width:350px}
+.historyBodywrap .firstCol{margin-bottom:12px}
+.historyBodywrap .secCol{margin-bottom:12px;margin-top:18px}
+.historyBodywrap .thiCol{margin-top:24px}
+.historyBodywrap .orderBooks{margin-left:26px;margin-bottom:18px}
+.historyBodywrap .ordBooksTitle{color:#7b8c90;font-size:14px;margin-left:30px;margin-top:20px;margin-bottom:16px}
+.historyBodywrap .orderBooks tr{height:24px}
+.orderBooks tr td:nth-child(1){width:318px}
+.orderBooks tr td:nth-child(2){width:330px}
+.historyBodywrap .orderCancel{height:36px;padding-left:26px;padding-top:12px}
+.historyBodyWr{background-color:#F4F4F4}
+.historyMenuWrap .active{color:#59B6C1}
+.historyWrap .active{background-color:#FBFBFB}
+.finishOrdWrap,.finishOrder body{background-color:#F4F4F4}
+.hiddenOrderInf{display:none}
+.hidOrdInfo1{display:block}
+#cardBlock1,#cardBlock2,#couponInp,#prodBlock2,#prodBlock3,#prodBlock4,#prodBlock5,.bookPreviewButton,.categoryWrapper #block2,.categoryWrapper #block3,.gmnoprint{display:none}
+.finishOrdWrap .rightBlockWrap{border:1px solid #e4e4e4;float:right;height:220px;margin-right:10px;margin-top:38px;padding:0 28px;text-align:center;width:200px;display:none}
+.finishOrdWrap .blockTitle{color:#353535;font-size:15px;margin-bottom:4px;margin-top:26px}
+.finishOrdWrap .blokText{font-size:14px;color:#3f4a4d}
+.finishOrdWrap .giftCont{border:1px solid #c7a271;border-radius:30px;margin-top:30px;padding:6px 25px;text-align:center;width:130px}
+.finishOrdWrap .giftCont a{text-decoration:none;color:#C7A271;font-size:14px}
+.finishOrdWrap .ordTitle{color:#3f4a4d;font-family:Walshein_black;font-size:42px;padding-bottom:20px;padding-top:42px;text-align:center}
+.finishOrdWrap .OrdAkses,.finishOrdWrap .ordHint{color:#222;font-family:Walshein_light;font-size:20px}
+.finishOrdWrap .ordHint{padding-top:30px}
+.finishOrdWrap .ordHint a{text-decoration:none;color:#00A0AF}
+.finishOrder,.finishOrder body{height:100%}
+.deliveryPageTitleWrap{height:136px;width:100%;background-color:#99ABB1}
+.deliveryBody,.deliveryBodyWrap{background-color:#F4F4F4}
+.deliveryPageTitleWrap p{color:#E4E8EA;font-size:14px;padding-top:28px}
+.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
+.delivMenuWrapp{float:left;height:100%;width:250px;padding-top:48px}
+.deliveryPageTitleWrap h1{color:#FFF;font-family:Walshein_black;font-size:42px;margin-top:0px;padding-top:34px;}
+.delivMenuWrapp ul{list-style-type:none}
+.delivMenuWrapp li{text-transform:uppercase;color:#6B6B6B;font-family:Walshein_bold;font-size:13px;padding-bottom:20px;cursor:pointer}
+.delivMenuWrapp a{color: #6B6B6B;}
+.delivMenuWrapp a:hover{border-bottom: 1px solid #6B6B6B;}
+.deliveryTypeWrap,.deliveryTypeWrap li,.deliveryTypeWrap p{font-size:17px;color:#3f4a4d}
+.deliveryTextWrap{float:right;padding-top:16px;width:850px;padding-bottom:100px}
+.deliveryTypeWrap img{float:left;padding-left:22px;padding-right:40px}
+.deliveryTypeWrap .title{color:#3f4a4d;font-size:32px;padding-bottom:46px;padding-top:32px}
+.deliveryTypeWrap li:before{content:url(/img/rechtDeliv.png);margin:0 20px}
+.deliveryTypeWrap ul{margin-bottom:20px;padding-top:5px}
+.deliveryTypeWrap .deliveryTime{margin-bottom:24px;margin-top:20px}
+.deliveryTypeWrap a{border-bottom:1px dashed;color:#00a0af;text-decoration:none}
+.deliveryTypeWrap .rusPostImg{padding-left:0;padding-right:28px}
+.deliveryTypeWrap .rusPostDeliv{padding-bottom:30px;padding-left:152px;padding-top:4px}
+.deliveryTypeWrap .deliveryHint{margin-top:22px}
+.deliveryTypeWrap .pickImageDeliv{padding-left:0;padding-right:18px;padding-top:18px}
+.deliveryTypeWrap .pickDescription{margin-bottom:10px}
+.changePassWr{background-color:#f4f4f4}
+.contactsBodyWrap{background-color:#F4F4F4;width:100%;padding-bottom:90px}
+.contactsTextWrap h1{color:#4e585a;font-size:19px;padding-top:32px}
+.contactsTextWrap p{color:#3f4a4d;font-size:17px}
+.contactsTextWrap{width:750px}
+.contactsTextWrap .organisName{margin-bottom:12px;margin-top:16px}
+.contactsTextWrap .organisTelep{color:#3f4a4d;font-family:Walshein_black;font-size:24px;margin-bottom:10px;margin-top:38px}
+.contactsTextWrap .organisMail{font-family:Walshein_bold;text-transform:uppercase;font-size:13px;color:#3f4a4d}
+.contactsTextWrap .timeTitle{color:#2F3839;font-size:19px;margin-bottom:12px;margin-top:38px}
+.contactsTextWrap .wayTitle{color:#2F3839;font-size:19px;margin-bottom:14px;margin-top:34px;margin-right:97px}
+.contactsFormWrap{background-color:#fff;float:right;height:670px;margin-top:34px;width:362px;box-shadow:0 5px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);margin-bottom:56px;margin-right:100px}
+.contactsFormWrap .pii{padding:0 30px;font-size:14px;color:#666}
+.contactsFormWrap .pii a{color:#666;border-bottom:1px solid}
+.contactsFormWrap .pii a:hover{text-decoration:none}
+.contactsFormWrap p{color:#3f4a4d;font-size:32px;padding-top:28px;text-align:center}
+.contactsFormWrap input[type=text],.contactsFormWrap input[type=tel],.contactsFormWrap input[type=email],.contactsFormWrap input[type=number], .questInput{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;margin-left:30px;padding-left:20px;width:274px}
+.contactsFormWrap input[type=text],.contactsFormWrap input[type=tel],.contactsFormWrap input[type=email],.contactsFormWrap input[type=number]{height:54px;margin-bottom:22px}
+.ReviewsFormWrap{float:right;min-height:548px;margin-top:34px;margin-bottom:56px}
+.questInput{height:104px;margin-bottom:22px;padding-top:12px;resize:none}
+.contactsFormWrap input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:40px;color:#c7a271;cursor:pointer;font-size:19px;margin-left:72px;padding:10px 0;width:216px}
+.mapContainerContact{height:522px;clear:both}
+.noResultBodyWrap{background-color:#F4F4F4;height:600px}
+.noResultBodyWrap .noResultTitle{color:#3f4a4d;font-family:Walshein_black;font-size:42px;line-height:44px;padding-top:190px;width:462px}
+.noResultBodyWrap .noResText{color:#485254;font-family:Walshein_light;font-size:20px;padding-top:38px;width:520px}
+.noResWrapp{background:url(/img/noResultBack.png) 662px 35px no-repeat rgba(0,0,0,0);height:600px}
+#map{height:522px;width:100%}
+.filterParams .active{background-color:#fff;border-radius:50px}
+.filterParams li:nth-child(2).active p:after,.filterParams li:nth-child(3).active p:after{content:url(/img/filtAftPictHov.png)}
+.hidingBasketRight .confirm a{color:#c7a271;font-size:15px;text-decoration:none}
+.footerMenu p>a{color:#8f8f8f;font-size:17px;text-decoration:none}
+.bookPreviewButton{border:1px solid #ad9069;border-radius:45px;color:#ffbf69;font-family:Walshein_regular;font-size:18px;margin:0 auto;padding:7px 0;text-align:center;text-decoration:none;width:230px;position:absolute;top:40%;left:84px;z-index:100;background:rgba(0,0,0,.5)}
+.breadCrump span a{color:#e4e8ea;font-size:14px}
+.elementDescriptWrap .keyWords a{font-size:16px;text-decoration:none;background-color:#F0F0F0;border-radius:30px;border:#F0F0F0 2px solid;display:inline-block;font-size:16px;margin-right:4px;padding:4px 18px;margin-top:10px}
+#couponInp{border:1px solid #bababa;border-radius:3px;box-shadow:0 1px 2px 0 rgba(0,0,0,.21) inset;color:#000;font-size:16px;font-weight:700;height:34px;line-height:34px;margin-left:35px;margin-top:10px;text-align:left;width:200px}
+.baskHeadMenu a,.menu li a{color:#7b8c90;font-size:15px}
+.menu li a{text-decoration:none}
+.menu li a:hover{border-bottom:1px solid}
+.mainLogoImg{left:60px;position:absolute;top:10px}
+.headLogoAnchor{left:68px;position:absolute;top:12px}
+.headLogin a,.headLogin p{height:100%;width:100%}
+.baskHeadMenu a{text-decoration:none}
+.signinWrapper{background-color:#f4f4f4;margin-top:40px;margin-bottom:40px}
+.registratWrapper .active,.signinWrapper .active{background-color:#fff;color:#2F3839;font-size:19px;text-transform:none;height:61px}
+.registrationLink,.signinLink{background-color:#f4f4f4;color:#00acb8;display:inline-block;font-family:Walshein_bold;font-size:13px;height:58px;line-height:60px;text-align:center;text-transform:uppercase;width:164px;cursor:pointer}
+.centredWrapper{width:1140px;margin:0 auto}
+.signinWrapper .signinBlock{background-color:#fff;padding-top:78px;display:none;margin-bottom:80px}
+.signinWrapper .registrationBlock{background-color:#fff;margin-bottom:78px;padding-bottom:72px;padding-top:78px}
+.signinWrapper input[type=password],.signinWrapper input[type=email],.signinWrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;width:518px;padding:0 20px}
+.signinWrapper input[type=email],.signinWrapper input[type=text]{margin:0 288px 20px}
+.signinWrapper input[type=password]{margin:0 288px}
+.signinWrapper input[type=checkbox]+label::before,.signinWrapper input[type=checkbox]:checked+label::before{display:inline-block;height:26px;position:relative;width:26px;background-repeat:no-repeat;content:""}
+.signinWrapper input[type=checkbox]+label::before{background-image:url(/img/emptyChechBox.png);left:-8px;top:8px}
+.signinWrapper input[type=checkbox]:checked+label::before{background-image:url(/img/checkedCheckbox.png);left:-5px;top:11px}
+.authWrapper,.authorisationWrapper{background-color:#fff;height:656px;width:654px}
+.signinWrapper .forgotPass{float:right;margin-right:293px;margin-top:18px}
+.signinWrapper .remembMeText{color:#434c4f;font-family:Walshein_regular;font-size:15px;padding-left:8px;cursor:pointer}
+.signinWrapper .forgotPass a{text-decoration:none;font-family:Walshein_light;font-size:16px;color:#CEAD81}
+.signinWrapper .remembMeContainer{margin-left:285px;margin-top:7px}
+.signinWrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer}
+.signinWrapper .socServisesText{border-top:1px solid #ebebeb;color:#3f4a4d;font-size:32px;margin-top:2px;padding:32px 427px 0}
+.signinWrapper .socServisesPict{margin:24px 0 80px 385px;padding-bottom:76px}
+.signinWrapper .socServisesPict img{margin-right:22px}
+.signinWrapper .paswordIncorrectly{color:#3f4a4d;font-size:14px;margin-bottom:12px;margin-left:310px;margin-top:12px}
+.authorisationWrapper{position:fixed;z-index:1100;display:none}
+.authWrapper{margin:0 auto}
+.authWrapper .title,.authorisationWrapper .title{color:#3f4a4d;font-size:24px;margin-bottom:20px;padding-top:50px;text-align:center}
+.authWrapper input[type=text],.authorisationWrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:58px;margin:0 45px 20px;padding:0 20px;width:518px}
+.authWrapper input[type=password],.authorisationWrapper input[type=password]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:58px;margin:0 45px;padding:0 20px;width:518px}
+.authWrapper input[type=checkbox]+label::before,.authorisationWrapper input[type=checkbox]+label::before{background-image:url(/img/emptyChechBox.png);background-repeat:no-repeat;content:"";display:inline-block;height:26px;left:-8px;position:relative;top:8px;width:26px}
+.authWrapper input[type=checkbox]:checked+label::before,.authorisationWrapper input[type=checkbox]:checked+label::before{background-image:url(/img/checkedCheckbox.png);background-repeat:no-repeat;content:"";display:inline-block;height:26px;left:-5px;position:relative;top:11px;width:26px}
+.authWrapper .remembMeText,.authorisationWrapper .remembMeText{color:#434c4f;font-family:Walshein_regular;font-size:15px;padding-left:8px;cursor:pointer}
+.authWrapper .forgotPass,.authorisationWrapper .forgotPass{float:right;margin-right:50px;margin-top:11px}
+.authWrapper .forgotPass a,.authorisationWrapper .forgotPass a{color:#cead81;font-family:Walshein_light;font-size:16px;text-decoration:none}
+.authWrapper .remembMeContainer,.authorisationWrapper .remembMeContainer{margin-left:42px;margin-top:1px}
+.authWrapper input[type=submit],.authorisationWrapper input[type=submit]{background-color:#c7a271;border:1px solid #fff;border-radius:50px;color:#fff;font-size:19px;margin:28px 220px;padding:10px 78px;cursor:pointer;transition:color .3s ease,background-color .3s ease,border-color .3s ease;-o-transition:color .3s ease,background-color .3s ease,border-color .3s ease}
+.authWrapper input[type=submit]:hover,.authorisationWrapper input[type=submit]:hover{background-color:#d0b28c}
+.authWrapper .socServisesText,.authorisationWrapper .socServisesText{border-top:1px solid #ebebeb;color:#3f4a4d;font-size:24px;margin-top:5px;padding-top:32px;text-align:center}
+.authWrapper .socServisesPict,.authorisationWrapper .socServisesPict{margin-bottom:34px;margin-top:18px;text-align:center}
+.authWrapper .socServisesPict img,.authorisationWrapper .socServisesPict img{height:30px;margin:0 5px}
+.authWrapper .noRegisterText,.authorisationWrapper .noRegisterText{color:#3f4a4d;font-size:15px;text-align:center}
+.authWrapper .onregistrationLink,.authorisationWrapper .onregistrationLink{text-align:center}
+.authWrapper .onregistrationLink a,.authorisationWrapper .onregistrationLink a{font-size:15px;color:#00ACB8;text-decoration:none;border-bottom:1px dashed #00ACB8}
+#authorisationClose{position:absolute;right:46px;top:-30px;cursor:pointer}
+.CloseQuickOffer,.CloseWishlist{right:-13px;cursor:pointer;position:absolute}
+.changePasWrapper{background-color:#fbfbfb;padding-left:98px;padding-top:58px}
+.changePasWrapper .changePasInp{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;margin-top:22px;padding-left:20px;width:526px}
+.changePasWrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin-bottom:80px;margin-top:40px;padding:10px 48px;cursor:pointer}
+.changePasWrapper .infoText{color:#3f4a4d;font-size:14px;margin:10px 22px -10px}
+.personal_info_wrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin-bottom:80px;margin-top:40px;padding:10px 48px;cursor:pointer}
+.personal_info_wrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;margin-top:22px;padding-left:20px;width:526px}
+.changePassWrapper,.lostPassWrapper{background-color:#F4F4F4}
+.lostPassWrapper .lostPassBlock{background-color:#fff;height:350px;margin:40px auto;padding-top:74px;width:1140px}
+.changePassWrapper p,.lostPassWrapper p{color:#444f51;font-family:Walshein_light;font-size:20px;text-align:center;width:616px;margin:0 auto}
+.changePassWrapper input[type=text],.lostPassWrapper input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#979797;font-family:Walshein_light;font-size:20px;height:56px;margin:22px 286px;padding:0 22px;width:506px}
+.lostPassWrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:19px 436px;padding:10px 26px;cursor:pointer}
+.changePassWrapper{width:1140px;margin:0 auto;background:#fff}
+.changePassWrapper .bx-authform{min-height:306px;margin:30px auto;padding-top:74px;width:1140px;text-align:center}
+.changePassWrapper .bx-authform-description-container,.changePassWrapper .bx-authform-link-container{font-size:15px}
+.changePassWrapper .bx-authform input[type=password]{margin:0 auto;font-family:Walshein_light}
+.changePassWrapper input[type=submit]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:0 auto;padding:10px 26px;cursor:pointer}
+.delItem img{width:25px;height:25px}
+.delItem{position:absolute;top:8px;left:60px;cursor:pointer;display:none}
+.hidingBasketRight .basketBook:hover .delItem{display:block}
+.quickOrderDiv{position:absolute;z-index:2000;margin:0 auto;left:35%;top:200px;padding:25px;background:#fff}
+.quickOrderDiv input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#979797;font-family:Walshein_light;font-size:18px;padding-right:22px;width:223px}
+.quickOrderDiv input[type=button]{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:16px;padding:10px 26px;cursor:pointer;margin:12px 29px}
+.notify{font-size:15px}
+.CloseQuickOffer{top:-10px}
+.CloseQuickOffer img{width:30px}
+.del_notify,.wishlist_info{z-index:1100;position:absolute;display:none;top:250px;left:200px;width:700px;background:#fff;border:1px solid #00f;text-align:center;padding:30px 0}
+.CloseWishlist{top:-10px}
+.CloseWishlist img{width:30px}
+.wishlistBlock{background-color:#FFF}
+.wishlistBlock .imgContainer{float:left;margin-right:24px;margin-top:2px;width:150px;height:100%}
+.wishlistBlock .wishElement{height:216px;padding-left:34px;padding-top:36px;width:1000px;clear:both}
+.wishlistBlock .wishBookName{color:#434c4f;font-size:14px;margin-bottom:4px}
+.wishlistBlock .wishBookName a{color:#434c4f;text-decoration:none}
+.wishlistBlock .wishBookAutor{color:#7b8c90;font-size:13px;margin-bottom:4px;text-transform:uppercase}
+.wishlistBlock .wishBookAutor a{color:#7b8c90;text-decoration:none}
+.wishlistBlock .wishBookPrice{color:#434c4f;font-size:14px;margin-bottom:10px}
+.wishlistBlock .wishBookDescription{color:#909ea3;font-family:Walshein_light;font-size:15px;line-height:23px;overflow:hidden;height:90px}
+.wishlistBlock .wishInBasket{border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-family:Walshein_regular;font-size:14px;padding:10px 48px;text-decoration:none}
+.wishlistBlock .wishDelete{text-decoration:none;font-size:13px;color:#DB747D}
+.wishlistBlock .inBasketContainer{float:left;margin-right:16px;margin-top:34px}
+.wishlistBlock .wishDeleteContainer{margin-top:32px}
+.wishlistBlock .socialWishWrapper{border-top:1px solid #ebebeb;height:46px;margin-top:34px;padding-top:14px}
+.wishlistBlock .socialWishText{color:#7b8c90;float:left;font-size:13px;margin-left:32px;margin-right:46px;margin-top:8px}
+.wishlistBlock .socServisesPict img{height:30px;margin-right:10px}
+.badge{position:absolute;right:0}
+.badge img{width:60px!important}
+.sect_badge{position:absolute;right:5px;z-index:150}
+.sect_badge img{width:40px!important;height:40px!important;box-shadow:none}
+.item_img img,.section_item_img img{box-shadow:0 9px 5px 0 rgba(0,0,0,.18),0 10px 7px 0 rgba(0,0,0,.14);transition:box-shadow .4s ease, transform .4s ease 0s;width:142px;height:auto;margin-bottom:10px}
+.item_img img:hover,.section_item_img img:hover{box-shadow:0 15px 18px 0 rgba(0,0,0,.18),0 15px 18px 0 rgba(0,0,0,.14);transform:scale(1.02)}
+.catalogLogo img{left:68px!important;top:12px!important}
+.catalogHeadParagraph{float:left;padding-top:20px;width:544px}
+.headFindCatalog{float:left;height:100%;position:absolute;right:213px;top:-2px;width:265px}
+.catalogHeaderTel{position:absolute;right:492px;top:20px}
+.ContentbasketIcon,.ContentcatalogIcon{border-radius:80px;height:64px;position:absolute;top:353px;width:64px;z-index:990;cursor:pointer}
+.bx_ordercart .bx_ordercart_order_pay{margin:0 auto!important}
+.ContentcatalogIcon{left:200px;background:url(/img/catalogIco.png) center no-repeat #85959a}
+.ContentcatalogIcon:hover{background:url(/img/catalogLogoMini.png) center no-repeat #fff}
+.ContentbasketIcon{right:200px;background:url(/img/basketIco.png) center no-repeat #85959a}
+.ContentbasketIcon:hover{background:url(/img/basketIco.png) center no-repeat #fff}
+.error_message,.info-order{display:none}
+.where-order{background-color:#fff;height:390px;position:relative;width:560px;margin:50px auto 0}
+.where-order input[type=text]{background-color:#fbfbfb;border:1px solid #f0f0f0;color:#8d8d8d;font-size:20px;height:54px;margin-top:22px;padding-left:20px;width:526px}
+#check-order{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin-bottom:60px;margin-top:40px;padding:10px 48px;cursor:pointer;margin-left:177px}
+.where-order-title{font-size:18px;margin-left:156px}
+#change-value,#status-value{float:right}
+.deliveriWarming,.warningMessage{color:#9C1521;font-size:14px;padding-left:20px;display:none}
+.aboutAutor .author_name,.recenzion .recenz_author_name{font-family:Walshein_bold;font-size:16px;color:#2F3839}
+.bottomBasketConfirm,.confirmTopWrap a{display:block;margin-left:52px;width:246px}
+.bestSlider .left,.bestSlider .rigth,.bookPages,.courierBlock,.pickupBlock,.saleWrapp .saleSlider .left,.saleWrapp .saleSlider .right,.videoWrapp iframe{display:none}
+.headFindCatalog input[type=submit]{position:absolute;background:url(/img/findLogoMini.png) no-repeat;border:none;width:38px;height:28px;right:-2px;top:19px;cursor:pointer}
+.aboutAutor .author_info{float:left}
+.catalogIcon.searchCatalogModified{left:-100px!important}
+.basketIcon.searchBasketModified{right:-100px!important}
+.search_item_img{width:155px;height:200px}
+.item_img{width:142px;min-height:214px;height:auto;text-align:center;vertical-align:middle}
+.howToBasketWrapper,.howToCatalogWrapper{border-radius:80px;height:64px;top:230px;width:64px;z-index:990;position:absolute;cursor:pointer}
+.howToBodyWrap h1{margin:0;color:#2F3839;font-size:19px}
+.howToBodyWrap{background-color:#f4f4f4}
+.howToBodyWrap p{color:#3f4a4d;font-size:17px}
+.howToCatalogWrapper{background:url(/img/catalogIco.png) center center no-repeat #85959a;left:200px}
+.howToCatalogWrapper:hover{background:url(/img/catalogLogoMini.png) center no-repeat #fff}
+.howToBasketWrapper{background:url(/img/basketIco.png) center center no-repeat #85959a;right:200px}
+table.form-table td,table.form-table th{border:none!important}
+.howToBasketWrapper:hover{background:url(/img/basketIco.png) center no-repeat #fff}
+.whereToBuyBodyWrap{background-color:#f4f4f4;color:#3f4a4d}
+.whereToBuyBodyWrap h1{color:#3f4a4d;font-size:24px}
+.whereToBuyBodyWrap .title,.whereToBuyBodyWrap p{color:#3f4a4d;font-size:17px}
+.howToBodyWrap h3{color:#2F3839;font-size:19px;font-weight:500}
+.howToBodyWrap li{color:#3f4a4d;font-size:17px}
+table.form-table th{background:0 0!important}
+.image_mastercard,.image_visa{background-image:url(/img/payImg.png)}
+.image_mastercard,.image_visa,.image_yandexmoney{background-repeat:no-repeat}
+.section_item_img{height:225px;width:142px;text-align:center;vertical-align:middle}
+.element_item_img{width:380px;height:567px}
+table.form-table{background-color:#F4F4F4!important;text-align:right}
+table.form-table tr td:nth-child(2){text-align:left}
+.comingSoonCatIcon{left:-90px!important;top:50px!important}
+.comingSoonBasIcon{right:-90px!important;top:50px!important}
+.reg_text{font-size:17px}
+.image_visa{width:55px;height:30px;position:absolute;top:69px;right:155px}
+.image_mastercard{background-position-x:-66px;width:57px;height:34px;position:absolute;top:69px;right:85px;background-position:-66px center}
+.image_webmoney,.image_yandexmoney{background-image:url(/img/payImg.png);height:33px;position:absolute;top:69px}
+.image_yandexmoney{background-position-x:-129px;width:39px;right:43px;background-position:-128px center}
+.image_webmoney{background-position-x:-178px;width:33px;right:0;background-position:-178px center;background-repeat:no-repeat}
+.image_iml,.image_pickpoint,.image_russianpost{background-image:url(/img/shipimg.png);position:absolute;top:76px;background-repeat:no-repeat}
+.image_iml{width:50px;height:30px;right:213px}
+.image_pickpoint{width:113px;height:30px;right:90px;background-position:-62px center}
+.image_boxberry{background-image:url(/img/shipimg_boxberry.png);background-size:contain;position:absolute;top:76px;background-repeat:no-repeat;width:113px;height:30px;right:90px;}
+.image_russianpost{width:72px;height:34px;right:10px;background-position:-180px 0}
+.slidingDelivMenu{position:fixed;top:40px}
+.wrapperCategor .filterParams li p a{color:#3f4a4d!important}
+.wrapperCategor .filterParams li p a:hover{text-decoration:none}
+.editorsCatalogIcon{left:-105px;top:48px}
+.editorsBasketIcon{right:-105px;top:48px}
+.allBooksWrapp .titleMain a{color:#3f4a4d;font-size:32px}
+.footerMenu a:hover{color:#fff!important}
+.orderHistorWrap h3{color:#2F3839;font-size:19px;font-weight:500}
+.orderHistorWrap a{color:#2F3839}
+.howToBodyWrap{color:#3f4a4d;font-size:17px}
+.saleWrapp .bookPriceLine{color:#7b8c90;font-size:14px;text-decoration:line-through}
+.showAllWrapp{overflow:hidden;padding-bottom:22px;position:relative}
+.readMore{background-color:#fff;position:absolute;bottom:0;height:27px;right:0;text-align:center;width:100%;padding-top:20px}
+.readMore span{color:#00ABB8!important;cursor:pointer;border:1px solid;padding:2px 6px 1px!important}
+.giftWrapBlock{padding-top:5px;padding-bottom:60px;min-height:150px;overflow:hidden;border-bottom:1px solid #e2e2e2}
+.EditorChoiceWrapp{height:100%;padding-bottom:30px;margin-top:95px}
+.auth_note{width:400px;margin:0 auto 20px;text-align:center;font-size:15px;color:red}
+.bookWrapp .basketBook{border:1px solid #c7a271;border-radius:40px;color:#c7a271;cursor:pointer;font-size:14px;margin:16px 10px 0;padding:6px 5px;text-align:center;width:122px}
+.wrapperType{color:#7b8c90;font-size:14px;padding-top:10px}
+.categoryWrapper .sliderElementMin{display:block;float:left}
+.contacsFormMessage{background:#fff;border:1px solid #00f;display:block;left:200px;padding:30px 0;position:absolute;text-align:center;top:100px;width:700px;z-index:1100}
+#development,.reviewsBlockDetail .autor{text-align:right}
+.reviewsBlockDetail .reviewImgContain, .reviewsBlockDetail .reviewImgContain img{border-radius:90px;float:left;height:100px;overflow:hidden;width:100px;margin-right:20px;margin-bottom:20px;list-style-type:none;-webkit-filter:grayscale(100%);-moz-filter:grayscale(100%);-ms-filter:grayscale(100%);-o-filter:grayscale(100%);filter:grayscale(100%)}
+.reviewsBlockDetail ul{padding-left:0!important;padding-bottom:0!important}
+.popupAbout,.popupDeliveryWrapper{padding:0 20px}
+.reviewsBlockDetail .reviewDatail{clear:both;margin-bottom:32px;list-style-type:none}
+.contacsPopupTitle{color:#4e585a;font-family:Walshein_black;font-size:42px;margin-bottom:0;margin-top:10px}
+.popupDeliveryWrapper .deliveryTextWrap{width:auto!important}
+.popupAbout{color:#3f4a4d;font-size:17px}
+.popupAbout h3{color:#3f4a4d;font-size:24px}
+.authorsContent{padding-bottom:48px;padding-top:48px;color:#3f4a4d;font-size:17px}
+.authorsContent a{border-bottom:1px dashed;color:#00a0af;text-decoration:none}
+.authorsContent .title{color:#3f4a4d;font-size:32px;padding-bottom:40px;padding-top:32px}
+.authorsContent .inputtext,.authorsContent .inputtextarea{background-color:#fdfdfd!important;box-shadow:none!important;color:#353535!important;font-family:Walshein_regular!important;font-size:14px!important}
+.authorsContent .inputtext{border:1px solid #c1c5c8!important;height:34px!important;padding:0 0 0 14px!important;width:255px!important;border-radius:2px}
+.authorsContent .inputtextarea{border:1px solid #c1c5c8!important;width:264px!important;resize:none}
+.authorsContent .hide{display:none}
+.authorsContent .submit{margin-top:20px;background-color:#00a0af;border:none;border-radius:40px;color:#fff;font-size:19px;padding:13px 48px;text-decoration:none}
+#development a,.bookWrapp a:hover>.bookName,.categoryBooks a:hover>.nameBook{opacity:0.8}
+.bookWrapp .bookName:hover {text-decoration: underline;}
+#development a,.bookWrapp a:hover,.categoryBooks a:hover{text-decoration:none}
+.exitA a{color:#fff!important;padding-left:30px}
+.flippostSelectContainer{margin-left:34px;display:none}
+.flippostSelectContainer>select:not(:first-child){margin-top:10px}
+.flippostSelect{width:368px!important;display:block!important}
+#development{font-family:Walshein_regular;color:#b3b3b3;font-size:15px;width:100%;margin-top:11px}
+.catalogDescription,.catalogDescription h2{font-family:Walshein_light}
+#development a{color:#ac9f8a}
+.flippost_error{position:relative;top:-30px;right:-420px;width:200px;color:red;display:none}
+.guru_error{width:365px;margin-bottom:10px;color:red;display:none}
+.title-search-result{width:900px!important}
+.catalogDescription{color:#627478;font-size:16px;line-height:24px;padding-bottom:18px;padding-top:35px;clear:both}
+.catalogDescription h2{font-size:28px}
+.js-history-popup{top:50px!important}
+#prodBlock1,.content .textWrap{-webkit-hyphens:auto;-ms-hyphens:auto;hyphens:auto}
+.sailplay_basket_quantity{display:block;margin:36px auto;text-align:center;color:#7b8c90;font-size:14px}
+.basket_zero_cost{color:#AD3b20;font-size:18px}
+#digitalversion,#paperversion{font-family:Walshein_regular;font-size:16px;padding:10px 20px 0;color:#00abb8;display:block;float:left;width:92px;height:52px}
+#diffversions .active{background:#ecedef;box-shadow:0 -1px 1px 0 rgba(0,0,0,.18)}
+#diffversions .passive:hover span{border-bottom:none}
+.digitalVersionWrap .inBasket{padding:14px 10px;margin:0 20px}
+.typesOfProduct{visibility:hidden}
+#nprogress{pointer-events:none}
+#nprogress .bar{background:#00abb8;position:fixed;z-index:1501;top:0;left:0;width:100%;height:4px}
+#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px #00abb8,0 0 5px #00abb8;opacity:1;-webkit-transform:rotate(3deg) translate(0,-4px);-ms-transform:rotate(3deg) translate(0,-4px);transform:rotate(3deg) translate(0,-4px)}
+#nprogress .spinner{display:block;position:fixed;z-index:1501;top:15px;right:15px}
+#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:1px solid transparent;border-top-color:#00abb8;border-left-color:#00abb8;border-radius:50%;-webkit-animation:nprogress-spinner .4s linear infinite;animation:nprogress-spinner .4s linear infinite}
+.nprogress-custom-parent{overflow:hidden;position:relative}
+.nprogress-custom-parent #nprogress .bar,.nprogress-custom-parent #nprogress .spinner{position:absolute}
+@-webkit-keyframes nprogress-spinner{#nprogress{pointer-events:none}
+#nprogress .bar{background:#00abb8;position:fixed;z-index:1501;top:0;left:0;width:100%;height:4px}
+#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px #00abb8,0 0 5px #00abb8;opacity:1;-webkit-transform:rotate(3deg) translate(0,-4px);-ms-transform:rotate(3deg) translate(0,-4px);transform:rotate(3deg) translate(0,-4px)}
+#nprogress .spinner{display:block;position:fixed;z-index:1031;top:15px;right:15px}
+#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:1px solid transparent;border-top-color:#00abb8;border-left-color:#00abb8;border-radius:50%;-webkit-animation:nprogress-spinner .4s linear infinite;animation:nprogress-spinner .4s linear infinite}
+.nprogress-custom-parent{overflow:hidden;position:relative}
+.nprogress-custom-parent #nprogress .bar,.nprogress-custom-parent #nprogress .spinner{position:absolute}
+@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0)}
+100%{-webkit-transform:rotate(360deg)}
+}
+@keyframes nprogress-spinner{0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+0%{-webkit-transform:rotate(0)}
+100%{-webkit-transform:rotate(360deg)}
+}
+@keyframes nprogress-spinner{0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+#loadingInfo{margin:0 auto}
+#loadingInfo .spinner-icon{width:36px;height:36px;box-sizing:border-box;border:4px solid transparent;border-top-color:#00abb8;border-left-color:#00abb8;border-radius:50%;margin:0 auto;-webkit-animation:loadingInfo-spinner .4s linear infinite;animation:loadingInfo-spinner .4s linear infinite}
+@-webkit-keyframes loadingInfo-spinner{0%{-webkit-transform:rotate(0)}
+100%{-webkit-transform:rotate(360deg)}
+}
+@keyframes loadingInfo-spinner{0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+.registrationBlock .bx-registration-table .RegisterButton{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer;text-align:center}
+.registrationBlock .bx-registration-table .CaptchaRegistration{margin-bottom:12px;margin-left:310px;margin-top:12px}
+.bookViews{display:block;margin-top:1px;padding-left:5px;float:right; color:#424D4F;font-family:'Walshein_regular';font-size:15px}
+.ga-views {background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0!important;padding-left:0!important}
+.ga-views .ttip {width:140px!important}
+.gap {padding:0 5px}.gap:before {content:"\003E"}
+.saleSlider .tapeOfPack {color:#627478;font-size:14px;font-family:"Walshein_regular";height:20px}
+.ya-share2__container.ya-share2__container_size_m .ya-share2__icon{width:35px;height:35px;background-repeat:no-repeat;background-position:50%;padding-bottom:0!important}
+.ya-share2__container.ya-share2__container_size_m .ya-share2__counter{min-width:35px;height:35px;font-size:15px;line-height:35px;box-sizing:border-box;padding:0 12px;text-align:center;border-left:1px solid hsla(0,0%,100%,.25)}
+.ya-share2__counter::before{display:none}
+.ya-share2__badge{background-color:#85959a!important;padding-bottom:0!important}
+.ya-share2__item {margin:0 10px!important}
+.sliderElement{display:inline-block;width:146px;vertical-align:top}
+.sliderElementMin{display:inline-block;width:234px}
+.sliderUl{left:0;position:relative;width:9999px}
+.sliderContainer{overflow:hidden}
+.sliderContainer .left{cursor:pointer;left:-38px;position:absolute;top:95px}
+.sliderContainer .rigth{cursor:pointer;position:absolute;right:-40px;top:95px}
+.uLookSlider .sliderContainer{height:310px}
+.sliderElement .bookName,.sliderElement .section_item_img, .sliderElement .section_item_img img {width:110px}
+.sliderElement .section_item_img{min-height:180px}
+
+@media screen and (max-width:1200px){
+.mainWrapp .ibooks{font-size:40px}
+.ibooks img{width:90px;height:auto;top:28px;padding:0 16px}
+.baskHeadMenu a,.menu li a{font-size:14px !important}
+.basketIcon,.catalogIcon{top:-250px}
+.mainWrapp .interShop{padding-top:30px}
+.mainWrapp input[type=text]::-webkit-input-placeholder,.mainWrapp input[type=text]::-moz-placeholder,.mainSearchField::-webkit-input-placeholder,.mainSearchField::-moz-placeholder,.takePartWrap .text{font-size:15px}
+.books .active,.books>ul>li{font-size:21px}
+.mainWrapp{height:860px}
+.mainWrapp:before{height:680px}
+.catalogWrapper,.hintWrapp .catalogWrapper,.reviewsWrapp .bigSlider{max-width:1140px;width:100% !important}
+.firstWrapp{display:none !important}
+.mainWrapp .books,.mainWrapp .book{max-width:900px;width:auto}
+.hintWrapp .titleText{width:400px}
+.hintWrapp .titleText img{width:160px}
+.hintWrapp .nameOfGroup{height:100px;font-size:24px;padding-top:20px}
+.hintWrapp .subNameOfGroup{width:180px}
+.smallContainer,.colorCorrect,.smallContainer img{width:200px !important}
+.hintWrapp .smallContainer p{font-size:16px;padding-left:16px}
+.hintWrapp .smallContainer{height:310px}
+.hintWrapp .titleBlock{margin-bottom:120px}
+.secondSection div:nth-child(1){margin-bottom:-24px}
+.hintWrapp .recomendation,.bestonmain,.EditorChoiceWrapp,.saleWrapp,.reviewsWrapp .bigSlider,.centerWrapper,.authorBooksWrapp{max-width:930px}
+.saleWrapp .giftWrap{margin-top:0}
+.giftWrap .title{font-size:20px}
+.giftWrap p,.giftWrap .pii{font-size:14px}
+.giftWrap input[type=text]{margin-right:-65px;float:none}
+.giftWrap .pii{float:left}
+.giftWrap input[type=button]{right:auto}
+.giftWrap:before{right:2%}
+.allBooksWrapp .allBooks{margin-left:33%}
+.allBooksWrapp .bookWrapp{display:inline-block;float:none}
+.element_item_img img{width:300px;height:auto}
+.bookPreviewButton{top:30%;left:40px}
+.element_item_img{width:320px;height:450px !important}
+.elementDescriptWrap .centerColumn{margin:0 240px 0 295px}
+.elementDescriptWrap .leftColumn{width:320px}
+.centerColumn .productName .mainPart{font-size:28px}
+.productElementWrapp::before{height:260px}
+.dopSaleWrap{display:none}#digitalversion,#paperversion{width:80px;font-size:14px;padding:6px 12px 0}
+.elementDescriptWrap .priceBasketWrap,.elementDescriptWrap .rightColumn{width:240px}
+.elementDescriptWrap .inBasket{padding:13px 46px;font-size:18px}
+.elementDescriptWrap .newPrice{font-size:36px}
+.elementDescriptWrap .oldPrice{font-size:20px}
+.item_buttons_counter_block{padding-left:16px}
+.centerColumn .engBookName{font-size:16px}
+.centerColumn .productAutor{font-size:12px}
+.elementDescriptWrap .citate,.elementDescriptWrap i,.takePartWrap .title{font-size:18px}
+.elementDescriptWrap .annotation span,.elementDescriptWrap .annotation ul{font-size:16px}
+.elementDescriptWrap .productSelectTitle,.elementDescriptWrap h3{font-size:22px}
+.aboutAutor .author_info{max-width:315px}
+.authorBooksWrapp{overflow:hidden}
+.searchWrap input[type=text]{width:90%}
+.weRecomWrap{height:440px;overflow:hidden}
+.characteris .text{font-size:14px}
+.transparent_input{height:36px;font-size:16px;width:70px;border:1px solid #cab796}
+.item_buttons_counter_block .plus,.item_buttons_counter_block .minus{height:38px;border:1px solid #cab796;width:40px;font-size:26px;line-height:40px}
+.notice_message{font-size:18px}
+}
+@media screen and (max-width:940px){
+.book .secondWrapp,.secondWrapp img{width:270px}
+.book .thirdWrapp{width:320px}
+.firstWrapp img,.thirdWrapp img{width:140px}
+.thirdWrapp .text{width:230px}
+.thirdWrapp p{font-size:21px}
+.mainWrapp .books,.mainWrapp .book{max-width:750px;width:auto}
+.slidingTopMenu{display:block !important}header,.find{display:none}
+.mainWrapp{padding-top:50px;height:830px}
+.mainWrapp .interShop{padding-top:90px}
+.mainWrapp:before{height:610px}
+.bestbook .cover img{width:240px}
+.bestbook .button{width:180px;font-size:16px}
+.bestbook .before{height:150px !important}
+.bestbook .name,.reviewsSliderWrapp .sliderName,.weRecomWrap .tile,.authorBooksWrapp>p{font-size:26px}
+.bestbook .name span{font-size:18px}
+.bestbook .description{font-size:16px}
+.secondSection,.dopSaleWrap{display:none}
+.reviewsWrapp{height:650px}
+.hintWrapp .titleText{width:524px}
+.hintWrapp .titleText img{width:auto}
+.hintWrapp .nameOfGroup{height:100px;font-size:24px;padding-top:20px}
+.hintWrapp .subNameOfGroup{width:180px}
+.smallContainer,.colorCorrect,.smallContainer img{width:259px !important}
+.hintWrapp .smallContainer p{font-size:24px;padding-left:26px}
+.hintWrapp .smallContainer{height:366px}
+.hintWrapp .titleBlock{margin-bottom:36px}
+.catalogWrapper,.hintWrapp .catalogWrapper,.reviewsWrapp .bigSlider,.authorBooksWrapp{max-width:910px}
+.hintWrapp .recomendation,.bestonmain,.EditorChoiceWrapp,.saleWrapp,.reviewsWrapp .bigSlider{max-width:740px}
+.item_img img,.section_item_img img,.item_img{width:120px}
+.allBooksWrapp .bookWrapp,.allBooksWrapp .bookWrapp:nth-child(6n){width:150px}
+.footerMenu{padding-bottom:0}
+.yaMarket{margin-right:140px}footer{height:740px}
+.searchWrap{display:none}
+.productElementWrapp{margin-top:21px}
+.productElementWrapp .centerWrapper{max-width:800px}
+.elementDescriptWrap .buyLater{font-size:13px;background:url(/img/buyLaterHeart.png) 27px 10px no-repeat rgba(0,0,0,0);width:140px;padding:6px 0 6px 46px}
+.elementDescriptWrap .productsMenu{font-size:12px}
+.productsMenu .active{font-size:18px}
+.productsMenu li{margin-right:18px}
+.elementDescriptWrap .marks>div{font-size:10px;padding:3px 8px}
+.elementDescriptWrap .citate,.elementDescriptWrap i,.takePartWrap .title{font-size:16px}
+.takePartWrap .text{font-size:15px}
+.elementDescriptWrap .takePartWrap,.elementDescriptWrap .characteris{width:240px}
+.takePartWrap button{left:190px}
+.bookViews,.bookid,.elementDescriptWrap .shippings{font-size:13px}
+.characteris .title{font-size:14px}
+.priceBasketWrap>center>span{width:166px !important;font-size:13px !important}
+.b-share-btn__wrap{margin:0 9px !important}
+.element_item_img img{width:240px;height:auto}
+.centerColumn{margin-right:210px !important}
+.bookPreviewButton{top:30%;left:40px}
+.element_item_img{width:260px;height:350px !important}
+.elementDescriptWrap .centerColumn{margin:0 210px 0 240px}
+.elementDescriptWrap .leftColumn{width:260px}
+.centerColumn .productName .mainPart{font-size:24px}
+.productElementWrapp::before{height:210px}
+.dopSaleWrap{display:none}#digitalversion,#paperversion{width:80px;font-size:14px}
+.elementDescriptWrap .priceBasketWrap,.elementDescriptWrap .rightColumn{width:210px}
+.elementDescriptWrap .inBasket{padding:10px 37px;font-size:16px}
+.elementDescriptWrap .newPrice{font-size:32px}
+.elementDescriptWrap .oldPrice{font-size:18px}
+.item_buttons_counter_block{padding-left:28px}
+.centerColumn .engBookName,.wrap_prise_top{font-size:15px}
+.wrap_prise_top{padding:18px 5px 0}
+.wrap_prise_bottom{padding-top:14px;padding-bottom:14px}
+.centerColumn .productAutor{font-size:12px}
+.elementDescriptWrap .citate,.elementDescriptWrap i,.takePartWrap .title{font-size:17px}
+.elementDescriptWrap .annotation span,.elementDescriptWrap .annotation ul{font-size:15px}
+.elementDescriptWrap .productSelectTitle,.elementDescriptWrap h3{font-size:20px}
+.aboutAutor .author_info{max-width:260px}
+.authorBooksWrapp{overflow:hidden}
+.searchWrap input[type=text]{width:90%}
+.weRecomWrap{height:440px;overflow:hidden}
+.characteris .text{font-size:14px}
+}
+@media screen and (max-width:800px){
+.book .secondWrapp,.secondWrapp img{width:360px}
+.thirdWrapp{display:none !important}
+.mainWrapp .books,.mainWrapp .book{max-width:520px;width:auto}
+.catalogWrapper,.hintWrapp .catalogWrapper,.reviewsWrapp .bigSlider,.authorBooksWrapp{max-width:780px}
+.hintWrapp .recomendation,.bestonmain,.EditorChoiceWrapp,.saleWrapp,.reviewsWrapp .bigSlider{max-width:610px}
+}
+body div a.google_auth{background:url(/img/google_auth.jpg) no-repeat 25% 50%;display:block;margin:0 auto;text-align:center;width:130px;background-color:#5290f5;background-size:20%;padding:10px;border-radius:30px;color:#fff;padding-left:30px;margin-top:20px}
+#prefsWrap{background:#99abb1;width:100%;padding:40px 0 30px;text-align:center;margin:0 auto;clear:both}
+#prefs{max-width:1170px;width:100%;margin:0 auto;display:inline-block}
+#prefs .pref{width:16%;float:left;margin:0 2%;font-family:Walshein_light;font-size:16px;display:block;color:#fff}
+#prefs .pref .pic{height:65px;width:134px;margin:0 auto;background:transparent url(/img/prefs.png);display:block}
+#prefs .pref:nth-child(1) .pic{background-position:5px 0}
+#prefs .pref:nth-child(2) .pic{background-position:0 270px}
+#prefs .pref:nth-child(3) .pic{background-position:0 205px}
+#prefs .pref:nth-child(4) .pic{background-position:0 132px}
+#prefs .pref:nth-child(5) .pic{background-position:0 65px}
+#prefs .pref:hover .title {color:#677377}
+#prefs .pref .title{display:block;padding-bottom:6px;font-family:Walshein_bold;font-size:22px;padding-top:20px;width:auto;color:#fff}
+
+.mainInfoWrap{max-width:1170px;width:100%;background:#fff;padding:0 50px 50px;margin-top:50px;display:inline-block}
+.mainInfoWrap .orderInfo{font-family:Walshein_light;margin:40px 0;width:100%}
+.mainInfoWrap .infoTitle{font-size:32px;text-align:center;color:#3f4a4d;font-family:Walshein_bold}
+.mainInfoWrap .infoRow{width:100%;font-size:18px;margin-top:20px}
+.mainInfoWrap .infoRow .fieldq{width:15%;float:left;padding-right:20px;font-family:Walshein_bold;color:#3f4a4d;min-width:150px}
+.mainInfoWrap .infoRow .fielda{width:80%}
+.orderedBooks{width:100%;margin:30px 0}
+.orderedBooks .bookRow{width:100%;font-size:18px;margin-top:20px;display:inline-block}
+.orderedBooks .bookRow .bookImg{width:160px;text-align:left;float:left}
+.orderedBooks .bookRow .bookTitle{float:left;padding:0 20px;width:60%}
+.orderedBooks .bookRow .bookQuantity{float:left;padding:0 20px;width:10%}
+.orderedBooks .bookRow .bookPrice{float:left;padding:0 20px}
+=======
 .sitemap{columns:2;-moz-column-count:2;-webkit-column-count:2;column-count:2}
 .sitemap a{text-decoration:none;color:#7b8c90;font-family:"Walshein_regular";font-size:15px}
 .sitemap .level_0, .sitemap .level_1, .sitemap .level_2{margin-left:20px}
@@ -983,7 +2141,7 @@ table.form-table td,table.form-table th{border:none!important}
 table.form-table th{background:0 0!important}
 .image_mastercard,.image_visa{background-image:url(/img/payImg.png)}
 .image_mastercard,.image_visa,.image_yandexmoney{background-repeat:no-repeat}
-.section_item_img{height:225px;width:142px;text-align:center;vertical-align:middle}
+.section_item_img{height:235px;width:142px;text-align:center;vertical-align:middle}
 .element_item_img{width:380px;height:567px}
 table.form-table{background-color:#F4F4F4!important;text-align:right}
 table.form-table tr td:nth-child(2){text-align:left}
@@ -1015,7 +2173,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 .readMore{background-color:#fff;position:absolute;bottom:0;height:27px;right:0;text-align:center;width:100%;padding-top:20px}
 .readMore span{color:#00ABB8!important;cursor:pointer;border:1px solid;padding:2px 6px 1px!important}
 .giftWrapBlock{padding-top:5px;padding-bottom:60px;min-height:150px;overflow:hidden;border-bottom:1px solid #e2e2e2}
-.EditorChoiceWrapp{height:100%;padding-bottom:30px;margin-top:95px}
+.EditorChoiceWrapp{height:100%;padding-bottom:30px;}
 .auth_note{width:400px;margin:0 auto 20px;text-align:center;font-size:15px;color:red}
 .bookWrapp .basketBook{border:1px solid #c7a271;border-radius:40px;color:#c7a271;cursor:pointer;font-size:14px;margin:16px 10px 0;padding:6px 5px;text-align:center;width:122px}
 .wrapperType{color:#7b8c90;font-size:14px;padding-top:10px}
@@ -1096,7 +2254,7 @@ table.form-table tr td:nth-child(2){text-align:left}
 @keyframes loadingInfo-spinner{0%{transform:rotate(0)}
 100%{transform:rotate(360deg)}
 }
-.registrationBlock .bx-registration-table .RegisterButton{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer;text-align:center}
+.registrationBlock .bx-registration-table .RegisterButton{background-color:#fff;border:1px solid #c7a271;border-radius:50px;color:#c7a271;font-size:19px;margin:28px 462px;padding:10px 78px;cursor:pointer;width:120px;text-align:center}
 .registrationBlock .bx-registration-table .CaptchaRegistration{margin-bottom:12px;margin-left:310px;margin-top:12px}
 .bookViews{display:block;margin-top:1px;padding-left:5px;float:right; color:#424D4F;font-family:'Walshein_regular';font-size:15px}
 .ga-views {background-color:transparent;color:#424D4F;text-align:center;margin:8px 0 0!important;padding-left:0!important}
