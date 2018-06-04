@@ -121,7 +121,7 @@
     define ("ROUTE_STATUS_ID", 'I');  // в пути
     define ("ASSEMBLED_STATUS_ID", 'C');  // собран
     define ("STATUS_UNDER_ORDER", 'PZ');  // под заказ
-    define ("DELIVERY_TIME", '14:00');  // Время 
+    define ("DELIVERY_TIME", '14:00');  // Время
 
     define ("REISSUE_ID", 218); //ID свойства "Переиздание"
     define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
@@ -2534,9 +2534,12 @@
 
             $dbOrders = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterOrders, false, false, array("TRACKING_NUMBER", "ID"));
             while ($arOrder = $dbOrders->Fetch()) {
-                $arOrdersList[$arOrder["TRACKING_NUMBER"]] = array(
-                    "ID" => $arOrder["ID"]
-                );
+                $trackingNumber = intval($arOrder["TRACKING_NUMBER"]);
+                if($trackingNumber > 0) {
+                    $arOrdersList[$trackingNumber] = array(
+                        "ID" => $arOrder["ID"]
+                    );
+                }
             };
 
             //Пометим заказы с отправленными сообщениями, иначе никак - придется 3 запросами
@@ -2545,7 +2548,10 @@
 
             $dbOrdersArrived = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterArrivedOrders, false, false, array("ID", "TRACKING_NUMBER", "PROPERTY_VAL_BY_CODE_RUSPOST_ARRIVED"));
             while ($arOrderArrived = $dbOrdersArrived->Fetch()) {
-                $arOrdersList[$arOrderArrived["TRACKING_NUMBER"]]["ARRIVED"] = true;
+                $trackingNumber = intval($arOrderArrived["TRACKING_NUMBER"]);
+                if($trackingNumber > 0) {
+                    $arOrdersList[$trackingNumber]["ARRIVED"] = true;
+                }
             };
 
             //Исключим заказы со статусом "получен"
@@ -2554,7 +2560,10 @@
 
             $dbOrdersExclude = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterExcludeOrders, false, false, array("ID", "TRACKING_NUMBER", "PROPERTY_VAL_BY_CODE_RUSPOST_RECEIVED"));
             while ($arOrderExclude = $dbOrdersExclude->Fetch()) {
-                unset($arOrdersList[$arOrderExclude["TRACKING_NUMBER"]]);
+                $trackingNumber = intval($arOrderExclude["TRACKING_NUMBER"]);
+                if($trackingNumber > 0) {
+                    unset($arOrdersList[$trackingNumber]);
+                }
             };
 
             $get_ticket_xml = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pos="http://fclient.russianpost.org/postserver" xmlns:fcl="http://fclient.russianpost.org">
@@ -2659,9 +2668,9 @@
                             $barcode    = (string) $Item['Barcode'];
                             $orderID    = intval($arOrdersList[$barcode]["ID"]);
 
-                            $operTypeID = (int) $Item->xpath('ns3:Operation')[0]["OperTypeID"];
-                            $operCtgID  = (int) $Item->xpath('ns3:Operation')[0]["OperCtgID"];
-                            $DateOper   = (string) $Item->xpath('ns3:Operation')[0]["DateOper"];
+                            $operTypeID = (int) $Item->xpath('ns3:Operation')[count($Item->xpath('ns3:Operation')) - 1]["OperTypeID"];
+                            $operCtgID  = (int) $Item->xpath('ns3:Operation')[count($Item->xpath('ns3:Operation')) - 1]["OperCtgID"];
+                            $DateOper   = (string) $Item->xpath('ns3:Operation')[count($Item->xpath('ns3:Operation')) - 1]["DateOper"];
 
                             if(!empty($arOrdersList[$barcode]) && $orderID > 0) {
                                 //Посылка прибыла в место вручения
@@ -2692,7 +2701,7 @@
                                         };
                                     }
 
-                                } elseif($operTypeID == 1 && $operCtgID == 2 && strlen($DateOper) > 0) {
+                                } elseif($operTypeID == 2 && $operCtgID == 1 && strlen($DateOper) > 0) {
                                 //Посылка принята
                                     //Проверим заполнено ли свойство с датой доставки, если да выход
                                     $dbPropReceivedValue = CSaleOrderPropsValue::GetList(
@@ -3117,13 +3126,13 @@
     AddEventHandler("catalog", "OnDiscountUpdate", "activateShowingDiscountIcon");
     AddEventHandler("catalog", "OnDiscountAdd", "activateShowingDiscountIcon");
 
-    function activateShowingDiscountIcon ($ID, $arFields) {       
+    function activateShowingDiscountIcon ($ID, $arFields) {
         $products_ids = array();
         foreach ($arFields["PRODUCT_IDS"] as $product_id) {
             $products_ids[] = $product_id;
         }
-  
-        if (!empty($products_ids)) {  
+
+        if (!empty($products_ids)) {
             if ($arFields["ACTIVE"] == "Y") {
                 foreach ($products_ids as $product_id) {
                     CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID));
@@ -3132,7 +3141,7 @@
                 foreach ($products_ids as $product_id) {
                     CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => "N"));
                 }
-            }  
+            }
         } else {
             $discount_info = CCatalogDiscount::GetList (array(), array("ID" => $ID), false, false, array("PRODUCT_ID"));
             while ($discount = $discount_info -> Fetch()) {
@@ -3140,7 +3149,7 @@
                     $products_ids[] = $discount["PRODUCT_ID"];
                 }
             }
-            if (!empty($products_ids[0])) {         
+            if (!empty($products_ids[0])) {
                 if ($arFields["ACTIVE"] == "Y") {
                     foreach ($products_ids as $product_id) {
                         CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => PROPERTY_SHOWING_DISCOUNT_ICON_VARIANT_ID));
@@ -3150,7 +3159,7 @@
                         CIBlockElement::SetPropertyValuesEx($product_id, false, array("show_discount_icon" => "N"));
                     }
                 }
-            }    
+            }
 
         }
     }
@@ -3924,12 +3933,12 @@ function AddBasketRule() {
     }
 
     $id_favorite = $arrFilter["ID"][rand(0,5)];
-    
+
     $db_enum_list = CIBlockProperty::GetPropertyEnum(SALE_POPULAR_ELEMENT, Array(), Array());
     while($ar_enum_list = $db_enum_list->GetNext()) {
       $ar_prop[] = $ar_enum_list["VALUE"];
     }
-   
+
     if(is_array($ar_prop)){
       foreach($ar_prop as $prop){
         $arFields["VALUES"][] = Array(
@@ -3952,7 +3961,7 @@ function AddBasketRule() {
           "SORT" => "100"
           );
     }
-    
+
     $ibp = new CIBlockProperty;
     if(!$ibp->Update(SALE_POPULAR_ELEMENT, $arFields))
         echo $ibp->LAST_ERROR;

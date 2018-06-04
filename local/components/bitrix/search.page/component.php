@@ -309,9 +309,9 @@ if($this->InitComponentTemplate($templatePage))
             "MODULE_ID" => 'iblock',
         );    */    
         $arFilter = array(
-            'QUERY' => "%" . $arResult["REQUEST"]["~QUERY"] . "%",
+            'QUERY' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%",
             "SITE_ID" => SITE_ID,
-            'TITLE' => "%" . $arResult["REQUEST"]["~QUERY"] . "%",
+            'TITLE' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%",
         );
         $arFilter = array_merge($arFILTERCustom, $arFilter);
         if(strlen($where)>0)
@@ -349,10 +349,10 @@ if($this->InitComponentTemplate($templatePage))
     $search_tips_filter = array(
         'LOGIC' => 'OR',
         array(
-            '=%UF_SEARCH_WORDS' => "%" . $arResult["REQUEST"]["~QUERY"] . "%"
+            '=%UF_SEARCH_WORDS' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%"
         ),
         array(
-            '=%UF_TITLE' => "%" . $arResult["REQUEST"]["~QUERY"] . "%"
+            '=%UF_TITLE' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%"
         )
     );
 
