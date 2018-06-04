@@ -59,7 +59,14 @@
         <?
             uasort($arResult["PAY_SYSTEM"], "cmpBySort"); // resort arrays according to SORT value
             foreach($arResult["PAY_SYSTEM"] as $arPaySystem)
-            {
+            {   
+                $delivery_state = "Y";
+                if($_SESSION["DATE_DELIVERY_STATE"] && ($arPaySystem["ID"] == CASHLESS_PAYSYSTEM_ID || $arPaySystem["ID"] == RFI_PAYSYSTEM_ID || $arPaySystem["ID"] == SBERBANK_PAYSYSTEM_ID)){ 
+                    $delivery_state = "Y";
+                } else if($_SESSION["DATE_DELIVERY_STATE"]){
+                    $delivery_state = "";
+                }
+            if($delivery_state){ 
                 //Убираем PayPal для Москвы и МО
                 if ((strlen(trim(str_replace("<br />", "", $arPaySystem["DESCRIPTION"]))) > 0 || intval($arPaySystem["PRICE"]) > 0) && !($arResult['ORDER_DATA']['DELIVERY_LOCATION'] == MOSCOW_LOCATION_ID && $arPaySystem['ID'] == PAYPAL_PAYSYSTEM_ID) ) {
                     $arPay = CSaleDelivery::GetByID($arPaySystem["ID"]);
@@ -178,6 +185,7 @@
                     }?>
                     </div>
                 <?}
+            }
             }
         ?>
     </div>
