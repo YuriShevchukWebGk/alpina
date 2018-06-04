@@ -2549,7 +2549,7 @@
             $dbOrdersArrived = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterArrivedOrders, false, false, array("ID", "TRACKING_NUMBER", "PROPERTY_VAL_BY_CODE_RUSPOST_ARRIVED"));
             while ($arOrderArrived = $dbOrdersArrived->Fetch()) {
                 $trackingNumber = intval($arOrderArrived["TRACKING_NUMBER"]);
-                if($trackingNumber > 0) {
+                if($trackingNumber > 0 && $arOrderArrived["PROPERTY_VAL_BY_CODE_RUSPOST_ARRIVED"] != "") {
                     $arOrdersList[$trackingNumber]["ARRIVED"] = true;
                 }
             };
@@ -2561,7 +2561,7 @@
             $dbOrdersExclude = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterExcludeOrders, false, false, array("ID", "TRACKING_NUMBER", "PROPERTY_VAL_BY_CODE_RUSPOST_RECEIVED"));
             while ($arOrderExclude = $dbOrdersExclude->Fetch()) {
                 $trackingNumber = intval($arOrderExclude["TRACKING_NUMBER"]);
-                if($trackingNumber > 0) {
+                if($trackingNumber > 0 && $arOrderExclude["PROPERTY_VAL_BY_CODE_RUSPOST_RECEIVED"] != "") {
                     unset($arOrdersList[$trackingNumber]);
                 }
             };
@@ -2655,16 +2655,6 @@
 
                         if(isset($Item['Barcode'])) {
 
-                            //Попробуем пока без сортировки и без всех элементов, Почта России и так возвращает отсортированные данные
-                            /*foreach ($Item->xpath('ns3:Operation') as $Operation) {
-                                $arOperations[$barcode][] = array(
-                                    "DateOper"   => (string) $Operation["DateOper"],
-                                    "OperName"   => (string) $Operation["OperName"],
-                                    "OperTypeID" => (int) $Operation["OperTypeID"],
-                                    "OperCtgID"  => (int) $Operation["OperCtgID"]
-                                );
-                            }*/
-
                             $barcode    = (string) $Item['Barcode'];
                             $orderID    = intval($arOrdersList[$barcode]["ID"]);
 
@@ -2685,8 +2675,18 @@
                                         )
                                     );
 
+
+                                    $change_status = false;
+                                    if ($arPropArrivedValue = $dbPropArrivedValue->Fetch()) {
+                                        if($arPropArrivedValue["VALUE"] == "") {
+                                            $change_status = true;
+                                        }
+                                    } else {
+                                        $change_status = true;
+                                    }
+
                                     //Добавим время и отправим письмо
-                                    if (!($arPropArrivedValue = $dbPropArrivedValue->Fetch())) {
+                                    if ($change_status) {
                                         if ($arPropArrived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_ARRIVED"))->Fetch()) {
                                             $arArrivedFields = array(
                                                 "NAME"           => $arPropArrived['NAME'],
@@ -2712,8 +2712,17 @@
                                         )
                                     );
 
+                                    $change_status = false;
+                                    if ($arPropReceivedValue = $dbPropReceivedValue->Fetch()) {
+                                        if($arPropReceivedValue["VALUE"] == "") {
+                                            $change_status = true;
+                                        }
+                                    } else {
+                                        $change_status = true;
+                                    }
+
                                     //Добавим время и отправим письмо
-                                    if (!($arPropReceivedValue = $dbPropReceivedValue->Fetch())) {
+                                    if ($change_status) {
                                         if ($arPropReceived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_RECEIVED"))->Fetch()) {
                                             $arReceivedFields = array(
                                                 "NAME"           => $arPropReceived['NAME'],
