@@ -969,7 +969,6 @@
             <?
                 $today = date("w");
                 $timenow = date("G");
-                arshow($timenow);
                 if ($today == 5) {
                     if ($timenow < 17) {
                         $samovivoz_day = GetMessage("TODAY");
