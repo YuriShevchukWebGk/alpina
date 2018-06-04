@@ -17,7 +17,8 @@ if ($USER->isAdmin()) {?>
 	<a target="_blank" href="checkdelivery/couroutes/">Архив маршрутных листов</a><br /><br />
     <a target="_blank" href="orders/check_preorders.php">Проверить предзаказы</a><br /><br />
     <a target="_blank" href="basket_rules/coupon.php">Создание промо-кодов</a><br /><br />
-	<a target="_blank" href="test2.php">Проставить треки</a><br /><br />
+    <a target="_blank" href="test2.php">Проставить треки</a><br /><br />
+	<a target="_blank" href="sale/sale_add.php">Добавление товаров в правило скидки</a><br /><br />
     
 	
 <?} else {
