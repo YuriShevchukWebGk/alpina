@@ -969,7 +969,7 @@
             <?
                 $today = date("w");
                 $timenow = date("G");
-
+                arshow($timenow);
                 if ($today == 5) {
                     if ($timenow < 17) {
                         $samovivoz_day = GetMessage("TODAY");
@@ -978,12 +978,16 @@
                     }
                 } elseif ($today == 6 || $today == 0) {
                     $samovivoz_day = GetMessage("ON_MONDAY");
-                } elseif ($timenow < 17) {
+                } elseif ($timenow < 17) {      
                     $samovivoz_day = GetMessage("TODAY");
                 } else {
                     $samovivoz_day = GetMessage("TOMORROW");
+                }  
+                if(date('H:i') <= DELIVERY_TIME){
+                    $delivery_day = GetMessage("TODAY");
+                } else {
+                    $delivery_day = $setProps['deliveryDayName'];
                 }
-                $delivery_day = $setProps['deliveryDayName'];
             ?>
 
             <!--<ul class="shippings">
@@ -1112,7 +1116,7 @@
                  <ul class="shippings" data-weight="<?=$weight?>">
                     <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) || $city == "Москва"){
 
-                        if($city == "Москва" || empty($city)){ ?>
+                     //   if($city == "Москва" || empty($city)){ ?>
                             <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
                                 <?= GetMessage("MSK_DELIVERY") ?>
 
@@ -1128,7 +1132,7 @@
 
                             </a> м.Полежаевская <br /><?=$samovivoz_day.' '?><b><?=GetMessage("FREE_DELIVERY_ENDING");?></b>
                             </li>
-                        <?}?>
+                        <?//}?>
                         <?$APPLICATION->IncludeComponent(
                             "altasib:geobase.select.city",
                             "altasib_geobase",
