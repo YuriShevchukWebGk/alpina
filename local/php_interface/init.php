@@ -121,6 +121,7 @@
     define ("ROUTE_STATUS_ID", 'I');  // в пути
     define ("ASSEMBLED_STATUS_ID", 'C');  // собран
     define ("STATUS_UNDER_ORDER", 'PZ');  // под заказ
+    define ("DELIVERY_TIME", '14:00');  // Время 
 
     define ("REISSUE_ID", 218); //ID свойства "Переиздание"
     define ("HIDE_SOON_ID", 357); //ID свойства "Не показывать в скоро в продаже"
