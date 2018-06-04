@@ -2508,7 +2508,7 @@
     AddEventHandler('main', 'OnBeforeEventSend', "DeliveryServiceName");
 
     function DeliveryServiceName (&$arFields, &$arTemplate) {
-        if ($arTemplate["ID"] == 131) {
+        if ($arTemplate["ID"] == 131 || $arTemplate["ID"] == 400) {
             $order_list=CSaleOrder::GetByID($arFields['ORDER_ID']);
             $arFields['HREF']='<a href="https://pochta.ru/tracking#'.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Почты России</a>.';
             if ($order_list['DELIVERY_ID']==17) {
@@ -2519,6 +2519,212 @@
                 $arFields['HREF']='<a href="http://boxberry.ru/tracking/?id='.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Boxberry</a>.';
             }
         }
+    }
+
+    function RussianPostTrackingAgent() {
+        if(CModule::IncludeModule("sale") && CModule::IncludeModule("iblock") && CModule::IncludeModule("main")) {
+            $arFilterOrders = Array (
+                //Временно чтобы не трогать все заказы
+               ">=DATE_INSERT" => "01.05.2018",
+               "STATUS_ID" => "I",
+               "DELIVERY_ID" => array(RUSSIAN_POST_DELIVERY_ID_1, RUSSIAN_POST_DELIVERY_ID_2),
+               "!TRACKING_NUMBER" => false
+            );
+
+            $dbOrders = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterOrders, false, false, array("TRACKING_NUMBER", "ID"));
+            while ($arOrder = $dbOrders->Fetch()) {
+                $arOrdersList[$arOrder["TRACKING_NUMBER"]] = array(
+                    "ID" => $arOrder["ID"]
+                );
+            };
+
+            //Пометим заказы с отправленными сообщениями, иначе никак - придется 3 запросами
+            $arFilterArrivedOrders = $arFilterOrders;
+            $arFilterArrivedOrders["!PROPERTY_VAL_BY_CODE_RUSPOST_ARRIVED"] = false;
+
+            $dbOrdersArrived = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterArrivedOrders, false, false, array("ID", "TRACKING_NUMBER", "PROPERTY_VAL_BY_CODE_RUSPOST_ARRIVED"));
+            while ($arOrderArrived = $dbOrdersArrived->Fetch()) {
+                $arOrdersList[$arOrderArrived["TRACKING_NUMBER"]]["ARRIVED"] = true;
+            };
+
+            //Исключим заказы со статусом "получен"
+            $arFilterExcludeOrders = $arFilterOrders;
+            $arFilterExcludeOrders["!PROPERTY_VAL_BY_CODE_RUSPOST_RECEIVED"] = false;
+
+            $dbOrdersExclude = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterExcludeOrders, false, false, array("ID", "TRACKING_NUMBER", "PROPERTY_VAL_BY_CODE_RUSPOST_RECEIVED"));
+            while ($arOrderExclude = $dbOrdersExclude->Fetch()) {
+                unset($arOrdersList[$arOrderExclude["TRACKING_NUMBER"]]);
+            };
+
+            $get_ticket_xml = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pos="http://fclient.russianpost.org/postserver" xmlns:fcl="http://fclient.russianpost.org">
+               <soapenv:Header/>
+               <soapenv:Body>
+                  <pos:ticketRequest>
+                     <request>';
+            foreach($arOrdersList as $trackingNumber => $order) {
+                $get_ticket_xml .= '<fcl:Item Barcode="'.$trackingNumber.'"></fcl:Item>';
+            }
+            $get_ticket_xml .= '</request>
+                     <login>'.RUSSIAN_POST_TRACKING_LOGIN.'</login>
+                     <password>'.RUSSIAN_POST_TRACKING_PASSWORD.'</password>
+                     <language>RUS</language>
+                  </pos:ticketRequest>
+               </soapenv:Body>
+            </soapenv:Envelope>';
+
+
+            $headers = array("Content-Type:	text/xml; charset=utf-8");
+            $url = "https://tracking.russianpost.ru/fc/";
+
+            $ch_get_ticket = curl_init();
+            curl_setopt($ch_get_ticket, CURLOPT_URL, $url);
+            curl_setopt($ch_get_ticket, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch_get_ticket, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch_get_ticket, CURLOPT_POST, true);
+            curl_setopt($ch_get_ticket, CURLOPT_POSTFIELDS, $get_ticket_xml);
+            curl_setopt($ch_get_ticket, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch_get_ticket, CURLOPT_ENCODING, "UTF-8");
+
+            $soap_result_get_ticket = curl_exec($ch_get_ticket);
+
+            if (!curl_errno($soap_result_get_ticket)) {
+                $response_ticket_xml = simplexml_load_string($soap_result_get_ticket);
+
+                $response_ticket_xml->registerXPathNamespace('S',   'http://schemas.xmlsoap.org/soap/envelope/');
+                $response_ticket_xml->registerXPathNamespace('ns2', 'http://fclient.russianpost.org/postserver');
+                $response_ticket_xml->registerXPathNamespace('ns3', 'http://fclient.russianpost.org');
+
+                foreach ($response_ticket_xml->xpath('//ns2:ticketResponse') as $ticketResponse) {
+                    $ticket = strval($ticketResponse->value);
+                }
+            }
+
+            curl_close($ch_get_ticket);
+
+            if(strlen($ticket) > 0) {
+
+                //Почта России сначала генерирует тикет, на составление которого требуется время, после этого мы обращаемся к содержимому по этому тикету. Без интервала будет ошибка что тикет еще не готов
+                sleep(20);
+
+                $get_response_xml = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pos="http://fclient.russianpost.org/postserver">
+                    <soapenv:Header/>
+                    <soapenv:Body>
+                        <pos:answerByTicketRequest>
+                            <ticket>'.$ticket.'</ticket>
+                            <login>'.RUSSIAN_POST_TRACKING_LOGIN.'</login>
+                            <password>'.RUSSIAN_POST_TRACKING_PASSWORD.'</password>
+                        </pos:answerByTicketRequest>
+                    </soapenv:Body>
+                </soapenv:Envelope>';
+
+                $ch_get_response = curl_init();
+                curl_setopt($ch_get_response, CURLOPT_URL, $url);
+                curl_setopt($ch_get_response, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch_get_response, CURLOPT_FOLLOWLOCATION, true);
+                curl_setopt($ch_get_response, CURLOPT_POST, true);
+                curl_setopt($ch_get_response, CURLOPT_POSTFIELDS, $get_response_xml);
+                curl_setopt($ch_get_response, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch_get_response, CURLOPT_ENCODING, "UTF-8");
+
+                $soap_result_get_response = curl_exec($ch_get_response);
+
+
+                if (!curl_errno($ch_get_response)) {
+                    $response_xml = simplexml_load_string($soap_result_get_response);
+
+                    $response_xml->registerXPathNamespace('S',   'http://schemas.xmlsoap.org/soap/envelope/');
+                    $response_xml->registerXPathNamespace('ns2', 'http://fclient.russianpost.org/postserver');
+                    $response_xml->registerXPathNamespace('ns3', 'http://fclient.russianpost.org');
+
+                    foreach ($response_xml->xpath('//ns3:Item') as $Item) {
+
+                        $operTypeID = 0;
+                        $operCtgID  = 0;
+                        $barcode    = "";
+                        $DateOper   = "";
+
+                        if(isset($Item['Barcode'])) {
+
+                            //Попробуем пока без сортировки и без всех элементов, Почта России и так возвращает отсортированные данные
+                            /*foreach ($Item->xpath('ns3:Operation') as $Operation) {
+                                $arOperations[$barcode][] = array(
+                                    "DateOper"   => (string) $Operation["DateOper"],
+                                    "OperName"   => (string) $Operation["OperName"],
+                                    "OperTypeID" => (int) $Operation["OperTypeID"],
+                                    "OperCtgID"  => (int) $Operation["OperCtgID"]
+                                );
+                            }*/
+
+                            $barcode    = (string) $Item['Barcode'];
+                            $orderID    = intval($arOrdersList[$barcode]["ID"]);
+
+                            $operTypeID = (int) $Item->xpath('ns3:Operation')[0]["OperTypeID"];
+                            $operCtgID  = (int) $Item->xpath('ns3:Operation')[0]["OperCtgID"];
+                            $DateOper   = (string) $Item->xpath('ns3:Operation')[0]["DateOper"];
+
+                            if(!empty($arOrdersList[$barcode]) && $orderID > 0) {
+                                //Посылка прибыла в место вручения
+                                if($operTypeID == 8 && $operCtgID == 2 && strlen($DateOper) > 0 && !$arOrdersList[$barcode]["ARRIVED"]) {
+
+                                    //Проверим заполнено ли свойство с датой доставки, если да выход
+                                    $dbPropArrivedValue = CSaleOrderPropsValue::GetList(
+                                        array("SORT" => "ASC"),
+                                        array(
+                                            "ORDER_ID" => $orderID,
+                                            "CODE"     => "RUSPOST_ARRIVED"
+                                        )
+                                    );
+
+                                    //Добавим время и отправим письмо
+                                    if (!($arPropArrivedValue = $dbPropArrivedValue->Fetch())) {
+                                        if ($arPropArrived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_ARRIVED"))->Fetch()) {
+                                            $arArrivedFields = array(
+                                                "NAME"           => $arPropArrived['NAME'],
+                                                "CODE"           => $arPropArrived['CODE'],
+                                                "ORDER_PROPS_ID" => $arPropArrived['ID'],
+                                                'ORDER_ID'       => $orderID,
+                                                "VALUE"          => $DateOper
+                                            );
+                                        }
+                                        if(CSaleOrderPropsValue::Add($arArrivedFields)) {
+                                            CSaleOrder::StatusOrder($orderID, "AR");
+                                        };
+                                    }
+
+                                } elseif($operTypeID == 1 && $operCtgID == 2 && strlen($DateOper) > 0) {
+                                //Посылка принята
+                                    //Проверим заполнено ли свойство с датой доставки, если да выход
+                                    $dbPropReceivedValue = CSaleOrderPropsValue::GetList(
+                                        array("SORT" => "ASC"),
+                                        array(
+                                            "ORDER_ID" => $orderID,
+                                            "CODE"     => "RUSPOST_RECEIVED"
+                                        )
+                                    );
+
+                                    //Добавим время и отправим письмо
+                                    if (!($arPropReceivedValue = $dbPropReceivedValue->Fetch())) {
+                                        if ($arPropReceived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_RECEIVED"))->Fetch()) {
+                                            $arReceivedFields = array(
+                                                "NAME"           => $arPropReceived['NAME'],
+                                                "CODE"           => $arPropReceived['CODE'],
+                                                "ORDER_PROPS_ID" => $arPropReceived['ID'],
+                                                'ORDER_ID'       => $orderID,
+                                                "VALUE"          => $DateOper
+                                            );
+                                        }
+                                        if(CSaleOrderPropsValue::Add($arReceivedFields)) {
+                                            CSaleOrder::StatusOrder($orderID, "F");
+                                        };
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return "RussianPostTrackingAgent();";
     }
 
     // --- couriers popup in admin
@@ -3247,7 +3453,7 @@
         'HLBlockElementUpdate'
     );
     function HLBlockElementUpdate(Bitrix\Main\Event $arElement){
-        
+
         if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
             if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){
                 $arSelect = Array("ID", "NAME", "IBLOCK_ID", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN", "PROPERTY_IGNORE_SEARCH_INDEX");
