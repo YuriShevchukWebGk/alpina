@@ -136,7 +136,7 @@
     define ("ADMIN_GROUP_ID", 1);
     define ("ECOM_ADMIN_GROUP_ID", 6);
     define ("GIFT_BAG_EXHIBITION", 331); // правило корзины Подарок: сумка с выставки ММКВЯ 2017
-    define ("SALE_POPULAR_ELEMENT", 941); // свойство для обновления популярной книги
+    define ("SALE_POPULAR_ELEMENT", 958); // свойство для обновления популярной книги
     define ("SHOW_ALWAYS_PROP_VALUE_ID", 15); // ID значения "Да" пользовательского поля "Показывать постоянно" для подборок на главной
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209); // ID раздела "Подборки книг на главной" инфоблока книг
 
@@ -3718,12 +3718,12 @@ function AddBasketRule() {
     }
 
     $id_favorite = $arrFilter["ID"][rand(0,5)];
-
+    
     $db_enum_list = CIBlockProperty::GetPropertyEnum(SALE_POPULAR_ELEMENT, Array(), Array());
     while($ar_enum_list = $db_enum_list->GetNext()) {
       $ar_prop[] = $ar_enum_list["VALUE"];
     }
-
+   
     if(is_array($ar_prop)){
       foreach($ar_prop as $prop){
         $arFields["VALUES"][] = Array(
@@ -3746,7 +3746,7 @@ function AddBasketRule() {
           "SORT" => "100"
           );
     }
-
+    
     $ibp = new CIBlockProperty;
     if(!$ibp->Update(SALE_POPULAR_ELEMENT, $arFields))
         echo $ibp->LAST_ERROR;
