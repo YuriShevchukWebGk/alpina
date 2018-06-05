@@ -146,7 +146,7 @@ foreach ($prints as $print) {
 //var_export($result);
 ?>
 <!DOCTYPE html>
-<html> 
+<html>
 <head>
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -243,7 +243,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			Спутники фотографируют поверхность Земли с высоты в 400 км с минимальными перспективными искажениями создавая произведения исскуства, которыми мы хотим с вами поделиться.
 		</div>
 	</div>
-	
+
 </div>
 <div class="t-cover__filter" style="height:60vh;background-image: -moz-linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));background-image: -o-linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));background-image: -ms-linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));background-image: linear-gradient(top, rgba(0,0,0,0.0), rgba(0,0,0,0.0));filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fe000000', endColorstr='#fe000000');">
 </div>
@@ -290,27 +290,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		<?foreach ($prints as $print) {?>
 			<?switch($print['ratio']) {
 				case "1:1":
-					$minPrice = "1040 ₽";
+					$minPrice = "784 ₽";
 					break;
 				case "1:2":
 				case "2:1":
-					$minPrice = "2160 ₽";
+					$minPrice = "784 ₽";
 					break;
 				case "2:3":
 				case "3:2":
-					$minPrice = "1900 ₽";
+					$minPrice = "1176 ₽";
 					break;
 				case "3:4":
 				case "4:3":
-					$minPrice = "1520 ₽";
-					break;
+					/*$minPrice = "1520 ₽";
+					break;*/
 				case "4:5":
 				case "5:4":
-					$minPrice = "2600 ₽";
+					$minPrice = "1176 ₽";
 					break;
 				case "3:5":
 				case "5:3":
-					$minPrice = "1950 ₽";
+					$minPrice = "728 ₽";
 					break;
 			}?>
 
@@ -377,7 +377,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t214">
 <div class="t-container">
 <div class="t-row">
-	<?/* <center><h2>Постер на холсте</h2></center><br /><br />
+<center><h2>Постер на холсте</h2></center><br /><br />
 <div class="t-col t-col_4" style="margin-bottom:20px;" itemscope itemtype="http://schema.org/ImageObject">
 <div class="t214__blockimg t-bgimg" bgimgfield="gi_img__0" data-zoom-target="0" data-original="img/tild3739-6431-4134-b537-376339333635/1.jpg" style="background: url('img/tild3739-6431-4134-b537-376339333635/-/resize/20x/1.jpg') center center no-repeat; background-size:cover;">
 <meta itemprop="image" content="img/tild3739-6431-4134-b537-376339333635/1.jpg">
@@ -404,7 +404,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ol>
 <br />
 <h3>Сроки изготовления</h3><br />
-От 12 дней 
+От 12 дней
 */?>
 </div>
 </div>
@@ -546,16 +546,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t744__title t-name t-name_xl js-product-name" field="title" style="">ЛАГУНА ШАДЕГАН</div>
 <div class="t744__title_small t-descr t-descr_xxs js-product-sku" field="title2" style="">30·327274°, 48·829255°</div>
 </div>
-<?/*<div class="t-product__option js-product-option">
+<div class="t-product__option js-product-option">
 <div class="t-product__option-title t-descr t-descr_xxs js-product-option-name">Тип печати</div>
 <div class="t-product__option-variants">
 <select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants print-type">
 <option value="Постер">Постер</option>
 <option value="Холст">Холст</option>
-<option value="Пластификация">Пластификация</option>
+<?//<option value="Пластификация">Пластификация</option>?>
 </select>
 </div>
-</div>*/?>
+</div>
 так же по телефону <a href="tel:74951200704">+7 495 120 0704</a> можно заказать печать на холсте и пластификацию
 <div class="t-product__option js-product-option">
 <div class="t-product__option-title t-descr t-descr_xxs js-product-option-name format" >Формат 2:3</div>
@@ -570,11 +570,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 <div class="t-product__option js-product-option">
-<div class="t-product__option-title t-descr t-descr_xxs js-product-option-name" >Заказать печать карточки с информацией о фотографии</div>
+<div class="t-product__option-title t-descr t-descr_xxs js-product-option-name" >Упаковка в картонный тубус</div>
 <div class="t-product__option-variants">
 <select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants card">
 <option value="N" data-product-variant-price="">нет</option>
-<option value="Y" data-product-variant-price="+100">да (+100 руб.)</option>
+<option value="Y" data-product-variant-price="+300">да (+300 руб.)</option>
 </select>
 </div>
 <div class="t744__price-wrapper" style="margin-top:20px">
@@ -682,7 +682,7 @@ $(document).ready(function(){
     $(".certificate_popup").hide();
     $('.layout').hide();
   });
-	
+
 	$("div[data-slide-index='1'] .t-bgimg").data("original","img/_10.jpg").css("background-image","url(img/_10.jpg)");
 	$("div[data-slide-index='2'] .t-bgimg").data("original","img/_10_1.jpg").css("background-image","url(img/_10_1.jpg)");
 	$("div[data-slide-index='3'] .t-bgimg").data("original","img/_10_2.jpg").css("background-image","url(img/_10_2.jpg)");
@@ -715,7 +715,7 @@ $(document).ready(function(){
 			var natural_person_name = $("#natural_name").val();
 			var natural_person_phone = $("#natural_phone").val();
 
-			
+
       $.ajax({
         url: '/ajax/ajax_create_overview_print_order.php',
         type: "POST",
@@ -748,12 +748,12 @@ $(document).ready(function(){
       });
     }
   }
-	
+
 	<?if ($_GET["buy"]) {
 		$get = $prints[$_GET["buy"]-1];?>
 		buy(<?=$get["id"]?>,"<?echo !empty($get['rus']) ? $get['rus'] : $get['name']?>","<?=$get["description"]?>","<?=$get["coordinates"]?>","<?=$get["ratio"]?>");
 	<?}?>
-	
+
 	function buy(id,name,description,place,ratio) {
 		//id = location.hash.slice(1);
 		$(".js-product-name").text(name);
@@ -761,30 +761,30 @@ $(document).ready(function(){
 		$(".t744__descr").text(description);
 		$(".format").text("Формат "+ratio);
 		$(".js-product-price").text("");
-		
+
 		switch (ratio) {
 			case "1:1":
-				format = "<option value='30x30см' data-product-variant-price='1040 ₽'>30x30см</option><option value='60x60см' data-product-variant-price='2080 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='3800 ₽'>90x90см</option>";
+				format = "<option value='30x30см' data-product-variant-price='784 ₽'>30x30см</option><option value='60x60см' data-product-variant-price='1344 ₽'>60x60см</option><option value='90x90см' data-product-variant-price='1540 ₽'>90x90см</option>";
 				break;
 			case "1:2":
 			case "2:1":
-				format = "<option value='30x60см' data-product-variant-price='2160 ₽'>30x60см</option><option value='45x90см' data-product-variant-price='2400 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='3600 ₽'>60x120см</option>";
+				format = "<option value='30x60см' data-product-variant-price='784 ₽'>30x60см</option><option value='45x90см' data-product-variant-price='924 ₽'>45x90см</option><option value='60x120см' data-product-variant-price='1344 ₽'>60x120см</option>";
 				break;
 			case "2:3":
 			case "3:2":
-				format = "<option value='30x45см' data-product-variant-price='1900 ₽'>30x45см</option><option value='60x90см' data-product-variant-price='2800 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='41950 ₽'>90x135см</option>";
+				format = "<option value='30x45см' data-product-variant-price='1176 ₽'>30x45см</option><option value='60x90см' data-product-variant-price='1568 ₽'>60x90см</option><option value='90x135см' data-product-variant-price='2940 ₽'>90x135см</option>";
 				break;
 			case "3:4":
 			case "4:3":
-				format = "<option value='30x40' data-product-variant-price='1520 ₽'>30x40</option><option value='60x80' data-product-variant-price='2330 ₽'>60x80</option>";
-				break;
+				/*format = "<option value='30x40' data-product-variant-price='1520 ₽'>30x40</option><option value='60x80' data-product-variant-price='2330 ₽'>60x80</option>";
+				break;*/
 			case "4:5":
 			case "5:4":
-				format = "<option value='40x50см' data-product-variant-price='2600 ₽'>40x50см</option><option value='60x75см' data-product-variant-price='2600 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='3700 ₽'>80x100см</option>";
+				format = "<option value='40x50см' data-product-variant-price='1176 ₽'>40x50см</option><option value='60x75см' data-product-variant-price='1568 ₽'>60x75см</option><option value='80x100см' data-product-variant-price='2940 ₽'>80x100см</option>";
 				break;
 			case "3:5":
 			case "5:3":
-				format = "<option value='30x50см' data-product-variant-price='1950 ₽'>30x50см</option><option value='60x100см' data-product-variant-price='3200 ₽'>60x100см</option>";
+				format = "<option value='30x50см' data-product-variant-price='728 ₽'>30x50см</option><option value='60x100см' data-product-variant-price='1204 ₽'>60x100см</option>";
 				break;
 			default:
 				format = "Saturday";
@@ -795,7 +795,7 @@ $(document).ready(function(){
 		$(".t744").slideDown();
 		$('html, body').animate({ scrollTop: $("#rec38167909").offset().top }, 1900);
 		$(".print-type").val("Постер");
-		
+
 		function switchIt() {
 			$("div[data-slide-index='1'] .t-bgimg").data("original","img/_"+id+".jpg").css("background-image","url(img/_"+id+".jpg)");
 			$("div[data-slide-index='2'] .t-bgimg").data("original","img/_"+id+"_1.jpg").css("background-image","url(img/_"+id+"_1.jpg)");
@@ -803,7 +803,7 @@ $(document).ready(function(){
 		}
 		setTimeout(switchIt, 1400);
 	}
-	
+
 	$(".card").change(function() {
 		var printcard = $(".card option:selected").val();
 		var price = parseInt($(".js-product-price").text());
@@ -818,7 +818,7 @@ $(document).ready(function(){
 				break;
 		}
 	});
-		
+
 	$(".print-type").change(function() {
 		var printtype = $(".print-type option:selected").text();
 		var ratio = $(".format").text().slice(-3);
@@ -856,27 +856,27 @@ $(document).ready(function(){
 			case "Холст":
 				switch (ratio) {
 					case "1:1":
-						format = "<option value='30х30см' data-product-variant-price='1252 ₽'>30х30см</option><option value='60х60см' data-product-variant-price='8375 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='14250 ₽'>90х90см</option>";
+						format = "<option value='30х30см' data-product-variant-price='1484 ₽'>30х30см</option><option value='60х60см' data-product-variant-price='2380 ₽'>60х60см</option><option value='90х90см' data-product-variant-price='3024 ₽'>90х90см</option>";
 						break;
 					case "1:2":
 					case "2:1":
-						format = "<option value='30х60см' data-product-variant-price='6000 ₽'>30х60см</option><option value='45х90см' data-product-variant-price='9250 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='141950 ₽'>60х120см</option>";
+						format = "<option value='30х60см' data-product-variant-price='1316 ₽'>30х60см</option><option value='45х90см' data-product-variant-price='1624 ₽'>45х90см</option><option value='60х120см' data-product-variant-price='2380 ₽'>60х120см</option>";
 						break;
 					case "2:3":
 					case "3:2":
-						format = "<option value='30х45см' data-product-variant-price='2800 ₽'>30х45см</option><option value='60х90см' data-product-variant-price='11400 ₽'>60х90см</option><option value='90х135см' data-product-variant-price='15500 ₽'>90х135см</option>";
+						format = "<option value='30х45см' data-product-variant-price='1960 ₽'>30х45см</option><option value='60х90см' data-product-variant-price='2716 ₽'>60х90см</option><option value='90х135см' data-product-variant-price='2800 ₽'>90х135см</option>";
 						break;
 					case "3:4":
 					case "4:3":
-						format = "<option value='30x40' data-product-variant-price='4250 ₽'>30x40</option><option value='60x80'  data-product-variant-price='19500 ₽'>60x80</option>";
-						break;
+						/*format = "<option value='30x40' data-product-variant-price='4250 ₽'>30x40</option><option value='60x80'  data-product-variant-price='19500 ₽'>60x80</option>";
+						break;*/
 					case "4:5":
 					case "5:4":
-						format = "<option value='40х50см' data-product-variant-price='3800 ₽'>40х50см</option><option value='60х75см' data-product-variant-price='12250 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='119500 ₽'>80х100см</option>";
+						format = "<option value='40х50см' data-product-variant-price='1876 ₽'>40х50см</option><option value='60х75см' data-product-variant-price='2716 ₽'>60х75см</option><option value='80х100см' data-product-variant-price='2800 ₽'>80х100см</option>";
 						break;
 					case "3:5":
 					case "5:3":
-						format = "<option value='30х50см' data-product-variant-price='3625 ₽'>30х50см</option><option value='60х100см' data-product-variant-price='8750 ₽'>60х100см</option>";
+						format = "<option value='30х50см' data-product-variant-price='1484 ₽'>30х50см</option><option value='60х100см' data-product-variant-price='2212 ₽'>60х100см</option>";
 						break;
 					default:
 						format = "Saturday";
@@ -917,10 +917,10 @@ $(document).ready(function(){
 				format = "Saturday";
 				break;
 		}
-		
+
 		$(".format-options").html("<option value=''>Выберите размер</option>"+format);
 	});
-	
+
 	function order() {
 		var price = parseInt($(".js-product-price").text());
 
@@ -932,7 +932,7 @@ $(document).ready(function(){
 		}
 		$(".certificate_popup").fadeIn();
 	}
-	
+
 </script>
 </body>
 </html>
