@@ -6,7 +6,7 @@
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
     //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
 
-//    file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
+//  file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
     file_exists('/var/www/alpinabook.ru/vendor/autoload.php') ? require '/var/www/alpinabook.ru/vendor/autoload.php' : "";
     use Mailgun\Mailgun;
 
@@ -2526,7 +2526,7 @@
         if(CModule::IncludeModule("sale") && CModule::IncludeModule("iblock") && CModule::IncludeModule("main")) {
             $arFilterOrders = Array (
                 //Временно чтобы не трогать все заказы
-               ">=DATE_INSERT" => "01.05.2018",
+               ">=DATE_INSERT" => "01.01.2018",
                "STATUS_ID" => "I",
                "DELIVERY_ID" => array(RUSSIAN_POST_DELIVERY_ID_1, RUSSIAN_POST_DELIVERY_ID_2),
                "!TRACKING_NUMBER" => false
@@ -2675,27 +2675,24 @@
                                         )
                                     );
 
-
-                                    $change_status = false;
-                                    if ($arPropArrivedValue = $dbPropArrivedValue->Fetch()) {
-                                        if($arPropArrivedValue["VALUE"] == "") {
-                                            $change_status = true;
-                                        }
-                                    } else {
-                                        $change_status = true;
+                                    //Добавим время и отправим письмо
+                                    if ($arPropArrived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_ARRIVED"))->Fetch()) {
+                                        $arArrivedFields = array(
+                                            "NAME"           => $arPropArrived['NAME'],
+                                            "CODE"           => $arPropArrived['CODE'],
+                                            "ORDER_PROPS_ID" => $arPropArrived['ID'],
+                                            'ORDER_ID'       => $orderID,
+                                            "VALUE"          => $DateOper
+                                        );
                                     }
 
-                                    //Добавим время и отправим письмо
-                                    if ($change_status) {
-                                        if ($arPropArrived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_ARRIVED"))->Fetch()) {
-                                            $arArrivedFields = array(
-                                                "NAME"           => $arPropArrived['NAME'],
-                                                "CODE"           => $arPropArrived['CODE'],
-                                                "ORDER_PROPS_ID" => $arPropArrived['ID'],
-                                                'ORDER_ID'       => $orderID,
-                                                "VALUE"          => $DateOper
-                                            );
+                                    if ($arPropArrivedValue = $dbPropArrivedValue->Fetch()) {
+                                        if($arPropArrivedValue["VALUE"] == "") {
+                                            if(CSaleOrderPropsValue::Update($arPropArrivedValue["ID"], $arArrivedFields)) {
+                                                CSaleOrder::StatusOrder($orderID, "AR");
+                                            };
                                         }
+                                    } else {
                                         if(CSaleOrderPropsValue::Add($arArrivedFields)) {
                                             CSaleOrder::StatusOrder($orderID, "AR");
                                         };
@@ -2712,26 +2709,24 @@
                                         )
                                     );
 
-                                    $change_status = false;
-                                    if ($arPropReceivedValue = $dbPropReceivedValue->Fetch()) {
-                                        if($arPropReceivedValue["VALUE"] == "") {
-                                            $change_status = true;
-                                        }
-                                    } else {
-                                        $change_status = true;
+                                    //Добавим время и отправим письмо
+                                    if ($arPropReceived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_RECEIVED"))->Fetch()) {
+                                        $arReceivedFields = array(
+                                            "NAME"           => $arPropReceived['NAME'],
+                                            "CODE"           => $arPropReceived['CODE'],
+                                            "ORDER_PROPS_ID" => $arPropReceived['ID'],
+                                            'ORDER_ID'       => $orderID,
+                                            "VALUE"          => $DateOper
+                                        );
                                     }
 
-                                    //Добавим время и отправим письмо
-                                    if ($change_status) {
-                                        if ($arPropReceived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_RECEIVED"))->Fetch()) {
-                                            $arReceivedFields = array(
-                                                "NAME"           => $arPropReceived['NAME'],
-                                                "CODE"           => $arPropReceived['CODE'],
-                                                "ORDER_PROPS_ID" => $arPropReceived['ID'],
-                                                'ORDER_ID'       => $orderID,
-                                                "VALUE"          => $DateOper
-                                            );
+                                    if ($arPropReceivedValue = $dbPropReceivedValue->Fetch()) {
+                                        if($arPropReceivedValue["VALUE"] == "") {
+                                            if(CSaleOrderPropsValue::Update($arPropReceivedValue["ID"], $arReceivedFields)) {
+                                                CSaleOrder::StatusOrder($orderID, "F");
+                                            };
                                         }
+                                    } else {
                                         if(CSaleOrderPropsValue::Add($arReceivedFields)) {
                                             CSaleOrder::StatusOrder($orderID, "F");
                                         };

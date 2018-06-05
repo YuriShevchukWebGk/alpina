@@ -226,16 +226,16 @@
 <div class="categories">
     <ul class="firstLevel">
         <?foreach ($arResult["SECTIONS"] as $arSection)
-            {   
+            {
                 if ($arSection["DEPTH_LEVEL"]=="1" && $arSection["ID"]!="209")
                 {?>
                     <li><a href="<?=$arSection["SECTION_PAGE_URL"]?>"><p><?=$arSection["NAME"]?></p></a>
                 <?}?>
                 <?if ($arSection["ID"] == "141") { //Если подарочные издания?>
-                 <?/*   <ul class="secondLevel">
+                    <ul class="secondLevel">
                         <li><a href="/content/overview/"><p>Постеры для дома и офиса</p></a></li>
                     </ul>
-                <?*/}?>
+                <?}?>
                 <?foreach ($arResult["SECTIONS"] as $arChildSection)
                     {?>
                     <?if ($arChildSection["IBLOCK_SECTION_ID"]==$arSection["ID"])
@@ -255,8 +255,8 @@
     $(".firstLevel li a").click(function(e){
         e.preventDefault();
         if ((!$(this).next("ul.secondLevel").find("li a").attr("href")) || ($(this).next("ul.secondLevel").css("display") != "none"))
-        {  
-            document.location.href = $(this).attr("href");    
+        {
+            document.location.href = $(this).attr("href");
         }
-    });          
+    });
 </script>
