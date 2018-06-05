@@ -982,11 +982,24 @@
                 } else {
                     $samovivoz_day = GetMessage("TOMORROW");
                 }  
-                if(date('H:i') <= DELIVERY_TIME){
+                
+                $date = date_create(date('j.n.Y'));
+                $date->modify('+1 day');
+                $new_today = $date->format('j.n.Y'); // выводим дату завтрашнего дня
+                if(in_array(date('j.n.Y'), $arResult["CLOSE_DATE"]) && !in_array($new_today, $arResult["CLOSE_DATE"])) {
+                    $delivery_day = $setProps['deliveryDayName'];
+                } else if(in_array($new_today, $arResult["CLOSE_DATE"])){
+                    $delivery_day = 'hide';
+                } else if(in_array(date('j.n.Y'), $arResult["OPEN_DATE"])){
                     $delivery_day = GetMessage("TODAY");
                 } else {
-                    $delivery_day = $setProps['deliveryDayName'];
+                    if(date('H:i') <= DELIVERY_TIME){
+                        $delivery_day = GetMessage("TODAY");
+                    } else {
+                        $delivery_day = $setProps['deliveryDayName'];
+                    }
                 }
+
             ?>
 
             <!--<ul class="shippings">
@@ -1085,6 +1098,7 @@
                 } else {
                     $country = $_SESSION["ALTASIB_GEOBASE"]["COUNTRY_CODE"];
                 }
+
                 ?>
                 <?/*?>
                  <ul class="shippings" data-weight="<?=$weight?>">
@@ -1116,16 +1130,18 @@
                     <?if(empty($_SESSION["ALTASIB_GEOBASE_CODE"]) || $city == "Москва"){
 
                         if($city == "Москва" || empty($city)){ ?>
-                            <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
-                                <?= GetMessage("MSK_DELIVERY") ?>
-
-                            </a> по Москве <br /><?=$delivery_day.' '?>
-                            <b><?if($arBasketPrice > FREE_SHIPING){
-                                echo GetMessage("FREE_DELIVERY_ENDING");
-                            } else {
-                                echo GetMessage("DELIVERY_POST");
-                            }?></b>
-                            </li>
+                            <?if($delivery_day != 'hide'){?>
+                                <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
+                                    <?= GetMessage("MSK_DELIVERY") ?>
+                                
+                                    </a> по Москве <br /><?=$delivery_day.' '?>
+                                    <b><?if($arBasketPrice > FREE_SHIPING){
+                                        echo GetMessage("FREE_DELIVERY_ENDING");
+                                    } else {
+                                        echo GetMessage("DELIVERY_POST");
+                                    }?></b>
+                                </li>
+                            <?}?>
                             <li><a href='#' onclick="getInfo('pickup');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'pickup'});return false;">
                                 <?= GetMessage("PICKUP_MSK_DELIVERY") ?>
 

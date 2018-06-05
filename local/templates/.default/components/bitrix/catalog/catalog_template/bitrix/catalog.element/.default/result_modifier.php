@@ -970,4 +970,18 @@ if ($arResult['MODULES']['currency'])
 		$arResult["THIRD_PICTURE"] = CFile::ResizeImageGet($arResult["PROPERTIES"]["third_book_img"]["VALUE"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 		$arResult["THIRD_PICTURE"] = $arResult["THIRD_PICTURE"]['src'];
 	} 
+    $object_date_close = CIBlockElement::GetList (
+       Array("RAND" => "ASC"),
+       Array("IBLOCK_ID" => IBLOCK_ID_DATE_DELIVERY_MOSCOW),
+       false,
+       false,
+       array("NAME", "CODE")
+    );   
+    while ($date_close = $object_date_close->Fetch()) {
+        if($date_close["CODE"] == "close"){
+            $arResult["CLOSE_DATE"] = explode(', ', $date_close["NAME"]);     // вытаскивает закрытые даты доставки
+        } else {
+            $arResult["OPEN_DATE"] = explode(', ', $date_close["NAME"]);   // вытаскивает открытые даты доставки
+        }
+    }
 ?>
