@@ -547,16 +547,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="t744__title_small t-descr t-descr_xxs js-product-sku" field="title2" style="">30·327274°, 48·829255°</div>
 </div>
 <div class="t-product__option js-product-option">
-<div class="t-product__option-title t-descr t-descr_xxs js-product-option-name">Тип печати</div>
+<div class="t-product__option-title t-descr t-descr_xxs js-product-option-name">Материал</div>
 <div class="t-product__option-variants">
 <select class="t-product__option-select t-descr t-descr_xxs js-product-option-variants print-type">
-<option value="Постер">Постер</option>
+<option value="Постер">Бумага</option>
 <option value="Холст">Холст</option>
 <?//<option value="Пластификация">Пластификация</option>?>
 </select>
 </div>
 </div>
-так же по телефону <a href="tel:74951200704">+7 495 120 0704</a> можно заказать печать на холсте и пластификацию
+<?/*так же по телефону <a href="tel:74951200704">+7 495 120 0704</a> можно заказать печать на холсте и пластификацию*/?>
 <div class="t-product__option js-product-option">
 <div class="t-product__option-title t-descr t-descr_xxs js-product-option-name format" >Формат 2:3</div>
 <div class="t-product__option-variants">

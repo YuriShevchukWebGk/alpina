@@ -2698,7 +2698,7 @@
                                         };
                                     }
 
-                                } elseif($operTypeID == 2 && $operCtgID == 1 && strlen($DateOper) > 0) {
+                                } elseif($operTypeID == 2 && strlen($DateOper) > 0) {
                                 //Посылка принята
                                     //Проверим заполнено ли свойство с датой доставки, если да выход
                                     $dbPropReceivedValue = CSaleOrderPropsValue::GetList(
