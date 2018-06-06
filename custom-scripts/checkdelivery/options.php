@@ -58,12 +58,12 @@ foreach ($days as $no => $day) {
     while ($arSales = $rsSales->Fetch()) {
         $i++;
     }
-	
+    
     if ($i >= $limit && $no > 0) {
         $setProps['nextDay']++;
     } else {
-		break;
-	}
+        break;
+    }
 }
 
 $dateIsSet = false;

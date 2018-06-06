@@ -88,12 +88,28 @@
 
 
 <?
+$object_date_close = CIBlockElement::GetList (
+   Array("RAND" => "ASC"),
+   Array("IBLOCK_ID" => IBLOCK_ID_DATE_DELIVERY_MOSCOW),
+   false,
+   false,
+   array("NAME", "CODE")
+);   
+global $close_date;
+global $open_date;
+while ($date_close = $object_date_close->Fetch()) {
+    if($date_close["CODE"] == "close"){
+        $close_date = explode(', ', $date_close["NAME"]);     // вытаскивает закрытые даты доставки
+    } else {
+        $open_date = explode(', ', $date_close["NAME"]);   // вытаскивает открытые даты доставки
+    }
+}
 // получение количества дней с которого возможна доставка
 $datetime1 = new DateTime(date("d.m.Y"));
 $datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));
 $interval = date_diff($datetime1, $datetime2)->format('%a');
-
-$holidays .= ',30.4.2018,7.5.2018,8.5.2018,10.5.2018';
+ 
+$holidays .= ','.implode(',',$close_date);
 
 function date_deactive(){    // ограничение вывода доставок в праздничные дни
     $date_deactive = array('28.04.2018','29.04.2018', '30.04.2018', '01.05.2018', '05.05.2018', '07.05.2018, 09.05.2018');
@@ -218,17 +234,30 @@ function date_deactive(){    // ограничение вывода достав
            deleteDateId("ORDER_PROP_45");  */
 		   
         //календарь
-		var disabledDates = "<?=$holidays?>";
-		disabledDates = disabledDates.toString().split(',');
-	    
+        var disabledDates = "<?=$holidays?>";
+		var enabledDates = "<?=implode(',',$open_date)?>";
+        disabledDates = disabledDates.toString().split(',');
+		enabledDates = enabledDates.toString().split(',');
+
+   
         function disableSpecificDaysAndWeekends(date) {
-            var noWeekend = $.datepicker.noWeekends(date);
-			if (noWeekend[0]) {
+            var dd = date.getDate();
+            var mm = date.getMonth() + 1;
+            var yyyy = date.getFullYear();
+            
+            changeDate_open = dd + '.' + mm + '.' + yyyy;
+
+            if(enabledDates.indexOf( changeDate_open.toString() ) == -1 ){  // открываем возможность выбора даты
+                var noWeekend = $.datepicker.noWeekends(date);
                 
-				return editDays(date);
-			} else {
-				return noWeekend;
-			}
+                if (noWeekend[0]) {
+                    return editDays(date);
+                } else {
+                    return noWeekend;
+                }   
+            } else {
+               return [true];   // возвращаем true
+            }
         }
 		function editDays(date) {
 			var dd = date.getDate();
@@ -236,7 +265,7 @@ function date_deactive(){    // ограничение вывода достав
 			var yyyy = date.getFullYear();
 			
 			changeDate = dd + '.' + mm + '.' + yyyy;
-
+            
 			for (var i = 0; i < disabledDates.length; i++) {
 				if (disabledDates[i] == changeDate.toString()) {
 					 return [false];
@@ -247,16 +276,19 @@ function date_deactive(){    // ограничение вывода достав
         
         function discount_day(day, now_todey){
             now_todey.setDate(now_todey.getDate() + day);
-            if(editDays(now_todey)){
-               day = day + 1; 
-               return day;
+            
+            if(editDays(now_todey)[0]){
+                    ar_day = day;   // получаем ближайший день возможной доставки
+                    return ar_day;
             } else {
-                discount_day(day, now_todey);
+               day = day + 1; 
+               discount_day(day, now_todey);
             }   
+
         }
 
         ourday = <?=date("w");?>;
-
+        
         <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
 		    ftePlus = <?=$interval + $setProps['nextDay']?> + 1;
             new_day = minminDatePlus + 14;
@@ -267,16 +299,14 @@ function date_deactive(){    // ограничение вывода достав
         <?}?>
         var now_todey = new Date();
         
-        new_minus_date = discount_day(minDatePlus, now_todey);
-
-        if(new_minus_date != minDatePlus+1){
-            minDatePlus = minDatePlus + new_minus_date;
-        }
-        
+        discount_day(minDatePlus, now_todey);
+        minDatePlus = ar_day;
+ 
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             //minDatePlus++;
 			minDatePlus = minDatePlus + 1;
         }
+        
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;

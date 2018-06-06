@@ -249,6 +249,12 @@
                         <img src="<?=$pict["src"]?>" align="left" style="padding-right:20px;" class="no-mobile" />
                     <?}?>
                     <?
+                        global $close_date;
+                        global $open_date;
+
+                        $date = date_create(date('j.n.Y'));
+                        $date->modify('+1 day');
+                        $new_today = $date->format('j.n.Y'); // выводим дату завтрашнего дня
                         if($arDelivery["ID"] == DELIVERY_PICKUP) {
                             if(intval(date('w') == 6)) {
                                 echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
@@ -266,10 +272,18 @@
                                 }
                             }
                         } else if(($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) && !date_deactive() ) {
-                            if(date('H:i') <= DELIVERY_TIME){
+                            if(in_array(date('j.n.Y'), $close_date) && !in_array($new_today, $close_date)) {
+                                echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
+                            } else if(in_array($new_today, $close_date)){
+                                echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay'] + 1), $arDelivery["DESCRIPTION"])."<br />";
+                            } else if(in_array(date('j.n.Y'), $close_date)){
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier(0), $arDelivery["DESCRIPTION"])."<br />";
                             } else {
-                                echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
+                                if(date('H:i') <= DELIVERY_TIME){
+                                    echo str_replace('#DATE_DELIVERY#',date_day_courier(0), $arDelivery["DESCRIPTION"])."<br />";
+                                } else {
+                                    echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
+                                }
                             }
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD && !date_deactive()) {
                                 echo str_replace('#DATE_DELIVERY#',date_day(1), $arDelivery["DESCRIPTION"])."<br />";
