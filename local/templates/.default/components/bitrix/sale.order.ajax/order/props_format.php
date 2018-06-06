@@ -63,8 +63,10 @@
                     <?if ($arProperties["TYPE"] != "LOCATION") {?>
 
                         <?if(($arProperties["CODE"] != "number_pasport")){?>
-                            <p class="inputTitle">
-                                <?echo $arProperties["NAME"];?>
+                            <p class="inputTitle <?=($arProperties["CODE"] == "certificate" || $arProperties["CODE"] == "CODE_COUPON")? 'certInput':''?>">
+                                <?if($_SESSION["DATE_DELIVERY_STATE"] == "under_order" && $arProperties["CODE"] != "DELIVERY_DATE"){?>
+                                    <?echo $arProperties["NAME"];?>
+                                <?}?>
                                 <?if ($arProperties["REQUIED_FORMATED"]=="Y"):?>
                                     <span class="bx_sof_req">*</span>
                                     <?endif?>
