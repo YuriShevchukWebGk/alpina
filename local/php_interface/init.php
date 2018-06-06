@@ -2526,7 +2526,7 @@
         if(CModule::IncludeModule("sale") && CModule::IncludeModule("iblock") && CModule::IncludeModule("main")) {
             $arFilterOrders = Array (
                 //Временно чтобы не трогать все заказы
-               ">=DATE_INSERT" => "01.01.2018",
+               ">=DATE_INSERT" => "01.09.2017",
                "STATUS_ID" => "I",
                "DELIVERY_ID" => array(RUSSIAN_POST_DELIVERY_ID_1, RUSSIAN_POST_DELIVERY_ID_2),
                "!TRACKING_NUMBER" => false
