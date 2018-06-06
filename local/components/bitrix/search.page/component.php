@@ -289,8 +289,7 @@ if(isset($arResult["REQUEST"]["~ORIGINAL_QUERY"]))
         .($arResult["REQUEST"]["HOW"]=="d"? "&amp;how=d": "")
         .($arResult["REQUEST"]["FROM"]? '&amp;from='.urlencode($arResult["REQUEST"]["~FROM"]): "")
         .($arResult["REQUEST"]["TO"]? '&amp;to='.urlencode($arResult["REQUEST"]["~TO"]): "")
-        .($tags!==false? "&amp;tags=".urlencode($tags): "")
-    ;
+        .($tags!==false? "&amp;tags=".urlencode($tags): "");
 }
 
 $templatePage = "";
@@ -341,11 +340,11 @@ if($this->InitComponentTemplate($templatePage))
         $arResult["ERROR_TEXT"] = $obSearch->error;
         
 
-
+      /*
     $hl_block = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
     $entity = HL\HighloadBlockTable::compileEntity($hl_block);    
     $entity_data_class = $entity->getDataClass();
-
+  
     $search_tips_filter = array(
         'LOGIC' => 'OR',
         array(
@@ -368,7 +367,7 @@ if($this->InitComponentTemplate($templatePage))
     
     while ($search_tip = $result->Fetch()) {      
         $item_filetr["ID"][] = $search_tip["UF_IBLOCK_ID"];    
-    }
+    }     */
     
     $arResult["SEARCH"] = array();
     

@@ -31,7 +31,6 @@ function JCTitleSearch(arParams)
 			_this.RESULT.innerHTML = result;
 		}
 
-        console.log(result);
 		_this.RESULT.style.display = _this.RESULT.innerHTML != false ? 'block' : 'none';
 		var pos = _this.adjustResultNode();
 
