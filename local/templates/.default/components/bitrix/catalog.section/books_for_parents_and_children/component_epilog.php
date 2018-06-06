@@ -41,7 +41,7 @@ function subscribeChildrenPage() {
 			    $(".layout").show();
 			}
 		);
-	}else{
+	} else {
 		$(".some_info").html("Кажется, вы ошиблись в написании своего адреса");
 		$(".some_info").show();
 		$(".layout").show();
@@ -53,6 +53,10 @@ function subscribeChildrenPage() {
 .wrapperCategor.forChildrenWrapper {
     background-color: #fff6e5;
     overflow: hidden;
+}
+
+.wrapperCategor.forChildrenWrapper .breadCrump, .wrapperCategor.forChildrenWrapper .breadCrump span a{
+	color: #555e60;
 }
 
 .wrapperCategor.forChildrenWrapper .categoryWrapper {
@@ -593,7 +597,7 @@ function subscribeChildrenPage() {
 
 .wrapperCategor.forChildrenWrapper .doner_tags {
     overflow: hidden;
-    margin: 40px 0px 0px;
+    margin: 70px 0px 0px;
 }
 
 .otherBooks .priceOfBook .rub_symbol {

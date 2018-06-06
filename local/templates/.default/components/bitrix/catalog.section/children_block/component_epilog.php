@@ -73,7 +73,7 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
 
 .forChildrenWrapper .categoryWrapper .otherBooks li {
     display: inline-block;
-    height: 470px;
+    height: 500px;
     width: 216px;
     float: left;
     margin-bottom: 10px;
@@ -102,6 +102,11 @@ if (isset($templateData['TEMPLATE_LIBRARY']) && !empty($templateData['TEMPLATE_L
     display: inline-block;
     padding-left: 4px;
     padding-top: 24px;
+}
+
+
+.forChildrenWrapper .categoryWrapper .otherBooks .basketBook, .forChildrenWrapper .categoryWrapper .otherBooks .basketLater {
+    margin: 16px auto 8px;
 }
 
 .bx-section-desc-post{
