@@ -267,6 +267,8 @@
                     return true;
                 } else if(intval($basketItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")) {
                     CSaleOrder::StatusOrder($arFields["ORDER_ID"], STATUS_UNDER_ORDER);
+                    $template_event = array("ORDER_D" => $arFields["ORDER_ID"]);
+                    CEvent::Send("UNDER_ORDER", 's1', $template_event);
                     $arFields["DELIVERY_PREORDER"] = '<br>Срок поставки '.$basketItem["PROPERTY_DELIVERY_TIME_VALUE"].' дней после оплаты';
                     return true;
                 }
@@ -2150,7 +2152,7 @@
 
             $arFields['EMAIL_ADDITIONAL_INFO'] = "<tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans', 'Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;\" valign=\"top\" colspan=\"2\">";
             $arFields['EMAIL_ADDITIONAL_INFO'] .= "Заказ будет собран в&nbsp;течение двух рабочих часов. Забрать заказ можно по&nbsp;адресу <em>м.Полежаевская, ул.4-ая&nbsp;Магистральная, д.5, 2&nbsp;подъезд, 2&nbsp;этаж.</em> <br />Офис работает по&nbsp;будням с&nbsp;8&nbsp;до&nbsp;18&nbsp;часов.";
-            $arFields['EMAIL_ADDITIONAL_INFO'] .= "<br /><br /><b>Как к нам пройти</b><br /><br />Метро «Полежаевская» (или «Хорошёвская»), последний вагон из центра, из вестибюля направо, выход на улицу налево. После выхода на улицу переходите на противоположную сторону к ТЦ «Хорошо», поворачиваете направо и двигаетесь по 4-ой Магистральной улице. Проходите магазин «Ларес» и доходите до дома 5 строения 1. Вам нужен «БЦ на Магистральной», второй подъезд, второй этаж.";
+            $arFields['EMAIL_ADDITIONAL_INFO'] .= "<br /><br /><b>Как к нам пройти</b><br /><br />Метро «Полежаевская» (последний вагон из центра, выход 7 — к Магистральным улицам) или «Хорошёвская», ориентир ТЦ «Хорошо». От ТЦ поворачиваете направо и двигаетесь по 4-ой Магистральной улице. Доходите до «БЦ на Магистральной» (д. 5 стр. 1), проходите магазин «Пятерочка». Вам нужен второй подъезд, второй этаж.";
             $arFields['EMAIL_ADDITIONAL_INFO'] .= "</td></tr>";
 
             $arFields['YANDEX_MAP'] = "<tr><td style=\"border-collapse: collapse;padding-bottom:20px;\"><table align=\"left\" width=\"100%\"><tbody><tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans', 'Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" colspan=\"2\" valign=\"top\"><img src=\"https://www.alpinabook.ru/img/ymap.png\" /></td></tr></tbody></table></td></tr>";
