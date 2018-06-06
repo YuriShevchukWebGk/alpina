@@ -299,9 +299,9 @@ function date_deactive(){    // ограничение вывода достав
         <?}?>
         var now_todey = new Date();
         
-        discount_day(minDatePlus, now_todey);
+        discount_day(0, now_todey);
         minDatePlus = ar_day;
- 
+        
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             //minDatePlus++;
 			minDatePlus = minDatePlus + 1;
@@ -316,6 +316,10 @@ function date_deactive(){    // ограничение вывода достав
         } else if (newDay == 0) {
 			curDay = curDay + 2;
 		}
+        
+        if(curDay == 0){
+            curDay = curDay -1;
+        }
         //для физических и юридических лиц
         $("#ORDER_PROP_44, #ORDER_PROP_45").datepicker({
             minDate: minDatePlus,

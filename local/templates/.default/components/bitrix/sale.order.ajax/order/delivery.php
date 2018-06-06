@@ -272,11 +272,11 @@
                                 }
                             }
                         } else if(($arDelivery["ID"] == DELIVERY_COURIER_1 || $arDelivery["ID"] == DELIVERY_COURIER_2) && !date_deactive() ) {
-                            if(in_array(date('j.n.Y'), $close_date) && !in_array($new_today, $close_date)) {
+                            if(in_array(date('j.n.Y'), $close_date) && !in_array($new_today, $close_date) && !in_array(date('j.n.Y'), $open_date)) {
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
-                            } else if(in_array($new_today, $close_date)){
+                            } else if(in_array($new_today, $close_date) && !in_array(date('j.n.Y'), $open_date)){
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay'] + 1), $arDelivery["DESCRIPTION"])."<br />";
-                            } else if(in_array(date('j.n.Y'), $close_date)){
+                            } else if(in_array(date('j.n.Y'), $open_date)){
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier(0), $arDelivery["DESCRIPTION"])."<br />";
                             } else {
                                 if(date('H:i') <= DELIVERY_TIME){
