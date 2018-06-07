@@ -4237,4 +4237,6 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
         }
         return "courier_status();";
    }
+
+    
 ?>
