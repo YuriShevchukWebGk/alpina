@@ -254,7 +254,7 @@
                 if ($arItem = $res->Fetch()) {
                      $arBasketItems[] = $arItem;
                 }
-            }         
+            }
             if (count($arBasketItems) >= 1) {
                 foreach($arBasketItems as $items){
                     if(intval($items["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") || intval($items["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")){
@@ -272,7 +272,7 @@
                     $arFields["DELIVERY_PREORDER"] = '<br>Срок поставки '.$basketItem["PROPERTY_DELIVERY_TIME_VALUE"].' дней после оплаты';
                     return true;
                 }
-            };       
+            };
         }
         return false;
     }
@@ -2529,7 +2529,7 @@
             $arFilterOrders = Array (
                 //Временно чтобы не трогать все заказы
                ">=DATE_INSERT" => "01.09.2017",
-               "STATUS_ID" => "I",
+               "STATUS_ID" => array("I", "AR"),
                "DELIVERY_ID" => array(RUSSIAN_POST_DELIVERY_ID_1, RUSSIAN_POST_DELIVERY_ID_2),
                "!TRACKING_NUMBER" => false
             );
@@ -4238,5 +4238,5 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
         return "courier_status();";
    }
 
-    
+
 ?>
