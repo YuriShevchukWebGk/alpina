@@ -2530,41 +2530,26 @@
                 //Временно чтобы не трогать все заказы
                ">=DATE_INSERT" => "01.09.2017",
                "STATUS_ID" => array("I", "AR"),
-               "DELIVERY_ID" => array(RUSSIAN_POST_DELIVERY_ID_1, RUSSIAN_POST_DELIVERY_ID_2),
+               "DELIVERY_ID" => array(
+                    RUSSIAN_POST_DELIVERY_ID_1,
+                    RUSSIAN_POST_DELIVERY_ID_2,
+                    INTERNATIONAL_RUSSIAN_POST_ID_1,
+                    INTERNATIONAL_RUSSIAN_POST_ID_2,
+                    INTERNATIONAL_RUSSIAN_POST_ID_3,
+                    INTERNATIONAL_RUSSIAN_POST_ID_4,
+                    INTERNATIONAL_RUSSIAN_POST_ID_5
+                ),
                "!TRACKING_NUMBER" => false
             );
 
-            $dbOrders = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterOrders, false, false, array("TRACKING_NUMBER", "ID"));
+            $dbOrders = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterOrders, false, false, array("TRACKING_NUMBER", "ID", "DATE_INSERT", "STATUS"));
             while ($arOrder = $dbOrders->Fetch()) {
-                $trackingNumber = intval($arOrder["TRACKING_NUMBER"]);
-                if($trackingNumber > 0) {
+                $trackingNumber = trim(strval($arOrder["TRACKING_NUMBER"]));
+                if(strlen($trackingNumber) > 0) {
                     $arOrdersList[$trackingNumber] = array(
-                        "ID" => $arOrder["ID"]
+                        "ID"      => $arOrder["ID"],
+                        "ARRIVED" => ($arOrder["STATUS"] == "AR") ? true : false
                     );
-                }
-            };
-
-            //Пометим заказы с отправленными сообщениями, иначе никак - придется 3 запросами
-            $arFilterArrivedOrders = $arFilterOrders;
-            $arFilterArrivedOrders["!PROPERTY_VAL_BY_CODE_RUSPOST_ARRIVED"] = false;
-
-            $dbOrdersArrived = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterArrivedOrders, false, false, array("ID", "TRACKING_NUMBER", "PROPERTY_VAL_BY_CODE_RUSPOST_ARRIVED"));
-            while ($arOrderArrived = $dbOrdersArrived->Fetch()) {
-                $trackingNumber = intval($arOrderArrived["TRACKING_NUMBER"]);
-                if($trackingNumber > 0 && $arOrderArrived["PROPERTY_VAL_BY_CODE_RUSPOST_ARRIVED"] != "") {
-                    $arOrdersList[$trackingNumber]["ARRIVED"] = true;
-                }
-            };
-
-            //Исключим заказы со статусом "получен"
-            $arFilterExcludeOrders = $arFilterOrders;
-            $arFilterExcludeOrders["!PROPERTY_VAL_BY_CODE_RUSPOST_RECEIVED"] = false;
-
-            $dbOrdersExclude = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterExcludeOrders, false, false, array("ID", "TRACKING_NUMBER", "PROPERTY_VAL_BY_CODE_RUSPOST_RECEIVED"));
-            while ($arOrderExclude = $dbOrdersExclude->Fetch()) {
-                $trackingNumber = intval($arOrderExclude["TRACKING_NUMBER"]);
-                if($trackingNumber > 0 && $arOrderExclude["PROPERTY_VAL_BY_CODE_RUSPOST_RECEIVED"] != "") {
-                    unset($arOrdersList[$trackingNumber]);
                 }
             };
 
