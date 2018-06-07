@@ -258,17 +258,25 @@
                 $itemID = $basketItem["PRODUCT_ID"];
                 $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE", "PROPERTY_DELIVERY_TIME"));
                 if ($arItem = $res->Fetch()) {
-
-                    if (intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
-                       // CEvent::Send("SALE_NEW_ORDER", 's1', $arTemplate, 423);
-                        $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
-
-                        return true;
-                    } else if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")) {
-                        CSaleOrder::StatusOrder($arFields["ORDER_ID"], STATUS_UNDER_ORDER);
-                        $arFields["DELIVERY_PREORDER"] = '<br>Срок поставки '.$arItem["PROPERTY_DELIVERY_TIME_VALUE"].' дней после оплаты';
-                        return true;
+                     $arBasketItems[] = $arItem;
+                }
+            }
+            if (count($arBasketItems) >= 1) {
+                foreach($arBasketItems as $items){
+                    if(intval($items["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon") || intval($items["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")){
+                        $basketItem = $items;
                     }
+                }
+                if (intval($basketItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
+                   // CEvent::Send("SALE_NEW_ORDER", 's1', $arTemplate, 423);
+                    $arFields["DELIVERY_PREORDER"] = "<br>После поступления книги в продажу";
+                    return true;
+                } else if(intval($basketItem["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "under_order")) {
+                    CSaleOrder::StatusOrder($arFields["ORDER_ID"], STATUS_UNDER_ORDER);
+                    $template_event = array("ORDER_D" => $arFields["ORDER_ID"]);
+                    CEvent::Send("UNDER_ORDER", 's1', $template_event);
+                    $arFields["DELIVERY_PREORDER"] = '<br>Срок поставки '.$basketItem["PROPERTY_DELIVERY_TIME_VALUE"].' дней после оплаты';
+                    return true;
                 }
             };
         }
@@ -2526,8 +2534,8 @@
         if(CModule::IncludeModule("sale") && CModule::IncludeModule("iblock") && CModule::IncludeModule("main")) {
             $arFilterOrders = Array (
                 //Временно чтобы не трогать все заказы
-               ">=DATE_INSERT" => "01.05.2018",
-               "STATUS_ID" => "I",
+               ">=DATE_INSERT" => "01.09.2017",
+               "STATUS_ID" => array("I", "AR"),
                "DELIVERY_ID" => array(RUSSIAN_POST_DELIVERY_ID_1, RUSSIAN_POST_DELIVERY_ID_2),
                "!TRACKING_NUMBER" => false
             );
@@ -4266,4 +4274,3 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
         }    
 
     }
-?>
