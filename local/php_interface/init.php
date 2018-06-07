@@ -6,7 +6,7 @@
     require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/exchange_1c_sync.php");
     //require_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/iblock_element_edit_before_save.php");
 
-//  file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
+//    file_exists('/home/bitrix/vendor/autoload.php') ? require '/home/bitrix/vendor/autoload.php' : "";
     file_exists('/var/www/alpinabook.ru/vendor/autoload.php') ? require '/var/www/alpinabook.ru/vendor/autoload.php' : "";
     use Mailgun\Mailgun;
 
@@ -192,7 +192,7 @@
     * @param string $additional_headers
     * @param string $additional_parameters
     *
-    **/
+    **/       
 
     function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
 
@@ -242,7 +242,7 @@
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
         $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
-    }
+    }   
 
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
     function cancelMail(&$arFields, $arTemplate) {
@@ -250,7 +250,13 @@
             $order = CSaleOrder::GetByID($arFields["ORDER_ID"]);
             $rsBasket = CSaleBasket::GetList(array(), array("ORDER_ID" => $order["ID"]));
             while ($arBasket = $rsBasket->Fetch()) {
-                $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($arBasket["PRODUCT_ID"]), "!PROPERTY_STATE_ENUM_ID" => false), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE", "PROPERTY_DELIVERY_TIME"));
+                $arBasketItems[] = $arBasket;
+            }
+            if (count($arBasketItems) == 1) {
+                $basketItem = $arBasketItems;
+                $basketItem = array_pop($basketItem);
+                $itemID = $basketItem["PRODUCT_ID"];
+                $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE", "PROPERTY_DELIVERY_TIME"));
                 if ($arItem = $res->Fetch()) {
                      $arBasketItems[] = $arItem;
                 }
@@ -2152,7 +2158,7 @@
 
             $arFields['EMAIL_ADDITIONAL_INFO'] = "<tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans', 'Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 160%;font-style: normal;letter-spacing: normal;padding-top:10px;\" valign=\"top\" colspan=\"2\">";
             $arFields['EMAIL_ADDITIONAL_INFO'] .= "Заказ будет собран в&nbsp;течение двух рабочих часов. Забрать заказ можно по&nbsp;адресу <em>м.Полежаевская, ул.4-ая&nbsp;Магистральная, д.5, 2&nbsp;подъезд, 2&nbsp;этаж.</em> <br />Офис работает по&nbsp;будням с&nbsp;8&nbsp;до&nbsp;18&nbsp;часов.";
-            $arFields['EMAIL_ADDITIONAL_INFO'] .= "<br /><br /><b>Как к нам пройти</b><br /><br />Метро «Полежаевская» (последний вагон из центра, выход 7 — к Магистральным улицам) или «Хорошёвская», ориентир ТЦ «Хорошо». От ТЦ поворачиваете направо и двигаетесь по 4-ой Магистральной улице. Доходите до «БЦ на Магистральной» (д. 5 стр. 1), проходите магазин «Пятерочка». Вам нужен второй подъезд, второй этаж.";
+            $arFields['EMAIL_ADDITIONAL_INFO'] .= "<br /><br /><b>Как к нам пройти</b><br /><br />Метро «Полежаевская» (или «Хорошёвская»), последний вагон из центра, из вестибюля направо, выход на улицу налево. После выхода на улицу переходите на противоположную сторону к ТЦ «Хорошо», поворачиваете направо и двигаетесь по 4-ой Магистральной улице. Проходите магазин «Ларес» и доходите до дома 5 строения 1. Вам нужен «БЦ на Магистральной», второй подъезд, второй этаж.";
             $arFields['EMAIL_ADDITIONAL_INFO'] .= "</td></tr>";
 
             $arFields['YANDEX_MAP'] = "<tr><td style=\"border-collapse: collapse;padding-bottom:20px;\"><table align=\"left\" width=\"100%\"><tbody><tr><td align=\"left\" style=\"border-collapse: collapse;color:#393939;font-family: 'Open Sans', 'Segoe UI',Roboto,Tahoma,sans-serif;font-size: 16px;font-weight: 400;line-height: 100%;font-style: normal;letter-spacing: normal;padding-top:10px;\" colspan=\"2\" valign=\"top\"><img src=\"https://www.alpinabook.ru/img/ymap.png\" /></td></tr></tbody></table></td></tr>";
@@ -2677,30 +2683,33 @@
                                         )
                                     );
 
-                                    //Добавим время и отправим письмо
-                                    if ($arPropArrived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_ARRIVED"))->Fetch()) {
-                                        $arArrivedFields = array(
-                                            "NAME"           => $arPropArrived['NAME'],
-                                            "CODE"           => $arPropArrived['CODE'],
-                                            "ORDER_PROPS_ID" => $arPropArrived['ID'],
-                                            'ORDER_ID'       => $orderID,
-                                            "VALUE"          => $DateOper
-                                        );
-                                    }
 
+                                    $change_status = false;
                                     if ($arPropArrivedValue = $dbPropArrivedValue->Fetch()) {
                                         if($arPropArrivedValue["VALUE"] == "") {
-                                            if(CSaleOrderPropsValue::Update($arPropArrivedValue["ID"], $arArrivedFields)) {
-                                                CSaleOrder::StatusOrder($orderID, "AR");
-                                            };
+                                            $change_status = true;
                                         }
                                     } else {
+                                        $change_status = true;
+                                    }
+
+                                    //Добавим время и отправим письмо
+                                    if ($change_status) {
+                                        if ($arPropArrived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_ARRIVED"))->Fetch()) {
+                                            $arArrivedFields = array(
+                                                "NAME"           => $arPropArrived['NAME'],
+                                                "CODE"           => $arPropArrived['CODE'],
+                                                "ORDER_PROPS_ID" => $arPropArrived['ID'],
+                                                'ORDER_ID'       => $orderID,
+                                                "VALUE"          => $DateOper
+                                            );
+                                        }
                                         if(CSaleOrderPropsValue::Add($arArrivedFields)) {
                                             CSaleOrder::StatusOrder($orderID, "AR");
                                         };
                                     }
 
-                                } elseif($operTypeID == 2 && strlen($DateOper) > 0) {
+                                } elseif($operTypeID == 2 && $operCtgID == 1 && strlen($DateOper) > 0) {
                                 //Посылка принята
                                     //Проверим заполнено ли свойство с датой доставки, если да выход
                                     $dbPropReceivedValue = CSaleOrderPropsValue::GetList(
@@ -2711,24 +2720,26 @@
                                         )
                                     );
 
-                                    //Добавим время и отправим письмо
-                                    if ($arPropReceived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_RECEIVED"))->Fetch()) {
-                                        $arReceivedFields = array(
-                                            "NAME"           => $arPropReceived['NAME'],
-                                            "CODE"           => $arPropReceived['CODE'],
-                                            "ORDER_PROPS_ID" => $arPropReceived['ID'],
-                                            'ORDER_ID'       => $orderID,
-                                            "VALUE"          => $DateOper
-                                        );
-                                    }
-
+                                    $change_status = false;
                                     if ($arPropReceivedValue = $dbPropReceivedValue->Fetch()) {
                                         if($arPropReceivedValue["VALUE"] == "") {
-                                            if(CSaleOrderPropsValue::Update($arPropReceivedValue["ID"], $arReceivedFields)) {
-                                                CSaleOrder::StatusOrder($orderID, "F");
-                                            };
+                                            $change_status = true;
                                         }
                                     } else {
+                                        $change_status = true;
+                                    }
+
+                                    //Добавим время и отправим письмо
+                                    if ($change_status) {
+                                        if ($arPropReceived = CSaleOrderProps::GetList(array(), array('CODE' => "RUSPOST_RECEIVED"))->Fetch()) {
+                                            $arReceivedFields = array(
+                                                "NAME"           => $arPropReceived['NAME'],
+                                                "CODE"           => $arPropReceived['CODE'],
+                                                "ORDER_PROPS_ID" => $arPropReceived['ID'],
+                                                'ORDER_ID'       => $orderID,
+                                                "VALUE"          => $DateOper
+                                            );
+                                        }
                                         if(CSaleOrderPropsValue::Add($arReceivedFields)) {
                                             CSaleOrder::StatusOrder($orderID, "F");
                                         };
@@ -4237,6 +4248,29 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
         }
         return "courier_status();";
    }
+    AddEventHandler("sale", "OnOrderAdd", "EventProductQuantity");
+   
+    function EventProductQuantity($ID, $arFields) {
 
+        foreach($arFields["BASKET_ITEMS"] as $basket_item) {
+            $product_quantity = CCatalogProduct::GetByID($basket_item["PRODUCT_ID"]);
+            if($basket_item["QUANTITY"] > $product_quantity["QUANTITY"]){    // если количество в заазе больше чем на складе
+                 $arBasketItems[$basket_item["ID"]]["QUANTITY"] = $basket_item["QUANTITY"]; // количество товара
+                 $arBasketItems[$basket_item["ID"]]["ID"] = $basket_item["ID"];
+                 $arBasketItems[$basket_item["ID"]]["NAME"] = $basket_item["NAME"];
+                 $arBasketItems[$basket_item["ID"]]["DETAIL_PAGE_URL"] = $basket_item["DETAIL_PAGE_URL"];
+            }; 
+        }
+        foreach($arBasketItems as $basket_event){
+            $mailFields = array(
+                "QUANTITY"=> round($basket_event["QUANTITY"]),
+                "ID" => $basket_event["ID"],
+                "DETAIL_PAGE_URL" => $_SERVER["HTTP_ORIGIN"].$basket_event["DETAIL_PAGE_URL"],
+                "NAME" => $basket_event["NAME"],
+                "ORDER_ID" => $ID,
+            );
 
-?>
+            CEvent::Send("EVENT_QUANTITY", "s1", $mailFields, "N"); // отправляем письмо недостающем количеств етовара   
+        }    
+
+    }
