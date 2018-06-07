@@ -60,7 +60,7 @@ if(tl > 4){
 
     //интервал по умолчанию. 0 - автоскролл выключен
     var auto_play_interval = 0;
-
+    
     //если задано время автоскролла, создаем интервал
     if (delay_time != false) {
         auto_play_interval = setInterval(auto_play, delay_time);   //тут все понятно
