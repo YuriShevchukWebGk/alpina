@@ -1,0 +1,4 @@
+.recsOnMain ul{width:100%;max-width:1140px}
+.recsOnMain li {width:19%!important;display:inline!important;float:left;margin-left:8px}
+.recsOnMain{height:320px!important;overflow:hidden}
+.recsOnMain .section_item_img, .recsOnMain .section_item_img img {width:200px!important}

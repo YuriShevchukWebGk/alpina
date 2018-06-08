@@ -146,10 +146,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               }
             });
         }
+        // $(function(){
+        //    fxSlider('saleSlider.recsOnMain', 'left', 'right', false, 200, 5); 
+        // })
         $(function(){
-           fxSlider('saleSlider.recsOnMain', 'left', 'right', false, 200, 5); 
+           fxSlider('bestcellersBooksSliderConteiner', 'bestcellersBooksleftArrow', 'bestcellersBooksRightArrow', false, 650, 5); 
         })
-        
     </script>
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">

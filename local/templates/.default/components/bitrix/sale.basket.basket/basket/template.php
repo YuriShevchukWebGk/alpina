@@ -782,17 +782,16 @@
                         false
                     );
                 } else {?>
-					<p class="titleMain">Бестселлеры</p>
+					<!-- <p class="titleMain">Бестселлеры</p> -->
 					<?
-
 					$APPLICATION->IncludeComponent(
 						"bitrix:catalog.section",
-						"recommended_books",
+						"slider_on_main_bestsellers",
 						array(
 							"IBLOCK_TYPE_ID" => "catalog",
 							"IBLOCK_ID" => "4",
 							"BASKET_URL" => "/personal/cart/",
-							"COMPONENT_TEMPLATE" => "recommended_books",
+							"COMPONENT_TEMPLATE" => "slider_on_main_bestsellers",
 							"IBLOCK_TYPE" => "catalog",
 							"SECTION_ID" => $_REQUEST["SECTION_ID"],
 							"SECTION_CODE" => "",
@@ -811,10 +810,10 @@
 							"HIDE_NOT_AVAILABLE" => "N",
 							"PAGE_ELEMENT_COUNT" => "12",
 							"LINE_ELEMENT_COUNT" => "3",
-							"PROPERTY_CODE" => array(
-								0 => "",
-								1 => "",
-							),
+                            "PROPERTY_CODE" => array(
+                                0 => "AUTHORS",
+                                1 => "PROPERTY_AUTHORS.NAME",
+                            ),
 							"OFFERS_FIELD_CODE" => array(
 								0 => "",
 								1 => "",
