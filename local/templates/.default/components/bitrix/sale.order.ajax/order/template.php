@@ -167,6 +167,12 @@ function date_deactive(){    // ограничение вывода достав
             };
         });
 
+        if(locationID != internationalLocation) {
+            if( $('#ORDER_PROP_24,#ORDER_PROP_11').val() == ''){
+                 $('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
+            }
+        }
+
         if ($.browser.msie && $.browser.version <= 9) {
 
         } else {
