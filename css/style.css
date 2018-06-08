@@ -135,7 +135,7 @@ header .headBasket{padding:17px 1px 0}
 .sliderOnMaineBlock .titleMain { color: #3f4a4d; font-size: 48px; padding-bottom: 38px; padding-top: 53px; text-align: center; font-family: Walshein_light!important;}
 
 .sliderConteiner {overflow: hidden;}
-.sliderConteiner .LiSliderElement {display: inline-block; vertical-align: top; width: 227px;}
+.sliderConteiner .LiSliderElement {display: inline-block; vertical-align: top; width: 228px;}
 .sliderConteiner .divSliderElementConteiner {width: 190px; margin: 0 auto 5px auto; height: 470px; padding: 16px 12px 40px 12px;}
 .sliderConteiner .divSliderElementConteiner:hover {background-color: #fff; box-shadow: 0 5px 3px 0 rgba(0,0,0,.18);}
 .sliderConteiner .imgSliderItem {margin-bottom: 10px; min-height: 260px}
