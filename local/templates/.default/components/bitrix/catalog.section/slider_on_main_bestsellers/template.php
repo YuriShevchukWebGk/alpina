@@ -14,7 +14,7 @@ $this->setFrameMode(true);
 ?>
 
 <div class="sliderOnMaineBlock">
-    <p class="titleMain"><a href="/catalog/bigideas/"><?=GetMessage("BESTCELLERS_SLIDER_TITLE_SLIDER")?></a></p>
+    <p class="titleMain"><a href="/catalog/bestsellers/"><?=GetMessage("BESTCELLERS_SLIDER_TITLE_SLIDER")?></a></p>
     <div class="bestcellersBooksSliderConteiner sliderConteiner">
         <ul>
             <?foreach ($arResult["ITEMS"] as $arItem) {
