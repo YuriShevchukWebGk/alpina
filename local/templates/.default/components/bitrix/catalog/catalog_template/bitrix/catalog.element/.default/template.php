@@ -986,19 +986,23 @@
                 $date = date_create(date('j.n.Y'));
                 $date->modify('+1 day');
                 $new_today = $date->format('j.n.Y'); // выводим дату завтрашнего дня
-                if(in_array(date('j.n.Y'), $arResult["CLOSE_DATE"]) && !in_array($new_today, $arResult["CLOSE_DATE"])) {
+                if(in_array(date('j.n.Y'), $arResult["CLOSE_DATE"]) && !in_array($new_today, $arResult["CLOSE_DATE"]) && !in_array(date('j.n.Y'), $arResult["OPEN_DATE"]) &&  !in_array($new_today, $arResult["OPEN_DATE"])) {
                     $delivery_day = $setProps['deliveryDayName'];
                 } else if(in_array($new_today, $arResult["CLOSE_DATE"])){
                     $delivery_day = 'hide';
                 } else if(in_array(date('j.n.Y'), $arResult["OPEN_DATE"])){
                     $delivery_day = GetMessage("TODAY");
+                } else if(in_array($new_today, $arResult["OPEN_DATE"])){
+                    $delivery_day = GetMessage("TOMORROW");
                 } else {
                     if(date('H:i') <= DELIVERY_TIME){
                         $delivery_day = GetMessage("TODAY");
+                    } else if(strtotime($setProps['deliveryDayName']) > strtotime(min($arResult["OPEN_DATE"]))){
+                        $delivery_day = min($arResult["OPEN_DATE"]);     
                     } else {
                         $delivery_day = $setProps['deliveryDayName'];
                     }
-                }
+                }    
 
             ?>
 
