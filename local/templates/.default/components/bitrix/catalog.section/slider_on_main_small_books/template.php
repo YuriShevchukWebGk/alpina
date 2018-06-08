@@ -35,8 +35,14 @@ $this->setFrameMode(true);
                             <?}elseif($arItem["NAME"]){?>
                                 <p class="sliderBookName" title="<?=mb_substr($arItem["NAME"], 0, 38)?>"></p>
                             <?}?>
-                            <?if($author){?>
-                                <p class="sliderBookAutor" title="Перейтина страницу автора"><?=$author?></p>
+                            <?if($author){
+                                if(is_array($author)){
+                                    foreach($author as $value){?>
+                                        <p class="sliderBookSeveralAutor" title="Перейтина страницу автора"><?=$value?></p>
+                                    <?}
+                                }else{?>
+                                    <p class="sliderBookAutor" title="Перейти на страницу автора"><?=$author?></p>
+                                <?}?>
                             <?}?>
                             <?if($arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]){?>
                                 <p class="sliderBookOfPack"><?=$arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]?></p>

@@ -52,7 +52,7 @@ $this->setFrameMode(true);
                                         <p class="sliderBookSeveralAutor" title="Перейтина страницу автора"><?=$value?></p>
                                     <?}
                                 }else{?>
-                                    <p class="sliderBookAutor" title="Перейтина страницу автора"><?=$author?></p>
+                                    <p class="sliderBookAutor" title="Перейти на страницу автора"><?=$author?></p>
                                 <?}?>
                             <?}?>
                             <?if($arItem["PROPERTIES"]["COVER_TYPE"]["VALUE"]){?>
