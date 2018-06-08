@@ -94,7 +94,7 @@ $object_date_close = CIBlockElement::GetList (
    false,
    false,
    array("NAME", "CODE")
-);   
+);
 global $close_date;
 global $open_date;
 while ($date_close = $object_date_close->Fetch()) {
@@ -108,22 +108,22 @@ while ($date_close = $object_date_close->Fetch()) {
 $datetime1 = new DateTime(date("d.m.Y"));
 $datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));
 $interval = date_diff($datetime1, $datetime2)->format('%a');
- 
+
 $holidays .= ','.implode(',',$close_date);
 
 function date_deactive(){    // ограничение вывода доставок в праздничные дни
     $date_deactive = array('28.04.2018','29.04.2018', '30.04.2018', '01.05.2018', '05.05.2018', '07.05.2018, 09.05.2018');
     if(in_array(date('d.m.Y'),$date_deactive)){
-        return true;                                                                                          
+        return true;
     } else {
         return false;
-    }                         
+    }
 }
     $arFilter = Array(
         ">=DATE_INSERT" => date("d.m.Y", mktime(0, 0, 0, date("m") , date("d"), date("Y"))),
         //"PROPERTY_VAL_BY_CODE_DELIVERY_DATE" => date("d.m.Y"),
         "!STATUS_ID" => array("PR","F","A","I")
-    ); // получение даты доставки курьером 
+    ); // получение даты доставки курьером
     $rsSales = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilter, false, false, array("DATE_INSERT", "PROPERTY_VAL_BY_CODE_DELIVERY_DATE"));
     $count_dev = 0;
     while ($arSales = $rsSales->Fetch()){
@@ -150,13 +150,35 @@ function date_deactive(){    // ограничение вывода достав
 		$(".bx_section div:has(input:checked), input:checked>label").css("background", "rgba(216, 194, 165, 0.35)");
 		$("input[name='PERSON_TYPE']:checked").next().css("background", "rgba(216, 194, 165, 0.35)");
 
+        var locationID = $(".bx-ui-slst-target[name=ORDER_PROP_2], .bx-ui-slst-target[name=ORDER_PROP_3]").val();
+        var internationalLocation = 0;
+
+        <?
+        $internationalLocationID = intval(LOCATION_IMTERNATIONAL);
+        if($internationalLocationID > 0) {?>
+            internationalLocation = <?=$internationalLocationID?>;
+        <?}?>
+
+        $("#ORDER_PROP_24, #ORDER_PROP_11").on("keyup", function(e){
+            if(locationID != internationalLocation) {
+                if(e.currentTarget.value.length < 2) {
+                    e.currentTarget.value = "+7";
+                };
+            };
+        });
+
         if ($.browser.msie && $.browser.version <= 9) {
 
         } else {
-
-                $("#ORDER_PROP_24").mask("+9(999)999-99-999");   //для физлица
+            if(locationID == internationalLocation) {
+                $("#ORDER_PROP_24").mask("+9(999)999-99-99");   //для физлица
+                $("#ORDER_PROP_11").mask("+9(999)999-99-99");  //для юрлица
+                $("#pp_sms_phone").mask("+99999999999");
+            } else {
+                $("#ORDER_PROP_24").mask("+7(999)999-99-99");   //для физлица
                 $("#ORDER_PROP_11").mask("+7(999)999-99-99");  //для юрлица
                 $("#pp_sms_phone").mask("+79999999999");
+            }
         }
 
         if($('#pp_sms_phone')){
@@ -232,29 +254,29 @@ function date_deactive(){    // ограничение вывода достав
            }
            deleteDateId("ORDER_PROP_44");
            deleteDateId("ORDER_PROP_45");  */
-		   
+
         //календарь
         var disabledDates = "<?=$holidays?>";
 		var enabledDates = "<?=implode(',',$open_date)?>";
         disabledDates = disabledDates.toString().split(',');
 		enabledDates = enabledDates.toString().split(',');
 
-   
+
         function disableSpecificDaysAndWeekends(date) {
             var dd = date.getDate();
             var mm = date.getMonth() + 1;
             var yyyy = date.getFullYear();
-            
+
             changeDate_open = dd + '.' + mm + '.' + yyyy;
 
             if(enabledDates.indexOf( changeDate_open.toString() ) == -1 ){  // открываем возможность выбора даты
                 var noWeekend = $.datepicker.noWeekends(date);
-                
+
                 if (noWeekend[0]) {
                     return editDays(date);
                 } else {
                     return noWeekend;
-                }   
+                }
             } else {
                return [true];   // возвращаем true
             }
@@ -263,9 +285,9 @@ function date_deactive(){    // ограничение вывода достав
 			var dd = date.getDate();
 			var mm = date.getMonth() + 1;
 			var yyyy = date.getFullYear();
-			
+
 			changeDate = dd + '.' + mm + '.' + yyyy;
-            
+
 			for (var i = 0; i < disabledDates.length; i++) {
 				if (disabledDates[i] == changeDate.toString()) {
 					 return [false];
@@ -273,22 +295,22 @@ function date_deactive(){    // ограничение вывода достав
 			}
 			return [true];
 		}
-        
+
         function discount_day(day, now_todey){
             now_todey.setDate(now_todey.getDate() + day);
-            
+
             if(editDays(now_todey)[0]){
                     ar_day = day;   // получаем ближайший день возможной доставки
                     return ar_day;
             } else {
-               day = day + 1; 
+               day = day + 1;
                discount_day(day, now_todey);
-            }   
+            }
 
         }
 
         ourday = <?=date("w");?>;
-        
+
         <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
 		    ftePlus = <?=$interval + $setProps['nextDay']?> + 1;
             new_day = minminDatePlus + 14;
@@ -298,15 +320,15 @@ function date_deactive(){    // ограничение вывода достав
             minDate = "+2w +1d";
         <?}?>
         var now_todey = new Date();
-        
+
         discount_day(0, now_todey);
         minDatePlus = ar_day;
-        
+
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             //minDatePlus++;
 			minDatePlus = minDatePlus + 1;
         }
-        
+
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;
@@ -316,7 +338,7 @@ function date_deactive(){    // ограничение вывода достав
         } else if (newDay == 0) {
 			curDay = curDay + 2;
 		}
-        
+
         if(curDay == 0){
             curDay = curDay -1;
         }
@@ -371,14 +393,11 @@ function date_deactive(){    // ограничение вывода достав
 			}
 		});
 
-        if( $('#ORDER_PROP_24,#ORDER_PROP_11').val() == ''){
-             $('#ORDER_PROP_24,#ORDER_PROP_11').val('+7');
-        }
         $("body #ORDER_PROP_133").keypress(function (e) {
             if(($(this).val().length)+1 == 4){
                 $('body #ORDER_PROP_134').focus();
-            } 
-        }); 
+            }
+        });
 
     }
 
@@ -387,8 +406,8 @@ function date_deactive(){    // ограничение вывода достав
         $("body #ORDER_PROP_132").keypress(function (e) {
             if($(this).length == 4){
                 $('body #ORDER_PROP_133').focus();
-            } 
-        }); 
+            }
+        });
         $('.application input[type=image]').attr('src','/images/pay.jpg');
         /*try {
         submitForm();
@@ -396,7 +415,7 @@ function date_deactive(){    // ограничение вывода достав
         catch(err) {
         }*/
         setOptions();
-       
+
        $(".suggestions-input").suggestions({
             token: "${2bcb5e9abaf55f41dade38571b76a2efe3f8d257}",
             type: "PARTY",
@@ -1183,23 +1202,23 @@ function date_deactive(){    // ограничение вывода достав
 		<span style="font-family: 'Walshein_regular';font-size: 14px;">Нажимая на кнопку «Оформить заказ», вы соглашаетесь на обработку персональных данных в соответствии <a href="/info_popup/pii.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showPii'});return false;" class="cartMenuPopup">с условиями</a><br />и с условиями <a href="/info_popup/oferta.php" onclick="dataLayer.push({event: 'EventsInCart', action: '2nd Step', label: 'showOferta'});return false;" class="cartMenuPopup">публичной оферты</a></span>
     </div>
     <?if ($arResult["PAY_SYSTEM"]["ID"] == 24) {?>
-    <?  
+    <?
        $order["order_id"] = $arResult["ORDER_ID"].'_'.rand(0, 100);
-        
-        $secretkey = "83508e01b1ef2a175d54e81d8e2532fe";     
+
+        $secretkey = "83508e01b1ef2a175d54e81d8e2532fe";
 
         $x = [
             "account"     => $account,
-            "amount"      => (int)rawurldecode($amount), 
+            "amount"      => (int)rawurldecode($amount),
             "currency"    => $currency,
             "merchant_id" => rawurldecode($merchant_id),
             "order"       => $order,
-            "project"     => rawurldecode($project), 
+            "project"     => rawurldecode($project),
         ];
         ksort($x);
-        
+
         $str = json_encode($x);
-        
+
         $sign = hash_hmac("SHA256", $str, $secretkey);
     ?>
     <script>
@@ -1225,8 +1244,8 @@ function date_deactive(){    // ограничение вывода достав
                         type: '<?=$order["type"]?>',
                         order_id: '<?=$order["order_id"]?>',
                     },
-                    project: '<?=rawurldecode($project)?>',        
-                    sign: '<?=$sign?>',  
+                    project: '<?=rawurldecode($project)?>',
+                    sign: '<?=$sign?>',
                 }, {
                     /* options */
                 });
@@ -1265,9 +1284,9 @@ function date_deactive(){    // ограничение вывода достав
 
         (function () {
             new Page();
-        })();        
-        
-    </script>     
+        })();
+
+    </script>
     <div class="platbox_iframe_block" style="width: 100%; left: 0%; height: 531px; display: none; position: absolute; z-index: 2000; top: 30%; background-color: white;">
         <?/*<iframe class="platbox_iframe" src='https://paybox-global.platbox.com/paybox?merchant_id=<?= rawurldecode($merchant_id) ?>&account=<?= json_encode($account) ?>&amount=<?= rawurldecode($amount) ?>&currency=<?= $currency ?>&order=<?= json_encode($order) ?>&sign=<?= rawurldecode($sign) ?>&project=<?= rawurldecode($project) ?>&val=second&redirect_url=<?= rawurldecode($resultUrl) ?>&mobile=1' style="width: 100%; height: 100%; z-index: 2000; padding-top: 40px; background-color: white;">
         </iframe>*/?>
