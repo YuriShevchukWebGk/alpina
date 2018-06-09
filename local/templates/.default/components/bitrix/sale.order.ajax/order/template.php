@@ -276,6 +276,7 @@ function date_deactive(){    // ограничение вывода достав
             changeDate_open = dd + '.' + mm + '.' + yyyy;
 
             if(enabledDates.indexOf( changeDate_open.toString() ) == -1 ){  // открываем возможность выбора даты
+
                 var noWeekend = $.datepicker.noWeekends(date);
 
                 if (noWeekend[0]) {
@@ -327,7 +328,7 @@ function date_deactive(){    // ограничение вывода достав
         <?}?>
         var now_todey = new Date();
 
-        discount_day(0, now_todey);
+        discount_day(minDatePlus, now_todey);
         minDatePlus = ar_day;
 
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
@@ -338,6 +339,8 @@ function date_deactive(){    // ограничение вывода достав
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;        
         var newDay = ourday + minDatePlus;
+        console.log(newDay);
+        console.log(curDay);
         //если день доставки попадает на субботу
         if (newDay == 6 && curDay != 0) {
             curDay = curDay + 3;
