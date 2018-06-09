@@ -299,6 +299,35 @@ if($this->InitComponentTemplate($templatePage))
     $template = &$this->GetTemplate();
     $arResult["FOLDER_PATH"] = $folderPath = $template->GetFolder();
 
+      
+    $hl_block = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
+    $entity = HL\HighloadBlockTable::compileEntity($hl_block);    
+    $entity_data_class = $entity->getDataClass();
+  
+    $search_tips_filter = array(
+        'LOGIC' => 'OR',
+        array(
+            '=%UF_SEARCH_WORDS' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%"
+        ),
+        array(
+            '=%UF_TITLE' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%"
+        )
+    );
+
+    $table_id = 'tbl_' . $entity_table_name;
+    $result = $entity_data_class::getList(array(
+        "select" => array('UF_IBLOCK_ID'),
+        "filter" => $search_tips_filter,
+        "limit"  => 100,
+        "order"  => array("UF_PAGE_VIEWS_GA" => "ASC")
+    ));
+
+    $result = new CDBResult($result, $table_id);
+    
+    while ($search_tip = $result->Fetch()) {      
+        $item_filetr["ID"][] = $search_tip["UF_IBLOCK_ID"];    
+    }     
+    
     if(strlen($folderPath) > 0)
     {  //arshow($arResult["REQUEST"]);
        /* $arFilter = array(
@@ -306,11 +335,12 @@ if($this->InitComponentTemplate($templatePage))
             "QUERY" => $arResult["REQUEST"]["~QUERY"],
             "TAGS" => $arResult["REQUEST"]["~TAGS"],
             "MODULE_ID" => 'iblock',
-        );    */    
+        );    */   
+
         $arFilter = array(
-            'QUERY' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%",
+            'QUERY' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]),
             "SITE_ID" => SITE_ID,
-            'TITLE' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%",
+            'TITLE' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]),
         );
         $arFilter = array_merge($arFILTERCustom, $arFilter);
         if(strlen($where)>0)
@@ -340,34 +370,7 @@ if($this->InitComponentTemplate($templatePage))
         $arResult["ERROR_TEXT"] = $obSearch->error;
         
 
-      /*
-    $hl_block = HL\HighloadBlockTable::getById(SEARCH_INDEX_HL_ID)->fetch();
-    $entity = HL\HighloadBlockTable::compileEntity($hl_block);    
-    $entity_data_class = $entity->getDataClass();
-  
-    $search_tips_filter = array(
-        'LOGIC' => 'OR',
-        array(
-            '=%UF_SEARCH_WORDS' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%"
-        ),
-        array(
-            '=%UF_TITLE' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]) . "%"
-        )
-    );
-
-    $table_id = 'tbl_' . $entity_table_name;
-    $result = $entity_data_class::getList(array(
-        "select" => array('UF_IBLOCK_ID'),
-        "filter" => $search_tips_filter,
-        "limit"  => 100,
-        "order"  => array("UF_PAGE_VIEWS_GA" => "ASC")
-    ));
-
-    $result = new CDBResult($result, $table_id);
     
-    while ($search_tip = $result->Fetch()) {      
-        $item_filetr["ID"][] = $search_tip["UF_IBLOCK_ID"];    
-    }     */
     
     $arResult["SEARCH"] = array();
     
@@ -392,7 +395,6 @@ if($this->InitComponentTemplate($templatePage))
                     $ar = $obSearch->GetNext();
                 }
             }
-
             $arReturn = array();  
             /* while($ar = $obSearch->GetNext()){ 
                 if(in_array($ar["ITEM_ID"],$item_filetr["ID"])){
@@ -461,7 +463,7 @@ if($this->InitComponentTemplate($templatePage))
             } */
             
             while($ar)
-            {
+            {   
                 $arReturn[$ar["ID"]] = $ar["ITEM_ID"];
                 $ar["CHAIN_PATH"] = $APPLICATION->GetNavChain($ar["URL"], 0, $folderPath."/chain_template.php", true, false);
                 $ar["URL"] = htmlspecialcharsbx($ar["URL"]);
@@ -487,6 +489,7 @@ if($this->InitComponentTemplate($templatePage))
                     }
                 }
                 $arResult["SEARCH"][]=$ar;
+                $item_search[] = $ar["ITEM_ID"];
                 $ar = $obSearch->GetNext();
             }     
 
@@ -495,7 +498,22 @@ if($this->InitComponentTemplate($templatePage))
             $arResult["NAV_CACHED_DATA"] = $navComponentObject->GetTemplateCachedData();
             $arResult["NAV_RESULT"] = $obSearch;
         }
-
+        
+        $arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL", "TAGS", "IBLOCK_TYPE");
+        $arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ID"=>$item_filetr["ID"],);
+        $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+        while($arFields = $res->GetNext()) {
+            $item["TITLE"] = $arFields["NAME"];
+            $item["URL"] = $arFields["DETAIL_PAGE_URL"];
+            $item["TAGS"] = $arFields["TAGS"];
+            $item["ITEM_ID"] = $arFields["ID"];
+            $item["PARAM2"] = CATALOG_IBLOCK_ID;
+            $item["PARAM1"] = $arFields["IBLOCK_TYPE"];
+            if(!in_array($item["ITEM_ID"], $item_search)){
+                array_unshift($arResult["SEARCH"],$item); 
+            }
+        }
+         
         $arResult["TAGS_CHAIN"] = array();
         $url = array();
         foreach ($arResult["REQUEST"]["~TAGS_ARRAY"] as $key => $tag)
