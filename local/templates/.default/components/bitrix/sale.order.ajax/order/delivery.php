@@ -282,11 +282,11 @@
                                 if(date('H:i') <= DELIVERY_TIME){
                                     echo str_replace('#DATE_DELIVERY#',date_day_courier(0), $arDelivery["DESCRIPTION"])."<br />";
                                 } else {
-                                    echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
+                                   echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
                                 }
                             }
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD && !date_deactive()) {
-                                echo str_replace('#DATE_DELIVERY#',date_day(1), $arDelivery["DESCRIPTION"])."<br />";
+                                echo str_replace('#DATE_DELIVERY#',date_day(5), $arDelivery["DESCRIPTION"])."<br />";
                         } else if(!date_deactive()){
                             if (strlen($arDelivery["DESCRIPTION"])>0){     
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']).' - '.date_day_courier($setProps['nextDay']+1), $arDelivery["DESCRIPTION"])."<br />";

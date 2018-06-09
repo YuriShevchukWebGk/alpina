@@ -336,15 +336,15 @@ function date_deactive(){    // ограничение вывода достав
         }
 
         //дата, выбранная по умолчанию
-        var curDay = minDatePlus;
+        var curDay = minDatePlus;        
         var newDay = ourday + minDatePlus;
         //если день доставки попадает на субботу
-        if (newDay == 6) {
+        if (newDay == 6 && curDay != 0) {
             curDay = curDay + 3;
         } else if (newDay == 0) {
 			curDay = curDay + 2;
 		}
-
+        
         if(curDay == 0){
             curDay = curDay -1;
         }

@@ -432,7 +432,24 @@
         } else {
         $day = $day;
         }   */
-        if ($date_N_today + $day == 6 || $date_N_today + $day == 7) {
+        $object_date_close = CIBlockElement::GetList (
+           Array("RAND" => "ASC"),
+           Array("IBLOCK_ID" => IBLOCK_ID_DATE_DELIVERY_MOSCOW),
+           false,
+           false,
+           array("NAME", "CODE")
+        );
+        global $close_date;
+        global $open_date;
+        while ($date_close = $object_date_close->Fetch()) {
+            if($date_close["CODE"] == "close"){
+                $close_date = explode(', ', $date_close["NAME"]);     // вытаскивает закрытые даты доставки
+            } else {
+                $open_date = explode(', ', $date_close["NAME"]);   // вытаскивает открытые даты доставки
+            }
+        }
+
+        if (($date_N_today + $day == 6 || $date_N_today + $day == 7) && !in_array(date('j.n.Y'), $open_date)) {
             $day = $day + 2;
         }
         if(strtotime($_SESSION["DATE_DELIVERY_STATE"])){
