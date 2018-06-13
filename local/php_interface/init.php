@@ -4253,7 +4253,10 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
     AddEventHandler("sale", "OnOrderAdd", "EventProductQuantity");
    
     function EventProductQuantity($ID, $arFields) {
-
+        
+        $basketItem = $arBasketItems;
+        $basketItem = array_pop($basketItem);
+        $itemID = $basketItem["PRODUCT_ID"];
         foreach($arFields["BASKET_ITEMS"] as $basket_item) {
             $product_quantity = CCatalogProduct::GetByID($basket_item["PRODUCT_ID"]);
             if($basket_item["QUANTITY"] > $product_quantity["QUANTITY"]){    // если количество в заазе больше чем на складе
@@ -4264,15 +4267,19 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
             }; 
         }
         foreach($arBasketItems as $basket_event){
-            $mailFields = array(
-                "QUANTITY"=> round($basket_event["QUANTITY"]),
-                "ID" => $basket_event["ID"],
-                "DETAIL_PAGE_URL" => $_SERVER["HTTP_ORIGIN"].$basket_event["DETAIL_PAGE_URL"],
-                "NAME" => $basket_event["NAME"],
-                "ORDER_ID" => $ID,
-            );
+            $ar_state = CIBlockElement::GetList(Array(), Array("ID" => IntVal($basket_event["ID"])), false, Array(), Array("ID", "PROPERTY_STATE"));
+            if ($arItem = $ar_state->Fetch()) {
+                if(intval($arItem["PROPERTY_STATE_ENUM_ID"]) != getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")) {
+                    $mailFields = array(
+                        "QUANTITY"=> round($basket_event["QUANTITY"]),
+                        "ID" => $basket_event["ID"],
+                        "DETAIL_PAGE_URL" => $_SERVER["HTTP_ORIGIN"].$basket_event["DETAIL_PAGE_URL"],
+                        "NAME" => $basket_event["NAME"],
+                        "ORDER_ID" => $ID,
+                    );
 
-            CEvent::Send("EVENT_QUANTITY", "s1", $mailFields, "N"); // отправляем письмо недостающем количеств етовара   
-        }    
-
+                    CEvent::Send("EVENT_QUANTITY", "s1", $mailFields, "N"); // отправляем письмо недостающем количеств етовара   
+                }
+            }    
+        }
     }
