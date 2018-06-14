@@ -143,14 +143,7 @@ body {font-size: 10pt;}
 				elseif ($a[1] == 0)
 					$a[1] = "00";
 
-                    $couponList = \Bitrix\Sale\Internals\OrderCouponsTable::getList(array(
-                        'select' => array('COUPON'),
-                        'filter' => array('ORDER_ID' => $params["PAYMENT_ORDER_ID"])
-                    ));
-                    while ($coupon = $couponList->fetch()) {
-                    //   arshow($coupon);
-                    }
-                   // 
+                   
 				echo "<font style=\"text-decoration:underline;\">&nbsp;".$a[0]."&nbsp;</font>&nbsp;".Loc::getMessage('SALE_HANDLERS_PAY_SYSTEM_SBERBANK_SHORT_RUB')."&nbsp;<font style=\"text-decoration:underline;\">&nbsp;".$a[1]."&nbsp;</font>&nbsp;".Loc::getMessage('SALE_HANDLERS_PAY_SYSTEM_SBERBANK_SHORT_COP')."";
 				?></td>
 				<td align="right">&nbsp;&nbsp;<?=Loc::getMessage('SALE_HANDLERS_PAY_SYSTEM_SBERBANK_ADD_SUM')?>&nbsp;&nbsp;_____&nbsp;<?=Loc::getMessage('SALE_HANDLERS_PAY_SYSTEM_SBERBANK_SHORT_RUB')?>&nbsp;____&nbsp;<?=Loc::getMessage('SALE_HANDLERS_PAY_SYSTEM_SBERBANK_SHORT_COP')?></td>
