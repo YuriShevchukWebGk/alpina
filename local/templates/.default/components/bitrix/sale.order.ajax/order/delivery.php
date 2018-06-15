@@ -275,7 +275,7 @@
                             if(in_array(date('j.n.Y'), $close_date) && !in_array($new_today, $close_date) && !in_array(date('j.n.Y'), $open_date)) {
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
                             } else if(in_array($new_today, $close_date) && !in_array(date('j.n.Y'), $open_date)){
-                                echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay'] + 1), $arDelivery["DESCRIPTION"])."<br />";
+                                echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']), $arDelivery["DESCRIPTION"])."<br />";
                             } else if(in_array(date('j.n.Y'), $open_date)){
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier(0), $arDelivery["DESCRIPTION"])."<br />";
                             } else {
@@ -286,7 +286,10 @@
                                 }
                             }
                         } else if($arDelivery["ID"] == DELIVERY_COURIER_MKAD && !date_deactive()) {
-                                echo str_replace('#DATE_DELIVERY#',date_day(5), $arDelivery["DESCRIPTION"])."<br />";
+                                $now = new DateTime(); // текущее время на сервере
+                                $date = DateTime::createFromFormat("j.n.Y", '16.6.2018'); // задаем дату в любом формате
+                                $interval = $now->diff($date); // получаем разницу в виде объекта DateInterval                                
+                                echo str_replace('#DATE_DELIVERY#',date_day(1), $arDelivery["DESCRIPTION"])."<br />";
                         } else if(!date_deactive()){
                             if (strlen($arDelivery["DESCRIPTION"])>0){     
                                 echo str_replace('#DATE_DELIVERY#',date_day_courier($setProps['nextDay']).' - '.date_day_courier($setProps['nextDay']+1), $arDelivery["DESCRIPTION"])."<br />";

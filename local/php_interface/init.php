@@ -563,7 +563,6 @@
             if ($_REQUEST['flippost_cost']) {
                 $delivery_price = $_REQUEST['flippost_cost'];
             } else {
-                logger($flippost_default_values, $_SERVER["DOCUMENT_ROOT"].'/logs/flippost.txt');
                 foreach ($flippost_default_values as $default_variant) {
                     if (is_array($default_variant['WEIGHT'])) {
                         if ((int)$arFields['ORDER_WEIGHT'] > $default_variant['WEIGHT'][0] && (int)$arFields['ORDER_WEIGHT'] <= $default_variant['WEIGHT'][1]) {
@@ -578,7 +577,6 @@
                     }
                 }
             }
-            logger($_REQUEST, $_SERVER["DOCUMENT_ROOT"].'/logs/flippost_request.txt');
 
             if($_REQUEST['flippost_cost']){
                 // записываем стоимость доставки в отгрузку
@@ -905,7 +903,6 @@
                           $order->save();
                  }
             }
-            logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_boxbery.txt');
 
         }
     }
@@ -954,7 +951,7 @@
                           $order->save();
                  }
             }
-            logger($_REQUEST, $_SERVER["DOCUMENT_ROOT"].'/logs/log_boxbery_saved.txt');
+
             // Добавляем полную стоимость заказа в оплату
             $order_instance = Bitrix\Sale\Order::load($orderId);
             $payment_collection = $order_instance->getPaymentCollection();
@@ -1034,6 +1031,7 @@
         $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
         //при получении оплаты
         if ($val == "Y") {
+            logger($ID, $_SERVER["DOCUMENT_ROOT"].'/logs/UpdOrderStatus_log.txt');
             $order = CSaleOrder::GetById($ID);
             //если текущий статус закана - не один из трех вышеперечисленных, ставим статус "оплачен"
             if (!in_array($order["STATUS_ID"],$arStatus)) {
@@ -1059,7 +1057,6 @@
                         $ids .= $mainID["PROPERTY_MAIN_APP_ID_VALUE"] ? $mainID["PROPERTY_MAIN_APP_ID_VALUE"].',' : $arItems["PRODUCT_ID"].',';
                     }
                 }
-
                 $products = getUrlForFreeDigitalBook(substr($ids,0,-1));
 
                 if ($products['url'] != 'error') {
@@ -1086,7 +1083,7 @@
                     $userGend->Update($order_list['USER_ID'], $fieldsGend);
 
                     $freeurl = $products['url'];
-
+                    logger($allUrlsArray, $_SERVER["DOCUMENT_ROOT"].'/logs/UpdOrderStatus_log_2.txt');
                     $useremail = Message::getClientEmail($ID);
                 } else {
                     $freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
@@ -1118,6 +1115,8 @@
                 } else {
                     CSaleOrder::StatusOrder($ID, "D");
                 }
+                    logger($order_list, $_SERVER["DOCUMENT_ROOT"].'/logs/UpdOrderStatus_log_3.txt');
+
             }
         }
 
@@ -3697,7 +3696,6 @@
         //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
         if(cancelMail($arFields, $arTemplate)) {
            // return false;
-           logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/event.txt');
            $arFields["PREORDER"] = "предзаказ";
            $arFields["EMAIL_DELIVERY_TERM"] = "";
            $arFields["PAYMENT_LINK"] = "";
@@ -3735,7 +3733,6 @@
 
                 }
             }
-            logger($arTemplate, $_SERVER["DOCUMENT_ROOT"].'/logs/log.php');
             $params = array(
                 'from'	=> ($email_from)?$email_from:MAIL_FROM_DEFAULT,
                 'to'	  => $email_to,//$arFields["EMAIL"],
@@ -3890,7 +3887,7 @@
                     }
                 }
                 foreach($order_new_statys as $order_update){
-                   logger($order_update["ORDER"], $_SERVER["DOCUMENT_ROOT"].'/logs/log_status.txt');
+
                     if($order_update["ORDER"] && $order_update["STATUS"] != "N"){
                         if($order_update["ORDER"]["PAY_SYSTEM_ID"] == CASH_PAY_SISTEM_ID || $order_update["ORDER"]["PAY_SYSTEM_ID"] == PAY_SYSTEM_IN_OFFICE){
                             CSaleOrder::StatusOrder($order_update["ORDER"]["ID"], "N");  // меняем статус на новый
@@ -4108,7 +4105,6 @@ function MontageBasketAdd(&$arFields) {
             // выясняем остатки у товара остатков
             $rsStore = CCatalogProduct::GetByID($ob["ID"]);
 
-            logger($arFields, $_SERVER["DOCUMENT_ROOT"].'/logs/log_basket.txt');
             if($rsStore["QUANTITY"] > 0 ){
                  $ar_quantity[] = $rsStore["QUANTITY"];
                  $ar_xml_id[$rsStore["QUANTITY"]] = $ob["XML_ID"];
