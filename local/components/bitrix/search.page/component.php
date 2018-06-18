@@ -499,18 +499,20 @@ if($this->InitComponentTemplate($templatePage))
             $arResult["NAV_RESULT"] = $obSearch;
         }
         
-        $arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL", "TAGS", "IBLOCK_TYPE");
-        $arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ID"=>$item_filetr["ID"],);
-        $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
-        while($arFields = $res->GetNext()) {
-            $item["TITLE"] = $arFields["NAME"];
-            $item["URL"] = $arFields["DETAIL_PAGE_URL"];
-            $item["TAGS"] = $arFields["TAGS"];
-            $item["ITEM_ID"] = $arFields["ID"];
-            $item["PARAM2"] = CATALOG_IBLOCK_ID;
-            $item["PARAM1"] = $arFields["IBLOCK_TYPE"];
-            if(!in_array($item["ITEM_ID"], $item_search)){
-                array_unshift($arResult["SEARCH"],$item); 
+        if(count($item_filetr["ID"]) > 0){
+            $arSelect = Array("ID", "NAME", "DETAIL_PAGE_URL", "TAGS", "IBLOCK_TYPE");
+            $arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ID"=>$item_filetr["ID"]);
+            $res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+            while($arFields = $res->GetNext()) {
+                $item["TITLE"] = $arFields["NAME"];
+                $item["URL"] = $arFields["DETAIL_PAGE_URL"];
+                $item["TAGS"] = $arFields["TAGS"];
+                $item["ITEM_ID"] = $arFields["ID"];
+                $item["PARAM2"] = CATALOG_IBLOCK_ID;
+                $item["PARAM1"] = $arFields["IBLOCK_TYPE"];
+                if(!in_array($item["ITEM_ID"], $item_search)){
+                    array_unshift($arResult["SEARCH"],$item); 
+                }
             }
         }
          

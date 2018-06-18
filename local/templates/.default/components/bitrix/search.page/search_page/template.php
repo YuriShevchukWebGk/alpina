@@ -400,6 +400,7 @@ endif;?>
             <div class="searchWidthWrapper">
                 <?foreach ($arResult["SEARCH"] as $arSearch)
                 {
+                    
                     $item = CIBlockElement::GetList (array(), array("ID"=>$arSearch["ITEM_ID"]), false, false, array("ID", "PROPERTY_AUTHORS", "DETAIL_PICTURE"))->Fetch();
                     $price = CPrice::GetBasePrice($arSearch["ITEM_ID"]);
                     $pict = CFile::ResizeImageGet($item["DETAIL_PICTURE"], array('width'=>165, 'height'=>233), BX_RESIZE_IMAGE_EXACT, true);

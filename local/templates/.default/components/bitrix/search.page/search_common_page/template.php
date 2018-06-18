@@ -330,7 +330,7 @@
                                                 if (($arResult["BASKET_ITEMS"][$arItem["ITEM_ID"]]["QUANTITY"] == 0) && ($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"] != CERTIFICATE_SECTION_ID)) {
                                                     $curr_sect_ID = $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["IBLOCK_SECTION_ID"];?>
                                                     <a class="product<?= $arItem["ITEM_ID"]; ?>"
-                                                        href="<?= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>"
+                                                        href="javascript:void(0)<?//= '/search/index.php?action=ADD2BASKET&id=' . $arItem["ITEM_ID"] ?>"
                                                         onclick="addtocart(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"];?>', '<?= $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"];?>'); addToCartTracking(<?= $arItem["ITEM_ID"]; ?>, '<?= $arItem["TITLE"]; ?>', '<?= ceil( $arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["CATALOG_PRICE_1"]) ?>', '<?echo $arResult["BOOK_INFO"]["SECTIONS"][$curr_sect_ID]["SECTION_INFO"]['NAME'];?>', '1');return false;">
                                                         <?if(intval($arResult["BOOK_INFO"][$arItem["ITEM_ID"]]["PROPERTY_STATE_ENUM_ID"]) != getXMLIDByCode (CATALOG_IBLOCK_ID, "STATE", "soon")) {?>
                                                             <p class="basket"><?=GetMessage("ADD_IN_BASKET")?></p>
@@ -449,7 +449,7 @@
                                                     if ($arResult["BASKET_ITEMS"][$key]["QUANTITY"] == 0) {
                                                         $curr_sect_ID = $exp_book_arr["IBLOCK_SECTION_ID"];?>
                                                         <a class="product<?= $key; ?>"
-                                                            href="<?= '/search/index.php?action=ADD2BASKET&id=' . $key ?>"
+                                                            href="javascript:void(0)<?//= '/search/index.php?action=ADD2BASKET&id=' . $key ?>"
                                                             onclick="addtocart(<?= $key; ?>, '<?= $exp_book_arr["NAME"];?>'); addToCartTracking(<?= $key; ?>, '<?= $exp_book_arr["NAME"]; ?>', '<?= ceil( $exp_book_arr["CATALOG_PRICE_1"]) ?>', '<?echo $arResult["EXPERT_BOOK_INFO_SECTIONS"][$curr_sect_ID]["SECTION_INFO"]['NAME'];?>', '1');return false;">
                                                                 <p class="basket">В корзину</p>
                                                         </a>
