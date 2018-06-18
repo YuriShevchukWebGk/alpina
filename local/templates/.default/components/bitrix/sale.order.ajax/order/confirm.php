@@ -132,18 +132,17 @@
         <?//получаем email из заказа. у физлиц будет EMAIL, у юрлиц F_EMAIL
 			$userEmail = Message::getClientEmail($arResult["ORDER"]["ID"]);
         ?>
-        <script type="text/javascript">
-            rrApiOnReady.push(function() {
-                try {
-                    rrApi.order({
-                        transaction: <?=$arResult["ORDER"]["ID"]?>,
-                        items: <?=$_SESSION['retailRocket']?>
-                    });
-                } catch(e) {}
-            });
-            rrApiOnReady.push(function () { rrApi.setEmail("<?=$userEmail?>"); });
-        </script>
 
+        <script type="text/javascript">
+        (window["rrApiOnReady"] = window["rrApiOnReady"] || []).push(function() {
+            try {
+                rrApi.order({  
+                    transaction: "<?=$arResult["ORDER"]["ID"]?>",
+                    items: <?=$arResult["itemsForCriteo"]?>,
+                });
+            } catch(e) {}
+        })
+        </script>
         <!-- Facebook Conversion Code for Оформление заказов - Альпина 1 -->
         <script>
         (function() {
@@ -193,6 +192,7 @@
         <?unset($_SESSION['gdeslon'])?>
 		<?unset($_SESSION['itemsForAdmitad'])?>
 	<?}?>
+
 
 
     <div class="confirmWrapper">

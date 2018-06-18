@@ -140,6 +140,6 @@ $MESS["LAST_EDITION"] = ", последнее издание ";
 $MESS["TRANSLATOR"] = "Переводчик";
 $MESS["DELIVERY_POST_SITY"] = " пункт выдачи ";
 $MESS["EXPECTED_DATE_2"] = " Поступит в продажу в ";
-$MESS["UNDER_ORDER"] = " Срок поставки #day# дней после оплаты";
+$MESS["UNDER_ORDER"] = " Срок изготовления #day# дней после оплаты";
 $MESS["UNDER_ORDER_SALE"] = "Заказать";
 ?>

@@ -5,7 +5,26 @@
     $theme = COption::GetOptionString("main", "wizard_eshop_bootstrap_theme_id", "blue", SITE_ID);
 ?>
 <!doctype html>
-<html class="finishOrder" lang="ru">
+<html class="finishOrder" lang="ru">    
+<!-- retailrocket трекер -->
+<script type="text/javascript">
+   var rrPartnerId = "50b90f71b994b319dc5fd855";       
+   var rrApi = {}; 
+   var rrApiOnReady = rrApiOnReady || [];
+   rrApi.addToBasket = rrApi.order = rrApi.categoryView = rrApi.view = 
+       rrApi.recomMouseDown = rrApi.recomAddToCart = function() {};
+   (function(d) {
+       var ref = d.getElementsByTagName('script')[0];
+       var apiJs, apiJsId = 'rrApi-jssdk';
+       if (d.getElementById(apiJsId)) return;
+       apiJs = d.createElement('script');
+       apiJs.id = apiJsId;
+       apiJs.async = true;
+       apiJs.src = "//cdn.retailrocket.ru/content/javascript/tracking.js";
+       ref.parentNode.insertBefore(apiJs, ref);
+   }(document));
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -185,15 +204,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }];
     </script>
 <?}?>
-<!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PM87GH"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PM87GH');</script>
-<!-- End Google Tag Manager -->
+
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 
 <div class="basketHeader">

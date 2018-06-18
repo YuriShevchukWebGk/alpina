@@ -4,8 +4,14 @@ $this->setFrameMode(true);
 <style>
 .sliderElementMin{
     width: 234px;   
-}
+}       
 </style>
+
+<script type="text/javascript">
+    (window["rrApiOnReady"] = window["rrApiOnReady"] || []).push(function() {
+        try { rrApi.categoryView(<?=$arResult["SECTION_ID"]?>); } catch(e) {}
+    })
+</script>
 <div class="bestSlider">
     <div>
         <ul>
