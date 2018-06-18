@@ -193,7 +193,7 @@
     * @param string $additional_parameters
     *
     **/       
-
+    /*  сторонний сервис отправки почты
     function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
 
        //logger($message, $_SERVER["DOCUMENT_ROOT"].'/logs/log_event.txt');
@@ -243,7 +243,7 @@
         # Make the call to the client.
         $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
     }   
-
+        */
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
     function cancelMail(&$arFields, $arTemplate) {
         if ($arTemplate["ID"] == 16) {
