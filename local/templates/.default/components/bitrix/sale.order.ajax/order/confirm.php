@@ -7,7 +7,8 @@
         }
     </style>
     <?}?>
-<?
+
+<?    
     if (!empty($arResult["ORDER"])) {
     ?>
     <?
@@ -133,16 +134,7 @@
 			$userEmail = Message::getClientEmail($arResult["ORDER"]["ID"]);
         ?>
 
-        <script type="text/javascript">
-        (window["rrApiOnReady"] = window["rrApiOnReady"] || []).push(function() {
-            try {
-                rrApi.order({  
-                    transaction: "<?=$arResult["ORDER"]["ID"]?>",
-                    items: <?=$arResult["itemsForCriteo"]?>,
-                });
-            } catch(e) {}
-        })
-        </script>
+
         <!-- Facebook Conversion Code for Оформление заказов - Альпина 1 -->
         <script>
         (function() {
@@ -193,8 +185,7 @@
 		<?unset($_SESSION['itemsForAdmitad'])?>
 	<?}?>
 
-
-
+              
     <div class="confirmWrapper">
             <div class="finishOrdWrap">
                 <div class="centerWrapper">
@@ -204,6 +195,7 @@
                         <p class="giftCont"><a href="#">Получить подарок</a></p>
                     </div>
                     <div class="mainInfoWrap">
+
 						<?if ($arResult['ORDER']['STATUS_ID'] == 'PR') {?>
 							<p class="ordTitle">Предварительный заказ №<?=$arResult["ORDER"]["ACCOUNT_NUMBER"]?> успешно оформлен!</p>
 							<p class="ordHint">Вы сможете воспользоваться ссылкой на оплату после того, как книга появится в продаже.</p>
@@ -430,6 +422,7 @@
                     </div>
                 </div>
             </div>
+
 			<div class="i-flocktory" data-fl-action="exchange" data-fl-spot="some_spot" data-fl-user-name="<?=$userName?>" data-fl-user-email="<?=$userEmail?>"></div>
     </div>
 
@@ -446,6 +439,7 @@
 		</table>
     <?}?>
 
+     
 <script>
     $(function(){
         var result = $(".confirmWrapper").html();

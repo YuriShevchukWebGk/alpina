@@ -1392,6 +1392,7 @@ function CheckRequestFields() {
             $(".layout").show();
             $(".some_info").show();
             $(".some_info").html(data);
+            (window["rrApiOnReady"] = window["rrApiOnReady"] || []).push(function() { rrApi.setEmail(emailAddres);});
         })
     }
     else {

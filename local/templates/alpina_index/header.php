@@ -1852,6 +1852,7 @@ $APPLICATION->IncludeComponent(
 					);?>
 				</div>
 				<!--noindex-->
+                
                 <div class="giftWrapBlock">
                     <div class="giftWrap">
                         <form action="/" method="post">
