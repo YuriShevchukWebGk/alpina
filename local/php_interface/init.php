@@ -192,7 +192,7 @@
     * @param string $additional_headers
     * @param string $additional_parameters
     *
-    **/       
+    **/
     /*  сторонний сервис отправки почты
     function custom_mail($to, $subject, $message, $additional_headers = "", $additional_parameters = '') {
 
@@ -242,7 +242,7 @@
         $domain = MAILGUN_DOMAIN;
         # Make the call to the client.
         $result = $mailgun->sendMessage($domain, $params, array('attachment' => $additional_headers));
-    }   
+    }
         */
     //Отрубаем отправку письма о "новом заказе" при офорлмении предзаказа
     function cancelMail(&$arFields, $arTemplate) {
@@ -3470,7 +3470,7 @@
         }
     }
 
-
+    
     //Обновление HL блока с поисковыми индексами
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'iblock',
@@ -3481,10 +3481,10 @@
         'iblock',
         'OnAfterIBlockElementAdd',
         'HLBlockElementUpdate'
-    );
-    function HLBlockElementUpdate(Bitrix\Main\Event $arElement){
+    );       
+    function HLBlockElementUpdate($arElement){
 
-        if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
+        if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {  
             if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){
                 $arSelect = Array("ID", "NAME", "IBLOCK_ID", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN", "PROPERTY_IGNORE_SEARCH_INDEX");
                 $arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
@@ -4247,9 +4247,9 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
         return "courier_status();";
    }
     AddEventHandler("sale", "OnOrderAdd", "EventProductQuantity");
-   
+
     function EventProductQuantity($ID, $arFields) {
-        
+
         $basketItem = $arBasketItems;
         $basketItem = array_pop($basketItem);
         $itemID = $basketItem["PRODUCT_ID"];
@@ -4260,7 +4260,7 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
                  $arBasketItems[$basket_item["ID"]]["ID"] = $basket_item["ID"];
                  $arBasketItems[$basket_item["ID"]]["NAME"] = $basket_item["NAME"];
                  $arBasketItems[$basket_item["ID"]]["DETAIL_PAGE_URL"] = $basket_item["DETAIL_PAGE_URL"];
-            }; 
+            };
         }
         foreach($arBasketItems as $basket_event){
             $ar_state = CIBlockElement::GetList(Array(), Array("ID" => IntVal($basket_event["ID"])), false, Array(), Array("ID", "PROPERTY_STATE"));
@@ -4274,8 +4274,8 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
                         "ORDER_ID" => $ID,
                     );
 
-                    CEvent::Send("EVENT_QUANTITY", "s1", $mailFields, "N"); // отправляем письмо недостающем количеств етовара   
+                    CEvent::Send("EVENT_QUANTITY", "s1", $mailFields, "N"); // отправляем письмо недостающем количеств етовара
                 }
-            }    
+            }
         }
     }
