@@ -247,7 +247,8 @@ function CourierHandler() {
 				}
 			}
 			
-			$.post("/admin_modules/couriers/php/matchCourierAndOrder.php", actionObject , function(data) {   
+			$.post("/admin_modules/couriers/php/matchCourierAndOrder.php", actionObject , function(data) { 
+            console.log(data);  
 				response = JSON.parse(data);
 				if(response.status=="success" && response.relations){
 					console.info(response.relations);

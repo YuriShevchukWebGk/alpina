@@ -118,5 +118,20 @@ class OrderToCourier {
 }
 
 $orderToCourierRelation = new OrderToCourier();
-$orderToCourierRelation -> $_POST['action']($_POST['first_param'], $_POST['second_param']);
+
+switch($_POST["action"]){
+    case create:
+        $orderToCourierRelation -> create($_POST['first_param'], $_POST['second_param']);
+    break;
+    case read:
+        $orderToCourierRelation -> read($_POST['first_param'], $_POST['second_param']);
+    break;
+    case update:
+        $orderToCourierRelation -> update($_POST['first_param'], $_POST['second_param']);
+    break;
+    case delete:
+        $orderToCourierRelation -> delete($_POST['first_param'], $_POST['second_param']);
+    break;
+}
+
 ?>

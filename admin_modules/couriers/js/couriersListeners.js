@@ -43,9 +43,11 @@ function OrdersListCourirerListener(){
 				 * After that replace(/\D+/,'') & parseInt will remove all non-digits and force it to int type
 				 * 
 				 **/
-				
-				var selectedOrderID = parseInt($(".adm-table-row-active").attr("oncontextmenu").match(/ID=\d+/)[0].replace(/\D+/,''));
-				this.orderObj.getSelectedOrderStatus(selectedOrderID);
+                 var onetext = $(".adm-table-row-active").attr("oncontextmenu");
+				if(onetext != 'undefined') { 
+				    var selectedOrderID = parseInt(onetext.match(/ID=\d+/)[0].replace(/\D+/,''));
+				    this.orderObj.getSelectedOrderStatus(selectedOrderID);
+                }
 		}.bind(this))
 	}
 	
