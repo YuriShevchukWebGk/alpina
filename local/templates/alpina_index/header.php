@@ -11,10 +11,10 @@
 <head>
 <!-- retailrocket трекер -->
 <script type="text/javascript">
-   var rrPartnerId = "50b90f71b994b319dc5fd855";       
-   var rrApi = {}; 
+   var rrPartnerId = "50b90f71b994b319dc5fd855";
+   var rrApi = {};
    var rrApiOnReady = rrApiOnReady || [];
-   rrApi.addToBasket = rrApi.order = rrApi.categoryView = rrApi.view = 
+   rrApi.addToBasket = rrApi.order = rrApi.categoryView = rrApi.view =
        rrApi.recomMouseDown = rrApi.recomAddToCart = function() {};
    (function(d) {
        var ref = d.getElementsByTagName('script')[0];
@@ -27,14 +27,9 @@
        ref.parentNode.insertBefore(apiJs, ref);
    }(document));
 </script>
-    
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WJ59CKW');</script>
-<!-- End Google Tag Manager -->
+<?if(file_exists($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/google_tag_manager.php")) {
+    include_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/google_tag_manager.php");
+}?>
 <!--eski.mobi-->
 <script class="eskimobi" data-type="mobile">!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];e.src?a.src=e.src:e.innerHTML&&(a.innerHTML=e.innerHTML),a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<div id="eski-overlay" style="font-family:Helvetica-Light,Helvetica,Arial,sans-serif;font-weight:light;font-size:300%;line-height:100%;position:absolute;top:42%;left:0;right:0;text-align:center;color: #999;">\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...</div><plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h=function(){var c=new Date;c.setTime(c.getTime()+18e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e){var a=b.createElement("script");if(a.onerror=h,"string"==typeof e)g(a,"main-executable","mobify",{src:e});else{var c="var main = "+e.toString()+"; main();";g(a,"main-executable","mobify",{innerHTML:c})}}},f.onerror=h,g(f,"mobify-js","mobify",{src:d})})}(window,document,function(){var ua=navigator.userAgent||navigator.vendor||window.opera,m=false;if(/mobi|phone|ipod|nokia|android/i.test(ua))m=true;if(/msie|windows|media\scenter|opera\smini|ipad|android\s3|android\s2|iphone\sos\s(4|5|6)|ipad\sos\s(4|5|6)/i.test(ua)||screen.width>1024)m=false;return m;},"/eskimobi/eski.mobi.min.js?20170906","/eskimobi/mobi.js?201710182");</script><!--/eski.mobi-->
     <!--alpina_index-->
@@ -98,21 +93,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<script type="text/javascript" src="https://www.gdeslon.ru/landing.js?mode=main&amp;mid=79276" async></script>
 	<script>
 		$(function(){
-           fxSlider('smallBooksSliderConteiner', 'smallBooksleftArrow', 'smallBooksRightArrow', false, 650, 5); 
+           fxSlider('smallBooksSliderConteiner', 'smallBooksleftArrow', 'smallBooksRightArrow', false, 650, 5);
 		})
 		$(function(){
-           fxSlider('recomendedBooksSliderConteiner', 'recomendedBooksleftArrow', 'recomendedBooksRightArrow', false, 650, 5); 
+           fxSlider('recomendedBooksSliderConteiner', 'recomendedBooksleftArrow', 'recomendedBooksRightArrow', false, 650, 5);
 		})
 		$(function(){
-           fxSlider('bestcellersBooksSliderConteiner', 'bestcellersBooksleftArrow', 'bestcellersBooksRightArrow', false, 650, 5); 
+           fxSlider('bestcellersBooksSliderConteiner', 'bestcellersBooksleftArrow', 'bestcellersBooksRightArrow', false, 650, 5);
         })
 	</script>
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ59CKW"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<?if(file_exists($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/google_tag_manager_no-script.php")) {
+    include_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/google_tag_manager_no-script.php");
+}?>
 <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter1611177 = new Ya.Metrika({ id:1611177, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/1611177" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 <? global $USER;
 if ($USER->IsAuthorized()) {
@@ -968,7 +962,7 @@ if ($USER->IsAuthorized()) {
 			$opts = array('http' =>
 				array(
 					'method'  => 'GET',
-					'timeout' => 3 
+					'timeout' => 3
 				)
 			);
 
@@ -981,7 +975,7 @@ if ($USER->IsAuthorized()) {
 			}
 
         }
-        
+
 		?>
 
 	<div class="bestonmain">
@@ -989,8 +983,8 @@ if ($USER->IsAuthorized()) {
 	<?//Слайдер "Рекомендованно лично вам"
 	if($recsArray != ""){
 		$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"slider_on_main_recommended", 
+	"bitrix:catalog.section",
+	"slider_on_main_recommended",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",
@@ -1132,8 +1126,8 @@ if ($USER->IsAuthorized()) {
 
             <?//Слайдер "Бестселлеры"
 			$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"slider_on_main_bestsellers", 
+	"bitrix:catalog.section",
+	"slider_on_main_bestsellers",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",
@@ -1265,8 +1259,8 @@ if ($USER->IsAuthorized()) {
 		global $blogPostsFilter;
 		$blogPostsFilter = array("!ID" => false);
 		$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"this_book_in_blog", 
+	"bitrix:catalog.section",
+	"this_book_in_blog",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "71",
@@ -1378,18 +1372,18 @@ if ($USER->IsAuthorized()) {
 );
 		?>
             <?
-		
+
             global $smallBooks;
             if(!$USER->IsAdmin()){
                 $smallBooks = array("=PROPERTY_SERIES" => array(435902, 429853), "!PROPERTY_FOR_ADMIN_VALUE" => "Y");
             } else {
                 $smallBooks = array("=PROPERTY_SERIES" => array(435902, 429853));
-            }   
+            }
             ?>
             <?//Слайдер "Маленькие книги - большие..."
 $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section", 
-	"slider_on_main_small_books", 
+	"bitrix:catalog.section",
+	"slider_on_main_small_books",
 	array(
 		"IBLOCK_TYPE_ID" => "catalog",
 		"IBLOCK_ID" => "4",
@@ -1518,7 +1512,7 @@ $APPLICATION->IncludeComponent(
 	),
 	false
 );?>
-			
+
 			<?/*$APPLICATION->IncludeComponent(
 				"bitrix:main.include",
 				".default",
@@ -1534,8 +1528,8 @@ $APPLICATION->IncludeComponent(
 			);*/?>
         </div>
 
-		<?
-		$APPLICATION->IncludeComponent(
+		<?  // instagramm
+		/*$APPLICATION->IncludeComponent(
 			"bitrix:main.include",
 			".default",
 			array(
@@ -1547,7 +1541,7 @@ $APPLICATION->IncludeComponent(
 				"PATH" => "/include/instagram/instagram_feed.php"
 			),
 			false
-		);
+		);  */
 		?>
         <div class="no-mobile bestbookmain">
             <?
@@ -1852,7 +1846,7 @@ $APPLICATION->IncludeComponent(
 					);?>
 				</div>
 				<!--noindex-->
-                
+
                 <div class="giftWrapBlock">
                     <div class="giftWrap">
                         <form action="/" method="post">
