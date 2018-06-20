@@ -323,10 +323,10 @@ function date_deactive(){    // ограничение вывода достав
         ourday = <?=date("w");?>;
         time_open_today = '<?=date('H:i')?>'; 
         time_open = '<?=DELIVERY_TIME?>';
-
+        minDatePlus = 0;
         <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
 		    ftePlus = <?=$interval + $setProps['nextDay']?> + 1;
-            new_day = minminDatePlus + 14;
+            new_day = minDatePlus + 14;
             minDate = "+" + new_day + "d";
         <?} else { ?>
             minDatePlus = <?=$setProps['nextDay']?> ;
