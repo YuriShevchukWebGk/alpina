@@ -8,7 +8,7 @@
 } else {?>
     <section class="l-section-wrap top-section color_1 full">
         <div class="container">
-            <? $APPLICATION->IncludeComponent("bitrix:main.profile", "user_profile_sailplay", array(
+            <?/* $APPLICATION->IncludeComponent("bitrix:main.profile", "user_profile_sailplay", array(
                     "SET_TITLE" => "Y",
                     "AJAX_MODE" => "Y"
                     ),
@@ -16,7 +16,7 @@
                     array(
                         "ACTIVE_COMPONENT" => "Y"
                     )
-                ); ?>
+                );*/?>
         </div>
     </section>
     <?$APPLICATION->IncludeComponent(
