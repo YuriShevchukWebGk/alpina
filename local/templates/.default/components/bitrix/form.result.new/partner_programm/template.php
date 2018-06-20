@@ -101,12 +101,12 @@ if ($arResult["isFormTitle"])
 <tr>
     <td colspan="2">
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-        <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LfaDjgUAAAAAKHkN3Rrg15GAURviF4x1gtpPxGt"></div>
+        <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6Lf5Cl4UAAAAAL7Ml9GXI188N-vX0DfTPNVwjU6w"></div>
         <noscript>
             <div>
                 <div style="width: 302px; height: 422px; position: relative;">
                     <div style="width: 302px; height: 422px; position: absolute;">
-                        <iframe src="https://www.google.com/recaptcha/api/fallback?k=6LfaDjgUAAAAAKHkN3Rrg15GAURviF4x1gtpPxGt"
+                        <iframe src="https://www.google.com/recaptcha/api/fallback?k=6Lf5Cl4UAAAAAL7Ml9GXI188N-vX0DfTPNVwjU6w"
                             frameborder="0" scrolling="no"
                             style="width: 302px; height:422px; border-style: none;">
                         </iframe>
@@ -130,7 +130,7 @@ if ($arResult["isFormTitle"])
 		<tr>
 			<th colspan="2">
 				<input <?=(intval($arResult["F_RIGHT"]) < 10 ? "disabled=\"disabled\"" : "");?> type="submit" name="web_form_submit" value="<?=htmlspecialcharsbx(strlen(trim($arResult["arForm"]["BUTTON"])) <= 0 ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]);?>" />
-				
+
 			</th>
 		</tr>
 	</tfoot>
@@ -153,19 +153,19 @@ if ($arResult["isFormTitle"])
         } else {
 			$("input[name='form_text_111']").css("border", "1px solid #c1c5c8");
 		}
-		
+
         if ($("input[name='form_email_114']").val() == "" || isEmail($("input[name='form_email_114']").val()) == false) {
 			$("input[name='form_email_114']").css("border", "2px solid red");
         } else {
 			$("input[name='form_email_114']").css("border", "1px solid #c1c5c8");
 		}
-		
+
         if ($("input[name='form_text_117']").val() == "") {
 			$("input[name='form_text_117']").css("border", "2px solid red");
         } else {
 			$("input[name='form_text_117']").css("border", "1px solid #c1c5c8");
 		}
-		
+
         if ($("input[name='form_text_111']").val() == "" || $("input[name='form_email_114']").val() == "" || $("input[name='form_text_117']").val() == "" || isEmail($("input[name='form_email_114']").val()) == false) {
             e.preventDefault();
         } else {
@@ -177,21 +177,21 @@ if ($arResult["isFormTitle"])
 					data: data,
 					success: function(data){
 						if (data.result == "ERROR") {
-							form.find('input[type="submit"]').prop('disabled', true);          
+							form.find('input[type="submit"]').prop('disabled', true);
 							$(".g-recaptcha iframe").css("border", "2px solid red");
 							$(".g-recaptcha").show();
 						} else {
 							form.find('input[type="submit"]').prop('disabled', false);
 							allowSubmit = true;
 							form.find('input[type="submit"]').trigger("click");
-						} 
+						}
 					},
 					complete :function(data){
 						form.find('input[type="submit"]').prop('disabled', false);
 
 
 					}
-				});	
+				});
 			}
 			return allowSubmit;
 		}

@@ -318,7 +318,7 @@ if($this->InitComponentTemplate($templatePage))
     $result = $entity_data_class::getList(array(
         "select" => array('UF_IBLOCK_ID'),
         "filter" => $search_tips_filter,
-        "limit"  => 100,
+        "limit"  => 500,
         "order"  => array("UF_PAGE_VIEWS_GA" => "ASC")
     ));
 
@@ -342,6 +342,7 @@ if($this->InitComponentTemplate($templatePage))
             "SITE_ID" => SITE_ID,
             'TITLE' => "%" . mb_strtolower($arResult["REQUEST"]["~QUERY"]),
         );
+        
         $arFilter = array_merge($arFILTERCustom, $arFilter);
         if(strlen($where)>0)
         {
@@ -357,7 +358,7 @@ if($this->InitComponentTemplate($templatePage))
             $arFilter["<=DATE_CHANGE"] = $to;
         
         $obSearch = new CSearch();
-
+        
         //When restart option is set we will ignore error on query with only stop words
         $obSearch->SetOptions(array(
             "ERROR_ON_EMPTY_STEM" => $arParams["RESTART"] != "Y",

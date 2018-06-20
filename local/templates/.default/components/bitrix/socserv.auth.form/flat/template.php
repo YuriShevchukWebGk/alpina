@@ -78,7 +78,7 @@ foreach($arAuthServices as $service):
             </div>
     <?endif?>
         </li>
-		<li style="width:100%;">
+		<?/*<li style="width:100%;">
             <?
             $client_id = '826413122112-3083kfgkelgpn9ejqi7fcrmj1r3oml7c.apps.googleusercontent.com'; // Client ID
             $client_secret = 'X248g0y3al_3Tpa29Z74KyHf'; // Client secret
@@ -98,7 +98,7 @@ foreach($arAuthServices as $service):
 
             ?>
 		</li>
-<?
+<?      */
 endforeach;
 ?>
 	</ul>

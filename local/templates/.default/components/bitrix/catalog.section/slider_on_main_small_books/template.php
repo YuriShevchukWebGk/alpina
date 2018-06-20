@@ -16,9 +16,9 @@ $this->setFrameMode(true);
                                 <?if($pict["src"] != ''){?>
                                     <img src="<?=$pict["src"]?>" alt="Обложка книги «<?=$arItem["NAME"]?>»">
                                 <?} else {?>
-                                    <img src="/images/no_photo.png">      
+                                    <img src="/images/no_photo.png">
                                 <?}?>
-                            </div> 
+                            </div>
                         </a>
                         <div class="sliderItemDescriptionContaner">
                             <?if($arItem["PROPERTIES"]["SHORT_NAME"]["VALUE"]){?>

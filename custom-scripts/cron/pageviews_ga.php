@@ -11,7 +11,7 @@ CModule::IncludeModule("catalog");
 CModule::IncludeModule("main");
 
 // Загрузка клиентской библиотеки PHP для Google API.
-//require_once '/home/bitrix/vendor/autoload.php';
+require_once $_SERVER["DOCUMENT_ROOT"].'/bitrix/php_interface/include/service-account-credentials.json';
 
 $analytics = initializeAnalytics();
 $response1 = getLastTwoDays($analytics, '21409934');
@@ -21,21 +21,21 @@ printResultsMonth($response2);
 
 function initializeAnalytics()
 {
-  // Creates and returns the Analytics Reporting service object.
+    // Creates and returns the Analytics Reporting service object.
 
-  // Use the developers console and download your service account
-  // credentials in JSON format. Place them in this directory or
-  // change the key file location if necessary.
-  $KEY_FILE_LOCATION = '/home/bitrix/site_secrets.json';
+    // Use the developers console and download your service account
+    // credentials in JSON format. Place them in this directory or
+    // change the key file location if necessary.
+    $KEY_FILE_LOCATION = $_SERVER["DOCUMENT_ROOT"].'/vendor/service-account-credentials.json';
 
-  // Create and configure a new client object.
-  $client = new Google_Client();
-  $client->setApplicationName("Hello Analytics Reporting");
-  $client->setAuthConfig($KEY_FILE_LOCATION);
-  $client->setScopes(['https://www.googleapis.com/auth/analytics.readonly']);
-  $analytics = new Google_Service_Analytics($client);
+    // Create and configure a new client object.
+    $client = new Google_Client();
+    $client->setApplicationName("Hello Analytics Reporting");
+    $client->setAuthConfig($KEY_FILE_LOCATION);
+    $client->setScopes(['https://www.googleapis.com/auth/analytics.readonly']);
+    $analytics = new Google_Service_Analytics($client);
 
-  return $analytics;
+    return $analytics;
 }
 
 function getLastTwoDays($analytics, $profileId) {
@@ -114,6 +114,9 @@ function printResultsTwoDays($results) {
 		}
 	}
 
+    arshow($addViews);
+    die();
+
 	foreach ($table as $book) {
 		if ($book['id'] > 0) {
 			$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE"=>"Y", "ID" => $book['id']);
@@ -124,6 +127,7 @@ function printResultsTwoDays($results) {
 					$views = round($book['views']*2.4);
 				else
 					$views = round($book['views']*1.8);
+
 
 				/*if ($oneb["ID"] == 384889) //Книге Overview поднимаем рейтинг
 					$views += 302;*/
@@ -174,7 +178,7 @@ function printResultsMonth($results) {
 			$props = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, false, false, Array("ID"));
 			while ($oneb = $props->GetNext()) {
 				$views = $book['views'];
-				//echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
+				echo $book['id'].' '.$oneb["ID"].' '.$book['url'].' '.$book['views'].'<br />';
 				CIBlockElement::SetPropertyValuesEx($oneb["ID"], 4, array('shows_a_day' => $views));
 			}
 		}
@@ -183,24 +187,24 @@ function printResultsMonth($results) {
 }
 
 //Обновляем свойство "Desirability"
-	$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
-	$res = CIBlockElement::GetList(Array("PROPERTY_page_views_ga" => "DESC"), $arFilter, false, Array("nPageSize"=>700));
+$arFilter = Array("IBLOCK_ID"=>CATALOG_IBLOCK_ID, "ACTIVE"=>"Y", "!PROPERTY_STATE"=>23);
+$res = CIBlockElement::GetList(Array("PROPERTY_page_views_ga" => "DESC"), $arFilter, false, Array("nPageSize"=>700));
 
-	while ($ob = $res->GetNext()){
-		CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('DESIRABILITY' => 0));
-		$desirability = 0;
-		$countMax = CSaleOrder::GetList(['ID' => 'ASC'], array("BASKET_PRODUCT_ID" => $ob["ID"],">=DATE_INSERT" => date('d.m.Y', strtotime("-7 days"))), [], false, ['ID']) + 1;
+while ($ob = $res->GetNext()){
+	CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('DESIRABILITY' => 0));
+	$desirability = 0;
+	$countMax = CSaleOrder::GetList(['ID' => 'ASC'], array("BASKET_PRODUCT_ID" => $ob["ID"],">=DATE_INSERT" => date('d.m.Y', strtotime("-7 days"))), [], false, ['ID']) + 1;
 
-		if ($countMax < 3)
-			continue;
+	if ($countMax < 3)
+		continue;
 
-		$countMax = $countMax*$countMax*$countMax*$countMax;
-		$desirability = round($countMax/($ob['PROPERTY_PAGE_VIEWS_GA_VALUE']*2)*1000);
+	$countMax = $countMax*$countMax*$countMax*$countMax;
+	$desirability = round($countMax/($ob['PROPERTY_PAGE_VIEWS_GA_VALUE']*2)*1000);
 
-		if ($oneb["ID"] == 384889) //Книге Overview поднимаем рейтинг
-			$desirability += 10000;
+	if ($oneb["ID"] == 384889) //Книге Overview поднимаем рейтинг
+		$desirability += 10000;
 
-		echo $countMax.' - '.$ob['PROPERTY_PAGE_VIEWS_GA_VALUE'].' - '.$ob["ID"].' - '.$desirability.'<br />';
-		CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('DESIRABILITY' => $desirability));
-	}
+	//echo $countMax.' - '.$ob['PROPERTY_PAGE_VIEWS_GA_VALUE'].' - '.$ob["ID"].' - '.$desirability.'<br />';
+	CIBlockElement::SetPropertyValuesEx($ob[ID], CATALOG_IBLOCK_ID, array('DESIRABILITY' => $desirability));
+}
 ?>

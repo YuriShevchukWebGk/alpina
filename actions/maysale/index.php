@@ -240,7 +240,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 </header>
 
-
+<?/*?>
     <div class="landing">
         <div class="mainWrapp">
             <div class="slide1" style="min-width:800px;">
@@ -801,7 +801,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					<iframe src="//coub.com/embed/uxey?muted=false&autostart=false&originalSize=false&startWithHD=false" allowfullscreen="true" frameborder="0" width="640" height="290"></iframe>
 				</center>
 			</div>
-
+ <?*/?>
         </div>
 
     </div>

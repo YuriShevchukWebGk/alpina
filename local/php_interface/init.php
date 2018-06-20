@@ -1031,7 +1031,6 @@
         $arStatus = array("D", "K", "F"); //статусы заказа "оплачен", "отправлен на почту" РФ и "выполнен"
         //при получении оплаты
         if ($val == "Y") {
-            logger($ID, $_SERVER["DOCUMENT_ROOT"].'/logs/UpdOrderStatus_log.txt');
             $order = CSaleOrder::GetById($ID);
             //если текущий статус закана - не один из трех вышеперечисленных, ставим статус "оплачен"
             if (!in_array($order["STATUS_ID"],$arStatus)) {
@@ -1083,7 +1082,6 @@
                     $userGend->Update($order_list['USER_ID'], $fieldsGend);
 
                     $freeurl = $products['url'];
-                    logger($allUrlsArray, $_SERVER["DOCUMENT_ROOT"].'/logs/UpdOrderStatus_log_2.txt');
                     $useremail = Message::getClientEmail($ID);
                 } else {
                     $freeurl = 'К сожалению, произошла ошибка. В ближайшее время специалист свяжется с вами и поможет получить бесплатные книги.';
@@ -1115,7 +1113,7 @@
                 } else {
                     CSaleOrder::StatusOrder($ID, "D");
                 }
-                    logger($order_list, $_SERVER["DOCUMENT_ROOT"].'/logs/UpdOrderStatus_log_3.txt');
+                    logger(date().' '.$order_list, $_SERVER["DOCUMENT_ROOT"].'/logs/UpdOrderStatus_log_3.txt');
 
             }
         }
@@ -2186,7 +2184,7 @@
                     $arFields['EMAIL_DELIVERY_ADDR'] .=  " ".$arVals['NAME'].": ".$arVals["VALUE"]."<br>";
                 }
             }
-            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("CITY", "STREET", "HOUSE")));
+            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $orderID, "CODE" => array("COUNTRY_DELIVERY", "COUNTRY", "CITY", "STREET", "HOUSE")));
             $arFields['EMAIL_DELIVERY_ADDR'] = "Адрес доставки:<br>";
             while ($arVals = $db_vals -> Fetch()) {
                 if(!empty($arVals["VALUE"])){
@@ -3470,7 +3468,7 @@
         }
     }
 
-    
+
     //Обновление HL блока с поисковыми индексами
     \Bitrix\Main\EventManager::getInstance()->addEventHandler(
         'iblock',
@@ -3481,10 +3479,10 @@
         'iblock',
         'OnAfterIBlockElementAdd',
         'HLBlockElementUpdate'
-    );       
+    );
     function HLBlockElementUpdate($arElement){
 
-        if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {  
+        if($arElement['IBLOCK_ID'] == CATALOG_IBLOCK_ID || $arElement['IBLOCK_ID'] == AUTHORS_IBLOCK_ID) {
             if(!empty($arElement['WF_PARENT_ELEMENT_ID'])){
                 $arSelect = Array("ID", "NAME", "IBLOCK_ID", "DATE_ACTIVE_FROM", "PROPERTY_SEARCH_WORDS", "PROPERTY_AUTHORS", "PROPERTY_COVER_TYPE", "DETAIL_PAGE_URL", "PROPERTY_page_views_ga", "PROPERTY_FOR_ADMIN", "PROPERTY_IGNORE_SEARCH_INDEX");
                 $arFilter = Array("ID" => $arElement['WF_PARENT_ELEMENT_ID'], "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
@@ -4240,12 +4238,13 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
                 $date_today = strtotime(date('d.m.Y H:i:s', $time));
                 $date_oldday = strtotime($arOrder["DATE_INSERT"]);
                 if($date_today > $date_oldday){
+                    logger($arOrder, $_SERVER["DOCUMENT_ROOT"].'/logs/log_status_AC.txt');
                     CSaleOrder::StatusOrder($arOrder["ID"], "AC");
                 }
             }
         }
         return "courier_status();";
-   }
+    }
     AddEventHandler("sale", "OnOrderAdd", "EventProductQuantity");
 
     function EventProductQuantity($ID, $arFields) {

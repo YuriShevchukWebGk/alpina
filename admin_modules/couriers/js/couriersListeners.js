@@ -62,6 +62,7 @@ function OrdersListCourirerListener(){
 		}, function(data) {
 			statusCellIndex = parseInt($("td.adm-list-table-cell[title='Сортировка: Статус (просмотр)']").index());
 			retData = JSON.parse(data);
+
 			if(retData.status == "success"){
 				console.info(retData.msg);
 				for(num in retData.existingCouriers){

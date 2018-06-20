@@ -27,7 +27,7 @@
 
 .bx-authform-social ul {
   	padding: 5px 0 12px;
-  	margin: 0 0 15px;
+  	margin: 0 0 0;
   	display: block;
 }
 
@@ -37,6 +37,7 @@
 	width: 35px;
 	height: 35px;
 	margin-right: 5px;
+    margin-bottom: 13px;
 }
 .bx-authform-social ul li .bx-authform-social-icon {
 	display: block;
@@ -45,6 +46,9 @@
 	background-image: url(images/sprite.png);
 	background-repeat: no-repeat;
 	border-bottom: none;
+}
+.bx-authform .auth_note{
+    margin: 0 auto 0;
 }
 .bx-authform-social ul li .bx-authform-social-icon:hover{opacity: .9;}
 .bx-authform-social ul li .bx-authform-social-icon.box {background-position: 0 0;}
@@ -79,6 +83,19 @@ a#bx_socserv_icon_Facebook {
     margin-left: 242px;
     padding: 10px 60px 10px 68px;
         
+}
+#bx_socserv_icon_GoogleOAuth{
+    border: 2px solid #fff;
+    border-radius: 50px;
+    font-family: "Walshein_regular";
+    color: #fff;
+    background: url(/img/google_auth.jpg) no-repeat 25% 50% #5290f5;
+    background-position: 29px 1px;
+    background-repeat: no-repeat;
+    background-size: 36px;
+    font-size: 16px;
+    margin-left: 242px;
+    padding: 10px 60px 10px 68px;
 }
 .authorisationWrapper .socServisesText {
     border-top: 0;

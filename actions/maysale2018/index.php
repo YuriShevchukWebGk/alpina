@@ -92,7 +92,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </p>
     </div>
 </header>
-
+<?/*?>
 
     <div class="landing">
         <div class="mainWrapp" >
@@ -100,6 +100,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <img src="img/Preview_1.png" style="width:100%;max-width:1900px;min-width:800px"/>
                 <div id="slide1text">
                     <div class="text_center">
+
 						<span style="font-family: 'Walshein_bold';">Заметьте,<br> не я это  предложил:</span>
                         <p>
                             все бумажные книги<br />
@@ -116,7 +117,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>                            
 
             <div class="bg">
-            <?/*?>
+<?/*?>
                 <div class="hintWrapp" style="background: url(img/Sava.png) no-repeat 0px; background-size: 100%; padding-bottom: 20px; ">
                     <div class="title" style="padding-bottom: 14px;">Здесь были книги по 99 рублей</div>
                     <span style="font-family:'Walshein_bold'; font-size:18px; color:#f18719; box-shadow: none;">Если хотите узнать о начале следующей акции, оставьте свой e-mail ниже</span>
@@ -128,7 +129,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         </form>
                     </div>
                     <br />
-                </div>    <?*/?>
+                </div>    <?*
                 
                 <div class="hintWrapp">
 
@@ -428,7 +429,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
             <img src="img/Savranskii.png" width="100%">
     </div>
-
+/?> 
 <script>
 function subscribe() {
     $.ajax({
@@ -443,4 +444,3 @@ function subscribe() {
 </script>
  </body>
  </html>
- 

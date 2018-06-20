@@ -16,19 +16,19 @@ $arUrlRewrite=array (
     'PATH' => '/blog/authors/index.php',
     'SORT' => 100,
   ),
-  3 => 
-  array (
-    'CONDITION' => '#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#',
-    'RULE' => 'alias=$1',
-    'ID' => '',
-    'PATH' => '/desktop_app/router.php',
-    'SORT' => 100,
-  ),
   2 => 
   array (
     'CONDITION' => '#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#',
     'RULE' => 'alias=$1',
     'ID' => 'bitrix:im.router',
+    'PATH' => '/desktop_app/router.php',
+    'SORT' => 100,
+  ),
+  3 => 
+  array (
+    'CONDITION' => '#^/online/([\\.\\-0-9a-zA-Z]+)(/?)([^/]*)#',
+    'RULE' => 'alias=$1',
+    'ID' => '',
     'PATH' => '/desktop_app/router.php',
     'SORT' => 100,
   ),
@@ -64,20 +64,20 @@ $arUrlRewrite=array (
     'PATH' => '/tags/index.php',
     'SORT' => 100,
   ),
-  9 => 
-  array (
-    'CONDITION' => '#^/sitemap/([0-9a-zA-Z_]+)/#',
-    'RULE' => '',
-    'ID' => '',
-    'PATH' => '/sitemap/add.php',
-    'SORT' => 100,
-  ),
   8 => 
   array (
     'CONDITION' => '#^/bitrix/services/ymarket/#',
     'RULE' => '',
     'ID' => '',
     'PATH' => '/bitrix/services/ymarket/index.php',
+    'SORT' => 100,
+  ),
+  9 => 
+  array (
+    'CONDITION' => '#^/sitemap/([0-9a-zA-Z_]+)/#',
+    'RULE' => '',
+    'ID' => '',
+    'PATH' => '/sitemap/add.php',
     'SORT' => 100,
   ),
   10 => 
@@ -152,20 +152,20 @@ $arUrlRewrite=array (
     'PATH' => '/teststore/index.php',
     'SORT' => 100,
   ),
-  19 => 
-  array (
-    'CONDITION' => '#^/events(/?)#',
-    'RULE' => '',
-    'ID' => 'bitrix:news',
-    'PATH' => '/events/index.php',
-    'SORT' => 100,
-  ),
   18 => 
   array (
     'CONDITION' => '#^/series(/?)#',
     'RULE' => '',
     'ID' => 'bitrix:news',
     'PATH' => '/series/index.php',
+    'SORT' => 100,
+  ),
+  19 => 
+  array (
+    'CONDITION' => '#^/events(/?)#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/events/index.php',
     'SORT' => 100,
   ),
   21 => 
@@ -176,20 +176,20 @@ $arUrlRewrite=array (
     'PATH' => '/testnews/index.php',
     'SORT' => 100,
   ),
-  24 => 
-  array (
-    'CONDITION' => '#^/authors/#',
-    'RULE' => '',
-    'ID' => 'bitrix:news',
-    'PATH' => '/authors/index.php',
-    'SORT' => 100,
-  ),
   22 => 
   array (
     'CONDITION' => '#^/news(/?)#',
     'RULE' => '',
     'ID' => 'bitrix:news',
     'PATH' => '/news/index.php',
+    'SORT' => 100,
+  ),
+  24 => 
+  array (
+    'CONDITION' => '#^/authors/#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/authors/index.php',
     'SORT' => 100,
   ),
   25 => 
@@ -206,6 +206,14 @@ $arUrlRewrite=array (
     'RULE' => '',
     'ID' => 'bitrix:news',
     'PATH' => '/blog/index.php',
+    'SORT' => 100,
+  ),
+  33 => 
+  array (
+    'CONDITION' => '#^/rest/#',
+    'RULE' => '',
+    'ID' => NULL,
+    'PATH' => '/bitrix/services/rest/index.php',
     'SORT' => 100,
   ),
 );

@@ -21,10 +21,10 @@
     <?endif?>
 </section>
 </div>
-    <div class="orderHistorWrap">                                                                           
+    <div class="orderHistorWrap">
     <p class="personal_title"><?echo $APPLICATION->GetTitle();?></p>
 
-    <div class="historyWrap">                      
+    <div class="historyWrap">
         <div class="tableTitle">
             <p class="numbTitle"><?= GetMessage("NUMBER"); ?></p>
             <p class="dateTitle"><?= GetMessage("DATE"); ?></p>
@@ -36,32 +36,39 @@
         <?
 
         $key = 0;
+
         if (!empty($arResult["ORDERS"])) {
             foreach ($arResult["ORDERS"] as $k => $order) {
 
-                $quantity = 0;    
-                
-                //Р•СЃР»Рё Сѓ РЅР°СЃ РїСЂРµРґР·Р°РєР°Р·, С‚Рѕ СЂР°Р·СЂРµС€РёРј РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ СЃСЂРѕРєР°С… РІС‹С…РѕРґР° РєРЅРёРіРё          
-                if(count($order["BASKET_ITEMS"]) == 1) {     
-                    $basketItem = $order["BASKET_ITEMS"];   
-                    $basketItem = array_pop($basketItem);    
-                    $itemID = $basketItem["PRODUCT_ID"];                 
-                    
+                if($_SERVER["HTTP_X_REAL_IP"] == "91.201.253.5") {
+                    if ($k > 10) {
+                        die();
+                    }
+                }
+
+                $quantity = 0;
+
+                //Р•СЃР»Рё Сѓ РЅР°СЃ РїСЂРµРґР·Р°РєР°Р·, С‚Рѕ СЂР°Р·СЂРµС€РёРј РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ СЃСЂРѕРєР°С… РІС‹С…РѕРґР° РєРЅРёРіРё
+                if(count($order["BASKET_ITEMS"]) == 1) {
+                    $basketItem = $order["BASKET_ITEMS"];
+                    $basketItem = array_pop($basketItem);
+                    $itemID = $basketItem["PRODUCT_ID"];
+
                     $preOrder = '';
                     $res = CIBlockElement::GetList(Array(), Array("ID" => IntVal($itemID)), false, Array(), Array("ID", "PROPERTY_SOON_DATE_TIME", "PROPERTY_STATE"));
                     if($arFields = $res->Fetch()) {
                         if(intval($arFields["PROPERTY_STATE_ENUM_ID"]) == getXMLIDByCode(CATALOG_IBLOCK_ID, "STATE", "soon")){
-                            $preOrder = 'Y';        
-                        }  
-                    }                                                                                                                      
-                }; 
-                
+                            $preOrder = 'Y';
+                        }
+                    }
+                };
+
                 foreach ($order["BASKET_ITEMS"] as $order_key => $arBaskItem) {
                     $quantity += round($arBaskItem["QUANTITY"]);
                 }
 
-                $key++;                                                             
- 
+                $key++;
+
                 ?>
                 <div class="orderNumbLine">
                     <p class="ordTitle" data-id="<?= $key ?>"><span><?= GetMessage("SPOL_ORDER") . " " . GetMessage("SPOL_NUM_SIGN") . $order["ORDER"]["ID"] ?></span></p>
@@ -69,7 +76,7 @@
                     <p class="ordQuant"><?= $quantity ?></p>
                     <p class="ordStatus"><?= $arResult["INFO"]["STATUS"][$order["ORDER"]["STATUS_ID"]]["NAME"] ?></p>
                     <p class="ordSum"><span><?= ceil($order["ORDER"]["PRICE"]) ?> </span><?= GetMessage("ROUBLES") ?></p>
-                </div>                                                        
+                </div>
                 <div class="hiddenOrderInf hidOrdInfo<?= $key ?>">
                     <div class="infoAddrWrap">
                         <div>
@@ -77,7 +84,7 @@
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["LAST_NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["NAME"] . " " . $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["SECOND_NAME"] ?></p>
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["PERSONAL_PHONE"] ?></p>
                             <p class="dopInfoText"><?= $arResult["USER_INFO"][$order["ORDER"]["USER_ID"]]["EMAIL"] ?></p>
-                            <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p> 
+                            <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_ADDR") ?></p>
 							<?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {
 								$db_props = CSaleOrderPropsValue::GetOrderProps($order["ORDER"]["ID"]);
 								while ($arProps = $db_props->Fetch()) {
@@ -98,7 +105,7 @@
                                                     $adress .=  " ".$arVals['NAME'].": ".$arVals["VALUE"]."<br>";
                                                 }
                                             }
-                                            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $order["ORDER"]["ID"], "CODE" => array("CITY", "STREET", "HOUSE")));
+                                            $db_vals = CSaleOrderPropsValue::GetList(array("SORT" => "ASC"), array("ORDER_ID" => $order["ORDER"]["ID"], "CODE" => array("COUNTRY_DELIVERY", "COUNTRY", "CITY", "STREET", "HOUSE")));
                                             while ($arVals = $db_vals -> Fetch()) {
                                                 if(!empty($arVals["VALUE"])){
                                                     $adress .=  " ".$arVals['NAME'].": ".$arVals["VALUE"]."<br>";
@@ -113,7 +120,6 @@
 								<?}?>
 								<p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
 							<?}?>
-                            <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["DELIVERY_ADDR"] ?></p>
                             <p class="dopInfoTitle thiCol"><?= GetMessage("PHONE") ?></p>
                             <p class="dopInfoText"><?= $arResult["ORDER_INFO"][$order["ORDER"]["ID"]]["ORDER_PHONE"] ?></p>
                         </div>
@@ -121,7 +127,7 @@
                             <p class="dopInfoTitle"><?= GetMessage("DELIVERY_TYPE") ?></p>
                             <p class="dopInfoText"><?= $arResult["INFO"]["DELIVERY"][$order["ORDER"]["DELIVERY_ID"]]["NAME"] ?></p>
                             <p class="dopInfoTitle thiCol"<?if($order["ORDER"]['STATUS_ID'] == PREORDER_STATUS_ID) { echo 'style="display:none"'; }?>><?= GetMessage("SPOL_PAYSYSTEM") ?></p> <!--РєР»Р°СЃСЃ РѕС‚СЃС‚СѓРїР° СЃРІРµСЂС…Сѓ -->
-                            
+
                             <p class="dopInfoText" <?if($order["ORDER"]['STATUS_ID'] == PREORDER_STATUS_ID) { echo 'style="display:none"'; }?>>
                                 <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID)) && $order["ORDER"]["PAYED"] != "Y" ){?>
                                     <a href="/personal/order/payment/?ORDER_ID=<?=$order["ORDER"]["ID"]?>"><?= $arResult["INFO"]["PAY_SYSTEM"][$order["ORDER"]["PAY_SYSTEM_ID"]]["NAME"] ?></a>
@@ -131,24 +137,24 @@
                             <?if ($order["ORDER"]["DELIVERY_ID"] == PICKPOINT_DELIVERY_ID) {?>
                                 <p class="dopInfoTitle thiCol"><?= GetMessage("DELIVERY_DATE") ?></p> <!--РєР»Р°СЃСЃ РѕС‚СЃС‚СѓРїР° СЃРІРµСЂС…Сѓ -->
                                 <p class="dopInfoText"><?= CustomPickPoint::getDeliveryDate($order["ORDER"]["ID"]) ?></p>
-                                <?}?> 
+                                <?}?>
                             <?if (in_array($order["ORDER"]["PAY_SYSTEM_ID"], array(RFI_PAYSYSTEM_ID, SBERBANK_PAYSYSTEM_ID))) {
                                 ?>
                                 <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL ||
                                     $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2 ||
                                     $order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT ||
                                     $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST ||
-                                    $order["ORDER"]["DELIVERY_ID"] == BOXBERRY_PICKUP_DELIVERY_ID) {?>       
+                                    $order["ORDER"]["DELIVERY_ID"] == BOXBERRY_PICKUP_DELIVERY_ID) {?>
 
-                                   <?      
+                                   <?
                                     $origin_identifier = \Bitrix\Sale\Order::load($order["ORDER"]["ID"]);
 
                                     /** @var \Bitrix\Sale\ShipmentCollection $shipmentCollection */
                                     $shipmentCollection = $origin_identifier->getShipmentCollection();
                                     foreach ($shipmentCollection as $shipment) {
-                                    if($shipment->isSystem())       
+                                    if($shipment->isSystem())
                                         continue;
-                                        $track = $shipment->getField('TRACKING_NUMBER');     
+                                        $track = $shipment->getField('TRACKING_NUMBER');
                                     }?>
                                     <?if($order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_MAIL_2) {?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
@@ -165,7 +171,7 @@
                                     <?}elseif($order["ORDER"]["DELIVERY_ID"] == DELIVERY_PICK_POINT || $order["ORDER"]["DELIVERY_ID"] == DELIVERY_FLIPOST && $arResult["INFO"]["STATUS"][$order["ORDER"]["STATUS_ID"]]["ID"] != "I") {?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_MESSAGE_PICK_POINT") ?></p>
                                         <p class="dopInfoText"><?=GetMessage("TRACK_MESSAGE_PICK_POINT_NULL");?></p>
-                                     <?}elseif($order["ORDER"]["DELIVERY_ID"] == BOXBERRY_PICKUP_DELIVERY_ID  && !empty($track)) {?>           
+                                     <?}elseif($order["ORDER"]["DELIVERY_ID"] == BOXBERRY_PICKUP_DELIVERY_ID  && !empty($track)) {?>
                                         <p class="dopInfoTitle thiCol"><?= GetMessage("TRACK_NUMBER") ?></p>
                                         <p class="dopInfoText"><?=GetMessage("TRACK_NUMBER_BOXBERRY", Array ("#TRACK#" => $track));?></p>
                                      <?}?>
@@ -179,7 +185,7 @@
                                 <p class="dopInfoText"><?= $order["ORDER"]["USER_DESCRIPTION"] ?></p>
                             </div>
                         <?}?>
-                    </div>  
+                    </div>
                     <div>
                         <p class="ordBooksTitle"><?= GetMessage("SPOL_ORDER_DETAIL") ?></p>
                         <table class="orderBooks">
@@ -222,7 +228,7 @@
                         </table>
                     </div>
                     <div>
-                        <?/*<p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p> */// РЈР±РёСЂР°РµРј РєРЅРѕРїРєСѓ РѕС‚РјРµРЅС‹ Р·Р°РєР°Р·Р°?> 
+                        <?/*<p class="orderCancel"><a href="<?= $order["ORDER"]["URL_TO_CANCEL"] ?>"><?= GetMessage("SPOL_CANCEL_ORDER") ?></a></p> */// РЈР±РёСЂР°РµРј РєРЅРѕРїРєСѓ РѕС‚РјРµРЅС‹ Р·Р°РєР°Р·Р°?>
                     </div>
                 </div>
             <?}

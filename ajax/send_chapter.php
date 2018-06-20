@@ -1,4 +1,4 @@
-﻿<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 CModule::IncludeModule("sale"); CModule::IncludeModule("catalog"); CModule::IncludeModule("iblock");
 use Mailgun\Mailgun;
 if ($_POST['email']) {
@@ -21,8 +21,7 @@ if ($_POST['email']) {
 	}
 	$images = array();
 	$images[] = $text[src];
-	
-	$recs = json_decode(file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$_POST['book']));
+	                                                                                                                                   ['book']));
 	array_splice($recs, 3);
 	
 	if (!empty($recs[0])) {
@@ -31,6 +30,7 @@ if ($_POST['email']) {
 			$recbook = CIBlockElement::GetList (array(), array("IBLOCK_ID" => 4, "ID" => $rec), false, false, array("ID", "NAME", "DETAIL_PICTURE")) -> Fetch();
 			$recpic = CFile::ResizeImageGet($recbook["DETAIL_PICTURE"], array("width" => 140, "height" => 200), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 			$text .= "<td width='140'>";
+    $recs = json_decode(file_get_contents('http://api.retailrocket.ru/api/1.0/Recomendation/UpSellItemToItems/50b90f71b994b319dc5fd855/'.$_POST
 			$text .= "<a href='https://www.alpinabook.ru/catalog/temporary/".$recbook['ID']."/' target='_blank'><img src='https://www.alpinabook.ru".$recpic[src]."' align='left' style='margin-right:20px;' alt='".$recbook['NAME']."' title='".$recbook['NAME']."' /></a>";
 			$text .= "</td>";
 			$images[] = $recpic[src];

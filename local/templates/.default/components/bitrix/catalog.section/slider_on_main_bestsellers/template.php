@@ -13,7 +13,7 @@
 $this->setFrameMode(true);
 ?>
 
-<div class="sliderOnMaineBlock">
+<div class="sliderOnMaineBlock no-mobile">
     <p class="titleMain"><a href="/catalog/bestsellers/"><?=GetMessage("BESTCELLERS_SLIDER_TITLE_SLIDER")?></a></p>
     <div class="bestcellersBooksSliderConteiner sliderConteiner">
         <ul>
@@ -27,9 +27,9 @@ $this->setFrameMode(true);
                                 <?if($pict["src"] != ''){?>
                                     <img src="<?=$pict["src"]?>" alt="Обложка книги «<?=$arItem["NAME"]?>»">
                                 <?} else {?>
-                                    <img src="/images/no_photo.png">      
+                                    <img src="/images/no_photo.png">
                                 <?}?>
-                            </div> 
+                            </div>
                         </a>
                         <div class="sliderItemDescriptionContaner">
                             <?if($arItem["PROPERTIES"]["SHORT_NAME"]["VALUE"]){?>
