@@ -11,11 +11,11 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
     $this->setFrameMode(true);
-	$gdeSlon = '';
+    $gdeSlon = '';
 ?>
 <style>
 .contentWrapp {
-	width:auto!important;
+    width:auto!important;
 }
 </style>
 <div class="wrapperCategor">
@@ -76,7 +76,7 @@
                                         <p class="priceOfBook"><?= ceil($arPrice["DISCOUNT_VALUE_VAT"]) ?> <span>руб.</span></p>
                                         <?
                                             if ($arResult["ITEM_IN_BASKET"][$arBasketItems["PRODUCT_ID"]]["QUANTITY"] == 0) {?>
-                                            <a class="product<?= $arItem["ID"]; ?>" href="<?= $arItem["ADD_URL"] ?>" onclick="addtocart(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>'); addToCartTracking(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>', '<?= $arPrice["VALUE"] ?>', '<?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?>', '1'); return false;">
+                                            <a class="product<?= $arItem["ID"]; ?>" onmousedown="try { rrApi.addToBasket(<?=$arItem["ID"]?>) } catch(e) {}" href="<?= $arItem["ADD_URL"] ?>" onclick="addtocart(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>'); addToCartTracking(<?= $arItem["ID"]; ?>, '<?= $arItem["NAME"]; ?>', '<?= $arPrice["VALUE"] ?>', '<?= ($arResult["NAME"]) ? $arResult["NAME"] : GetMessage("BEST") ?>', '1'); return false;">
                                                 <p class="basketBook">В корзину</p>
                                             </a>
                                             <?} else {?>
@@ -94,7 +94,7 @@
                                         <?
                                         }
                                     }
-									$gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
+                                    $gdeSlon .= $arItem['ID'].':'.ceil($arPrice["DISCOUNT_VALUE_VAT"]).',';
 
                                     if ($USER -> IsAuthorized()) {?>
                                         <p class="basketLater" id="<?= $arItem["ID"] ?>">Куплю позже</p>
@@ -103,8 +103,8 @@
                         </li>
                     <?}?>
                 </ul>
-			<!-- GdeSlon -->
-			<script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
+            <!-- GdeSlon -->
+            <script type="text/javascript" src="//www.gdeslon.ru/landing.js?mode=list&amp;codes=<?=substr($gdeSlon,0,-1)?>&amp;mid=79276"></script>
             </div>
             <div class="wishlist_info">
                 <div class="CloseWishlist"><img src="/img/catalogLeftClose.png"></div>
@@ -124,14 +124,14 @@
 <script>
     // скрипт ajax-подгрузки товаров в блоке "Все книги"
     $(document).ready(function() {
-		var categor_height;
+        var categor_height;
 
-		<?if (strstr($APPLICATION -> GetCurDir(), "/series/")) {?>
-			categor_height = 1850 + Math.ceil((books_block_length - 15) / 5) * 455;
-		<?} else {?>
-			categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
-		<?}?>		
-		//$(".wrapperCategor").css("height", categor_height + "px");
+        <?if (strstr($APPLICATION -> GetCurDir(), "/series/")) {?>
+            categor_height = 1850 + Math.ceil((books_block_length - 15) / 5) * 455;
+        <?} else {?>
+            categor_height = 1600 + Math.ceil((books_block_length - 15) / 5) * 455;
+        <?}?>        
+        //$(".wrapperCategor").css("height", categor_height + "px");
         <?$navnum = $arResult["NAV_RESULT"]->NavNum;?>
         <?if (isset($_REQUEST["PAGEN_" . $navnum])) {?>
             var page = <?= $_REQUEST["PAGEN_" . $navnum] ?> + 1;
@@ -172,8 +172,8 @@
                 other_books.css("height", other_books_height + "px");
                 $(".wrapperCategor").css("height", categor_height + "px");
                 $(".contentWrapp").css("height", categor_height - 10 + "px");
-				$(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
-				$(".otherBooks").css("height", $(".contentWrapp").height()-270+"px");
+                $(".wrapperCategor").css("height", $(".contentWrapp").height()+"px");
+                $(".otherBooks").css("height", $(".contentWrapp").height()-270+"px");
             });
             if (page == maxpage) {
                 $('.showMore').hide();
