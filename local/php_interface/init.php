@@ -1112,6 +1112,7 @@
                     CSaleOrder::StatusOrder($ID, ASSEMBLED_STATUS_ID);
                 } else {
                     CSaleOrder::StatusOrder($ID, "D");
+                    CSaleOrder::PayOrder($ID, "Y", false, false, 0);
                 }
                     logger(date().' '.$order_list, $_SERVER["DOCUMENT_ROOT"].'/logs/UpdOrderStatus_log_3.txt');
 
