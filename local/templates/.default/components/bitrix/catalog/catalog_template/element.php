@@ -26,10 +26,9 @@
     /** @var string $componentPath */
     /** @var CBitrixComponent $component */
     use Bitrix\Main\Loader;
-    use Bitrix\Main\ModuleManager;    
+    use Bitrix\Main\ModuleManager;
 
     $this->setFrameMode(true);?>
-
 <div class="productElementWrapp">
 <div class="centerWrapper">
 <div class="catalogIcon" onmouseover="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'overTheIcon'});" onclick="dataLayer.push({'event' : 'smallCatalogInteractions', 'action' : 'openSmallCatalog'});">

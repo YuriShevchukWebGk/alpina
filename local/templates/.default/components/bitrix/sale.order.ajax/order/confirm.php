@@ -8,7 +8,7 @@
     </style>
     <?}?>
 
-<?    
+<?
     if (!empty($arResult["ORDER"])) {
     ?>
     <?
@@ -185,7 +185,7 @@
 		<?unset($_SESSION['itemsForAdmitad'])?>
 	<?}?>
 
-              
+
     <div class="confirmWrapper">
             <div class="finishOrdWrap">
                 <div class="centerWrapper">
@@ -439,7 +439,7 @@
 		</table>
     <?}?>
 
-     
+
 <script>
     $(function(){
         var result = $(".confirmWrapper").html();
