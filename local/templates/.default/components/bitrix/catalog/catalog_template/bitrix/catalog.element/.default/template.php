@@ -977,12 +977,12 @@
                     }
                 } elseif ($today == 6 || $today == 0) {
                     $samovivoz_day = GetMessage("ON_MONDAY");
-                } elseif ($timenow < 17) {      
+                } elseif ($timenow < 17) {
                     $samovivoz_day = GetMessage("TODAY");
                 } else {
                     $samovivoz_day = GetMessage("TOMORROW");
-                }  
-                
+                }
+
                 $date = date_create(date('j.n.Y'));
                 $date->modify('+1 day');
                 $new_today = $date->format('j.n.Y'); // выводим дату завтрашнего дня
@@ -998,11 +998,11 @@
                     if(date('H:i') <= DELIVERY_TIME){
                         $delivery_day = GetMessage("TODAY");
                     } else if(strtotime($setProps['deliveryDayName']) > strtotime(min($arResult["OPEN_DATE"]))){
-                        $delivery_day = min($arResult["OPEN_DATE"]);     
+                        $delivery_day = min($arResult["OPEN_DATE"]);
                     } else {
                         $delivery_day = $setProps['deliveryDayName'];
                     }
-                }    
+                }
 
             ?>
 
@@ -1137,7 +1137,7 @@
                             <?if($delivery_day != 'hide'){?>
                                 <li><a href='#' class="getInfoCourier" onclick="getInfo('courier');dataLayer.push({event: 'otherEvents', action: 'infoPopup', label: 'courier'});return false;">
                                     <?= GetMessage("MSK_DELIVERY") ?>
-                                
+
                                     </a> по Москве <br /><?=$delivery_day.' '?>
                                     <b><?if($arBasketPrice > FREE_SHIPING){
                                         echo GetMessage("FREE_DELIVERY_ENDING");
@@ -1706,7 +1706,7 @@
 
                     <div class="author_info">
                         <?= !empty($author["IMAGE_FILE"]["SRC"]) ? "<img src='".$author["IMAGE_FILE"]["SRC"]."' align='left' style='padding-right:30px;' />" : ""?>
-                        <div class="author_name"><a href="<?=$currAuthFull[DETAIL_PAGE_URL]?>"><?=$authorFullName?></a></div>
+                        <div class="author_name"><a href="<?=$currAuthFull["DETAIL_PAGE_URL"]?>"><?=$authorFullName?></a></div>
                         <?=$currAuth["PROPERTY_AUTHOR_DESCRIPTION_VALUE"]["TEXT"]?>
 
                     </div>

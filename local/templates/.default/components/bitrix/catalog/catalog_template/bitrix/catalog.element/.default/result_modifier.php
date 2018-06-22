@@ -628,30 +628,37 @@ if ($arResult['MODULES']['currency'])
                 "PROPERTY_FIRST_NAME",
                 "PROPERTY_SHOWINAUTHORS",
                 "PROPERTY_ORIG_NAME",
+                "DETAIL_PAGE_URL",
                 "NAME"
             )
         );
 
-        while ($authors = $authors_list -> Fetch()) {
+        while ($authors = $authors_list -> GetNext()) {
             $ar_properties["LAST_NAME"] = $authors["PROPERTY_LAST_NAME_VALUE"];
             $ar_properties["FIRST_NAME"] = $authors["PROPERTY_FIRST_NAME_VALUE"];
             $ar_properties["SHOWINAUTHORS"] = $authors["PROPERTY_SHOWINAUTHORS_VALUE"];
             $ar_properties["ORIG_NAME"] = $authors["PROPERTY_ORIG_NAME_VALUE"];
             $ar_properties["NAME"] = $authors["NAME"];
+            $ar_properties["DETAIL_PAGE_URL"] = $authors["DETAIL_PAGE_URL"];
 
             if (strlen ($ar_properties['FIRST_NAME']) > 0) {
-                $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $ar_properties['FIRST_NAME'];
+                $authorFullName = $ar_properties['FIRST_NAME'];
             }
             if (strlen ($ar_properties['LAST_NAME']) > 0) {
-                $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
+                $authorFullName .= (strlen ($authorFullName) > 0 ? ' ' : '') . $ar_properties['LAST_NAME'];
             }
-            /*if (strlen ($ar_properties['NAME']) > 0) {
-                $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ' ' : '') . $ar_properties['NAME'];
-            }*/
             if (strlen ($ar_properties['ORIG_NAME']) > 0) {
-                //$oriname = implode(" ", array_reverse(explode(" ", $ar_properties['ORIG_NAME'])));
-				$oriname = $ar_properties['ORIG_NAME'];
-                $arResult["AUTHOR_NAME"] .= " (" . $oriname.")";
+                $oriname = $ar_properties['ORIG_NAME'];
+                $authorFullName .= " (" . $oriname.")";
+            }
+
+            if(!empty($authorFullName)) {
+                if(!empty($ar_properties["DETAIL_PAGE_URL"])) {
+                    $authorFullNameWithHref = '<a target="_blank" href='.$ar_properties["DETAIL_PAGE_URL"].'>'.$authorFullName.'</a>';
+                    $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $authorFullNameWithHref;
+                } else {
+                    $arResult["AUTHOR_NAME"] .= (strlen ($arResult["AUTHOR_NAME"]) > 0 ? ', ' : '') . $authorFullName;                    
+                }
             }
         }
     }
@@ -969,19 +976,19 @@ if ($arResult['MODULES']['currency'])
 	if (!empty($arResult["PROPERTIES"]["third_book_img"]["VALUE"])) {
 		$arResult["THIRD_PICTURE"] = CFile::ResizeImageGet($arResult["PROPERTIES"]["third_book_img"]["VALUE"], array('width'=>380, 'height'=>567), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 		$arResult["THIRD_PICTURE"] = $arResult["THIRD_PICTURE"]['src'];
-	} 
+	}
     $object_date_close = CIBlockElement::GetList (
        Array("RAND" => "ASC"),
        Array("IBLOCK_ID" => IBLOCK_ID_DATE_DELIVERY_MOSCOW),
        false,
        false,
        array("NAME", "CODE")
-    );   
+    );
     while ($date_close = $object_date_close->Fetch()) {
         if($date_close["CODE"] == "close"){
-            $arResult["CLOSE_DATE"] = explode(', ', $date_close["NAME"]);     // вытаскивает закрытые даты доставки
+            $arResult["CLOSE_DATE"] = explode(', ', $date_close["NAME"]);     // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         } else {
-            $arResult["OPEN_DATE"] = explode(', ', $date_close["NAME"]);   // вытаскивает открытые даты доставки
+            $arResult["OPEN_DATE"] = explode(', ', $date_close["NAME"]);   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 ?>
