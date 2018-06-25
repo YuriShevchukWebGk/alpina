@@ -346,11 +346,6 @@ function date_deactive(){    // ограничение вывода достав
 			minDatePlus = minDatePlus + 1;
         }
 
-        //Если время больше 12 то прибавляем еще один день ко дню доставки
-        if (today_hours > 11) {
-            minDatePlus = minDatePlus + 1;
-        }
-
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;

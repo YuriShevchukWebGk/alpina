@@ -56,7 +56,7 @@ if($order_id > 0) {
     if(count($arBasketItems) > 0 && !empty($arOrder)) {
         foreach ($arBasketItems as $basketItem) {
             $toJSON[] = array(
-                'sku'      => intval($basketItem["ID"]),
+                'sku'      => intval($basketItem["PRODUCT_ID"]),
                 'name'     => strval($basketItem["NAME"]),
                 'price'    => floatval($basketItem["PRICE"]),
                 'quantity' => intval($basketItem["QUANTITY"])

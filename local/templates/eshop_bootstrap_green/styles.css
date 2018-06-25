@@ -216,3 +216,10 @@ footer{display:inline-block}
 .contactUs{
     height: auto!important;
 }
+body .instagram-media .HeaderText{
+    width: 94px;
+    display: block; 
+}
+.elementDescriptWrap > center > div {
+    max-width: 260px!important;
+}
