@@ -102,7 +102,7 @@ while ($date_close = $object_date_close->Fetch()) {
         $close_date = explode(', ', $date_close["NAME"]);     // вытаскивает закрытые даты доставки
     } else {
         $open_date = explode(', ', $date_close["NAME"]);   // вытаскивает открытые даты доставки
-        
+
         if(date('H:i') <= DELIVERY_TIME){
              array_push($open_date, date('j.n.Y'));
         }
@@ -292,6 +292,7 @@ function date_deactive(){    // ограничение вывода достав
                return [true];   // возвращаем true
             }
         }
+
 		function editDays(date) {
 			var dd = date.getDate();
 			var mm = date.getMonth() + 1;
@@ -321,7 +322,8 @@ function date_deactive(){    // ограничение вывода достав
         }
 
         ourday = <?=date("w");?>;
-        time_open_today = '<?=date('H:i')?>'; 
+        time_open_today = '<?=date('H:i')?>';
+        today_hours = '<?=date('H')?>';
         time_open = '<?=DELIVERY_TIME?>';
         minDatePlus = 0;
         <?if($_SESSION["DATE_DELIVERY_STATE"]){?>
@@ -333,21 +335,24 @@ function date_deactive(){    // ограничение вывода достав
             minDate = "+2w +1d";
         <?}?>
         var now_todey = new Date();
-        console.log(minDatePlus);
         if(time_open_today <= time_open){
             discount_day(0, now_todey);
         } else {
             discount_day(minDatePlus, now_todey);
         }
         minDatePlus = ar_day;
-
         if (parseInt($('.order_weight').text()) / 1000 > 5) { //Если вес больше 5кг, доставка плюс один день
             //minDatePlus++;
 			minDatePlus = minDatePlus + 1;
         }
 
+        //Если время больше 12 то прибавляем еще один день ко дню доставки
+        if (today_hours > 11) {
+            minDatePlus = minDatePlus + 1;
+        }
+
         //дата, выбранная по умолчанию
-        var curDay = minDatePlus;        
+        var curDay = minDatePlus;
         var newDay = ourday + minDatePlus;
         //если день доставки попадает на субботу
         if (newDay == 6 && curDay != 0) {
@@ -355,7 +360,7 @@ function date_deactive(){    // ограничение вывода достав
         } else if (newDay == 0) {
 			curDay = curDay + 2;
 		}
-        
+
         if(curDay == 0){
             curDay = curDay -1;
         }

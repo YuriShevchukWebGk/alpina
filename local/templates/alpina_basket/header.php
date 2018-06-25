@@ -25,6 +25,58 @@
    }(document));
 </script>
 <head>
+<?
+//Отправка данных о заказе в GTM
+$order_id = intval($_REQUEST["ORDER_ID"]);
+if($order_id > 0) {
+    $arBasketItems = array();
+    $arOrder = array();
+
+    $arFilterOrder = Array(
+        "ID" => $order_id
+    );
+
+    $dbOrder = CSaleOrder::GetList(array("DATE_INSERT" => "ASC"), $arFilterOrder);
+    if($arOrder = $dbOrder->Fetch()) {
+        $dbBasketItems = CSaleBasket::GetList(
+            array(),
+            array(
+                "FUSER_ID" => CSaleBasket::GetBasketUserID(),
+                "ORDER_ID" => $arOrder["ID"]
+            ),
+            false,
+            false,
+            array("ID", "PRICE", "NAME", "QUANTITY")
+        );
+        while ($arItems = $dbBasketItems->Fetch()) {
+            $arBasketItems[] = $arItems;
+        }
+    }
+
+    if(count($arBasketItems) > 0 && !empty($arOrder)) {
+        foreach ($arBasketItems as $basketItem) {
+            $toJSON[] = array(
+                'sku'      => intval($basketItem["ID"]),
+                'name'     => strval($basketItem["NAME"]),
+                'price'    => floatval($basketItem["PRICE"]),
+                'quantity' => intval($basketItem["QUANTITY"])
+            );
+        }
+        $jsonBasket = json_encode($toJSON);
+        ?>
+        <script>
+        window.dataLayer = window.dataLayer || []
+        dataLayer.push({
+           'transactionId': <?=$order_id;?>,
+           'transactionAffiliation': 'alpinabook.ru',
+           'transactionTotal': <?=$arOrder["PRICE"];?>,
+           'transactionTax': <?=$arOrder["TAX_VALUE"];?>,
+           'transactionProducts': <?=$jsonBasket;?>
+       });
+        </script>
+    <?}?>
+<?}?>
+
 <?if(file_exists($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/google_tag_manager.php")) {
     include_once($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/google_tag_manager.php");
 }?>
