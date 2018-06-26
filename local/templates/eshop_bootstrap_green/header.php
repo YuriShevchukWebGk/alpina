@@ -132,7 +132,7 @@
         'userRegCategory' : 'UserUnregistered'
     }];
     </script>
-<?}?>
+<?}?>              
 <div id="panel"><?$APPLICATION->ShowPanel();?></div>
 <?include_once($_SERVER["DOCUMENT_ROOT"] . '/local/templates/.default/include/info_message_component.php');?>
 <header>

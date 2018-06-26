@@ -121,13 +121,26 @@ if(!$USER->IsAdmin()){
 }
 echo "<div class='cat_block'>";
 
-//Кастомные шаблоны для различных страниц
+//РљР°СЃС‚РѕРјРЅС‹Рµ С€Р°Р±Р»РѕРЅС‹ РґР»СЏ СЂР°Р·Р»РёС‡РЅС‹С… СЃС‚СЂР°РЅРёС†
 $templateName = "ajax_section_page";
 $booksCount = $arParams["PAGE_ELEMENT_COUNT"];
 if($arResult["VARIABLES"]["SECTION_CODE"] == "BooksForParentsAndChildren") {
     $templateName = "books_for_parents_and_children";
-    //При нуле все равно выводит
+    //РџСЂРё РЅСѓР»Рµ РІСЃРµ СЂР°РІРЅРѕ РІС‹РІРѕРґРёС‚
     $booksCount = 1;
+}
+
+//пример выборки дерева подразделов для раздела 
+$rsSect = CIBlockSection::GetList(array('left_margin' => 'asc'),array("SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"], "IBLOCK_ID" => $arResult["IBLOCK_ID"]), false, array("ID"));
+if ($arSect = $rsSect->GetNext()){
+   // получаем подразделы
+   ?>
+    <script type="text/javascript">
+        (window["rrApiOnReady"] = window["rrApiOnReady"] || []).push(function() {
+            try { rrApi.categoryView(<?=$arSect["ID"]?>); } catch(e) {}
+        })
+    </script>
+   <?
 }
 
 $APPLICATION->IncludeComponent(
