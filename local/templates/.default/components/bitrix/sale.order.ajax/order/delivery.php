@@ -251,13 +251,19 @@
                     <?
                         global $close_date;
                         global $open_date;
+                        global $close_date_pickup;
+                        global $open_date_pickup;
 
                         $date = date_create(date('j.n.Y'));
                         $date->modify('+1 day');
                         $new_today = $date->format('j.n.Y'); // выводим дату завтрашнего дня
                         if($arDelivery["ID"] == DELIVERY_PICKUP) {
-                            if(intval(date('w') == 6)) {
+                            if(intval(date('w') == 6 && !in_array(date('j.n.Y'), $open_date_pickup))) {
                                 echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";
+                            } elseif (in_array(date('j.n.Y'), $open_date_pickup) && !in_array(date('j.n.Y'), $close_date_pickup)) {
+                                echo str_replace('#DATE_DELIVERY#',date_day_today(0), $arDelivery["DESCRIPTION"])."<br />";     
+                            } elseif (in_array(date('j.n.Y'), $close_date_pickup) ) {
+                                echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";     
                             } elseif (intval(date('w') == 0)) {
                                 echo str_replace('#DATE_DELIVERY#',date_day_today(1), $arDelivery["DESCRIPTION"])."<br />";     
                             } else {

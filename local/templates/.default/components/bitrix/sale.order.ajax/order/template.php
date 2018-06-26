@@ -95,8 +95,8 @@ $object_date_close = CIBlockElement::GetList (
    false,
    array("NAME", "CODE")
 );
-global $close_date;
-global $open_date;
+    global $close_date;
+    global $open_date;
 while ($date_close = $object_date_close->Fetch()) {
     if($date_close["CODE"] == "close"){
         $close_date = explode(', ', $date_close["NAME"]);     // вытаскивает закрытые даты доставки
@@ -108,6 +108,29 @@ while ($date_close = $object_date_close->Fetch()) {
         }
     }
 }
+
+//получаем даты амовывоза открытых и закрытых дней
+$object_date_close = CIBlockElement::GetList (
+   Array("RAND" => "ASC"),
+   Array("IBLOCK_ID" => IBLOCK_ID_DATE_PICKUP),
+   false,
+   false,
+   array("NAME", "CODE")
+);
+    global $close_date_pickup;
+    global $open_date_pickup;
+while ($date_close = $object_date_close->Fetch()) {
+    if($date_close["CODE"] == "close"){
+        $close_date_pickup = explode(', ', $date_close["NAME"]);     // вытаскивает закрытые даты доставки
+    } else {
+        $open_date_pickup = explode(', ', $date_close["NAME"]);   // вытаскивает открытые даты доставки
+
+        if(date('H:i') <= DELIVERY_TIME){
+             array_push($open_date_pickup, date('j.n.Y'));
+        }
+    }
+}
+
 // получение количества дней с которого возможна доставка
 $datetime1 = new DateTime(date("d.m.Y"));
 $datetime2 = new DateTime(date("d.m.Y", strtotime($_SESSION["DATE_DELIVERY_STATE"])));

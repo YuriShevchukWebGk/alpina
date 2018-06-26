@@ -20,6 +20,7 @@ if ($USER->isAdmin()) {?>
     <a target="_blank" href="test2.php">Проставить треки</a><br /><br />
     <a target="_blank" href="sale/sale_add.php">Добавление товаров в правило скидки</a><br /><br />
     <a target="_blank" href="delivery_date/delivery_cahnge.php">Смена даты доставки Москва</a><br /><br />
+    <a target="_blank" href="delivery_date/pickup_delivery.php">Смена даты самовывоза</a><br /><br />
 	<a target="_blank" href="catalog/export_user_csv.php">Скрипт выгрузки покупателей</a><br /><br />
     
 	
