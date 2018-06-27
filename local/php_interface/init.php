@@ -4216,7 +4216,6 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
     endif;
     return "DELETE_STATUS();";
  }
-
     function courier_status(){    // смена статуса у заказов с курьером и ноплатой наличными
         if(date('N') != 6 && date('N') != 7){
             $arFilter = Array("DELIVERY_ID" => array(DELIVERY_COURIER_1, DELIVERY_COURIER_2, DELIVERY_COURIER_MKAD), "PAY_SYSTEM_ID" => CASH_PAY_SISTEM_ID, "STATUS_ID" => array("N", "D"), "PAYED" => 'Y');

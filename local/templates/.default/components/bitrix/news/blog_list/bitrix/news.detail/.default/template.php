@@ -345,20 +345,6 @@ $frame = $this->createFrame()->begin();
 		<div id="cackleReviews"></div>
 	</div>
 </div>
-<?/*if ($USER->isAdmin()) {?>
-	<script type="text/javascript">
-	(window["rrApiOnReady"] = window["rrApiOnReady"] || []).push(function() {
-		try {
-			rrApi.order({
-				transaction: <?=rand(1000, 999999999999)?>,
-				items: [
-					{ id: <?=$arResult["ID"]?>, qnt: 1,  price: 1},
-				]
-			});
-		} catch(e) {}
-	})
-	</script>
-<?}*/
 ?>
 <?$frame->end();?>
 <script type="text/javascript">
@@ -391,10 +377,5 @@ $(document).ready(function() {
 		$(".bottomWrap").css("width", "100%");
 	}
 });
-</script>
-<script type="text/javascript">
-    (window["rrApiOnReady"] = window["rrApiOnReady"] || []).push(function() {
-		try{ rrApi.view(<?=$arResult["ID"]?>); } catch(e) {}
-	})
 </script>
 <input type="hidden" id="postid" name="postid" value="<?=$arResult["ID"]?>" />
