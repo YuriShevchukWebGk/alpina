@@ -4283,3 +4283,25 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
             }    
         }
     }
+ function expected_payment(){
+    if (CModule::IncludeModule("sale")){
+        $date = date('d.m.Y H:i:s');
+        $time = strtotime("now -1 hour");
+        $date = date('d.m.Y H:i:s',$time);
+        $date_day = date('d.m.Y H:i:s',strtotime("now -1 day"));
+       $arFilter = Array(
+          "<=DATE_INSERT" => $date,
+          ">=DATE_INSERT" => $date_day,
+          "PAYED" => "N",
+          );
+          
+       $rsSales = CSaleOrder::GetList(array(), $arFilter, false, false, array());
+       
+       while ($arSales = $rsSales->Fetch()) {
+           if(($arSales["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID || $arSales["PAY_SYSTEM_ID"] == SBERBANK_PAYSYSTEM_ID) && $arSales["PERSON_TYPE_ID"] == NATURAL_ENTITY_PERSON_TYPE_ID){    
+                   CSaleOrder::StatusOrder($arSales["ID"], "O");
+           }
+       }  
+    }
+    return 'expected_payment();';
+ }
