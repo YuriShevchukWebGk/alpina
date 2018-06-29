@@ -17,7 +17,7 @@
 <?
         $dbItemsInOrder = CSaleBasket::GetList(array("ID" => "ASC"), array("ORDER_ID" => $_GET["ORDER_ID"]));
         while ($arItems = $dbItemsInOrder->Fetch()) {
-            $rr_item[] = '{id: '.$arItems["ID"].', qnt: '.$arItems["QUANTITY"].', price: '.round($arItems["PRICE"]).'},';
+            $rr_item[] = '{id: '.$arItems["PRODUCT_ID"].', qnt: '.$arItems["QUANTITY"].', price: '.round($arItems["PRICE"]).'},';
         }
         ?>
         <script type="text/javascript">
