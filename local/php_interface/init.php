@@ -1300,12 +1300,24 @@
                 if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID){
                     $result = $message->sendMessage($ID,$val);
                 }
-			}
+			} else if($val == "I"){
+                $order = CSaleOrder::GetById($ID);
+                $message = new Message();
+                if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID){
+                    $result = $message->sendMessage($ID,$val,'','',$order["TRACKING_NUMBER"]);
+                }      
+            } else if($val == "AR"){
+                $message = new Message();
+                if($_SESSION["MESSAGE_STATE"] != $val || $_SESSION["MESSAGE_ORDER"] != $ID){
+                    $result = $message->sendMessage($ID,$val);
+                }      
+            }
             $_SESSION["MESSAGE_STATE"] = $val;
             $_SESSION["MESSAGE_PRICE"] = $order['PRICE'];
             $_SESSION["MESSAGE_ORDER"] = $ID;
 
             logger(date('d.m.Y H:i:s').': '.$_SESSION["MESSAGE_STATE"]." ".$_SESSION["MESSAGE_PRICE"]." ".$_SESSION["MESSAGE_ORDER"],$_SERVER["DOCUMENT_ROOT"].'/logs/log1.txt' );
+            logger(date('d.m.Y H:i:s').': '.$result,$_SERVER["DOCUMENT_ROOT"].'/logs/log1_sms.txt' );
         }
 
         //----- Триггерные письма при изменении статуса заказа
@@ -1831,7 +1843,7 @@
             "A" => "Заказ №order отменен. Если это ошибка, звоните +7(495)1200704",
             "K" => "Заказ №order отправлен почтой РФ. Трек-номер будет выслан в течение 5 рабочих дней. Возник вопрос? Звоните +7(495)1200704",
             "C" => "Заказ №order на сумму ordsum руб собран и ждет вас по адресу 4-ая Магистральная ул., д.5, под. 2, этаж 2 по будням с 8 до 18 часов",
-            "I" => "Ваш заказ №order в пути. Трекинг-номер tracking",
+            "I" => "Ваш заказ №order в пути. Трек-номер tracking",
             "AR" => "Ваш заказ №order прибыл в место вручения.",
             "D10" => "Истекает срок хранения заказа №order. Возник вопрос? Звоните +7(495)1200704",
             "D12" => "Осталось 2 дня до отмены заказа №order. Возник вопрос? Звоните +7(495)1200704",
