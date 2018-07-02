@@ -414,7 +414,7 @@
             <?/*
             <p class="finalDiscount">Вам не хватает 770<span class='rubsign'></span> и получите скидку 10%</p>
             */?>
-            <p class="promoWrap"><span class="promocode" onclick="$('#coupon, #acceptCoupon').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промо-код/сертификат?<span></p>
+            <p class="promoWrap"><span class="promocode" onclick="$('#coupon, #acceptCoupon').toggle();dataLayer.push({event: 'EventsInCart', action: '1st Step', label: 'promoCodeToggle'});">Есть промокод/сертификат?<span></p>
 			<div class="gifts_block">
 				<?if($arParams['USE_GIFTS'] == 'Y' ) {
 					$APPLICATION->IncludeComponent(

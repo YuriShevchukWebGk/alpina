@@ -159,13 +159,19 @@
                     </a>
                 </div>
                 <div class="webServ">
-                    <a href="https://vk.com/ideabooks" target="_blank" rel="nofollow"><img src="/img/vkImg.png"></a>
-                    <a href="https://twitter.com/AlpinaBookRu" target="_blank" rel="nofollow"><img src="/img/twitterImg.png"></a>
-                    <a href="https://www.facebook.com/alpinabook/" target="_blank" rel="nofollow"><img src="/img/fbImg.png"></a>
-                    <a href="https://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/youImg.png"></a>
-                    <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/googImg.png"></a>
-                    <a href="https://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
-                    <a href="https://t.me/alpinaru " target="_blank" rel="nofollow"><img src="/img/tele1.png"></a>
+                    <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        ".default",
+                        array(
+                            "AREA_FILE_SHOW" => "file",
+                            "AREA_FILE_SUFFIX" => "inc",
+                            "AREA_FILE_RECURSIVE" => "Y",
+                            "EDIT_TEMPLATE" => "",
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "PATH" => "/include/socnets.php"
+                        ),
+                        false
+                    );?>
                 </div>
             </div>
         </div>

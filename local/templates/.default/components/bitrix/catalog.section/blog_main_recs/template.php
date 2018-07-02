@@ -8,6 +8,7 @@ $this->setFrameMode(true);
 			<li class="rec">
 				<a class="title" onclick="try{rrApi.recomMouseDown(<?=$arItem["ID"]?>,UpSellItemToItems)}catch(e){};" href="<?=$arItem["DETAIL_PAGE_URL"]?>"><img src="<?=$pict["src"]?>" title="<?=$arItem["NAME"]?>" />
 				<?echo mb_strlen($arItem["NAME"]) > 50 ? mb_substr($arItem["NAME"],0,50).'...' : $arItem["NAME"];?></a>
+
 			</li>
 		<?}?>
 	</ul>

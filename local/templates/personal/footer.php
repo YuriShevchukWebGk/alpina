@@ -177,12 +177,19 @@
                         </a>
                     </div>
                     <div class="webServ">
-                        <a href="https://vk.com/ideabooks"><img src="/img/vkImg.png"></a>
-                        <a href="https://www.facebook.com/alpinabook/"><img src="/img/fbImg.png"></a>
-                        <a href="https://www.youtube.com/user/AlpinaPublishers"><img src="/img/youImg.png"></a>
-                        <a href="https://plus.google.com/+alpinabook?prsrc=5"><img src="/img/googImg.png"></a>
-                        <a href="https://instagram.com/alpinabook"><img src="/img/instImg.png"></a>    
-                        <a href="https://t.me/alpinaru " target="_blank" rel="nofollow"><img src="/img/tele1.png"></a> 
+                        <?$APPLICATION->IncludeComponent(
+                            "bitrix:main.include",
+                            ".default",
+                            array(
+                                "AREA_FILE_SHOW" => "file",
+                                "AREA_FILE_SUFFIX" => "inc",
+                                "AREA_FILE_RECURSIVE" => "Y",
+                                "EDIT_TEMPLATE" => "",
+                                "COMPONENT_TEMPLATE" => ".default",
+                                "PATH" => "/include/socnets.php"
+                            ),
+                            false
+                        );?>
                     </div>
                 </div>
             </div>

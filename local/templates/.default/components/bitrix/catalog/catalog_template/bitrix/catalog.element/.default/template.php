@@ -536,7 +536,7 @@
             <?if ($arResult['CAN_BUY'] && $arResult['PROPERTIES']['STATE']['VALUE_XML_ID'] != 'soon' && $arResult["PROPERTIES"]["COVER_TYPE"]["VALUE"] != 'Аудиодиск' && $arResult["PROPERTIES"]["ol_opis"]["VALUE_ENUM_ID"] != 233 && $arResult["PROPERTIES"]["PROPS_CATALOG_HIDE"]["VALUE_XML_ID"] != "Y") {?>
                 <div class="characteris epubHide">
                     <a href="http://readright.ru/?=alpinabook" target="_blank">
-                        <span class="text noborderlink"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
+                        <span class="text"><?= GetMessage("HOW_TO_READ_A_BOOK_IN_A_HOUR") ?></span>
                     </a>
                 </div>
                 <?}?>

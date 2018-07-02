@@ -10,3 +10,11 @@ div.news-list img.preview_picture
 .news-date-time {
 	color:#486DAA;
 }
+.date {
+    background: #fff;
+    opacity: 0.8;
+    color: #000;
+    position: absolute;
+    padding: 10px;
+    z-index: 100000;
+}

@@ -19,17 +19,17 @@
             );?>
             <div class="footerInlineInfo">
             <?$APPLICATION->IncludeComponent(
-	"bitrix:main.include", 
-	".default", 
-	array(
-		"AREA_FILE_RECURSIVE" => "Y",
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_SUFFIX" => "inc",
-		"EDIT_TEMPLATE" => "",
-		"PATH" => "/include/footer_text.php",
-		"COMPONENT_TEMPLATE" => ".default"
-	),
-	false
+    "bitrix:main.include", 
+    ".default", 
+    array(
+        "AREA_FILE_RECURSIVE" => "Y",
+        "AREA_FILE_SHOW" => "file",
+        "AREA_FILE_SUFFIX" => "inc",
+        "EDIT_TEMPLATE" => "",
+        "PATH" => "/include/footer_text.php",
+        "COMPONENT_TEMPLATE" => ".default"
+    ),
+    false
 );?>
             </div>
         </div>
@@ -54,14 +54,20 @@
                 </div>
             </div>
             <div class="webServ">
-                <a href="http://vk.com/ideabooks" target="_blank" rel="nofollow"><img src="/img/vkImg.png"></a>
-                <a href="https://twitter.com/AlpinaBookRu" target="_blank" rel="nofollow"><img src="/img/twitterImg.png"></a>
-                <a href="https://www.facebook.com/alpinabook/" target="_blank" rel="nofollow"><img src="/img/fbImg.png"></a>
-                <a href="http://www.youtube.com/user/AlpinaPublishers" target="_blank" rel="nofollow"><img src="/img/youImg.png"></a>
-                <a href="https://plus.google.com/+alpinabook?prsrc=5" target="_blank" rel="nofollow"><img src="/img/googImg.png"></a>
-                <a href="http://instagram.com/alpinabook" target="_blank" rel="nofollow"><img src="/img/instImg.png"></a>
-                <a href="https://t.me/alpinaru " target="_blank" rel="nofollow"><img src="/img/tele1.png"></a>
-										  <div id="development">   
+                <?$APPLICATION->IncludeComponent(
+                        "bitrix:main.include",
+                        ".default",
+                        array(
+                            "AREA_FILE_SHOW" => "file",
+                            "AREA_FILE_SUFFIX" => "inc",
+                            "AREA_FILE_RECURSIVE" => "Y",
+                            "EDIT_TEMPLATE" => "",
+                            "COMPONENT_TEMPLATE" => ".default",
+                            "PATH" => "/include/socnets.php"
+                        ),
+                        false
+                    );?>
+                                          <div id="development">   
                            <a href="https://www.alpinabook.ru/sitemap/">Карта сайта</a>
                         </div>
             </div>

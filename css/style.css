@@ -260,7 +260,7 @@ footer{background-color:#353535;clear:both;display:inline-block;width:100%;paddi
 footer .adress{text-align:center}
 footer .appStore{margin-left:3px;margin-right:8px}
 footer .webServ{margin-left:140px}
-.webServ img{padding-left:15px}
+.webServ img{padding-left:10px}
 .headerWrapper{margin:0 auto;position:relative;width:700px;text-align:center}
 header .menu{padding-top:18px}
 .colorCorrect{z-index:1;bottom:0;position:absolute;width:260px;height:202px;background:url(/img/blueColor.png)}
@@ -504,11 +504,11 @@ margin-bottom:30px;
 .wrapperCategor .filterParams li.dir_desc{width:108px}
 .wrapperCategor .filterParams li:hover{background-color:#fff;border-radius:50px}
 .filterParams li:nth-child(2):hover p:after,.filterParams li:nth-child(3):hover p:after{content:url(/img/filtAftPictHov.png)}
-.categoryWrapper .categoryBooks:hover{background-color:#fff;z-index:999;height:450px;position:relative}
+.categoryWrapper .categoryBooks:hover{background-color:#fff;z-index:999;position:relative}
 .categoryWrapper .categoryBooks:hover .basketBook{border-color:#00A0AF;background-color:#00A0AF;color:#fff}
 .categoryWrapper .categoryBooks:hover .basketLater{display:block}
 .categoryWrapper .categoryBooks a:hover{text-decoration:none}
-.otherBooks li{display:inline-block;height:450px;width:171px}
+.otherBooks li{display:inline-block;height:470px;width:171px}
 .otherBooks li:hover{z-index:999}
 .wrapperCategor .filterParams{margin-bottom:24px}
 .interestSlider>p{color:#3f4a4d;font-size:32px;padding-bottom:32px;padding-top:40px}
@@ -1313,3 +1313,6 @@ body div a.google_auth{background:url(/img/google_auth.jpg) no-repeat 25% 50%;di
 .orderedBooks .bookRow .bookQuantity{float:left;padding:0 20px;width:10%}
 .orderedBooks .bookRow .bookPrice{float:left;padding:0 20px}
 body>.bottomBlock{display:none}
+.categories ul li ul{
+    padding: 0;
+}

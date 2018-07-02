@@ -64,6 +64,7 @@
                             <td>
 
                             <p class="paswordIncorrectly" id="existingEmail" style="display:none"><?=GetMessage("EXISTING_EMAIL");?></p>
+                            <p class="paswordIncorrectly" id="existingEmail_2" style="display:none"><?=GetMessage("EXISTING_EMAIL_2");?></p>
                             <input type="email" name="USER_EMAIL" maxlength="255" value="<?=$arResult["USER_EMAIL"]?>" class="bx-auth-input" placeholder="<?=GetMessage("AUTH_EMAIL")?>"/></td>
                         </tr>
                         <tr>
@@ -159,14 +160,17 @@
 
             function checkRegisterFields() {
                 flag = true;
-                if($('input[name=USER_EMAIL]').val() != ''){
+                var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+                if($('input[name=USER_EMAIL]').val() != '' && pattern.test($('input[name=USER_EMAIL]').val())){
                     emailVal = $('input[name=USER_EMAIL]').val();
+                    $('#existingEmail_2').hide();
                     $.ajax({
                         url : "/ajax/CheckingExistingEmail.php",
                         type: "POST",
                         data : { email: emailVal },
                         success: function(data)
                         {
+                            console.log(data);
                             if (data != '') {
                                 flag = false;
                                 $('input[name=USER_EMAIL]').css('border-color','#FF0000');
@@ -207,6 +211,9 @@
                             return false;
                         }
                     });
+                } else {
+                    $('input[name=USER_EMAIL]').css('border-color','#FF0000');
+                    $('#existingEmail_2').show();
                 }
             }
 
