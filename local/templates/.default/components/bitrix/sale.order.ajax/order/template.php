@@ -884,7 +884,6 @@ function date_deactive(){    // ограничение вывода достав
                                         count: 5,
                                         /* Вызывается, когда пользователь выбирает одну из подсказок */
                                         onSelect: function(suggestion) {
-                                            console.log(suggestion);
                                             $("#ORDER_PROP_10").val(suggestion['value']);
                                             $("#ORDER_PROP_15").val(suggestion['data']['inn']);            
                                             $("#ORDER_PROP_16").val(suggestion['data']['kpp']);
