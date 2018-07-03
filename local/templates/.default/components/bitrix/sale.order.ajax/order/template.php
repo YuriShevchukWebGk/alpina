@@ -339,8 +339,6 @@ function date_deactive(){    // ограничение вывода достав
         //дата, выбранная по умолчанию
         var curDay = minDatePlus;        
         var newDay = ourday + minDatePlus;
-        console.log(newDay);
-        console.log(curDay);
         //если день доставки попадает на субботу
         if (newDay == 6 && curDay != 0) {
             curDay = curDay + 3;
@@ -886,10 +884,11 @@ function date_deactive(){    // ограничение вывода достав
                                         count: 5,
                                         /* Вызывается, когда пользователь выбирает одну из подсказок */
                                         onSelect: function(suggestion) {
+                                            console.log(suggestion);
                                             $("#ORDER_PROP_10").val(suggestion['value']);
-                                            $("#ORDER_PROP_15").val(suggestion['data']['inn']);
+                                            $("#ORDER_PROP_15").val(suggestion['data']['inn']);            
                                             $("#ORDER_PROP_16").val(suggestion['data']['kpp']);
-                                            $("#ORDER_PROP_8").html(suggestion['data']['address']['unrestricted_value']);
+                                            $("#ORDER_PROP_8").html(suggestion['data']['address']["data"]["postal_code"] + ', ' + suggestion['data']['address']['unrestricted_value']);
                                         }
                                     });
                                     $("#ORDER_PROP_32").suggestions({
