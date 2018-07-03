@@ -918,9 +918,9 @@ function date_deactive(){    // ограничение вывода достав
                                         /* Вызывается, когда пользователь выбирает одну из подсказок */
                                         onSelect: function(suggestion) {
                                             $("#ORDER_PROP_10").val(suggestion['value']);
-                                            $("#ORDER_PROP_15").val(suggestion['data']['inn']);
+                                            $("#ORDER_PROP_15").val(suggestion['data']['inn']);            
                                             $("#ORDER_PROP_16").val(suggestion['data']['kpp']);
-                                            $("#ORDER_PROP_8").html(suggestion['data']['address']['unrestricted_value']);
+                                            $("#ORDER_PROP_8").html(suggestion['data']['address']["data"]["postal_code"] + ', ' + suggestion['data']['address']['unrestricted_value']);
                                         }
                                     });
                                     $("#ORDER_PROP_32").suggestions({
