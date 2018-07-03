@@ -74,6 +74,7 @@
     define ("LOCATION_IMTERNATIONAL", 21279);
     define ("SECTION_ID_FOR_CHILDREN", 131);  // id раздела для детей и родителей
     define ("BOOK_COLOR_BLACK", 434300);
+    define ("EVENT_SALE_STATUS_CHANGED_AR", 400);
 
     define ("DELIVERY_COURIER_1", 9);
     define ("DELIVERY_COURIER_2", 15);
@@ -2546,15 +2547,16 @@
     AddEventHandler('main', 'OnBeforeEventSend', "DeliveryServiceName");
 
     function DeliveryServiceName (&$arFields, &$arTemplate) {
-        if ($arTemplate["ID"] == 131 || $arTemplate["ID"] == 400) {
+        if ($arTemplate["ID"] == 131 || $arTemplate["ID"] == EVENT_SALE_STATUS_CHANGED_AR) {
             $order_list=CSaleOrder::GetByID($arFields['ORDER_ID']);
-            $arFields['HREF']='<a href="https://pochta.ru/tracking#'.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Почты России</a>.';
+            $arFields['HREF']='<a href="https://pochta.ru/tracking#'.$order_list['TRACKING_NUMBER'].'" target="_blank">на сайте Почты России</a>.';
+            $arFields["DELIVERY_DOC_NUM"] = $order_list['TRACKING_NUMBER'];
             if ($order_list['DELIVERY_ID']==17) {
                 $arFields['HREF']='<a href="https://pickpoint.ru/monitoring/?shop=alpinabook.ru&number='.$arFields['ORDER_ID'].'" target="_blank">на сайте PickPoint</a>.';
             } elseif ($order_list['DELIVERY_ID']==30) {
                 $arFields['HREF']='<a href="http://flippost.com/instruments/online/" target="_blank">Flipost</a>.';
             } elseif ($order_list['DELIVERY_ID']==49) {
-                $arFields['HREF']='<a href="http://boxberry.ru/tracking/?id='.$arFields['ORDER_TRACKING_NUMBER'].'" target="_blank">на сайте Boxberry</a>.';
+                $arFields['HREF']='<a href="http://boxberry.ru/tracking/?id='.$order_list['TRACKING_NUMBER'].'" target="_blank">на сайте Boxberry</a>.';
             }
         }
     }
