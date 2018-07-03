@@ -1531,3 +1531,10 @@ body .copyright{
 .deactive .copyright{
     display: none;
 }
+.elementDescriptWrap > center > div{
+    max-height: 671px;
+    overflow: hidden;
+    border-radius: 3px;
+    border-bottom: 1px solid rgb(219, 219, 219);
+    box-shadow: none;  
+}

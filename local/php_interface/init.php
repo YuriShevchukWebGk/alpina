@@ -4284,18 +4284,18 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
         $date = date('d.m.Y H:i:s');        // текущая дата
         $time = strtotime("now -1 hour");  // если прошел час
         $date = date('d.m.Y H:i:s',$time); // присваиваем к текущей дате
-        $date_day = date('d.m.Y H:i:s',strtotime("now -3 hour")); // дата начала поиска
+        $date_day = date('d.m.Y H:i:s',strtotime("now -2 hour")); // дата начала поиска
        $arFilter = Array(
           "<=DATE_INSERT" => $date,
           ">=DATE_INSERT" => $date_day,
           "PAYED" => "N",
           );
           
-       $rsSales = CSaleOrder::GetList(array(), $arFilter, false, false, array());
+       $rsSales = CSaleOrder::GetList(array(), $arFilter, false, false, array("ID", "PAY_SYSTEM_ID", "PERSON_TYPE_ID", "STATUS_ID"));
        
        while ($arSales = $rsSales->Fetch()) {
            if(($arSales["PAY_SYSTEM_ID"] == RFI_PAYSYSTEM_ID || $arSales["PAY_SYSTEM_ID"] == SBERBANK_PAYSYSTEM_ID) && $arSales["PERSON_TYPE_ID"] == NATURAL_ENTITY_PERSON_TYPE_ID && $arSales["STATUS_ID"] != "PR" &&  $arSales["STATUS_ID"] != "PZ"){    
-                   CSaleOrder::StatusOrder($arSales["ID"], "O");   // изменяем статус на "ожидается оплата"
+                CSaleOrder::StatusOrder($arSales["ID"], "O");   // изменяем статус на "ожидается оплата"
            }
        }  
     }

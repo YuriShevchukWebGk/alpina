@@ -9,7 +9,7 @@
     <?}?>
 
 <?
-    if (!empty($arResult["ORDER"])) {
+    if (!empty($arResult["ORDER"]) ) {
     ?>
     <?
         //получаем значение свойств из заказа
