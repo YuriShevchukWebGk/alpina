@@ -4303,3 +4303,4 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
     }
     return 'expected_payment();';    // возвращаем функцию для агента
  }
+ 
