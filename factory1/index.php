@@ -8,8 +8,7 @@ h1 {
     font-size: 14px;
 }
 a {
-    font-size: 14px;
-    text-decoration: none;
+    font-size: 15px;
 }
 
 div {
@@ -21,5 +20,5 @@ div {
 <iframe width="560" height="315" src="https://www.youtube.com/embed/LVyGFMQ5rds" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 <br>
 <br>
-<a href="https://www.alpinabook.ru/catalog/GeneralManagment/457120/">Подробнее о книге "Руководство по планированию промышленного предприятия: Стратегия, концепция и осуществление преобразований предприятий, способных к преобразованиям"</a>
+Подробнее о книге <a href="https://www.alpinabook.ru/catalog/GeneralManagment/457120/">"Руководство по планированию промышленного предприятия: Стратегия, концепция и осуществление преобразований предприятий, способных к преобразованиям"</a>
 </div>
