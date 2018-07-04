@@ -27,6 +27,7 @@
     // ID раздела подборок на главной - из каталога книг
     define ("MAIN_PAGE_SELECTIONS_SECTION_ID", 209);
     define ("CATALOG_IBLOCK_ID", 4);
+    define ("IBLOCK_ID_COURIER", 52);
     define ("AUTHORS_IBLOCK_ID", 29);
     define ("REVIEWS_IBLOCK_ID", 24);
     define ("SERIES_IBLOCK_ID", 45);
@@ -76,6 +77,7 @@
     define ("BOOK_COLOR_BLACK", 434300);
     define ("EVENT_SALE_STATUS_CHANGED_AR", 400);
 
+    define ("GROUP_COURIER", 9);
     define ("DELIVERY_COURIER_1", 9);
     define ("DELIVERY_COURIER_2", 15);
     define ("DELIVERY_COURIER_MKAD", 12);
@@ -4312,13 +4314,13 @@ function CourierAdd($ID, $arFields){
        global $USER;
 
        $status_id = array("N", "D", "AC");
-       $delivery_id = array(9,12, 15);
+       $delivery_id = array(DELIVERY_COURIER_1,DELIVERY_COURIER_2, DELIVERY_COURIER_MKAD);
        $db_props = array();
 
        if (in_array($arFields["STATUS_ID"], $status_id) && in_array($arFields["DELIVERY_ID"], $delivery_id)) {  
             $filter = Array (
                 "!UF_STATION_METRO" => false,
-                "GROUPS_ID" => Array(9),
+                "GROUPS_ID" => Array(GROUP_COURIER),
             );
             $params = array(
                 "SELECT" => array("UF_STATION_METRO"),
@@ -4339,7 +4341,7 @@ function CourierAdd($ID, $arFields){
                if($user_group["UF_STATION_METRO"] == $db_props["NAME"]){
 
                     $arSelect = Array("ID");
-                    $ob_courier = CIBlockElement::GetList(Array(), Array("IBLOCK_ID" => 52, "NAME" => $ID), false, false, $arSelect);
+                    $ob_courier = CIBlockElement::GetList(Array(), Array("IBLOCK_ID" => IBLOCK_ID_COURIER, "NAME" => $ID), false, false, $arSelect);
                     if($courier = $ob_courier->Fetch()) {
 
                     } else {
@@ -4351,7 +4353,7 @@ function CourierAdd($ID, $arFields){
 
                         $arLoadProductArray = Array(
                           "IBLOCK_SECTION_ID" => false,          // элемент лежит в корне раздела
-                          "IBLOCK_ID"      => 52,
+                          "IBLOCK_ID"      => IBLOCK_ID_COURIER,
                           "PROPERTY_VALUES"=> $PROP,
                           "NAME"           => $ID,
                           "ACTIVE"         => "Y",            // активен
