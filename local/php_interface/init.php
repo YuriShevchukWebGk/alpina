@@ -4304,3 +4304,65 @@ AddEventHandler("iblock", "OnAfterIBlockElementDelete", "DeleteElementWishList")
     return 'expected_payment();';    // возвращаем функцию для агента
  }
  
+ // регистрируем обработчик
+AddEventHandler('sale', 'OnOrderSave', "CourierAdd");
+
+function CourierAdd($ID, $arFields){
+ if (CModule::IncludeModule("sale")){
+       global $USER;
+
+       $status_id = array("N", "D", "AC");
+       $delivery_id = array(9,12, 15);
+       $db_props = array();
+
+       if (in_array($arFields["STATUS_ID"], $status_id) && in_array($arFields["DELIVERY_ID"], $delivery_id)) {  
+            $filter = Array (
+                "!UF_STATION_METRO" => false,
+                "GROUPS_ID" => Array(9),
+            );
+            $params = array(
+                "SELECT" => array("UF_STATION_METRO"),
+                "FIELDS" => array("ID", "NAME"),
+            );
+            $rsUsers = CUser::GetList(($by="NAME"), ($order="desc"), $filter, $params); // выбираем пользователей
+            while($user = $rsUsers->Fetch()) {
+                $ar_user[] = $user;
+            };
+            $dbOrderProps = CSaleOrderPropsValue::GetList(
+                array("SORT" => "ASC"),
+                array("ORDER_ID" => $ID, "CODE"=>array("METRO_2"))
+            )->Fetch();
+            
+            $db_props = CSaleOrderPropsVariant::GetByValue($dbOrderProps["ORDER_PROPS_ID"],$dbOrderProps["VALUE"]);
+
+            foreach($ar_user as $user_group){      
+               if($user_group["UF_STATION_METRO"] == $db_props["NAME"]){
+
+                    $arSelect = Array("ID");
+                    $ob_courier = CIBlockElement::GetList(Array(), Array("IBLOCK_ID" => 52, "NAME" => $ID), false, false, $arSelect);
+                    if($courier = $ob_courier->Fetch()) {
+
+                    } else {
+                        $el = new CIBlockElement;
+
+                        $PROP = array();
+                        $PROP["ORDER"] = $ID;  // свойству с кодом 12 присваиваем значение "Белый"
+                        $PROP["COURIRER"] = $user_group["ID"];        // свойству с кодом 3 присваиваем значение 38
+
+                        $arLoadProductArray = Array(
+                          "IBLOCK_SECTION_ID" => false,          // элемент лежит в корне раздела
+                          "IBLOCK_ID"      => 52,
+                          "PROPERTY_VALUES"=> $PROP,
+                          "NAME"           => $ID,
+                          "ACTIVE"         => "Y",            // активен
+                          );
+
+                        $PRODUCT_ID = $el->Add($arLoadProductArray);
+                    }
+               } 
+            }
+           
+       } 
+    } 
+}
+ 
